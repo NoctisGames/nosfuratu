@@ -15,7 +15,7 @@
 #include "Line.h"
 #include "Vector2D.h"
 #include "Direct3DProgram.h"
-#include "DirectXManager.h"
+#include "Direct3DManager.h"
 
 Direct3DLineBatcher::Direct3DLineBatcher() : LineBatcher()
 {
@@ -24,7 +24,7 @@ Direct3DLineBatcher::Direct3DLineBatcher() : LineBatcher()
 
 void Direct3DLineBatcher::beginBatch()
 {
-	DXManager->m_colorVertices.clear();
+	D3DManager->m_colorVertices.clear();
 	m_iNumLines = 0;
 }
 
@@ -33,11 +33,11 @@ void Direct3DLineBatcher::endBatch()
 	if (m_iNumLines > 0)
 	{
 		// set the primitive topology
-		DXManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+		D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
-		DXManager->prepareForGeometryRendering();
+		D3DManager->prepareForGeometryRendering();
 
-		DXManager->m_deviceContext->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
+		D3DManager->m_deviceContext->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
 	}
 }
 
@@ -52,5 +52,5 @@ void Direct3DLineBatcher::renderLine(float originX, float originY, float endX, f
 void Direct3DLineBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
 {
 	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	DXManager->m_colorVertices.push_back(cv);
+	D3DManager->m_colorVertices.push_back(cv);
 }

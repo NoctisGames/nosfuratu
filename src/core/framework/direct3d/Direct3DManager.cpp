@@ -1,5 +1,5 @@
 //
-//  DirectXManager.cpp
+//  Direct3DManager.cpp
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 11/17/14.
@@ -7,18 +7,18 @@
 //
 
 #include "pch.h"
-#include "DirectXManager.h"
+#include "Direct3DManager.h"
 #include "GameConstants.h"
 #include "BasicReaderWriter.h"
 #include "DirectXHelper.h"
 
-DirectXManager * DirectXManager::getInstance()
+Direct3DManager * Direct3DManager::getInstance()
 {
-	static DirectXManager *directXManager = new DirectXManager();
-	return directXManager;
+	static Direct3DManager *direct3DManager = new Direct3DManager();
+	return direct3DManager;
 }
 
-void DirectXManager::init(float width, float height)
+void Direct3DManager::init(float width, float height)
 {
 	initDeviceResources();
 	initWindowSizeDependentResources(width, height);
@@ -33,7 +33,7 @@ void DirectXManager::init(float width, float height)
 	createMatrix();
 }
 
-void DirectXManager::initWindowSizeDependentResources(float width, float height)
+void Direct3DManager::initWindowSizeDependentResources(float width, float height)
 {
 	// Create a descriptor for the render target buffer.
 	CD3D11_TEXTURE2D_DESC renderTargetDesc(
@@ -60,34 +60,34 @@ void DirectXManager::initWindowSizeDependentResources(float width, float height)
 	m_deviceContext->RSSetViewports(1, &viewport);
 }
 
-void DirectXManager::prepareForSpriteRendering()
+void Direct3DManager::prepareForSpriteRendering()
 {
-	DXManager->m_deviceContext->IASetInputLayout(DXManager->m_sbInputLayout);
+	D3DManager->m_deviceContext->IASetInputLayout(D3DManager->m_sbInputLayout);
 
 	// set the shader objects as the active shaders
-	DXManager->m_deviceContext->VSSetShader(DXManager->m_sbVertexShader, nullptr, 0);
-	DXManager->m_deviceContext->PSSetShader(DXManager->m_sbPixelShader, nullptr, 0);
+	D3DManager->m_deviceContext->VSSetShader(D3DManager->m_sbVertexShader, nullptr, 0);
+	D3DManager->m_deviceContext->PSSetShader(D3DManager->m_sbPixelShader, nullptr, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
 	//	Disable GPU access to the vertex buffer data.
-	DXManager->m_deviceContext->Map(DXManager->m_sbVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	D3DManager->m_deviceContext->Map(D3DManager->m_sbVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
-	int numTextureVertices = DXManager->m_textureVertices.size();
+	int numTextureVertices = D3DManager->m_textureVertices.size();
 	//	Update the vertex buffer here.
-	memcpy(mappedResource.pData, &DXManager->m_textureVertices[0], sizeof(TEXTURE_VERTEX)* numTextureVertices);
+	memcpy(mappedResource.pData, &D3DManager->m_textureVertices[0], sizeof(TEXTURE_VERTEX)* numTextureVertices);
 
 	//	Reenable GPU access to the vertex buffer data.
-	DXManager->m_deviceContext->Unmap(DXManager->m_sbVertexBuffer, 0);
+	D3DManager->m_deviceContext->Unmap(D3DManager->m_sbVertexBuffer, 0);
 
 	// Set the vertex and index buffer
 	UINT stride = sizeof(TEXTURE_VERTEX);
 	UINT offset = 0;
-	DXManager->m_deviceContext->IASetVertexBuffers(0, 1, &DXManager->m_sbVertexBuffer, &stride, &offset);
+	D3DManager->m_deviceContext->IASetVertexBuffers(0, 1, &D3DManager->m_sbVertexBuffer, &stride, &offset);
 }
 
-void DirectXManager::prepareForGeometryRendering()
+void Direct3DManager::prepareForGeometryRendering()
 {
 	m_deviceContext->IASetInputLayout(m_gbInputLayout);
 
@@ -113,7 +113,7 @@ void DirectXManager::prepareForGeometryRendering()
 	m_deviceContext->IASetVertexBuffers(0, 1, &m_gbVertexBuffer, &stride, &offset);
 }
 
-void DirectXManager::cleanUp()
+void Direct3DManager::cleanUp()
 {
 	m_device->Release();
 	m_deviceContext->Release();
@@ -133,7 +133,7 @@ void DirectXManager::cleanUp()
 	m_gbVertexBuffer->Release();
 }
 
-void DirectXManager::initDeviceResources()
+void Direct3DManager::initDeviceResources()
 {
 	// This flag adds support for surfaces with a different color channel ordering
 	// than the API default. It is required for compatibility with Direct2D.
@@ -170,7 +170,7 @@ void DirectXManager::initDeviceResources()
 		);
 }
 
-void DirectXManager::createBlendState()
+void Direct3DManager::createBlendState()
 {
 	D3D11_BLEND_DESC bd;
 	bd.RenderTarget[0].BlendEnable = TRUE;
@@ -190,7 +190,7 @@ void DirectXManager::createBlendState()
 	m_deviceContext->OMSetBlendState(m_blendState, 0, 0xffffffff);
 }
 
-void DirectXManager::createSamplerState()
+void Direct3DManager::createSamplerState()
 {
 	D3D11_SAMPLER_DESC sd;
 	sd.Filter = D3D11_FILTER_ANISOTROPIC;
@@ -214,7 +214,7 @@ void DirectXManager::createSamplerState()
 	m_deviceContext->PSSetSamplers(0, 1, &m_sbSamplerState);
 }
 
-void DirectXManager::createInputLayoutForSpriteBatcher()
+void Direct3DManager::createInputLayoutForSpriteBatcher()
 {
 	// Create a Basic Reader-Writer class to load data from disk.  This class is examined
 	// in the Resource Loading sample.
@@ -241,7 +241,7 @@ void DirectXManager::createInputLayoutForSpriteBatcher()
 	m_device->CreatePixelShader(pixelShaderBytecode->Data, pixelShaderBytecode->Length, nullptr, &m_sbPixelShader);
 }
 
-void DirectXManager::createInputLayoutForGeometryBatcher()
+void Direct3DManager::createInputLayoutForGeometryBatcher()
 {
 	// Create a Basic Reader - Writer class to load data from disk.This class is examined
 	// in the Resource Loading sample.
@@ -267,7 +267,7 @@ void DirectXManager::createInputLayoutForGeometryBatcher()
 	m_device->CreatePixelShader(pixelShaderBytecode->Data, pixelShaderBytecode->Length, nullptr, &m_gbPixelShader);
 }
 
-void DirectXManager::createVertexBufferForSpriteBatcher()
+void Direct3DManager::createVertexBufferForSpriteBatcher()
 {
 	m_textureVertices.reserve(MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE);
 	TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -292,7 +292,7 @@ void DirectXManager::createVertexBufferForSpriteBatcher()
 	DX::ThrowIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
-void DirectXManager::createVertexBufferForGeometryBatcher()
+void Direct3DManager::createVertexBufferForGeometryBatcher()
 {
 	m_colorVertices.reserve(MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE);
 	COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
@@ -317,7 +317,7 @@ void DirectXManager::createVertexBufferForGeometryBatcher()
 	DX::ThrowIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
 }
 
-void DirectXManager::createIndexBuffer()
+void Direct3DManager::createIndexBuffer()
 {
 	D3D11_BUFFER_DESC indexBufferDesc = { 0 };
 
@@ -336,7 +336,7 @@ void DirectXManager::createIndexBuffer()
 	m_deviceContext->IASetIndexBuffer(m_indexbuffer, DXGI_FORMAT_R16_UINT, 0);
 }
 
-void DirectXManager::createConstantBuffer()
+void Direct3DManager::createConstantBuffer()
 {
 	D3D11_BUFFER_DESC bd = { 0 };
 
@@ -349,7 +349,7 @@ void DirectXManager::createConstantBuffer()
 	m_deviceContext->VSSetConstantBuffers(0, 1, &m_constantbuffer);
 }
 
-void DirectXManager::createMatrix()
+void Direct3DManager::createMatrix()
 {
 	using namespace DirectX;
 
@@ -369,7 +369,7 @@ void DirectXManager::createMatrix()
 	m_deviceContext->UpdateSubresource(m_constantbuffer, 0, 0, &m_matFinal, 0, 0);
 }
 
-std::vector<short> DirectXManager::createIndexValues()
+std::vector<short> Direct3DManager::createIndexValues()
 {
 	std::vector<short> indices;
 
@@ -389,7 +389,7 @@ std::vector<short> DirectXManager::createIndexValues()
 	return indices;
 }
 
-DirectXManager::DirectXManager()
+Direct3DManager::Direct3DManager()
 {
 	// Hide Constructor for Singleton
 }

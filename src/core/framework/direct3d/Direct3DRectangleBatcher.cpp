@@ -13,7 +13,7 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "Direct3DProgram.h"
-#include "DirectXManager.h"
+#include "Direct3DManager.h"
 
 Direct3DRectangleBatcher::Direct3DRectangleBatcher(bool isFill) : RectangleBatcher(isFill)
 {
@@ -22,7 +22,7 @@ Direct3DRectangleBatcher::Direct3DRectangleBatcher(bool isFill) : RectangleBatch
 
 void Direct3DRectangleBatcher::beginBatch()
 {
-	DXManager->m_colorVertices.clear();
+	D3DManager->m_colorVertices.clear();
 	m_iNumRectangles = 0;
 }
 
@@ -31,11 +31,11 @@ void Direct3DRectangleBatcher::endBatch()
 	if (m_iNumRectangles > 0)
 	{
 		// set the primitive topology
-		DXManager->m_deviceContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		D3DManager->m_deviceContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-		DXManager->prepareForGeometryRendering();
+		D3DManager->prepareForGeometryRendering();
 
-		DXManager->m_deviceContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
+		D3DManager->m_deviceContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
 	}
 }
 
@@ -62,5 +62,5 @@ void Direct3DRectangleBatcher::renderRectangle(float x1, float y1, float x2, flo
 void Direct3DRectangleBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
 {
 	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	DXManager->m_colorVertices.push_back(cv);
+	D3DManager->m_colorVertices.push_back(cv);
 }

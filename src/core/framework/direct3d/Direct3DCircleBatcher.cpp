@@ -16,7 +16,7 @@
 #include "Vector2D.h"
 #include "Direct3DProgram.h"
 #include "macros.h"
-#include "DirectXManager.h"
+#include "Direct3DManager.h"
 
 Direct3DCircleBatcher::Direct3DCircleBatcher() : CircleBatcher()
 {
@@ -26,7 +26,7 @@ Direct3DCircleBatcher::Direct3DCircleBatcher() : CircleBatcher()
 void Direct3DCircleBatcher::renderCircle(Circle &circle, Color &color)
 {
 	m_iNumPoints = 0;
-	DXManager->m_colorVertices.clear();
+	D3DManager->m_colorVertices.clear();
 
 	for (int i = 0; i <= 360; i += DEGREE_SPACING)
 	{
@@ -45,7 +45,7 @@ void Direct3DCircleBatcher::renderCircle(Circle &circle, Color &color)
 void Direct3DCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, Color &color)
 {
 	m_iNumPoints = 0;
-	DXManager->m_colorVertices.clear();
+	D3DManager->m_colorVertices.clear();
 
 	for (int i = 90; i < (450 - arcDegrees); i += DEGREE_SPACING)
 	{
@@ -72,17 +72,17 @@ void Direct3DCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
 void Direct3DCircleBatcher::endBatch()
 {
 	// set the primitive topology
-	DXManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-	DXManager->prepareForGeometryRendering();
+	D3DManager->prepareForGeometryRendering();
 
-	DXManager->m_deviceContext->Draw(m_iNumPoints, 0);
+	D3DManager->m_deviceContext->Draw(m_iNumPoints, 0);
 }
 
 void Direct3DCircleBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
 {
 	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	DXManager->m_colorVertices.push_back(cv);
+	D3DManager->m_colorVertices.push_back(cv);
 
 	m_iNumPoints++;
 }

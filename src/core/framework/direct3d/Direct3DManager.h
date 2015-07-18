@@ -1,25 +1,25 @@
 //
-//  DirectXManager.h
+//  Direct3DManager.h
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 11/17/14.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __gowengamedev__DirectXManager__
-#define __gowengamedev__DirectXManager__
+#ifndef __gowengamedev__Direct3DManager__
+#define __gowengamedev__Direct3DManager__
 
 #define MAX_BATCH_SIZE 1024
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
 
-#define DXManager (DirectXManager::getInstance())
+#define D3DManager (Direct3DManager::getInstance())
 
 #include "Direct3DProgram.h"
 
 #include <vector>
 
-class DirectXManager
+class Direct3DManager
 {
 public:
 	ID3D11Device *m_device; // the device interface
@@ -48,7 +48,7 @@ public:
 	// All rendering takes place inside the same matrix
 	DirectX::XMMATRIX m_matFinal;
 
-	static DirectXManager * getInstance();
+	static Direct3DManager * getInstance();
 
 	void init(float width, float height);
 
@@ -76,7 +76,7 @@ private:
 
 	std::vector<short> createIndexValues();
 
-	DirectXManager();
+	Direct3DManager();
 };
 
-#endif /* defined(__gowengamedev__DirectXManager__) */
+#endif /* defined(__gowengamedev__Direct3DManager__) */

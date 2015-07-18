@@ -13,7 +13,7 @@
 #include "GameConstants.h"
 #include "TextureRegion.h"
 #include "Direct3DProgram.h"
-#include "DirectXManager.h"
+#include "Direct3DManager.h"
 
 #include <stdlib.h>
 
@@ -24,7 +24,7 @@ Direct3DSpriteBatcher::Direct3DSpriteBatcher()
 
 void Direct3DSpriteBatcher::beginBatch()
 {
-	DXManager->m_textureVertices.clear();
+	D3DManager->m_textureVertices.clear();
 	m_iNumSprites = 0;
 }
 
@@ -33,14 +33,14 @@ void Direct3DSpriteBatcher::endBatchWithTexture(TextureWrapper &textureWrapper)
 	if (m_iNumSprites > 0)
 	{
 		// tell the GPU which texture to use
-		DXManager->m_deviceContext->PSSetShaderResources(0, 1, &textureWrapper.texture);
+		D3DManager->m_deviceContext->PSSetShaderResources(0, 1, &textureWrapper.texture);
 
 		// set the primitive topology
-		DXManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		DXManager->prepareForSpriteRendering();
+		D3DManager->prepareForSpriteRendering();
 
-		DXManager->m_deviceContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
+		D3DManager->m_deviceContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
 	}
 }
 
@@ -175,5 +175,5 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 void Direct3DSpriteBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
 {
 	TEXTURE_VERTEX tv = { x, y, z, r, g, b, a, u, v };
-	DXManager->m_textureVertices.push_back(tv);
+	D3DManager->m_textureVertices.push_back(tv);
 }
