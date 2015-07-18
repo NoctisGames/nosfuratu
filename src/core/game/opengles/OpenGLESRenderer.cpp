@@ -46,7 +46,7 @@ void OpenGLESRenderer::endFrame()
     
     static float stateTime = 0;
     
-    stateTime += 25;
+    stateTime += 0.01666666666667f;
     
     GLfloat fbo_vertices[] = {
         -1, -1,
