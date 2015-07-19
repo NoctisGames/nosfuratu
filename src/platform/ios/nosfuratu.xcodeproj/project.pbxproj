@@ -75,8 +75,6 @@
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBAEB5021B573ED40069DD7E /* pp_sin_wave_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEB5001B573ED40069DD7E /* pp_sin_wave_shader.fsh */; };
 		BBAEB5031B573ED40069DD7E /* pp_sin_wave_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEB5011B573ED40069DD7E /* pp_sin_wave_shader.vsh */; };
-		BBAEB5061B5740710069DD7E /* pp_cross_hatching_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEB5041B5740710069DD7E /* pp_cross_hatching_shader.fsh */; };
-		BBAEB5071B5740710069DD7E /* pp_cross_hatching_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBAEB5051B5740710069DD7E /* pp_cross_hatching_shader.vsh */; };
 		BBCDD32518BFC8E1003A4EED /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCDD32418BFC8E1003A4EED /* Logger.m */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBE1672E1A18010A00080846 /* OpenGLESLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1672C1A18010A00080846 /* OpenGLESLineBatcher.cpp */; };
@@ -209,8 +207,6 @@
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBAEB5001B573ED40069DD7E /* pp_sin_wave_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_sin_wave_shader.fsh; sourceTree = "<group>"; };
 		BBAEB5011B573ED40069DD7E /* pp_sin_wave_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_sin_wave_shader.vsh; sourceTree = "<group>"; };
-		BBAEB5041B5740710069DD7E /* pp_cross_hatching_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_cross_hatching_shader.fsh; sourceTree = "<group>"; };
-		BBAEB5051B5740710069DD7E /* pp_cross_hatching_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_cross_hatching_shader.vsh; sourceTree = "<group>"; };
 		BBCDD32318BFC8E1003A4EED /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		BBCDD32418BFC8E1003A4EED /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		BBE1672C1A18010A00080846 /* OpenGLESLineBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESLineBatcher.cpp; sourceTree = "<group>"; };
@@ -439,8 +435,6 @@
 		BBA4C2C61A16CD8A00AB3878 /* opengles */ = {
 			isa = PBXGroup;
 			children = (
-				BBAEB5041B5740710069DD7E /* pp_cross_hatching_shader.fsh */,
-				BBAEB5051B5740710069DD7E /* pp_cross_hatching_shader.vsh */,
 				BBAEB5001B573ED40069DD7E /* pp_sin_wave_shader.fsh */,
 				BBAEB5011B573ED40069DD7E /* pp_sin_wave_shader.vsh */,
 				BBA4C2C71A16CD8A00AB3878 /* asset_utils.c */,
@@ -576,7 +570,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBAEB5071B5740710069DD7E /* pp_cross_hatching_shader.vsh in Resources */,
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
 				BBAEB5031B573ED40069DD7E /* pp_sin_wave_shader.vsh in Resources */,
 				BBA4C2E21A16CD8A00AB3878 /* color_shader.fsh in Resources */,
@@ -587,7 +580,6 @@
 				BBA4C48A1A17277C00AB3878 /* background_texture.png in Resources */,
 				BBA4C2EE1A16CD8A00AB3878 /* texture_shader.vsh in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
-				BBAEB5061B5740710069DD7E /* pp_cross_hatching_shader.fsh in Resources */,
 				BBA4C2E31A16CD8A00AB3878 /* color_shader.vsh in Resources */,
 				0ADF1898178E2185005DA99E /* MainStoryboard_iPad.storyboard in Resources */,
 			);

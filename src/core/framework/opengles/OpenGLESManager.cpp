@@ -124,7 +124,6 @@ void OpenGLESManager::buildShaderPrograms()
     m_textureProgram = OpenGLESProgram::get_texture_program(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
     m_colorProgram = OpenGLESProgram::get_color_program(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
     m_postProcessingSinWaveProgram = OpenGLESProgram::get_post_processing_sin_wave_program(build_program_from_assets("pp_sin_wave_shader.vsh", "pp_sin_wave_shader.fsh"));
-    m_postProcessingCrossHatchingProgram = OpenGLESProgram::get_post_processing_cross_hatching_program(build_program_from_assets("pp_cross_hatching_shader.vsh", "pp_cross_hatching_shader.fsh"));
 }
 
 void OpenGLESManager::generateIndices()

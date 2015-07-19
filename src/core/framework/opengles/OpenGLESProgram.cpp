@@ -43,22 +43,6 @@ PostProcessingSinWaveProgram OpenGLESProgram::get_post_processing_sin_wave_progr
     };
 }
 
-PostProcessingCrossHatchingProgram OpenGLESProgram::get_post_processing_cross_hatching_program(GLuint program)
-{
-    return (PostProcessingCrossHatchingProgram)
-    {
-        program,
-        glGetUniformLocation(program, "fbo_texture"),
-        glGetUniformLocation(program, "vx_offset"),
-        glGetUniformLocation(program, "hatch_y_offset"),
-        glGetUniformLocation(program, "lum_threshold_1"),
-        glGetUniformLocation(program, "lum_threshold_2"),
-        glGetUniformLocation(program, "lum_threshold_3"),
-        glGetUniformLocation(program, "lum_threshold_4"),
-        glGetAttribLocation(program, "v_coord"),
-    };
-}
-
 OpenGLESProgram::OpenGLESProgram()
 {
     // Hide Constructor for Singleton

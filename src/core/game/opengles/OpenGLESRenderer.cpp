@@ -48,37 +48,23 @@ void OpenGLESRenderer::endFrame()
     
     stateTime += 0.01666666666667f;
     
-    GLfloat fbo_vertices[] = {
+    static GLfloat fbo_vertices[] = {
         -1, -1,
-        1, -1,
+         1, -1,
         -1,  1,
-        1,  1,
+         1,  1,
     };
     
-    glGenBuffers(1, &OGLESManager->fbo_vbo_vertices);
-    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->fbo_vbo_vertices);
+    glGenBuffers(1, &OGLESManager->fbo_vbo_object);
+    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->fbo_vbo_object);
     glBufferData(GL_ARRAY_BUFFER, sizeof(fbo_vertices), fbo_vertices, GL_STATIC_DRAW);
-    
-    glActiveTexture(GL_TEXTURE0);
     
     glUseProgram(OGLESManager->m_postProcessingSinWaveProgram.program);
     glBindTexture(GL_TEXTURE_2D, OGLESManager->fbo_texture);
-    glUniform1i(OGLESManager->m_postProcessingSinWaveProgram.u_fbo_texture_location, /*GL_TEXTURE*/0);
+    glUniform1i(OGLESManager->m_postProcessingSinWaveProgram.u_fbo_texture_location, 0);
     glUniform1f(OGLESManager->m_postProcessingSinWaveProgram.u_offset_location, stateTime);
     glVertexAttribPointer(OGLESManager->m_postProcessingSinWaveProgram.a_v_coord_location, 2, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(OGLESManager->m_postProcessingSinWaveProgram.a_v_coord_location);
-    
-//    glUseProgram(OGLESManager->m_postProcessingCrossHatchingProgram.program);
-//    glBindTexture(GL_TEXTURE_2D, OGLESManager->fbo_texture);
-//    glUniform1i(OGLESManager->m_postProcessingCrossHatchingProgram.u_fbo_texture_location, /*GL_TEXTURE*/0);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_vx_offset, 0.50f);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_hatch_y_offset, 5.0f);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_lum_threshold_1, 1.0f);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_lum_threshold_2, 0.7f);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_lum_threshold_3, 0.5f);
-//    glUniform1f(OGLESManager->m_postProcessingCrossHatchingProgram.u_lum_threshold_4, 0.3f);
-//    glVertexAttribPointer(OGLESManager->m_postProcessingCrossHatchingProgram.a_v_coord_location, 2, GL_FLOAT, GL_FALSE, 0, 0);
-//    glEnableVertexAttribArray(OGLESManager->m_postProcessingCrossHatchingProgram.a_v_coord_location);
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     

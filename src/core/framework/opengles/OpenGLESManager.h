@@ -36,11 +36,10 @@ public:
     TextureProgram m_textureProgram;
     ColorProgram m_colorProgram;
     PostProcessingSinWaveProgram m_postProcessingSinWaveProgram;
-    PostProcessingCrossHatchingProgram m_postProcessingCrossHatchingProgram;
     
     GLuint sb_vbo_object; // For Sprite Batcher
     GLuint gb_vbo_object; // For Geometry Batcher
-    GLuint fbo_vbo_vertices; // For Frame Buffer Object
+    GLuint fbo_vbo_object; // For Frame Buffer Object
     
     GLuint fbo, fbo_texture;
     
