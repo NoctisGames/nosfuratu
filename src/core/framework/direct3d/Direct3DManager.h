@@ -24,10 +24,14 @@ class Direct3DManager
 public:
 	ID3D11Device *m_device; // the device interface
 	ID3D11DeviceContext *m_deviceContext; // the device context interface
+	ID3D11Texture2D *m_offscreenRenderTarget; // the offscreen render target texture
+	ID3D11RenderTargetView *m_offscreenRenderTargetView; // the offscreen render target interface
+	ID3D11ShaderResourceView *m_offscreenShaderResourceView; // this is needed for the screen pixel shader
 	ID3D11Texture2D *m_renderTarget; // the render target texture
 	ID3D11RenderTargetView *m_renderTargetView; // the render target interface
 	ID3D11BlendState *m_blendState; // the blend state interface
-	ID3D11Buffer *m_constantbuffer; // the constant buffer interface
+	ID3D11Buffer *m_matrixConstantbuffer; // the matrix constant buffer interface
+	ID3D11Buffer *m_offsetConstantBuffer; // the offset constant buffer interface
 	ID3D11Buffer *m_indexbuffer; // the index buffer interface
 
 	// Used in SpriteBatcher
@@ -45,8 +49,15 @@ public:
 	ID3D11Buffer *m_gbVertexBuffer; // the vertex buffer interface
 	std::vector<COLOR_VERTEX> m_colorVertices;
 
-	// All rendering takes place inside the same matrix
+	// All above rendering takes place inside this matrix
 	DirectX::XMMATRIX m_matFinal;
+
+	// Used when rendering directly to the screen (-1 to 1)
+	ID3D11VertexShader *m_screenBatcherVertexShader; // the vertex shader interface
+	ID3D11PixelShader *m_screenBatcherPixelShader; // the pixel shader interface
+	ID3D11InputLayout *m_screenBatcherInputLayout; // the input layout interface
+	ID3D11Buffer *m_screenBatcherVertexBuffer; // the vertex buffer interface
+	std::vector<SCREEN_VERTEX> m_screenVertices;
 
 	static Direct3DManager * getInstance();
 
@@ -57,6 +68,7 @@ public:
 	// Called by Batchers
 	void prepareForSpriteRendering();
 	void prepareForGeometryRendering();
+	void prepareForScreenRendering();
 
 	void cleanUp();
 
@@ -68,10 +80,13 @@ private:
 	void createSamplerState();
 	void createInputLayoutForSpriteBatcher();
 	void createInputLayoutForGeometryBatcher();
+	void createInputLayoutForScreenBatcher();
 	void createVertexBufferForSpriteBatcher();
 	void createVertexBufferForGeometryBatcher();
+	void createVertexBufferForScreenBatcher();
 	void createIndexBuffer();
 	void createConstantBuffer();
+	void createOffsetBuffer();
 	void createMatrix();
 
 	std::vector<short> createIndexValues();

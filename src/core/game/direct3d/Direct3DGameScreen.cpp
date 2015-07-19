@@ -57,6 +57,8 @@ void Direct3DGameScreen::updateForRenderResolutionChange(float width, float heig
 	D3DManager->m_deviceContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
 	D3DManager->m_renderTarget = nullptr;
 	D3DManager->m_renderTargetView = nullptr;
+	D3DManager->m_offscreenRenderTarget = nullptr;
+	D3DManager->m_offscreenRenderTargetView = nullptr;
 	D3DManager->m_deviceContext->Flush();
 
 	D3DManager->initWindowSizeDependentResources(width, height);
