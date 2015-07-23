@@ -13,16 +13,8 @@ public final class RendererWrapper implements Renderer
 {
     private static final Logger logger = new Logger(RendererWrapper.class);
 
-    // Definitions from src/core/game/ResourceConstants.h
-    private static final short MUSIC_STOP = 1;
-    private static final short MUSIC_PLAY_DEMO = 2;
-    private static final short SOUND_DEMO = 1;
-
-    // #frames involved in average calc (suggested values 5-100)
-    private static final float movAveragePeriod = 40;
-
-    // adjusting ratio (suggested values 0.01-0.5)
-    private static final float smoothFactor = 0.1f;
+    private static final float movAveragePeriod = 40; // #frames involved in average calc (suggested values 5-100)
+    private static final float smoothFactor = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
 
     static
     {
@@ -67,7 +59,7 @@ public final class RendererWrapper implements Renderer
     {
         logger.debug("GL Surface changed!");
 
-        on_surface_changed(width, height, width, height);
+        on_surface_changed(width, height);
         on_resume();
     }
 
@@ -75,7 +67,7 @@ public final class RendererWrapper implements Renderer
     public void onDrawFrame(GL10 gl)
     {
         update(smoothedDeltaRealTime_ms / 1000);
-        present();
+        render();
         handleSound();
         handleMusic();
 
@@ -89,7 +81,7 @@ public final class RendererWrapper implements Renderer
         else
         {
             realTimeElapsed_ms = smoothedDeltaRealTime_ms; // just the first
-                                                           // time
+            // time
         }
 
         movAverageDeltaTime_ms = (realTimeElapsed_ms + movAverageDeltaTime_ms * (movAveragePeriod - 1)) / movAveragePeriod;
@@ -144,7 +136,7 @@ public final class RendererWrapper implements Renderer
 
     private static native void on_surface_created(int pixelWidth, int pixelHeight);
 
-    private static native void on_surface_changed(int pixelWidth, int pixelHeight, int dpWidth, int dpHeight);
+    private static native void on_surface_changed(int pixelWidth, int pixelHeight);
 
     private static native void on_resume();
 
@@ -152,7 +144,7 @@ public final class RendererWrapper implements Renderer
 
     private static native void update(float deltaTime);
 
-    private static native void present();
+    private static native void render();
 
     private static native void on_touch_down(float normalized_x, float normalized_y);
 

@@ -67,7 +67,6 @@
 		BBA4C2ED1A16CD8A00AB3878 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA4C2DF1A16CD8A00AB3878 /* texture_shader.fsh */; };
 		BBA4C2EE1A16CD8A00AB3878 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA4C2E01A16CD8A00AB3878 /* texture_shader.vsh */; };
 		BBA4C3FD1A16CF5000AB3878 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C3FB1A16CF5000AB3878 /* Renderer.cpp */; };
-		BBA4C40F1A16D25900AB3878 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C4091A16D25900AB3878 /* game.cpp */; };
 		BBA4C4101A16D25900AB3878 /* OpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C40B1A16D25900AB3878 /* OpenGLESGameScreen.cpp */; };
 		BBA4C4111A16D25900AB3878 /* OpenGLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C40D1A16D25900AB3878 /* OpenGLESRenderer.cpp */; };
 		BBA4C4141A16D34400AB3878 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C4121A16D34400AB3878 /* Circle.cpp */; };
@@ -80,6 +79,8 @@
 		BBE1672E1A18010A00080846 /* OpenGLESLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1672C1A18010A00080846 /* OpenGLESLineBatcher.cpp */; };
 		BBE167311A1802D600080846 /* OpenGLESProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1672F1A1802D600080846 /* OpenGLESProgram.cpp */; };
 		BBE167341A18078100080846 /* OpenGLESCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE167321A18078100080846 /* OpenGLESCircleBatcher.cpp */; };
+		BBE39DB51B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */; };
+		BBE39DB81B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */; };
 		BBF8CA511A2108450016DE7C /* CircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF8CA421A2108450016DE7C /* CircleBatcher.cpp */; };
 		BBF8CA521A2108450016DE7C /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF8CA441A2108450016DE7C /* Font.cpp */; };
 		BBF8CA531A2108450016DE7C /* LineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF8CA461A2108450016DE7C /* LineBatcher.cpp */; };
@@ -195,8 +196,6 @@
 		BBA4C2E01A16CD8A00AB3878 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.vsh; sourceTree = "<group>"; };
 		BBA4C3FB1A16CF5000AB3878 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		BBA4C3FC1A16CF5000AB3878 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		BBA4C4091A16D25900AB3878 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
-		BBA4C40A1A16D25900AB3878 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		BBA4C40B1A16D25900AB3878 /* OpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESGameScreen.cpp; sourceTree = "<group>"; };
 		BBA4C40C1A16D25900AB3878 /* OpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESGameScreen.h; sourceTree = "<group>"; };
 		BBA4C40D1A16D25900AB3878 /* OpenGLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESRenderer.cpp; sourceTree = "<group>"; };
@@ -215,6 +214,11 @@
 		BBE167301A1802D600080846 /* OpenGLESProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESProgram.h; sourceTree = "<group>"; };
 		BBE167321A18078100080846 /* OpenGLESCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESCircleBatcher.cpp; sourceTree = "<group>"; };
 		BBE167331A18078100080846 /* OpenGLESCircleBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESCircleBatcher.h; sourceTree = "<group>"; };
+		BBE39DB21B6094AD00B85C50 /* TouchType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchType.h; sourceTree = "<group>"; };
+		BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOSOpenGLESGameScreen.cpp; sourceTree = "<group>"; };
+		BBE39DB41B6098BE00B85C50 /* IOSOpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSOpenGLESGameScreen.h; sourceTree = "<group>"; };
+		BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOS8OpenGLESGameScreen.cpp; sourceTree = "<group>"; };
+		BBE39DB71B609D3100B85C50 /* IOS8OpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOS8OpenGLESGameScreen.h; sourceTree = "<group>"; };
 		BBF8CA421A2108450016DE7C /* CircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleBatcher.cpp; sourceTree = "<group>"; };
 		BBF8CA431A2108450016DE7C /* CircleBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleBatcher.h; sourceTree = "<group>"; };
 		BBF8CA441A2108450016DE7C /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
@@ -343,6 +347,10 @@
 				BB5C577A19B9F87700AD76E7 /* GameViewController.mm */,
 				BB81B1BB19BE1A1800548837 /* GGDDeviceUtil.h */,
 				BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */,
+				BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */,
+				BBE39DB71B609D3100B85C50 /* IOS8OpenGLESGameScreen.h */,
+				BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */,
+				BBE39DB41B6098BE00B85C50 /* IOSOpenGLESGameScreen.h */,
 				BBCDD32318BFC8E1003A4EED /* Logger.h */,
 				BBCDD32418BFC8E1003A4EED /* Logger.m */,
 				BB7305D6189C598D009F6DF4 /* Music.h */,
@@ -472,8 +480,6 @@
 		BBA4C4081A16D25900AB3878 /* opengles */ = {
 			isa = PBXGroup;
 			children = (
-				BBA4C4091A16D25900AB3878 /* game.cpp */,
-				BBA4C40A1A16D25900AB3878 /* game.h */,
 				BBA4C40B1A16D25900AB3878 /* OpenGLESGameScreen.cpp */,
 				BBA4C40C1A16D25900AB3878 /* OpenGLESGameScreen.h */,
 				BBA4C40D1A16D25900AB3878 /* OpenGLESRenderer.cpp */,
@@ -510,6 +516,7 @@
 				BBF8CA4E1A2108450016DE7C /* TextureWrapper.h */,
 				BBF8CA4F1A2108450016DE7C /* TouchEvent.cpp */,
 				BBF8CA501A2108450016DE7C /* TouchEvent.h */,
+				BBE39DB21B6094AD00B85C50 /* TouchType.h */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -604,10 +611,11 @@
 				BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */,
 				BBA4C2E91A16CD8A00AB3878 /* OpenGLESSpriteBatcher.cpp in Sources */,
 				BBA4C28C1A16CCD500AB3878 /* Vector2D.cpp in Sources */,
+				BBE39DB51B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp in Sources */,
 				BBA4C2EA1A16CD8A00AB3878 /* platform_file_utils.c in Sources */,
 				BBE167341A18078100080846 /* OpenGLESCircleBatcher.cpp in Sources */,
 				BBA4C2A11A16CCD500AB3878 /* GameScreen.cpp in Sources */,
-				BBA4C40F1A16D25900AB3878 /* game.cpp in Sources */,
+				BBE39DB81B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp in Sources */,
 				BBE1672E1A18010A00080846 /* OpenGLESLineBatcher.cpp in Sources */,
 				0A8FBF8D179E07440039BA29 /* platform_asset_utils.m in Sources */,
 				0A8FBF8E179E07440039BA29 /* AppDelegate.m in Sources */,

@@ -25,6 +25,23 @@ void GameScreen::init()
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    
     m_gameState = RUNNING;
     m_iScreenState = 0; // TODO
 }
@@ -48,12 +65,22 @@ void GameScreen::onPause()
     platformPause();
 }
 
-void GameScreen::update(float deltaTime, std::vector<TouchEvent> &touchEvents)
+void GameScreen::update(float deltaTime)
 {
-    // TODO
+    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+    {
+        if(m_touchEventsPool.size() < 50)
+        {
+            m_touchEventsPool.push_back(*itr);
+        }
+    }
+    
+    m_touchEvents.clear();
+    m_touchEvents.swap(m_touchEventsBuffer);
+    m_touchEventsBuffer.clear();
 }
 
-void GameScreen::present()
+void GameScreen::render()
 {
 	m_renderer->beginFrame();
 
@@ -72,4 +99,52 @@ int GameScreen::getState()
 void GameScreen::clearState()
 {
     m_iScreenState = 0; // TODO
+}
+
+short GameScreen::getCurrentMusicId()
+{
+    short musicId = Assets::getInstance()->getMusicId();
+    Assets::getInstance()->setMusicId(0);
+    return musicId;
+}
+
+short GameScreen::getCurrentSoundId()
+{
+    short playThisSound = Assets::getInstance()->getFirstSoundId();
+    Assets::getInstance()->eraseFirstSoundId();
+    return playThisSound;
+}
+
+void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
+{
+    if (type == Touch_Type::DRAGGED && m_touchEventsBuffer.size() > 3)
+    {
+        return;
+    }
+    
+    addTouchEventForType(type, raw_touch_x, raw_touch_y);
+}
+
+TouchEvent GameScreen::newTouchEvent()
+{
+    if(m_touchEventsPool.size() == 0)
+    {
+        return TouchEvent(0, 0, Touch_Type::DOWN);
+    }
+    else
+    {
+        TouchEvent touchEvent = m_touchEventsPool.back();
+        m_touchEventsPool.pop_back();
+        return touchEvent;
+    }
+}
+
+void GameScreen::addTouchEventForType(Touch_Type touchType, float x, float y)
+{
+    TouchEvent touchEvent = newTouchEvent();
+    touchEvent.setTouchType(touchType);
+    touchEvent.setX(x);
+    touchEvent.setY(y);
+    
+    m_touchEventsBuffer.push_back(touchEvent);
 }

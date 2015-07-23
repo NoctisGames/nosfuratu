@@ -17,7 +17,7 @@ extern "C"
 #include "platform_gl.h"
 }
 
-OpenGLESRenderer::OpenGLESRenderer(int width, int height) : Renderer()
+OpenGLESRenderer::OpenGLESRenderer() : Renderer()
 {
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     

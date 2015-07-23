@@ -16,24 +16,17 @@ class OpenGLESRenderer;
 class OpenGLESGameScreen : public GameScreen
 {
 public:
-    OpenGLESGameScreen(bool isRunningIOS8 = false);
+    OpenGLESGameScreen();
     
     void onSurfaceCreated(int deviceScreenWidth, int deviceScreenHeight);
     
-	void onSurfaceChanged(int deviceScreenWidth, int deviceScreenHeight, int dpWidth, int dpHeight);
-    
-    virtual void touchToWorld(TouchEvent &touchEvent);
+	void onSurfaceChanged(int deviceScreenWidth, int deviceScreenHeight);
     
     virtual void platformResume();
     
     virtual void platformPause();
     
     virtual bool handleOnBackPressed();
-
-private:
-    int m_iDeviceScreenDpWidth;
-    int m_iDeviceScreenDpHeight;
-    bool m_isRunningIOS8;
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */

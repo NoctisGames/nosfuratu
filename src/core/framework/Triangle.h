@@ -18,7 +18,7 @@ class Triangle
 public:
     Triangle(float x1, float y1, float x2, float y2, float x3, float y3);
     
-    void update(float x1, float y1, float x2, float y2, float x3, float y3);
+    void set(float x1, float y1, float x2, float y2, float x3, float y3);
     
     Vector2D& getPointA();
     

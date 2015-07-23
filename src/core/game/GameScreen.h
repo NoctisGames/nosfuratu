@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "GameState.h"
+#include "TouchType.h"
 
 class TouchEvent;
 class Vector2D;
@@ -37,13 +38,19 @@ public:
 	
 	void onPause();
     
-	void update(float deltaTime, std::vector<TouchEvent> &touchEvents);
+	void update(float deltaTime);
     
-    void present();
+    void render();
     
     int getState();
     
     void clearState();
+    
+    short getCurrentMusicId();
+    
+    short getCurrentSoundId();
+    
+    void onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y);
 
 protected:
     std::unique_ptr<Renderer> m_renderer;
@@ -52,6 +59,15 @@ protected:
     int m_iDeviceScreenWidth;
 	int m_iDeviceScreenHeight;
 	int m_iScreenState;
+    
+private:
+    std::vector<TouchEvent> m_touchEvents;
+    std::vector<TouchEvent> m_touchEventsPool;
+    std::vector<TouchEvent> m_touchEventsBuffer;
+    
+    TouchEvent newTouchEvent();
+    
+    void addTouchEventForType(Touch_Type touchType, float x, float y);
 };
 
 #endif /* GAME_SCREEN_H */

@@ -11,11 +11,12 @@
 #import "GGDDeviceUtil.h"
 
 // C++
-#include "game.h"
+#include "IOSOpenGLESGameScreen.h"
+#include "IOS8OpenGLESGameScreen.h"
 
 @interface GameViewController ()
 {
-    // Empty
+    IOSOpenGLESGameScreen *gameScreen;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -69,10 +70,18 @@ static bool isRunningiOS8 = false;
     
     [view bindDrawable];
     
-    init(isRunningiOS8);
-    on_surface_created(MAX(newSize.width, newSize.height), MIN(newSize.width, newSize.height));
-    on_surface_changed(MAX(newSize.width, newSize.height), MIN(newSize.width, newSize.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
-    on_resume();
+    if(isRunningiOS8)
+    {
+        gameScreen = new IOS8OpenGLESGameScreen([UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+    }
+    else
+    {
+        gameScreen = new IOSOpenGLESGameScreen([UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+    }
+    
+    gameScreen->onSurfaceCreated(MAX(newSize.width, newSize.height), MIN(newSize.width, newSize.height));
+    gameScreen->onSurfaceChanged(MAX(newSize.width, newSize.height), MIN(newSize.width, newSize.height));
+    gameScreen->onResume();
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onPause)
@@ -96,35 +105,35 @@ static bool isRunningiOS8 = false;
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    on_touch_down(pos.x, pos.y);
+    gameScreen->onTouch(DOWN, pos.x, pos.y);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    on_touch_dragged(pos.x, pos.y);
+    gameScreen->onTouch(DRAGGED, pos.x, pos.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    on_touch_up(pos.x, pos.y);
+    gameScreen->onTouch(UP, pos.x, pos.y);
 }
 
 #pragma mark <GLKViewControllerDelegate>
 
 - (void)update
 {
-    update(self.timeSinceLastUpdate);
+    gameScreen->update(self.timeSinceLastUpdate);
 }
 
 #pragma mark <GLKViewDelegate>
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    present();
+    gameScreen->render();
     [self handleSound];
     [self handleMusic];
 }
@@ -143,12 +152,12 @@ static bool isRunningiOS8 = false;
 
 - (void)onResume
 {
-    on_resume();
+    gameScreen->onResume();
 }
 
 - (void)onPause
 {
-    on_pause();
+    gameScreen->onPause();
 }
 
 @end

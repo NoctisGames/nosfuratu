@@ -15,7 +15,7 @@ Triangle::Triangle(float x1, float y1, float x2, float y2, float x3, float y3)
     m_sideC = std::unique_ptr<Line>(new Line(x3, y3, x1, y1));
 }
 
-void Triangle::update(float x1, float y1, float x2, float y2, float x3, float y3)
+void Triangle::set(float x1, float y1, float x2, float y2, float x3, float y3)
 {
     m_sideA->getOrigin().set(x1, y1);
     m_sideA->getEnd().set(x2, y2);

@@ -14,7 +14,7 @@
 class OpenGLESRenderer : public Renderer
 {
 public:
-    OpenGLESRenderer(int width, int height);
+    OpenGLESRenderer();
     
     virtual void clearScreenWithColor(float r, float g, float b, float a);
     

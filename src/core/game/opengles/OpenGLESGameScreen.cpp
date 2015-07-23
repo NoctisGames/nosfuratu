@@ -16,9 +16,9 @@
 #include "Rectangle.h"
 #include "Circle.h"
 
-OpenGLESGameScreen::OpenGLESGameScreen(bool isRunningIOS8) : GameScreen()
+OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
 {
-    m_isRunningIOS8 = isRunningIOS8;
+    // Empty
 }
 
 void OpenGLESGameScreen::onSurfaceCreated(int width, int height)
@@ -28,31 +28,13 @@ void OpenGLESGameScreen::onSurfaceCreated(int width, int height)
     
     OGLESManager->init(width, height);
     
-    m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer(width, height));
+    m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
 }
 
-void OpenGLESGameScreen::onSurfaceChanged(int width, int height, int dpWidth, int dpHeight)
+void OpenGLESGameScreen::onSurfaceChanged(int width, int height)
 {
 	m_iDeviceScreenWidth = width;
 	m_iDeviceScreenHeight = height;
-    m_iDeviceScreenDpWidth = dpWidth;
-	m_iDeviceScreenDpHeight = dpHeight;
-}
-
-void OpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
-{
-#ifdef GGD_OPENGL_ANDROID
-    m_touchPoint->set((touchEvent.getX() / (float) m_iDeviceScreenWidth) * SCREEN_WIDTH, (1 - touchEvent.getY() / (float) m_iDeviceScreenHeight) * SCREEN_HEIGHT);
-#elif defined GGD_IOS
-    if(m_isRunningIOS8)
-    {
-        m_touchPoint->set((touchEvent.getX() / (float) m_iDeviceScreenDpWidth) * SCREEN_WIDTH, (1 - touchEvent.getY() / (float) m_iDeviceScreenDpHeight) * SCREEN_HEIGHT);
-    }
-    else
-    {
-        m_touchPoint->set((touchEvent.getY() / (float) m_iDeviceScreenDpHeight) * SCREEN_WIDTH, (touchEvent.getX() / (float) m_iDeviceScreenDpWidth) * SCREEN_HEIGHT);
-    }
-#endif
 }
 
 void OpenGLESGameScreen::platformResume()
@@ -67,12 +49,7 @@ void OpenGLESGameScreen::platformPause()
 
 bool OpenGLESGameScreen::handleOnBackPressed()
 {
-    if(m_gameState == RUNNING)
-    {
-        onPause();
-        
-        return true;
-    }
-    
+    // Override this if necessary
+    // By default we will assume that the platform does not have a back button or does not want to be notified of a back button press
     return false;
 }
