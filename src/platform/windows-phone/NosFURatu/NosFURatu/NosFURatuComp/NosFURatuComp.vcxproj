@@ -171,6 +171,7 @@
     <ClInclude Include="..\..\..\..\..\core\framework\ui\TextureRegion.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\TextureWrapper.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\TouchEvent.h" />
+    <ClInclude Include="..\..\..\..\..\core\framework\ui\TouchType.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\Vector2D.h" />
     <ClInclude Include="..\..\..\..\..\core\game\Assets.h" />
     <ClInclude Include="..\..\..\..\..\core\game\direct3d\Direct3DGameScreen.h" />
