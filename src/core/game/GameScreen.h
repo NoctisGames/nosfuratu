@@ -12,7 +12,6 @@
 #include <memory>
 #include <vector>
 
-#include "GameState.h"
 #include "TouchType.h"
 
 class TouchEvent;
@@ -55,7 +54,6 @@ public:
 protected:
     std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<Vector2D> m_touchPoint;
-	Game_State m_gameState;
     int m_iDeviceScreenWidth;
 	int m_iDeviceScreenHeight;
 	int m_iScreenState;

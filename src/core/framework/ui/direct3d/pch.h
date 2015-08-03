@@ -11,9 +11,6 @@
 
 #define _USE_MATH_DEFINES
 
-#ifdef GGD_OPENGL_ES
-
-#elif defined GGD_DIRECT_3D
 #include <wrl.h>
 #include <wrl/client.h>
 #include <d3d11_1.h>
@@ -24,6 +21,5 @@
 #include <mmreg.h>
 #pragma comment( lib, "xaudio2.lib")
 #pragma comment( lib, "mfplat.lib")
-#endif
 
 #endif /* PCH_H */

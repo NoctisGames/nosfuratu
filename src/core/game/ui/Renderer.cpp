@@ -11,7 +11,7 @@
 #include "SpriteBatcher.h"
 #include "TextureRegion.h"
 #include "Assets.h"
-#include "GameObject.h"
+#include "PhysicalEntity.h"
 #include "GameConstants.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
@@ -25,14 +25,14 @@ void Renderer::renderBackground()
 {
     m_spriteBatcher->beginBatch();
     
-    static GameObject go = GameObject(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    static PhysicalEntity go = PhysicalEntity(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     
-    renderGameObject(go, Assets::getBackground());
+    renderPhysicalEntity(go, Assets::getBackground());
     
     m_spriteBatcher->endBatchWithTexture(*m_backgroundTexture);
 }
 
-void Renderer::renderGameObject(GameObject &go, TextureRegion tr)
+void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
 {
     m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), tr);
 }

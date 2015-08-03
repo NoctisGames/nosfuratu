@@ -42,24 +42,18 @@ void GameScreen::init()
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     
-    m_gameState = RUNNING;
     m_iScreenState = 0; // TODO
 }
 
 void GameScreen::onResume()
 {
-	if(m_gameState == RUNNING)
-	{
-        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
-        
-        platformResume();
-	}
+    Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+    
+    platformResume();
 }
 
 void GameScreen::onPause()
 {
-    m_gameState = Game_State::PAUSED;
-    
     Assets::getInstance()->setMusicId(MUSIC_STOP);
     
     platformPause();
@@ -124,6 +118,8 @@ void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
     
     addTouchEventForType(type, raw_touch_x, raw_touch_y);
 }
+
+#pragma mark <private>
 
 TouchEvent GameScreen::newTouchEvent()
 {

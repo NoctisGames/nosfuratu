@@ -13,7 +13,7 @@
 
 class SpriteBatcher;
 struct TextureWrapper;
-class GameObject;
+class PhysicalEntity;
 class TextureRegion;
 
 class Renderer
@@ -37,7 +37,7 @@ protected:
     std::unique_ptr<TextureWrapper> m_backgroundTexture;
     
 private:
-	void renderGameObject(GameObject &go, TextureRegion tr);
+	void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */
