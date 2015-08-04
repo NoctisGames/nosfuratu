@@ -20,7 +20,7 @@ PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, floa
     m_fWidth = width;
     m_fHeight = height;
     m_fAngle = angle;
-} 
+}
 
 void PhysicalEntity::resetBounds(float width, float height)
 {
