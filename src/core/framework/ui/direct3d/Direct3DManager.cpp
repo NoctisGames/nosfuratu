@@ -10,7 +10,15 @@
 #include "Direct3DManager.h"
 #include "GameConstants.h"
 #include "BasicReaderWriter.h"
-#include "DirectXHelper.h"
+
+inline void throwIfFailed(HRESULT hr)
+{
+    if (FAILED(hr))
+    {
+        // Set a breakpoint on this line to catch Win32 API errors.
+        throw Platform::Exception::CreateException(hr);
+    }
+}
 
 Direct3DManager * Direct3DManager::getInstance()
 {
@@ -39,7 +47,6 @@ void Direct3DManager::init(float width, float height)
 void Direct3DManager::initWindowSizeDependentResources(float width, float height)
 {
 	D3D11_TEXTURE2D_DESC textureDesc;
-	HRESULT result;
 	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
 
@@ -59,11 +66,7 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	textureDesc.MiscFlags = 0;
 
 	// Create the render target texture.
-	result = m_device->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget);
-	if (FAILED(result))
-	{
-		return;
-	}
+    throwIfFailed(m_device->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
 
 	// Setup the description of the render target view.
 	renderTargetViewDesc.Format = textureDesc.Format;
@@ -71,11 +74,7 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the render target view.
-	result = m_device->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView);
-	if (FAILED(result))
-	{
-		return;
-	}
+    throwIfFailed(m_device->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView));
 
 	// Setup the description of the shader resource view.
 	shaderResourceViewDesc.Format = textureDesc.Format;
@@ -84,11 +83,7 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 	// Create the shader resource view.
-	result = m_device->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView);
-	if (FAILED(result))
-	{
-		return;
-	}
+    throwIfFailed(m_device->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
 
 	// Create a descriptor for the render target buffer.
 	CD3D11_TEXTURE2D_DESC renderTargetDesc(
@@ -403,7 +398,7 @@ void Direct3DManager::createVertexBufferForSpriteBatcher()
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
 
-	DX::ThrowIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
+	throwIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
 void Direct3DManager::createVertexBufferForGeometryBatcher()
@@ -428,7 +423,7 @@ void Direct3DManager::createVertexBufferForGeometryBatcher()
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
 
-	DX::ThrowIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
+	throwIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
 }
 
 void Direct3DManager::createVertexBufferForScreenBatcher()
@@ -453,7 +448,7 @@ void Direct3DManager::createVertexBufferForScreenBatcher()
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
 
-	DX::ThrowIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_screenBatcherVertexBuffer));
+	throwIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_screenBatcherVertexBuffer));
 }
 
 void Direct3DManager::createIndexBuffer()

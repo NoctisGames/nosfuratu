@@ -231,6 +231,30 @@
 		BBE39DB41B6098BE00B85C50 /* IOSOpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSOpenGLESGameScreen.h; sourceTree = "<group>"; };
 		BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOS8OpenGLESGameScreen.cpp; sourceTree = "<group>"; };
 		BBE39DB71B609D3100B85C50 /* IOS8OpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOS8OpenGLESGameScreen.h; sourceTree = "<group>"; };
+		BBFA7DAD1B71243B00EF1DF0 /* ColorPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorPixelShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DAE1B71243B00EF1DF0 /* ColorVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorVertexShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DAF1B71243B00EF1DF0 /* Direct3DCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DCircleBatcher.cpp; sourceTree = "<group>"; };
+		BBFA7DB01B71243B00EF1DF0 /* Direct3DCircleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DCircleBatcher.h; sourceTree = "<group>"; };
+		BBFA7DB11B71243B00EF1DF0 /* Direct3DLineBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DLineBatcher.cpp; sourceTree = "<group>"; };
+		BBFA7DB21B71243B00EF1DF0 /* Direct3DLineBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DLineBatcher.h; sourceTree = "<group>"; };
+		BBFA7DB31B71243B00EF1DF0 /* Direct3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DManager.cpp; sourceTree = "<group>"; };
+		BBFA7DB41B71243B00EF1DF0 /* Direct3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DManager.h; sourceTree = "<group>"; };
+		BBFA7DB51B71243B00EF1DF0 /* Direct3DProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DProgram.cpp; sourceTree = "<group>"; };
+		BBFA7DB61B71243B00EF1DF0 /* Direct3DProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgram.h; sourceTree = "<group>"; };
+		BBFA7DB71B71243B00EF1DF0 /* Direct3DRectangleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DRectangleBatcher.cpp; sourceTree = "<group>"; };
+		BBFA7DB81B71243B00EF1DF0 /* Direct3DRectangleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DRectangleBatcher.h; sourceTree = "<group>"; };
+		BBFA7DB91B71243B00EF1DF0 /* Direct3DSpriteBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSpriteBatcher.cpp; sourceTree = "<group>"; };
+		BBFA7DBA1B71243B00EF1DF0 /* Direct3DSpriteBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSpriteBatcher.h; sourceTree = "<group>"; };
+		BBFA7DBB1B71243B00EF1DF0 /* GameSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameSound.cpp; sourceTree = "<group>"; };
+		BBFA7DBC1B71243B00EF1DF0 /* GameSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSound.h; sourceTree = "<group>"; };
+		BBFA7DBD1B71243B00EF1DF0 /* PPSinWavePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PPSinWavePixelShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DBE1B71243B00EF1DF0 /* PPSinWaveVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PPSinWaveVertexShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DBF1B71243B00EF1DF0 /* TexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DC01B71243B00EF1DF0 /* TextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureVertexShader.hlsl; sourceTree = "<group>"; };
+		BBFA7DC21B71244E00EF1DF0 /* Direct3DGameScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DGameScreen.cpp; sourceTree = "<group>"; };
+		BBFA7DC31B71244E00EF1DF0 /* Direct3DGameScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DGameScreen.h; sourceTree = "<group>"; };
+		BBFA7DC41B71244E00EF1DF0 /* Direct3DRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DRenderer.cpp; sourceTree = "<group>"; };
+		BBFA7DC51B71244E00EF1DF0 /* Direct3DRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DRenderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +458,7 @@
 		BB4F82741B700258008759D3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				BBFA7DAC1B71243B00EF1DF0 /* direct3d */,
 				BB4F82751B700258008759D3 /* CircleBatcher.cpp */,
 				BB4F82761B700258008759D3 /* CircleBatcher.h */,
 				BB4F82771B700258008759D3 /* Color.h */,
@@ -519,6 +544,7 @@
 		BB4F82C91B700258008759D3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				BBFA7DC11B71244E00EF1DF0 /* direct3d */,
 				BB4F82CF1B700258008759D3 /* opengles */,
 				BB4F82D41B700258008759D3 /* Renderer.cpp */,
 				BB4F82D51B700258008759D3 /* Renderer.h */,
@@ -545,6 +571,44 @@
 				BB07506619C248950028515E /* sounds */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		BBFA7DAC1B71243B00EF1DF0 /* direct3d */ = {
+			isa = PBXGroup;
+			children = (
+				BBFA7DAD1B71243B00EF1DF0 /* ColorPixelShader.hlsl */,
+				BBFA7DAE1B71243B00EF1DF0 /* ColorVertexShader.hlsl */,
+				BBFA7DAF1B71243B00EF1DF0 /* Direct3DCircleBatcher.cpp */,
+				BBFA7DB01B71243B00EF1DF0 /* Direct3DCircleBatcher.h */,
+				BBFA7DB11B71243B00EF1DF0 /* Direct3DLineBatcher.cpp */,
+				BBFA7DB21B71243B00EF1DF0 /* Direct3DLineBatcher.h */,
+				BBFA7DB31B71243B00EF1DF0 /* Direct3DManager.cpp */,
+				BBFA7DB41B71243B00EF1DF0 /* Direct3DManager.h */,
+				BBFA7DB51B71243B00EF1DF0 /* Direct3DProgram.cpp */,
+				BBFA7DB61B71243B00EF1DF0 /* Direct3DProgram.h */,
+				BBFA7DB71B71243B00EF1DF0 /* Direct3DRectangleBatcher.cpp */,
+				BBFA7DB81B71243B00EF1DF0 /* Direct3DRectangleBatcher.h */,
+				BBFA7DB91B71243B00EF1DF0 /* Direct3DSpriteBatcher.cpp */,
+				BBFA7DBA1B71243B00EF1DF0 /* Direct3DSpriteBatcher.h */,
+				BBFA7DBB1B71243B00EF1DF0 /* GameSound.cpp */,
+				BBFA7DBC1B71243B00EF1DF0 /* GameSound.h */,
+				BBFA7DBD1B71243B00EF1DF0 /* PPSinWavePixelShader.hlsl */,
+				BBFA7DBE1B71243B00EF1DF0 /* PPSinWaveVertexShader.hlsl */,
+				BBFA7DBF1B71243B00EF1DF0 /* TexturePixelShader.hlsl */,
+				BBFA7DC01B71243B00EF1DF0 /* TextureVertexShader.hlsl */,
+			);
+			path = direct3d;
+			sourceTree = "<group>";
+		};
+		BBFA7DC11B71244E00EF1DF0 /* direct3d */ = {
+			isa = PBXGroup;
+			children = (
+				BBFA7DC21B71244E00EF1DF0 /* Direct3DGameScreen.cpp */,
+				BBFA7DC31B71244E00EF1DF0 /* Direct3DGameScreen.h */,
+				BBFA7DC41B71244E00EF1DF0 /* Direct3DRenderer.cpp */,
+				BBFA7DC51B71244E00EF1DF0 /* Direct3DRenderer.h */,
+			);
+			path = direct3d;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
