@@ -8,8 +8,13 @@
 
 #include "pch.h"
 #include "GameSound.h"
-#include "Global.h"
 #include "SoundFileReader.h"
+
+XAudio2SoundPlayer * GameSound::getSoundPlayerInstance()
+{
+	static XAudio2SoundPlayer *player = new XAudio2SoundPlayer(48000);
+	return player;
+}
 
 GameSound::GameSound(Platform::String^ fileName)
 {
@@ -23,7 +28,7 @@ GameSound::GameSound(Platform::String^ fileName)
 
 void GameSound::play()
 {
-	Global::getSoundPlayerInstance()->PlaySound(m_sounds[m_iSoundIndex++]);
+	getSoundPlayerInstance()->PlaySound(m_sounds[m_iSoundIndex++]);
 
 	if (m_iSoundIndex > 3)
 	{
@@ -34,5 +39,5 @@ void GameSound::play()
 int GameSound::loadSound(Platform::String^ fileName)
 {
 	SoundFileReader sound(fileName);
-	return Global::getSoundPlayerInstance()->AddSound(sound.GetSoundFormat(), sound.GetSoundData());
+	return getSoundPlayerInstance()->AddSound(sound.GetSoundFormat(), sound.GetSoundData());
 }

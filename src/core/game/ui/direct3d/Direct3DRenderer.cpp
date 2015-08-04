@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "macros.h"
 #include "Direct3DRenderer.h"
-#include "GameObject.h"
+#include "PhysicalEntity.h"
 #include "TextureRegion.h"
 #include "Assets.h"
 #include "Vector2D.h"

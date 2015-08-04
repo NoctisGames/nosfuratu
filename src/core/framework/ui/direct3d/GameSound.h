@@ -8,9 +8,13 @@
 
 #pragma once
 
+#include "XAudio2SoundPlayer.h"
+
 class GameSound
 {
 public:
+	static XAudio2SoundPlayer * getSoundPlayerInstance();
+
 	GameSound(Platform::String^ fileName);
 
 	void play();

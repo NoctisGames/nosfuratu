@@ -18,7 +18,6 @@
 #include "Triangle.h"
 #include "Font.h"
 #include "Direct3DRenderer.h"
-#include "Global.h"
 #include "GameSound.h"
 #include "SpriteBatcher.h"
 #include "LineBatcher.h"
@@ -76,11 +75,6 @@ void Direct3DGameScreen::handleMusic()
 
 void Direct3DGameScreen::unload()
 {
-	if (m_gameState == RUNNING)
-	{
-		onPause();
-	}
-
 	m_renderer->cleanUp();
 
 	D3DManager->cleanUp();
@@ -98,22 +92,15 @@ void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 void Direct3DGameScreen::platformResume()
 {
-	//Global::getSoundPlayerInstance()->Resume();
+	//GameSound::getSoundPlayerInstance()->Resume();
 }
 
 void Direct3DGameScreen::platformPause()
 {
-	//Global::getSoundPlayerInstance()->Suspend();
+	//GameSound::getSoundPlayerInstance()->Suspend();
 }
 
 bool Direct3DGameScreen::handleOnBackPressed()
 {
-	if (m_gameState == RUNNING)
-	{
-		onPause();
-
-		return true;
-	}
-
 	return false;
 }

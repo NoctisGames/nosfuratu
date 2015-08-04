@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{c81a561b-7d00-4296-970c-103ac91fce52}" Title="NosFURatu" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="NosFURatu author" Description="Sample description" Publisher="NosFURatu" PublisherID="{252b5225-e1fb-445e-9b9d-ceecf1500c3f}">
+  <App xmlns="" ProductID="{c9608d3b-2a38-4aa9-be4d-86dc9e7bb652}" Title="NosFURatu" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="NosFURatu author" Description="Sample description" Publisher="NosFURatu" PublisherID="{eaf71dea-3bb7-40f0-aef0-33b8a752a4e8}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING"/>

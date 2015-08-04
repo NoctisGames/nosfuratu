@@ -22,7 +22,6 @@
 #include "Triangle.h"
 #include "Font.h"
 #include "Direct3DRenderer.h"
-#include "Global.h"
 #include "SpriteBatcher.h"
 #include "LineBatcher.h"
 #include "CircleBatcher.h"
