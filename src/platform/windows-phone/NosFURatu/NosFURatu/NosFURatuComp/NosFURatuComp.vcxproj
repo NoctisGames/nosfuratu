@@ -176,11 +176,11 @@
     <ClInclude Include="..\..\..\..\..\core\game\ui\Renderer.h" />
     <ClInclude Include="BasicTimer.h" />
     <ClInclude Include="Direct3DInterop.h" />
-    <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="Direct3DContentProvider.h" />
     <ClInclude Include="Microsoft\BasicReaderWriter.h" />
     <ClInclude Include="Microsoft\dds.h" />
     <ClInclude Include="Microsoft\DDSTextureLoader.h" />
+    <ClInclude Include="Microsoft\DirectXHelper.h" />
     <ClInclude Include="Microsoft\DirectXHelpers.h" />
     <ClInclude Include="Microsoft\MediaEnginePlayer.h" />
     <ClInclude Include="Microsoft\PlatformHelpers.h" />
