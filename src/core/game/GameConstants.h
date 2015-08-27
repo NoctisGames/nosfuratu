@@ -9,7 +9,7 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
-#define SCREEN_WIDTH 16.0f
-#define SCREEN_HEIGHT 9.0f
+#define GAME_WIDTH 16.0f
+#define GAME_HEIGHT 9.0f
 
 #endif /* GAME_CONSTANTS_H */

@@ -52,13 +52,13 @@ void OpenGLESRenderer::endFrame()
     
     m_spriteBatcher->beginBatch();
     
-    static PhysicalEntity go = PhysicalEntity(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    static PhysicalEntity go = PhysicalEntity(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0);
     
     static TextureRegion screenTr = TextureRegion(0, 0, 1, 1, 1, 1);
     renderPhysicalEntity(go, screenTr);
     
     TextureWrapper tw = TextureWrapper(OGLESManager->fbo_texture);
-    m_spriteBatcher->endBatchWithTexture(tw, OGLESManager->m_textureVertFlipProgram);
+    m_spriteBatcher->endBatch(tw, *OGLESManager->m_textureVertFlipProgram);
     
     glDisable(GL_BLEND);
     

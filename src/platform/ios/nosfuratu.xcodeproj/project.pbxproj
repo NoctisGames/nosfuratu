@@ -40,6 +40,9 @@
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB4A72951B8F7D09003D2A6C /* texture_vert_flip_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB4A72941B8F7D09003D2A6C /* texture_vert_flip_shader.vsh */; };
+		BB4A72981B8F8611003D2A6C /* GpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4A72961B8F8611003D2A6C /* GpuProgramWrapper.cpp */; };
+		BB4A72C31B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4A72C11B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp */; };
+		BB4A72C61B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4A72C41B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.cpp */; };
 		BB4F82D71B700258008759D3 /* PhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4F82651B700258008759D3 /* PhysicalEntity.cpp */; };
 		BB4F82D81B700258008759D3 /* Circle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4F82681B700258008759D3 /* Circle.cpp */; };
 		BB4F82D91B700258008759D3 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4F826A1B700258008759D3 /* Line.cpp */; };
@@ -73,7 +76,6 @@
 		BB4F830A1B700258008759D3 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4F82D41B700258008759D3 /* Renderer.cpp */; };
 		BB4F830D1B700414008759D3 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4F830B1B700414008759D3 /* Entity.cpp */; };
 		BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5C577A19B9F87700AD76E7 /* GameViewController.mm */; };
-		BB7305DA189C598D009F6DF4 /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7305D5189C598D009F6DF4 /* AppPrefs.m */; };
 		BB7305DB189C598D009F6DF4 /* Music.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7305D7189C598D009F6DF4 /* Music.m */; };
 		BB7305DC189C598D009F6DF4 /* Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7305D9189C598D009F6DF4 /* Sound.m */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
@@ -84,7 +86,6 @@
 		BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */; };
 		BBA4C48A1A17277C00AB3878 /* background_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA4C4471A17277B00AB3878 /* background_texture.png */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
-		BBCDD32518BFC8E1003A4EED /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCDD32418BFC8E1003A4EED /* Logger.m */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBE39DB51B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */; };
 		BBE39DB81B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */; };
@@ -138,6 +139,20 @@
 		BB430E24189313C600E4EAE1 /* pngstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngstruct.h; path = ../../3rdparty/libpng/pngstruct.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BB4A72941B8F7D09003D2A6C /* texture_vert_flip_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_vert_flip_shader.vsh; sourceTree = "<group>"; };
+		BB4A72961B8F8611003D2A6C /* GpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB4A72971B8F8611003D2A6C /* GpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB4A72B91B8F93DD003D2A6C /* DSCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSCircleBatcher.cpp; sourceTree = "<group>"; };
+		BB4A72BA1B8F93DD003D2A6C /* DSCircleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSCircleBatcher.h; sourceTree = "<group>"; };
+		BB4A72BB1B8F93DD003D2A6C /* DSLineBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSLineBatcher.cpp; sourceTree = "<group>"; };
+		BB4A72BC1B8F93DD003D2A6C /* DSLineBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSLineBatcher.h; sourceTree = "<group>"; };
+		BB4A72BD1B8F93DD003D2A6C /* DSRectangleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSRectangleBatcher.cpp; sourceTree = "<group>"; };
+		BB4A72BE1B8F93DD003D2A6C /* DSRectangleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSRectangleBatcher.h; sourceTree = "<group>"; };
+		BB4A72BF1B8F93DD003D2A6C /* DSSpriteBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSSpriteBatcher.cpp; sourceTree = "<group>"; };
+		BB4A72C01B8F93DD003D2A6C /* DSSpriteBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSSpriteBatcher.h; sourceTree = "<group>"; };
+		BB4A72C11B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB4A72C21B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB4A72C41B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DSTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB4A72C51B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB4F82651B700258008759D3 /* PhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicalEntity.cpp; sourceTree = "<group>"; };
 		BB4F82661B700258008759D3 /* PhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalEntity.h; sourceTree = "<group>"; };
 		BB4F82681B700258008759D3 /* Circle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Circle.cpp; sourceTree = "<group>"; };
@@ -208,8 +223,6 @@
 		BB4F830C1B700414008759D3 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		BB5C577919B9F87700AD76E7 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		BB5C577A19B9F87700AD76E7 /* GameViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameViewController.mm; sourceTree = "<group>"; };
-		BB7305D4189C598C009F6DF4 /* AppPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPrefs.h; sourceTree = "<group>"; };
-		BB7305D5189C598D009F6DF4 /* AppPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppPrefs.m; sourceTree = "<group>"; };
 		BB7305D6189C598D009F6DF4 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
 		BB7305D7189C598D009F6DF4 /* Music.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Music.m; sourceTree = "<group>"; };
 		BB7305D8189C598D009F6DF4 /* Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sound.h; sourceTree = "<group>"; };
@@ -226,8 +239,6 @@
 		BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGDDeviceUtil.m; sourceTree = "<group>"; };
 		BBA4C4471A17277B00AB3878 /* background_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_texture.png; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BBCDD32318BFC8E1003A4EED /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
-		BBCDD32418BFC8E1003A4EED /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOSOpenGLESGameScreen.cpp; sourceTree = "<group>"; };
 		BBE39DB41B6098BE00B85C50 /* IOSOpenGLESGameScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSOpenGLESGameScreen.h; sourceTree = "<group>"; };
 		BBE39DB61B609D3100B85C50 /* IOS8OpenGLESGameScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOS8OpenGLESGameScreen.cpp; sourceTree = "<group>"; };
@@ -248,8 +259,6 @@
 		BBFA7DBA1B71243B00EF1DF0 /* Direct3DSpriteBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSpriteBatcher.h; sourceTree = "<group>"; };
 		BBFA7DBB1B71243B00EF1DF0 /* GameSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameSound.cpp; sourceTree = "<group>"; };
 		BBFA7DBC1B71243B00EF1DF0 /* GameSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSound.h; sourceTree = "<group>"; };
-		BBFA7DBD1B71243B00EF1DF0 /* PPSinWavePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PPSinWavePixelShader.hlsl; sourceTree = "<group>"; };
-		BBFA7DBE1B71243B00EF1DF0 /* PPSinWaveVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PPSinWaveVertexShader.hlsl; sourceTree = "<group>"; };
 		BBFA7DBF1B71243B00EF1DF0 /* TexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BBFA7DC01B71243B00EF1DF0 /* TextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureVertexShader.hlsl; sourceTree = "<group>"; };
 		BBFA7DC21B71244E00EF1DF0 /* Direct3DGameScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DGameScreen.cpp; sourceTree = "<group>"; };
@@ -363,8 +372,6 @@
 			children = (
 				0ADF188A178E2185005DA99E /* AppDelegate.h */,
 				0ADF188B178E2185005DA99E /* AppDelegate.m */,
-				BB7305D4189C598C009F6DF4 /* AppPrefs.h */,
-				BB7305D5189C598D009F6DF4 /* AppPrefs.m */,
 				BB5C577919B9F87700AD76E7 /* GameViewController.h */,
 				BB5C577A19B9F87700AD76E7 /* GameViewController.mm */,
 				BB81B1BB19BE1A1800548837 /* GGDDeviceUtil.h */,
@@ -373,8 +380,6 @@
 				BBE39DB71B609D3100B85C50 /* IOS8OpenGLESGameScreen.h */,
 				BBE39DB31B6098BE00B85C50 /* IOSOpenGLESGameScreen.cpp */,
 				BBE39DB41B6098BE00B85C50 /* IOSOpenGLESGameScreen.h */,
-				BBCDD32318BFC8E1003A4EED /* Logger.h */,
-				BBCDD32418BFC8E1003A4EED /* Logger.m */,
 				BB7305D6189C598D009F6DF4 /* Music.h */,
 				BB7305D7189C598D009F6DF4 /* Music.m */,
 				0A8FBF6D179DF3850039BA29 /* platform_asset_utils.m */,
@@ -413,6 +418,23 @@
 			children = (
 			);
 			name = music;
+			sourceTree = "<group>";
+		};
+		BB4A72B81B8F93DD003D2A6C /* 3ds */ = {
+			isa = PBXGroup;
+			children = (
+				BB4A72B91B8F93DD003D2A6C /* DSCircleBatcher.cpp */,
+				BB4A72BA1B8F93DD003D2A6C /* DSCircleBatcher.h */,
+				BB4A72BB1B8F93DD003D2A6C /* DSLineBatcher.cpp */,
+				BB4A72BC1B8F93DD003D2A6C /* DSLineBatcher.h */,
+				BB4A72BD1B8F93DD003D2A6C /* DSRectangleBatcher.cpp */,
+				BB4A72BE1B8F93DD003D2A6C /* DSRectangleBatcher.h */,
+				BB4A72BF1B8F93DD003D2A6C /* DSSpriteBatcher.cpp */,
+				BB4A72C01B8F93DD003D2A6C /* DSSpriteBatcher.h */,
+				BB4A72C41B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.cpp */,
+				BB4A72C51B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.h */,
+			);
+			path = 3ds;
 			sourceTree = "<group>";
 		};
 		BB4F82611B700258008759D3 /* framework */ = {
@@ -459,12 +481,15 @@
 		BB4F82741B700258008759D3 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				BBFA7DAC1B71243B00EF1DF0 /* direct3d */,
+				BB4A72B81B8F93DD003D2A6C /* 3ds */,
 				BB4F82751B700258008759D3 /* CircleBatcher.cpp */,
 				BB4F82761B700258008759D3 /* CircleBatcher.h */,
 				BB4F82771B700258008759D3 /* Color.h */,
+				BBFA7DAC1B71243B00EF1DF0 /* direct3d */,
 				BB4F82921B700258008759D3 /* Font.cpp */,
 				BB4F82931B700258008759D3 /* Font.h */,
+				BB4A72961B8F8611003D2A6C /* GpuProgramWrapper.cpp */,
+				BB4A72971B8F8611003D2A6C /* GpuProgramWrapper.h */,
 				BB4F82941B700258008759D3 /* LineBatcher.cpp */,
 				BB4F82951B700258008759D3 /* LineBatcher.h */,
 				BB4F82961B700258008759D3 /* opengles */,
@@ -489,6 +514,8 @@
 				BB4F82981B700258008759D3 /* asset_utils.h */,
 				BB4F82991B700258008759D3 /* color_shader.fsh */,
 				BB4F829A1B700258008759D3 /* color_shader.vsh */,
+				BB09EF701B718048002C47A5 /* ColorProgram.cpp */,
+				BB09EF711B718048002C47A5 /* ColorProgram.h */,
 				BB4F829B1B700258008759D3 /* image.c */,
 				BB4F829C1B700258008759D3 /* image.h */,
 				BB4F829D1B700258008759D3 /* linmath.h */,
@@ -502,18 +529,18 @@
 				BB4F82A71B700258008759D3 /* OpenGLESRectangleBatcher.h */,
 				BB4F82A81B700258008759D3 /* OpenGLESSpriteBatcher.cpp */,
 				BB4F82A91B700258008759D3 /* OpenGLESSpriteBatcher.h */,
+				BB4A72C11B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp */,
+				BB4A72C21B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.h */,
 				BB4F82AA1B700258008759D3 /* platform_asset_utils.h */,
 				BB4F82AB1B700258008759D3 /* platform_file_utils.c */,
 				BB4F82AC1B700258008759D3 /* platform_file_utils.h */,
 				BB4F82AF1B700258008759D3 /* shader.c */,
 				BB4F82B01B700258008759D3 /* shader.h */,
-				BB4F82B11B700258008759D3 /* texture.c */,
-				BB4F82B21B700258008759D3 /* texture.h */,
 				BB4F82B31B700258008759D3 /* texture_shader.fsh */,
 				BB4F82B41B700258008759D3 /* texture_shader.vsh */,
 				BB4A72941B8F7D09003D2A6C /* texture_vert_flip_shader.vsh */,
-				BB09EF701B718048002C47A5 /* ColorProgram.cpp */,
-				BB09EF711B718048002C47A5 /* ColorProgram.h */,
+				BB4F82B11B700258008759D3 /* texture.c */,
+				BB4F82B21B700258008759D3 /* texture.h */,
 				BB09EF731B718220002C47A5 /* TextureProgram.cpp */,
 				BB09EF741B718220002C47A5 /* TextureProgram.h */,
 			);
@@ -543,13 +570,13 @@
 			children = (
 				BB7A4BA51B86204700DED640 /* Assets.cpp */,
 				BB7A4BA61B86204700DED640 /* Assets.h */,
+				BBFA7DC11B71244E00EF1DF0 /* direct3d */,
 				BB7A4BA71B86204700DED640 /* GameScreen.cpp */,
 				BB7A4BA81B86204700DED640 /* GameScreen.h */,
-				BB7A4BA91B86204700DED640 /* ResourceConstants.h */,
-				BBFA7DC11B71244E00EF1DF0 /* direct3d */,
 				BB4F82CF1B700258008759D3 /* opengles */,
 				BB4F82D41B700258008759D3 /* Renderer.cpp */,
 				BB4F82D51B700258008759D3 /* Renderer.h */,
+				BB7A4BA91B86204700DED640 /* ResourceConstants.h */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -594,8 +621,6 @@
 				BBFA7DBA1B71243B00EF1DF0 /* Direct3DSpriteBatcher.h */,
 				BBFA7DBB1B71243B00EF1DF0 /* GameSound.cpp */,
 				BBFA7DBC1B71243B00EF1DF0 /* GameSound.h */,
-				BBFA7DBD1B71243B00EF1DF0 /* PPSinWavePixelShader.hlsl */,
-				BBFA7DBE1B71243B00EF1DF0 /* PPSinWaveVertexShader.hlsl */,
 				BBFA7DBF1B71243B00EF1DF0 /* TexturePixelShader.hlsl */,
 				BBFA7DC01B71243B00EF1DF0 /* TextureVertexShader.hlsl */,
 			);
@@ -692,7 +717,6 @@
 			files = (
 				BB7305DB189C598D009F6DF4 /* Music.m in Sources */,
 				BB4F82F31B700258008759D3 /* OpenGLESCircleBatcher.cpp in Sources */,
-				BB7305DA189C598D009F6DF4 /* AppPrefs.m in Sources */,
 				BB4F83031B700258008759D3 /* TouchEvent.cpp in Sources */,
 				BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */,
 				BB4F82F51B700258008759D3 /* OpenGLESManager.cpp in Sources */,
@@ -711,6 +735,7 @@
 				BB4F830A1B700258008759D3 /* Renderer.cpp in Sources */,
 				0A8FBF90179E07440039BA29 /* main.m in Sources */,
 				BB4F82F71B700258008759D3 /* OpenGLESRectangleBatcher.cpp in Sources */,
+				BB4A72C61B8F9AEA003D2A6C /* DSTextureGpuProgramWrapper.cpp in Sources */,
 				BB09EF721B718048002C47A5 /* ColorProgram.cpp in Sources */,
 				BB4F82D91B700258008759D3 /* Line.cpp in Sources */,
 				0A8FBF7C179E07320039BA29 /* png.c in Sources */,
@@ -735,8 +760,9 @@
 				BB4F82D71B700258008759D3 /* PhysicalEntity.cpp in Sources */,
 				BB4F83001B700258008759D3 /* RectangleBatcher.cpp in Sources */,
 				BB4F82F41B700258008759D3 /* OpenGLESLineBatcher.cpp in Sources */,
-				BBCDD32518BFC8E1003A4EED /* Logger.m in Sources */,
+				BB4A72C31B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */,
 				0A8FBF86179E07320039BA29 /* pngtrans.c in Sources */,
+				BB4A72981B8F8611003D2A6C /* GpuProgramWrapper.cpp in Sources */,
 				BB4F83011B700258008759D3 /* SpriteBatcher.cpp in Sources */,
 				0A8FBF87179E07320039BA29 /* pngwio.c in Sources */,
 				BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */,

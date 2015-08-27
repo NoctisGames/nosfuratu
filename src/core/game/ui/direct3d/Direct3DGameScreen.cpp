@@ -38,8 +38,8 @@ void Direct3DGameScreen::load(float deviceScreenWidth, float deviceScreenHeight,
 {
 	m_iDeviceScreenWidth = deviceScreenWidth;
 	m_iDeviceScreenHeight = deviceScreenHeight;
-	m_fGameScreenToDeviceScreenWidthRatio = deviceScreenWidth / SCREEN_WIDTH;
-	m_fGameScreenToDeviceScreenHeightRatio = deviceScreenHeight / SCREEN_HEIGHT;
+	m_fGameScreenToDeviceScreenWidthRatio = deviceScreenWidth / GAME_WIDTH;
+	m_fGameScreenToDeviceScreenHeightRatio = deviceScreenHeight / GAME_HEIGHT;
 	m_fDipToPixelRatio = (float)deviceScreenWidth / (float)deviceScreenDpWidth;
 
 	D3DManager->init(deviceScreenWidth, deviceScreenHeight);
@@ -87,7 +87,7 @@ ID3D11Texture2D* Direct3DGameScreen::getTexture()
 
 void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-	m_touchPoint->set(touchEvent.getX() * m_fDipToPixelRatio / m_fGameScreenToDeviceScreenWidthRatio, SCREEN_HEIGHT - (touchEvent.getY() * m_fDipToPixelRatio / m_fGameScreenToDeviceScreenHeightRatio));
+	m_touchPoint->set(touchEvent.getX() * m_fDipToPixelRatio / m_fGameScreenToDeviceScreenWidthRatio, GAME_HEIGHT - (touchEvent.getY() * m_fDipToPixelRatio / m_fGameScreenToDeviceScreenHeightRatio));
 }
 
 void Direct3DGameScreen::platformResume()

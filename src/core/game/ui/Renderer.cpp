@@ -25,11 +25,11 @@ void Renderer::renderBackground()
 {
     m_spriteBatcher->beginBatch();
     
-    static PhysicalEntity go = PhysicalEntity(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    static PhysicalEntity go = PhysicalEntity(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0);
     
     renderPhysicalEntity(go, Assets::getBackground());
     
-    m_spriteBatcher->endBatchWithTexture(*m_backgroundTexture);
+    m_spriteBatcher->endBatch(*m_backgroundTexture);
 }
 
 void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)

@@ -16,13 +16,15 @@
 #include "Rectangle.h"
 #include "Circle.h"
 
-IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int pointsWidth, int pointsHeight) : OpenGLESGameScreen()
+IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen()
 {
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
+    
+    initGraphics(screenWidth, screenHeight);
 }
 
 void IOSOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-    m_touchPoint->set((touchEvent.getY() / (float) m_iPointsHeight) * SCREEN_WIDTH, (touchEvent.getX() / (float) m_iPointsWidth) * SCREEN_HEIGHT);
+    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * GAME_WIDTH, (((float)m_iPointsHeight - touchEvent.getY()) / (float) m_iPointsHeight) * GAME_HEIGHT);
 }

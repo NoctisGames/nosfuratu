@@ -3,16 +3,15 @@ package com.gowengamedev.nosfuratu;
 import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.gowengamedev.nosfuratu.platform.PlatformFileUtils;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public final class RendererWrapper implements Renderer
+public final class GameRenderer implements Renderer
 {
-    private static final Logger logger = new Logger(RendererWrapper.class);
-
     private static final float movAveragePeriod = 40; // #frames involved in average calc (suggested values 5-100)
     private static final float smoothFactor = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
 
@@ -30,7 +29,7 @@ public final class RendererWrapper implements Renderer
     private long lastRealTimeMeasurement_ms;
     private boolean isInitialized;
 
-    public RendererWrapper(Activity activity, int deviceScreenWidth, int deviceScreenHeight)
+    public GameRenderer(Activity activity, int deviceScreenWidth, int deviceScreenHeight)
     {
         this.activity = activity;
         this.deviceScreenWidth = deviceScreenWidth;
@@ -43,7 +42,7 @@ public final class RendererWrapper implements Renderer
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
-        logger.debug("GL Surface created!");
+        Log.d("RendererWrapper", "GL Surface created!");
 
         if (!isInitialized)
         {
@@ -57,7 +56,7 @@ public final class RendererWrapper implements Renderer
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height)
     {
-        logger.debug("GL Surface changed!");
+        Log.d("RendererWrapper", "GL Surface changed!");
 
         on_surface_changed(width, height);
         on_resume();
