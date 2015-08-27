@@ -91,7 +91,10 @@ private:
 
 	std::vector<short> createIndexValues();
 
-	Direct3DManager();
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Direct3DManager();
+    Direct3DManager(const Direct3DManager&);
+    Direct3DManager& operator=(const Direct3DManager&);
 };
 
 #endif /* defined(__gowengamedev__Direct3DManager__) */

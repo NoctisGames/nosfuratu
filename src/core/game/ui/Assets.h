@@ -33,12 +33,15 @@ public:
     void eraseFirstSoundId();
 
 private:
-    Assets();
-    
-    static int getKeyFrameNumber(float stateTime, float cycleTime, std::vector<float> &frameDurations);
-    
     std::vector<short> m_sSoundIds;
     short m_sMusicId;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Assets();
+    Assets(const Assets&);
+    Assets& operator=(const Assets&);
+    
+    static int getKeyFrameNumber(float stateTime, float cycleTime, std::vector<float> &frameDurations);
 };
 
 #endif /* defined(__nosfuratu__Assets__) */

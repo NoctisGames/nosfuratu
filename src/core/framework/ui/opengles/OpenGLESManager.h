@@ -21,7 +21,8 @@ extern "C"
 #include "linmath.h"
 }
 
-#include "OpenGLESProgram.h"
+#include "ColorProgram.h"
+#include "TextureProgram.h"
 
 #include <vector>
 
@@ -33,13 +34,12 @@ public:
     
     std::vector<GLshort> m_indices;
     
-    TextureProgram m_textureProgram;
-    ColorProgram m_colorProgram;
-    PostProcessingSinWaveProgram m_postProcessingSinWaveProgram;
+    TextureProgramStruct m_textureProgram;
+    TextureProgramStruct m_textureVertFlipProgram;
+    ColorProgramStruct m_colorProgram;
     
     GLuint sb_vbo_object; // For Sprite Batcher
     GLuint gb_vbo_object; // For Geometry Batcher
-    GLuint fbo_vbo_object; // For Frame Buffer Object
     
     GLuint fbo, fbo_texture;
     
@@ -51,12 +51,12 @@ public:
     
     static OpenGLESManager * getInstance();
     
-    void init(int width, int height);
+    void init(int width, int height, float gameWidth, float gameHeight);
     
     // Called by Batchers
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat u, GLfloat v);
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
-    void prepareForSpriteRendering();
+    void prepareForSpriteRendering(TextureProgramStruct textureProgram);
     void prepareForGeometryRendering();
     void finishSpriteRendering();
     void finishGeometryRendering();
@@ -64,11 +64,13 @@ public:
 private:
     void buildShaderPrograms();
     void generateIndices();
-    void createMatrix();
+    void createMatrix(float gameWidth, float gameHeight);
     void createFrameBufferObject(int width, int height);
     
+    // ctor, copy ctor, and assignment should be private in a Singleton
     OpenGLESManager();
-    
+    OpenGLESManager(const OpenGLESManager&);
+    OpenGLESManager& operator=(const OpenGLESManager&);
     ~OpenGLESManager();
 };
 

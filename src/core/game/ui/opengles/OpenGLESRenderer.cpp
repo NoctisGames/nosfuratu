@@ -10,6 +10,12 @@
 #include "OpenGLESSpriteBatcher.h"
 #include "TextureWrapper.h"
 #include "OpenGLESManager.h"
+#include "GameConstants.h"
+#include "Assets.h"
+#include "PhysicalEntity.h"
+#include "TextureRegion.h"
+#include "Vector2D.h"
+#include "Rectangle.h"
 
 extern "C"
 {
@@ -44,31 +50,15 @@ void OpenGLESRenderer::endFrame()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_screenFBO);
     
-    static float stateTime = 0;
+    m_spriteBatcher->beginBatch();
     
-    stateTime += 0.01666666666667f;
+    static PhysicalEntity go = PhysicalEntity(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     
-    static GLfloat fbo_vertices[] = {
-        -1, -1,
-         1, -1,
-        -1,  1,
-         1,  1,
-    };
+    static TextureRegion screenTr = TextureRegion(0, 0, 1, 1, 1, 1);
+    renderPhysicalEntity(go, screenTr);
     
-    glGenBuffers(1, &OGLESManager->fbo_vbo_object);
-    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->fbo_vbo_object);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(fbo_vertices), fbo_vertices, GL_STATIC_DRAW);
-    
-    glUseProgram(OGLESManager->m_postProcessingSinWaveProgram.program);
-    glBindTexture(GL_TEXTURE_2D, OGLESManager->fbo_texture);
-    glUniform1i(OGLESManager->m_postProcessingSinWaveProgram.u_fbo_texture_location, 0);
-    glUniform1f(OGLESManager->m_postProcessingSinWaveProgram.u_offset_location, stateTime);
-    glVertexAttribPointer(OGLESManager->m_postProcessingSinWaveProgram.a_v_coord_location, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(OGLESManager->m_postProcessingSinWaveProgram.a_v_coord_location);
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
+    TextureWrapper tw = TextureWrapper(OGLESManager->fbo_texture);
+    m_spriteBatcher->endBatchWithTexture(tw, OGLESManager->m_textureVertFlipProgram);
     
     glDisable(GL_BLEND);
     

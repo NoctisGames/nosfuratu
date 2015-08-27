@@ -25,8 +25,6 @@ public:
     virtual void platformResume();
     
     virtual void platformPause();
-    
-    virtual bool handleOnBackPressed();
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */

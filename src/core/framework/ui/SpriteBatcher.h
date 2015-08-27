@@ -11,6 +11,7 @@
 
 #include "Color.h"
 #include "TextureWrapper.h"
+#include "TextureProgram.h"
 
 class TextureRegion;
 
@@ -22,6 +23,8 @@ public:
     virtual void beginBatch() = 0;
     
     virtual void endBatchWithTexture(TextureWrapper &textureWrapper) = 0;
+    
+    virtual void endBatchWithTexture(TextureWrapper &textureWrapper, TextureProgramStruct textureProgram) = 0;
     
     virtual void drawSprite(float x, float y, float width, float height, float angle, TextureRegion tr) = 0;
     

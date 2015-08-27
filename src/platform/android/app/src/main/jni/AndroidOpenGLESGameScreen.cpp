@@ -28,12 +28,7 @@ void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 bool AndroidOpenGLESGameScreen::handleOnBackPressed()
 {
-    if(m_gameState == RUNNING)
-    {
-        onPause();
-        
-        return true;
-    }
-    
-    return false;
+    onPause();
+
+    return true;
 }

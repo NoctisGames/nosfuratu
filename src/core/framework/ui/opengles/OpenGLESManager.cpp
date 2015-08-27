@@ -7,9 +7,7 @@
 //
 
 #include "OpenGLESManager.h"
-#include "GameConstants.h"
 #include "macros.h"
-#include <string.h>
 #include <assert.h>
 
 extern "C"
@@ -23,7 +21,7 @@ OpenGLESManager * OpenGLESManager::getInstance()
     return openGLESManager;
 }
 
-void OpenGLESManager::init(int width, int height)
+void OpenGLESManager::init(int width, int height, float gameWidth, float gameHeight)
 {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
     
@@ -33,7 +31,7 @@ void OpenGLESManager::init(int width, int height)
     buildShaderPrograms();
     generateIndices();
     
-    createMatrix();
+    createMatrix(gameWidth, gameHeight);
     
     createFrameBufferObject(width, height);
 }
@@ -62,24 +60,24 @@ void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLflo
     m_colorVertices.push_back(a);
 }
 
-void OpenGLESManager::prepareForSpriteRendering()
+void OpenGLESManager::prepareForSpriteRendering(TextureProgramStruct textureProgram)
 {
-    glUseProgram(m_textureProgram.program);
+    glUseProgram(textureProgram.program);
     
-    glUniformMatrix4fv(m_textureProgram.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)m_viewProjectionMatrix);
-    glUniform1i(m_textureProgram.u_texture_unit_location, 0);
+    glUniformMatrix4fv(textureProgram.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)m_viewProjectionMatrix);
+    glUniform1i(textureProgram.u_texture_unit_location, 0);
     
     glGenBuffers(1, &sb_vbo_object);
     glBindBuffer(GL_ARRAY_BUFFER, sb_vbo_object);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_textureVertices.size(), &m_textureVertices[0], GL_STATIC_DRAW);
     
-    glVertexAttribPointer(m_textureProgram.a_position_location, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
-    glVertexAttribPointer(m_textureProgram.a_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(3 * sizeof(GL_FLOAT)));
-    glVertexAttribPointer(m_textureProgram.a_texture_coordinates_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(7 * sizeof(GL_FLOAT)));
+    glVertexAttribPointer(textureProgram.a_position_location, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
+    glVertexAttribPointer(textureProgram.a_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(3 * sizeof(GL_FLOAT)));
+    glVertexAttribPointer(textureProgram.a_texture_coordinates_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(7 * sizeof(GL_FLOAT)));
     
-    glEnableVertexAttribArray(m_textureProgram.a_position_location);
-    glEnableVertexAttribArray(m_textureProgram.a_color_location);
-    glEnableVertexAttribArray(m_textureProgram.a_texture_coordinates_location);
+    glEnableVertexAttribArray(textureProgram.a_position_location);
+    glEnableVertexAttribArray(textureProgram.a_color_location);
+    glEnableVertexAttribArray(textureProgram.a_texture_coordinates_location);
 }
 
 void OpenGLESManager::prepareForGeometryRendering()
@@ -121,9 +119,9 @@ void OpenGLESManager::finishGeometryRendering()
 
 void OpenGLESManager::buildShaderPrograms()
 {
-    m_textureProgram = OpenGLESProgram::get_texture_program(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
-    m_colorProgram = OpenGLESProgram::get_color_program(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
-    m_postProcessingSinWaveProgram = OpenGLESProgram::get_post_processing_sin_wave_program(build_program_from_assets("pp_sin_wave_shader.vsh", "pp_sin_wave_shader.fsh"));
+    m_textureProgram = TextureProgram::getTextureProgram(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
+    m_textureVertFlipProgram  = TextureProgram::getTextureProgram(build_program_from_assets("texture_vert_flip_shader.vsh", "texture_shader.fsh"));
+    m_colorProgram = ColorProgram::getColorProgram(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
 }
 
 void OpenGLESManager::generateIndices()
@@ -142,13 +140,13 @@ void OpenGLESManager::generateIndices()
     }
 }
 
-void OpenGLESManager::createMatrix()
+void OpenGLESManager::createMatrix(float gameWidth, float gameHeight)
 {
     vec3 eye = { 0, 0, 1 };
     vec3 center = { 0, 0, 0 };
     vec3 up = { 0, 1, 0 };
     
-    mat4x4_ortho(m_projectionMatrix, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, -1, 1);
+    mat4x4_ortho(m_projectionMatrix, 0, gameWidth, 0, gameHeight, -1, 1);
     mat4x4_look_at(m_viewMatrix, eye, center, up);
     
     mat4x4_mul(m_viewProjectionMatrix, m_projectionMatrix, m_viewMatrix);

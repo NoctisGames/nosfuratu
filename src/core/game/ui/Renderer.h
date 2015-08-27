@@ -36,7 +36,7 @@ protected:
     
     std::unique_ptr<TextureWrapper> m_backgroundTexture;
     
-private:
+protected:
 	void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
 };
 

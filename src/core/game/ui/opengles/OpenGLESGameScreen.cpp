@@ -26,7 +26,7 @@ void OpenGLESGameScreen::onSurfaceCreated(int width, int height)
 	m_iDeviceScreenWidth = width;
 	m_iDeviceScreenHeight = height;
     
-    OGLESManager->init(width, height);
+    OGLESManager->init(width, height, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
 }
@@ -45,11 +45,4 @@ void OpenGLESGameScreen::platformResume()
 void OpenGLESGameScreen::platformPause()
 {
     // Empty
-}
-
-bool OpenGLESGameScreen::handleOnBackPressed()
-{
-    // Override this if necessary
-    // By default we will assume that the platform does not have a back button or does not want to be notified of a back button press
-    return false;
 }

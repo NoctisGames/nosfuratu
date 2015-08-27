@@ -29,8 +29,6 @@ public:
     
     virtual void platformPause() = 0;
     
-    virtual bool handleOnBackPressed() = 0;
-    
     void init();
 
 	void onResume();
