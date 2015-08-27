@@ -9,12 +9,14 @@
 #ifndef PhysicalEntity_H
 #define PhysicalEntity_H
 
+#include "Entity.h"
+
 #include <memory>
 
 class Rectangle;
 class Vector2D;
 
-class PhysicalEntity
+class PhysicalEntity : public Entity
 {
 public:
     PhysicalEntity(float x, float y, float width, float height, float angle);
@@ -36,6 +38,8 @@ public:
     const float& getHeight();
     
     virtual float getAngle();
+    
+    virtual bool handleMessage(const Telegram& msg);
     
 protected:
     std::unique_ptr<Vector2D> m_position;

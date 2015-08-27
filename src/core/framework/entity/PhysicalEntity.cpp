@@ -10,13 +10,13 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 
-PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, float angle)
+PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, float angle) : Entity()
 {
     m_position = std::unique_ptr<Vector2D>(new Vector2D(x, y));
     m_velocity = std::unique_ptr<Vector2D>(new Vector2D());
     m_acceleration = std::unique_ptr<Vector2D>(new Vector2D());
     m_bounds = std::unique_ptr<Rectangle>(new Rectangle(x - width / 2, y - height / 2, width, height));
-    
+
     m_fWidth = width;
     m_fHeight = height;
     m_fAngle = angle;
@@ -69,4 +69,10 @@ const float& PhysicalEntity::getHeight()
 float PhysicalEntity::getAngle()
 {
     return m_fAngle;
+}
+
+bool PhysicalEntity::handleMessage(const Telegram& msg)
+{
+    // Override in subclass to properly handle the message
+    return false;
 }
