@@ -43,10 +43,10 @@ void OpenGLESLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
     }
 }
 
-void OpenGLESLineBatcher::renderLine(float originX, float originY, float endX, float endY, Color &color)
+void OpenGLESLineBatcher::renderLine(float originX, float originY, float endX, float endY, Color &c)
 {
-    OGLESManager->addVertexCoordinate(originX, originY, 0, color.red, color.green, color.blue, color.alpha);
-    OGLESManager->addVertexCoordinate(endX, endY, 0, color.red, color.green, color.blue, color.alpha);
+    OGLESManager->addVertexCoordinate(originX, originY, 0, c.red, c.green, c.blue, c.alpha);
+    OGLESManager->addVertexCoordinate(endX, endY, 0, c.red, c.green, c.blue, c.alpha);
     
     m_iNumLines++;
 }

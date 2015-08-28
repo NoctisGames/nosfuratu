@@ -20,17 +20,17 @@ OpenGLESCircleBatcher::OpenGLESCircleBatcher() : CircleBatcher()
     // Empty
 }
 
-void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &color)
+void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &c)
 {
-    renderCircle(circle, color, *OGLESManager->m_colorProgram);
+    renderCircle(circle, c, *OGLESManager->m_colorProgram);
 }
 
-void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, Color &color)
+void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, Color &c)
 {
-    renderPartialCircle(circle, arcDegrees, color, *OGLESManager->m_colorProgram);
+    renderPartialCircle(circle, arcDegrees, c, *OGLESManager->m_colorProgram);
 }
 
-void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &color, GpuProgramWrapper &gpuProgramWrapper)
+void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &c, GpuProgramWrapper &gpuProgramWrapper)
 {
     OGLESManager->m_colorVertices.clear();
     
@@ -42,7 +42,7 @@ void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &color, GpuProgra
         float cos = cosf(rad);
         float sin = sinf(rad);
         
-        OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, color.red, color.green, color.blue, color.alpha);
+        OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
         
         m_iNumPoints++;
     }
@@ -50,11 +50,11 @@ void OpenGLESCircleBatcher::renderCircle(Circle &circle, Color &color, GpuProgra
     endBatch(gpuProgramWrapper);
 }
 
-void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, Color &color, GpuProgramWrapper &gpuProgramWrapper)
+void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, Color &c, GpuProgramWrapper &gpuProgramWrapper)
 {
     OGLESManager->m_colorVertices.clear();
     
-    OGLESManager->addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, color.red, color.green, color.blue, color.alpha);
+    OGLESManager->addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
     
     m_iNumPoints = 1;
     
@@ -64,7 +64,7 @@ void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
         float cos = cosf(rad);
         float sin = sinf(rad);
         
-        OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, color.red, color.green, color.blue, color.alpha);
+        OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
         
         m_iNumPoints++;
     }
@@ -73,7 +73,7 @@ void OpenGLESCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
     float cos = cosf(rad);
     float sin = sinf(rad);
     
-    OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, color.red, color.green, color.blue, color.alpha);
+    OGLESManager->addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
     
     m_iNumPoints++;
     

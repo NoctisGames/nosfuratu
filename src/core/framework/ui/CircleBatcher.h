@@ -19,13 +19,13 @@ class CircleBatcher
 public:
     CircleBatcher();
     
-    virtual void renderCircle(Circle &circle, Color &color) = 0;
+    virtual void renderCircle(Circle &circle, Color &c) = 0;
     
-    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color) = 0;
+    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &c) = 0;
     
-    virtual void renderCircle(Circle &circle, Color &color, GpuProgramWrapper &gpuProgramWrapper) = 0;
+    virtual void renderCircle(Circle &circle, Color &c, GpuProgramWrapper &gpuProgramWrapper) = 0;
     
-    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color, GpuProgramWrapper &gpuProgramWrapper) = 0;
+    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &c, GpuProgramWrapper &gpuProgramWrapper) = 0;
     
 protected:
     int m_iNumPoints;
