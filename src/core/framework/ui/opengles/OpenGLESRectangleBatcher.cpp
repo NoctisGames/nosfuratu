@@ -11,6 +11,7 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "OpenGLESManager.h"
+#include "GpuProgramWrapper.h"
 
 OpenGLESRectangleBatcher::OpenGLESRectangleBatcher(bool isFill) : RectangleBatcher(isFill)
 {
@@ -25,13 +26,18 @@ void OpenGLESRectangleBatcher::beginBatch()
 
 void OpenGLESRectangleBatcher::endBatch()
 {
+    endBatch(*OGLESManager->m_colorProgram);
+}
+
+void OpenGLESRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
+{
     if (m_iNumRectangles > 0)
     {
-        OGLESManager->prepareForGeometryRendering();
+        gpuProgramWrapper.bind();
         
         glDrawElements(m_isFill ? GL_TRIANGLES : GL_LINE_STRIP, m_iNumRectangles * INDICES_PER_RECTANGLE, GL_UNSIGNED_SHORT, &OGLESManager->m_indices[0]);
         
-        OGLESManager->finishGeometryRendering();
+        gpuProgramWrapper.unbind();
     }
 }
 

@@ -12,6 +12,7 @@
 #include "Color.h"
 
 class Circle;
+class GpuProgramWrapper;
 
 class CircleBatcher
 {
@@ -21,6 +22,15 @@ public:
     virtual void renderCircle(Circle &circle, Color &color) = 0;
     
     virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color) = 0;
+    
+    virtual void renderCircle(Circle &circle, Color &color, GpuProgramWrapper &gpuProgramWrapper) = 0;
+    
+    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color, GpuProgramWrapper &gpuProgramWrapper) = 0;
+    
+protected:
+    int m_iNumPoints;
+    
+    virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper) = 0;
 };
 
 #endif /* defined(__gowengamedev__CircleBatcher__) */

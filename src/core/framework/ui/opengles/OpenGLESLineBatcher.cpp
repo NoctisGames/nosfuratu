@@ -13,6 +13,7 @@
 #include "Line.h"
 #include "Vector2D.h"
 #include "OpenGLESManager.h"
+#include "GpuProgramWrapper.h"
 
 OpenGLESLineBatcher::OpenGLESLineBatcher() : LineBatcher()
 {
@@ -27,13 +28,18 @@ void OpenGLESLineBatcher::beginBatch()
 
 void OpenGLESLineBatcher::endBatch()
 {
+    endBatch(*OGLESManager->m_colorProgram);
+}
+
+void OpenGLESLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
+{
     if (m_iNumLines > 0)
     {
-        OGLESManager->prepareForGeometryRendering();
+        gpuProgramWrapper.bind();
         
         glDrawArrays(GL_LINES, 0, VERTICES_PER_LINE * m_iNumLines);
         
-        OGLESManager->finishGeometryRendering();
+        gpuProgramWrapper.unbind();
     }
 }
 

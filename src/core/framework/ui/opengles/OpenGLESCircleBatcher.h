@@ -20,8 +20,12 @@ public:
     
     virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color);
     
-private:
-    void endBatch(int numPoints);
+    virtual void renderCircle(Circle &circle, Color &color, GpuProgramWrapper &gpuProgramWrapper);
+    
+    virtual void renderPartialCircle(Circle &circle, int arcDegrees, Color &color, GpuProgramWrapper &gpuProgramWrapper);
+    
+protected:
+    virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper);
 };
 
 #endif /* defined(__gowengamedev__OpenGLESCircleBatcher__) */
