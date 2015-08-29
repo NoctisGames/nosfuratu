@@ -14,8 +14,8 @@
 
 Assets * Assets::getInstance()
 {
-    static Assets *assets = new Assets();
-    return assets;
+    static Assets *instance = new Assets();
+    return instance;
 }
 
 TextureRegion& Assets::getBackground()

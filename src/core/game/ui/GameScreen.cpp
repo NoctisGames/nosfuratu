@@ -48,15 +48,11 @@ void GameScreen::init()
 void GameScreen::onResume()
 {
     Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
-    
-    platformResume();
 }
 
 void GameScreen::onPause()
 {
     Assets::getInstance()->setMusicId(MUSIC_STOP);
-    
-    platformPause();
 }
 
 void GameScreen::update(float deltaTime)

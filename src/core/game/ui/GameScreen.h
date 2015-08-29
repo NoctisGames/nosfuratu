@@ -25,10 +25,6 @@ public:
     
     virtual void touchToWorld(TouchEvent &touchEvent) = 0;
     
-    virtual void platformResume() = 0;
-    
-    virtual void platformPause() = 0;
-    
     void init();
 
 	void onResume();

@@ -41,6 +41,7 @@
 		BB31A5081B8FF2670001768B /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB31A5061B8FF2670001768B /* OpenGLESGeometryGpuProgramWrapper.cpp */; };
 		BB31A50B1B8FF9CF0001768B /* DummyGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB31A5091B8FF9CF0001768B /* DummyGpuProgramWrapper.cpp */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
+		BB44435A1B90AB98008299EE /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4443581B90AB98008299EE /* EntityManager.cpp */; };
 		BB4A72951B8F7D09003D2A6C /* texture_vert_flip_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB4A72941B8F7D09003D2A6C /* texture_vert_flip_shader.vsh */; };
 		BB4A72981B8F8611003D2A6C /* GpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4A72961B8F8611003D2A6C /* GpuProgramWrapper.cpp */; };
 		BB4A72C31B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4A72C11B8F9543003D2A6C /* OpenGLESTextureGpuProgramWrapper.cpp */; };
@@ -142,6 +143,10 @@
 		BB430E22189313C600E4EAE1 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = ../../3rdparty/libpng/pnglibconf.h; sourceTree = "<group>"; };
 		BB430E23189313C600E4EAE1 /* pngpriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngpriv.h; path = ../../3rdparty/libpng/pngpriv.h; sourceTree = "<group>"; };
 		BB430E24189313C600E4EAE1 /* pngstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngstruct.h; path = ../../3rdparty/libpng/pngstruct.h; sourceTree = "<group>"; };
+		BB4443581B90AB98008299EE /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
+		BB4443591B90AB98008299EE /* EntityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityManager.h; sourceTree = "<group>"; };
+		BB44435C1B90C07D008299EE /* State.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		BB44435D1B90C07D008299EE /* StateMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateMachine.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BB4A72941B8F7D09003D2A6C /* texture_vert_flip_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_vert_flip_shader.vsh; sourceTree = "<group>"; };
 		BB4A72961B8F8611003D2A6C /* GpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GpuProgramWrapper.cpp; sourceTree = "<group>"; };
@@ -423,6 +428,15 @@
 			name = music;
 			sourceTree = "<group>";
 		};
+		BB44435B1B90C07D008299EE /* state */ = {
+			isa = PBXGroup;
+			children = (
+				BB44435C1B90C07D008299EE /* State.h */,
+				BB44435D1B90C07D008299EE /* StateMachine.h */,
+			);
+			path = state;
+			sourceTree = "<group>";
+		};
 		BB4A72B81B8F93DD003D2A6C /* 3ds */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,6 +457,7 @@
 			children = (
 				BB4F82621B700258008759D3 /* entity */,
 				BB4F82671B700258008759D3 /* math */,
+				BB44435B1B90C07D008299EE /* state */,
 				BB4F82741B700258008759D3 /* ui */,
 				BB4F82BF1B700258008759D3 /* util */,
 			);
@@ -452,10 +467,12 @@
 		BB4F82621B700258008759D3 /* entity */ = {
 			isa = PBXGroup;
 			children = (
-				BB4F82651B700258008759D3 /* PhysicalEntity.cpp */,
-				BB4F82661B700258008759D3 /* PhysicalEntity.h */,
 				BB4F830B1B700414008759D3 /* Entity.cpp */,
 				BB4F830C1B700414008759D3 /* Entity.h */,
+				BB4443581B90AB98008299EE /* EntityManager.cpp */,
+				BB4443591B90AB98008299EE /* EntityManager.h */,
+				BB4F82651B700258008759D3 /* PhysicalEntity.cpp */,
+				BB4F82661B700258008759D3 /* PhysicalEntity.h */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -749,6 +766,7 @@
 				BB4F82D81B700258008759D3 /* Circle.cpp in Sources */,
 				0A8FBF7E179E07320039BA29 /* pngget.c in Sources */,
 				0A8FBF7F179E07320039BA29 /* pngmem.c in Sources */,
+				BB44435A1B90AB98008299EE /* EntityManager.cpp in Sources */,
 				BB4F82DC1B700258008759D3 /* Triangle.cpp in Sources */,
 				BB4F82EF1B700258008759D3 /* asset_utils.c in Sources */,
 				0A8FBF80179E07320039BA29 /* pngpread.c in Sources */,
