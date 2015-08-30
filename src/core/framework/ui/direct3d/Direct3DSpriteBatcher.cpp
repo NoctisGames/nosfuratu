@@ -14,6 +14,7 @@
 #include "TextureRegion.h"
 #include "Direct3DProgram.h"
 #include "Direct3DManager.h"
+#include "DummyGpuProgramWrapper.h"
 
 #include <stdlib.h>
 
@@ -30,6 +31,11 @@ void Direct3DSpriteBatcher::beginBatch()
 
 void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
 {
+	endBatch(textureWrapper, *DummyGpuProgramWrapper::getInstance());
+}
+
+void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+{
 	if (m_iNumSprites > 0)
 	{
 		// tell the GPU which texture to use
@@ -41,6 +47,10 @@ void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
 		D3DManager->prepareForSpriteRendering();
 
 		D3DManager->m_deviceContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
+
+		// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
+		ID3D11ShaderResourceView *pSRV[1] = { NULL };
+		D3DManager->m_deviceContext->PSSetShaderResources(0, 1, pSRV);
 	}
 }
 
@@ -140,7 +150,7 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 	m_iNumSprites++;
 }
 
-#pragma <Private>
+#pragma mark <Private>
 
 void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float height, TextureRegion tr)
 {
