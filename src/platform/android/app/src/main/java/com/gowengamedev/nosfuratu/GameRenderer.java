@@ -5,7 +5,7 @@ import android.opengl.GLSurfaceView.Renderer;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.gowengamedev.nosfuratu.platform.PlatformFileUtils;
+import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -46,7 +46,7 @@ public final class GameRenderer implements Renderer
 
         if (!isInitialized)
         {
-            PlatformFileUtils.init_asset_manager(activity.getAssets());
+            PlatformAssetUtils.init_asset_manager(activity.getAssets());
             isInitialized = true;
         }
 
