@@ -1,5 +1,5 @@
 //
-//  game_wrapper.cpp
+//  game_renderer.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/22/14.
