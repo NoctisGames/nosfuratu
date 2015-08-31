@@ -31,7 +31,7 @@ void Direct3DSpriteBatcher::beginBatch()
 
 void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
 {
-	endBatch(textureWrapper, *DummyGpuProgramWrapper::getInstance());
+	endBatch(textureWrapper, *D3DManager->m_textureProgram);
 }
 
 void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
@@ -44,13 +44,11 @@ void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramW
 		// set the primitive topology
 		D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-		D3DManager->prepareForSpriteRendering();
+		gpuProgramWrapper.bind();
 
 		D3DManager->m_deviceContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
 
-		// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
-		ID3D11ShaderResourceView *pSRV[1] = { NULL };
-		D3DManager->m_deviceContext->PSSetShaderResources(0, 1, pSRV);
+		gpuProgramWrapper.unbind();
 	}
 }
 

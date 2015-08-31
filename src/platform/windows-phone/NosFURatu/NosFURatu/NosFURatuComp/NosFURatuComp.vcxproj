@@ -161,11 +161,13 @@
     <ClInclude Include="..\..\..\..\..\core\framework\ui\CircleBatcher.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\Color.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DManager.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\Font.h" />
     <ClInclude Include="..\..\..\..\..\core\framework\ui\GpuProgramWrapper.h" />
@@ -213,11 +215,13 @@
     <ClCompile Include="..\..\..\..\..\core\framework\sound\windows-phone\XAudio2SoundPlayer.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\Font.cpp" />
     <ClCompile Include="..\..\..\..\..\core\framework\ui\GpuProgramWrapper.cpp" />
