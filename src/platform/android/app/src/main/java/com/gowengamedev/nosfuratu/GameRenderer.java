@@ -1,6 +1,6 @@
 package com.gowengamedev.nosfuratu;
 
-import android.app.Activity;
+import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.SystemClock;
 import android.util.Log;
@@ -12,29 +12,38 @@ import javax.microedition.khronos.opengles.GL10;
 
 public final class GameRenderer implements Renderer
 {
-    private static final float movAveragePeriod = 40; // #frames involved in average calc (suggested values 5-100)
-    private static final float smoothFactor = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
-
     static
     {
         System.loadLibrary("game");
     }
 
-    private final Activity activity;
-    private final int deviceScreenWidth;
-    private final int deviceScreenHeight;
+    // Definitions from src/core/game/ResourceConstants.h
+    //// Music Definitions ////
+
+    private static final short MUSIC_STOP = 1;
+    private static final short MUSIC_PLAY_DEMO = 2;
+
+    //// Sound Definitions ////
+
+    private static final short SOUND_DEMO = 1;
+
+    private static final float movAveragePeriod = 40; // #frames involved in average calc (suggested values 5-100)
+    private static final float smoothFactor = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
+
+    private final Audio audio;
+    private Music bgm;
+    private Sound explosionSound;
 
     private float smoothedDeltaRealTime_ms = 17.5f;
     private float movAverageDeltaTime_ms = smoothedDeltaRealTime_ms;
     private long lastRealTimeMeasurement_ms;
-    private boolean isInitialized;
 
-    public GameRenderer(Activity activity, int deviceScreenWidth, int deviceScreenHeight)
+    public GameRenderer(AssetManager assetManager)
     {
-        this.activity = activity;
-        this.deviceScreenWidth = deviceScreenWidth;
-        this.deviceScreenHeight = deviceScreenHeight;
-        this.isInitialized = false;
+        this.audio = new Audio(assetManager);
+        this.explosionSound = audio.newSound("explosion.ogg");
+
+        PlatformAssetUtils.init_asset_manager(assetManager);
 
         init();
     }
@@ -43,14 +52,6 @@ public final class GameRenderer implements Renderer
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
         Log.d("RendererWrapper", "GL Surface created!");
-
-        if (!isInitialized)
-        {
-            PlatformAssetUtils.init_asset_manager(activity.getAssets());
-            isInitialized = true;
-        }
-
-        on_surface_created(deviceScreenWidth, deviceScreenHeight);
     }
 
     @Override
@@ -65,7 +66,16 @@ public final class GameRenderer implements Renderer
     @Override
     public void onDrawFrame(GL10 gl)
     {
-        update(smoothedDeltaRealTime_ms / 1000);
+        int gameState = get_state();
+        switch (gameState)
+        {
+            case 0:
+                update(smoothedDeltaRealTime_ms / 1000);
+                break;
+            default:
+                break;
+        }
+
         render();
         handleSound();
         handleMusic();
@@ -76,8 +86,7 @@ public final class GameRenderer implements Renderer
         if (lastRealTimeMeasurement_ms > 0)
         {
             realTimeElapsed_ms = (currTimePick_ms - lastRealTimeMeasurement_ms);
-        }
-        else
+        } else
         {
             realTimeElapsed_ms = smoothedDeltaRealTime_ms; // just the first
             // time
@@ -123,12 +132,45 @@ public final class GameRenderer implements Renderer
 
     private void handleSound()
     {
-        // TODO
+        short soundId;
+        while ((soundId = get_current_sound_id()) > 0)
+        {
+            switch (soundId)
+            {
+                case SOUND_DEMO:
+                    this.explosionSound.play(1);
+                    break;
+                default:
+                    continue;
+            }
+        }
     }
 
     private void handleMusic()
     {
-        // TODO
+        short musicId = get_current_music_id();
+        switch (musicId)
+        {
+            case MUSIC_STOP:
+                if (bgm != null)
+                {
+                    bgm.stop();
+                }
+                break;
+            case MUSIC_PLAY_DEMO:
+                if (bgm != null && bgm.isPlaying())
+                {
+                    bgm.dispose();
+                    bgm = null;
+                }
+
+                bgm = audio.newMusic("bgm.ogg");
+                bgm.setLooping(true);
+                bgm.play();
+                break;
+            default:
+                break;
+        }
     }
 
     private static native void init();

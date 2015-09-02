@@ -2,13 +2,9 @@ package com.gowengamedev.nosfuratu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Point;
 import android.media.AudioManager;
 import android.opengl.GLSurfaceView;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -32,11 +28,7 @@ public final class GameActivity extends Activity
 
         setContentView(R.layout.activity_game);
 
-        Point size = getScreenSize();
-
-        Log.d("GameActivity", "dimension " + size.x + " x " + size.y);
-
-        _gameRenderer = new GameRenderer(this, size.x, size.y);
+        _gameRenderer = new GameRenderer(getAssets());
         _glSurfaceView = new GLSurfaceView(this);
         _glSurfaceView.setEGLContextClientVersion(2);
         _glSurfaceView.setRenderer(_gameRenderer);
@@ -110,25 +102,5 @@ public final class GameActivity extends Activity
         }
 
         super.onBackPressed();
-    }
-
-    @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
-    private Point getScreenSize()
-    {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2)
-        {
-            display.getSize(size);
-        }
-        else
-        {
-            size.x = display.getWidth();
-            size.y = display.getHeight();
-        }
-
-        return size;
     }
 }

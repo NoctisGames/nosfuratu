@@ -8,10 +8,13 @@
 
 #import "GameViewController.h"
 #import "GGDDeviceUtil.h"
+#import "Music.h"
+#import "Sound.h"
 
 // C++
 #include "IOSOpenGLESGameScreen.h"
 #include "IOS8OpenGLESGameScreen.h"
+#include "ResourceConstants.h"
 
 @interface GameViewController ()
 {
@@ -19,6 +22,8 @@
 }
 
 @property (strong, nonatomic) EAGLContext *context;
+@property (strong, nonatomic) Music *bgm;
+@property (strong, nonatomic) Sound *explosionSound;
 
 @end
 
@@ -85,6 +90,8 @@ static bool isRunningiOS8 = false;
                                              selector:@selector(onResume)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    
+    self.explosionSound = [[Sound alloc] initWithSoundNamed:@"explosion.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:4];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -142,12 +149,43 @@ static bool isRunningiOS8 = false;
 
 - (void)handleSound
 {
-    // TODO
+    short soundId;
+    while ((soundId = gameScreen->getCurrentSoundId()) > 0)
+    {
+        switch (soundId)
+        {
+            case SOUND_DEMO:
+                [self.explosionSound play];
+                break;
+            default:
+                continue;
+        }
+    }
 }
 
 - (void)handleMusic
 {
-    // TODO
+    bool loadedNewTrack = false;
+    short musicId = gameScreen->getCurrentMusicId();
+    switch (musicId)
+    {
+        case MUSIC_STOP:
+            [self.bgm stop];
+            break;
+        case MUSIC_PLAY_DEMO:
+            self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
+            loadedNewTrack = true;
+            break;
+        default:
+            break;
+    }
+    
+    if(loadedNewTrack)
+    {
+        [self.bgm setLooping:true];
+        [self.bgm setVolume:1.0f];
+        [self.bgm play];
+    }
 }
 
 - (void)onResume

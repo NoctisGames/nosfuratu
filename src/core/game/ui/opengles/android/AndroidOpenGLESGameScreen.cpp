@@ -43,5 +43,5 @@ bool AndroidOpenGLESGameScreen::handleOnBackPressed()
 {
     onPause();
 
-    return true;
+    return false;
 }
