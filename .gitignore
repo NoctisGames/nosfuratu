@@ -11,6 +11,7 @@ libpng/
 
 # DirectXTex-aug2015
 DirectXTex-aug2015/
+!DirectXTex-aug2015/DirectXTex-aug2015_readme.txt
 
 # Android Studio
 build/
