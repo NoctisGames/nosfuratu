@@ -9,6 +9,9 @@ libpng/
 !libpng/Android.mk
 !libpng/libpng_readme.txt
 
+# DirectXTex-aug2015
+DirectXTex-aug2015/
+
 # Android Studio
 build/
 obj/
