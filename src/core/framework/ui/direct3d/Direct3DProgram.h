@@ -22,9 +22,4 @@ struct TEXTURE_VERTEX
 	float U, V;    // texture coordinates
 };
 
-struct SCREEN_VERTEX
-{
-	float X, Y, Z; // vertex position
-};
-
 #endif /* defined(__gowengamedev__Direct3DProgram__) */

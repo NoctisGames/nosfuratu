@@ -8,13 +8,13 @@
 
 #include "pch.h"
 #include "Direct3DRectangleBatcher.h"
-#include "BasicReaderWriter.h"
 #include "GameConstants.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "Direct3DProgram.h"
 #include "Direct3DManager.h"
 #include "GpuProgramWrapper.h"
+#include "Direct3DGeometryGpuProgramWrapper.h"
 
 Direct3DRectangleBatcher::Direct3DRectangleBatcher(bool isFill) : RectangleBatcher(isFill)
 {
@@ -37,11 +37,11 @@ void Direct3DRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 	if (m_iNumRectangles > 0)
 	{
 		// set the primitive topology
-		D3DManager->m_deviceContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		D3DManager->m_d3dContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 		gpuProgramWrapper.bind();
 
-		D3DManager->m_deviceContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
+		D3DManager->m_d3dContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
 
 		gpuProgramWrapper.bind();
 	}

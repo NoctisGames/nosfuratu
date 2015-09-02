@@ -9,34 +9,43 @@
 #pragma once
 
 #include "GameScreen.h"
+#include "DeviceResources.h"
+#include "MediaEnginePlayer.h"
 
-class Direct3DGameScreen : public GameScreen
+#include <memory>
+
+class GameSound;
+
+class Direct3DGameScreen : public GameScreen, DX::IDeviceNotify
 {
 public:
-	Direct3DGameScreen();
+	Direct3DGameScreen(DX::DeviceResources* deviceResources);
 
-	void load(float deviceScreenWidth, float deviceScreenHeight, int deviceScreenDpWidth, int deviceScreenDpHeight);
+	~Direct3DGameScreen();
 
-	void updateForRenderResolutionChange(float width, float height);
+	void onScreenSizeChanged(float screenDpWidth, float screenDpHeight);
+
+	virtual void onResume();
+
+	virtual void onPause();
 
 	void handleSound();
 
 	void handleMusic();
 
-	void unload();
-
-	ID3D11Texture2D* getTexture();
+	// IDeviceNotify
+	virtual void OnDeviceLost();
+	virtual void OnDeviceRestored();
 
 	virtual void touchToWorld(TouchEvent &touchEvent);
-
-	virtual void platformResume();
-
-	virtual void platformPause();
 
 	virtual bool handleOnBackPressed();
 
 private:
-	float m_fGameScreenToDeviceScreenWidthRatio;
-	float m_fGameScreenToDeviceScreenHeightRatio;
-	float m_fDipToPixelRatio;
+	DX::DeviceResources* m_deviceResources;
+	std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
+	std::unique_ptr<GameSound> m_explosionSound;
+
+	float m_fScreenDpWidth;
+	float m_fScreenDpHeight;
 };

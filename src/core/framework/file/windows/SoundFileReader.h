@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "mmreg.h"
+
 class SoundFileReader
 {
     public:

@@ -25,11 +25,11 @@ public:
     
     virtual void touchToWorld(TouchEvent &touchEvent) = 0;
     
-    void init();
+    virtual void init();
 
-	void onResume();
+	virtual void onResume();
 	
-	void onPause();
+	virtual void onPause();
     
 	void update(float deltaTime);
     
@@ -48,9 +48,6 @@ public:
 protected:
     std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<Vector2D> m_touchPoint;
-    int m_iDeviceScreenWidth;
-	int m_iDeviceScreenHeight;
-	int m_iScreenState;
     
 private:
     std::vector<TouchEvent> m_touchEvents;

@@ -10,13 +10,13 @@
 
 #include "pch.h"
 #include "Direct3DLineBatcher.h"
-#include "BasicReaderWriter.h"
 #include "GameConstants.h"
 #include "Line.h"
 #include "Vector2D.h"
 #include "Direct3DProgram.h"
 #include "Direct3DManager.h"
 #include "GpuProgramWrapper.h"
+#include "Direct3DGeometryGpuProgramWrapper.h"
 
 Direct3DLineBatcher::Direct3DLineBatcher() : LineBatcher()
 {
@@ -39,11 +39,11 @@ void Direct3DLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 	if (m_iNumLines > 0)
 	{
 		// set the primitive topology
-		D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+		D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 		gpuProgramWrapper.bind();
 
-		D3DManager->m_deviceContext->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
+		D3DManager->m_d3dContext->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
 
 		gpuProgramWrapper.unbind();
 	}

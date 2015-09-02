@@ -10,7 +10,6 @@
 
 #include "pch.h"
 #include "Direct3DCircleBatcher.h"
-#include "BasicReaderWriter.h"
 #include "GameConstants.h"
 #include "Circle.h"
 #include "Vector2D.h"
@@ -18,6 +17,7 @@
 #include "macros.h"
 #include "Direct3DManager.h"
 #include "GpuProgramWrapper.h"
+#include "Direct3DGeometryGpuProgramWrapper.h"
 
 Direct3DCircleBatcher::Direct3DCircleBatcher() : CircleBatcher()
 {
@@ -83,11 +83,11 @@ void Direct3DCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
 void Direct3DCircleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 {
 	// set the primitive topology
-	D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	gpuProgramWrapper.bind();
 
-	D3DManager->m_deviceContext->Draw(m_iNumPoints, 0);
+	D3DManager->m_d3dContext->Draw(m_iNumPoints, 0);
 
 	gpuProgramWrapper.unbind();
 }

@@ -8,6 +8,7 @@
 #include "pch.h"
 #include "XAudio2SoundPlayer.h"
 #include "DirectXHelper.h"
+#include <xaudio2.h>
 
 namespace
 {

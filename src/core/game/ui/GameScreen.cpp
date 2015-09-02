@@ -41,8 +41,6 @@ void GameScreen::init()
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    
-    m_iScreenState = 0; // TODO
 }
 
 void GameScreen::onResume()
@@ -68,6 +66,25 @@ void GameScreen::update(float deltaTime)
     m_touchEvents.clear();
     m_touchEvents.swap(m_touchEventsBuffer);
     m_touchEventsBuffer.clear();
+
+	for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+	{
+		touchToWorld((*itr));
+
+		switch (itr->getTouchType())
+		{
+		case DOWN:
+			// TODO
+			continue;
+		case DRAGGED:
+			// TODO
+			continue;
+		case UP:
+			// TODO
+			Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEMO);
+			return;
+		}
+	}
 }
 
 void GameScreen::render()
@@ -83,12 +100,12 @@ void GameScreen::render()
 
 int GameScreen::getState()
 {
-	return m_iScreenState;
+	return 0;
 }
 
 void GameScreen::clearState()
 {
-    m_iScreenState = 0; // TODO
+	// TODO
 }
 
 short GameScreen::getCurrentMusicId()

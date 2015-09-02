@@ -9,12 +9,11 @@
 #include "pch.h"
 #include "macros.h"
 #include "Direct3DSpriteBatcher.h"
-#include "BasicReaderWriter.h"
 #include "GameConstants.h"
 #include "TextureRegion.h"
 #include "Direct3DProgram.h"
 #include "Direct3DManager.h"
-#include "DummyGpuProgramWrapper.h"
+#include "Direct3DTextureGpuProgramWrapper.h"
 
 #include <stdlib.h>
 
@@ -39,14 +38,14 @@ void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramW
 	if (m_iNumSprites > 0)
 	{
 		// tell the GPU which texture to use
-		D3DManager->m_deviceContext->PSSetShaderResources(0, 1, &textureWrapper.texture);
+		D3DManager->m_d3dContext->PSSetShaderResources(0, 1, &textureWrapper.texture);
 
 		// set the primitive topology
-		D3DManager->m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		gpuProgramWrapper.bind();
 
-		D3DManager->m_deviceContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
+		D3DManager->m_d3dContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
 
 		gpuProgramWrapper.unbind();
 	}

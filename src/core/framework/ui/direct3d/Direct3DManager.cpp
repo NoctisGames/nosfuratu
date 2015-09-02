@@ -9,29 +9,22 @@
 #include "pch.h"
 #include "Direct3DManager.h"
 #include "GameConstants.h"
-#include "BasicReaderWriter.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
+#include "DirectXHelper.h"
 
-inline void throwIfFailed(HRESULT hr)
-{
-    if (FAILED(hr))
-    {
-        // Set a breakpoint on this line to catch Win32 API errors.
-        throw Platform::Exception::CreateException(hr);
-    }
-}
+using namespace DirectX;
 
 Direct3DManager * Direct3DManager::getInstance()
 {
-	static Direct3DManager *direct3DManager = new Direct3DManager();
-	return direct3DManager;
+	static Direct3DManager *instance = new Direct3DManager();
+
+	return instance;
 }
 
-void Direct3DManager::init(float width, float height)
+void Direct3DManager::init(DX::DeviceResources &deviceResources, float width, float height)
 {
-	initDeviceResources();
-	initWindowSizeDependentResources(width, height);
+	initWindowSizeDependentResources(deviceResources, width, height);
 	createBlendState();
 	createSamplerState();
 	createInputLayoutForSpriteBatcher();
@@ -46,8 +39,12 @@ void Direct3DManager::init(float width, float height)
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
 }
 
-void Direct3DManager::initWindowSizeDependentResources(float width, float height)
+void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, float width, float height)
 {
+	m_d3dDevice = deviceResources.GetD3DDevice();
+	m_d3dContext = deviceResources.GetD3DDeviceContext();
+	m_renderTargetView = deviceResources.GetBackBufferRenderTargetView();
+
 	D3D11_TEXTURE2D_DESC textureDesc;
 	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
@@ -68,7 +65,7 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	textureDesc.MiscFlags = 0;
 
 	// Create the render target texture.
-    throwIfFailed(m_device->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
+	DX::ThrowIfFailed(m_d3dDevice->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
 
 	// Setup the description of the render target view.
 	renderTargetViewDesc.Format = textureDesc.Format;
@@ -76,7 +73,7 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the render target view.
-    throwIfFailed(m_device->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView));
+	DX::ThrowIfFailed(m_d3dDevice->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView));
 
 	// Setup the description of the shader resource view.
 	shaderResourceViewDesc.Format = textureDesc.Format;
@@ -85,42 +82,15 @@ void Direct3DManager::initWindowSizeDependentResources(float width, float height
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 	// Create the shader resource view.
-    throwIfFailed(m_device->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
-
-	// Create a descriptor for the render target buffer.
-	CD3D11_TEXTURE2D_DESC renderTargetDesc(
-		DXGI_FORMAT_B8G8R8A8_UNORM,
-		static_cast<UINT>(width),
-		static_cast<UINT>(height),
-		1,
-		1,
-		D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE
-		);
-	renderTargetDesc.MiscFlags = D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX | D3D11_RESOURCE_MISC_SHARED_NTHANDLE;
-	
-	// Allocate a 2-D surface as the render target buffer.
-	m_device->CreateTexture2D(&renderTargetDesc, nullptr, &m_renderTarget);
-	m_device->CreateRenderTargetView(m_renderTarget, nullptr, &m_renderTargetView);
-
-	// set the viewport
-	D3D11_VIEWPORT viewport = { 0 };
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	viewport.Width = static_cast<float>(width);
-	viewport.Height = static_cast<float>(height);
-
-	m_deviceContext->RSSetViewports(1, &viewport);
+	DX::ThrowIfFailed(m_d3dDevice->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
 }
 
 void Direct3DManager::cleanUp()
 {
-	m_device->Release();
-	m_deviceContext->Release();
+	m_swapChain->Release();
 	m_offscreenRenderTarget->Release();
 	m_offscreenRenderTargetView->Release();
 	m_offscreenShaderResourceView->Release();
-	m_renderTarget->Release();
-	m_renderTargetView->Release();
 	m_blendState->Release();
 	m_matrixConstantbuffer->Release();
 	m_indexbuffer->Release();
@@ -138,43 +108,6 @@ void Direct3DManager::cleanUp()
 	m_colorVertices.clear();
 }
 
-void Direct3DManager::initDeviceResources()
-{
-	// This flag adds support for surfaces with a different color channel ordering
-	// than the API default. It is required for compatibility with Direct2D.
-	UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
-#if defined(_DEBUG)
-	// If the project is in a debug build, enable debugging via SDK Layers with this flag.
-	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
-	// This array defines the set of DirectX hardware feature levels this app will support.
-	// Note the ordering should be preserved.
-	// Don't forget to declare your application's minimum required feature level in its
-	// description. All applications are assumed to support 9.1 unless otherwise stated.
-	D3D_FEATURE_LEVEL featureLevels[] =
-	{
-		D3D_FEATURE_LEVEL_11_1,
-		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_10_1,
-		D3D_FEATURE_LEVEL_10_0,
-		D3D_FEATURE_LEVEL_9_3
-	};
-
-	// Create the Direct3D 11 API device object and a corresponding context.
-	D3D11CreateDevice(
-		nullptr, // Specify nullptr to use the default adapter.
-		D3D_DRIVER_TYPE_HARDWARE,
-		nullptr,
-		creationFlags, // Set set debug and Direct2D compatibility flags.
-		featureLevels, // List of feature levels this app can support.
-		ARRAYSIZE(featureLevels),
-		D3D11_SDK_VERSION, // Always set this to D3D11_SDK_VERSION.
-		&m_device, // Returns the Direct3D device created.
-		&m_featureLevel, // Returns feature level of device created.
-		&m_deviceContext // Returns the device immediate context.
-		);
-}
-
 void Direct3DManager::createBlendState()
 {
 	D3D11_BLEND_DESC bd;
@@ -189,10 +122,9 @@ void Direct3DManager::createBlendState()
 	bd.IndependentBlendEnable = FALSE;
 	bd.AlphaToCoverageEnable = FALSE;
 
-	m_device->CreateBlendState(&bd, &m_blendState);
+	m_d3dDevice->CreateBlendState(&bd, &m_blendState);
 
-	// set the blend state
-	m_deviceContext->OMSetBlendState(m_blendState, 0, 0xffffffff);
+	m_d3dContext->OMSetBlendState(m_blendState, 0, 0xffffffff);
 }
 
 void Direct3DManager::createSamplerState()
@@ -213,61 +145,103 @@ void Direct3DManager::createSamplerState()
 	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR; // linear filtering
 	sd.MinLOD = 5.0f; // mip level 5 will appear blurred
 
-	m_device->CreateSamplerState(&sd, &m_sbSamplerState); // create the linear blur sampler
-
-	// set the appropriate sampler state
-	m_deviceContext->PSSetSamplers(0, 1, &m_sbSamplerState);
+	m_d3dDevice->CreateSamplerState(&sd, &m_sbSamplerState);
+	m_d3dContext->PSSetSamplers(0, 1, &m_sbSamplerState);
 }
 
 void Direct3DManager::createInputLayoutForSpriteBatcher()
 {
-	// Create a Basic Reader-Writer class to load data from disk.
-	BasicReaderWriter^ reader = ref new BasicReaderWriter();
-	Platform::Array<byte>^ vertexShaderBytecode;
-	Platform::Array<byte>^ pixelShaderBytecode;
+	// Load shaders asynchronously.
+	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"TexturePixelShader.cso");
 
-	// Load the raw shader bytecode from disk and create shader objects with it.
-	vertexShaderBytecode = reader->ReadData("TextureVertexShader.cso");
-	pixelShaderBytecode = reader->ReadData("TexturePixelShader.cso");
+	// After the vertex shader file is loaded, create the shader and input layout.
+	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreateVertexShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_sbVertexShader
+				)
+			);
 
-	// initialize input layout
-	D3D11_INPUT_ELEMENT_DESC ied[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
+		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		};
 
-	// create and set the input layout
-	m_device->CreateInputLayout(ied, ARRAYSIZE(ied), vertexShaderBytecode->Data, vertexShaderBytecode->Length, &m_sbInputLayout);
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreateInputLayout(
+				vertexDesc,
+				ARRAYSIZE(vertexDesc),
+				&fileData[0],
+				fileData.size(),
+				&m_sbInputLayout
+				)
+			);
+	});
 
-	m_device->CreateVertexShader(vertexShaderBytecode->Data, vertexShaderBytecode->Length, nullptr, &m_sbVertexShader);
-	m_device->CreatePixelShader(pixelShaderBytecode->Data, pixelShaderBytecode->Length, nullptr, &m_sbPixelShader);
+	// After the pixel shader file is loaded, create the shader
+	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreatePixelShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_sbPixelShader
+				)
+			);
+	});
 }
 
 void Direct3DManager::createInputLayoutForGeometryBatcher()
 {
-	// Create a Basic Reader - Writer class to load data from disk.
-	BasicReaderWriter^ reader = ref new BasicReaderWriter();
-	Platform::Array<byte>^ vertexShaderBytecode;
-	Platform::Array<byte>^ pixelShaderBytecode;
+	// Load shaders asynchronously.
+	auto loadVSTask = DX::ReadDataAsync(L"ColorVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"ColorPixelShader.cso");
 
-	// Load the raw shader bytecode from disk and create shader objects with it.
-	vertexShaderBytecode = reader->ReadData("ColorVertexShader.cso");
-	pixelShaderBytecode = reader->ReadData("ColorPixelShader.cso");
+	// After the vertex shader file is loaded, create the shader and input layout.
+	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreateVertexShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_gbVertexShader
+				)
+			);
 
-	// initialize input layout
-	D3D11_INPUT_ELEMENT_DESC ied[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
+		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		};
 
-	// create and set the input layout
-	m_device->CreateInputLayout(ied, ARRAYSIZE(ied), vertexShaderBytecode->Data, vertexShaderBytecode->Length, &m_gbInputLayout);
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreateInputLayout(
+				vertexDesc,
+				ARRAYSIZE(vertexDesc),
+				&fileData[0],
+				fileData.size(),
+				&m_gbInputLayout
+				)
+			);
+	});
 
-	m_device->CreateVertexShader(vertexShaderBytecode->Data, vertexShaderBytecode->Length, nullptr, &m_gbVertexShader);
-	m_device->CreatePixelShader(pixelShaderBytecode->Data, pixelShaderBytecode->Length, nullptr, &m_gbPixelShader);
+	// After the pixel shader file is loaded, create the shader
+	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_d3dDevice->CreatePixelShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_gbPixelShader
+				)
+			);
+	});
 }
 
 void Direct3DManager::createVertexBufferForSpriteBatcher()
@@ -292,7 +266,7 @@ void Direct3DManager::createVertexBufferForSpriteBatcher()
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
 
-	throwIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
+	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
 void Direct3DManager::createVertexBufferForGeometryBatcher()
@@ -317,7 +291,7 @@ void Direct3DManager::createVertexBufferForGeometryBatcher()
 	vertexBufferData.SysMemPitch = 0;
 	vertexBufferData.SysMemSlicePitch = 0;
 
-	throwIfFailed(m_device->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
+	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
 }
 
 void Direct3DManager::createIndexBuffer()
@@ -334,9 +308,9 @@ void Direct3DManager::createIndexBuffer()
 
 	indexDataDesc.pSysMem = &indexValues.front();
 
-	m_device->CreateBuffer(&indexBufferDesc, &indexDataDesc, &m_indexbuffer);
+	m_d3dDevice->CreateBuffer(&indexBufferDesc, &indexDataDesc, &m_indexbuffer);
 
-	m_deviceContext->IASetIndexBuffer(m_indexbuffer, DXGI_FORMAT_R16_UINT, 0);
+	m_d3dContext->IASetIndexBuffer(m_indexbuffer, DXGI_FORMAT_R16_UINT, 0);
 }
 
 void Direct3DManager::createConstantBuffer()
@@ -347,9 +321,7 @@ void Direct3DManager::createConstantBuffer()
 	bd.ByteWidth = 64;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	m_device->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
-
-	m_deviceContext->VSSetConstantBuffers(0, 1, &m_matrixConstantbuffer);
+	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
 }
 
 void Direct3DManager::createMatrix()
@@ -367,9 +339,6 @@ void Direct3DManager::createMatrix()
 
 	// calculate the final matrix
 	m_matFinal = matView * matProjection;
-
-	// send the final matrix to video memory
-	m_deviceContext->UpdateSubresource(m_matrixConstantbuffer, 0, 0, &m_matFinal, 0, 0);
 }
 
 std::vector<short> Direct3DManager::createIndexValues()

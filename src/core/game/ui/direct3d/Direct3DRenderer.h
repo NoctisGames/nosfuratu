@@ -23,6 +23,9 @@ public:
 	virtual void endFrame();
 
 	virtual void cleanUp();
+
+private:
+	void loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView);
 };
 
 #endif /* defined(__NosFURatu__Direct3DRenderer__) */

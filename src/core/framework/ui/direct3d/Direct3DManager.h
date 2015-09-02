@@ -16,20 +16,23 @@
 #define D3DManager (Direct3DManager::getInstance())
 
 #include "Direct3DProgram.h"
-#include "GpuProgramWrapper.h"
+#include "DeviceResources.h"
 
 #include <vector>
 #include <memory>
 
+class Direct3DTextureGpuProgramWrapper;
+class Direct3DGeometryGpuProgramWrapper;
+
 class Direct3DManager
 {
 public:
-	ID3D11Device *m_device; // the device interface
-	ID3D11DeviceContext *m_deviceContext; // the device context interface
+	ID3D11Device *m_d3dDevice; // the device interface
+	ID3D11DeviceContext *m_d3dContext; // the device context interface
+	IDXGISwapChain1 *m_swapChain;
 	ID3D11Texture2D *m_offscreenRenderTarget; // the offscreen render target texture
 	ID3D11RenderTargetView *m_offscreenRenderTargetView; // the offscreen render target interface
 	ID3D11ShaderResourceView *m_offscreenShaderResourceView; // this is needed for the screen pixel shader
-	ID3D11Texture2D *m_renderTarget; // the render target texture
 	ID3D11RenderTargetView *m_renderTargetView; // the render target interface
 	ID3D11BlendState *m_blendState; // the blend state interface
 	ID3D11Buffer *m_matrixConstantbuffer; // the matrix constant buffer interface
@@ -53,21 +56,18 @@ public:
 	// All above rendering takes place inside this matrix
 	DirectX::XMMATRIX m_matFinal;
 
-	std::unique_ptr<GpuProgramWrapper> m_textureProgram;
-	std::unique_ptr<GpuProgramWrapper> m_colorProgram;
+	std::unique_ptr<Direct3DTextureGpuProgramWrapper> m_textureProgram;
+	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
 
 	static Direct3DManager * getInstance();
 
-	void init(float width, float height);
+	void init(DX::DeviceResources &deviceResources, float width, float height);
 
-	void initWindowSizeDependentResources(float width, float height);
+	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, float width, float height);
 
 	void cleanUp();
 
 private:
-	D3D_FEATURE_LEVEL m_featureLevel;
-
-	void initDeviceResources();
 	void createBlendState();
 	void createSamplerState();
 	void createInputLayoutForSpriteBatcher();
@@ -80,10 +80,10 @@ private:
 
 	std::vector<short> createIndexValues();
 
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    Direct3DManager();
-    Direct3DManager(const Direct3DManager&);
-    Direct3DManager& operator=(const Direct3DManager&);
+	// ctor, copy ctor, and assignment should be private in a Singleton
+	Direct3DManager();
+	Direct3DManager(const Direct3DManager&);
+	Direct3DManager& operator=(const Direct3DManager&);
 };
 
 #endif /* defined(__gowengamedev__Direct3DManager__) */
