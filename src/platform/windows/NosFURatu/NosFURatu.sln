@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NosFURatu", "NosFURatu\NosFURatu.vcxproj", "{4CC5F9BC-3F69-43A3-86CA-BE9029187665}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB3F52B5-BFE8-43FD-836F-363735DAB738} = {FB3F52B5-BFE8-43FD-836F-363735DAB738}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj", "{FB3F52B5-BFE8-43FD-836F-363735DAB738}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTex", "..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj", "{FB3F52B5-BFE8-43FD-836F-363735DAB738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
