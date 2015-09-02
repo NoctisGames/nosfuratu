@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>f3eedc90-b322-4c29-a871-4257a2dc1afd</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="DirectXPage.xaml.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\EntityManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Circle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Line.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\OverlapTester.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Rectangle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Triangle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Vector2D.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Font.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\GpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\LineBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\RectangleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\SpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\file\windows\SoundFileReader.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\GameSound.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="DirectXPage.xaml.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\EntityManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\PhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Circle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Line.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\OverlapTester.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Rectangle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Triangle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Vector2D.h" />
+    <ClInclude Include="..\..\..\..\core\framework\state\State.h" />
+    <ClInclude Include="..\..\..\..\core\framework\state\StateMachine.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Font.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\GpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\LineBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\RectangleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\SpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TextureRegion.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TextureWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TouchEvent.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TouchType.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\CircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Color.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ResourceConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.h" />
+    <ClInclude Include="..\..\..\..\core\framework\file\windows\SoundFileReader.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\GameSound.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\background_texture.dds">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NosFURatu_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DirectXPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="Assets\explosion.wav">
+      <Filter>Assets</Filter>
+    </Media>
+  </ItemGroup>
+</Project>
