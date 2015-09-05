@@ -9,7 +9,11 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
-#define GAME_WIDTH 16.0f
-#define GAME_HEIGHT 9.0f
+#define CAM_WIDTH 16.0f
+#define CAM_HEIGHT 9.0f
+
+#define GAME_HEIGHT 27.0f
+
+#define GRAVITY -6.0f
 
 #endif /* GAME_CONSTANTS_H */

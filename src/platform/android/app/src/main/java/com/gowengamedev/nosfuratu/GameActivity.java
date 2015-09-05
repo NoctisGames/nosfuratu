@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 public final class GameActivity extends Activity
 {
-    protected GameRenderer _gameRenderer;
+    private GameRenderer _gameRenderer;
     private GLSurfaceView _glSurfaceView;
 
     @Override

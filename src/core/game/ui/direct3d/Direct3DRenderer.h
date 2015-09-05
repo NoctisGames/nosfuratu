@@ -16,7 +16,7 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer();
 
-	virtual void clearScreenWithColor(float r, float g, float b, float a);
+	virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
 
 	virtual void beginFrame();
 

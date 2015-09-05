@@ -12,7 +12,9 @@
 class TextureRegion
 {
 public:
-    TextureRegion(float x, float y, float regionWidth, float regionHeight, float textureWidth, float textureHeight);
+    TextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    
+    void init(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
 	float u1, v1, u2, v2;
 };

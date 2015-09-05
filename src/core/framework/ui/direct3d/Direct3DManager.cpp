@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "Direct3DManager.h"
-#include "GameConstants.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
 #include "DirectXHelper.h"
@@ -22,7 +21,7 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(DX::DeviceResources &deviceResources, float width, float height)
+void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight)
 {
 	initWindowSizeDependentResources(deviceResources, width, height);
 	createBlendState();
@@ -33,13 +32,13 @@ void Direct3DManager::init(DX::DeviceResources &deviceResources, float width, fl
 	createVertexBufferForGeometryBatcher();
 	createIndexBuffer();
 	createConstantBuffer();
-	createMatrix();
+	createMatrix(camWidth, camHeight);
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper());
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
 }
 
-void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, float width, float height)
+void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight)
 {
 	m_d3dDevice = deviceResources.GetD3DDevice();
 	m_d3dContext = deviceResources.GetD3DDeviceContext();
@@ -324,18 +323,18 @@ void Direct3DManager::createConstantBuffer()
 	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
 }
 
-void Direct3DManager::createMatrix()
+void Direct3DManager::createMatrix(float camWidth, float camHeight)
 {
 	using namespace DirectX;
 
 	// calculate the view transformation
-	XMVECTOR vecCamPosition = XMVectorSet(GAME_WIDTH / 2, GAME_HEIGHT / 2, 1, 0);
-	XMVECTOR vecCamLookAt = XMVectorSet(GAME_WIDTH / 2, GAME_HEIGHT / 2, 0, 0);
+	XMVECTOR vecCamPosition = XMVectorSet(camWidth / 2, camHeight / 2, 1, 0);
+	XMVECTOR vecCamLookAt = XMVectorSet(camWidth / 2, camHeight / 2, 0, 0);
 	XMVECTOR vecCamUp = XMVectorSet(0, 1, 0, 0);
 	XMMATRIX matView = XMMatrixLookAtRH(vecCamPosition, vecCamLookAt, vecCamUp);
 
 	// calculate the projection transformation
-	XMMATRIX matProjection = XMMatrixOrthographicRH(GAME_WIDTH, GAME_HEIGHT, -1.0, 1.0);
+	XMMATRIX matProjection = XMMatrixOrthographicRH(camWidth, camHeight, -1.0, 1.0);
 
 	// calculate the final matrix
 	m_matFinal = matView * matProjection;

@@ -20,8 +20,9 @@
 
 //// Texture Size Definitions ////
 
-#define TEXTURE_SIZE_1024x1024 1024
-#define TEXTURE_SIZE_512x512 512
+#define TEXTURE_SIZE_2048 2048
+#define TEXTURE_SIZE_1024 1024
+#define TEXTURE_SIZE_512 512
 
 /// Interface
 

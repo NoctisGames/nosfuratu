@@ -10,16 +10,17 @@
 #define __gowengamedev__PhysicalEntity__
 
 #include "Entity.h"
+#include "Rectangle.h"
+#include "Vector2D.h"
 
 #include <memory>
-
-class Rectangle;
-class Vector2D;
 
 class PhysicalEntity : public Entity
 {
 public:
     PhysicalEntity(float x, float y, float width, float height, float angle);
+    
+    virtual void update(float deltaTime);
 
     virtual void resetBounds(float width, float height);
 
@@ -37,7 +38,7 @@ public:
 
     const float& getHeight();
     
-    virtual float getAngle();
+    float getAngle();
     
 protected:
     std::unique_ptr<Vector2D> m_position;

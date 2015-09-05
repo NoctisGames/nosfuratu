@@ -15,14 +15,14 @@
 class OpenGLESTextureGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    OpenGLESTextureGpuProgramWrapper(TextureProgramStruct textureProgramStruct);
+    OpenGLESTextureGpuProgramWrapper(TextureProgramStruct program);
     
     virtual void bind();
     
     virtual void unbind();
     
 private:
-    TextureProgramStruct m_textureProgram;
+    TextureProgramStruct m_program;
 };
 
 #endif /* defined(__gowengamedev__OpenGLESTextureGpuProgramWrapper__) */

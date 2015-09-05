@@ -15,14 +15,14 @@
 class OpenGLESGeometryGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    OpenGLESGeometryGpuProgramWrapper(ColorProgramStruct colorProgramStruct);
+    OpenGLESGeometryGpuProgramWrapper(ColorProgramStruct program);
     
     virtual void bind();
     
     virtual void unbind();
     
 private:
-    ColorProgramStruct m_colorProgram;
+    ColorProgramStruct m_program;
 };
 
 #endif /* defined(__gowengamedev__OpenGLESGeometryGpuProgramWrapper__) */

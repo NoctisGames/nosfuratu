@@ -7,14 +7,7 @@
 //
 
 #include "GameScreen.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "Renderer.h"
-#include "SpriteBatcher.h"
-#include "Circle.h"
-#include "ResourceConstants.h"
-#include "Rectangle.h"
-#include "Assets.h"
+#include "Jon.h"
 
 GameScreen::GameScreen()
 {
@@ -41,11 +34,13 @@ void GameScreen::init()
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    
+    m_game = std::unique_ptr<Game>(new Game());
 }
 
 void GameScreen::onResume()
 {
-    Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+    //Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
 }
 
 void GameScreen::onPause()
@@ -73,29 +68,29 @@ void GameScreen::update(float deltaTime)
 
 		switch (itr->getTouchType())
 		{
-		case DOWN:
-			// TODO
-			continue;
-		case DRAGGED:
-			// TODO
-			continue;
-		case UP:
-			// TODO
-			Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEMO);
-			return;
+            case DOWN:
+                m_game->getJon().triggerJump();
+                continue;
+            case DRAGGED:
+                // TODO
+                continue;
+            case UP:
+                // TODO
+                return;
 		}
 	}
+    
+    m_game->update(deltaTime);
+    
+    if (m_game->resetGame())
+    {
+        init();
+    }
 }
 
 void GameScreen::render()
 {
-	m_renderer->beginFrame();
-
-	m_renderer->clearScreenWithColor(0, 0, 0, 1);
-    
-    m_renderer->renderBackground();
-    
-    m_renderer->endFrame();
+    m_renderer->render(*m_game);
 }
 
 int GameScreen::getState()
@@ -132,11 +127,11 @@ void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
     addTouchEventForType(type, raw_touch_x, raw_touch_y);
 }
 
-#pragma mark <private>
+#pragma mark private
 
 TouchEvent GameScreen::newTouchEvent()
 {
-    if(m_touchEventsPool.size() == 0)
+    if (m_touchEventsPool.size() == 0)
     {
         return TouchEvent(0, 0, Touch_Type::DOWN);
     }
@@ -144,6 +139,7 @@ TouchEvent GameScreen::newTouchEvent()
     {
         TouchEvent touchEvent = m_touchEventsPool.back();
         m_touchEventsPool.pop_back();
+        
         return touchEvent;
     }
 }

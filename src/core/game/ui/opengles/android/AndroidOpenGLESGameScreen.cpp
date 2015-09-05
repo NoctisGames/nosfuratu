@@ -7,14 +7,6 @@
 //
 
 #include "AndroidOpenGLESGameScreen.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "OpenGLESRenderer.h"
-#include "OpenGLESManager.h"
-#include "GameConstants.h"
-#include "SpriteBatcher.h"
-#include "Rectangle.h"
-#include "Circle.h"
 
 AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen() : OpenGLESGameScreen()
 {
@@ -36,7 +28,7 @@ void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeig
 
 void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-    m_touchPoint->set((touchEvent.getX() / (float) m_iScreenWidth) * GAME_WIDTH, (1 - touchEvent.getY() / (float) m_iScreenHeight) * GAME_HEIGHT);
+    m_touchPoint->set((touchEvent.getX() / (float) m_iScreenWidth) * CAM_WIDTH, (1 - touchEvent.getY() / (float) m_iScreenHeight) * CAM_HEIGHT);
 }
 
 bool AndroidOpenGLESGameScreen::handleOnBackPressed()

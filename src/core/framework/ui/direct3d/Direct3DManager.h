@@ -61,9 +61,9 @@ public:
 
 	static Direct3DManager * getInstance();
 
-	void init(DX::DeviceResources &deviceResources, float width, float height);
+	void init(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight);
 
-	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, float width, float height);
+	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight);
 
 	void cleanUp();
 
@@ -76,7 +76,7 @@ private:
 	void createVertexBufferForGeometryBatcher();
 	void createIndexBuffer();
 	void createConstantBuffer();
-	void createMatrix();
+	void createMatrix(float camWidth, float camHeight);
 
 	std::vector<short> createIndexValues();
 

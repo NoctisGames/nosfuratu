@@ -14,13 +14,29 @@
 #include <vector>
 
 class TextureRegion;
+class Jon;
+class Platform;
+class Carrot;
+class Ground;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    static TextureRegion& getBackground();
+    static TextureRegion& getSky(Jon& jon);
+    
+    static TextureRegion& getBackgroundTrees(Jon& jon);
+    
+    static TextureRegion& getMidgroundTrees(Jon& jon);
+    
+    static TextureRegion& getForeground(Ground& ground);
+    
+    static TextureRegion& getPlatform(Platform& platform);
+    
+    static TextureRegion& getCarrot(Carrot& carrot);
+    
+    static TextureRegion& getJon(Jon& jon);
     
     void setMusicId(short musicId);
     
@@ -40,8 +56,6 @@ private:
     Assets();
     Assets(const Assets&);
     Assets& operator=(const Assets&);
-    
-    static int getKeyFrameNumber(float stateTime, float cycleTime, std::vector<float> &frameDurations);
 };
 
 #endif /* defined(__nosfuratu__Assets__) */

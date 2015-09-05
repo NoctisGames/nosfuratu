@@ -8,25 +8,7 @@
 
 #include "pch.h"
 #include "Direct3DGameScreen.h"
-#include "Vector2D.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "Rectangle.h"
-#include "Assets.h"
-#include "OverlapTester.h"
-#include "Renderer.h"
-#include "Triangle.h"
-#include "Font.h"
 #include "Direct3DRenderer.h"
-#include "GameSound.h"
-#include "SpriteBatcher.h"
-#include "LineBatcher.h"
-#include "RectangleBatcher.h"
-#include "CircleBatcher.h"
-#include "Rectangle.h"
-#include "Circle.h"
-#include "GameConstants.h"
-#include "ResourceConstants.h"
 #include "Direct3DManager.h"
 #include "GameSound.h"
 
@@ -37,7 +19,7 @@ Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : G
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	D3DManager->init(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height);
+	D3DManager->init(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height, CAM_WIDTH, CAM_HEIGHT);
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer());
 
@@ -60,7 +42,7 @@ void Direct3DGameScreen::onScreenSizeChanged(float screenDpWidth, float screenDp
 	m_fScreenDpWidth = screenDpWidth;
 	m_fScreenDpHeight = screenDpHeight;
 
-	D3DManager->initWindowSizeDependentResources(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height);
+	D3DManager->initWindowSizeDependentResources(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height, CAM_WIDTH, CAM_HEIGHT);
 }
 
 void Direct3DGameScreen::handleSound()
@@ -121,7 +103,7 @@ void Direct3DGameScreen::OnDeviceRestored()
 
 void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-	m_touchPoint->set(touchEvent.getX() / m_fScreenDpWidth * GAME_WIDTH, GAME_HEIGHT - (touchEvent.getY() / m_fScreenDpHeight * GAME_HEIGHT));
+	m_touchPoint->set(touchEvent.getX() / m_fScreenDpWidth * CAM_WIDTH, CAM_HEIGHT - (touchEvent.getY() / m_fScreenDpHeight * CAM_HEIGHT));
 }
 
 void Direct3DGameScreen::onResume()

@@ -170,6 +170,6 @@ void DSSpriteBatcher::drawSprite(float x, float y, float width, float height, Co
 
 void DSSpriteBatcher::addQuad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4, float r, float g, float b, float a)
 {
-    QUAD q = {x1, GAME_HEIGHT - y1, x2, GAME_HEIGHT - y2, x3, GAME_HEIGHT - y3, x4, GAME_HEIGHT - y4, u1, v1, u2, v2, u3, v3, u4, v4, r, g, b, a};
+    QUAD q = {x1, CAM_HEIGHT - y1, x2, CAM_HEIGHT - y2, x3, CAM_HEIGHT - y3, x4, CAM_HEIGHT - y4, u1, v1, u2, v2, u3, v3, u4, v4, r, g, b, a};
     m_quads.push_back(q);
 }

@@ -15,7 +15,7 @@
 
 #include <sf2d.h>
 
-#define RECT_LINE_THICKNESS GAME_WIDTH / 800.0f
+#define RECT_LINE_THICKNESS CAM_WIDTH / 800.0f
 
 DSRectangleBatcher::DSRectangleBatcher(gfxScreen_t screen, int screenWidth, int screenHeight, bool isFill) : RectangleBatcher(isFill), m_screen(screen), m_iScreenWidth(screenWidth), m_iScreenHeight(screenHeight)
 {
@@ -68,7 +68,7 @@ void DSRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 
 void DSRectangleBatcher::renderRectangle(float x1, float y1, float x2, float y2, Color &c)
 {
-    RECT r = {x1, GAME_HEIGHT - y1, x2, GAME_HEIGHT - y2, c.red, c.green, c.blue, c.alpha};
+    RECT r = {x1, CAM_HEIGHT - y1, x2, CAM_HEIGHT - y2, c.red, c.green, c.blue, c.alpha};
     m_rects.push_back(r);
 
     m_iNumRectangles++;

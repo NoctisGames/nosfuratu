@@ -22,6 +22,16 @@ PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, floa
     m_fAngle = angle;
 }
 
+void PhysicalEntity::update(float deltaTime)
+{
+    Entity::update(deltaTime);
+    
+    m_velocity->add(m_acceleration->getX() * deltaTime, m_acceleration->getY() * deltaTime);
+    m_position->add(m_velocity->getX() * deltaTime, m_velocity->getY() * deltaTime);
+    
+    updateBounds();
+}
+
 void PhysicalEntity::resetBounds(float width, float height)
 {
     Vector2D &lowerLeft = m_bounds->getLowerLeft();

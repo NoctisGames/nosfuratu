@@ -36,15 +36,25 @@
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */; };
+		BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */; };
+		BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */; };
+		BB3D8CF01B98CD55009D58DE /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3D8CEF1B98CD55009D58DE /* jon.png */; };
+		BB3D8CF31B98CDBF009D58DE /* Jon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CF11B98CDBF009D58DE /* Jon.cpp */; };
+		BB3D8CF81B98D387009D58DE /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CF61B98D387009D58DE /* Animation.cpp */; };
+		BB3D8CFB1B98F96D009D58DE /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CF91B98F96D009D58DE /* Game.cpp */; };
+		BB3D8CFD1B99161E009D58DE /* level_1_background.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3D8CFC1B99161E009D58DE /* level_1_background.png */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
+		BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5C577A19B9F87700AD76E7 /* GameViewController.mm */; };
 		BB7305DB189C598D009F6DF4 /* Music.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7305D7189C598D009F6DF4 /* Music.m */; };
 		BB7305DC189C598D009F6DF4 /* Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7305D9189C598D009F6DF4 /* Sound.m */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
 		BB74E80718C2541F007C223E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB74E80518C2541F007C223E /* Localizable.strings */; };
+		BB7DCF031B9A542A00394A73 /* Platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7DCF011B9A542A00394A73 /* Platform.cpp */; };
+		BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7DCF041B9A5EE000394A73 /* Carrot.cpp */; };
 		BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */; };
-		BBA4C48A1A17277C00AB3878 /* background_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = BBA4C4471A17277B00AB3878 /* background_texture.png */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C51B97B9BB009B4711 /* Entity.cpp */; };
@@ -78,7 +88,7 @@
 		BBEA16A21B97B9BB009B4711 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16391B97B9BB009B4711 /* texture.c */; };
 		BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBEA163B1B97B9BB009B4711 /* texture_shader.fsh */; };
 		BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBEA163C1B97B9BB009B4711 /* texture_shader.vsh */; };
-		BBEA16A51B97B9BB009B4711 /* texture_vert_flip_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBEA163D1B97B9BB009B4711 /* texture_vert_flip_shader.vsh */; };
+		BBEA16A51B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBEA163D1B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh */; };
 		BBEA16A61B97B9BB009B4711 /* TextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA163E1B97B9BB009B4711 /* TextureProgram.cpp */; };
 		BBEA16A71B97B9BB009B4711 /* RectangleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16401B97B9BB009B4711 /* RectangleBatcher.cpp */; };
 		BBEA16A81B97B9BB009B4711 /* SpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16421B97B9BB009B4711 /* SpriteBatcher.cpp */; };
@@ -129,6 +139,19 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB3D8CE81B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFrameBufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBufferToScreenProgram.cpp; sourceTree = "<group>"; };
+		BB3D8CEB1B9891A2009D58DE /* FrameBufferToScreenProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBufferToScreenProgram.h; sourceTree = "<group>"; };
+		BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.fsh; sourceTree = "<group>"; };
+		BB3D8CEF1B98CD55009D58DE /* jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon.png; sourceTree = "<group>"; };
+		BB3D8CF11B98CDBF009D58DE /* Jon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Jon.cpp; sourceTree = "<group>"; };
+		BB3D8CF21B98CDBF009D58DE /* Jon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jon.h; sourceTree = "<group>"; };
+		BB3D8CF61B98D387009D58DE /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		BB3D8CF71B98D387009D58DE /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		BB3D8CF91B98F96D009D58DE /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		BB3D8CFA1B98F96D009D58DE /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		BB3D8CFC1B99161E009D58DE /* level_1_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_1_background.png; sourceTree = "<group>"; };
 		BB430E1E189313C600E4EAE1 /* png.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = png.h; path = ../../3rdparty/libpng/png.h; sourceTree = "<group>"; };
 		BB430E1F189313C600E4EAE1 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngconf.h; path = ../../3rdparty/libpng/pngconf.h; sourceTree = "<group>"; };
 		BB430E20189313C600E4EAE1 /* pngdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngdebug.h; path = ../../3rdparty/libpng/pngdebug.h; sourceTree = "<group>"; };
@@ -137,6 +160,8 @@
 		BB430E23189313C600E4EAE1 /* pngpriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngpriv.h; path = ../../3rdparty/libpng/pngpriv.h; sourceTree = "<group>"; };
 		BB430E24189313C600E4EAE1 /* pngstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngstruct.h; path = ../../3rdparty/libpng/pngstruct.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BB4CB3591B9B3620001093FE /* Ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
+		BB4CB35A1B9B3620001093FE /* Ground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ground.h; sourceTree = "<group>"; };
 		BB5C577919B9F87700AD76E7 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		BB5C577A19B9F87700AD76E7 /* GameViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameViewController.mm; sourceTree = "<group>"; };
 		BB7305D6189C598D009F6DF4 /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Music.h; sourceTree = "<group>"; };
@@ -146,9 +171,12 @@
 		BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BB74E80618C2541F007C223E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BB7DCF011B9A542A00394A73 /* Platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Platform.cpp; sourceTree = "<group>"; };
+		BB7DCF021B9A542A00394A73 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		BB7DCF041B9A5EE000394A73 /* Carrot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carrot.cpp; sourceTree = "<group>"; };
+		BB7DCF051B9A5EE000394A73 /* Carrot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		BB81B1BB19BE1A1800548837 /* GGDDeviceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGDDeviceUtil.h; sourceTree = "<group>"; };
 		BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGDDeviceUtil.m; sourceTree = "<group>"; };
-		BBA4C4471A17277B00AB3878 /* background_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_texture.png; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBEA15C51B97B9BB009B4711 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		BBEA15C61B97B9BB009B4711 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
@@ -258,7 +286,7 @@
 		BBEA163A1B97B9BB009B4711 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
 		BBEA163B1B97B9BB009B4711 /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.fsh; sourceTree = "<group>"; };
 		BBEA163C1B97B9BB009B4711 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.vsh; sourceTree = "<group>"; };
-		BBEA163D1B97B9BB009B4711 /* texture_vert_flip_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_vert_flip_shader.vsh; sourceTree = "<group>"; };
+		BBEA163D1B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.vsh; sourceTree = "<group>"; };
 		BBEA163E1B97B9BB009B4711 /* TextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureProgram.cpp; sourceTree = "<group>"; };
 		BBEA163F1B97B9BB009B4711 /* TextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureProgram.h; sourceTree = "<group>"; };
 		BBEA16401B97B9BB009B4711 /* RectangleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangleBatcher.cpp; sourceTree = "<group>"; };
@@ -430,9 +458,10 @@
 		BBD079F518AA879D00E010AF /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				BBA4C4471A17277B00AB3878 /* background_texture.png */,
 				BBEA16B61B97BBA9009B4711 /* bgm.aifc */,
 				BBEA16B71B97BBA9009B4711 /* explosion.caf */,
+				BB3D8CEF1B98CD55009D58DE /* jon.png */,
+				BB3D8CFC1B99161E009D58DE /* level_1_background.png */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -566,6 +595,8 @@
 			isa = PBXGroup;
 			children = (
 				BBEA15F01B97B9BB009B4711 /* 3ds */,
+				BB3D8CF61B98D387009D58DE /* Animation.cpp */,
+				BB3D8CF71B98D387009D58DE /* Animation.h */,
 				BBEA15F91B97B9BB009B4711 /* CircleBatcher.cpp */,
 				BBEA15FA1B97B9BB009B4711 /* CircleBatcher.h */,
 				BBEA15FB1B97B9BB009B4711 /* Color.h */,
@@ -646,11 +677,17 @@
 				BBEA161F1B97B9BB009B4711 /* color_shader.vsh */,
 				BBEA16201B97B9BB009B4711 /* ColorProgram.cpp */,
 				BBEA16211B97B9BB009B4711 /* ColorProgram.h */,
+				BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */,
+				BBEA163D1B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh */,
+				BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */,
+				BB3D8CEB1B9891A2009D58DE /* FrameBufferToScreenProgram.h */,
 				BBEA16221B97B9BB009B4711 /* image.c */,
 				BBEA16231B97B9BB009B4711 /* image.h */,
 				BBEA16241B97B9BB009B4711 /* linmath.h */,
 				BBEA16251B97B9BB009B4711 /* OpenGLESCircleBatcher.cpp */,
 				BBEA16261B97B9BB009B4711 /* OpenGLESCircleBatcher.h */,
+				BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */,
+				BB3D8CE81B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.h */,
 				BBEA16271B97B9BB009B4711 /* OpenGLESGeometryGpuProgramWrapper.cpp */,
 				BBEA16281B97B9BB009B4711 /* OpenGLESGeometryGpuProgramWrapper.h */,
 				BBEA16291B97B9BB009B4711 /* OpenGLESLineBatcher.cpp */,
@@ -669,11 +706,10 @@
 				BBEA16361B97B9BB009B4711 /* platform_gl.h */,
 				BBEA16371B97B9BB009B4711 /* shader.c */,
 				BBEA16381B97B9BB009B4711 /* shader.h */,
-				BBEA16391B97B9BB009B4711 /* texture.c */,
-				BBEA163A1B97B9BB009B4711 /* texture.h */,
 				BBEA163B1B97B9BB009B4711 /* texture_shader.fsh */,
 				BBEA163C1B97B9BB009B4711 /* texture_shader.vsh */,
-				BBEA163D1B97B9BB009B4711 /* texture_vert_flip_shader.vsh */,
+				BBEA16391B97B9BB009B4711 /* texture.c */,
+				BBEA163A1B97B9BB009B4711 /* texture.h */,
 				BBEA163E1B97B9BB009B4711 /* TextureProgram.cpp */,
 				BBEA163F1B97B9BB009B4711 /* TextureProgram.h */,
 			);
@@ -704,7 +740,17 @@
 		BBEA16521B97B9BB009B4711 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				BB7DCF041B9A5EE000394A73 /* Carrot.cpp */,
+				BB7DCF051B9A5EE000394A73 /* Carrot.h */,
+				BB3D8CF91B98F96D009D58DE /* Game.cpp */,
+				BB3D8CFA1B98F96D009D58DE /* Game.h */,
 				BBEA16531B97B9BB009B4711 /* GameConstants.h */,
+				BB4CB3591B9B3620001093FE /* Ground.cpp */,
+				BB4CB35A1B9B3620001093FE /* Ground.h */,
+				BB3D8CF11B98CDBF009D58DE /* Jon.cpp */,
+				BB3D8CF21B98CDBF009D58DE /* Jon.h */,
+				BB7DCF011B9A542A00394A73 /* Platform.cpp */,
+				BB7DCF021B9A542A00394A73 /* Platform.h */,
 				BBEA16541B97B9BB009B4711 /* ui */,
 			);
 			path = game;
@@ -826,19 +872,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3D8CF01B98CD55009D58DE /* jon.png in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
-				BBEA16A51B97B9BB009B4711 /* texture_vert_flip_shader.vsh in Resources */,
+				BBEA16A51B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh in Resources */,
+				BB3D8CFD1B99161E009D58DE /* level_1_background.png in Resources */,
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BBEA16B91B97BBA9009B4711 /* explosion.caf in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BB74E80718C2541F007C223E /* Localizable.strings in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
-				BBA4C48A1A17277C00AB3878 /* background_texture.png in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
 				BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */,
 				0ADF1898178E2185005DA99E /* MainStoryboard_iPad.storyboard in Resources */,
 				BBEA16B81B97BBA9009B4711 /* bgm.aifc in Resources */,
+				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,6 +906,7 @@
 				0A8FBF8E179E07440039BA29 /* AppDelegate.m in Sources */,
 				BBEA169A1B97B9BB009B4711 /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */,
 				BBEA16761B97B9BB009B4711 /* OverlapTester.cpp in Sources */,
+				BB3D8CF81B98D387009D58DE /* Animation.cpp in Sources */,
 				0A8FBF90179E07440039BA29 /* main.m in Sources */,
 				BBEA16791B97B9BB009B4711 /* Vector2D.cpp in Sources */,
 				0A8FBF7C179E07320039BA29 /* png.c in Sources */,
@@ -868,6 +917,7 @@
 				BBEA16A91B97B9BB009B4711 /* TextureRegion.cpp in Sources */,
 				BBEA16971B97B9BB009B4711 /* ColorProgram.cpp in Sources */,
 				BBEA16AC1B97B9BB009B4711 /* Assets.cpp in Sources */,
+				BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBEA169D1B97B9BB009B4711 /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BBEA16751B97B9BB009B4711 /* Line.cpp in Sources */,
 				0A8FBF7F179E07320039BA29 /* pngmem.c in Sources */,
@@ -877,7 +927,10 @@
 				BBEA16AF1B97B9BB009B4711 /* GameScreen.cpp in Sources */,
 				BBEA169B1B97B9BB009B4711 /* OpenGLESLineBatcher.cpp in Sources */,
 				BBEA16781B97B9BB009B4711 /* Triangle.cpp in Sources */,
+				BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */,
+				BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */,
 				0A8FBF81179E07320039BA29 /* pngread.c in Sources */,
+				BB3D8CF31B98CDBF009D58DE /* Jon.cpp in Sources */,
 				0A8FBF82179E07320039BA29 /* pngrio.c in Sources */,
 				BBEA16B51B97B9BB009B4711 /* Renderer.cpp in Sources */,
 				BBEA16771B97B9BB009B4711 /* Rectangle.cpp in Sources */,
@@ -896,13 +949,16 @@
 				BBEA16701B97B9BB009B4711 /* PhysicalEntity.cpp in Sources */,
 				BBEA16A11B97B9BB009B4711 /* shader.c in Sources */,
 				BBEA16B11B97B9BB009B4711 /* IOS8OpenGLESGameScreen.cpp in Sources */,
+				BB3D8CFB1B98F96D009D58DE /* Game.cpp in Sources */,
 				0A8FBF86179E07320039BA29 /* pngtrans.c in Sources */,
 				BBEA16A01B97B9BB009B4711 /* platform_file_utils.c in Sources */,
 				0A8FBF87179E07320039BA29 /* pngwio.c in Sources */,
 				BBEA16A61B97B9BB009B4711 /* TextureProgram.cpp in Sources */,
 				BBEA16B41B97B9BB009B4711 /* OpenGLESRenderer.cpp in Sources */,
+				BB7DCF031B9A542A00394A73 /* Platform.cpp in Sources */,
 				BBEA16981B97B9BB009B4711 /* image.c in Sources */,
 				BBEA16931B97B9BB009B4711 /* LineBatcher.cpp in Sources */,
+				BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */,
 				BBEA16A21B97B9BB009B4711 /* texture.c in Sources */,
 				BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */,
 				BBEA16B31B97B9BB009B4711 /* OpenGLESGameScreen.cpp in Sources */,
@@ -1019,7 +1075,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stephen Gowen (8S5X8SQ245)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Stephen Gowen (8S5X8SQ245)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
@@ -1045,7 +1101,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = NosFURatu;
-				PROVISIONING_PROFILE = "a19d12c0-669a-417e-ad83-407b979769ce";
+				PROVISIONING_PROFILE = "8b5eed1f-d770-4fe8-89d0-ef758648ad1e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -1059,7 +1115,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Stephen Gowen (83V22B9TY9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stephen Gowen (83V22B9TY9)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
@@ -1084,7 +1140,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = NosFURatu;
-				PROVISIONING_PROFILE = "e77c6cd4-db3c-4482-bbec-7a80dc4407e9";
+				PROVISIONING_PROFILE = "e27a3919-df4f-4edf-bfc2-2cec4a7f7583";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

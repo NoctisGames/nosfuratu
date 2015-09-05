@@ -15,29 +15,44 @@ class SpriteBatcher;
 struct TextureWrapper;
 class PhysicalEntity;
 class TextureRegion;
+class Game;
+class Jon;
+class GpuProgramWrapper;
 
 class Renderer
 {
 public:
     Renderer();
     
-    virtual void clearScreenWithColor(float r, float g, float b, float a) = 0;
-    
-    virtual void beginFrame() = 0;
-    
-    virtual void endFrame() = 0;
-
-	virtual void cleanUp() = 0;
-    
-    void renderBackground();
+    void render(Game& game);
     
 protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     
-    std::unique_ptr<TextureWrapper> m_backgroundTexture;
+    std::unique_ptr<TextureWrapper> m_background;
+    std::unique_ptr<TextureWrapper> m_jon;
+    std::unique_ptr<TextureWrapper> m_framebuffer;
     
-protected:
-	void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
+    virtual void updateMatrix(float left, float right, float bottom, float top) = 0;
+    
+    virtual void bindToOffscreenFramebuffer() = 0;
+    
+    virtual void beginFrame() = 0;
+    
+    virtual void clearFrameBufferWithColor(float r, float g, float b, float a) = 0;
+    
+    virtual void bindToScreenFramebuffer() = 0;
+    
+    virtual void endFrame() = 0;
+    
+    virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
+    
+    virtual void cleanUp() = 0;
+    
+private:
+    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
+    
+    void updateCameraToFollowJon(Jon& jon, bool isBackground);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

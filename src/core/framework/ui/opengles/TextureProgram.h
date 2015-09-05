@@ -28,7 +28,7 @@ typedef struct
 class TextureProgram
 {
 public:
-    static TextureProgramStruct getTextureProgram(GLuint program);
+    static TextureProgramStruct build(GLuint program);
     
 private:
     TextureProgram();

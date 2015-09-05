@@ -13,10 +13,17 @@
 #include <vector>
 
 #include "TouchType.h"
-
-class TouchEvent;
-class Vector2D;
-class Renderer;
+#include "TouchEvent.h"
+#include "Vector2D.h"
+#include "SpriteBatcher.h"
+#include "Rectangle.h"
+#include "Renderer.h"
+#include "Circle.h"
+#include "ResourceConstants.h"
+#include "Assets.h"
+#include "GameConstants.h"
+#include "Game.h"
+#include "Jon.h"
 
 class GameScreen
 {
@@ -48,6 +55,7 @@ public:
 protected:
     std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<Vector2D> m_touchPoint;
+    std::unique_ptr<Game> m_game;
     
 private:
     std::vector<TouchEvent> m_touchEvents;

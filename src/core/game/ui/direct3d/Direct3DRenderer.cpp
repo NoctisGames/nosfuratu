@@ -45,7 +45,7 @@ Direct3DRenderer::Direct3DRenderer() : Renderer()
 	m_backgroundTexture = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_backgroundShaderResourceView));
 }
 
-void Direct3DRenderer::clearScreenWithColor(float r, float g, float b, float a)
+void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
 {
 	float color[] = { r, g, b, a };
 
@@ -64,7 +64,7 @@ void Direct3DRenderer::endFrame()
 
 	m_spriteBatcher->beginBatch();
 
-	static PhysicalEntity go = PhysicalEntity(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0);
+	static PhysicalEntity go = PhysicalEntity(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0);
 
 	static TextureRegion screenTr = TextureRegion(0, 0, 1, 1, 1, 1);
 	renderPhysicalEntity(go, screenTr);

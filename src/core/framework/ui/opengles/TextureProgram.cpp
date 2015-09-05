@@ -8,7 +8,7 @@
 
 #include "TextureProgram.h"
 
-TextureProgramStruct TextureProgram::getTextureProgram(GLuint program)
+TextureProgramStruct TextureProgram::build(GLuint program)
 {
     return (TextureProgramStruct)
     {

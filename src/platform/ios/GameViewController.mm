@@ -170,7 +170,10 @@ static bool isRunningiOS8 = false;
     switch (musicId)
     {
         case MUSIC_STOP:
-            [self.bgm stop];
+            if (self.bgm)
+            {
+                [self.bgm stop];
+            }
             break;
         case MUSIC_PLAY_DEMO:
             self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
@@ -180,7 +183,7 @@ static bool isRunningiOS8 = false;
             break;
     }
     
-    if(loadedNewTrack)
+    if (loadedNewTrack)
     {
         [self.bgm setLooping:true];
         [self.bgm setVolume:1.0f];

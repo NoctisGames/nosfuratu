@@ -8,10 +8,15 @@
 
 #include "TextureRegion.h"
 
-TextureRegion::TextureRegion(float x, float y, float regionWidth, float regionHeight, float textureWidth, float textureHeight)
+TextureRegion::TextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight)
 {
-	u1 = x / textureWidth;
-    v1 = y / textureHeight;
-    u2 = u1 + regionWidth / textureWidth;
-    v2 = v1 + regionHeight / textureHeight;
+    init(x, y, regionWidth, regionHeight, textureWidth, textureHeight);
+}
+
+void TextureRegion::init(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight)
+{
+    u1 = x / (float) textureWidth;
+    v1 = y / (float) textureHeight;
+    u2 = u1 + regionWidth / (float) textureWidth;
+    v2 = v1 + regionHeight / (float) textureHeight;
 }

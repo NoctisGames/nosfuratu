@@ -10,6 +10,8 @@
 #define __nosfuratu__OpenGLESGameScreen__
 
 #include "GameScreen.h"
+#include "OpenGLESRenderer.h"
+#include "OpenGLESManager.h"
 
 class OpenGLESRenderer;
 

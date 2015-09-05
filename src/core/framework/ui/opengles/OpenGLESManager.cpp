@@ -9,6 +9,10 @@
 #include "OpenGLESManager.h"
 #include "OpenGLESTextureGpuProgramWrapper.h"
 #include "OpenGLESGeometryGpuProgramWrapper.h"
+#include "OpenGLESFrameBufferToScreenGpuProgramWrapper.h"
+#include "ColorProgram.h"
+#include "TextureProgram.h"
+#include "FrameBufferToScreenProgram.h"
 #include "macros.h"
 
 extern "C"
@@ -23,7 +27,7 @@ OpenGLESManager * OpenGLESManager::getInstance()
     return openGLESManager;
 }
 
-void OpenGLESManager::init(int width, int height, float gameWidth, float gameHeight)
+void OpenGLESManager::init(int width, int height, float camWidth, float camHeight)
 {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
     
@@ -33,9 +37,22 @@ void OpenGLESManager::init(int width, int height, float gameWidth, float gameHei
     buildShaderPrograms();
     generateIndices();
     
-    createMatrix(gameWidth, gameHeight);
-    
     createFrameBufferObject(width, height);
+}
+
+void OpenGLESManager::createMatrix(float left, float right, float bottom, float top)
+{
+    vec3 eye = { 0, 0, 1 };
+    vec3 center = { 0, 0, 0 };
+    vec3 up = { 0, 1, 0 };
+    
+    mat4x4 projectionMatrix;
+    mat4x4 viewMatrix;
+    
+    mat4x4_ortho(projectionMatrix, left, right, bottom, top, -1, 1);
+    mat4x4_look_at(viewMatrix, eye, center, up);
+    
+    mat4x4_mul(m_viewProjectionMatrix, projectionMatrix, viewMatrix);
 }
 
 void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat u, GLfloat v)
@@ -66,12 +83,12 @@ void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLflo
 
 void OpenGLESManager::buildShaderPrograms()
 {
-    TextureProgramStruct textureProgramStruct = TextureProgram::getTextureProgram(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
-    TextureProgramStruct textureVertFlipProgramStruct  = TextureProgram::getTextureProgram(build_program_from_assets("texture_vert_flip_shader.vsh", "texture_shader.fsh"));
-    ColorProgramStruct colorProgramStruct = ColorProgram::getColorProgram(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
+    TextureProgramStruct textureProgramStruct = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
+    FrameBufferToScreenProgramStruct frameBufferToScreenProgramStruct  = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
+    ColorProgramStruct colorProgramStruct = ColorProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
     
     m_textureProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper(textureProgramStruct));
-    m_textureVertFlipProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper(textureVertFlipProgramStruct));
+    m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper(frameBufferToScreenProgramStruct));
     m_colorProgram = std::unique_ptr<OpenGLESGeometryGpuProgramWrapper>(new OpenGLESGeometryGpuProgramWrapper(colorProgramStruct));
 }
 
@@ -89,18 +106,6 @@ void OpenGLESManager::generateIndices()
         m_indices.push_back(j + 3);
         m_indices.push_back(j + 0);
     }
-}
-
-void OpenGLESManager::createMatrix(float gameWidth, float gameHeight)
-{
-    vec3 eye = { 0, 0, 1 };
-    vec3 center = { 0, 0, 0 };
-    vec3 up = { 0, 1, 0 };
-    
-    mat4x4_ortho(m_projectionMatrix, 0, gameWidth, 0, gameHeight, -1, 1);
-    mat4x4_look_at(m_viewMatrix, eye, center, up);
-    
-    mat4x4_mul(m_viewProjectionMatrix, m_projectionMatrix, m_viewMatrix);
 }
 
 void OpenGLESManager::createFrameBufferObject(int width, int height)

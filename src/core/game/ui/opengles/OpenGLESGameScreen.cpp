@@ -7,14 +7,6 @@
 //
 
 #include "OpenGLESGameScreen.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "OpenGLESRenderer.h"
-#include "OpenGLESManager.h"
-#include "GameConstants.h"
-#include "SpriteBatcher.h"
-#include "Rectangle.h"
-#include "Circle.h"
 
 OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
 {
@@ -23,7 +15,7 @@ OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
 
 void OpenGLESGameScreen::initGraphics(int screenWidth, int screenHeight)
 {
-    OGLESManager->init(screenWidth, screenHeight, GAME_WIDTH, GAME_HEIGHT);
+    OGLESManager->init(screenWidth, screenHeight, CAM_WIDTH, CAM_HEIGHT);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
 }

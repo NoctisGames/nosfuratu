@@ -26,7 +26,7 @@ typedef struct
 class ColorProgram
 {
 public:
-    static ColorProgramStruct getColorProgram(GLuint program);
+    static ColorProgramStruct build(GLuint program);
     
 private:
     ColorProgram();

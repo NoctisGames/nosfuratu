@@ -16,6 +16,8 @@
 #include "TextureRegion.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
+#include "Game.h"
+#include "Jon.h"
 
 extern "C"
 {
@@ -27,45 +29,54 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
 {
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     
-    m_backgroundTexture = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("background_texture.png")));
+    m_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("level_1_background.png")));
+    m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("jon.png")));
+    m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
 }
 
-void OpenGLESRenderer::clearScreenWithColor(float r, float g, float b, float a)
+void OpenGLESRenderer::updateMatrix(float left, float right, float bottom, float top)
 {
-    glClearColor(r, g, b, a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    OGLESManager->createMatrix(left, right, bottom, top);
+}
+
+void OpenGLESRenderer::bindToOffscreenFramebuffer()
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->fbo);
 }
 
 void OpenGLESRenderer::beginFrame()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->fbo);
-    
     glEnable(GL_TEXTURE_2D);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void OpenGLESRenderer::endFrame()
+void OpenGLESRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
+{
+    glClearColor(r, g, b, a);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
+void OpenGLESRenderer::bindToScreenFramebuffer()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_screenFBO);
-    
-    m_spriteBatcher->beginBatch();
-    
-    static PhysicalEntity go = PhysicalEntity(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0);
-    
-    static TextureRegion screenTr = TextureRegion(0, 0, 1, 1, 1, 1);
-    renderPhysicalEntity(go, screenTr);
-    
-    TextureWrapper tw = TextureWrapper(OGLESManager->fbo_texture);
-    m_spriteBatcher->endBatch(tw, *OGLESManager->m_textureVertFlipProgram);
-    
+}
+
+void OpenGLESRenderer::endFrame()
+{
     glDisable(GL_BLEND);
     
     glDisable(GL_TEXTURE_2D);
 }
 
+GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
+{
+    return *OGLESManager->m_fbToScreenProgram;
+}
+
 void OpenGLESRenderer::cleanUp()
 {
-    // TODO
+    glDeleteTextures(1, &m_background->texture);
+    glDeleteTextures(1, &m_jon->texture);
 }

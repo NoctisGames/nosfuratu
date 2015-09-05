@@ -21,9 +21,6 @@ extern "C"
 #include "linmath.h"
 }
 
-#include "ColorProgram.h"
-#include "TextureProgram.h"
-
 #include <memory>
 #include <vector>
 
@@ -38,7 +35,7 @@ public:
     std::vector<GLshort> m_indices;
     
     std::unique_ptr<GpuProgramWrapper> m_textureProgram;
-    std::unique_ptr<GpuProgramWrapper> m_textureVertFlipProgram;
+    std::unique_ptr<GpuProgramWrapper> m_fbToScreenProgram;
     std::unique_ptr<GpuProgramWrapper> m_colorProgram;
     
     GLuint sb_vbo_object; // For Sprite Batcher
@@ -48,13 +45,13 @@ public:
     
     GLint m_screenFBO;
     
-    mat4x4 m_viewMatrix;
-    mat4x4 m_projectionMatrix;
     mat4x4 m_viewProjectionMatrix;
     
     static OpenGLESManager * getInstance();
     
-    void init(int width, int height, float gameWidth, float gameHeight);
+    void init(int width, int height, float camWidth, float camHeight);
+    
+    void createMatrix(float left, float right, float bottom, float top);
     
     // Called by Batchers
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat u, GLfloat v);
@@ -63,7 +60,6 @@ public:
 private:
     void buildShaderPrograms();
     void generateIndices();
-    void createMatrix(float gameWidth, float gameHeight);
     void createFrameBufferObject(int width, int height);
     
     // ctor, copy ctor, and assignment should be private in a Singleton

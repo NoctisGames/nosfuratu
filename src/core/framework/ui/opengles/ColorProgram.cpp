@@ -8,7 +8,7 @@
 
 #include "ColorProgram.h"
 
-ColorProgramStruct ColorProgram::getColorProgram(GLuint program)
+ColorProgramStruct ColorProgram::build(GLuint program)
 {
     return (ColorProgramStruct)
     {

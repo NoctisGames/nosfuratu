@@ -7,14 +7,6 @@
 //
 
 #include "IOS8OpenGLESGameScreen.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "OpenGLESRenderer.h"
-#include "OpenGLESManager.h"
-#include "GameConstants.h"
-#include "SpriteBatcher.h"
-#include "Rectangle.h"
-#include "Circle.h"
 
 IOS8OpenGLESGameScreen::IOS8OpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : IOSOpenGLESGameScreen(screenWidth, screenHeight, pointsWidth, pointsHeight)
 {
@@ -23,5 +15,5 @@ IOS8OpenGLESGameScreen::IOS8OpenGLESGameScreen(int screenWidth, int screenHeight
 
 void IOS8OpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * GAME_WIDTH, (1 - touchEvent.getY() / (float) m_iPointsHeight) * GAME_HEIGHT);
+    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * CAM_WIDTH, (1 - touchEvent.getY() / (float) m_iPointsHeight) * CAM_HEIGHT);
 }

@@ -7,14 +7,6 @@
 //
 
 #include "IOSOpenGLESGameScreen.h"
-#include "TouchEvent.h"
-#include "Vector2D.h"
-#include "OpenGLESRenderer.h"
-#include "OpenGLESManager.h"
-#include "GameConstants.h"
-#include "SpriteBatcher.h"
-#include "Rectangle.h"
-#include "Circle.h"
 
 IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen()
 {
@@ -26,5 +18,5 @@ IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, 
 
 void IOSOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * GAME_WIDTH, (((float)m_iPointsHeight - touchEvent.getY()) / (float) m_iPointsHeight) * GAME_HEIGHT);
+    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * CAM_WIDTH, (((float)m_iPointsHeight - touchEvent.getY()) / (float) m_iPointsHeight) * CAM_HEIGHT);
 }

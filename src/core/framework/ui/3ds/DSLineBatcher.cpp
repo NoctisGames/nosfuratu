@@ -15,7 +15,7 @@
 
 #include <sf2d.h>
 
-#define LINE_THICKNESS GAME_WIDTH / 1000.0f
+#define LINE_THICKNESS CAM_WIDTH / 1000.0f
 
 DSLineBatcher::DSLineBatcher(gfxScreen_t screen, int screenWidth, int screenHeight) : m_screen(screen), m_iScreenWidth(screenWidth), m_iScreenHeight(screenHeight)
 {
@@ -48,7 +48,7 @@ void DSLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 
 void DSLineBatcher::renderLine(float originX, float originY, float endX, float endY, Color &c)
 {
-    LINE l = {originX, GAME_HEIGHT - originY, endX, GAME_HEIGHT - endY, c.red, c.green, c.blue, c.alpha};
+    LINE l = {originX, CAM_HEIGHT - originY, endX, CAM_HEIGHT - endY, c.red, c.green, c.blue, c.alpha};
     m_lines.push_back(l);
 
     m_iNumLines++;

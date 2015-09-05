@@ -77,7 +77,7 @@ void DSCircleBatcher::renderCircle(float x, float y, float radius, Color &c, Gpu
 
 void DSCircleBatcher::addVertex(float x, float y, float r, float g, float b, float a)
 {
-    sf2d_vector_3f vertex = (sf2d_vector_3f){x, GAME_HEIGHT - y, SF2D_DEFAULT_DEPTH};
+    sf2d_vector_3f vertex = (sf2d_vector_3f){x, CAM_HEIGHT - y, SF2D_DEFAULT_DEPTH};
     sf2d_vector_4f color = (sf2d_vector_4f){r, g, b, a};
     sf2d_vertex_pos_col v = (sf2d_vertex_pos_col){vertex, color};
     m_vertices.push_back(v);
