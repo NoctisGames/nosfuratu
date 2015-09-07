@@ -31,9 +31,6 @@ protected:
 	virtual void drawSprite(float x, float y, float width, float height, TextureRegion tr);
 
 	virtual void drawSprite(float x, float y, float width, float height, Color &color, TextureRegion tr);
-
-private:
-    void addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v);
 };
 
 #endif /* defined(__gowengamedev__Direct3DSpriteBatcher__) */

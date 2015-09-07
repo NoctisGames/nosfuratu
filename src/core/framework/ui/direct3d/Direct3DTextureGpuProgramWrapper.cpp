@@ -12,7 +12,7 @@
 
 Direct3DTextureGpuProgramWrapper::Direct3DTextureGpuProgramWrapper()
 {
-	m_matFinal = D3DManager->m_matFinal;
+	// Empty
 }
 
 void Direct3DTextureGpuProgramWrapper::bind()
@@ -26,7 +26,7 @@ void Direct3DTextureGpuProgramWrapper::bind()
 	D3DManager->m_d3dContext->VSSetConstantBuffers(0, 1, &D3DManager->m_matrixConstantbuffer);
 
 	// send the final matrix to video memory
-	D3DManager->m_d3dContext->UpdateSubresource(D3DManager->m_matrixConstantbuffer, 0, 0, &m_matFinal, 0, 0);
+	D3DManager->m_d3dContext->UpdateSubresource(D3DManager->m_matrixConstantbuffer, 0, 0, &D3DManager->m_matFinal, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));

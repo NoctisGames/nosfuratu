@@ -14,8 +14,6 @@
 class Direct3DTextureGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-	DirectX::XMMATRIX m_matFinal;
-
 	Direct3DTextureGpuProgramWrapper();
 
 	virtual void bind();

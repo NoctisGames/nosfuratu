@@ -23,6 +23,7 @@
 
 class Direct3DTextureGpuProgramWrapper;
 class Direct3DGeometryGpuProgramWrapper;
+class Direct3DFrameBufferToScreenGpuProgramWrapper;
 
 class Direct3DManager
 {
@@ -58,12 +59,19 @@ public:
 
 	std::unique_ptr<Direct3DTextureGpuProgramWrapper> m_textureProgram;
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
+	std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
 
 	static Direct3DManager * getInstance();
 
-	void init(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight);
+	void init(DX::DeviceResources &deviceResources, int width, int height);
 
-	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight);
+	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height);
+
+	void createMatrix(float left, float right, float bottom, float top);
+
+	// Called by Batchers
+	void addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v); 
+	void addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a);
 
 	void cleanUp();
 
@@ -76,7 +84,6 @@ private:
 	void createVertexBufferForGeometryBatcher();
 	void createIndexBuffer();
 	void createConstantBuffer();
-	void createMatrix(float camWidth, float camHeight);
 
 	std::vector<short> createIndexValues();
 

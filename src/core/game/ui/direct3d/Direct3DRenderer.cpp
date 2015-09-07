@@ -36,13 +36,29 @@
 using namespace DirectX;
 
 ID3D11ShaderResourceView *m_backgroundShaderResourceView;
+ID3D11ShaderResourceView *m_jonShaderResourceView;
 
 Direct3DRenderer::Direct3DRenderer() : Renderer()
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher());
 
-	loadTexture(L"Assets\\background_texture.dds", &m_backgroundShaderResourceView);
-	m_backgroundTexture = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_backgroundShaderResourceView));
+	loadTexture(L"Assets\\level_1_background.dds", &m_backgroundShaderResourceView);
+	m_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_backgroundShaderResourceView));
+
+	loadTexture(L"Assets\\jon.dds", &m_jonShaderResourceView);
+	m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_jonShaderResourceView));
+
+	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
+}
+
+void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
+{
+	D3DManager->createMatrix(left, right, bottom, top);
+}
+
+void Direct3DRenderer::bindToOffscreenFramebuffer()
+{
+	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
@@ -53,6 +69,11 @@ void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, floa
 	D3DManager->m_d3dContext->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetView, color);
 }
 
+void Direct3DRenderer::bindToScreenFramebuffer()
+{
+	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_renderTargetView, nullptr);
+}
+
 void Direct3DRenderer::beginFrame()
 {
 	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
@@ -60,23 +81,18 @@ void Direct3DRenderer::beginFrame()
 
 void Direct3DRenderer::endFrame()
 {
-	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_renderTargetView, nullptr);
+	// Empty
+}
 
-	m_spriteBatcher->beginBatch();
-
-	static PhysicalEntity go = PhysicalEntity(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0);
-
-	static TextureRegion screenTr = TextureRegion(0, 0, 1, 1, 1, 1);
-	renderPhysicalEntity(go, screenTr);
-
-	TextureWrapper tw = TextureWrapper(D3DManager->m_offscreenShaderResourceView);
-
-	m_spriteBatcher->endBatch(tw);
+GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
+{
+	return *OGLESManager->m_fbToScreenProgram;
 }
 
 void Direct3DRenderer::cleanUp()
 {
 	m_backgroundShaderResourceView->Release();
+	m_jonShaderResourceView->Release();
 }
 
 #pragma mark private

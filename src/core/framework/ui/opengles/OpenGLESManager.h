@@ -35,8 +35,8 @@ public:
     std::vector<GLshort> m_indices;
     
     std::unique_ptr<GpuProgramWrapper> m_textureProgram;
-    std::unique_ptr<GpuProgramWrapper> m_fbToScreenProgram;
     std::unique_ptr<GpuProgramWrapper> m_colorProgram;
+	std::unique_ptr<GpuProgramWrapper> m_fbToScreenProgram;
     
     GLuint sb_vbo_object; // For Sprite Batcher
     GLuint gb_vbo_object; // For Geometry Batcher
@@ -49,7 +49,7 @@ public:
     
     static OpenGLESManager * getInstance();
     
-    void init(int width, int height, float camWidth, float camHeight);
+    void init(int width, int height);
     
     void createMatrix(float left, float right, float bottom, float top);
     

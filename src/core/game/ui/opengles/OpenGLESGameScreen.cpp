@@ -15,7 +15,7 @@ OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
 
 void OpenGLESGameScreen::initGraphics(int screenWidth, int screenHeight)
 {
-    OGLESManager->init(screenWidth, screenHeight, CAM_WIDTH, CAM_HEIGHT);
+    OGLESManager->init(screenWidth, screenHeight);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
 }

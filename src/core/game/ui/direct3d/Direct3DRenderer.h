@@ -16,11 +16,19 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer();
 
-	virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
+	virtual void updateMatrix(float left, float right, float bottom, float top);
+
+	virtual void bindToOffscreenFramebuffer();
 
 	virtual void beginFrame();
 
+	virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
+
+	virtual void bindToScreenFramebuffer();
+
 	virtual void endFrame();
+
+	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
 
 	virtual void cleanUp();
 

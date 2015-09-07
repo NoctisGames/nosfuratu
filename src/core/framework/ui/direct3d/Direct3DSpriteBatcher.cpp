@@ -86,10 +86,10 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 		x4 += x;
 		y4 += y;
 
-		addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
-		addVertexCoordinate(x4, y4, 0, 1, 1, 1, 1, tr.u1, tr.v1);
-		addVertexCoordinate(x3, y3, 0, 1, 1, 1, 1, tr.u2, tr.v1);
-		addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v2);
+		D3DManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
+		D3DManager->addVertexCoordinate(x4, y4, 0, 1, 1, 1, 1, tr.u1, tr.v1);
+		D3DManager->addVertexCoordinate(x3, y3, 0, 1, 1, 1, 1, tr.u2, tr.v1);
+		D3DManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v2);
 	}
 	else
 	{
@@ -134,10 +134,10 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 		x4 += x;
 		y4 += y;
 
-		addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v2);
-		addVertexCoordinate(x4, y4, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v1);
-		addVertexCoordinate(x3, y3, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v1);
-		addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v2);
+		D3DManager->addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v2);
+		D3DManager->addVertexCoordinate(x4, y4, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v1);
+		D3DManager->addVertexCoordinate(x3, y3, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v1);
+		D3DManager->addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v2);
 	}
 	else
 	{
@@ -158,10 +158,10 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 	float x2 = x + halfWidth;
 	float y2 = y + halfHeight;
 
-	addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
-	addVertexCoordinate(x1, y2, 0, 1, 1, 1, 1, tr.u1, tr.v1);
-	addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v1);
-	addVertexCoordinate(x2, y1, 0, 1, 1, 1, 1, tr.u2, tr.v2);
+	D3DManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
+	D3DManager->addVertexCoordinate(x1, y2, 0, 1, 1, 1, 1, tr.u1, tr.v1);
+	D3DManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v1);
+	D3DManager->addVertexCoordinate(x2, y1, 0, 1, 1, 1, 1, tr.u2, tr.v2);
 }
 
 void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float height, Color &color, TextureRegion tr)
@@ -173,14 +173,8 @@ void Direct3DSpriteBatcher::drawSprite(float x, float y, float width, float heig
 	float x2 = x + halfWidth;
 	float y2 = y + halfHeight;
 
-	addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v2);
-	addVertexCoordinate(x1, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v1);
-	addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v1);
-	addVertexCoordinate(x2, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v2);
-}
-
-void Direct3DSpriteBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
-{
-	TEXTURE_VERTEX tv = { x, y, z, r, g, b, a, u, v };
-	D3DManager->m_textureVertices.push_back(tv);
+	D3DManager->addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v2);
+	D3DManager->addVertexCoordinate(x1, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u1, tr.v1);
+	D3DManager->addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v1);
+	D3DManager->addVertexCoordinate(x2, y1, 0, color.red, color.green, color.blue, color.alpha, tr.u2, tr.v2);
 }

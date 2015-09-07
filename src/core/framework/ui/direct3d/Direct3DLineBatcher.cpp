@@ -51,14 +51,8 @@ void Direct3DLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 
 void Direct3DLineBatcher::renderLine(float originX, float originY, float endX, float endY, Color &color)
 {
-	addVertexCoordinate(originX, originY, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
-	addVertexCoordinate(endX, endY, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
+	D3DManager->addVertexCoordinate(originX, originY, 0, color.red, color.green, color.blue, color.alpha);
+	D3DManager->addVertexCoordinate(endX, endY, 0, color.red, color.green, color.blue, color.alpha);
 
 	m_iNumLines++;
-}
-
-void Direct3DLineBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
-{
-	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	D3DManager->m_colorVertices.push_back(cv);
 }

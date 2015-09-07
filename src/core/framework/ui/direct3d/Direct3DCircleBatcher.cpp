@@ -45,9 +45,9 @@ void Direct3DCircleBatcher::renderCircle(Circle &circle, Color &c, GpuProgramWra
 		float cos = cosf(rad);
 		float sin = sinf(rad);
 
-		addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+		addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 
-		addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+		addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 	}
 
 	endBatch(gpuProgramWrapper);
@@ -64,18 +64,18 @@ void Direct3DCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
 		float cos = cosf(rad);
 		float sin = sinf(rad);
 
-		addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+		addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 
-		addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+		addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 	}
 
 	float rad = DEGREES_TO_RADIANS(450 - arcDegrees);
 	float cos = cosf(rad);
 	float sin = sinf(rad);
 
-	addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+	addVertexCoordinate(cos * circle.m_fRadius + circle.getCenter().getX(), sin * circle.m_fRadius + circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 
-	addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha, 0, 0);
+	addVertexCoordinate(circle.getCenter().getX(), circle.getCenter().getY(), 0, c.red, c.green, c.blue, c.alpha);
 
 	endBatch(gpuProgramWrapper);
 }
@@ -92,10 +92,9 @@ void Direct3DCircleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 	gpuProgramWrapper.unbind();
 }
 
-void Direct3DCircleBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
+void Direct3DCircleBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a)
 {
-	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	D3DManager->m_colorVertices.push_back(cv);
+	D3DManager->addVertexCoordinate(x, y, z, r, g, b, a);
 
 	m_iNumPoints++;
 }

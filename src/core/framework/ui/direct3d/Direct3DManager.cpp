@@ -10,6 +10,7 @@
 #include "Direct3DManager.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
+#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
 #include "DirectXHelper.h"
 
 using namespace DirectX;
@@ -21,7 +22,7 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight)
+void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height)
 {
 	initWindowSizeDependentResources(deviceResources, width, height);
 	createBlendState();
@@ -32,13 +33,13 @@ void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int 
 	createVertexBufferForGeometryBatcher();
 	createIndexBuffer();
 	createConstantBuffer();
-	createMatrix(camWidth, camHeight);
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper());
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
+	m_fbToScreenProgram = std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper>(new Direct3DFrameBufferToScreenGpuProgramWrapper());
 }
 
-void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height, float camWidth, float camHeight)
+void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height)
 {
 	m_d3dDevice = deviceResources.GetD3DDevice();
 	m_d3dContext = deviceResources.GetD3DDeviceContext();
@@ -82,6 +83,35 @@ void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &devi
 
 	// Create the shader resource view.
 	DX::ThrowIfFailed(m_d3dDevice->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+}
+
+void Direct3DManager::createMatrix(float left, float right, float bottom, float top)
+{
+	using namespace DirectX;
+
+	// calculate the view transformation
+	XMVECTOR eye = XMVectorSet(0, 0, 1, 0);
+	XMVECTOR center = XMVectorSet(0, 0, 0, 0);
+	XMVECTOR up = XMVectorSet(0, 1, 0, 0);
+
+	// calculate the projection transformation
+	XMMATRIX matProjection = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0);
+	XMMATRIX matView = XMMatrixLookAtRH(eye, center, up);
+
+	// calculate the final matrix
+	m_matFinal = matProjection * matView;
+}
+
+void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
+{
+	TEXTURE_VERTEX tv = { x, y, z, r, g, b, a, u, v };
+	D3DManager->m_textureVertices.push_back(tv);
+}
+
+void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a)
+{
+	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
+	D3DManager->m_colorVertices.push_back(cv);
 }
 
 void Direct3DManager::cleanUp()
@@ -131,7 +161,7 @@ void Direct3DManager::createSamplerState()
 	D3D11_SAMPLER_DESC sd;
 	sd.Filter = D3D11_FILTER_ANISOTROPIC;
 	sd.MaxAnisotropy = 16;
-	sd.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	sd.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
 	sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 	sd.BorderColor[0] = 0.0f;
@@ -321,23 +351,6 @@ void Direct3DManager::createConstantBuffer()
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
 	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
-}
-
-void Direct3DManager::createMatrix(float camWidth, float camHeight)
-{
-	using namespace DirectX;
-
-	// calculate the view transformation
-	XMVECTOR vecCamPosition = XMVectorSet(camWidth / 2, camHeight / 2, 1, 0);
-	XMVECTOR vecCamLookAt = XMVectorSet(camWidth / 2, camHeight / 2, 0, 0);
-	XMVECTOR vecCamUp = XMVectorSet(0, 1, 0, 0);
-	XMMATRIX matView = XMMatrixLookAtRH(vecCamPosition, vecCamLookAt, vecCamUp);
-
-	// calculate the projection transformation
-	XMMATRIX matProjection = XMMatrixOrthographicRH(camWidth, camHeight, -1.0, 1.0);
-
-	// calculate the final matrix
-	m_matFinal = matView * matProjection;
 }
 
 std::vector<short> Direct3DManager::createIndexValues()

@@ -27,7 +27,7 @@ OpenGLESManager * OpenGLESManager::getInstance()
     return openGLESManager;
 }
 
-void OpenGLESManager::init(int width, int height, float camWidth, float camHeight)
+void OpenGLESManager::init(int width, int height)
 {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
     
@@ -84,12 +84,12 @@ void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLflo
 void OpenGLESManager::buildShaderPrograms()
 {
     TextureProgramStruct textureProgramStruct = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
-    FrameBufferToScreenProgramStruct frameBufferToScreenProgramStruct  = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
     ColorProgramStruct colorProgramStruct = ColorProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
+	FrameBufferToScreenProgramStruct frameBufferToScreenProgramStruct = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
     
     m_textureProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper(textureProgramStruct));
-    m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper(frameBufferToScreenProgramStruct));
     m_colorProgram = std::unique_ptr<OpenGLESGeometryGpuProgramWrapper>(new OpenGLESGeometryGpuProgramWrapper(colorProgramStruct));
+	m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper(frameBufferToScreenProgramStruct));
 }
 
 void OpenGLESManager::generateIndices()

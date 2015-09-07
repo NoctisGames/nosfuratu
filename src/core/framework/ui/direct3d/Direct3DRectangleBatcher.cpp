@@ -59,16 +59,10 @@ void Direct3DRectangleBatcher::renderRectangle(Rectangle &rectangle, Color &colo
 
 void Direct3DRectangleBatcher::renderRectangle(float x1, float y1, float x2, float y2, Color &color)
 {
-	addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
-	addVertexCoordinate(x1, y2, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
-	addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
-	addVertexCoordinate(x2, y1, 0, color.red, color.green, color.blue, color.alpha, 0, 0);
+	D3DManager->addVertexCoordinate(x1, y1, 0, color.red, color.green, color.blue, color.alpha);
+	D3DManager->addVertexCoordinate(x1, y2, 0, color.red, color.green, color.blue, color.alpha);
+	D3DManager->addVertexCoordinate(x2, y2, 0, color.red, color.green, color.blue, color.alpha);
+	D3DManager->addVertexCoordinate(x2, y1, 0, color.red, color.green, color.blue, color.alpha);
 
 	m_iNumRectangles++;
-}
-
-void Direct3DRectangleBatcher::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
-{
-	COLOR_VERTEX cv = { x, y, z, r, g, b, a };
-	D3DManager->m_colorVertices.push_back(cv);
 }
