@@ -30,32 +30,7 @@ void Jon::update(float deltaTime, Game& game)
         m_isDead = true;
     }
     
-    m_isGrounded = false;
-    
-    for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
-    {
-        if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
-        {
-            m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
-            m_isGrounded = true;
-            
-            updateBounds();
-        }
-    }
-    
-    for (std::vector<Platform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
-    {
-        if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
-        {
-            if (m_bounds->getLowerLeft().getY() > (*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() / 2)
-            {
-                m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
-                m_isGrounded = true;
-                
-                updateBounds();
-            }
-        }
-    }
+    m_isGrounded = isGrounded(game);
     
     for (std::vector<Carrot>::iterator itr = game.getCarrots().begin(); itr != game.getCarrots().end(); )
     {
@@ -74,6 +49,7 @@ void Jon::update(float deltaTime, Game& game)
     
     if (m_isGrounded)
     {
+        updateBounds();
         m_acceleration->setX(8);
         m_acceleration->setY(0);
         m_velocity->setY(0);
@@ -85,7 +61,7 @@ void Jon::update(float deltaTime, Game& game)
         m_iNumJumps = 1;
     }
     
-    if (m_isSpeedBoost && m_fStateTime > 1)
+    if (m_isSpeedBoost && m_fStateTime > 2)
     {
         m_isSpeedBoost = false;
     }
@@ -129,4 +105,32 @@ void Jon::jump()
     m_iNumJumps++;
     
     m_fStateTime = 0;
+}
+
+bool Jon::isGrounded(Game& game)
+{
+    for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
+    {
+        if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
+        {
+            m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
+            
+            return true;
+        }
+    }
+    
+    for (std::vector<Platform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
+    {
+        if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
+        {
+            if (m_bounds->getLowerLeft().getY() > (*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() / 2)
+            {
+                m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }

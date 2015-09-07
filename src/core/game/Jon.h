@@ -35,6 +35,8 @@ private:
     bool m_isDead;
     
     void jump();
+    
+    bool isGrounded(Game& game);
 };
 
 #endif /* defined(__nosfuratu__Jon__) */

@@ -18,9 +18,9 @@ Game::Game() : m_resetGame(false)
     for(int i = 0; i < 200; i += 5)
     {
         m_platforms->push_back(Platform(CAM_WIDTH * (i + 1), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 1) + 3, 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 1) + 6, 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 1) + 9, 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(Platform(CAM_WIDTH * (i + 2), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(Platform(CAM_WIDTH * (i + 3), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(Platform(CAM_WIDTH * (i + 4), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
         m_platforms->push_back(Platform(CAM_WIDTH * (i + 5), 8.86776145203123f + 8, 3.70612244897958f, 1.6f));
     }
     
@@ -35,6 +35,14 @@ Game::Game() : m_resetGame(false)
     m_grounds = std::unique_ptr<std::vector<Ground>>(new std::vector<Ground>);
     
     for(int i = 0; i < 12; i += 4)
+    {
+        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 1), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 0));
+        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 2), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 1));
+        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 3), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 2));
+        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 4), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 3));
+    }
+    
+    for(int i = 12; i < 20; i += 4)
     {
         m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 1), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 0));
         m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 2), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 1));
