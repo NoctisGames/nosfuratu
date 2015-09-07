@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __nosfuratu__Animation__
-#define __nosfuratu__Animation__
+#ifndef __gowengamedev__Animation__
+#define __gowengamedev__Animation__
 
 #include <vector>
 
@@ -37,4 +37,4 @@ private:
     int getKeyFrameNumber(float stateTime);
 };
 
-#endif /* defined(__nosfuratu__Animation__) */
+#endif /* defined(__gowengamedev__Animation__) */

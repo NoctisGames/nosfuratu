@@ -15,7 +15,7 @@
 
 class TextureRegion;
 class Jon;
-class Platform;
+class GamePlatform;
 class Carrot;
 class Ground;
 
@@ -32,7 +32,7 @@ public:
     
     static TextureRegion& getForeground(Ground& ground);
     
-    static TextureRegion& getPlatform(Platform& platform);
+    static TextureRegion& getPlatform(GamePlatform& platform);
     
     static TextureRegion& getCarrot(Carrot& carrot);
     

@@ -220,7 +220,7 @@ void DirectXPage::Update()
 	// Update scene objects.
 	m_timer.Tick([&]()
 	{
-		m_gameScreen->update(0);
+		m_gameScreen->update(m_timer.GetElapsedSeconds());
 	});
 }
 

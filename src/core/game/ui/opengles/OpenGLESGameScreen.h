@@ -22,10 +22,6 @@ public:
     
 protected:
     void initGraphics(int screenWidth, int screenHeight);
-    
-    virtual void platformResume();
-    
-    virtual void platformPause();
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */

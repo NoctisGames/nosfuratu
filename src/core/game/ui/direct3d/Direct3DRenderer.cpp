@@ -29,6 +29,7 @@
 #include "DirectXTex.h"
 #include "DirectXHelper.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
+#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
 
 #include <string>
 #include <sstream>
@@ -48,7 +49,7 @@ Direct3DRenderer::Direct3DRenderer() : Renderer()
 	loadTexture(L"Assets\\jon.dds", &m_jonShaderResourceView);
 	m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_jonShaderResourceView));
 
-	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
+	//m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -59,6 +60,7 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 void Direct3DRenderer::bindToOffscreenFramebuffer()
 {
 	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
+	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
@@ -86,7 +88,7 @@ void Direct3DRenderer::endFrame()
 
 GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 {
-	return *OGLESManager->m_fbToScreenProgram;
+	return *D3DManager->m_fbToScreenProgram;
 }
 
 void Direct3DRenderer::cleanUp()

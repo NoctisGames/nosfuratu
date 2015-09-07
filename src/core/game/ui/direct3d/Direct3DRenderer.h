@@ -16,6 +16,9 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer();
 
+	virtual void cleanUp();
+
+protected:
 	virtual void updateMatrix(float left, float right, float bottom, float top);
 
 	virtual void bindToOffscreenFramebuffer();
@@ -29,8 +32,6 @@ public:
 	virtual void endFrame();
 
 	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
-
-	virtual void cleanUp();
 
 private:
 	void loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView);

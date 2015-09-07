@@ -17,7 +17,7 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Ground.h"
-#include "Platform.h"
+#include "GamePlatform.h"
 #include "Carrot.h"
 #include "Jon.h"
 
@@ -59,7 +59,7 @@ void Renderer::render(Game& game)
         renderPhysicalEntity(*itr, Assets::getForeground(*itr));
     }
     
-    for (std::vector<Platform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
+    for (std::vector<GamePlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
     {
         renderPhysicalEntity(*itr, Assets::getPlatform(*itr));
     }

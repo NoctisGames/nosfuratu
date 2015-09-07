@@ -195,7 +195,15 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="Assets\background_texture.dds">
+    <Image Include="Assets\jon.dds">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Assets\level_1_background.dds">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
@@ -228,10 +236,12 @@
     <ClInclude Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.h" />
     <ClInclude Include="..\..\..\..\core\framework\state\State.h" />
     <ClInclude Include="..\..\..\..\core\framework\state\StateMachine.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Animation.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\CircleBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\Color.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.h" />
@@ -252,7 +262,12 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
+    <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\Ground.h" />
+    <ClInclude Include="..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="..\..\..\..\core\game\GamePlatform.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
@@ -281,13 +296,14 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\GameSound.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Animation.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
-    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
@@ -300,6 +316,11 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GamePlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
@@ -328,6 +349,22 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Vertex</ShaderType>

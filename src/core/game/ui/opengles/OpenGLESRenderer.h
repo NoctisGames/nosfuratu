@@ -15,7 +15,10 @@ class OpenGLESRenderer : public Renderer
 {
 public:
     OpenGLESRenderer();
-    
+
+	virtual void cleanUp();
+
+protected:
     virtual void updateMatrix(float left, float right, float bottom, float top);
     
     virtual void bindToOffscreenFramebuffer();
@@ -29,8 +32,6 @@ public:
     virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
-    
-    virtual void cleanUp();
 };
 
 #endif /* defined(__nosfuratu__OpenGLESRenderer__) */

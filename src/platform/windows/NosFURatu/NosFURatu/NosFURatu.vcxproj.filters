@@ -50,7 +50,6 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
-    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
@@ -68,6 +67,13 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Animation.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GamePlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -119,12 +125,22 @@
     <ClInclude Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
+    <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\Game.h" />
+    <ClInclude Include="..\..\..\..\core\game\Ground.h" />
+    <ClInclude Include="..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Animation.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\GamePlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\background_texture.dds">
+    <Image Include="Assets\jon.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\level_1_background.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -142,6 +158,8 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\bgm.wav">

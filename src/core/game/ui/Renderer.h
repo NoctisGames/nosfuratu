@@ -25,6 +25,8 @@ public:
     Renderer();
     
     void render(Game& game);
+
+	virtual void cleanUp() = 0;
     
 protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
@@ -46,8 +48,6 @@ protected:
     virtual void endFrame() = 0;
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
-    
-    virtual void cleanUp() = 0;
     
 private:
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);

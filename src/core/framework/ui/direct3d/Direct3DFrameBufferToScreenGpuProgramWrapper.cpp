@@ -18,11 +18,13 @@ Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProg
 
 void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
 {
-	D3DManager->m_d3dContext->IASetInputLayout(D3DManager->m_sbInputLayout);
+	D3DManager->m_d3dContext->OMSetBlendState(D3DManager->m_screenBlendState, 0, 0xffffffff);
+
+	D3DManager->m_d3dContext->IASetInputLayout(D3DManager->m_fbInputLayout);
 
 	// set the shader objects as the active shaders
-	D3DManager->m_d3dContext->VSSetShader(D3DManager->m_sbVertexShader, nullptr, 0);
-	D3DManager->m_d3dContext->PSSetShader(D3DManager->m_sbPixelShader, nullptr, 0);
+	D3DManager->m_d3dContext->VSSetShader(D3DManager->m_fbVertexShader, nullptr, 0);
+	D3DManager->m_d3dContext->PSSetShader(D3DManager->m_fbPixelShader, nullptr, 0);
 
 	D3DManager->m_d3dContext->VSSetConstantBuffers(0, 1, &D3DManager->m_matrixConstantbuffer);
 

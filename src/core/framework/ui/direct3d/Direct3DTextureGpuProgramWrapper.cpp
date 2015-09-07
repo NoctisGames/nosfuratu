@@ -17,6 +17,8 @@ Direct3DTextureGpuProgramWrapper::Direct3DTextureGpuProgramWrapper()
 
 void Direct3DTextureGpuProgramWrapper::bind()
 {
+	D3DManager->m_d3dContext->OMSetBlendState(D3DManager->m_blendState, 0, 0xffffffff);
+
 	D3DManager->m_d3dContext->IASetInputLayout(D3DManager->m_sbInputLayout);
 
 	// set the shader objects as the active shaders

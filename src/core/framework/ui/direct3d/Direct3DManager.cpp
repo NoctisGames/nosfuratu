@@ -89,17 +89,14 @@ void Direct3DManager::createMatrix(float left, float right, float bottom, float 
 {
 	using namespace DirectX;
 
-	// calculate the view transformation
 	XMVECTOR eye = XMVectorSet(0, 0, 1, 0);
 	XMVECTOR center = XMVectorSet(0, 0, 0, 0);
 	XMVECTOR up = XMVectorSet(0, 1, 0, 0);
 
-	// calculate the projection transformation
 	XMMATRIX matProjection = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0);
 	XMMATRIX matView = XMMatrixLookAtRH(eye, center, up);
 
-	// calculate the final matrix
-	m_matFinal = matProjection * matView;
+	m_matFinal = matView * matProjection;
 }
 
 void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
@@ -127,6 +124,9 @@ void Direct3DManager::cleanUp()
 	m_sbVertexShader->Release();
 	m_sbPixelShader->Release();
 	m_sbInputLayout->Release();
+	m_fbVertexShader->Release();
+	m_fbPixelShader->Release();
+	m_fbInputLayout->Release();
 	m_sbVertexBuffer->Release();
 	m_gbVertexShader->Release();
 	m_gbPixelShader->Release();
@@ -139,21 +139,37 @@ void Direct3DManager::cleanUp()
 
 void Direct3DManager::createBlendState()
 {
-	D3D11_BLEND_DESC bd;
-	bd.RenderTarget[0].BlendEnable = TRUE;
-	bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	bd.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	bd.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	bd.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	bd.IndependentBlendEnable = FALSE;
-	bd.AlphaToCoverageEnable = FALSE;
+	{
+		D3D11_BLEND_DESC bd;
+		bd.RenderTarget[0].BlendEnable = TRUE;
+		bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		bd.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		bd.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		bd.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		bd.IndependentBlendEnable = FALSE;
+		bd.AlphaToCoverageEnable = FALSE;
 
-	m_d3dDevice->CreateBlendState(&bd, &m_blendState);
+		m_d3dDevice->CreateBlendState(&bd, &m_blendState);
+	}
 
-	m_d3dContext->OMSetBlendState(m_blendState, 0, 0xffffffff);
+	{
+		D3D11_BLEND_DESC bd;
+		bd.RenderTarget[0].BlendEnable = TRUE;
+		bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		bd.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		bd.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		bd.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		bd.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		bd.IndependentBlendEnable = FALSE;
+		bd.AlphaToCoverageEnable = FALSE;
+
+		m_d3dDevice->CreateBlendState(&bd, &m_screenBlendState);
+	}
 }
 
 void Direct3DManager::createSamplerState()
@@ -180,50 +196,99 @@ void Direct3DManager::createSamplerState()
 
 void Direct3DManager::createInputLayoutForSpriteBatcher()
 {
-	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"TexturePixelShader.cso");
+	{
+		// Load shaders asynchronously.
+		auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
+		auto loadPSTask = DX::ReadDataAsync(L"TexturePixelShader.cso");
 
-	// After the vertex shader file is loaded, create the shader and input layout.
-	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreateVertexShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_sbVertexShader
-				)
-			);
+		// After the vertex shader file is loaded, create the shader and input layout.
+		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreateVertexShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_sbVertexShader
+					)
+				);
 
-		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-		};
+			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			};
 
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreateInputLayout(
-				vertexDesc,
-				ARRAYSIZE(vertexDesc),
-				&fileData[0],
-				fileData.size(),
-				&m_sbInputLayout
-				)
-			);
-	});
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreateInputLayout(
+					vertexDesc,
+					ARRAYSIZE(vertexDesc),
+					&fileData[0],
+					fileData.size(),
+					&m_sbInputLayout
+					)
+				);
+		});
 
-	// After the pixel shader file is loaded, create the shader
-	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreatePixelShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_sbPixelShader
-				)
-			);
-	});
+		// After the pixel shader file is loaded, create the shader
+		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_sbPixelShader
+					)
+				);
+		});
+	}
+
+	{
+		// Load shaders asynchronously.
+		auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
+		auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
+
+		// After the vertex shader file is loaded, create the shader and input layout.
+		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreateVertexShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_fbVertexShader
+					)
+				);
+
+			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			};
+
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreateInputLayout(
+					vertexDesc,
+					ARRAYSIZE(vertexDesc),
+					&fileData[0],
+					fileData.size(),
+					&m_fbInputLayout
+					)
+				);
+		});
+
+		// After the pixel shader file is loaded, create the shader
+		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_fbPixelShader
+					)
+				);
+		});
+	}
 }
 
 void Direct3DManager::createInputLayoutForGeometryBatcher()

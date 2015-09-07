@@ -36,6 +36,7 @@ public:
 	ID3D11ShaderResourceView *m_offscreenShaderResourceView; // this is needed for the screen pixel shader
 	ID3D11RenderTargetView *m_renderTargetView; // the render target interface
 	ID3D11BlendState *m_blendState; // the blend state interface
+	ID3D11BlendState *m_screenBlendState; // the blend state interface, but for rendering to the screen
 	ID3D11Buffer *m_matrixConstantbuffer; // the matrix constant buffer interface
 	ID3D11Buffer *m_indexbuffer; // the index buffer interface
 
@@ -46,6 +47,11 @@ public:
 	ID3D11InputLayout *m_sbInputLayout; // the input layout interface
 	ID3D11Buffer *m_sbVertexBuffer; // the vertex buffer interface
 	std::vector<TEXTURE_VERTEX> m_textureVertices;
+
+	// Also used in SpriteBatcher, but only for rendering the offscreen render target texture to the screen
+	ID3D11VertexShader *m_fbVertexShader; // the vertex shader interface
+	ID3D11PixelShader *m_fbPixelShader; // the pixel shader interface
+	ID3D11InputLayout *m_fbInputLayout; // the input layout interface
 
 	// Used in RectangleBatcher, LineBatcher, and CircleBatcher (Geometry)
 	ID3D11VertexShader *m_gbVertexShader; // the vertex shader interface

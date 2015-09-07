@@ -14,7 +14,7 @@
 #include "ResourceConstants.h"
 #include "GameConstants.h"
 #include "Jon.h"
-#include "Platform.h"
+#include "GamePlatform.h"
 #include "Carrot.h"
 #include "Ground.h"
 
@@ -55,7 +55,7 @@ TextureRegion& Assets::getForeground(Ground& ground)
     return groundParts.getTextureRegion(ground.getGroundType());
 }
 
-TextureRegion& Assets::getPlatform(Platform& platform)
+TextureRegion& Assets::getPlatform(GamePlatform& platform)
 {
     static TextureRegion tr = TextureRegion(4, 1404, 227, 98, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;

@@ -13,15 +13,15 @@ Game::Game() : m_resetGame(false)
 {
     m_jon = std::unique_ptr<Jon>(new Jon(CAM_WIDTH / 5, 8.86776145203123f + 1.2f, 2.4f, 2.4f));
     
-    m_platforms = std::unique_ptr<std::vector<Platform>>(new std::vector<Platform>);
+    m_platforms = std::unique_ptr<std::vector<GamePlatform>>(new std::vector<GamePlatform>);
     
     for(int i = 0; i < 200; i += 5)
     {
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 1), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 2), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 3), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 4), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(Platform(CAM_WIDTH * (i + 5), 8.86776145203123f + 8, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 1), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 2), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 3), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 4), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
+        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 5), 8.86776145203123f + 8, 3.70612244897958f, 1.6f));
     }
     
     m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
@@ -66,7 +66,7 @@ Jon& Game::getJon()
     return *m_jon;
 }
 
-std::vector<Platform>& Game::getPlatforms()
+std::vector<GamePlatform>& Game::getPlatforms()
 {
     return *m_platforms;
 }

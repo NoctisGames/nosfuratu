@@ -29,6 +29,7 @@ public:
     bool isDead();
     
 private:
+	float m_fSpeedBoostTime;
     int m_iNumJumps;
     bool m_isGrounded;
     bool m_isSpeedBoost;
