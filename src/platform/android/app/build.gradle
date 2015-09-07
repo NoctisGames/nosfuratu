@@ -11,7 +11,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1.001"
+        versionName "0.1.002"
     }
     buildTypes {
         release {
@@ -40,6 +40,17 @@ android {
     }
 
     clean.dependsOn cleanNative
+
+    task copyFiles(type: Copy)
+
+    copyFiles {
+        description = 'Copies textures from root assets into project assets'
+        from '../../../../assets'
+        into 'src/main/assets'
+        include('*.png')
+    }
+
+    preBuild.dependsOn(copyFiles)
 }
 
 dependencies {
