@@ -14,6 +14,8 @@
 
 #define GAME_HEIGHT 27.0f
 
-#define GRAVITY -6.0f
+#define GRAVITY -9.0f
+
+#define JON_DEFAULT_MAX_VELOCITY 8.0f
 
 #endif /* GAME_CONSTANTS_H */

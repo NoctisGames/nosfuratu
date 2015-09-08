@@ -20,6 +20,8 @@ public:
     
     Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames);
     
+    TextureRegion& getTextureRegion(float stateTime, float scalar);
+    
     TextureRegion& getTextureRegion(float stateTime);
     
     TextureRegion& getTextureRegion(int keyFrameNumber);

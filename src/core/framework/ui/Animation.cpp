@@ -39,6 +39,13 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
     }
 }
 
+TextureRegion& Animation::getTextureRegion(float stateTime, float scalar)
+{
+    int keyFrameNumber = getKeyFrameNumber(stateTime * scalar);
+    
+    return getTextureRegion(keyFrameNumber);
+}
+
 TextureRegion& Animation::getTextureRegion(float stateTime)
 {
     int keyFrameNumber = getKeyFrameNumber(stateTime);

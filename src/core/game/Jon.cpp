@@ -18,7 +18,7 @@ Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, wid
 {
 	resetBounds(width * 0.6796875f, height * 0.8203125f);
 
-	m_acceleration->setX(8);
+	m_acceleration->setX(JON_DEFAULT_MAX_VELOCITY);
 }
 
 void Jon::update(float deltaTime, Game& game)
@@ -50,7 +50,7 @@ void Jon::update(float deltaTime, Game& game)
 	if (m_isGrounded)
 	{
 		updateBounds();
-		m_acceleration->setX(8);
+		m_acceleration->setX(JON_DEFAULT_MAX_VELOCITY);
 		m_acceleration->setY(0);
 		m_velocity->setY(0);
 		m_iNumJumps = 0;
@@ -74,7 +74,7 @@ void Jon::update(float deltaTime, Game& game)
 
 	if (!m_isSpeedBoost && m_velocity->getX() > 8)
 	{
-		m_velocity->setX(8);
+		m_velocity->setX(JON_DEFAULT_MAX_VELOCITY);
 	}
 }
 
@@ -106,7 +106,7 @@ bool Jon::isDead()
 void Jon::jump()
 {
 	m_acceleration->setY(GRAVITY);
-	m_velocity->setY(8 - m_iNumJumps * 2);
+	m_velocity->setY(9 - m_iNumJumps * 3);
 
 	m_iNumJumps++;
 

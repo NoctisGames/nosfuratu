@@ -69,12 +69,13 @@ TextureRegion& Assets::getCarrot(Carrot& carrot)
 
 TextureRegion& Assets::getJon(Jon &jon)
 {
-    static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 10);
-    static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.1f, 8);
-    static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
+    static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
+    static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 8);
+    static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 9);
     static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 2);
     
-    return jon.isFalling() ? jonFallingAnim.getTextureRegion(jon.getStateTime()) : jon.getNumJumps() == 2 ? jonDoubleJumpingAnim.getTextureRegion(jon.getStateTime()) : jon.getNumJumps() == 1 ? jonJumpingAnim.getTextureRegion(jon.getStateTime()) : jonRunningAnim.getTextureRegion(jon.getStateTime());
+    float scalar = jon.getVelocity().getX() /  JON_DEFAULT_MAX_VELOCITY;
+    return jon.isFalling() ? jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar) : jon.getNumJumps() == 2 ? jonDoubleJumpingAnim.getTextureRegion(jon.getStateTime(), scalar) : jon.getNumJumps() == 1 ? jonJumpingAnim.getTextureRegion(jon.getStateTime(), scalar) : jonRunningAnim.getTextureRegion(jon.getStateTime(), scalar);
 }
 
 void Assets::setMusicId(short musicId)
