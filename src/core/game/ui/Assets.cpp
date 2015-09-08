@@ -74,7 +74,7 @@ TextureRegion& Assets::getJon(Jon &jon)
     static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 9);
     static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 2);
     
-    float scalar = jon.getVelocity().getX() /  JON_DEFAULT_MAX_VELOCITY;
+    float scalar = JON_DEFAULT_MAX_VELOCITY / jon.getVelocity().getX();
     return jon.isFalling() ? jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar) : jon.getNumJumps() == 2 ? jonDoubleJumpingAnim.getTextureRegion(jon.getStateTime(), scalar) : jon.getNumJumps() == 1 ? jonJumpingAnim.getTextureRegion(jon.getStateTime(), scalar) : jonRunningAnim.getTextureRegion(jon.getStateTime(), scalar);
 }
 
