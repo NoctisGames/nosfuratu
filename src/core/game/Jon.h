@@ -29,6 +29,8 @@ public:
     bool isDead();
     
 private:
+	float m_fMaxSpeed;
+	float m_fAccelerationX;
 	float m_fSpeedBoostTime;
     int m_iNumJumps;
     bool m_isGrounded;

@@ -100,17 +100,31 @@ void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
 
 void Renderer::updateCameraToFollowJon(Jon& jon, bool isBackground)
 {
-    static float defaultY = 8.86776145203123f;
+    static float middleLayerBottomY = 8.86776145203123f;
+	static float middleLayerTopY = middleLayerBottomY + CAM_HEIGHT - jon.getHeight() - jon.getHeight() / 2;
+	static float skyLayerBottomY = middleLayerTopY + jon.getHeight();
     
     float x = jon.getPosition().getX() - CAM_WIDTH / 5;
     float y = jon.getPosition().getY() - 1.2f;
-    if(y < 15 && y >= defaultY)
+	float top = 0;
+	if (y < middleLayerBottomY)
+	{
+		top = y + CAM_HEIGHT;
+		top = top > GAME_HEIGHT ? GAME_HEIGHT : top;
+		y = top - CAM_HEIGHT;
+	}
+    else if (y <= middleLayerTopY)
     {
-        y = defaultY;
+        y = middleLayerBottomY;
+		top = y + CAM_HEIGHT;
+		top = top > GAME_HEIGHT ? GAME_HEIGHT : top;
+		y = top - CAM_HEIGHT;
     }
-    float top = y + CAM_HEIGHT;
-    top = top > GAME_HEIGHT ? GAME_HEIGHT : top;
-    y = top - CAM_HEIGHT;
+	else if (y > middleLayerTopY)
+	{
+		top = jon.getPosition().getY() + jon.getHeight();
+		y = top - CAM_HEIGHT;
+	}
     
     x = isBackground ? 0 : x;
     

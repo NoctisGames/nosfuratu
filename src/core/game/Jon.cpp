@@ -14,11 +14,15 @@
 #include "OverlapTester.h"
 #include "GamePlatform.h"
 
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height, 0), m_fSpeedBoostTime(0.0f), m_iNumJumps(0), m_isGrounded(false), m_isSpeedBoost(false), m_isDead(false)
+#define JON_DEFAULT_ACCELERATION_SPEED_BOOST 32
+#define JON_DEFAULT_ACCELERATION 8
+#define JON_MAX_SPEED_WITH_BOOST JON_DEFAULT_MAX_SPEED * 2
+
+Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height, 0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fSpeedBoostTime(0.0f), m_iNumJumps(0), m_isGrounded(false), m_isSpeedBoost(false), m_isDead(false)
 {
 	resetBounds(width * 0.6796875f, height * 0.8203125f);
 
-	m_acceleration->setX(JON_DEFAULT_MAX_VELOCITY);
+	m_acceleration->setX(m_fAccelerationX);
 }
 
 void Jon::update(float deltaTime, Game& game)
@@ -37,7 +41,9 @@ void Jon::update(float deltaTime, Game& game)
 		if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
 		{
 			itr = game.getCarrots().erase(itr);
-			m_velocity->setX(m_velocity->getX() + 2);
+			m_fMaxSpeed = JON_MAX_SPEED_WITH_BOOST;
+			m_fAccelerationX = JON_DEFAULT_ACCELERATION_SPEED_BOOST;
+			m_acceleration->setX(m_fAccelerationX);
 			m_fSpeedBoostTime = 0;
 			m_isSpeedBoost = true;
 		}
@@ -50,7 +56,7 @@ void Jon::update(float deltaTime, Game& game)
 	if (m_isGrounded)
 	{
 		updateBounds();
-		m_acceleration->setX(JON_DEFAULT_MAX_VELOCITY);
+		m_acceleration->setX(m_fAccelerationX);
 		m_acceleration->setY(0);
 		m_velocity->setY(0);
 		m_iNumJumps = 0;
@@ -65,16 +71,19 @@ void Jon::update(float deltaTime, Game& game)
 	{
 		m_fSpeedBoostTime += deltaTime;
 
-		if (m_fSpeedBoostTime > 2)
+		if (m_fSpeedBoostTime > 3)
 		{
 			m_isSpeedBoost = false;
 			m_fSpeedBoostTime = 0;
+			m_fMaxSpeed = JON_DEFAULT_MAX_SPEED;
+			m_fAccelerationX = JON_DEFAULT_ACCELERATION;
+			m_acceleration->setX(m_fAccelerationX);
 		}
 	}
 
-	if (!m_isSpeedBoost && m_velocity->getX() > 8)
+	if (m_velocity->getX() > m_fMaxSpeed)
 	{
-		m_velocity->setX(JON_DEFAULT_MAX_VELOCITY);
+		m_velocity->setX(m_fMaxSpeed);
 	}
 }
 
