@@ -18,13 +18,16 @@ class TextureRegion;
 class Game;
 class Jon;
 class GpuProgramWrapper;
+class Vector2D;
 
 class Renderer
 {
 public:
     Renderer();
     
-    void render(Game& game);
+    void render(Game& game, float deltaTime);
+    
+    void reset();
 
 	virtual void cleanUp() = 0;
     
@@ -32,6 +35,7 @@ protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     
     std::unique_ptr<TextureWrapper> m_background;
+    std::unique_ptr<TextureWrapper> m_trees;
     std::unique_ptr<TextureWrapper> m_jon;
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
@@ -50,9 +54,11 @@ protected:
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
     
 private:
+    std::unique_ptr<Vector2D> m_camPos;
+    
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
     
-    void updateCameraToFollowJon(Jon& jon, bool isBackground);
+    void updateCameraToFollowJon(Jon& jon, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

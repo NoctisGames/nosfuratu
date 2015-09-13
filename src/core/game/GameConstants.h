@@ -16,6 +16,6 @@
 
 #define GRAVITY -9.0f
 
-#define JON_DEFAULT_MAX_SPEED 8.0f
+#define JON_DEFAULT_MAX_SPEED 7.0f
 
 #endif /* GAME_CONSTANTS_H */

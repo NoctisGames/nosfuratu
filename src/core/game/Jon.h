@@ -24,6 +24,8 @@ public:
     
     int getNumJumps();
     
+    bool isGrounded();
+    
     bool isFalling();
     
     bool isDead();
@@ -39,7 +41,7 @@ private:
     
     void jump();
     
-    bool isGrounded(Game& game);
+    bool testGrounded(Game& game);
 };
 
 #endif /* defined(__nosfuratu__Jon__) */

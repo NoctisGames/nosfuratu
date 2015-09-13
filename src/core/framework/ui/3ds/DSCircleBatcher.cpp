@@ -12,7 +12,7 @@
 #include "macros.h"
 #include "Circle.h"
 #include "Vector2D.h"
-#include "math.h"
+#include <math.h>
 #include "GameConstants.h"
 #include "DummyGpuProgramWrapper.h"
 

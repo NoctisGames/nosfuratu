@@ -12,7 +12,7 @@
 #include "TextureRegion.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
-#include "math.h"
+#include <math.h>
 #include "DummyGpuProgramWrapper.h"
 
 #include <sf2d.h>

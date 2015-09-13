@@ -13,6 +13,7 @@
 #include "Rectangle.h"
 #include "ResourceConstants.h"
 #include "GameConstants.h"
+#include "Tree.h"
 #include "Jon.h"
 #include "GamePlatform.h"
 #include "Carrot.h"
@@ -30,6 +31,7 @@ TextureRegion& Assets::getSky(Jon& jon)
     float y = GAME_HEIGHT - jon.getPosition().getY();
     y /= GAME_HEIGHT;
     y *= 169;
+    y =  y < 0 ? 0 : y;
     tr.init(jon.getPosition().getX() * 8, y, 686, 600, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
@@ -41,11 +43,30 @@ TextureRegion& Assets::getBackgroundTrees(Jon& jon)
     return tr;
 }
 
-TextureRegion& Assets::getMidgroundTrees(Jon& jon)
+TextureRegion& Assets::getMidgroundBushes(Jon& jon)
 {
     static TextureRegion tr = TextureRegion(0, 1292, 686, 97, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     tr.init(jon.getPosition().getX() * 32, 1292, 686, 97, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
+}
+
+TextureRegion& Assets::getMidgroundTree(Tree& tree)
+{
+    static TextureRegion tree1 = TextureRegion(0, 0, 448, 418, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tree2 = TextureRegion(452, 0, 251, 330, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tree3 = TextureRegion(706, 0, 317, 389, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    switch (tree.getTreeType())
+    {
+        case 0:
+            return tree1;
+        case 1:
+            return tree2;
+        case 2:
+            return tree3;
+        default:
+            return tree3;
+    }
 }
 
 TextureRegion& Assets::getForeground(Ground& ground)
@@ -70,8 +91,8 @@ TextureRegion& Assets::getCarrot(Carrot& carrot)
 TextureRegion& Assets::getJon(Jon &jon)
 {
     static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
-    static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 8);
-    static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 9);
+    static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.12f, 8);
+    static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 9);
     static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 2);
     
     float scalar = JON_DEFAULT_MAX_SPEED / jon.getVelocity().getX();

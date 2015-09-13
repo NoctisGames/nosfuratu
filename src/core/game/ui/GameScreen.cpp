@@ -9,7 +9,7 @@
 #include "GameScreen.h"
 #include "Jon.h"
 
-GameScreen::GameScreen()
+GameScreen::GameScreen() : m_fDeltaTime(0.0f)
 {
     init();
 }
@@ -36,6 +36,11 @@ void GameScreen::init()
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     
     m_game = std::unique_ptr<Game>(new Game());
+    
+    if (m_renderer)
+    {
+        m_renderer->reset();
+    }
 }
 
 void GameScreen::onResume()
@@ -50,6 +55,8 @@ void GameScreen::onPause()
 
 void GameScreen::update(float deltaTime)
 {
+    m_fDeltaTime = deltaTime;
+    
     for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
     {
         if(m_touchEventsPool.size() < 50)
@@ -90,7 +97,7 @@ void GameScreen::update(float deltaTime)
 
 void GameScreen::render()
 {
-    m_renderer->render(*m_game);
+    m_renderer->render(*m_game, m_fDeltaTime);
 }
 
 int GameScreen::getState()

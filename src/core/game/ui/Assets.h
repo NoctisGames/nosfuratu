@@ -15,6 +15,7 @@
 
 class TextureRegion;
 class Jon;
+class Tree;
 class GamePlatform;
 class Carrot;
 class Ground;
@@ -28,7 +29,9 @@ public:
     
     static TextureRegion& getBackgroundTrees(Jon& jon);
     
-    static TextureRegion& getMidgroundTrees(Jon& jon);
+    static TextureRegion& getMidgroundBushes(Jon& jon);
+    
+    static TextureRegion& getMidgroundTree(Tree& tree);
     
     static TextureRegion& getForeground(Ground& ground);
     
