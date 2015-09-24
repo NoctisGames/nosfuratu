@@ -10,13 +10,14 @@
 #define __nosfuratu__Jon__
 
 #include "PhysicalEntity.h"
+#include "EntityAnchor.h"
 
 class Game;
 
 class Jon : public PhysicalEntity
 {
 public:
-    Jon(float x, float y, float width, float height);
+    Jon(float x, float y, float width, float height, EntityAnchor anchor = ANCHOR_NONE);
     
     virtual void update(float deltaTime, Game& game);
     
@@ -28,20 +29,19 @@ public:
     
     bool isFalling();
     
+    bool isLanding();
+    
     bool isDead();
     
 private:
 	float m_fMaxSpeed;
 	float m_fAccelerationX;
-	float m_fSpeedBoostTime;
     int m_iNumJumps;
     bool m_isGrounded;
-    bool m_isSpeedBoost;
+    bool m_isLanding;
     bool m_isDead;
     
     void jump();
-    
-    bool testGrounded(Game& game);
 };
 
 #endif /* defined(__nosfuratu__Jon__) */

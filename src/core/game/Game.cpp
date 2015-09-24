@@ -8,80 +8,154 @@
 
 #include "Game.h"
 #include "GameConstants.h"
+#include "EntityAnchor.h"
+#include "EntityUtils.h"
 
-Game::Game() : m_resetGame(false)
+Game::Game() : m_fDeltaTime(0), m_resetGame(false)
 {
-    m_jon = std::unique_ptr<Jon>(new Jon(CAM_WIDTH / 5, 10.06776145203123f, 2.4f, 2.4f));
+    m_backgroundSky = std::unique_ptr<BackgroundSky>(new BackgroundSky(CAM_WIDTH / 2));
+    m_backgroundTrees = std::unique_ptr<BackgroundTrees>(new BackgroundTrees(CAM_WIDTH / 2));
+    m_backgroundCave = std::unique_ptr<BackgroundCave>(new BackgroundCave(CAM_WIDTH / 2));
     
     m_trees = std::unique_ptr<std::vector<Tree>>(new std::vector<Tree>);
-    
-    for (int i = 0; i < 18; i += 9)
+    for (int i = 0; i < 3; i += 3)
     {
-        m_trees->push_back(Tree(11.9416909620992f / 2 * (i + 3), 13.95505617977516f, 10.4489795918368f, 9.75453759723411f, 0));
-        m_trees->push_back(Tree(11.9416909620992f / 2 * (i + 6), 12.92826274848742f, 5.85422740524784f, 7.700950734658649f, 1));
-        m_trees->push_back(Tree(11.9416909620992f / 2 * (i + 9), 13.61668107173715f, 7.39358600583088f, 9.0777873811581f, 2));
-    }
-    
-    m_platforms = std::unique_ptr<std::vector<GamePlatform>>(new std::vector<GamePlatform>);
-    
-    for (int i = 0; i < 20; i += 5)
-    {
-        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 1), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 2), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 3), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 4), 8.86776145203123f + 4, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(CAM_WIDTH * (i + 5), 8.86776145203123f + 8, 3.70612244897958f, 1.6f));
-    }
-    
-    for (int i = 6; i < 20; i += 5)
-    {
-        m_platforms->push_back(GamePlatform(12 * (i + 1), 2, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(12 * (i + 2), 2, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(12 * (i + 3), 2, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(12 * (i + 4), 2, 3.70612244897958f, 1.6f));
-        m_platforms->push_back(GamePlatform(12 * (i + 5), 6, 3.70612244897958f, 1.6f));
-    }
-    
-    m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
-    
-    for (int i = 0; i < 20; i += 10)
-    {
-        m_carrots->push_back(Carrot(CAM_WIDTH * (i + 1), 8.86776145203123f + 7, 1.25925925925926, 1));
-        m_carrots->push_back(Carrot(CAM_WIDTH * (i + 2), 8.86776145203123f + 2, 1.25925925925926, 1));
+        m_trees->push_back(Tree::createTree(i * CAM_WIDTH, TreeType::TREE_ONE));
+        m_trees->push_back(Tree::createTree((i + 1) * CAM_WIDTH, TreeType::TREE_TWO));
+        m_trees->push_back(Tree::createTree((i + 2) * CAM_WIDTH, TreeType::TREE_THREE));
     }
     
     m_grounds = std::unique_ptr<std::vector<Ground>>(new std::vector<Ground>);
     
-    for (int i = 0; i < 12; i += 4)
+    m_grounds->push_back(Ground::createGround(47.90643274853801f / 2, GroundType::GROUND_GRASS_WITHOUT_CAVE_LARGE));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_LEFT));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_RIGHT));
+    
+    EntityUtils::attach(m_grounds.get()->at(1), m_grounds.get()->at(0), true);
+    EntityUtils::attach(m_grounds.get()->at(2), m_grounds.get()->at(0), false);
+    
+    m_grounds->push_back(Ground::createGround(47.90643274853801f * 2 - 6, GroundType::GROUND_GRASS_WITH_CAVE_LARGE));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITH_CAVE_END_LEFT));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITH_CAVE_END_RIGHT));
+    
+    EntityUtils::attach(m_grounds.get()->at(4), m_grounds.get()->at(3), true);
+    EntityUtils::attach(m_grounds.get()->at(5), m_grounds.get()->at(3), false);
+    
+    m_grounds->push_back(Ground::createGround(47.90643274853801f * 2 - 6, GroundType::GROUND_CAVE_LARGE));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_LARGE));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_END_LEFT));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_END_RIGHT));
+    
+    EntityUtils::attach(m_grounds.get()->at(7), m_grounds.get()->at(6), false);
+    EntityUtils::attach(m_grounds.get()->at(8), m_grounds.get()->at(6), true);
+    EntityUtils::attach(m_grounds.get()->at(9), m_grounds.get()->at(7), false);
+    
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_RAISED_END_LEFT));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_RAISED_MEDIUM));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_CAVE_RAISED_END_RIGHT));
+    
+    EntityUtils::attach(m_grounds.get()->at(10), m_grounds.get()->at(7), true);
+    EntityUtils::attach(m_grounds.get()->at(11), m_grounds.get()->at(10), false);
+    EntityUtils::attach(m_grounds.get()->at(12), m_grounds.get()->at(11), false);
+    
+    m_grounds->push_back(Ground::createGround(47.90643274853801f * 4 - 16, GroundType::GROUND_GRASS_WITHOUT_CAVE_SMALL));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_LEFT));
+    m_grounds->push_back(Ground::createGround(0, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_RIGHT));
+    
+    EntityUtils::attach(m_grounds.get()->at(14), m_grounds.get()->at(13), true);
+    EntityUtils::attach(m_grounds.get()->at(15), m_grounds.get()->at(13), false);
+    
+    m_logVerticalTalls = std::unique_ptr<std::vector<LogVerticalTall>>(new std::vector<LogVerticalTall>);
+    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH));
+    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH * 2));
+    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH * 3 - 4));
+    
+    m_platforms = std::unique_ptr<std::vector<GroundPlatform>>(new std::vector<GroundPlatform>);
+    
+    GroundPlatform::createGrassGroundPlatform(*m_platforms, CAM_WIDTH * 3 / 2, ANCHOR_GROUND_Y + 2.8f, 1);
+    GroundPlatform::createGrassGroundPlatform(*m_platforms, CAM_WIDTH * 2, ANCHOR_GROUND_Y + 5.6f, 2);
+    GroundPlatform::createGrassGroundPlatform(*m_platforms, CAM_WIDTH * 3, ANCHOR_GROUND_Y + 8.4f, 2);
+    GroundPlatform::createCaveGroundPlatform(*m_platforms, 47.90643274853801f * 2, 4, 1);
+    GroundPlatform::createCaveGroundPlatform(*m_platforms, 47.90643274853801f * 4 - 34, 5, 1);
+    
+    m_endSigns = std::unique_ptr<std::vector<EndSign>>(new std::vector<EndSign>);
+    m_endSigns->push_back(EndSign(0));
+    
+    EntityUtils::attach(m_endSigns.get()->at(0), m_grounds.get()->at(m_grounds->size() - 1), true);
+    
+    m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
+    for (int i = 0; i < 3; i += 3)
     {
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 1), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 0));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 2), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 1));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 3), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 2));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 4), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 3));
+        m_carrots->push_back(Carrot(i * CAM_WIDTH + 14, ANCHOR_GROUND_Y + 1.2f));
+        m_carrots->push_back(Carrot((i + 1) * CAM_WIDTH + 8, ANCHOR_GROUND_Y + 1.2f));
+        m_carrots->push_back(Carrot((i + 2) * CAM_WIDTH + 8, ANCHOR_GROUND_Y + 1.2f));
     }
     
-    for (int i = 12; i < 20; i += 4)
-    {
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 1), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 0));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 2), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 1));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 3), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 2));
-        m_grounds->push_back(Ground(11.9416909620992f / 2 * (i + 4), 10.19792566983582f / 2, 11.9416909620992f, 10.19792566983582f, 3));
-    }
+    m_carrots->push_back(Carrot(47.90643274853801f * 2, ANCHOR_GROUND_Y + 1.2f));
+    m_carrots->push_back(Carrot(47.90643274853801f * 2 + 3, ANCHOR_GROUND_Y + 1.2f));
+    m_carrots->push_back(Carrot(47.90643274853801f * 2 + 6, ANCHOR_GROUND_Y + 1.2f));
+    
+    m_goldenCarrots = std::unique_ptr<std::vector<GoldenCarrot>>(new std::vector<GoldenCarrot>);
+    m_goldenCarrots->push_back(GoldenCarrot(CAM_WIDTH * 3 + 7, ANCHOR_GROUND_Y + 14));
+    
+    m_jon = std::unique_ptr<Jon>(new Jon(JON_STARTING_X, 0, 2.2f, 2.2f, EntityAnchor::ANCHOR_GROUND));
 }
 
 void Game::update(float deltaTime)
 {
+    m_fDeltaTime = deltaTime;
+    
     m_jon->update(deltaTime, *this);
+    
+    if (isCollected(getJon(), getCarrots()))
+    {
+        // TODO Play Sound
+    }
+    
+    if (isCollected(getJon(), getGoldenCarrots()))
+    {
+        // TODO Play Sound
+    }
     
     if (m_jon->isDead())
     {
         m_resetGame = true;
     }
+    
+    if (m_jon->getPosition().getX() - m_jon->getWidth() > getFarRight())
+    {
+        m_resetGame = true;
+    }
 }
 
-Jon& Game::getJon()
+bool Game::isJonGrounded()
 {
-    return *m_jon;
+    return isLanding(getJon(), getGrounds()) || isLanding(getJon(), getPlatforms()) || isLanding(getJon(), getLogVerticalTalls());
+}
+
+bool Game::isJonBlockedHorizontally()
+{
+    return isBlockedOnRight(getJon(), getGrounds());
+}
+
+bool Game::isJonBlockedVertically()
+{
+    return isBlockedAbove(getJon(), getGrounds());
+}
+
+BackgroundSky& Game::getBackgroundSky()
+{
+    return *m_backgroundSky;
+}
+
+BackgroundTrees& Game::getBackgroundTrees()
+{
+    return *m_backgroundTrees;
+}
+
+BackgroundCave& Game::getBackgroundCave()
+{
+    return *m_backgroundCave;
 }
 
 std::vector<Tree>& Game::getTrees()
@@ -89,9 +163,24 @@ std::vector<Tree>& Game::getTrees()
     return *m_trees;
 }
 
-std::vector<GamePlatform>& Game::getPlatforms()
+std::vector<Ground>& Game::getGrounds()
+{
+    return *m_grounds;
+}
+
+std::vector<LogVerticalTall>& Game::getLogVerticalTalls()
+{
+    return *m_logVerticalTalls;
+}
+
+std::vector<GroundPlatform>& Game::getPlatforms()
 {
     return *m_platforms;
+}
+
+std::vector<EndSign>& Game::getEndSigns()
+{
+    return *m_endSigns;
 }
 
 std::vector<Carrot>& Game::getCarrots()
@@ -99,9 +188,19 @@ std::vector<Carrot>& Game::getCarrots()
     return *m_carrots;
 }
 
-std::vector<Ground>& Game::getGrounds()
+std::vector<GoldenCarrot>& Game::getGoldenCarrots()
 {
-    return *m_grounds;
+    return *m_goldenCarrots;
+}
+
+Jon& Game::getJon()
+{
+    return *m_jon;
+}
+
+float Game::getFarRight()
+{
+    return getEndSigns().at(0).getPosition().getX() + getEndSigns().at(0).getWidth();
 }
 
 bool Game::resetGame()

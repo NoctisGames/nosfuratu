@@ -7,13 +7,28 @@
 //
 
 #include "Tree.h"
+#include "EntityUtils.h"
 
-Tree::Tree(float x, float y, float width, float height, int treeType) : PhysicalEntity(x, y, width, height, 0), m_iTreeType(treeType)
+Tree Tree::createTree(float x, TreeType treeType)
 {
-    // Empty
+    switch (treeType)
+    {
+        case TREE_ONE:
+            return Tree(x, 6.315789473684211f, 8.095320623916813f, treeType);
+        case TREE_TWO:
+            return Tree(x, 11.228070175438596f, 10.271230502599654f, treeType);
+        case TREE_THREE:
+        default:
+            return Tree(x, 7.9298245614035086f, 9.616117850953206f, treeType);
+    }
 }
 
-int Tree::getTreeType()
+Tree::Tree(float x, float width, float height, TreeType treeType, EntityAnchor anchor) : PhysicalEntity(x, 0, width, height), m_treeType(treeType)
 {
-    return m_iTreeType;
+    EntityUtils::applyAnchor(*this, anchor);
+}
+
+TreeType Tree::getTreeType()
+{
+    return m_treeType;
 }

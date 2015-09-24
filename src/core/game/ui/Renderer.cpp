@@ -17,15 +17,18 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Ground.h"
-#include "GamePlatform.h"
+#include "GroundPlatform.h"
 #include "Carrot.h"
+#include "GoldenCarrot.h"
 #include "Jon.h"
 #include "Tree.h"
 #include <math.h>
 
+#define aboveGroundRegionBottomY 8.750433275563259f
+
 Renderer::Renderer()
 {
-    m_camPos = std::unique_ptr<Vector2D>(new Vector2D(CAM_WIDTH / 5, 8.86776145203123f));
+    m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
 }
 
 void Renderer::render(Game& game, float deltaTime)
@@ -40,20 +43,23 @@ void Renderer::render(Game& game, float deltaTime)
     
     /// Render Background
     
-    updateCameraToFollowJon(game.getJon(), deltaTime);
+    updateCameraToFollowJon(game.getJon(), game, deltaTime);
     
     updateMatrix(0, CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, 19.99913569576492f, CAM_WIDTH, 14.00172860847015f, 0, Assets::getSky(game.getJon()));
-    m_spriteBatcher->endBatch(*m_background);
+    renderPhysicalEntity(game.getBackgroundSky(), Assets::getBackgroundSky(game.getJon(), game));
+    m_spriteBatcher->endBatch(*m_world_1_background);
     
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, 15.00518582541045f, CAM_WIDTH, 11.8547968885047f, 0, Assets::getBackgroundTrees(game.getJon()));
-    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, 10.19792566983569f, CAM_WIDTH, 2.24027657735517f, 0, Assets::getMidgroundBushes(game.getJon()));
-    m_spriteBatcher->endBatch(*m_background);
+    renderPhysicalEntity(game.getBackgroundTrees(), Assets::getBackgroundTrees(game.getJon(), game));
+    m_spriteBatcher->endBatch(*m_world_1_background);
     
-    /// Render World Foreground Trees/Rocks/etc
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(game.getBackgroundCave(), Assets::getBackgroundCave(game.getJon(), game));
+    m_spriteBatcher->endBatch(*m_world_1_background);
+    
+    /// Render World midground Trees/Skeletons/etc
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
     
@@ -62,26 +68,66 @@ void Renderer::render(Game& game, float deltaTime)
     {
         renderPhysicalEntity(*itr, Assets::getMidgroundTree(*itr));
     }
-    m_spriteBatcher->endBatch(*m_trees);
+    m_spriteBatcher->endBatch(*m_world_1_midground);
     
     /// Render World
     
     m_spriteBatcher->beginBatch();
     for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
     {
-        renderPhysicalEntity(*itr, Assets::getForeground(*itr));
+        if (itr->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
+            || itr->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
+            || itr->getGroundType() == GROUND_CAVE_RAISED_SMALL
+            || itr->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
+            || itr->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        {
+            continue;
+        }
+        
+        renderPhysicalEntity(*itr, Assets::getGround(*itr));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
+    {
+        if (itr->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
+            || itr->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
+            || itr->getGroundType() == GROUND_CAVE_RAISED_SMALL
+            || itr->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
+            || itr->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        {
+            renderPhysicalEntity(*itr, Assets::getGround(*itr));
+        }
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<LogVerticalTall>::iterator itr = game.getLogVerticalTalls().begin(); itr != game.getLogVerticalTalls().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getLogVerticalTall(*itr));
     }
     
-    for (std::vector<GamePlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
+    for (std::vector<GroundPlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
     {
-        renderPhysicalEntity(*itr, Assets::getPlatform(*itr));
+        renderPhysicalEntity(*itr, Assets::getGroundPlatform(*itr));
+    }
+    
+    for (std::vector<EndSign>::iterator itr = game.getEndSigns().begin(); itr != game.getEndSigns().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getEndSign());
     }
     
     for (std::vector<Carrot>::iterator itr = game.getCarrots().begin(); itr != game.getCarrots().end(); itr++)
     {
         renderPhysicalEntity(*itr, Assets::getCarrot(*itr));
     }
-    m_spriteBatcher->endBatch(*m_background);
+    
+    for (std::vector<GoldenCarrot>::iterator itr = game.getGoldenCarrots().begin(); itr != game.getGoldenCarrots().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getGoldenCarrot(*itr));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground);
     
     /// Render Jon
     
@@ -104,9 +150,9 @@ void Renderer::render(Game& game, float deltaTime)
     endFrame();
 }
 
-void Renderer::reset()
+void Renderer::reset(Game& game)
 {
-    m_camPos->set(CAM_WIDTH / 5, 8.86776145203123f);
+    m_camPos->set(0, aboveGroundRegionBottomY);
 }
 
 #pragma mark private
@@ -116,21 +162,22 @@ void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
     m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), tr);
 }
 
-void Renderer::updateCameraToFollowJon(Jon& jon, float deltaTime)
+void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
 {
     m_camPos->setX(jon.getPosition().getX() - CAM_WIDTH / 5);
     float jy = jon.getPosition().getY() - jon.getHeight() / 2;
+    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
     float regionBottomY;
     if (jon.isFalling())
     {
-        if (jy < 8.8f)
+        if (jy < aboveGroundRegionBottomY)
         {
             regionBottomY = 0;
         }
-        else if (jy >= 8.8f && jy < 18.0f)
+        else if (jy >= aboveGroundRegionBottomY && jy < 18.0f)
         {
-            regionBottomY = 8.8f;
+            regionBottomY = aboveGroundRegionBottomY;
         }
         else
         {
@@ -139,13 +186,13 @@ void Renderer::updateCameraToFollowJon(Jon& jon, float deltaTime)
     }
     else
     {
-        if (jy < 5.2f)
+        if (jy < (aboveGroundRegionBottomY - jonHeightPlusPadding))
         {
             regionBottomY = 0;
         }
-        else if (jy >= 5.2f && jy < 14.4f)
+        else if (jy >= (aboveGroundRegionBottomY - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
         {
-            regionBottomY = 8.8f;
+            regionBottomY = aboveGroundRegionBottomY;
         }
         else
         {
@@ -153,12 +200,12 @@ void Renderer::updateCameraToFollowJon(Jon& jon, float deltaTime)
         }
     }
     
-    float camVelocityY = regionBottomY > m_camPos->getY() ? (regionBottomY - m_camPos->getY()) * 2 : regionBottomY == m_camPos->getY() ? 0 : -(m_camPos->getY() - regionBottomY) * 2;
+    float camVelocityY = regionBottomY > m_camPos->getY() ? 1337 : regionBottomY == m_camPos->getY() ? 0 : -(m_camPos->getY() - regionBottomY) * 4;
     m_camPos->add(0, camVelocityY * deltaTime);
     
     if (camVelocityY > 0)
     {
-        m_camPos->setY(jy + 3.6f - CAM_HEIGHT);
+        m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
         
         if (m_camPos->getY() > regionBottomY)
         {
@@ -172,5 +219,22 @@ void Renderer::updateCameraToFollowJon(Jon& jon, float deltaTime)
         {
             m_camPos->setY(regionBottomY);
         }
+    }
+    
+    if (m_camPos->getY() < 0)
+    {
+        m_camPos->setY(0);
+    }
+    
+    if (m_camPos->getY() > GAME_HEIGHT - CAM_HEIGHT)
+    {
+        m_camPos->setY(GAME_HEIGHT - CAM_HEIGHT);
+    }
+    
+    float farRight = game.getFarRight();
+    float farCamPos = farRight - CAM_WIDTH;
+    if (m_camPos->getX() > farCamPos)
+    {
+        m_camPos->setX(farCamPos);
     }
 }

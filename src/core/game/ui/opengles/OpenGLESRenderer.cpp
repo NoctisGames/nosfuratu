@@ -29,9 +29,13 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
 {
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     
-    m_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("level_1_demo_background.png")));
-    m_trees = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("level_1_demo_trees.png")));
     m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("jon.png")));
+    m_vampire = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("vampire.png")));
+    m_world_1_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("world_1_background.png")));
+    m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("world_1_foreground_more.png")));
+    m_world_1_foreground = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("world_1_foreground.png")));
+    m_world_1_midground = std::unique_ptr<TextureWrapper>(new TextureWrapper(load_png_asset_into_texture("world_1_midground.png")));
+    
     m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
 }
 
@@ -78,6 +82,10 @@ GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
 
 void OpenGLESRenderer::cleanUp()
 {
-    glDeleteTextures(1, &m_background->texture);
     glDeleteTextures(1, &m_jon->texture);
+    glDeleteTextures(1, &m_vampire->texture);
+    glDeleteTextures(1, &m_world_1_background->texture);
+    glDeleteTextures(1, &m_world_1_foreground_more->texture);
+    glDeleteTextures(1, &m_world_1_foreground->texture);
+    glDeleteTextures(1, &m_world_1_midground->texture);
 }

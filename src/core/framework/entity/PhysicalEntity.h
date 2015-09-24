@@ -18,7 +18,7 @@
 class PhysicalEntity : public Entity
 {
 public:
-    PhysicalEntity(float x, float y, float width, float height, float angle);
+    PhysicalEntity(float x, float y, float width, float height);
     
     virtual void update(float deltaTime);
 

@@ -10,7 +10,7 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 
-PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, float angle) : Entity()
+PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity()
 {
     m_position = std::unique_ptr<Vector2D>(new Vector2D(x, y));
     m_velocity = std::unique_ptr<Vector2D>(new Vector2D());
@@ -19,7 +19,7 @@ PhysicalEntity::PhysicalEntity(float x, float y, float width, float height, floa
 
     m_fWidth = width;
     m_fHeight = height;
-    m_fAngle = angle;
+    m_fAngle = 0;
 }
 
 void PhysicalEntity::update(float deltaTime)

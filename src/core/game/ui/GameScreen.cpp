@@ -39,7 +39,7 @@ void GameScreen::init()
     
     if (m_renderer)
     {
-        m_renderer->reset();
+        m_renderer->reset(*m_game);
     }
 }
 

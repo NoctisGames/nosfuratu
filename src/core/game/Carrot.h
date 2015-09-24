@@ -14,7 +14,7 @@
 class Carrot : public PhysicalEntity
 {
 public:
-    Carrot(float x, float y, float width, float height);
+    Carrot(float x, float y);
 };
 
 #endif /* defined(__nosfuratu__Carrot__) */

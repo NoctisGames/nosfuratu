@@ -9,17 +9,16 @@
 #include "Jon.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
+#include "EntityUtils.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "OverlapTester.h"
-#include "GamePlatform.h"
+#include "GroundPlatform.h"
 
-#define JON_DEFAULT_ACCELERATION_SPEED_BOOST JON_DEFAULT_MAX_SPEED * 4
-#define JON_DEFAULT_ACCELERATION JON_DEFAULT_MAX_SPEED
-#define JON_MAX_SPEED_WITH_BOOST JON_DEFAULT_MAX_SPEED * 2
-
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height, 0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fSpeedBoostTime(0.0f), m_iNumJumps(0), m_isGrounded(false), m_isSpeedBoost(false), m_isDead(false)
+Jon::Jon(float x, float y, float width, float height, EntityAnchor anchor) : PhysicalEntity(x, y, width, height), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_iNumJumps(0), m_isGrounded(false), m_isLanding(false), m_isDead(false)
 {
+    EntityUtils::applyAnchor(*this, anchor);
+    
 	resetBounds(width * 0.6796875f, height * 0.8203125f);
 
 	m_acceleration->setX(m_fAccelerationX);
@@ -33,31 +32,26 @@ void Jon::update(float deltaTime, Game& game)
 	{
 		m_isDead = true;
 	}
-
-	m_isGrounded = testGrounded(game);
-
-	for (std::vector<Carrot>::iterator itr = game.getCarrots().begin(); itr != game.getCarrots().end(); )
-	{
-		if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
-		{
-			itr = game.getCarrots().erase(itr);
-			m_fMaxSpeed = JON_MAX_SPEED_WITH_BOOST;
-			m_fAccelerationX = JON_DEFAULT_ACCELERATION_SPEED_BOOST;
-			m_acceleration->setX(m_fAccelerationX);
-			m_fSpeedBoostTime = 0;
-			m_isSpeedBoost = true;
-		}
-		else
-		{
-			itr++;
-		}
-	}
+    
+    bool isGrounded = m_isGrounded;
+    
+    m_isGrounded = game.isJonGrounded();
+    
+    if (!isGrounded && m_isGrounded)
+    {
+        m_isLanding = true;
+        m_fStateTime = 0;
+    }
+    
+    if (m_isLanding && m_fStateTime > 0.20f)
+    {
+        m_isLanding = false;
+        m_fStateTime = 0.21f;
+    }
 
 	if (m_isGrounded)
 	{
-		updateBounds();
-		m_acceleration->setX(m_fAccelerationX);
-		m_acceleration->setY(0);
+		m_acceleration->set(m_fAccelerationX, 0);
 		m_velocity->setY(0);
 		m_iNumJumps = 0;
 	}
@@ -66,20 +60,18 @@ void Jon::update(float deltaTime, Game& game)
 		m_acceleration->setY(GRAVITY);
 		m_iNumJumps = 1;
 	}
-
-	if (m_isSpeedBoost)
-	{
-		m_fSpeedBoostTime += deltaTime;
-
-		if (m_fSpeedBoostTime > 3)
-		{
-			m_isSpeedBoost = false;
-			m_fSpeedBoostTime = 0;
-			m_fMaxSpeed = JON_DEFAULT_MAX_SPEED;
-			m_fAccelerationX = JON_DEFAULT_ACCELERATION;
-			m_acceleration->setX(m_fAccelerationX);
-		}
-	}
+    
+    if (game.isJonBlockedHorizontally())
+    {
+        m_position->sub(m_velocity->getX() * deltaTime, 0);
+        updateBounds();
+    }
+    
+    if (game.isJonBlockedVertically())
+    {
+        m_position->sub(0, m_velocity->getY() * deltaTime);
+        updateBounds();
+    }
 
 	if (m_velocity->getX() > m_fMaxSpeed)
 	{
@@ -105,6 +97,11 @@ bool Jon::isGrounded()
     return m_isGrounded;
 }
 
+bool Jon::isLanding()
+{
+    return m_isLanding;
+}
+
 bool Jon::isFalling()
 {
 	return m_velocity->getY() < 0;
@@ -120,42 +117,9 @@ bool Jon::isDead()
 void Jon::jump()
 {
 	m_acceleration->setY(GRAVITY);
-	m_velocity->setY(9 - m_iNumJumps * 2);
+	m_velocity->setY(13 - m_iNumJumps * 3);
 
 	m_iNumJumps++;
 
 	m_fStateTime = 0;
-}
-
-bool Jon::testGrounded(Game& game)
-{
-	for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
-	{
-		if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
-		{
-			m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
-
-			return true;
-		}
-	}
-
-	for (std::vector<GamePlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
-	{
-		if (OverlapTester::doRectanglesOverlap(*m_bounds, (*itr).getBounds()))
-		{
-            if(m_velocity->getY() <= 0)
-            {
-                // blah
-            }
-			
-            if (m_bounds->getLowerLeft().getY() > (*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() / 2)
-			{
-				m_position->setY((*itr).getBounds().getLowerLeft().getY() + (*itr).getBounds().getHeight() + m_bounds->getHeight() / 2 * .99f);
-
-				return true;
-			}
-		}
-	}
-
-	return false;
 }

@@ -10,16 +10,20 @@
 #define __nosfuratu__Ground__
 
 #include "PhysicalEntity.h"
+#include "GroundType.h"
+#include "EntityAnchor.h"
 
 class Ground : public PhysicalEntity
 {
 public:
-    Ground(float x, float y, float width, float height, int groundType);
+    static Ground createGround(float x, GroundType groundType);
     
-    int getGroundType();
+    Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, EntityAnchor anchor = ANCHOR_BOTTOM);
+    
+    GroundType getGroundType();
     
 private:
-    int m_iGroundType;
+    GroundType m_groundType;
 };
 
 #endif /* defined(__nosfuratu__Ground__) */

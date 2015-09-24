@@ -10,16 +10,20 @@
 #define __nosfuratu__Tree__
 
 #include "PhysicalEntity.h"
+#include "TreeType.h"
+#include "EntityAnchor.h"
 
 class Tree : public PhysicalEntity
 {
 public:
-    Tree(float x, float y, float width, float height, int treeType);
+    static Tree createTree(float x, TreeType treeType);
     
-    int getTreeType();
+    Tree(float x, float width, float height, TreeType treeType, EntityAnchor anchor = ANCHOR_GROUND);
+    
+    TreeType getTreeType();
     
 private:
-    int m_iTreeType;
+    TreeType m_treeType;
 };
 
 #endif /* defined(__nosfuratu__Tree__) */

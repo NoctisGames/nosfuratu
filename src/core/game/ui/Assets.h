@@ -16,28 +16,37 @@
 class TextureRegion;
 class Jon;
 class Tree;
-class GamePlatform;
-class Carrot;
 class Ground;
+class LogVerticalTall;
+class GroundPlatform;
+class Carrot;
+class GoldenCarrot;
+class Game;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    static TextureRegion& getSky(Jon& jon);
+    static TextureRegion& getBackgroundSky(Jon& jon, Game& game);
     
-    static TextureRegion& getBackgroundTrees(Jon& jon);
+    static TextureRegion& getBackgroundTrees(Jon& jon, Game& game);
     
-    static TextureRegion& getMidgroundBushes(Jon& jon);
+    static TextureRegion& getBackgroundCave(Jon& jon, Game& game);
     
     static TextureRegion& getMidgroundTree(Tree& tree);
     
-    static TextureRegion& getForeground(Ground& ground);
+    static TextureRegion& getGround(Ground& ground);
     
-    static TextureRegion& getPlatform(GamePlatform& platform);
+    static TextureRegion& getLogVerticalTall(LogVerticalTall& logVerticalTall);
+    
+    static TextureRegion& getGroundPlatform(GroundPlatform& platform);
+    
+    static TextureRegion& getEndSign();
     
     static TextureRegion& getCarrot(Carrot& carrot);
+    
+    static TextureRegion& getGoldenCarrot(GoldenCarrot& goldenCarrot);
     
     static TextureRegion& getJon(Jon& jon);
     

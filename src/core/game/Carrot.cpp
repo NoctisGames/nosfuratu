@@ -11,7 +11,7 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
-Carrot::Carrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height, 0)
+Carrot::Carrot(float x, float y) : PhysicalEntity(x, y, 1.2163742690058479f, 0.9592720970537262f)
 {
     // Empty
 }
