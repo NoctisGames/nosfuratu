@@ -16,13 +16,12 @@
 
 //// Sound Definitions ////
 
-#define SOUND_DEMO 1
+#define SOUND_COLLECT_CARROT 1
+#define SOUND_COLLECT_GOLDEN_CARROT 2
 
 //// Texture Size Definitions ////
 
 #define TEXTURE_SIZE_2048 2048
-#define TEXTURE_SIZE_1024 1024
-#define TEXTURE_SIZE_512 512
 
 /// Interface
 

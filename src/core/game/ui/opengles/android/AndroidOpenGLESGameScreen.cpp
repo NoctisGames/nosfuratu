@@ -13,11 +13,6 @@ AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen() : OpenGLESGameScreen()
     // Empty
 }
 
-void AndroidOpenGLESGameScreen::onSurfaceCreated(int screenWidth, int screenHeight)
-{
-    onSurfaceChanged(screenWidth, screenHeight);
-}
-
 void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeight)
 {
     m_iScreenWidth = screenWidth;

@@ -18,30 +18,28 @@ public final class GameRenderer implements Renderer
     }
 
     // Definitions from src/core/game/ResourceConstants.h
-    //// Music Definitions ////
-
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_PLAY_DEMO = 2;
+    private static final short SOUND_COLLECT_CARROT = 1;
+    private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
 
-    //// Sound Definitions ////
+    private static final float MOV_AVERAGE_PERIOD = 5; // #frames involved in average calc (suggested values 5-100)
+    private static final float SMOOTH_FACTOR = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
 
-    private static final short SOUND_DEMO = 1;
+    private final Audio _audio;
+    private Music _bgm;
+    private Sound _collectCarrotSound;
+    private Sound _collectGoldenCarrotSound;
 
-    private static final float movAveragePeriod = 40; // #frames involved in average calc (suggested values 5-100)
-    private static final float smoothFactor = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
-
-    private final Audio audio;
-    private Music bgm;
-    private Sound explosionSound;
-
-    private float smoothedDeltaRealTime_ms = 17.5f;
-    private float movAverageDeltaTime_ms = smoothedDeltaRealTime_ms;
-    private long lastRealTimeMeasurement_ms;
+    private float _smoothedDeltaRealTime_ms = 16.66666666667f;
+    private float _movAverageDeltaTime_ms = _smoothedDeltaRealTime_ms;
+    private long _lastRealTimeMeasurement_ms;
 
     public GameRenderer(AssetManager assetManager)
     {
-        this.audio = new Audio(assetManager);
-        this.explosionSound = audio.newSound("explosion.ogg");
+        _audio = new Audio(assetManager);
+        _collectCarrotSound = _audio.newSound("collect_carrot.ogg");
+        _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.ogg");
 
         PlatformAssetUtils.init_asset_manager(assetManager);
 
@@ -70,7 +68,7 @@ public final class GameRenderer implements Renderer
         switch (gameState)
         {
             case 0:
-                update(smoothedDeltaRealTime_ms / 1000);
+                update(_smoothedDeltaRealTime_ms / 1000);
                 break;
             default:
                 break;
@@ -83,21 +81,21 @@ public final class GameRenderer implements Renderer
         // Moving average calc
         long currTimePick_ms = SystemClock.uptimeMillis();
         float realTimeElapsed_ms;
-        if (lastRealTimeMeasurement_ms > 0)
+        if (_lastRealTimeMeasurement_ms > 0)
         {
-            realTimeElapsed_ms = (currTimePick_ms - lastRealTimeMeasurement_ms);
+            realTimeElapsed_ms = (currTimePick_ms - _lastRealTimeMeasurement_ms);
         } else
         {
-            realTimeElapsed_ms = smoothedDeltaRealTime_ms; // just the first
+            realTimeElapsed_ms = _smoothedDeltaRealTime_ms; // just the first
             // time
         }
 
-        movAverageDeltaTime_ms = (realTimeElapsed_ms + movAverageDeltaTime_ms * (movAveragePeriod - 1)) / movAveragePeriod;
+        _movAverageDeltaTime_ms = (realTimeElapsed_ms + _movAverageDeltaTime_ms * (MOV_AVERAGE_PERIOD - 1)) / MOV_AVERAGE_PERIOD;
 
         // Calc a better aproximation for smooth stepTime
-        smoothedDeltaRealTime_ms = smoothedDeltaRealTime_ms + (movAverageDeltaTime_ms - smoothedDeltaRealTime_ms) * smoothFactor;
+        _smoothedDeltaRealTime_ms = _smoothedDeltaRealTime_ms + (_movAverageDeltaTime_ms - _smoothedDeltaRealTime_ms) * SMOOTH_FACTOR;
 
-        lastRealTimeMeasurement_ms = currTimePick_ms;
+        _lastRealTimeMeasurement_ms = currTimePick_ms;
     }
 
     public void onResume()
@@ -137,8 +135,11 @@ public final class GameRenderer implements Renderer
         {
             switch (soundId)
             {
-                case SOUND_DEMO:
-                    this.explosionSound.play(1);
+                case SOUND_COLLECT_CARROT:
+                    _collectCarrotSound.play(1);
+                    break;
+                case SOUND_COLLECT_GOLDEN_CARROT:
+                    _collectGoldenCarrotSound.play(1);
                     break;
                 default:
                     continue;
@@ -152,21 +153,21 @@ public final class GameRenderer implements Renderer
         switch (musicId)
         {
             case MUSIC_STOP:
-                if (bgm != null)
+                if (_bgm != null)
                 {
-                    bgm.stop();
+                    _bgm.stop();
                 }
                 break;
             case MUSIC_PLAY_DEMO:
-                if (bgm != null && bgm.isPlaying())
+                if (_bgm != null && _bgm.isPlaying())
                 {
-                    bgm.dispose();
-                    bgm = null;
+                    _bgm.dispose();
+                    _bgm = null;
                 }
 
-                bgm = audio.newMusic("bgm.ogg");
-                bgm.setLooping(true);
-                bgm.play();
+                _bgm = _audio.newMusic("bgm.ogg");
+                _bgm.setLooping(true);
+                _bgm.play();
                 break;
             default:
                 break;
@@ -174,8 +175,6 @@ public final class GameRenderer implements Renderer
     }
 
     private static native void init();
-
-    private static native void on_surface_created(int pixelWidth, int pixelHeight);
 
     private static native void on_surface_changed(int pixelWidth, int pixelHeight);
 

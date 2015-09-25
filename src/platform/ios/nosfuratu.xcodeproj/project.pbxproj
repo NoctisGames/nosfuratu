@@ -66,6 +66,8 @@
 		BB8900C61BB1D4AF00963083 /* BackgroundTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C31BB1D4AF00963083 /* BackgroundTrees.cpp */; settings = {ASSET_TAGS = (); }; };
 		BB8900CB1BB1EEEF00963083 /* GoldenCarrot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C91BB1EEEF00963083 /* GoldenCarrot.cpp */; settings = {ASSET_TAGS = (); }; };
 		BB8900CF1BB20E0E00963083 /* EndSign.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900CD1BB20E0E00963083 /* EndSign.cpp */; settings = {ASSET_TAGS = (); }; };
+		BBA0E6461BB5D0C10026A433 /* collect_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */; };
+		BBA0E6471BB5D0C10026A433 /* collect_golden_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
@@ -114,7 +116,6 @@
 		BBEA16B41B97B9BB009B4711 /* OpenGLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16691B97B9BB009B4711 /* OpenGLESRenderer.cpp */; };
 		BBEA16B51B97B9BB009B4711 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA166B1B97B9BB009B4711 /* Renderer.cpp */; };
 		BBEA16B81B97BBA9009B4711 /* bgm.aifc in Resources */ = {isa = PBXBuildFile; fileRef = BBEA16B61B97BBA9009B4711 /* bgm.aifc */; };
-		BBEA16B91B97BBA9009B4711 /* explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBEA16B71B97BBA9009B4711 /* explosion.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -211,6 +212,8 @@
 		BB8900CC1BB1F30A00963083 /* TreeType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeType.h; sourceTree = "<group>"; };
 		BB8900CD1BB20E0E00963083 /* EndSign.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndSign.cpp; sourceTree = "<group>"; };
 		BB8900CE1BB20E0E00963083 /* EndSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndSign.h; sourceTree = "<group>"; };
+		BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_carrot.caf; sourceTree = "<group>"; };
+		BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_golden_carrot.caf; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
 		BBE012691B9E545900D983B0 /* GroundPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundPlatform.h; sourceTree = "<group>"; };
@@ -364,7 +367,6 @@
 		BBEA166C1B97B9BB009B4711 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		BBEA166D1B97B9BB009B4711 /* ResourceConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceConstants.h; sourceTree = "<group>"; };
 		BBEA16B61B97BBA9009B4711 /* bgm.aifc */ = {isa = PBXFileReference; lastKnownFileType = file; path = bgm.aifc; sourceTree = "<group>"; };
-		BBEA16B71B97BBA9009B4711 /* explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -494,6 +496,8 @@
 		BBD079F518AA879D00E010AF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */,
+				BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */,
 				BB8900AF1BB1CAA400963083 /* jon.png */,
 				BB8900B01BB1CAA400963083 /* vampire.png */,
 				BB8900B11BB1CAA400963083 /* world_1_background.png */,
@@ -501,7 +505,6 @@
 				BB8900B31BB1CAA400963083 /* world_1_foreground.png */,
 				BB8900B41BB1CAA400963083 /* world_1_midground.png */,
 				BBEA16B61B97BBA9009B4711 /* bgm.aifc */,
-				BBEA16B71B97BBA9009B4711 /* explosion.caf */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -940,7 +943,6 @@
 				BB8900B91BB1CAA400963083 /* world_1_foreground.png in Resources */,
 				BB8900BA1BB1CAA400963083 /* world_1_midground.png in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
-				BBEA16B91B97BBA9009B4711 /* explosion.caf in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BB74E80718C2541F007C223E /* Localizable.strings in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
@@ -950,6 +952,8 @@
 				0ADF1898178E2185005DA99E /* MainStoryboard_iPad.storyboard in Resources */,
 				BB8900B51BB1CAA400963083 /* jon.png in Resources */,
 				BBEA16B81B97BBA9009B4711 /* bgm.aifc in Resources */,
+				BBA0E6461BB5D0C10026A433 /* collect_carrot.caf in Resources */,
+				BBA0E6471BB5D0C10026A433 /* collect_golden_carrot.caf in Resources */,
 				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

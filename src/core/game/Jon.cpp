@@ -61,16 +61,13 @@ void Jon::update(float deltaTime, Game& game)
 		m_iNumJumps = 1;
 	}
     
-    if (game.isJonBlockedHorizontally())
-    {
-        m_position->sub(m_velocity->getX() * deltaTime, 0);
-        updateBounds();
-    }
-    
     if (game.isJonBlockedVertically())
     {
-        m_position->sub(0, m_velocity->getY() * deltaTime);
-        updateBounds();
+        // Empty
+    }
+    else if (game.isJonBlockedHorizontally())
+    {
+        // Empty
     }
 
 	if (m_velocity->getX() > m_fMaxSpeed)

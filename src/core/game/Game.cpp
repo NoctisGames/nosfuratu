@@ -10,6 +10,9 @@
 #include "GameConstants.h"
 #include "EntityAnchor.h"
 #include "EntityUtils.h"
+#include "OverlapTester.h"
+#include "Assets.h"
+#include "ResourceConstants.h"
 
 Game::Game() : m_fDeltaTime(0), m_resetGame(false)
 {
@@ -76,7 +79,7 @@ Game::Game() : m_fDeltaTime(0), m_resetGame(false)
     GroundPlatform::createGrassGroundPlatform(*m_platforms, CAM_WIDTH * 2, ANCHOR_GROUND_Y + 5.6f, 2);
     GroundPlatform::createGrassGroundPlatform(*m_platforms, CAM_WIDTH * 3, ANCHOR_GROUND_Y + 8.4f, 2);
     GroundPlatform::createCaveGroundPlatform(*m_platforms, 47.90643274853801f * 2, 4, 1);
-    GroundPlatform::createCaveGroundPlatform(*m_platforms, 47.90643274853801f * 4 - 34, 5, 1);
+    GroundPlatform::createCaveGroundPlatform(*m_platforms, 47.90643274853801f * 4 - 34, 4.4f, 1);
     
     m_endSigns = std::unique_ptr<std::vector<EndSign>>(new std::vector<EndSign>);
     m_endSigns->push_back(EndSign(0));
@@ -95,8 +98,13 @@ Game::Game() : m_fDeltaTime(0), m_resetGame(false)
     m_carrots->push_back(Carrot(47.90643274853801f * 2 + 3, ANCHOR_GROUND_Y + 1.2f));
     m_carrots->push_back(Carrot(47.90643274853801f * 2 + 6, ANCHOR_GROUND_Y + 1.2f));
     
+    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20, ANCHOR_GROUND_Y + 1.2f));
+    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20 + 3, ANCHOR_GROUND_Y + 3.2f));
+    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20 + 6, ANCHOR_GROUND_Y + 6.2f));
+    
     m_goldenCarrots = std::unique_ptr<std::vector<GoldenCarrot>>(new std::vector<GoldenCarrot>);
     m_goldenCarrots->push_back(GoldenCarrot(CAM_WIDTH * 3 + 7, ANCHOR_GROUND_Y + 14));
+    m_goldenCarrots->push_back(GoldenCarrot(47.90643274853801f * 4 - 36, 2.6f));
     
     m_jon = std::unique_ptr<Jon>(new Jon(JON_STARTING_X, 0, 2.2f, 2.2f, EntityAnchor::ANCHOR_GROUND));
 }
@@ -107,14 +115,14 @@ void Game::update(float deltaTime)
     
     m_jon->update(deltaTime, *this);
     
-    if (isCollected(getJon(), getCarrots()))
+    if (EntityUtils::isCollected(getJon(), getCarrots(), m_fDeltaTime))
     {
-        // TODO Play Sound
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
     }
     
-    if (isCollected(getJon(), getGoldenCarrots()))
+    if (EntityUtils::isCollected(getJon(), getGoldenCarrots(), m_fDeltaTime))
     {
-        // TODO Play Sound
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
     }
     
     if (m_jon->isDead())
@@ -130,17 +138,17 @@ void Game::update(float deltaTime)
 
 bool Game::isJonGrounded()
 {
-    return isLanding(getJon(), getGrounds()) || isLanding(getJon(), getPlatforms()) || isLanding(getJon(), getLogVerticalTalls());
+    return EntityUtils::isLanding(getJon(), getGrounds(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), m_fDeltaTime);
 }
 
 bool Game::isJonBlockedHorizontally()
 {
-    return isBlockedOnRight(getJon(), getGrounds());
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), m_fDeltaTime);
 }
 
 bool Game::isJonBlockedVertically()
 {
-    return isBlockedAbove(getJon(), getGrounds());
+    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), m_fDeltaTime);
 }
 
 BackgroundSky& Game::getBackgroundSky()
