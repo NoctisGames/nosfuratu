@@ -203,7 +203,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Image>
-    <Image Include="Assets\level_1_background.dds">
+    <Image Include="Assets\LockScreenLogo.scale-200.png" />
+    <Image Include="Assets\SplashScreen.scale-200.png" />
+    <Image Include="Assets\Square150x150Logo.scale-200.png" />
+    <Image Include="Assets\Square44x44Logo.scale-200.png" />
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Image Include="Assets\StoreLogo.png" />
+    <Image Include="Assets\vampire.dds">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
@@ -211,13 +217,39 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Image>
-    <Image Include="Assets\LockScreenLogo.scale-200.png" />
-    <Image Include="Assets\SplashScreen.scale-200.png" />
-    <Image Include="Assets\Square150x150Logo.scale-200.png" />
-    <Image Include="Assets\Square44x44Logo.scale-200.png" />
-    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Image Include="Assets\StoreLogo.png" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Image Include="Assets\world_1_background.dds">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Assets\world_1_foreground.dds">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Assets\world_1_foreground_more.dds">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Image>
+    <Image Include="Assets\world_1_midground.dds">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
@@ -262,12 +294,24 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundCave.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
     <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\EndSign.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
     <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\GoldenCarrot.h" />
     <ClInclude Include="..\..\..\..\core\game\Ground.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundPlatform.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundPlatformType.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundType.h" />
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
-    <ClInclude Include="..\..\..\..\core\game\GamePlatform.h" />
+    <ClInclude Include="..\..\..\..\core\game\LogVerticalTall.h" />
+    <ClInclude Include="..\..\..\..\core\game\Tree.h" />
+    <ClInclude Include="..\..\..\..\core\game\TreeType.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
@@ -316,11 +360,19 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundCave.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EndSign.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GoldenCarrot.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GamePlatform.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\LogVerticalTall.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Tree.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
@@ -406,14 +458,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
-    <Media Include="Assets\explosion.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
+    <Media Include="Assets\collect_carrot.wav" />
+    <Media Include="Assets\collect_golden_carrot.wav" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj">

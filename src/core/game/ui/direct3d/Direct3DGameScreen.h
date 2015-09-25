@@ -44,7 +44,8 @@ public:
 private:
 	DX::DeviceResources* m_deviceResources;
 	std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
-	std::unique_ptr<GameSound> m_explosionSound;
+	std::unique_ptr<GameSound> m_collectCarrotSound;
+	std::unique_ptr<GameSound> m_collectGoldenCarrotSound;
 
 	float m_fScreenDpWidth;
 	float m_fScreenDpHeight;

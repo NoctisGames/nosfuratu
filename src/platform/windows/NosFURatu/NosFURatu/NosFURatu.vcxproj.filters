@@ -73,7 +73,15 @@
     <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\Animation.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GamePlatform.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\LogVerticalTall.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Tree.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundCave.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EndSign.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GoldenCarrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -131,16 +139,40 @@
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\Animation.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.h" />
-    <ClInclude Include="..\..\..\..\core\game\GamePlatform.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundPlatformType.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundType.h" />
+    <ClInclude Include="..\..\..\..\core\game\LogVerticalTall.h" />
+    <ClInclude Include="..\..\..\..\core\game\Tree.h" />
+    <ClInclude Include="..\..\..\..\core\game\TreeType.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundCave.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
+    <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
+    <ClInclude Include="..\..\..\..\core\game\EndSign.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
+    <ClInclude Include="..\..\..\..\core\game\GoldenCarrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundPlatform.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\jon.dds">
+    <Image Include="Assets\vampire.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\level_1_background.dds">
+    <Image Include="Assets\world_1_background.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_foreground.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_foreground_more.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_midground.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\jon.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -165,7 +197,10 @@
     <Media Include="Assets\bgm.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="Assets\explosion.wav">
+    <Media Include="Assets\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="Assets\collect_golden_carrot.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>

@@ -36,20 +36,34 @@
 
 using namespace DirectX;
 
-ID3D11ShaderResourceView *m_backgroundShaderResourceView;
-ID3D11ShaderResourceView *m_jonShaderResourceView;
+ID3D11ShaderResourceView *g_jonSRV;
+ID3D11ShaderResourceView *g_vampireSRV;
+ID3D11ShaderResourceView *g_world_1_backgroundSRV;
+ID3D11ShaderResourceView *g_world_1_foreground_moreSRV;
+ID3D11ShaderResourceView *g_world_1_foregroundSRV;
+ID3D11ShaderResourceView *g_world_1_midgroundSRV;
 
 Direct3DRenderer::Direct3DRenderer() : Renderer()
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher());
 
-	loadTexture(L"Assets\\level_1_background.dds", &m_backgroundShaderResourceView);
-	m_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_backgroundShaderResourceView));
+	loadTexture(L"Assets\\jon.dds", &g_jonSRV);
+	m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_jonSRV));
 
-	loadTexture(L"Assets\\jon.dds", &m_jonShaderResourceView);
-	m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(m_jonShaderResourceView));
+	loadTexture(L"Assets\\vampire.dds", &g_vampireSRV);
+	m_vampire = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_vampireSRV));
 
-	//m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
+	loadTexture(L"Assets\\world_1_background.dds", &g_world_1_backgroundSRV);
+	m_world_1_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_backgroundSRV));
+
+	loadTexture(L"Assets\\world_1_foreground_more.dds", &g_world_1_foreground_moreSRV);
+	m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_foreground_moreSRV));
+
+	loadTexture(L"Assets\\world_1_foreground.dds", &g_world_1_foregroundSRV);
+	m_world_1_foreground = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_foregroundSRV));
+
+	loadTexture(L"Assets\\world_1_midground.dds", &g_world_1_midgroundSRV);
+	m_world_1_midground = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_midgroundSRV));
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -93,8 +107,12 @@ GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 
 void Direct3DRenderer::cleanUp()
 {
-	m_backgroundShaderResourceView->Release();
-	m_jonShaderResourceView->Release();
+	g_jonSRV->Release();
+	g_vampireSRV->Release();
+	g_world_1_backgroundSRV->Release();
+	g_world_1_foreground_moreSRV->Release();
+	g_world_1_foregroundSRV->Release();
+	g_world_1_midgroundSRV->Release();
 }
 
 #pragma mark private

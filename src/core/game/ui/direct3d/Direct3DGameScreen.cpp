@@ -28,7 +28,8 @@ Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : G
 	m_mediaPlayer->Initialize(D3DManager->m_d3dDevice, DXGI_FORMAT_B8G8R8A8_UNORM);
 
 	// Load Sound Effects
-	m_explosionSound = std::unique_ptr<GameSound>(new GameSound("assets\\explosion.wav"));
+	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_carrot.wav"));
+	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_golden_carrot.wav"));
 }
 
 Direct3DGameScreen::~Direct3DGameScreen()
@@ -54,8 +55,11 @@ void Direct3DGameScreen::handleSound()
 
 		switch (soundId)
 		{
-		case SOUND_DEMO:
-			m_explosionSound->play();
+		case SOUND_COLLECT_CARROT:
+			m_collectCarrotSound->play();
+			break;
+		case SOUND_COLLECT_GOLDEN_CARROT:
+			m_collectGoldenCarrotSound->play();
 			break;
 		default:
 			continue;
