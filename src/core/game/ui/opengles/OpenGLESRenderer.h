@@ -32,6 +32,9 @@ protected:
     virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
+    
+private:
+    TextureWrapper* loadTexture(const char* textureName);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESRenderer__) */
