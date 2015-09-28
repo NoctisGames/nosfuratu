@@ -26,7 +26,7 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer()
+Renderer::Renderer() : m_areTexturesLoaded(false)
 {
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
 }
@@ -48,15 +48,24 @@ void Renderer::render(Game& game, float deltaTime)
     updateMatrix(0, CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(game.getBackgroundSky(), Assets::getBackgroundSky(game.getJon(), game));
+    for (std::vector<BackgroundSky>::iterator itr = game.getBackgroundSkies().begin(); itr != game.getBackgroundSkies().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getBackgroundSky(game.getJon(), game));
+    }
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(game.getBackgroundTrees(), Assets::getBackgroundTrees(game.getJon(), game));
+    for (std::vector<BackgroundTrees>::iterator itr = game.getBackgroundTrees().begin(); itr != game.getBackgroundTrees().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getBackgroundTrees(game.getJon(), game));
+    }
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(game.getBackgroundCave(), Assets::getBackgroundCave(game.getJon(), game));
+    for (std::vector<BackgroundCave>::iterator itr = game.getBackgroundCaves().begin(); itr != game.getBackgroundCaves().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getBackgroundCave(game.getJon(), game));
+    }
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     /// Render World midground Trees/Skeletons/etc
@@ -132,27 +141,37 @@ void Renderer::render(Game& game, float deltaTime)
     /// Render Jon
     
     m_spriteBatcher->beginBatch();
-    
     renderPhysicalEntity(game.getJon(), Assets::getJon(game.getJon()));
-    
-    m_spriteBatcher->endBatch(*m_jon);
+    m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
     
     /// Render everything to the screen
     
     bindToScreenFramebuffer();
     
     m_spriteBatcher->beginBatch();
-    
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    
     m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
     
     endFrame();
 }
 
-void Renderer::reset(Game& game)
+void Renderer::init()
 {
     m_camPos->set(0, aboveGroundRegionBottomY);
+    
+    if (!m_areTexturesLoaded)
+    {
+        m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+        m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
+        m_misc = std::unique_ptr<TextureWrapper>(loadTexture("misc"));
+        m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
+        m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
+        m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
+        m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
+        m_world_1_midground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_midground"));
+        
+        m_areTexturesLoaded = true;
+    }
 }
 
 #pragma mark private
@@ -200,12 +219,16 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
         }
     }
     
-    float camVelocityY = regionBottomY > m_camPos->getY() ? 1337 : regionBottomY == m_camPos->getY() ? 0 : -(m_camPos->getY() - regionBottomY) * 4;
+    float camSpeed = regionBottomY - m_camPos->getY();
+    float camVelocityY = regionBottomY > m_camPos->getY() ? camSpeed : regionBottomY == m_camPos->getY() ? 0 : camSpeed * 4;
     m_camPos->add(0, camVelocityY * deltaTime);
     
     if (camVelocityY > 0)
     {
-        m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
+        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
+        {
+            m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
+        }
         
         if (m_camPos->getY() > regionBottomY)
         {

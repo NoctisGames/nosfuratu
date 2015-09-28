@@ -55,6 +55,7 @@ public:
 protected:
     std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<Vector2D> m_touchPoint;
+    std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Game> m_game;
     float m_fDeltaTime;
     
@@ -66,6 +67,8 @@ private:
     TouchEvent newTouchEvent();
     
     void addTouchEventForType(Touch_Type touchType, float x, float y);
+    
+    void handleTouchInput();
 };
 
 #endif /* GAME_SCREEN_H */

@@ -11,36 +11,32 @@
 
 GameScreen::GameScreen() : m_fDeltaTime(0.0f)
 {
-    init();
+    m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
+    m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
+    
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
 }
 
 void GameScreen::init()
 {
-    m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
-    
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    
     m_game = std::unique_ptr<Game>(new Game());
     
-    if (m_renderer)
-    {
-        m_renderer->reset(*m_game);
-    }
+    m_renderer->init();
 }
 
 void GameScreen::onResume()
@@ -57,35 +53,7 @@ void GameScreen::update(float deltaTime)
 {
     m_fDeltaTime = deltaTime;
     
-    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
-    {
-        if(m_touchEventsPool.size() < 50)
-        {
-            m_touchEventsPool.push_back(*itr);
-        }
-    }
-    
-    m_touchEvents.clear();
-    m_touchEvents.swap(m_touchEventsBuffer);
-    m_touchEventsBuffer.clear();
-
-	for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
-	{
-		touchToWorld((*itr));
-
-		switch (itr->getTouchType())
-		{
-            case DOWN:
-                m_game->getJon().triggerJump();
-                continue;
-            case DRAGGED:
-                // TODO
-                continue;
-            case UP:
-                // TODO
-                return;
-		}
-	}
+    handleTouchInput();
     
     m_game->update(deltaTime);
     
@@ -159,4 +127,65 @@ void GameScreen::addTouchEventForType(Touch_Type touchType, float x, float y)
     touchEvent.setY(y);
     
     m_touchEventsBuffer.push_back(touchEvent);
+}
+
+void GameScreen::handleTouchInput()
+{
+    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+    {
+        if(m_touchEventsPool.size() < 50)
+        {
+            m_touchEventsPool.push_back(*itr);
+        }
+    }
+    
+    m_touchEvents.clear();
+    m_touchEvents.swap(m_touchEventsBuffer);
+    m_touchEventsBuffer.clear();
+    
+    bool triggerJump = false;
+    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+    {
+        TouchEvent te = *itr;
+        touchToWorld(te);
+        
+        switch (itr->getTouchType())
+        {
+            case DOWN:
+                m_touchPointDown->set(te.getX(), te.getY());
+                triggerJump = true;
+                continue;
+            case DRAGGED:
+                triggerJump = false;
+                continue;
+            case UP:
+                if (m_touchPointDown->getX() + SWIPE_WIDTH <= te.getX())
+                {
+                    // Swipe Right
+                    m_game->getJon().triggerRightAction();
+                }
+                else if (m_touchPointDown->getX() - SWIPE_WIDTH >= te.getX())
+                {
+                    // Swipe Left
+                    m_game->getJon().triggerLeftAction();
+                }
+                else if (m_touchPointDown->getY() + SWIPE_HEIGHT <= te.getY())
+                {
+                    // Swipe Up
+                    m_game->getJon().triggerUpAction();
+                }
+                else if (m_touchPointDown->getY() - SWIPE_HEIGHT >= te.getY())
+                {
+                    // Swipe Down
+                    m_game->getJon().triggerDownAction();
+                }
+                
+                return;
+        }
+    }
+    
+    if (triggerJump)
+    {
+        m_game->getJon().triggerJump();
+    }
 }

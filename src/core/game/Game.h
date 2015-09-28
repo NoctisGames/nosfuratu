@@ -37,11 +37,13 @@ public:
     
     bool isJonBlockedVertically();
     
-    BackgroundSky& getBackgroundSky();
+    bool isSpinningBackFistDelivered();
     
-    BackgroundTrees& getBackgroundTrees();
+    std::vector<BackgroundSky>& getBackgroundSkies();
     
-    BackgroundCave& getBackgroundCave();
+    std::vector<BackgroundTrees>& getBackgroundTrees();
+    
+    std::vector<BackgroundCave>& getBackgroundCaves();
     
     std::vector<Tree>& getTrees();
     
@@ -64,9 +66,9 @@ public:
     bool resetGame();
     
 private:
-    std::unique_ptr<BackgroundSky> m_backgroundSky;
-    std::unique_ptr<BackgroundTrees> m_backgroundTrees;
-    std::unique_ptr<BackgroundCave> m_backgroundCave;
+    std::unique_ptr<std::vector<BackgroundSky>> m_backgroundSkies;
+    std::unique_ptr<std::vector<BackgroundTrees>> m_backgroundTrees;
+    std::unique_ptr<std::vector<BackgroundCave>> m_backgroundCaves;
     std::unique_ptr<std::vector<Tree>> m_trees;
     std::unique_ptr<std::vector<Ground>> m_grounds;
     std::unique_ptr<std::vector<LogVerticalTall>> m_logVerticalTalls;

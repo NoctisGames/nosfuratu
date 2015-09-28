@@ -14,17 +14,17 @@
 
 #define GROUND_PLATFORM_HEIGHT 1.1698440207972272f
 
-void GroundPlatform::createGrassGroundPlatform(std::vector<GroundPlatform>& platforms, float x, float y, int length)
+void GroundPlatform::createGrass(std::vector<GroundPlatform>& platforms, float x, float y, int length)
 {
-    createGroundPlatform(platforms, x, y, length, GROUND_PLATFORM_GRASS_END_LEFT, GROUND_PLATFORM_GRASS_CENTER, GROUND_PLATFORM_GRASS_END_RIGHT);
+    create(platforms, x, y, length, GROUND_PLATFORM_GRASS_END_LEFT, GROUND_PLATFORM_GRASS_CENTER, GROUND_PLATFORM_GRASS_END_RIGHT);
 }
 
-void GroundPlatform::createCaveGroundPlatform(std::vector<GroundPlatform>& platforms, float x, float y, int length)
+void GroundPlatform::createCave(std::vector<GroundPlatform>& platforms, float x, float y, int length)
 {
-    createGroundPlatform(platforms, x, y, length, GROUND_PLATFORM_CAVE_END_LEFT, GROUND_PLATFORM_CAVE_CENTER, GROUND_PLATFORM_CAVE_END_RIGHT);
+    create(platforms, x, y, length, GROUND_PLATFORM_CAVE_END_LEFT, GROUND_PLATFORM_CAVE_CENTER, GROUND_PLATFORM_CAVE_END_RIGHT);
 }
 
-GroundPlatform GroundPlatform::createGroundPlatform(float x, float y, GroundPlatformType type)
+GroundPlatform GroundPlatform::create(float x, float y, GroundPlatformType type)
 {
     switch (type)
     {
@@ -46,7 +46,7 @@ GroundPlatform GroundPlatform::createGroundPlatform(float x, float y, GroundPlat
     }
 }
 
-GroundPlatform::GroundPlatform(float x, float y, float width, GroundPlatformType type) : PhysicalEntity(x, y, width, GROUND_PLATFORM_HEIGHT), m_groundPlatformType(type)
+GroundPlatform::GroundPlatform(float x, float y, float width, GroundPlatformType type) : PhysicalEntity(x + width / 2, y, width, GROUND_PLATFORM_HEIGHT), m_groundPlatformType(type)
 {
     resetBounds(width, GROUND_PLATFORM_HEIGHT * 0.86f);
 }
@@ -58,18 +58,17 @@ GroundPlatformType GroundPlatform::getGroundPlatformType()
 
 #pragma mark private
 
-void GroundPlatform::createGroundPlatform(std::vector<GroundPlatform>& platforms, float x, float y, int length, GroundPlatformType typeLeft, GroundPlatformType typeCenter, GroundPlatformType typeRight)
+void GroundPlatform::create(std::vector<GroundPlatform>& platforms, float x, float y, int length, GroundPlatformType typeLeft, GroundPlatformType typeCenter, GroundPlatformType typeRight)
 {
-    int index = platforms.size();
+    platforms.push_back(GroundPlatform::create(x, y, typeLeft));
     
     for (int i = 0; i < length; i++)
     {
-        platforms.push_back(GroundPlatform::createGroundPlatform(x, y, typeCenter));
+        platforms.push_back(GroundPlatform::create(0, y, typeCenter));
+        EntityUtils::attach(platforms.at(platforms.size() - 1), platforms.at(platforms.size() - 2), false);
     }
     
-    platforms.push_back(GroundPlatform::createGroundPlatform(0, y, typeLeft));
-    platforms.push_back(GroundPlatform::createGroundPlatform(0, y, typeRight));
+    platforms.push_back(GroundPlatform::create(0, y, typeRight));
     
-    EntityUtils::attach(platforms.at(index + length), platforms.at(index), true);
-    EntityUtils::attach(platforms.at(index + length + 1), platforms.at(index + length - 1), false);
+    EntityUtils::attach(platforms.at(platforms.size() - 1), platforms.at(platforms.size() - 2), false);
 }

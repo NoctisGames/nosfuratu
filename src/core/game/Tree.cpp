@@ -23,7 +23,7 @@ Tree Tree::createTree(float x, TreeType treeType)
     }
 }
 
-Tree::Tree(float x, float width, float height, TreeType treeType, EntityAnchor anchor) : PhysicalEntity(x, 0, width, height), m_treeType(treeType)
+Tree::Tree(float x, float width, float height, TreeType treeType, EntityAnchor anchor) : PhysicalEntity(x + width / 2, 0, width, height), m_treeType(treeType)
 {
     EntityUtils::applyAnchor(*this, anchor);
 }

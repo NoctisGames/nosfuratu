@@ -36,6 +36,9 @@
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB19BDBB1BB9C1B900FA29E8 /* jon_ability.png in Resources */ = {isa = PBXBuildFile; fileRef = BB19BDBA1BB9C1B900FA29E8 /* jon_ability.png */; settings = {ASSET_TAGS = (); }; };
+		BB19BDC01BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */; settings = {ASSET_TAGS = (); }; };
+		BB19BDC41BB9F16F00FA29E8 /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BB19BDC31BB9F16F00FA29E8 /* misc.png */; settings = {ASSET_TAGS = (); }; };
 		BB254B611BA49CCB00851994 /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB254B5F1BA49CCB00851994 /* Tree.cpp */; };
 		BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */; };
 		BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */; };
@@ -152,6 +155,14 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB19BDBA1BB9C1B900FA29E8 /* jon_ability.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jon_ability.png; path = ../../../../assets/jon_ability.png; sourceTree = "<group>"; };
+		BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonActionState.h; sourceTree = "<group>"; };
+		BB19BDBD1BB9C9F400FA29E8 /* JonAbilityState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonAbilityState.h; sourceTree = "<group>"; };
+		BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestructiblePhysicalEntity.cpp; sourceTree = "<group>"; };
+		BB19BDBF1BB9E51000FA29E8 /* DestructiblePhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestructiblePhysicalEntity.h; sourceTree = "<group>"; };
+		BB19BDC11BB9EAF600FA29E8 /* JonState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonState.h; sourceTree = "<group>"; };
+		BB19BDC21BB9EAF600FA29E8 /* JonPhysicalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonPhysicalState.h; sourceTree = "<group>"; };
+		BB19BDC31BB9F16F00FA29E8 /* misc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = misc.png; path = ../../../../assets/misc.png; sourceTree = "<group>"; };
 		BB254B5F1BA49CCB00851994 /* Tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tree.cpp; sourceTree = "<group>"; };
 		BB254B601BA49CCB00851994 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
 		BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
@@ -212,6 +223,7 @@
 		BB8900CC1BB1F30A00963083 /* TreeType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeType.h; sourceTree = "<group>"; };
 		BB8900CD1BB20E0E00963083 /* EndSign.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndSign.cpp; sourceTree = "<group>"; };
 		BB8900CE1BB20E0E00963083 /* EndSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndSign.h; sourceTree = "<group>"; };
+		BB91860E1BB8BAF100C051AE /* GroundSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroundSize.h; sourceTree = "<group>"; };
 		BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_carrot.caf; sourceTree = "<group>"; };
 		BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_golden_carrot.caf; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -496,15 +508,17 @@
 		BBD079F518AA879D00E010AF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BBEA16B61B97BBA9009B4711 /* bgm.aifc */,
 				BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */,
 				BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */,
+				BB19BDBA1BB9C1B900FA29E8 /* jon_ability.png */,
 				BB8900AF1BB1CAA400963083 /* jon.png */,
+				BB19BDC31BB9F16F00FA29E8 /* misc.png */,
 				BB8900B01BB1CAA400963083 /* vampire.png */,
 				BB8900B11BB1CAA400963083 /* world_1_background.png */,
 				BB8900B21BB1CAA400963083 /* world_1_foreground_more.png */,
 				BB8900B31BB1CAA400963083 /* world_1_foreground.png */,
 				BB8900B41BB1CAA400963083 /* world_1_midground.png */,
-				BBEA16B61B97BBA9009B4711 /* bgm.aifc */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -791,6 +805,8 @@
 				BB8900C41BB1D4AF00963083 /* BackgroundTrees.h */,
 				BB7DCF041B9A5EE000394A73 /* Carrot.cpp */,
 				BB7DCF051B9A5EE000394A73 /* Carrot.h */,
+				BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */,
+				BB19BDBF1BB9E51000FA29E8 /* DestructiblePhysicalEntity.h */,
 				BB8900CD1BB20E0E00963083 /* EndSign.cpp */,
 				BB8900CE1BB20E0E00963083 /* EndSign.h */,
 				BB6F4D6E1BB319E50081CAE4 /* EntityAnchor.h */,
@@ -806,9 +822,14 @@
 				BBE012681B9E545900D983B0 /* GroundPlatform.cpp */,
 				BBE012691B9E545900D983B0 /* GroundPlatform.h */,
 				BB8900C81BB1E78900963083 /* GroundPlatformType.h */,
+				BB91860E1BB8BAF100C051AE /* GroundSize.h */,
 				BB8900C71BB1E3A500963083 /* GroundType.h */,
 				BB3D8CF11B98CDBF009D58DE /* Jon.cpp */,
 				BB3D8CF21B98CDBF009D58DE /* Jon.h */,
+				BB19BDBD1BB9C9F400FA29E8 /* JonAbilityState.h */,
+				BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */,
+				BB19BDC21BB9EAF600FA29E8 /* JonPhysicalState.h */,
+				BB19BDC11BB9EAF600FA29E8 /* JonState.h */,
 				BB5C7AEF1BB2297D0049DFDF /* LogVerticalTall.cpp */,
 				BB5C7AF01BB2297D0049DFDF /* LogVerticalTall.h */,
 				BB254B5F1BA49CCB00851994 /* Tree.cpp */,
@@ -954,6 +975,8 @@
 				BBEA16B81B97BBA9009B4711 /* bgm.aifc in Resources */,
 				BBA0E6461BB5D0C10026A433 /* collect_carrot.caf in Resources */,
 				BBA0E6471BB5D0C10026A433 /* collect_golden_carrot.caf in Resources */,
+				BB19BDC41BB9F16F00FA29E8 /* misc.png in Resources */,
+				BB19BDBB1BB9C1B900FA29E8 /* jon_ability.png in Resources */,
 				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,6 +1003,7 @@
 				BBEA16791B97B9BB009B4711 /* Vector2D.cpp in Sources */,
 				0A8FBF7C179E07320039BA29 /* png.c in Sources */,
 				0A8FBF7D179E07320039BA29 /* pngerror.c in Sources */,
+				BB19BDC01BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp in Sources */,
 				0A8FBF7E179E07320039BA29 /* pngget.c in Sources */,
 				BBEA16A81B97B9BB009B4711 /* SpriteBatcher.cpp in Sources */,
 				BBEA16921B97B9BB009B4711 /* GpuProgramWrapper.cpp in Sources */,

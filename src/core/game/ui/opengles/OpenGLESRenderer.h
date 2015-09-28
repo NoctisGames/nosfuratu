@@ -19,6 +19,8 @@ public:
 	virtual void cleanUp();
 
 protected:
+    virtual TextureWrapper* loadTexture(const char* textureName);
+    
     virtual void updateMatrix(float left, float right, float bottom, float top);
     
     virtual void bindToOffscreenFramebuffer();
@@ -32,9 +34,6 @@ protected:
     virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
-    
-private:
-    TextureWrapper* loadTexture(const char* textureName);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESRenderer__) */

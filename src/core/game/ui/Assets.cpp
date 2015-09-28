@@ -239,23 +239,43 @@ TextureRegion& Assets::getJon(Jon &jon)
     static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 9);
     static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
     static Animation jonLandingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 4);
+    static Animation jonSpinningBackFistAnimation = Animation(0, 0, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 8);
     
     float scalar = JON_DEFAULT_MAX_SPEED / jon.getVelocity().getX();
-    if (jon.isFalling())
+    
+    if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
     {
-        return jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        if (jon.isLanding())
+        {
+            return jonLandingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        }
     }
-    else if(jon.isLanding())
+    else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
     {
-        return jonLandingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        if (jon.isFalling())
+        {
+            return jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        }
     }
-    else if (jon.getNumJumps() == 2)
+    
+    switch (jon.getAbilityState())
     {
-        return jonDoubleJumpingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        case ABILITY_SPINNING_BACK_FIST:
+            return jonSpinningBackFistAnimation.getTextureRegion(jon.getAbilityStateTime(), scalar);
+        case ABILITY_NONE:
+        default:
+            break;
     }
-    else if (jon.getNumJumps() == 1)
+    
+    switch (jon.getActionState())
     {
-        return jonJumpingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        case ACTION_JUMPING:
+            return jonJumpingAnim.getTextureRegion(jon.getActionStateTime(), scalar);
+        case ACTION_DOUBLE_JUMPING:
+            return jonDoubleJumpingAnim.getTextureRegion(jon.getActionStateTime(), scalar);
+        case ACTION_NONE:
+        default:
+            break;
     }
     
     return jonRunningAnim.getTextureRegion(jon.getStateTime(), scalar);

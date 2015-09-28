@@ -27,20 +27,24 @@ public:
     
     void render(Game& game, float deltaTime);
     
-    void reset(Game& game);
+    void init();
 
 	virtual void cleanUp() = 0;
     
 protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     
+    std::unique_ptr<TextureWrapper> m_jon_ability;
     std::unique_ptr<TextureWrapper> m_jon;
+    std::unique_ptr<TextureWrapper> m_misc;
     std::unique_ptr<TextureWrapper> m_vampire;
     std::unique_ptr<TextureWrapper> m_world_1_background;
     std::unique_ptr<TextureWrapper> m_world_1_foreground_more;
     std::unique_ptr<TextureWrapper> m_world_1_foreground;
     std::unique_ptr<TextureWrapper> m_world_1_midground;
     std::unique_ptr<TextureWrapper> m_framebuffer;
+    
+    virtual TextureWrapper* loadTexture(const char* textureName) = 0;
     
     virtual void updateMatrix(float left, float right, float bottom, float top) = 0;
     
@@ -58,6 +62,7 @@ protected:
     
 private:
     std::unique_ptr<Vector2D> m_camPos;
+    bool m_areTexturesLoaded;
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
     

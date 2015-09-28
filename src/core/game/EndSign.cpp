@@ -12,7 +12,9 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-EndSign::EndSign(float x, EntityAnchor anchor) : PhysicalEntity(x, 0, 0.7953216374269005f, 1.123050259965338f)
+#define END_SIGN_WIDTH 0.7953216374269005f
+
+EndSign::EndSign(float x, EntityAnchor anchor) : PhysicalEntity(x + END_SIGN_WIDTH / 2, 0, END_SIGN_WIDTH, 1.123050259965338f)
 {
     EntityUtils::applyAnchor(*this, anchor);
     

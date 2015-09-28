@@ -12,6 +12,7 @@
 #include "EntityAnchor.h"
 #include "OverlapTester.h"
 #include "PhysicalEntity.h"
+#include "DestructiblePhysicalEntity.h"
 
 #include <math.h>
 #include <vector>
@@ -124,6 +125,31 @@ public:
         }
         
         return retval;
+    }
+    
+    template<typename T>
+    static bool isHit(PhysicalEntity& entity, std::vector<T>& items)
+    {
+        for (typename std::vector<T>::iterator itr = items.begin(); itr != items.end(); )
+        {
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*itr).getBounds()))
+            {
+                (*itr).triggerHit();
+                
+                if ((*itr).isDestroyed())
+                {
+                    itr = items.erase(itr);
+                }
+                
+                return true;
+            }
+            else
+            {
+                itr++;
+            }
+        }
+        
+        return false;
     }
     
 private:

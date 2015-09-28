@@ -9,10 +9,10 @@
 #ifndef __nosfuratu__LogVerticalTall__
 #define __nosfuratu__LogVerticalTall__
 
-#include "PhysicalEntity.h"
+#include "DestructiblePhysicalEntity.h"
 #include "EntityAnchor.h"
 
-class LogVerticalTall : public PhysicalEntity
+class LogVerticalTall : public DestructiblePhysicalEntity
 {
 public:
     LogVerticalTall(float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);

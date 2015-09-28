@@ -29,14 +29,27 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
 {
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     
-    m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-    m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
-    m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-    m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-    m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
-    m_world_1_midground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_midground"));
-    
     m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
+}
+
+TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName)
+{
+    size_t len = strlen(textureName);
+    
+    char* textureFileName = new char[len+5];
+    
+    strcpy(textureFileName, textureName);
+    textureFileName[len] = '.';
+    textureFileName[len+1] = 'p';
+    textureFileName[len+2] = 'n';
+    textureFileName[len+3] = 'g';
+    textureFileName[len+4] = '\0';
+    
+    TextureWrapper* tw = new TextureWrapper(load_png_asset_into_texture(textureFileName));
+    
+    delete textureFileName;
+    
+    return tw;
 }
 
 void OpenGLESRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -88,24 +101,4 @@ void OpenGLESRenderer::cleanUp()
     glDeleteTextures(1, &m_world_1_foreground_more->texture);
     glDeleteTextures(1, &m_world_1_foreground->texture);
     glDeleteTextures(1, &m_world_1_midground->texture);
-}
-
-TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName)
-{
-    size_t len = strlen(textureName);
-    
-    char* textureFileName = new char[len+5];
-    
-    strcpy(textureFileName, textureName);
-    textureFileName[len] = '.';
-    textureFileName[len+1] = 'p';
-    textureFileName[len+2] = 'n';
-    textureFileName[len+3] = 'g';
-    textureFileName[len+4] = '\0';
-    
-    TextureWrapper* tw = new TextureWrapper(load_png_asset_into_texture(textureFileName));
-    
-    delete textureFileName;
-    
-    return tw;
 }
