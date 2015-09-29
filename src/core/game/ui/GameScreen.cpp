@@ -143,7 +143,7 @@ void GameScreen::handleTouchInput()
     m_touchEvents.swap(m_touchEventsBuffer);
     m_touchEventsBuffer.clear();
     
-    bool triggerJump = false;
+	bool enableUp = true;
     for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
     {
         TouchEvent te = *itr;
@@ -153,39 +153,44 @@ void GameScreen::handleTouchInput()
         {
             case DOWN:
                 m_touchPointDown->set(te.getX(), te.getY());
-                triggerJump = true;
                 continue;
             case DRAGGED:
-                triggerJump = false;
+				if (m_touchPointDown->getX() + SWIPE_WIDTH <= te.getX())
+				{
+					// Swipe Right
+					m_game->getJon().triggerRightAction();
+					m_touchPointDown->set(0, 0);
+					enableUp = false;
+				}
+				else if (m_touchPointDown->getX() - SWIPE_WIDTH >= te.getX())
+				{
+					// Swipe Left
+					m_game->getJon().triggerLeftAction();
+					m_touchPointDown->set(0, 0);
+					enableUp = false;
+				}
+				else if (m_touchPointDown->getY() + SWIPE_HEIGHT <= te.getY())
+				{
+					// Swipe Up
+					m_game->getJon().triggerUpAction();
+					m_touchPointDown->set(0, 0);
+					enableUp = false;
+				}
+				else if (m_touchPointDown->getY() - SWIPE_HEIGHT >= te.getY())
+				{
+					// Swipe Down
+					m_game->getJon().triggerDownAction();
+					m_touchPointDown->set(0, 0);
+					enableUp = false;
+				}
+				
                 continue;
             case UP:
-                if (m_touchPointDown->getX() + SWIPE_WIDTH <= te.getX())
-                {
-                    // Swipe Right
-                    m_game->getJon().triggerRightAction();
-                }
-                else if (m_touchPointDown->getX() - SWIPE_WIDTH >= te.getX())
-                {
-                    // Swipe Left
-                    m_game->getJon().triggerLeftAction();
-                }
-                else if (m_touchPointDown->getY() + SWIPE_HEIGHT <= te.getY())
-                {
-                    // Swipe Up
-                    m_game->getJon().triggerUpAction();
-                }
-                else if (m_touchPointDown->getY() - SWIPE_HEIGHT >= te.getY())
-                {
-                    // Swipe Down
-                    m_game->getJon().triggerDownAction();
-                }
-                
+				if (enableUp)
+				{
+					m_game->getJon().triggerJump();
+				}
                 return;
         }
-    }
-    
-    if (triggerJump)
-    {
-        m_game->getJon().triggerJump();
     }
 }

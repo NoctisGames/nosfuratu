@@ -67,6 +67,8 @@ namespace NosFURatu
 
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
+
+		bool m_isPointerPressed;
 	};
 }
 

@@ -26,7 +26,7 @@ using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace concurrency;
 
-DirectXPage::DirectXPage(): m_coreInput(nullptr)
+DirectXPage::DirectXPage(): m_coreInput(nullptr), m_isPointerPressed(false)
 {
 	InitializeComponent();
 
@@ -157,16 +157,23 @@ void DirectXPage::OnDisplayContentsInvalidated(DisplayInformation^ sender, Objec
 void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ args)
 {
 	m_gameScreen->onTouch(DOWN, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
+
+	m_isPointerPressed = true;
 }
 
 void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ args)
 {
-	m_gameScreen->onTouch(DRAGGED, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
+	if (m_isPointerPressed)
+	{
+		m_gameScreen->onTouch(DRAGGED, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
+	}
 }
 
 void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ args)
 {
 	m_gameScreen->onTouch(UP, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
+
+	m_isPointerPressed = false;
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)

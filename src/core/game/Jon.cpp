@@ -58,7 +58,7 @@ void Jon::update(float deltaTime, Game& game)
     
     bool wasGrounded = m_physicalState == PHYSICAL_GROUNDED;
     
-    m_physicalState = game.isJonGrounded() ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR;
+	setState(game.isJonGrounded() ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR);
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
@@ -212,7 +212,7 @@ void Jon::setState(JonState state)
 
 void Jon::setState(JonPhysicalState state)
 {
-    
+	m_physicalState = state;
 }
 
 void Jon::setState(JonActionState state)

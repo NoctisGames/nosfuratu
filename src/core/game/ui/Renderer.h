@@ -27,7 +27,7 @@ public:
     
     void render(Game& game, float deltaTime);
     
-    void init();
+	void init();
 
 	virtual void cleanUp() = 0;
     
@@ -43,6 +43,8 @@ protected:
     std::unique_ptr<TextureWrapper> m_world_1_foreground;
     std::unique_ptr<TextureWrapper> m_world_1_midground;
     std::unique_ptr<TextureWrapper> m_framebuffer;
+
+	bool m_areTexturesLoaded;
     
     virtual TextureWrapper* loadTexture(const char* textureName) = 0;
     
@@ -62,7 +64,6 @@ protected:
     
 private:
     std::unique_ptr<Vector2D> m_camPos;
-    bool m_areTexturesLoaded;
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
     

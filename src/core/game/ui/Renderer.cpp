@@ -227,7 +227,7 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
     {
         if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
         {
-            m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
+			m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
         }
         
         if (m_camPos->getY() > regionBottomY)

@@ -36,34 +36,58 @@
 
 using namespace DirectX;
 
-ID3D11ShaderResourceView *g_jonSRV;
-ID3D11ShaderResourceView *g_vampireSRV;
-ID3D11ShaderResourceView *g_world_1_backgroundSRV;
-ID3D11ShaderResourceView *g_world_1_foreground_moreSRV;
-ID3D11ShaderResourceView *g_world_1_foregroundSRV;
-ID3D11ShaderResourceView *g_world_1_midgroundSRV;
+std::vector<ID3D11ShaderResourceView *> g_shaderResourceViews;
 
-Direct3DRenderer::Direct3DRenderer() : Renderer()
+/* Prepends t into s. Assumes s has enough space allocated
+** for the combined string.
+*/
+void prepend(char* s, const char* t)
+{
+	size_t len = strlen(t);
+	size_t i;
+
+	memmove(s + len, s, strlen(s) + 1);
+
+	for (i = 0; i < len; ++i)
+	{
+		s[i] = t[i];
+	}
+}
+
+Direct3DRenderer::Direct3DRenderer() : Renderer(), m_iNumTexturesLoaded(0)
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher());
+}
 
-	loadTexture(L"Assets\\jon.dds", &g_jonSRV);
-	m_jon = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_jonSRV));
+TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName)
+{
+	size_t len = strlen(textureName);
 
-	loadTexture(L"Assets\\vampire.dds", &g_vampireSRV);
-	m_vampire = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_vampireSRV));
+	char* textureFileName = new char[8 + len + 5];
 
-	loadTexture(L"Assets\\world_1_background.dds", &g_world_1_backgroundSRV);
-	m_world_1_background = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_backgroundSRV));
+	strcpy(textureFileName, textureName);
+	textureFileName[len] = '.';
+	textureFileName[len + 1] = 'd';
+	textureFileName[len + 2] = 'd';
+	textureFileName[len + 3] = 's';
+	textureFileName[len + 4] = '\0';
 
-	loadTexture(L"Assets\\world_1_foreground_more.dds", &g_world_1_foreground_moreSRV);
-	m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_foreground_moreSRV));
+	prepend(textureFileName, "Assets\\");
 
-	loadTexture(L"Assets\\world_1_foreground.dds", &g_world_1_foregroundSRV);
-	m_world_1_foreground = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_foregroundSRV));
+	wchar_t* wString = new wchar_t[4096];
+	MultiByteToWideChar(CP_ACP, 0, textureFileName, -1, wString, 4096);
 
-	loadTexture(L"Assets\\world_1_midground.dds", &g_world_1_midgroundSRV);
-	m_world_1_midground = std::unique_ptr<TextureWrapper>(new TextureWrapper(g_world_1_midgroundSRV));
+	ID3D11ShaderResourceView *pShaderResourceView;
+	g_shaderResourceViews.push_back(pShaderResourceView);
+	loadTexture(wString, &g_shaderResourceViews[m_iNumTexturesLoaded]);
+	TextureWrapper* tw = new TextureWrapper(g_shaderResourceViews[m_iNumTexturesLoaded]);
+
+	m_iNumTexturesLoaded++;
+	
+	delete wString;
+	delete textureFileName;
+
+	return tw;
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -74,6 +98,7 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 void Direct3DRenderer::bindToOffscreenFramebuffer()
 {
 	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
+
 	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
 }
 
@@ -107,12 +132,10 @@ GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 
 void Direct3DRenderer::cleanUp()
 {
-	g_jonSRV->Release();
-	g_vampireSRV->Release();
-	g_world_1_backgroundSRV->Release();
-	g_world_1_foreground_moreSRV->Release();
-	g_world_1_foregroundSRV->Release();
-	g_world_1_midgroundSRV->Release();
+	for (std::vector<ID3D11ShaderResourceView *>::iterator itr = g_shaderResourceViews.begin(); itr != g_shaderResourceViews.end(); itr++)
+	{
+		(*itr)->Release();
+	}
 }
 
 #pragma mark private

@@ -19,6 +19,8 @@ public:
 	virtual void cleanUp();
 
 protected:
+	virtual TextureWrapper* loadTexture(const char* textureName);
+
 	virtual void updateMatrix(float left, float right, float bottom, float top);
 
 	virtual void bindToOffscreenFramebuffer();
@@ -34,6 +36,8 @@ protected:
 	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
 
 private:
+	int m_iNumTexturesLoaded;
+
 	void loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView);
 };
 
