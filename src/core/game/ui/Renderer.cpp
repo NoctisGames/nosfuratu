@@ -141,7 +141,7 @@ void Renderer::render(Game& game, float deltaTime)
     /// Render Jon
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(game.getJon(), Assets::getJon(game.getJon()));
+    renderPhysicalEntityWithColor(game.getJon(), Assets::getJon(game.getJon()), game.getJon().getColor());
     m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
     
     /// Render everything to the screen
@@ -179,6 +179,11 @@ void Renderer::init()
 void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
 {
     m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), tr);
+}
+
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c)
+{
+    m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), c, tr);
 }
 
 void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)

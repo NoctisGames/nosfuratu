@@ -110,6 +110,11 @@ void Jon::update(float deltaTime, Game& game)
             m_isSpinningBackFistDelivered = game.isSpinningBackFistDelivered();
         }
     }
+    
+    if (isFalling())
+    {
+        setState(ACTION_NONE);
+    }
 }
 
 void Jon::triggerJump()
@@ -165,6 +170,11 @@ JonActionState Jon::getActionState()
 JonAbilityState Jon::getAbilityState()
 {
     return m_abilityState;
+}
+
+Color Jon::getColor()
+{
+    return m_color;
 }
 
 float Jon::getActionStateTime()

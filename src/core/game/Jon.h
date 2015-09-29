@@ -44,6 +44,8 @@ public:
     
     JonAbilityState getAbilityState();
     
+    Color getColor();
+    
     float getActionStateTime();
     
     float getAbilityStateTime();

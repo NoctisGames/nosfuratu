@@ -243,21 +243,6 @@ TextureRegion& Assets::getJon(Jon &jon)
     
     float scalar = JON_DEFAULT_MAX_SPEED / jon.getVelocity().getX();
     
-    if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
-    {
-        if (jon.isLanding())
-        {
-            return jonLandingAnim.getTextureRegion(jon.getStateTime(), scalar);
-        }
-    }
-    else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
-    {
-        if (jon.isFalling())
-        {
-            return jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar);
-        }
-    }
-    
     switch (jon.getAbilityState())
     {
         case ABILITY_SPINNING_BACK_FIST:
@@ -276,6 +261,21 @@ TextureRegion& Assets::getJon(Jon &jon)
         case ACTION_NONE:
         default:
             break;
+    }
+    
+    if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
+    {
+        if (jon.isLanding())
+        {
+            return jonLandingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        }
+    }
+    else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
+    {
+        if (jon.isFalling())
+        {
+            return jonFallingAnim.getTextureRegion(jon.getStateTime(), scalar);
+        }
     }
     
     return jonRunningAnim.getTextureRegion(jon.getStateTime(), scalar);

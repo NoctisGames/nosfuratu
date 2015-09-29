@@ -20,6 +20,8 @@ class Jon;
 class GpuProgramWrapper;
 class Vector2D;
 
+struct Color;
+
 class Renderer
 {
 public:
@@ -66,6 +68,8 @@ private:
     std::unique_ptr<Vector2D> m_camPos;
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
+    
+    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c);
     
     void updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime);
 };

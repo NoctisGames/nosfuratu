@@ -1203,7 +1203,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gowengamedev.nosfuratu;
 				PRODUCT_NAME = NosFURatu;
-				PROVISIONING_PROFILE = "8b5eed1f-d770-4fe8-89d0-ef758648ad1e";
+				PROVISIONING_PROFILE = "c8cfc74f-19a3-4ad9-a5d3-339959ca92c0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
