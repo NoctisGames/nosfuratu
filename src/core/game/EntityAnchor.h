@@ -14,7 +14,7 @@ typedef enum
     ANCHOR_TOP,
     ANCHOR_BOTTOM,
     ANCHOR_GROUND,
-    ANCHOR_GROUND_WITH_CAVE,
+    ANCHOR_CAVE,
     ANCHOR_NONE
 } EntityAnchor;
 

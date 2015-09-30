@@ -20,5 +20,15 @@ LogVerticalTall::LogVerticalTall(float x, EntityAnchor anchor) : DestructiblePhy
     EntityUtils::applyAnchor(*this, anchor);
     
     updateBounds();
-    m_bounds->setHeight(LOG_VERTICAL_TALL_HEIGHT * 0.96703296703297f);
+}
+
+void LogVerticalTall::updateBounds()
+{
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
+    
+    lowerLeft.add(getWidth() * 0.1830985915493f, 0);
+    
+    m_bounds->setWidth(getWidth() * 0.46478873239437f);
+    m_bounds->setHeight(getHeight() * 0.96703296703297f);
 }

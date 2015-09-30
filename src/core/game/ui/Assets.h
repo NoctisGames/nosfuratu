@@ -15,9 +15,13 @@
 
 class TextureRegion;
 class Jon;
+class DustCloud;
 class Tree;
 class Ground;
+class UpwardSpike;
+class JumpSpring;
 class LogVerticalTall;
+class Rock;
 class GroundPlatform;
 class Carrot;
 class GoldenCarrot;
@@ -38,7 +42,21 @@ public:
     
     static TextureRegion& getGround(Ground& ground);
     
-    static TextureRegion& getLogVerticalTall(LogVerticalTall& logVerticalTall);
+    static TextureRegion& getLogVerticalTall();
+    
+    static TextureRegion& getLogVerticalShort();
+    
+    static TextureRegion& getThorns();
+    
+    static TextureRegion& getStump();
+    
+    static TextureRegion& getSideSpike();
+    
+    static TextureRegion& getUpwardSpike(UpwardSpike& upwardSpike);
+    
+    static TextureRegion& getJumpSpring(JumpSpring& jumpSpring);
+    
+    static TextureRegion& getRock(Rock& rock);
     
     static TextureRegion& getGroundPlatform(GroundPlatform& platform);
     
@@ -47,6 +65,8 @@ public:
     static TextureRegion& getCarrot(Carrot& carrot);
     
     static TextureRegion& getGoldenCarrot(GoldenCarrot& goldenCarrot);
+    
+    static TextureRegion& getDustCloud(DustCloud& dustCloud);
     
     static TextureRegion& getJon(Jon& jon);
     

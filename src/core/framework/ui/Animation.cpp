@@ -39,13 +39,6 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
 	}
 }
 
-TextureRegion& Animation::getTextureRegion(float stateTime, float scalar)
-{
-	int keyFrameNumber = getKeyFrameNumber(stateTime, scalar);
-
-	return getTextureRegion(keyFrameNumber);
-}
-
 TextureRegion& Animation::getTextureRegion(float stateTime)
 {
 	int keyFrameNumber = getKeyFrameNumber(stateTime);
@@ -85,10 +78,9 @@ void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeig
 	}
 }
 
-int Animation::getKeyFrameNumber(float stateTime, float scalar)
+int Animation::getKeyFrameNumber(float stateTime)
 {
 	float cycleTime = m_cycleTime;
-	cycleTime *= scalar;
 
 	if (stateTime > cycleTime && cycleTime > 0)
 	{
@@ -108,7 +100,6 @@ int Animation::getKeyFrameNumber(float stateTime, float scalar)
 	for (unsigned int i = 0; i < m_frameTimes.size(); i++)
 	{
 		float frameTime = m_frameTimes.at(i);
-		frameTime *= scalar;
 
 		if (stateTime < frameTime)
 		{

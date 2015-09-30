@@ -16,6 +16,8 @@ class LogVerticalTall : public DestructiblePhysicalEntity
 {
 public:
     LogVerticalTall(float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    
+    virtual void updateBounds();
 };
 
 #endif /* defined(__nosfuratu__LogVerticalTall__) */

@@ -20,8 +20,6 @@ public:
     
     Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames);
     
-    TextureRegion& getTextureRegion(float stateTime, float scalar);
-    
     TextureRegion& getTextureRegion(float stateTime);
     
     TextureRegion& getTextureRegion(int keyFrameNumber);
@@ -36,7 +34,7 @@ private:
     
     void loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames);
     
-    int getKeyFrameNumber(float stateTime, float scalar = 1);
+    int getKeyFrameNumber(float stateTime);
 };
 
 #endif /* defined(__gowengamedev__Animation__) */

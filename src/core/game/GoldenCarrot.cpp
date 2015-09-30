@@ -11,7 +11,9 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
-GoldenCarrot::GoldenCarrot(float x, float y) : PhysicalEntity(x + CARROT_WIDTH / 2, y, CARROT_WIDTH, 0.9592720970537262f)
+#define GOLDEN_CARROT_WIDTH 1.21637426900585f
+
+GoldenCarrot::GoldenCarrot(float x, float y) : PhysicalEntity(x + GOLDEN_CARROT_WIDTH / 2, y, GOLDEN_CARROT_WIDTH, 1.14644714038128f)
 {
     // Empty
 }

@@ -15,6 +15,13 @@
 #include "Tree.h"
 #include "Ground.h"
 #include "LogVerticalTall.h"
+#include "LogVerticalShort.h"
+#include "Thorns.h"
+#include "Stump.h"
+#include "SideSpike.h"
+#include "UpwardSpike.h"
+#include "JumpSpring.h"
+#include "Rock.h"
 #include "GroundPlatform.h"
 #include "EndSign.h"
 #include "Carrot.h"
@@ -37,6 +44,10 @@ public:
     
     bool isJonBlockedVertically();
     
+    bool isJonHit();
+    
+    bool isJonLandingOnSpring();
+    
     bool isSpinningBackFistDelivered();
     
     std::vector<BackgroundSky>& getBackgroundSkies();
@@ -50,6 +61,20 @@ public:
     std::vector<Ground>& getGrounds();
     
     std::vector<LogVerticalTall>& getLogVerticalTalls();
+    
+    std::vector<LogVerticalShort>& getLogVerticalShorts();
+    
+    std::vector<Thorns>& getThorns();
+    
+    std::vector<Stump>& getStumps();
+    
+    std::vector<SideSpike>& getSideSpikes();
+    
+    std::vector<UpwardSpike>& getUpwardSpikes();
+    
+    std::vector<JumpSpring>& getJumpSprings();
+    
+    std::vector<Rock>& getRocks();
     
     std::vector<GroundPlatform>& getPlatforms();
     
@@ -72,6 +97,13 @@ private:
     std::unique_ptr<std::vector<Tree>> m_trees;
     std::unique_ptr<std::vector<Ground>> m_grounds;
     std::unique_ptr<std::vector<LogVerticalTall>> m_logVerticalTalls;
+    std::unique_ptr<std::vector<LogVerticalShort>> m_logVerticalShorts;
+    std::unique_ptr<std::vector<Thorns>> m_thorns;
+    std::unique_ptr<std::vector<Stump>> m_stumps;
+    std::unique_ptr<std::vector<SideSpike>> m_sideSpikes;
+    std::unique_ptr<std::vector<UpwardSpike>> m_upwardSpikes;
+    std::unique_ptr<std::vector<JumpSpring>> m_jumpSprings;
+    std::unique_ptr<std::vector<Rock>> m_rocks;
     std::unique_ptr<std::vector<GroundPlatform>> m_platforms;
     std::unique_ptr<std::vector<EndSign>> m_endSigns;
     std::unique_ptr<std::vector<Carrot>> m_carrots;

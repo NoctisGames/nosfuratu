@@ -10,35 +10,35 @@
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
 
-void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor)
+void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float offset)
 {
     switch (anchor)
     {
         case ANCHOR_TOP:
         {
             float halfHeight = entity.getHeight() / 2;
-            double y = GAME_HEIGHT - halfHeight;
-            entity.getPosition().setY(y);
+            float y = GAME_HEIGHT - halfHeight;
+            entity.getPosition().setY(y + offset);
         }
             break;
         case ANCHOR_BOTTOM:
         {
             float halfHeight = entity.getHeight() / 2;
-            entity.getPosition().setY(halfHeight);
+            entity.getPosition().setY(halfHeight + offset);
         }
             break;
         case ANCHOR_GROUND:
         {
             float halfHeight = entity.getHeight() / 2;
-            double y = ANCHOR_GROUND_Y + halfHeight;
-            entity.getPosition().setY(y);
+            float y = ANCHOR_GROUND_Y + halfHeight;
+            entity.getPosition().setY(y + offset);
         }
             break;
-        case ANCHOR_GROUND_WITH_CAVE:
+        case ANCHOR_CAVE:
         {
             float halfHeight = entity.getHeight() / 2;
-            double y = ANCHOR_GROUND_WITH_CAVE_Y + halfHeight;
-            entity.getPosition().setY(y);
+            float y = ANCHOR_CAVE_Y + halfHeight;
+            entity.getPosition().setY(y + offset);
         }
             break;
         case ANCHOR_NONE:
@@ -51,19 +51,29 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
 {
     if (leftOf)
     {
-        float left = to.getPosition().getX() - to.getWidth() / 2;
-        float x = left - entity.getWidth() / 2;
+        float left = to.getBounds().getLowerLeft().getX();
+        float x = left - entity.getBounds().getWidth() / 2;
         
         entity.getPosition().setX(x);
     }
     else
     {
-        float right = to.getPosition().getX() + to.getWidth() / 2;
-        float x = right + entity.getWidth() / 2;
+        float right = to.getBounds().getLowerLeft().getX() + to.getBounds().getWidth();
+        float x = right + entity.getBounds().getWidth() / 2;
         
         entity.getPosition().setX(x);
     }
     
-    Vector2D &lowerLeft = entity.getBounds().getLowerLeft();
-    lowerLeft.setX(entity.getPosition().getX() - entity.getBounds().getWidth() / 2);
+    entity.updateBounds();
+}
+
+void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on)
+{
+    float halfHeight = entity.getBounds().getHeight() / 2;
+    float top = on.getBounds().getLowerLeft().getY() + on.getBounds().getHeight();
+    float y = top + halfHeight;
+    
+    entity.getPosition().setY(y);
+    
+    entity.updateBounds();
 }

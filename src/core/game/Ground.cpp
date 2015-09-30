@@ -16,6 +16,7 @@
 
 #define GROUND_GRASS_WITH_CAVE_HEIGHT 2.643847487001733f
 #define GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR 0.54867256637168f
+#define GROUND_GRASS_WITH_CAVE_Y 8.9025129982669
 
 #define GROUND_GRASS_WITHOUT_CAVE_HEIGHT 10.224436741767764f
 #define GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR 0.88329519450801f
@@ -55,7 +56,7 @@ Ground Ground::create(float x, GroundType groundType)
     switch (groundType)
     {
         case GroundType::GROUND_GRASS_WITH_CAVE_LARGE:
-            return Ground(x, GROUND_LARGE_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, EntityAnchor::ANCHOR_GROUND_WITH_CAVE);
+            return Ground(x, GROUND_LARGE_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GROUND_GRASS_WITH_CAVE_Y, EntityAnchor::ANCHOR_NONE);
         case GroundType::GROUND_CAVE_LARGE:
             return Ground(x, GROUND_LARGE_WIDTH, GROUND_CAVE_HEIGHT, groundType, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR);
         case GroundType::GROUND_GRASS_WITHOUT_CAVE_LARGE:
@@ -71,13 +72,13 @@ Ground Ground::create(float x, GroundType groundType)
             return Ground(x, 1.6140350877192982f, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, groundType, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR);
         
         case GroundType::GROUND_GRASS_WITH_CAVE_END_LEFT:
-            return Ground(x, 1.7309941520467835f, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, EntityAnchor::ANCHOR_GROUND_WITH_CAVE);
+            return Ground(x, 1.7309941520467835f, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GROUND_GRASS_WITH_CAVE_Y, EntityAnchor::ANCHOR_NONE);
         case GroundType::GROUND_GRASS_WITH_CAVE_MEDIUM:
-            return Ground(x, GROUND_MEDIUM_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, EntityAnchor::ANCHOR_GROUND_WITH_CAVE);
+            return Ground(x, GROUND_MEDIUM_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GROUND_GRASS_WITH_CAVE_Y, EntityAnchor::ANCHOR_NONE);
         case GroundType::GROUND_GRASS_WITH_CAVE_SMALL:
-            return Ground(x, GROUND_SMALL_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, EntityAnchor::ANCHOR_GROUND_WITH_CAVE);
+            return Ground(x, GROUND_SMALL_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GROUND_GRASS_WITH_CAVE_Y, EntityAnchor::ANCHOR_NONE);
         case GroundType::GROUND_GRASS_WITH_CAVE_END_RIGHT:
-            return Ground(x, 1.6140350877192982f, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, EntityAnchor::ANCHOR_GROUND_WITH_CAVE);
+            return Ground(x, 1.6140350877192982f, GROUND_GRASS_WITH_CAVE_HEIGHT, groundType, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GROUND_GRASS_WITH_CAVE_Y, EntityAnchor::ANCHOR_NONE);
         
         case GroundType::GROUND_CAVE_END_LEFT:
             return Ground(x, 1.567251461988304f, GROUND_CAVE_HEIGHT, groundType, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR);
@@ -103,13 +104,20 @@ Ground Ground::create(float x, GroundType groundType)
     }
 }
 
-Ground::Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, EntityAnchor anchor) : PhysicalEntity(x + width / 2, 0, width, height), m_groundType(groundType)
+Ground::Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, float y, EntityAnchor anchor) : PhysicalEntity(x + width / 2, y, width, height), m_groundType(groundType), m_fBoundsHeightFactor(boundsHeightFactor)
 {
     EntityUtils::applyAnchor(*this, anchor);
     
     updateBounds();
+}
+
+void Ground::updateBounds()
+{
+    m_bounds->setHeight(getHeight());
     
-    m_bounds->setHeight(height * boundsHeightFactor);
+    PhysicalEntity::updateBounds();
+    
+    m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
 GroundType Ground::getGroundType()

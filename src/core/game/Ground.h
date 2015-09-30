@@ -29,7 +29,9 @@ public:
     
     static Ground create(float x, GroundType groundType);
     
-    Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, EntityAnchor anchor = ANCHOR_BOTTOM);
+    Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, float y = 0, EntityAnchor anchor = ANCHOR_BOTTOM);
+    
+    virtual void updateBounds();
     
     GroundType getGroundType();
     
@@ -37,6 +39,7 @@ private:
     static void create(std::vector<Ground>& grounds, float x, int length, GroundType typeLeft, GroundType typeCenter, GroundType typeRight);
     
     GroundType m_groundType;
+    float m_fBoundsHeightFactor;
 };
 
 #endif /* defined(__nosfuratu__Ground__) */

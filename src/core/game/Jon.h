@@ -16,6 +16,10 @@
 #include "JonActionState.h"
 #include "JonAbilityState.h"
 #include "Color.h"
+#include "DustCloud.h"
+
+#include <memory>
+#include <vector>
 
 class Game;
 
@@ -35,6 +39,8 @@ public:
     void triggerUpAction();
     
     void triggerDownAction();
+    
+    std::vector<DustCloud>& getDustClouds();
     
     JonState getState();
     
@@ -57,6 +63,7 @@ public:
     bool isDead();
     
 private:
+    std::unique_ptr<std::vector<DustCloud>> m_dustClouds;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;

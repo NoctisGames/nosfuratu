@@ -15,6 +15,8 @@
 #include "OverlapTester.h"
 #include "GroundPlatform.h"
 
+#include <math.h>
+
 Jon::Jon(float x, float y, float width, float height, EntityAnchor anchor) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
 {
     EntityUtils::applyAnchor(*this, anchor);
@@ -22,10 +24,26 @@ Jon::Jon(float x, float y, float width, float height, EntityAnchor anchor) : Phy
 	resetBounds(width * 0.6796875f, height * 0.8203125f);
 
 	m_acceleration->setX(m_fAccelerationX);
+    
+    m_dustClouds = std::unique_ptr<std::vector<DustCloud>>(new std::vector<DustCloud>());
 }
 
 void Jon::update(float deltaTime, Game& game)
 {
+    for (std::vector<DustCloud>::iterator itr = getDustClouds().begin(); itr != getDustClouds().end(); )
+    {
+        itr->update(deltaTime);
+        
+        if (itr->isDestroyed())
+        {
+            itr = getDustClouds().erase(itr);
+        }
+        else
+        {
+            itr++;
+        }
+    }
+    
     if (m_state == JON_DEAD)
     {
         return;
@@ -33,13 +51,22 @@ void Jon::update(float deltaTime, Game& game)
     
     if (m_state == JON_DYING_FADING)
     {
-        m_color.alpha = 1 - (m_fStateTime * 0.5f);
-        m_color.alpha = m_color.alpha < 0 ? 0 : m_color.alpha;
+        m_color.alpha -= deltaTime / 2;
+        if (m_color.alpha < 0)
+        {
+            m_color.alpha = 0;
+            setState(JON_DEAD);
+        }
         
         return;
     }
     
     PhysicalEntity::update(deltaTime);
+    
+    if (game.isJonHit())
+    {
+        setState(JON_DYING_FADING);
+    }
     
     if (m_actionState != ACTION_NONE)
     {
@@ -66,6 +93,8 @@ void Jon::update(float deltaTime, Game& game)
         {
             m_isLanding = true;
             m_fStateTime = 0;
+            
+            m_dustClouds->push_back(DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
         }
         
         if (m_isLanding && m_fStateTime > 0.20f)
@@ -76,22 +105,33 @@ void Jon::update(float deltaTime, Game& game)
         
 		m_acceleration->set(m_fAccelerationX, 0);
 		m_velocity->setY(0);
-		m_iNumJumps = 0;
+		m_iNumJumps = 0; 
         setState(ACTION_NONE);
 	}
 	else if (m_iNumJumps == 0)
 	{
+        m_velocity->sub(m_acceleration->getX() * deltaTime, m_acceleration->getY() * deltaTime);
 		m_acceleration->setY(GRAVITY);
 		m_iNumJumps = 1;
 	}
     
+    if (game.isJonLandingOnSpring())
+    {
+        m_acceleration->setY(GRAVITY);
+        m_velocity->setY(24);
+        
+        setState(ACTION_JUMPING);
+        
+        m_iNumJumps = 1;
+    }
+    
     if (game.isJonBlockedVertically())
     {
-        // Empty
+        m_velocity->sub(0, 2);
     }
     else if (game.isJonBlockedHorizontally())
     {
-        // Empty
+        m_velocity->sub(2, 0);
     }
 
 	if (m_velocity->getX() > m_fMaxSpeed)
@@ -119,6 +159,11 @@ void Jon::update(float deltaTime, Game& game)
 
 void Jon::triggerJump()
 {
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
 	if (m_iNumJumps < 2)
 	{
 		jump();
@@ -127,11 +172,21 @@ void Jon::triggerJump()
 
 void Jon::triggerLeftAction()
 {
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
     // TODO
 }
 
 void Jon::triggerRightAction()
 {
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
     if (m_abilityState == ABILITY_SPINNING_BACK_FIST)
     {
         return;
@@ -144,12 +199,27 @@ void Jon::triggerRightAction()
 
 void Jon::triggerUpAction()
 {
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
     // TODO
 }
 
 void Jon::triggerDownAction()
 {
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
     // TODO
+}
+
+std::vector<DustCloud>& Jon::getDustClouds()
+{
+    return *m_dustClouds;
 }
 
 JonState Jon::getState()

@@ -22,6 +22,7 @@
 #include "GoldenCarrot.h"
 #include "Jon.h"
 #include "Tree.h"
+#include "DustCloud.h"
 #include <math.h>
 
 #define aboveGroundRegionBottomY 8.750433275563259f
@@ -114,7 +115,42 @@ void Renderer::render(Game& game, float deltaTime)
     m_spriteBatcher->beginBatch();
     for (std::vector<LogVerticalTall>::iterator itr = game.getLogVerticalTalls().begin(); itr != game.getLogVerticalTalls().end(); itr++)
     {
-        renderPhysicalEntity(*itr, Assets::getLogVerticalTall(*itr));
+        renderPhysicalEntity(*itr, Assets::getLogVerticalTall());
+    }
+    
+    for (std::vector<LogVerticalShort>::iterator itr = game.getLogVerticalShorts().begin(); itr != game.getLogVerticalShorts().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getLogVerticalShort());
+    }
+    
+    for (std::vector<Thorns>::iterator itr = game.getThorns().begin(); itr != game.getThorns().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getThorns());
+    }
+    
+    for (std::vector<Stump>::iterator itr = game.getStumps().begin(); itr != game.getStumps().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getStump());
+    }
+    
+    for (std::vector<SideSpike>::iterator itr = game.getSideSpikes().begin(); itr != game.getSideSpikes().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getSideSpike());
+    }
+    
+    for (std::vector<UpwardSpike>::iterator itr = game.getUpwardSpikes().begin(); itr != game.getUpwardSpikes().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getUpwardSpike((*itr)));
+    }
+    
+    for (std::vector<JumpSpring>::iterator itr = game.getJumpSprings().begin(); itr != game.getJumpSprings().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getJumpSpring((*itr)));
+    }
+    
+    for (std::vector<Rock>::iterator itr = game.getRocks().begin(); itr != game.getRocks().end(); itr++)
+    {
+        renderPhysicalEntityWithColor(*itr, Assets::getRock(*itr), (*itr).getColor());
     }
     
     for (std::vector<GroundPlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
@@ -137,6 +173,15 @@ void Renderer::render(Game& game, float deltaTime)
         renderPhysicalEntity(*itr, Assets::getGoldenCarrot(*itr));
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground);
+    
+    /// Render Jon Effects (e.g. Dust Clouds)
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<DustCloud>::iterator itr = game.getJon().getDustClouds().begin(); itr != game.getJon().getDustClouds().end(); itr++)
+    {
+        renderPhysicalEntityWithColor(*itr, Assets::getDustCloud(*itr), (*itr).getColor());
+    }
+    m_spriteBatcher->endBatch(*m_misc);
     
     /// Render Jon
     
@@ -230,10 +275,8 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
     
     if (camVelocityY > 0)
     {
-        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
-        {
-			m_camPos->setY(jy + jonHeightPlusPadding - CAM_HEIGHT);
-        }
+        float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
+        m_camPos->setY(newCamPos);
         
         if (m_camPos->getY() > regionBottomY)
         {
