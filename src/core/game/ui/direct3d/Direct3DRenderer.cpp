@@ -132,7 +132,7 @@ GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 
 void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
 {
-    textureWrapper.texture->Release()
+	textureWrapper.texture->Release();
 }
 
 #pragma mark private
