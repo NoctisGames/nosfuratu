@@ -11,10 +11,22 @@
 
 #include "PhysicalEntity.h"
 
+class Game;
+
 class BackgroundSky : public PhysicalEntity
 {
 public:
     BackgroundSky(float x);
+    
+    void update(Game& game);
+    
+    float getX();
+    
+    float getY();
+    
+private:
+    float m_fX;
+    float m_fY;
 };
 
 #endif /* defined(__nosfuratu__BackgroundSky__) */

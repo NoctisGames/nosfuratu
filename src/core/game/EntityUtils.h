@@ -13,6 +13,7 @@
 #include "OverlapTester.h"
 #include "PhysicalEntity.h"
 #include "DestructiblePhysicalEntity.h"
+#include "Game.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
 
@@ -229,6 +230,15 @@ public:
         }
         
         return false;
+    }
+    
+    template<typename T>
+    static void updateBackgrounds(std::vector<T>& items, Game& game)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            i->update(game);
+        }
     }
     
     template<typename T>

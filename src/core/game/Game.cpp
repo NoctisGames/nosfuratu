@@ -134,6 +134,10 @@ void Game::update(float deltaTime)
 {
     getJon().update(deltaTime, *this);
     
+    EntityUtils::updateBackgrounds(getBackgroundSkies(), *this);
+    EntityUtils::updateBackgrounds(getBackgroundTrees(), *this);
+    EntityUtils::updateBackgrounds(getBackgroundCaves(), *this);
+    
     if (EntityUtils::isCollected(getJon(), getCarrots(), deltaTime))
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);

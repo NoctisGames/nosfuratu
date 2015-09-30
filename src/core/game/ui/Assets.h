@@ -22,56 +22,64 @@ class Ground;
 class UpwardSpike;
 class JumpSpring;
 class LogVerticalTall;
+class LogVerticalShort;
+class Thorns;
+class Stump;
+class SideSpike;
 class Rock;
 class GroundPlatform;
+class EndSign;
 class Carrot;
 class GoldenCarrot;
 class Game;
+class BackgroundSky;
+class BackgroundTrees;
+class BackgroundCave;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    static TextureRegion& getBackgroundSky(Jon& jon, Game& game);
+    static TextureRegion& get(BackgroundSky& backgroundSky);
     
-    static TextureRegion& getBackgroundTrees(Jon& jon, Game& game);
+    static TextureRegion& get(BackgroundTrees& backgroundTrees);
     
-    static TextureRegion& getBackgroundCave(Jon& jon, Game& game);
+    static TextureRegion& get(BackgroundCave& backgroundCave);
     
-    static TextureRegion& getMidgroundTree(Tree& tree);
+    static TextureRegion& get(Tree& tree);
     
-    static TextureRegion& getMidgroundCaveSkeleton(CaveSkeleton& caveSkeleton);
+    static TextureRegion& get(CaveSkeleton& caveSkeleton);
     
-    static TextureRegion& getGround(Ground& ground);
+    static TextureRegion& get(Ground& ground);
     
-    static TextureRegion& getLogVerticalTall();
+    static TextureRegion& get(LogVerticalTall& logVerticalTall);
     
-    static TextureRegion& getLogVerticalShort();
+    static TextureRegion& get(LogVerticalShort& logVerticalShort);
     
-    static TextureRegion& getThorns();
+    static TextureRegion& get(Thorns& thorns);
     
-    static TextureRegion& getStump();
+    static TextureRegion& get(Stump& stump);
     
-    static TextureRegion& getSideSpike();
+    static TextureRegion& get(SideSpike& sideSpike);
     
-    static TextureRegion& getUpwardSpike(UpwardSpike& upwardSpike);
+    static TextureRegion& get(UpwardSpike& upwardSpike);
     
-    static TextureRegion& getJumpSpring(JumpSpring& jumpSpring);
+    static TextureRegion& get(JumpSpring& jumpSpring);
     
-    static TextureRegion& getRock(Rock& rock);
+    static TextureRegion& get(Rock& rock);
     
-    static TextureRegion& getGroundPlatform(GroundPlatform& platform);
+    static TextureRegion& get(GroundPlatform& platform);
     
-    static TextureRegion& getEndSign();
+    static TextureRegion& get(EndSign& endSign);
     
-    static TextureRegion& getCarrot(Carrot& carrot);
+    static TextureRegion& get(Carrot& carrot);
     
-    static TextureRegion& getGoldenCarrot(GoldenCarrot& goldenCarrot);
+    static TextureRegion& get(GoldenCarrot& goldenCarrot);
     
-    static TextureRegion& getDustCloud(DustCloud& dustCloud);
+    static TextureRegion& get(DustCloud& dustCloud);
     
-    static TextureRegion& getJon(Jon& jon);
+    static TextureRegion& get(Jon& jon);
     
     void setMusicId(short musicId);
     

@@ -11,10 +11,19 @@
 
 #include "PhysicalEntity.h"
 
+class Game;
+
 class BackgroundCave : public PhysicalEntity
 {
 public:
     BackgroundCave(float x);
+    
+    void update(Game& game);
+    
+    float getX();
+    
+private:
+    float m_fX;
 };
 
 #endif /* defined(__nosfuratu__BackgroundCave__) */

@@ -142,24 +142,15 @@ void Renderer::render(Game& game)
     updateMatrix(0, CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundSky>::iterator i = game.getBackgroundSkies().begin(); i != game.getBackgroundSkies().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getBackgroundSky(game.getJon(), game));
-    }
+    renderPhysicalEntities(game.getBackgroundSkies());
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundTrees>::iterator i = game.getBackgroundTrees().begin(); i != game.getBackgroundTrees().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getBackgroundTrees(game.getJon(), game));
-    }
+    renderPhysicalEntities(game.getBackgroundTrees());
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundCave>::iterator i = game.getBackgroundCaves().begin(); i != game.getBackgroundCaves().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getBackgroundCave(game.getJon(), game));
-    }
+    renderPhysicalEntities(game.getBackgroundCaves());
     m_spriteBatcher->endBatch(*m_world_1_background);
     
     /// Render World midground Trees/Skeletons/etc
@@ -167,15 +158,8 @@ void Renderer::render(Game& game)
     updateMatrix(m_camPos->getX(), m_camPos->getX() + CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Tree>::iterator i = game.getTrees().begin(); i != game.getTrees().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getMidgroundTree(*i));
-    }
-    
-    for (std::vector<CaveSkeleton>::iterator i = game.getCaveSkeletons().begin(); i != game.getCaveSkeletons().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getMidgroundCaveSkeleton(*i));
-    }
+    renderPhysicalEntities(game.getTrees());
+    renderPhysicalEntities(game.getCaveSkeletons());
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
     
     /// Render World
@@ -183,93 +167,38 @@ void Renderer::render(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if (i->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
-            || i->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
-            || i->getGroundType() == GROUND_CAVE_RAISED_SMALL
-            || i->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
-            || i->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        if (isGroundForegroundMore(*i))
         {
             continue;
         }
         
-        renderPhysicalEntity(*i, Assets::getGround(*i));
+        renderPhysicalEntity(*i, Assets::get(*i));
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if (i->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
-            || i->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
-            || i->getGroundType() == GROUND_CAVE_RAISED_SMALL
-            || i->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
-            || i->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        if (isGroundForegroundMore(*i))
         {
-            renderPhysicalEntity(*i, Assets::getGround(*i));
+            renderPhysicalEntity(*i, Assets::get(*i));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<LogVerticalTall>::iterator i = game.getLogVerticalTalls().begin(); i != game.getLogVerticalTalls().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getLogVerticalTall());
-    }
-    
-    for (std::vector<LogVerticalShort>::iterator i = game.getLogVerticalShorts().begin(); i != game.getLogVerticalShorts().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getLogVerticalShort());
-    }
-    
-    for (std::vector<Thorns>::iterator i = game.getThorns().begin(); i != game.getThorns().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getThorns());
-    }
-    
-    for (std::vector<Stump>::iterator i = game.getStumps().begin(); i != game.getStumps().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getStump());
-    }
-    
-    for (std::vector<SideSpike>::iterator i = game.getSideSpikes().begin(); i != game.getSideSpikes().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getSideSpike());
-    }
-    
-    for (std::vector<UpwardSpike>::iterator i = game.getUpwardSpikes().begin(); i != game.getUpwardSpikes().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getUpwardSpike((*i)));
-    }
-    
-    for (std::vector<JumpSpring>::iterator i = game.getJumpSprings().begin(); i != game.getJumpSprings().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getJumpSpring((*i)));
-    }
-    
-    for (std::vector<Rock>::iterator i = game.getRocks().begin(); i != game.getRocks().end(); i++)
-    {
-        renderPhysicalEntityWithColor(*i, Assets::getRock(*i), (*i).getColor());
-    }
-    
-    for (std::vector<GroundPlatform>::iterator i = game.getPlatforms().begin(); i != game.getPlatforms().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getGroundPlatform(*i));
-    }
-    
-    for (std::vector<EndSign>::iterator i = game.getEndSigns().begin(); i != game.getEndSigns().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getEndSign());
-    }
-    
-    for (std::vector<Carrot>::iterator i = game.getCarrots().begin(); i != game.getCarrots().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getCarrot(*i));
-    }
-    
-    for (std::vector<GoldenCarrot>::iterator i = game.getGoldenCarrots().begin(); i != game.getGoldenCarrots().end(); i++)
-    {
-        renderPhysicalEntity(*i, Assets::getGoldenCarrot(*i));
-    }
+    renderPhysicalEntities(game.getLogVerticalTalls());
+    renderPhysicalEntities(game.getLogVerticalShorts());
+    renderPhysicalEntities(game.getThorns());
+    renderPhysicalEntities(game.getStumps());
+    renderPhysicalEntities(game.getSideSpikes());
+    renderPhysicalEntities(game.getUpwardSpikes());
+    renderPhysicalEntities(game.getJumpSprings());
+    renderPhysicalEntitiesWithColor(game.getRocks());
+    renderPhysicalEntities(game.getPlatforms());
+    renderPhysicalEntities(game.getEndSigns());
+    renderPhysicalEntities(game.getCarrots());
+    renderPhysicalEntities(game.getGoldenCarrots());
     m_spriteBatcher->endBatch(*m_world_1_foreground);
     
     /// Render Jon Effects (e.g. Dust Clouds)
@@ -277,20 +206,14 @@ void Renderer::render(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<Jon>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
     {
-        for (std::vector<DustCloud>::iterator j = (*i).getDustClouds().begin(); j != (*i).getDustClouds().end(); j++)
-        {
-            renderPhysicalEntityWithColor(*j, Assets::getDustCloud(*j), (*j).getColor());
-        }
+        renderPhysicalEntitiesWithColor((*i).getDustClouds());
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
     
     /// Render Jon
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Jon>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
-    {
-        renderPhysicalEntityWithColor(*i, Assets::getJon(*i), (*i).getColor());
-    }
+    renderPhysicalEntitiesWithColor(game.getJons());
     m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
     
     /// Render everything to the screen
@@ -324,4 +247,13 @@ void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
 void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c)
 {
     m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), c, tr);
+}
+
+bool Renderer::isGroundForegroundMore(Ground &g)
+{
+    return g.getGroundType() == GROUND_CAVE_RAISED_END_LEFT
+    || g.getGroundType() == GROUND_CAVE_RAISED_MEDIUM
+    || g.getGroundType() == GROUND_CAVE_RAISED_SMALL
+    || g.getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
+    || g.getGroundType() == GROUND_CAVE_RAISED_LARGE;
 }

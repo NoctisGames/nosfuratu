@@ -24,6 +24,9 @@
 #include "Rock.h"
 #include "GroundType.h"
 #include "Game.h"
+#include "BackgroundSky.h"
+#include "BackgroundTrees.h"
+#include "BackgroundCave.h"
 
 #define TEXTURE_SIZE_2048 2048
 #define PIXEL_WIDTH_FOR_GAME 684.0f
@@ -35,59 +38,28 @@ Assets * Assets::getInstance()
     return instance;
 }
 
-TextureRegion& Assets::getBackgroundSky(Jon& jon, Game& game)
+TextureRegion& Assets::get(BackgroundSky& backgroundSky)
 {
     static TextureRegion tr = TextureRegion(0, 0, PIXEL_WIDTH_FOR_GAME, 769, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    float y = GAME_HEIGHT - jon.getPosition().getY();
-    y /= GAME_HEIGHT;
-    y *= 169;
-    y =  y < 0 ? 0 : y;
-    
-    float x = jon.getPosition().getX() * 6;
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH + JON_STARTING_X;
-    if (jon.getPosition().getX() > farCamPos)
-    {
-        x = farCamPos * 6;
-    }
-    
-    tr.init(x, y, PIXEL_WIDTH_FOR_GAME, 600, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundSky.getX(), backgroundSky.getY(), PIXEL_WIDTH_FOR_GAME, 600, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getBackgroundTrees(Jon& jon, Game& game)
+TextureRegion& Assets::get(BackgroundTrees& backgroundTrees)
 {
     static TextureRegion tr = TextureRegion(0, 776, PIXEL_WIDTH_FOR_GAME, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    
-    float x = jon.getPosition().getX() * 12;
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH + JON_STARTING_X;
-    if (jon.getPosition().getX() > farCamPos)
-    {
-        x = farCamPos * 12;
-    }
-    
-    tr.init(x, 776, PIXEL_WIDTH_FOR_GAME, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundTrees.getX(), 776, PIXEL_WIDTH_FOR_GAME, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getBackgroundCave(Jon& jon, Game& game)
+TextureRegion& Assets::get(BackgroundCave& backgroundCave)
 {
     static TextureRegion tr = TextureRegion(0, 1284, PIXEL_WIDTH_FOR_GAME, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    
-    float x = jon.getPosition().getX() * 24;
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH + JON_STARTING_X;
-    if (jon.getPosition().getX() > farCamPos)
-    {
-        x = farCamPos * 24;
-    }
-    
-    tr.init(x, 1284, PIXEL_WIDTH_FOR_GAME, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundCave.getX(), 1284, PIXEL_WIDTH_FOR_GAME, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getMidgroundTree(Tree& tree)
+TextureRegion& Assets::get(Tree& tree)
 {
     static TextureRegion type1 = TextureRegion(0, 628, 270, 346, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion type2 = TextureRegion(274, 628, 480, 439, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -105,7 +77,7 @@ TextureRegion& Assets::getMidgroundTree(Tree& tree)
     }
 }
 
-TextureRegion& Assets::getMidgroundCaveSkeleton(CaveSkeleton& caveSkeleton)
+TextureRegion& Assets::get(CaveSkeleton& caveSkeleton)
 {
     static TextureRegion type1 = TextureRegion(1100, 628, 125, 76, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion type2 = TextureRegion(1228, 628, 131, 102, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -123,7 +95,7 @@ TextureRegion& Assets::getMidgroundCaveSkeleton(CaveSkeleton& caveSkeleton)
     }
 }
 
-TextureRegion& Assets::getGround(Ground& ground)
+TextureRegion& Assets::get(Ground& ground)
 {
     static TextureRegion GROUND_GRASS_WITH_CAVE_LARGE = TextureRegion(0, 0, 2048, 113, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion GROUND_CAVE_LARGE = TextureRegion(0, 116, 2048, 202, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -197,37 +169,37 @@ TextureRegion& Assets::getGround(Ground& ground)
     }
 }
 
-TextureRegion& Assets::getLogVerticalTall()
+TextureRegion& Assets::get(LogVerticalTall& logVerticalTall)
 {
     static TextureRegion tr = TextureRegion(1896, 824, 71, 91, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getLogVerticalShort()
+TextureRegion& Assets::get(LogVerticalShort& logVerticalShort)
 {
     static TextureRegion tr = TextureRegion(1852, 1086, 65, 52, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getThorns()
+TextureRegion& Assets::get(Thorns& thorns)
 {
     static TextureRegion tr = TextureRegion(1686, 1248, 122, 63, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getStump()
+TextureRegion& Assets::get(Stump& stump)
 {
     static TextureRegion tr = TextureRegion(1680, 1086, 168, 143, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getSideSpike()
+TextureRegion& Assets::get(SideSpike& sideSpike)
 {
     static TextureRegion tr = TextureRegion(1786, 1342, 48, 18, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getUpwardSpike(UpwardSpike& upwardSpike)
+TextureRegion& Assets::get(UpwardSpike& upwardSpike)
 {
     static TextureRegion TR_UPWARD_SPIKE_METAL_GRASS = TextureRegion(1686, 1316, 28, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion TR_UPWARD_SPIKE_WOOD_GRASS = TextureRegion(1718, 1316, 41, 46, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -245,7 +217,7 @@ TextureRegion& Assets::getUpwardSpike(UpwardSpike& upwardSpike)
     }
 }
 
-TextureRegion& Assets::getJumpSpring(JumpSpring& jumpSpring)
+TextureRegion& Assets::get(JumpSpring& jumpSpring)
 {
     static Animation grassSpring = Animation(1852, 1142, 43, 43, 2048, 43, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
     static Animation caveSpring = Animation(1824, 1256, 52, 66, 2048, 66, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
@@ -260,7 +232,7 @@ TextureRegion& Assets::getJumpSpring(JumpSpring& jumpSpring)
     }
 }
 
-TextureRegion& Assets::getRock(Rock& rock)
+TextureRegion& Assets::get(Rock& rock)
 {
     static Animation anim = Animation(0, 1528, 192, 184, 2048, 184, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
     static TextureRegion tr = TextureRegion(1152, 1528, 192, 184, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -279,7 +251,7 @@ TextureRegion& Assets::getRock(Rock& rock)
     }
 }
 
-TextureRegion& Assets::getGroundPlatform(GroundPlatform& platform)
+TextureRegion& Assets::get(GroundPlatform& platform)
 {
     static TextureRegion GROUND_PLATFORM_GRASS_DEFAULT = TextureRegion(1680, 768, 117, 50, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
@@ -311,33 +283,33 @@ TextureRegion& Assets::getGroundPlatform(GroundPlatform& platform)
     }
 }
 
-TextureRegion& Assets::getEndSign()
+TextureRegion& Assets::get(EndSign& endSign)
 {
     static TextureRegion tr = TextureRegion(1990, 768, 34, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getCarrot(Carrot& carrot)
+TextureRegion& Assets::get(Carrot& carrot)
 {
     static TextureRegion tr = TextureRegion(1680, 878, 102, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
-TextureRegion& Assets::getGoldenCarrot(GoldenCarrot& goldenCarrot)
+TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 {
     static Animation anim = Animation(0, 1716, 104, 98, 2048, 98, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 6, 0.68f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f);
     
     return anim.getTextureRegion(goldenCarrot.getStateTime());
 }
 
-TextureRegion& Assets::getDustCloud(DustCloud& dustCloud)
+TextureRegion& Assets::get(DustCloud& dustCloud)
 {
     static Animation anim = Animation(0, 552, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
     
     return anim.getTextureRegion(dustCloud.getStateTime());
 }
 
-TextureRegion& Assets::getJon(Jon &jon)
+TextureRegion& Assets::get(Jon &jon)
 {
     static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
     static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 7);

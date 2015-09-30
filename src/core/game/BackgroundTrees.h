@@ -11,10 +11,19 @@
 
 #include "PhysicalEntity.h"
 
+class Game;
+
 class BackgroundTrees : public PhysicalEntity
 {
 public:
     BackgroundTrees(float x);
+    
+    void update(Game& game);
+    
+    float getX();
+    
+private:
+    float m_fX;
 };
 
 #endif /* defined(__nosfuratu__BackgroundTrees__) */

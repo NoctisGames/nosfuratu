@@ -22,6 +22,10 @@ class Vector2D;
 
 struct Color;
 
+#include "Assets.h"
+
+#include <vector>
+
 class Renderer
 {
 public:
@@ -69,9 +73,29 @@ protected:
 private:
     std::unique_ptr<Vector2D> m_camPos;
     
+    template<typename T>
+    void renderPhysicalEntities(std::vector<T>& items)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            renderPhysicalEntity(*i, Assets::get(*i));
+        }
+    }
+    
+    template<typename T>
+    void renderPhysicalEntitiesWithColor(std::vector<T>& items)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            renderPhysicalEntityWithColor(*i, Assets::get(*i), (*i).getColor());
+        }
+    }
+    
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
     
     void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c);
+    
+    bool isGroundForegroundMore(Ground& g);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */
