@@ -212,14 +212,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Image>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
-    <Image Include="Assets\misc.dds">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Image>
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
@@ -251,14 +243,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Image>
     <Image Include="Assets\world_1_foreground_more.dds">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Image>
-    <Image Include="Assets\world_1_midground.dds">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
@@ -314,6 +298,8 @@
     <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
     <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
     <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveSkeleton.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveSkeletonType.h" />
     <ClInclude Include="..\..\..\..\core\game\DestructiblePhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\EndSign.h" />
@@ -395,6 +381,7 @@
     <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
     <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CaveSkeleton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DestructiblePhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EndSign.cpp" />

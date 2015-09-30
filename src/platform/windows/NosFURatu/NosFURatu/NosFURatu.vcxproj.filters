@@ -91,6 +91,7 @@
     <ClCompile Include="..\..\..\..\core\game\Stump.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
     <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CaveSkeleton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -176,6 +177,8 @@
     <ClInclude Include="..\..\..\..\core\game\Thorns.h" />
     <ClInclude Include="..\..\..\..\core\game\UpwardSpike.h" />
     <ClInclude Include="..\..\..\..\core\game\UpwardSpikeType.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveSkeleton.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveSkeletonType.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -193,16 +196,10 @@
     <Image Include="Assets\world_1_foreground_more.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\world_1_midground.dds">
-      <Filter>Assets</Filter>
-    </Image>
     <Image Include="Assets\jon.dds">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\jon_ability.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\misc.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
