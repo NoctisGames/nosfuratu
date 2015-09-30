@@ -145,33 +145,32 @@ void GameScreen::handleTouchInput()
     
     for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
     {
-        TouchEvent te = *itr;
-        touchToWorld(te);
+        touchToWorld((*itr));
         
         switch (itr->getTouchType())
         {
             case DOWN:
-                m_touchPointDown->set(te.getX(), te.getY());
+                m_touchPointDown->set(m_touchPoint->getX(), m_touchPoint->getY());
                 continue;
             case DRAGGED:
                 continue;
             case UP:
-                if (m_touchPointDown->getX() + SWIPE_WIDTH <= te.getX())
+                if (m_touchPointDown->getX() + SWIPE_WIDTH <= m_touchPoint->getX())
                 {
                     // Swipe Right
                     m_game->getJon().triggerRightAction();
                 }
-                else if (m_touchPointDown->getX() - SWIPE_WIDTH >= te.getX())
+                else if (m_touchPointDown->getX() - SWIPE_WIDTH >= m_touchPoint->getX())
                 {
                     // Swipe Left
                     m_game->getJon().triggerLeftAction();
                 }
-                else if (m_touchPointDown->getY() + SWIPE_HEIGHT <= te.getY())
+                else if (m_touchPointDown->getY() + SWIPE_HEIGHT <= m_touchPoint->getY())
                 {
                     // Swipe Up
                     m_game->getJon().triggerUpAction();
                 }
-                else if (m_touchPointDown->getY() - SWIPE_HEIGHT >= te.getY())
+                else if (m_touchPointDown->getY() - SWIPE_HEIGHT >= m_touchPoint->getY())
                 {
                     // Swipe Down
                     m_game->getJon().triggerDownAction();
@@ -181,7 +180,8 @@ void GameScreen::handleTouchInput()
                     m_game->getJon().triggerJump();
                 }
                 
-                m_touchPointDown->set(te.getX(), te.getY());
+                m_touchPointDown->set(m_touchPoint->getX(), m_touchPoint->getY());
+                
                 return;
         }
     }
