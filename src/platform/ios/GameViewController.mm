@@ -14,7 +14,7 @@
 // C++
 #include "IOSOpenGLESGameScreen.h"
 #include "IOS8OpenGLESGameScreen.h"
-#include "ResourceConstants.h"
+#include "GameConstants.h"
 
 @interface GameViewController ()
 {

@@ -17,7 +17,7 @@ public final class GameRenderer implements Renderer
         System.loadLibrary("game");
     }
 
-    // Definitions from src/core/game/ResourceConstants.h
+    // Definitions from src/core/game/GameConstants.h
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_PLAY_DEMO = 2;
     private static final short SOUND_COLLECT_CARROT = 1;

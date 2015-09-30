@@ -9,11 +9,27 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
+//// Music Definitions ////
+
+#define MUSIC_STOP 1
+#define MUSIC_PLAY_DEMO 2
+
+//// Sound Definitions ////
+
+#define SOUND_COLLECT_CARROT 1
+#define SOUND_COLLECT_GOLDEN_CARROT 2
+
+//// Matrix Definitions ////
+
 #define CAM_WIDTH 16.0f
 #define CAM_HEIGHT 9.0f
 
+//// Touch Input Definitions ////
+
 #define SWIPE_WIDTH CAM_WIDTH / 32
 #define SWIPE_HEIGHT CAM_HEIGHT / 18
+
+//// World Definitions ////
 
 #define GAME_HEIGHT 27.0f
 

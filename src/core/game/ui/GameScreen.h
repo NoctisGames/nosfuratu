@@ -19,7 +19,6 @@
 #include "Rectangle.h"
 #include "Renderer.h"
 #include "Circle.h"
-#include "ResourceConstants.h"
 #include "Assets.h"
 #include "GameConstants.h"
 #include "Game.h"

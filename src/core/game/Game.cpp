@@ -12,7 +12,6 @@
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
-#include "ResourceConstants.h"
 #include "GroundSize.h"
 
 Game::Game() : m_fDeltaTime(0), m_resetGame(false)
@@ -22,6 +21,7 @@ Game::Game() : m_fDeltaTime(0), m_resetGame(false)
     m_backgroundCaves = std::unique_ptr<std::vector<BackgroundCave>>(new std::vector<BackgroundCave>);
     
     m_trees = std::unique_ptr<std::vector<Tree>>(new std::vector<Tree>);
+    m_caveSkeletons = std::unique_ptr<std::vector<CaveSkeleton>>(new std::vector<CaveSkeleton>);
     m_grounds = std::unique_ptr<std::vector<Ground>>(new std::vector<Ground>);
     m_logVerticalTalls = std::unique_ptr<std::vector<LogVerticalTall>>(new std::vector<LogVerticalTall>);
     m_logVerticalShorts = std::unique_ptr<std::vector<LogVerticalShort>>(new std::vector<LogVerticalShort>);
@@ -206,6 +206,11 @@ std::vector<BackgroundCave>& Game::getBackgroundCaves()
 std::vector<Tree>& Game::getTrees()
 {
     return *m_trees;
+}
+
+std::vector<CaveSkeleton>& Game::getCaveSkeletons()
+{
+    return *m_caveSkeletons;
 }
 
 std::vector<Ground>& Game::getGrounds()

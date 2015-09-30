@@ -7,7 +7,6 @@
 //
 
 #include "Renderer.h"
-#include "ResourceConstants.h"
 #include "SpriteBatcher.h"
 #include "TextureRegion.h"
 #include "Assets.h"
@@ -30,6 +29,23 @@
 Renderer::Renderer() : m_areTexturesLoaded(false)
 {
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
+}
+
+void Renderer::init()
+{
+    m_camPos->set(0, aboveGroundRegionBottomY);
+    
+    if (!m_areTexturesLoaded)
+    {
+        m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+        m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
+        m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
+        m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
+        m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
+        m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
+        
+        m_areTexturesLoaded = true;
+    }
 }
 
 void Renderer::render(Game& game, float deltaTime)
@@ -78,7 +94,12 @@ void Renderer::render(Game& game, float deltaTime)
     {
         renderPhysicalEntity(*itr, Assets::getMidgroundTree(*itr));
     }
-    m_spriteBatcher->endBatch(*m_world_1_midground);
+    
+    for (std::vector<CaveSkeleton>::iterator itr = game.getCaveSkeletons().begin(); itr != game.getCaveSkeletons().end(); itr++)
+    {
+        renderPhysicalEntity(*itr, Assets::getMidgroundCaveSkeleton(*itr));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
     
     /// Render World
     
@@ -181,7 +202,7 @@ void Renderer::render(Game& game, float deltaTime)
     {
         renderPhysicalEntityWithColor(*itr, Assets::getDustCloud(*itr), (*itr).getColor());
     }
-    m_spriteBatcher->endBatch(*m_misc);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
     
     /// Render Jon
     
@@ -200,23 +221,14 @@ void Renderer::render(Game& game, float deltaTime)
     endFrame();
 }
 
-void Renderer::init()
+void Renderer::cleanUp()
 {
-    m_camPos->set(0, aboveGroundRegionBottomY);
-    
-    if (!m_areTexturesLoaded)
-    {
-        m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
-        m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-        m_misc = std::unique_ptr<TextureWrapper>(loadTexture("misc"));
-        m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
-        m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-        m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-        m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
-        m_world_1_midground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_midground"));
-        
-        m_areTexturesLoaded = true;
-    }
+    destroyTexture(*m_jon_ability);
+    destroyTexture(*m_jon);
+    destroyTexture(*m_vampire);
+    destroyTexture(*m_world_1_background);
+    destroyTexture(*m_world_1_foreground_more);
+    destroyTexture(*m_world_1_foreground);
 }
 
 #pragma mark private

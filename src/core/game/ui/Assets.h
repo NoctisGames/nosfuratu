@@ -17,6 +17,7 @@ class TextureRegion;
 class Jon;
 class DustCloud;
 class Tree;
+class CaveSkeleton;
 class Ground;
 class UpwardSpike;
 class JumpSpring;
@@ -39,6 +40,8 @@ public:
     static TextureRegion& getBackgroundCave(Jon& jon, Game& game);
     
     static TextureRegion& getMidgroundTree(Tree& tree);
+    
+    static TextureRegion& getMidgroundCaveSkeleton(CaveSkeleton& caveSkeleton);
     
     static TextureRegion& getGround(Ground& ground);
     

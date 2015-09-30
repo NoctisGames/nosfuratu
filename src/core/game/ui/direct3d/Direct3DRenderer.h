@@ -16,8 +16,6 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer();
 
-	virtual void cleanUp();
-
 protected:
 	virtual TextureWrapper* loadTexture(const char* textureName);
 
@@ -34,6 +32,8 @@ protected:
 	virtual void endFrame();
 
 	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
+    
+    virtual void destroyTexture(TextureWrapper& textureWrapper);
 
 private:
 	int m_iNumTexturesLoaded;

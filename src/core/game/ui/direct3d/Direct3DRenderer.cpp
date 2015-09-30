@@ -130,12 +130,9 @@ GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 	return *D3DManager->m_fbToScreenProgram;
 }
 
-void Direct3DRenderer::cleanUp()
+void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
 {
-	for (std::vector<ID3D11ShaderResourceView *>::iterator itr = g_shaderResourceViews.begin(); itr != g_shaderResourceViews.end(); itr++)
-	{
-		(*itr)->Release();
-	}
+    textureWrapper.texture->Release()
 }
 
 #pragma mark private

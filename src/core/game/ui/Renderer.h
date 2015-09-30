@@ -27,23 +27,21 @@ class Renderer
 public:
     Renderer();
     
-    void render(Game& game, float deltaTime);
-    
 	void init();
+    
+    void render(Game& game, float deltaTime);
 
-	virtual void cleanUp() = 0;
+    void cleanUp();
     
 protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     
     std::unique_ptr<TextureWrapper> m_jon_ability;
     std::unique_ptr<TextureWrapper> m_jon;
-    std::unique_ptr<TextureWrapper> m_misc;
     std::unique_ptr<TextureWrapper> m_vampire;
     std::unique_ptr<TextureWrapper> m_world_1_background;
     std::unique_ptr<TextureWrapper> m_world_1_foreground_more;
     std::unique_ptr<TextureWrapper> m_world_1_foreground;
-    std::unique_ptr<TextureWrapper> m_world_1_midground;
     std::unique_ptr<TextureWrapper> m_framebuffer;
 
 	bool m_areTexturesLoaded;
@@ -63,6 +61,8 @@ protected:
     virtual void endFrame() = 0;
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
+    
+    virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     
 private:
     std::unique_ptr<Vector2D> m_camPos;

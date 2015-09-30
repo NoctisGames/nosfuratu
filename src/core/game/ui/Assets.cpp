@@ -11,9 +11,9 @@
 #include "Animation.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "ResourceConstants.h"
 #include "GameConstants.h"
 #include "Tree.h"
+#include "CaveSkeleton.h"
 #include "DustCloud.h"
 #include "Jon.h"
 #include "GroundPlatform.h"
@@ -25,6 +25,7 @@
 #include "GroundType.h"
 #include "Game.h"
 
+#define TEXTURE_SIZE_2048 2048
 #define PIXEL_WIDTH_FOR_GAME 684.0f
 #define PIXEL_HEIGHT_FOR_GAME 1154.0f
 
@@ -88,20 +89,37 @@ TextureRegion& Assets::getBackgroundCave(Jon& jon, Game& game)
 
 TextureRegion& Assets::getMidgroundTree(Tree& tree)
 {
-    static TextureRegion tree1 = TextureRegion(0, 0, 270, 346, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tree2 = TextureRegion(274, 0, 480, 439, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tree3 = TextureRegion(758, 0, 339, 411, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion type1 = TextureRegion(0, 628, 270, 346, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion type2 = TextureRegion(274, 628, 480, 439, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion type3 = TextureRegion(758, 628, 339, 411, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     switch (tree.getTreeType())
     {
-        case 0:
-            return tree1;
-        case 1:
-            return tree2;
-        case 2:
-            return tree3;
+        case TREE_ONE:
+            return type1;
+        case TREE_TWO:
+            return type2;
+        case TREE_THREE:
         default:
-            return tree3;
+            return type3;
+    }
+}
+
+TextureRegion& Assets::getMidgroundCaveSkeleton(CaveSkeleton& caveSkeleton)
+{
+    static TextureRegion type1 = TextureRegion(1100, 628, 125, 76, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion type2 = TextureRegion(1228, 628, 131, 102, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion type3 = TextureRegion(1362, 628, 131, 102, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    switch (caveSkeleton.getCaveSkeletonType())
+    {
+        case CAVE_SKELETON_ONE:
+            return type1;
+        case CAVE_SKELETON_TWO:
+            return type2;
+        case CAVE_SKELETON_THREE:
+        default:
+            return type3;
     }
 }
 
@@ -314,7 +332,7 @@ TextureRegion& Assets::getGoldenCarrot(GoldenCarrot& goldenCarrot)
 
 TextureRegion& Assets::getDustCloud(DustCloud& dustCloud)
 {
-    static Animation anim = Animation(0, 0, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
+    static Animation anim = Animation(0, 552, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
     
     return anim.getTextureRegion(dustCloud.getStateTime());
 }

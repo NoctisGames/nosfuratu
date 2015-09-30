@@ -93,12 +93,7 @@ GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
     return *OGLESManager->m_fbToScreenProgram;
 }
 
-void OpenGLESRenderer::cleanUp()
+void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)
 {
-    glDeleteTextures(1, &m_jon->texture);
-    glDeleteTextures(1, &m_vampire->texture);
-    glDeleteTextures(1, &m_world_1_background->texture);
-    glDeleteTextures(1, &m_world_1_foreground_more->texture);
-    glDeleteTextures(1, &m_world_1_foreground->texture);
-    glDeleteTextures(1, &m_world_1_midground->texture);
+    glDeleteTextures(1, &textureWrapper.texture);
 }

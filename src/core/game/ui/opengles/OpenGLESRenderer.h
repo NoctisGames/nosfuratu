@@ -16,8 +16,6 @@ class OpenGLESRenderer : public Renderer
 public:
     OpenGLESRenderer();
 
-	virtual void cleanUp();
-
 protected:
     virtual TextureWrapper* loadTexture(const char* textureName);
     
@@ -34,6 +32,8 @@ protected:
     virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
+    
+    virtual void destroyTexture(TextureWrapper& textureWrapper);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESRenderer__) */

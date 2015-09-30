@@ -13,6 +13,7 @@
 #include "BackgroundTrees.h"
 #include "BackgroundCave.h"
 #include "Tree.h"
+#include "CaveSkeleton.h"
 #include "Ground.h"
 #include "LogVerticalTall.h"
 #include "LogVerticalShort.h"
@@ -58,6 +59,8 @@ public:
     
     std::vector<Tree>& getTrees();
     
+    std::vector<CaveSkeleton>& getCaveSkeletons();
+    
     std::vector<Ground>& getGrounds();
     
     std::vector<LogVerticalTall>& getLogVerticalTalls();
@@ -95,6 +98,7 @@ private:
     std::unique_ptr<std::vector<BackgroundTrees>> m_backgroundTrees;
     std::unique_ptr<std::vector<BackgroundCave>> m_backgroundCaves;
     std::unique_ptr<std::vector<Tree>> m_trees;
+    std::unique_ptr<std::vector<CaveSkeleton>> m_caveSkeletons;
     std::unique_ptr<std::vector<Ground>> m_grounds;
     std::unique_ptr<std::vector<LogVerticalTall>> m_logVerticalTalls;
     std::unique_ptr<std::vector<LogVerticalShort>> m_logVerticalShorts;
