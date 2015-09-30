@@ -83,6 +83,14 @@
     <ClCompile Include="..\..\..\..\core\game\GoldenCarrot.cpp" />
     <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DestructiblePhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\JumpSpring.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\LogVerticalShort.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Rock.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SideSpike.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Stump.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -158,6 +166,16 @@
     <ClInclude Include="..\..\..\..\core\game\JonPhysicalState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonAbilityState.h" />
+    <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
+    <ClInclude Include="..\..\..\..\core\game\JumpSpring.h" />
+    <ClInclude Include="..\..\..\..\core\game\JumpSpringType.h" />
+    <ClInclude Include="..\..\..\..\core\game\LogVerticalShort.h" />
+    <ClInclude Include="..\..\..\..\core\game\Rock.h" />
+    <ClInclude Include="..\..\..\..\core\game\SideSpike.h" />
+    <ClInclude Include="..\..\..\..\core\game\Stump.h" />
+    <ClInclude Include="..\..\..\..\core\game\Thorns.h" />
+    <ClInclude Include="..\..\..\..\core\game\UpwardSpike.h" />
+    <ClInclude Include="..\..\..\..\core\game\UpwardSpikeType.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

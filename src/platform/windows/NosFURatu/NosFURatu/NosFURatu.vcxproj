@@ -315,6 +315,7 @@
     <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
     <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
     <ClInclude Include="..\..\..\..\core\game\DestructiblePhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\EndSign.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
@@ -330,7 +331,14 @@
     <ClInclude Include="..\..\..\..\core\game\JonActionState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonPhysicalState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonState.h" />
+    <ClInclude Include="..\..\..\..\core\game\JumpSpring.h" />
+    <ClInclude Include="..\..\..\..\core\game\JumpSpringType.h" />
+    <ClInclude Include="..\..\..\..\core\game\LogVerticalShort.h" />
     <ClInclude Include="..\..\..\..\core\game\LogVerticalTall.h" />
+    <ClInclude Include="..\..\..\..\core\game\Rock.h" />
+    <ClInclude Include="..\..\..\..\core\game\SideSpike.h" />
+    <ClInclude Include="..\..\..\..\core\game\Stump.h" />
+    <ClInclude Include="..\..\..\..\core\game\Thorns.h" />
     <ClInclude Include="..\..\..\..\core\game\Tree.h" />
     <ClInclude Include="..\..\..\..\core\game\TreeType.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
@@ -339,6 +347,8 @@
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\ResourceConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\UpwardSpike.h" />
+    <ClInclude Include="..\..\..\..\core\game\UpwardSpikeType.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -386,6 +396,7 @@
     <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DestructiblePhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EndSign.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
@@ -393,13 +404,20 @@
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\JumpSpring.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\LogVerticalShort.cpp" />
     <ClCompile Include="..\..\..\..\core\game\LogVerticalTall.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Rock.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SideSpike.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Stump.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Tree.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
