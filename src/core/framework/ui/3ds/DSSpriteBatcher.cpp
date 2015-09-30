@@ -37,9 +37,9 @@ void DSSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper
 {
     if (m_iNumSprites > 0)
     {
-        for (std::vector<QUAD>::iterator itr = m_quads.begin(); itr != m_quads.end(); ++itr)
+        for (std::vector<QUAD>::iterator i = m_quads.begin(); i != m_quads.end(); ++itr)
         {
-            QUAD quad = *itr;
+            QUAD quad = *i;
 
             sf2d_draw_quad_uv(textureWrapper.texture, quad.x1, quad.y1, quad.x2, quad.y2, quad.x3, quad.y3, quad.x4, quad.y4, quad.u1, quad.v1, quad.u2, quad.v2, quad.u3, quad.v3, quad.u4, quad.v4, RGBA8((int) (quad.r * 255), (int) (quad.g * 255), (int) (quad.b * 255), (int) (quad.a * 255)), GPU_TEXTURE_MAG_FILTER(GPU_NEAREST) | GPU_TEXTURE_MIN_FILTER(GPU_NEAREST));
         }

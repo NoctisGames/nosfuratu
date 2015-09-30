@@ -9,7 +9,7 @@
 #include "GameScreen.h"
 #include "Jon.h"
 
-GameScreen::GameScreen() : m_fDeltaTime(0.0f)
+GameScreen::GameScreen()
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -30,32 +30,32 @@ GameScreen::GameScreen() : m_fDeltaTime(0.0f)
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    
+    m_game = std::unique_ptr<Game>(new Game());
 }
 
 void GameScreen::init()
 {
-    m_game = std::unique_ptr<Game>(new Game());
-    
+    m_game->load();
     m_renderer->init();
 }
 
 void GameScreen::onResume()
 {
-    //Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+    // TODO
 }
 
 void GameScreen::onPause()
 {
-    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    // TODO
 }
 
 void GameScreen::update(float deltaTime)
 {
-    m_fDeltaTime = deltaTime;
-    
     handleTouchInput();
     
     m_game->update(deltaTime);
+    m_renderer->updateCameraToFollowJon(m_game->getJon(), *m_game, deltaTime);
     
     if (m_game->resetGame())
     {
@@ -65,7 +65,7 @@ void GameScreen::update(float deltaTime)
 
 void GameScreen::render()
 {
-    m_renderer->render(*m_game, m_fDeltaTime);
+    m_renderer->render(*m_game);
 }
 
 int GameScreen::getState()
@@ -131,11 +131,11 @@ void GameScreen::addTouchEventForType(Touch_Type touchType, float x, float y)
 
 void GameScreen::handleTouchInput()
 {
-    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+    for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
     {
         if(m_touchEventsPool.size() < 50)
         {
-            m_touchEventsPool.push_back(*itr);
+            m_touchEventsPool.push_back(*i);
         }
     }
     
@@ -143,11 +143,11 @@ void GameScreen::handleTouchInput()
     m_touchEvents.swap(m_touchEventsBuffer);
     m_touchEventsBuffer.clear();
     
-    for (std::vector<TouchEvent>::iterator itr = m_touchEvents.begin(); itr != m_touchEvents.end(); itr++)
+    for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
     {
-        touchToWorld((*itr));
+        touchToWorld((*i));
         
-        switch (itr->getTouchType())
+        switch (i->getTouchType())
         {
             case DOWN:
                 m_touchPointDown->set(m_touchPoint->getX(), m_touchPoint->getY());

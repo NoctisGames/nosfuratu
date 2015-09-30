@@ -30,17 +30,17 @@ Jon::Jon(float x, float y, float width, float height, EntityAnchor anchor) : Phy
 
 void Jon::update(float deltaTime, Game& game)
 {
-    for (std::vector<DustCloud>::iterator itr = getDustClouds().begin(); itr != getDustClouds().end(); )
+    for (std::vector<DustCloud>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
     {
-        itr->update(deltaTime);
+        i->update(deltaTime);
         
-        if (itr->isDestroyed())
+        if (i->isDestroyed())
         {
-            itr = getDustClouds().erase(itr);
+            i = getDustClouds().erase(i);
         }
         else
         {
-            itr++;
+            i++;
         }
     }
     
@@ -63,7 +63,7 @@ void Jon::update(float deltaTime, Game& game)
     
     PhysicalEntity::update(deltaTime);
     
-    if (game.isJonHit())
+    if (game.isJonHit(deltaTime))
     {
         setState(JON_DYING_FADING);
     }
@@ -85,7 +85,7 @@ void Jon::update(float deltaTime, Game& game)
     
     bool wasGrounded = m_physicalState == PHYSICAL_GROUNDED;
     
-	setState(game.isJonGrounded() ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR);
+	setState(game.isJonGrounded(deltaTime) ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR);
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
@@ -115,7 +115,7 @@ void Jon::update(float deltaTime, Game& game)
 		m_iNumJumps = 1;
 	}
     
-    if (game.isJonLandingOnSpring())
+    if (game.isJonLandingOnSpring(deltaTime))
     {
         m_acceleration->setY(GRAVITY);
         m_velocity->setY(24);
@@ -125,11 +125,11 @@ void Jon::update(float deltaTime, Game& game)
         m_iNumJumps = 1;
     }
     
-    if (game.isJonBlockedVertically())
+    if (game.isJonBlockedVertically(deltaTime))
     {
         m_velocity->sub(0, 2);
     }
-    else if (game.isJonBlockedHorizontally())
+    else if (game.isJonBlockedHorizontally(deltaTime))
     {
         m_velocity->sub(2, 0);
     }
@@ -147,7 +147,7 @@ void Jon::update(float deltaTime, Game& game)
         }
         else if (!m_isSpinningBackFistDelivered && m_fAbilityStateTime > 0.30f)
         {
-            m_isSpinningBackFistDelivered = game.isSpinningBackFistDelivered();
+            m_isSpinningBackFistDelivered = game.isSpinningBackFistDelivered(deltaTime);
         }
     }
     

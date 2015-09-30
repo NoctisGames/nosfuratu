@@ -56,7 +56,6 @@ protected:
 	std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Game> m_game;
-    float m_fDeltaTime;
     
 private:
     std::vector<TouchEvent> m_touchEvents;

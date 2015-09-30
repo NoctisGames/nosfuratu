@@ -37,9 +37,9 @@ void DSLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 {
     if (m_iNumLines > 0)
     {
-        for (std::vector<LINE>::iterator itr = m_lines.begin(); itr != m_lines.end(); ++itr)
+        for (std::vector<LINE>::iterator i = m_lines.begin(); i != m_lines.end(); ++itr)
         {
-            LINE l = *itr;
+            LINE l = *i;
 
             sf2d_draw_line(l.oX, l.oY, l.eX, l.eY, LINE_THICKNESS, RGBA8((int) (l.r * 255), (int) (l.g * 255), (int) (l.b * 255), (int) (l.a * 255)));
         }

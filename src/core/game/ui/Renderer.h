@@ -29,7 +29,9 @@ public:
     
 	void init();
     
-    void render(Game& game, float deltaTime);
+    void updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime);
+    
+    void render(Game& game);
 
     void cleanUp();
     
@@ -70,8 +72,6 @@ private:
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr);
     
     void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c);
-    
-    void updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

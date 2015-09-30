@@ -37,19 +37,21 @@ class Game
 public:
     Game();
     
+    void load();
+    
     void update(float deltaTime);
     
-    bool isJonGrounded();
+    bool isJonGrounded(float deltaTime);
     
-    bool isJonBlockedHorizontally();
+    bool isJonBlockedHorizontally(float deltaTime);
     
-    bool isJonBlockedVertically();
+    bool isJonBlockedVertically(float deltaTime);
     
-    bool isJonHit();
+    bool isJonHit(float deltaTime);
     
-    bool isJonLandingOnSpring();
+    bool isJonLandingOnSpring(float deltaTime);
     
-    bool isSpinningBackFistDelivered();
+    bool isSpinningBackFistDelivered(float deltaTime);
     
     std::vector<BackgroundSky>& getBackgroundSkies();
     
@@ -87,6 +89,8 @@ public:
     
     std::vector<GoldenCarrot>& getGoldenCarrots();
     
+    std::vector<Jon>& getJons();
+    
     Jon& getJon();
     
     float getFarRight();
@@ -112,10 +116,11 @@ private:
     std::unique_ptr<std::vector<EndSign>> m_endSigns;
     std::unique_ptr<std::vector<Carrot>> m_carrots;
     std::unique_ptr<std::vector<GoldenCarrot>> m_goldenCarrots;
-    std::unique_ptr<Jon> m_jon;
+    std::unique_ptr<std::vector<Jon>> m_jons;
     
-    float m_fDeltaTime;
     bool m_resetGame;
+    
+    void reset();
 };
 
 #endif /* defined(__nosfuratu__Game__) */

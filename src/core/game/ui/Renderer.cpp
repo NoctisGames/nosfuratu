@@ -48,201 +48,6 @@ void Renderer::init()
     }
 }
 
-void Renderer::render(Game& game, float deltaTime)
-{
-    beginFrame();
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
-    bindToOffscreenFramebuffer();
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
-    /// Render Background
-    
-    updateCameraToFollowJon(game.getJon(), game, deltaTime);
-    
-    updateMatrix(0, CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundSky>::iterator itr = game.getBackgroundSkies().begin(); itr != game.getBackgroundSkies().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getBackgroundSky(game.getJon(), game));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_background);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundTrees>::iterator itr = game.getBackgroundTrees().begin(); itr != game.getBackgroundTrees().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getBackgroundTrees(game.getJon(), game));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_background);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<BackgroundCave>::iterator itr = game.getBackgroundCaves().begin(); itr != game.getBackgroundCaves().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getBackgroundCave(game.getJon(), game));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_background);
-    
-    /// Render World midground Trees/Skeletons/etc
-    
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<Tree>::iterator itr = game.getTrees().begin(); itr != game.getTrees().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getMidgroundTree(*itr));
-    }
-    
-    for (std::vector<CaveSkeleton>::iterator itr = game.getCaveSkeletons().begin(); itr != game.getCaveSkeletons().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getMidgroundCaveSkeleton(*itr));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
-    
-    /// Render World
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
-    {
-        if (itr->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
-            || itr->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
-            || itr->getGroundType() == GROUND_CAVE_RAISED_SMALL
-            || itr->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
-            || itr->getGroundType() == GROUND_CAVE_RAISED_LARGE)
-        {
-            continue;
-        }
-        
-        renderPhysicalEntity(*itr, Assets::getGround(*itr));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_foreground);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<Ground>::iterator itr = game.getGrounds().begin(); itr != game.getGrounds().end(); itr++)
-    {
-        if (itr->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
-            || itr->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
-            || itr->getGroundType() == GROUND_CAVE_RAISED_SMALL
-            || itr->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
-            || itr->getGroundType() == GROUND_CAVE_RAISED_LARGE)
-        {
-            renderPhysicalEntity(*itr, Assets::getGround(*itr));
-        }
-    }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<LogVerticalTall>::iterator itr = game.getLogVerticalTalls().begin(); itr != game.getLogVerticalTalls().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getLogVerticalTall());
-    }
-    
-    for (std::vector<LogVerticalShort>::iterator itr = game.getLogVerticalShorts().begin(); itr != game.getLogVerticalShorts().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getLogVerticalShort());
-    }
-    
-    for (std::vector<Thorns>::iterator itr = game.getThorns().begin(); itr != game.getThorns().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getThorns());
-    }
-    
-    for (std::vector<Stump>::iterator itr = game.getStumps().begin(); itr != game.getStumps().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getStump());
-    }
-    
-    for (std::vector<SideSpike>::iterator itr = game.getSideSpikes().begin(); itr != game.getSideSpikes().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getSideSpike());
-    }
-    
-    for (std::vector<UpwardSpike>::iterator itr = game.getUpwardSpikes().begin(); itr != game.getUpwardSpikes().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getUpwardSpike((*itr)));
-    }
-    
-    for (std::vector<JumpSpring>::iterator itr = game.getJumpSprings().begin(); itr != game.getJumpSprings().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getJumpSpring((*itr)));
-    }
-    
-    for (std::vector<Rock>::iterator itr = game.getRocks().begin(); itr != game.getRocks().end(); itr++)
-    {
-        renderPhysicalEntityWithColor(*itr, Assets::getRock(*itr), (*itr).getColor());
-    }
-    
-    for (std::vector<GroundPlatform>::iterator itr = game.getPlatforms().begin(); itr != game.getPlatforms().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getGroundPlatform(*itr));
-    }
-    
-    for (std::vector<EndSign>::iterator itr = game.getEndSigns().begin(); itr != game.getEndSigns().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getEndSign());
-    }
-    
-    for (std::vector<Carrot>::iterator itr = game.getCarrots().begin(); itr != game.getCarrots().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getCarrot(*itr));
-    }
-    
-    for (std::vector<GoldenCarrot>::iterator itr = game.getGoldenCarrots().begin(); itr != game.getGoldenCarrots().end(); itr++)
-    {
-        renderPhysicalEntity(*itr, Assets::getGoldenCarrot(*itr));
-    }
-    m_spriteBatcher->endBatch(*m_world_1_foreground);
-    
-    /// Render Jon Effects (e.g. Dust Clouds)
-    
-    m_spriteBatcher->beginBatch();
-    for (std::vector<DustCloud>::iterator itr = game.getJon().getDustClouds().begin(); itr != game.getJon().getDustClouds().end(); itr++)
-    {
-        renderPhysicalEntityWithColor(*itr, Assets::getDustCloud(*itr), (*itr).getColor());
-    }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
-    
-    /// Render Jon
-    
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntityWithColor(game.getJon(), Assets::getJon(game.getJon()), game.getJon().getColor());
-    m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
-    
-    /// Render everything to the screen
-    
-    bindToScreenFramebuffer();
-    
-    m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
-    
-    endFrame();
-}
-
-void Renderer::cleanUp()
-{
-    destroyTexture(*m_jon_ability);
-    destroyTexture(*m_jon);
-    destroyTexture(*m_vampire);
-    destroyTexture(*m_world_1_background);
-    destroyTexture(*m_world_1_foreground_more);
-    destroyTexture(*m_world_1_foreground);
-}
-
-#pragma mark private
-
-void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
-{
-    m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), tr);
-}
-
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c)
-{
-    m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), c, tr);
-}
-
 void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
 {
     m_camPos->setX(jon.getPosition().getX() - CAM_WIDTH / 5);
@@ -320,4 +125,203 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
     {
         m_camPos->setX(farCamPos);
     }
+}
+
+void Renderer::render(Game& game)
+{
+    beginFrame();
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    bindToOffscreenFramebuffer();
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    /// Render Background
+    
+    updateMatrix(0, CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<BackgroundSky>::iterator i = game.getBackgroundSkies().begin(); i != game.getBackgroundSkies().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getBackgroundSky(game.getJon(), game));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_background);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<BackgroundTrees>::iterator i = game.getBackgroundTrees().begin(); i != game.getBackgroundTrees().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getBackgroundTrees(game.getJon(), game));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_background);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<BackgroundCave>::iterator i = game.getBackgroundCaves().begin(); i != game.getBackgroundCaves().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getBackgroundCave(game.getJon(), game));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_background);
+    
+    /// Render World midground Trees/Skeletons/etc
+    
+    updateMatrix(m_camPos->getX(), m_camPos->getX() + CAM_WIDTH, m_camPos->getY(), m_camPos->getY() + CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Tree>::iterator i = game.getTrees().begin(); i != game.getTrees().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getMidgroundTree(*i));
+    }
+    
+    for (std::vector<CaveSkeleton>::iterator i = game.getCaveSkeletons().begin(); i != game.getCaveSkeletons().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getMidgroundCaveSkeleton(*i));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    
+    /// Render World
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
+    {
+        if (i->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
+            || i->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
+            || i->getGroundType() == GROUND_CAVE_RAISED_SMALL
+            || i->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
+            || i->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        {
+            continue;
+        }
+        
+        renderPhysicalEntity(*i, Assets::getGround(*i));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
+    {
+        if (i->getGroundType() == GROUND_CAVE_RAISED_END_LEFT
+            || i->getGroundType() == GROUND_CAVE_RAISED_MEDIUM
+            || i->getGroundType() == GROUND_CAVE_RAISED_SMALL
+            || i->getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
+            || i->getGroundType() == GROUND_CAVE_RAISED_LARGE)
+        {
+            renderPhysicalEntity(*i, Assets::getGround(*i));
+        }
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<LogVerticalTall>::iterator i = game.getLogVerticalTalls().begin(); i != game.getLogVerticalTalls().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getLogVerticalTall());
+    }
+    
+    for (std::vector<LogVerticalShort>::iterator i = game.getLogVerticalShorts().begin(); i != game.getLogVerticalShorts().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getLogVerticalShort());
+    }
+    
+    for (std::vector<Thorns>::iterator i = game.getThorns().begin(); i != game.getThorns().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getThorns());
+    }
+    
+    for (std::vector<Stump>::iterator i = game.getStumps().begin(); i != game.getStumps().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getStump());
+    }
+    
+    for (std::vector<SideSpike>::iterator i = game.getSideSpikes().begin(); i != game.getSideSpikes().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getSideSpike());
+    }
+    
+    for (std::vector<UpwardSpike>::iterator i = game.getUpwardSpikes().begin(); i != game.getUpwardSpikes().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getUpwardSpike((*i)));
+    }
+    
+    for (std::vector<JumpSpring>::iterator i = game.getJumpSprings().begin(); i != game.getJumpSprings().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getJumpSpring((*i)));
+    }
+    
+    for (std::vector<Rock>::iterator i = game.getRocks().begin(); i != game.getRocks().end(); i++)
+    {
+        renderPhysicalEntityWithColor(*i, Assets::getRock(*i), (*i).getColor());
+    }
+    
+    for (std::vector<GroundPlatform>::iterator i = game.getPlatforms().begin(); i != game.getPlatforms().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getGroundPlatform(*i));
+    }
+    
+    for (std::vector<EndSign>::iterator i = game.getEndSigns().begin(); i != game.getEndSigns().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getEndSign());
+    }
+    
+    for (std::vector<Carrot>::iterator i = game.getCarrots().begin(); i != game.getCarrots().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getCarrot(*i));
+    }
+    
+    for (std::vector<GoldenCarrot>::iterator i = game.getGoldenCarrots().begin(); i != game.getGoldenCarrots().end(); i++)
+    {
+        renderPhysicalEntity(*i, Assets::getGoldenCarrot(*i));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    
+    /// Render Jon Effects (e.g. Dust Clouds)
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Jon>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+    {
+        for (std::vector<DustCloud>::iterator j = (*i).getDustClouds().begin(); j != (*i).getDustClouds().end(); j++)
+        {
+            renderPhysicalEntityWithColor(*j, Assets::getDustCloud(*j), (*j).getColor());
+        }
+    }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    
+    /// Render Jon
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Jon>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+    {
+        renderPhysicalEntityWithColor(*i, Assets::getJon(*i), (*i).getColor());
+    }
+    m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
+    
+    /// Render everything to the screen
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
+    
+    endFrame();
+}
+
+void Renderer::cleanUp()
+{
+    destroyTexture(*m_jon_ability);
+    destroyTexture(*m_jon);
+    destroyTexture(*m_vampire);
+    destroyTexture(*m_world_1_background);
+    destroyTexture(*m_world_1_foreground_more);
+    destroyTexture(*m_world_1_foreground);
+}
+
+#pragma mark private
+
+void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)
+{
+    m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), tr);
+}
+
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion tr, Color c)
+{
+    m_spriteBatcher->drawSprite(go.getPosition().getX(), go.getPosition().getY(), go.getWidth(), go.getHeight(), go.getAngle(), c, tr);
 }

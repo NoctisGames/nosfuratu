@@ -14,12 +14,11 @@
 #include "Assets.h"
 #include "GroundSize.h"
 
-Game::Game() : m_fDeltaTime(0), m_resetGame(false)
+Game::Game() : m_resetGame(false)
 {
     m_backgroundSkies = std::unique_ptr<std::vector<BackgroundSky>>(new std::vector<BackgroundSky>);
     m_backgroundTrees = std::unique_ptr<std::vector<BackgroundTrees>>(new std::vector<BackgroundTrees>);
     m_backgroundCaves = std::unique_ptr<std::vector<BackgroundCave>>(new std::vector<BackgroundCave>);
-    
     m_trees = std::unique_ptr<std::vector<Tree>>(new std::vector<Tree>);
     m_caveSkeletons = std::unique_ptr<std::vector<CaveSkeleton>>(new std::vector<CaveSkeleton>);
     m_grounds = std::unique_ptr<std::vector<Ground>>(new std::vector<Ground>);
@@ -35,11 +34,17 @@ Game::Game() : m_fDeltaTime(0), m_resetGame(false)
     m_endSigns = std::unique_ptr<std::vector<EndSign>>(new std::vector<EndSign>);
     m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
     m_goldenCarrots = std::unique_ptr<std::vector<GoldenCarrot>>(new std::vector<GoldenCarrot>);
-    
-    m_jon = std::unique_ptr<Jon>(new Jon(JON_STARTING_X, 0, 2.2f, 2.2f, EntityAnchor::ANCHOR_GROUND));
+    m_jons = std::unique_ptr<std::vector<Jon>>(new std::vector<Jon>);
+}
+
+void Game::load()
+{
+    reset();
     
     /// Create Level
     // TODO, create level by reading in an external level document
+    
+    m_jons->push_back(Jon(JON_STARTING_X, 0, 2.2f, 2.2f, EntityAnchor::ANCHOR_GROUND));
     
     m_backgroundSkies->push_back(BackgroundSky(CAM_WIDTH / 2));
     m_backgroundTrees->push_back(BackgroundTrees(CAM_WIDTH / 2));
@@ -127,63 +132,56 @@ Game::Game() : m_fDeltaTime(0), m_resetGame(false)
 
 void Game::update(float deltaTime)
 {
-    m_fDeltaTime = deltaTime;
+    getJon().update(deltaTime, *this);
     
-    m_jon->update(deltaTime, *this);
-    
-    if (EntityUtils::isCollected(getJon(), getCarrots(), m_fDeltaTime))
+    if (EntityUtils::isCollected(getJon(), getCarrots(), deltaTime))
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
     }
     
-    if (EntityUtils::isCollected(getJon(), getGoldenCarrots(), m_fDeltaTime))
+    if (EntityUtils::isCollected(getJon(), getGoldenCarrots(), deltaTime))
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
     }
     
-    EntityUtils::update(getGoldenCarrots(), m_fDeltaTime);
+    EntityUtils::update(getGoldenCarrots(), deltaTime);
     
-    EntityUtils::update(getJumpSprings(), m_fDeltaTime);
+    EntityUtils::update(getJumpSprings(), deltaTime);
     
-    EntityUtils::updateAndClean(getRocks(), m_fDeltaTime);
+    EntityUtils::updateAndClean(getRocks(), deltaTime);
     
-    if (m_jon->isDead())
-    {
-        m_resetGame = true;
-    }
-    
-    if (m_jon->getPosition().getX() - m_jon->getWidth() > getFarRight())
+    if (getJon().isDead() || getJon().getPosition().getX() - getJon().getWidth() > getFarRight())
     {
         m_resetGame = true;
     }
 }
 
-bool Game::isJonGrounded()
+bool Game::isJonGrounded(float deltaTime)
 {
-    return EntityUtils::isLanding(getJon(), getGrounds(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getStumps(), m_fDeltaTime) || EntityUtils::isLanding(getJon(), getRocks(), m_fDeltaTime);
+    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime);
 }
 
-bool Game::isJonBlockedHorizontally()
+bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), m_fDeltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), m_fDeltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), m_fDeltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), m_fDeltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), m_fDeltaTime);
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime);
 }
 
-bool Game::isJonBlockedVertically()
+bool Game::isJonBlockedVertically(float deltaTime)
 {
-    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), m_fDeltaTime);
+    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime);
 }
 
-bool Game::isJonHit()
+bool Game::isJonHit(float deltaTime)
 {
     return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes());
 }
 
-bool Game::isJonLandingOnSpring()
+bool Game::isJonLandingOnSpring(float deltaTime)
 {
-    return EntityUtils::isLandingOnSpring(getJon(), getJumpSprings(), m_fDeltaTime);
+    return EntityUtils::isLandingOnSpring(getJon(), getJumpSprings(), deltaTime);
 }
 
-bool Game::isSpinningBackFistDelivered()
+bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
     return EntityUtils::isHitting(getJon(), getLogVerticalTalls()) || EntityUtils::isHitting(getJon(), getLogVerticalShorts()) || EntityUtils::isHitting(getJon(), getRocks());
 }
@@ -278,9 +276,14 @@ std::vector<GoldenCarrot>& Game::getGoldenCarrots()
     return *m_goldenCarrots;
 }
 
+std::vector<Jon>& Game::getJons()
+{
+    return *m_jons;
+}
+
 Jon& Game::getJon()
 {
-    return *m_jon;
+    return getJons().at(0);
 }
 
 float Game::getFarRight()
@@ -291,4 +294,31 @@ float Game::getFarRight()
 bool Game::resetGame()
 {
     return m_resetGame;
+}
+
+#pragma mark private
+
+void Game::reset()
+{
+    m_resetGame = false;
+    
+    m_backgroundSkies->clear();
+    m_backgroundTrees->clear();
+    m_backgroundCaves->clear();
+    m_trees->clear();
+    m_caveSkeletons->clear();
+    m_grounds->clear();
+    m_logVerticalTalls->clear();
+    m_logVerticalShorts->clear();
+    m_thorns->clear();
+    m_stumps->clear();
+    m_sideSpikes->clear();
+    m_upwardSpikes->clear();
+    m_jumpSprings->clear();
+    m_rocks->clear();
+    m_platforms->clear();
+    m_endSigns->clear();
+    m_carrots->clear();
+    m_goldenCarrots->clear();
+    m_jons->clear();
 }

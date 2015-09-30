@@ -39,9 +39,9 @@ void DSRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
     {
         if (m_isFill)
         {
-            for (std::vector<RECT>::iterator itr = m_rects.begin(); itr != m_rects.end(); ++itr)
+            for (std::vector<RECT>::iterator i = m_rects.begin(); i != m_rects.end(); ++itr)
             {
-                RECT r = *itr;
+                RECT r = *i;
 
                 float width = r.x2 - r.x1;
                 float height = r.y2 - r.y1;
@@ -53,9 +53,9 @@ void DSRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
         }
         else
         {
-            for (std::vector<RECT>::iterator itr = m_rects.begin(); itr != m_rects.end(); ++itr)
+            for (std::vector<RECT>::iterator i = m_rects.begin(); i != m_rects.end(); ++itr)
             {
-                RECT r = *itr;
+                RECT r = *i;
 
                 sf2d_draw_line(r.x1, r.y1, r.x2, r.y1, RECT_LINE_THICKNESS, RGBA8((int) (r.r * 255), (int) (r.g * 255), (int) (r.b * 255), (int) (r.a * 255)));
                 sf2d_draw_line(r.x2, r.y1, r.x2, r.y2, RECT_LINE_THICKNESS, RGBA8((int) (r.r * 255), (int) (r.g * 255), (int) (r.b * 255), (int) (r.a * 255)));
