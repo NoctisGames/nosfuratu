@@ -43,7 +43,7 @@ public:
         m_previousState = state;
     }
     
-    void execute()const
+    void execute() const
     {
         if (m_globalState)
         {

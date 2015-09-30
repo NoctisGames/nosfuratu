@@ -292,6 +292,11 @@ Jon& Game::getJon()
 
 float Game::getFarRight()
 {
+    if (getEndSigns().size() == 0)
+    {
+        return 0;
+    }
+    
     return getEndSigns().at(0).getPosition().getX() + getEndSigns().at(0).getWidth();
 }
 

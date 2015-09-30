@@ -23,6 +23,7 @@
 #include "GameConstants.h"
 #include "Game.h"
 #include "Jon.h"
+#include "StateMachine.h"
 
 class GameScreen
 {
@@ -50,6 +51,24 @@ public:
     short getCurrentSoundId();
     
     void onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y);
+    
+    Renderer& getRenderer();
+    
+    Vector2D& getTouchPoint();
+    
+    Vector2D& getTouchPointDown();
+    
+    Game& getGame();
+    
+    StateMachine<GameScreen>& getStateMachine();
+    
+    std::vector<TouchEvent>& getTouchEvents();
+    
+    std::vector<TouchEvent>& getTouchEventsPool();
+    
+    std::vector<TouchEvent>& getTouchEventsBuffer();
+    
+    float getDeltaTime();
 
 protected:
     std::unique_ptr<Renderer> m_renderer;
@@ -58,9 +77,11 @@ protected:
     std::unique_ptr<Game> m_game;
     
 private:
+    std::unique_ptr<StateMachine<GameScreen>> m_stateMachine;
     std::vector<TouchEvent> m_touchEvents;
     std::vector<TouchEvent> m_touchEventsPool;
     std::vector<TouchEvent> m_touchEventsBuffer;
+    float m_fDeltaTime;
     
     TouchEvent newTouchEvent();
     
