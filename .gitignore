@@ -4,14 +4,18 @@
 # Windows
 Thumbs.db
 
+# DirectXTex-aug2015
+DirectXTex-aug2015/
+!DirectXTex-aug2015/DirectXTex-aug2015_readme.txt
+
 # libpng
 libpng/
 !libpng/Android.mk
 !libpng/libpng_readme.txt
 
-# DirectXTex-aug2015
-DirectXTex-aug2015/
-!DirectXTex-aug2015/DirectXTex-aug2015_readme.txt
+# rapidjson
+rapidjson/
+!rapidjson/rapidjson_readme.txt
 
 # Android Studio
 build/
