@@ -10,30 +10,28 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 #include "EntityAnchor.h"
-#include "Jon.h"
-#include "Game.h"
 
-BackgroundSky::BackgroundSky(float x) : PhysicalEntity(x, 0, CAM_WIDTH, 14.038128249566725f), m_fX(0), m_fY(0)
+void BackgroundSky::create(std::vector<BackgroundSky>& items, float x)
 {
-    EntityUtils::applyAnchor(*this, ANCHOR_TOP);
+    items.push_back(BackgroundSky(x, 0, CAM_WIDTH, 14.038128249566725f));
+    
+    EntityUtils::applyAnchor(items.at(items.size() - 1), ANCHOR_TOP);
 }
 
-void BackgroundSky::update(Game& game)
+BackgroundSky::BackgroundSky(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0), m_fY(0)
 {
-    float y = GAME_HEIGHT - game.getJon().getPosition().getY();
-    y /= GAME_HEIGHT;
+    // Empty
+}
+
+void BackgroundSky::update(Vector2D& cameraPosition)
+{
+    m_fX = cameraPosition.getX() * 6;
+    
+    float y = cameraPosition.getY();
+    y /= (GAME_HEIGHT - CAM_HEIGHT);
     y *= 169;
     y =  y < 0 ? 0 : y;
     
-    float x = game.getJon().getPosition().getX() * 6;
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH + JON_STARTING_X;
-    if (game.getJon().getPosition().getX() > farCamPos)
-    {
-        x = farCamPos * 6;
-    }
-    
-    m_fX = x;
     m_fY = y;
 }
 
@@ -45,4 +43,14 @@ float BackgroundSky::getX()
 float BackgroundSky::getY()
 {
     return m_fY;
+}
+
+BackgroundSky BackgroundSky::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return BackgroundSky(x, y, width, height);
 }

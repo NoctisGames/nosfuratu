@@ -12,10 +12,16 @@
 #include "PhysicalEntity.h"
 #include "EntityAnchor.h"
 
+#include <vector>
+
 class Thorns : public PhysicalEntity
 {
 public:
-    Thorns(float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<Thorns>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    
+    Thorns(float x, float y, float width = 2.853801169590643f, float height = 1.474003466204506f);
+    
+    static Thorns deserialize(rapidjson::Value& v);
 };
 
 #endif /* defined(__nosfuratu__Thorns__) */

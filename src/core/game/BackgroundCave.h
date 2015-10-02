@@ -11,16 +11,20 @@
 
 #include "PhysicalEntity.h"
 
-class Game;
+#include <vector>
 
 class BackgroundCave : public PhysicalEntity
 {
 public:
-    BackgroundCave(float x);
+    static void create(std::vector<BackgroundCave>& items, float x);
     
-    void update(Game& game);
+    BackgroundCave(float x, float y, float width, float height);
+    
+    void update(Vector2D& cameraPosition);
     
     float getX();
+    
+    static BackgroundCave deserialize(rapidjson::Value& v);
     
 private:
     float m_fX;

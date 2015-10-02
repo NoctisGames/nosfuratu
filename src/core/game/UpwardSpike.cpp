@@ -9,30 +9,56 @@
 #include "UpwardSpike.h"
 #include "EntityUtils.h"
 
-UpwardSpike UpwardSpike::create(float x, UpwardSpikeType type)
+#define upwardSpikeTypeKey "upwardSpikeType"
+
+void UpwardSpike::create(std::vector<UpwardSpike>& items, float x, UpwardSpikeType type)
 {
+    EntityAnchor anchor;
     switch (type)
     {
         case UpwardSpikeType::UPWARD_SPIKE_METAL_GRASS:
-            return UpwardSpike(x, 0.6549707602339181f, 1.0294627383015598f, type, EntityAnchor::ANCHOR_GROUND);
+            items.push_back(UpwardSpike(x, 0, 0.6549707602339181f, 1.0294627383015598f, type));
+            anchor = EntityAnchor::ANCHOR_GROUND;
+            break;
         case UpwardSpikeType::UPWARD_SPIKE_WOOD_GRASS:
-            return UpwardSpike(x, 0.9590643274853801f, 1.0762564991334487f, type, EntityAnchor::ANCHOR_GROUND);
+            items.push_back(UpwardSpike(x, 0, 0.9590643274853801f, 1.0762564991334487f, type));
+            anchor = EntityAnchor::ANCHOR_GROUND;
+            break;
         case UpwardSpikeType::UPWARD_SPIKE_METAL_CAVE:
         default:
-            return UpwardSpike(x, 0.42105263157894735f, 1.123050259965338f, type, EntityAnchor::ANCHOR_CAVE);
+            items.push_back(UpwardSpike(x, 0, 0.42105263157894735f, 1.123050259965338f, type));
+            anchor = EntityAnchor::ANCHOR_CAVE;
+            break;
     }
+    
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
 }
 
-UpwardSpike::UpwardSpike(float x, float width, float height, UpwardSpikeType type, EntityAnchor anchor) : PhysicalEntity(x + width / 2, 0, width, height), m_upwardSpikeType(type)
+UpwardSpike::UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type) : PhysicalEntity(x, y, width, height), m_upwardSpikeType(type)
 {
-    EntityUtils::applyAnchor(*this, anchor);
-    
     resetBounds(width * 0.50f, height * 0.66f);
-    
-    updateBounds();
 }
 
 UpwardSpikeType UpwardSpike::getUpwardSpikeType()
 {
     return m_upwardSpikeType;
+}
+
+UpwardSpike UpwardSpike::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    UpwardSpikeType type = (UpwardSpikeType) v[upwardSpikeTypeKey].GetInt();
+    
+    return UpwardSpike(x, y, width, height, type);
+}
+
+void UpwardSpike::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    w.String(upwardSpikeTypeKey);
+    w.Int(getUpwardSpikeType());
 }

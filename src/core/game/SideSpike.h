@@ -14,9 +14,9 @@
 class SideSpike : public PhysicalEntity
 {
 public:
-    static SideSpike create(float x, float y);
+    SideSpike(float x, float y, float width = 1.1228070175438596f, float height = 0.42114384748700173f);
     
-    SideSpike(float x, float y, float width, float height);
+    static SideSpike deserialize(rapidjson::Value& v);
 };
 
 #endif /* defined(__nosfuratu__SideSpike__) */

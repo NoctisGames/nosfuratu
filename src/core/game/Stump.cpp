@@ -12,13 +12,17 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-#define STUMP_WIDTH 3.9298245614035086f
-#define STUMP_HEIGHT 3.3457538994800693f
-
-Stump::Stump(float x, EntityAnchor anchor) : PhysicalEntity(x + STUMP_WIDTH / 2, 0, STUMP_WIDTH, STUMP_HEIGHT)
+void Stump::create(std::vector<Stump>& items, float x, EntityAnchor anchor)
 {
-    EntityUtils::applyAnchor(*this, anchor);
+    items.push_back(Stump(x, 0));
     
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
+Stump::Stump(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
     updateBounds();
 }
 
@@ -31,4 +35,14 @@ void Stump::updateBounds()
     
     m_bounds->setWidth(getWidth() * 0.29761904761905f);
     m_bounds->setHeight(getHeight() * 0.81118881118881f);
+}
+
+Stump Stump::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return Stump(x, y, width, height);
 }

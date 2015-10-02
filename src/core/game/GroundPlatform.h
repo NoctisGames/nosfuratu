@@ -21,11 +21,15 @@ public:
     
     static void createCave(std::vector<GroundPlatform>& platforms, float x, float y, int length);
     
-    static GroundPlatform create(float x, float y, GroundPlatformType type);
+    static void create(std::vector<GroundPlatform>& items, float x, float y, GroundPlatformType type);
     
-    GroundPlatform(float x, float y, float width, GroundPlatformType type);
+    GroundPlatform(float x, float y, float width, float height, GroundPlatformType type);
     
     GroundPlatformType getGroundPlatformType();
+    
+    static GroundPlatform deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     static void create(std::vector<GroundPlatform>& platforms, float x, float y, int length, GroundPlatformType typeLeft, GroundPlatformType typeCenter, GroundPlatformType typeRight);

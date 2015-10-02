@@ -10,28 +10,35 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 #include "EntityAnchor.h"
-#include "Jon.h"
-#include "Game.h"
 
-BackgroundCave::BackgroundCave(float x) : PhysicalEntity(x, 0, CAM_WIDTH, 11.277296360485268f), m_fX(0)
+void BackgroundCave::create(std::vector<BackgroundCave>& items, float x)
 {
-    EntityUtils::applyAnchor(*this, ANCHOR_BOTTOM);
+    items.push_back(BackgroundCave(x, 0, CAM_WIDTH, 11.277296360485268f));
+    
+    EntityUtils::applyAnchor(items.at(items.size() - 1), ANCHOR_BOTTOM);
 }
 
-void BackgroundCave::update(Game& game)
+BackgroundCave::BackgroundCave(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0)
 {
-    float x = game.getJon().getPosition().getX() * 24;
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH + JON_STARTING_X;
-    if (game.getJon().getPosition().getX() > farCamPos)
-    {
-        x = farCamPos * 24;
-    }
-    
-    m_fX = x;
+    // Empty
+}
+
+void BackgroundCave::update(Vector2D& cameraPosition)
+{
+    m_fX = cameraPosition.getX() * 24;
 }
 
 float BackgroundCave::getX()
 {
     return m_fX;
+}
+
+BackgroundCave BackgroundCave::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return BackgroundCave(x, y, width, height);
 }

@@ -12,11 +12,26 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-#define END_SIGN_WIDTH 0.7953216374269005f
-
-EndSign::EndSign(float x, EntityAnchor anchor) : PhysicalEntity(x + END_SIGN_WIDTH / 2, 0, END_SIGN_WIDTH, 1.123050259965338f)
+void EndSign::create(std::vector<EndSign>& items, float x, EntityAnchor anchor)
 {
-    EntityUtils::applyAnchor(*this, anchor);
+    items.push_back(EndSign(x, 0));
     
-    updateBounds();
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
+EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+EndSign EndSign::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return EndSign(x, y, width, height);
 }

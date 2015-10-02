@@ -93,7 +93,7 @@ int Animation::getKeyFrameNumber(float stateTime)
 		}
 		else
 		{
-			return m_frameTimes.size() - 1;
+			return ((int) m_frameTimes.size()) - 1;
 		}
 	}
 

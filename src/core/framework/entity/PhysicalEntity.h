@@ -10,10 +10,19 @@
 #define __gowengamedev__PhysicalEntity__
 
 #include "Entity.h"
-#include "Rectangle.h"
 #include "Vector2D.h"
+#include "Rectangle.h"
 
 #include <memory>
+
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
+#define xKey "x"
+#define ykey "y"
+#define widthKey "width"
+#define heightKey "height"
 
 class PhysicalEntity : public Entity
 {
@@ -39,6 +48,12 @@ public:
     const float& getHeight();
     
     float getAngle();
+    
+    static PhysicalEntity deserialize(rapidjson::Value& v);
+    
+    void serialize(rapidjson::Writer<rapidjson::StringBuffer>& w);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 protected:
     std::unique_ptr<Vector2D> m_position;

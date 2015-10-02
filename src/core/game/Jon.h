@@ -10,7 +10,6 @@
 #define __nosfuratu__Jon__
 
 #include "PhysicalEntity.h"
-#include "EntityAnchor.h"
 #include "JonState.h"
 #include "JonPhysicalState.h"
 #include "JonActionState.h"
@@ -26,7 +25,7 @@ class Game;
 class Jon : public PhysicalEntity
 {
 public:
-    Jon(float x, float y, float width, float height, EntityAnchor anchor = ANCHOR_NONE);
+    Jon(float x, float y, float width, float height);
     
     void update(float deltaTime, Game& game);
     
@@ -61,6 +60,8 @@ public:
     bool isLanding();
     
     bool isDead();
+    
+    static Jon deserialize(rapidjson::Value& v);
     
 private:
     std::unique_ptr<std::vector<DustCloud>> m_dustClouds;

@@ -9,25 +9,32 @@
 #include "JumpSpring.h"
 #include "EntityUtils.h"
 
-JumpSpring JumpSpring::create(float x, JumpSpringType type)
+#define jumpSpringTypeKey "jumpSpringType"
+
+void JumpSpring::create(std::vector<JumpSpring>& items, float x, JumpSpringType type)
 {
+    EntityAnchor anchor;
     switch (type)
     {
         case JumpSpringType::JUMP_SPRING_IN_GRASS:
-            return JumpSpring(x, 1.0058479532163742f, 1.0060658578856152f, type, EntityAnchor::ANCHOR_GROUND);
+            items.push_back(JumpSpring(x, 0, 1.0058479532163742f, 1.0060658578856152f, type));
+            anchor = EntityAnchor::ANCHOR_GROUND;
+            break;
         case JumpSpringType::JUMP_SPRING_IN_CAVE:
         default:
-            return JumpSpring(x, 1.2163742690058479f, 1.5441941074523398f, type, EntityAnchor::ANCHOR_CAVE);
+            items.push_back(JumpSpring(x, 0, 1.2163742690058479f, 1.5441941074523398f, type));
+            anchor = EntityAnchor::ANCHOR_CAVE;
+            break;
     }
+    
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
 }
 
-JumpSpring::JumpSpring(float x, float width, float height, JumpSpringType type, EntityAnchor anchor) : PhysicalEntity(x + width / 2, 0, width, height), m_jumpSpringType(type), m_isTriggered(false)
+JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_jumpSpringType(type), m_isTriggered(false)
 {
-    EntityUtils::applyAnchor(*this, anchor);
-    
     resetBounds(width, height * 0.70f);
-    
-    updateBounds();
 }
 
 void JumpSpring::update(float deltaTime)
@@ -56,4 +63,21 @@ JumpSpringType JumpSpring::getJumpSpringType()
 bool JumpSpring::isTriggered()
 {
     return m_isTriggered;
+}
+
+JumpSpring JumpSpring::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    JumpSpringType type = (JumpSpringType) v[jumpSpringTypeKey].GetInt();
+    
+    return JumpSpring(x, y, width, height, type);
+}
+
+void JumpSpring::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    w.String(jumpSpringTypeKey);
+    w.Int(getJumpSpringType());
 }

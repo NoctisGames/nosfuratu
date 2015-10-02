@@ -17,11 +17,9 @@
 
 #include <math.h>
 
-Jon::Jon(float x, float y, float width, float height, EntityAnchor anchor) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
+Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
 {
-    EntityUtils::applyAnchor(*this, anchor);
-    
-	resetBounds(width * 0.6796875f, height * 0.8203125f);
+    resetBounds(width * 0.6796875f, height * 0.8203125f);
 
 	m_acceleration->setX(m_fAccelerationX);
     
@@ -270,6 +268,16 @@ bool Jon::isFalling()
 bool Jon::isDead()
 {
 	return m_state == JON_DEAD;
+}
+
+Jon Jon::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return Jon(x, y, width, height);
 }
 
 #pragma mark private

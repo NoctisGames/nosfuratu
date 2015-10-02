@@ -39,6 +39,8 @@ public:
 
     void cleanUp();
     
+    Vector2D& getCameraPosition();
+    
 protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     

@@ -11,18 +11,22 @@
 
 #include "PhysicalEntity.h"
 
-class Game;
+#include <vector>
 
 class BackgroundSky : public PhysicalEntity
 {
 public:
-    BackgroundSky(float x);
+    static void create(std::vector<BackgroundSky>& items, float x);
     
-    void update(Game& game);
+    BackgroundSky(float x, float y, float width, float height);
+    
+    void update(Vector2D& cameraPosition);
     
     float getX();
     
     float getY();
+    
+    static BackgroundSky deserialize(rapidjson::Value& v);
     
 private:
     float m_fX;

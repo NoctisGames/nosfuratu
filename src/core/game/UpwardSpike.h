@@ -13,14 +13,20 @@
 #include "UpwardSpikeType.h"
 #include "EntityAnchor.h"
 
+#include <vector>
+
 class UpwardSpike : public PhysicalEntity
 {
 public:
-    static UpwardSpike create(float x, UpwardSpikeType type);
+    static void create(std::vector<UpwardSpike>& items, float x, UpwardSpikeType type);
     
-    UpwardSpike(float x, float width, float height, UpwardSpikeType type, EntityAnchor anchor = EntityAnchor::ANCHOR_NONE);
+    UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type);
     
     UpwardSpikeType getUpwardSpikeType();
+    
+    static UpwardSpike deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     UpwardSpikeType m_upwardSpikeType;

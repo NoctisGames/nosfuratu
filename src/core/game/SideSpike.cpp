@@ -9,12 +9,17 @@
 #include "SideSpike.h"
 #include "EntityUtils.h"
 
-SideSpike SideSpike::create(float x, float y)
-{
-    return SideSpike(x, y, 1.1228070175438596f, 0.42114384748700173f);
-}
-
-SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEntity(x + width / 2, y, width, height)
+SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     resetBounds(width * 0.40f, height * 0.40f);
+}
+
+SideSpike SideSpike::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return SideSpike(x, y, width, height);
 }

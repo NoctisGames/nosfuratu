@@ -28,7 +28,17 @@
 class GameScreen
 {
 public:
-	GameScreen();
+    std::unique_ptr<StateMachine<GameScreen>> m_stateMachine;
+    std::vector<TouchEvent> m_touchEvents;
+    std::vector<TouchEvent> m_touchEventsPool;
+    std::vector<TouchEvent> m_touchEventsBuffer;
+    std::unique_ptr<Renderer> m_renderer;
+    std::unique_ptr<Vector2D> m_touchPoint;
+    std::unique_ptr<Vector2D> m_touchPointDown;
+    std::unique_ptr<Game> m_game;
+    float m_fDeltaTime;
+    
+	GameScreen(bool isLevelEditor = false);
     
     virtual void touchToWorld(TouchEvent &touchEvent) = 0;
     
@@ -52,37 +62,9 @@ public:
     
     void onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y);
     
-    Renderer& getRenderer();
-    
-    Vector2D& getTouchPoint();
-    
-    Vector2D& getTouchPointDown();
-    
-    Game& getGame();
-    
-    StateMachine<GameScreen>& getStateMachine();
-    
-    std::vector<TouchEvent>& getTouchEvents();
-    
-    std::vector<TouchEvent>& getTouchEventsPool();
-    
-    std::vector<TouchEvent>& getTouchEventsBuffer();
-    
-    float getDeltaTime();
-
-protected:
-    std::unique_ptr<Renderer> m_renderer;
-	std::unique_ptr<Vector2D> m_touchPoint;
-    std::unique_ptr<Vector2D> m_touchPointDown;
-    std::unique_ptr<Game> m_game;
+    void processTouchEvents();
     
 private:
-    std::unique_ptr<StateMachine<GameScreen>> m_stateMachine;
-    std::vector<TouchEvent> m_touchEvents;
-    std::vector<TouchEvent> m_touchEventsPool;
-    std::vector<TouchEvent> m_touchEventsBuffer;
-    float m_fDeltaTime;
-    
     TouchEvent newTouchEvent();
     
     void addTouchEventForType(Touch_Type touchType, float x, float y);

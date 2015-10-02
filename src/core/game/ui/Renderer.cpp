@@ -237,6 +237,11 @@ void Renderer::cleanUp()
     destroyTexture(*m_world_1_foreground);
 }
 
+Vector2D& Renderer::getCameraPosition()
+{
+    return *m_camPos;
+}
+
 #pragma mark private
 
 void Renderer::renderPhysicalEntity(PhysicalEntity &go, TextureRegion tr)

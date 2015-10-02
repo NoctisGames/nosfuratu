@@ -12,10 +12,16 @@
 #include "PhysicalEntity.h"
 #include "EntityAnchor.h"
 
+#include <vector>
+
 class EndSign : public PhysicalEntity
 {
 public:
-    EndSign(float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<EndSign>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    
+    EndSign(float x, float y, float width = 0.7953216374269005f, float height = 1.123050259965338f);
+    
+    static EndSign deserialize(rapidjson::Value& v);
 };
 
 #endif /* defined(__nosfuratu__EndSign__) */

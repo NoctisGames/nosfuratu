@@ -12,13 +12,17 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-#define LOG_VERTICAL_SHORT_WIDTH 1.5204678362573099f
-#define LOG_VERTICAL_SHORT_HEIGHT 1.216637781629116f
-
-LogVerticalShort::LogVerticalShort(float x, EntityAnchor anchor) : DestructiblePhysicalEntity(x + LOG_VERTICAL_SHORT_WIDTH / 2, 0, LOG_VERTICAL_SHORT_WIDTH, LOG_VERTICAL_SHORT_HEIGHT)
+void LogVerticalShort::create(std::vector<LogVerticalShort>& items, float x, EntityAnchor anchor)
 {
-    EntityUtils::applyAnchor(*this, anchor);
+    items.push_back(LogVerticalShort(x, 0));
     
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
+LogVerticalShort::LogVerticalShort(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height)
+{
     updateBounds();
 }
 
@@ -31,4 +35,14 @@ void LogVerticalShort::updateBounds()
     
     m_bounds->setWidth(getWidth() * 0.43076923076923f);
     m_bounds->setHeight(getHeight() * 0.90384615384615f);
+}
+
+LogVerticalShort LogVerticalShort::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return LogVerticalShort(x, y, width, height);
 }

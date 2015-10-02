@@ -11,9 +11,17 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
-#define CARROT_WIDTH 1.2163742690058479f
-
-Carrot::Carrot(float x, float y) : PhysicalEntity(x + CARROT_WIDTH / 2, y, CARROT_WIDTH, 0.9592720970537262f)
+Carrot::Carrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     // Empty
+}
+
+Carrot Carrot::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return Carrot(x, y, width, height);
 }

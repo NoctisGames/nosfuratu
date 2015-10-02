@@ -11,16 +11,19 @@
 
 #include "PhysicalEntity.h"
 #include "CaveSkeletonType.h"
-#include "EntityAnchor.h"
 
 class CaveSkeleton : public PhysicalEntity
 {
 public:
-    static CaveSkeleton createCaveSkeleton(float x, float y, CaveSkeletonType caveSkeletonType);
+    static CaveSkeleton create(float x, float y, CaveSkeletonType caveSkeletonType);
     
     CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType caveSkeletonType);
     
     CaveSkeletonType getCaveSkeletonType();
+    
+    static CaveSkeleton deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     CaveSkeletonType m_caveSkeletonType;

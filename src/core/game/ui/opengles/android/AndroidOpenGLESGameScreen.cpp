@@ -8,7 +8,7 @@
 
 #include "AndroidOpenGLESGameScreen.h"
 
-AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen() : OpenGLESGameScreen()
+AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool isLevelEditor) : OpenGLESGameScreen(isLevelEditor)
 {
     // Empty
 }

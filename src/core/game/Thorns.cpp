@@ -12,12 +12,26 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-#define THORNS_WIDTH 2.853801169590643f
-#define THORNS_HEIGHT 1.474003466204506f
-
-Thorns::Thorns(float x, EntityAnchor anchor) : PhysicalEntity(x + THORNS_WIDTH / 2, 0, THORNS_WIDTH, THORNS_HEIGHT)
+void Thorns::create(std::vector<Thorns>& items, float x, EntityAnchor anchor)
 {
-    EntityUtils::applyAnchor(*this, anchor);
+    items.push_back(Thorns(x, 0));
     
-    resetBounds(THORNS_WIDTH * 0.50f, THORNS_HEIGHT * 0.50f);
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
+Thorns::Thorns(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    resetBounds(width * 0.50f, height * 0.50f);
+}
+
+Thorns Thorns::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return Thorns(x, y, width, height);
 }

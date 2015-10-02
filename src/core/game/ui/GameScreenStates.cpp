@@ -9,6 +9,9 @@
 #include "GameScreenStates.h"
 #include "State.h"
 #include "GameScreen.h"
+#include "EntityUtils.h"
+
+/// Game Play ///
 
 GamePlay * GamePlay::getInstance()
 {
@@ -26,10 +29,33 @@ void GamePlay::execute(GameScreen* gs)
 {
     handleTouchInput(gs);
     
-    gs->getGame().update(gs->getDeltaTime());
-    gs->getRenderer().updateCameraToFollowJon(gs->getGame().getJon(), gs->getGame(), gs->getDeltaTime());
+    Jon& jon = gs->m_game->getJon();
     
-    if (gs->getGame().resetGame())
+    jon.update(gs->m_fDeltaTime, *gs->m_game);
+    
+    if (EntityUtils::isCollected(jon, gs->m_game->getCarrots(), gs->m_fDeltaTime))
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
+    }
+    
+    if (EntityUtils::isCollected(jon, gs->m_game->getGoldenCarrots(), gs->m_fDeltaTime))
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
+    }
+    
+    EntityUtils::update(gs->m_game->getGoldenCarrots(), gs->m_fDeltaTime);
+    
+    EntityUtils::update(gs->m_game->getJumpSprings(), gs->m_fDeltaTime);
+    
+    EntityUtils::updateAndClean(gs->m_game->getRocks(), gs->m_fDeltaTime);
+    
+    gs->m_renderer->updateCameraToFollowJon(jon, *gs->m_game, gs->m_fDeltaTime);
+    
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+    
+    if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > gs->m_game->getFarRight())
     {
         gs->init();
     }
@@ -42,57 +68,119 @@ void GamePlay::exit(GameScreen* gs)
 
 void GamePlay::handleTouchInput(GameScreen* gs)
 {
-    for (std::vector<TouchEvent>::iterator i = gs->getTouchEvents().begin(); i != gs->getTouchEvents().end(); i++)
-    {
-        if(gs->getTouchEventsPool().size() < 50)
-        {
-            gs->getTouchEventsPool().push_back(*i);
-        }
-    }
+    gs->processTouchEvents();
     
-    gs->getTouchEvents().clear();
-    gs->getTouchEvents().swap(gs->getTouchEventsBuffer());
-    gs->getTouchEventsBuffer().clear();
+    Jon& jon = gs->m_game->getJon();
     
-    for (std::vector<TouchEvent>::iterator i = gs->getTouchEvents().begin(); i != gs->getTouchEvents().end(); i++)
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
         gs->touchToWorld((*i));
         
         switch (i->getTouchType())
         {
             case DOWN:
-                gs->getTouchPointDown().set(gs->getTouchPoint().getX(), gs->getTouchPoint().getY());
+                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                 continue;
             case DRAGGED:
                 continue;
             case UP:
-                if (gs->getTouchPointDown().getX() + SWIPE_WIDTH <= gs->getTouchPoint().getX())
+                if (gs->m_touchPointDown->getX() + SWIPE_WIDTH <= gs->m_touchPoint->getX())
                 {
                     // Swipe Right
-                    gs->getGame().getJon().triggerRightAction();
+                    jon.triggerRightAction();
                 }
-                else if (gs->getTouchPointDown().getX() - SWIPE_WIDTH >= gs->getTouchPoint().getX())
+                else if (gs->m_touchPointDown->getX() - SWIPE_WIDTH >= gs->m_touchPoint->getX())
                 {
                     // Swipe Left
-                    gs->getGame().getJon().triggerLeftAction();
+                    jon.triggerLeftAction();
                 }
-                else if (gs->getTouchPointDown().getY() + SWIPE_HEIGHT <= gs->getTouchPoint().getY())
+                else if (gs->m_touchPointDown->getY() + SWIPE_HEIGHT <= gs->m_touchPoint->getY())
                 {
                     // Swipe Up
-                    gs->getGame().getJon().triggerUpAction();
+                    jon.triggerUpAction();
                 }
-                else if (gs->getTouchPointDown().getY() - SWIPE_HEIGHT >= gs->getTouchPoint().getY())
+                else if (gs->m_touchPointDown->getY() - SWIPE_HEIGHT >= gs->m_touchPoint->getY())
                 {
                     // Swipe Down
-                    gs->getGame().getJon().triggerDownAction();
+                    jon.triggerDownAction();
                 }
                 else
                 {
-                    gs->getGame().getJon().triggerJump();
+                    jon.triggerJump();
                 }
                 
-                gs->getTouchPointDown().set(gs->getTouchPoint().getX(), gs->getTouchPoint().getY());
+                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                 
+                return;
+        }
+    }
+}
+
+/// Level Editor ///
+
+LevelEditor * LevelEditor::getInstance()
+{
+    static LevelEditor *instance = new LevelEditor();
+    
+    return instance;
+}
+
+void LevelEditor::enter(GameScreen* gs)
+{
+    // TODO
+}
+
+void LevelEditor::execute(GameScreen* gs)
+{
+    handleTouchInput(gs);
+    
+    Jon& jon = gs->m_game->getJon();
+    
+    jon.update(gs->m_fDeltaTime, *gs->m_game);
+    
+    if (EntityUtils::isCollected(jon, gs->m_game->getCarrots(), gs->m_fDeltaTime))
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
+    }
+    
+    if (EntityUtils::isCollected(jon, gs->m_game->getGoldenCarrots(), gs->m_fDeltaTime))
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
+    }
+    
+    EntityUtils::update(gs->m_game->getGoldenCarrots(), gs->m_fDeltaTime);
+    
+    EntityUtils::update(gs->m_game->getJumpSprings(), gs->m_fDeltaTime);
+    
+    EntityUtils::updateAndClean(gs->m_game->getRocks(), gs->m_fDeltaTime);
+    
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
+    EntityUtils::updateBackgrounds(gs->m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+}
+
+void LevelEditor::exit(GameScreen* gs)
+{
+    // TODO
+}
+
+void LevelEditor::handleTouchInput(GameScreen* gs)
+{
+    gs->processTouchEvents();
+    
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    {
+        gs->touchToWorld((*i));
+        
+        switch (i->getTouchType())
+        {
+            case DOWN:
+                // TODO
+                continue;
+            case DRAGGED:
+                continue;
+            case UP:
+                // TODO
                 return;
         }
     }

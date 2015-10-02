@@ -7,8 +7,7 @@
 //
 
 #include "PhysicalEntity.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
+#include "macros.h"
 
 PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity()
 {
@@ -79,4 +78,36 @@ const float& PhysicalEntity::getHeight()
 float PhysicalEntity::getAngle()
 {
     return m_fAngle;
+}
+
+PhysicalEntity PhysicalEntity::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return PhysicalEntity(x, y, width, height);
+}
+
+void PhysicalEntity::serialize(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    w.StartObject();
+    w.String(xKey);
+    w.Double(m_position->getX());
+    w.String(ykey);
+    w.Double(m_position->getY());
+    w.String(widthKey);
+    w.Double(getWidth());
+    w.String(heightKey);
+    w.Double(getHeight());
+    
+    serializeAdditionalParams(w);
+    
+    w.EndObject();
+}
+
+void PhysicalEntity::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    UNUSED(w);
 }

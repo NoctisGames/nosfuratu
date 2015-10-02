@@ -12,13 +12,19 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-#define ROCK_WIDTH 4.491228070175438f
-#define ROCK_HEIGHT 4.305025996533795f
+#define isCrackedKey "isCracked"
 
-Rock::Rock(float x, bool isCracked, EntityAnchor anchor) : DestructiblePhysicalEntity(x + ROCK_WIDTH / 2, 0, ROCK_WIDTH, ROCK_HEIGHT), m_color(1, 1, 1, 1), m_isCracked(isCracked), m_isBlowingUp(false)
+void Rock::create(std::vector<Rock>& items, float x, EntityAnchor anchor)
 {
-    EntityUtils::applyAnchor(*this, anchor, ROCK_HEIGHT * -0.21739130434783f);
+    items.push_back(Rock(x, 0));
     
+    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor, ROCK_HEIGHT * -0.21739130434783f);
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
+Rock::Rock(float x, float y, float width, float height, bool isCracked) : DestructiblePhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_isCracked(isCracked), m_isBlowingUp(false)
+{
     updateBounds();
 }
 
@@ -84,4 +90,21 @@ bool Rock::isCracked()
 bool Rock::isBlowingUp()
 {
     return m_isBlowingUp;
+}
+
+Rock Rock::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    bool isCracked = v[isCrackedKey].GetBool();
+    
+    return Rock(x, y, width, height, isCracked);
+}
+
+void Rock::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    w.String(isCrackedKey);
+    w.Bool(isCracked());
 }

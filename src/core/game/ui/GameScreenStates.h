@@ -33,4 +33,24 @@ private:
     GamePlay& operator=(const GamePlay&);
 };
 
+class LevelEditor : public State<GameScreen>
+{
+public:
+    static LevelEditor* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    void handleTouchInput(GameScreen* gs);
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    LevelEditor(){};
+    LevelEditor(const LevelEditor&);
+    LevelEditor& operator=(const LevelEditor&);
+};
+
 #endif /* defined(__nosfuratu__GameScreenStates__) */

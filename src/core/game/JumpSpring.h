@@ -13,12 +13,14 @@
 #include "JumpSpringType.h"
 #include "EntityAnchor.h"
 
+#include <vector>
+
 class JumpSpring : public PhysicalEntity
 {
 public:
-    static JumpSpring create(float x, JumpSpringType type);
+    static void create(std::vector<JumpSpring>& items, float x, JumpSpringType type);
     
-    JumpSpring(float x, float width, float height, JumpSpringType type, EntityAnchor anchor = EntityAnchor::ANCHOR_NONE);
+    JumpSpring(float x, float y, float width, float height, JumpSpringType type);
     
     virtual void update(float deltaTime);
     
@@ -27,6 +29,10 @@ public:
     JumpSpringType getJumpSpringType();
     
     bool isTriggered();
+    
+    static JumpSpring deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     JumpSpringType m_jumpSpringType;

@@ -27,13 +27,17 @@ public:
     
     static void createCaveRaised(std::vector<Ground>& grounds, float x, GroundSize gs, int length);
     
-    static Ground create(float x, GroundType groundType);
+    static void create(std::vector<Ground>& items, float x, GroundType groundType);
     
-    Ground(float x, float width, float height, GroundType groundType, float boundsHeightFactor, float y = 0, EntityAnchor anchor = ANCHOR_BOTTOM);
+    Ground(float x, float y, float width, float height, GroundType type, float boundsHeightFactor);
     
     virtual void updateBounds();
     
     GroundType getGroundType();
+    
+    static Ground deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     static void create(std::vector<Ground>& grounds, float x, int length, GroundType typeLeft, GroundType typeCenter, GroundType typeRight);

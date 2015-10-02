@@ -12,12 +12,18 @@
 #include "DestructiblePhysicalEntity.h"
 #include "EntityAnchor.h"
 
+#include <vector>
+
 class LogVerticalShort : public DestructiblePhysicalEntity
 {
 public:
-    LogVerticalShort(float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<LogVerticalShort>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    
+    LogVerticalShort(float x, float y, float width = 1.5204678362573099f, float height = 1.216637781629116f);
     
     virtual void updateBounds();
+    
+    static LogVerticalShort deserialize(rapidjson::Value& v);
 };
 
 #endif /* defined(__nosfuratu__LogVerticalShort__) */

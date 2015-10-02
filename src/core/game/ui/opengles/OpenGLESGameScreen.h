@@ -18,7 +18,7 @@ class OpenGLESRenderer;
 class OpenGLESGameScreen : public GameScreen
 {
 public:
-    OpenGLESGameScreen();
+    OpenGLESGameScreen(bool isLevelEditor = false);
     
 protected:
     void initGraphics(int screenWidth, int screenHeight);

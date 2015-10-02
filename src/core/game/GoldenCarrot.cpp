@@ -11,9 +11,17 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
-#define GOLDEN_CARROT_WIDTH 1.21637426900585f
-
-GoldenCarrot::GoldenCarrot(float x, float y) : PhysicalEntity(x + GOLDEN_CARROT_WIDTH / 2, y, GOLDEN_CARROT_WIDTH, 1.14644714038128f)
+GoldenCarrot::GoldenCarrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     // Empty
+}
+
+GoldenCarrot GoldenCarrot::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    
+    return GoldenCarrot(x, y, width, height);
 }

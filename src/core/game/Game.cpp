@@ -14,7 +14,27 @@
 #include "Assets.h"
 #include "GroundSize.h"
 
-Game::Game() : m_resetGame(false)
+#define backgroundSkiesKey "backgroundSkies"
+#define backgroundTreesKey "backgroundTrees"
+#define backgroundCavesKey "backgroundCaves"
+#define treesKey "trees"
+#define caveSkeletonsKey "caveSkeletons"
+#define groundsKey "grounds"
+#define logVerticalTallsKey "logVerticalTalls"
+#define logVerticalShortsKey "logVerticalShorts"
+#define thornsKey "thorns"
+#define stumpsKey "stumps"
+#define sideSpikesKey "sideSpikes"
+#define upwardSpikesKey "upwardSpikes"
+#define jumpSpringsKey "jumpSprings"
+#define rocksKey "rocks"
+#define platformsKey "platforms"
+#define endSignsKey "endSigns"
+#define carrotsKey "carrots"
+#define goldenCarrotsKey "goldenCarrots"
+#define jonsKey "jons"
+
+Game::Game()
 {
     m_backgroundSkies = std::unique_ptr<std::vector<BackgroundSky>>(new std::vector<BackgroundSky>);
     m_backgroundTrees = std::unique_ptr<std::vector<BackgroundTrees>>(new std::vector<BackgroundTrees>);
@@ -37,127 +57,90 @@ Game::Game() : m_resetGame(false)
     m_jons = std::unique_ptr<std::vector<Jon>>(new std::vector<Jon>);
 }
 
-void Game::load()
+void Game::load(const char* json)
 {
     reset();
     
-    /// Create Level
-    // TODO, create level by reading in an external level document
+    rapidjson::Document d;
+    d.Parse<0>(json);
     
-    m_jons->push_back(Jon(JON_STARTING_X, 0, 2.2f, 2.2f, EntityAnchor::ANCHOR_GROUND));
-    
-    m_backgroundSkies->push_back(BackgroundSky(CAM_WIDTH / 2));
-    m_backgroundTrees->push_back(BackgroundTrees(CAM_WIDTH / 2));
-    m_backgroundCaves->push_back(BackgroundCave(CAM_WIDTH / 2));
-    
-    for (int i = 0; i < 3; i += 3)
-    {
-        m_trees->push_back(Tree::createTree(i * CAM_WIDTH, TreeType::TREE_ONE));
-        m_trees->push_back(Tree::createTree((i + 1) * CAM_WIDTH, TreeType::TREE_TWO));
-        m_trees->push_back(Tree::createTree((i + 2) * CAM_WIDTH, TreeType::TREE_THREE));
-    }
-    
-    for (int i = 5; i < 8; i += 3)
-    {
-        m_trees->push_back(Tree::createTree(i * CAM_WIDTH, TreeType::TREE_ONE));
-        m_trees->push_back(Tree::createTree((i + 1) * CAM_WIDTH, TreeType::TREE_TWO));
-        m_trees->push_back(Tree::createTree((i + 2) * CAM_WIDTH - 4, TreeType::TREE_THREE));
-    }
-    
-    Ground::createGrassWithoutCave(*m_grounds, 0, GroundSize::GROUND_SIZE_LARGE, 1);
-    Ground::createGrassWithCave(*m_grounds, 47.90643274853801f + 47.90643274853801f / 2 - 6, GroundSize::GROUND_SIZE_LARGE, 1);
-    Ground::createCave(*m_grounds, 47.90643274853801f + 47.90643274853801f / 2 - 6, GroundSize::GROUND_SIZE_LARGE, 2);
-    Ground::createCaveRaised(*m_grounds, 47.90643274853801f * 2 + 47.90643274853801f / 2 - 6, GroundSize::GROUND_SIZE_MEDIUM, 1);
-    Ground::createGrassWithoutCave(*m_grounds, 47.90643274853801f * 7 / 2, GroundSize::GROUND_SIZE_SMALL, 1);
-    
-    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH));
-    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH * 2));
-    m_logVerticalTalls->push_back(LogVerticalTall(CAM_WIDTH * 3 - 4));
-    
-    m_logVerticalShorts->push_back(LogVerticalShort(CAM_WIDTH * 4 + 5));
-    m_logVerticalShorts->push_back(LogVerticalShort(CAM_WIDTH * 3));
-    
-    m_thorns->push_back(Thorns(CAM_WIDTH * 5));
-    
-    m_stumps->push_back(Stump(47.90643274853801f * 2 + 13));
-    
-    m_sideSpikes->push_back(SideSpike::create(0, 3.6f));
-    EntityUtils::attach(m_sideSpikes->at(0), m_grounds->at(10), true);
-    
-    m_upwardSpikes->push_back(UpwardSpike::create(CAM_WIDTH * 5 - 4, UpwardSpikeType::UPWARD_SPIKE_WOOD_GRASS));
-    m_upwardSpikes->push_back(UpwardSpike::create(CAM_WIDTH * 5 - 2, UpwardSpikeType::UPWARD_SPIKE_METAL_GRASS));
-    m_upwardSpikes->push_back(UpwardSpike::create(CAM_WIDTH * 6 + 8.2f, UpwardSpikeType::UPWARD_SPIKE_METAL_CAVE));
-    
-    m_jumpSprings->push_back(JumpSpring::create(CAM_WIDTH * 3 - 5.5f, JumpSpringType::JUMP_SPRING_IN_GRASS));
-    m_jumpSprings->push_back(JumpSpring::create(CAM_WIDTH * 9 + 3, JumpSpringType::JUMP_SPRING_IN_CAVE));
-    
-    m_rocks->push_back(Rock(47.90643274853801f * 2 - 10));
-    m_rocks->push_back(Rock(47.90643274853801f * 2 - 6, true));
-    
-    GroundPlatform::createGrass(*m_platforms, CAM_WIDTH * 3 / 2, ANCHOR_GROUND_Y + 2.8f, 1);
-    GroundPlatform::createGrass(*m_platforms, CAM_WIDTH * 2, ANCHOR_GROUND_Y + 5.6f, 2);
-    GroundPlatform::createGrass(*m_platforms, CAM_WIDTH * 3, ANCHOR_GROUND_Y + 8.4f, 2);
-    GroundPlatform::createCave(*m_platforms, 47.90643274853801f * 2, 4, 1);
-    GroundPlatform::createCave(*m_platforms, 47.90643274853801f * 4 - 36, 4.4f, 1);
-    
-    m_upwardSpikes->push_back(UpwardSpike::create(CAM_WIDTH * 3 / 2 + 2, UpwardSpikeType::UPWARD_SPIKE_WOOD_GRASS));
-    EntityUtils::placeOn(m_upwardSpikes->at(3), m_platforms->at(1));
-    
-    m_jumpSprings->push_back(JumpSpring::create(0, JumpSpringType::JUMP_SPRING_IN_GRASS));
-    EntityUtils::placeOn(m_jumpSprings->at(2), m_platforms->at(8));
-    EntityUtils::attach(m_jumpSprings->at(2), m_platforms->at(8), false);
-    
-    m_endSigns->push_back(EndSign(0));
-    
-    EntityUtils::attach(m_endSigns.get()->at(0), m_grounds.get()->at(m_grounds->size() - 1), true);
-    
-    for (int i = 0; i < 3; i += 3)
-    {
-        m_carrots->push_back(Carrot(i * CAM_WIDTH + 14, ANCHOR_GROUND_Y + 1.2f));
-        m_carrots->push_back(Carrot((i + 1) * CAM_WIDTH + 8, ANCHOR_GROUND_Y + 1.2f));
-        m_carrots->push_back(Carrot((i + 2) * CAM_WIDTH + 8, ANCHOR_GROUND_Y + 1.2f));
-    }
-    
-    m_carrots->push_back(Carrot(47.90643274853801f * 2, ANCHOR_GROUND_Y + 1.2f));
-    m_carrots->push_back(Carrot(47.90643274853801f * 2 + 3, ANCHOR_GROUND_Y + 1.2f));
-    m_carrots->push_back(Carrot(47.90643274853801f * 2 + 6, ANCHOR_GROUND_Y + 1.2f));
-    
-    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20, ANCHOR_GROUND_Y + 1.2f));
-    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20 + 3, ANCHOR_GROUND_Y + 3.2f));
-    m_carrots->push_back(Carrot(47.90643274853801f * 4 - 20 + 6, ANCHOR_GROUND_Y + 6.2f));
-    
-    m_goldenCarrots->push_back(GoldenCarrot(CAM_WIDTH * 3 + 7, ANCHOR_GROUND_Y + 14));
-    m_goldenCarrots->push_back(GoldenCarrot(47.90643274853801f * 4 - 37, 2.6f));
+    loadArray(*m_backgroundSkies, d, backgroundSkiesKey);
+    loadArray(*m_backgroundTrees, d, backgroundTreesKey);
+    loadArray(*m_backgroundCaves, d, backgroundCavesKey);
+    loadArray(*m_trees, d, treesKey);
+    loadArray(*m_caveSkeletons, d, caveSkeletonsKey);
+    loadArray(*m_grounds, d, groundsKey);
+    loadArray(*m_logVerticalTalls, d, logVerticalTallsKey);
+    loadArray(*m_logVerticalShorts, d, logVerticalShortsKey);
+    loadArray(*m_thorns, d, thornsKey);
+    loadArray(*m_stumps, d, stumpsKey);
+    loadArray(*m_sideSpikes, d, sideSpikesKey);
+    loadArray(*m_upwardSpikes, d, upwardSpikesKey);
+    loadArray(*m_jumpSprings, d, jumpSpringsKey);
+    loadArray(*m_rocks, d, rocksKey);
+    loadArray(*m_platforms, d, platformsKey);
+    loadArray(*m_endSigns, d, endSignsKey);
+    loadArray(*m_carrots, d, carrotsKey);
+    loadArray(*m_goldenCarrots, d, goldenCarrotsKey);
+    loadArray(*m_jons, d, jonsKey);
 }
 
-void Game::update(float deltaTime)
+const char* Game::save()
 {
-    getJon().update(deltaTime, *this);
+    using namespace rapidjson;
+    using namespace std;
     
-    EntityUtils::updateBackgrounds(getBackgroundSkies(), *this);
-    EntityUtils::updateBackgrounds(getBackgroundTrees(), *this);
-    EntityUtils::updateBackgrounds(getBackgroundCaves(), *this);
+    StringBuffer s;
+    Writer<StringBuffer> w(s);
     
-    if (EntityUtils::isCollected(getJon(), getCarrots(), deltaTime))
-    {
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
-    }
+    w.StartObject();
     
-    if (EntityUtils::isCollected(getJon(), getGoldenCarrots(), deltaTime))
-    {
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
-    }
+    saveArray(*m_backgroundSkies, w, backgroundSkiesKey);
+    saveArray(*m_backgroundTrees, w, backgroundTreesKey);
+    saveArray(*m_backgroundCaves, w, backgroundCavesKey);
+    saveArray(*m_trees, w, treesKey);    
+    saveArray(*m_caveSkeletons, w, caveSkeletonsKey);
+    saveArray(*m_grounds, w, groundsKey);
+    saveArray(*m_logVerticalTalls, w, logVerticalTallsKey);
+    saveArray(*m_logVerticalShorts, w, logVerticalShortsKey);
+    saveArray(*m_thorns, w, thornsKey);
+    saveArray(*m_stumps, w, stumpsKey);
+    saveArray(*m_sideSpikes, w, sideSpikesKey);
+    saveArray(*m_upwardSpikes, w, upwardSpikesKey);
+    saveArray(*m_jumpSprings, w, jumpSpringsKey);
+    saveArray(*m_rocks, w, rocksKey);
+    saveArray(*m_platforms, w, platformsKey);
+    saveArray(*m_endSigns, w, endSignsKey);
+    saveArray(*m_carrots, w, carrotsKey);
+    saveArray(*m_goldenCarrots, w, goldenCarrotsKey);
+    saveArray(*m_jons, w, jonsKey);
     
-    EntityUtils::update(getGoldenCarrots(), deltaTime);
+    w.EndObject();
     
-    EntityUtils::update(getJumpSprings(), deltaTime);
-    
-    EntityUtils::updateAndClean(getRocks(), deltaTime);
-    
-    if (getJon().isDead() || getJon().getPosition().getX() - getJon().getWidth() > getFarRight())
-    {
-        m_resetGame = true;
-    }
+    return s.GetString();
+}
+
+void Game::reset()
+{
+    m_backgroundSkies->clear();
+    m_backgroundTrees->clear();
+    m_backgroundCaves->clear();
+    m_trees->clear();
+    m_caveSkeletons->clear();
+    m_grounds->clear();
+    m_logVerticalTalls->clear();
+    m_logVerticalShorts->clear();
+    m_thorns->clear();
+    m_stumps->clear();
+    m_sideSpikes->clear();
+    m_upwardSpikes->clear();
+    m_jumpSprings->clear();
+    m_rocks->clear();
+    m_platforms->clear();
+    m_endSigns->clear();
+    m_carrots->clear();
+    m_goldenCarrots->clear();
+    m_jons->clear();
 }
 
 bool Game::isJonGrounded(float deltaTime)
@@ -298,36 +281,4 @@ float Game::getFarRight()
     }
     
     return getEndSigns().at(0).getPosition().getX() + getEndSigns().at(0).getWidth();
-}
-
-bool Game::resetGame()
-{
-    return m_resetGame;
-}
-
-#pragma mark private
-
-void Game::reset()
-{
-    m_resetGame = false;
-    
-    m_backgroundSkies->clear();
-    m_backgroundTrees->clear();
-    m_backgroundCaves->clear();
-    m_trees->clear();
-    m_caveSkeletons->clear();
-    m_grounds->clear();
-    m_logVerticalTalls->clear();
-    m_logVerticalShorts->clear();
-    m_thorns->clear();
-    m_stumps->clear();
-    m_sideSpikes->clear();
-    m_upwardSpikes->clear();
-    m_jumpSprings->clear();
-    m_rocks->clear();
-    m_platforms->clear();
-    m_endSigns->clear();
-    m_carrots->clear();
-    m_goldenCarrots->clear();
-    m_jons->clear();
 }

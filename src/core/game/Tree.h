@@ -11,16 +11,21 @@
 
 #include "PhysicalEntity.h"
 #include "TreeType.h"
-#include "EntityAnchor.h"
+
+#include <vector>
 
 class Tree : public PhysicalEntity
 {
 public:
-    static Tree createTree(float x, TreeType treeType);
+    static void create(std::vector<Tree>& items, float x, TreeType treeType);
     
-    Tree(float x, float width, float height, TreeType treeType, EntityAnchor anchor = ANCHOR_GROUND);
+    Tree(float x, float y, float width, float height, TreeType treeType);
     
     TreeType getTreeType();
+    
+    static Tree deserialize(rapidjson::Value& v);
+    
+    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
     TreeType m_treeType;

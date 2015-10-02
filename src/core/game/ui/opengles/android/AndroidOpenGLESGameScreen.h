@@ -14,7 +14,7 @@
 class AndroidOpenGLESGameScreen : public OpenGLESGameScreen
 {
 public:
-    AndroidOpenGLESGameScreen();
+    AndroidOpenGLESGameScreen(bool isLevelEditor = false);
 
     void onSurfaceChanged(int screenWidth, int screenHeight);
 

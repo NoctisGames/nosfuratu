@@ -32,14 +32,20 @@
 #include <memory>
 #include <vector>
 
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+
 class Game
 {
 public:
     Game();
     
-    void load();
+    void load(const char* json);
     
-    void update(float deltaTime);
+    const char* save();
+    
+    void reset();
     
     bool isJonGrounded(float deltaTime);
     
@@ -95,8 +101,6 @@ public:
     
     float getFarRight();
     
-    bool resetGame();
-    
 private:
     std::unique_ptr<std::vector<BackgroundSky>> m_backgroundSkies;
     std::unique_ptr<std::vector<BackgroundTrees>> m_backgroundTrees;
@@ -118,9 +122,35 @@ private:
     std::unique_ptr<std::vector<GoldenCarrot>> m_goldenCarrots;
     std::unique_ptr<std::vector<Jon>> m_jons;
     
-    bool m_resetGame;
+    template<typename T>
+    void loadArray(std::vector<T>& items, rapidjson::Document& d, const char * key)
+    {
+        using namespace rapidjson;
+        
+        if (d.HasMember(key))
+        {
+            Value& v = d[key];
+            assert(v.IsArray());
+            for (SizeType i = 0; i < v.Size(); i++)
+            {
+                items.push_back(T::deserialize(v[i]));
+            }
+        }
+    }
     
-    void reset();
+    template<typename T>
+    void saveArray(std::vector<T>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
+    {
+        w.String(key);
+        w.StartArray();
+        
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            i->serialize(w);
+        }
+        
+        w.EndArray();
+    }
 };
 
 #endif /* defined(__nosfuratu__Game__) */

@@ -11,16 +11,20 @@
 
 #include "PhysicalEntity.h"
 
-class Game;
+#include <vector>
 
 class BackgroundTrees : public PhysicalEntity
 {
 public:
-    BackgroundTrees(float x);
+    static void create(std::vector<BackgroundTrees>& items, float x);
     
-    void update(Game& game);
+    BackgroundTrees(float x, float y, float width, float height);
+    
+    void update(Vector2D& cameraPosition);
     
     float getX();
+    
+    static BackgroundTrees deserialize(rapidjson::Value& v);
     
 private:
     float m_fX;

@@ -14,7 +14,9 @@
 class Carrot : public PhysicalEntity
 {
 public:
-    Carrot(float x, float y);
+    Carrot(float x, float y, float width = 1.2163742690058479f, float height = 0.9592720970537262f);
+    
+    static Carrot deserialize(rapidjson::Value& v);
 };
 
 #endif /* defined(__nosfuratu__Carrot__) */

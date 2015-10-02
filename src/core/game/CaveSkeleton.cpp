@@ -9,7 +9,9 @@
 #include "CaveSkeleton.h"
 #include "EntityUtils.h"
 
-CaveSkeleton CaveSkeleton::createCaveSkeleton(float x, float y, CaveSkeletonType type)
+#define caveSkeletonTypeKey "caveSkeletonType"
+
+CaveSkeleton CaveSkeleton::create(float x, float y, CaveSkeletonType type)
 {
     switch (type)
     {
@@ -23,7 +25,7 @@ CaveSkeleton CaveSkeleton::createCaveSkeleton(float x, float y, CaveSkeletonType
     }
 }
 
-CaveSkeleton::CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType type) : PhysicalEntity(x + width / 2, y, width, height), m_caveSkeletonType(type)
+CaveSkeleton::CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType type) : PhysicalEntity(x, y, width, height), m_caveSkeletonType(type)
 {
     // Empty
 }
@@ -31,4 +33,21 @@ CaveSkeleton::CaveSkeleton(float x, float y, float width, float height, CaveSkel
 CaveSkeletonType CaveSkeleton::getCaveSkeletonType()
 {
     return m_caveSkeletonType;
+}
+
+CaveSkeleton CaveSkeleton::deserialize(rapidjson::Value& v)
+{
+    float x = v[xKey].GetDouble();
+    float y = v[ykey].GetDouble();
+    float width = v[widthKey].GetDouble();
+    float height = v[heightKey].GetDouble();
+    CaveSkeletonType type = (CaveSkeletonType) v[caveSkeletonTypeKey].GetInt();
+    
+    return CaveSkeleton(x, y, width, height, type);
+}
+
+void CaveSkeleton::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+{
+    w.String(caveSkeletonTypeKey);
+    w.Int(getCaveSkeletonType());
 }

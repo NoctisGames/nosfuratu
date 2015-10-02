@@ -8,7 +8,13 @@
 
 #include "IOSOpenGLESGameScreen.h"
 
-IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen()
+#ifdef GGD_LEVEL_EDITOR
+#define IS_LEVEL_EDITOR true
+#else
+#define IS_LEVEL_EDITOR false
+#endif
+
+IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen(IS_LEVEL_EDITOR)
 {
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
