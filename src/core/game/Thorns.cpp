@@ -12,18 +12,25 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-void Thorns::create(std::vector<Thorns>& items, float x, EntityAnchor anchor)
+void Thorns::create(std::vector<Thorns>& items, float x, float y)
 {
-    items.push_back(Thorns(x, 0));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
-    
-    items.at(items.size() - 1).updateBounds();
+    items.push_back(Thorns(x, y));
 }
 
 Thorns::Thorns(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
-    resetBounds(width * 0.50f, height * 0.50f);
+    updateBounds();
+}
+
+void Thorns::updateBounds()
+{
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
+    
+    lowerLeft.add(getWidth() * 0.20f, 0);
+    
+    m_bounds->setWidth(getWidth() * 0.60f);
+    m_bounds->setHeight(getHeight() * 0.60f);
 }
 
 Thorns Thorns::deserialize(rapidjson::Value& v)

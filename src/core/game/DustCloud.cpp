@@ -26,7 +26,7 @@ void DustCloud::update(float deltaTime)
         if (m_color.alpha < 0)
         {
             m_color.alpha = 0;
-            m_isDestroyed = true;
+            m_isRequestingDeletion = true;
         }
     }
 }

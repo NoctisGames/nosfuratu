@@ -17,11 +17,6 @@ public:
     DestructiblePhysicalEntity(float x, float y, float width, float height);
     
     virtual void triggerHit();
-    
-    virtual bool isDestroyed();
-    
-protected:
-    bool m_isDestroyed;
 };
 
 #endif /* defined(__nosfuratu__DestructiblePhysicalEntity__) */

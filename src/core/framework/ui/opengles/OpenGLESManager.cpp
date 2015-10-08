@@ -27,7 +27,7 @@ OpenGLESManager * OpenGLESManager::getInstance()
     return openGLESManager;
 }
 
-void OpenGLESManager::init(int width, int height)
+void OpenGLESManager::init(int width, int height, int maxBatchSize)
 {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
     
@@ -35,7 +35,7 @@ void OpenGLESManager::init(int width, int height)
     glScissor(0, 0, width, height);
     
     buildShaderPrograms();
-    generateIndices();
+    generateIndices(maxBatchSize);
     
     createFrameBufferObject(width, height);
 }
@@ -92,12 +92,12 @@ void OpenGLESManager::buildShaderPrograms()
 	m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper(frameBufferToScreenProgramStruct));
 }
 
-void OpenGLESManager::generateIndices()
+void OpenGLESManager::generateIndices(int maxBatchSize)
 {
-    m_indices.reserve(MAX_BATCH_SIZE * INDICES_PER_RECTANGLE);
+    m_indices.reserve(maxBatchSize * INDICES_PER_RECTANGLE);
     
     GLshort j = 0;
-    for (int i = 0; i < MAX_BATCH_SIZE * INDICES_PER_RECTANGLE; i += INDICES_PER_RECTANGLE, j += VERTICES_PER_RECTANGLE)
+    for (int i = 0; i < maxBatchSize * INDICES_PER_RECTANGLE; i += INDICES_PER_RECTANGLE, j += VERTICES_PER_RECTANGLE)
     {
         m_indices.push_back(j);
         m_indices.push_back(j + 1);

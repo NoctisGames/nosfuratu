@@ -11,6 +11,13 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
+void GoldenCarrot::create(std::vector<GoldenCarrot>& items, float x, float y)
+{
+    items.push_back(GoldenCarrot(x, y));
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
 GoldenCarrot::GoldenCarrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     // Empty

@@ -11,9 +11,13 @@
 
 #include "PhysicalEntity.h"
 
+#include <vector>
+
 class Carrot : public PhysicalEntity
 {
 public:
+    static void create(std::vector<Carrot>& items, float x, float y);
+    
     Carrot(float x, float y, float width = 1.2163742690058479f, float height = 0.9592720970537262f);
     
     static Carrot deserialize(rapidjson::Value& v);

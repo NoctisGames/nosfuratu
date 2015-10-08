@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#define VERTICES_PER_LINE 2
-
 #include "OpenGLESLineBatcher.h"
 #include "macros.h"
 #include "Line.h"

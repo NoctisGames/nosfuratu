@@ -27,10 +27,10 @@
 #include "BackgroundSky.h"
 #include "BackgroundTrees.h"
 #include "BackgroundCave.h"
-
-#define TEXTURE_SIZE_2048 2048
-#define PIXEL_WIDTH_FOR_GAME 684.0f
-#define PIXEL_HEIGHT_FOR_GAME 1154.0f
+#include "BackButton.h"
+#include "LevelEditorActionsPanel.h"
+#include "LevelEditorEntitiesPanel.h"
+#include "TrashCan.h"
 
 Assets * Assets::getInstance()
 {
@@ -354,6 +354,32 @@ TextureRegion& Assets::get(Jon &jon)
     }
     
     return jonRunningAnim.getTextureRegion(jon.getStateTime());
+}
+
+TextureRegion& Assets::get(BackButton& backButton)
+{
+    static TextureRegion tr = TextureRegion(1824, 48, 189, 61, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel)
+{
+    static TextureRegion tr = TextureRegion(0, 33, 593, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(LevelEditorActionsPanel& levelEditorActionsPanel)
+{
+    static TextureRegion tr = TextureRegion(840, 33, 593, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(TrashCan& trashCan)
+{
+    static TextureRegion trashCanTr = TextureRegion(0, 1442, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion trashCanHighlightedTr = TextureRegion(128, 1442, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    return trashCan.isHighlighted() ? trashCanHighlightedTr : trashCanTr;
 }
 
 void Assets::setMusicId(short musicId)

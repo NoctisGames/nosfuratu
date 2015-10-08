@@ -30,30 +30,6 @@
 #define groundTypeKey "groundType"
 #define boundsHeightFactorKey "boundsHeightFactor"
 
-void Ground::createGrassWithCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length)
-{
-    GroundType gt = gs == GROUND_SIZE_LARGE ? GROUND_GRASS_WITH_CAVE_LARGE : gs == GROUND_SIZE_MEDIUM ? GROUND_GRASS_WITH_CAVE_MEDIUM : GROUND_GRASS_WITH_CAVE_SMALL;
-    create(grounds, x, length, GROUND_GRASS_WITH_CAVE_END_LEFT, gt, GROUND_GRASS_WITH_CAVE_END_RIGHT);
-}
-
-void Ground::createGrassWithoutCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length)
-{
-    GroundType gt = gs == GROUND_SIZE_LARGE ? GROUND_GRASS_WITHOUT_CAVE_LARGE : gs == GROUND_SIZE_MEDIUM ? GROUND_GRASS_WITHOUT_CAVE_MEDIUM : GROUND_GRASS_WITHOUT_CAVE_SMALL;
-    create(grounds, x, length, GROUND_GRASS_WITHOUT_CAVE_END_LEFT, gt, GROUND_GRASS_WITHOUT_CAVE_END_RIGHT);
-}
-
-void Ground::createCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length)
-{
-    GroundType gt = gs == GROUND_SIZE_LARGE ? GROUND_CAVE_LARGE : gs == GROUND_SIZE_MEDIUM ? GROUND_CAVE_MEDIUM : GROUND_CAVE_SMALL;
-    create(grounds, x, length, GROUND_CAVE_END_LEFT, gt, GROUND_CAVE_END_RIGHT);
-}
-
-void Ground::createCaveRaised(std::vector<Ground>& grounds, float x, GroundSize gs, int length)
-{
-    GroundType gt = gs == GROUND_SIZE_LARGE ? GROUND_CAVE_RAISED_LARGE : gs == GROUND_SIZE_MEDIUM ? GROUND_CAVE_RAISED_MEDIUM : GROUND_CAVE_RAISED_SMALL;
-    create(grounds, x, length, GROUND_CAVE_RAISED_END_LEFT, gt, GROUND_CAVE_RAISED_END_RIGHT);
-}
-
 void Ground::create(std::vector<Ground>& items, float x, GroundType type)
 {
     EntityAnchor anchor = ANCHOR_BOTTOM;
@@ -156,6 +132,11 @@ GroundType Ground::getGroundType()
     return m_groundType;
 }
 
+float Ground::getBoundsHeightFactor()
+{
+    return m_fBoundsHeightFactor;
+}
+
 Ground Ground::deserialize(rapidjson::Value& v)
 {
     float x = v[xKey].GetDouble();
@@ -175,21 +156,4 @@ void Ground::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer
     
     w.String(boundsHeightFactorKey);
     w.Double(m_fBoundsHeightFactor);
-}
-
-#pragma mark private
-
-void Ground::create(std::vector<Ground>& grounds, float x, int length, GroundType typeLeft, GroundType typeCenter, GroundType typeRight)
-{
-    Ground::create(grounds, x, typeLeft);
-    
-    for (int i = 0; i < length; i++)
-    {
-        Ground::create(grounds, 0, typeCenter);
-        EntityUtils::attach(grounds.at(grounds.size() - 1), grounds.at(grounds.size() - 2), false);
-    }
-    
-    Ground::create(grounds, 0, typeRight);
-    
-    EntityUtils::attach(grounds.at(grounds.size() - 1), grounds.at(grounds.size() - 2), false);
 }

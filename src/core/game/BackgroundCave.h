@@ -27,6 +27,7 @@ public:
     static BackgroundCave deserialize(rapidjson::Value& v);
     
 private:
+    float m_fXOffset;
     float m_fX;
 };
 

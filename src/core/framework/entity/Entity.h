@@ -20,8 +20,13 @@ public:
     
     float getStateTime();
     
+    void requestDeletion();
+    
+    bool isRequestingDeletion();
+    
 protected:
     float m_fStateTime;
+    bool m_isRequestingDeletion;
     
 private:
     static int getUniqueEntityID();

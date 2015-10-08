@@ -18,9 +18,11 @@
 class JumpSpring : public PhysicalEntity
 {
 public:
-    static void create(std::vector<JumpSpring>& items, float x, JumpSpringType type);
+    static void create(std::vector<JumpSpring>& items, float x, float y, JumpSpringType type);
     
     JumpSpring(float x, float y, float width, float height, JumpSpringType type);
+    
+    virtual void updateBounds();
     
     virtual void update(float deltaTime);
     

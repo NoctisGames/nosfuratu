@@ -18,9 +18,11 @@
 class UpwardSpike : public PhysicalEntity
 {
 public:
-    static void create(std::vector<UpwardSpike>& items, float x, UpwardSpikeType type);
+    static void create(std::vector<UpwardSpike>& items, float x, float y, UpwardSpikeType type);
     
     UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type);
+    
+    virtual void updateBounds();
     
     UpwardSpikeType getUpwardSpikeType();
     

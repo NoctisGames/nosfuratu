@@ -14,13 +14,9 @@
 
 #define isCrackedKey "isCracked"
 
-void Rock::create(std::vector<Rock>& items, float x, EntityAnchor anchor)
+void Rock::create(std::vector<Rock>& items, float x, float y, bool isCracked)
 {
-    items.push_back(Rock(x, 0));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor, ROCK_HEIGHT * -0.21739130434783f);
-    
-    items.at(items.size() - 1).updateBounds();
+    items.push_back(Rock(x, y, ROCK_WIDTH, ROCK_HEIGHT, isCracked));
 }
 
 Rock::Rock(float x, float y, float width, float height, bool isCracked) : DestructiblePhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_isCracked(isCracked), m_isBlowingUp(false)
@@ -43,7 +39,7 @@ void Rock::update(float deltaTime)
             if (m_color.alpha < 0)
             {
                 m_color.alpha = 0;
-                m_isDestroyed = true;
+                m_isRequestingDeletion = true;
             }
         }
     }

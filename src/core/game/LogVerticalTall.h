@@ -10,14 +10,13 @@
 #define __nosfuratu__LogVerticalTall__
 
 #include "DestructiblePhysicalEntity.h"
-#include "EntityAnchor.h"
 
 #include <vector>
 
 class LogVerticalTall : public DestructiblePhysicalEntity
 {
 public:
-    static void create(std::vector<LogVerticalTall>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<LogVerticalTall>& items, float x, float y);
     
     LogVerticalTall(float x, float y, float width = 1.6608187134502923f, float height = 2.1291161178509532f);
     

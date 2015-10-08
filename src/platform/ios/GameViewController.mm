@@ -10,11 +10,13 @@
 #import "GGDDeviceUtil.h"
 #import "Music.h"
 #import "Sound.h"
+#import "UIView+Toast.h"
 
 // C++
 #include "IOSOpenGLESGameScreen.h"
 #include "IOS8OpenGLESGameScreen.h"
 #include "GameConstants.h"
+#include "GameScreenStates.h"
 
 @interface GameViewController ()
 {
@@ -135,7 +137,22 @@ static bool isRunningiOS8 = false;
 
 - (void)update
 {
-    gameScreen->update(self.timeSinceLastUpdate);
+    switch (gameScreen->getRequestedAction())
+    {
+        case REQUESTED_ACTION_UPDATE:
+            gameScreen->update(self.timeSinceLastUpdate);
+            break;
+        case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+            [self saveLevel];
+            gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+            [self loadLevel];
+            gameScreen->clearRequestedAction();
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark <GLKViewDelegate>
@@ -193,6 +210,69 @@ static bool isRunningiOS8 = false;
         [self.bgm setLooping:true];
         [self.bgm setVolume:1.0f];
         [self.bgm play];
+    }
+}
+
+- (void)saveLevel
+{
+    int result = 0;
+    
+    const char *level_json = LevelEditor::getInstance()->getGame().save();
+    if (!level_json)
+    {
+        result = 2;
+    }
+    else
+    {
+        size_t len = strlen(level_json);
+        if (len <= 32)
+        {
+            result = 1;
+        }
+        else
+        {
+            NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
+            
+            NSError* error;
+            [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            
+            result = error ? 1 : 0;
+        }
+    }
+    
+    [self.view makeToast:result == 0 ? @"Level saved successfully" : result == 1 ? @"Error occurred while saving level... Please try again!" : @"Error occurred while saving level... Too many objects!"];
+}
+
+- (void)loadLevel
+{
+    bool success = false;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
+    
+    NSError* error;
+    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+    
+    const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
+    size_t len = strlen(contentCString);
+    if (len <= 32)
+    {
+        success = false;
+    }
+    else
+    {
+        success = error ? false : true;
+    }
+    
+    [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
+    
+    if (success)
+    {
+        LevelEditor::getInstance()->getGame().load(contentCString);
     }
 }
 

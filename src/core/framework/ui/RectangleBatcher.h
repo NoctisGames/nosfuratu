@@ -12,26 +12,23 @@
 #include "Color.h"
 
 class Rectangle;
-class GpuProgramWrapper;
 
 class RectangleBatcher
 {
 public:
-    RectangleBatcher(bool isFill);
+    RectangleBatcher(bool isFill = false);
     
     virtual void beginBatch() = 0;
     
     virtual void endBatch() = 0;
-    
-    virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper) = 0;
     
     void renderRectangle(Rectangle &rectangle, Color &color);
     
     virtual void renderRectangle(float leftX, float bottomY, float rightX, float topY, Color &color) = 0;
     
 protected:
-    int m_iNumRectangles;
     bool m_isFill;
+    int m_iNumRectangles;
 };
 
 #endif /* defined(__gowengamedev__RectangleBatcher__) */

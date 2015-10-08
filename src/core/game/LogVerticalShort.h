@@ -10,14 +10,13 @@
 #define __nosfuratu__LogVerticalShort__
 
 #include "DestructiblePhysicalEntity.h"
-#include "EntityAnchor.h"
 
 #include <vector>
 
 class LogVerticalShort : public DestructiblePhysicalEntity
 {
 public:
-    static void create(std::vector<LogVerticalShort>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<LogVerticalShort>& items, float x, float y);
     
     LogVerticalShort(float x, float y, float width = 1.5204678362573099f, float height = 1.216637781629116f);
     

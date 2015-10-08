@@ -10,17 +10,16 @@
 #define __gowengamedev__Direct3DRectangleBatcher__
 
 #include "RectangleBatcher.h"
+#include "Direct3DManager.h"
 
 class Direct3DRectangleBatcher : public RectangleBatcher
 {
 public:
-	Direct3DRectangleBatcher(bool isFill);
+	Direct3DRectangleBatcher(bool isFill = false);
 
 	virtual void beginBatch();
 
 	virtual void endBatch();
-
-	virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper);
 
 	void renderRectangle(Rectangle &rectangle, Color &color);
 

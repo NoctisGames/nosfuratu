@@ -10,10 +10,9 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 
-RectangleBatcher::RectangleBatcher(bool isFill)
+RectangleBatcher::RectangleBatcher(bool isFill) : m_isFill(isFill), m_iNumRectangles(0)
 {
-    m_iNumRectangles = 0;
-    m_isFill = isFill;
+    // Empty
 }
 
 void RectangleBatcher::renderRectangle(Rectangle &rectangle, Color &color)

@@ -8,17 +8,12 @@
 
 #include "DestructiblePhysicalEntity.h"
 
-DestructiblePhysicalEntity::DestructiblePhysicalEntity(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isDestroyed(false)
+DestructiblePhysicalEntity::DestructiblePhysicalEntity(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     // Empty
 }
 
 void DestructiblePhysicalEntity::triggerHit()
 {
-    m_isDestroyed = true;
-}
-
-bool DestructiblePhysicalEntity::isDestroyed()
-{
-    return m_isDestroyed;
+    m_isRequestingDeletion = true;
 }

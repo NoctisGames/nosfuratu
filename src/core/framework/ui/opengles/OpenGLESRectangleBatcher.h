@@ -10,17 +10,16 @@
 #define __gowengamedev__OpenGLESRectangleBatcher__
 
 #include "RectangleBatcher.h"
+#include "OpenGLESManager.h"
 
 class OpenGLESRectangleBatcher : public RectangleBatcher
 {
 public:
-    OpenGLESRectangleBatcher(bool isFill);
+    OpenGLESRectangleBatcher(bool isFill = false);
     
     virtual void beginBatch();
     
     virtual void endBatch();
-    
-    virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper);
     
     virtual void renderRectangle(float x1, float y1, float x2, float y2, Color &color);
 };

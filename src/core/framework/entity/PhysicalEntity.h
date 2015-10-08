@@ -34,6 +34,8 @@ public:
     virtual void resetBounds(float width, float height);
 
     virtual void updateBounds();
+    
+    void boxIn(float size);
 
     Vector2D& getPosition();
     

@@ -28,7 +28,7 @@ public final class GameActivity extends Activity
 
         setContentView(R.layout.activity_game);
 
-        _gameRenderer = new GameRenderer(getAssets());
+        _gameRenderer = new GameRenderer(this);
         _glSurfaceView = new GLSurfaceView(this);
         _glSurfaceView.setEGLContextClientVersion(2);
         _glSurfaceView.setRenderer(_gameRenderer);

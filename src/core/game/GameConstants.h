@@ -9,6 +9,12 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
+//// Requested Action Definitions ////
+
+#define REQUESTED_ACTION_UPDATE 0
+#define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
+#define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
+
 //// Music Definitions ////
 
 #define MUSIC_STOP 1
@@ -18,6 +24,16 @@
 
 #define SOUND_COLLECT_CARROT 1
 #define SOUND_COLLECT_GOLDEN_CARROT 2
+
+//// Render Definitions ////
+
+#define MAX_BATCH_SIZE 2048
+
+//// Texture Definitions ////
+
+#define TEXTURE_SIZE_2048 2048
+#define PIXEL_WIDTH_FOR_GAME 684.0f
+#define PIXEL_HEIGHT_FOR_GAME 1154.0f
 
 //// Matrix Definitions ////
 
@@ -31,6 +47,7 @@
 
 //// World Definitions ////
 
+#define ZOOMED_OUT_CAM_WIDTH 48.0f
 #define GAME_HEIGHT 27.0f
 
 #define GRAVITY -20.0f
@@ -38,8 +55,5 @@
 #define JON_STARTING_X CAM_WIDTH / 5
 #define JON_DEFAULT_MAX_SPEED 7.0f
 #define JON_DEFAULT_ACCELERATION 5.0f
-
-#define ANCHOR_GROUND_Y 9.031195840554593f
-#define ANCHOR_CAVE_Y 1.216637781629116f
 
 #endif /* GAME_CONSTANTS_H */

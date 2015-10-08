@@ -15,7 +15,7 @@ OpenGLESGameScreen::OpenGLESGameScreen(bool isLevelEditor) : GameScreen(isLevelE
 
 void OpenGLESGameScreen::initGraphics(int screenWidth, int screenHeight)
 {
-    OGLESManager->init(screenWidth, screenHeight);
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
     

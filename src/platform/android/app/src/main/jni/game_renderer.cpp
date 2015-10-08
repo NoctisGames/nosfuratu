@@ -7,15 +7,18 @@
 //
 
 #include <jni.h>
+#include <stdio.h>
+#include <cstring>
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
+#include "GameScreenStates.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
 
 /* These functions are called from Java. */
 extern "C"
 {
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls);
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor);
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1changed(JNIEnv * env, jclass cls, jint pixel_width, jint pixel_height);
 
@@ -37,19 +40,23 @@ JNIEXPORT short JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1curren
 
 JNIEXPORT short JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1current_1sound_1id(JNIEnv* env, jclass cls);
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1state(JNIEnv* env, jclass cls);
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1requested_1action(JNIEnv* env, jclass cls);
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_clear_1state(JNIEnv* env, jclass cls);
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_clear_1requested_1action(JNIEnv* env, jclass cls);
 
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_handle_1on_1back_1pressed(JNIEnv* env, jclass cls);
+
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(JNIEnv* env, jclass cls, jstring level_json);
+
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls);
 };
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls)
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen = new AndroidOpenGLESGameScreen();
+	gameScreen = new AndroidOpenGLESGameScreen(is_level_editor);
 }
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1changed(JNIEnv * env, jclass cls, jint pixel_width, jint pixel_height)
@@ -132,20 +139,20 @@ JNIEXPORT short JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1curren
 	return gameScreen->getCurrentSoundId();
 }
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1state(JNIEnv* env, jclass cls)
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_get_1requested_1action(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	return gameScreen->getState();
+	return gameScreen->getRequestedAction();
 }
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_clear_1state(JNIEnv* env, jclass cls)
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_clear_1requested_1action(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->clearState();
+	gameScreen->clearRequestedAction();
 }
 
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_handle_1on_1back_1pressed(JNIEnv* env, jclass cls)
@@ -154,4 +161,53 @@ JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_handle_1on_1
 	UNUSED(cls);
 
 	return gameScreen->handleOnBackPressed();
+}
+
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(JNIEnv* env, jclass cls, jstring level_json)
+{
+	UNUSED(cls);
+
+	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
+
+	LevelEditor::getInstance()->getGame().load(nativeLevelJson);
+}
+
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	int attempts = 0;
+	while (attempts < 4)
+	{
+		const char *level_json = LevelEditor::getInstance()->getGame().save();
+		if (level_json)
+		{
+			size_t len = strlen(level_json);
+			if (len > 32)
+			{
+				remove("/storage/emulated/0/NosFURatu/nosfuratu.json");
+				FILE *f = fopen("/storage/emulated/0/NosFURatu/nosfuratu.json", "w+, ccs=UTF-8");
+				int sum = fprintf(f, "%s", level_json);
+				fclose(f);
+
+				if (sum >= len)
+				{
+					return 0;
+				}
+				else
+				{
+					remove("/storage/emulated/0/NosFURatu/nosfuratu.json");
+				}
+			}
+		}
+		else
+		{
+			return 2;
+		}
+
+		attempts++;
+	}
+
+	return 1;
 }

@@ -11,17 +11,20 @@
 
 #define caveSkeletonTypeKey "caveSkeletonType"
 
-CaveSkeleton CaveSkeleton::create(float x, float y, CaveSkeletonType type)
+void CaveSkeleton::create(std::vector<CaveSkeleton>& items, float x, float y, CaveSkeletonType type)
 {
     switch (type)
     {
         case CAVE_SKELETON_ONE:
-            return CaveSkeleton(x, y, 2.9239766081871346f, 1.7781629116117852f, type);
+            items.push_back(CaveSkeleton(x, y, 2.9239766081871346f, 1.7781629116117852f, type));
+            break;
         case CAVE_SKELETON_TWO:
-            return CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type);
+            items.push_back(CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type));
+            break;
         case CAVE_SKELETON_THREE:
         default:
-            return CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type);
+            items.push_back(CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type));
+            break;
     }
 }
 

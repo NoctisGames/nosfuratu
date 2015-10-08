@@ -12,7 +12,6 @@
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
-#include "GroundSize.h"
 
 #define backgroundSkiesKey "backgroundSkies"
 #define backgroundTreesKey "backgroundTrees"
@@ -34,7 +33,7 @@
 #define goldenCarrotsKey "goldenCarrots"
 #define jonsKey "jons"
 
-Game::Game()
+Game::Game() : m_fStateTime(0.0f), m_isLoaded(false)
 {
     m_backgroundSkies = std::unique_ptr<std::vector<BackgroundSky>>(new std::vector<BackgroundSky>);
     m_backgroundTrees = std::unique_ptr<std::vector<BackgroundTrees>>(new std::vector<BackgroundTrees>);
@@ -55,6 +54,34 @@ Game::Game()
     m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
     m_goldenCarrots = std::unique_ptr<std::vector<GoldenCarrot>>(new std::vector<GoldenCarrot>);
     m_jons = std::unique_ptr<std::vector<Jon>>(new std::vector<Jon>);
+}
+
+void Game::copy(Game* game)
+{
+    reset();
+    
+    copyPhysicalEntities(game->getBackgroundSkies(), *m_backgroundSkies);
+    copyPhysicalEntities(game->getBackgroundTrees(), *m_backgroundTrees);
+    copyPhysicalEntities(game->getBackgroundCaves(), *m_backgroundCaves);
+    copyTrees(game->getTrees(), *m_trees);
+    copyCaveSkeletons(game->getCaveSkeletons(), *m_caveSkeletons);
+    copyGrounds(game->getGrounds(), *m_grounds);
+    copyPhysicalEntities(game->getLogVerticalTalls(), *m_logVerticalTalls);
+    copyPhysicalEntities(game->getLogVerticalShorts(), *m_logVerticalShorts);
+    copyPhysicalEntities(game->getThorns(), *m_thorns);
+    copyPhysicalEntities(game->getStumps(), *m_stumps);
+    copyPhysicalEntities(game->getSideSpikes(), *m_sideSpikes);
+    copyUpwardSpikes(game->getUpwardSpikes(), *m_upwardSpikes);
+    copyJumpSprings(game->getJumpSprings(), *m_jumpSprings);
+    copyRocks(game->getRocks(), *m_rocks);
+    copyPlatforms(game->getPlatforms(), *m_platforms);
+    copyPhysicalEntities(game->getEndSigns(), *m_endSigns);
+    copyPhysicalEntities(game->getCarrots(), *m_carrots);
+    copyPhysicalEntities(game->getGoldenCarrots(), *m_goldenCarrots);
+    copyPhysicalEntities(game->getJons(), *m_jons);
+    
+    m_fStateTime = 0;
+    m_isLoaded = true;
 }
 
 void Game::load(const char* json)
@@ -83,6 +110,9 @@ void Game::load(const char* json)
     loadArray(*m_carrots, d, carrotsKey);
     loadArray(*m_goldenCarrots, d, goldenCarrotsKey);
     loadArray(*m_jons, d, jonsKey);
+    
+    m_fStateTime = 0;
+    m_isLoaded = true;
 }
 
 const char* Game::save()
@@ -117,7 +147,14 @@ const char* Game::save()
     
     w.EndObject();
     
-    return s.GetString();
+    const char * retval = s.GetString();
+    size_t len = strlen(retval);
+    if (len > 8192)
+    {
+        retval = nullptr;
+    }
+    
+    return retval;
 }
 
 void Game::reset()
@@ -141,6 +178,56 @@ void Game::reset()
     m_carrots->clear();
     m_goldenCarrots->clear();
     m_jons->clear();
+    
+    m_isLoaded = false;
+}
+
+void Game::updateAndClean(float deltaTime)
+{
+    m_fStateTime += deltaTime;
+    
+    EntityUtils::updateAndClean(getTrees(), deltaTime);
+    EntityUtils::updateAndClean(getCaveSkeletons(), deltaTime);
+    EntityUtils::updateAndClean(getGrounds(), deltaTime);
+    EntityUtils::updateAndClean(getLogVerticalTalls(), deltaTime);
+    EntityUtils::updateAndClean(getLogVerticalShorts(), deltaTime);
+    EntityUtils::updateAndClean(getThorns(), deltaTime);
+    EntityUtils::updateAndClean(getStumps(), deltaTime);
+    EntityUtils::updateAndClean(getSideSpikes(), deltaTime);
+    EntityUtils::updateAndClean(getUpwardSpikes(), deltaTime);
+    EntityUtils::updateAndClean(getJumpSprings(), deltaTime);
+    EntityUtils::updateAndClean(getRocks(), deltaTime);
+    EntityUtils::updateAndClean(getPlatforms(), deltaTime);
+    EntityUtils::updateAndClean(getEndSigns(), deltaTime);
+    EntityUtils::updateAndClean(getCarrots(), deltaTime);
+    EntityUtils::updateAndClean(getGoldenCarrots(), deltaTime);
+}
+
+int Game::calcSum()
+{
+    int sum = 0;
+    
+    sum += m_backgroundSkies->size();
+    sum += m_backgroundTrees->size();
+    sum += m_backgroundCaves->size();
+    sum += m_trees->size();
+    sum += m_caveSkeletons->size();
+    sum += m_grounds->size();
+    sum += m_logVerticalTalls->size();
+    sum += m_logVerticalShorts->size();
+    sum += m_thorns->size();
+    sum += m_stumps->size();
+    sum += m_sideSpikes->size();
+    sum += m_upwardSpikes->size();
+    sum += m_jumpSprings->size();
+    sum += m_rocks->size();
+    sum += m_platforms->size();
+    sum += m_endSigns->size();
+    sum += m_carrots->size();
+    sum += m_goldenCarrots->size();
+    sum += m_jons->size();
+    
+    return sum;
 }
 
 bool Game::isJonGrounded(float deltaTime)
@@ -277,8 +364,18 @@ float Game::getFarRight()
 {
     if (getEndSigns().size() == 0)
     {
-        return 0;
+        return ZOOMED_OUT_CAM_WIDTH;
     }
     
     return getEndSigns().at(0).getPosition().getX() + getEndSigns().at(0).getWidth();
+}
+
+float Game::getStateTime()
+{
+    return m_fStateTime;
+}
+
+bool Game::isLoaded()
+{
+    return m_isLoaded;
 }

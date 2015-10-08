@@ -26,7 +26,7 @@ class EntityUtils
 public:
     static void applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float offset = 0);
     
-    static void attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf);
+    static void attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf, bool yCorrection);
     
     static void placeOn(PhysicalEntity& entity, PhysicalEntity& on);
     
@@ -183,7 +183,7 @@ public:
             {
                 (*i).triggerHit();
                 
-                if ((*i).isDestroyed())
+                if ((*i).isRequestingDeletion())
                 {
                     i = items.erase(i);
                 }
@@ -256,7 +256,7 @@ public:
         {
             i->update(deltaTime);
             
-            if (i->isDestroyed())
+            if (i->isRequestingDeletion())
             {
                 i = items.erase(i);
             }
@@ -264,6 +264,89 @@ public:
             {
                 i++;
             }
+        }
+    }
+    
+    template<typename T>
+    static void addAll(std::vector<T>& itemsFrom, std::vector<PhysicalEntity*>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            T* p_i = &(*i);
+            itemsTo.push_back(p_i);
+        }
+    }
+    
+    template<typename T>
+    static int isTouching(std::vector<T*>& items, Vector2D& touchPoint)
+    {
+        int last = ((int) items.size()) - 1;
+        for (int i = last; i >= 0; i--)
+        {
+            T* item = items.at(i);
+            float width = item->getWidth();
+            float height = item->getHeight();
+            float x = item->getPosition().getX() - width / 2;
+            float y = item->getPosition().getY() - height / 2;
+            
+            Rectangle tempBounds = Rectangle(x, y, width, height);
+            if (OverlapTester::isPointInRectangle(touchPoint, tempBounds))
+            {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    template<typename T>
+    static int isTouchingEntityForPlacement(std::vector<T>& items, Vector2D& touchPoint)
+    {
+        int index = 0;
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
+        {
+            T& item = *i;
+            float width = item.getWidth();
+            float height = item.getHeight();
+            float x = item.getPosition().getX() - width / 2;
+            float y = item.getPosition().getY() - height / 2;
+            
+            Rectangle tempBounds = Rectangle(x, y, width, height);
+            if (OverlapTester::isPointInRectangle(touchPoint, tempBounds))
+            {
+                return index;
+            }
+        }
+        
+        return -1;
+    }
+    
+    template<typename T>
+    static int doRectanglesOverlap(std::vector<T>& items, PhysicalEntity& pe)
+    {
+        int index = 0;
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
+        {
+            if ((&(*i)) == &pe)
+            {
+                continue;
+            }
+            
+            if (OverlapTester::doRectanglesOverlap(pe.getBounds(), i->getBounds()))
+            {
+                return index;
+            }
+        }
+        
+        return -1;
+    }
+    
+    template<typename T>
+    static void boxInAll(std::vector<T>& items, float size)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            i->boxIn(size);
         }
     }
     

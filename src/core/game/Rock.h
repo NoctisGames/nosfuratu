@@ -10,7 +10,6 @@
 #define __nosfuratu__Rock__
 
 #include "DestructiblePhysicalEntity.h"
-#include "EntityAnchor.h"
 #include "Color.h"
 
 #include <vector>
@@ -21,7 +20,7 @@
 class Rock : public DestructiblePhysicalEntity
 {
 public:
-    static void create(std::vector<Rock>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<Rock>& items, float x, float y, bool isCracked = false);
     
     Rock(float x, float y, float width = ROCK_WIDTH, float height = ROCK_HEIGHT, bool isCracked = false);
     

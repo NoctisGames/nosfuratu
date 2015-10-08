@@ -1,11 +1,17 @@
 package com.gowengamedev.nosfuratu;
 
-import android.content.res.AssetManager;
+import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
+
+import java.io.File;
+import java.nio.charset.Charset;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,6 +24,10 @@ public final class GameRenderer implements Renderer
     }
 
     // Definitions from src/core/game/GameConstants.h
+    private static final short REQUESTED_ACTION_UPDATE = 0;
+    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
+    private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
+
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_PLAY_DEMO = 2;
     private static final short SOUND_COLLECT_CARROT = 1;
@@ -26,6 +36,8 @@ public final class GameRenderer implements Renderer
     private static final float MOV_AVERAGE_PERIOD = 5; // #frames involved in average calc (suggested values 5-100)
     private static final float SMOOTH_FACTOR = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
 
+    private final Activity _activity;
+    private final FileHandler _fileHandler;
     private final Audio _audio;
     private Music _bgm;
     private Sound _collectCarrotSound;
@@ -34,16 +46,19 @@ public final class GameRenderer implements Renderer
     private float _smoothedDeltaRealTime_ms = 16.66666666667f;
     private float _movAverageDeltaTime_ms = _smoothedDeltaRealTime_ms;
     private long _lastRealTimeMeasurement_ms;
+    private boolean _isDoingIO = false;
 
-    public GameRenderer(AssetManager assetManager)
+    public GameRenderer(Activity activity)
     {
-        _audio = new Audio(assetManager);
+        _activity = activity;
+        _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
+        _audio = new Audio(activity.getAssets());
         _collectCarrotSound = _audio.newSound("collect_carrot.ogg");
         _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.ogg");
 
-        PlatformAssetUtils.init_asset_manager(assetManager);
+        PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
-        init();
+        init(BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
@@ -64,11 +79,21 @@ public final class GameRenderer implements Renderer
     @Override
     public void onDrawFrame(GL10 gl)
     {
-        int gameState = get_state();
-        switch (gameState)
+        switch (get_requested_action())
         {
-            case 0:
-                update(_smoothedDeltaRealTime_ms / 1000);
+            case REQUESTED_ACTION_UPDATE:
+                if (!_isDoingIO)
+                {
+                    update(_smoothedDeltaRealTime_ms / 1000);
+                }
+                break;
+            case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+                saveLevel();
+                clear_requested_action();
+                break;
+            case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+                loadLevel();
+                clear_requested_action();
                 break;
             default:
                 break;
@@ -80,19 +105,10 @@ public final class GameRenderer implements Renderer
 
         // Moving average calc
         long currTimePick_ms = SystemClock.uptimeMillis();
-        float realTimeElapsed_ms;
-        if (_lastRealTimeMeasurement_ms > 0)
-        {
-            realTimeElapsed_ms = (currTimePick_ms - _lastRealTimeMeasurement_ms);
-        } else
-        {
-            realTimeElapsed_ms = _smoothedDeltaRealTime_ms; // just the first
-            // time
-        }
+        float realTimeElapsed_ms = _lastRealTimeMeasurement_ms > 0 ? (currTimePick_ms - _lastRealTimeMeasurement_ms) : _smoothedDeltaRealTime_ms;
 
         _movAverageDeltaTime_ms = (realTimeElapsed_ms + _movAverageDeltaTime_ms * (MOV_AVERAGE_PERIOD - 1)) / MOV_AVERAGE_PERIOD;
 
-        // Calc a better aproximation for smooth stepTime
         _smoothedDeltaRealTime_ms = _smoothedDeltaRealTime_ms + (_movAverageDeltaTime_ms - _smoothedDeltaRealTime_ms) * SMOOTH_FACTOR;
 
         _lastRealTimeMeasurement_ms = currTimePick_ms;
@@ -174,7 +190,54 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private static native void init();
+    private void saveLevel()
+    {
+        final int result = save_level();
+        _activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Toast.makeText(_activity, result == 0 ? "Level saved successfully" : result == 1 ? "Error occurred while saving level... Please try again!" : "Error occurred while saving level... Too many objects!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadLevel()
+    {
+        _isDoingIO = true;
+
+        _activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                new AsyncTask<Void, Void, String>()
+                {
+                    @Override
+                    protected String doInBackground(Void... params)
+                    {
+                        return _fileHandler.readFromFile("nosfuratu.json");
+                    }
+
+                    @Override
+                    protected void onPostExecute(String result)
+                    {
+                        Toast.makeText(_activity, result == null ? "Error occurred while loading level..." : "Level loaded successfully", Toast.LENGTH_SHORT).show();
+
+                        if (result != null)
+                        {
+                            load_level(result);
+                        }
+
+                        _isDoingIO = false;
+                    }
+                }.execute();
+            }
+        });
+    }
+
+    private static native void init(boolean isLevelEditor);
 
     private static native void on_surface_changed(int pixelWidth, int pixelHeight);
 
@@ -196,9 +259,18 @@ public final class GameRenderer implements Renderer
 
     private static native short get_current_sound_id();
 
-    private static native int get_state();
+    private static native int get_requested_action();
 
-    private static native void clear_state();
+    private static native void clear_requested_action();
 
     private static native boolean handle_on_back_pressed();
+
+    private static native void load_level(String levelJson);
+
+    private static native int get_requested_level_to_load();
+
+    //    private static native String get_level_content();
+    private static native byte[] get_level_content();
+
+    private static native int save_level();
 }

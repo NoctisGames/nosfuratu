@@ -17,7 +17,7 @@
 class Tree : public PhysicalEntity
 {
 public:
-    static void create(std::vector<Tree>& items, float x, TreeType treeType);
+    static void create(std::vector<Tree>& items, float x, float y, TreeType treeType);
     
     Tree(float x, float y, float width, float height, TreeType treeType);
     

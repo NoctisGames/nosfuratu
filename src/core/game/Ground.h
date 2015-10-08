@@ -19,29 +19,21 @@
 class Ground : public PhysicalEntity
 {
 public:
-    static void createGrassWithCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length);
-    
-    static void createGrassWithoutCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length);
-    
-    static void createCave(std::vector<Ground>& grounds, float x, GroundSize gs, int length);
-    
-    static void createCaveRaised(std::vector<Ground>& grounds, float x, GroundSize gs, int length);
-    
     static void create(std::vector<Ground>& items, float x, GroundType groundType);
     
-    Ground(float x, float y, float width, float height, GroundType type, float boundsHeightFactor);
+    Ground(float x, float y, float width, float height, GroundType type, float boundsHeightFactor = 1.0f);
     
     virtual void updateBounds();
     
     GroundType getGroundType();
+    
+    float getBoundsHeightFactor();
     
     static Ground deserialize(rapidjson::Value& v);
     
     virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
     
 private:
-    static void create(std::vector<Ground>& grounds, float x, int length, GroundType typeLeft, GroundType typeCenter, GroundType typeRight);
-    
     GroundType m_groundType;
     float m_fBoundsHeightFactor;
 };

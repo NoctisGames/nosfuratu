@@ -27,27 +27,13 @@ void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float
             entity.getPosition().setY(halfHeight + offset);
         }
             break;
-        case ANCHOR_GROUND:
-        {
-            float halfHeight = entity.getHeight() / 2;
-            float y = ANCHOR_GROUND_Y + halfHeight;
-            entity.getPosition().setY(y + offset);
-        }
-            break;
-        case ANCHOR_CAVE:
-        {
-            float halfHeight = entity.getHeight() / 2;
-            float y = ANCHOR_CAVE_Y + halfHeight;
-            entity.getPosition().setY(y + offset);
-        }
-            break;
         case ANCHOR_NONE:
         default:
             break;
     }
 }
 
-void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf)
+void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf, bool yCorrection)
 {
     if (leftOf)
     {
@@ -65,6 +51,15 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
     }
     
     entity.updateBounds();
+    
+    if (yCorrection)
+    {
+        float top = entity.getBounds().getLowerLeft().getY() + entity.getBounds().getHeight();
+        float topTo = to.getBounds().getLowerLeft().getY() + to.getBounds().getHeight();
+        float yDelta = topTo - top;
+        entity.getPosition().add(0, yDelta);
+        entity.updateBounds();
+    }
 }
 
 void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on)
@@ -75,5 +70,9 @@ void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on)
     
     entity.getPosition().setY(y);
     
+    entity.updateBounds();
+    
+    float yDelta = top - entity.getBounds().getLowerLeft().getY();
+    entity.getPosition().add(0, yDelta);
     entity.updateBounds();
 }

@@ -1,5 +1,5 @@
 //
-//  OpenGLESGpuProgramWrapper.h
+//  OpenGLESTextureGpuProgramWrapper.h
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 8/27/15.

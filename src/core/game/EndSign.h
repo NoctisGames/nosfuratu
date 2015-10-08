@@ -17,7 +17,7 @@
 class EndSign : public PhysicalEntity
 {
 public:
-    static void create(std::vector<EndSign>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<EndSign>& items, float x, float y);
     
     EndSign(float x, float y, float width = 0.7953216374269005f, float height = 1.123050259965338f);
     

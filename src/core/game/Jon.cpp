@@ -17,11 +17,9 @@
 
 #include <math.h>
 
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
+Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
 {
     resetBounds(width * 0.6796875f, height * 0.8203125f);
-
-	m_acceleration->setX(m_fAccelerationX);
     
     m_dustClouds = std::unique_ptr<std::vector<DustCloud>>(new std::vector<DustCloud>());
 }
@@ -32,7 +30,7 @@ void Jon::update(float deltaTime, Game& game)
     {
         i->update(deltaTime);
         
-        if (i->isDestroyed())
+        if (i->isRequestingDeletion())
         {
             i = getDustClouds().erase(i);
         }
@@ -116,7 +114,7 @@ void Jon::update(float deltaTime, Game& game)
     if (game.isJonLandingOnSpring(deltaTime))
     {
         m_acceleration->setY(GRAVITY);
-        m_velocity->setY(24);
+        m_velocity->setY(28);
         
         setState(ACTION_JUMPING);
         

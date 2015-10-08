@@ -11,6 +11,13 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
+void Carrot::create(std::vector<Carrot>& items, float x, float y)
+{
+    items.push_back(Carrot(x, y));
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
 Carrot::Carrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
     // Empty

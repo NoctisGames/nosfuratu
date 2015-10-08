@@ -18,7 +18,7 @@
 
 Direct3DRectangleBatcher::Direct3DRectangleBatcher(bool isFill) : RectangleBatcher(isFill)
 {
-	m_isFill = isFill;
+    // Empty
 }
 
 void Direct3DRectangleBatcher::beginBatch()
@@ -29,21 +29,16 @@ void Direct3DRectangleBatcher::beginBatch()
 
 void Direct3DRectangleBatcher::endBatch()
 {
-	endBatch(*D3DManager->m_colorProgram);
-}
-
-void Direct3DRectangleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
-{
 	if (m_iNumRectangles > 0)
 	{
 		// set the primitive topology
 		D3DManager->m_d3dContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-		gpuProgramWrapper.bind();
+		D3DManager->m_colorProgram->bind();
 
 		D3DManager->m_d3dContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
 
-		gpuProgramWrapper.bind();
+        D3DManager->m_colorProgram->unbind();
 	}
 }
 

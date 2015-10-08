@@ -12,10 +12,12 @@
 #include "PhysicalEntity.h"
 #include "CaveSkeletonType.h"
 
+#include <vector>
+
 class CaveSkeleton : public PhysicalEntity
 {
 public:
-    static CaveSkeleton create(float x, float y, CaveSkeletonType caveSkeletonType);
+    static void create(std::vector<CaveSkeleton>& items, float x, float y, CaveSkeletonType caveSkeletonType);
     
     CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType caveSkeletonType);
     

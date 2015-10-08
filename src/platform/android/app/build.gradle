@@ -3,58 +3,64 @@ import org.apache.tools.ant.taskdefs.condition.Os
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        gowengamedev {
+            keyAlias 'gowengamedev'
+            keyPassword 'GGD_PASS'
+            storeFile file('/Users/sgowen/Dropbox/Documents/Freelance/GowenGameDev/github/nosfuratu/src/platform/android/keystore.jks')
+            storePassword 'GGD_PASS'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
-
     defaultConfig {
         applicationId "com.gowengamedev.nosfuratu"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "0.1.009"
+        signingConfig signingConfigs.gowengamedev
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "IS_LEVEL_EDITOR", "false"
+        }
+        debug {
+            buildConfigField "boolean", "IS_LEVEL_EDITOR", "true"
         }
     }
-
     sourceSets.main.jni.srcDirs 'src/main/jni'
     // disable the automatic ndk-build call, which would ignore our Android.mk
     sourceSets.main.jniLibs.srcDir 'src/main/libs'
-
     // call regular ndk-build(.cmd) script from app directory
     task ndkBuild(type: Exec) {
         workingDir file('src/main')
         commandLine getNdkBuildCmd()
     }
-
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn ndkBuild
     }
-
     task cleanNative(type: Exec) {
         workingDir file('src/main')
         commandLine getNdkBuildCmd(), 'clean'
     }
-
     clean.dependsOn cleanNative
-
     task copyFiles(type: Copy)
-
     copyFiles {
         description = 'Copies textures from root assets into project assets'
         from '../../../../assets'
         into 'src/main/assets'
         include('*.png')
     }
-
     preBuild.dependsOn(copyFiles)
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.0'
 }
 

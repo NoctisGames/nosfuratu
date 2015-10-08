@@ -9,7 +9,7 @@
 #ifndef __gowengamedev__OpenGLESManager__
 #define __gowengamedev__OpenGLESManager__
 
-#define MAX_BATCH_SIZE 1024
+#define VERTICES_PER_LINE 2
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
 
@@ -49,7 +49,7 @@ public:
     
     static OpenGLESManager * getInstance();
     
-    void init(int width, int height);
+    void init(int width, int height, int maxBatchSize);
     
     void createMatrix(float left, float right, float bottom, float top);
     
@@ -59,7 +59,7 @@ public:
     
 private:
     void buildShaderPrograms();
-    void generateIndices();
+    void generateIndices(int maxBatchSize);
     void createFrameBufferObject(int width, int height);
     
     // ctor, copy ctor, and assignment should be private in a Singleton

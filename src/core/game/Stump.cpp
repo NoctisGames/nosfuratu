@@ -12,13 +12,9 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-void Stump::create(std::vector<Stump>& items, float x, EntityAnchor anchor)
+void Stump::create(std::vector<Stump>& items, float x, float y)
 {
-    items.push_back(Stump(x, 0));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
-    
-    items.at(items.size() - 1).updateBounds();
+    items.push_back(Stump(x, y));
 }
 
 Stump::Stump(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

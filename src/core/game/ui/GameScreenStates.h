@@ -10,6 +10,12 @@
 #define __nosfuratu__GameScreenStates__
 
 #include "State.h"
+#include "BackButton.h"
+#include "LevelEditorActionsPanel.h"
+#include "LevelEditorEntitiesPanel.h"
+#include "TrashCan.h"
+
+#include <memory>
 
 class GameScreen;
 
@@ -24,11 +30,17 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    void setSourceGame(Game* game);
+    
 private:
-    void handleTouchInput(GameScreen* gs);
+    std::unique_ptr<Game> m_game;
+    Game* m_sourceGame;
+    std::unique_ptr<BackButton> m_backButton;
+    
+    bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    GamePlay(){};
+    GamePlay();
     GamePlay(const GamePlay&);
     GamePlay& operator=(const GamePlay&);
 };
@@ -44,11 +56,29 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    Game& getGame();
+    
 private:
+    std::unique_ptr<Game> m_game;
+    std::unique_ptr<LevelEditorActionsPanel> m_levelEditorActionsPanel;
+    std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
+    std::unique_ptr<TrashCan> m_trashCan;
+    std::vector<PhysicalEntity*> m_gameEntities;
+    PhysicalEntity* m_lastAddedEntity;
+    PhysicalEntity* m_draggingEntity;
+    PhysicalEntity* m_attachToEntity;
+    float m_fDraggingEntityOriginalY;
+    bool m_isVerticalChangeAllowed;
+    bool m_useYCorrection;
+    bool m_allowAttachment;
+    bool m_allowPlaceOn;
+    
     void handleTouchInput(GameScreen* gs);
     
+    void resetEntities(bool clearLastAddedEntity);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
-    LevelEditor(){};
+    LevelEditor();
     LevelEditor(const LevelEditor&);
     LevelEditor& operator=(const LevelEditor&);
 };

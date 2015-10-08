@@ -20,14 +20,26 @@ void BackgroundSky::create(std::vector<BackgroundSky>& items, float x)
 
 BackgroundSky::BackgroundSky(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0), m_fY(0)
 {
-    // Empty
+    int i = -1;
+    while (x > 0)
+    {
+        x -= CAM_WIDTH;
+        i++;
+    }
+    
+    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
 }
 
 void BackgroundSky::update(Vector2D& cameraPosition)
 {
-    m_fX = cameraPosition.getX() * 6;
+    m_fX = cameraPosition.getX() * 6 + m_fXOffset;
     
-    float y = cameraPosition.getY();
+    if (m_fX > TEXTURE_SIZE_2048)
+    {
+        m_fX -= TEXTURE_SIZE_2048;
+    }
+    
+    float y = GAME_HEIGHT - CAM_HEIGHT - cameraPosition.getY();
     y /= (GAME_HEIGHT - CAM_HEIGHT);
     y *= 169;
     y =  y < 0 ? 0 : y;

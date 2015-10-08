@@ -41,11 +41,17 @@ class Game
 public:
     Game();
     
+    void copy(Game* game);
+    
     void load(const char* json);
     
     const char* save();
     
     void reset();
+    
+    void updateAndClean(float deltaTime);
+    
+    int calcSum();
     
     bool isJonGrounded(float deltaTime);
     
@@ -101,6 +107,10 @@ public:
     
     float getFarRight();
     
+    float getStateTime();
+    
+    bool isLoaded();
+    
 private:
     std::unique_ptr<std::vector<BackgroundSky>> m_backgroundSkies;
     std::unique_ptr<std::vector<BackgroundTrees>> m_backgroundTrees;
@@ -121,6 +131,81 @@ private:
     std::unique_ptr<std::vector<Carrot>> m_carrots;
     std::unique_ptr<std::vector<GoldenCarrot>> m_goldenCarrots;
     std::unique_ptr<std::vector<Jon>> m_jons;
+    
+    float m_fStateTime;
+    bool m_isLoaded;
+    
+    template<typename T>
+    void copyPhysicalEntities(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight()));
+        }
+    }
+    
+    template<typename T>
+    void copyTrees(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getTreeType()));
+        }
+    }
+    
+    template<typename T>
+    void copyCaveSkeletons(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getCaveSkeletonType()));
+        }
+    }
+    
+    template<typename T>
+    void copyGrounds(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getGroundType(), i->getBoundsHeightFactor()));
+        }
+    }
+    
+    template<typename T>
+    void copyUpwardSpikes(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getUpwardSpikeType()));
+        }
+    }
+    
+    template<typename T>
+    void copyJumpSprings(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getJumpSpringType()));
+        }
+    }
+    
+    template<typename T>
+    void copyRocks(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->isCracked()));
+        }
+    }
+    
+    template<typename T>
+    void copyPlatforms(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    {
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getGroundPlatformType()));
+        }
+    }
     
     template<typename T>
     void loadArray(std::vector<T>& items, rapidjson::Document& d, const char * key)

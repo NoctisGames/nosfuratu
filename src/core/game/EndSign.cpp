@@ -12,13 +12,9 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-void EndSign::create(std::vector<EndSign>& items, float x, EntityAnchor anchor)
+void EndSign::create(std::vector<EndSign>& items, float x, float y)
 {
-    items.push_back(EndSign(x, 0));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
-    
-    items.at(items.size() - 1).updateBounds();
+    items.push_back(EndSign(x, y));
 }
 
 EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

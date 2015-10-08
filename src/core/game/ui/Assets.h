@@ -35,6 +35,10 @@ class Game;
 class BackgroundSky;
 class BackgroundTrees;
 class BackgroundCave;
+class BackButton;
+class LevelEditorEntitiesPanel;
+class LevelEditorActionsPanel;
+class TrashCan;
 
 class Assets
 {
@@ -80,6 +84,14 @@ public:
     static TextureRegion& get(DustCloud& dustCloud);
     
     static TextureRegion& get(Jon& jon);
+    
+    static TextureRegion& get(BackButton& backButton);
+    
+    static TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
+    
+    static TextureRegion& get(LevelEditorActionsPanel& levelEditorActionsPanel);
+    
+    static TextureRegion& get(TrashCan& trashCan);
     
     void setMusicId(short musicId);
     

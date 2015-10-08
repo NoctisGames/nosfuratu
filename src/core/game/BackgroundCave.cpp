@@ -20,12 +20,24 @@ void BackgroundCave::create(std::vector<BackgroundCave>& items, float x)
 
 BackgroundCave::BackgroundCave(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0)
 {
-    // Empty
+    int i = -1;
+    while (x > 0)
+    {
+        x -= CAM_WIDTH;
+        i++;
+    }
+    
+    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
 }
 
 void BackgroundCave::update(Vector2D& cameraPosition)
 {
-    m_fX = cameraPosition.getX() * 24;
+    m_fX = cameraPosition.getX() * 24 + m_fXOffset;
+    
+    if (m_fX > TEXTURE_SIZE_2048)
+    {
+        m_fX -= TEXTURE_SIZE_2048;
+    }
 }
 
 float BackgroundCave::getX()

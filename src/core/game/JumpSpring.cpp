@@ -11,30 +11,32 @@
 
 #define jumpSpringTypeKey "jumpSpringType"
 
-void JumpSpring::create(std::vector<JumpSpring>& items, float x, JumpSpringType type)
+void JumpSpring::create(std::vector<JumpSpring>& items, float x, float y, JumpSpringType type)
 {
-    EntityAnchor anchor;
     switch (type)
     {
         case JumpSpringType::JUMP_SPRING_IN_GRASS:
-            items.push_back(JumpSpring(x, 0, 1.0058479532163742f, 1.0060658578856152f, type));
-            anchor = EntityAnchor::ANCHOR_GROUND;
+            items.push_back(JumpSpring(x, y, 1.0058479532163742f, 1.0060658578856152f, type));
             break;
         case JumpSpringType::JUMP_SPRING_IN_CAVE:
         default:
-            items.push_back(JumpSpring(x, 0, 1.2163742690058479f, 1.5441941074523398f, type));
-            anchor = EntityAnchor::ANCHOR_CAVE;
+            items.push_back(JumpSpring(x, y, 1.2163742690058479f, 1.5441941074523398f, type));
             break;
     }
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
-    
-    items.at(items.size() - 1).updateBounds();
 }
 
 JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_jumpSpringType(type), m_isTriggered(false)
 {
-    resetBounds(width, height * 0.70f);
+    updateBounds();
+}
+
+void JumpSpring::updateBounds()
+{
+    m_bounds->setHeight(getHeight());
+    
+    PhysicalEntity::updateBounds();
+    
+    m_bounds->setHeight(getHeight() * 0.70f);
 }
 
 void JumpSpring::update(float deltaTime)

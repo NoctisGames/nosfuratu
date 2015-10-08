@@ -16,16 +16,6 @@
 
 #define groundPlatformTypeKey "groundPlatformType"
 
-void GroundPlatform::createGrass(std::vector<GroundPlatform>& platforms, float x, float y, int length)
-{
-    create(platforms, x, y, length, GROUND_PLATFORM_GRASS_END_LEFT, GROUND_PLATFORM_GRASS_CENTER, GROUND_PLATFORM_GRASS_END_RIGHT);
-}
-
-void GroundPlatform::createCave(std::vector<GroundPlatform>& platforms, float x, float y, int length)
-{
-    create(platforms, x, y, length, GROUND_PLATFORM_CAVE_END_LEFT, GROUND_PLATFORM_CAVE_CENTER, GROUND_PLATFORM_CAVE_END_RIGHT);
-}
-
 void GroundPlatform::create(std::vector<GroundPlatform>& items, float x, float y, GroundPlatformType type)
 {
     switch (type)
@@ -57,7 +47,16 @@ void GroundPlatform::create(std::vector<GroundPlatform>& items, float x, float y
 
 GroundPlatform::GroundPlatform(float x, float y, float width, float height, GroundPlatformType type) : PhysicalEntity(x, y, width, height), m_groundPlatformType(type)
 {
-    resetBounds(width, height * 0.86f);
+    updateBounds();
+}
+
+void GroundPlatform::updateBounds()
+{
+    m_bounds->setHeight(getHeight());
+    
+    PhysicalEntity::updateBounds();
+    
+    m_bounds->setHeight(getHeight() * 0.80f);
 }
 
 GroundPlatformType GroundPlatform::getGroundPlatformType()
@@ -80,21 +79,4 @@ void GroundPlatform::serializeAdditionalParams(rapidjson::Writer<rapidjson::Stri
 {
     w.String(groundPlatformTypeKey);
     w.Int(getGroundPlatformType());
-}
-
-#pragma mark private
-
-void GroundPlatform::create(std::vector<GroundPlatform>& platforms, float x, float y, int length, GroundPlatformType typeLeft, GroundPlatformType typeCenter, GroundPlatformType typeRight)
-{
-    GroundPlatform::create(platforms, x, y, typeLeft);
-    
-    for (int i = 0; i < length; i++)
-    {
-        GroundPlatform::create(platforms, 0, y, typeCenter);
-        EntityUtils::attach(platforms.at(platforms.size() - 1), platforms.at(platforms.size() - 2), false);
-    }
-    
-    GroundPlatform::create(platforms, 0, y, typeRight);
-    
-    EntityUtils::attach(platforms.at(platforms.size() - 1), platforms.at(platforms.size() - 2), false);
 }

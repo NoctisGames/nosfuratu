@@ -22,32 +22,32 @@ Vector2D& Rectangle::getLowerLeft()
     return *m_LowerLeft;
 }
 
-const float Rectangle::getWidth() const
+float Rectangle::getWidth()
 {
     return m_fWidth;
 }
 
-const void Rectangle::setWidth(float width)
+void Rectangle::setWidth(float width)   
 {
     m_fWidth = width;
 }
 
-const float Rectangle::getHeight() const
+float Rectangle::getHeight()
 {
     return m_fHeight;
 }
 
-const void Rectangle::setHeight(float height)
+void Rectangle::setHeight(float height)
 {
     m_fHeight = height;
 }
 
-const float Rectangle::getAngle() const
+float Rectangle::getAngle()
 {
     return m_fAngle;
 }
 
-const void Rectangle::setAngle(float angle)
+void Rectangle::setAngle(float angle)
 {
     m_fAngle = angle;
 }

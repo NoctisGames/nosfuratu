@@ -29,6 +29,7 @@ public:
     static BackgroundSky deserialize(rapidjson::Value& v);
     
 private:
+    float m_fXOffset;
     float m_fX;
     float m_fY;
 };

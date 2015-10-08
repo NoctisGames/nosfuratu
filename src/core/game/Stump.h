@@ -17,7 +17,7 @@
 class Stump : public PhysicalEntity
 {
 public:
-    static void create(std::vector<Stump>& items, float x, EntityAnchor anchor = EntityAnchor::ANCHOR_GROUND);
+    static void create(std::vector<Stump>& items, float x, float y);
     
     Stump(float x, float y, float width = 3.9298245614035086f, float height = 3.3457538994800693f);
     

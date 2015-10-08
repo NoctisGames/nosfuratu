@@ -8,7 +8,7 @@
 
 #include "Entity.h"
 
-Entity::Entity() : m_fStateTime(0.0f), m_ID(getUniqueEntityID())
+Entity::Entity() : m_fStateTime(0.0f), m_isRequestingDeletion(false), m_ID(getUniqueEntityID())
 {
     // Empty
 }
@@ -26,6 +26,16 @@ int Entity::getID()
 float Entity::getStateTime()
 {
     return m_fStateTime;
+}
+
+void Entity::requestDeletion()
+{
+    m_isRequestingDeletion = true;
+}
+
+bool Entity::isRequestingDeletion()
+{
+    return m_isRequestingDeletion;
 }
 
 int Entity::getUniqueEntityID()

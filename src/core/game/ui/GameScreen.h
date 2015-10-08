@@ -16,6 +16,7 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "SpriteBatcher.h"
+#include "RectangleBatcher.h"
 #include "Rectangle.h"
 #include "Renderer.h"
 #include "Circle.h"
@@ -24,6 +25,9 @@
 #include "Game.h"
 #include "Jon.h"
 #include "StateMachine.h"
+#include "GpuProgramWrapper.h"
+#include "SinWaveTextureGpuProgramWrapper.h"
+#include "GameScreenStates.h"
 
 class GameScreen
 {
@@ -35,8 +39,10 @@ public:
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
-    std::unique_ptr<Game> m_game;
+    bool m_isLevelEditor;
     float m_fDeltaTime;
+    bool m_isRequestingRender;
+    int m_iRequestedAction;
     
 	GameScreen(bool isLevelEditor = false);
     
@@ -52,9 +58,9 @@ public:
     
     void render();
     
-    int getState();
+    int getRequestedAction();
     
-    void clearState();
+    void clearRequestedAction();
     
     short getCurrentMusicId();
     

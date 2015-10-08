@@ -12,6 +12,7 @@
 #include "GameScreen.h"
 #include "OpenGLESRenderer.h"
 #include "OpenGLESManager.h"
+#include "OpenGLESTextureGpuProgramWrapper.h"
 
 class OpenGLESRenderer;
 

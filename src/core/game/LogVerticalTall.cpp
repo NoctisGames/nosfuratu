@@ -12,13 +12,9 @@
 #include "GameConstants.h"
 #include "EntityUtils.h"
 
-void LogVerticalTall::create(std::vector<LogVerticalTall>& items, float x, EntityAnchor anchor)
+void LogVerticalTall::create(std::vector<LogVerticalTall>& items, float x, float y)
 {
-    items.push_back(LogVerticalTall(x, 0));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
-    
-    items.at(items.size() - 1).updateBounds();
+    items.push_back(LogVerticalTall(x, y));
 }
 
 LogVerticalTall::LogVerticalTall(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height)

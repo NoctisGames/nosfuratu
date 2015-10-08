@@ -20,17 +20,17 @@ public:
     
     Vector2D& getLowerLeft();
     
-    const float getWidth() const;
+    float getWidth();
     
-    const void setWidth(float width);
+    void setWidth(float width);
     
-    const float getHeight() const;
+    float getHeight();
     
-    const void setHeight(float height);
+    void setHeight(float height);
     
-    const float getAngle() const;
+    float getAngle();
     
-    const void setAngle(float angle);
+    void setAngle(float angle);
     
 private:
     std::unique_ptr<Vector2D> m_LowerLeft;

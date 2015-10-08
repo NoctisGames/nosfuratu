@@ -8,6 +8,7 @@
 
 #include "OpenGLESRenderer.h"
 #include "OpenGLESSpriteBatcher.h"
+#include "OpenGLESRectangleBatcher.h"
 #include "TextureWrapper.h"
 #include "OpenGLESManager.h"
 #include "GameConstants.h"
@@ -18,6 +19,8 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Jon.h"
+#include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
+#include "SinWaveTextureProgram.h"
 
 extern "C"
 {
@@ -28,8 +31,13 @@ extern "C"
 OpenGLESRenderer::OpenGLESRenderer() : Renderer()
 {
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
+    m_boundsRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher());
+    m_highlightRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher(true));
     
     m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
+    
+    SinWaveTextureProgramStruct program = SinWaveTextureProgram::build(build_program_from_assets("texture_shader.vsh", "sin_wave_texture_shader.fsh"));
+    m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper(program));
 }
 
 TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName)

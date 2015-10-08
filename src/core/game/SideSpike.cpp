@@ -9,9 +9,25 @@
 #include "SideSpike.h"
 #include "EntityUtils.h"
 
+void SideSpike::create(std::vector<SideSpike>& items, float x, float y)
+{
+    items.push_back(SideSpike(x, y));
+    
+    items.at(items.size() - 1).updateBounds();
+}
+
 SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
-    resetBounds(width * 0.40f, height * 0.40f);
+    updateBounds();
+}
+
+void SideSpike::updateBounds()
+{
+    m_bounds->setHeight(getHeight());
+    
+    PhysicalEntity::updateBounds();
+    
+    m_bounds->setHeight(getHeight() * 0.60f);
 }
 
 SideSpike SideSpike::deserialize(rapidjson::Value& v)
