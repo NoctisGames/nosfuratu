@@ -168,6 +168,8 @@ void Game::updateAndClean(float deltaTime)
 {
     m_fStateTime += deltaTime;
     
+    EntityUtils::clean(getJons());
+    
     EntityUtils::updateAndClean(getTrees(), deltaTime);
     EntityUtils::updateAndClean(getCaveSkeletons(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
@@ -229,7 +231,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
 
 bool Game::isJonHit(float deltaTime)
 {
-    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes());
+    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isHit(getJon(), getUpwardSpikes());
 }
 
 bool Game::isJonLandingOnSpring(float deltaTime)
@@ -339,7 +341,7 @@ std::vector<std::unique_ptr<Jon>>& Game::getJons()
 
 Jon& Game::getJon()
 {
-    return *getJons().at(0).get();
+    return *getJons().at(getJons().size() - 1).get();
 }
 
 float Game::getFarRight()

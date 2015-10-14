@@ -214,24 +214,6 @@ public:
     }
     
     template<typename T>
-    static bool isFallingIntoDeath(PhysicalEntity& entity, std::vector<T>& items)
-    {
-        float entityVelocityY = entity.getVelocity().getY();
-        if (entityVelocityY < 0)
-        {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-            {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
-                {
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    template<typename T>
     static void updateBackgrounds(std::vector<T>& items, Vector2D& cameraPosition)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
@@ -256,6 +238,22 @@ public:
         {
             (*i)->update(deltaTime);
             
+            if ((*i)->isRequestingDeletion())
+            {
+                i = items.erase(i);
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
+    
+    template<typename T>
+    static void clean(std::vector<T>& items)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
+        {
             if ((*i)->isRequestingDeletion())
             {
                 i = items.erase(i);

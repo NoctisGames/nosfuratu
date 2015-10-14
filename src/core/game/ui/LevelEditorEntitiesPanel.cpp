@@ -30,6 +30,8 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     float eY = eHeight / 2;
     int i = 0;
     
+    m_jons.push_back(std::unique_ptr<Jon>(new Jon(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
     m_trees.push_back(std::unique_ptr<Tree>(new TreeOne(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_trees.push_back(std::unique_ptr<Tree>(new TreeTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_trees.push_back(std::unique_ptr<Tree>(new TreeThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -87,6 +89,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_goldenCarrots.push_back(std::unique_ptr<GoldenCarrot>(new GoldenCarrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_endSigns.push_back(std::unique_ptr<EndSign>(new EndSign(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
+    boxInAll(m_jons, size);
     boxInAll(m_trees, size);
     boxInAll(m_caveSkeletons, size);
     boxInAll(m_grounds, size);
@@ -154,7 +157,11 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     float x = camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2;
                     float y = GAME_HEIGHT / 2;
                     
-                    if (isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint))
+                    if (isTouchingEntityForPlacement(m_jons, game.getJons(), x, y, lastAddedEntity, touchPoint))
+                    {
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                    }
+                    else if (isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
@@ -238,6 +245,11 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     }
     
     return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
+}
+
+std::vector<std::unique_ptr<Jon>>& LevelEditorEntitiesPanel::getJons()
+{
+    return m_jons;
 }
 
 std::vector<std::unique_ptr<Tree>>& LevelEditorEntitiesPanel::getTrees()

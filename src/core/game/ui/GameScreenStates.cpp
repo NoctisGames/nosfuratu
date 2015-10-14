@@ -25,7 +25,7 @@ void GamePlay::enter(GameScreen* gs)
 {
     if (m_sourceGame == nullptr)
     {
-        m_game->load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"trees\":[],\"caveSkeletons\":[],\"grounds\":[{\"x\":0.890625,\"y\":8.90251,\"type\":3},{\"x\":13.7444,\"y\":8.90251,\"type\":1},{\"x\":26.5397,\"y\":8.90251,\"type\":4},{\"x\":36.5859,\"y\":8.90251,\"type\":3},{\"x\":43.4514,\"y\":8.90251,\"type\":2},{\"x\":50.2585,\"y\":8.90251,\"type\":4},{\"x\":62.0054,\"y\":5.11222,\"type\":8},{\"x\":68.7656,\"y\":5.11222,\"type\":7},{\"x\":75.5726,\"y\":5.11222,\"type\":9}],\"logVerticalTalls\":[],\"logVerticalShorts\":[],\"thorns\":[],\"stumps\":[],\"sideSpikes\":[],\"upwardSpikes\":[],\"jumpSprings\":[],\"rocks\":[],\"platforms\":[],\"endSigns\":[{\"x\":75.2344,\"y\":9.59272}],\"carrots\":[{\"x\":6.98438,\"y\":10.3108},{\"x\":10.1953,\"y\":10.3108},{\"x\":12.9609,\"y\":10.3108},{\"x\":16.1484,\"y\":10.3108},{\"x\":20.3438,\"y\":10.3108},{\"x\":39.6323,\"y\":10.3108},{\"x\":43.125,\"y\":10.3108},{\"x\":45.8438,\"y\":10.3108},{\"x\":65.9543,\"y\":10.3108},{\"x\":67.0078,\"y\":10.3108},{\"x\":68.1562,\"y\":10.3108},{\"x\":69.3516,\"y\":10.3108},{\"x\":70.7812,\"y\":10.3108},{\"x\":72.375,\"y\":10.3108}],\"goldenCarrots\":[],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
+        m_game->load("ZZZZZZZZZZZZZZZ");
     }
     else
     {
@@ -177,6 +177,8 @@ void LevelEditor::enter(GameScreen* gs)
     if (!m_game->isLoaded())
     {
         m_game->load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
+        
+        resetEntities(true);
     }
     
     gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
@@ -187,6 +189,8 @@ void LevelEditor::execute(GameScreen* gs)
     if (gs->m_isRequestingRender)
     {
         gs->m_renderer->renderWorld(*m_game);
+        
+        gs->m_renderer->renderJon(*m_game);
         
         if (m_lastAddedEntity != nullptr)
         {
@@ -266,8 +270,11 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     resetEntities(true);
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
-                    GamePlay::getInstance()->setSourceGame(m_game.get());
-                    gs->m_stateMachine->changeState(GamePlay::getInstance());
+                    if (m_game->getJons().size() > 0)
+                    {
+                        GamePlay::getInstance()->setSourceGame(m_game.get());
+                        gs->m_stateMachine->changeState(GamePlay::getInstance());
+                    }
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
                     resetEntities(true);
@@ -452,6 +459,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
 {
     m_gameEntities.clear();
     
+    EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     EntityUtils::addAll(m_game->getTrees(), m_gameEntities);
     EntityUtils::addAll(m_game->getCaveSkeletons(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);

@@ -57,6 +57,15 @@ void Renderer::init(RendererType type)
                 m_areWorld1TexturesLoaded = true;
             }
             
+            if (!m_areJonTexturesLoaded)
+            {
+                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+                m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
+                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
+                
+                m_areJonTexturesLoaded = true;
+            }
+            
             if (!m_areLevelEditorTexturesLoaded)
             {
                 m_level_editor = std::unique_ptr<TextureWrapper>(loadTexture("level_editor"));
@@ -276,16 +285,19 @@ void Renderer::renderJon(Game& game)
 {
     /// Render Jon
     
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntitiesWithColor(game.getJons());
-    if (game.getJon().getState() == JON_DYING_FADING)
+    if (game.getJons().size() > 0)
     {
-        m_sinWaveTextureProgram->setOffset(game.getStateTime());
-        m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability, *m_sinWaveTextureProgram);
-    }
-    else
-    {
-        m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntitiesWithColor(game.getJons());
+        if (game.getJon().getState() == JON_DYING_FADING)
+        {
+            m_sinWaveTextureProgram->setOffset(game.getStateTime());
+            m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability, *m_sinWaveTextureProgram);
+        }
+        else
+        {
+            m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
+        }
     }
 }
 
@@ -373,6 +385,10 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPane
     if (levelEditorEntitiesPanel.isOpen())
     {
         updateMatrix(0, CAM_WIDTH, levelEditorEntitiesPanel.getEntitiesCameraPos(), levelEditorEntitiesPanel.getEntitiesCameraPos() + CAM_HEIGHT);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(levelEditorEntitiesPanel.getJons());
+        m_spriteBatcher->endBatch(*m_jon);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(levelEditorEntitiesPanel.getTrees());

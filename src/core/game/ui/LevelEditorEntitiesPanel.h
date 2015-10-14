@@ -30,6 +30,7 @@
 #include "Carrot.h"
 #include "GoldenCarrot.h"
 #include "OverlapTester.h"
+#include "Jon.h"
 
 #include <vector>
 
@@ -44,6 +45,8 @@ public:
     LevelEditorEntitiesPanel(float x = CAM_WIDTH + (3.76608187134503f - 1.89473684210526) / 2, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
+    
+    std::vector<std::unique_ptr<Jon>>& getJons();
     
     std::vector<std::unique_ptr<Tree>>& getTrees();
     
@@ -124,6 +127,7 @@ private:
         }
     }
     
+    std::vector<std::unique_ptr<Jon>> m_jons;
     std::vector<std::unique_ptr<Tree>> m_trees;
     std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
     std::vector<std::unique_ptr<Ground>> m_grounds;
