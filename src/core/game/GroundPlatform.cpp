@@ -7,45 +7,30 @@
 //
 
 #include "GroundPlatform.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-#define GROUND_PLATFORM_HEIGHT 1.1698440207972272f
-
-#define groundPlatformTypeKey "groundPlatformType"
-
-void GroundPlatform::create(std::vector<GroundPlatform>& items, float x, float y, GroundPlatformType type)
+GroundPlatform* GroundPlatform::create(float x, float y, int type)
 {
-    switch (type)
+    switch ((GroundPlatformType) type)
     {
-        case GroundPlatformType::GROUND_PLATFORM_GRASS_DEFAULT:
-            items.push_back(GroundPlatform(x, y, 2.736842105263158f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_GRASS_END_LEFT:
-            items.push_back(GroundPlatform(x, y, 0.7017543859649122f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_GRASS_CENTER:
-            items.push_back(GroundPlatform(x, y, 2.7134502923976607f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_GRASS_END_RIGHT:
-            items.push_back(GroundPlatform(x, y, 0.7017543859649122f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_CAVE_END_LEFT:
-            items.push_back(GroundPlatform(x, y, 0.7953216374269005f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_CAVE_CENTER:
-            items.push_back(GroundPlatform(x, y, 2.7134502923976607f, GROUND_PLATFORM_HEIGHT, type));
-            break;
-        case GroundPlatformType::GROUND_PLATFORM_CAVE_END_RIGHT:
+        case GroundPlatformType::GroundPlatformType_GrassDefault:
+            return new GroundPlatformGrassDefault(x, y);
+        case GroundPlatformType::GroundPlatformType_GrassEndLeft:
+            return new GroundPlatformGrassEndLeft(x, y);
+        case GroundPlatformType::GroundPlatformType_GrassCenter:
+            return new GroundPlatformGrassCenter(x, y);
+        case GroundPlatformType::GroundPlatformType_GrassEndRight:
+            return new GroundPlatformGrassEndRight(x, y);
+        case GroundPlatformType::GroundPlatformType_CaveEndLeft:
+            return new GroundPlatformCaveEndLeft(x, y);
+        case GroundPlatformType::GroundPlatformType_CaveCenter:
+            return new GroundPlatformCaveCenter(x, y);
+        case GroundPlatformType::GroundPlatformType_CaveEndRight:
         default:
-            items.push_back(GroundPlatform(x, y, 0.7719298245614035f, GROUND_PLATFORM_HEIGHT, type));
-            break;
+            return new GroundPlatformCaveEndRight(x, y);
     }
 }
 
-GroundPlatform::GroundPlatform(float x, float y, float width, float height, GroundPlatformType type) : PhysicalEntity(x, y, width, height), m_groundPlatformType(type)
+GroundPlatform::GroundPlatform(float x, float y, float width, float height, GroundPlatformType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     updateBounds();
 }
@@ -59,24 +44,12 @@ void GroundPlatform::updateBounds()
     m_bounds->setHeight(getHeight() * 0.80f);
 }
 
-GroundPlatformType GroundPlatform::getGroundPlatformType()
+GroundPlatformType GroundPlatform::getEnumType()
 {
-    return m_groundPlatformType;
+    return m_type;
 }
 
-GroundPlatform GroundPlatform::deserialize(rapidjson::Value& v)
+int GroundPlatform::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    GroundPlatformType type = (GroundPlatformType) v[groundPlatformTypeKey].GetInt();
-    
-    return GroundPlatform(x, y, width, height, type);
-}
-
-void GroundPlatform::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
-{
-    w.String(groundPlatformTypeKey);
-    w.Int(getGroundPlatformType());
+    return m_type;
 }

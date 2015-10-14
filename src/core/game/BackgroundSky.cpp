@@ -7,19 +7,18 @@
 //
 
 #include "BackgroundSky.h"
-#include "GameConstants.h"
 #include "EntityUtils.h"
 #include "EntityAnchor.h"
 
-void BackgroundSky::create(std::vector<BackgroundSky>& items, float x)
+BackgroundSky* BackgroundSky::create(float x, float y, int type)
 {
-    items.push_back(BackgroundSky(x, 0, CAM_WIDTH, 14.038128249566725f));
-    
-    EntityUtils::applyAnchor(items.at(items.size() - 1), ANCHOR_TOP);
+    return new BackgroundSky(x, y);
 }
 
 BackgroundSky::BackgroundSky(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0), m_fY(0)
 {
+    EntityUtils::applyAnchor(*this, ANCHOR_TOP);
+    
     int i = -1;
     while (x > 0)
     {
@@ -57,12 +56,7 @@ float BackgroundSky::getY()
     return m_fY;
 }
 
-BackgroundSky BackgroundSky::deserialize(rapidjson::Value& v)
+int BackgroundSky::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return BackgroundSky(x, y, width, height);
+    return -1;
 }

@@ -14,7 +14,7 @@
 LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_isShowEntityBoundsRequested(false)
 {
     m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.38714499252616, width * 0.68990825688073f, height * 0.08968609865471f));
+    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.60911808669656f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_testButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.26233183856502f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_loadButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.1390134529148f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_saveButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.08968609865471f));

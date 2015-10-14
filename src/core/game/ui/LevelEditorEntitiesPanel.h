@@ -45,56 +45,100 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
-    std::vector<Tree>& getTrees();
+    std::vector<std::unique_ptr<Tree>>& getTrees();
     
-    std::vector<CaveSkeleton>& getCaveSkeletons();
+    std::vector<std::unique_ptr<CaveSkeleton>>& getCaveSkeletons();
     
-    std::vector<Ground>& getGrounds();
+    std::vector<std::unique_ptr<Ground>>& getGrounds();
     
-    std::vector<LogVerticalTall>& getLogVerticalTalls();
+    std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
     
-    std::vector<LogVerticalShort>& getLogVerticalShorts();
+    std::vector<std::unique_ptr<LogVerticalShort>>& getLogVerticalShorts();
     
-    std::vector<Thorns>& getThorns();
+    std::vector<std::unique_ptr<Thorns>>& getThorns();
     
-    std::vector<Stump>& getStumps();
+    std::vector<std::unique_ptr<Stump>>& getStumps();
     
-    std::vector<SideSpike>& getSideSpikes();
+    std::vector<std::unique_ptr<SideSpike>>& getSideSpikes();
     
-    std::vector<UpwardSpike>& getUpwardSpikes();
+    std::vector<std::unique_ptr<UpwardSpike>>& getUpwardSpikes();
     
-    std::vector<JumpSpring>& getJumpSprings();
+    std::vector<std::unique_ptr<JumpSpring>>& getJumpSprings();
     
-    std::vector<Rock>& getRocks();
+    std::vector<std::unique_ptr<Rock>>& getRocks();
     
-    std::vector<GroundPlatform>& getPlatforms();
+    std::vector<std::unique_ptr<GroundPlatform>>& getPlatforms();
     
-    std::vector<EndSign>& getEndSigns();
+    std::vector<std::unique_ptr<EndSign>>& getEndSigns();
     
-    std::vector<Carrot>& getCarrots();
+    std::vector<std::unique_ptr<Carrot>>& getCarrots();
     
-    std::vector<GoldenCarrot>& getGoldenCarrots();
+    std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
     
     float getEntitiesCameraPos();
     
     bool isOpen();
     
 private:
-    std::unique_ptr<std::vector<Tree>> m_trees;
-    std::unique_ptr<std::vector<CaveSkeleton>> m_caveSkeletons;
-    std::unique_ptr<std::vector<Ground>> m_grounds;
-    std::unique_ptr<std::vector<LogVerticalTall>> m_logVerticalTalls;
-    std::unique_ptr<std::vector<LogVerticalShort>> m_logVerticalShorts;
-    std::unique_ptr<std::vector<Thorns>> m_thorns;
-    std::unique_ptr<std::vector<Stump>> m_stumps;
-    std::unique_ptr<std::vector<SideSpike>> m_sideSpikes;
-    std::unique_ptr<std::vector<UpwardSpike>> m_upwardSpikes;
-    std::unique_ptr<std::vector<JumpSpring>> m_jumpSprings;
-    std::unique_ptr<std::vector<Rock>> m_rocks;
-    std::unique_ptr<std::vector<GroundPlatform>> m_platforms;
-    std::unique_ptr<std::vector<EndSign>> m_endSigns;
-    std::unique_ptr<std::vector<Carrot>> m_carrots;
-    std::unique_ptr<std::vector<GoldenCarrot>> m_goldenCarrots;
+    template<typename T>
+    static bool isTouchingEntityForPlacement(std::vector<std::unique_ptr<T>>& items, std::vector<std::unique_ptr<T>>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
+    {
+        int retVal = -1;
+        int index = 0;
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++, index++)
+        {
+            std::unique_ptr<T>& upItem = *i;
+            T* item = upItem.get();
+            float width = item->getWidth();
+            float height = item->getHeight();
+            float x = item->getPosition().getX() - width / 2;
+            float y = item->getPosition().getY() - height / 2;
+            
+            Rectangle tempBounds = Rectangle(x, y, width, height);
+            if (OverlapTester::isPointInRectangle(touchPoint, tempBounds))
+            {
+                retVal = index;
+                break;
+            }
+        }
+        
+        if (retVal != -1)
+        {
+            T* pT = T::create(x, y, items.at(index)->getType());
+            gameItems.push_back(std::unique_ptr<T>(pT));
+            
+            *lastAddedEntity = pT;
+        }
+        
+        return retVal != -1;
+    }
+    
+    template<typename T>
+    static void boxInAll(std::vector<std::unique_ptr<T>>& items, float size)
+    {
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            std::unique_ptr<T>& upItem = *i;
+            T* item = upItem.get();
+            item->boxIn(size);
+        }
+    }
+    
+    std::vector<std::unique_ptr<Tree>> m_trees;
+    std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
+    std::vector<std::unique_ptr<Ground>> m_grounds;
+    std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
+    std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
+    std::vector<std::unique_ptr<Thorns>> m_thorns;
+    std::vector<std::unique_ptr<Stump>> m_stumps;
+    std::vector<std::unique_ptr<SideSpike>> m_sideSpikes;
+    std::vector<std::unique_ptr<UpwardSpike>> m_upwardSpikes;
+    std::vector<std::unique_ptr<JumpSpring>> m_jumpSprings;
+    std::vector<std::unique_ptr<Rock>> m_rocks;
+    std::vector<std::unique_ptr<GroundPlatform>> m_platforms;
+    std::vector<std::unique_ptr<EndSign>> m_endSigns;
+    std::vector<std::unique_ptr<Carrot>> m_carrots;
+    std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

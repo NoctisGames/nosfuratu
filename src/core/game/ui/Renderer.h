@@ -109,29 +109,38 @@ private:
     float m_fCamHeight;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<T>& items)
+    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
-            renderPhysicalEntity(*i, Assets::get(*i));
+            std::unique_ptr<T>& upItem = *i;
+            T* pItem = upItem.get();
+            T& item = *pItem;
+            renderPhysicalEntity(item, Assets::get(item));
         }
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<T>& items)
+    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
-            renderPhysicalEntityWithColor(*i, Assets::get(*i), (*i).getColor());
+            std::unique_ptr<T>& upItem = *i;
+            T* pItem = upItem.get();
+            T& item = *pItem;
+            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
         }
     }
     
     template<typename T>
-    void renderBoundsForPhysicalEntities(std::vector<T>& items)
+    void renderBoundsForPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
-            renderBoundsForPhysicalEntity(*i);
+            std::unique_ptr<T>& upItem = *i;
+            T* pItem = upItem.get();
+            T& item = *pItem;
+            renderBoundsForPhysicalEntity(item);
         }
     }
     
@@ -142,8 +151,6 @@ private:
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
-    
-    bool isGroundForegroundMore(Ground& g);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

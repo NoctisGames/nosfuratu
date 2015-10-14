@@ -7,28 +7,18 @@
 //
 
 #include "GoldenCarrot.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
 
-void GoldenCarrot::create(std::vector<GoldenCarrot>& items, float x, float y)
+GoldenCarrot* GoldenCarrot::create(float x, float y, int type)
 {
-    items.push_back(GoldenCarrot(x, y));
-    
-    items.at(items.size() - 1).updateBounds();
+    return new GoldenCarrot(x, y);
 }
 
 GoldenCarrot::GoldenCarrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
-    // Empty
+    updateBounds();
 }
 
-GoldenCarrot GoldenCarrot::deserialize(rapidjson::Value& v)
+int GoldenCarrot::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return GoldenCarrot(x, y, width, height);
+    return -1;
 }

@@ -7,113 +7,94 @@
 //
 
 #include "Ground.h"
-#include "GameConstants.h"
+#include "EntityAnchor.h"
 #include "EntityUtils.h"
 
-#define GROUND_LARGE_WIDTH 47.90643274853801f
-#define GROUND_MEDIUM_WIDTH 23.976608187134502f
-#define GROUND_SMALL_WIDTH 12.0f
-
-#define GROUND_GRASS_WITH_CAVE_HEIGHT 2.643847487001733f
-#define GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR 0.54867256637168f
-#define GROUND_GRASS_WITH_CAVE_Y 8.9025129982669
-
-#define GROUND_GRASS_WITHOUT_CAVE_HEIGHT 10.224436741767764f
-#define GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR 0.88329519450801f
-
-#define GROUND_CAVE_HEIGHT 4.726169844020797f
-#define GROUND_CAVE_BOUNDS_HEIGHT_FACTOR 0.25742574257426f
-
-#define GROUND_CAVE_RAISED_HEIGHT 6.34055459272097f
-#define GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR 0.84444444444444f
-
-#define groundTypeKey "groundType"
-#define boundsHeightFactorKey "boundsHeightFactor"
-
-void Ground::create(std::vector<Ground>& items, float x, GroundType type)
+Ground* Ground::create(float x, float y, int type)
 {
-    EntityAnchor anchor = ANCHOR_BOTTOM;
-    switch (type)
+    Ground* pGround;
+    
+    switch ((GroundType)type)
     {
-        case GroundType::GROUND_GRASS_WITH_CAVE_LARGE:
-            items.push_back(Ground(x, GROUND_GRASS_WITH_CAVE_Y, GROUND_LARGE_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, type, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR));
-            anchor = EntityAnchor::ANCHOR_NONE;
+        case GroundType_Grass_with_Cave_Large:
+            pGround = new GroundGrassWithCaveLarge(x);
             break;
-        case GroundType::GROUND_CAVE_LARGE:
-            items.push_back(Ground(x, 0, GROUND_LARGE_WIDTH, GROUND_CAVE_HEIGHT, type, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Grass_with_Cave_Medium:
+            pGround = new GroundGrassWithCaveMedium(x);
             break;
-        case GroundType::GROUND_GRASS_WITHOUT_CAVE_LARGE:
-            items.push_back(Ground(x, 0, GROUND_LARGE_WIDTH, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, type, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Grass_with_Cave_Small:
+            pGround = new GroundGrassWithCaveSmall(x);
             break;
-        
-        case GroundType::GROUND_GRASS_WITHOUT_CAVE_END_LEFT:
-            items.push_back(Ground(x, 0, 1.5204678362573099f, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, type, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Grass_with_Cave_End_Left:
+            pGround = new GroundGrassWithCaveEndLeft(x);
             break;
-        case GroundType::GROUND_GRASS_WITHOUT_CAVE_MEDIUM:
-            items.push_back(Ground(x, 0, GROUND_MEDIUM_WIDTH, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, type, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Grass_with_Cave_End_Right:
+            pGround = new GroundGrassWithCaveEndRight(x);
             break;
-        case GroundType::GROUND_GRASS_WITHOUT_CAVE_SMALL:
-            items.push_back(Ground(x, 0, GROUND_SMALL_WIDTH, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, type, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR));
+            
+        case GroundType_Grass_without_Cave_Large:
+            pGround = new GroundGrassWithoutCaveLarge(x);
             break;
-        case GroundType::GROUND_GRASS_WITHOUT_CAVE_END_RIGHT:
-            items.push_back(Ground(x, 0, 1.6140350877192982f, GROUND_GRASS_WITHOUT_CAVE_HEIGHT, type, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Grass_without_Cave_Medium:
+            pGround = new GroundGrassWithoutCaveMedium(x);
             break;
-        
-        case GroundType::GROUND_GRASS_WITH_CAVE_END_LEFT:
-            items.push_back(Ground(x, GROUND_GRASS_WITH_CAVE_Y, 1.7309941520467835f, GROUND_GRASS_WITH_CAVE_HEIGHT, type, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR));
-            anchor = EntityAnchor::ANCHOR_NONE;
+        case GroundType_Grass_without_Cave_Small:
+            pGround = new GroundGrassWithoutCaveSmall(x);
             break;
-        case GroundType::GROUND_GRASS_WITH_CAVE_MEDIUM:
-            items.push_back(Ground(x, GROUND_GRASS_WITH_CAVE_Y, GROUND_MEDIUM_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, type, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR));
-            anchor = EntityAnchor::ANCHOR_NONE;
+        case GroundType_Grass_without_Cave_End_Left:
+            pGround = new GroundGrassWithoutCaveEndLeft(x);
             break;
-        case GroundType::GROUND_GRASS_WITH_CAVE_SMALL:
-            items.push_back(Ground(x, GROUND_GRASS_WITH_CAVE_Y, GROUND_SMALL_WIDTH, GROUND_GRASS_WITH_CAVE_HEIGHT, type, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR));
-            anchor = EntityAnchor::ANCHOR_NONE;
+        case GroundType_Grass_without_Cave_End_Right:
+            pGround = new GroundGrassWithoutCaveEndRight(x);
             break;
-        case GroundType::GROUND_GRASS_WITH_CAVE_END_RIGHT:
-            items.push_back(Ground(x, GROUND_GRASS_WITH_CAVE_Y, 1.6140350877192982f, GROUND_GRASS_WITH_CAVE_HEIGHT, type, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR));
-            anchor = EntityAnchor::ANCHOR_NONE;
+            
+        case GroundType_Cave_Large:
+            pGround = new GroundCaveLarge(x);
             break;
-        
-        case GroundType::GROUND_CAVE_END_LEFT:
-            items.push_back(Ground(x, 0, 1.567251461988304f, GROUND_CAVE_HEIGHT, type, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_Medium:
+            pGround = new GroundCaveMedium(x);
             break;
-        case GroundType::GROUND_CAVE_MEDIUM:
-            items.push_back(Ground(x, 0, GROUND_MEDIUM_WIDTH, GROUND_CAVE_HEIGHT, type, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_Small:
+            pGround = new GroundCaveSmall(x);
             break;
-        case GroundType::GROUND_CAVE_SMALL:
-            items.push_back(Ground(x, 0, GROUND_SMALL_WIDTH, GROUND_CAVE_HEIGHT, type, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_End_Left:
+            pGround = new GroundCaveEndLeft(x);
             break;
-        case GroundType::GROUND_CAVE_END_RIGHT:
-            items.push_back(Ground(x, 0, 1.543859649122807f, GROUND_CAVE_HEIGHT, type, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_End_Right:
+            pGround = new GroundCaveEndRight(x);
             break;
-        
-        case GroundType::GROUND_CAVE_RAISED_END_LEFT:
-            items.push_back(Ground(x, 0, 2.198830409356725f, GROUND_CAVE_RAISED_HEIGHT, type, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR));
+            
+        case GroundType_Cave_Raised_Large:
+            pGround = new GroundCaveRaisedLarge(x);
             break;
-        case GroundType::GROUND_CAVE_RAISED_MEDIUM:
-            items.push_back(Ground(x, 0, GROUND_MEDIUM_WIDTH, GROUND_CAVE_RAISED_HEIGHT, type, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_Raised_Medium:
+            pGround = new GroundCaveRaisedMedium(x);
             break;
-        case GroundType::GROUND_CAVE_RAISED_SMALL:
-            items.push_back(Ground(x, 0, GROUND_SMALL_WIDTH, GROUND_CAVE_RAISED_HEIGHT, type, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_Raised_Small:
+            pGround = new GroundCaveRaisedSmall(x);
             break;
-        case GroundType::GROUND_CAVE_RAISED_END_RIGHT:
-            items.push_back(Ground(x, 0, 2.198830409356725f, GROUND_CAVE_RAISED_HEIGHT, type, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR));
+        case GroundType_Cave_Raised_End_Left:
+            pGround = new GroundCaveRaisedEndLeft(x);
             break;
-        
-        case GroundType::GROUND_CAVE_RAISED_LARGE:
+        case GroundType_Cave_Raised_End_Right:
         default:
-            items.push_back(Ground(x, 0, GROUND_LARGE_WIDTH, GROUND_CAVE_RAISED_HEIGHT, type, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR));
+            pGround = new GroundCaveRaisedEndRight(x);
             break;
     }
     
-    EntityUtils::applyAnchor(items.at(items.size() - 1), anchor);
+    if (type != GroundType_Grass_with_Cave_Large
+        && type != GroundType_Grass_with_Cave_Medium
+        && type != GroundType_Grass_with_Cave_Small
+        && type != GroundType_Grass_with_Cave_End_Left
+        && type != GroundType_Grass_with_Cave_End_Right)
+    {
+        EntityUtils::applyAnchor(*pGround, ANCHOR_BOTTOM);
+    }
     
-    items.at(items.size() - 1).updateBounds();
+    return pGround;
 }
 
-Ground::Ground(float x, float y, float width, float height, GroundType type, float boundsHeightFactor) : PhysicalEntity(x, y, width, height), m_groundType(type), m_fBoundsHeightFactor(boundsHeightFactor)
+Ground::Ground(float x, float y, float width, float height, float boundsHeightFactor, GroundType type) : PhysicalEntity(x, y, width, height), m_type(type), m_fBoundsHeightFactor(boundsHeightFactor)
 {
     updateBounds();
 }
@@ -127,33 +108,21 @@ void Ground::updateBounds()
     m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
-GroundType Ground::getGroundType()
+bool Ground::isForegroundMore()
 {
-    return m_groundType;
+    return m_type == GroundType_Cave_Raised_Large
+    || m_type == GroundType_Cave_Raised_Medium
+    || m_type == GroundType_Cave_Raised_Small
+    || m_type == GroundType_Cave_Raised_End_Left
+    || m_type == GroundType_Cave_Raised_End_Right;
 }
 
-float Ground::getBoundsHeightFactor()
+GroundType Ground::getEnumType()
 {
-    return m_fBoundsHeightFactor;
+    return m_type;
 }
 
-Ground Ground::deserialize(rapidjson::Value& v)
+int Ground::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    GroundType type = (GroundType) v[groundTypeKey].GetInt();
-    float boundsHeightFactor = v[boundsHeightFactorKey].GetDouble();
-    
-    return Ground(x, y, width, height, type, boundsHeightFactor);
-}
-
-void Ground::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
-{
-    w.String(groundTypeKey);
-    w.Int(getGroundType());
-    
-    w.String(boundsHeightFactorKey);
-    w.Double(m_fBoundsHeightFactor);
+    return m_type;
 }

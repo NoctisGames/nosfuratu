@@ -10,21 +10,20 @@
 #define __nosfuratu__BackgroundCave__
 
 #include "PhysicalEntity.h"
-
-#include <vector>
+#include "GameConstants.h"
 
 class BackgroundCave : public PhysicalEntity
 {
 public:
-    static void create(std::vector<BackgroundCave>& items, float x);
+    static BackgroundCave* create(float x, float y, int type);
     
-    BackgroundCave(float x, float y, float width, float height);
+    BackgroundCave(float x, float y, float width = CAM_WIDTH, float height = 11.277296360485268f);
     
     void update(Vector2D& cameraPosition);
     
     float getX();
     
-    static BackgroundCave deserialize(rapidjson::Value& v);
+    int getType();
     
 private:
     float m_fXOffset;

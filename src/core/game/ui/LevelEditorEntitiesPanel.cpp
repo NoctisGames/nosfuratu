@@ -18,22 +18,6 @@
 
 LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_fEntitiesCameraPos(0), m_fEntitiesHeight(0)
 {
-    m_trees = std::unique_ptr<std::vector<Tree>>(new std::vector<Tree>);
-    m_caveSkeletons = std::unique_ptr<std::vector<CaveSkeleton>>(new std::vector<CaveSkeleton>);
-    m_grounds = std::unique_ptr<std::vector<Ground>>(new std::vector<Ground>);
-    m_logVerticalTalls = std::unique_ptr<std::vector<LogVerticalTall>>(new std::vector<LogVerticalTall>);
-    m_logVerticalShorts = std::unique_ptr<std::vector<LogVerticalShort>>(new std::vector<LogVerticalShort>);
-    m_thorns = std::unique_ptr<std::vector<Thorns>>(new std::vector<Thorns>);
-    m_stumps = std::unique_ptr<std::vector<Stump>>(new std::vector<Stump>);
-    m_sideSpikes = std::unique_ptr<std::vector<SideSpike>>(new std::vector<SideSpike>);
-    m_upwardSpikes = std::unique_ptr<std::vector<UpwardSpike>>(new std::vector<UpwardSpike>);
-    m_jumpSprings = std::unique_ptr<std::vector<JumpSpring>>(new std::vector<JumpSpring>);
-    m_rocks = std::unique_ptr<std::vector<Rock>>(new std::vector<Rock>);
-    m_platforms = std::unique_ptr<std::vector<GroundPlatform>>(new std::vector<GroundPlatform>);
-    m_endSigns = std::unique_ptr<std::vector<EndSign>>(new std::vector<EndSign>);
-    m_carrots = std::unique_ptr<std::vector<Carrot>>(new std::vector<Carrot>);
-    m_goldenCarrots = std::unique_ptr<std::vector<GoldenCarrot>>(new std::vector<GoldenCarrot>);
-    
     m_openButton = std::unique_ptr<Rectangle>(new Rectangle(CAM_WIDTH - 1, height * 0.49081920903955f, 1, 1));
     m_closeButton = std::unique_ptr<Rectangle>(new Rectangle(CAM_WIDTH - width, height * 0.49081920903955f, 1, 1));
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -46,70 +30,78 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     float eY = eHeight / 2;
     int i = 0;
     
-    Tree::create(*m_trees, eX, eY + (i++ * eHeight), TreeType::TREE_ONE);
-    Tree::create(*m_trees, eX, eY + (i++ * eHeight), TreeType::TREE_TWO);
-    Tree::create(*m_trees, eX, eY + (i++ * eHeight), TreeType::TREE_THREE);    
-    m_caveSkeletons->push_back(CaveSkeleton(eX, eY + (i++ * eHeight), eWidth, eHeight, CaveSkeletonType::CAVE_SKELETON_ONE));
-    m_caveSkeletons->push_back(CaveSkeleton(eX, eY + (i++ * eHeight), eWidth, eHeight, CaveSkeletonType::CAVE_SKELETON_TWO));
-    m_caveSkeletons->push_back(CaveSkeleton(eX, eY + (i++ * eHeight), eWidth, eHeight, CaveSkeletonType::CAVE_SKELETON_THREE));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITH_CAVE_LARGE, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_LARGE, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITHOUT_CAVE_LARGE, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_LEFT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITHOUT_CAVE_MEDIUM, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITHOUT_CAVE_SMALL, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITHOUT_CAVE_END_RIGHT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITH_CAVE_END_LEFT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITH_CAVE_MEDIUM, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITH_CAVE_SMALL, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_GRASS_WITH_CAVE_END_RIGHT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_END_LEFT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_MEDIUM, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_SMALL, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_END_RIGHT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_RAISED_END_LEFT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_RAISED_MEDIUM, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_RAISED_SMALL, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_RAISED_END_RIGHT, 1));
-    m_grounds->push_back(Ground(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundType::GROUND_CAVE_RAISED_LARGE, 1));
-    m_logVerticalTalls->push_back(LogVerticalTall(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_logVerticalShorts->push_back(LogVerticalShort(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_thorns->push_back(Thorns(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_stumps->push_back(Stump(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_sideSpikes->push_back(SideSpike(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_upwardSpikes->push_back(UpwardSpike(eX, eY + (i++ * eHeight), eWidth, eHeight, UpwardSpikeType::UPWARD_SPIKE_METAL_CAVE));
-    m_upwardSpikes->push_back(UpwardSpike(eX, eY + (i++ * eHeight), eWidth, eHeight, UpwardSpikeType::UPWARD_SPIKE_METAL_GRASS));
-    m_upwardSpikes->push_back(UpwardSpike(eX, eY + (i++ * eHeight), eWidth, eHeight, UpwardSpikeType::UPWARD_SPIKE_WOOD_GRASS));
-    m_jumpSprings->push_back(JumpSpring(eX, eY + (i++ * eHeight), eWidth, eHeight, JumpSpringType::JUMP_SPRING_IN_GRASS));
-    m_jumpSprings->push_back(JumpSpring(eX, eY + (i++ * eHeight), eWidth, eHeight, JumpSpringType::JUMP_SPRING_IN_CAVE));
-    m_rocks->push_back(Rock(eX, eY + (i++ * eHeight), eWidth, eHeight, false));
-    m_rocks->push_back(Rock(eX, eY + (i++ * eHeight), eWidth, eHeight, true));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_GRASS_DEFAULT));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_GRASS_END_LEFT));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_GRASS_CENTER));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_GRASS_END_RIGHT));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_CAVE_END_LEFT));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_CAVE_CENTER));
-    m_platforms->push_back(GroundPlatform(eX, eY + (i++ * eHeight), eWidth, eHeight, GroundPlatformType::GROUND_PLATFORM_CAVE_END_RIGHT));
-    m_carrots->push_back(Carrot(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_goldenCarrots->push_back(GoldenCarrot(eX, eY + (i++ * eHeight), eWidth, eHeight));
-    m_endSigns->push_back(EndSign(eX, eY + (i++ * eHeight), eWidth, eHeight));
+    m_trees.push_back(std::unique_ptr<Tree>(new TreeOne(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_trees.push_back(std::unique_ptr<Tree>(new TreeTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_trees.push_back(std::unique_ptr<Tree>(new TreeThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
-    EntityUtils::boxInAll(*m_trees, size);
-    EntityUtils::boxInAll(*m_caveSkeletons, size);
-    EntityUtils::boxInAll(*m_grounds, size);
-    EntityUtils::boxInAll(*m_logVerticalTalls, size);
-    EntityUtils::boxInAll(*m_logVerticalShorts, size);
-    EntityUtils::boxInAll(*m_thorns, size);
-    EntityUtils::boxInAll(*m_stumps, size);
-    EntityUtils::boxInAll(*m_sideSpikes, size);
-    EntityUtils::boxInAll(*m_upwardSpikes, size);
-    EntityUtils::boxInAll(*m_jumpSprings, size);
-    EntityUtils::boxInAll(*m_rocks, size);
-    EntityUtils::boxInAll(*m_platforms, size);
-    EntityUtils::boxInAll(*m_carrots, size);
-    EntityUtils::boxInAll(*m_goldenCarrots, size);
-    EntityUtils::boxInAll(*m_endSigns, size);
+    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonOne(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_logVerticalTalls.push_back(std::unique_ptr<LogVerticalTall>(new LogVerticalTall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_logVerticalShorts.push_back(std::unique_ptr<LogVerticalShort>(new LogVerticalShort(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_thorns.push_back(std::unique_ptr<Thorns>(new Thorns(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_stumps.push_back(std::unique_ptr<Stump>(new Stump(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_sideSpikes.push_back(std::unique_ptr<SideSpike>(new SideSpike(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeMetalGrass(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeWoodGrass(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeMetalCave(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringGrass(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringCave(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_rocks.push_back(std::unique_ptr<Rock>(new Rock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_rocks.push_back(std::unique_ptr<CrackedRock>(new CrackedRock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassDefault(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassCenter(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveCenter(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_carrots.push_back(std::unique_ptr<Carrot>(new Carrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_goldenCarrots.push_back(std::unique_ptr<GoldenCarrot>(new GoldenCarrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_endSigns.push_back(std::unique_ptr<EndSign>(new EndSign(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    boxInAll(m_trees, size);
+    boxInAll(m_caveSkeletons, size);
+    boxInAll(m_grounds, size);
+    boxInAll(m_logVerticalTalls, size);
+    boxInAll(m_logVerticalShorts, size);
+    boxInAll(m_thorns, size);
+    boxInAll(m_stumps, size);
+    boxInAll(m_sideSpikes, size);
+    boxInAll(m_upwardSpikes, size);
+    boxInAll(m_jumpSprings, size);
+    boxInAll(m_rocks, size);
+    boxInAll(m_platforms, size);
+    boxInAll(m_carrots, size);
+    boxInAll(m_goldenCarrots, size);
+    boxInAll(m_endSigns, size);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
 }
@@ -162,88 +154,66 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     float x = camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2;
                     float y = GAME_HEIGHT / 2;
                     
-                    int index;
-                    if ((index = EntityUtils::isTouchingEntityForPlacement(*m_trees, touchPoint)) != -1)
+                    if (isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Tree::create(game.getTrees(), x, y, m_trees->at(index).getTreeType());
-                        *lastAddedEntity = &game.getTrees().at(game.getTrees().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_caveSkeletons, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_caveSkeletons, game.getCaveSkeletons(), x, y, lastAddedEntity, touchPoint))
                     {
-                        CaveSkeleton::create(game.getCaveSkeletons(), x, y, m_caveSkeletons->at(index).getCaveSkeletonType());
-                        *lastAddedEntity = &game.getCaveSkeletons().at(game.getCaveSkeletons().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_grounds, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Ground::create(game.getGrounds(), x, m_grounds->at(index).getGroundType());
-                        *lastAddedEntity = &game.getGrounds().at(game.getGrounds().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_logVerticalTalls, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_logVerticalTalls, game.getLogVerticalTalls(), x, y, lastAddedEntity, touchPoint))
                     {
-                        LogVerticalTall::create(game.getLogVerticalTalls(), x, y);
-                        *lastAddedEntity = &game.getLogVerticalTalls().at(game.getLogVerticalTalls().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_logVerticalShorts, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_logVerticalShorts, game.getLogVerticalShorts(), x, y, lastAddedEntity, touchPoint))
                     {
-                        LogVerticalShort::create(game.getLogVerticalShorts(), x, y);
-                        *lastAddedEntity = &game.getLogVerticalShorts().at(game.getLogVerticalShorts().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_thorns, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_thorns, game.getThorns(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Thorns::create(game.getThorns(), x, y);
-                        *lastAddedEntity = &game.getThorns().at(game.getThorns().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_stumps, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_stumps, game.getStumps(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Stump::create(game.getStumps(), x, y);
-                        *lastAddedEntity = &game.getStumps().at(game.getStumps().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_sideSpikes, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_sideSpikes, game.getSideSpikes(), x, y, lastAddedEntity, touchPoint))
                     {
-                        SideSpike::create(game.getSideSpikes(), x, y);
-                        *lastAddedEntity = &game.getSideSpikes().at(game.getSideSpikes().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_upwardSpikes, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_upwardSpikes, game.getUpwardSpikes(), x, y, lastAddedEntity, touchPoint))
                     {
-                        UpwardSpike::create(game.getUpwardSpikes(), x, y, m_upwardSpikes->at(index).getUpwardSpikeType());
-                        *lastAddedEntity = &game.getUpwardSpikes().at(game.getUpwardSpikes().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_jumpSprings, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_jumpSprings, game.getJumpSprings(), x, y, lastAddedEntity, touchPoint))
                     {
-                        JumpSpring::create(game.getJumpSprings(), x, y, m_jumpSprings->at(index).getJumpSpringType());
-                        *lastAddedEntity = &game.getJumpSprings().at(game.getJumpSprings().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_rocks, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_rocks, game.getRocks(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Rock::create(game.getRocks(), x, y, m_rocks->at(index).isCracked());
-                        *lastAddedEntity = &game.getRocks().at(game.getRocks().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_platforms, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_platforms, game.getPlatforms(), x, y, lastAddedEntity, touchPoint))
                     {
-                        GroundPlatform::create(game.getPlatforms(), x, y, m_platforms->at(index).getGroundPlatformType());
-                        *lastAddedEntity = &game.getPlatforms().at(game.getPlatforms().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_carrots, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_carrots, game.getCarrots(), x, y, lastAddedEntity, touchPoint))
                     {
-                        Carrot::create(game.getCarrots(), x, y);
-                        *lastAddedEntity = &game.getCarrots().at(game.getCarrots().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_goldenCarrots, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_goldenCarrots, game.getGoldenCarrots(), x, y, lastAddedEntity, touchPoint))
                     {
-                        GoldenCarrot::create(game.getGoldenCarrots(), x, y);
-                        *lastAddedEntity = &game.getGoldenCarrots().at(game.getGoldenCarrots().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else if ((index = EntityUtils::isTouchingEntityForPlacement(*m_endSigns, touchPoint)) != -1)
+                    else if (isTouchingEntityForPlacement(m_endSigns, game.getEndSigns(), x, y, lastAddedEntity, touchPoint))
                     {
-                        EndSign::create(game.getEndSigns(), x, y);
-                        *lastAddedEntity = &game.getEndSigns().at(game.getEndSigns().size() - 1);
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                     }
-                    else
-                    {
-                        *lastAddedEntity = nullptr;
-                    }
-                    
-                    return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                 }
             }
         }
@@ -270,79 +240,79 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
 }
 
-std::vector<Tree>& LevelEditorEntitiesPanel::getTrees()
+std::vector<std::unique_ptr<Tree>>& LevelEditorEntitiesPanel::getTrees()
 {
-    return *m_trees;
+    return m_trees;
 }
 
-std::vector<CaveSkeleton>& LevelEditorEntitiesPanel::getCaveSkeletons()
+std::vector<std::unique_ptr<CaveSkeleton>>& LevelEditorEntitiesPanel::getCaveSkeletons()
 {
-    return *m_caveSkeletons;
+    return m_caveSkeletons;
 }
 
-std::vector<Ground>& LevelEditorEntitiesPanel::getGrounds()
+std::vector<std::unique_ptr<Ground>>& LevelEditorEntitiesPanel::getGrounds()
 {
-    return *m_grounds;
+    return m_grounds;
 }
 
-std::vector<LogVerticalTall>& LevelEditorEntitiesPanel::getLogVerticalTalls()
+std::vector<std::unique_ptr<LogVerticalTall>>& LevelEditorEntitiesPanel::getLogVerticalTalls()
 {
-    return *m_logVerticalTalls;
+    return m_logVerticalTalls;
 }
 
-std::vector<LogVerticalShort>& LevelEditorEntitiesPanel::getLogVerticalShorts()
+std::vector<std::unique_ptr<LogVerticalShort>>& LevelEditorEntitiesPanel::getLogVerticalShorts()
 {
-    return *m_logVerticalShorts;
+    return m_logVerticalShorts;
 }
 
-std::vector<Thorns>& LevelEditorEntitiesPanel::getThorns()
+std::vector<std::unique_ptr<Thorns>>& LevelEditorEntitiesPanel::getThorns()
 {
-    return *m_thorns;
+    return m_thorns;
 }
 
-std::vector<Stump>& LevelEditorEntitiesPanel::getStumps()
+std::vector<std::unique_ptr<Stump>>& LevelEditorEntitiesPanel::getStumps()
 {
-    return *m_stumps;
+    return m_stumps;
 }
 
-std::vector<SideSpike>& LevelEditorEntitiesPanel::getSideSpikes()
+std::vector<std::unique_ptr<SideSpike>>& LevelEditorEntitiesPanel::getSideSpikes()
 {
-    return *m_sideSpikes;
+    return m_sideSpikes;
 }
 
-std::vector<UpwardSpike>& LevelEditorEntitiesPanel::getUpwardSpikes()
+std::vector<std::unique_ptr<UpwardSpike>>& LevelEditorEntitiesPanel::getUpwardSpikes()
 {
-    return *m_upwardSpikes;
+    return m_upwardSpikes;
 }
 
-std::vector<JumpSpring>& LevelEditorEntitiesPanel::getJumpSprings()
+std::vector<std::unique_ptr<JumpSpring>>& LevelEditorEntitiesPanel::getJumpSprings()
 {
-    return *m_jumpSprings;
+    return m_jumpSprings;
 }
 
-std::vector<Rock>& LevelEditorEntitiesPanel::getRocks()
+std::vector<std::unique_ptr<Rock>>& LevelEditorEntitiesPanel::getRocks()
 {
-    return *m_rocks;
+    return m_rocks;
 }
 
-std::vector<GroundPlatform>& LevelEditorEntitiesPanel::getPlatforms()
+std::vector<std::unique_ptr<GroundPlatform>>& LevelEditorEntitiesPanel::getPlatforms()
 {
-    return *m_platforms;
+    return m_platforms;
 }
 
-std::vector<EndSign>& LevelEditorEntitiesPanel::getEndSigns()
+std::vector<std::unique_ptr<EndSign>>& LevelEditorEntitiesPanel::getEndSigns()
 {
-    return *m_endSigns;
+    return m_endSigns;
 }
 
-std::vector<Carrot>& LevelEditorEntitiesPanel::getCarrots()
+std::vector<std::unique_ptr<Carrot>>& LevelEditorEntitiesPanel::getCarrots()
 {
-    return *m_carrots;
+    return m_carrots;
 }
 
-std::vector<GoldenCarrot>& LevelEditorEntitiesPanel::getGoldenCarrots()
+std::vector<std::unique_ptr<GoldenCarrot>>& LevelEditorEntitiesPanel::getGoldenCarrots()
 {
-    return *m_goldenCarrots;
+    return m_goldenCarrots;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

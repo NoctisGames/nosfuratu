@@ -36,6 +36,12 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
+#define xKey "x"
+#define ykey "y"
+#define widthKey "width"
+#define heightKey "height"
+#define typeKey "type"
+
 class Game
 {
 public:
@@ -65,43 +71,43 @@ public:
     
     bool isSpinningBackFistDelivered(float deltaTime);
     
-    std::vector<BackgroundSky>& getBackgroundSkies();
+    std::vector<std::unique_ptr<BackgroundSky>>& getBackgroundSkies();
     
-    std::vector<BackgroundTrees>& getBackgroundTrees();
+    std::vector<std::unique_ptr<BackgroundTrees>>& getBackgroundTrees();
     
-    std::vector<BackgroundCave>& getBackgroundCaves();
+    std::vector<std::unique_ptr<BackgroundCave>>& getBackgroundCaves();
     
-    std::vector<Tree>& getTrees();
+    std::vector<std::unique_ptr<Tree>>& getTrees();
     
-    std::vector<CaveSkeleton>& getCaveSkeletons();
+    std::vector<std::unique_ptr<CaveSkeleton>>& getCaveSkeletons();
     
-    std::vector<Ground>& getGrounds();
+    std::vector<std::unique_ptr<Ground>>& getGrounds();
     
-    std::vector<LogVerticalTall>& getLogVerticalTalls();
+    std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
     
-    std::vector<LogVerticalShort>& getLogVerticalShorts();
+    std::vector<std::unique_ptr<LogVerticalShort>>& getLogVerticalShorts();
     
-    std::vector<Thorns>& getThorns();
+    std::vector<std::unique_ptr<Thorns>>& getThorns();
     
-    std::vector<Stump>& getStumps();
+    std::vector<std::unique_ptr<Stump>>& getStumps();
     
-    std::vector<SideSpike>& getSideSpikes();
+    std::vector<std::unique_ptr<SideSpike>>& getSideSpikes();
     
-    std::vector<UpwardSpike>& getUpwardSpikes();
+    std::vector<std::unique_ptr<UpwardSpike>>& getUpwardSpikes();
     
-    std::vector<JumpSpring>& getJumpSprings();
+    std::vector<std::unique_ptr<JumpSpring>>& getJumpSprings();
     
-    std::vector<Rock>& getRocks();
+    std::vector<std::unique_ptr<Rock>>& getRocks();
     
-    std::vector<GroundPlatform>& getPlatforms();
+    std::vector<std::unique_ptr<GroundPlatform>>& getPlatforms();
     
-    std::vector<EndSign>& getEndSigns();
+    std::vector<std::unique_ptr<EndSign>>& getEndSigns();
     
-    std::vector<Carrot>& getCarrots();
+    std::vector<std::unique_ptr<Carrot>>& getCarrots();
     
-    std::vector<GoldenCarrot>& getGoldenCarrots();
+    std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
     
-    std::vector<Jon>& getJons();
+    std::vector<std::unique_ptr<Jon>>& getJons();
     
     Jon& getJon();
     
@@ -112,103 +118,72 @@ public:
     bool isLoaded();
     
 private:
-    std::unique_ptr<std::vector<BackgroundSky>> m_backgroundSkies;
-    std::unique_ptr<std::vector<BackgroundTrees>> m_backgroundTrees;
-    std::unique_ptr<std::vector<BackgroundCave>> m_backgroundCaves;
-    std::unique_ptr<std::vector<Tree>> m_trees;
-    std::unique_ptr<std::vector<CaveSkeleton>> m_caveSkeletons;
-    std::unique_ptr<std::vector<Ground>> m_grounds;
-    std::unique_ptr<std::vector<LogVerticalTall>> m_logVerticalTalls;
-    std::unique_ptr<std::vector<LogVerticalShort>> m_logVerticalShorts;
-    std::unique_ptr<std::vector<Thorns>> m_thorns;
-    std::unique_ptr<std::vector<Stump>> m_stumps;
-    std::unique_ptr<std::vector<SideSpike>> m_sideSpikes;
-    std::unique_ptr<std::vector<UpwardSpike>> m_upwardSpikes;
-    std::unique_ptr<std::vector<JumpSpring>> m_jumpSprings;
-    std::unique_ptr<std::vector<Rock>> m_rocks;
-    std::unique_ptr<std::vector<GroundPlatform>> m_platforms;
-    std::unique_ptr<std::vector<EndSign>> m_endSigns;
-    std::unique_ptr<std::vector<Carrot>> m_carrots;
-    std::unique_ptr<std::vector<GoldenCarrot>> m_goldenCarrots;
-    std::unique_ptr<std::vector<Jon>> m_jons;
+    std::vector<std::unique_ptr<BackgroundSky>> m_backgroundSkies;
+    std::vector<std::unique_ptr<BackgroundTrees>> m_backgroundTrees;
+    std::vector<std::unique_ptr<BackgroundCave>> m_backgroundCaves;
+    std::vector<std::unique_ptr<Tree>> m_trees;
+    std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
+    std::vector<std::unique_ptr<Ground>> m_grounds;
+    std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
+    std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
+    std::vector<std::unique_ptr<Thorns>> m_thorns;
+    std::vector<std::unique_ptr<Stump>> m_stumps;
+    std::vector<std::unique_ptr<SideSpike>> m_sideSpikes;
+    std::vector<std::unique_ptr<UpwardSpike>> m_upwardSpikes;
+    std::vector<std::unique_ptr<JumpSpring>> m_jumpSprings;
+    std::vector<std::unique_ptr<Rock>> m_rocks;
+    std::vector<std::unique_ptr<GroundPlatform>> m_platforms;
+    std::vector<std::unique_ptr<EndSign>> m_endSigns;
+    std::vector<std::unique_ptr<Carrot>> m_carrots;
+    std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
+    std::vector<std::unique_ptr<Jon>> m_jons;
     
     float m_fStateTime;
     bool m_isLoaded;
     
     template<typename T>
-    void copyPhysicalEntities(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    void copyPhysicalEntities(std::vector<std::unique_ptr<T>>& itemsFrom, std::vector<std::unique_ptr<T>>& itemsTo)
     {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
         {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight()));
+            itemsTo.push_back(std::unique_ptr<T>(T::create((*i)->getPosition().getX(), (*i)->getPosition().getY(), (*i)->getType())));
         }
     }
     
     template<typename T>
-    void copyTrees(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    static void serialize(T* item, rapidjson::Writer<rapidjson::StringBuffer>& w)
     {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        w.StartObject();
+        w.String(xKey);
+        w.Double(item->getPosition().getX());
+        w.String(ykey);
+        w.Double(item->getPosition().getY());
+        int type = item->getType();
+        if (type != -1)
         {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getTreeType()));
+            w.String(typeKey);
+            w.Double(type);
         }
+        
+        w.EndObject();
     }
     
     template<typename T>
-    void copyCaveSkeletons(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
+    static T* deserialize(rapidjson::Value& v)
     {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        float x = v[xKey].GetDouble();
+        float y = v[ykey].GetDouble();
+        int type = 0;
+        if (v.HasMember(typeKey))
         {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getCaveSkeletonType()));
+            type = v[typeKey].GetInt();
         }
+        
+        return T::create(x, y, type);
     }
     
     template<typename T>
-    void copyGrounds(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
-    {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getGroundType(), i->getBoundsHeightFactor()));
-        }
-    }
-    
-    template<typename T>
-    void copyUpwardSpikes(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
-    {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getUpwardSpikeType()));
-        }
-    }
-    
-    template<typename T>
-    void copyJumpSprings(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
-    {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getJumpSpringType()));
-        }
-    }
-    
-    template<typename T>
-    void copyRocks(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
-    {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->isCracked()));
-        }
-    }
-    
-    template<typename T>
-    void copyPlatforms(std::vector<T>& itemsFrom, std::vector<T>& itemsTo)
-    {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T(i->getPosition().getX(), i->getPosition().getY(), i->getWidth(), i->getHeight(), i->getGroundPlatformType()));
-        }
-    }
-    
-    template<typename T>
-    void loadArray(std::vector<T>& items, rapidjson::Document& d, const char * key)
+    void loadArray(std::vector<std::unique_ptr<T>>& items, rapidjson::Document& d, const char * key)
     {
         using namespace rapidjson;
         
@@ -218,20 +193,20 @@ private:
             assert(v.IsArray());
             for (SizeType i = 0; i < v.Size(); i++)
             {
-                items.push_back(T::deserialize(v[i]));
+                items.push_back(std::unique_ptr<T>(deserialize<T>(v[i])));
             }
         }
     }
     
     template<typename T>
-    void saveArray(std::vector<T>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
+    void saveArray(std::vector<std::unique_ptr<T>>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
     {
         w.String(key);
         w.StartArray();
         
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
-            i->serialize(w);
+            serialize((*i).get(), w);
         }
         
         w.EndArray();

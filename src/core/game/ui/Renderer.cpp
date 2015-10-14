@@ -226,23 +226,23 @@ void Renderer::renderWorld(Game& game)
     /// Render World
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
+    for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if (isGroundForegroundMore(*i))
+        if ((*i)->isForegroundMore())
         {
             continue;
         }
         
-        renderPhysicalEntity(*i, Assets::get(*i));
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Ground>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
+    for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if (isGroundForegroundMore(*i))
+        if ((*i)->isForegroundMore())
         {
-            renderPhysicalEntity(*i, Assets::get(*i));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
@@ -265,9 +265,9 @@ void Renderer::renderWorld(Game& game)
     /// Render Jon Effects (e.g. Dust Clouds)
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Jon>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+    for (std::vector<std::unique_ptr<Jon>>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
     {
-        renderPhysicalEntitiesWithColor((*i).getDustClouds());
+        renderPhysicalEntitiesWithColor((*i)->getDustClouds());
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
 }
@@ -380,23 +380,23 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPane
         m_spriteBatcher->endBatch(*m_world_1_foreground_more);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<Ground>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
+        for (std::vector<std::unique_ptr<Ground>>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
         {
-            if (isGroundForegroundMore(*i))
+            if ((*i)->isForegroundMore())
             {
                 continue;
             }
             
-            renderPhysicalEntity(*i, Assets::get(*i));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
         m_spriteBatcher->endBatch(*m_world_1_foreground);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<Ground>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
+        for (std::vector<std::unique_ptr<Ground>>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
         {
-            if (isGroundForegroundMore(*i))
+            if ((*i)->isForegroundMore())
             {
-                renderPhysicalEntity(*i, Assets::get(*i));
+                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             }
         }
         m_spriteBatcher->endBatch(*m_world_1_foreground_more);
@@ -468,13 +468,4 @@ void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 {
     m_highlightRectangleBatcher->renderRectangle(pe.getBounds(), c);
-}
-
-bool Renderer::isGroundForegroundMore(Ground &g)
-{
-    return g.getGroundType() == GROUND_CAVE_RAISED_END_LEFT
-    || g.getGroundType() == GROUND_CAVE_RAISED_MEDIUM
-    || g.getGroundType() == GROUND_CAVE_RAISED_SMALL
-    || g.getGroundType() == GROUND_CAVE_RAISED_END_RIGHT
-    || g.getGroundType() == GROUND_CAVE_RAISED_LARGE;
 }

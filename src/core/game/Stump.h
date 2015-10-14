@@ -10,20 +10,17 @@
 #define __nosfuratu__Stump__
 
 #include "PhysicalEntity.h"
-#include "EntityAnchor.h"
-
-#include <vector>
 
 class Stump : public PhysicalEntity
 {
 public:
-    static void create(std::vector<Stump>& items, float x, float y);
+    static Stump* create(float x, float y, int type);
     
     Stump(float x, float y, float width = 3.9298245614035086f, float height = 3.3457538994800693f);
     
     virtual void updateBounds();
     
-    static Stump deserialize(rapidjson::Value& v);
+    int getType();
 };
 
 #endif /* defined(__nosfuratu__Stump__) */

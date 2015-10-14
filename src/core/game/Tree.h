@@ -10,25 +10,45 @@
 #define __nosfuratu__Tree__
 
 #include "PhysicalEntity.h"
-#include "TreeType.h"
 
-#include <vector>
+typedef enum
+{
+    TreeType_One,
+    TreeType_Two,
+    TreeType_Three
+} TreeType;
 
 class Tree : public PhysicalEntity
 {
 public:
-    static void create(std::vector<Tree>& items, float x, float y, TreeType treeType);
+    static Tree* create(float x, float y, int type);
     
-    Tree(float x, float y, float width, float height, TreeType treeType);
+    Tree(float x, float y, float width, float height, TreeType type);
     
-    TreeType getTreeType();
+    TreeType getEnumType();
     
-    static Tree deserialize(rapidjson::Value& v);
-    
-    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
+    int getType();
     
 private:
-    TreeType m_treeType;
+    TreeType m_type;
+};
+
+class TreeOne : public Tree
+{
+public:
+    TreeOne(float x, float y, float width = 6.315789473684211f, float height = 8.095320623916813f) : Tree(x, y, width, height, TreeType_One) {}
+};
+
+class TreeTwo : public Tree
+{
+public:
+    TreeTwo(float x, float y, float width = 11.228070175438596f, float height = 10.271230502599654f) : Tree(x, y, width, height, TreeType_Two) {}
+};
+
+class TreeThree : public Tree
+{
+public:
+    TreeThree(float x, float y, float width = 7.9298245614035086f, float height = 9.616117850953206f) : Tree(x, y, width, height, TreeType_Three) {}
 };
 
 #endif /* defined(__nosfuratu__Tree__) */

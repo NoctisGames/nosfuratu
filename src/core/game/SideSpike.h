@@ -11,18 +11,16 @@
 
 #include "PhysicalEntity.h"
 
-#include <vector>
-
 class SideSpike : public PhysicalEntity
 {
 public:
-    static void create(std::vector<SideSpike>& items, float x, float y);
+    static SideSpike* create(float x, float y, int type);
     
     SideSpike(float x, float y, float width = 1.1228070175438596f, float height = 0.42114384748700173f);
     
     virtual void updateBounds();
     
-    static SideSpike deserialize(rapidjson::Value& v);
+    int getType();
 };
 
 #endif /* defined(__nosfuratu__SideSpike__) */

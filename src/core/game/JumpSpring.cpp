@@ -7,25 +7,20 @@
 //
 
 #include "JumpSpring.h"
-#include "EntityUtils.h"
 
-#define jumpSpringTypeKey "jumpSpringType"
-
-void JumpSpring::create(std::vector<JumpSpring>& items, float x, float y, JumpSpringType type)
+JumpSpring* JumpSpring::create(float x, float y, int type)
 {
-    switch (type)
+    switch ((JumpSpringType) type)
     {
-        case JumpSpringType::JUMP_SPRING_IN_GRASS:
-            items.push_back(JumpSpring(x, y, 1.0058479532163742f, 1.0060658578856152f, type));
-            break;
-        case JumpSpringType::JUMP_SPRING_IN_CAVE:
+        case JumpSpringType_Grass:
+            return new JumpSpringGrass(x, y);
+        case JumpSpringType_Cave:
         default:
-            items.push_back(JumpSpring(x, y, 1.2163742690058479f, 1.5441941074523398f, type));
-            break;
+            return new JumpSpringCave(x, y);
     }
 }
 
-JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_jumpSpringType(type), m_isTriggered(false)
+JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isTriggered(false)
 {
     updateBounds();
 }
@@ -57,29 +52,17 @@ void JumpSpring::trigger()
     m_isTriggered = true;
 }
 
-JumpSpringType JumpSpring::getJumpSpringType()
-{
-    return m_jumpSpringType;
-}
-
 bool JumpSpring::isTriggered()
 {
     return m_isTriggered;
 }
 
-JumpSpring JumpSpring::deserialize(rapidjson::Value& v)
+JumpSpringType JumpSpring::getEnumType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    JumpSpringType type = (JumpSpringType) v[jumpSpringTypeKey].GetInt();
-    
-    return JumpSpring(x, y, width, height, type);
+    return m_type;
 }
 
-void JumpSpring::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+int JumpSpring::getType()
 {
-    w.String(jumpSpringTypeKey);
-    w.Int(getJumpSpringType());
+    return m_type;
 }

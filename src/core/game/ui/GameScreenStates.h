@@ -72,6 +72,7 @@ private:
     bool m_useYCorrection;
     bool m_allowAttachment;
     bool m_allowPlaceOn;
+    float m_fYOffset;
     
     void handleTouchInput(GameScreen* gs);
     

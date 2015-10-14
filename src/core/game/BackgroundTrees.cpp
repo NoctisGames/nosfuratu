@@ -7,11 +7,10 @@
 //
 
 #include "BackgroundTrees.h"
-#include "GameConstants.h"
 
-void BackgroundTrees::create(std::vector<BackgroundTrees>& items, float x)
+BackgroundTrees* BackgroundTrees::create(float x, float y, int type)
 {
-    items.push_back(BackgroundTrees(x, 14.962305025996535f, CAM_WIDTH, 11.909012131715771f));
+    return new BackgroundTrees(x);
 }
 
 BackgroundTrees::BackgroundTrees(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fX(0)
@@ -41,12 +40,7 @@ float BackgroundTrees::getX()
     return m_fX;
 }
 
-BackgroundTrees BackgroundTrees::deserialize(rapidjson::Value& v)
+int BackgroundTrees::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return BackgroundTrees(x, y, width, height);
+    return -1;
 }

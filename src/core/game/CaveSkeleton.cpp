@@ -9,48 +9,31 @@
 #include "CaveSkeleton.h"
 #include "EntityUtils.h"
 
-#define caveSkeletonTypeKey "caveSkeletonType"
-
-void CaveSkeleton::create(std::vector<CaveSkeleton>& items, float x, float y, CaveSkeletonType type)
+CaveSkeleton* CaveSkeleton::create(float x, float y, int type)
 {
-    switch (type)
+    switch ((CaveSkeletonType) type)
     {
-        case CAVE_SKELETON_ONE:
-            items.push_back(CaveSkeleton(x, y, 2.9239766081871346f, 1.7781629116117852f, type));
-            break;
-        case CAVE_SKELETON_TWO:
-            items.push_back(CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type));
-            break;
-        case CAVE_SKELETON_THREE:
+        case CaveSkeletonType_One:
+            return new CaveSkeletonOne(x, y);
+        case CaveSkeletonType_Two:
+            return new CaveSkeletonTwo(x, y);
+        case CaveSkeletonType_Three:
         default:
-            items.push_back(CaveSkeleton(x, y, 3.064327485380117f, 2.3864818024263434f, type));
-            break;
+            return new CaveSkeletonThree(x, y);
     }
 }
 
-CaveSkeleton::CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType type) : PhysicalEntity(x, y, width, height), m_caveSkeletonType(type)
+CaveSkeleton::CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     // Empty
 }
 
-CaveSkeletonType CaveSkeleton::getCaveSkeletonType()
+CaveSkeletonType CaveSkeleton::getEnumType()
 {
-    return m_caveSkeletonType;
+    return m_type;
 }
 
-CaveSkeleton CaveSkeleton::deserialize(rapidjson::Value& v)
+int CaveSkeleton::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    CaveSkeletonType type = (CaveSkeletonType) v[caveSkeletonTypeKey].GetInt();
-    
-    return CaveSkeleton(x, y, width, height, type);
-}
-
-void CaveSkeleton::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
-{
-    w.String(caveSkeletonTypeKey);
-    w.Int(getCaveSkeletonType());
+    return m_type;
 }

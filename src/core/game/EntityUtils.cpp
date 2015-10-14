@@ -10,7 +10,7 @@
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
 
-void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float offset)
+void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor)
 {
     switch (anchor)
     {
@@ -18,13 +18,13 @@ void EntityUtils::applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float
         {
             float halfHeight = entity.getHeight() / 2;
             float y = GAME_HEIGHT - halfHeight;
-            entity.getPosition().setY(y + offset);
+            entity.getPosition().setY(y);
         }
             break;
         case ANCHOR_BOTTOM:
         {
             float halfHeight = entity.getHeight() / 2;
-            entity.getPosition().setY(halfHeight + offset);
+            entity.getPosition().setY(halfHeight);
         }
             break;
         case ANCHOR_NONE:
@@ -62,7 +62,7 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
     }
 }
 
-void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on)
+void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset)
 {
     float halfHeight = entity.getBounds().getHeight() / 2;
     float top = on.getBounds().getLowerLeft().getY() + on.getBounds().getHeight();
@@ -74,5 +74,8 @@ void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on)
     
     float yDelta = top - entity.getBounds().getLowerLeft().getY();
     entity.getPosition().add(0, yDelta);
+    
+    entity.getPosition().add(0, yOffset);
+    
     entity.updateBounds();
 }

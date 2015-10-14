@@ -7,14 +7,10 @@
 //
 
 #include "EndSign.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-void EndSign::create(std::vector<EndSign>& items, float x, float y)
+EndSign* EndSign::create(float x, float y, int type)
 {
-    items.push_back(EndSign(x, y));
+    return new EndSign(x, y);
 }
 
 EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
@@ -22,12 +18,7 @@ EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x
     // Empty
 }
 
-EndSign EndSign::deserialize(rapidjson::Value& v)
+int EndSign::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return EndSign(x, y, width, height);
+    return -1;
 }

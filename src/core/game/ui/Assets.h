@@ -9,36 +9,33 @@
 #ifndef __nosfuratu__Assets__
 #define __nosfuratu__Assets__
 
-#define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
+#include "TextureRegion.h"
+#include "Animation.h"
+#include "Vector2D.h"
+#include "Rectangle.h"
+#include "GameConstants.h"
+#include "Tree.h"
+#include "CaveSkeleton.h"
+#include "DustCloud.h"
+#include "Jon.h"
+#include "GroundPlatform.h"
+#include "Carrot.h"
+#include "Ground.h"
+#include "UpwardSpike.h"
+#include "LogVerticalTall.h"
+#include "Rock.h"
+#include "Game.h"
+#include "BackgroundSky.h"
+#include "BackgroundTrees.h"
+#include "BackgroundCave.h"
+#include "BackButton.h"
+#include "LevelEditorActionsPanel.h"
+#include "LevelEditorEntitiesPanel.h"
+#include "TrashCan.h"
 
 #include <vector>
 
-class TextureRegion;
-class Jon;
-class DustCloud;
-class Tree;
-class CaveSkeleton;
-class Ground;
-class UpwardSpike;
-class JumpSpring;
-class LogVerticalTall;
-class LogVerticalShort;
-class Thorns;
-class Stump;
-class SideSpike;
-class Rock;
-class GroundPlatform;
-class EndSign;
-class Carrot;
-class GoldenCarrot;
-class Game;
-class BackgroundSky;
-class BackgroundTrees;
-class BackgroundCave;
-class BackButton;
-class LevelEditorEntitiesPanel;
-class LevelEditorActionsPanel;
-class TrashCan;
+#define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
 class Assets
 {
@@ -72,6 +69,8 @@ public:
     static TextureRegion& get(JumpSpring& jumpSpring);
     
     static TextureRegion& get(Rock& rock);
+    
+    static TextureRegion& get(CrackedRock& rock);
     
     static TextureRegion& get(GroundPlatform& platform);
     

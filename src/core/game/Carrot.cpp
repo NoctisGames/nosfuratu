@@ -7,28 +7,18 @@
 //
 
 #include "Carrot.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
 
-void Carrot::create(std::vector<Carrot>& items, float x, float y)
+Carrot* Carrot::create(float x, float y, int type)
 {
-    items.push_back(Carrot(x, y));
-    
-    items.at(items.size() - 1).updateBounds();
+    return new Carrot(x, y);
 }
 
 Carrot::Carrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
-    // Empty
+    updateBounds();
 }
 
-Carrot Carrot::deserialize(rapidjson::Value& v)
+int Carrot::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return Carrot(x, y, width, height);
+    return -1;
 }

@@ -7,14 +7,10 @@
 //
 
 #include "LogVerticalTall.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-void LogVerticalTall::create(std::vector<LogVerticalTall>& items, float x, float y)
+LogVerticalTall* LogVerticalTall::create(float x, float y, int type)
 {
-    items.push_back(LogVerticalTall(x, y));
+    return new LogVerticalTall(x, y);
 }
 
 LogVerticalTall::LogVerticalTall(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height)
@@ -33,12 +29,7 @@ void LogVerticalTall::updateBounds()
     m_bounds->setHeight(getHeight() * 0.90384615384615f);
 }
 
-LogVerticalTall LogVerticalTall::deserialize(rapidjson::Value& v)
+int LogVerticalTall::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return LogVerticalTall(x, y, width, height);
+    return -1;
 }

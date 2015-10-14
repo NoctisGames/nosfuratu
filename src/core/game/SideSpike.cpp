@@ -7,13 +7,10 @@
 //
 
 #include "SideSpike.h"
-#include "EntityUtils.h"
 
-void SideSpike::create(std::vector<SideSpike>& items, float x, float y)
+SideSpike* SideSpike::create(float x, float y, int type)
 {
-    items.push_back(SideSpike(x, y));
-    
-    items.at(items.size() - 1).updateBounds();
+    return new SideSpike(x, y);
 }
 
 SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
@@ -30,12 +27,7 @@ void SideSpike::updateBounds()
     m_bounds->setHeight(getHeight() * 0.60f);
 }
 
-SideSpike SideSpike::deserialize(rapidjson::Value& v)
+int SideSpike::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return SideSpike(x, y, width, height);
+    return -1;
 }

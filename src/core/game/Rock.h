@@ -12,17 +12,21 @@
 #include "DestructiblePhysicalEntity.h"
 #include "Color.h"
 
-#include <vector>
-
 #define ROCK_WIDTH 4.491228070175438f
 #define ROCK_HEIGHT 4.305025996533795f
+
+typedef enum
+{
+    RockType_Rock,
+    RockType_CrackedRock
+} RockType;
 
 class Rock : public DestructiblePhysicalEntity
 {
 public:
-    static void create(std::vector<Rock>& items, float x, float y, bool isCracked = false);
+    static Rock* create(float x, float y, int type);
     
-    Rock(float x, float y, float width = ROCK_WIDTH, float height = ROCK_HEIGHT, bool isCracked = false);
+    Rock(float x, float y, float width = ROCK_WIDTH, float height = ROCK_HEIGHT, bool isCracked = false, RockType type = RockType_Rock);
     
     virtual void update(float deltaTime);
     
@@ -36,14 +40,21 @@ public:
     
     bool isBlowingUp();
     
-    static Rock deserialize(rapidjson::Value& v);
+    RockType getEnumType();
     
-    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
+    int getType();
     
 private:
+    RockType m_type;
     Color m_color;
     bool m_isCracked;
     bool m_isBlowingUp;
+};
+
+class CrackedRock : public Rock
+{
+public:
+    CrackedRock(float x, float y, float width = ROCK_WIDTH, float height = ROCK_HEIGHT) : Rock(x, y, width, height, true, RockType_CrackedRock) {}
 };
 
 #endif /* defined(__nosfuratu__Rock__) */

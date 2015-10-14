@@ -7,30 +7,30 @@
 //
 
 #include "Jon.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
 #include "EntityUtils.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "OverlapTester.h"
-#include "GroundPlatform.h"
 
 #include <math.h>
+
+Jon* Jon::create(float x, float y, int type)
+{
+    return new Jon(x, y);
+}
 
 Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
 {
     resetBounds(width * 0.6796875f, height * 0.8203125f);
-    
-    m_dustClouds = std::unique_ptr<std::vector<DustCloud>>(new std::vector<DustCloud>());
 }
 
 void Jon::update(float deltaTime, Game& game)
 {
-    for (std::vector<DustCloud>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
+    for (std::vector<std::unique_ptr<DustCloud>>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
     {
-        i->update(deltaTime);
+        (*i)->update(deltaTime);
         
-        if (i->isRequestingDeletion())
+        if ((*i)->isRequestingDeletion())
         {
             i = getDustClouds().erase(i);
         }
@@ -90,7 +90,7 @@ void Jon::update(float deltaTime, Game& game)
             m_isLanding = true;
             m_fStateTime = 0;
             
-            m_dustClouds->push_back(DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
+            m_dustClouds.push_back(std::unique_ptr<DustCloud>(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f))));
         }
         
         if (m_isLanding && m_fStateTime > 0.20f)
@@ -213,9 +213,9 @@ void Jon::triggerDownAction()
     // TODO
 }
 
-std::vector<DustCloud>& Jon::getDustClouds()
+std::vector<std::unique_ptr<DustCloud>>& Jon::getDustClouds()
 {
-    return *m_dustClouds;
+    return m_dustClouds;
 }
 
 JonState Jon::getState()
@@ -268,14 +268,9 @@ bool Jon::isDead()
 	return m_state == JON_DEAD;
 }
 
-Jon Jon::deserialize(rapidjson::Value& v)
+int Jon::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return Jon(x, y, width, height);
+    return -1;
 }
 
 #pragma mark private

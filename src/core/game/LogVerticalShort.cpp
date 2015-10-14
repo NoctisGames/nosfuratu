@@ -7,14 +7,10 @@
 //
 
 #include "LogVerticalShort.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-void LogVerticalShort::create(std::vector<LogVerticalShort>& items, float x, float y)
+LogVerticalShort* LogVerticalShort::create(float x, float y, int type)
 {
-    items.push_back(LogVerticalShort(x, y));
+    return new LogVerticalShort(x, y);
 }
 
 LogVerticalShort::LogVerticalShort(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height)
@@ -33,12 +29,7 @@ void LogVerticalShort::updateBounds()
     m_bounds->setHeight(getHeight() * 0.90384615384615f);
 }
 
-LogVerticalShort LogVerticalShort::deserialize(rapidjson::Value& v)
+int LogVerticalShort::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return LogVerticalShort(x, y, width, height);
+    return -1;
 }

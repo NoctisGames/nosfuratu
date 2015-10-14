@@ -7,19 +7,20 @@
 //
 
 #include "Rock.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-#define isCrackedKey "isCracked"
-
-void Rock::create(std::vector<Rock>& items, float x, float y, bool isCracked)
+Rock* Rock::create(float x, float y, int type)
 {
-    items.push_back(Rock(x, y, ROCK_WIDTH, ROCK_HEIGHT, isCracked));
+    switch ((RockType) type)
+    {
+        case RockType_Rock:
+            return new Rock(x, y);
+        case RockType_CrackedRock:
+        default:
+            return new CrackedRock(x, y);
+    }
 }
 
-Rock::Rock(float x, float y, float width, float height, bool isCracked) : DestructiblePhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_isCracked(isCracked), m_isBlowingUp(false)
+Rock::Rock(float x, float y, float width, float height, bool isCracked, RockType type) : DestructiblePhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_isCracked(isCracked), m_isBlowingUp(false)
 {
     updateBounds();
 }
@@ -88,19 +89,12 @@ bool Rock::isBlowingUp()
     return m_isBlowingUp;
 }
 
-Rock Rock::deserialize(rapidjson::Value& v)
+RockType Rock::getEnumType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    bool isCracked = v[isCrackedKey].GetBool();
-    
-    return Rock(x, y, width, height, isCracked);
+    return m_type;
 }
 
-void Rock::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
+int Rock::getType()
 {
-    w.String(isCrackedKey);
-    w.Bool(isCracked());
+    return m_type;
 }

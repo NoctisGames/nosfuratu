@@ -7,51 +7,32 @@
 //
 
 #include "Tree.h"
-#include "EntityUtils.h"
-#include "EntityAnchor.h"
 
-#define treeTypeKey "treeType"
-
-void Tree::create(std::vector<Tree>& items, float x, float y, TreeType treeType)
+Tree* Tree::create(float x, float y, int type)
 {
-    switch (treeType)
+    switch ((TreeType) type)
     {
-        case TREE_ONE:
-            items.push_back(Tree(x, y, 6.315789473684211f, 8.095320623916813f, treeType));
-            break;
-        case TREE_TWO:
-            items.push_back(Tree(x, y, 11.228070175438596f, 10.271230502599654f, treeType));
-            break;
-        case TREE_THREE:
+        case TreeType_One:
+            return new TreeOne(x, y);
+        case TreeType_Two:
+            return new TreeTwo(x, y);
+        case TreeType_Three:
         default:
-            items.push_back(Tree(x, y, 7.9298245614035086f, 9.616117850953206f, treeType));
-            break;
+            return new TreeThree(x, y);
     }
 }
 
-Tree::Tree(float x, float y, float width, float height, TreeType treeType) : PhysicalEntity(x, y, width, height), m_treeType(treeType)
+Tree::Tree(float x, float y, float width, float height, TreeType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     // Empty
 }
 
-TreeType Tree::getTreeType()
+TreeType Tree::getEnumType()
 {
-    return m_treeType;
+    return m_type;
 }
 
-Tree Tree::deserialize(rapidjson::Value& v)
+int Tree::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    TreeType type = (TreeType) v[treeTypeKey].GetInt();
-    
-    return Tree(x, y, width, height, type);
-}
-
-void Tree::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
-{
-    w.String(treeTypeKey);
-    w.Int(getTreeType());
+    return m_type;
 }

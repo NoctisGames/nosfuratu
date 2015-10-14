@@ -10,21 +10,20 @@
 #define __nosfuratu__BackgroundTrees__
 
 #include "PhysicalEntity.h"
-
-#include <vector>
+#include "GameConstants.h"
 
 class BackgroundTrees : public PhysicalEntity
 {
 public:
-    static void create(std::vector<BackgroundTrees>& items, float x);
+    static BackgroundTrees* create(float x, float y, int type);
     
-    BackgroundTrees(float x, float y, float width, float height);
+    BackgroundTrees(float x, float y = 14.962305025996535f, float width = CAM_WIDTH, float height = 11.909012131715771f);
     
     void update(Vector2D& cameraPosition);
     
     float getX();
     
-    static BackgroundTrees deserialize(rapidjson::Value& v);
+    int getType();
     
 private:
     float m_fXOffset;

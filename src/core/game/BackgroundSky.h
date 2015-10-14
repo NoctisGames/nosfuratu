@@ -10,15 +10,14 @@
 #define __nosfuratu__BackgroundSky__
 
 #include "PhysicalEntity.h"
-
-#include <vector>
+#include "GameConstants.h"
 
 class BackgroundSky : public PhysicalEntity
 {
 public:
-    static void create(std::vector<BackgroundSky>& items, float x);
+    static BackgroundSky* create(float x, float y, int type);
     
-    BackgroundSky(float x, float y, float width, float height);
+    BackgroundSky(float x, float y, float width = CAM_WIDTH, float height = 14.038128249566725f);
     
     void update(Vector2D& cameraPosition);
     
@@ -26,7 +25,7 @@ public:
     
     float getY();
     
-    static BackgroundSky deserialize(rapidjson::Value& v);
+    int getType();
     
 private:
     float m_fXOffset;

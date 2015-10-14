@@ -7,14 +7,10 @@
 //
 
 #include "Stump.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-void Stump::create(std::vector<Stump>& items, float x, float y)
+Stump* Stump::create(float x, float y, int type)
 {
-    items.push_back(Stump(x, y));
+    return new Stump(x, y);
 }
 
 Stump::Stump(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
@@ -33,12 +29,7 @@ void Stump::updateBounds()
     m_bounds->setHeight(getHeight() * 0.81118881118881f);
 }
 
-Stump Stump::deserialize(rapidjson::Value& v)
+int Stump::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return Stump(x, y, width, height);
+    return -1;
 }

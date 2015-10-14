@@ -7,28 +7,22 @@
 //
 
 #include "UpwardSpike.h"
-#include "EntityUtils.h"
 
-#define upwardSpikeTypeKey "upwardSpikeType"
-
-void UpwardSpike::create(std::vector<UpwardSpike>& items, float x, float y, UpwardSpikeType type)
+UpwardSpike* UpwardSpike::create(float x, float y, int type)
 {
-    switch (type)
+    switch ((UpwardSpikeType) type)
     {
-        case UpwardSpikeType::UPWARD_SPIKE_METAL_GRASS:
-            items.push_back(UpwardSpike(x, y, 0.6549707602339181f, 1.0294627383015598f, type));
-            break;
-        case UpwardSpikeType::UPWARD_SPIKE_WOOD_GRASS:
-            items.push_back(UpwardSpike(x, y, 0.9590643274853801f, 1.0762564991334487f, type));
-            break;
-        case UpwardSpikeType::UPWARD_SPIKE_METAL_CAVE:
+        case UpwardSpikeType_MetalGrass:
+            return new UpwardSpikeMetalGrass(x, y);
+        case UpwardSpikeType_WoodGrass:
+            return new UpwardSpikeWoodGrass(x, y);
+        case UpwardSpikeType_MetalCave:
         default:
-            items.push_back(UpwardSpike(x, y, 0.42105263157894735f, 1.123050259965338f, type));
-            break;
+            return new UpwardSpikeMetalCave(x, y);
     }
 }
 
-UpwardSpike::UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type) : PhysicalEntity(x, y, width, height), m_upwardSpikeType(type)
+UpwardSpike::UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
     updateBounds();
 }
@@ -44,24 +38,12 @@ void UpwardSpike::updateBounds()
     m_bounds->setHeight(getHeight() * 0.66f);
 }
 
-UpwardSpikeType UpwardSpike::getUpwardSpikeType()
+UpwardSpikeType UpwardSpike::getEnumType()
 {
-    return m_upwardSpikeType;
+    return m_type;
 }
 
-UpwardSpike UpwardSpike::deserialize(rapidjson::Value& v)
+int UpwardSpike::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    UpwardSpikeType type = (UpwardSpikeType) v[upwardSpikeTypeKey].GetInt();
-    
-    return UpwardSpike(x, y, width, height, type);
-}
-
-void UpwardSpike::serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w)
-{
-    w.String(upwardSpikeTypeKey);
-    w.Int(getUpwardSpikeType());
+    return m_type;
 }

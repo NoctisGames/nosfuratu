@@ -24,11 +24,11 @@ class PhysicalEntity;
 class EntityUtils
 {
 public:
-    static void applyAnchor(PhysicalEntity& entity, EntityAnchor anchor, float offset = 0);
+    static void applyAnchor(PhysicalEntity& entity, EntityAnchor anchor);
     
     static void attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf, bool yCorrection);
     
-    static void placeOn(PhysicalEntity& entity, PhysicalEntity& on);
+    static void placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset = 0);
     
     template<typename T>
     static bool isLanding(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
@@ -41,9 +41,9 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
-                    float itemTop = (*i).getBounds().getLowerLeft().getY() + (*i).getBounds().getHeight();
+                    float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
                     float padding = itemTop * .01f;
                     padding += entityYDelta;
                     float itemTopReq = itemTop - padding;
@@ -73,16 +73,16 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
-                    float itemTop = (*i).getBounds().getLowerLeft().getY() + (*i).getBounds().getHeight();
+                    float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
                     float padding = itemTop * .01f;
                     padding += entityYDelta;
                     float itemTopReq = itemTop - padding;
                     
                     if (entityLowerLeftY >= itemTopReq)
                     {
-                        (*i).trigger();
+                        (*i)->trigger();
                         
                         return true;
                     }
@@ -102,10 +102,10 @@ public:
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
-                float itemLeft = (*i).getBounds().getLowerLeft().getX();
-                float itemTop = (*i).getBounds().getLowerLeft().getY() + (*i).getBounds().getHeight();
+                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
+                float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
                 float itemTopReq = itemTop * 0.99f;
                 float itemLeftReq = itemLeft - padding;
                 
@@ -132,9 +132,9 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
-                    float itemLeft = (*i).getBounds().getLowerLeft().getX();
+                    float itemLeft = (*i)->getBounds().getLowerLeft().getX();
                     
                     if (itemLeft < entityLeft)
                     {
@@ -157,7 +157,7 @@ public:
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
                 retval = true;
                 i = items.erase(i);
@@ -179,11 +179,11 @@ public:
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
         {
-            if (OverlapTester::doRectanglesOverlap(hittingBounds, (*i).getBounds()))
+            if (OverlapTester::doRectanglesOverlap(hittingBounds, (*i)->getBounds()))
             {
-                (*i).triggerHit();
+                (*i)->triggerHit();
                 
-                if ((*i).isRequestingDeletion())
+                if ((*i)->isRequestingDeletion())
                 {
                     i = items.erase(i);
                 }
@@ -204,7 +204,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
                 return true;
             }
@@ -221,7 +221,7 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i).getBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
                     return true;
                 }
@@ -236,7 +236,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            i->update(cameraPosition);
+            (*i)->update(cameraPosition);
         }
     }
     
@@ -245,7 +245,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            i->update(deltaTime);
+            (*i)->update(deltaTime);
         }
     }
     
@@ -254,9 +254,9 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
         {
-            i->update(deltaTime);
+            (*i)->update(deltaTime);
             
-            if (i->isRequestingDeletion())
+            if ((*i)->isRequestingDeletion())
             {
                 i = items.erase(i);
             }
@@ -272,8 +272,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
         {
-            T* p_i = &(*i);
-            itemsTo.push_back(p_i);
+            itemsTo.push_back((*i).get());
         }
     }
     
@@ -300,54 +299,23 @@ public:
     }
     
     template<typename T>
-    static int isTouchingEntityForPlacement(std::vector<T>& items, Vector2D& touchPoint)
+    static int doRectanglesOverlap(std::vector<T>& items, PhysicalEntity* pe)
     {
         int index = 0;
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
-            T& item = *i;
-            float width = item.getWidth();
-            float height = item.getHeight();
-            float x = item.getPosition().getX() - width / 2;
-            float y = item.getPosition().getY() - height / 2;
-            
-            Rectangle tempBounds = Rectangle(x, y, width, height);
-            if (OverlapTester::isPointInRectangle(touchPoint, tempBounds))
-            {
-                return index;
-            }
-        }
-        
-        return -1;
-    }
-    
-    template<typename T>
-    static int doRectanglesOverlap(std::vector<T>& items, PhysicalEntity& pe)
-    {
-        int index = 0;
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
-        {
-            if ((&(*i)) == &pe)
+            if ((*i).get() == pe)
             {
                 continue;
             }
             
-            if (OverlapTester::doRectanglesOverlap(pe.getBounds(), i->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
             {
                 return index;
             }
         }
         
         return -1;
-    }
-    
-    template<typename T>
-    static void boxInAll(std::vector<T>& items, float size)
-    {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            i->boxIn(size);
-        }
     }
     
 private:

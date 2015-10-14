@@ -10,25 +10,45 @@
 #define __nosfuratu__CaveSkeleton__
 
 #include "PhysicalEntity.h"
-#include "CaveSkeletonType.h"
 
-#include <vector>
+typedef enum
+{
+    CaveSkeletonType_One,
+    CaveSkeletonType_Two,
+    CaveSkeletonType_Three
+} CaveSkeletonType;
 
 class CaveSkeleton : public PhysicalEntity
 {
 public:
-    static void create(std::vector<CaveSkeleton>& items, float x, float y, CaveSkeletonType caveSkeletonType);
+    static CaveSkeleton* create(float x, float y, int type);
     
-    CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType caveSkeletonType);
+    CaveSkeleton(float x, float y, float width, float height, CaveSkeletonType type);
     
-    CaveSkeletonType getCaveSkeletonType();
+    CaveSkeletonType getEnumType();
     
-    static CaveSkeleton deserialize(rapidjson::Value& v);
-    
-    virtual void serializeAdditionalParams(rapidjson::Writer<rapidjson::StringBuffer>& w);
+    int getType();
     
 private:
-    CaveSkeletonType m_caveSkeletonType;
+    CaveSkeletonType m_type;
+};
+
+class CaveSkeletonOne : public CaveSkeleton
+{
+public:
+    CaveSkeletonOne(float x, float y, float width = 2.9239766081871346f, float height = 1.7781629116117852f) : CaveSkeleton(x, y, width, height, CaveSkeletonType_One) {}
+};
+
+class CaveSkeletonTwo : public CaveSkeleton
+{
+public:
+    CaveSkeletonTwo(float x, float y, float width = 3.064327485380117f, float height = 2.3864818024263434f) : CaveSkeleton(x, y, width, height, CaveSkeletonType_Two) {}
+};
+
+class CaveSkeletonThree : public CaveSkeleton
+{
+public:
+    CaveSkeletonThree(float x, float y, float width = 3.064327485380117f, float height = 2.3864818024263434f) : CaveSkeleton(x, y, width, height, CaveSkeletonType_Three) {}
 };
 
 #endif /* defined(__nosfuratu__CaveSkeleton__) */

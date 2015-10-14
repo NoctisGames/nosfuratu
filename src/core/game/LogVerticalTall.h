@@ -11,18 +11,16 @@
 
 #include "DestructiblePhysicalEntity.h"
 
-#include <vector>
-
 class LogVerticalTall : public DestructiblePhysicalEntity
 {
 public:
-    static void create(std::vector<LogVerticalTall>& items, float x, float y);
+    static LogVerticalTall* create(float x, float y, int type);
     
     LogVerticalTall(float x, float y, float width = 1.6608187134502923f, float height = 2.1291161178509532f);
     
     virtual void updateBounds();
     
-    static LogVerticalTall deserialize(rapidjson::Value& v);
+    int getType();
 };
 
 #endif /* defined(__nosfuratu__LogVerticalTall__) */

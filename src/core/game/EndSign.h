@@ -10,18 +10,15 @@
 #define __nosfuratu__EndSign__
 
 #include "PhysicalEntity.h"
-#include "EntityAnchor.h"
-
-#include <vector>
 
 class EndSign : public PhysicalEntity
 {
 public:
-    static void create(std::vector<EndSign>& items, float x, float y);
+    static EndSign* create(float x, float y, int type);
     
     EndSign(float x, float y, float width = 0.7953216374269005f, float height = 1.123050259965338f);
     
-    static EndSign deserialize(rapidjson::Value& v);
+    int getType();
 };
 
 #endif /* defined(__nosfuratu__EndSign__) */

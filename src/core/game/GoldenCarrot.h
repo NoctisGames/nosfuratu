@@ -11,16 +11,14 @@
 
 #include "PhysicalEntity.h"
 
-#include <vector>
-
 class GoldenCarrot : public PhysicalEntity
 {
 public:
-    static void create(std::vector<GoldenCarrot>& items, float x, float y);
+    static GoldenCarrot* create(float x, float y, int type);
     
     GoldenCarrot(float x, float y, float width = 1.21637426900585f, float height = 1.14644714038128f);
     
-    static GoldenCarrot deserialize(rapidjson::Value& v);
+    int getType();
 };
 
 #endif /* defined(__nosfuratu__GoldenCarrot__) */

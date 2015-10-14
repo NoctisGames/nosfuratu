@@ -25,7 +25,9 @@ class Game;
 class Jon : public PhysicalEntity
 {
 public:
-    Jon(float x, float y, float width, float height);
+    static Jon* create(float x, float y, int type);
+    
+    Jon(float x, float y, float width = 2.2f, float height = 2.2f);
     
     void update(float deltaTime, Game& game);
     
@@ -39,7 +41,7 @@ public:
     
     void triggerDownAction();
     
-    std::vector<DustCloud>& getDustClouds();
+    std::vector<std::unique_ptr<DustCloud>>& getDustClouds();
     
     JonState getState();
     
@@ -61,10 +63,10 @@ public:
     
     bool isDead();
     
-    static Jon deserialize(rapidjson::Value& v);
+    int getType();
     
 private:
-    std::unique_ptr<std::vector<DustCloud>> m_dustClouds;
+    std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;

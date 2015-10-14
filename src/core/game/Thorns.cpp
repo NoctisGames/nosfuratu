@@ -7,14 +7,10 @@
 //
 
 #include "Thorns.h"
-#include "Rectangle.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
-#include "EntityUtils.h"
 
-void Thorns::create(std::vector<Thorns>& items, float x, float y)
+Thorns* Thorns::create(float x, float y, int type)
 {
-    items.push_back(Thorns(x, y));
+    return new Thorns(x, y);
 }
 
 Thorns::Thorns(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
@@ -33,12 +29,7 @@ void Thorns::updateBounds()
     m_bounds->setHeight(getHeight() * 0.60f);
 }
 
-Thorns Thorns::deserialize(rapidjson::Value& v)
+int Thorns::getType()
 {
-    float x = v[xKey].GetDouble();
-    float y = v[ykey].GetDouble();
-    float width = v[widthKey].GetDouble();
-    float height = v[heightKey].GetDouble();
-    
-    return Thorns(x, y, width, height);
+    return -1;
 }
