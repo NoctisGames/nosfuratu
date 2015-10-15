@@ -308,6 +308,10 @@ void Renderer::renderBounds(Game& game)
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
     
     m_boundsRectangleBatcher->beginBatch();
+    renderBoundsForPhysicalEntities(game.getJons());
+    m_boundsRectangleBatcher->endBatch();
+    
+    m_boundsRectangleBatcher->beginBatch();
     renderBoundsForPhysicalEntities(game.getTrees());
     renderBoundsForPhysicalEntities(game.getCaveSkeletons());
     m_boundsRectangleBatcher->endBatch();

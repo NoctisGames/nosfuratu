@@ -48,7 +48,7 @@ JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_handle_1on_1
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(JNIEnv* env, jclass cls, jstring level_json);
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls);
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
 };
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor)
@@ -169,10 +169,10 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 
 	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
 
-	LevelEditor::getInstance()->getGame().load(nativeLevelJson);
+	LevelEditor::getInstance()->load(nativeLevelJson);
 }
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls)
+JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
 {
 	UNUSED(env);
 	UNUSED(cls);
@@ -180,14 +180,15 @@ JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(J
 	int attempts = 0;
 	while (attempts < 4)
 	{
-		const char *level_json = LevelEditor::getInstance()->getGame().save();
+		const char *level_json = LevelEditor::getInstance()->save();
+		const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
 		if (level_json)
 		{
 			size_t len = strlen(level_json);
 			if (len > 32)
 			{
-				remove("/storage/emulated/0/NosFURatu/nosfuratu.json");
-				FILE *f = fopen("/storage/emulated/0/NosFURatu/nosfuratu.json", "w+, ccs=UTF-8");
+				remove(jsonFilePath);
+				FILE *f = fopen(jsonFilePath, "w+, ccs=UTF-8");
 				int sum = fprintf(f, "%s", level_json);
 				fclose(f);
 
@@ -197,7 +198,7 @@ JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(J
 				}
 				else
 				{
-					remove("/storage/emulated/0/NosFURatu/nosfuratu.json");
+					remove(jsonFilePath);
 				}
 			}
 		}

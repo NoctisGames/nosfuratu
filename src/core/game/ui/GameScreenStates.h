@@ -56,7 +56,9 @@ public:
     
     virtual void exit(GameScreen* gs);
     
-    Game& getGame();
+    const char* save();
+    
+    void load(const char* json);
     
 private:
     std::unique_ptr<Game> m_game;

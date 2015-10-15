@@ -192,7 +192,8 @@ public final class GameRenderer implements Renderer
 
     private void saveLevel()
     {
-        final int result = save_level();
+        File file = _fileHandler.getFile("nosfuratu.json");
+        final int result = save_level(file.getAbsolutePath());
         _activity.runOnUiThread(new Runnable()
         {
             @Override
@@ -265,12 +266,7 @@ public final class GameRenderer implements Renderer
 
     private static native boolean handle_on_back_pressed();
 
-    private static native void load_level(String levelJson);
+    private static native void load_level(String level_json);
 
-    private static native int get_requested_level_to_load();
-
-    //    private static native String get_level_content();
-    private static native byte[] get_level_content();
-
-    private static native int save_level();
+    private static native int save_level(String json_file_path);
 }

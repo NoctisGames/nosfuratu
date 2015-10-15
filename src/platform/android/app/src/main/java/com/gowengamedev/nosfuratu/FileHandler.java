@@ -17,13 +17,14 @@ public final class FileHandler
     public FileHandler(File baseConfigDir)
     {
         _baseDir = baseConfigDir;
+        _baseDir.mkdirs();
     }
 
     public String readFromFile(String fileName)
     {
         waitForMediaMounted();
 
-        File file = new File(_baseDir, fileName);
+        File file = getFile(fileName);
 
         if (!file.exists())
         {
@@ -68,7 +69,7 @@ public final class FileHandler
             _baseDir.mkdir();
         }
 
-        File file = new File(_baseDir, fileName);
+        File file = getFile(fileName);
         BufferedWriter writer = null;
         try
         {
@@ -94,6 +95,13 @@ public final class FileHandler
         }
 
         return false;
+    }
+
+    public File getFile(String fileName)
+    {
+        File file = new File(_baseDir, fileName);
+
+        return file;
     }
 
     private synchronized void waitForMediaMounted()

@@ -217,7 +217,7 @@ static bool isRunningiOS8 = false;
 {
     int result = 0;
     
-    const char *level_json = LevelEditor::getInstance()->getGame().save();
+    const char *level_json = LevelEditor::getInstance()->save();
     if (!level_json)
     {
         result = 2;
@@ -272,7 +272,7 @@ static bool isRunningiOS8 = false;
     
     if (success)
     {
-        LevelEditor::getInstance()->getGame().load(contentCString);
+        LevelEditor::getInstance()->load(contentCString);
     }
 }
 
