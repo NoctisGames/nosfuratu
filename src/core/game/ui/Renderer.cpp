@@ -264,11 +264,11 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getSideSpikes());
     renderPhysicalEntities(game.getUpwardSpikes());
     renderPhysicalEntities(game.getJumpSprings());
-    renderPhysicalEntitiesWithColor(game.getRocks());
     renderPhysicalEntities(game.getPlatforms());
     renderPhysicalEntities(game.getEndSigns());
     renderPhysicalEntities(game.getCarrots());
     renderPhysicalEntities(game.getGoldenCarrots());
+    renderPhysicalEntitiesWithColor(game.getRocks());
     m_spriteBatcher->endBatch(*m_world_1_foreground);
     
     /// Render Jon Effects (e.g. Dust Clouds)
