@@ -64,6 +64,7 @@ private:
     std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
     std::unique_ptr<TrashCan> m_trashCan;
     std::vector<PhysicalEntity*> m_gameEntities;
+    std::vector<PhysicalEntity*> m_addedEntities;
     PhysicalEntity* m_lastAddedEntity;
     PhysicalEntity* m_draggingEntity;
     PhysicalEntity* m_attachToEntity;

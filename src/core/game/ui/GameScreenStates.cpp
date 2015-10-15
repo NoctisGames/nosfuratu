@@ -276,6 +276,15 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         gs->m_stateMachine->changeState(GamePlay::getInstance());
                     }
                     break;
+                case LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO:
+                    if (m_addedEntities.size() > 0)
+                    {
+                        m_addedEntities.at(m_addedEntities.size() - 1)->requestDeletion();
+                        m_addedEntities.pop_back();
+                    }
+                    
+                    resetEntities(true);
+                    break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
                     resetEntities(true);
                     gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD;
@@ -294,6 +303,11 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
         
         if ((rc = m_levelEditorEntitiesPanel->handleTouch(*i, *gs->m_touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
         {
+            if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
+            {
+                m_addedEntities.push_back(m_lastAddedEntity);
+            }
+            
             resetEntities(false);
             
             continue;
@@ -475,6 +489,28 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getGoldenCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getEndSigns(), m_gameEntities);
+    
+    for (std::vector<PhysicalEntity*>::iterator i = m_addedEntities.begin(); i != m_addedEntities.end(); )
+    {
+        bool containedInGameEntities = false;
+        for (std::vector<PhysicalEntity*>::iterator j = m_gameEntities.begin(); j != m_gameEntities.end(); j++)
+        {
+            if ((*i) == (*j))
+            {
+                containedInGameEntities = true;
+                break;
+            }
+        }
+        
+        if (containedInGameEntities)
+        {
+            i++;
+        }
+        else
+        {
+            i = m_addedEntities.erase(i);
+        }
+    }
     
     m_draggingEntity = nullptr;
     m_attachToEntity = nullptr;

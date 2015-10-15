@@ -38,6 +38,7 @@ class Game;
 
 #define LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED -1
 #define LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED 0
+#define LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED 1
 
 class LevelEditorEntitiesPanel : public PhysicalEntity
 {

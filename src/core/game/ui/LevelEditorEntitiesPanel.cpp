@@ -159,67 +159,67 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     
                     if (isTouchingEntityForPlacement(m_jons, game.getJons(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_caveSkeletons, game.getCaveSkeletons(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_logVerticalTalls, game.getLogVerticalTalls(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_logVerticalShorts, game.getLogVerticalShorts(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_thorns, game.getThorns(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_stumps, game.getStumps(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_sideSpikes, game.getSideSpikes(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_upwardSpikes, game.getUpwardSpikes(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_jumpSprings, game.getJumpSprings(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_rocks, game.getRocks(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_platforms, game.getPlatforms(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_carrots, game.getCarrots(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_goldenCarrots, game.getGoldenCarrots(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                     else if (isTouchingEntityForPlacement(m_endSigns, game.getEndSigns(), x, y, lastAddedEntity, touchPoint))
                     {
-                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+                        return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
                 }
             }
