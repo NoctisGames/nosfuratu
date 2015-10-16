@@ -8,7 +8,7 @@
 
 #include "GameScreen.h"
 
-GameScreen::GameScreen(bool isLevelEditor) : m_isLevelEditor(isLevelEditor), m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE)
+GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());

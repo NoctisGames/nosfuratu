@@ -39,7 +39,6 @@ public:
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
-    bool m_isLevelEditor;
     float m_fDeltaTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
