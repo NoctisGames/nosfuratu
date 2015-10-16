@@ -202,6 +202,9 @@
     <Image Include="Assets\jon_ability.dds">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\level_editor.dds">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
