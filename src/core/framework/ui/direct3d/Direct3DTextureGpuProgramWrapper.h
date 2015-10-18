@@ -1,5 +1,5 @@
 //
-//  Direct3DGpuProgramWrapper.h
+//  Direct3DTextureGpuProgramWrapper.h
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 8/30/15.

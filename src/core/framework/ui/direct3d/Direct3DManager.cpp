@@ -33,6 +33,7 @@ void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int 
 	createVertexBufferForGeometryBatcher();
 	createIndexBuffer();
 	createConstantBuffer();
+	createOffsetBuffer();
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper());
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
@@ -245,6 +246,23 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 
 	{
 		// Load shaders asynchronously.
+		auto loadPSTask = DX::ReadDataAsync(L"SinWaveTexturePixelShader.cso");
+
+		// After the pixel shader file is loaded, create the shader
+		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_sbSinWavePixelShader
+					)
+				);
+		});
+	}
+
+	{
+		// Load shaders asynchronously.
 		auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
 		auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
 
@@ -416,6 +434,17 @@ void Direct3DManager::createConstantBuffer()
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
 	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
+}
+
+void Direct3DManager::createOffsetBuffer()
+{
+	D3D11_BUFFER_DESC bd = { 0 };
+
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = 16;
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
 }
 
 std::vector<short> Direct3DManager::createIndexValues()

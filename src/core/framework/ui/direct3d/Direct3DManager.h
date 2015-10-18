@@ -38,12 +38,14 @@ public:
 	ID3D11BlendState *m_blendState; // the blend state interface
 	ID3D11BlendState *m_screenBlendState; // the blend state interface, but for rendering to the screen
 	ID3D11Buffer *m_matrixConstantbuffer; // the matrix constant buffer interface
+	ID3D11Buffer *m_offsetConstantBuffer; // the offset constant buffer interface
 	ID3D11Buffer *m_indexbuffer; // the index buffer interface
 
 	// Used in SpriteBatcher
 	ID3D11SamplerState *m_sbSamplerState; // the sampler state interfaces
 	ID3D11VertexShader *m_sbVertexShader; // the vertex shader interface
 	ID3D11PixelShader *m_sbPixelShader; // the pixel shader interface
+	ID3D11PixelShader *m_sbSinWavePixelShader; // the pixel shader interface
 	ID3D11InputLayout *m_sbInputLayout; // the input layout interface
 	ID3D11Buffer *m_sbVertexBuffer; // the vertex buffer interface
 	std::vector<TEXTURE_VERTEX> m_textureVertices;
@@ -90,6 +92,7 @@ private:
 	void createVertexBufferForGeometryBatcher();
 	void createIndexBuffer();
 	void createConstantBuffer();
+	void createOffsetBuffer();
 
 	std::vector<short> createIndexValues();
 

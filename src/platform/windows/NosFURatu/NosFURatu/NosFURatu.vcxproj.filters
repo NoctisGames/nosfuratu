@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -234,6 +236,7 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\..\..\..\..\Desktop\SinWaveTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\bgm.wav">
