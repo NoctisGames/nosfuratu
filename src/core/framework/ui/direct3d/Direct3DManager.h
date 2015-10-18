@@ -9,7 +9,6 @@
 #ifndef __gowengamedev__Direct3DManager__
 #define __gowengamedev__Direct3DManager__
 
-#define MAX_BATCH_SIZE 1024
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
 
@@ -71,7 +70,7 @@ public:
 
 	static Direct3DManager * getInstance();
 
-	void init(DX::DeviceResources &deviceResources, int width, int height);
+	void init(DX::DeviceResources &deviceResources, int width, int height, int maxBatchSize);
 
 	void initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height);
 
@@ -88,13 +87,13 @@ private:
 	void createSamplerState();
 	void createInputLayoutForSpriteBatcher();
 	void createInputLayoutForGeometryBatcher();
-	void createVertexBufferForSpriteBatcher();
-	void createVertexBufferForGeometryBatcher();
-	void createIndexBuffer();
+	void createVertexBufferForSpriteBatcher(int maxBatchSize);
+	void createVertexBufferForGeometryBatcher(int maxBatchSize);
+	void createIndexBuffer(int maxBatchSize);
 	void createConstantBuffer();
 	void createOffsetBuffer();
 
-	std::vector<short> createIndexValues();
+	std::vector<short> createIndexValues(int maxBatchSize);
 
 	// ctor, copy ctor, and assignment should be private in a Singleton
 	Direct3DManager();
