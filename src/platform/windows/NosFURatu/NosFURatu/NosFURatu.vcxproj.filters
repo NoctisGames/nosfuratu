@@ -236,7 +236,7 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl" />
-    <FxCompile Include="..\..\..\..\..\..\..\..\Desktop\SinWaveTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\bgm.wav">
