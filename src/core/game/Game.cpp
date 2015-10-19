@@ -102,8 +102,10 @@ const char* Game::save()
     using namespace rapidjson;
     using namespace std;
     
-    StringBuffer s;
+    static StringBuffer s;
     Writer<StringBuffer> w(s);
+
+	s.Clear();
     
     w.StartObject();
     
@@ -129,14 +131,7 @@ const char* Game::save()
     
     w.EndObject();
     
-    const char * retval = s.GetString();
-    size_t len = strlen(retval);
-    if (len > 8192)
-    {
-        retval = nullptr;
-    }
-    
-    return retval;
+    return s.GetString();
 }
 
 void Game::reset()

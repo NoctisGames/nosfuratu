@@ -594,7 +594,6 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
 {
     m_gameEntities.clear();
     
-    EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     EntityUtils::addAll(m_game->getTrees(), m_gameEntities);
     EntityUtils::addAll(m_game->getCaveSkeletons(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
@@ -610,6 +609,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getGoldenCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getEndSigns(), m_gameEntities);
+	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
     for (std::vector<PhysicalEntity*>::iterator i = m_addedEntities.begin(); i != m_addedEntities.end(); )
     {

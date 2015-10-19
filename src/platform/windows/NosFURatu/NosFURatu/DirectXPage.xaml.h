@@ -69,6 +69,32 @@ namespace NosFURatu
 		DX::StepTimer m_timer;
 
 		bool m_isPointerPressed;
+
+		void saveLevel();
+
+		void loadLevel();
+
+		Windows::Storage::StorageFile^ nosfuratuFile;
+
+		static property Platform::String^ Filename
+        {
+            Platform::String^ get()
+            {
+                return ref new Platform::String(L"nosfuratu.json");
+            }
+        }
+
+        property Windows::Storage::StorageFile^ NosfuratuFile
+        {
+            Windows::Storage::StorageFile^ get()
+            {
+                return nosfuratuFile;
+            }
+            void set(Windows::Storage::StorageFile^ value)
+            {
+				nosfuratuFile = value;
+            }
+        }
 	};
 }
 

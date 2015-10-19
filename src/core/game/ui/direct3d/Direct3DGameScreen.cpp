@@ -12,7 +12,13 @@
 #include "Direct3DManager.h"
 #include "GameSound.h"
 
-Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : GameScreen()
+#ifdef GGD_LEVEL_EDITOR
+#define IS_LEVEL_EDITOR true
+#else
+#define IS_LEVEL_EDITOR false
+#endif
+
+Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : GameScreen(IS_LEVEL_EDITOR)
 {
 	m_deviceResources = deviceResources;
 

@@ -224,11 +224,26 @@ void DirectXPage::StopRenderLoop()
 // Updates the application state once per frame.
 void DirectXPage::Update()
 {
-	// Update scene objects.
-	m_timer.Tick([&]()
+	switch (m_gameScreen->getRequestedAction())
 	{
-		m_gameScreen->update(m_timer.GetElapsedSeconds());
-	});
+	case REQUESTED_ACTION_UPDATE:
+		// Update scene objects.
+		m_timer.Tick([&]()
+		{
+			m_gameScreen->update(m_timer.GetElapsedSeconds());
+		});
+		break;
+	case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+		saveLevel();
+		m_gameScreen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+		loadLevel();
+		m_gameScreen->clearRequestedAction();
+		break;
+	default:
+		break;
+	}
 }
 
 // Renders the current frame according to the current application state.
@@ -246,4 +261,82 @@ bool DirectXPage::Render()
 	m_gameScreen->handleSound();
 
 	return true;
+}
+
+void DirectXPage::saveLevel()
+{
+	const char *level_json = LevelEditor::getInstance()->save();
+
+	StorageFile^ file = NosfuratuFile;
+	if (file != nullptr)
+	{
+		std::string s(level_json);
+		std::wstring ws;
+		ws.assign(s.begin(), s.end());
+		String^ levelJson = ref new Platform::String(ws.c_str());
+		if (levelJson != nullptr && !levelJson->IsEmpty())
+		{
+			create_task(FileIO::WriteTextAsync(file, levelJson)).then([this, file, levelJson](task<void> task)
+			{
+				try
+				{
+					task.get();
+				}
+				catch (COMException^ ex)
+				{
+					// TODO, update UI to reflect that an error has occurred
+				}
+			});
+		}
+		else
+		{
+			// TODO, update UI to reflect that an error has occurred
+		}
+	}
+	else
+	{
+		create_task(KnownFolders::PicturesLibrary->CreateFileAsync(Filename, CreationCollisionOption::ReplaceExisting)).then([this](StorageFile^ file)
+		{
+			NosfuratuFile = file;
+			saveLevel();
+		});
+	}
+}
+
+void DirectXPage::loadLevel()
+{
+	StorageFile^ file = NosfuratuFile;
+	if (file != nullptr)
+	{
+		create_task(FileIO::ReadTextAsync(file)).then([this, file](task<String^> task)
+		{
+			try
+			{
+				String^ fileContent = task.get();
+				if (fileContent != nullptr)
+				{
+					std::wstring fooW(fileContent->Begin());
+					std::string fooA(fooW.begin(), fooW.end());
+					const char *levelContent = fooA.c_str();
+					LevelEditor::getInstance()->load(levelContent);
+				}
+				else
+				{
+					// TODO, update UI to reflect that an error has occurred
+				}
+			}
+			catch (COMException^ ex)
+			{
+				// TODO, update UI to reflect that an error has occurred
+			}
+		});
+	}
+	else
+	{
+		create_task(KnownFolders::PicturesLibrary->CreateFileAsync(Filename, CreationCollisionOption::OpenIfExists)).then([this](StorageFile^ file)
+		{
+			NosfuratuFile = file;
+			loadLevel();
+		});
+	}
 }
