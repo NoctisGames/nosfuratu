@@ -22,17 +22,18 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height)
+void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height, int maxBatchSize)
 {
 	initWindowSizeDependentResources(deviceResources, width, height);
 	createBlendState();
 	createSamplerState();
 	createInputLayoutForSpriteBatcher();
 	createInputLayoutForGeometryBatcher();
-	createVertexBufferForSpriteBatcher();
-	createVertexBufferForGeometryBatcher();
-	createIndexBuffer();
+	createVertexBufferForSpriteBatcher(maxBatchSize);
+	createVertexBufferForGeometryBatcher(maxBatchSize);
+	createIndexBuffer(maxBatchSize);
 	createConstantBuffer();
+	createOffsetBuffer();
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper());
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
@@ -245,6 +246,23 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 
 	{
 		// Load shaders asynchronously.
+		auto loadPSTask = DX::ReadDataAsync(L"SinWaveTexturePixelShader.cso");
+
+		// After the pixel shader file is loaded, create the shader
+		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_d3dDevice->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_sbSinWavePixelShader
+					)
+				);
+		});
+	}
+
+	{
+		// Load shaders asynchronously.
 		auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
 		auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
 
@@ -338,11 +356,11 @@ void Direct3DManager::createInputLayoutForGeometryBatcher()
 	});
 }
 
-void Direct3DManager::createVertexBufferForSpriteBatcher()
+void Direct3DManager::createVertexBufferForSpriteBatcher(int maxBatchSize)
 {
-	m_textureVertices.reserve(MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE);
+	m_textureVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
 	TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE; i++)
+	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
 	{
 		m_textureVertices.push_back(tv);
 	}
@@ -363,11 +381,11 @@ void Direct3DManager::createVertexBufferForSpriteBatcher()
 	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
-void Direct3DManager::createVertexBufferForGeometryBatcher()
+void Direct3DManager::createVertexBufferForGeometryBatcher(int maxBatchSize)
 {
-	m_colorVertices.reserve(MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE);
+	m_colorVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
 	COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < MAX_BATCH_SIZE * VERTICES_PER_RECTANGLE; i++)
+	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
 	{
 		m_colorVertices.push_back(cv);
 	}
@@ -388,15 +406,15 @@ void Direct3DManager::createVertexBufferForGeometryBatcher()
 	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
 }
 
-void Direct3DManager::createIndexBuffer()
+void Direct3DManager::createIndexBuffer(int maxBatchSize)
 {
 	D3D11_BUFFER_DESC indexBufferDesc = { 0 };
 
-	indexBufferDesc.ByteWidth = sizeof(short)* MAX_BATCH_SIZE * INDICES_PER_RECTANGLE;
+	indexBufferDesc.ByteWidth = sizeof(short) * maxBatchSize * INDICES_PER_RECTANGLE;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 
-	auto indexValues = createIndexValues();
+	auto indexValues = createIndexValues(maxBatchSize);
 
 	D3D11_SUBRESOURCE_DATA indexDataDesc = { 0 };
 
@@ -418,14 +436,25 @@ void Direct3DManager::createConstantBuffer()
 	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
 }
 
-std::vector<short> Direct3DManager::createIndexValues()
+void Direct3DManager::createOffsetBuffer()
+{
+	D3D11_BUFFER_DESC bd = { 0 };
+
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = 16;
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
+}
+
+std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 {
 	std::vector<short> indices;
 
-	indices.reserve(MAX_BATCH_SIZE * INDICES_PER_RECTANGLE);
+	indices.reserve(maxBatchSize * INDICES_PER_RECTANGLE);
 
 	short j = 0;
-	for (int i = 0; i < MAX_BATCH_SIZE * INDICES_PER_RECTANGLE; i += INDICES_PER_RECTANGLE, j += VERTICES_PER_RECTANGLE)
+	for (int i = 0; i < maxBatchSize * INDICES_PER_RECTANGLE; i += INDICES_PER_RECTANGLE, j += VERTICES_PER_RECTANGLE)
 	{
 		indices.push_back(j);
 		indices.push_back(j + 1);

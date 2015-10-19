@@ -30,6 +30,7 @@
 #include "DirectXHelper.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "Direct3DSinWaveTextureGpuProgramWrapper.h"
 
 #include <string>
 #include <sstream>
@@ -57,6 +58,10 @@ void prepend(char* s, const char* t)
 Direct3DRenderer::Direct3DRenderer() : Renderer(), m_iNumTexturesLoaded(0)
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher());
+	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher());
+	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(true));
+
+	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper());
 }
 
 TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName)

@@ -19,7 +19,7 @@ Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : G
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	D3DManager->init(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height);
+	D3DManager->init(*m_deviceResources, m_deviceResources->m_d3dRenderTargetSize.Width, m_deviceResources->m_d3dRenderTargetSize.Height, MAX_BATCH_SIZE);
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer());
 

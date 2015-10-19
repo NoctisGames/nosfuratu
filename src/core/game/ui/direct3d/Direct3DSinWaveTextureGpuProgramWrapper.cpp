@@ -1,21 +1,21 @@
 //
-//  Direct3DTextureGpuProgramWrapper.cpp
-//  gowengamedev-framework
+//  Direct3DSinWaveTextureGpuProgramWrapper.cpp
+//  nosfuratu
 //
-//  Created by Stephen Gowen on 8/30/15.
+//  Created by Stephen Gowen on 10/18/15.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
 #include "pch.h"
-#include "Direct3DTextureGpuProgramWrapper.h"
+#include "Direct3DSinWaveTextureGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 
-Direct3DTextureGpuProgramWrapper::Direct3DTextureGpuProgramWrapper()
+Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper()
 {
 	// Empty
 }
 
-void Direct3DTextureGpuProgramWrapper::bind()
+void Direct3DSinWaveTextureGpuProgramWrapper::bind()
 {
 	D3DManager->m_d3dContext->OMSetBlendState(D3DManager->m_blendState, 0, 0xffffffff);
 
@@ -23,12 +23,16 @@ void Direct3DTextureGpuProgramWrapper::bind()
 
 	// set the shader objects as the active shaders
 	D3DManager->m_d3dContext->VSSetShader(D3DManager->m_sbVertexShader, nullptr, 0);
-	D3DManager->m_d3dContext->PSSetShader(D3DManager->m_sbPixelShader, nullptr, 0);
+	D3DManager->m_d3dContext->PSSetShader(D3DManager->m_sbSinWavePixelShader, nullptr, 0);
 
 	D3DManager->m_d3dContext->VSSetConstantBuffers(0, 1, &D3DManager->m_matrixConstantbuffer);
+	D3DManager->m_d3dContext->PSSetConstantBuffers(0, 1, &D3DManager->m_offsetConstantBuffer);
 
 	// send the final matrix to video memory
 	D3DManager->m_d3dContext->UpdateSubresource(D3DManager->m_matrixConstantbuffer, 0, 0, &D3DManager->m_matFinal, 0, 0);
+
+	// send the new offset to video memory
+	D3DManager->m_d3dContext->UpdateSubresource(D3DManager->m_offsetConstantBuffer, 0, 0, &m_fOffset, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -49,7 +53,7 @@ void Direct3DTextureGpuProgramWrapper::bind()
 	D3DManager->m_d3dContext->IASetVertexBuffers(0, 1, &D3DManager->m_sbVertexBuffer, &stride, &offset);
 }
 
-void Direct3DTextureGpuProgramWrapper::unbind()
+void Direct3DSinWaveTextureGpuProgramWrapper::unbind()
 {
 	// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };

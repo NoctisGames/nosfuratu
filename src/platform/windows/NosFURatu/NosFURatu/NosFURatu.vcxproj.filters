@@ -92,6 +92,13 @@
     <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
     <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CaveSkeleton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -179,6 +186,13 @@
     <ClInclude Include="..\..\..\..\core\game\UpwardSpikeType.h" />
     <ClInclude Include="..\..\..\..\core\game\CaveSkeleton.h" />
     <ClInclude Include="..\..\..\..\core\game\CaveSkeletonType.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -222,6 +236,7 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\bgm.wav">
