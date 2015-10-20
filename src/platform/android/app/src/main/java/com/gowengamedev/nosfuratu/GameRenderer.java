@@ -193,13 +193,16 @@ public final class GameRenderer implements Renderer
     private void saveLevel()
     {
         File file = _fileHandler.getFile("nosfuratu.json");
-        final int result = save_level(file.getAbsolutePath());
+        _isDoingIO = true;
+        final boolean result = save_level(file.getAbsolutePath());
+        _isDoingIO = false;
+
         _activity.runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                Toast.makeText(_activity, result == 0 ? "Level saved successfully" : result == 1 ? "Error occurred while saving level... Please try again!" : "Error occurred while saving level... Too many objects!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(_activity, result ? "Level saved successfully" : "Error occurred while saving level... Please try again!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -268,5 +271,5 @@ public final class GameRenderer implements Renderer
 
     private static native void load_level(String level_json);
 
-    private static native int save_level(String json_file_path);
+    private static native boolean save_level(String json_file_path);
 }

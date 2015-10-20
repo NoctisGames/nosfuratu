@@ -215,35 +215,22 @@ static bool isRunningiOS8 = false;
 
 - (void)saveLevel
 {
-    int result = 0;
-    
+    bool result = false;
     const char *level_json = LevelEditor::getInstance()->save();
-    if (!level_json)
+    if (level_json)
     {
-        result = 2;
-    }
-    else
-    {
-        size_t len = strlen(level_json);
-        if (len <= 32)
-        {
-            result = 1;
-        }
-        else
-        {
-            NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
-            
-            NSError* error;
-            [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-            
-            result = error ? 1 : 0;
-        }
+        NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
+        
+        NSError* error;
+        [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        
+        result = error ? false : true;
     }
     
-    [self.view makeToast:result == 0 ? @"Level saved successfully" : result == 1 ? @"Error occurred while saving level... Please try again!" : @"Error occurred while saving level... Too many objects!"];
+    [self.view makeToast:result ? @"Level saved successfully" : @"Error occurred while saving level... Please try again!"];
 }
 
 - (void)loadLevel

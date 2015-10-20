@@ -201,6 +201,7 @@
 		BBA0E6461BB5D0C10026A433 /* collect_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */; };
 		BBA0E6471BB5D0C10026A433 /* collect_golden_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
+		BBA728991BD58EC000E2A27A /* level_editor-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBA728981BD58EC000E2A27A /* level_editor-Info.plist */; settings = {ASSET_TAGS = (); }; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; settings = {ASSET_TAGS = (); }; };
 		BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E8E1BBB59E3007158E6 /* Stump.cpp */; settings = {ASSET_TAGS = (); }; };
 		BBBA6E931BBB6979007158E6 /* LogVerticalShort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E911BBB6979007158E6 /* LogVerticalShort.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -395,6 +396,7 @@
 		BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_carrot.caf; sourceTree = "<group>"; };
 		BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_golden_carrot.caf; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BBA728981BD58EC000E2A27A /* level_editor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "level_editor-Info.plist"; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
 		BBB7A8791BBAD34400829FF6 /* DustCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DustCloud.h; sourceTree = "<group>"; };
 		BBBA6E8E1BBB59E3007158E6 /* Stump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Stump.cpp; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 			children = (
 				BBD079F518AA879D00E010AF /* assets */,
 				0ADF1883178E2185005DA99E /* nosfuratu-Info.plist */,
+				BBA728981BD58EC000E2A27A /* level_editor-Info.plist */,
 				BBA6492119B5FED100023E5A /* Images.xcassets */,
 				0ADF1884178E2185005DA99E /* InfoPlist.strings */,
 				BB74E80518C2541F007C223E /* Localizable.strings */,
@@ -1284,6 +1287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB4237B01BBDB6AB005D9B44 /* world_1_background.png in Resources */,
+				BBA728991BD58EC000E2A27A /* level_editor-Info.plist in Resources */,
 				BB4237B11BBDB6AB005D9B44 /* world_1_foreground_more.png in Resources */,
 				BB4237B21BBDB6AB005D9B44 /* texture_shader.fsh in Resources */,
 				BB4237B31BBDB6AB005D9B44 /* frame_buffer_to_screen_shader.vsh in Resources */,
@@ -1722,7 +1726,7 @@
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
-				INFOPLIST_FILE = "nosfuratu-Info.plist";
+				INFOPLIST_FILE = "level_editor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
@@ -1763,7 +1767,7 @@
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
-				INFOPLIST_FILE = "nosfuratu-Info.plist";
+				INFOPLIST_FILE = "level_editor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = NO;

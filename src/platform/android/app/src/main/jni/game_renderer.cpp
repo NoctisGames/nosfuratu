@@ -8,7 +8,6 @@
 
 #include <jni.h>
 #include <stdio.h>
-#include <cstring>
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenStates.h"
@@ -48,7 +47,7 @@ JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_handle_1on_1
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(JNIEnv* env, jclass cls, jstring level_json);
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
+JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
 };
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor)
@@ -172,43 +171,23 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 	LevelEditor::getInstance()->load(nativeLevelJson);
 }
 
-JNIEXPORT int JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
+JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	int attempts = 0;
-	while (attempts < 4)
+	const char *level_json = LevelEditor::getInstance()->save();
+	const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
+	if (level_json)
 	{
-		const char *level_json = LevelEditor::getInstance()->save();
-		const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
-		if (level_json)
-		{
-			size_t len = strlen(level_json);
-			if (len > 32)
-			{
-				remove(jsonFilePath);
-				FILE *f = fopen(jsonFilePath, "w+, ccs=UTF-8");
-				int sum = fprintf(f, "%s", level_json);
-				fclose(f);
+		FILE *f = fopen(jsonFilePath, "w+, ccs=UTF-8");
+		int sum = fprintf(f, "%s", level_json);
+		fclose(f);
 
-				if (sum >= len)
-				{
-					return 0;
-				}
-				else
-				{
-					remove(jsonFilePath);
-				}
-			}
-		}
-		else
-		{
-			return 2;
-		}
-
-		attempts++;
+		return true;
 	}
-
-	return 1;
+	else
+	{
+		return false;
+	}
 }

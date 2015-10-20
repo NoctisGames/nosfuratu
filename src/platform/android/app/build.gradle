@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1.014"
+        versionName "0.1.015"
         signingConfig signingConfigs.gowengamedev
     }
     buildTypes {
@@ -28,6 +28,9 @@ android {
             buildConfigField "boolean", "IS_LEVEL_EDITOR", "false"
         }
         debug {
+            debuggable true
+            applicationIdSuffix ".le"
+            versionNameSuffix "-le"
             buildConfigField "boolean", "IS_LEVEL_EDITOR", "true"
         }
     }
@@ -55,8 +58,6 @@ android {
         include('*.png')
     }
     preBuild.dependsOn(copyFiles)
-    productFlavors {
-    }
 }
 
 dependencies {
