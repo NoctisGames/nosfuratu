@@ -70,7 +70,7 @@ bool OverlapTester::doRectanglesOverlap(Rectangle &r1, Rectangle &r2)
     }
     else
     {
-        return (r1.getLowerLeft().getX() < r2.getLowerLeft().getX() + r2.getWidth() && r1.getLowerLeft().getX() + r1.getWidth() > r2.getLowerLeft().getX() && r1.getLowerLeft().getY() < r2.getLowerLeft().getY() + r2.getHeight() && r1.getLowerLeft().getY() + r1.getHeight() > r2.getLowerLeft().getY());
+        return (r1.getLowerLeft().getX() < r2.getLowerLeft().getX() + r2.getWidth() && r1.getLowerLeft().getX() + r1.getWidth() > r2.getLowerLeft().getX() && r1.getLowerLeft().getY() < r2.getTop() && r1.getTop() > r2.getLowerLeft().getY());
     }
 }
 
@@ -92,9 +92,9 @@ bool OverlapTester::overlapCircleRectangle(const Circle &c, Rectangle &r)
     {
         closestY = r.getLowerLeft().getY();
     }
-    else if (c.getCenter().getY() > r.getLowerLeft().getY() + r.getHeight())
+    else if (c.getCenter().getY() > r.getTop())
     {
-        closestY = r.getLowerLeft().getY() + r.getHeight();
+        closestY = r.getTop();
     }
     
     return c.getCenter().distSquared(closestX, closestY) < c.m_fRadius * c.m_fRadius;
@@ -107,7 +107,7 @@ bool OverlapTester::doesRectangleOverlapTriangle(Rectangle &r, Triangle &t)
 
 bool OverlapTester::isPointInRectangle(const Vector2D &p, Rectangle &r)
 {
-    return r.getLowerLeft().getX() <= p.getX() && r.getLowerLeft().getX() + r.getWidth() >= p.getX() && r.getLowerLeft().getY() <= p.getY() && r.getLowerLeft().getY() + r.getHeight() >= p.getY();
+    return r.getLowerLeft().getX() <= p.getX() && r.getLowerLeft().getX() + r.getWidth() >= p.getX() && r.getLowerLeft().getY() <= p.getY() && r.getTop() >= p.getY();
 }
 
 bool OverlapTester::isPointInCircle(const Vector2D &p, const Circle &c)
@@ -151,7 +151,7 @@ bool OverlapTester::doLineAndRectangleOverlap(Line &l, Rectangle &r)
         return true;
     }
     
-    if (doLinesIntersect(l.getOrigin().getX(), l.getOrigin().getY(), l.getEnd().getX(), l.getEnd().getY(), r.getLowerLeft().getX() + r.getWidth() / 2, r.getLowerLeft().getY(), r.getLowerLeft().getX() + r.getWidth() / 2, r.getLowerLeft().getY() + r.getHeight()))
+    if (doLinesIntersect(l.getOrigin().getX(), l.getOrigin().getY(), l.getEnd().getX(), l.getEnd().getY(), r.getLowerLeft().getX() + r.getWidth() / 2, r.getLowerLeft().getY(), r.getLowerLeft().getX() + r.getWidth() / 2, r.getTop()))
     {
         return true;
     }

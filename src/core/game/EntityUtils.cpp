@@ -54,8 +54,8 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
     
     if (yCorrection)
     {
-        float top = entity.getBounds().getLowerLeft().getY() + entity.getBounds().getHeight();
-        float topTo = to.getBounds().getLowerLeft().getY() + to.getBounds().getHeight();
+        float top = entity.getBounds().getTop();
+        float topTo = to.getBounds().getTop();
         float yDelta = topTo - top;
         entity.getPosition().add(0, yDelta);
         entity.updateBounds();
@@ -65,7 +65,7 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
 void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset)
 {
     float halfHeight = entity.getBounds().getHeight() / 2;
-    float top = on.getBounds().getLowerLeft().getY() + on.getBounds().getHeight();
+    float top = on.getBounds().getTop();
     float y = top + halfHeight;
     
     entity.getPosition().setY(y);

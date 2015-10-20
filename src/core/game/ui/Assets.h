@@ -80,9 +80,9 @@ public:
     
     static TextureRegion& get(GoldenCarrot& goldenCarrot);
     
-    static TextureRegion& get(DustCloud& dustCloud);
-    
     static TextureRegion& get(Jon& jon);
+    
+    static TextureRegion& get(DustCloud& dustCloud);
     
     static TextureRegion& get(BackButton& backButton);
     

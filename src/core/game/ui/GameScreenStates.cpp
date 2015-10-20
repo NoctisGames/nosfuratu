@@ -550,8 +550,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                             float draggingPosY = m_draggingEntity->getPosition().getY();
                             float draggingPosX = m_draggingEntity->getBounds().getLowerLeft().getX();
                             float attachToWidth = m_attachToEntity->getBounds().getWidth();
-                            float attachToHeight = m_attachToEntity->getBounds().getHeight();
-                            float attachToTop = m_attachToEntity->getBounds().getLowerLeft().getY() + attachToHeight;
+                            float attachToTop = m_attachToEntity->getBounds().getTop();
                             float attachToLeft = m_attachToEntity->getBounds().getLowerLeft().getX();
                             float attachToRight = attachToLeft + attachToWidth * 0.75f;
                             attachToLeft += attachToWidth * 0.25f;

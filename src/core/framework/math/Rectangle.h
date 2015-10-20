@@ -20,6 +20,8 @@ public:
     
     Vector2D& getLowerLeft();
     
+    float getTop();
+    
     float getWidth();
     
     void setWidth(float width);
@@ -33,7 +35,7 @@ public:
     void setAngle(float angle);
     
 private:
-    std::unique_ptr<Vector2D> m_LowerLeft;
+    std::unique_ptr<Vector2D> m_lowerLeft;
     float m_fWidth;
     float m_fHeight;
     float m_fAngle;

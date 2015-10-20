@@ -216,7 +216,7 @@ bool Game::isJonGrounded(float deltaTime)
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime);
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getUpwardSpikes(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)
@@ -226,7 +226,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
 
 bool Game::isJonHit(float deltaTime)
 {
-    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isHit(getJon(), getUpwardSpikes());
+    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes());
 }
 
 bool Game::isJonLandingOnSpring(float deltaTime)

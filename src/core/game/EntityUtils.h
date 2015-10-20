@@ -43,7 +43,7 @@ public:
             {
                 if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
-                    float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
+                    float itemTop = (*i)->getBounds().getTop();
                     float padding = itemTop * .01f;
                     padding += entityYDelta;
                     float itemTopReq = itemTop - padding;
@@ -75,7 +75,7 @@ public:
             {
                 if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
                 {
-                    float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
+                    float itemTop = (*i)->getBounds().getTop();
                     float padding = itemTop * .01f;
                     padding += entityYDelta;
                     float itemTopReq = itemTop - padding;
@@ -105,7 +105,7 @@ public:
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
                 float itemLeft = (*i)->getBounds().getLowerLeft().getX();
-                float itemTop = (*i)->getBounds().getLowerLeft().getY() + (*i)->getBounds().getHeight();
+                float itemTop = (*i)->getBounds().getTop();
                 float itemTopReq = itemTop * 0.99f;
                 float itemLeftReq = itemLeft - padding;
                 
@@ -207,6 +207,41 @@ public:
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
                 return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
+    static bool isFallingIntoDeath(PhysicalEntity& entity, std::vector<T>& items)
+    {
+        float entityVelocityY = entity.getVelocity().getY();
+        if (entityVelocityY < 0)
+        {
+            float originalY = entity.getPosition().getY();
+            entity.getPosition().sub(0, entity.getVelocity().getY() * 0.5f);
+            entity.updateBounds();
+            
+            float width = entity.getBounds().getWidth();
+            float height = entity.getBounds().getHeight();
+            float x = entity.getBounds().getLowerLeft().getX();
+            float y = entity.getBounds().getLowerLeft().getY();
+            
+            Rectangle tempBounds = Rectangle(x, y, width, height);
+            
+            entity.getPosition().setY(originalY);
+            entity.updateBounds();
+            
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            {
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                {
+                    if (tempBounds.getLowerLeft().getY() > (*i)->getBounds().getTop())
+                    {
+                        return true;
+                    }
+                }
             }
         }
         

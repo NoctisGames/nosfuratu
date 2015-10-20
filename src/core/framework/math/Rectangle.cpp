@@ -11,7 +11,7 @@
 
 Rectangle::Rectangle(float x, float y, float width, float height, float angle)
 {
-    m_LowerLeft = std::unique_ptr<Vector2D>(new Vector2D(x, y));
+    m_lowerLeft = std::unique_ptr<Vector2D>(new Vector2D(x, y));
     m_fWidth = width;
     m_fHeight = height;
     m_fAngle = angle;
@@ -19,7 +19,12 @@ Rectangle::Rectangle(float x, float y, float width, float height, float angle)
 
 Vector2D& Rectangle::getLowerLeft()
 {
-    return *m_LowerLeft;
+    return *m_lowerLeft;
+}
+
+float Rectangle::getTop()
+{
+    return m_lowerLeft->getY() + m_fHeight;
 }
 
 float Rectangle::getWidth()

@@ -273,13 +273,6 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
     return anim.getTextureRegion(goldenCarrot.getStateTime());
 }
 
-TextureRegion& Assets::get(DustCloud& dustCloud)
-{
-    static Animation anim = Animation(0, 552, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
-    
-    return anim.getTextureRegion(dustCloud.getStateTime());
-}
-
 TextureRegion& Assets::get(Jon& jon)
 {
     static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
@@ -325,6 +318,13 @@ TextureRegion& Assets::get(Jon& jon)
     }
     
     return jonRunningAnim.getTextureRegion(jon.getStateTime());
+}
+
+TextureRegion& Assets::get(DustCloud& dustCloud)
+{
+    static Animation anim = Animation(0, 552, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
+    
+    return anim.getTextureRegion(dustCloud.getStateTime());
 }
 
 TextureRegion& Assets::get(BackButton& backButton)
