@@ -62,6 +62,7 @@ void Jon::update(float deltaTime, Game& game)
     if (game.isJonHit(deltaTime))
     {
         setState(JON_DYING_FADING);
+        return;
     }
     
     if (m_actionState != ACTION_NONE)
@@ -77,6 +78,7 @@ void Jon::update(float deltaTime, Game& game)
 	if (m_position->getY() < -m_fHeight / 2)
 	{
         setState(JON_DEAD);
+        return;
 	}
     
     bool wasGrounded = m_physicalState == PHYSICAL_GROUNDED;
