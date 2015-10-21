@@ -12,7 +12,8 @@
 typedef enum
 {
     ABILITY_NONE,
-    ABILITY_SPINNING_BACK_FIST
+    ABILITY_SPINNING_BACK_FIST,
+    ABILITY_BURROW
 } JonAbilityState;
 
 #endif /* defined(__nosfuratu__JonAbilityState__) */

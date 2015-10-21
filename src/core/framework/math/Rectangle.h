@@ -20,6 +20,8 @@ public:
     
     Vector2D& getLowerLeft();
     
+    float getRight();
+    
     float getTop();
     
     float getWidth();

@@ -10,7 +10,7 @@
 #include "TextureRegion.h"
 #include <stdarg.h>
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames, ...) : m_cycleTime(0), m_looping(looping)
+Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames, ...) : m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
 
@@ -22,20 +22,20 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
 	{
 		float f = va_arg(arguments, double);
 		m_frameTimes.push_back(f);
-		m_cycleTime += f;
+		m_fCycleTime += f;
 	}
 
 	va_end(arguments);
 }
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames) : m_cycleTime(0), m_looping(looping)
+Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame) : m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
 
 	for (int i = 0; i < numFrames; i++)
 	{
 		m_frameTimes.push_back(frameTime);
-		m_cycleTime += frameTime;
+		m_fCycleTime += frameTime;
 	}
 }
 
@@ -80,12 +80,18 @@ void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeig
 
 int Animation::getKeyFrameNumber(float stateTime)
 {
-	float cycleTime = m_cycleTime;
-
-	if (stateTime > cycleTime && cycleTime > 0)
+    unsigned int i = 0;
+    
+	if (stateTime > m_fCycleTime && m_fCycleTime > 0)
 	{
 		if (m_looping)
 		{
+            float cycleTime = m_fCycleTime;
+            for ( ; i < m_iFirstLoopingFrame; i++)
+            {
+                cycleTime -= m_frameTimes.at(i);
+            }
+            
 			while (stateTime > cycleTime)
 			{
 				stateTime -= cycleTime;
@@ -97,13 +103,13 @@ int Animation::getKeyFrameNumber(float stateTime)
 		}
 	}
 
-	for (unsigned int i = 0; i < m_frameTimes.size(); i++)
+	for ( ; i < m_frameTimes.size(); i++)
 	{
 		float frameTime = m_frameTimes.at(i);
 
 		if (stateTime < frameTime)
 		{
-			return i;
+            return i;
 		}
 
 		stateTime -= frameTime;

@@ -19,7 +19,7 @@ Jon* Jon::create(float x, float y, int type)
     return new Jon(x, y);
 }
 
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false)
+Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false)
 {
     resetBounds(width * 0.6796875f, height * 0.8203125f);
 }
@@ -59,7 +59,7 @@ void Jon::update(float deltaTime, Game& game)
     
     PhysicalEntity::update(deltaTime);
     
-    if (game.isJonHit(deltaTime))
+    if (game.isJonHit())
     {
         setState(JON_DYING_FADING);
         return;
@@ -137,16 +137,47 @@ void Jon::update(float deltaTime, Game& game)
 		m_velocity->setX(m_fMaxSpeed);
 	}
     
-    if (m_abilityState == ABILITY_SPINNING_BACK_FIST)
+    switch (m_abilityState)
     {
-        if (m_fAbilityStateTime > 0.48f)
+        case ABILITY_SPINNING_BACK_FIST:
         {
-            setState(ABILITY_NONE);
+            if (m_fAbilityStateTime > 0.48f)
+            {
+                setState(ABILITY_NONE);
+            }
+            else if (!m_isSpinningBackFistDelivered && m_fAbilityStateTime > 0.30f)
+            {
+                m_isSpinningBackFistDelivered = game.isSpinningBackFistDelivered(deltaTime);
+            }
         }
-        else if (!m_isSpinningBackFistDelivered && m_fAbilityStateTime > 0.30f)
+            break;
+        case ABILITY_BURROW:
         {
-            m_isSpinningBackFistDelivered = game.isSpinningBackFistDelivered(deltaTime);
+            m_velocity->setX(0);
+            m_acceleration->setX(0);
+            
+            if (!m_isBurrowEffective)
+            {
+                if (m_fAbilityStateTime > 0.30f)
+                {
+                    setState(ABILITY_NONE);
+                    
+                    m_acceleration->setX(m_fAccelerationX);
+                }
+                else if (m_fAbilityStateTime > 0.06f)
+                {
+                    m_isBurrowEffective = game.isBurrowEffective();
+                }
+            }
+            
+            if (m_physicalState != PHYSICAL_GROUNDED)
+            {
+                setState(ABILITY_NONE);
+            }
         }
+            break;
+        default:
+            break;
     }
     
     if (isFalling())
@@ -212,7 +243,17 @@ void Jon::triggerDownAction()
         return;
     }
     
-    // TODO
+    if (m_abilityState == ABILITY_BURROW || m_physicalState == PHYSICAL_IN_AIR)
+    {
+        return;
+    }
+    
+    setState(ABILITY_BURROW);
+    
+    m_velocity->setX(0);
+    m_acceleration->setX(0);
+    
+    m_isBurrowEffective = false;
 }
 
 std::vector<std::unique_ptr<DustCloud>>& Jon::getDustClouds()

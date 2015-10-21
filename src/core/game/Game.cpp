@@ -19,6 +19,7 @@
 #define treesKey "trees"
 #define caveSkeletonsKey "caveSkeletons"
 #define groundsKey "grounds"
+#define holesKey "holes"
 #define logVerticalTallsKey "logVerticalTalls"
 #define logVerticalShortsKey "logVerticalShorts"
 #define thornsKey "thorns"
@@ -48,6 +49,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getTrees(), m_trees);
     copyPhysicalEntities(game->getCaveSkeletons(), m_caveSkeletons);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
+    copyPhysicalEntities(game->getHoles(), m_holes);
     copyPhysicalEntities(game->getLogVerticalTalls(), m_logVerticalTalls);
     copyPhysicalEntities(game->getLogVerticalShorts(), m_logVerticalShorts);
     copyPhysicalEntities(game->getThorns(), m_thorns);
@@ -79,6 +81,7 @@ void Game::load(const char* json)
     loadArray(m_trees, d, treesKey);
     loadArray(m_caveSkeletons, d, caveSkeletonsKey);
     loadArray(m_grounds, d, groundsKey);
+    loadArray(m_holes, d, holesKey);
     loadArray(m_logVerticalTalls, d, logVerticalTallsKey);
     loadArray(m_logVerticalShorts, d, logVerticalShortsKey);
     loadArray(m_thorns, d, thornsKey);
@@ -115,6 +118,7 @@ const char* Game::save()
     saveArray(m_trees, w, treesKey);    
     saveArray(m_caveSkeletons, w, caveSkeletonsKey);
     saveArray(m_grounds, w, groundsKey);
+    saveArray(m_holes, w, holesKey);
     saveArray(m_logVerticalTalls, w, logVerticalTallsKey);
     saveArray(m_logVerticalShorts, w, logVerticalShortsKey);
     saveArray(m_thorns, w, thornsKey);
@@ -142,6 +146,7 @@ void Game::reset()
     m_trees.clear();
     m_caveSkeletons.clear();
     m_grounds.clear();
+    m_holes.clear();
     m_logVerticalTalls.clear();
     m_logVerticalShorts.clear();
     m_thorns.clear();
@@ -168,6 +173,7 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getTrees(), deltaTime);
     EntityUtils::updateAndClean(getCaveSkeletons(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
+    EntityUtils::updateAndClean(getHoles(), deltaTime);
     EntityUtils::updateAndClean(getLogVerticalTalls(), deltaTime);
     EntityUtils::updateAndClean(getLogVerticalShorts(), deltaTime);
     EntityUtils::updateAndClean(getThorns(), deltaTime);
@@ -192,6 +198,7 @@ int Game::calcSum()
     sum += m_trees.size();
     sum += m_caveSkeletons.size();
     sum += m_grounds.size();
+    sum += m_holes.size();
     sum += m_logVerticalTalls.size();
     sum += m_logVerticalShorts.size();
     sum += m_thorns.size();
@@ -211,7 +218,7 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime);
+    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime));
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
@@ -224,7 +231,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
     return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime);
 }
 
-bool Game::isJonHit(float deltaTime)
+bool Game::isJonHit()
 {
     return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes());
 }
@@ -237,6 +244,11 @@ bool Game::isJonLandingOnSpring(float deltaTime)
 bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
     return EntityUtils::isHitting(getJon(), getLogVerticalTalls()) || EntityUtils::isHitting(getJon(), getLogVerticalShorts()) || EntityUtils::isHitting(getJon(), getRocks());
+}
+
+bool Game::isBurrowEffective()
+{
+    return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
 }
 
 std::vector<std::unique_ptr<BackgroundSky>>& Game::getBackgroundSkies()
@@ -267,6 +279,11 @@ std::vector<std::unique_ptr<CaveSkeleton>>& Game::getCaveSkeletons()
 std::vector<std::unique_ptr<Ground>>& Game::getGrounds()
 {
     return m_grounds;
+}
+
+std::vector<std::unique_ptr<Hole>>& Game::getHoles()
+{
+    return m_holes;
 }
 
 std::vector<std::unique_ptr<LogVerticalTall>>& Game::getLogVerticalTalls()

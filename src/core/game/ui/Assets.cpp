@@ -142,6 +142,19 @@ TextureRegion& Assets::get(Ground& ground)
     }
 }
 
+TextureRegion& Assets::get(Hole& hole)
+{
+    static TextureRegion tr = TextureRegion(0, 1232, 265, 186, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(HoleCover& holeCover)
+{
+    static Animation anim = Animation(265, 1232, 265, 186, 1590, 372, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 12);
+    
+    return anim.getTextureRegion(holeCover.getStateTime());
+}
+
 TextureRegion& Assets::get(LogVerticalTall& logVerticalTall)
 {
     static TextureRegion tr = TextureRegion(1896, 824, 71, 91, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -281,11 +294,14 @@ TextureRegion& Assets::get(Jon& jon)
     static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
     static Animation jonLandingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 4);
     static Animation jonSpinningBackFistAnimation = Animation(0, 0, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+    static Animation jonBurrowAnimation = Animation(0, 256, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 5, 1);
     
     switch (jon.getAbilityState())
     {
         case ABILITY_SPINNING_BACK_FIST:
             return jonSpinningBackFistAnimation.getTextureRegion(jon.getAbilityStateTime());
+        case ABILITY_BURROW:
+            return jonBurrowAnimation.getTextureRegion(jon.getAbilityStateTime());
         case ABILITY_NONE:
         default:
             break;

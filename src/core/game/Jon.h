@@ -79,6 +79,7 @@ private:
     int m_iNumJumps;
     bool m_isLanding;
     bool m_isSpinningBackFistDelivered;
+    bool m_isBurrowEffective;
     
     void jump();
     

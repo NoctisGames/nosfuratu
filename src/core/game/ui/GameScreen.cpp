@@ -38,7 +38,7 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
     }
     else
     {
-        m_stateMachine->setCurrentState(GamePlay::getInstance());
+        m_stateMachine->setCurrentState(Title::getInstance());
     }
 }
 

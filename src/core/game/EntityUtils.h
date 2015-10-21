@@ -63,6 +63,60 @@ public:
     }
     
     template<typename T>
+    static bool isFallingThroughHole(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    {
+        float entityVelocityY = entity.getVelocity().getY();
+        float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
+        float entityRight = entity.getBounds().getRight();
+        
+        if (entityVelocityY <= 0)
+        {
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            {
+                if (!(*i)->hasCover())
+                {
+                    float itemLowerLeftX = (*i)->getBounds().getLowerLeft().getX();
+                    float itemRight = (*i)->getBounds().getRight();
+                    
+                    if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                    {
+                        if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
+    static bool isBurrowingThroughHole(PhysicalEntity& entity, std::vector<T>& items)
+    {
+        float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
+        float entityRight = entity.getBounds().getRight();
+        
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            float itemLowerLeftX = (*i)->getBounds().getLowerLeft().getX();
+            float itemRight = (*i)->getBounds().getRight();
+            
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            {
+                if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
+                {
+                    (*i)->triggerBurrow();
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
     static bool isLandingOnSpring(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
     {
         float entityVelocityY = entity.getVelocity().getY();
@@ -96,20 +150,24 @@ public:
     template<typename T>
     static bool isBlockedOnRight(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
     {
+        float entityVelocityX = entity.getVelocity().getX();
         float entityBottom = entity.getBounds().getLowerLeft().getY();
-        float entityRight = entity.getBounds().getLowerLeft().getX() + entity.getBounds().getWidth();
-        float padding = fabsf(entity.getVelocity().getX() * deltaTime);
+        float entityRight = entity.getBounds().getRight();
+        float entityXDelta = fabsf(entityVelocityX * deltaTime);
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
-                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
                 float itemTop = (*i)->getBounds().getTop();
                 float itemTopReq = itemTop * 0.99f;
-                float itemLeftReq = itemLeft - padding;
                 
-                if (entityRight > itemLeftReq && entityBottom < itemTopReq)
+                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
+                float padding = itemLeft * .01f;
+                padding += entityXDelta;
+                float itemLeftReq = itemLeft + padding;
+                
+                if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
                 {
                     entity.getPosition().setX(itemLeft - entity.getBounds().getWidth() / 2 * 1.01f);
                     entity.updateBounds();

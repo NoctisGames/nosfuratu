@@ -17,6 +17,8 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Ground.h"
+#include "Hole.h"
+#include "HoleCover.h"
 #include "GroundPlatform.h"
 #include "Carrot.h"
 #include "GoldenCarrot.h"
@@ -34,19 +36,87 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_areLevelEditorTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areJonTexturesLoaded(false)
+Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
 {
+    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
-    
-    zoomIn();
 }
 
 void Renderer::init(RendererType type)
 {
     switch (type)
     {
-        case RENDERER_TYPE_LEVEL_EDITOR:
-            zoomOut();
+        case RENDERER_TYPE_TITLE:
+            if (m_areJonTexturesLoaded)
+            {
+                destroyTexture(*m_jon.get());
+                
+                m_areJonTexturesLoaded = false;
+            }
+            
+            if (m_areVampireAndAbilityTexturesLoaded)
+            {
+                destroyTexture(*m_vampire.get());
+                destroyTexture(*m_jon_ability.get());
+                
+                m_areVampireAndAbilityTexturesLoaded = false;
+            }
+            
+            if (m_areWorld1TexturesLoaded)
+            {
+                destroyTexture(*m_world_1_background.get());
+                destroyTexture(*m_world_1_foreground_more.get());
+                destroyTexture(*m_world_1_foreground.get());
+                
+                m_areWorld1TexturesLoaded = false;
+            }
+            
+            if (m_areLevelEditorTexturesLoaded)
+            {
+                destroyTexture(*m_level_editor.get());
+                
+                m_areLevelEditorTexturesLoaded = false;
+            }
+            
+            if (!m_areTitleTexturesLoaded)
+            {
+                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
+                
+                m_areTitleTexturesLoaded = true;
+            }
+            
+            break;
+        case RENDERER_TYPE_WORLD_1:
+            zoomIn();
+            
+            if (m_areTitleTexturesLoaded)
+            {
+                destroyTexture(*m_title_font.get());
+                
+                m_areTitleTexturesLoaded = false;
+            }
+            
+            if (m_areLevelEditorTexturesLoaded)
+            {
+                destroyTexture(*m_level_editor.get());
+                
+                m_areLevelEditorTexturesLoaded = false;
+            }
+            
+            if (!m_areJonTexturesLoaded)
+            {
+                m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
+                
+                m_areJonTexturesLoaded = true;
+            }
+            
+            if (!m_areVampireAndAbilityTexturesLoaded)
+            {
+                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
+                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+                
+                m_areVampireAndAbilityTexturesLoaded = true;
+            }
             
             if (!m_areWorld1TexturesLoaded)
             {
@@ -57,13 +127,39 @@ void Renderer::init(RendererType type)
                 m_areWorld1TexturesLoaded = true;
             }
             
+            break;
+        case RENDERER_TYPE_LEVEL_EDITOR:
+            zoomOut();
+            
+            if (m_areTitleTexturesLoaded)
+            {
+                destroyTexture(*m_title_font.get());
+                
+                m_areTitleTexturesLoaded = false;
+            }
+            
+            if (m_areVampireAndAbilityTexturesLoaded)
+            {
+                destroyTexture(*m_vampire.get());
+                destroyTexture(*m_jon_ability.get());
+                
+                m_areVampireAndAbilityTexturesLoaded = false;
+            }
+            
             if (!m_areJonTexturesLoaded)
             {
-                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
                 m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
                 
                 m_areJonTexturesLoaded = true;
+            }
+            
+            if (!m_areWorld1TexturesLoaded)
+            {
+                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
+                m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
+                m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
+                
+                m_areWorld1TexturesLoaded = true;
             }
             
             if (!m_areLevelEditorTexturesLoaded)
@@ -72,27 +168,7 @@ void Renderer::init(RendererType type)
                 
                 m_areLevelEditorTexturesLoaded = true;
             }
-            break;
-        case RENDERER_TYPE_WORLD_1:
-            zoomIn();
             
-            if (!m_areWorld1TexturesLoaded)
-            {
-                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-                m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-                m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
-                
-                m_areWorld1TexturesLoaded = true;
-            }
-            
-            if (!m_areJonTexturesLoaded)
-            {
-                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
-                m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
-                
-                m_areJonTexturesLoaded = true;
-            }
             break;
         default:
             break;
@@ -106,7 +182,11 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
     float regionBottomY;
-    if (jon.isFalling())
+    if (jon.getAbilityState() == ABILITY_BURROW)
+    {
+        regionBottomY = jy - 1.22451534f;
+    }
+    else if (jon.isFalling())
     {
         if (jy < aboveGroundRegionBottomY)
         {
@@ -143,8 +223,14 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
     
     if (camVelocityY > 0)
     {
-        float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
-        m_camPos->setY(newCamPos);
+        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
+        {
+            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
+            if (newCamPos > m_camPos->getY())
+            {
+                m_camPos->setY(newCamPos);
+            }
+        }
         
         if (m_camPos->getY() > regionBottomY)
         {
@@ -195,6 +281,48 @@ void Renderer::zoomIn()
     m_camPos->set(0, aboveGroundRegionBottomY);
     m_fCamWidth = CAM_WIDTH;
     m_fCamHeight = CAM_HEIGHT;
+}
+
+void Renderer::renderTitleScreen()
+{
+    beginFrame();
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    bindToOffscreenFramebuffer();
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    /// Render Title Logo
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    static float tlWidth = CAM_WIDTH * 2 / 3;
+    static float tlHeight = tlWidth * 0.4921875f;
+    static TextureRegion tlTr = TextureRegion(0, 1040, 2048, 1008, 2048, 2048);
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, tlWidth, tlHeight, 0, tlTr);
+    m_spriteBatcher->endBatch(*m_title_font);
+    
+    m_spriteBatcher->beginBatch();
+    
+    static Color fontColor = Color(1, 1, 1, 1);
+    static float fgWidth = CAM_WIDTH / 42;
+    static float fgHeight = fgWidth * 1.265625f;
+    
+    float fontStartingY = CAM_HEIGHT * 1 / 3;
+    
+    static std::string text1 = std::string("Swipe  down to burrow or meet your doom!");
+    m_font->renderText(*m_spriteBatcher, text1, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    
+    fontStartingY -= fgHeight;
+    fontStartingY -= fgHeight;
+    fontStartingY -= fgHeight;
+    
+    static std::string text2 = std::string("Tap the screen to begin");
+    m_font->renderText(*m_spriteBatcher, text2, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    
+    m_spriteBatcher->endBatch(*m_title_font);
 }
 
 void Renderer::renderWorld(Game& game)
@@ -252,6 +380,16 @@ void Renderer::renderWorld(Game& game)
         if ((*i)->isForegroundMore())
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+        }
+    }
+    
+    for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
+    {
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+        
+        for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
+        {
+            renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
@@ -358,7 +496,7 @@ void Renderer::renderBackButton(BackButton &backButton)
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
 }
 
-void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPanel, LevelEditorEntitiesPanel& levelEditorEntitiesPanel, TrashCan& trashCan)
+void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& trashCan)
 {
     static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
     static Color originMarkerColor = Color(0, 0, 0, 0.7f);
@@ -374,8 +512,8 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPane
     /// Render Level Editor
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(levelEditorActionsPanel, Assets::get(levelEditorActionsPanel));
-    renderPhysicalEntity(levelEditorEntitiesPanel, Assets::get(levelEditorEntitiesPanel));
+    renderPhysicalEntity(leap, Assets::get(leap));
+    renderPhysicalEntity(leep, Assets::get(leep));
     m_spriteBatcher->endBatch(*m_level_editor);
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
@@ -386,21 +524,21 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPane
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    if (levelEditorEntitiesPanel.isOpen())
+    if (leep.isOpen())
     {
-        updateMatrix(0, CAM_WIDTH, levelEditorEntitiesPanel.getEntitiesCameraPos(), levelEditorEntitiesPanel.getEntitiesCameraPos() + CAM_HEIGHT);
+        updateMatrix(0, CAM_WIDTH, leep.getEntitiesCameraPos(), leep.getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(levelEditorEntitiesPanel.getJons());
+        renderPhysicalEntities(leep.getJons());
         m_spriteBatcher->endBatch(*m_jon);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(levelEditorEntitiesPanel.getTrees());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getCaveSkeletons());
+        renderPhysicalEntities(leep.getTrees());
+        renderPhysicalEntities(leep.getCaveSkeletons());
         m_spriteBatcher->endBatch(*m_world_1_foreground_more);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<std::unique_ptr<Ground>>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
+        for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
             if ((*i)->isForegroundMore())
             {
@@ -412,33 +550,43 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPane
         m_spriteBatcher->endBatch(*m_world_1_foreground);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<std::unique_ptr<Ground>>::iterator i = levelEditorEntitiesPanel.getGrounds().begin(); i != levelEditorEntitiesPanel.getGrounds().end(); i++)
+        for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
             if ((*i)->isForegroundMore())
             {
                 renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             }
         }
+        
+        for (std::vector<std::unique_ptr<Hole>>::iterator i = leep.getHoles().begin(); i != leep.getHoles().end(); i++)
+        {
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            
+            for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
+            {
+                renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
+            }
+        }
         m_spriteBatcher->endBatch(*m_world_1_foreground_more);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(levelEditorEntitiesPanel.getLogVerticalTalls());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getLogVerticalShorts());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getThorns());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getStumps());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getSideSpikes());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getUpwardSpikes());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getJumpSprings());
-        renderPhysicalEntitiesWithColor(levelEditorEntitiesPanel.getRocks());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getPlatforms());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getEndSigns());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getCarrots());
-        renderPhysicalEntities(levelEditorEntitiesPanel.getGoldenCarrots());
+        renderPhysicalEntities(leep.getLogVerticalTalls());
+        renderPhysicalEntities(leep.getLogVerticalShorts());
+        renderPhysicalEntities(leep.getThorns());
+        renderPhysicalEntities(leep.getStumps());
+        renderPhysicalEntities(leep.getSideSpikes());
+        renderPhysicalEntities(leep.getUpwardSpikes());
+        renderPhysicalEntities(leep.getJumpSprings());
+        renderPhysicalEntitiesWithColor(leep.getRocks());
+        renderPhysicalEntities(leep.getPlatforms());
+        renderPhysicalEntities(leep.getEndSigns());
+        renderPhysicalEntities(leep.getCarrots());
+        renderPhysicalEntities(leep.getGoldenCarrots());
         m_spriteBatcher->endBatch(*m_world_1_foreground);
     }
 }
 
-void Renderer::renderToScreen(Game& game)
+void Renderer::renderToScreen()
 {
     /// Render everything to the screen
     
@@ -453,12 +601,43 @@ void Renderer::renderToScreen(Game& game)
 
 void Renderer::cleanUp()
 {
-    destroyTexture(*m_jon_ability);
-    destroyTexture(*m_jon);
-    destroyTexture(*m_vampire);
-    destroyTexture(*m_world_1_background);
-    destroyTexture(*m_world_1_foreground_more);
-    destroyTexture(*m_world_1_foreground);
+    if (m_areTitleTexturesLoaded)
+    {
+        destroyTexture(*m_title_font.get());
+        
+        m_areTitleTexturesLoaded = false;
+    }
+    
+    if (m_areJonTexturesLoaded)
+    {
+        destroyTexture(*m_jon.get());
+        
+        m_areJonTexturesLoaded = false;
+    }
+    
+    if (m_areVampireAndAbilityTexturesLoaded)
+    {
+        destroyTexture(*m_vampire.get());
+        destroyTexture(*m_jon_ability.get());
+        
+        m_areVampireAndAbilityTexturesLoaded = false;
+    }
+    
+    if (m_areWorld1TexturesLoaded)
+    {
+        destroyTexture(*m_world_1_background.get());
+        destroyTexture(*m_world_1_foreground_more.get());
+        destroyTexture(*m_world_1_foreground.get());
+        
+        m_areWorld1TexturesLoaded = false;
+    }
+    
+    if (m_areLevelEditorTexturesLoaded)
+    {
+        destroyTexture(*m_level_editor.get());
+        
+        m_areLevelEditorTexturesLoaded = false;
+    }
 }
 
 Vector2D& Renderer::getCameraPosition()

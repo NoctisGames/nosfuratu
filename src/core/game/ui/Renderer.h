@@ -11,6 +11,7 @@
 
 #include "Assets.h"
 #include "RendererType.h"
+#include "Font.h"
 
 #include <memory>
 #include <vector>
@@ -47,6 +48,8 @@ public:
     
     void zoomIn();
     
+    void renderTitleScreen();
+    
     void renderWorld(Game& game);
     
     void renderJon(Game& game);
@@ -59,7 +62,7 @@ public:
     
     void renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPanel, LevelEditorEntitiesPanel& levelEditorEntitiesPanel, TrashCan& trashCan);
     
-    void renderToScreen(Game& game);
+    void renderToScreen();
 
     void cleanUp();
     
@@ -69,21 +72,19 @@ protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     std::unique_ptr<RectangleBatcher> m_boundsRectangleBatcher;
     std::unique_ptr<RectangleBatcher> m_highlightRectangleBatcher;
+    std::unique_ptr<Font> m_font;
     
-    std::unique_ptr<TextureWrapper> m_jon_ability;
+    std::unique_ptr<TextureWrapper> m_title_font;
     std::unique_ptr<TextureWrapper> m_jon;
-    std::unique_ptr<TextureWrapper> m_level_editor;
     std::unique_ptr<TextureWrapper> m_vampire;
+    std::unique_ptr<TextureWrapper> m_jon_ability;
     std::unique_ptr<TextureWrapper> m_world_1_background;
     std::unique_ptr<TextureWrapper> m_world_1_foreground_more;
     std::unique_ptr<TextureWrapper> m_world_1_foreground;
+    std::unique_ptr<TextureWrapper> m_level_editor;
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
-
-	bool m_areLevelEditorTexturesLoaded;
-    bool m_areWorld1TexturesLoaded;
-    bool m_areJonTexturesLoaded;
     
     virtual TextureWrapper* loadTexture(const char* textureName) = 0;
     
@@ -107,6 +108,11 @@ private:
     std::unique_ptr<Vector2D> m_camPos;
     float m_fCamWidth;
     float m_fCamHeight;
+    bool m_areTitleTexturesLoaded;
+    bool m_areJonTexturesLoaded;
+    bool m_areVampireAndAbilityTexturesLoaded;
+    bool m_areWorld1TexturesLoaded;
+    bool m_areLevelEditorTexturesLoaded;
     
     template<typename T>
     void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items)

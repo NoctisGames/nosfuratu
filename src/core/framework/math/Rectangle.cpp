@@ -22,6 +22,11 @@ Vector2D& Rectangle::getLowerLeft()
     return *m_lowerLeft;
 }
 
+float Rectangle::getRight()
+{
+    return m_lowerLeft->getX() + m_fWidth;
+}
+
 float Rectangle::getTop()
 {
     return m_lowerLeft->getY() + m_fHeight;

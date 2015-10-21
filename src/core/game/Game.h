@@ -15,6 +15,7 @@
 #include "Tree.h"
 #include "CaveSkeleton.h"
 #include "Ground.h"
+#include "Hole.h"
 #include "LogVerticalTall.h"
 #include "LogVerticalShort.h"
 #include "Thorns.h"
@@ -65,11 +66,13 @@ public:
     
     bool isJonBlockedVertically(float deltaTime);
     
-    bool isJonHit(float deltaTime);
+    bool isJonHit();
     
     bool isJonLandingOnSpring(float deltaTime);
     
     bool isSpinningBackFistDelivered(float deltaTime);
+    
+    bool isBurrowEffective();
     
     std::vector<std::unique_ptr<BackgroundSky>>& getBackgroundSkies();
     
@@ -82,6 +85,8 @@ public:
     std::vector<std::unique_ptr<CaveSkeleton>>& getCaveSkeletons();
     
     std::vector<std::unique_ptr<Ground>>& getGrounds();
+    
+    std::vector<std::unique_ptr<Hole>>& getHoles();
     
     std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
     
@@ -124,6 +129,7 @@ private:
     std::vector<std::unique_ptr<Tree>> m_trees;
     std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
     std::vector<std::unique_ptr<Ground>> m_grounds;
+    std::vector<std::unique_ptr<Hole>> m_holes;
     std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
     std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
     std::vector<std::unique_ptr<Thorns>> m_thorns;

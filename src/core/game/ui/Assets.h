@@ -21,6 +21,8 @@
 #include "GroundPlatform.h"
 #include "Carrot.h"
 #include "Ground.h"
+#include "Hole.h"
+#include "HoleCover.h"
 #include "UpwardSpike.h"
 #include "LogVerticalTall.h"
 #include "Rock.h"
@@ -53,6 +55,10 @@ public:
     static TextureRegion& get(CaveSkeleton& caveSkeleton);
     
     static TextureRegion& get(Ground& ground);
+    
+    static TextureRegion& get(Hole& hole);
+    
+    static TextureRegion& get(HoleCover& holeCover);
     
     static TextureRegion& get(LogVerticalTall& logVerticalTall);
     

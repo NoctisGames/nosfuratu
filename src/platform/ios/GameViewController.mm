@@ -217,6 +217,7 @@ static bool isRunningiOS8 = false;
 {
     bool result = false;
     const char *level_json = LevelEditor::getInstance()->save();
+    
     if (level_json)
     {
         NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];

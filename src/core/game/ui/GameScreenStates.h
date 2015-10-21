@@ -19,6 +19,24 @@
 
 class GameScreen;
 
+class Title : public State<GameScreen>
+{
+public:
+    static Title* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Title() {};
+    Title(const Title&);
+    Title& operator=(const Title&);
+};
+
 class GamePlay : public State<GameScreen>
 {
 public:

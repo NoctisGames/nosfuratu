@@ -36,15 +36,14 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_trees.push_back(std::unique_ptr<Tree>(new TreeTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_trees.push_back(std::unique_ptr<Tree>(new TreeThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
-    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonOne(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_caveSkeletons.push_back(std::unique_ptr<CaveSkeleton>(new CaveSkeletonThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_holes.push_back(std::unique_ptr<Hole>(new Hole(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -93,6 +92,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     boxInAll(m_trees, size);
     boxInAll(m_caveSkeletons, size);
     boxInAll(m_grounds, size);
+    boxInAll(m_holes, size);
     boxInAll(m_logVerticalTalls, size);
     boxInAll(m_logVerticalShorts, size);
     boxInAll(m_thorns, size);
@@ -172,6 +172,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_platforms, game.getPlatforms(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_caveSkeletons, game.getCaveSkeletons(), x, y, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_holes, game.getHoles(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
@@ -220,6 +221,11 @@ std::vector<std::unique_ptr<CaveSkeleton>>& LevelEditorEntitiesPanel::getCaveSke
 std::vector<std::unique_ptr<Ground>>& LevelEditorEntitiesPanel::getGrounds()
 {
     return m_grounds;
+}
+
+std::vector<std::unique_ptr<Hole>>& LevelEditorEntitiesPanel::getHoles()
+{
+    return m_holes;
 }
 
 std::vector<std::unique_ptr<LogVerticalTall>>& LevelEditorEntitiesPanel::getLogVerticalTalls()

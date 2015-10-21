@@ -11,8 +11,9 @@
 
 typedef enum
 {
-    RENDERER_TYPE_LEVEL_EDITOR,
-    RENDERER_TYPE_WORLD_1
+    RENDERER_TYPE_TITLE,
+    RENDERER_TYPE_WORLD_1,
+    RENDERER_TYPE_LEVEL_EDITOR
 } RendererType;
 
 #endif /* defined(__nosfuratu__RendererType__) */

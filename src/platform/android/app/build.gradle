@@ -18,7 +18,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "0.1.015"
+        versionName "0.1.016"
         signingConfig signingConfigs.gowengamedev
     }
     buildTypes {
