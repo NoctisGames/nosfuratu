@@ -32,13 +32,3 @@ local.properties
 *.xcuserdatad/
 xcuserdata/
 xcshareddata/
-
-# Visual Studio
-*.ipch
-*.user
-*.*sdf
-*.suo
-ARM/
-Debug/
-Release/
-Generated Files/
