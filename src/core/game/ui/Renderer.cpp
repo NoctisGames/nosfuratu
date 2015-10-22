@@ -200,7 +200,7 @@ bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
     // Only become fully zoomed out at the middle and start zooming in towards Jon while still panning left
     // Once Jon is reached, get going.
     // If there is any opening dialog with the bat, make it happen in real-time as the player starts moving
-    m_camPos->sub(CAM_WIDTH * deltaTime, 0);
+    m_camPos->sub(ZOOMED_OUT_CAM_WIDTH * deltaTime, 0);
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;

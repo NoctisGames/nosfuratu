@@ -102,7 +102,16 @@ void GamePlay::execute(GameScreen* gs)
             return;
         }
         
-        // TODO, now wait for player to tap the screen to begin
+        if (m_isWaitingForTapToBegin)
+        {
+            Jon& jon = m_game->getJon();
+            
+            jon.update(gs->m_fDeltaTime, *m_game, false);
+            
+            handlePreGameTouchInput(gs);
+            
+            return;
+        }
         
         handleTouchInput(gs);
         
@@ -139,6 +148,30 @@ void GamePlay::exit(GameScreen* gs)
 {
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
+    m_isWaitingForTapToBegin = true;
+}
+
+void GamePlay::handlePreGameTouchInput(GameScreen* gs)
+{
+    gs->processTouchEvents();
+    
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    {
+        gs->touchToWorld((*i));
+        
+        gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+        
+        switch (i->getTouchType())
+        {
+            case DOWN:
+                continue;
+            case DRAGGED:
+                continue;
+            case UP:
+                m_isWaitingForTapToBegin = false;
+                break;
+        }
+    }
 }
 
 void GamePlay::handleTouchInput(GameScreen* gs)
@@ -191,7 +224,7 @@ void GamePlay::handleTouchInput(GameScreen* gs)
     }
 }
 
-GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
+GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_isWaitingForTapToBegin(true)
 {
     m_game = std::unique_ptr<Game>(new Game());
 }
@@ -250,7 +283,16 @@ void TestLevel::execute(GameScreen* gs)
             return;
         }
         
-        // TODO, now wait for player to tap the screen to begin
+        if (m_isWaitingForTapToBegin)
+        {
+            Jon& jon = m_game->getJon();
+            
+            jon.update(gs->m_fDeltaTime, *m_game, false);
+            
+            handlePreGameTouchInput(gs);
+            
+            return;
+        }
         
         if (handleTouchInput(gs))
         {
@@ -290,11 +332,35 @@ void TestLevel::exit(GameScreen* gs)
 {
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
+    m_isWaitingForTapToBegin = true;
 }
 
 void TestLevel::setSourceGame(Game* game)
 {
     m_sourceGame = game;
+}
+
+void TestLevel::handlePreGameTouchInput(GameScreen* gs)
+{
+    gs->processTouchEvents();
+    
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    {
+        gs->touchToWorld((*i));
+        
+        gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+        
+        switch (i->getTouchType())
+        {
+            case DOWN:
+                continue;
+            case DRAGGED:
+                continue;
+            case UP:
+                m_isWaitingForTapToBegin = false;
+                break;
+        }
+    }
 }
 
 bool TestLevel::handleTouchInput(GameScreen* gs)
@@ -355,7 +421,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
+TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_isWaitingForTapToBegin(true)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
