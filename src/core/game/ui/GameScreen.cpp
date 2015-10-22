@@ -42,11 +42,6 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
     }
 }
 
-void GameScreen::init()
-{
-    m_stateMachine->getCurrentState()->enter(this);
-}
-
 void GameScreen::onResume()
 {
     // TODO

@@ -37,7 +37,7 @@ Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : G
 	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_carrot.wav"));
 	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_golden_carrot.wav"));
 
-	init();
+    m_stateMachine->getCurrentState()->enter(this);
 }
 
 Direct3DGameScreen::~Direct3DGameScreen()

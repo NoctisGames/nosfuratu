@@ -64,6 +64,13 @@ void GamePlay::enter(GameScreen* gs)
     m_game->load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"trees\":[{\"x\":4.05,\"y\":13.8393,\"type\":2},{\"x\":14.15,\"y\":14.1668,\"type\":1},{\"x\":65.05,\"y\":13.8393,\"type\":2},{\"x\":72.7,\"y\":13.0789,\"type\":0},{\"x\":81.7001,\"y\":14.1668,\"type\":1},{\"x\":105.85,\"y\":13.8393,\"type\":2},{\"x\":112.9,\"y\":13.0789,\"type\":0},{\"x\":135.15,\"y\":14.1668,\"type\":1},{\"x\":143.85,\"y\":13.0789,\"type\":0}],\"caveSkeletons\":[],\"grounds\":[{\"x\":24.1,\"y\":8.90251,\"type\":0},{\"x\":-0.718715,\"y\":8.90251,\"type\":3},{\"x\":48.8602,\"y\":8.90251,\"type\":4},{\"x\":11.35,\"y\":2.36309,\"type\":13},{\"x\":36.0868,\"y\":2.36309,\"type\":10},{\"x\":60.812,\"y\":2.36309,\"type\":14},{\"x\":60.8003,\"y\":5.11222,\"type\":8},{\"x\":67.5605,\"y\":5.11222,\"type\":7},{\"x\":85.5488,\"y\":8.90251,\"type\":1},{\"x\":98.3441,\"y\":8.90251,\"type\":4},{\"x\":88.5163,\"y\":2.36309,\"type\":13},{\"x\":95.3,\"y\":2.36309,\"type\":12},{\"x\":102.072,\"y\":2.36309,\"type\":14},{\"x\":102.06,\"y\":5.11222,\"type\":8},{\"x\":108.82,\"y\":5.11222,\"type\":7},{\"x\":115.627,\"y\":5.11222,\"type\":9},{\"x\":132,\"y\":5.11222,\"type\":8},{\"x\":138.76,\"y\":5.11222,\"type\":7},{\"x\":145.567,\"y\":5.11222,\"type\":9}],\"holes\":[{\"x\":13.65,\"y\":8.09532},{\"x\":88.8,\"y\":8.09532}],\"logVerticalTalls\":[],\"logVerticalShorts\":[],\"thorns\":[{\"x\":17,\"y\":9.7682},{\"x\":20.2,\"y\":9.7682},{\"x\":23.45,\"y\":9.7682},{\"x\":26.5,\"y\":9.7682},{\"x\":29.6,\"y\":9.7682},{\"x\":32.6,\"y\":9.7682},{\"x\":35.7,\"y\":9.7682},{\"x\":38.85,\"y\":9.7682},{\"x\":41.7,\"y\":9.7682},{\"x\":44.7,\"y\":9.7682},{\"x\":47.65,\"y\":9.7682},{\"x\":92,\"y\":9.7682},{\"x\":94.65,\"y\":9.7682},{\"x\":97.3,\"y\":9.7682},{\"x\":103.35,\"y\":9.7682},{\"x\":106.15,\"y\":9.7682},{\"x\":108.9,\"y\":9.7682},{\"x\":111.9,\"y\":9.7682},{\"x\":114.8,\"y\":9.7682}],\"stumps\":[],\"sideSpikes\":[],\"upwardSpikes\":[{\"x\":98.1,\"y\":11.9422,\"type\":1},{\"x\":99.3,\"y\":11.9422,\"type\":1}],\"jumpSprings\":[{\"x\":59.4319,\"y\":1.98873,\"type\":1},{\"x\":58.25,\"y\":1.98873,\"type\":1},{\"x\":57.05,\"y\":1.98873,\"type\":1},{\"x\":100.692,\"y\":1.98873,\"type\":1}],\"rocks\":[],\"platforms\":[{\"x\":103.05,\"y\":19.3641,\"type\":0},{\"x\":106.35,\"y\":18.9844,\"type\":0},{\"x\":109.55,\"y\":18.6047,\"type\":0},{\"x\":98.7,\"y\":11.0531,\"type\":0},{\"x\":112.7,\"y\":18.1828,\"type\":0},{\"x\":115.95,\"y\":17.8031,\"type\":0},{\"x\":119.05,\"y\":17.5078,\"type\":0},{\"x\":122.2,\"y\":17.1703,\"type\":0},{\"x\":125.3,\"y\":16.875,\"type\":0}],\"endSigns\":[{\"x\":145.1,\"y\":9.59272}],\"carrots\":[{\"x\":103.05,\"y\":20.9946},{\"x\":106.35,\"y\":20.615},{\"x\":109.65,\"y\":20.2353},{\"x\":112.65,\"y\":19.8134},{\"x\":115.9,\"y\":19.4337},{\"x\":119.05,\"y\":19.1384},{\"x\":122.2,\"y\":18.8009},{\"x\":125.3,\"y\":18.5056}],\"goldenCarrots\":[{\"x\":143.65,\"y\":10.4044},{\"x\":142.15,\"y\":10.4044},{\"x\":140.55,\"y\":10.4044},{\"x\":139,\"y\":10.4044},{\"x\":137.5,\"y\":10.4044}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
+    
+    if (!m_hasShownOpeningSequence)
+    {
+        gs->m_renderer->beginOpeningPanningSequence(*m_game);
+        
+        m_hasShownOpeningSequence = true;
+    }
 }
 
 void GamePlay::execute(GameScreen* gs)
@@ -78,15 +85,34 @@ void GamePlay::execute(GameScreen* gs)
     }
     else
     {
+        if (!m_hasOpeningSequenceCompleted)
+        {
+            gs->processTouchEvents();
+            
+            Jon& jon = m_game->getJon();
+            
+            jon.update(gs->m_fDeltaTime, *m_game, false);
+            
+            m_hasOpeningSequenceCompleted = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+            
+            EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+            
+            return;
+        }
+        
+        // TODO, now wait for player to tap the screen to begin
+        
         handleTouchInput(gs);
+        
+        m_game->updateAndClean(gs->m_fDeltaTime);
         
         Jon& jon = m_game->getJon();
         
-        jon.update(gs->m_fDeltaTime, *m_game);
-        
         if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
         {
-            gs->init();
+            enter(gs);
             
             return;
         }
@@ -101,9 +127,7 @@ void GamePlay::execute(GameScreen* gs)
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
         }
         
-        m_game->updateAndClean(gs->m_fDeltaTime);
-        
-        gs->m_renderer->updateCameraToFollowJon(jon, *m_game, gs->m_fDeltaTime);
+        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
         
         EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
         EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
@@ -113,7 +137,8 @@ void GamePlay::execute(GameScreen* gs)
 
 void GamePlay::exit(GameScreen* gs)
 {
-    // TODO
+    m_hasShownOpeningSequence = false;
+    m_hasOpeningSequenceCompleted = false;
 }
 
 void GamePlay::handleTouchInput(GameScreen* gs)
@@ -166,7 +191,7 @@ void GamePlay::handleTouchInput(GameScreen* gs)
     }
 }
 
-GamePlay::GamePlay()
+GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
 }
@@ -185,6 +210,13 @@ void TestLevel::enter(GameScreen* gs)
     m_game->copy(m_sourceGame);
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
+    
+    if (!m_hasShownOpeningSequence)
+    {
+        gs->m_renderer->beginOpeningPanningSequence(*m_game);
+        
+        m_hasShownOpeningSequence = true;
+    }
 }
 
 void TestLevel::execute(GameScreen* gs)
@@ -201,18 +233,37 @@ void TestLevel::execute(GameScreen* gs)
     }
     else
     {
+        if (!m_hasOpeningSequenceCompleted)
+        {
+            gs->processTouchEvents();
+            
+            Jon& jon = m_game->getJon();
+            
+            jon.update(gs->m_fDeltaTime, *m_game, false);
+            
+            m_hasOpeningSequenceCompleted = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+            
+            EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+            
+            return;
+        }
+        
+        // TODO, now wait for player to tap the screen to begin
+        
         if (handleTouchInput(gs))
         {
             return;
         }
         
-        Jon& jon = m_game->getJon();
+        m_game->updateAndClean(gs->m_fDeltaTime);
         
-        jon.update(gs->m_fDeltaTime, *m_game);
+        Jon& jon = m_game->getJon();
         
         if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
         {
-            gs->init();
+            enter(gs);
             
             return;
         }
@@ -227,9 +278,7 @@ void TestLevel::execute(GameScreen* gs)
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
         }
         
-        m_game->updateAndClean(gs->m_fDeltaTime);
-        
-        gs->m_renderer->updateCameraToFollowJon(jon, *m_game, gs->m_fDeltaTime);
+        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
         
         EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
         EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
@@ -239,7 +288,8 @@ void TestLevel::execute(GameScreen* gs)
 
 void TestLevel::exit(GameScreen* gs)
 {
-    // TODO
+    m_hasShownOpeningSequence = false;
+    m_hasOpeningSequenceCompleted = false;
 }
 
 void TestLevel::setSourceGame(Game* game)
@@ -305,7 +355,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-TestLevel::TestLevel() : m_sourceGame(nullptr)
+TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
@@ -370,7 +420,17 @@ void LevelEditor::execute(GameScreen* gs)
         
         int oldSum = m_game->calcSum();
         
-        m_game->updateAndClean(gs->m_fDeltaTime);
+        m_game->updateAndClean(gs->m_fDeltaTime, false);
+        
+        if (m_game->getJons().size() > 0)
+        {
+            Jon& jon = m_game->getJon();
+            
+            if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
+            {
+                jon.requestDeletion();
+            }
+        }
         
         int newSum = m_game->calcSum();
         
@@ -422,7 +482,6 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
                     enter(gs);
-                    resetEntities(true);
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (m_game->getJons().size() > 0)
@@ -485,6 +544,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 m_allowAttachment = true;
                 m_allowPlaceOn = true;
                 m_fYOffset = 0;
+                m_fDraggingEntityOriginalY = 0;
                 
                 int index = -1;
                 if ((index = EntityUtils::isTouching(m_gameEntities, tp)) != -1)
@@ -626,8 +686,15 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 }
                 
                 m_trashCan->setHighlighted(false);
-                m_draggingEntity = nullptr;
                 m_attachToEntity = nullptr;
+                
+                if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
+                {
+                    m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
+                    m_draggingEntity->updateBounds();
+                }
+                
+                m_draggingEntity = nullptr;
                 
                 return;
         }
@@ -676,6 +743,12 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
         {
             i = m_addedEntities.erase(i);
         }
+    }
+    
+    if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
+    {
+        m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
+        m_draggingEntity->updateBounds();
     }
     
     m_draggingEntity = nullptr;

@@ -1,11 +1,11 @@
 package com.gowengamedev.nosfuratu;
 
-import java.io.IOException;
-
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
+
+import java.io.IOException;
 
 public final class Audio
 {

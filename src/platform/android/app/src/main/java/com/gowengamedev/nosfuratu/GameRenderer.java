@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
 
 import java.io.File;
-import java.nio.charset.Charset;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

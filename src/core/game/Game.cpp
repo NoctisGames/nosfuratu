@@ -64,7 +64,6 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
     copyPhysicalEntities(game->getJons(), m_jons);
     
-    m_fStateTime = 0;
     m_isLoaded = true;
 }
 
@@ -96,7 +95,6 @@ void Game::load(const char* json)
     loadArray(m_goldenCarrots, d, goldenCarrotsKey);
     loadArray(m_jons, d, jonsKey);
     
-    m_fStateTime = 0;
     m_isLoaded = true;
 }
 
@@ -161,12 +159,18 @@ void Game::reset()
     m_goldenCarrots.clear();
     m_jons.clear();
     
+    m_fStateTime = 0;
     m_isLoaded = false;
 }
 
-void Game::updateAndClean(float deltaTime)
+void Game::updateAndClean(float deltaTime, bool isJonAllowedToMove)
 {
     m_fStateTime += deltaTime;
+    
+    if (getJons().size() > 0)
+    {
+        getJon().update(deltaTime, *this, isJonAllowedToMove);
+    }
     
     EntityUtils::clean(getJons());
     

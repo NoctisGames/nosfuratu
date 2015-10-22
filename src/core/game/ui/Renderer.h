@@ -40,7 +40,12 @@ public:
     
 	void init(RendererType type);
     
-    void updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime);
+    void beginOpeningPanningSequence(Game& game);
+    
+    // Return true if the beginning of the stage has been reached
+    bool updateCameraToFollowPathToJon(Game& game, float deltaTime);
+    
+    void updateCameraToFollowJon(Game& game, float deltaTime);
     
     void moveCamera(float x);
     
@@ -108,6 +113,7 @@ private:
     std::unique_ptr<Vector2D> m_camPos;
     float m_fCamWidth;
     float m_fCamHeight;
+    float m_fStateTime;
     bool m_areTitleTexturesLoaded;
     bool m_areJonTexturesLoaded;
     bool m_areVampireAndAbilityTexturesLoaded;
@@ -157,6 +163,8 @@ private:
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
+    
+    float getCamPosFarRight(Game& game);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

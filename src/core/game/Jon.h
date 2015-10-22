@@ -29,7 +29,7 @@ public:
     
     Jon(float x, float y, float width = 2.2f, float height = 2.2f);
     
-    void update(float deltaTime, Game& game);
+    void update(float deltaTime, Game& game, bool isAllowedToMove = true);
     
     void triggerJump();
     
@@ -56,6 +56,8 @@ public:
     float getActionStateTime();
     
     float getAbilityStateTime();
+    
+    bool isMoving();
     
     bool isFalling();
     

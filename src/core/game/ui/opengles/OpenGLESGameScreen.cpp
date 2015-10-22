@@ -19,5 +19,5 @@ void OpenGLESGameScreen::initGraphics(int screenWidth, int screenHeight)
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
     
-    init();
+    m_stateMachine->getCurrentState()->enter(this);
 }

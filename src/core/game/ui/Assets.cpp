@@ -288,6 +288,7 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 
 TextureRegion& Assets::get(Jon& jon)
 {
+    static Animation jonIdleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
     static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
     static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 7);
     static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.07f, 9);
@@ -333,7 +334,7 @@ TextureRegion& Assets::get(Jon& jon)
         }
     }
     
-    return jonRunningAnim.getTextureRegion(jon.getStateTime());
+    return jon.isMoving() ? jonRunningAnim.getTextureRegion(jon.getStateTime()) : jonIdleAnim.getTextureRegion(jon.getStateTime());
 }
 
 TextureRegion& Assets::get(DustCloud& dustCloud)

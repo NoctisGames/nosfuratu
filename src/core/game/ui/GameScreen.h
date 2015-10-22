@@ -46,8 +46,6 @@ public:
 	GameScreen(bool isLevelEditor = false);
     
     virtual void touchToWorld(TouchEvent &touchEvent) = 0;
-    
-    virtual void init();
 
 	virtual void onResume();
 	

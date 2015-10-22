@@ -56,7 +56,7 @@ public:
     
     void reset();
     
-    void updateAndClean(float deltaTime);
+    void updateAndClean(float deltaTime, bool isJonAllowedToMove = true);
     
     int calcSum();
     

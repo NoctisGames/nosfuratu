@@ -36,7 +36,7 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
+Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
 {
     m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
@@ -175,8 +175,49 @@ void Renderer::init(RendererType type)
     }
 }
 
-void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
+void Renderer::beginOpeningPanningSequence(Game& game)
 {
+    zoomIn();
+    
+    m_fStateTime = 0;
+    
+    updateCameraToFollowJon(game, 1337);
+    
+    m_camPos->setX(getCamPosFarRight(game));
+}
+
+bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
+{
+    m_fStateTime += deltaTime;
+    
+    if (m_fStateTime < 2)
+    {
+        return false;
+    }
+    
+    // TODO, perform arcing motion:
+    // Start out zoomed in on the end point, and then zooms out while panning left
+    // Only become fully zoomed out at the middle and start zooming in towards Jon while still panning left
+    // Once Jon is reached, get going.
+    // If there is any opening dialog with the bat, make it happen in real-time as the player starts moving
+    m_camPos->sub(CAM_WIDTH * deltaTime, 0);
+    
+    Jon& jon = game.getJon();
+    float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+    
+    if (m_camPos->getX() < farLeft)
+    {
+        m_camPos->setX(farLeft);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
+{
+    Jon& jon = game.getJon();
     m_camPos->setX(jon.getPosition().getX() - CAM_WIDTH / 5);
     float jy = jon.getPosition().getY() - jon.getHeight() / 2;
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
@@ -256,8 +297,7 @@ void Renderer::updateCameraToFollowJon(Jon& jon, Game& game, float deltaTime)
         m_camPos->setY(GAME_HEIGHT - CAM_HEIGHT);
     }
     
-    float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH;
+    float farCamPos = getCamPosFarRight(game);
     if (m_camPos->getX() > farCamPos)
     {
         m_camPos->setX(farCamPos);
@@ -312,7 +352,7 @@ void Renderer::renderTitleScreen()
     
     float fontStartingY = CAM_HEIGHT * 1 / 3;
     
-    static std::string text1 = std::string("Swipe  down to burrow or meet your doom!");
+    static std::string text1 = std::string("Swipe down to burrow or meet your doom!");
     m_font->renderText(*m_spriteBatcher, text1, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     
     fontStartingY -= fgHeight;
@@ -667,4 +707,12 @@ void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 {
     m_highlightRectangleBatcher->renderRectangle(pe.getBounds(), c);
+}
+
+float Renderer::getCamPosFarRight(Game &game)
+{
+    float farRight = game.getFarRight();
+    float farCamPos = farRight - CAM_WIDTH;
+    
+    return farCamPos;
 }

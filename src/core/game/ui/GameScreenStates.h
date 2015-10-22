@@ -50,6 +50,8 @@ public:
     
 private:
     std::unique_ptr<Game> m_game;
+    bool m_hasShownOpeningSequence;
+    bool m_hasOpeningSequenceCompleted;
     
     void handleTouchInput(GameScreen* gs);
     
@@ -76,6 +78,8 @@ private:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<BackButton> m_backButton;
+    bool m_hasShownOpeningSequence;
+    bool m_hasOpeningSequenceCompleted;
     
     bool handleTouchInput(GameScreen* gs);
     

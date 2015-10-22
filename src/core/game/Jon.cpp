@@ -24,7 +24,7 @@ Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, wid
     resetBounds(width * 0.6796875f, height * 0.8203125f);
 }
 
-void Jon::update(float deltaTime, Game& game)
+void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
 {
     for (std::vector<std::unique_ptr<DustCloud>>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
     {
@@ -101,7 +101,7 @@ void Jon::update(float deltaTime, Game& game)
             m_fStateTime = 0.21f;
         }
         
-		m_acceleration->set(m_fAccelerationX, 0);
+        m_acceleration->set(isAllowedToMove ? m_fAccelerationX : 0, 0);
 		m_velocity->setY(0);
 		m_iNumJumps = 0; 
         setState(ACTION_NONE);
@@ -294,6 +294,11 @@ float Jon::getActionStateTime()
 float Jon::getAbilityStateTime()
 {
     return m_fAbilityStateTime;
+}
+
+bool Jon::isMoving()
+{
+    return m_velocity->getX() > 0;
 }
 
 bool Jon::isLanding()
