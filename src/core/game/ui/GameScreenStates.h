@@ -52,9 +52,6 @@ private:
     std::unique_ptr<Game> m_game;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
-    bool m_isWaitingForTapToBegin;
-    
-    void handlePreGameTouchInput(GameScreen* gs);
     
     void handleTouchInput(GameScreen* gs);
     
@@ -83,9 +80,6 @@ private:
     std::unique_ptr<BackButton> m_backButton;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
-    bool m_isWaitingForTapToBegin;
-    
-    void handlePreGameTouchInput(GameScreen* gs);
     
     bool handleTouchInput(GameScreen* gs);
     

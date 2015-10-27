@@ -67,6 +67,8 @@ void GamePlay::enter(GameScreen* gs)
     
     if (!m_hasShownOpeningSequence)
     {
+        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+        
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
         
         m_hasShownOpeningSequence = true;
@@ -98,17 +100,6 @@ void GamePlay::execute(GameScreen* gs)
             EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
             EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
             EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
-            
-            return;
-        }
-        
-        if (m_isWaitingForTapToBegin)
-        {
-            Jon& jon = m_game->getJon();
-            
-            jon.update(gs->m_fDeltaTime, *m_game, false);
-            
-            handlePreGameTouchInput(gs);
             
             return;
         }
@@ -146,32 +137,10 @@ void GamePlay::execute(GameScreen* gs)
 
 void GamePlay::exit(GameScreen* gs)
 {
+    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
-    m_isWaitingForTapToBegin = true;
-}
-
-void GamePlay::handlePreGameTouchInput(GameScreen* gs)
-{
-    gs->processTouchEvents();
-    
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-    {
-        gs->touchToWorld((*i));
-        
-        gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-        
-        switch (i->getTouchType())
-        {
-            case DOWN:
-                continue;
-            case DRAGGED:
-                continue;
-            case UP:
-                m_isWaitingForTapToBegin = false;
-                break;
-        }
-    }
 }
 
 void GamePlay::handleTouchInput(GameScreen* gs)
@@ -224,7 +193,7 @@ void GamePlay::handleTouchInput(GameScreen* gs)
     }
 }
 
-GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_isWaitingForTapToBegin(true)
+GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
 }
@@ -246,6 +215,8 @@ void TestLevel::enter(GameScreen* gs)
     
     if (!m_hasShownOpeningSequence)
     {
+        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+        
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
         
         m_hasShownOpeningSequence = true;
@@ -279,17 +250,6 @@ void TestLevel::execute(GameScreen* gs)
             EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
             EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
             EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
-            
-            return;
-        }
-        
-        if (m_isWaitingForTapToBegin)
-        {
-            Jon& jon = m_game->getJon();
-            
-            jon.update(gs->m_fDeltaTime, *m_game, false);
-            
-            handlePreGameTouchInput(gs);
             
             return;
         }
@@ -330,37 +290,15 @@ void TestLevel::execute(GameScreen* gs)
 
 void TestLevel::exit(GameScreen* gs)
 {
+    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
-    m_isWaitingForTapToBegin = true;
 }
 
 void TestLevel::setSourceGame(Game* game)
 {
     m_sourceGame = game;
-}
-
-void TestLevel::handlePreGameTouchInput(GameScreen* gs)
-{
-    gs->processTouchEvents();
-    
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-    {
-        gs->touchToWorld((*i));
-        
-        gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-        
-        switch (i->getTouchType())
-        {
-            case DOWN:
-                continue;
-            case DRAGGED:
-                continue;
-            case UP:
-                m_isWaitingForTapToBegin = false;
-                break;
-        }
-    }
 }
 
 bool TestLevel::handleTouchInput(GameScreen* gs)
@@ -421,7 +359,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_isWaitingForTapToBegin(true)
+TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());

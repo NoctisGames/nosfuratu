@@ -89,6 +89,7 @@ Ground* Ground::create(float x, float y, int type)
         && type != GroundType_Grass_with_Cave_End_Right)
     {
         EntityUtils::applyAnchor(*pGround, ANCHOR_BOTTOM);
+        pGround->updateBounds();
     }
     
     return pGround;

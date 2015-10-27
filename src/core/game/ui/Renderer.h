@@ -113,6 +113,13 @@ private:
     std::unique_ptr<Vector2D> m_camPos;
     float m_fCamWidth;
     float m_fCamHeight;
+    std::unique_ptr<Vector2D> m_camPosAcceleration;
+    std::unique_ptr<Vector2D> m_camPosVelocity;
+    std::unique_ptr<Vector2D> m_camAcceleration;
+    std::unique_ptr<Vector2D> m_camVelocity;
+    float m_fOriginalY;
+    float m_fOriginalWidth;
+    float m_fOriginalHeight;
     float m_fStateTime;
     bool m_areTitleTexturesLoaded;
     bool m_areJonTexturesLoaded;

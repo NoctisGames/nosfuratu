@@ -38,8 +38,12 @@
 
 Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
 {
-    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
+    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 50, 54, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
+    m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
+    m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
+    m_camAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
+    m_camVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
 }
 
 void Renderer::init(RendererType type)
@@ -47,54 +51,14 @@ void Renderer::init(RendererType type)
     switch (type)
     {
         case RENDERER_TYPE_TITLE:
-            if (m_areJonTexturesLoaded)
-            {
-                destroyTexture(*m_jon.get());
-                
-                m_areJonTexturesLoaded = false;
-            }
-            
-            if (m_areVampireAndAbilityTexturesLoaded)
-            {
-                destroyTexture(*m_vampire.get());
-                destroyTexture(*m_jon_ability.get());
-                
-                m_areVampireAndAbilityTexturesLoaded = false;
-            }
-            
-            if (m_areWorld1TexturesLoaded)
-            {
-                destroyTexture(*m_world_1_background.get());
-                destroyTexture(*m_world_1_foreground_more.get());
-                destroyTexture(*m_world_1_foreground.get());
-                
-                m_areWorld1TexturesLoaded = false;
-            }
-            
-            if (m_areLevelEditorTexturesLoaded)
-            {
-                destroyTexture(*m_level_editor.get());
-                
-                m_areLevelEditorTexturesLoaded = false;
-            }
-            
             if (!m_areTitleTexturesLoaded)
             {
                 m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
                 
                 m_areTitleTexturesLoaded = true;
             }
-            
-            break;
         case RENDERER_TYPE_WORLD_1:
             zoomIn();
-            
-            if (m_areTitleTexturesLoaded)
-            {
-                destroyTexture(*m_title_font.get());
-                
-                m_areTitleTexturesLoaded = false;
-            }
             
             if (m_areLevelEditorTexturesLoaded)
             {
@@ -184,35 +148,108 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     updateCameraToFollowJon(game, 1337);
     
     m_camPos->setX(getCamPosFarRight(game));
+    
+    Jon& jon = game.getJon();
+    float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+    
+    float changeInX = getCamPosFarRight(game) - farLeft;
+    
+    m_camPosAcceleration->set(changeInX / 6, m_camPos->getY() / 2);
+    m_camAcceleration->set((ZOOMED_OUT_CAM_WIDTH - m_fCamWidth) / 2, (GAME_HEIGHT - m_fCamHeight) / 2);
+    m_camVelocity->set(0, 0);
+    m_camPosVelocity->set(0, 0);
+    
+    m_fOriginalY = m_camPos->getY();
+    m_fOriginalWidth = m_fCamWidth;
+    m_fOriginalHeight = m_fCamHeight;
 }
 
 bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 {
     m_fStateTime += deltaTime;
     
-    if (m_fStateTime < 2)
+    if (m_fStateTime < 1.5f)
     {
         return false;
     }
     
-    // TODO, perform arcing motion:
-    // Start out zoomed in on the end point, and then zooms out while panning left
-    // Only become fully zoomed out at the middle and start zooming in towards Jon while still panning left
-    // Once Jon is reached, get going.
-    // If there is any opening dialog with the bat, make it happen in real-time as the player starts moving
-    m_camPos->sub(ZOOMED_OUT_CAM_WIDTH * deltaTime, 0);
+    if (m_fStateTime <= 4.4825f)
+    {
+        m_camPosVelocity->add(m_camPosAcceleration->getX() * deltaTime, 0);
+        m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
+        m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
+        m_fCamWidth += m_camVelocity->getX() * deltaTime;
+        m_fCamHeight += m_camVelocity->getY() * deltaTime;
+        m_camPos->sub(0, m_camPosVelocity->getY() * deltaTime);
+        
+        if (m_camPos->getY() < 0)
+        {
+            m_camPos->setY(0);
+        }
+        
+        if (m_fCamWidth > ZOOMED_OUT_CAM_WIDTH)
+        {
+            m_fCamWidth = ZOOMED_OUT_CAM_WIDTH;
+        }
+        
+        if (m_fCamHeight > GAME_HEIGHT)
+        {
+            m_fCamHeight = GAME_HEIGHT;
+        }
+    }
+    else if (m_fStateTime >= 5.0825f)
+    {
+        m_camPosVelocity->sub(m_camPosAcceleration->getX() * deltaTime, 0);
+        m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
+        m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
+        m_fCamWidth -= m_camVelocity->getX() * deltaTime;
+        m_fCamHeight -= m_camVelocity->getY() * deltaTime;
+        m_camPos->add(0, m_camPosVelocity->getY() * deltaTime);
+        
+        if (m_camPos->getY() > m_fOriginalY)
+        {
+            m_camPos->setY(m_fOriginalY);
+        }
+        
+        if (m_fCamWidth < m_fOriginalWidth)
+        {
+            m_fCamWidth = m_fOriginalWidth;
+        }
+        
+        if (m_fCamHeight < m_fOriginalHeight)
+        {
+            m_fCamHeight = m_fOriginalHeight;
+        }
+        
+        if (m_camPosVelocity->getX() < 0)
+        {
+            m_camPosVelocity->setX(0);
+        }
+    }
+    else
+    {
+        m_camVelocity->set(0, 0);
+        m_camPosVelocity->setY(0);
+    }
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
     
+    float changeInX = getCamPosFarRight(game) - farLeft;
+    
+    if (m_camPosVelocity->getX() > changeInX * 0.282f)
+    {
+        m_camPosVelocity->setX(changeInX * 0.282f);
+    }
+    
+    m_camPos->sub(m_camPosVelocity->getX() * deltaTime, 0);
+    
     if (m_camPos->getX() < farLeft)
     {
         m_camPos->setX(farLeft);
-        
-        return true;
     }
     
-    return false;
+    return m_fStateTime >= 8.065f;
 }
 
 void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
@@ -347,20 +384,27 @@ void Renderer::renderTitleScreen()
     m_spriteBatcher->beginBatch();
     
     static Color fontColor = Color(1, 1, 1, 1);
-    static float fgWidth = CAM_WIDTH / 42;
-    static float fgHeight = fgWidth * 1.265625f;
+    static float fgWidth = CAM_WIDTH / 24;
+    static float fgHeight = fgWidth * 1.08f;
     
-    float fontStartingY = CAM_HEIGHT * 1 / 3;
+    float fontStartingY = CAM_HEIGHT * 2 / 5;
     
-    static std::string text1 = std::string("Swipe down to burrow or meet your doom!");
-    m_font->renderText(*m_spriteBatcher, text1, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    {
+        static std::string text = std::string("Swipe down to burrow");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    }
     
-    fontStartingY -= fgHeight;
-    fontStartingY -= fgHeight;
-    fontStartingY -= fgHeight;
+    {
+        static std::string text = std::string("or meet your doom!");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    }
     
-    static std::string text2 = std::string("Tap the screen to begin");
-    m_font->renderText(*m_spriteBatcher, text2, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    fontStartingY -= fgHeight / 2;
+    
+    {
+        static std::string text = std::string("Tap to begin");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    }
     
     m_spriteBatcher->endBatch(*m_title_font);
 }

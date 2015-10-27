@@ -208,7 +208,7 @@ static bool isRunningiOS8 = false;
     if (loadedNewTrack)
     {
         [self.bgm setLooping:true];
-        [self.bgm setVolume:1.0f];
+        [self.bgm setVolume:0.5f];
         [self.bgm play];
     }
 }
@@ -245,23 +245,19 @@ static bool isRunningiOS8 = false;
     NSError* error;
     NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     
-    const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
-    size_t len = strlen(contentCString);
-    if (len <= 32)
+    if (error)
     {
         success = false;
     }
     else
     {
-        success = error ? false : true;
+        const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
+        success = true;
+        
+        LevelEditor::getInstance()->load(contentCString);
     }
     
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
-    
-    if (success)
-    {
-        LevelEditor::getInstance()->load(contentCString);
-    }
 }
 
 - (void)onResume
