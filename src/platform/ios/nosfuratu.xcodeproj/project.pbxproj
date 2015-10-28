@@ -218,6 +218,8 @@
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; settings = {ASSET_TAGS = (); }; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
+		BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; settings = {ASSET_TAGS = (); }; };
+		BBE631791BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; settings = {ASSET_TAGS = (); }; };
 		BBE68ABB1BBEFF4000C56FEA /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE68ABA1BBEFF4000C56FEA /* level_editor.png */; settings = {ASSET_TAGS = (); }; };
 		BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */; settings = {ASSET_TAGS = (); }; };
 		BBE68AC91BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -447,6 +449,8 @@
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
 		BBE012691B9E545900D983B0 /* GroundPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundPlatform.h; sourceTree = "<group>"; };
+		BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelectorPanel.cpp; sourceTree = "<group>"; };
+		BBE631771BE1194B009C06B1 /* LevelSelectorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectorPanel.h; sourceTree = "<group>"; };
 		BBE68AB91BBEF85300C56FEA /* RendererType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RendererType.h; sourceTree = "<group>"; };
 		BBE68ABA1BBEFF4000C56FEA /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = level_editor.png; path = ../../../../assets/level_editor.png; sourceTree = "<group>"; };
 		BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelEditorActionsPanel.cpp; sourceTree = "<group>"; };
@@ -1136,6 +1140,8 @@
 				BBE68AC51BBF016D00C56FEA /* LevelEditorActionsPanel.h */,
 				BBE68AC61BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp */,
 				BBE68AC71BBF016D00C56FEA /* LevelEditorEntitiesPanel.h */,
+				BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */,
+				BBE631771BE1194B009C06B1 /* LevelSelectorPanel.h */,
 				BBEA165E1B97B9BB009B4711 /* opengles */,
 				BBEA166B1B97B9BB009B4711 /* Renderer.cpp */,
 				BBEA166C1B97B9BB009B4711 /* Renderer.h */,
@@ -1378,6 +1384,7 @@
 				BBBA6E961BBB6BD6007158E6 /* Thorns.cpp in Sources */,
 				BBEA169B1B97B9BB009B4711 /* OpenGLESLineBatcher.cpp in Sources */,
 				BBEA16781B97B9BB009B4711 /* Triangle.cpp in Sources */,
+				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */,
 				BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */,
@@ -1483,6 +1490,7 @@
 				BB42376F1BBDB6AB005D9B44 /* Thorns.cpp in Sources */,
 				BB4237701BBDB6AB005D9B44 /* OpenGLESLineBatcher.cpp in Sources */,
 				BB4237711BBDB6AB005D9B44 /* Triangle.cpp in Sources */,
+				BBE631791BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BB4237721BBDB6AB005D9B44 /* Stump.cpp in Sources */,
 				BB4237731BBDB6AB005D9B44 /* Carrot.cpp in Sources */,
 				BB4237741BBDB6AB005D9B44 /* FrameBufferToScreenProgram.cpp in Sources */,

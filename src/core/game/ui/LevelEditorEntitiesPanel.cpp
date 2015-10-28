@@ -127,7 +127,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
             }
                 break;
             case DRAGGED:
-                m_fEntitiesCameraPos += (m_touchPointDown->getY() - touchPoint.getY());
+                m_fEntitiesCameraPos += (m_touchPointDown->getY() - touchPoint.getY()) * 3;
                 if (m_fEntitiesCameraPos < 0)
                 {
                     m_fEntitiesCameraPos = 0;

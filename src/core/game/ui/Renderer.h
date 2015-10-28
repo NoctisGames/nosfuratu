@@ -30,6 +30,7 @@ class BackButton;
 class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class TrashCan;
+class LevelSelectorPanel;
 
 struct Color;
 
@@ -65,7 +66,7 @@ public:
     
     void renderBackButton(BackButton& backButton);
     
-    void renderLevelEditor(LevelEditorActionsPanel& levelEditorActionsPanel, LevelEditorEntitiesPanel& levelEditorEntitiesPanel, TrashCan& trashCan);
+    void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     
     void renderToScreen();
 

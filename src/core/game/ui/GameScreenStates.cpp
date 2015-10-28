@@ -414,7 +414,7 @@ void LevelEditor::execute(GameScreen* gs)
             gs->m_renderer->renderBounds(*m_game);
         }
         
-        gs->m_renderer->renderLevelEditor(*m_levelEditorActionsPanel, *m_levelEditorEntitiesPanel, *m_trashCan);
+        gs->m_renderer->renderLevelEditor(*m_levelEditorActionsPanel, *m_levelEditorEntitiesPanel, *m_trashCan, *m_levelSelectorPanel);
         
         gs->m_renderer->renderToScreen();
     }
@@ -477,6 +477,33 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
         gs->touchToWorld((*i));
         
         int rc;
+        if (m_levelSelectorPanel->isOpen())
+        {
+            if ((rc = m_levelSelectorPanel->handleTouch(*i, *gs->m_touchPoint)) != LEVEL_SELECTOR_PANEL_RC_UNHANDLED)
+            {
+                switch (rc)
+                {
+                    case LEVEL_SELECTOR_PANEL_RC_CONFIRM_SAVE:
+                        resetEntities(true);
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
+                        gs->m_iRequestedAction += (m_levelSelectorPanel->getWorld() * 100);
+                        gs->m_iRequestedAction += m_levelSelectorPanel->getLevel();
+                        break;
+                    case LEVEL_SELECTOR_PANEL_RC_CONFIRM_LOAD:
+                        resetEntities(true);
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
+                        gs->m_iRequestedAction += (m_levelSelectorPanel->getWorld() * 100);
+                        gs->m_iRequestedAction += m_levelSelectorPanel->getLevel();
+                        break;
+                    case LEVEL_SELECTOR_PANEL_RC_HANDLED:
+                    default:
+                        break;
+                }
+            }
+            
+            return;
+        }
+        
         if ((rc = m_levelEditorActionsPanel->handleTouch(*i, *gs->m_touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
@@ -504,14 +531,12 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
-                    resetEntities(true);
-                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD;
+                    m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
                     if (m_game->getJons().size() > 0)
                     {
-                        resetEntities(true);
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE;
+                        m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_SAVE);
                     }
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
@@ -770,4 +795,5 @@ LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullpt
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());
+    m_levelSelectorPanel = std::unique_ptr<LevelSelectorPanel>(new LevelSelectorPanel());
 }

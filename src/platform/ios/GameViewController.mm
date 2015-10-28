@@ -137,17 +137,23 @@ static bool isRunningiOS8 = false;
 
 - (void)update
 {
-    switch (gameScreen->getRequestedAction())
+    int requestedAction = gameScreen->getRequestedAction();
+    if (requestedAction >= 1000)
+    {
+        requestedAction /= 1000;
+    }
+    
+    switch (requestedAction)
     {
         case REQUESTED_ACTION_UPDATE:
             gameScreen->update(self.timeSinceLastUpdate);
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-            [self saveLevel];
+            [self saveLevel:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-            [self loadLevel];
+            [self loadLevel:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
         default:
@@ -187,7 +193,6 @@ static bool isRunningiOS8 = false;
 
 - (void)handleMusic
 {
-    bool loadedNewTrack = false;
     short musicId = gameScreen->getCurrentMusicId();
     switch (musicId)
     {
@@ -199,22 +204,19 @@ static bool isRunningiOS8 = false;
             break;
         case MUSIC_PLAY_DEMO:
             self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
-            loadedNewTrack = true;
+            [self.bgm setLooping:true];
+            [self.bgm setVolume:0.5f];
+            [self.bgm play];
             break;
         default:
             break;
     }
-    
-    if (loadedNewTrack)
-    {
-        [self.bgm setLooping:true];
-        [self.bgm setVolume:0.5f];
-        [self.bgm play];
-    }
 }
 
-- (void)saveLevel
+- (void)saveLevel:(int)requestedAction
 {
+    NSString* levelFileName = [self getLevelName:requestedAction];
+    
     bool result = false;
     const char *level_json = LevelEditor::getInstance()->save();
     
@@ -223,7 +225,7 @@ static bool isRunningiOS8 = false;
         NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:levelFileName];
         
         NSError* error;
         [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
@@ -234,13 +236,15 @@ static bool isRunningiOS8 = false;
     [self.view makeToast:result ? @"Level saved successfully" : @"Error occurred while saving level... Please try again!"];
 }
 
-- (void)loadLevel
+- (void)loadLevel:(int)requestedAction
 {
+    NSString* levelFileName = [self getLevelName:requestedAction];
+    
     bool success = false;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"nosfuratu.json"];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:levelFileName];
     
     NSError* error;
     NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
@@ -260,14 +264,55 @@ static bool isRunningiOS8 = false;
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
 }
 
+- (NSString *)getLevelName:(int)requestedAction
+{
+    int world = 0;
+    int level = 0;
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    while (requestedAction >= 100)
+    {
+        requestedAction -= 100;
+        world++;
+    }
+    
+    while (requestedAction >= 1)
+    {
+        requestedAction--;
+        level++;
+    }
+    
+    if (world > 0 && level > 0)
+    {
+        return [NSString stringWithFormat:@"nosfuratu_w%i_l%i.json", world, level];
+    }
+    else
+    {
+        return @"nosfuratu.json";
+    }
+}
+
 - (void)onResume
 {
     gameScreen->onResume();
+    
+    if (self.bgm)
+    {
+        [self.bgm play];
+    }
 }
 
 - (void)onPause
 {
     gameScreen->onPause();
+    
+    if (self.bgm)
+    {
+        [self.bgm pause];
+    }
 }
 
 @end

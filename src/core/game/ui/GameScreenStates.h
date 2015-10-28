@@ -14,6 +14,7 @@
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
+#include "LevelSelectorPanel.h"
 
 #include <memory>
 
@@ -109,6 +110,7 @@ private:
     std::unique_ptr<LevelEditorActionsPanel> m_levelEditorActionsPanel;
     std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
     std::unique_ptr<TrashCan> m_trashCan;
+    std::unique_ptr<LevelSelectorPanel> m_levelSelectorPanel;
     std::vector<PhysicalEntity*> m_gameEntities;
     std::vector<PhysicalEntity*> m_addedEntities;
     PhysicalEntity* m_lastAddedEntity;

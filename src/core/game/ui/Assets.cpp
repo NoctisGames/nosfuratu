@@ -370,6 +370,12 @@ TextureRegion& Assets::get(TrashCan& trashCan)
     return trashCan.isHighlighted() ? trashCanHighlightedTr : trashCanTr;
 }
 
+TextureRegion& Assets::get(LevelSelectorPanel& levelSelectorPanel)
+{
+    static TextureRegion tr = TextureRegion(1538, 0, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
 void Assets::setMusicId(short musicId)
 {
     m_sMusicId = musicId;

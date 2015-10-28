@@ -8,7 +8,7 @@
 
 #include "GameScreen.h"
 
-GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE)
+GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_isPaused(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -44,28 +44,34 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
 
 void GameScreen::onResume()
 {
-    // TODO
+    m_isPaused = false;
 }
 
 void GameScreen::onPause()
 {
-    // TODO
+    m_isPaused = true;
 }
 
 void GameScreen::update(float deltaTime)
 {
-    m_fDeltaTime = deltaTime;
-    
-    m_stateMachine->execute();
-    
-    m_isRequestingRender = true;
+    if (!m_isPaused)
+    {
+        m_fDeltaTime = deltaTime;
+        
+        m_stateMachine->execute();
+        
+        m_isRequestingRender = true;
+    }
 }
 
 void GameScreen::render()
 {
-    m_stateMachine->execute();
-    
-    m_isRequestingRender = false;
+    if (!m_isPaused)
+    {
+        m_stateMachine->execute();
+        
+        m_isRequestingRender = false;
+    }
 }
 
 int GameScreen::getRequestedAction()

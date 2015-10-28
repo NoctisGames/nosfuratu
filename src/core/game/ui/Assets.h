@@ -34,6 +34,7 @@
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
+#include "LevelSelectorPanel.h"
 
 #include <vector>
 
@@ -97,6 +98,8 @@ public:
     static TextureRegion& get(LevelEditorActionsPanel& levelEditorActionsPanel);
     
     static TextureRegion& get(TrashCan& trashCan);
+    
+    static TextureRegion& get(LevelSelectorPanel& levelSelectorPanel);
     
     void setMusicId(short musicId);
     

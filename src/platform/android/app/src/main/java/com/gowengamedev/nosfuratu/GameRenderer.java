@@ -78,7 +78,13 @@ public final class GameRenderer implements Renderer
     @Override
     public void onDrawFrame(GL10 gl)
     {
-        switch (get_requested_action())
+        int requestedAction = get_requested_action();
+        if (requestedAction >= 1000)
+        {
+            requestedAction /= 1000;
+        }
+
+        switch (requestedAction)
         {
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
@@ -87,11 +93,11 @@ public final class GameRenderer implements Renderer
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-                saveLevel();
+                saveLevel(get_requested_action());
                 clear_requested_action();
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-                loadLevel();
+                loadLevel(get_requested_action());
                 clear_requested_action();
                 break;
             default:
@@ -116,11 +122,21 @@ public final class GameRenderer implements Renderer
     public void onResume()
     {
         on_resume();
+
+        if (_bgm != null && !_bgm.isPlaying())
+        {
+            _bgm.play();
+        }
     }
 
     public void onPause()
     {
         on_pause();
+
+        if (_bgm != null && _bgm.isPlaying())
+        {
+            _bgm.pause();
+        }
     }
 
     public void handleTouchDown(float rawX, float rawY)
@@ -174,12 +190,6 @@ public final class GameRenderer implements Renderer
                 }
                 break;
             case MUSIC_PLAY_DEMO:
-                if (_bgm != null && _bgm.isPlaying())
-                {
-                    _bgm.dispose();
-                    _bgm = null;
-                }
-
                 _bgm = _audio.newMusic("bgm.ogg");
                 _bgm.setLooping(true);
                 _bgm.play();
@@ -189,9 +199,11 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private void saveLevel()
+    private void saveLevel(final int requestedAction)
     {
-        File file = _fileHandler.getFile("nosfuratu.json");
+        final String levelFileName = getLevelName(requestedAction);
+
+        File file = _fileHandler.getFile(levelFileName);
         _isDoingIO = true;
         final boolean result = save_level(file.getAbsolutePath());
         _isDoingIO = false;
@@ -206,8 +218,10 @@ public final class GameRenderer implements Renderer
         });
     }
 
-    private void loadLevel()
+    private void loadLevel(final int requestedAction)
     {
+        final String levelFileName = getLevelName(requestedAction);
+
         _isDoingIO = true;
 
         _activity.runOnUiThread(new Runnable()
@@ -220,7 +234,7 @@ public final class GameRenderer implements Renderer
                     @Override
                     protected String doInBackground(Void... params)
                     {
-                        return _fileHandler.readFromFile("nosfuratu.json");
+                        return _fileHandler.readFromFile(levelFileName);
                     }
 
                     @Override
@@ -238,6 +252,37 @@ public final class GameRenderer implements Renderer
                 }.execute();
             }
         });
+    }
+
+    private String getLevelName(int requestedAction)
+    {
+        int world = 0;
+        int level = 0;
+        while (requestedAction >= 1000)
+        {
+            requestedAction -= 1000;
+        }
+
+        while (requestedAction >= 100)
+        {
+            requestedAction -= 100;
+            world++;
+        }
+
+        while (requestedAction >= 1)
+        {
+            requestedAction--;
+            level++;
+        }
+
+        if (world > 0 && level > 0)
+        {
+            return String.format("nosfuratu_w%d_l%d.json", world, level);
+        }
+        else
+        {
+            return "nosfuratu.json";
+        }
     }
 
     private static native void init(boolean isLevelEditor);

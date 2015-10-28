@@ -12,6 +12,7 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
+// Save/Load actions are passed in this format: [1-2][1-5][0-20], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
 
