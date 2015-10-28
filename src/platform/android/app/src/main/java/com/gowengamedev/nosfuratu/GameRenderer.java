@@ -32,9 +32,6 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_COLLECT_CARROT = 1;
     private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
 
-    private static final float MOV_AVERAGE_PERIOD = 5; // #frames involved in average calc (suggested values 5-100)
-    private static final float SMOOTH_FACTOR = 0.1f; // adjusting ratio (suggested values 0.01-0.5)
-
     private final Activity _activity;
     private final FileHandler _fileHandler;
     private final Audio _audio;
@@ -42,9 +39,7 @@ public final class GameRenderer implements Renderer
     private Sound _collectCarrotSound;
     private Sound _collectGoldenCarrotSound;
 
-    private float _smoothedDeltaRealTime_ms = 16.66666666667f;
-    private float _movAverageDeltaTime_ms = _smoothedDeltaRealTime_ms;
-    private long _lastRealTimeMeasurement_ms;
+    private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
 
     public GameRenderer(Activity activity)
@@ -54,6 +49,8 @@ public final class GameRenderer implements Renderer
         _audio = new Audio(activity.getAssets());
         _collectCarrotSound = _audio.newSound("collect_carrot.ogg");
         _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.ogg");
+
+        _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -78,6 +75,8 @@ public final class GameRenderer implements Renderer
     @Override
     public void onDrawFrame(GL10 gl)
     {
+        float currTimePick_ms = (float) SystemClock.uptimeMillis();
+
         int requestedAction = get_requested_action();
         if (requestedAction >= 1000)
         {
@@ -89,7 +88,7 @@ public final class GameRenderer implements Renderer
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
                 {
-                    update(_smoothedDeltaRealTime_ms / 1000);
+                    update((currTimePick_ms - _lastRealTimeMeasurement_ms) / 1000);
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
@@ -107,14 +106,6 @@ public final class GameRenderer implements Renderer
         render();
         handleSound();
         handleMusic();
-
-        // Moving average calc
-        long currTimePick_ms = SystemClock.uptimeMillis();
-        float realTimeElapsed_ms = _lastRealTimeMeasurement_ms > 0 ? (currTimePick_ms - _lastRealTimeMeasurement_ms) : _smoothedDeltaRealTime_ms;
-
-        _movAverageDeltaTime_ms = (realTimeElapsed_ms + _movAverageDeltaTime_ms * (MOV_AVERAGE_PERIOD - 1)) / MOV_AVERAGE_PERIOD;
-
-        _smoothedDeltaRealTime_ms = _smoothedDeltaRealTime_ms + (_movAverageDeltaTime_ms - _smoothedDeltaRealTime_ms) * SMOOTH_FACTOR;
 
         _lastRealTimeMeasurement_ms = currTimePick_ms;
     }

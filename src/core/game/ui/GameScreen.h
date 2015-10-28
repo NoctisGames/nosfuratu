@@ -42,6 +42,7 @@ public:
     float m_fDeltaTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
+    int m_iNumFramesToDiscard;
     bool m_isPaused;
     
 	GameScreen(bool isLevelEditor = false);

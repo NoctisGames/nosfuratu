@@ -8,7 +8,7 @@
 
 #include "GameScreen.h"
 
-GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_isPaused(false)
+GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -54,6 +54,12 @@ void GameScreen::onPause()
 
 void GameScreen::update(float deltaTime)
 {
+    if (m_iNumFramesToDiscard > 0)
+    {
+        m_iNumFramesToDiscard--;
+        return;
+    }
+    
     if (!m_isPaused)
     {
         m_fDeltaTime = deltaTime;

@@ -70,6 +70,7 @@ void GamePlay::enter(GameScreen* gs)
         Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
         
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
+        gs->m_iNumFramesToDiscard = 1;
         
         m_hasShownOpeningSequence = true;
     }
@@ -218,6 +219,7 @@ void TestLevel::enter(GameScreen* gs)
         Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
         
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
+        gs->m_iNumFramesToDiscard = 1;
         
         m_hasShownOpeningSequence = true;
     }

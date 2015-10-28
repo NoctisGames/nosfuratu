@@ -53,34 +53,35 @@ void Renderer::init(RendererType type)
     switch (type)
     {
         case RENDERER_TYPE_TITLE:
+            if (m_areJonTexturesLoaded)
+            {
+                destroyTexture(*m_jon);
+                
+                m_areJonTexturesLoaded = false;
+            }
+            
+            if (m_areVampireAndAbilityTexturesLoaded)
+            {
+                destroyTexture(*m_jon_ability);
+                destroyTexture(*m_vampire);
+                
+                m_areVampireAndAbilityTexturesLoaded = false;
+            }
+            
+            if (m_areWorld1TexturesLoaded)
+            {
+                destroyTexture(*m_world_1_background);
+                destroyTexture(*m_world_1_foreground_more);
+                destroyTexture(*m_world_1_foreground);
+                
+                m_areWorld1TexturesLoaded = false;
+            }
+            
             if (!m_areTitleTexturesLoaded)
             {
                 m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
                 
                 m_areTitleTexturesLoaded = true;
-            }
-            
-            if (!m_areJonTexturesLoaded)
-            {
-                m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-                
-                m_areJonTexturesLoaded = true;
-            }
-            
-            if (!m_areVampireAndAbilityTexturesLoaded)
-            {
-                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
-                
-                m_areVampireAndAbilityTexturesLoaded = true;
-            }
-            
-            if (!m_areWorld1TexturesLoaded)
-            {
-                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-                m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-                m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
-                
-                m_areWorld1TexturesLoaded = true;
             }
             
             break;
@@ -111,6 +112,7 @@ void Renderer::init(RendererType type)
             if (!m_areVampireAndAbilityTexturesLoaded)
             {
                 m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
                 
                 m_areVampireAndAbilityTexturesLoaded = true;
             }
@@ -127,6 +129,14 @@ void Renderer::init(RendererType type)
             break;
         case RENDERER_TYPE_LEVEL_EDITOR:
             zoomOut();
+            
+            if (m_areVampireAndAbilityTexturesLoaded)
+            {
+                destroyTexture(*m_jon_ability);
+                destroyTexture(*m_vampire);
+                
+                m_areVampireAndAbilityTexturesLoaded = false;
+            }
             
             if (!m_areTitleTexturesLoaded)
             {
@@ -147,13 +157,6 @@ void Renderer::init(RendererType type)
                 m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
                 
                 m_areJonTexturesLoaded = true;
-            }
-            
-            if (!m_areVampireAndAbilityTexturesLoaded)
-            {
-                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
-                
-                m_areVampireAndAbilityTexturesLoaded = true;
             }
             
             if (!m_areWorld1TexturesLoaded)
