@@ -634,7 +634,6 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 
                 m_isVerticalChangeAllowed = true;
                 m_useYCorrection = false;
-                m_useXCorrection = false;
                 m_allowAttachment = true;
                 m_allowPlaceOn = true;
                 m_fYOffset = 0;
@@ -668,7 +667,6 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else if (dynamic_cast<Carrot*>(m_draggingEntity) || dynamic_cast<GoldenCarrot*>(m_draggingEntity))
                     {
-                        m_useXCorrection = true;
                         m_allowAttachment = false;
                         m_fYOffset = 0.8f;
                     }
@@ -774,7 +772,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                             }
                             else if (m_isVerticalChangeAllowed && draggingPosY > attachToTop && m_allowPlaceOn)
                             {
-                                EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_fYOffset, m_useXCorrection);
+                                EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_fYOffset);
                             }
                         }
                         
@@ -789,7 +787,12 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     if (dynamic_cast<Carrot*>(m_lastAddedEntity))
                     {
-                        m_lastAddedEntity = new Carrot(gs->m_touchPoint->getX() * 3, m_lastAddedEntity->getPosition().getY());
+                        Vector2D tp = gs->m_touchPoint->cpy();
+                        tp.mul(3);
+                        float camPosX = gs->m_renderer->getCameraPosition().getX();
+                        tp.add(camPosX, 0);
+                        
+                        m_lastAddedEntity = new Carrot(tp.getX(), m_lastAddedEntity->getPosition().getY());
                         m_game->getCarrots().push_back(std::unique_ptr<Carrot>(dynamic_cast<Carrot*>(m_lastAddedEntity)));
                         m_addedEntities.push_back(m_lastAddedEntity);
                         resetEntities(false);
@@ -871,7 +874,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_useYCorrection(false), m_useXCorrection(false), m_allowAttachment(true), m_allowPlaceOn(true), m_fYOffset(0)
+LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_useYCorrection(false), m_allowAttachment(true), m_allowPlaceOn(true), m_fYOffset(0)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

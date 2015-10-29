@@ -588,11 +588,11 @@ void Renderer::renderBounds(Game& game)
     renderBoundsForPhysicalEntities(game.getSideSpikes());
     renderBoundsForPhysicalEntities(game.getUpwardSpikes());
     renderBoundsForPhysicalEntities(game.getJumpSprings());
-    renderBoundsForPhysicalEntities(game.getRocks());
     renderBoundsForPhysicalEntities(game.getPlatforms());
     renderBoundsForPhysicalEntities(game.getEndSigns());
     renderBoundsForPhysicalEntities(game.getCarrots());
     renderBoundsForPhysicalEntities(game.getGoldenCarrots());
+    renderBoundsForPhysicalEntities(game.getRocks());
     m_boundsRectangleBatcher->endBatch();
 }
 
@@ -697,11 +697,11 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getSideSpikes());
         renderPhysicalEntities(leep.getUpwardSpikes());
         renderPhysicalEntities(leep.getJumpSprings());
-        renderPhysicalEntitiesWithColor(leep.getRocks());
         renderPhysicalEntities(leep.getPlatforms());
         renderPhysicalEntities(leep.getEndSigns());
         renderPhysicalEntities(leep.getCarrots());
         renderPhysicalEntities(leep.getGoldenCarrots());
+        renderPhysicalEntitiesWithColor(leep.getRocks());
         m_spriteBatcher->endBatch(*m_world_1_foreground);
     }
     
