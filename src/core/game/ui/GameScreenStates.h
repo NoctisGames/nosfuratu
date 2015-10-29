@@ -119,6 +119,7 @@ private:
     float m_fDraggingEntityOriginalY;
     bool m_isVerticalChangeAllowed;
     bool m_useYCorrection;
+    bool m_useXCorrection;
     bool m_allowAttachment;
     bool m_allowPlaceOn;
     float m_fYOffset;

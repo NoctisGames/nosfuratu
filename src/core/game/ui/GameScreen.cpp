@@ -12,6 +12,7 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
+    m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
     m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));

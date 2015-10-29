@@ -28,7 +28,7 @@ public:
     
     static void attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf, bool yCorrection);
     
-    static void placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset = 0);
+    static void placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset = 0, bool xCorrection = false);
     
     template<typename T>
     static bool isLanding(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)

@@ -62,7 +62,7 @@ void EntityUtils::attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf
     }
 }
 
-void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset)
+void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset, bool xCorrection)
 {
     float halfHeight = entity.getBounds().getHeight() / 2;
     float top = on.getBounds().getTop();
@@ -78,4 +78,11 @@ void EntityUtils::placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOff
     entity.getPosition().add(0, yOffset);
     
     entity.updateBounds();
+    
+    if (xCorrection)
+    {
+        entity.getPosition().setX(on.getPosition().getX());
+        
+        entity.updateBounds();
+    }
 }

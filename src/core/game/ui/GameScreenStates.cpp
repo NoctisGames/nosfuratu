@@ -23,6 +23,8 @@ Title * Title::getInstance()
 
 void Title::enter(GameScreen* gs)
 {
+    GamePlay::getInstance()->exit(gs);
+    
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
@@ -318,7 +320,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
             case DOWN:
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                 {
-                    gs->m_stateMachine->changeState(LevelEditor::getInstance());
+                    gs->m_stateMachine->revertToPreviousState();
                     return true;
                 }
                 
@@ -378,6 +380,8 @@ LevelEditor * LevelEditor::getInstance()
 
 void LevelEditor::enter(GameScreen* gs)
 {
+    TestLevel::getInstance()->exit(gs);
+    
     if (!m_game->isLoaded())
     {
         load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
@@ -572,6 +576,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 
                 m_isVerticalChangeAllowed = true;
                 m_useYCorrection = false;
+                m_useXCorrection = false;
                 m_allowAttachment = true;
                 m_allowPlaceOn = true;
                 m_fYOffset = 0;
@@ -605,11 +610,14 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else if (dynamic_cast<Carrot*>(m_draggingEntity) || dynamic_cast<GoldenCarrot*>(m_draggingEntity))
                     {
+                        m_useXCorrection = true;
+                        m_allowAttachment = false;
                         m_fYOffset = 0.8f;
                     }
                 }
                 
                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                gs->m_touchPointDown2->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             }
                 continue;
             case DRAGGED:
@@ -649,6 +657,10 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     else if ((index = EntityUtils::doRectanglesOverlap(m_game->getPlatforms(), m_draggingEntity)) != -1)
                     {
                         m_attachToEntity = m_game->getPlatforms().at(index).get();
+                    }
+                    else if (dynamic_cast<Carrot*>(m_draggingEntity) && (index = EntityUtils::doRectanglesOverlap(m_game->getCarrots(), m_draggingEntity)) != -1)
+                    {
+                        m_attachToEntity = m_game->getCarrots().at(index).get();
                     }
                     else
                     {
@@ -704,7 +716,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                             }
                             else if (m_isVerticalChangeAllowed && draggingPosY > attachToTop && m_allowPlaceOn)
                             {
-                                EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_fYOffset);
+                                EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_fYOffset, m_useXCorrection);
                             }
                         }
                         
@@ -713,6 +725,16 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                             m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
                             m_draggingEntity->updateBounds();
                         }
+                    }
+                }
+                else if (m_lastAddedEntity != nullptr && gs->m_touchPoint->getX() < gs->m_touchPointDown2->getX() + 0.5f && gs->m_touchPoint->getX() > gs->m_touchPointDown2->getX() - 0.5f)
+                {
+                    if (dynamic_cast<Carrot*>(m_lastAddedEntity))
+                    {
+                        m_lastAddedEntity = new Carrot(m_lastAddedEntity->getPosition().getX() + m_lastAddedEntity->getWidth(), m_lastAddedEntity->getPosition().getY());
+                        m_game->getCarrots().push_back(std::unique_ptr<Carrot>(dynamic_cast<Carrot*>(m_lastAddedEntity)));
+                        m_addedEntities.push_back(m_lastAddedEntity);
+                        resetEntities(false);
                     }
                 }
                 
@@ -791,7 +813,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_useYCorrection(false), m_allowAttachment(true), m_allowPlaceOn(true), m_fYOffset(0)
+LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_useYCorrection(false), m_useXCorrection(false), m_allowAttachment(true), m_allowPlaceOn(true), m_fYOffset(0)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
