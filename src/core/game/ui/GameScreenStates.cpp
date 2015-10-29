@@ -40,9 +40,17 @@ void Title::execute(GameScreen* gs)
     {
         gs->processTouchEvents();
         
-        if (gs->m_touchEvents.size() > 0)
+        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
-            gs->m_stateMachine->changeState(GamePlay::getInstance());
+            switch (i->getTouchType())
+            {
+                case DOWN:
+                    continue;
+                case DRAGGED:
+                    continue;
+                case UP:
+                    gs->m_stateMachine->changeState(GamePlay::getInstance());
+            }
         }
     }
 }
@@ -92,7 +100,12 @@ void GamePlay::execute(GameScreen* gs)
     {
         if (!m_hasOpeningSequenceCompleted)
         {
-            gs->processTouchEvents();
+            if (handleOpeningSequenceTouchInput(gs))
+            {
+                gs->m_renderer->zoomIn();
+                m_hasOpeningSequenceCompleted = true;
+                return;
+            }
             
             Jon& jon = m_game->getJon();
             
@@ -144,6 +157,26 @@ void GamePlay::exit(GameScreen* gs)
     
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
+}
+
+bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
+{
+    gs->processTouchEvents();
+    
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    {
+        switch (i->getTouchType())
+        {
+            case DOWN:
+                return true;
+            case DRAGGED:
+                continue;
+            case UP:
+                continue;
+        }
+    }
+    
+    return false;
 }
 
 void GamePlay::handleTouchInput(GameScreen* gs)
@@ -243,7 +276,12 @@ void TestLevel::execute(GameScreen* gs)
     {
         if (!m_hasOpeningSequenceCompleted)
         {
-            gs->processTouchEvents();
+            if (handleOpeningSequenceTouchInput(gs))
+            {
+                gs->m_renderer->zoomIn();
+                m_hasOpeningSequenceCompleted = true;
+                return;
+            }
             
             Jon& jon = m_game->getJon();
             
@@ -305,6 +343,26 @@ void TestLevel::setSourceGame(Game* game)
     m_sourceGame = game;
 }
 
+bool TestLevel::handleOpeningSequenceTouchInput(GameScreen* gs)
+{
+    gs->processTouchEvents();
+    
+    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    {
+        switch (i->getTouchType())
+        {
+            case DOWN:
+                return true;
+            case DRAGGED:
+                continue;
+            case UP:
+                continue;
+        }
+    }
+    
+    return false;
+}
+
 bool TestLevel::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
@@ -318,17 +376,17 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
         switch (i->getTouchType())
         {
             case DOWN:
+                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                continue;
+            case DRAGGED:
+                continue;
+            case UP:
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                 {
                     gs->m_stateMachine->revertToPreviousState();
                     return true;
                 }
                 
-                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                continue;
-            case DRAGGED:
-                continue;
-            case UP:
                 if (gs->m_touchPointDown->getX() + SWIPE_WIDTH <= gs->m_touchPoint->getX())
                 {
                     // Swipe Right
@@ -731,7 +789,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     if (dynamic_cast<Carrot*>(m_lastAddedEntity))
                     {
-                        m_lastAddedEntity = new Carrot(m_lastAddedEntity->getPosition().getX() + m_lastAddedEntity->getWidth(), m_lastAddedEntity->getPosition().getY());
+                        m_lastAddedEntity = new Carrot(gs->m_touchPoint->getX() * 3, m_lastAddedEntity->getPosition().getY());
                         m_game->getCarrots().push_back(std::unique_ptr<Carrot>(dynamic_cast<Carrot*>(m_lastAddedEntity)));
                         m_addedEntities.push_back(m_lastAddedEntity);
                         resetEntities(false);

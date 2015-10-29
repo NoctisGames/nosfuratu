@@ -54,6 +54,8 @@ private:
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     
+    bool handleOpeningSequenceTouchInput(GameScreen* gs);
+    
     void handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
@@ -82,6 +84,7 @@ private:
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     
+    bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
