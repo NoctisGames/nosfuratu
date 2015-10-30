@@ -66,7 +66,7 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(BackButton& backButton);
+    void renderHud(Game& game, BackButton& backButton);
     
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     

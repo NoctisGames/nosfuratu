@@ -35,6 +35,7 @@
 
 #include <math.h>
 #include <sstream>
+#include <iomanip>
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
@@ -88,13 +89,6 @@ void Renderer::init(RendererType type)
             
             break;
         case RENDERER_TYPE_WORLD_1:            
-            if (m_areTitleTexturesLoaded)
-            {
-                destroyTexture(*m_title_font);
-                
-                m_areTitleTexturesLoaded = false;
-            }
-            
             if (m_areLevelEditorTexturesLoaded)
             {
                 destroyTexture(*m_level_editor);
@@ -124,6 +118,13 @@ void Renderer::init(RendererType type)
                 m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
                 
                 m_areWorld1TexturesLoaded = true;
+            }
+            
+            if (!m_areTitleTexturesLoaded)
+            {
+                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
+                
+                m_areTitleTexturesLoaded = true;
             }
             
             break;
@@ -428,12 +429,12 @@ void Renderer::renderTitleScreen()
     float fontStartingY = CAM_HEIGHT * 2 / 5;
     
     {
-        static std::string text = std::string("Swipe down to burrow");
+        static std::string text = std::string("My best time: 27.46");
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     }
     
     {
-        static std::string text = std::string("or meet your doom!");
+        static std::string text = std::string("Happy Halloween!");
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     }
     
@@ -608,7 +609,7 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(BackButton &backButton)
+void Renderer::renderHud(Game& game, BackButton &backButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -617,6 +618,63 @@ void Renderer::renderHud(BackButton &backButton)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(backButton, Assets::get(backButton));
     m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    
+    static Color fontColor = Color(1, 1, 1, 1);
+    static float fgWidth = CAM_WIDTH / 24;
+    static float fgHeight = fgWidth * 1.140625f;
+    
+    /// Render Play Time
+    
+    m_spriteBatcher->beginBatch();
+    {
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(2) << game.getStateTime();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
+    }
+    m_spriteBatcher->endBatch(*m_title_font);
+    
+    /// Render Num / Total Carrots
+    
+    m_spriteBatcher->beginBatch();
+    {
+        std::stringstream ss;
+        ss << (game.getNumTotalCarrots() - game.getCarrots().size());
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (4 + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+    }
+    {
+        std::stringstream ss;
+        ss << "/";
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 4 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+    }
+    {
+        std::stringstream ss;
+        ss << game.getNumTotalCarrots();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+    }
+    m_spriteBatcher->endBatch(*m_title_font);
+    
+    /// Render Num / Total Golden Carrots
+    
+    m_spriteBatcher->beginBatch();
+    {
+        std::stringstream ss;
+        ss << (game.getNumTotalGoldenCarrots() - game.getGoldenCarrots().size()) << "/" << game.getNumTotalGoldenCarrots();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
+    }
+    m_spriteBatcher->endBatch(*m_title_font);
+    
+    static Carrot uiCarrot = Carrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight);
+    static GoldenCarrot uiGoldenCarrot = GoldenCarrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(uiCarrot, Assets::get(uiCarrot));
+    renderPhysicalEntity(uiGoldenCarrot, Assets::get(uiGoldenCarrot));
+    m_spriteBatcher->endBatch(*m_world_1_foreground);
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)

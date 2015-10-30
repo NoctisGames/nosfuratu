@@ -120,6 +120,10 @@ public:
     
     float getStateTime();
     
+    int getNumTotalCarrots();
+    
+    int getNumTotalGoldenCarrots();
+    
     bool isLoaded();
     
 private:
@@ -145,6 +149,8 @@ private:
     std::vector<std::unique_ptr<Jon>> m_jons;
     
     float m_fStateTime;
+    int m_iNumTotalCarrots;
+    int m_iNumTotalGoldenCarrots;
     bool m_isLoaded;
     
     template<typename T>

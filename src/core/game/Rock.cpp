@@ -67,7 +67,7 @@ void Rock::updateBounds()
     m_bounds->setWidth(getWidth() * 0.27604166666667f);
     m_bounds->setHeight(getHeight() * 0.26086956521739f);
     
-    if (m_isBlowingUp && m_fStateTime > 0.06f)
+    if (m_isBlowingUp)
     {
         // Bye bye!
         lowerLeft.setY(1337);

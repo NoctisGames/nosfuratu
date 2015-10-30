@@ -34,7 +34,7 @@
 #define goldenCarrotsKey "goldenCarrots"
 #define jonsKey "jons"
 
-Game::Game() : m_fStateTime(0.0f), m_isLoaded(false)
+Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
 {
     // Empty
 }
@@ -63,6 +63,9 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getCarrots(), m_carrots);
     copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
     copyPhysicalEntities(game->getJons(), m_jons);
+    
+    m_iNumTotalCarrots = (int) m_carrots.size();
+    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
     
     m_isLoaded = true;
 }
@@ -94,6 +97,9 @@ void Game::load(const char* json)
     loadArray(m_carrots, d, carrotsKey);
     loadArray(m_goldenCarrots, d, goldenCarrotsKey);
     loadArray(m_jons, d, jonsKey);
+    
+    m_iNumTotalCarrots = (int) m_carrots.size();
+    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
     
     m_isLoaded = true;
 }
@@ -160,6 +166,8 @@ void Game::reset()
     m_jons.clear();
     
     m_fStateTime = 0;
+    m_iNumTotalCarrots = 0;
+    m_iNumTotalGoldenCarrots = 0;
     m_isLoaded = false;
 }
 
@@ -373,6 +381,16 @@ float Game::getFarRight()
 float Game::getStateTime()
 {
     return m_fStateTime;
+}
+
+int Game::getNumTotalCarrots()
+{
+    return m_iNumTotalCarrots;
+}
+
+int Game::getNumTotalGoldenCarrots()
+{
+    return m_iNumTotalGoldenCarrots;
 }
 
 bool Game::isLoaded()

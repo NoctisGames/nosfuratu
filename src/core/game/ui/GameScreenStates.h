@@ -55,8 +55,10 @@ private:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<BackButton> m_backButton;
+    float m_fStateTime;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
+    bool m_hasPlayerCompletedLevel;
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
