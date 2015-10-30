@@ -19,7 +19,11 @@ IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, 
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
     
-    initGraphics(screenWidth, screenHeight);
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
+    
+    m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
+    
+    m_stateMachine->getCurrentState()->enter(this);
 }
 
 void IOSOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)

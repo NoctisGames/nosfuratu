@@ -40,7 +40,7 @@
 
 Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
 {
-    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 50, 54, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
+    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 73, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -423,7 +423,7 @@ void Renderer::renderTitleScreen()
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
-    static float fgHeight = fgWidth * 1.08f;
+    static float fgHeight = fgWidth * 1.140625f;
     
     float fontStartingY = CAM_HEIGHT * 2 / 5;
     
@@ -719,7 +719,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         static Color fontColor = Color(1, 1, 1, 1);
         
         float fgWidth = lsp.getTextSize();
-        float fgHeight = fgWidth * 1.08f;
+        float fgHeight = fgWidth * 1.140625f;
         
         m_spriteBatcher->beginBatch();
         {

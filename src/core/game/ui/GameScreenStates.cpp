@@ -23,8 +23,6 @@ Title * Title::getInstance()
 
 void Title::enter(GameScreen* gs)
 {
-    GamePlay::getInstance()->exit(gs);
-    
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
@@ -71,15 +69,24 @@ GamePlay * GamePlay::getInstance()
 
 void GamePlay::enter(GameScreen* gs)
 {
-    m_game->load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"trees\":[{\"x\":4.05,\"y\":13.8393,\"type\":2},{\"x\":14.15,\"y\":14.1668,\"type\":1},{\"x\":65.05,\"y\":13.8393,\"type\":2},{\"x\":72.7,\"y\":13.0789,\"type\":0},{\"x\":81.7001,\"y\":14.1668,\"type\":1},{\"x\":105.85,\"y\":13.8393,\"type\":2},{\"x\":112.9,\"y\":13.0789,\"type\":0},{\"x\":135.15,\"y\":14.1668,\"type\":1},{\"x\":143.85,\"y\":13.0789,\"type\":0}],\"caveSkeletons\":[],\"grounds\":[{\"x\":24.1,\"y\":8.90251,\"type\":0},{\"x\":-0.718715,\"y\":8.90251,\"type\":3},{\"x\":48.8602,\"y\":8.90251,\"type\":4},{\"x\":11.35,\"y\":2.36309,\"type\":13},{\"x\":36.0868,\"y\":2.36309,\"type\":10},{\"x\":60.812,\"y\":2.36309,\"type\":14},{\"x\":60.8003,\"y\":5.11222,\"type\":8},{\"x\":67.5605,\"y\":5.11222,\"type\":7},{\"x\":85.5488,\"y\":8.90251,\"type\":1},{\"x\":98.3441,\"y\":8.90251,\"type\":4},{\"x\":88.5163,\"y\":2.36309,\"type\":13},{\"x\":95.3,\"y\":2.36309,\"type\":12},{\"x\":102.072,\"y\":2.36309,\"type\":14},{\"x\":102.06,\"y\":5.11222,\"type\":8},{\"x\":108.82,\"y\":5.11222,\"type\":7},{\"x\":115.627,\"y\":5.11222,\"type\":9},{\"x\":132,\"y\":5.11222,\"type\":8},{\"x\":138.76,\"y\":5.11222,\"type\":7},{\"x\":145.567,\"y\":5.11222,\"type\":9}],\"holes\":[{\"x\":13.65,\"y\":8.09532},{\"x\":88.8,\"y\":8.09532}],\"logVerticalTalls\":[],\"logVerticalShorts\":[],\"thorns\":[{\"x\":17,\"y\":9.7682},{\"x\":20.2,\"y\":9.7682},{\"x\":23.45,\"y\":9.7682},{\"x\":26.5,\"y\":9.7682},{\"x\":29.6,\"y\":9.7682},{\"x\":32.6,\"y\":9.7682},{\"x\":35.7,\"y\":9.7682},{\"x\":38.85,\"y\":9.7682},{\"x\":41.7,\"y\":9.7682},{\"x\":44.7,\"y\":9.7682},{\"x\":47.65,\"y\":9.7682},{\"x\":92,\"y\":9.7682},{\"x\":94.65,\"y\":9.7682},{\"x\":97.3,\"y\":9.7682},{\"x\":103.35,\"y\":9.7682},{\"x\":106.15,\"y\":9.7682},{\"x\":108.9,\"y\":9.7682},{\"x\":111.9,\"y\":9.7682},{\"x\":114.8,\"y\":9.7682}],\"stumps\":[],\"sideSpikes\":[],\"upwardSpikes\":[{\"x\":98.1,\"y\":11.9422,\"type\":1},{\"x\":99.3,\"y\":11.9422,\"type\":1}],\"jumpSprings\":[{\"x\":59.4319,\"y\":1.98873,\"type\":1},{\"x\":58.25,\"y\":1.98873,\"type\":1},{\"x\":57.05,\"y\":1.98873,\"type\":1},{\"x\":100.692,\"y\":1.98873,\"type\":1}],\"rocks\":[],\"platforms\":[{\"x\":103.05,\"y\":19.3641,\"type\":0},{\"x\":106.35,\"y\":18.9844,\"type\":0},{\"x\":109.55,\"y\":18.6047,\"type\":0},{\"x\":98.7,\"y\":11.0531,\"type\":0},{\"x\":112.7,\"y\":18.1828,\"type\":0},{\"x\":115.95,\"y\":17.8031,\"type\":0},{\"x\":119.05,\"y\":17.5078,\"type\":0},{\"x\":122.2,\"y\":17.1703,\"type\":0},{\"x\":125.3,\"y\":16.875,\"type\":0}],\"endSigns\":[{\"x\":145.1,\"y\":9.59272}],\"carrots\":[{\"x\":103.05,\"y\":20.9946},{\"x\":106.35,\"y\":20.615},{\"x\":109.65,\"y\":20.2353},{\"x\":112.65,\"y\":19.8134},{\"x\":115.9,\"y\":19.4337},{\"x\":119.05,\"y\":19.1384},{\"x\":122.2,\"y\":18.8009},{\"x\":125.3,\"y\":18.5056}],\"goldenCarrots\":[{\"x\":143.65,\"y\":10.4044},{\"x\":142.15,\"y\":10.4044},{\"x\":140.55,\"y\":10.4044},{\"x\":139,\"y\":10.4044},{\"x\":137.5,\"y\":10.4044}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
+    if (!m_game->isLoaded())
+    {
+        if (m_sourceGame)
+        {
+            m_game->copy(m_sourceGame);
+        }
+        else
+        {
+            m_game->load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"trees\":[{\"x\":4.05,\"y\":13.8393,\"type\":2},{\"x\":14.15,\"y\":14.1668,\"type\":1},{\"x\":65.05,\"y\":13.8393,\"type\":2},{\"x\":72.7,\"y\":13.0789,\"type\":0},{\"x\":81.7001,\"y\":14.1668,\"type\":1},{\"x\":105.85,\"y\":13.8393,\"type\":2},{\"x\":112.9,\"y\":13.0789,\"type\":0},{\"x\":135.15,\"y\":14.1668,\"type\":1},{\"x\":143.85,\"y\":13.0789,\"type\":0}],\"caveSkeletons\":[],\"grounds\":[{\"x\":24.1,\"y\":8.90251,\"type\":0},{\"x\":-0.718715,\"y\":8.90251,\"type\":3},{\"x\":48.8602,\"y\":8.90251,\"type\":4},{\"x\":11.35,\"y\":2.36309,\"type\":13},{\"x\":36.0868,\"y\":2.36309,\"type\":10},{\"x\":60.812,\"y\":2.36309,\"type\":14},{\"x\":60.8003,\"y\":5.11222,\"type\":8},{\"x\":67.5605,\"y\":5.11222,\"type\":7},{\"x\":85.5488,\"y\":8.90251,\"type\":1},{\"x\":98.3441,\"y\":8.90251,\"type\":4},{\"x\":88.5163,\"y\":2.36309,\"type\":13},{\"x\":95.3,\"y\":2.36309,\"type\":12},{\"x\":102.072,\"y\":2.36309,\"type\":14},{\"x\":102.06,\"y\":5.11222,\"type\":8},{\"x\":108.82,\"y\":5.11222,\"type\":7},{\"x\":115.627,\"y\":5.11222,\"type\":9},{\"x\":132,\"y\":5.11222,\"type\":8},{\"x\":138.76,\"y\":5.11222,\"type\":7},{\"x\":145.567,\"y\":5.11222,\"type\":9}],\"holes\":[{\"x\":13.65,\"y\":8.09532},{\"x\":88.8,\"y\":8.09532}],\"logVerticalTalls\":[],\"logVerticalShorts\":[],\"thorns\":[{\"x\":17,\"y\":9.7682},{\"x\":20.2,\"y\":9.7682},{\"x\":23.45,\"y\":9.7682},{\"x\":26.5,\"y\":9.7682},{\"x\":29.6,\"y\":9.7682},{\"x\":32.6,\"y\":9.7682},{\"x\":35.7,\"y\":9.7682},{\"x\":38.85,\"y\":9.7682},{\"x\":41.7,\"y\":9.7682},{\"x\":44.7,\"y\":9.7682},{\"x\":47.65,\"y\":9.7682},{\"x\":92,\"y\":9.7682},{\"x\":94.65,\"y\":9.7682},{\"x\":97.3,\"y\":9.7682},{\"x\":103.35,\"y\":9.7682},{\"x\":106.15,\"y\":9.7682},{\"x\":108.9,\"y\":9.7682},{\"x\":111.9,\"y\":9.7682},{\"x\":114.8,\"y\":9.7682}],\"stumps\":[],\"sideSpikes\":[],\"upwardSpikes\":[{\"x\":98.1,\"y\":11.9422,\"type\":1},{\"x\":99.3,\"y\":11.9422,\"type\":1}],\"jumpSprings\":[{\"x\":59.4319,\"y\":1.98873,\"type\":1},{\"x\":58.25,\"y\":1.98873,\"type\":1},{\"x\":57.05,\"y\":1.98873,\"type\":1},{\"x\":100.692,\"y\":1.98873,\"type\":1}],\"rocks\":[],\"platforms\":[{\"x\":103.05,\"y\":19.3641,\"type\":0},{\"x\":106.35,\"y\":18.9844,\"type\":0},{\"x\":109.55,\"y\":18.6047,\"type\":0},{\"x\":98.7,\"y\":11.0531,\"type\":0},{\"x\":112.7,\"y\":18.1828,\"type\":0},{\"x\":115.95,\"y\":17.8031,\"type\":0},{\"x\":119.05,\"y\":17.5078,\"type\":0},{\"x\":122.2,\"y\":17.1703,\"type\":0},{\"x\":125.3,\"y\":16.875,\"type\":0}],\"endSigns\":[{\"x\":145.1,\"y\":9.59272}],\"carrots\":[{\"x\":103.05,\"y\":20.9946},{\"x\":106.35,\"y\":20.615},{\"x\":109.65,\"y\":20.2353},{\"x\":112.65,\"y\":19.8134},{\"x\":115.9,\"y\":19.4337},{\"x\":119.05,\"y\":19.1384},{\"x\":122.2,\"y\":18.8009},{\"x\":125.3,\"y\":18.5056}],\"goldenCarrots\":[{\"x\":143.65,\"y\":10.4044},{\"x\":142.15,\"y\":10.4044},{\"x\":140.55,\"y\":10.4044},{\"x\":139,\"y\":10.4044},{\"x\":137.5,\"y\":10.4044}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
+        }
+    }
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
-    gs->m_renderer->zoomIn();
     
     if (!m_hasShownOpeningSequence)
     {
         Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
-        
+     
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
         gs->m_iNumFramesToDiscard = 1;
         
@@ -88,181 +95,6 @@ void GamePlay::enter(GameScreen* gs)
 }
 
 void GamePlay::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->renderWorld(*m_game);
-        
-        gs->m_renderer->renderJon(*m_game);
-        
-        gs->m_renderer->renderToScreen();
-    }
-    else
-    {
-        if (!m_hasOpeningSequenceCompleted)
-        {
-            if (handleOpeningSequenceTouchInput(gs))
-            {
-                gs->m_renderer->zoomIn();
-                m_hasOpeningSequenceCompleted = true;
-                return;
-            }
-            
-            Jon& jon = m_game->getJon();
-            
-            jon.update(gs->m_fDeltaTime, *m_game, false);
-            
-            m_hasOpeningSequenceCompleted = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
-            
-            EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
-            
-            return;
-        }
-        
-        handleTouchInput(gs);
-        
-        m_game->updateAndClean(gs->m_fDeltaTime);
-        
-        Jon& jon = m_game->getJon();
-        
-        if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
-        {
-            enter(gs);
-            
-            return;
-        }
-        
-        if (EntityUtils::isCollected(jon, m_game->getCarrots(), gs->m_fDeltaTime))
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
-        }
-        
-        if (EntityUtils::isCollected(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime))
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
-        }
-        
-        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
-        
-        EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
-    }
-}
-
-void GamePlay::exit(GameScreen* gs)
-{
-    Assets::getInstance()->setMusicId(MUSIC_STOP);
-    
-    m_hasShownOpeningSequence = false;
-    m_hasOpeningSequenceCompleted = false;
-}
-
-bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
-{
-    gs->processTouchEvents();
-    
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-    {
-        switch (i->getTouchType())
-        {
-            case DOWN:
-                return true;
-            case DRAGGED:
-                continue;
-            case UP:
-                continue;
-        }
-    }
-    
-    return false;
-}
-
-void GamePlay::handleTouchInput(GameScreen* gs)
-{
-    gs->processTouchEvents();
-    
-    Jon& jon = m_game->getJon();
-    
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-    {
-        gs->touchToWorld((*i));
-        
-        switch (i->getTouchType())
-        {
-            case DOWN:
-                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                continue;
-            case DRAGGED:
-                continue;
-            case UP:
-                if (gs->m_touchPointDown->getX() + SWIPE_WIDTH <= gs->m_touchPoint->getX())
-                {
-                    // Swipe Right
-                    jon.triggerRightAction();
-                }
-                else if (gs->m_touchPointDown->getX() - SWIPE_WIDTH >= gs->m_touchPoint->getX())
-                {
-                    // Swipe Left
-                    jon.triggerLeftAction();
-                }
-                else if (gs->m_touchPointDown->getY() + SWIPE_HEIGHT <= gs->m_touchPoint->getY())
-                {
-                    // Swipe Up
-                    jon.triggerUpAction();
-                }
-                else if (gs->m_touchPointDown->getY() - SWIPE_HEIGHT >= gs->m_touchPoint->getY())
-                {
-                    // Swipe Down
-                    jon.triggerDownAction();
-                }
-                else
-                {
-                    jon.triggerJump();
-                }
-                
-                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                
-                break;
-        }
-    }
-}
-
-GamePlay::GamePlay() : m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
-{
-    m_game = std::unique_ptr<Game>(new Game());
-}
-
-/// Test Level ///
-
-TestLevel * TestLevel::getInstance()
-{
-    static TestLevel *instance = new TestLevel();
-    
-    return instance;
-}
-
-void TestLevel::enter(GameScreen* gs)
-{
-    m_game->copy(m_sourceGame);
-    
-    gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
-    gs->m_renderer->zoomIn();
-    
-    if (!m_hasShownOpeningSequence)
-    {
-        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
-        
-        gs->m_renderer->beginOpeningPanningSequence(*m_game);
-        gs->m_iNumFramesToDiscard = 1;
-        
-        m_hasShownOpeningSequence = true;
-    }
-}
-
-void TestLevel::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
@@ -309,6 +141,7 @@ void TestLevel::execute(GameScreen* gs)
         
         if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
         {
+            m_game->reset();
             enter(gs);
             
             return;
@@ -332,20 +165,20 @@ void TestLevel::execute(GameScreen* gs)
     }
 }
 
-void TestLevel::exit(GameScreen* gs)
+void GamePlay::exit(GameScreen* gs)
 {
-    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    m_game->reset();
     
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
 }
 
-void TestLevel::setSourceGame(Game* game)
+void GamePlay::setSourceGame(Game* game)
 {
     m_sourceGame = game;
 }
 
-bool TestLevel::handleOpeningSequenceTouchInput(GameScreen* gs)
+bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
@@ -365,7 +198,7 @@ bool TestLevel::handleOpeningSequenceTouchInput(GameScreen* gs)
     return false;
 }
 
-bool TestLevel::handleTouchInput(GameScreen* gs)
+bool GamePlay::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
@@ -385,6 +218,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
             case UP:
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                 {
+                    Assets::getInstance()->setMusicId(MUSIC_STOP);
                     gs->m_stateMachine->revertToPreviousState();
                     return true;
                 }
@@ -423,7 +257,7 @@ bool TestLevel::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-TestLevel::TestLevel() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
+GamePlay::GamePlay() : m_sourceGame(nullptr), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
@@ -440,8 +274,6 @@ LevelEditor * LevelEditor::getInstance()
 
 void LevelEditor::enter(GameScreen* gs)
 {
-    TestLevel::getInstance()->exit(gs);
-    
     if (!m_game->isLoaded())
     {
         load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
@@ -584,8 +416,8 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (m_game->getJons().size() > 0)
                     {
-                        TestLevel::getInstance()->setSourceGame(m_game.get());
-                        gs->m_stateMachine->changeState(TestLevel::getInstance());
+                        GamePlay::getInstance()->setSourceGame(m_game.get());
+                        gs->m_stateMachine->changeState(GamePlay::getInstance());
                     }
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO:

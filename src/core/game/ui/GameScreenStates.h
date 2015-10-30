@@ -49,32 +49,6 @@ public:
     
     virtual void exit(GameScreen* gs);
     
-private:
-    std::unique_ptr<Game> m_game;
-    bool m_hasShownOpeningSequence;
-    bool m_hasOpeningSequenceCompleted;
-    
-    bool handleOpeningSequenceTouchInput(GameScreen* gs);
-    
-    void handleTouchInput(GameScreen* gs);
-    
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    GamePlay();
-    GamePlay(const GamePlay&);
-    GamePlay& operator=(const GamePlay&);
-};
-
-class TestLevel : public State<GameScreen>
-{
-public:
-    static TestLevel* getInstance();
-    
-    virtual void enter(GameScreen* gs);
-    
-    virtual void execute(GameScreen* gs);
-    
-    virtual void exit(GameScreen* gs);
-    
     void setSourceGame(Game* game);
     
 private:
@@ -88,9 +62,9 @@ private:
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    TestLevel();
-    TestLevel(const GamePlay&);
-    TestLevel& operator=(const GamePlay&);
+    GamePlay();
+    GamePlay(const GamePlay&);
+    GamePlay& operator=(const GamePlay&);
 };
 
 class LevelEditor : public State<GameScreen>

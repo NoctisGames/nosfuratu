@@ -73,7 +73,7 @@ public:
 private:
     TouchEvent newTouchEvent();
     
-    void addTouchEventForType(Touch_Type touchType, float x, float y);
+    void addTouchEventForType(Touch_Type type, float x, float y);
     
     void handleTouchInput();
 };

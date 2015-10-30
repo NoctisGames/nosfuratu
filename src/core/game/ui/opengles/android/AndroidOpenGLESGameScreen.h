@@ -16,6 +16,8 @@ class AndroidOpenGLESGameScreen : public OpenGLESGameScreen
 public:
     AndroidOpenGLESGameScreen(bool isLevelEditor = false);
 
+    void onSurfaceCreated();
+    
     void onSurfaceChanged(int screenWidth, int screenHeight);
 
     virtual void touchToWorld(TouchEvent &touchEvent);

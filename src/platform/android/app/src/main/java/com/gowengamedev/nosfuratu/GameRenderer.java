@@ -61,6 +61,8 @@ public final class GameRenderer implements Renderer
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
         Log.d("RendererWrapper", "GL Surface created!");
+
+        on_surface_created();
     }
 
     @Override
@@ -163,7 +165,7 @@ public final class GameRenderer implements Renderer
                     _collectGoldenCarrotSound.play(1);
                     break;
                 default:
-                    continue;
+                    break;
             }
         }
     }
@@ -185,6 +187,7 @@ public final class GameRenderer implements Renderer
                 {
                     _bgm = _audio.newMusic("bgm.ogg");
                     _bgm.setLooping(true);
+                    _bgm.setVolume(0.5f);
                 }
 
                 _bgm.play();
@@ -281,6 +284,8 @@ public final class GameRenderer implements Renderer
     }
 
     private static native void init(boolean isLevelEditor);
+
+    private static native void on_surface_created();
 
     private static native void on_surface_changed(int pixelWidth, int pixelHeight);
 

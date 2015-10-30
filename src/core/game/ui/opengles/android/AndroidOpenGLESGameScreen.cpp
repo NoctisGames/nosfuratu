@@ -13,12 +13,27 @@ AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool isLevelEditor) : OpenG
     // Empty
 }
 
+void AndroidOpenGLESGameScreen::onSurfaceCreated()
+{
+    if (m_renderer)
+    {
+        m_renderer->cleanUp();
+        m_renderer->reinit();
+    }
+    else
+    {
+        m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
+    }
+}
+
 void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeight)
 {
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
 
-    initGraphics(screenWidth, screenHeight);
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
+    
+    m_stateMachine->getCurrentState()->enter(this);
 }
 
 void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
@@ -28,5 +43,11 @@ void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 bool AndroidOpenGLESGameScreen::handleOnBackPressed()
 {
+    if (m_stateMachine->isInState(*GamePlay::getInstance()))
+    {
+        onTouch(Touch_Type::UP, m_iScreenWidth / 20, m_iScreenHeight / 20);
+        return true;
+    }
+    
     return false;
 }

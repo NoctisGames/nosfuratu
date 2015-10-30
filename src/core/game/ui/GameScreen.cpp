@@ -75,10 +75,13 @@ void GameScreen::update(float deltaTime)
                     continue;
                 case UP:
                     m_isPaused = false;
-                    if (m_stateMachine->isInState(*GamePlay::getInstance()) || m_stateMachine->isInState(*TestLevel::getInstance()))
+                    if (m_stateMachine->isInState(*GamePlay::getInstance()))
                     {
                         Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
                     }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -167,10 +170,10 @@ TouchEvent GameScreen::newTouchEvent()
     }
 }
 
-void GameScreen::addTouchEventForType(Touch_Type touchType, float x, float y)
+void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)
 {
     TouchEvent touchEvent = newTouchEvent();
-    touchEvent.setTouchType(touchType);
+    touchEvent.setTouchType(type);
     touchEvent.setX(x);
     touchEvent.setY(y);
     

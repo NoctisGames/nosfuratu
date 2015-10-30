@@ -20,9 +20,6 @@ class OpenGLESGameScreen : public GameScreen
 {
 public:
     OpenGLESGameScreen(bool isLevelEditor = false);
-    
-protected:
-    void initGraphics(int screenWidth, int screenHeight);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */
