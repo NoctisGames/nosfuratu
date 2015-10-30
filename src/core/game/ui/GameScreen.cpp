@@ -45,7 +45,7 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
 
 void GameScreen::onResume()
 {
-    m_isPaused = false;
+    // Empty
 }
 
 void GameScreen::onPause()
@@ -61,24 +61,42 @@ void GameScreen::update(float deltaTime)
         return;
     }
     
-    if (!m_isPaused)
+    if (m_isPaused)
+    {
+        processTouchEvents();
+        
+        for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
+        {
+            switch (i->getTouchType())
+            {
+                case DOWN:
+                    continue;
+                case DRAGGED:
+                    continue;
+                case UP:
+                    m_isPaused = false;
+                    if (m_stateMachine->isInState(*GamePlay::getInstance()) || m_stateMachine->isInState(*TestLevel::getInstance()))
+                    {
+                        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+                    }
+            }
+        }
+    }
+    else
     {
         m_fDeltaTime = deltaTime;
         
         m_stateMachine->execute();
-        
-        m_isRequestingRender = true;
     }
+    
+    m_isRequestingRender = true;
 }
 
 void GameScreen::render()
 {
-    if (!m_isPaused)
-    {
-        m_stateMachine->execute();
-        
-        m_isRequestingRender = false;
-    }
+    m_stateMachine->execute();
+    
+    m_isRequestingRender = false;
 }
 
 int GameScreen::getRequestedAction()

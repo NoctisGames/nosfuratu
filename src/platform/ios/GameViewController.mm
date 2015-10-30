@@ -200,12 +200,17 @@ static bool isRunningiOS8 = false;
             if (self.bgm)
             {
                 [self.bgm stop];
+                self.bgm = nil;
             }
             break;
         case MUSIC_PLAY_DEMO:
-            self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
-            [self.bgm setLooping:true];
-            [self.bgm setVolume:0.5f];
+            if (!self.bgm)
+            {
+                self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
+                [self.bgm setLooping:true];
+                [self.bgm setVolume:0.5f];
+            }
+            
             [self.bgm play];
             break;
         default:
@@ -298,11 +303,6 @@ static bool isRunningiOS8 = false;
 - (void)onResume
 {
     gameScreen->onResume();
-    
-    if (self.bgm)
-    {
-        [self.bgm play];
-    }
 }
 
 - (void)onPause

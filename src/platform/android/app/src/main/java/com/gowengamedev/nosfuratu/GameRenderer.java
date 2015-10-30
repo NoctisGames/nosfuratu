@@ -112,16 +112,15 @@ public final class GameRenderer implements Renderer
 
     public void onResume()
     {
-        on_resume();
+        Log.d("RendererWrapper", "onResume");
 
-        if (_bgm != null && !_bgm.isPlaying())
-        {
-            _bgm.play();
-        }
+        on_resume();
     }
 
     public void onPause()
     {
+        Log.d("RendererWrapper", "onPause");
+
         on_pause();
 
         if (_bgm != null && _bgm.isPlaying())
@@ -178,11 +177,16 @@ public final class GameRenderer implements Renderer
                 if (_bgm != null)
                 {
                     _bgm.stop();
+                    _bgm = null;
                 }
                 break;
             case MUSIC_PLAY_DEMO:
-                _bgm = _audio.newMusic("bgm.ogg");
-                _bgm.setLooping(true);
+                if (_bgm == null)
+                {
+                    _bgm = _audio.newMusic("bgm.ogg");
+                    _bgm.setLooping(true);
+                }
+
                 _bgm.play();
                 break;
             default:

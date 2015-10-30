@@ -28,7 +28,5 @@ void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 bool AndroidOpenGLESGameScreen::handleOnBackPressed()
 {
-    m_stateMachine->getCurrentState()->exit(this);
-
     return false;
 }

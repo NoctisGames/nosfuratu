@@ -39,7 +39,9 @@ class Renderer
 public:
     Renderer();
     
-	void init(RendererType type);
+	virtual void init(RendererType type);
+    
+    void reinit();
     
     void beginOpeningPanningSequence(Game& game);
     
@@ -122,6 +124,7 @@ private:
     float m_fOriginalWidth;
     float m_fOriginalHeight;
     float m_fStateTime;
+    RendererType m_rendererType;
     bool m_areTitleTexturesLoaded;
     bool m_areJonTexturesLoaded;
     bool m_areVampireAndAbilityTexturesLoaded;

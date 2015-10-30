@@ -17,7 +17,14 @@ void OpenGLESGameScreen::initGraphics(int screenWidth, int screenHeight)
 {
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
     
-    m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
-    
-    m_stateMachine->getCurrentState()->enter(this);
+    if (m_renderer)
+    {
+        m_renderer->cleanUp();
+        m_renderer->reinit();
+    }
+    else
+    {
+        m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
+        m_stateMachine->getCurrentState()->enter(this);
+    }
 }

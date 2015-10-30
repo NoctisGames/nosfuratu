@@ -15,6 +15,8 @@ class OpenGLESRenderer : public Renderer
 {
 public:
     OpenGLESRenderer();
+    
+    virtual void init(RendererType type);
 
 protected:
     virtual TextureWrapper* loadTexture(const char* textureName);

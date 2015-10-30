@@ -50,6 +50,8 @@ Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStat
 
 void Renderer::init(RendererType type)
 {
+    m_rendererType = type;
+    
     switch (type)
     {
         case RENDERER_TYPE_TITLE:
@@ -85,9 +87,7 @@ void Renderer::init(RendererType type)
             }
             
             break;
-        case RENDERER_TYPE_WORLD_1:
-            zoomIn();
-            
+        case RENDERER_TYPE_WORLD_1:            
             if (m_areTitleTexturesLoaded)
             {
                 destroyTexture(*m_title_font);
@@ -128,8 +128,6 @@ void Renderer::init(RendererType type)
             
             break;
         case RENDERER_TYPE_LEVEL_EDITOR:
-            zoomOut();
-            
             if (m_areVampireAndAbilityTexturesLoaded)
             {
                 destroyTexture(*m_jon_ability);
@@ -172,6 +170,11 @@ void Renderer::init(RendererType type)
         default:
             break;
     }
+}
+
+void Renderer::reinit()
+{
+    init(m_rendererType);
 }
 
 void Renderer::beginOpeningPanningSequence(Game& game)

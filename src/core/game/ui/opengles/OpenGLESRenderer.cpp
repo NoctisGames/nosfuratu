@@ -33,6 +33,11 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     m_boundsRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher());
     m_highlightRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher(true));
+}
+
+void OpenGLESRenderer::init(RendererType type)
+{
+    Renderer::init(type);
     
     m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
     
