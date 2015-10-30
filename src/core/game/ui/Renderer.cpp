@@ -608,7 +608,7 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderBackButton(BackButton &backButton)
+void Renderer::renderHud(BackButton &backButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     

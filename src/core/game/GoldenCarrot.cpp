@@ -15,6 +15,8 @@ GoldenCarrot* GoldenCarrot::create(float x, float y, int type)
 
 GoldenCarrot::GoldenCarrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {
+    resetBounds(width * 0.5f, height * 0.5f);
+    
     updateBounds();
 }
 
