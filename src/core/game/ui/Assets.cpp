@@ -37,11 +37,11 @@ TextureRegion& Assets::get(BackgroundCave& backgroundCave)
 
 TextureRegion& Assets::get(Tree& tree)
 {
-    static TextureRegion tr1 = TextureRegion(0, 628, 270, 346, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr1 = TextureRegion(0, 558, 270, 346, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
-    static TextureRegion tr2 = TextureRegion(274, 628, 480, 439, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr2 = TextureRegion(274, 558, 480, 439, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
-    static TextureRegion tr3 = TextureRegion(758, 628, 339, 411, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr3 = TextureRegion(758, 558, 339, 411, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     switch (tree.getEnumType())
     {
@@ -144,15 +144,22 @@ TextureRegion& Assets::get(Ground& ground)
 
 TextureRegion& Assets::get(Hole& hole)
 {
-    static TextureRegion tr = TextureRegion(0, 1232, 265, 186, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 1032, 265, 186, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(HoleCover& holeCover)
 {
-    static Animation anim = Animation(265, 1232, 265, 186, 1590, 372, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 12);
+    static Animation anim = Animation(265, 1032, 265, 186, 1590, 372, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 12);
     
     return anim.getTextureRegion(holeCover.getStateTime());
+}
+
+TextureRegion& Assets::get(CaveExit& caveExit)
+{
+    static Animation anim = Animation(0, 1403, 480, 314, 1920, 628, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+    
+    return anim.getTextureRegion(caveExit.getStateTime());
 }
 
 TextureRegion& Assets::get(LogVerticalTall& logVerticalTall)
@@ -339,7 +346,7 @@ TextureRegion& Assets::get(Jon& jon)
 
 TextureRegion& Assets::get(DustCloud& dustCloud)
 {
-    static Animation anim = Animation(0, 552, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
+    static Animation anim = Animation(1200, 852, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
     
     return anim.getTextureRegion(dustCloud.getStateTime());
 }

@@ -23,6 +23,7 @@
 #include "Ground.h"
 #include "Hole.h"
 #include "HoleCover.h"
+#include "CaveExit.h"
 #include "UpwardSpike.h"
 #include "LogVerticalTall.h"
 #include "Rock.h"
@@ -60,6 +61,8 @@ public:
     static TextureRegion& get(Hole& hole);
     
     static TextureRegion& get(HoleCover& holeCover);
+    
+    static TextureRegion& get(CaveExit& caveExit);
     
     static TextureRegion& get(LogVerticalTall& logVerticalTall);
     
