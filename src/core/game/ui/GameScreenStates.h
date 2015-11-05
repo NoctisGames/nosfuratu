@@ -32,8 +32,10 @@ public:
     virtual void exit(GameScreen* gs);
     
 private:
+    bool m_isRequestingEnterGamePlay;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Title() {};
+    Title();
     Title(const Title&);
     Title& operator=(const Title&);
 };

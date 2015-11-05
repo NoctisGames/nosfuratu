@@ -32,10 +32,20 @@ void Title::execute(GameScreen* gs)
     {
         gs->m_renderer->renderTitleScreen();
         
+        if (m_isRequestingEnterGamePlay)
+        {
+            gs->m_renderer->renderLoadingTextOnTitleScreen();
+        }
+        
         gs->m_renderer->renderToScreen();
     }
     else
     {
+        if (m_isRequestingEnterGamePlay)
+        {
+            gs->m_stateMachine->changeState(GamePlay::getInstance());
+        }
+        
         gs->processTouchEvents();
         
         for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
@@ -47,7 +57,7 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    gs->m_stateMachine->changeState(GamePlay::getInstance());
+                    m_isRequestingEnterGamePlay = true;
             }
         }
     }
@@ -55,7 +65,12 @@ void Title::execute(GameScreen* gs)
 
 void Title::exit(GameScreen* gs)
 {
-    // TODO
+    m_isRequestingEnterGamePlay = false;
+}
+
+Title::Title() : m_isRequestingEnterGamePlay(false)
+{
+    // Empty
 }
 
 /// Game Play ///
@@ -110,11 +125,18 @@ void GamePlay::execute(GameScreen* gs)
     {
         if (!m_hasOpeningSequenceCompleted)
         {
-            if (handleOpeningSequenceTouchInput(gs))
+            if (gs->m_iNumFramesToDiscard == 0)
             {
-                gs->m_renderer->zoomIn();
-                m_hasOpeningSequenceCompleted = true;
-                return;
+                if (handleOpeningSequenceTouchInput(gs))
+                {
+                    gs->m_renderer->zoomIn();
+                    m_hasOpeningSequenceCompleted = true;
+                    return;
+                }
+            }
+            else
+            {
+                gs->processTouchEvents();
             }
             
             Jon& jon = m_game->getJon();
@@ -503,7 +525,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         m_isVerticalChangeAllowed = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                     }
-                    else if (dynamic_cast<Hole*>(m_draggingEntity))
+                    else if (dynamic_cast<Hole*>(m_draggingEntity) || dynamic_cast<CaveExit*>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowAttachment = false;
@@ -677,6 +699,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCaveSkeletons(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
+    EntityUtils::addAll(m_game->getCaveExits(), m_gameEntities);
     EntityUtils::addAll(m_game->getLogVerticalTalls(), m_gameEntities);
     EntityUtils::addAll(m_game->getLogVerticalShorts(), m_gameEntities);
     EntityUtils::addAll(m_game->getThorns(), m_gameEntities);

@@ -20,11 +20,12 @@ SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEnti
 
 void SideSpike::updateBounds()
 {
-    m_bounds->setHeight(getHeight());
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    PhysicalEntity::updateBounds();
-    
-    m_bounds->setHeight(getHeight() * 0.60f);
+    lowerLeft.add(getWidth() * 0.0625f, getHeight() * 0.5f);
+    m_bounds->setWidth(getWidth() * 0.91666666666667f);
+    m_bounds->setHeight(getHeight() * 0.38888888888889f);
 }
 
 int SideSpike::getType()

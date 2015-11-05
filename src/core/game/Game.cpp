@@ -20,6 +20,7 @@
 #define caveSkeletonsKey "caveSkeletons"
 #define groundsKey "grounds"
 #define holesKey "holes"
+#define caveExitsKey "caveExits"
 #define logVerticalTallsKey "logVerticalTalls"
 #define logVerticalShortsKey "logVerticalShorts"
 #define thornsKey "thorns"
@@ -50,6 +51,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getCaveSkeletons(), m_caveSkeletons);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
+    copyPhysicalEntities(game->getCaveExits(), m_caveExits);
     copyPhysicalEntities(game->getLogVerticalTalls(), m_logVerticalTalls);
     copyPhysicalEntities(game->getLogVerticalShorts(), m_logVerticalShorts);
     copyPhysicalEntities(game->getThorns(), m_thorns);
@@ -84,6 +86,7 @@ void Game::load(const char* json)
     loadArray(m_caveSkeletons, d, caveSkeletonsKey);
     loadArray(m_grounds, d, groundsKey);
     loadArray(m_holes, d, holesKey);
+    loadArray(m_caveExits, d, caveExitsKey);
     loadArray(m_logVerticalTalls, d, logVerticalTallsKey);
     loadArray(m_logVerticalShorts, d, logVerticalShortsKey);
     loadArray(m_thorns, d, thornsKey);
@@ -123,6 +126,7 @@ const char* Game::save()
     saveArray(m_caveSkeletons, w, caveSkeletonsKey);
     saveArray(m_grounds, w, groundsKey);
     saveArray(m_holes, w, holesKey);
+    saveArray(m_caveExits, w, caveExitsKey);
     saveArray(m_logVerticalTalls, w, logVerticalTallsKey);
     saveArray(m_logVerticalShorts, w, logVerticalShortsKey);
     saveArray(m_thorns, w, thornsKey);
@@ -151,6 +155,7 @@ void Game::reset()
     m_caveSkeletons.clear();
     m_grounds.clear();
     m_holes.clear();
+    m_caveExits.clear();
     m_logVerticalTalls.clear();
     m_logVerticalShorts.clear();
     m_thorns.clear();
@@ -186,6 +191,7 @@ void Game::updateAndClean(float deltaTime, bool isJonAllowedToMove)
     EntityUtils::updateAndClean(getCaveSkeletons(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);
+    EntityUtils::updateAndClean(getCaveExits(), deltaTime);
     EntityUtils::updateAndClean(getLogVerticalTalls(), deltaTime);
     EntityUtils::updateAndClean(getLogVerticalShorts(), deltaTime);
     EntityUtils::updateAndClean(getThorns(), deltaTime);
@@ -211,6 +217,7 @@ int Game::calcSum()
     sum += m_caveSkeletons.size();
     sum += m_grounds.size();
     sum += m_holes.size();
+    sum += m_caveExits.size();
     sum += m_logVerticalTalls.size();
     sum += m_logVerticalShorts.size();
     sum += m_thorns.size();
@@ -296,6 +303,11 @@ std::vector<std::unique_ptr<Ground>>& Game::getGrounds()
 std::vector<std::unique_ptr<Hole>>& Game::getHoles()
 {
     return m_holes;
+}
+
+std::vector<std::unique_ptr<CaveExit>>& Game::getCaveExits()
+{
+    return m_caveExits;
 }
 
 std::vector<std::unique_ptr<LogVerticalTall>>& Game::getLogVerticalTalls()

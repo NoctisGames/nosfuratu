@@ -44,6 +44,8 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     
     m_holes.push_back(std::unique_ptr<Hole>(new Hole(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
+    m_caveExits.push_back(std::unique_ptr<CaveExit>(new CaveExit(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -173,6 +175,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_caveSkeletons, game.getCaveSkeletons(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), x, y, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_caveExits, game.getCaveExits(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
@@ -226,6 +229,11 @@ std::vector<std::unique_ptr<Ground>>& LevelEditorEntitiesPanel::getGrounds()
 std::vector<std::unique_ptr<Hole>>& LevelEditorEntitiesPanel::getHoles()
 {
     return m_holes;
+}
+
+std::vector<std::unique_ptr<CaveExit>>& LevelEditorEntitiesPanel::getCaveExits()
+{
+    return m_caveExits;
 }
 
 std::vector<std::unique_ptr<LogVerticalTall>>& LevelEditorEntitiesPanel::getLogVerticalTalls()

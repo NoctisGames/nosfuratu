@@ -22,7 +22,6 @@
 #include "Circle.h"
 #include "Assets.h"
 #include "GameConstants.h"
-#include "Game.h"
 #include "Jon.h"
 #include "StateMachine.h"
 #include "GpuProgramWrapper.h"

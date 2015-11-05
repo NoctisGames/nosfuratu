@@ -23,10 +23,10 @@ void Stump::updateBounds()
     Vector2D &lowerLeft = m_bounds->getLowerLeft();
     lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    lowerLeft.add(getWidth() * 0.24404761904762f, 0);
+    lowerLeft.add(getWidth() * 0.25595238095238f, getHeight() * 0.04195804195804f);
     
-    m_bounds->setWidth(getWidth() * 0.29761904761905f);
-    m_bounds->setHeight(getHeight() * 0.81118881118881f);
+    m_bounds->setWidth(getWidth() * 0.29166666666667f);
+    m_bounds->setHeight(getHeight() * 0.78321678321678f);
 }
 
 int Stump::getType()

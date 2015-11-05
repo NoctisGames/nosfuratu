@@ -18,6 +18,8 @@ public:
     
     EndSign(float x, float y, float width = 0.7953216374269005f, float height = 1.123050259965338f);
     
+    virtual void updateBounds();
+    
     int getType();
 };
 

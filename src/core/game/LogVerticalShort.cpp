@@ -23,10 +23,10 @@ void LogVerticalShort::updateBounds()
     Vector2D &lowerLeft = m_bounds->getLowerLeft();
     lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    lowerLeft.add(getWidth() * 0.18461538461538f, 0);
+    lowerLeft.add(getWidth() * 0.18461538461538f, getHeight() * 0.05769230769231f);
     
     m_bounds->setWidth(getWidth() * 0.43076923076923f);
-    m_bounds->setHeight(getHeight() * 0.90384615384615f);
+    m_bounds->setHeight(getHeight() * 0.84615384615385f);
 }
 
 int LogVerticalShort::getType()

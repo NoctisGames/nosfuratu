@@ -27,11 +27,24 @@ JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringTy
 
 void JumpSpring::updateBounds()
 {
-    m_bounds->setHeight(getHeight());
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    PhysicalEntity::updateBounds();
-    
-    m_bounds->setHeight(getHeight() * 0.70f);
+    switch (m_type)
+    {
+        case JumpSpringType_Grass:
+            lowerLeft.add(getWidth() * 0.25581395348837f, getHeight() * 0.04651162790698f);
+            m_bounds->setWidth(getWidth() * 0.48837209302326f);
+            m_bounds->setHeight(getHeight() * 0.72093023255814f);
+            break;
+        case JumpSpringType_Cave:
+            lowerLeft.add(getWidth() * 0.03846153846154f, getHeight() * 0);
+            m_bounds->setWidth(getWidth() * 0.92307692307692f);
+            m_bounds->setHeight(getHeight() * 0.81818181818182f);
+            break;
+        default:
+            break;
+    }
 }
 
 void JumpSpring::update(float deltaTime)

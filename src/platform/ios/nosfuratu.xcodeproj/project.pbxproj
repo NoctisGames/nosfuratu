@@ -198,6 +198,8 @@
 		BB8E5E511BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4E1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp */; };
 		BB8E5E541BC44B0E00520DFB /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E531BC44B0E00520DFB /* UIView+Toast.m */; };
 		BB8E5E551BC44B0E00520DFB /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E531BC44B0E00520DFB /* UIView+Toast.m */; };
+		BB9B10FA1BE94C6000708C2B /* CaveExit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9B10F81BE94C6000708C2B /* CaveExit.cpp */; };
+		BB9B10FB1BE94C6000708C2B /* CaveExit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9B10F81BE94C6000708C2B /* CaveExit.cpp */; };
 		BBA0E6461BB5D0C10026A433 /* collect_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */; };
 		BBA0E6471BB5D0C10026A433 /* collect_golden_carrot.caf in Resources */ = {isa = PBXBuildFile; fileRef = BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
@@ -274,8 +276,8 @@
 		BBEA16B81B97BBA9009B4711 /* bgm.aifc in Resources */ = {isa = PBXBuildFile; fileRef = BBEA16B61B97BBA9009B4711 /* bgm.aifc */; };
 		BBF39E0E1BBC61D200D1A072 /* CaveSkeleton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF39E0C1BBC61D200D1A072 /* CaveSkeleton.cpp */; };
 		BBF39E151BBC9FC800D1A072 /* GameScreenStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF39E131BBC9FC800D1A072 /* GameScreenStates.cpp */; };
-		BBF519C11BE84045003C6C06 /* CaveExit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* CaveExit.cpp */; };
-		BBF519C21BE84045003C6C06 /* CaveExit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* CaveExit.cpp */; };
+		BBF519C11BE84045003C6C06 /* CaveExitCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* CaveExitCover.cpp */; };
+		BBF519C21BE84045003C6C06 /* CaveExitCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* CaveExitCover.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -402,6 +404,8 @@
 		BB8E5E4F1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinWaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB8E5E521BC44B0E00520DFB /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		BB8E5E531BC44B0E00520DFB /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		BB9B10F81BE94C6000708C2B /* CaveExit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaveExit.cpp; sourceTree = "<group>"; };
+		BB9B10F91BE94C6000708C2B /* CaveExit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaveExit.h; sourceTree = "<group>"; };
 		BBA0E6441BB5D0A90026A433 /* collect_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_carrot.caf; sourceTree = "<group>"; };
 		BBA0E6451BB5D0A90026A433 /* collect_golden_carrot.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = collect_golden_carrot.caf; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -592,8 +596,8 @@
 		BBF39E0D1BBC61D200D1A072 /* CaveSkeleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaveSkeleton.h; sourceTree = "<group>"; };
 		BBF39E131BBC9FC800D1A072 /* GameScreenStates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenStates.cpp; sourceTree = "<group>"; };
 		BBF39E141BBC9FC800D1A072 /* GameScreenStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenStates.h; sourceTree = "<group>"; };
-		BBF519BF1BE84045003C6C06 /* CaveExit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaveExit.cpp; sourceTree = "<group>"; };
-		BBF519C01BE84045003C6C06 /* CaveExit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaveExit.h; sourceTree = "<group>"; };
+		BBF519BF1BE84045003C6C06 /* CaveExitCover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaveExitCover.cpp; sourceTree = "<group>"; };
+		BBF519C01BE84045003C6C06 /* CaveExitCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaveExitCover.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1074,8 +1078,10 @@
 				BB8900C41BB1D4AF00963083 /* BackgroundTrees.h */,
 				BB7DCF041B9A5EE000394A73 /* Carrot.cpp */,
 				BB7DCF051B9A5EE000394A73 /* Carrot.h */,
-				BBF519BF1BE84045003C6C06 /* CaveExit.cpp */,
-				BBF519C01BE84045003C6C06 /* CaveExit.h */,
+				BB9B10F81BE94C6000708C2B /* CaveExit.cpp */,
+				BB9B10F91BE94C6000708C2B /* CaveExit.h */,
+				BBF519BF1BE84045003C6C06 /* CaveExitCover.cpp */,
+				BBF519C01BE84045003C6C06 /* CaveExitCover.h */,
 				BBF39E0C1BBC61D200D1A072 /* CaveSkeleton.cpp */,
 				BBF39E0D1BBC61D200D1A072 /* CaveSkeleton.h */,
 				BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */,
@@ -1363,7 +1369,7 @@
 				0A8FBF7D179E07320039BA29 /* pngerror.c in Sources */,
 				BB19BDC01BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp in Sources */,
 				0A8FBF7E179E07320039BA29 /* pngget.c in Sources */,
-				BBF519C11BE84045003C6C06 /* CaveExit.cpp in Sources */,
+				BBF519C11BE84045003C6C06 /* CaveExitCover.cpp in Sources */,
 				BBEA16A81B97B9BB009B4711 /* SpriteBatcher.cpp in Sources */,
 				BB731C2A1BBB81C000A32A3A /* JumpSpring.cpp in Sources */,
 				BBEA16921B97B9BB009B4711 /* GpuProgramWrapper.cpp in Sources */,
@@ -1433,6 +1439,7 @@
 				BB8900C51BB1D4AF00963083 /* BackgroundCave.cpp in Sources */,
 				BBEA16A61B97B9BB009B4711 /* TextureProgram.cpp in Sources */,
 				BBEA16B41B97B9BB009B4711 /* OpenGLESRenderer.cpp in Sources */,
+				BB9B10FA1BE94C6000708C2B /* CaveExit.cpp in Sources */,
 				BB254B611BA49CCB00851994 /* Tree.cpp in Sources */,
 				BBEA16981B97B9BB009B4711 /* image.c in Sources */,
 				BBEA16931B97B9BB009B4711 /* LineBatcher.cpp in Sources */,
@@ -1470,7 +1477,7 @@
 				BB4237581BBDB6AB005D9B44 /* pngerror.c in Sources */,
 				BB4237591BBDB6AB005D9B44 /* DestructiblePhysicalEntity.cpp in Sources */,
 				BB42375A1BBDB6AB005D9B44 /* pngget.c in Sources */,
-				BBF519C21BE84045003C6C06 /* CaveExit.cpp in Sources */,
+				BBF519C21BE84045003C6C06 /* CaveExitCover.cpp in Sources */,
 				BB42375B1BBDB6AB005D9B44 /* SpriteBatcher.cpp in Sources */,
 				BB42375C1BBDB6AB005D9B44 /* JumpSpring.cpp in Sources */,
 				BB42375D1BBDB6AB005D9B44 /* GpuProgramWrapper.cpp in Sources */,
@@ -1540,6 +1547,7 @@
 				BB4237941BBDB6AB005D9B44 /* BackgroundCave.cpp in Sources */,
 				BB4237951BBDB6AB005D9B44 /* TextureProgram.cpp in Sources */,
 				BB4237961BBDB6AB005D9B44 /* OpenGLESRenderer.cpp in Sources */,
+				BB9B10FB1BE94C6000708C2B /* CaveExit.cpp in Sources */,
 				BB4237971BBDB6AB005D9B44 /* Tree.cpp in Sources */,
 				BB4237981BBDB6AB005D9B44 /* image.c in Sources */,
 				BB4237991BBDB6AB005D9B44 /* LineBatcher.cpp in Sources */,

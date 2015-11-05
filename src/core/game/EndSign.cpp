@@ -18,6 +18,16 @@ EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x
     // Empty
 }
 
+void EndSign::updateBounds()
+{
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
+    
+    lowerLeft.add(0, getHeight() * 0.04166666666667f);
+    
+    m_bounds->setHeight(getHeight() * 0.9375f);
+}
+
 int EndSign::getType()
 {
     return -1;

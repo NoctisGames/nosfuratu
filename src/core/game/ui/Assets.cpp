@@ -157,7 +157,13 @@ TextureRegion& Assets::get(HoleCover& holeCover)
 
 TextureRegion& Assets::get(CaveExit& caveExit)
 {
-    static Animation anim = Animation(0, 1403, 480, 314, 1920, 628, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+    static TextureRegion tr = TextureRegion(1398, 1710, 466, 302, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(CaveExitCover& caveExit)
+{
+    static Animation anim = Animation(0, 1408, 466, 302, 1864, 604, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
     
     return anim.getTextureRegion(caveExit.getStateTime());
 }

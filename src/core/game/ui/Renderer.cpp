@@ -19,6 +19,8 @@
 #include "Ground.h"
 #include "Hole.h"
 #include "HoleCover.h"
+#include "CaveExit.h"
+#include "CaveExitCover.h"
 #include "GroundPlatform.h"
 #include "Carrot.h"
 #include "GoldenCarrot.h"
@@ -448,6 +450,24 @@ void Renderer::renderTitleScreen()
     m_spriteBatcher->endBatch(*m_title_font);
 }
 
+void Renderer::renderLoadingTextOnTitleScreen()
+{
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    
+    static Color fontColor = Color(1, 1, 1, 1);
+    static float fgWidth = CAM_WIDTH / 30;
+    static float fgHeight = fgWidth * 1.140625f;
+    
+    {
+        static std::string text = std::string("Loading...");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth / 2, fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
+    }
+    
+    m_spriteBatcher->endBatch(*m_title_font);
+}
+
 void Renderer::renderWorld(Game& game)
 {
     beginFrame();
@@ -511,6 +531,16 @@ void Renderer::renderWorld(Game& game)
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         
         for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
+        {
+            renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
+        }
+    }
+    
+    for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
+    {
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+        
+        for (std::vector<std::unique_ptr<CaveExitCover>>::iterator j = (*i)->getCaveExitCovers().begin(); j != (*i)->getCaveExitCovers().end(); j++)
         {
             renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
         }
@@ -582,6 +612,7 @@ void Renderer::renderBounds(Game& game)
     m_boundsRectangleBatcher->beginBatch();
     renderBoundsForPhysicalEntities(game.getGrounds());
     renderBoundsForPhysicalEntities(game.getHoles());
+    renderBoundsForPhysicalEntities(game.getCaveExits());
     m_boundsRectangleBatcher->endBatch();
     
     m_boundsRectangleBatcher->beginBatch();
@@ -744,6 +775,16 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             
             for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
+            {
+                renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
+            }
+        }
+        
+        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
+        {
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            
+            for (std::vector<std::unique_ptr<CaveExitCover>>::iterator j = (*i)->getCaveExitCovers().begin(); j != (*i)->getCaveExitCovers().end(); j++)
             {
                 renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
             }

@@ -58,6 +58,8 @@ public:
     
     void renderTitleScreen();
     
+    void renderLoadingTextOnTitleScreen();
+    
     void renderWorld(Game& game);
     
     void renderJon(Game& game);

@@ -62,10 +62,10 @@ void Rock::updateBounds()
     Vector2D &lowerLeft = m_bounds->getLowerLeft();
     lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    lowerLeft.add(getWidth() * 0.35416666666667f, getHeight() * 0.21739130434783);
+    lowerLeft.add(getWidth() * 0.35416666666667f, getHeight() * 0.21739130434783f);
     
     m_bounds->setWidth(getWidth() * 0.27604166666667f);
-    m_bounds->setHeight(getHeight() * 0.26086956521739f);
+    m_bounds->setHeight(getHeight() * 0.30434782608696f);
     
     if (m_isBlowingUp)
     {
