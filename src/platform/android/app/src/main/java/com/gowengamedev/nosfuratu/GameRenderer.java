@@ -60,7 +60,7 @@ public final class GameRenderer implements Renderer
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
-        Log.d("RendererWrapper", "GL Surface created!");
+        Log.d("GameRenderer", "GL Surface created!");
 
         on_surface_created();
     }
@@ -68,7 +68,7 @@ public final class GameRenderer implements Renderer
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height)
     {
-        Log.d("RendererWrapper", "GL Surface changed!");
+        Log.d("GameRenderer", "GL Surface changed!");
 
         on_surface_changed(width, height);
         on_resume();
@@ -114,14 +114,14 @@ public final class GameRenderer implements Renderer
 
     public void onResume()
     {
-        Log.d("RendererWrapper", "onResume");
+        Log.d("GameRenderer", "onResume");
 
         on_resume();
     }
 
     public void onPause()
     {
-        Log.d("RendererWrapper", "onPause");
+        Log.d("GameRenderer", "onPause");
 
         on_pause();
 
