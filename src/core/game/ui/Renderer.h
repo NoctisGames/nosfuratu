@@ -89,14 +89,15 @@ protected:
     std::unique_ptr<TextureWrapper> m_vampire;
     std::unique_ptr<TextureWrapper> m_jon_ability;
     std::unique_ptr<TextureWrapper> m_world_1_background;
-    std::unique_ptr<TextureWrapper> m_world_1_foreground_more;
-    std::unique_ptr<TextureWrapper> m_world_1_foreground;
+    std::unique_ptr<TextureWrapper> m_world_1_foreground_1;
+    std::unique_ptr<TextureWrapper> m_world_1_foreground_2;
+    std::unique_ptr<TextureWrapper> m_world_1_foreground_3;
     std::unique_ptr<TextureWrapper> m_level_editor;
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
     
-    virtual TextureWrapper* loadTexture(const char* textureName) = 0;
+    virtual TextureWrapper* loadTexture(const char* textureName, int repeatS = 0) = 0;
     
     virtual void updateMatrix(float left, float right, float bottom, float top) = 0;
     

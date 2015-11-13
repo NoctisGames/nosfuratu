@@ -15,7 +15,6 @@
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "Tree.h"
-#include "CaveSkeleton.h"
 #include "Ground.h"
 #include "Hole.h"
 #include "CaveExit.h"
@@ -52,8 +51,6 @@ public:
     std::vector<std::unique_ptr<Jon>>& getJons();
     
     std::vector<std::unique_ptr<Tree>>& getTrees();
-    
-    std::vector<std::unique_ptr<CaveSkeleton>>& getCaveSkeletons();
     
     std::vector<std::unique_ptr<Ground>>& getGrounds();
     
@@ -136,7 +133,6 @@ private:
     
     std::vector<std::unique_ptr<Jon>> m_jons;
     std::vector<std::unique_ptr<Tree>> m_trees;
-    std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
     std::vector<std::unique_ptr<Ground>> m_grounds;
     std::vector<std::unique_ptr<Hole>> m_holes;
     std::vector<std::unique_ptr<CaveExit>> m_caveExits;

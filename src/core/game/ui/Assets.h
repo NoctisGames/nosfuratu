@@ -15,7 +15,6 @@
 #include "Rectangle.h"
 #include "GameConstants.h"
 #include "Tree.h"
-#include "CaveSkeleton.h"
 #include "DustCloud.h"
 #include "Jon.h"
 #include "GroundPlatform.h"
@@ -54,8 +53,6 @@ public:
     static TextureRegion& get(BackgroundCave& backgroundCave);
     
     static TextureRegion& get(Tree& tree);
-    
-    static TextureRegion& get(CaveSkeleton& caveSkeleton);
     
     static TextureRegion& get(Ground& ground);
     

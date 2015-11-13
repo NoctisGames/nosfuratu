@@ -25,6 +25,7 @@
 
 #define SOUND_COLLECT_CARROT 1
 #define SOUND_COLLECT_GOLDEN_CARROT 2
+#define SOUND_DEATH 3
 
 //// Render Definitions ////
 

@@ -14,15 +14,22 @@
 
 #include <vector>
 
-#define CAVE_EXIT_WIDTH 3.2046783625730995f * 1.75849056603774f
-#define CAVE_EXIT_HEIGHT 2.246100519930676f * 1.62365591397849f
+typedef enum
+{
+    CaveExitType_End,
+    CaveExitType_Mid
+} CaveExitType;
+
+#define CAVE_EXIT_Y 9.335552596537951f
+#define CAVE_EXIT_WIDTH 5.992509363295881f
+#define CAVE_EXIT_HEIGHT 3.4513981358189083f
 
 class CaveExit : public PhysicalEntity
 {
 public:
     static CaveExit* create(float x, float y, int type);
     
-    CaveExit(float x, float y = 9.34f, float width = CAVE_EXIT_WIDTH, float height = CAVE_EXIT_HEIGHT);
+    CaveExit(float x, float y, float width, float height, CaveExitType type);
     
     virtual void update(float deltaTime);
     
@@ -34,10 +41,25 @@ public:
     
     std::vector<std::unique_ptr<CaveExitCover>>& getCaveExitCovers();
     
+    CaveExitType getEnumType();
+    
     int getType();
     
 private:
-    std::vector<std::unique_ptr<CaveExitCover>> m_CaveExitCovers;
+    CaveExitType m_type;
+    std::vector<std::unique_ptr<CaveExitCover>> m_caveExitCovers;
+};
+
+class CaveExitEnd : public CaveExit
+{
+public:
+    CaveExitEnd(float x, float y = CAVE_EXIT_Y, float width = CAVE_EXIT_WIDTH, float height = CAVE_EXIT_HEIGHT) : CaveExit(x, y, width, height, CaveExitType_End) {}
+};
+
+class CaveExitMid : public CaveExit
+{
+public:
+    CaveExitMid(float x, float y = CAVE_EXIT_Y, float width = CAVE_EXIT_WIDTH, float height = CAVE_EXIT_HEIGHT) : CaveExit(x, y, width, height, CaveExitType_Mid) {}
 };
 
 #endif /* defined(__nosfuratu__CaveExit__) */

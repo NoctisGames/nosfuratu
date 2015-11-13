@@ -31,6 +31,7 @@ public final class GameRenderer implements Renderer
     private static final short MUSIC_PLAY_DEMO = 2;
     private static final short SOUND_COLLECT_CARROT = 1;
     private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
+    private static final short SOUND_DEATH = 3;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -38,6 +39,7 @@ public final class GameRenderer implements Renderer
     private Music _bgm;
     private Sound _collectCarrotSound;
     private Sound _collectGoldenCarrotSound;
+    private Sound _deathSound;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -49,6 +51,7 @@ public final class GameRenderer implements Renderer
         _audio = new Audio(activity.getAssets());
         _collectCarrotSound = _audio.newSound("collect_carrot.ogg");
         _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.ogg");
+        _deathSound = _audio.newSound("death.ogg");
 
         _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
@@ -163,6 +166,9 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_COLLECT_GOLDEN_CARROT:
                     _collectGoldenCarrotSound.play(1);
+                    break;
+                case SOUND_DEATH:
+                    _deathSound.play(1);
                     break;
                 default:
                     break;

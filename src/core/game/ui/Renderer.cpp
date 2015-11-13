@@ -76,8 +76,9 @@ void Renderer::init(RendererType type)
             if (m_areWorld1TexturesLoaded)
             {
                 destroyTexture(*m_world_1_background);
-                destroyTexture(*m_world_1_foreground_more);
-                destroyTexture(*m_world_1_foreground);
+                destroyTexture(*m_world_1_foreground_3);
+                destroyTexture(*m_world_1_foreground_2);
+                destroyTexture(*m_world_1_foreground_1);
                 
                 m_areWorld1TexturesLoaded = false;
             }
@@ -115,9 +116,10 @@ void Renderer::init(RendererType type)
             
             if (!m_areWorld1TexturesLoaded)
             {
-                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-                m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-                m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
+                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
+                m_world_1_foreground_3 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_3"));
+                m_world_1_foreground_2 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_2"));
+                m_world_1_foreground_1 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_1"));
                 
                 m_areWorld1TexturesLoaded = true;
             }
@@ -162,9 +164,10 @@ void Renderer::init(RendererType type)
             
             if (!m_areWorld1TexturesLoaded)
             {
-                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background"));
-                m_world_1_foreground_more = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_more"));
-                m_world_1_foreground = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground"));
+                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
+                m_world_1_foreground_3 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_3"));
+                m_world_1_foreground_2 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_2"));
+                m_world_1_foreground_1 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_1"));
                 
                 m_areWorld1TexturesLoaded = true;
             }
@@ -494,14 +497,13 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getBackgroundCaves());
     m_spriteBatcher->endBatch(*m_world_1_background);
     
-    /// Render World midground Trees/Skeletons/etc
+    /// Render World midground Trees
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getTrees());
-    renderPhysicalEntities(game.getCaveSkeletons());
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
     
     /// Render World
     
@@ -515,7 +517,7 @@ void Renderer::renderWorld(Game& game)
         
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
@@ -535,7 +537,9 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
         }
     }
+    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
     
+    m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
@@ -545,7 +549,7 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_3);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getLogVerticalTalls());
@@ -560,7 +564,7 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getCarrots());
     renderPhysicalEntities(game.getGoldenCarrots());
     renderPhysicalEntitiesWithColor(game.getRocks());
-    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
     
     /// Render Jon Effects (e.g. Dust Clouds)
     
@@ -569,7 +573,7 @@ void Renderer::renderWorld(Game& game)
     {
         renderPhysicalEntitiesWithColor((*i)->getDustClouds());
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
 }
 
 void Renderer::renderJon(Game& game)
@@ -594,7 +598,7 @@ void Renderer::renderJon(Game& game)
 
 void Renderer::renderBounds(Game& game)
 {
-    /// Render World midground Trees/Skeletons/etc
+    /// Render World midground Trees
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
     
@@ -604,7 +608,6 @@ void Renderer::renderBounds(Game& game)
     
     m_boundsRectangleBatcher->beginBatch();
     renderBoundsForPhysicalEntities(game.getTrees());
-    renderBoundsForPhysicalEntities(game.getCaveSkeletons());
     m_boundsRectangleBatcher->endBatch();
     
     /// Render World
@@ -648,7 +651,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(backButton, Assets::get(backButton));
-    m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
@@ -665,6 +668,11 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     }
     m_spriteBatcher->endBatch(*m_title_font);
     
+    std::stringstream ss;
+    ss << game.getNumTotalCarrots();
+    std::string totalNumGoldenCarrots = ss.str();
+    int offset = 1 + totalNumGoldenCarrots.size();
+    
     /// Render Num / Total Carrots
     
     m_spriteBatcher->beginBatch();
@@ -672,19 +680,19 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
         std::stringstream ss;
         ss << (game.getNumTotalCarrots() - game.getCarrots().size());
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (4 + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (offset + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
     {
         std::stringstream ss;
         ss << "/";
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 4 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - offset * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
     {
         std::stringstream ss;
         ss << game.getNumTotalCarrots();
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - text.size() * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
     m_spriteBatcher->endBatch(*m_title_font);
     
@@ -705,7 +713,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(uiCarrot, Assets::get(uiCarrot));
     renderPhysicalEntity(uiGoldenCarrot, Assets::get(uiGoldenCarrot));
-    m_spriteBatcher->endBatch(*m_world_1_foreground);
+    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)
@@ -746,8 +754,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getTrees());
-        renderPhysicalEntities(leep.getCaveSkeletons());
-        m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+        m_spriteBatcher->endBatch(*m_world_1_foreground_2);
         
         m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
@@ -759,7 +766,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
             
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
-        m_spriteBatcher->endBatch(*m_world_1_foreground);
+        m_spriteBatcher->endBatch(*m_world_1_foreground_1);
         
         m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
@@ -779,7 +786,9 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
                 renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
             }
         }
+        m_spriteBatcher->endBatch(*m_world_1_foreground_2);
         
+        m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
@@ -789,7 +798,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
                 renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
             }
         }
-        m_spriteBatcher->endBatch(*m_world_1_foreground_more);
+        m_spriteBatcher->endBatch(*m_world_1_foreground_3);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getLogVerticalTalls());
@@ -804,7 +813,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getCarrots());
         renderPhysicalEntities(leep.getGoldenCarrots());
         renderPhysicalEntitiesWithColor(leep.getRocks());
-        m_spriteBatcher->endBatch(*m_world_1_foreground);
+        m_spriteBatcher->endBatch(*m_world_1_foreground_1);
     }
     
     if (lsp.isOpen())
@@ -854,38 +863,39 @@ void Renderer::cleanUp()
 {
     if (m_areTitleTexturesLoaded)
     {
-        destroyTexture(*m_title_font.get());
+        destroyTexture(*m_title_font);
         
         m_areTitleTexturesLoaded = false;
     }
     
     if (m_areJonTexturesLoaded)
     {
-        destroyTexture(*m_jon.get());
+        destroyTexture(*m_jon);
         
         m_areJonTexturesLoaded = false;
     }
     
     if (m_areVampireAndAbilityTexturesLoaded)
     {
-        destroyTexture(*m_vampire.get());
-        destroyTexture(*m_jon_ability.get());
+        destroyTexture(*m_vampire);
+        destroyTexture(*m_jon_ability);
         
         m_areVampireAndAbilityTexturesLoaded = false;
     }
     
     if (m_areWorld1TexturesLoaded)
     {
-        destroyTexture(*m_world_1_background.get());
-        destroyTexture(*m_world_1_foreground_more.get());
-        destroyTexture(*m_world_1_foreground.get());
+        destroyTexture(*m_world_1_background);
+        destroyTexture(*m_world_1_foreground_3);
+        destroyTexture(*m_world_1_foreground_2);
+        destroyTexture(*m_world_1_foreground_1);
         
         m_areWorld1TexturesLoaded = false;
     }
     
     if (m_areLevelEditorTexturesLoaded)
     {
-        destroyTexture(*m_level_editor.get());
+        destroyTexture(*m_level_editor);
         
         m_areLevelEditorTexturesLoaded = false;
     }

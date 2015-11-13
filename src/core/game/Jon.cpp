@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "GameConstants.h"
 #include "OverlapTester.h"
+#include "Assets.h"
 
 #include <math.h>
 
@@ -59,8 +60,9 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
     
     PhysicalEntity::update(deltaTime);
     
-    if (game.isJonHit())
+    if (game.isJonHit() || m_position->getY() < -m_fHeight / 2)
     {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
         setState(JON_DYING_FADING);
         return;
     }
@@ -74,12 +76,6 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
     {
         m_fAbilityStateTime += deltaTime;
     }
-
-	if (m_position->getY() < -m_fHeight / 2)
-	{
-        setState(JON_DEAD);
-        return;
-	}
     
     bool wasGrounded = m_physicalState == PHYSICAL_GROUNDED;
     

@@ -55,24 +55,6 @@ TextureRegion& Assets::get(Tree& tree)
     }
 }
 
-TextureRegion& Assets::get(CaveSkeleton& caveSkeleton)
-{
-    static TextureRegion tr1 = TextureRegion(1100, 628, 125, 76, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr2 = TextureRegion(1228, 628, 131, 102, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr3 = TextureRegion(1362, 628, 131, 102, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    
-    switch (caveSkeleton.getEnumType())
-    {
-        case CaveSkeletonType_One:
-            return tr1;
-        case CaveSkeletonType_Two:
-            return tr2;
-        case CaveSkeletonType_Three:
-        default:
-            return tr3;
-    }
-}
-
 TextureRegion& Assets::get(Ground& ground)
 {
     static TextureRegion tr1 = TextureRegion(0, 0, 2048, 113, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -157,13 +139,22 @@ TextureRegion& Assets::get(HoleCover& holeCover)
 
 TextureRegion& Assets::get(CaveExit& caveExit)
 {
-    static TextureRegion tr = TextureRegion(1398, 1710, 466, 302, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
+    static TextureRegion tr0 = TextureRegion(1, 0, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr1 = TextureRegion(1, 292, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    switch (caveExit.getEnumType())
+    {
+        case CaveExitType_End:
+            return tr0;
+        case CaveExitType_Mid:
+        default:
+            return tr1;
+    }
 }
 
 TextureRegion& Assets::get(CaveExitCover& caveExit)
 {
-    static Animation anim = Animation(0, 1408, 466, 302, 1864, 604, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+    static Animation anim = Animation(501, 0, 500, 288, 1500, 864, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
     
     return anim.getTextureRegion(caveExit.getStateTime());
 }

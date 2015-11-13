@@ -46,6 +46,7 @@ private:
 	std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
 	std::unique_ptr<GameSound> m_collectCarrotSound;
 	std::unique_ptr<GameSound> m_collectGoldenCarrotSound;
+    std::unique_ptr<GameSound> m_deathSound;
 
 	float m_fScreenDpWidth;
 	float m_fScreenDpHeight;

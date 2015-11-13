@@ -19,9 +19,9 @@ void CaveExitCover::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.24f)
+        if (m_fStateTime > 0.45f)
         {
-            m_color.alpha = 1.00f - (m_fStateTime - 0.24f) * 5.55555555555556;
+            m_color.alpha = 1.00f - (m_fStateTime - 0.45f) * 2;
             
             if (m_color.alpha < 0)
             {

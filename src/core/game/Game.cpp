@@ -17,7 +17,6 @@
 #define backgroundTreesKey "backgroundTrees"
 #define backgroundCavesKey "backgroundCaves"
 #define treesKey "trees"
-#define caveSkeletonsKey "caveSkeletons"
 #define groundsKey "grounds"
 #define holesKey "holes"
 #define caveExitsKey "caveExits"
@@ -48,7 +47,6 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getBackgroundTrees(), m_backgroundTrees);
     copyPhysicalEntities(game->getBackgroundCaves(), m_backgroundCaves);
     copyPhysicalEntities(game->getTrees(), m_trees);
-    copyPhysicalEntities(game->getCaveSkeletons(), m_caveSkeletons);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
     copyPhysicalEntities(game->getCaveExits(), m_caveExits);
@@ -83,7 +81,6 @@ void Game::load(const char* json)
     loadArray(m_backgroundTrees, d, backgroundTreesKey);
     loadArray(m_backgroundCaves, d, backgroundCavesKey);
     loadArray(m_trees, d, treesKey);
-    loadArray(m_caveSkeletons, d, caveSkeletonsKey);
     loadArray(m_grounds, d, groundsKey);
     loadArray(m_holes, d, holesKey);
     loadArray(m_caveExits, d, caveExitsKey);
@@ -122,8 +119,7 @@ const char* Game::save()
     saveArray(m_backgroundSkies, w, backgroundSkiesKey);
     saveArray(m_backgroundTrees, w, backgroundTreesKey);
     saveArray(m_backgroundCaves, w, backgroundCavesKey);
-    saveArray(m_trees, w, treesKey);    
-    saveArray(m_caveSkeletons, w, caveSkeletonsKey);
+    saveArray(m_trees, w, treesKey);
     saveArray(m_grounds, w, groundsKey);
     saveArray(m_holes, w, holesKey);
     saveArray(m_caveExits, w, caveExitsKey);
@@ -152,7 +148,6 @@ void Game::reset()
     m_backgroundTrees.clear();
     m_backgroundCaves.clear();
     m_trees.clear();
-    m_caveSkeletons.clear();
     m_grounds.clear();
     m_holes.clear();
     m_caveExits.clear();
@@ -188,7 +183,6 @@ void Game::updateAndClean(float deltaTime, bool isJonAllowedToMove)
     EntityUtils::clean(getJons());
     
     EntityUtils::updateAndClean(getTrees(), deltaTime);
-    EntityUtils::updateAndClean(getCaveSkeletons(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);
     EntityUtils::updateAndClean(getCaveExits(), deltaTime);
@@ -214,7 +208,6 @@ int Game::calcSum()
     sum += m_backgroundTrees.size();
     sum += m_backgroundCaves.size();
     sum += m_trees.size();
-    sum += m_caveSkeletons.size();
     sum += m_grounds.size();
     sum += m_holes.size();
     sum += m_caveExits.size();
@@ -237,7 +230,7 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime));
+    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime));
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
@@ -247,7 +240,7 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
-    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime);
+    return (!isBurstingThroughCaveToSurface(getJon(), getCaveExits(), deltaTime) && EntityUtils::isBlockedAbove(getJon(), getCaveExits(), deltaTime)) || EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime);
 }
 
 bool Game::isJonHit()
@@ -288,11 +281,6 @@ std::vector<std::unique_ptr<BackgroundCave>>& Game::getBackgroundCaves()
 std::vector<std::unique_ptr<Tree>>& Game::getTrees()
 {
     return m_trees;
-}
-
-std::vector<std::unique_ptr<CaveSkeleton>>& Game::getCaveSkeletons()
-{
-    return m_caveSkeletons;
 }
 
 std::vector<std::unique_ptr<Ground>>& Game::getGrounds()
@@ -408,4 +396,30 @@ int Game::getNumTotalGoldenCarrots()
 bool Game::isLoaded()
 {
     return m_isLoaded;
+}
+
+bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
+{
+    float entityVelocityY = entity.getVelocity().getY();
+    float entityLeft = entity.getBounds().getLowerLeft().getX();
+    
+    if (entityVelocityY > 16)
+    {
+        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            {
+                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
+                
+                if (itemLeft < entityLeft)
+                {
+                    (*i)->triggerEruption();
+                    
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
 }

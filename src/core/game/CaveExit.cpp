@@ -11,21 +11,34 @@
 
 CaveExit* CaveExit::create(float x, float y, int type)
 {
-    return new CaveExit(x);
+    CaveExit* pCaveExit;
+    
+    switch ((CaveExitType)type)
+    {
+        case CaveExitType_End:
+            pCaveExit = new CaveExitEnd(x);
+            break;
+        case CaveExitType_Mid:
+        default:
+            pCaveExit = new CaveExitMid(x);
+            break;
+    }
+    
+    return pCaveExit;
 }
 
-CaveExit::CaveExit(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+CaveExit::CaveExit(float x, float y, float width, float height, CaveExitType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
-    m_CaveExitCovers.push_back(std::unique_ptr<CaveExitCover>(new CaveExitCover(x, y, width, height)));
+    m_caveExitCovers.push_back(std::unique_ptr<CaveExitCover>(new CaveExitCover(x, y, width, height)));
     
-    resetBounds(width * 0.56f, height);
+    updateBounds();
 }
 
 void CaveExit::update(float deltaTime)
 {
-    EntityUtils::updateAndClean(m_CaveExitCovers, deltaTime);
+    EntityUtils::updateAndClean(m_caveExitCovers, deltaTime);
     
-    for (std::vector<std::unique_ptr<CaveExitCover>>::iterator i = m_CaveExitCovers.begin(); i != m_CaveExitCovers.end(); i++)
+    for (std::vector<std::unique_ptr<CaveExitCover>>::iterator i = m_caveExitCovers.begin(); i != m_caveExitCovers.end(); i++)
     {
         (*i)->getPosition().set(getPosition());
         (*i)->updateBounds();
@@ -38,28 +51,33 @@ void CaveExit::updateBounds()
     
     PhysicalEntity::updateBounds();
     
-    m_bounds->setHeight(getHeight() * 0.42f);
+    m_bounds->setHeight(getHeight() * 0.39583333333333f);
 }
 
 void CaveExit::triggerEruption()
 {
-    if (m_CaveExitCovers.size() > 0)
+    if (m_caveExitCovers.size() > 0)
     {
-        m_CaveExitCovers.at(0)->triggerHit();
+        m_caveExitCovers.at(0)->triggerHit();
     }
 }
 
 bool CaveExit::hasCover()
 {
-    return m_CaveExitCovers.size() > 0;
+    return m_caveExitCovers.size() > 0;
 }
 
 std::vector<std::unique_ptr<CaveExitCover>>& CaveExit::getCaveExitCovers()
 {
-    return m_CaveExitCovers;
+    return m_caveExitCovers;
+}
+
+CaveExitType CaveExit::getEnumType()
+{
+    return m_type;
 }
 
 int CaveExit::getType()
 {
-    return -1;
+    return m_type;
 }

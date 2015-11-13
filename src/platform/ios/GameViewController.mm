@@ -27,6 +27,7 @@
 @property (strong, nonatomic) Music *bgm;
 @property (strong, nonatomic) Sound *collectCarrotSound;
 @property (strong, nonatomic) Sound *collectGoldenCarrotSound;
+@property (strong, nonatomic) Sound *deathSound;
 
 @end
 
@@ -96,6 +97,7 @@ static bool isRunningiOS8 = false;
     
     self.collectCarrotSound = [[Sound alloc] initWithSoundNamed:@"collect_carrot.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:3];
     self.collectGoldenCarrotSound = [[Sound alloc] initWithSoundNamed:@"collect_golden_carrot.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:1];
+    self.deathSound = [[Sound alloc] initWithSoundNamed:@"death.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:1];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -184,6 +186,9 @@ static bool isRunningiOS8 = false;
                 break;
             case SOUND_COLLECT_GOLDEN_CARROT:
                 [self.collectGoldenCarrotSound play];
+                break;
+            case SOUND_DEATH:
+                [self.deathSound play];
                 break;
             default:
                 continue;

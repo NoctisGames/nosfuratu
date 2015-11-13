@@ -13,7 +13,6 @@
 #include "BackgroundTrees.h"
 #include "BackgroundCave.h"
 #include "Tree.h"
-#include "CaveSkeleton.h"
 #include "Ground.h"
 #include "Hole.h"
 #include "CaveExit.h"
@@ -83,8 +82,6 @@ public:
     
     std::vector<std::unique_ptr<Tree>>& getTrees();
     
-    std::vector<std::unique_ptr<CaveSkeleton>>& getCaveSkeletons();
-    
     std::vector<std::unique_ptr<Ground>>& getGrounds();
     
     std::vector<std::unique_ptr<Hole>>& getHoles();
@@ -134,7 +131,6 @@ private:
     std::vector<std::unique_ptr<BackgroundTrees>> m_backgroundTrees;
     std::vector<std::unique_ptr<BackgroundCave>> m_backgroundCaves;
     std::vector<std::unique_ptr<Tree>> m_trees;
-    std::vector<std::unique_ptr<CaveSkeleton>> m_caveSkeletons;
     std::vector<std::unique_ptr<Ground>> m_grounds;
     std::vector<std::unique_ptr<Hole>> m_holes;
     std::vector<std::unique_ptr<CaveExit>> m_caveExits;
@@ -227,6 +223,8 @@ private:
         
         w.EndArray();
     }
+    
+    static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

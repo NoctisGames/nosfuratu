@@ -45,7 +45,7 @@ void OpenGLESRenderer::init(RendererType type)
     m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper(program));
 }
 
-TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName)
+TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repeatS)
 {
     size_t len = strlen(textureName);
     
@@ -58,7 +58,7 @@ TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName)
     textureFileName[len+3] = 'g';
     textureFileName[len+4] = '\0';
     
-    TextureWrapper* tw = new TextureWrapper(load_png_asset_into_texture(textureFileName));
+    TextureWrapper* tw = new TextureWrapper(load_png_asset_into_texture(textureFileName, repeatS));
     
     delete textureFileName;
     

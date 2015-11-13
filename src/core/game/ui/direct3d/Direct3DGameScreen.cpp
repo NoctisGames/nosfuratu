@@ -36,6 +36,7 @@ Direct3DGameScreen::Direct3DGameScreen(DX::DeviceResources* deviceResources) : G
 	// Load Sound Effects
 	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_carrot.wav"));
 	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_golden_carrot.wav"));
+    m_deathSound = std::unique_ptr<GameSound>(new GameSound("assets\\death.wav"));
 
     m_stateMachine->getCurrentState()->enter(this);
 }
@@ -69,6 +70,9 @@ void Direct3DGameScreen::handleSound()
 		case SOUND_COLLECT_GOLDEN_CARROT:
 			m_collectGoldenCarrotSound->play();
 			break;
+        case SOUND_DEATH:
+            m_deathSound->play();
+            break;
 		default:
 			continue;
 		}

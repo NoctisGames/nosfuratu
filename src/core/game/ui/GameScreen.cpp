@@ -14,22 +14,10 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_isRequestingRend
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
-    m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    for (int i = 0; i < 50; i++)
+    {
+        m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+    }
     
     m_stateMachine = std::unique_ptr<StateMachine<GameScreen>>(new StateMachine<GameScreen>(this));
     
@@ -58,10 +46,9 @@ void GameScreen::update(float deltaTime)
     if (m_iNumFramesToDiscard > 0)
     {
         m_iNumFramesToDiscard--;
-        return;
+        processTouchEvents();
     }
-    
-    if (m_isPaused)
+    else if (m_isPaused)
     {
         processTouchEvents();
         
