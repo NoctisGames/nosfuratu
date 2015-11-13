@@ -84,15 +84,17 @@ protected:
     std::unique_ptr<RectangleBatcher> m_highlightRectangleBatcher;
     std::unique_ptr<Font> m_font;
     
-    std::unique_ptr<TextureWrapper> m_title_font;
-    std::unique_ptr<TextureWrapper> m_jon;
-    std::unique_ptr<TextureWrapper> m_vampire;
     std::unique_ptr<TextureWrapper> m_jon_ability;
-    std::unique_ptr<TextureWrapper> m_world_1_background;
-    std::unique_ptr<TextureWrapper> m_world_1_foreground_1;
-    std::unique_ptr<TextureWrapper> m_world_1_foreground_2;
-    std::unique_ptr<TextureWrapper> m_world_1_foreground_3;
+    std::unique_ptr<TextureWrapper> m_jon;
     std::unique_ptr<TextureWrapper> m_level_editor;
+    std::unique_ptr<TextureWrapper> m_title_font;
+    std::unique_ptr<TextureWrapper> m_vampire;
+    std::unique_ptr<TextureWrapper> m_world_1_background;
+    std::unique_ptr<TextureWrapper> m_world_1_cave;
+    std::unique_ptr<TextureWrapper> m_world_1_ground_w_cave;
+    std::unique_ptr<TextureWrapper> m_world_1_ground_wo_cave;
+    std::unique_ptr<TextureWrapper> m_world_1_misc;
+    
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;

@@ -36,3 +36,8 @@ void CaveExitCover::triggerHit()
 {
     m_isBreaking = true;
 }
+
+Color CaveExitCover::getColor()
+{
+    return m_color;
+}

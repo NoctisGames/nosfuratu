@@ -21,6 +21,8 @@ public:
     
     virtual void triggerHit();
     
+    Color getColor();
+    
 private:
     Color m_color;
     bool m_isBreaking;

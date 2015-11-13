@@ -76,9 +76,10 @@ void Renderer::init(RendererType type)
             if (m_areWorld1TexturesLoaded)
             {
                 destroyTexture(*m_world_1_background);
-                destroyTexture(*m_world_1_foreground_3);
-                destroyTexture(*m_world_1_foreground_2);
-                destroyTexture(*m_world_1_foreground_1);
+                destroyTexture(*m_world_1_cave);
+                destroyTexture(*m_world_1_ground_w_cave);
+                destroyTexture(*m_world_1_ground_wo_cave);
+                destroyTexture(*m_world_1_misc);
                 
                 m_areWorld1TexturesLoaded = false;
             }
@@ -117,9 +118,10 @@ void Renderer::init(RendererType type)
             if (!m_areWorld1TexturesLoaded)
             {
                 m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
-                m_world_1_foreground_3 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_3"));
-                m_world_1_foreground_2 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_2"));
-                m_world_1_foreground_1 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_1"));
+                m_world_1_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_cave"));
+                m_world_1_ground_w_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_w_cave"));
+                m_world_1_ground_wo_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_wo_cave"));
+                m_world_1_misc = std::unique_ptr<TextureWrapper>(loadTexture("world_1_misc"));
                 
                 m_areWorld1TexturesLoaded = true;
             }
@@ -165,9 +167,10 @@ void Renderer::init(RendererType type)
             if (!m_areWorld1TexturesLoaded)
             {
                 m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
-                m_world_1_foreground_3 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_3"));
-                m_world_1_foreground_2 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_2"));
-                m_world_1_foreground_1 = std::unique_ptr<TextureWrapper>(loadTexture("world_1_foreground_1"));
+                m_world_1_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_cave"));
+                m_world_1_ground_w_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_w_cave"));
+                m_world_1_ground_wo_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_wo_cave"));
+                m_world_1_misc = std::unique_ptr<TextureWrapper>(loadTexture("world_1_misc"));
                 
                 m_areWorld1TexturesLoaded = true;
             }
@@ -503,26 +506,24 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getTrees());
-    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
+    m_spriteBatcher->endBatch(*m_world_1_misc);
     
     /// Render World
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if ((*i)->isForegroundMore())
+        if ((*i)->is_world_1_cave())
         {
-            continue;
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
-        
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
+    m_spriteBatcher->endBatch(*m_world_1_cave);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
-        if ((*i)->isForegroundMore())
+        if ((*i)->is_world_1_ground_w_cave())
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
@@ -531,25 +532,25 @@ void Renderer::renderWorld(Game& game)
     for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-        
-        for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
-        {
-            renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
-        }
+        renderPhysicalEntities((*i)->getHoleCovers());
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
     
-    m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-        
-        for (std::vector<std::unique_ptr<CaveExitCover>>::iterator j = (*i)->getCaveExitCovers().begin(); j != (*i)->getCaveExitCovers().end(); j++)
+        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
+    }
+    m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
+    {
+        if ((*i)->is_world_1_ground_wo_cave())
         {
-            renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_3);
+    m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getLogVerticalTalls());
@@ -564,7 +565,7 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getCarrots());
     renderPhysicalEntities(game.getGoldenCarrots());
     renderPhysicalEntitiesWithColor(game.getRocks());
-    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
+    m_spriteBatcher->endBatch(*m_world_1_misc);
     
     /// Render Jon Effects (e.g. Dust Clouds)
     
@@ -573,7 +574,7 @@ void Renderer::renderWorld(Game& game)
     {
         renderPhysicalEntitiesWithColor((*i)->getDustClouds());
     }
-    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
+    m_spriteBatcher->endBatch(*m_world_1_misc);
 }
 
 void Renderer::renderJon(Game& game)
@@ -651,7 +652,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(backButton, Assets::get(backButton));
-    m_spriteBatcher->endBatch(*m_world_1_foreground_2);
+    m_spriteBatcher->endBatch(*m_title_font);
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
@@ -713,7 +714,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(uiCarrot, Assets::get(uiCarrot));
     renderPhysicalEntity(uiGoldenCarrot, Assets::get(uiGoldenCarrot));
-    m_spriteBatcher->endBatch(*m_world_1_foreground_1);
+    m_spriteBatcher->endBatch(*m_world_1_misc);
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)
@@ -754,24 +755,22 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getTrees());
-        m_spriteBatcher->endBatch(*m_world_1_foreground_2);
+        m_spriteBatcher->endBatch(*m_world_1_misc);
         
         m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
-            if ((*i)->isForegroundMore())
+            if ((*i)->is_world_1_cave())
             {
-                continue;
+                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             }
-            
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         }
-        m_spriteBatcher->endBatch(*m_world_1_foreground_1);
+        m_spriteBatcher->endBatch(*m_world_1_cave);
         
         m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
-            if ((*i)->isForegroundMore())
+            if ((*i)->is_world_1_ground_w_cave())
             {
                 renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             }
@@ -780,25 +779,25 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         for (std::vector<std::unique_ptr<Hole>>::iterator i = leep.getHoles().begin(); i != leep.getHoles().end(); i++)
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-            
-            for (std::vector<std::unique_ptr<HoleCover>>::iterator j = (*i)->getHoleCovers().begin(); j != (*i)->getHoleCovers().end(); j++)
-            {
-                renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
-            }
+            renderPhysicalEntities((*i)->getHoleCovers());
         }
-        m_spriteBatcher->endBatch(*m_world_1_foreground_2);
         
-        m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-            
-            for (std::vector<std::unique_ptr<CaveExitCover>>::iterator j = (*i)->getCaveExitCovers().begin(); j != (*i)->getCaveExitCovers().end(); j++)
+            renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
+        }
+        m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
+        
+        m_spriteBatcher->beginBatch();
+        for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
+        {
+            if ((*i)->is_world_1_ground_wo_cave())
             {
-                renderPhysicalEntity(*(*j).get(), Assets::get(*(*j).get()));
+                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             }
         }
-        m_spriteBatcher->endBatch(*m_world_1_foreground_3);
+        m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getLogVerticalTalls());
@@ -813,7 +812,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getCarrots());
         renderPhysicalEntities(leep.getGoldenCarrots());
         renderPhysicalEntitiesWithColor(leep.getRocks());
-        m_spriteBatcher->endBatch(*m_world_1_foreground_1);
+        m_spriteBatcher->endBatch(*m_world_1_misc);
     }
     
     if (lsp.isOpen())
@@ -886,9 +885,10 @@ void Renderer::cleanUp()
     if (m_areWorld1TexturesLoaded)
     {
         destroyTexture(*m_world_1_background);
-        destroyTexture(*m_world_1_foreground_3);
-        destroyTexture(*m_world_1_foreground_2);
-        destroyTexture(*m_world_1_foreground_1);
+        destroyTexture(*m_world_1_cave);
+        destroyTexture(*m_world_1_ground_w_cave);
+        destroyTexture(*m_world_1_ground_wo_cave);
+        destroyTexture(*m_world_1_misc);
         
         m_areWorld1TexturesLoaded = false;
     }
