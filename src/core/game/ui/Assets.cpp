@@ -55,22 +55,22 @@ TextureRegion& Assets::get(Tree& tree)
 
 TextureRegion& Assets::get(Ground& ground)
 {
-    static TextureRegion tr1 = TextureRegion(0, 0, 2000, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr1 = TextureRegion(1, 0, 2000, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr2 = TextureRegion(144, 235, 1000, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr3 = TextureRegion(1337, 235, 500, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr4 = TextureRegion(0, 235, 144, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr5 = TextureRegion(1144, 235, 134, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr6 = TextureRegion(0, 0, 2000, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr6 = TextureRegion(1, 0, 2000, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr7 = TextureRegion(125, 875, 1000, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr8 = TextureRegion(1337, 875, 500, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr9 = TextureRegion(0, 875, 124, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr10 = TextureRegion(1125, 875, 137, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr11 = TextureRegion(0, 1084, 2000, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr11 = TextureRegion(1, 1084, 2000, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr12 = TextureRegion(128, 1484, 1000, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr13 = TextureRegion(1337, 1484, 500, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr14 = TextureRegion(0, 1484, 128, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr15 = TextureRegion(1128, 1484, 128, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr16 = TextureRegion(0, 0, 2000, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr16 = TextureRegion(1, 0, 2000, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr17 = TextureRegion(183, 536, 1000, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr18 = TextureRegion(1337, 536, 500, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr19 = TextureRegion(0, 536, 183, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -137,8 +137,8 @@ TextureRegion& Assets::get(HoleCover& holeCover)
 
 TextureRegion& Assets::get(CaveExit& caveExit)
 {
-    static TextureRegion tr0 = TextureRegion(1, 468, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr1 = TextureRegion(1, 768, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr0 = TextureRegion(2, 468, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr1 = TextureRegion(2, 768, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     switch (caveExit.getEnumType())
     {
@@ -152,7 +152,7 @@ TextureRegion& Assets::get(CaveExit& caveExit)
 
 TextureRegion& Assets::get(CaveExitCover& caveExit)
 {
-    static Animation anim = Animation(502, 468, 500, 288, 1500, 864, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
+    static Animation anim = Animation(503, 468, 500, 288, 1500, 864, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
     
     return anim.getTextureRegion(caveExit.getStateTime());
 }

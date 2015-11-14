@@ -51,7 +51,7 @@ void CaveExit::updateBounds()
     
     PhysicalEntity::updateBounds();
     
-    m_bounds->setHeight(getHeight() * 0.39583333333333f);
+    m_bounds->setHeight(1.39014625f); // magical number needed to make CaveExit pieces line up with ground pieces properly
 }
 
 void CaveExit::triggerEruption()

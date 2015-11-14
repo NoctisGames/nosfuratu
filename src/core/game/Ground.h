@@ -38,21 +38,21 @@ typedef enum
     GroundType_Cave_Raised_End_Right
 } GroundType;
 
-#define GROUND_LARGE_WIDTH 23.976608187134502f
-#define GROUND_MEDIUM_WIDTH 12.0f
-#define GROUND_SMALL_WIDTH 6.0f
+#define GROUND_LARGE_WIDTH 23.970037453183522f
+#define GROUND_MEDIUM_WIDTH 11.985018726591761f
+#define GROUND_SMALL_WIDTH 5.992509363295881f
 
 #define GROUND_GRASS_WITH_CAVE_HEIGHT 2.612516644474035f
 #define GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR 0.53669724770642f
 #define GROUND_GRASS_WITH_CAVE_Y 8.916111850865512f
 
-#define GROUND_CAVE_HEIGHT 4.726169844020797f
+#define GROUND_CAVE_HEIGHT 4.494007989347537f
 #define GROUND_CAVE_BOUNDS_HEIGHT_FACTOR 0.25742574257426f
 
 #define GROUND_GRASS_WITHOUT_CAVE_HEIGHT 10.198402130492676f
 #define GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR 0.88366627497062f
 
-#define GROUND_CAVE_RAISED_HEIGHT 6.34055459272097f
+#define GROUND_CAVE_RAISED_HEIGHT 6.327563249001331f
 #define GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR 0.84444444444444f
 
 class Ground : public PhysicalEntity
@@ -100,13 +100,13 @@ public:
 class GroundGrassWithCaveEndLeft : public Ground
 {
 public:
-    GroundGrassWithCaveEndLeft(float x, float y = GROUND_GRASS_WITH_CAVE_Y, float width = 1.7309941520467835f, float height = GROUND_GRASS_WITH_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_with_Cave_End_Left) {}
+    GroundGrassWithCaveEndLeft(float x, float y = GROUND_GRASS_WITH_CAVE_Y, float width = 1.7258426966292135f, float height = GROUND_GRASS_WITH_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_with_Cave_End_Left) {}
 };
 
 class GroundGrassWithCaveEndRight : public Ground
 {
 public:
-    GroundGrassWithCaveEndRight(float x, float y = GROUND_GRASS_WITH_CAVE_Y, float width = 1.6140350877192982f, float height = GROUND_GRASS_WITH_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_with_Cave_End_Right) {}
+    GroundGrassWithCaveEndRight(float x, float y = GROUND_GRASS_WITH_CAVE_Y, float width = 1.6059925093632959f, float height = GROUND_GRASS_WITH_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITH_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_with_Cave_End_Right) {}
 };
 
 class GroundGrassWithoutCaveLarge : public Ground
@@ -130,13 +130,13 @@ public:
 class GroundGrassWithoutCaveEndLeft : public Ground
 {
 public:
-    GroundGrassWithoutCaveEndLeft(float x, float y = 0, float width = 1.5204678362573099f, float height = GROUND_GRASS_WITHOUT_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_without_Cave_End_Left) {}
+    GroundGrassWithoutCaveEndLeft(float x, float y = 0, float width = 1.4861423220973782f, float height = GROUND_GRASS_WITHOUT_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_without_Cave_End_Left) {}
 };
 
 class GroundGrassWithoutCaveEndRight : public Ground
 {
 public:
-    GroundGrassWithoutCaveEndRight(float x, float y = 0, float width = 1.6140350877192982f, float height = GROUND_GRASS_WITHOUT_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_without_Cave_End_Right) {}
+    GroundGrassWithoutCaveEndRight(float x, float y = 0, float width = 1.641947565543071f, float height = GROUND_GRASS_WITHOUT_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_GRASS_WITHOUT_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Grass_without_Cave_End_Right) {}
 };
 
 class GroundCaveLarge : public Ground
@@ -160,13 +160,13 @@ public:
 class GroundCaveEndLeft : public Ground
 {
 public:
-    GroundCaveEndLeft(float x, float y = 0, float width = 1.567251461988304f, float height = GROUND_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_End_Left) {}
+    GroundCaveEndLeft(float x, float y = 0, float width = 1.5340823970037454f, float height = GROUND_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_End_Left) {}
 };
 
 class GroundCaveEndRight : public Ground
 {
 public:
-    GroundCaveEndRight(float x, float y = 0, float width = 1.543859649122807f, float height = GROUND_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_End_Right) {}
+    GroundCaveEndRight(float x, float y = 0, float width = 1.5340823970037454f, float height = GROUND_CAVE_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_End_Right) {}
 };
 
 class GroundCaveRaisedLarge : public Ground
@@ -190,13 +190,13 @@ public:
 class GroundCaveRaisedEndLeft : public Ground
 {
 public:
-    GroundCaveRaisedEndLeft(float x, float y = 0, float width = 2.198830409356725f, float height = GROUND_CAVE_RAISED_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_Raised_End_Left) {}
+    GroundCaveRaisedEndLeft(float x, float y = 0, float width = 2.1932584269662923f, float height = GROUND_CAVE_RAISED_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_Raised_End_Left) {}
 };
 
 class GroundCaveRaisedEndRight : public Ground
 {
 public:
-    GroundCaveRaisedEndRight(float x, float y = 0, float width = 2.198830409356725f, float height = GROUND_CAVE_RAISED_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_Raised_End_Right) {}
+    GroundCaveRaisedEndRight(float x, float y = 0, float width = 2.1932584269662923f, float height = GROUND_CAVE_RAISED_HEIGHT) : Ground(x, y, width, height, GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR, GroundType_Cave_Raised_End_Right) {}
 };
 
 #endif /* defined(__nosfuratu__Ground__) */

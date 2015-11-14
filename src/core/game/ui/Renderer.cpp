@@ -437,12 +437,12 @@ void Renderer::renderTitleScreen()
     float fontStartingY = CAM_HEIGHT * 2 / 5;
     
     {
-        static std::string text = std::string("My best time: 27.46");
+        static std::string text = std::string("Swipe down to dig");
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     }
     
     {
-        static std::string text = std::string("Happy Halloween!");
+        static std::string text = std::string("Swipe right to punch");
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     }
     
@@ -521,6 +521,12 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_cave);
     
     m_spriteBatcher->beginBatch();
+    for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
+    {
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
+    }
+    
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
         if ((*i)->is_world_1_ground_w_cave())
@@ -533,12 +539,6 @@ void Renderer::renderWorld(Game& game)
     {
         renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
         renderPhysicalEntities((*i)->getHoleCovers());
-    }
-    
-    for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
-    {
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
     
@@ -768,6 +768,12 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_cave);
         
         m_spriteBatcher->beginBatch();
+        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
+        {
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
+        }
+        
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
             if ((*i)->is_world_1_ground_w_cave())
@@ -780,12 +786,6 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         {
             renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
             renderPhysicalEntities((*i)->getHoleCovers());
-        }
-        
-        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
-        {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-            renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
         }
         m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
         
