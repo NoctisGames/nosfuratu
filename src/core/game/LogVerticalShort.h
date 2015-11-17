@@ -16,7 +16,7 @@ class LogVerticalShort : public DestructiblePhysicalEntity
 public:
     static LogVerticalShort* create(float x, float y, int type);
     
-    LogVerticalShort(float x, float y, float width = 1.5204678362573099f, float height = 1.216637781629116f);
+    LogVerticalShort(float x, float y, float width = 1.5220973782771536f, float height = 1.1864181091877497f);
     
     virtual void updateBounds();
     

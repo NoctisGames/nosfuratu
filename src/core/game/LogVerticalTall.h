@@ -16,7 +16,7 @@ class LogVerticalTall : public DestructiblePhysicalEntity
 public:
     static LogVerticalTall* create(float x, float y, int type);
     
-    LogVerticalTall(float x, float y, float width = 1.6608187134502923f, float height = 2.1291161178509532f);
+    LogVerticalTall(float x, float y, float width = 1.6299625468164793f, float height = 2.1091877496671105f);
     
     virtual void updateBounds();
     

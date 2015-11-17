@@ -19,7 +19,7 @@ class Hole : public PhysicalEntity
 public:
     static Hole* create(float x, float y, int type);
     
-    Hole(float x, float y = 8.095320623916809f, float width = 3.2046783625730995f, float height = 2.246100519930676f);
+    Hole(float x, float y = 8.095320623916809f, float width = 3.1760299625468167f, float height = 2.229027962716378f);
     
     virtual void update(float deltaTime);
     

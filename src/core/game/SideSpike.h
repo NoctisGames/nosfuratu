@@ -16,7 +16,7 @@ class SideSpike : public PhysicalEntity
 public:
     static SideSpike* create(float x, float y, int type);
     
-    SideSpike(float x, float y, float width = 1.1228070175438596f, float height = 0.42114384748700173f);
+    SideSpike(float x, float y, float width = 1.1146067415730336f, float height = 0.4194407456724368f);
     
     virtual void updateBounds();
     

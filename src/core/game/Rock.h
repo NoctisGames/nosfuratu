@@ -12,8 +12,8 @@
 #include "DestructiblePhysicalEntity.h"
 #include "Color.h"
 
-#define ROCK_WIDTH 4.491228070175438f
-#define ROCK_HEIGHT 4.305025996533795f
+#define ROCK_WIDTH 4.278651685393259f
+#define ROCK_HEIGHT 4.278651685393259f
 
 typedef enum
 {

@@ -16,7 +16,7 @@ class EndSign : public PhysicalEntity
 public:
     static EndSign* create(float x, float y, int type);
     
-    EndSign(float x, float y, float width = 0.7953216374269005f, float height = 1.123050259965338f);
+    EndSign(float x, float y, float width = 0.7910112359550562f, float height = 1.114513981358189f);
     
     virtual void updateBounds();
     

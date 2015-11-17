@@ -235,7 +235,7 @@ bool Game::isJonGrounded(float deltaTime)
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getUpwardSpikes(), deltaTime);
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getUpwardSpikes(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getJumpSprings(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)
@@ -403,7 +403,7 @@ bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<st
     float entityVelocityY = entity.getVelocity().getY();
     float entityLeft = entity.getBounds().getLowerLeft().getX();
     
-    if (entityVelocityY > 13)
+    if (entityVelocityY > 11)
     {
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
         {

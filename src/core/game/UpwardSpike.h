@@ -38,19 +38,19 @@ private:
 class UpwardSpikeMetalGrass : public UpwardSpike
 {
 public:
-    UpwardSpikeMetalGrass(float x, float y, float width = 0.6549707602339181f, float height = 1.0294627383015598f) : UpwardSpike(x, y, width, height, UpwardSpikeType_MetalGrass) {}
+    UpwardSpikeMetalGrass(float x, float y, float width = 0.6591760299625468f, float height = 1.018641810918775f) : UpwardSpike(x, y, width, height, UpwardSpikeType_MetalGrass) {}
 };
 
 class UpwardSpikeWoodGrass : public UpwardSpike
 {
 public:
-    UpwardSpikeWoodGrass(float x, float y, float width = 0.9590643274853801f, float height = 1.0762564991334487f) : UpwardSpike(x, y, width, height, UpwardSpikeType_WoodGrass) {}
+    UpwardSpikeWoodGrass(float x, float y, float width = 0.9707865168539326f, float height = 1.0785619174434087f) : UpwardSpike(x, y, width, height, UpwardSpikeType_WoodGrass) {}
 };
 
 class UpwardSpikeMetalCave : public UpwardSpike
 {
 public:
-    UpwardSpikeMetalCave(float x, float y, float width = 0.42105263157894735f, float height = 1.123050259965338f) : UpwardSpike(x, y, width, height, UpwardSpikeType_MetalCave) {}
+    UpwardSpikeMetalCave(float x, float y, float width = 0.41947565543071164f, float height = 1.114513981358189f) : UpwardSpike(x, y, width, height, UpwardSpikeType_MetalCave) {}
 };
 
 #endif /* defined(__nosfuratu__UpwardSpike__) */

@@ -16,7 +16,7 @@ class Carrot : public PhysicalEntity
 public:
     static Carrot* create(float x, float y, int type);
     
-    Carrot(float x, float y, float width = 1.2163742690058479f, float height = 0.9592720970537262f);
+    Carrot(float x, float y, float width = 1.2224719101123596f, float height = 0.9707057256990679f);
     
     int getType();
 };

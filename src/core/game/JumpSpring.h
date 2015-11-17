@@ -44,13 +44,13 @@ private:
 class JumpSpringGrass : public JumpSpring
 {
 public:
-    JumpSpringGrass(float x, float y, float width = 1.0058479532163742f, float height = 1.0060658578856152f) : JumpSpring(x, y, width, height, JumpSpringType_Grass) {}
+    JumpSpringGrass(float x, float y, float width = 0.9827715355805243f, float height = 0.9707057256990679f) : JumpSpring(x, y, width, height, JumpSpringType_Grass) {}
 };
 
 class JumpSpringCave : public JumpSpring
 {
 public:
-    JumpSpringCave(float x, float y, float width = 1.2163742690058479f, float height = 1.5441941074523398f) : JumpSpring(x, y, width, height, JumpSpringType_Cave) {}
+    JumpSpringCave(float x, float y, float width = 0.6232209737827715f, float height = 0.7909454061251664f) : JumpSpring(x, y, width, height, JumpSpringType_Cave) {}
 };
 
 #endif /* defined(__nosfuratu__JumpSpring__) */

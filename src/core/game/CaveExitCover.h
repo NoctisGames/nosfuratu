@@ -15,7 +15,7 @@
 class CaveExitCover : public DestructiblePhysicalEntity
 {
 public:
-    CaveExitCover(float x, float y = 8.095320623916809f, float width = 3.2046783625730995f, float height = 2.246100519930676f);
+    CaveExitCover(float x, float y = 8.095320623916809f, float width = 5.992509363295881f, float height = 3.4513981358189083f);
     
     virtual void update(float deltaTime);
     

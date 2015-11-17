@@ -16,7 +16,7 @@ class GoldenCarrot : public PhysicalEntity
 public:
     static GoldenCarrot* create(float x, float y, int type);
     
-    GoldenCarrot(float x, float y, float width = 1.21637426900585f, float height = 1.14644714038128f);
+    GoldenCarrot(float x, float y, float width = 1.246441947565543f, float height = 1.174434087882823f);
     
     int getType();
 };

@@ -207,8 +207,8 @@ TextureRegion& Assets::get(UpwardSpike& upwardSpike)
 
 TextureRegion& Assets::get(JumpSpring& jumpSpring)
 {
-    static Animation anim1 = Animation(819, 1966, 82, 81, 328, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
-    static Animation anim2 = Animation(1157, 1980, 52, 66, 208, 66, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
+    static Animation anim1 = Animation(819, 1966, 82, 81, 328, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.03f, 4);
+    static Animation anim2 = Animation(1157, 1980, 52, 66, 208, 66, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.03f, 4);
     
     switch (jumpSpring.getEnumType())
     {
@@ -223,7 +223,7 @@ TextureRegion& Assets::get(JumpSpring& jumpSpring)
 TextureRegion& Assets::get(Rock& rock)
 {
     static TextureRegion tr = TextureRegion(0, 0, 357, 357, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static Animation anim = Animation(357, 0, 357, 357, 1428, 714, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
+    static Animation anim = Animation(370, 0, 357, 357, 1428, 714, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
     
     if (rock.isBlowingUp())
     {

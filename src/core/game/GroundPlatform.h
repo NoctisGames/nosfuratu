@@ -22,7 +22,7 @@ typedef enum
     GroundPlatformType_CaveEndRight
 } GroundPlatformType;
 
-#define GROUND_PLATFORM_HEIGHT 1.1698440207972272f
+#define GROUND_PLATFORM_HEIGHT 1.162450066577896f
 
 class GroundPlatform : public PhysicalEntity
 {
@@ -44,43 +44,43 @@ private:
 class GroundPlatformGrassDefault : public GroundPlatform
 {
 public:
-    GroundPlatformGrassDefault(float x, float y, float width = 2.736842105263158f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassDefault) {}
+    GroundPlatformGrassDefault(float x, float y, float width = 2.7205992509363295f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassDefault) {}
 };
 
 class GroundPlatformGrassEndLeft : public GroundPlatform
 {
 public:
-    GroundPlatformGrassEndLeft(float x, float y, float width = 0.7017543859649122f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassEndLeft) {}
+    GroundPlatformGrassEndLeft(float x, float y, float width = 0.6831460674157304f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassEndLeft) {}
 };
 
 class GroundPlatformGrassCenter : public GroundPlatform
 {
 public:
-    GroundPlatformGrassCenter(float x, float y, float width = 2.7134502923976607f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassCenter) {}
+    GroundPlatformGrassCenter(float x, float y, float width = 2.6846441947565545f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassCenter) {}
 };
 
 class GroundPlatformGrassEndRight : public GroundPlatform
 {
 public:
-    GroundPlatformGrassEndRight(float x, float y, float width = 0.7017543859649122f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassEndRight) {}
+    GroundPlatformGrassEndRight(float x, float y, float width = 0.6831460674157304f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_GrassEndRight) {}
 };
 
 class GroundPlatformCaveEndLeft : public GroundPlatform
 {
 public:
-    GroundPlatformCaveEndLeft(float x, float y, float width = 0.7953216374269005f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveEndLeft) {}
+    GroundPlatformCaveEndLeft(float x, float y, float width = 0.7670411985018727f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveEndLeft) {}
 };
 
 class GroundPlatformCaveCenter : public GroundPlatform
 {
 public:
-    GroundPlatformCaveCenter(float x, float y, float width = 2.7134502923976607f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveCenter) {}
+    GroundPlatformCaveCenter(float x, float y, float width = 2.6846441947565545f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveCenter) {}
 };
 
 class GroundPlatformCaveEndRight : public GroundPlatform
 {
 public:
-    GroundPlatformCaveEndRight(float x, float y, float width = 0.7719298245614035f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveEndRight) {}
+    GroundPlatformCaveEndRight(float x, float y, float width = 0.7670411985018727f, float height = GROUND_PLATFORM_HEIGHT) : GroundPlatform(x, y, width, height, GroundPlatformType_CaveEndRight) {}
 };
 
 #endif /* defined(__nosfuratu__GroundPlatform__) */

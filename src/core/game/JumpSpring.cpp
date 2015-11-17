@@ -53,9 +53,10 @@ void JumpSpring::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.20f)
+        if (m_fStateTime > 0.12f)
         {
             m_isTriggered = false;
+            m_fStateTime = 0;
         }
     }
 }

@@ -39,6 +39,8 @@ CaveExit::CaveExit(float x, float y, float width, float height, CaveExitType typ
 
 void CaveExit::update(float deltaTime)
 {
+    PhysicalEntity::update(deltaTime);
+    
     EntityUtils::updateAndClean(m_caveExitCovers, deltaTime);
     
     for (std::vector<std::unique_ptr<CaveExitCover>>::iterator i = m_caveExitCovers.begin(); i != m_caveExitCovers.end(); i++)
@@ -54,7 +56,7 @@ void CaveExit::updateBounds()
     
     PhysicalEntity::updateBounds();
     
-    m_bounds->setHeight(getHeight() * 0.40625f);
+    m_bounds->setHeight(getHeight() * 0.40277757814049);
     
     Vector2D &lowerLeft = m_holeBounds->getLowerLeft();
     lowerLeft.set(m_position->getX() - m_holeBounds->getWidth() / 2, m_position->getY() - m_holeBounds->getHeight() / 2);

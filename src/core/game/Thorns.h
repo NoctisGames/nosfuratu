@@ -16,7 +16,7 @@ class Thorns : public PhysicalEntity
 public:
     static Thorns* create(float x, float y, int type);
     
-    Thorns(float x, float y, float width = 2.853801169590643f, float height = 1.474003466204506f);
+    Thorns(float x, float y, float width = 2.8284644194756554f, float height = 1.4500665778961384f);
     
     virtual void updateBounds();
     

@@ -16,7 +16,7 @@ class Stump : public PhysicalEntity
 public:
     static Stump* create(float x, float y, int type);
     
-    Stump(float x, float y, float width = 3.9298245614035086f, float height = 3.3457538994800693f);
+    Stump(float x, float y, float width = 3.8951310861423223f, float height = 3.355525965379494f);
     
     virtual void updateBounds();
     

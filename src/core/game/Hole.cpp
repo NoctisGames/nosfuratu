@@ -21,6 +21,8 @@ Hole::Hole(float x, float y, float width, float height) : PhysicalEntity(x, y, w
 
 void Hole::update(float deltaTime)
 {
+    PhysicalEntity::update(deltaTime);
+    
     EntityUtils::updateAndClean(m_holeCovers, deltaTime);
     
     for (std::vector<std::unique_ptr<HoleCover>>::iterator i = m_holeCovers.begin(); i != m_holeCovers.end(); i++)
