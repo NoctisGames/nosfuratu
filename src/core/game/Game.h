@@ -225,6 +225,7 @@ private:
     }
     
     static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
+    static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

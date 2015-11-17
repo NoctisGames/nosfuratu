@@ -39,6 +39,8 @@ public:
     
     bool hasCover();
     
+    Rectangle& getHoleBounds();
+    
     std::vector<std::unique_ptr<CaveExitCover>>& getCaveExitCovers();
     
     CaveExitType getEnumType();
@@ -47,6 +49,7 @@ public:
     
 private:
     CaveExitType m_type;
+    std::unique_ptr<Rectangle> m_holeBounds;
     std::vector<std::unique_ptr<CaveExitCover>> m_caveExitCovers;
 };
 

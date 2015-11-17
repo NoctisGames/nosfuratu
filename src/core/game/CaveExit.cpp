@@ -9,6 +9,8 @@
 #include "CaveExit.h"
 #include "EntityUtils.h"
 
+#define HOLE_WIDTH 3.2046783625730995f
+
 CaveExit* CaveExit::create(float x, float y, int type)
 {
     CaveExit* pCaveExit;
@@ -29,6 +31,7 @@ CaveExit* CaveExit::create(float x, float y, int type)
 
 CaveExit::CaveExit(float x, float y, float width, float height, CaveExitType type) : PhysicalEntity(x, y, width, height), m_type(type)
 {
+    m_holeBounds = std::unique_ptr<Rectangle>(new Rectangle(x - HOLE_WIDTH / 2, y - height / 2, HOLE_WIDTH, height));
     m_caveExitCovers.push_back(std::unique_ptr<CaveExitCover>(new CaveExitCover(x, y, width, height)));
     
     updateBounds();
@@ -51,7 +54,10 @@ void CaveExit::updateBounds()
     
     PhysicalEntity::updateBounds();
     
-    m_bounds->setHeight(1.39014625f); // magical number needed to make CaveExit pieces line up with ground pieces properly
+    m_bounds->setHeight(getHeight() * 0.40625f);
+    
+    Vector2D &lowerLeft = m_holeBounds->getLowerLeft();
+    lowerLeft.set(m_position->getX() - m_holeBounds->getWidth() / 2, m_position->getY() - m_holeBounds->getHeight() / 2);
 }
 
 void CaveExit::triggerEruption()
@@ -65,6 +71,11 @@ void CaveExit::triggerEruption()
 bool CaveExit::hasCover()
 {
     return m_caveExitCovers.size() > 0;
+}
+
+Rectangle& CaveExit::getHoleBounds()
+{
+    return *m_holeBounds;
 }
 
 std::vector<std::unique_ptr<CaveExitCover>>& CaveExit::getCaveExitCovers()

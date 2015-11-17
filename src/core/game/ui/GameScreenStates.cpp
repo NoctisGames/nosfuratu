@@ -358,7 +358,7 @@ void LevelEditor::execute(GameScreen* gs)
         
         int oldSum = m_game->calcSum();
         
-        m_game->updateAndClean(gs->m_fDeltaTime, false);
+        m_game->updateAndClean(gs->m_fDeltaTime / 8, false);
         
         if (m_game->getJons().size() > 0)
         {

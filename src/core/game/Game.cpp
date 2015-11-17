@@ -230,7 +230,7 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime));
+    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && !isFallingThroughCaveExit(getJon(), getCaveExits(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime));
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
@@ -403,19 +403,48 @@ bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<st
     float entityVelocityY = entity.getVelocity().getY();
     float entityLeft = entity.getBounds().getLowerLeft().getX();
     
-    if (entityVelocityY > 16)
+    if (entityVelocityY > 13)
     {
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
             {
-                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
+                float itemLeft = (*i)->getHoleBounds().getLowerLeft().getX();
                 
                 if (itemLeft < entityLeft)
                 {
                     (*i)->triggerEruption();
                     
                     return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool Game::isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
+{
+    float entityVelocityY = entity.getVelocity().getY();
+    float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
+    float entityRight = entity.getBounds().getRight();
+    
+    if (entityVelocityY <= 0)
+    {
+        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if (!(*i)->hasCover())
+            {
+                float itemLowerLeftX = (*i)->getHoleBounds().getLowerLeft().getX();
+                float itemRight = (*i)->getHoleBounds().getRight();
+                
+                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
+                {
+                    if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
+                    {
+                        return true;
+                    }
                 }
             }
         }

@@ -137,8 +137,8 @@ TextureRegion& Assets::get(HoleCover& holeCover)
 
 TextureRegion& Assets::get(CaveExit& caveExit)
 {
-    static TextureRegion tr0 = TextureRegion(2, 468, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr1 = TextureRegion(2, 768, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr0 = TextureRegion(20, 468, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr1 = TextureRegion(20, 768, 500, 288, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     switch (caveExit.getEnumType())
     {
@@ -152,7 +152,7 @@ TextureRegion& Assets::get(CaveExit& caveExit)
 
 TextureRegion& Assets::get(CaveExitCover& caveExit)
 {
-    static Animation anim = Animation(503, 468, 500, 288, 1500, 864, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
+    static Animation anim = Animation(530, 468, 500, 288, 1500, 864, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 9);
     
     return anim.getTextureRegion(caveExit.getStateTime());
 }
