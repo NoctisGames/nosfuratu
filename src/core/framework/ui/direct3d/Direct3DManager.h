@@ -68,6 +68,8 @@ public:
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
 	std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
 
+	int m_iNumShadersLoaded;
+
 	static Direct3DManager * getInstance();
 
 	void init(DX::DeviceResources &deviceResources, int width, int height, int maxBatchSize);

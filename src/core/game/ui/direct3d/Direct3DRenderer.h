@@ -32,6 +32,8 @@ protected:
 	virtual void endFrame();
 
 	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
+
+	virtual bool isLoaded();
     
     virtual void destroyTexture(TextureWrapper& textureWrapper);
 

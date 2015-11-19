@@ -106,7 +106,10 @@ void Direct3DRenderer::bindToOffscreenFramebuffer()
 {
 	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
 
-	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
+	if (!m_framebuffer)
+	{
+		m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
+	}
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
@@ -135,6 +138,11 @@ void Direct3DRenderer::endFrame()
 GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 {
 	return *D3DManager->m_fbToScreenProgram;
+}
+
+bool Direct3DRenderer::isLoaded()
+{
+	return D3DManager->m_iNumShadersLoaded >= 7;
 }
 
 void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)

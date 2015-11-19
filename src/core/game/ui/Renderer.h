@@ -115,6 +115,8 @@ protected:
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
     
+	virtual bool isLoaded() = 0;
+
     virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     
 private:

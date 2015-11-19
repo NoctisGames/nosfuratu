@@ -212,6 +212,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					&m_sbVertexShader
 					)
 				);
+			m_iNumShadersLoaded++;
 
 			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 			{
@@ -241,6 +242,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					&m_sbPixelShader
 					)
 				);
+			m_iNumShadersLoaded++;
 		});
 	}
 
@@ -259,6 +261,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					)
 				);
 		});
+		m_iNumShadersLoaded++;
 	}
 
 	{
@@ -276,6 +279,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					&m_fbVertexShader
 					)
 				);
+			m_iNumShadersLoaded++;
 
 			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 			{
@@ -306,6 +310,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					)
 				);
 		});
+		m_iNumShadersLoaded++;
 	}
 }
 
@@ -325,6 +330,7 @@ void Direct3DManager::createInputLayoutForGeometryBatcher()
 				&m_gbVertexShader
 				)
 			);
+		m_iNumShadersLoaded++;
 
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 		{
@@ -353,6 +359,7 @@ void Direct3DManager::createInputLayoutForGeometryBatcher()
 				&m_gbPixelShader
 				)
 			);
+		m_iNumShadersLoaded++;
 	});
 }
 
@@ -467,7 +474,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 	return indices;
 }
 
-Direct3DManager::Direct3DManager()
+Direct3DManager::Direct3DManager() : m_iNumShadersLoaded(0)
 {
 	// Hide Constructor for Singleton
 }
