@@ -17,7 +17,7 @@ public:
 	Direct3DRenderer();
 
 protected:
-	virtual TextureWrapper* loadTexture(const char* textureName);
+	virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
 
 	virtual void updateMatrix(float left, float right, float bottom, float top);
 

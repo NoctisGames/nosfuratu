@@ -64,8 +64,10 @@ Direct3DRenderer::Direct3DRenderer() : Renderer(), m_iNumTexturesLoaded(0)
 	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper());
 }
 
-TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName)
+TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repeatS)
 {
+	UNUSED(repeatS);
+
 	size_t len = strlen(textureName);
 
 	char* textureFileName = new char[8 + len + 5];

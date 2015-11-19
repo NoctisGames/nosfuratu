@@ -91,7 +91,6 @@
     <ClCompile Include="..\..\..\..\core\game\Stump.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
     <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\CaveSkeleton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
@@ -99,6 +98,11 @@
     <ClCompile Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CaveExit.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CaveExitCover.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -184,8 +188,6 @@
     <ClInclude Include="..\..\..\..\core\game\Thorns.h" />
     <ClInclude Include="..\..\..\..\core\game\UpwardSpike.h" />
     <ClInclude Include="..\..\..\..\core\game\UpwardSpikeType.h" />
-    <ClInclude Include="..\..\..\..\core\game\CaveSkeleton.h" />
-    <ClInclude Include="..\..\..\..\core\game\CaveSkeletonType.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
@@ -193,6 +195,11 @@
     <ClInclude Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\Hole.h" />
+    <ClInclude Include="..\..\..\..\core\game\HoleCover.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveExit.h" />
+    <ClInclude Include="..\..\..\..\core\game\CaveExitCover.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -201,22 +208,31 @@
     <Image Include="Assets\vampire.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\world_1_background.dds">
+    <Image Include="Assets\jon_ability.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\world_1_foreground.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_foreground_more.dds">
+    <Image Include="Assets\level_editor.dds">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\jon.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\jon_ability.dds">
+    <Image Include="Assets\title_font.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\level_editor.dds">
+    <Image Include="Assets\world_1_cave.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_ground_wo_cave.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_misc.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_background.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\world_1_ground_w_cave.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -246,6 +262,9 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="Assets\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="Assets\death.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>
