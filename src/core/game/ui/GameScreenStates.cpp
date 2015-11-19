@@ -447,12 +447,13 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
                     enter(gs);
-                    break;
+					return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (m_game->getJons().size() > 0)
                     {
                         GamePlay::getInstance()->setSourceGame(m_game.get());
                         gs->m_stateMachine->changeState(GamePlay::getInstance());
+						return;
                     }
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO:
@@ -466,7 +467,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     break;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
                     m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
-                    break;
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
                     if (m_game->getJons().size() > 0)
                     {
