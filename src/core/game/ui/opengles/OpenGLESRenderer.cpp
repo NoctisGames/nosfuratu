@@ -106,6 +106,11 @@ GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
     return *OGLESManager->m_fbToScreenProgram;
 }
 
+bool OpenGLESRenderer::isLoaded()
+{
+    return true; // Fine for now since loading on Android/iOS is synchronous
+}
+
 void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)
 {
     glDeleteTextures(1, &textureWrapper.texture);
