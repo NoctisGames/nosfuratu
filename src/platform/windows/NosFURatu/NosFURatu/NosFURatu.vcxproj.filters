@@ -241,6 +241,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NosFURatu_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="NosFURatu_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="DirectXPage.xaml" />

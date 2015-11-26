@@ -102,11 +102,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>NosFURatu_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateKeyFile>NosFURatu_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>C:\Users\Alucard\Downloads\</AppxPackageDir>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>2BC1B2A0C4ACFE026771E0802118B307A81AC127</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Link>
@@ -473,6 +474,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="NosFURatu_StoreKey.pfx" />
     <None Include="NosFURatu_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -579,6 +581,9 @@
     <ProjectReference Include="..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj">
       <Project>{fb3f52b5-bfe8-43fd-836f-363735dab738}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
