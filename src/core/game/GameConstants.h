@@ -34,8 +34,7 @@
 //// Texture Definitions ////
 
 #define TEXTURE_SIZE_2048 2048
-#define PIXEL_WIDTH_FOR_GAME 684.0f
-#define PIXEL_HEIGHT_FOR_GAME 1154.0f
+#define PIXEL_WIDTH_FOR_BACKGROUND 684.0f
 
 //// Matrix Definitions ////
 

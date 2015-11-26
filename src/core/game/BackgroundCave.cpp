@@ -26,7 +26,7 @@ BackgroundCave::BackgroundCave(float x, float y, float width, float height) : Ph
         i++;
     }
     
-    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
+    m_fXOffset = i * PIXEL_WIDTH_FOR_BACKGROUND;
 }
 
 void BackgroundCave::update(Vector2D& cameraPosition)

@@ -16,22 +16,22 @@ Assets * Assets::getInstance()
 
 TextureRegion& Assets::get(BackgroundSky& backgroundSky)
 {
-    static TextureRegion tr = TextureRegion(0, 0, PIXEL_WIDTH_FOR_GAME, 769, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    tr.init(backgroundSky.getX(), backgroundSky.getY(), PIXEL_WIDTH_FOR_GAME, 600, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 769, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundSky.getX(), backgroundSky.getY(), PIXEL_WIDTH_FOR_BACKGROUND, 600, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(BackgroundTrees& backgroundTrees)
 {
-    static TextureRegion tr = TextureRegion(0, 776, PIXEL_WIDTH_FOR_GAME, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    tr.init(backgroundTrees.getX(), 776, PIXEL_WIDTH_FOR_GAME, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 776, PIXEL_WIDTH_FOR_BACKGROUND, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundTrees.getX(), 776, PIXEL_WIDTH_FOR_BACKGROUND, 508, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(BackgroundCave& backgroundCave)
 {
-    static TextureRegion tr = TextureRegion(0, 1284, PIXEL_WIDTH_FOR_GAME, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    tr.init(backgroundCave.getX(), 1284, PIXEL_WIDTH_FOR_GAME, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 1284, PIXEL_WIDTH_FOR_BACKGROUND, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    tr.init(backgroundCave.getX(), 1284, PIXEL_WIDTH_FOR_BACKGROUND, 482, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 

@@ -29,7 +29,6 @@ class Direct3DManager
 public:
 	ID3D11Device *m_d3dDevice; // the device interface
 	ID3D11DeviceContext *m_d3dContext; // the device context interface
-	IDXGISwapChain1 *m_swapChain;
 	ID3D11Texture2D *m_offscreenRenderTarget; // the offscreen render target texture
 	ID3D11RenderTargetView *m_offscreenRenderTargetView; // the offscreen render target interface
 	ID3D11ShaderResourceView *m_offscreenShaderResourceView; // this is needed for the screen pixel shader

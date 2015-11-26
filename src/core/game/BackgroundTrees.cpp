@@ -22,7 +22,7 @@ BackgroundTrees::BackgroundTrees(float x, float y, float width, float height) : 
         i++;
     }
     
-    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
+    m_fXOffset = i * PIXEL_WIDTH_FOR_BACKGROUND;
 }
 
 void BackgroundTrees::update(Vector2D& cameraPosition)

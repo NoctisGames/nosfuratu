@@ -26,7 +26,7 @@ BackgroundSky::BackgroundSky(float x, float y, float width, float height) : Phys
         i++;
     }
     
-    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
+    m_fXOffset = i * PIXEL_WIDTH_FOR_BACKGROUND;
 }
 
 void BackgroundSky::update(Vector2D& cameraPosition)

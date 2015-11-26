@@ -114,7 +114,6 @@ void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, fl
 
 void Direct3DManager::cleanUp()
 {
-	m_swapChain->Release();
 	m_offscreenRenderTarget->Release();
 	m_offscreenRenderTargetView->Release();
 	m_offscreenShaderResourceView->Release();
