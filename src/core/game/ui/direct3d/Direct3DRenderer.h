@@ -15,6 +15,8 @@ class Direct3DRenderer : public Renderer
 {
 public:
 	Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+    
+    virtual bool isLoaded();
 
 protected:
 	virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
@@ -32,8 +34,6 @@ protected:
 	virtual void endFrame();
 
 	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
-
-	virtual bool isLoaded();
     
     virtual void destroyTexture(TextureWrapper& textureWrapper);
 

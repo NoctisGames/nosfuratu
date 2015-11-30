@@ -17,6 +17,8 @@ public:
     OpenGLESRenderer();
     
     virtual void init(RendererType type);
+    
+    virtual bool isLoaded();
 
 protected:
     virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
@@ -34,8 +36,6 @@ protected:
     virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
-    
-    virtual bool isLoaded();
     
     virtual void destroyTexture(TextureWrapper& textureWrapper);
 };

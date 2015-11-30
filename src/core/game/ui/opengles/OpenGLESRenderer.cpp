@@ -45,6 +45,11 @@ void OpenGLESRenderer::init(RendererType type)
     m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper(program));
 }
 
+bool OpenGLESRenderer::isLoaded()
+{
+    return true; // Fine for now since loading on Android/iOS is synchronous
+}
+
 TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repeatS)
 {
     size_t len = strlen(textureName);
@@ -104,11 +109,6 @@ void OpenGLESRenderer::endFrame()
 GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
 {
     return *OGLESManager->m_fbToScreenProgram;
-}
-
-bool OpenGLESRenderer::isLoaded()
-{
-    return true; // Fine for now since loading on Android/iOS is synchronous
 }
 
 void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)
