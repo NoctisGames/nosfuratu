@@ -331,6 +331,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\FlagUtil.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\macros.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
     <ClInclude Include="..\..\..\..\core\game\BackgroundCave.h" />
     <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
@@ -386,7 +387,6 @@
     <ClInclude Include="DirectXPage.xaml.h">
       <DependentUpon>DirectXPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
@@ -423,6 +423,7 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\SpriteBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
     <ClCompile Include="..\..\..\..\core\game\BackgroundCave.cpp" />
     <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
     <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
@@ -468,14 +469,6 @@
     <ClCompile Include="NosFURatuMain.cpp" />
     <ClCompile Include="DirectXPage.xaml.cpp">
       <DependentUpon>DirectXPage.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,6 @@
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="NosFURatuMain.cpp" />
     <ClCompile Include="DirectXPage.xaml.cpp" />
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\EntityManager.cpp" />
@@ -105,12 +104,12 @@
     <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
     <ClInclude Include="NosFURatuMain.h" />
     <ClInclude Include="DirectXPage.xaml.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\EntityManager.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\PhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
@@ -201,6 +200,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
