@@ -16,7 +16,7 @@ using namespace Platform;
 namespace ScreenRotation
 {
 	// 0-degree Z-rotation
-	static const XMFLOAT4X4 Rotation0( 
+	static const XMFLOAT4X4 Rotation0(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
@@ -40,7 +40,7 @@ namespace ScreenRotation
 		);
 
 	// 270-degree Z-rotation
-	static const XMFLOAT4X4 Rotation270( 
+	static const XMFLOAT4X4 Rotation270(
 		0.0f, -1.0f, 0.0f, 0.0f,
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f,
@@ -49,7 +49,7 @@ namespace ScreenRotation
 };
 
 // Constructor for DeviceResources.
-DX::DeviceResources::DeviceResources() : 
+DX::DeviceResources::DeviceResources() :
 	m_screenViewport(),
 	m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1),
 	m_d3dRenderTargetSize(),
@@ -109,7 +109,7 @@ void DX::DeviceResources::CreateDeviceIndependentResources()
 }
 
 // Configures the Direct3D device, and stores handles to it and the device context.
-void DX::DeviceResources::CreateDeviceResources() 
+void DX::DeviceResources::CreateDeviceResources()
 {
 	// This flag adds support for surfaces with a different color channel ordering
 	// than the API default. It is required for compatibility with Direct2D.
@@ -127,7 +127,7 @@ void DX::DeviceResources::CreateDeviceResources()
 	// Note the ordering should be preserved.
 	// Don't forget to declare your application's minimum required feature level in its
 	// description.  All applications are assumed to support 9.1 unless otherwise stated.
-	D3D_FEATURE_LEVEL featureLevels[] = 
+	D3D_FEATURE_LEVEL featureLevels[] =
 	{
 		D3D_FEATURE_LEVEL_11_1,
 		D3D_FEATURE_LEVEL_11_0,
@@ -204,10 +204,10 @@ void DX::DeviceResources::CreateDeviceResources()
 }
 
 // These resources need to be recreated every time the window size is changed.
-void DX::DeviceResources::CreateWindowSizeDependentResources() 
+void DX::DeviceResources::CreateWindowSizeDependentResources()
 {
 	// Clear the previous window size specific context.
-	ID3D11RenderTargetView* nullViews[] = {nullptr};
+	ID3D11RenderTargetView* nullViews[] = { nullptr };
 	m_d3dContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
 	m_d3dRenderTargetView = nullptr;
 	m_d2dContext->SetTarget(nullptr);
@@ -218,7 +218,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	// Calculate the necessary swap chain and render target size in pixels.
 	m_outputSize.Width = m_logicalSize.Width * m_compositionScaleX;
 	m_outputSize.Height = m_logicalSize.Height * m_compositionScaleY;
-	
+
 	// Prevent zero size DirectX content from being created.
 	m_outputSize.Width = max(m_outputSize.Width, 1);
 	m_outputSize.Height = max(m_outputSize.Height, 1);
@@ -260,7 +260,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	else
 	{
 		// Otherwise, create a new one using the same adapter as the existing Direct3D device.
-		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {0};
+		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = { 0 };
 
 		swapChainDesc.Width = lround(m_d3dRenderTargetSize.Width); // Match the size of the window.
 		swapChainDesc.Height = lround(m_d3dRenderTargetSize.Height);
@@ -315,7 +315,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 				panelNative->SetSwapChain(m_swapChain.Get())
 				);
 		}, CallbackContext::Any));
-		
+
 		// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 		// ensures that the application will only render after each VSync, minimizing power consumption.
 		DX::ThrowIfFailed(
@@ -337,21 +337,21 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		break;
 
 	case DXGI_MODE_ROTATION_ROTATE90:
-		m_orientationTransform2D = 
+		m_orientationTransform2D =
 			Matrix3x2F::Rotation(90.0f) *
 			Matrix3x2F::Translation(m_logicalSize.Height, 0.0f);
 		m_orientationTransform3D = ScreenRotation::Rotation270;
 		break;
 
 	case DXGI_MODE_ROTATION_ROTATE180:
-		m_orientationTransform2D = 
+		m_orientationTransform2D =
 			Matrix3x2F::Rotation(180.0f) *
 			Matrix3x2F::Translation(m_logicalSize.Width, m_logicalSize.Height);
 		m_orientationTransform3D = ScreenRotation::Rotation180;
 		break;
 
 	case DXGI_MODE_ROTATION_ROTATE270:
-		m_orientationTransform2D = 
+		m_orientationTransform2D =
 			Matrix3x2F::Rotation(270.0f) *
 			Matrix3x2F::Translation(0.0f, m_logicalSize.Width);
 		m_orientationTransform3D = ScreenRotation::Rotation90;
@@ -377,7 +377,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	DX::ThrowIfFailed(
 		spSwapChain2->SetMatrixTransform(&inverseScale)
 		);
-	
+
 
 	// Create a render target view of the swap chain back buffer.
 	ComPtr<ID3D11Texture2D> backBuffer;
@@ -395,7 +395,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 
 	// Create a depth stencil view for use with 3D rendering if needed.
 	CD3D11_TEXTURE2D_DESC depthStencilDesc(
-		DXGI_FORMAT_D24_UNORM_S8_UINT, 
+		DXGI_FORMAT_D24_UNORM_S8_UINT,
 		lround(m_d3dRenderTargetSize.Width),
 		lround(m_d3dRenderTargetSize.Height),
 		1, // This depth stencil view has only one texture.
@@ -420,7 +420,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			&m_d3dDepthStencilView
 			)
 		);
-	
+
 	// Set the 3D rendering viewport to target the entire window.
 	m_screenViewport = CD3D11_VIEWPORT(
 		0.0f,
@@ -433,7 +433,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 
 	// Create a Direct2D target bitmap associated with the
 	// swap chain back buffer and set it as the current target.
-	D2D1_BITMAP_PROPERTIES1 bitmapProperties = 
+	D2D1_BITMAP_PROPERTIES1 bitmapProperties =
 		D2D1::BitmapProperties1(
 			D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
 			D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED),
@@ -524,7 +524,7 @@ void DX::DeviceResources::SetCompositionScale(float compositionScaleX, float com
 void DX::DeviceResources::ValidateDevice()
 {
 	// The D3D Device is no longer valid if the default adapter changed since the device
-    // was created or if the device has been removed.
+	// was created or if the device has been removed.
 
 	// First, get the information for the default adapter from when the device was created.
 
@@ -609,7 +609,7 @@ void DX::DeviceResources::Trim()
 }
 
 // Present the contents of the swap chain to the screen.
-void DX::DeviceResources::Present() 
+void DX::DeviceResources::Present()
 {
 	// The first argument instructs DXGI to block until VSync, putting the application
 	// to sleep until the next VSync. This ensures we don't waste any cycles rendering

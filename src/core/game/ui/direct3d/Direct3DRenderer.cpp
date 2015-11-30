@@ -55,13 +55,19 @@ void prepend(char* s, const char* t)
 	}
 }
 
-Direct3DRenderer::Direct3DRenderer() : Renderer(), m_iNumTexturesLoaded(0)
+Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0)
 {
-	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher());
-	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher());
-	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(true));
+	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
+	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources));
+	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources, true));
 
-	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper());
+	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
+}
+
+bool Direct3DRenderer::isLoaded()
+{
+	// TODO, also return if textures are still loading
+	return D3DManager->isLoaded();
 }
 
 TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repeatS)
@@ -104,30 +110,28 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 
 void Direct3DRenderer::bindToOffscreenFramebuffer()
 {
-	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
+	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
 
-	if (!m_framebuffer)
-	{
-		m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView));
-	}
+	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get()));
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
 {
 	float color[] = { r, g, b, a };
 
-	D3DManager->m_d3dContext->ClearRenderTargetView(D3DManager->m_renderTargetView, color);
-	D3DManager->m_d3dContext->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetView, color);
+	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), color);
+	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetView.Get(), color);
 }
 
 void Direct3DRenderer::bindToScreenFramebuffer()
 {
-	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_renderTargetView, nullptr);
+	ID3D11RenderTargetView *const targets[1] = { m_deviceResources->GetBackBufferRenderTargetView() };
+	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, targets, nullptr);
 }
 
 void Direct3DRenderer::beginFrame()
 {
-	D3DManager->m_d3dContext->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetView, nullptr);
+	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
 }
 
 void Direct3DRenderer::endFrame()
@@ -138,11 +142,6 @@ void Direct3DRenderer::endFrame()
 GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()
 {
 	return *D3DManager->m_fbToScreenProgram;
-}
-
-bool Direct3DRenderer::isLoaded()
-{
-	return D3DManager->m_iNumShadersLoaded >= 7;
 }
 
 void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
@@ -159,5 +158,5 @@ void Direct3DRenderer::loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **sh
 
 	ScratchImage image;
 	DX::ThrowIfFailed(LoadFromDDSFile(szFile, DDS_FLAGS_NONE, &info, image));
-	DX::ThrowIfFailed(CreateShaderResourceView(D3DManager->m_d3dDevice, image.GetImages(), image.GetImageCount(), info, shaderResourceView));
+	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, shaderResourceView));
 }

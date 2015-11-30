@@ -10,15 +10,20 @@
 #define __gowengamedev__Direct3DGeometryGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
+#include "DeviceResources.h"
 
 class Direct3DGeometryGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-	Direct3DGeometryGpuProgramWrapper();
+	Direct3DGeometryGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void bind();
 
 	virtual void unbind();
+
+private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
 #endif /* defined(__gowengamedev__Direct3DGeometryGpuProgramWrapper__) */

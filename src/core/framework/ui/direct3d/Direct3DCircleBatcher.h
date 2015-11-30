@@ -14,7 +14,7 @@
 class Direct3DCircleBatcher : public CircleBatcher
 {
 public:
-	Direct3DCircleBatcher();
+	Direct3DCircleBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void renderCircle(Circle &circle, Color &c);
 
@@ -28,6 +28,9 @@ protected:
 	virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper);
 
 private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+
 	void addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a);
 };
 

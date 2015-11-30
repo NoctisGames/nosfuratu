@@ -22,29 +22,30 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(DX::DeviceResources &deviceResources, int width, int height, int maxBatchSize)
+void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize)
 {
-	initWindowSizeDependentResources(deviceResources, width, height);
+	m_iMaxBatchSize = maxBatchSize;
+	m_deviceResources = deviceResources;
+}
+
+void Direct3DManager::createDeviceDependentResources()
+{
 	createBlendState();
 	createSamplerState();
 	createInputLayoutForSpriteBatcher();
 	createInputLayoutForGeometryBatcher();
-	createVertexBufferForSpriteBatcher(maxBatchSize);
-	createVertexBufferForGeometryBatcher(maxBatchSize);
-	createIndexBuffer(maxBatchSize);
+	createIndexBuffer();
 	createConstantBuffer();
 	createOffsetBuffer();
 
-	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper());
-	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper());
-	m_fbToScreenProgram = std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper>(new Direct3DFrameBufferToScreenGpuProgramWrapper());
+	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper(m_deviceResources));
+	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper(m_deviceResources));
+	m_fbToScreenProgram = std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper>(new Direct3DFrameBufferToScreenGpuProgramWrapper(m_deviceResources));
 }
 
-void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &deviceResources, int width, int height)
+void Direct3DManager::createWindowSizeDependentResources()
 {
-	m_d3dDevice = deviceResources.GetD3DDevice();
-	m_d3dContext = deviceResources.GetD3DDeviceContext();
-	m_renderTargetView = deviceResources.GetBackBufferRenderTargetView();
+	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 
 	D3D11_TEXTURE2D_DESC textureDesc;
 	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
@@ -54,8 +55,8 @@ void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &devi
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 	// Setup the render target texture description.
-	textureDesc.Width = width;
-	textureDesc.Height = height;
+	textureDesc.Width = renderTargetSize.Width;
+	textureDesc.Height = renderTargetSize.Height;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -66,7 +67,7 @@ void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &devi
 	textureDesc.MiscFlags = 0;
 
 	// Create the render target texture.
-	DX::ThrowIfFailed(m_d3dDevice->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
 
 	// Setup the description of the render target view.
 	renderTargetViewDesc.Format = textureDesc.Format;
@@ -74,7 +75,7 @@ void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &devi
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the render target view.
-	DX::ThrowIfFailed(m_d3dDevice->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView));
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRenderTargetView(m_offscreenRenderTarget.Get(), &renderTargetViewDesc, &m_offscreenRenderTargetView));
 
 	// Setup the description of the shader resource view.
 	shaderResourceViewDesc.Format = textureDesc.Format;
@@ -83,7 +84,38 @@ void Direct3DManager::initWindowSizeDependentResources(DX::DeviceResources &devi
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 	// Create the shader resource view.
-	DX::ThrowIfFailed(m_d3dDevice->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateShaderResourceView(m_offscreenRenderTarget.Get(), &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+}
+
+void Direct3DManager::releaseDeviceDependentResources()
+{
+	m_iNumShadersLoaded = 0;
+	m_areSpriteBatcherResourcesCreated = false;
+	m_areGeometryBatcherResourcesCreated = false;
+
+	m_offscreenRenderTarget.Reset();
+	m_offscreenRenderTargetView.Reset();
+	m_offscreenShaderResourceView.Reset();
+	m_blendState.Reset();
+	m_screenBlendState.Reset();
+	m_matrixConstantbuffer.Reset();
+	m_offsetConstantBuffer.Reset();
+	m_indexbuffer.Reset();
+	m_sbSamplerState.Reset();
+	m_sbVertexShader.Reset();
+	m_sbPixelShader.Reset();
+	m_sbSinWavePixelShader.Reset();
+	m_sbInputLayout.Reset();
+	m_sbVertexBuffer.Reset();
+	m_textureVertices.clear();
+	m_fbVertexShader.Reset();
+	m_fbPixelShader.Reset();
+	m_fbInputLayout.Reset();
+	m_gbVertexShader.Reset();
+	m_gbPixelShader.Reset();
+	m_gbInputLayout.Reset();
+	m_gbVertexBuffer.Reset();
+	m_colorVertices.clear();
 }
 
 void Direct3DManager::createMatrix(float left, float right, float bottom, float top)
@@ -97,7 +129,11 @@ void Direct3DManager::createMatrix(float left, float right, float bottom, float 
 	XMMATRIX matProjection = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0);
 	XMMATRIX matView = XMMatrixLookAtRH(eye, center, up);
 
-	m_matFinal = matView * matProjection;
+	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
+
+	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
+
+	m_matFinal = matView * matProjection * orientationMatrix;
 }
 
 void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a, float u, float v)
@@ -112,29 +148,9 @@ void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, fl
 	D3DManager->m_colorVertices.push_back(cv);
 }
 
-void Direct3DManager::cleanUp()
+bool Direct3DManager::isLoaded()
 {
-	m_offscreenRenderTarget->Release();
-	m_offscreenRenderTargetView->Release();
-	m_offscreenShaderResourceView->Release();
-	m_blendState->Release();
-	m_matrixConstantbuffer->Release();
-	m_indexbuffer->Release();
-	m_sbSamplerState->Release();
-	m_sbVertexShader->Release();
-	m_sbPixelShader->Release();
-	m_sbInputLayout->Release();
-	m_fbVertexShader->Release();
-	m_fbPixelShader->Release();
-	m_fbInputLayout->Release();
-	m_sbVertexBuffer->Release();
-	m_gbVertexShader->Release();
-	m_gbPixelShader->Release();
-	m_gbInputLayout->Release();
-	m_gbVertexBuffer->Release();
-
-	m_textureVertices.clear();
-	m_colorVertices.clear();
+	return m_iNumShadersLoaded >= 7 && m_areSpriteBatcherResourcesCreated && m_areGeometryBatcherResourcesCreated;
 }
 
 void Direct3DManager::createBlendState()
@@ -152,7 +168,7 @@ void Direct3DManager::createBlendState()
 		bd.IndependentBlendEnable = FALSE;
 		bd.AlphaToCoverageEnable = FALSE;
 
-		m_d3dDevice->CreateBlendState(&bd, &m_blendState);
+		m_deviceResources->GetD3DDevice()->CreateBlendState(&bd, &m_blendState);
 	}
 
 	{
@@ -168,7 +184,7 @@ void Direct3DManager::createBlendState()
 		bd.IndependentBlendEnable = FALSE;
 		bd.AlphaToCoverageEnable = FALSE;
 
-		m_d3dDevice->CreateBlendState(&bd, &m_screenBlendState);
+		m_deviceResources->GetD3DDevice()->CreateBlendState(&bd, &m_screenBlendState);
 	}
 }
 
@@ -190,8 +206,8 @@ void Direct3DManager::createSamplerState()
 	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR; // linear filtering
 	sd.MinLOD = 5.0f; // mip level 5 will appear blurred
 
-	m_d3dDevice->CreateSamplerState(&sd, &m_sbSamplerState);
-	m_d3dContext->PSSetSamplers(0, 1, &m_sbSamplerState);
+	m_deviceResources->GetD3DDevice()->CreateSamplerState(&sd, m_sbSamplerState.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->PSSetSamplers(0, 1, m_sbSamplerState.GetAddressOf());
 }
 
 void Direct3DManager::createInputLayoutForSpriteBatcher()
@@ -204,7 +220,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 		// After the vertex shader file is loaded, create the shader and input layout.
 		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreateVertexShader(
+				m_deviceResources->GetD3DDevice()->CreateVertexShader(
 					&fileData[0],
 					fileData.size(),
 					nullptr,
@@ -221,7 +237,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 			};
 
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreateInputLayout(
+				m_deviceResources->GetD3DDevice()->CreateInputLayout(
 					vertexDesc,
 					ARRAYSIZE(vertexDesc),
 					&fileData[0],
@@ -234,7 +250,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 		// After the pixel shader file is loaded, create the shader
 		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreatePixelShader(
+				m_deviceResources->GetD3DDevice()->CreatePixelShader(
 					&fileData[0],
 					fileData.size(),
 					nullptr,
@@ -242,6 +258,35 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 					)
 				);
 			m_iNumShadersLoaded++;
+		});
+
+		// Once both shaders are created, create SpriteBatcher resources
+		auto createSpriteBatcherResources = (createPSTask && createVSTask).then([this]() {
+			m_textureVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
+			TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
+			{
+				m_textureVertices.push_back(tv);
+			}
+
+			D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+			vertexBufferDesc.ByteWidth = sizeof(TEXTURE_VERTEX) * m_textureVertices.size();
+			vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+			vertexBufferDesc.MiscFlags = 0;
+			vertexBufferDesc.StructureByteStride = 0;
+
+			D3D11_SUBRESOURCE_DATA vertexBufferData;
+			vertexBufferData.pSysMem = &m_textureVertices[0];
+			vertexBufferData.SysMemPitch = 0;
+			vertexBufferData.SysMemSlicePitch = 0;
+
+			DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
+		});
+
+		createSpriteBatcherResources.then([this]() {
+			m_areSpriteBatcherResourcesCreated = true;
 		});
 	}
 
@@ -252,15 +297,15 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 		// After the pixel shader file is loaded, create the shader
 		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreatePixelShader(
+				m_deviceResources->GetD3DDevice()->CreatePixelShader(
 					&fileData[0],
 					fileData.size(),
 					nullptr,
 					&m_sbSinWavePixelShader
 					)
 				);
+			m_iNumShadersLoaded++;
 		});
-		m_iNumShadersLoaded++;
 	}
 
 	{
@@ -271,7 +316,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 		// After the vertex shader file is loaded, create the shader and input layout.
 		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreateVertexShader(
+				m_deviceResources->GetD3DDevice()->CreateVertexShader(
 					&fileData[0],
 					fileData.size(),
 					nullptr,
@@ -288,7 +333,7 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 			};
 
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreateInputLayout(
+				m_deviceResources->GetD3DDevice()->CreateInputLayout(
 					vertexDesc,
 					ARRAYSIZE(vertexDesc),
 					&fileData[0],
@@ -301,134 +346,115 @@ void Direct3DManager::createInputLayoutForSpriteBatcher()
 		// After the pixel shader file is loaded, create the shader
 		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
 			DX::ThrowIfFailed(
-				m_d3dDevice->CreatePixelShader(
+				m_deviceResources->GetD3DDevice()->CreatePixelShader(
 					&fileData[0],
 					fileData.size(),
 					nullptr,
 					&m_fbPixelShader
 					)
 				);
+			m_iNumShadersLoaded++;
 		});
-		m_iNumShadersLoaded++;
 	}
 }
 
 void Direct3DManager::createInputLayoutForGeometryBatcher()
 {
-	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"ColorVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"ColorPixelShader.cso");
-
-	// After the vertex shader file is loaded, create the shader and input layout.
-	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreateVertexShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_gbVertexShader
-				)
-			);
-		m_iNumShadersLoaded++;
-
-		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-		};
-
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreateInputLayout(
-				vertexDesc,
-				ARRAYSIZE(vertexDesc),
-				&fileData[0],
-				fileData.size(),
-				&m_gbInputLayout
-				)
-			);
-	});
-
-	// After the pixel shader file is loaded, create the shader
-	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_d3dDevice->CreatePixelShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_gbPixelShader
-				)
-			);
-		m_iNumShadersLoaded++;
-	});
-}
-
-void Direct3DManager::createVertexBufferForSpriteBatcher(int maxBatchSize)
-{
-	m_textureVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
-	TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
 	{
-		m_textureVertices.push_back(tv);
+		// Load shaders asynchronously.
+		auto loadVSTask = DX::ReadDataAsync(L"ColorVertexShader.cso");
+		auto loadPSTask = DX::ReadDataAsync(L"ColorPixelShader.cso");
+
+		// After the vertex shader file is loaded, create the shader and input layout.
+		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreateVertexShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_gbVertexShader
+					)
+				);
+			m_iNumShadersLoaded++;
+
+			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			};
+
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreateInputLayout(
+					vertexDesc,
+					ARRAYSIZE(vertexDesc),
+					&fileData[0],
+					fileData.size(),
+					&m_gbInputLayout
+					)
+				);
+		});
+
+		// After the pixel shader file is loaded, create the shader
+		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_gbPixelShader
+					)
+				);
+			m_iNumShadersLoaded++;
+		});
+
+		// Once both shaders are created, create GeometryBatcher resources
+		auto createGeometryBatcherResources = (createPSTask && createVSTask).then([this]() {
+			m_colorVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
+			COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
+			for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
+			{
+				m_colorVertices.push_back(cv);
+			}
+
+			D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+			vertexBufferDesc.ByteWidth = sizeof(COLOR_VERTEX) * m_colorVertices.size();
+			vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+			vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+			vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+			vertexBufferDesc.MiscFlags = 0;
+			vertexBufferDesc.StructureByteStride = 0;
+
+			D3D11_SUBRESOURCE_DATA vertexBufferData;
+			vertexBufferData.pSysMem = &m_colorVertices[0];
+			vertexBufferData.SysMemPitch = 0;
+			vertexBufferData.SysMemSlicePitch = 0;
+
+			DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
+		});
+
+		createGeometryBatcherResources.then([this]() {
+			m_areGeometryBatcherResourcesCreated = true;
+		});
 	}
-
-	D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
-	vertexBufferDesc.ByteWidth = sizeof(TEXTURE_VERTEX) * m_textureVertices.size();
-	vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA vertexBufferData;
-	vertexBufferData.pSysMem = &m_textureVertices[0];
-	vertexBufferData.SysMemPitch = 0;
-	vertexBufferData.SysMemSlicePitch = 0;
-
-	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
-void Direct3DManager::createVertexBufferForGeometryBatcher(int maxBatchSize)
-{
-	m_colorVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
-	COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
-	{
-		m_colorVertices.push_back(cv);
-	}
-
-	D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
-	vertexBufferDesc.ByteWidth = sizeof(COLOR_VERTEX) * m_colorVertices.size();
-	vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA vertexBufferData;
-	vertexBufferData.pSysMem = &m_colorVertices[0];
-	vertexBufferData.SysMemPitch = 0;
-	vertexBufferData.SysMemSlicePitch = 0;
-
-	DX::ThrowIfFailed(m_d3dDevice->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
-}
-
-void Direct3DManager::createIndexBuffer(int maxBatchSize)
+void Direct3DManager::createIndexBuffer()
 {
 	D3D11_BUFFER_DESC indexBufferDesc = { 0 };
 
-	indexBufferDesc.ByteWidth = sizeof(short) * maxBatchSize * INDICES_PER_RECTANGLE;
+	indexBufferDesc.ByteWidth = sizeof(short) * m_iMaxBatchSize * INDICES_PER_RECTANGLE;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 
-	auto indexValues = createIndexValues(maxBatchSize);
+	auto indexValues = createIndexValues(m_iMaxBatchSize);
 
 	D3D11_SUBRESOURCE_DATA indexDataDesc = { 0 };
 
 	indexDataDesc.pSysMem = &indexValues.front();
 
-	m_d3dDevice->CreateBuffer(&indexBufferDesc, &indexDataDesc, &m_indexbuffer);
+	m_deviceResources->GetD3DDevice()->CreateBuffer(&indexBufferDesc, &indexDataDesc, &m_indexbuffer);
 
-	m_d3dContext->IASetIndexBuffer(m_indexbuffer, DXGI_FORMAT_R16_UINT, 0);
+	m_deviceResources->GetD3DDeviceContext()->IASetIndexBuffer(m_indexbuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
 }
 
 void Direct3DManager::createConstantBuffer()
@@ -439,7 +465,7 @@ void Direct3DManager::createConstantBuffer()
 	bd.ByteWidth = 64;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer);
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer));
 }
 
 void Direct3DManager::createOffsetBuffer()
@@ -450,7 +476,7 @@ void Direct3DManager::createOffsetBuffer()
 	bd.ByteWidth = 16;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	m_d3dDevice->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
+	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
 }
 
 std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
@@ -473,7 +499,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 	return indices;
 }
 
-Direct3DManager::Direct3DManager() : m_iNumShadersLoaded(0)
+Direct3DManager::Direct3DManager() : m_iNumShadersLoaded(0), m_areSpriteBatcherResourcesCreated(false), m_areGeometryBatcherResourcesCreated(false)
 {
 	// Hide Constructor for Singleton
 }

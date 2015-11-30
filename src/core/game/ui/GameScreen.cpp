@@ -79,7 +79,7 @@ void GameScreen::update(float deltaTime)
         m_stateMachine->execute();
     }
     
-    m_isRequestingRender = true;
+    m_isRequestingRender = m_renderer->isLoaded();
 }
 
 void GameScreen::render()

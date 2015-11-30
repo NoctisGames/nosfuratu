@@ -18,7 +18,7 @@
 #include "GpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
 
-Direct3DLineBatcher::Direct3DLineBatcher() : LineBatcher()
+Direct3DLineBatcher::Direct3DLineBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources) : LineBatcher(), m_deviceResources(deviceResources)
 {
 	// Empty
 }
@@ -39,11 +39,11 @@ void Direct3DLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 	if (m_iNumLines > 0)
 	{
 		// set the primitive topology
-		D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+		m_deviceResources->GetD3DDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 		gpuProgramWrapper.bind();
 
-		D3DManager->m_d3dContext->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
+		m_deviceResources->GetD3DDeviceContext()->Draw(m_iNumLines * VERTICES_PER_LINE, 0);
 
 		gpuProgramWrapper.unbind();
 	}

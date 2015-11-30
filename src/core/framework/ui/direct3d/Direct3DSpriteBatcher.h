@@ -15,7 +15,7 @@
 class Direct3DSpriteBatcher : public SpriteBatcher
 {
 public:
-	Direct3DSpriteBatcher();
+	Direct3DSpriteBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources);
     
 	virtual void beginBatch();
 
@@ -31,6 +31,10 @@ protected:
 	virtual void drawSprite(float x, float y, float width, float height, TextureRegion tr);
 
 	virtual void drawSprite(float x, float y, float width, float height, Color &color, TextureRegion tr);
+
+private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
 #endif /* defined(__gowengamedev__Direct3DSpriteBatcher__) */

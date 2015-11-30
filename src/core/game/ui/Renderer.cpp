@@ -409,12 +409,7 @@ void Renderer::zoomIn()
 
 void Renderer::renderTitleScreen()
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    beginFrame();
+	beginFrame();
     
     clearFrameBufferWithColor(0, 0, 0, 1);
     
@@ -463,12 +458,7 @@ void Renderer::renderTitleScreen()
 
 void Renderer::renderLoadingTextOnTitleScreen()
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
     
@@ -486,12 +476,7 @@ void Renderer::renderLoadingTextOnTitleScreen()
 
 void Renderer::renderWorld(Game& game)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    beginFrame();
+	beginFrame();
     
     clearFrameBufferWithColor(0, 0, 0, 1);
     
@@ -594,12 +579,7 @@ void Renderer::renderWorld(Game& game)
 
 void Renderer::renderJon(Game& game)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    /// Render Jon
+	/// Render Jon
     
     if (game.getJons().size() > 0)
     {
@@ -619,12 +599,7 @@ void Renderer::renderJon(Game& game)
 
 void Renderer::renderBounds(Game& game)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    /// Render World midground Trees
+	/// Render World midground Trees
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
     
@@ -662,12 +637,7 @@ void Renderer::renderBounds(Game& game)
 
 void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+	updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
     
     m_highlightRectangleBatcher->beginBatch();
     renderHighlightForPhysicalEntity(entity, c);
@@ -676,12 +646,7 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
 
 void Renderer::renderHud(Game& game, BackButton &backButton)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     /// Render Back Button
     
@@ -754,12 +719,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
+	static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
     static Color originMarkerColor = Color(0, 0, 0, 0.7f);
     
     updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
@@ -887,12 +847,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
 
 void Renderer::renderToScreen()
 {
-	if (!isLoaded())
-	{
-		return;
-	}
-
-    /// Render everything to the screen
+	/// Render everything to the screen
     
     bindToScreenFramebuffer();
     

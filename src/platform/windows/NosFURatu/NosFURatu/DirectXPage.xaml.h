@@ -7,9 +7,8 @@
 
 #include "DirectXPage.g.h"
 
-#include "StepTimer.h"
 #include "DeviceResources.h"
-#include "Direct3DGameScreen.h"
+#include "NosFURatuMain.h"
 
 namespace NosFURatu
 {
@@ -51,50 +50,10 @@ namespace NosFURatu
 		void OnPointerMoved(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 		void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 
-		void StartRenderLoop();
-		void StopRenderLoop();
-
-		void Update();
-		bool Render();
-
 		// Resources used to render the DirectX content in the XAML page background.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-
-		std::unique_ptr<Direct3DGameScreen> m_gameScreen;
-
-		Windows::Foundation::IAsyncAction^ m_renderLoopWorker;
-		Concurrency::critical_section m_criticalSection;
-
-		// Rendering loop timer.
-		DX::StepTimer m_timer;
-
-		bool m_isPointerPressed;
-
-		void saveLevel();
-
-		void loadLevel();
-
-		Windows::Storage::StorageFile^ nosfuratuFile;
-
-		static property Platform::String^ Filename
-        {
-            Platform::String^ get()
-            {
-                return ref new Platform::String(L"nosfuratu.json");
-            }
-        }
-
-        property Windows::Storage::StorageFile^ NosfuratuFile
-        {
-            Windows::Storage::StorageFile^ get()
-            {
-                return nosfuratuFile;
-            }
-            void set(Windows::Storage::StorageFile^ value)
-            {
-				nosfuratuFile = value;
-            }
-        }
+		std::unique_ptr<NosFURatuMain> m_main; 
+		bool m_windowVisible;
 	};
 }
 

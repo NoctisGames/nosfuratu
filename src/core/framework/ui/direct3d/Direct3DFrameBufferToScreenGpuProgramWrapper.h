@@ -10,15 +10,20 @@
 #define __gowengamedev__Direct3DFrameBufferToScreenGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
+#include "DeviceResources.h"
 
 class Direct3DFrameBufferToScreenGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-	Direct3DFrameBufferToScreenGpuProgramWrapper();
+	Direct3DFrameBufferToScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void bind();
 
 	virtual void unbind();
+
+private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
 #endif /* defined(__gowengamedev__Direct3DFrameBufferToScreenGpuProgramWrapper__) */

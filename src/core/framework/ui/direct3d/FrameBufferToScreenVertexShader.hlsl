@@ -12,7 +12,8 @@ VOut main(float4 position : POSITION)
 
 	// set the output values
 	output.position = position; // pass through (assuming position is in screen coordinates of -1 to 1)
-	output.texcoord = (position + 1.0) / 2.0;
+	output.texcoord.x = (position.x + 1.0) / 2.0;
+	output.texcoord.y = (position.y + 1.0) / 2.0;
 	output.texcoord.y = 1 - output.texcoord.y;
 
 	// return the output values

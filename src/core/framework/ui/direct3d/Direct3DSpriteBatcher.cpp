@@ -17,7 +17,7 @@
 
 #include <stdlib.h>
 
-Direct3DSpriteBatcher::Direct3DSpriteBatcher()
+Direct3DSpriteBatcher::Direct3DSpriteBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources) : SpriteBatcher(), m_deviceResources(deviceResources)
 {
 	m_iNumSprites = 0;
 }
@@ -38,14 +38,14 @@ void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramW
 	if (m_iNumSprites > 0)
 	{
 		// tell the GPU which texture to use
-		D3DManager->m_d3dContext->PSSetShaderResources(0, 1, &textureWrapper.texture);
+		m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, &textureWrapper.texture);
 
 		// set the primitive topology
-		D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		m_deviceResources->GetD3DDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		gpuProgramWrapper.bind();
 
-		D3DManager->m_d3dContext->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
+		m_deviceResources->GetD3DDeviceContext()->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
 
 		gpuProgramWrapper.unbind();
 	}

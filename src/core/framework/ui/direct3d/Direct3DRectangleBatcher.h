@@ -15,7 +15,7 @@
 class Direct3DRectangleBatcher : public RectangleBatcher
 {
 public:
-	Direct3DRectangleBatcher(bool isFill = false);
+	Direct3DRectangleBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isFill = false);
 
 	virtual void beginBatch();
 
@@ -24,6 +24,10 @@ public:
 	void renderRectangle(Rectangle &rectangle, Color &color);
 
 	virtual void renderRectangle(float x1, float y1, float x2, float y2, Color &color);
+
+private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
 #endif /* defined(__gowengamedev__Direct3DRectangleBatcher__) */

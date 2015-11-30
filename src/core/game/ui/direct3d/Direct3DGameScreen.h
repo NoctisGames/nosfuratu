@@ -1,53 +1,46 @@
-//
-//  Direct3DGameScreen.h
-//  nosfuratu
-//
-//  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2014 Gowen Game Dev. All rights reserved.
-//
-
-#pragma once
+﻿#pragma once
 
 #include "GameScreen.h"
-#include "DeviceResources.h"
 #include "MediaEnginePlayer.h"
+#include "GameSound.h"
+#include "Direct3DProgram.h"
+#include "Direct3DTextureGpuProgramWrapper.h"
+#include "Direct3DGeometryGpuProgramWrapper.h"
+#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "DeviceResources.h"
+#include "StepTimer.h"
 
+#include <vector>
 #include <memory>
 
-class GameSound;
-
-class Direct3DGameScreen : public GameScreen, DX::IDeviceNotify
+namespace NosFURatu
 {
-public:
-	Direct3DGameScreen(DX::DeviceResources* deviceResources);
+	class Direct3DGameScreen : public GameScreen
+	{
+	public:
+		Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize);
+		void CreateDeviceDependentResources();
+		void CreateWindowSizeDependentResources();
+		void ReleaseDeviceDependentResources();
+		void Update(DX::StepTimer const& timer);
+		void Render();
 
-	~Direct3DGameScreen();
+		virtual void onResume();
+		virtual void onPause();
+		virtual void touchToWorld(TouchEvent &touchEvent);
+		virtual bool handleOnBackPressed();
 
-	void onScreenSizeChanged(float screenDpWidth, float screenDpHeight);
+	private:
+		// Cached pointer to device resources.
+		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
-	virtual void onResume();
+		std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
+		std::unique_ptr<GameSound> m_collectCarrotSound;
+		std::unique_ptr<GameSound> m_collectGoldenCarrotSound;
+		std::unique_ptr<GameSound> m_deathSound;
 
-	virtual void onPause();
+		void handleSound();
+		void handleMusic();
+	};
+}
 
-	void handleSound();
-
-	void handleMusic();
-
-	// IDeviceNotify
-	virtual void OnDeviceLost();
-	virtual void OnDeviceRestored();
-
-	virtual void touchToWorld(TouchEvent &touchEvent);
-
-	virtual bool handleOnBackPressed();
-
-private:
-	DX::DeviceResources* m_deviceResources;
-	std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
-	std::unique_ptr<GameSound> m_collectCarrotSound;
-	std::unique_ptr<GameSound> m_collectGoldenCarrotSound;
-    std::unique_ptr<GameSound> m_deathSound;
-
-	float m_fScreenDpWidth;
-	float m_fScreenDpHeight;
-};

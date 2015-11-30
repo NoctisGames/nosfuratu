@@ -5,7 +5,6 @@
 
 #include "pch.h"
 #include "DirectXPage.xaml.h"
-#include "Direct3DManager.h"
 
 using namespace NosFURatu;
 
@@ -26,7 +25,9 @@ using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace concurrency;
 
-DirectXPage::DirectXPage(): m_coreInput(nullptr), m_isPointerPressed(false)
+DirectXPage::DirectXPage():
+	m_windowVisible(true),
+	m_coreInput(nullptr)
 {
 	InitializeComponent();
 
@@ -83,30 +84,25 @@ DirectXPage::DirectXPage(): m_coreInput(nullptr), m_isPointerPressed(false)
 	// Run task on a dedicated high priority background thread.
 	m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources.get()));
-	m_gameScreen->onResume();
-
-	m_timer.SetFixedTimeStep(true);
-	m_timer.SetTargetElapsedSeconds(1.0 / 60);
-
-	StartRenderLoop();
+	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(m_deviceResources));
+	m_main->StartRenderLoop();
 }
 
 DirectXPage::~DirectXPage()
 {
 	// Stop rendering and processing events on destruction.
-	StopRenderLoop();
+	m_main->StopRenderLoop();
 	m_coreInput->Dispatcher->StopProcessEvents();
 }
 
 // Saves the current state of the app for suspend and terminate events.
 void DirectXPage::SaveInternalState(IPropertySet^ state)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->Trim();
 
 	// Stop rendering when the app is suspended.
-	StopRenderLoop();
+	m_main->StopRenderLoop();
 
 	// Put code to save app state here.
 }
@@ -117,20 +113,21 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 	// Put code to load app state here.
 
 	// Start rendering when the app is resumed.
-	StartRenderLoop();
+	m_main->StartRenderLoop();
 }
 
 // Window event handlers.
 
 void DirectXPage::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
 {
-	if (args->Visible)
+	m_windowVisible = args->Visible;
+	if (m_windowVisible)
 	{
-		StartRenderLoop();
+		m_main->StartRenderLoop();
 	}
 	else
 	{
-		StopRenderLoop();
+		m_main->StopRenderLoop();
 	}
 }
 
@@ -138,205 +135,56 @@ void DirectXPage::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEvent
 
 void DirectXPage::OnDpiChanged(DisplayInformation^ sender, Object^ args)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetDpi(sender->LogicalDpi);
+	m_main->CreateWindowSizeDependentResources();
 }
 
 void DirectXPage::OnOrientationChanged(DisplayInformation^ sender, Object^ args)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetCurrentOrientation(sender->CurrentOrientation);
+	m_main->CreateWindowSizeDependentResources();
 }
 
 void DirectXPage::OnDisplayContentsInvalidated(DisplayInformation^ sender, Object^ args)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->ValidateDevice();
 }
 
-void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ args)
+// Called when the app bar button is clicked.
+void DirectXPage::AppBarButton_Click(Object^ sender, RoutedEventArgs^ e)
 {
-	m_gameScreen->onTouch(DOWN, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
-
-	m_isPointerPressed = true;
+	// Use the app bar if it is appropriate for your app. Design the app bar, 
+	// then fill in event handlers (like this one).
 }
 
-void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ args)
+void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 {
-	if (m_isPointerPressed)
-	{
-		m_gameScreen->onTouch(DRAGGED, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
-	}
+	m_main->onTouchDown(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
 }
 
-void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ args)
+void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
-	m_gameScreen->onTouch(UP, args->CurrentPoint->RawPosition.X, args->CurrentPoint->RawPosition.Y);
+	m_main->onTouchDragged(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+}
 
-	m_isPointerPressed = false;
+void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
+{
+	m_main->onTouchUp(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetCompositionScale(sender->CompositionScaleX, sender->CompositionScaleY);
+	m_main->CreateWindowSizeDependentResources();
 }
 
 void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventArgs^ e)
 {
-	critical_section::scoped_lock lock(m_criticalSection);
+	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetLogicalSize(e->NewSize);
-	m_gameScreen->onScreenSizeChanged(m_deviceResources->GetLogicalSize().Width, m_deviceResources->GetLogicalSize().Height);
-}
-
-void DirectXPage::StartRenderLoop()
-{
-	// If the animation render loop is already running then do not start another thread.
-	if (m_renderLoopWorker != nullptr && m_renderLoopWorker->Status == AsyncStatus::Started)
-	{
-		return;
-	}
-
-	// Create a task that will be run on a background thread.
-	auto workItemHandler = ref new WorkItemHandler([this](IAsyncAction ^ action)
-	{
-		// Calculate the updated frame and render once per vertical blanking interval.
-		while (action->Status == AsyncStatus::Started)
-		{
-			critical_section::scoped_lock lock(m_criticalSection);
-			Update();
-			if (Render())
-			{
-				m_deviceResources->Present();
-			}
-		}
-	});
-
-	// Run task on a dedicated high priority background thread.
-	m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
-}
-
-void DirectXPage::StopRenderLoop()
-{
-	m_renderLoopWorker->Cancel();
-}
-
-// Updates the application state once per frame.
-void DirectXPage::Update()
-{
-	switch (m_gameScreen->getRequestedAction())
-	{
-	case REQUESTED_ACTION_UPDATE:
-		// Update scene objects.
-		m_timer.Tick([&]()
-		{
-			m_gameScreen->update(m_timer.GetElapsedSeconds());
-		});
-		break;
-	case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-		saveLevel();
-		m_gameScreen->clearRequestedAction();
-		break;
-	case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-		loadLevel();
-		m_gameScreen->clearRequestedAction();
-		break;
-	default:
-		break;
-	}
-}
-
-// Renders the current frame according to the current application state.
-// Returns true if the frame was rendered and is ready to be displayed.
-bool DirectXPage::Render()
-{
-	// Don't try to render anything before the first Update.
-	if (m_timer.GetFrameCount() == 0)
-	{
-		return false;
-	}
-
-	m_gameScreen->render();
-	m_gameScreen->handleMusic();
-	m_gameScreen->handleSound();
-
-	return true;
-}
-
-void DirectXPage::saveLevel()
-{
-	const char *level_json = LevelEditor::getInstance()->save();
-
-	StorageFile^ file = NosfuratuFile;
-	if (file != nullptr)
-	{
-		std::string s(level_json);
-		std::wstring ws;
-		ws.assign(s.begin(), s.end());
-		String^ levelJson = ref new Platform::String(ws.c_str());
-		if (levelJson != nullptr && !levelJson->IsEmpty())
-		{
-			create_task(FileIO::WriteTextAsync(file, levelJson)).then([this, file, levelJson](task<void> task)
-			{
-				try
-				{
-					task.get();
-				}
-				catch (COMException^ ex)
-				{
-					// TODO, update UI to reflect that an error has occurred
-				}
-			});
-		}
-		else
-		{
-			// TODO, update UI to reflect that an error has occurred
-		}
-	}
-	else
-	{
-		create_task(KnownFolders::PicturesLibrary->CreateFileAsync(Filename, CreationCollisionOption::ReplaceExisting)).then([this](StorageFile^ file)
-		{
-			NosfuratuFile = file;
-			saveLevel();
-		});
-	}
-}
-
-void DirectXPage::loadLevel()
-{
-	StorageFile^ file = NosfuratuFile;
-	if (file != nullptr)
-	{
-		create_task(FileIO::ReadTextAsync(file)).then([this, file](task<String^> task)
-		{
-			try
-			{
-				String^ fileContent = task.get();
-				if (fileContent != nullptr)
-				{
-					std::wstring fooW(fileContent->Begin());
-					std::string fooA(fooW.begin(), fooW.end());
-					const char *levelContent = fooA.c_str();
-					LevelEditor::getInstance()->load(levelContent);
-				}
-				else
-				{
-					// TODO, update UI to reflect that an error has occurred
-				}
-			}
-			catch (COMException^ ex)
-			{
-				// TODO, update UI to reflect that an error has occurred
-			}
-		});
-	}
-	else
-	{
-		create_task(KnownFolders::PicturesLibrary->CreateFileAsync(Filename, CreationCollisionOption::OpenIfExists)).then([this](StorageFile^ file)
-		{
-			NosfuratuFile = file;
-			loadLevel();
-		});
-	}
+	m_main->CreateWindowSizeDependentResources();
 }

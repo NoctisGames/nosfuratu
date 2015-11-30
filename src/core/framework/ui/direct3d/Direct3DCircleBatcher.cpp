@@ -19,7 +19,7 @@
 #include "GpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
 
-Direct3DCircleBatcher::Direct3DCircleBatcher() : CircleBatcher()
+Direct3DCircleBatcher::Direct3DCircleBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources) : CircleBatcher(), m_deviceResources(deviceResources)
 {
 	// Empty
 }
@@ -83,11 +83,11 @@ void Direct3DCircleBatcher::renderPartialCircle(Circle &circle, int arcDegrees, 
 void Direct3DCircleBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 {
 	// set the primitive topology
-	D3DManager->m_d3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	m_deviceResources->GetD3DDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	gpuProgramWrapper.bind();
 
-	D3DManager->m_d3dContext->Draw(m_iNumPoints, 0);
+	m_deviceResources->GetD3DDeviceContext()->Draw(m_iNumPoints, 0);
 
 	gpuProgramWrapper.unbind();
 }

@@ -16,7 +16,7 @@
 #include "GpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
 
-Direct3DRectangleBatcher::Direct3DRectangleBatcher(bool isFill) : RectangleBatcher(isFill)
+Direct3DRectangleBatcher::Direct3DRectangleBatcher(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isFill) : RectangleBatcher(isFill), m_deviceResources(deviceResources)
 {
     // Empty
 }
@@ -32,11 +32,11 @@ void Direct3DRectangleBatcher::endBatch()
 	if (m_iNumRectangles > 0)
 	{
 		// set the primitive topology
-		D3DManager->m_d3dContext->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+		m_deviceResources->GetD3DDeviceContext()->IASetPrimitiveTopology(m_isFill ? D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST : D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 		D3DManager->m_colorProgram->bind();
 
-		D3DManager->m_d3dContext->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
+		m_deviceResources->GetD3DDeviceContext()->DrawIndexed(m_iNumRectangles * INDICES_PER_RECTANGLE, 0, 0);
 
         D3DManager->m_colorProgram->unbind();
 	}

@@ -40,6 +40,8 @@ public:
     Renderer();
     
 	virtual void init(RendererType type);
+
+	virtual bool isLoaded() = 0;
     
     void reinit();
     
@@ -114,8 +116,6 @@ protected:
     virtual void endFrame() = 0;
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
-    
-	virtual bool isLoaded() = 0;
 
     virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     

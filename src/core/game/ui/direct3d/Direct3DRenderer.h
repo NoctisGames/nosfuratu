@@ -14,7 +14,7 @@
 class Direct3DRenderer : public Renderer
 {
 public:
-	Direct3DRenderer();
+	Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 protected:
 	virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
@@ -38,6 +38,9 @@ protected:
     virtual void destroyTexture(TextureWrapper& textureWrapper);
 
 private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+
 	int m_iNumTexturesLoaded;
 
 	void loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView);
