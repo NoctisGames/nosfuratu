@@ -98,9 +98,6 @@ static bool isRunningiOS8 = false;
                                              selector:@selector(onResume)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
-    
-    self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -212,6 +209,7 @@ static bool isRunningiOS8 = false;
             break;
         case MUSIC_PLAY_DEMO:
             // start background music
+            [self initSoundEngine];
             [self.soundMgr playBackgroundMusic:@"bgm.wav"]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
             self.soundMgr.backgroundMusicVolume = 0.5;
             break;
@@ -312,6 +310,12 @@ static bool isRunningiOS8 = false;
     gameScreen->onPause();
     
     [self.soundMgr pauseBackgroundMusic];
+}
+
+- (void)initSoundEngine
+{
+    self.soundMgr = [[CMOpenALSoundManager alloc] init];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", nil];
 }
 
 @end
