@@ -53,6 +53,7 @@ void Direct3DGameScreen::ReleaseDeviceDependentResources()
 	onPause();
 
 	m_mediaPlayer->Shutdown();
+	m_mediaPlayer = nullptr;
 
 	m_renderer->cleanUp();
 
@@ -101,7 +102,10 @@ void Direct3DGameScreen::onPause()
 
 	GameSound::getSoundPlayerInstance()->Suspend();
 
-	m_mediaPlayer->Pause();
+	if (m_mediaPlayer)
+	{
+		m_mediaPlayer->Pause();
+	}
 }
 
 void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
