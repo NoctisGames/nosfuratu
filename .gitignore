@@ -16,19 +16,3 @@ libpng/
 # rapidjson
 rapidjson/
 !rapidjson/rapidjson_readme.txt
-
-# Android Studio
-build/
-obj/
-.idea/
-.gradle/
-local.properties
-*.iml
-*.lock
-*.bin
-*.so
-
-# Xcode
-*.xcuserdatad/
-xcuserdata/
-xcshareddata/
