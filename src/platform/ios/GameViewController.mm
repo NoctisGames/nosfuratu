@@ -8,9 +8,10 @@
 
 #import "GameViewController.h"
 #import "GGDDeviceUtil.h"
-#import "Music.h"
-#import "Sound.h"
 #import "UIView+Toast.h"
+
+// Sound Engine
+#import "CMOpenALSoundManager.h"
 
 // C++
 #include "IOSOpenGLESGameScreen.h"
@@ -18,16 +19,19 @@
 #include "GameConstants.h"
 #include "GameScreenStates.h"
 
+enum GameSoundIds {
+    COLLECT_CARROT,
+    COLLECT_GOLDEN_CARROT,
+    DEATH
+};
+
 @interface GameViewController ()
 {
     IOSOpenGLESGameScreen *gameScreen;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) Music *bgm;
-@property (strong, nonatomic) Sound *collectCarrotSound;
-@property (strong, nonatomic) Sound *collectGoldenCarrotSound;
-@property (strong, nonatomic) Sound *deathSound;
+@property (nonatomic, retain) CMOpenALSoundManager *soundMgr;
 
 @end
 
@@ -95,9 +99,8 @@ static bool isRunningiOS8 = false;
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
-    self.collectCarrotSound = [[Sound alloc] initWithSoundNamed:@"collect_carrot.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:3];
-    self.collectGoldenCarrotSound = [[Sound alloc] initWithSoundNamed:@"collect_golden_carrot.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:1];
-    self.deathSound = [[Sound alloc] initWithSoundNamed:@"death.caf" fromBundle:[NSBundle mainBundle] andMaxNumOfSimultaneousPlays:1];
+    self.soundMgr = [[CMOpenALSoundManager alloc] init];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -182,13 +185,13 @@ static bool isRunningiOS8 = false;
         switch (soundId)
         {
             case SOUND_COLLECT_CARROT:
-                [self.collectCarrotSound play];
+                [self.soundMgr playSoundWithID:COLLECT_CARROT];
                 break;
             case SOUND_COLLECT_GOLDEN_CARROT:
-                [self.collectGoldenCarrotSound play];
+                [self.soundMgr playSoundWithID:COLLECT_GOLDEN_CARROT];
                 break;
             case SOUND_DEATH:
-                [self.deathSound play];
+                [self.soundMgr playSoundWithID:DEATH];
                 break;
             default:
                 continue;
@@ -202,21 +205,15 @@ static bool isRunningiOS8 = false;
     switch (musicId)
     {
         case MUSIC_STOP:
-            if (self.bgm)
-            {
-                [self.bgm stop];
-                self.bgm = nil;
-            }
+            [self.soundMgr stopBackgroundMusic];
+            break;
+        case MUSIC_RESUME:
+            [self.soundMgr resumeBackgroundMusic];
             break;
         case MUSIC_PLAY_DEMO:
-            if (!self.bgm)
-            {
-                self.bgm = [[Music alloc] initWithMusicNamed:@"bgm" fromBundle:[NSBundle mainBundle]];
-                [self.bgm setLooping:true];
-                [self.bgm setVolume:0.5f];
-            }
-            
-            [self.bgm play];
+            // start background music
+            [self.soundMgr playBackgroundMusic:@"bgm.wav"]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
+            self.soundMgr.backgroundMusicVolume = 0.5;
             break;
         default:
             break;
@@ -314,10 +311,7 @@ static bool isRunningiOS8 = false;
 {
     gameScreen->onPause();
     
-    if (self.bgm)
-    {
-        [self.bgm pause];
-    }
+    [self.soundMgr pauseBackgroundMusic];
 }
 
 @end

@@ -50,14 +50,25 @@ android {
         commandLine getNdkBuildCmd(), 'clean'
     }
     clean.dependsOn cleanNative
-    task copyFiles(type: Copy)
-    copyFiles {
+
+    task copyTextures(type: Copy)
+    copyTextures {
         description = 'Copies textures from root assets into project assets'
-        from '../../../../assets'
+        from '../../../../assets/textures'
         into 'src/main/assets'
         include('*.png')
     }
-    preBuild.dependsOn(copyFiles)
+
+    task copySounds(type: Copy)
+    copySounds {
+        description = 'Copies sounds from root assets into project assets'
+        from '../../../../assets/sounds'
+        into 'src/main/assets'
+        include('*.wav')
+    }
+
+    preBuild.dependsOn(copyTextures)
+    preBuild.dependsOn(copySounds)
 }
 
 dependencies {

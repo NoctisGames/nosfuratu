@@ -64,7 +64,7 @@ void GameScreen::update(float deltaTime)
                     m_isPaused = false;
                     if (m_stateMachine->isInState(*GamePlay::getInstance()))
                     {
-                        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+                        Assets::getInstance()->setMusicId(MUSIC_RESUME);
                     }
                     break;
                 default:

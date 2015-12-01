@@ -164,16 +164,15 @@ void Direct3DGameScreen::handleMusic()
 			m_mediaPlayer = nullptr;
 		}
 		break;
+    case MUSIC_RESUME:
+        m_mediaPlayer->Play();
+        break;
 	case MUSIC_PLAY_DEMO:
-		if (!m_mediaPlayer)
-		{
-			// Load Background Music
-			m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-			m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-			m_mediaPlayer->SetSource("assets\\bgm.wav");
-		}
-		
-		m_mediaPlayer->Play();
+        // Load Background Music
+        m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+        m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+        m_mediaPlayer->SetSource("assets\\bgm.wav");
+        m_mediaPlayer->Play();
 		break;
 	default:
 		break;

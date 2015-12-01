@@ -672,7 +672,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     std::stringstream ss;
     ss << game.getNumTotalCarrots();
     std::string totalNumGoldenCarrots = ss.str();
-    int offset = 1 + totalNumGoldenCarrots.size();
+    int offset = 1 + (int) totalNumGoldenCarrots.size();
     
     /// Render Num / Total Carrots
     

@@ -28,7 +28,8 @@ public final class GameRenderer implements Renderer
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
 
     private static final short MUSIC_STOP = 1;
-    private static final short MUSIC_PLAY_DEMO = 2;
+    private static final short MUSIC_RESUME = 2;
+    private static final short MUSIC_PLAY_DEMO = 3;
     private static final short SOUND_COLLECT_CARROT = 1;
     private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
     private static final short SOUND_DEATH = 3;
@@ -49,9 +50,9 @@ public final class GameRenderer implements Renderer
         _activity = activity;
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
         _audio = new Audio(activity.getAssets());
-        _collectCarrotSound = _audio.newSound("collect_carrot.ogg");
-        _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.ogg");
-        _deathSound = _audio.newSound("death.ogg");
+        _collectCarrotSound = _audio.newSound("collect_carrot.wav");
+        _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.wav");
+        _deathSound = _audio.newSound("death.wav");
 
         _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
@@ -188,14 +189,13 @@ public final class GameRenderer implements Renderer
                     _bgm = null;
                 }
                 break;
+            case MUSIC_RESUME:
+                _bgm.play();
+                break;
             case MUSIC_PLAY_DEMO:
-                if (_bgm == null)
-                {
-                    _bgm = _audio.newMusic("bgm.ogg");
-                    _bgm.setLooping(true);
-                    _bgm.setVolume(0.5f);
-                }
-
+                _bgm = _audio.newMusic("bgm.wav");
+                _bgm.setLooping(true);
+                _bgm.setVolume(0.5f);
                 _bgm.play();
                 break;
             default:
