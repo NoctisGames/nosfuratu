@@ -153,13 +153,6 @@ void DirectXPage::OnDisplayContentsInvalidated(DisplayInformation^ sender, Objec
 	m_deviceResources->ValidateDevice();
 }
 
-// Called when the app bar button is clicked.
-void DirectXPage::AppBarButton_Click(Object^ sender, RoutedEventArgs^ e)
-{
-	// Use the app bar if it is appropriate for your app. Design the app bar, 
-	// then fill in event handlers (like this one).
-}
-
 void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 {
 	m_main->onTouchDown(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
