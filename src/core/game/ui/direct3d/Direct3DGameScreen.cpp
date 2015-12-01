@@ -110,16 +110,16 @@ void Direct3DGameScreen::onPause()
 
 void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-	Size outputSize = m_deviceResources->GetOutputSize();
-	m_touchPoint->set(touchEvent.getX() / outputSize.Width * CAM_WIDTH, CAM_HEIGHT - (touchEvent.getY() / outputSize.Height * CAM_HEIGHT));
+	Size logicalSize = m_deviceResources->GetLogicalSize();
+	m_touchPoint->set(touchEvent.getX() / logicalSize.Width * CAM_WIDTH, CAM_HEIGHT - (touchEvent.getY() / logicalSize.Height * CAM_HEIGHT));
 }
 
 bool Direct3DGameScreen::handleOnBackPressed()
 {
 	if (m_stateMachine->isInState(*GamePlay::getInstance()))
 	{
-		Size outputSize = m_deviceResources->GetOutputSize();
-		onTouch(Touch_Type::UP, outputSize.Width / 20, outputSize.Height / 20);
+		Size logicalSize = m_deviceResources->GetLogicalSize();
+		onTouch(Touch_Type::UP, logicalSize.Width / 20, logicalSize.Height / 20);
 		return true;
 	}
 

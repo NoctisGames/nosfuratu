@@ -120,7 +120,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -150,7 +150,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -180,7 +180,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
