@@ -258,16 +258,16 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\bgm.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="Assets\collect_carrot.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="Assets\collect_golden_carrot.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="Assets\death.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>

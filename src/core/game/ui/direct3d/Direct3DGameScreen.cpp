@@ -23,9 +23,9 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	D3DManager->init(m_deviceResources, maxBatchSize);
 
 	// Load Sound Effects
-	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_carrot.wav"));
-	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("assets\\collect_golden_carrot.wav"));
-	m_deathSound = std::unique_ptr<GameSound>(new GameSound("assets\\death.wav"));
+	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_carrot.wav"));
+	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_golden_carrot.wav"));
+	m_deathSound = std::unique_ptr<GameSound>(new GameSound("death.wav"));
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
@@ -171,7 +171,7 @@ void Direct3DGameScreen::handleMusic()
         // Load Background Music
         m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
         m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-        m_mediaPlayer->SetSource("assets\\bgm.wav");
+        m_mediaPlayer->SetSource("bgm.wav");
         m_mediaPlayer->Play();
 		break;
 	default:

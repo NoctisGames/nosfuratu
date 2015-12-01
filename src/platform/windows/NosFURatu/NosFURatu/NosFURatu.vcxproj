@@ -104,8 +104,8 @@
   <PropertyGroup>
     <PackageCertificateKeyFile>NosFURatu_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <AppxBundle>Never</AppxBundle>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
     <PackageCertificateThumbprint>EF21B4D4ABC6541411A582463059C88A4CE54711</PackageCertificateThumbprint>
     <AppxPackageDir>C:\Users\Alucard\Downloads\</AppxPackageDir>
   </PropertyGroup>
@@ -120,7 +120,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -150,7 +150,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -180,7 +180,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>GGD_LEVEL_EDITOR;_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -566,46 +566,46 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\bgm.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
-    <Media Include="Assets\collect_carrot.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
-    <Media Include="Assets\collect_golden_carrot.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
-    <Media Include="Assets\death.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj">
       <Project>{fb3f52b5-bfe8-43fd-836f-363735dab738}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
