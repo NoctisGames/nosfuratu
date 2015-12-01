@@ -53,11 +53,14 @@ void NosFURatuMain::StartRenderLoop()
 
 	// Run task on a dedicated high priority background thread.
 	m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
+
+	m_gameScreen->onResume();
 }
 
 void NosFURatuMain::StopRenderLoop()
 {
 	m_renderLoopWorker->Cancel();
+	m_gameScreen->onPause();
 }
 
 void NosFURatuMain::onTouchDown(float screenX, float screenY)
@@ -73,6 +76,24 @@ void NosFURatuMain::onTouchDragged(float screenX, float screenY)
 void NosFURatuMain::onTouchUp(float screenX, float screenY)
 {
 	m_gameScreen->onTouch(Touch_Type::UP, screenX, screenY);
+}
+
+bool NosFURatuMain::handleOnBackPressed()
+{
+	return m_gameScreen->handleOnBackPressed();
+}
+
+// Notifies renderers that device resources need to be released.
+void NosFURatuMain::OnDeviceLost()
+{
+	m_gameScreen->ReleaseDeviceDependentResources();
+}
+
+// Notifies renderers that device resources may now be recreated.
+void NosFURatuMain::OnDeviceRestored()
+{
+	m_gameScreen->CreateDeviceDependentResources();
+	CreateWindowSizeDependentResources();
 }
 
 void NosFURatuMain::Update() 
@@ -106,17 +127,4 @@ bool NosFURatuMain::Render()
 	m_gameScreen->Render();
 
 	return true;
-}
-
-// Notifies renderers that device resources need to be released.
-void NosFURatuMain::OnDeviceLost()
-{
-	m_gameScreen->ReleaseDeviceDependentResources();
-}
-
-// Notifies renderers that device resources may now be recreated.
-void NosFURatuMain::OnDeviceRestored()
-{
-	m_gameScreen->CreateDeviceDependentResources();
-	CreateWindowSizeDependentResources();
 }

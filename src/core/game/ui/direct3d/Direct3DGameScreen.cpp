@@ -18,7 +18,7 @@ using namespace NosFURatu;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize) : GameScreen(IS_LEVEL_EDITOR), m_deviceResources(deviceResources)
+Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize) : GameScreen(IS_LEVEL_EDITOR), m_deviceResources(deviceResources), m_mediaPlayer(nullptr)
 {
 	D3DManager->init(m_deviceResources, maxBatchSize);
 
@@ -38,10 +38,6 @@ void Direct3DGameScreen::CreateDeviceDependentResources()
 	D3DManager->createDeviceDependentResources();
 
 	m_stateMachine->getCurrentState()->enter(this);
-
-	// Load Background Music
-	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
 
 	onResume();
 }
@@ -104,6 +100,8 @@ void Direct3DGameScreen::onPause()
 	GameScreen::onPause();
 
 	GameSound::getSoundPlayerInstance()->Suspend();
+
+	m_mediaPlayer->Pause();
 }
 
 void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
@@ -156,10 +154,21 @@ void Direct3DGameScreen::handleMusic()
 	switch (musicId)
 	{
 	case MUSIC_STOP:
-		m_mediaPlayer->Pause();
+		if (m_mediaPlayer)
+		{
+			m_mediaPlayer->Shutdown();
+			m_mediaPlayer = nullptr;
+		}
 		break;
 	case MUSIC_PLAY_DEMO:
-		m_mediaPlayer->SetSource("assets\\bgm.wav");
+		if (!m_mediaPlayer)
+		{
+			// Load Background Music
+			m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+			m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+			m_mediaPlayer->SetSource("assets\\bgm.wav");
+		}
+		
 		m_mediaPlayer->Play();
 		break;
 	default:

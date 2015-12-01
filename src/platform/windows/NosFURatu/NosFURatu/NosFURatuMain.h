@@ -18,6 +18,7 @@ namespace NosFURatu
 		void onTouchDown(float screenX, float screenY);
 		void onTouchDragged(float screenX, float screenY);
 		void onTouchUp(float screenX, float screenY);
+		bool handleOnBackPressed();
 		Concurrency::critical_section& GetCriticalSection() { return m_criticalSection; }
 
 		// IDeviceNotify

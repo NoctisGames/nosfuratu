@@ -28,7 +28,7 @@ namespace NosFURatu
 		virtual void onResume();
 		virtual void onPause();
 		virtual void touchToWorld(TouchEvent &touchEvent);
-		virtual bool handleOnBackPressed();
+		bool handleOnBackPressed();
 
 	private:
 		// Cached pointer to device resources.
