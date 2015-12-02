@@ -206,36 +206,6 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\jon.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\jon_ability.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\level_editor.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\title_font.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\vampire.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_background.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_cave.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_ground_w_cave.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_ground_wo_cave.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\world_1_misc.dds">
-      <Filter>Assets</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -270,5 +240,40 @@
     <Media Include="..\..\..\..\..\assets\sounds\death.wav">
       <Filter>Assets</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_wo_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_w_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_transform.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\title_font.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_ability.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

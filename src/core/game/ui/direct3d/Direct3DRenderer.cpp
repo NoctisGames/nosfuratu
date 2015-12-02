@@ -39,22 +39,6 @@ using namespace DirectX;
 
 std::vector<ID3D11ShaderResourceView *> g_shaderResourceViews;
 
-/* Prepends t into s. Assumes s has enough space allocated
-** for the combined string.
-*/
-void prepend(char* s, const char* t)
-{
-	size_t len = strlen(t);
-	size_t i;
-
-	memmove(s + len, s, strlen(s) + 1);
-
-	for (i = 0; i < len; ++i)
-	{
-		s[i] = t[i];
-	}
-}
-
 Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0)
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
@@ -84,8 +68,6 @@ TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repea
 	textureFileName[len + 2] = 'd';
 	textureFileName[len + 3] = 's';
 	textureFileName[len + 4] = '\0';
-
-	prepend(textureFileName, "Assets\\");
 
 	wchar_t* wString = new wchar_t[4096];
 	MultiByteToWideChar(CP_ACP, 0, textureFileName, -1, wString, 4096);
