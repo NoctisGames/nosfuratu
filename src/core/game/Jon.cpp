@@ -112,7 +112,7 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
     if (game.isJonLandingOnSpring(deltaTime))
     {
         m_acceleration->setY(GRAVITY);
-        m_velocity->setY(21);
+        m_velocity->setY(20);
         
         setState(ACTION_JUMPING);
         

@@ -138,7 +138,7 @@ public:
                     {
                         (*i)->trigger();
                         
-                        return true;
+                        return (*i)->isBoosting();
                     }
                 }
             }

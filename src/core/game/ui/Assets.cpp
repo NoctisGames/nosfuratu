@@ -207,16 +207,17 @@ TextureRegion& Assets::get(UpwardSpike& upwardSpike)
 
 TextureRegion& Assets::get(JumpSpring& jumpSpring)
 {
-    static Animation anim1 = Animation(819, 1966, 82, 81, 328, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.03f, 4);
-    static Animation anim2 = Animation(1157, 1980, 52, 66, 208, 66, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.03f, 4);
+    static Animation anim1 = Animation(811, 1962, 120, 85, 480, 85, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
     
     switch (jumpSpring.getEnumType())
     {
-        case JumpSpringType_Grass:
+        case JumpSpringType_Light:
             return anim1.getTextureRegion(jumpSpring.getStateTime());
-        case JumpSpringType_Cave:
+        case JumpSpringType_Medium:
+            return anim1.getTextureRegion(jumpSpring.getStateTime());
+        case JumpSpringType_Heavy:
         default:
-            return anim2.getTextureRegion(jumpSpring.getStateTime());
+            return anim1.getTextureRegion(jumpSpring.getStateTime());
     }
 }
 
@@ -277,7 +278,7 @@ TextureRegion& Assets::get(EndSign& endSign)
 
 TextureRegion& Assets::get(Carrot& carrot)
 {
-    static TextureRegion tr = TextureRegion(1268, 1872, 102, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(1278, 1862, 102, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 

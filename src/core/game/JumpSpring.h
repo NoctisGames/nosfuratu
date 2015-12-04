@@ -13,8 +13,9 @@
 
 typedef enum
 {
-    JumpSpringType_Grass,
-    JumpSpringType_Cave
+    JumpSpringType_Light,
+    JumpSpringType_Medium,
+    JumpSpringType_Heavy
 } JumpSpringType;
 
 class JumpSpring : public PhysicalEntity
@@ -30,7 +31,7 @@ public:
     
     void trigger();
     
-    bool isTriggered();
+    bool isBoosting();
     
     JumpSpringType getEnumType();
     
@@ -39,18 +40,25 @@ public:
 private:
     JumpSpringType m_type;
     bool m_isTriggered;
+    bool m_isBoosting;
 };
 
-class JumpSpringGrass : public JumpSpring
+class JumpSpringLight : public JumpSpring
 {
 public:
-    JumpSpringGrass(float x, float y, float width = 0.9827715355805243f, float height = 0.9707057256990679f) : JumpSpring(x, y, width, height, JumpSpringType_Grass) {}
+    JumpSpringLight(float x, float y, float width = 1.4382022471910112f, float height = 1.018641810918775f) : JumpSpring(x, y, width, height, JumpSpringType_Light) {}
 };
 
-class JumpSpringCave : public JumpSpring
+class JumpSpringMedium : public JumpSpring
 {
 public:
-    JumpSpringCave(float x, float y, float width = 0.6232209737827715f, float height = 0.7909454061251664f) : JumpSpring(x, y, width, height, JumpSpringType_Cave) {}
+    JumpSpringMedium(float x, float y, float width = 1.4382022471910112f, float height = 1.018641810918775f) : JumpSpring(x, y, width, height, JumpSpringType_Medium) {}
+};
+
+class JumpSpringHeavy : public JumpSpring
+{
+public:
+    JumpSpringHeavy(float x, float y, float width = 1.4382022471910112f, float height = 1.018641810918775f) : JumpSpring(x, y, width, height, JumpSpringType_Heavy) {}
 };
 
 #endif /* defined(__nosfuratu__JumpSpring__) */

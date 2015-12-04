@@ -12,15 +12,17 @@ JumpSpring* JumpSpring::create(float x, float y, int type)
 {
     switch ((JumpSpringType) type)
     {
-        case JumpSpringType_Grass:
-            return new JumpSpringGrass(x, y);
-        case JumpSpringType_Cave:
+        case JumpSpringType_Light:
+            return new JumpSpringLight(x, y);
+        case JumpSpringType_Medium:
+            return new JumpSpringMedium(x, y);
+        case JumpSpringType_Heavy:
         default:
-            return new JumpSpringCave(x, y);
+            return new JumpSpringHeavy(x, y);
     }
 }
 
-JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isTriggered(false)
+JumpSpring::JumpSpring(float x, float y, float width, float height, JumpSpringType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isTriggered(false), m_isBoosting(false)
 {
     updateBounds();
 }
@@ -32,15 +34,16 @@ void JumpSpring::updateBounds()
     
     switch (m_type)
     {
-        case JumpSpringType_Grass:
-            lowerLeft.add(getWidth() * 0.25581395348837f, getHeight() * 0.04651162790698f);
-            m_bounds->setWidth(getWidth() * 0.48837209302326f);
-            m_bounds->setHeight(getHeight() * 0.72093023255814f);
+        case JumpSpringType_Light:
+            lowerLeft.add(getWidth() * 0.03333333333333f, 0);
+            m_bounds->setWidth(getWidth() * 0.73333333333333f);
+            m_bounds->setHeight(getHeight() * 0.89411764705882f);
             break;
-        case JumpSpringType_Cave:
-            lowerLeft.add(getWidth() * 0.03846153846154f, getHeight() * 0);
-            m_bounds->setWidth(getWidth() * 0.92307692307692f);
-            m_bounds->setHeight(getHeight() * 0.81818181818182f);
+        case JumpSpringType_Medium:
+            // TODO
+            break;
+        case JumpSpringType_Heavy:
+            // TODO
             break;
         default:
             break;
@@ -53,9 +56,15 @@ void JumpSpring::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.12f)
+        if (m_fStateTime > 0.10f)
+        {
+            m_isBoosting = true;
+        }
+        
+        if (m_fStateTime > 0.20f)
         {
             m_isTriggered = false;
+            m_isBoosting = false;
             m_fStateTime = 0;
         }
     }
@@ -66,9 +75,9 @@ void JumpSpring::trigger()
     m_isTriggered = true;
 }
 
-bool JumpSpring::isTriggered()
+bool JumpSpring::isBoosting()
 {
-    return m_isTriggered;
+    return m_isBoosting;
 }
 
 JumpSpringType JumpSpring::getEnumType()

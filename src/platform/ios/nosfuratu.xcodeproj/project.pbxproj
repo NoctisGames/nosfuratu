@@ -153,6 +153,7 @@
 		BB4237BC1BBDB6AB005D9B44 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBEA163C1B97B9BB009B4711 /* texture_shader.vsh */; };
 		BB4237BD1BBDB6AB005D9B44 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADF1896178E2185005DA99E /* MainStoryboard_iPad.storyboard */; };
 		BB4237C31BBDB6AB005D9B44 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */; };
+		BB44DDBE1C124DF6005B20BC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
 		BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5C577A19B9F87700AD76E7 /* GameViewController.mm */; };
 		BB5C7AF11BB2297D0049DFDF /* LogVerticalTall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5C7AEF1BB2297D0049DFDF /* LogVerticalTall.cpp */; };
@@ -645,6 +646,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB44DDBE1C124DF6005B20BC /* OpenAL.framework in Frameworks */,
 				BB4237A31BBDB6AB005D9B44 /* libc++.dylib in Frameworks */,
 				BB4237A41BBDB6AB005D9B44 /* QuartzCore.framework in Frameworks */,
 				BB4237A51BBDB6AB005D9B44 /* MediaPlayer.framework in Frameworks */,

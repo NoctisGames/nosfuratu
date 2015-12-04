@@ -230,7 +230,7 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && !isFallingThroughCaveExit(getJon(), getCaveExits(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime));
+    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && !isFallingThroughCaveExit(getJon(), getCaveExits(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime) || EntityUtils::isLanding(getJon(), getJumpSprings(), deltaTime));
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
