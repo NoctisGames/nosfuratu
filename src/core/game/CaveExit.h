@@ -9,7 +9,7 @@
 #ifndef __nosfuratu__CaveExit__
 #define __nosfuratu__CaveExit__
 
-#include "PhysicalEntity.h"
+#include "LandPhysicalEntity.h"
 #include "CaveExitCover.h"
 
 #include <vector>
@@ -24,7 +24,7 @@ typedef enum
 #define CAVE_EXIT_WIDTH 5.992509363295881f
 #define CAVE_EXIT_HEIGHT 3.4513981358189083f
 
-class CaveExit : public PhysicalEntity
+class CaveExit : public LandPhysicalEntity
 {
 public:
     static CaveExit* create(float x, float y, int type);
@@ -46,6 +46,8 @@ public:
     CaveExitType getEnumType();
     
     int getType();
+    
+    virtual GroundSoundType getGroundSoundType();
     
 private:
     CaveExitType m_type;

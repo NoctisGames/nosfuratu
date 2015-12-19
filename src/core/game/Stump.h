@@ -9,9 +9,9 @@
 #ifndef __nosfuratu__Stump__
 #define __nosfuratu__Stump__
 
-#include "PhysicalEntity.h"
+#include "LandPhysicalEntity.h"
 
-class Stump : public PhysicalEntity
+class Stump : public LandPhysicalEntity
 {
 public:
     static Stump* create(float x, float y, int type);

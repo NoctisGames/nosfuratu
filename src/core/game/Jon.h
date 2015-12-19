@@ -16,6 +16,7 @@
 #include "JonAbilityState.h"
 #include "Color.h"
 #include "DustCloud.h"
+#include "GroundSoundType.h"
 
 #include <memory>
 #include <vector>
@@ -59,6 +60,8 @@ public:
     
     bool isMoving();
     
+    bool isPushedBack();
+    
     bool isFalling();
     
     bool isLanding();
@@ -67,21 +70,34 @@ public:
     
     int getType();
     
+    bool isRightFoot();
+    
+    void setRightFoot(bool isRightFoot);
+    
+    GroundSoundType getGroundSoundType();
+    
+    void setGroundSoundType(GroundSoundType groundSoundType);
+    
+    void setBoostVelocity(int boostVelocity);
+    
 private:
     std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;
     JonAbilityState m_abilityState;
+    GroundSoundType m_groundSoundType;
     Color m_color;
     float m_fActionStateTime;
     float m_fAbilityStateTime;
 	float m_fMaxSpeed;
 	float m_fAccelerationX;
     int m_iNumJumps;
+    int m_iBoostVelocity;
     bool m_isLanding;
     bool m_isSpinningBackFistDelivered;
     bool m_isBurrowEffective;
+    bool m_isRightFoot;
     
     void jump();
     

@@ -20,7 +20,7 @@ Jon* Jon::create(float x, float y, int type)
     return new Jon(x, y);
 }
 
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_isLanding(false), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false)
+Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fActionStateTime(0), m_fAbilityStateTime(0), m_fMaxSpeed(JON_DEFAULT_MAX_SPEED), m_fAccelerationX(JON_DEFAULT_ACCELERATION), m_iNumJumps(0), m_iBoostVelocity(0), m_isLanding(false), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false), m_isRightFoot(false)
 {
     resetBounds(width * 0.6796875f, height * 0.8203125f);
 }
@@ -89,6 +89,15 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
             m_fStateTime = 0;
             
             m_dustClouds.push_back(std::unique_ptr<DustCloud>(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f))));
+            
+            if (m_groundSoundType == GROUND_SOUND_GRASS)
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(m_isRightFoot ? SOUND_FOOTSTEP_RIGHT_GRASS : SOUND_FOOTSTEP_LEFT_GRASS);
+            }
+            else if (m_groundSoundType == GROUND_SOUND_CAVE)
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(m_isRightFoot ? SOUND_FOOTSTEP_RIGHT_CAVE : SOUND_FOOTSTEP_LEFT_CAVE);
+            }
         }
         
         if (m_isLanding && m_fStateTime > 0.20f)
@@ -112,11 +121,13 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
     if (game.isJonLandingOnSpring(deltaTime))
     {
         m_acceleration->setY(GRAVITY);
-        m_velocity->setY(20);
+        m_velocity->setY(m_iBoostVelocity);
         
         setState(ACTION_JUMPING);
         
         m_iNumJumps = 1;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JUMP_SPRING);
     }
     
     if (game.isJonBlockedVertically(deltaTime))
@@ -126,6 +137,8 @@ void Jon::update(float deltaTime, Game& game, bool isAllowedToMove)
     else if (game.isJonBlockedHorizontally(deltaTime))
     {
         m_velocity->sub(2, 0);
+        
+        m_fStateTime = 0;
     }
 
 	if (m_velocity->getX() > m_fMaxSpeed)
@@ -297,6 +310,11 @@ bool Jon::isMoving()
     return m_velocity->getX() > 0;
 }
 
+bool Jon::isPushedBack()
+{
+    return m_velocity->getX() < 0;
+}
+
 bool Jon::isLanding()
 {
     return m_isLanding;
@@ -317,12 +335,37 @@ int Jon::getType()
     return -1;
 }
 
+bool Jon::isRightFoot()
+{
+    return m_isRightFoot;
+}
+
+void Jon::setRightFoot(bool isRightFoot)
+{
+    m_isRightFoot = isRightFoot;
+}
+
+GroundSoundType Jon::getGroundSoundType()
+{
+    return m_groundSoundType;
+}
+
+void Jon::setGroundSoundType(GroundSoundType groundSoundType)
+{
+    m_groundSoundType = groundSoundType;
+}
+
+void Jon::setBoostVelocity(int boostVelocity)
+{
+    m_iBoostVelocity = boostVelocity;
+}
+
 #pragma mark private
 
 void Jon::jump()
 {
 	m_acceleration->setY(GRAVITY);
-	m_velocity->setY(13 - m_iNumJumps * 3);
+	m_velocity->setY(12 - m_iNumJumps * 3);
 
     setState(m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
     

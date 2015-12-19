@@ -87,15 +87,19 @@ protected:
     std::unique_ptr<Font> m_font;
     
     std::unique_ptr<TextureWrapper> m_jon_ability;
+    std::unique_ptr<TextureWrapper> m_jon_poses;
     std::unique_ptr<TextureWrapper> m_jon;
     std::unique_ptr<TextureWrapper> m_level_editor;
     std::unique_ptr<TextureWrapper> m_title_font;
+    std::unique_ptr<TextureWrapper> m_vampire_transform;
     std::unique_ptr<TextureWrapper> m_vampire;
     std::unique_ptr<TextureWrapper> m_world_1_background;
     std::unique_ptr<TextureWrapper> m_world_1_cave;
+    std::unique_ptr<TextureWrapper> m_world_1_enemies;
     std::unique_ptr<TextureWrapper> m_world_1_ground_w_cave;
     std::unique_ptr<TextureWrapper> m_world_1_ground_wo_cave;
     std::unique_ptr<TextureWrapper> m_world_1_misc;
+    std::unique_ptr<TextureWrapper> m_world_1_objects;
     
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
@@ -134,6 +138,7 @@ private:
     RendererType m_rendererType;
     bool m_areTitleTexturesLoaded;
     bool m_areJonTexturesLoaded;
+    bool m_areJonPosesTexturesLoaded;
     bool m_areVampireAndAbilityTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;

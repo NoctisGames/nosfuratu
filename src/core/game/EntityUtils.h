@@ -15,6 +15,7 @@
 #include "DestructiblePhysicalEntity.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
+#include "Jon.h"
 
 #include <math.h>
 #include <vector>
@@ -31,27 +32,28 @@ public:
     static void placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset = 0);
     
     template<typename T>
-    static bool isLanding(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static bool isLanding(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        float entityVelocityY = entity.getVelocity().getY();
-        float entityLowerLeftY = entity.getBounds().getLowerLeft().getY();
-        float entityYDelta = fabsf(entityVelocityY * deltaTime);
+        float jonVelocityY = jon.getVelocity().getY();
+        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+        float jonYDelta = fabsf(jonVelocityY * deltaTime);
         
-        if (entityVelocityY <= 0)
+        if (jonVelocityY <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
                 {
                     float itemTop = (*i)->getBounds().getTop();
                     float padding = itemTop * .01f;
-                    padding += entityYDelta;
+                    padding += jonYDelta;
                     float itemTopReq = itemTop - padding;
                     
-                    if (entityLowerLeftY >= itemTopReq)
+                    if (jonLowerLeftY >= itemTopReq)
                     {
-                        entity.getPosition().setY(itemTop + entity.getBounds().getHeight() / 2 * .99f);
-                        entity.updateBounds();
+                        jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                        jon.updateBounds();
+                        jon.setGroundSoundType((*i)->getGroundSoundType());
                         
                         return true;
                     }
@@ -117,28 +119,33 @@ public:
     }
     
     template<typename T>
-    static bool isLandingOnSpring(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static bool isLandingOnSpring(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        float entityVelocityY = entity.getVelocity().getY();
-        float entityLowerLeftY = entity.getBounds().getLowerLeft().getY();
-        float entityYDelta = fabsf(entityVelocityY * deltaTime);
+        float jonVelocityY = jon.getVelocity().getY();
+        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+        float jonYDelta = fabsf(jonVelocityY * deltaTime);
         
-        if (entityVelocityY <= 0)
+        if (jonVelocityY <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
                 {
                     float itemTop = (*i)->getBounds().getTop();
                     float padding = itemTop * .01f;
-                    padding += entityYDelta;
+                    padding += jonYDelta;
                     float itemTopReq = itemTop - padding;
                     
-                    if (entityLowerLeftY >= itemTopReq)
+                    if (jonLowerLeftY >= itemTopReq)
                     {
                         (*i)->trigger();
                         
-                        return (*i)->isBoosting();
+                        if ((*i)->isBoosting())
+                        {
+                            jon.setBoostVelocity((*i)->getBoostVelocity());
+                            
+                            return true;
+                        }
                     }
                 }
             }

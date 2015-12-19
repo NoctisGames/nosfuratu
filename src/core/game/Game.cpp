@@ -402,16 +402,18 @@ bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<st
 {
     float entityVelocityY = entity.getVelocity().getY();
     float entityLeft = entity.getBounds().getLowerLeft().getX();
+    float entityBottom = entity.getBounds().getLowerLeft().getY();
     
-    if (entityVelocityY > 11)
+    if (entityVelocityY > 13)
     {
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
         {
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
             {
                 float itemLeft = (*i)->getHoleBounds().getLowerLeft().getX();
+                float itemTop = (*i)->getHoleBounds().getTop();
                 
-                if (itemLeft < entityLeft)
+                if (itemLeft < entityLeft && entityBottom < itemTop)
                 {
                     (*i)->triggerEruption();
                     

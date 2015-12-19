@@ -30,7 +30,7 @@ GroundPlatform* GroundPlatform::create(float x, float y, int type)
     }
 }
 
-GroundPlatform::GroundPlatform(float x, float y, float width, float height, GroundPlatformType type) : PhysicalEntity(x, y, width, height), m_type(type)
+GroundPlatform::GroundPlatform(float x, float y, float width, float height, GroundPlatformType type) : LandPhysicalEntity(x, y, width, height), m_type(type)
 {
     updateBounds();
 }
@@ -52,4 +52,9 @@ GroundPlatformType GroundPlatform::getEnumType()
 int GroundPlatform::getType()
 {
     return m_type;
+}
+
+GroundSoundType GroundPlatform::getGroundSoundType()
+{
+    return m_type == GroundPlatformType_CaveEndLeft || m_type == GroundPlatformType_CaveCenter || m_type == GroundPlatformType_CaveEndRight ? GROUND_SOUND_CAVE : GROUND_SOUND_GRASS;
 }

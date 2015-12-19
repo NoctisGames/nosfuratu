@@ -51,6 +51,46 @@ TextureRegion& Animation::getTextureRegion(int keyFrameNumber)
 	return m_textureRegions.at(keyFrameNumber);
 }
 
+int Animation::getKeyFrameNumber(float stateTime)
+{
+    unsigned int i = 0;
+    
+    if (stateTime > m_fCycleTime && m_fCycleTime > 0)
+    {
+        if (m_looping)
+        {
+            float cycleTime = m_fCycleTime;
+            for ( ; i < m_iFirstLoopingFrame; i++)
+            {
+                cycleTime -= m_frameTimes.at(i);
+            }
+            
+            while (stateTime > cycleTime)
+            {
+                stateTime -= cycleTime;
+            }
+        }
+        else
+        {
+            return ((int) m_frameTimes.size()) - 1;
+        }
+    }
+    
+    for ( ; i < m_frameTimes.size(); i++)
+    {
+        float frameTime = m_frameTimes.at(i);
+        
+        if (stateTime < frameTime)
+        {
+            return i;
+        }
+        
+        stateTime -= frameTime;
+    }
+    
+    return 0;
+}
+
 Animation::~Animation()
 {
 	m_textureRegions.clear();
@@ -76,44 +116,4 @@ void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeig
 			}
 		}
 	}
-}
-
-int Animation::getKeyFrameNumber(float stateTime)
-{
-    unsigned int i = 0;
-    
-	if (stateTime > m_fCycleTime && m_fCycleTime > 0)
-	{
-		if (m_looping)
-		{
-            float cycleTime = m_fCycleTime;
-            for ( ; i < m_iFirstLoopingFrame; i++)
-            {
-                cycleTime -= m_frameTimes.at(i);
-            }
-            
-			while (stateTime > cycleTime)
-			{
-				stateTime -= cycleTime;
-			}
-		}
-		else
-		{
-			return ((int) m_frameTimes.size()) - 1;
-		}
-	}
-
-	for ( ; i < m_frameTimes.size(); i++)
-	{
-		float frameTime = m_frameTimes.at(i);
-
-		if (stateTime < frameTime)
-		{
-            return i;
-		}
-
-		stateTime -= frameTime;
-	}
-
-	return 0;
 }

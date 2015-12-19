@@ -207,17 +207,24 @@ TextureRegion& Assets::get(UpwardSpike& upwardSpike)
 
 TextureRegion& Assets::get(JumpSpring& jumpSpring)
 {
-    static Animation anim1 = Animation(811, 1962, 120, 85, 480, 85, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 4);
-    
     switch (jumpSpring.getEnumType())
     {
         case JumpSpringType_Light:
-            return anim1.getTextureRegion(jumpSpring.getStateTime());
+        {
+            static Animation anim = Animation(931, 1962, 120, 85, 480, 85, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 3);
+            return anim.getTextureRegion(jumpSpring.getStateTime());
+        }
         case JumpSpringType_Medium:
-            return anim1.getTextureRegion(jumpSpring.getStateTime());
+        {
+            static Animation anim = Animation(0, 745, 275, 141, 1925, 141, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 7);
+            return anim.getTextureRegion(jumpSpring.getStateTime());
+        }
         case JumpSpringType_Heavy:
         default:
-            return anim1.getTextureRegion(jumpSpring.getStateTime());
+        {
+            static Animation anim = Animation(265, 936, 265, 219, 1855, 219, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 6);
+            return anim.getTextureRegion(jumpSpring.getStateTime());
+        }
     }
 }
 
@@ -291,6 +298,7 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 
 TextureRegion& Assets::get(Jon& jon)
 {
+    static Animation jonPushedBackAnim = Animation(512, 1024, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 6);
     static Animation jonIdleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
     static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
     static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 7);
@@ -337,7 +345,45 @@ TextureRegion& Assets::get(Jon& jon)
         }
     }
     
-    return jon.isMoving() ? jonRunningAnim.getTextureRegion(jon.getStateTime()) : jonIdleAnim.getTextureRegion(jon.getStateTime());
+    if (jon.isMoving())
+    {
+        int keyFrameNumber = jonRunningAnim.getKeyFrameNumber(jon.getStateTime());
+        
+        if (keyFrameNumber == 1 && !jon.isRightFoot())
+        {
+            jon.setRightFoot(true);
+            
+            if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+            {
+                getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
+            }
+            else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+            {
+                getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
+            }
+        }
+        else if (keyFrameNumber == 6 && jon.isRightFoot())
+        {
+            jon.setRightFoot(false);
+            
+            if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
+            }
+            else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+            }
+        }
+        
+        return jonRunningAnim.getTextureRegion(keyFrameNumber);
+    }
+    else if (jon.isPushedBack())
+    {
+        return jonPushedBackAnim.getTextureRegion(jon.getStateTime());
+    }
+    
+    return jonIdleAnim.getTextureRegion(jon.getStateTime());
 }
 
 TextureRegion& Assets::get(DustCloud& dustCloud)

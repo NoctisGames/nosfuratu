@@ -9,7 +9,7 @@
 #ifndef __nosfuratu__Ground__
 #define __nosfuratu__Ground__
 
-#include "PhysicalEntity.h"
+#include "LandPhysicalEntity.h"
 
 typedef enum
 {
@@ -55,7 +55,7 @@ typedef enum
 #define GROUND_CAVE_RAISED_HEIGHT 6.327563249001331f
 #define GROUND_CAVE_RAISED_BOUNDS_HEIGHT_FACTOR 0.84444444444444f
 
-class Ground : public PhysicalEntity
+class Ground : public LandPhysicalEntity
 {
 public:
     static Ground* create(float x, float y, int type);
@@ -73,6 +73,8 @@ public:
     GroundType getEnumType();
     
     int getType();
+    
+    virtual GroundSoundType getGroundSoundType();
     
 private:
     GroundType m_type;

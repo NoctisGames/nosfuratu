@@ -9,10 +9,10 @@
 #ifndef __nosfuratu__DustCloud__
 #define __nosfuratu__DustCloud__
 
-#include "DestructiblePhysicalEntity.h"
+#include "PhysicalEntity.h"
 #include "Color.h"
 
-class DustCloud : public DestructiblePhysicalEntity
+class DustCloud : public PhysicalEntity
 {
 public:
     DustCloud(float x, float y, float scale);

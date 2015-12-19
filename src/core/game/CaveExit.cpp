@@ -29,7 +29,7 @@ CaveExit* CaveExit::create(float x, float y, int type)
     return pCaveExit;
 }
 
-CaveExit::CaveExit(float x, float y, float width, float height, CaveExitType type) : PhysicalEntity(x, y, width, height), m_type(type)
+CaveExit::CaveExit(float x, float y, float width, float height, CaveExitType type) : LandPhysicalEntity(x, y, width, height), m_type(type)
 {
     m_holeBounds = std::unique_ptr<Rectangle>(new Rectangle(x - HOLE_WIDTH / 2, y - height / 2, HOLE_WIDTH, height));
     m_caveExitCovers.push_back(std::unique_ptr<CaveExitCover>(new CaveExitCover(x, y, width, height)));
@@ -93,4 +93,9 @@ CaveExitType CaveExit::getEnumType()
 int CaveExit::getType()
 {
     return m_type;
+}
+
+GroundSoundType CaveExit::getGroundSoundType()
+{
+    return GROUND_SOUND_GRASS;
 }

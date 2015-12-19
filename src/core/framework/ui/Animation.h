@@ -24,6 +24,8 @@ public:
     
     TextureRegion& getTextureRegion(int keyFrameNumber);
     
+    int getKeyFrameNumber(float stateTime);
+    
     ~Animation();
     
 private:
@@ -34,8 +36,6 @@ private:
     bool m_looping;
     
     void loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames);
-    
-    int getKeyFrameNumber(float stateTime);
 };
 
 #endif /* defined(__gowengamedev__Animation__) */

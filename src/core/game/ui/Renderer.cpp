@@ -41,7 +41,7 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
+Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areJonPosesTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false)
 {
     m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 73, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
@@ -65,9 +65,17 @@ void Renderer::init(RendererType type)
                 m_areJonTexturesLoaded = false;
             }
             
+            if (m_areJonPosesTexturesLoaded)
+            {
+                destroyTexture(*m_jon_poses);
+                
+                m_areJonPosesTexturesLoaded = false;
+            }
+            
             if (m_areVampireAndAbilityTexturesLoaded)
             {
                 destroyTexture(*m_jon_ability);
+                destroyTexture(*m_vampire_transform);
                 destroyTexture(*m_vampire);
                 
                 m_areVampireAndAbilityTexturesLoaded = false;
@@ -77,22 +85,17 @@ void Renderer::init(RendererType type)
             {
                 destroyTexture(*m_world_1_background);
                 destroyTexture(*m_world_1_cave);
+                destroyTexture(*m_world_1_enemies);
                 destroyTexture(*m_world_1_ground_w_cave);
                 destroyTexture(*m_world_1_ground_wo_cave);
                 destroyTexture(*m_world_1_misc);
+                destroyTexture(*m_world_1_objects);
                 
                 m_areWorld1TexturesLoaded = false;
             }
             
-            if (!m_areTitleTexturesLoaded)
-            {
-                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
-                
-                m_areTitleTexturesLoaded = true;
-            }
-            
             break;
-        case RENDERER_TYPE_WORLD_1:            
+        case RENDERER_TYPE_WORLD_1:
             if (m_areLevelEditorTexturesLoaded)
             {
                 destroyTexture(*m_level_editor);
@@ -100,63 +103,26 @@ void Renderer::init(RendererType type)
                 m_areLevelEditorTexturesLoaded = false;
             }
             
-            if (!m_areJonTexturesLoaded)
-            {
-                m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
-                
-                m_areJonTexturesLoaded = true;
-            }
-            
-            if (!m_areVampireAndAbilityTexturesLoaded)
-            {
-                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
-                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
-                
-                m_areVampireAndAbilityTexturesLoaded = true;
-            }
-            
-            if (!m_areWorld1TexturesLoaded)
-            {
-                m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
-                m_world_1_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_cave"));
-                m_world_1_ground_w_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_w_cave"));
-                m_world_1_ground_wo_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_wo_cave"));
-                m_world_1_misc = std::unique_ptr<TextureWrapper>(loadTexture("world_1_misc"));
-                
-                m_areWorld1TexturesLoaded = true;
-            }
-            
-            if (!m_areTitleTexturesLoaded)
-            {
-                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
-                
-                m_areTitleTexturesLoaded = true;
-            }
-            
             break;
         case RENDERER_TYPE_LEVEL_EDITOR:
             if (m_areVampireAndAbilityTexturesLoaded)
             {
                 destroyTexture(*m_jon_ability);
+                destroyTexture(*m_vampire_transform);
                 destroyTexture(*m_vampire);
                 
                 m_areVampireAndAbilityTexturesLoaded = false;
             }
             
-            if (!m_areTitleTexturesLoaded)
-            {
-                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
-                
-                m_areTitleTexturesLoaded = true;
-            }
-            
-            if (!m_areLevelEditorTexturesLoaded)
-            {
-                m_level_editor = std::unique_ptr<TextureWrapper>(loadTexture("level_editor"));
-                
-                m_areLevelEditorTexturesLoaded = true;
-            }
-            
+            break;
+        default:
+            break;
+    }
+    
+    switch (type)
+    {
+        case RENDERER_TYPE_WORLD_1:
+        case RENDERER_TYPE_LEVEL_EDITOR:
             if (!m_areJonTexturesLoaded)
             {
                 m_jon = std::unique_ptr<TextureWrapper>(loadTexture("jon"));
@@ -168,11 +134,51 @@ void Renderer::init(RendererType type)
             {
                 m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
                 m_world_1_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_cave"));
+                m_world_1_enemies = std::unique_ptr<TextureWrapper>(loadTexture("world_1_enemies"));
                 m_world_1_ground_w_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_w_cave"));
                 m_world_1_ground_wo_cave = std::unique_ptr<TextureWrapper>(loadTexture("world_1_ground_wo_cave"));
                 m_world_1_misc = std::unique_ptr<TextureWrapper>(loadTexture("world_1_misc"));
+                m_world_1_objects = std::unique_ptr<TextureWrapper>(loadTexture("world_1_objects"));
                 
                 m_areWorld1TexturesLoaded = true;
+            }
+        case RENDERER_TYPE_TITLE:
+            if (!m_areTitleTexturesLoaded)
+            {
+                m_title_font = std::unique_ptr<TextureWrapper>(loadTexture("title_font"));
+                
+                m_areTitleTexturesLoaded = true;
+            }
+        default:
+            break;
+    }
+    
+    switch (type)
+    {
+        case RENDERER_TYPE_WORLD_1:
+            if (!m_areJonPosesTexturesLoaded)
+            {
+                m_jon_poses = std::unique_ptr<TextureWrapper>(loadTexture("jon_poses"));
+                
+                m_areJonPosesTexturesLoaded = true;
+            }
+            
+            if (!m_areVampireAndAbilityTexturesLoaded)
+            {
+                m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
+                m_vampire_transform = std::unique_ptr<TextureWrapper>(loadTexture("vampire_transform"));
+                m_vampire = std::unique_ptr<TextureWrapper>(loadTexture("vampire"));
+                
+                m_areVampireAndAbilityTexturesLoaded = true;
+            }
+            
+            break;
+        case RENDERER_TYPE_LEVEL_EDITOR:
+            if (!m_areLevelEditorTexturesLoaded)
+            {
+                m_level_editor = std::unique_ptr<TextureWrapper>(loadTexture("level_editor"));
+                
+                m_areLevelEditorTexturesLoaded = true;
             }
             
             break;
@@ -565,7 +571,7 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getCarrots());
     renderPhysicalEntities(game.getGoldenCarrots());
     renderPhysicalEntitiesWithColor(game.getRocks());
-    m_spriteBatcher->endBatch(*m_world_1_misc);
+    m_spriteBatcher->endBatch(*m_world_1_objects);
     
     /// Render Jon Effects (e.g. Dust Clouds)
     
@@ -574,7 +580,7 @@ void Renderer::renderWorld(Game& game)
     {
         renderPhysicalEntitiesWithColor((*i)->getDustClouds());
     }
-    m_spriteBatcher->endBatch(*m_world_1_misc);
+    m_spriteBatcher->endBatch(*m_world_1_objects);
 }
 
 void Renderer::renderJon(Game& game)
@@ -714,7 +720,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(uiCarrot, Assets::get(uiCarrot));
     renderPhysicalEntity(uiGoldenCarrot, Assets::get(uiGoldenCarrot));
-    m_spriteBatcher->endBatch(*m_world_1_misc);
+    m_spriteBatcher->endBatch(*m_world_1_objects);
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)
@@ -812,7 +818,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getCarrots());
         renderPhysicalEntities(leep.getGoldenCarrots());
         renderPhysicalEntitiesWithColor(leep.getRocks());
-        m_spriteBatcher->endBatch(*m_world_1_misc);
+        m_spriteBatcher->endBatch(*m_world_1_objects);
     }
     
     if (lsp.isOpen())
@@ -874,10 +880,18 @@ void Renderer::cleanUp()
         m_areJonTexturesLoaded = false;
     }
     
+    if (m_areJonPosesTexturesLoaded)
+    {
+        destroyTexture(*m_jon_poses);
+        
+        m_areJonPosesTexturesLoaded = false;
+    }
+    
     if (m_areVampireAndAbilityTexturesLoaded)
     {
-        destroyTexture(*m_vampire);
         destroyTexture(*m_jon_ability);
+        destroyTexture(*m_vampire_transform);
+        destroyTexture(*m_vampire);
         
         m_areVampireAndAbilityTexturesLoaded = false;
     }
@@ -886,9 +900,11 @@ void Renderer::cleanUp()
     {
         destroyTexture(*m_world_1_background);
         destroyTexture(*m_world_1_cave);
+        destroyTexture(*m_world_1_enemies);
         destroyTexture(*m_world_1_ground_w_cave);
         destroyTexture(*m_world_1_ground_wo_cave);
         destroyTexture(*m_world_1_misc);
+        destroyTexture(*m_world_1_objects);
         
         m_areWorld1TexturesLoaded = false;
     }

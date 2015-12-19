@@ -10,7 +10,7 @@
 
 #define DUST_CLOUD_HEIGHT 1.4038128249566724f
 
-DustCloud::DustCloud(float x, float y, float scale) : DestructiblePhysicalEntity(x, y + DUST_CLOUD_HEIGHT / 2 * scale, 2.690058479532164f * scale, DUST_CLOUD_HEIGHT * scale), m_color(1, 1, 1, 1)
+DustCloud::DustCloud(float x, float y, float scale) : PhysicalEntity(x, y + DUST_CLOUD_HEIGHT / 2 * scale, 2.690058479532164f * scale, DUST_CLOUD_HEIGHT * scale), m_color(1, 1, 1, 1)
 {
     // Empty
 }

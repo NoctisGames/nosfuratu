@@ -9,9 +9,9 @@
 #ifndef __nosfuratu__DestructiblePhysicalEntity__
 #define __nosfuratu__DestructiblePhysicalEntity__
 
-#include "PhysicalEntity.h"
+#include "LandPhysicalEntity.h"
 
-class DestructiblePhysicalEntity : public PhysicalEntity
+class DestructiblePhysicalEntity : public LandPhysicalEntity
 {
 public:
     DestructiblePhysicalEntity(float x, float y, float width, float height);

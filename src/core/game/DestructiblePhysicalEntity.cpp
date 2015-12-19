@@ -8,7 +8,7 @@
 
 #include "DestructiblePhysicalEntity.h"
 
-DestructiblePhysicalEntity::DestructiblePhysicalEntity(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+DestructiblePhysicalEntity::DestructiblePhysicalEntity(float x, float y, float width, float height) : LandPhysicalEntity(x, y, width, height)
 {
     // Empty
 }

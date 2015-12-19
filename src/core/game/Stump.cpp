@@ -13,7 +13,7 @@ Stump* Stump::create(float x, float y, int type)
     return new Stump(x, y);
 }
 
-Stump::Stump(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+Stump::Stump(float x, float y, float width, float height) : LandPhysicalEntity(x, y, width, height)
 {
     updateBounds();
 }

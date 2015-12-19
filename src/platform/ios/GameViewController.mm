@@ -22,7 +22,12 @@
 enum GameSoundIds {
     COLLECT_CARROT,
     COLLECT_GOLDEN_CARROT,
-    DEATH
+    DEATH,
+    FOOTSTEP_LEFT_GRASS,
+    FOOTSTEP_RIGHT_GRASS,
+    FOOTSTEP_LEFT_CAVE,
+    FOOTSTEP_RIGHT_CAVE,
+    JUMP_SPRING
 };
 
 @interface GameViewController ()
@@ -190,6 +195,21 @@ static bool isRunningiOS8 = false;
             case SOUND_DEATH:
                 [self.soundMgr playSoundWithID:DEATH];
                 break;
+            case SOUND_FOOTSTEP_LEFT_GRASS:
+                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_GRASS];
+                break;
+            case SOUND_FOOTSTEP_RIGHT_GRASS:
+                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_GRASS];
+                break;
+            case SOUND_FOOTSTEP_LEFT_CAVE:
+                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_CAVE];
+                break;
+            case SOUND_FOOTSTEP_RIGHT_CAVE:
+                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_CAVE];
+                break;
+            case SOUND_JUMP_SPRING:
+                [self.soundMgr playSoundWithID:JUMP_SPRING];
+                break;
             default:
                 continue;
         }
@@ -211,7 +231,7 @@ static bool isRunningiOS8 = false;
             // start background music
             [self initSoundEngine];
             [self.soundMgr playBackgroundMusic:@"bgm.wav"]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
-            self.soundMgr.backgroundMusicVolume = 0.5;
+            self.soundMgr.backgroundMusicVolume = 0.1;
             break;
         default:
             break;
@@ -315,7 +335,7 @@ static bool isRunningiOS8 = false;
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", nil];
 }
 
 @end

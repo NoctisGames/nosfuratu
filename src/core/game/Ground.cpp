@@ -95,7 +95,7 @@ Ground* Ground::create(float x, float y, int type)
     return pGround;
 }
 
-Ground::Ground(float x, float y, float width, float height, float boundsHeightFactor, GroundType type) : PhysicalEntity(x, y, width, height), m_type(type), m_fBoundsHeightFactor(boundsHeightFactor)
+Ground::Ground(float x, float y, float width, float height, float boundsHeightFactor, GroundType type) : LandPhysicalEntity(x, y, width, height), m_type(type), m_fBoundsHeightFactor(boundsHeightFactor)
 {
     updateBounds();
 }
@@ -149,4 +149,9 @@ GroundType Ground::getEnumType()
 int Ground::getType()
 {
     return m_type;
+}
+
+GroundSoundType Ground::getGroundSoundType()
+{
+    return is_world_1_cave() ? GROUND_SOUND_CAVE : GROUND_SOUND_GRASS;
 }

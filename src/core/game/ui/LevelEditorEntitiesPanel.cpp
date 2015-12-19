@@ -74,6 +74,8 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeMetalCave(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
     m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringLight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringHeavy(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
     m_rocks.push_back(std::unique_ptr<Rock>(new Rock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_rocks.push_back(std::unique_ptr<CrackedRock>(new CrackedRock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -94,6 +96,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     boxInAll(m_trees, size);
     boxInAll(m_grounds, size);
     boxInAll(m_holes, size);
+    boxInAll(m_caveExits, size);
     boxInAll(m_logVerticalTalls, size);
     boxInAll(m_logVerticalShorts, size);
     boxInAll(m_thorns, size);
