@@ -13,9 +13,32 @@ LogVerticalTall* LogVerticalTall::create(float x, float y, int type)
     return new LogVerticalTall(x, y);
 }
 
-LogVerticalTall::LogVerticalTall(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height)
+LogVerticalTall::LogVerticalTall(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_isBlowingUp(false)
 {
     updateBounds();
+}
+
+void LogVerticalTall::update(float deltaTime)
+{
+    if (m_isBlowingUp)
+    {
+        Entity::update(deltaTime);
+        
+        if (m_fStateTime > 0.30f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+void LogVerticalTall::triggerHit()
+{
+    if (!m_isBlowingUp)
+    {
+        m_isBlowingUp = true;
+        m_fStateTime = 0;
+        updateBounds();
+    }
 }
 
 void LogVerticalTall::updateBounds()
@@ -23,10 +46,16 @@ void LogVerticalTall::updateBounds()
     Vector2D &lowerLeft = m_bounds->getLowerLeft();
     lowerLeft.set(m_position->getX() - getWidth() / 2, m_position->getY() - getHeight() / 2);
     
-    lowerLeft.add(getWidth() * 0.18461538461538f, getHeight() * 0.03296703296703f);
+    lowerLeft.add(getWidth() * 0.09302325581395f, getHeight() * 0.01953125f);
     
-    m_bounds->setWidth(getWidth() * 0.43076923076923f);
-    m_bounds->setHeight(getHeight() * 0.91208791208791f);
+    m_bounds->setWidth(getWidth() * 0.26356589147287f);
+    m_bounds->setHeight(getHeight() * 0.6640625f);
+    
+    if (m_isBlowingUp)
+    {
+        // Bye bye!
+        lowerLeft.setY(1337);
+    }
 }
 
 int LogVerticalTall::getType()

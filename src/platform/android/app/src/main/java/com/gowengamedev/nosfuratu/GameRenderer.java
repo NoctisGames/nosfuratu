@@ -33,6 +33,11 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_COLLECT_CARROT = 1;
     private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
     private static final short SOUND_DEATH = 3;
+    private static final short SOUND_FOOTSTEP_LEFT_GRASS = 4;
+    private static final short SOUND_FOOTSTEP_RIGHT_GRASS = 5;
+    private static final short SOUND_FOOTSTEP_LEFT_CAVE = 6;
+    private static final short SOUND_FOOTSTEP_RIGHT_CAVE = 7;
+    private static final short SOUND_JUMP_SPRING = 8;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -41,6 +46,11 @@ public final class GameRenderer implements Renderer
     private Sound _collectCarrotSound;
     private Sound _collectGoldenCarrotSound;
     private Sound _deathSound;
+    private Sound _footstepLeftGrassSound;
+    private Sound _footstepRightGrassSound;
+    private Sound _footstepLeftCaveSound;
+    private Sound _footstepRightCaveSound;
+    private Sound _jumpSpringSound;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -53,6 +63,11 @@ public final class GameRenderer implements Renderer
         _collectCarrotSound = _audio.newSound("collect_carrot.wav");
         _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.wav");
         _deathSound = _audio.newSound("death.wav");
+        _footstepLeftGrassSound = _audio.newSound("footstep_left_grass.wav");
+        _footstepRightGrassSound = _audio.newSound("footstep_right_grass.wav");
+        _footstepLeftCaveSound = _audio.newSound("footstep_left_cave.wav");
+        _footstepRightCaveSound = _audio.newSound("footstep_right_cave.wav");
+        _jumpSpringSound = _audio.newSound("jump_spring.wav");
 
         _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
@@ -170,6 +185,21 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_DEATH:
                     _deathSound.play(1);
+                    break;
+                case SOUND_FOOTSTEP_LEFT_GRASS:
+                    _footstepLeftGrassSound.play(1);
+                    break;
+                case SOUND_FOOTSTEP_RIGHT_GRASS:
+                    _footstepRightGrassSound.play(1);
+                    break;
+                case SOUND_FOOTSTEP_LEFT_CAVE:
+                    _footstepLeftCaveSound.play(1);
+                    break;
+                case SOUND_FOOTSTEP_RIGHT_CAVE:
+                    _footstepRightCaveSound.play(1);
+                    break;
+                case SOUND_JUMP_SPRING:
+                    _jumpSpringSound.play(1);
                     break;
                 default:
                     break;

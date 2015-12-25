@@ -56,7 +56,7 @@ public:
     
     void reset();
     
-    void updateAndClean(float deltaTime, bool isJonAllowedToMove = true);
+    void updateAndClean(float deltaTime);
     
     int calcSum();
     
@@ -226,6 +226,7 @@ private:
     
     static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
     static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
+    static void setGameToJons(std::vector<std::unique_ptr<Jon>>& jons, Game* game);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

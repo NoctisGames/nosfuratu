@@ -17,6 +17,9 @@
 #include "Color.h"
 #include "DustCloud.h"
 #include "GroundSoundType.h"
+#include "StateMachine.h"
+#include "State.h"
+#include "JonFormState.h"
 
 #include <memory>
 #include <vector>
@@ -30,7 +33,9 @@ public:
     
     Jon(float x, float y, float width = 2.2f, float height = 2.2f);
     
-    void update(float deltaTime, Game& game, bool isAllowedToMove = true);
+    void update(float deltaTime);
+    
+    void triggerTransform();
     
     void triggerJump();
     
@@ -80,7 +85,17 @@ public:
     
     void setBoostVelocity(int boostVelocity);
     
+    bool isVampire();
+    
+    void setAllowedToMove(bool isAllowedToMove);
+    
+    bool isAllowedToMove();
+    
+    void setGame(Game* game);
+    
 private:
+    std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
+    Game* m_game;
     std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
     JonState m_state;
     JonPhysicalState m_physicalState;
@@ -88,18 +103,18 @@ private:
     JonAbilityState m_abilityState;
     GroundSoundType m_groundSoundType;
     Color m_color;
+    float m_fDeltaTime;
     float m_fActionStateTime;
     float m_fAbilityStateTime;
-	float m_fMaxSpeed;
+	float m_fDefaultMaxSpeed;
+    float m_fMaxSpeed;
 	float m_fAccelerationX;
+    float m_fGravity;
     int m_iNumJumps;
     int m_iBoostVelocity;
     bool m_isLanding;
-    bool m_isSpinningBackFistDelivered;
-    bool m_isBurrowEffective;
     bool m_isRightFoot;
-    
-    void jump();
+    bool m_isAllowedToMove;
     
     void setState(JonState state);
     
@@ -108,6 +123,59 @@ private:
     void setState(JonActionState state);
     
     void setState(JonAbilityState state);
+    
+    class Rabbit : public JonFormState
+    {
+    public:
+        static Rabbit* getInstance();
+        
+        virtual void enter(Jon* jon);
+        virtual void execute(Jon* jon);
+        virtual void exit(Jon* jon);
+        
+        virtual void triggerTransform(Jon* jon);
+        
+        virtual void triggerJump(Jon* jon);
+        virtual void triggerLeftAction(Jon* jon);
+        virtual void triggerRightAction(Jon* jon);
+        virtual void triggerUpAction(Jon* jon);
+        virtual void triggerDownAction(Jon* jon);
+        
+    private:
+        bool m_isSpinningBackFistDelivered;
+        bool m_isBurrowEffective;
+        
+        // ctor, copy ctor, and assignment should be private in a Singleton
+        Rabbit();
+        Rabbit(const Rabbit&);
+        Rabbit& operator=(const Rabbit&);
+    };
+    
+    class Vampire : public JonFormState
+    {
+    public:
+        static Vampire* getInstance();
+        
+        virtual void enter(Jon* jon);
+        virtual void execute(Jon* jon);
+        virtual void exit(Jon* jon);
+        
+        virtual void triggerTransform(Jon* jon);
+        
+        virtual void triggerJump(Jon* jon);
+        virtual void triggerLeftAction(Jon* jon);
+        virtual void triggerRightAction(Jon* jon);
+        virtual void triggerUpAction(Jon* jon);
+        virtual void triggerDownAction(Jon* jon);
+        
+    private:
+        bool m_isFallingAfterGlide;
+        
+        // ctor, copy ctor, and assignment should be private in a Singleton
+        Vampire();
+        Vampire(const Vampire&);
+        Vampire& operator=(const Vampire&);
+    };
 };
 
 #endif /* defined(__nosfuratu__Jon__) */

@@ -40,10 +40,12 @@ public:
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Vector2D> m_touchPointDown2;
     float m_fDeltaTime;
+    float m_fScreenHeldTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
     int m_iNumFramesToDiscard;
     bool m_isPaused;
+    bool m_isScreenHeldDown;
     
 	GameScreen(bool isLevelEditor = false);
     

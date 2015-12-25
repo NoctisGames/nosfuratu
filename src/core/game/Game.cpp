@@ -64,6 +64,8 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
     copyPhysicalEntities(game->getJons(), m_jons);
     
+    setGameToJons(m_jons, this);
+    
     m_iNumTotalCarrots = (int) m_carrots.size();
     m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
     
@@ -97,6 +99,8 @@ void Game::load(const char* json)
     loadArray(m_carrots, d, carrotsKey);
     loadArray(m_goldenCarrots, d, goldenCarrotsKey);
     loadArray(m_jons, d, jonsKey);
+    
+    setGameToJons(m_jons, this);
     
     m_iNumTotalCarrots = (int) m_carrots.size();
     m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
@@ -171,13 +175,13 @@ void Game::reset()
     m_isLoaded = false;
 }
 
-void Game::updateAndClean(float deltaTime, bool isJonAllowedToMove)
+void Game::updateAndClean(float deltaTime)
 {
     m_fStateTime += deltaTime;
     
     if (getJons().size() > 0)
     {
-        getJon().update(deltaTime, *this, isJonAllowedToMove);
+        getJon().update(deltaTime);
     }
     
     EntityUtils::clean(getJons());
@@ -453,4 +457,12 @@ bool Game::isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::uni
     }
     
     return false;
+}
+
+void Game::setGameToJons(std::vector<std::unique_ptr<Jon>>& jons, Game* game)
+{
+    for (std::vector<std::unique_ptr<Jon>>::iterator i = jons.begin(); i != jons.end(); i++)
+    {
+        (*i)->setGame(game);
+    }
 }

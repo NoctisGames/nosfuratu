@@ -230,8 +230,9 @@ static bool isRunningiOS8 = false;
         case MUSIC_PLAY_DEMO:
             // start background music
             [self initSoundEngine];
+            self.soundMgr.backgroundMusicVolume = 0.5f;
+            self.soundMgr.soundEffectsVolume = 1;
             [self.soundMgr playBackgroundMusic:@"bgm.wav"]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
-            self.soundMgr.backgroundMusicVolume = 0.1;
             break;
         default:
             break;

@@ -57,24 +57,24 @@ TextureRegion& Assets::get(Ground& ground)
 {
     static TextureRegion tr1 = TextureRegion(1, 0, 2000, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr2 = TextureRegion(144, 235, 1000, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr3 = TextureRegion(1337, 235, 500, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr3 = TextureRegion(1144, 235, 500, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr4 = TextureRegion(0, 235, 144, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr5 = TextureRegion(1144, 235, 134, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr5 = TextureRegion(1644, 235, 134, 218, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr6 = TextureRegion(1, 0, 2000, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr7 = TextureRegion(125, 875, 1000, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr8 = TextureRegion(1337, 875, 500, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr8 = TextureRegion(1125, 875, 500, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr9 = TextureRegion(0, 875, 124, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr10 = TextureRegion(1125, 875, 137, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr10 = TextureRegion(1625, 875, 137, 851, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr11 = TextureRegion(1, 1084, 2000, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr12 = TextureRegion(128, 1484, 1000, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr13 = TextureRegion(1337, 1484, 500, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr13 = TextureRegion(1128, 1484, 500, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr14 = TextureRegion(0, 1484, 128, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr15 = TextureRegion(1128, 1484, 128, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr15 = TextureRegion(1628, 1484, 128, 375, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr16 = TextureRegion(1, 0, 2000, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr17 = TextureRegion(183, 536, 1000, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr18 = TextureRegion(1337, 536, 500, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr18 = TextureRegion(1183, 536, 500, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     static TextureRegion tr19 = TextureRegion(0, 536, 183, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion tr20 = TextureRegion(1183, 536, 183, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr20 = TextureRegion(1683, 536, 183, 528, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     switch (ground.getEnumType())
     {
@@ -159,14 +159,16 @@ TextureRegion& Assets::get(CaveExitCover& caveExit)
 
 TextureRegion& Assets::get(LogVerticalTall& logVerticalTall)
 {
-    static TextureRegion tr = TextureRegion(149, 1871, 136, 176, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
+    static Animation anim = Animation(0, 1172, 258, 256, 1548, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 6);
+    
+    return anim.getTextureRegion(logVerticalTall.getStateTime());
 }
 
 TextureRegion& Assets::get(LogVerticalShort& logVerticalShort)
 {
-    static TextureRegion tr = TextureRegion(6, 1930, 127, 99, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
+    static Animation anim = Animation(0, 1470, 305, 112, 1830, 224, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 7);
+    
+    return anim.getTextureRegion(logVerticalShort.getStateTime());
 }
 
 TextureRegion& Assets::get(Thorns& thorns)
@@ -298,97 +300,187 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 
 TextureRegion& Assets::get(Jon& jon)
 {
-    static Animation jonPushedBackAnim = Animation(512, 1024, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 6);
-    static Animation jonIdleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
-    static Animation jonRunningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
-    static Animation jonJumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 7);
-    static Animation jonDoubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.07f, 9);
-    static Animation jonFallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
-    static Animation jonLandingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 4);
-    static Animation jonSpinningBackFistAnimation = Animation(0, 0, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
-    static Animation jonBurrowAnimation = Animation(0, 256, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 5, 1);
-    
-    switch (jon.getAbilityState())
+    if (jon.isVampire())
     {
-        case ABILITY_SPINNING_BACK_FIST:
-            return jonSpinningBackFistAnimation.getTextureRegion(jon.getAbilityStateTime());
-        case ABILITY_BURROW:
-            return jonBurrowAnimation.getTextureRegion(jon.getAbilityStateTime());
-        case ABILITY_NONE:
-        default:
-            break;
-    }
-    
-    switch (jon.getActionState())
-    {
-        case ACTION_JUMPING:
-            return jonJumpingAnim.getTextureRegion(jon.getActionStateTime());
-        case ACTION_DOUBLE_JUMPING:
-            return jonDoubleJumpingAnim.getTextureRegion(jon.getActionStateTime());
-        case ACTION_NONE:
-        default:
-            break;
-    }
-    
-    if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
-    {
-        if (jon.isLanding())
-        {
-            return jonLandingAnim.getTextureRegion(jon.getStateTime());
-        }
-    }
-    else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
-    {
-        if (jon.isFalling())
-        {
-            return jonFallingAnim.getTextureRegion(jon.getStateTime());
-        }
-    }
-    
-    if (jon.isMoving())
-    {
-        int keyFrameNumber = jonRunningAnim.getKeyFrameNumber(jon.getStateTime());
+        static Animation pushedBackAnim = Animation(256, 1024, 256, 256, 1792, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+        static Animation idleAnim = Animation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.125f, 8);
+        static Animation runningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
+        static Animation jumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
+        static Animation doubleJumpingAnim = Animation(0, 768, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 6);
+        static Animation glidingAnim = Animation(1536, 768, 256, 256, 512, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 2);
+        static Animation fallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
+        static Animation landingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.066f, 3);
         
-        if (keyFrameNumber == 1 && !jon.isRightFoot())
+        switch (jon.getAbilityState())
         {
-            jon.setRightFoot(true);
-            
-            if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+            case ABILITY_GLIDE:
+                return glidingAnim.getTextureRegion(jon.getAbilityStateTime());
+            case ABILITY_NONE:
+            default:
+                break;
+        }
+        
+        switch (jon.getActionState())
+        {
+            case ACTION_JUMPING:
+                return jumpingAnim.getTextureRegion(jon.getActionStateTime());
+            case ACTION_DOUBLE_JUMPING:
+                return doubleJumpingAnim.getTextureRegion(jon.getActionStateTime());
+            case ACTION_NONE:
+            default:
+                break;
+        }
+        
+        if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
+        {
+            if (jon.isLanding())
             {
-                getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
-            }
-            else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
-            {
-                getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
+                return landingAnim.getTextureRegion(jon.getStateTime());
             }
         }
-        else if (keyFrameNumber == 6 && jon.isRightFoot())
+        else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
         {
-            jon.setRightFoot(false);
-            
-            if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+            if (jon.isFalling())
             {
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
-            }
-            else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
-            {
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                return fallingAnim.getTextureRegion(jon.getStateTime());
             }
         }
         
-        return jonRunningAnim.getTextureRegion(keyFrameNumber);
+        if (jon.isMoving())
+        {
+            int keyFrameNumber = runningAnim.getKeyFrameNumber(jon.getStateTime());
+            
+            if (keyFrameNumber == 1 && !jon.isRightFoot())
+            {
+                jon.setRightFoot(true);
+                
+                if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+                {
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
+                }
+                else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+                {
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
+                }
+            }
+            else if (keyFrameNumber == 6 && jon.isRightFoot())
+            {
+                jon.setRightFoot(false);
+                
+                if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
+                }
+                else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+            }
+            
+            return runningAnim.getTextureRegion(keyFrameNumber);
+        }
+        else if (jon.isPushedBack())
+        {
+            return pushedBackAnim.getTextureRegion(jon.getStateTime());
+        }
+        
+        return idleAnim.getTextureRegion(jon.getStateTime());
     }
-    else if (jon.isPushedBack())
+    else
     {
-        return jonPushedBackAnim.getTextureRegion(jon.getStateTime());
+        static Animation warmUpAnim = Animation(0, 0, 256, 256, 2048, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 28);
+        static Animation pushedBackAnim = Animation(512, 1024, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.07f, 6);
+        static Animation idleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
+        static Animation runningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.07f, 10);
+        static Animation jumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 7);
+        static Animation doubleJumpingAnim = Animation(0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.07f, 9);
+        static Animation fallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
+        static Animation landingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 4);
+        static Animation spinningBackFistAnimation = Animation(0, 0, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+        static Animation burrowAnimation = Animation(0, 256, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 5, 1);
+        
+        switch (jon.getAbilityState())
+        {
+            case ABILITY_SPINNING_BACK_FIST:
+                return spinningBackFistAnimation.getTextureRegion(jon.getAbilityStateTime());
+            case ABILITY_BURROW:
+                return burrowAnimation.getTextureRegion(jon.getAbilityStateTime());
+            case ABILITY_NONE:
+            default:
+                break;
+        }
+        
+        switch (jon.getActionState())
+        {
+            case ACTION_JUMPING:
+                return jumpingAnim.getTextureRegion(jon.getActionStateTime());
+            case ACTION_DOUBLE_JUMPING:
+                return doubleJumpingAnim.getTextureRegion(jon.getActionStateTime());
+            case ACTION_NONE:
+            default:
+                break;
+        }
+        
+        if (jon.getPhysicalState() == PHYSICAL_GROUNDED)
+        {
+            if (jon.isLanding())
+            {
+                return landingAnim.getTextureRegion(jon.getStateTime());
+            }
+        }
+        else if (jon.getPhysicalState() == PHYSICAL_IN_AIR)
+        {
+            if (jon.isFalling())
+            {
+                return fallingAnim.getTextureRegion(jon.getStateTime());
+            }
+        }
+        
+        if (jon.isMoving())
+        {
+            int keyFrameNumber = runningAnim.getKeyFrameNumber(jon.getStateTime());
+            
+            if (keyFrameNumber == 1 && !jon.isRightFoot())
+            {
+                jon.setRightFoot(true);
+                
+                if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+                {
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
+                }
+                else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+                {
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
+                }
+            }
+            else if (keyFrameNumber == 6 && jon.isRightFoot())
+            {
+                jon.setRightFoot(false);
+                
+                if (jon.getGroundSoundType() == GROUND_SOUND_GRASS)
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
+                }
+                else if (jon.getGroundSoundType() == GROUND_SOUND_CAVE)
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+            }
+            
+            return runningAnim.getTextureRegion(keyFrameNumber);
+        }
+        else if (jon.isPushedBack())
+        {
+            return pushedBackAnim.getTextureRegion(jon.getStateTime());
+        }
+        
+        return warmUpAnim.getTextureRegion(jon.getStateTime());
     }
-    
-    return jonIdleAnim.getTextureRegion(jon.getStateTime());
 }
 
 TextureRegion& Assets::get(DustCloud& dustCloud)
 {
-    static Animation anim = Animation(0, 1643, 115, 60, 2048, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
+    static Animation anim = Animation(1100, 1643, 115, 60, 575, 60, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 5);
     
     return anim.getTextureRegion(dustCloud.getStateTime());
 }

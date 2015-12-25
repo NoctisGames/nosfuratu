@@ -60,7 +60,6 @@ private:
     float m_fStateTime;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
-    bool m_hasPlayerCompletedLevel;
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);

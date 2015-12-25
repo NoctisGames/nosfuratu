@@ -130,6 +130,13 @@ void Renderer::init(RendererType type)
                 m_areJonTexturesLoaded = true;
             }
             
+            if (!m_areJonPosesTexturesLoaded)
+            {
+                m_jon_poses = std::unique_ptr<TextureWrapper>(loadTexture("jon_poses"));
+                
+                m_areJonPosesTexturesLoaded = true;
+            }
+            
             if (!m_areWorld1TexturesLoaded)
             {
                 m_world_1_background = std::unique_ptr<TextureWrapper>(loadTexture("world_1_background", 1));
@@ -156,13 +163,6 @@ void Renderer::init(RendererType type)
     switch (type)
     {
         case RENDERER_TYPE_WORLD_1:
-            if (!m_areJonPosesTexturesLoaded)
-            {
-                m_jon_poses = std::unique_ptr<TextureWrapper>(loadTexture("jon_poses"));
-                
-                m_areJonPosesTexturesLoaded = true;
-            }
-            
             if (!m_areVampireAndAbilityTexturesLoaded)
             {
                 m_jon_ability = std::unique_ptr<TextureWrapper>(loadTexture("jon_ability"));
@@ -580,7 +580,9 @@ void Renderer::renderWorld(Game& game)
     {
         renderPhysicalEntitiesWithColor((*i)->getDustClouds());
     }
-    m_spriteBatcher->endBatch(*m_world_1_objects);
+    Jon& jon = game.getJon();
+    bool isVampire = jon.isVampire();
+    m_spriteBatcher->endBatch(isVampire ? *m_vampire : *m_jon);
 }
 
 void Renderer::renderJon(Game& game)
@@ -589,16 +591,24 @@ void Renderer::renderJon(Game& game)
     
     if (game.getJons().size() > 0)
     {
+        Jon& jon = game.getJon();
+        bool isVampire = jon.isVampire();
+        bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
+        
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getJons());
-        if (game.getJon().getState() == JON_DYING_FADING)
+        if (jon.getState() == JON_DYING_FADING)
         {
             m_sinWaveTextureProgram->setOffset(game.getStateTime());
-            m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability, *m_sinWaveTextureProgram);
+            m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon, *m_sinWaveTextureProgram);
+        }
+        else if (jon.isAllowedToMove() || jon.isFalling())
+        {
+            m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon);
         }
         else
         {
-            m_spriteBatcher->endBatch(game.getJon().getAbilityState() == ABILITY_NONE ? *m_jon : *m_jon_ability);
+            m_spriteBatcher->endBatch(*m_jon_poses);
         }
     }
 }
