@@ -31,7 +31,7 @@ BackgroundCave::BackgroundCave(float x, float y, float width, float height) : Ph
 
 void BackgroundCave::update(Vector2D& cameraPosition)
 {
-    m_fX = cameraPosition.getX() * 24 + m_fXOffset;
+    m_fX = cameraPosition.getX() * 32 + m_fXOffset;
     
     if (m_fX > TEXTURE_SIZE_2048)
     {

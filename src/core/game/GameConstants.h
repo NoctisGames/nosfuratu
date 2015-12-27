@@ -32,6 +32,8 @@
 #define SOUND_FOOTSTEP_LEFT_CAVE 6
 #define SOUND_FOOTSTEP_RIGHT_CAVE 7
 #define SOUND_JUMP_SPRING 8
+#define SOUND_LANDING_GRASS 9
+#define SOUND_LANDING_CAVE 10
 
 //// Render Definitions ////
 

@@ -27,7 +27,9 @@ enum GameSoundIds {
     FOOTSTEP_RIGHT_GRASS,
     FOOTSTEP_LEFT_CAVE,
     FOOTSTEP_RIGHT_CAVE,
-    JUMP_SPRING
+    JUMP_SPRING,
+    LANDING_GRASS,
+    LANDING_CAVE
 };
 
 @interface GameViewController ()
@@ -210,6 +212,12 @@ static bool isRunningiOS8 = false;
             case SOUND_JUMP_SPRING:
                 [self.soundMgr playSoundWithID:JUMP_SPRING];
                 break;
+            case SOUND_LANDING_GRASS:
+                [self.soundMgr playSoundWithID:LANDING_GRASS];
+                break;
+            case SOUND_LANDING_CAVE:
+                [self.soundMgr playSoundWithID:LANDING_CAVE];
+                break;
             default:
                 continue;
         }
@@ -336,7 +344,7 @@ static bool isRunningiOS8 = false;
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", nil];
 }
 
 @end

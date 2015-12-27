@@ -300,6 +300,19 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 
 TextureRegion& Assets::get(Jon& jon)
 {
+    static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 256 * 3, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 19);
+    
+    if (jon.isTransformingIntoVampire())
+    {
+        return transformingIntoVampire.getTextureRegion(jon.getTransformStateTime());
+    }
+    else if (jon.isRevertingToRabbit())
+    {
+        static Animation idleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
+        
+        return idleAnim.getTextureRegion(jon.getTransformStateTime());
+    }
+    
     if (jon.isVampire())
     {
         static Animation pushedBackAnim = Animation(256, 1024, 256, 256, 1792, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);

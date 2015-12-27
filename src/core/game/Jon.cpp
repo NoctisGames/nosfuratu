@@ -12,7 +12,6 @@
 #include "GameConstants.h"
 #include "OverlapTester.h"
 #include "Assets.h"
-#include "JonTransformStates.h"
 
 #include <math.h>
 
@@ -99,11 +98,11 @@ void Jon::update(float deltaTime)
             
             if (m_groundSoundType == GROUND_SOUND_GRASS)
             {
-                Assets::getInstance()->addSoundIdToPlayQueue(m_isRightFoot ? SOUND_FOOTSTEP_RIGHT_GRASS : SOUND_FOOTSTEP_LEFT_GRASS);
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LANDING_GRASS);
             }
             else if (m_groundSoundType == GROUND_SOUND_CAVE)
             {
-                Assets::getInstance()->addSoundIdToPlayQueue(m_isRightFoot ? SOUND_FOOTSTEP_RIGHT_CAVE : SOUND_FOOTSTEP_LEFT_CAVE);
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LANDING_CAVE);
             }
         }
         
@@ -263,6 +262,11 @@ float Jon::getAbilityStateTime()
     return m_fAbilityStateTime;
 }
 
+float Jon::getTransformStateTime()
+{
+    return m_fTransformStateTime;
+}
+
 bool Jon::isMoving()
 {
     return m_velocity->getX() > 0;
@@ -323,6 +327,16 @@ bool Jon::isVampire()
     return m_formStateMachine->isInState(*Jon::Vampire::getInstance());
 }
 
+bool Jon::isTransformingIntoVampire()
+{
+    return m_formStateMachine->isInState(*Jon::RabbitToVampire::getInstance());
+}
+
+bool Jon::isRevertingToRabbit()
+{
+    return m_formStateMachine->isInState(*Jon::VampireToRabbit::getInstance());
+}
+
 void Jon::setAllowedToMove(bool isAllowedToMove)
 {
     m_isAllowedToMove = isAllowedToMove;
@@ -380,6 +394,7 @@ void Jon::Rabbit::enter(Jon* jon)
     jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
     jon->m_fGravity = RABBIT_GRAVITY;
+    jon->m_acceleration->setY(RABBIT_GRAVITY);
     
     m_isSpinningBackFistDelivered = false;
     m_isBurrowEffective = false;
@@ -443,7 +458,7 @@ void Jon::Rabbit::exit(Jon* jon)
 
 void Jon::Rabbit::triggerTransform(Jon* jon)
 {
-//    jon->m_formStateMachine->changeState(RabbitToVampire::getInstance());
+    jon->m_formStateMachine->changeState(Jon::RabbitToVampire::getInstance());
 }
 
 void Jon::Rabbit::triggerJump(Jon* jon)
@@ -520,6 +535,7 @@ void Jon::Vampire::enter(Jon* jon)
     jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
     jon->m_fGravity = VAMP_GRAVITY;
+    jon->m_acceleration->setY(VAMP_GRAVITY);
 }
 
 void Jon::Vampire::execute(Jon* jon)
@@ -567,7 +583,7 @@ void Jon::Vampire::exit(Jon* jon)
 
 void Jon::Vampire::triggerTransform(Jon* jon)
 {
-//    jon->m_formStateMachine->changeState(VampireToRabbit::getInstance());
+    jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
 }
 
 void Jon::Vampire::triggerJump(Jon* jon)
@@ -623,4 +639,76 @@ void Jon::Vampire::triggerDownAction(Jon* jon)
 Jon::Vampire::Vampire() : JonFormState(), m_isFallingAfterGlide(false)
 {
     // Empty
+}
+
+/// Transform to Vampire ///
+
+Jon::RabbitToVampire * Jon::RabbitToVampire::getInstance()
+{
+    static RabbitToVampire *instance = new RabbitToVampire();
+    
+    return instance;
+}
+
+void Jon::RabbitToVampire::enter(Jon* jon)
+{
+    jon->m_fTransformStateTime = 0;
+    jon->m_fMaxSpeed = 0;
+    jon->m_fDefaultMaxSpeed = 0;
+    jon->m_fGravity = 0;
+    jon->m_acceleration->setY(0);
+    jon->m_velocity->setY(0);
+}
+
+void Jon::RabbitToVampire::execute(Jon* jon)
+{
+    jon->m_fTransformStateTime += jon->m_fDeltaTime;
+    
+    if (jon->m_fTransformStateTime > 0.95f)
+    {
+        jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
+    }
+}
+
+void Jon::RabbitToVampire::exit(Jon* jon)
+{
+    // TODO
+}
+
+/// Transform to Rabbit ///
+
+Jon::VampireToRabbit * Jon::VampireToRabbit::getInstance()
+{
+    static VampireToRabbit *instance = new VampireToRabbit();
+    
+    return instance;
+}
+
+void Jon::VampireToRabbit::enter(Jon* jon)
+{
+    jon->m_fTransformStateTime = 0;
+    jon->m_fMaxSpeed = 0;
+    jon->m_fDefaultMaxSpeed = 0;
+    jon->m_fGravity = 0;
+    jon->m_acceleration->setY(0);
+    jon->m_velocity->setY(0);
+}
+
+void Jon::VampireToRabbit::execute(Jon* jon)
+{
+    jon->m_fTransformStateTime += jon->m_fDeltaTime;
+    
+    jon->m_color.green = 1 - jon->m_fTransformStateTime;
+    jon->m_color.blue = 1 - jon->m_fTransformStateTime;
+    
+    if (jon->m_fTransformStateTime > 0.95f)
+    {
+        jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
+    }
+}
+
+void Jon::VampireToRabbit::exit(Jon* jon)
+{
+    jon->m_color.green = 1;
+    jon->m_color.blue = 1;
 }

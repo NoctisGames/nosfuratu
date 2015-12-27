@@ -592,6 +592,7 @@ void Renderer::renderJon(Game& game)
     if (game.getJons().size() > 0)
     {
         Jon& jon = game.getJon();
+        bool isTransformingIntoVampire = jon.isTransformingIntoVampire();
         bool isVampire = jon.isVampire();
         bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
         
@@ -602,7 +603,11 @@ void Renderer::renderJon(Game& game)
             m_sinWaveTextureProgram->setOffset(game.getStateTime());
             m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon, *m_sinWaveTextureProgram);
         }
-        else if (jon.isAllowedToMove() || jon.isFalling())
+        else if (isTransformingIntoVampire)
+        {
+            m_spriteBatcher->endBatch(*m_vampire_transform);
+        }
+        else if (jon.isAllowedToMove() || jon.isFalling() || jon.isLanding())
         {
             m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon);
         }

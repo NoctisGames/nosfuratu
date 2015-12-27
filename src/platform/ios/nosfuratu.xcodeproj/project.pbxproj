@@ -36,8 +36,10 @@
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
-		BB156E081C2DD21C001EA9DA /* JonTransformStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB156E071C2DD21C001EA9DA /* JonTransformStates.cpp */; };
-		BB156E091C2DD21C001EA9DA /* JonTransformStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB156E071C2DD21C001EA9DA /* JonTransformStates.cpp */; };
+		BB17E7591C2E16A500C56A36 /* landing_cave.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB17E7571C2E16A500C56A36 /* landing_cave.wav */; };
+		BB17E75A1C2E16A500C56A36 /* landing_cave.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB17E7571C2E16A500C56A36 /* landing_cave.wav */; };
+		BB17E75B1C2E16A500C56A36 /* landing_grass.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB17E7581C2E16A500C56A36 /* landing_grass.wav */; };
+		BB17E75C1C2E16A500C56A36 /* landing_grass.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB17E7581C2E16A500C56A36 /* landing_grass.wav */; };
 		BB19BDC01BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */; };
 		BB254B611BA49CCB00851994 /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB254B5F1BA49CCB00851994 /* Tree.cpp */; };
 		BB3D5EF71C1A40EC00DD0549 /* world_1_enemies.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3D5EF51C1A40EC00DD0549 /* world_1_enemies.png */; };
@@ -348,8 +350,8 @@
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BB156E051C2DA716001EA9DA /* JonFormState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonFormState.h; sourceTree = "<group>"; };
-		BB156E061C2DA7AA001EA9DA /* JonTransformStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonTransformStates.h; sourceTree = "<group>"; };
-		BB156E071C2DD21C001EA9DA /* JonTransformStates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JonTransformStates.cpp; sourceTree = "<group>"; };
+		BB17E7571C2E16A500C56A36 /* landing_cave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = landing_cave.wav; path = ../../../../assets/sounds/landing_cave.wav; sourceTree = "<group>"; };
+		BB17E7581C2E16A500C56A36 /* landing_grass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = landing_grass.wav; path = ../../../../assets/sounds/landing_grass.wav; sourceTree = "<group>"; };
 		BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonActionState.h; sourceTree = "<group>"; };
 		BB19BDBD1BB9C9F400FA29E8 /* JonAbilityState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonAbilityState.h; sourceTree = "<group>"; };
 		BB19BDBE1BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DestructiblePhysicalEntity.cpp; sourceTree = "<group>"; };
@@ -860,6 +862,8 @@
 				BB3F05591C24681C001EEE20 /* jon_poses.png */,
 				BB66EBD91C0E4F7E006DE4F5 /* jon.png */,
 				BB900C421C25303F001DA002 /* jump_spring.wav */,
+				BB17E7571C2E16A500C56A36 /* landing_cave.wav */,
+				BB17E7581C2E16A500C56A36 /* landing_grass.wav */,
 				BB66EBDA1C0E4F7E006DE4F5 /* level_editor.png */,
 				BB66EBDB1C0E4F7E006DE4F5 /* title_font.png */,
 				BB66EBDC1C0E4F7E006DE4F5 /* vampire_transform.png */,
@@ -1189,8 +1193,6 @@
 				BBBDCF8E1BD6E2A200605805 /* HoleCover.h */,
 				BB3D8CF11B98CDBF009D58DE /* Jon.cpp */,
 				BB3D8CF21B98CDBF009D58DE /* Jon.h */,
-				BB156E071C2DD21C001EA9DA /* JonTransformStates.cpp */,
-				BB156E061C2DA7AA001EA9DA /* JonTransformStates.h */,
 				BB19BDBD1BB9C9F400FA29E8 /* JonAbilityState.h */,
 				BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */,
 				BB156E051C2DA716001EA9DA /* JonFormState.h */,
@@ -1379,6 +1381,7 @@
 				BB66EBF31C0E4F7E006DE4F5 /* world_1_ground_w_cave.png in Resources */,
 				BB66EBED1C0E4F7E006DE4F5 /* vampire.png in Resources */,
 				BB66EBF11C0E4F7E006DE4F5 /* world_1_cave.png in Resources */,
+				BB17E7591C2E16A500C56A36 /* landing_cave.wav in Resources */,
 				BB66EBE31C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
 				BB66EBEB1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
@@ -1392,6 +1395,7 @@
 				BB66EBF71C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB66EBFF1C0E4F93006DE4F5 /* collect_carrot.wav in Resources */,
+				BB17E75B1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055A1C24681C001EEE20 /* jon_poses.png in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BB900C451C25303F001DA002 /* footstep_left_grass.wav in Resources */,
@@ -1421,6 +1425,7 @@
 				BB66EBF41C0E4F7E006DE4F5 /* world_1_ground_w_cave.png in Resources */,
 				BB66EBEE1C0E4F7E006DE4F5 /* vampire.png in Resources */,
 				BB66EBF21C0E4F7E006DE4F5 /* world_1_cave.png in Resources */,
+				BB17E75A1C2E16A500C56A36 /* landing_cave.wav in Resources */,
 				BB66EBE41C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BB4237B21BBDB6AB005D9B44 /* texture_shader.fsh in Resources */,
 				BB66EBEC1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
@@ -1434,6 +1439,7 @@
 				BB66EBF81C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
 				BB4237B61BBDB6AB005D9B44 /* Images.xcassets in Resources */,
 				BB66EC001C0E4F93006DE4F5 /* collect_carrot.wav in Resources */,
+				BB17E75C1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055B1C24681C001EEE20 /* jon_poses.png in Resources */,
 				BB4237B71BBDB6AB005D9B44 /* color_shader.fsh in Resources */,
 				BB900C461C25303F001DA002 /* footstep_left_grass.wav in Resources */,
@@ -1549,7 +1555,6 @@
 				0A8FBF86179E07320039BA29 /* pngtrans.c in Sources */,
 				BBEA16A01B97B9BB009B4711 /* platform_file_utils.c in Sources */,
 				BB8900CF1BB20E0E00963083 /* EndSign.cpp in Sources */,
-				BB156E081C2DD21C001EA9DA /* JonTransformStates.cpp in Sources */,
 				0A8FBF87179E07320039BA29 /* pngwio.c in Sources */,
 				BB8900C51BB1D4AF00963083 /* BackgroundCave.cpp in Sources */,
 				BBEA16A61B97B9BB009B4711 /* TextureProgram.cpp in Sources */,
@@ -1660,7 +1665,6 @@
 				BB4237901BBDB6AB005D9B44 /* pngtrans.c in Sources */,
 				BB4237911BBDB6AB005D9B44 /* platform_file_utils.c in Sources */,
 				BB4237921BBDB6AB005D9B44 /* EndSign.cpp in Sources */,
-				BB156E091C2DD21C001EA9DA /* JonTransformStates.cpp in Sources */,
 				BB4237931BBDB6AB005D9B44 /* pngwio.c in Sources */,
 				BB4237941BBDB6AB005D9B44 /* BackgroundCave.cpp in Sources */,
 				BB4237951BBDB6AB005D9B44 /* TextureProgram.cpp in Sources */,

@@ -38,6 +38,8 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_FOOTSTEP_LEFT_CAVE = 6;
     private static final short SOUND_FOOTSTEP_RIGHT_CAVE = 7;
     private static final short SOUND_JUMP_SPRING = 8;
+    private static final short SOUND_LANDING_GRASS = 9;
+    private static final short SOUND_LANDING_CAVE = 10;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -51,6 +53,8 @@ public final class GameRenderer implements Renderer
     private Sound _footstepLeftCaveSound;
     private Sound _footstepRightCaveSound;
     private Sound _jumpSpringSound;
+    private Sound _landingGrassSound;
+    private Sound _landingCaveSound;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -68,6 +72,8 @@ public final class GameRenderer implements Renderer
         _footstepLeftCaveSound = _audio.newSound("footstep_left_cave.wav");
         _footstepRightCaveSound = _audio.newSound("footstep_right_cave.wav");
         _jumpSpringSound = _audio.newSound("jump_spring.wav");
+        _landingGrassSound = _audio.newSound("landing_grass.wav");
+        _landingCaveSound = _audio.newSound("landing_cave.wav");
 
         _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
@@ -200,6 +206,12 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_JUMP_SPRING:
                     _jumpSpringSound.play(1);
+                    break;
+                case SOUND_LANDING_GRASS:
+                    _landingGrassSound.play(1);
+                    break;
+                case SOUND_LANDING_CAVE:
+                    _landingCaveSound.play(1);
                     break;
                 default:
                     break;

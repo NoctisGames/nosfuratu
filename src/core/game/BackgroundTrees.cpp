@@ -27,7 +27,7 @@ BackgroundTrees::BackgroundTrees(float x, float y, float width, float height) : 
 
 void BackgroundTrees::update(Vector2D& cameraPosition)
 {
-    m_fX = cameraPosition.getX() * 12 + m_fXOffset;
+    m_fX = cameraPosition.getX() * 18 + m_fXOffset;
     
     if (m_fX > TEXTURE_SIZE_2048)
     {
