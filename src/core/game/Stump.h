@@ -21,6 +21,8 @@ public:
     virtual void updateBounds();
     
     int getType();
+    
+    virtual GroundSoundType getGroundSoundType();
 };
 
 #endif /* defined(__nosfuratu__Stump__) */

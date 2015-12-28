@@ -33,3 +33,8 @@ int Stump::getType()
 {
     return -1;
 }
+
+GroundSoundType Stump::getGroundSoundType()
+{
+    return GROUND_SOUND_GRASS;
+}

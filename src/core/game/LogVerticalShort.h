@@ -26,6 +26,8 @@ public:
     
     int getType();
     
+    virtual GroundSoundType getGroundSoundType();
+    
 private:
     bool m_isBlowingUp;
 };

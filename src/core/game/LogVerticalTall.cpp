@@ -62,3 +62,8 @@ int LogVerticalTall::getType()
 {
     return -1;
 }
+
+GroundSoundType LogVerticalTall::getGroundSoundType()
+{
+    return GROUND_SOUND_GRASS;
+}

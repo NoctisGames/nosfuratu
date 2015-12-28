@@ -44,6 +44,8 @@ public:
     
     int getType();
     
+    virtual GroundSoundType getGroundSoundType();
+    
 private:
     RockType m_type;
     Color m_color;

@@ -98,3 +98,8 @@ int Rock::getType()
 {
     return m_type;
 }
+
+GroundSoundType Rock::getGroundSoundType()
+{
+    return GROUND_SOUND_CAVE;
+}
