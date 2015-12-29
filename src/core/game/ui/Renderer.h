@@ -25,6 +25,7 @@ class Game;
 class Jon;
 class GpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
+class SnakeDeathTextureGpuProgramWrapper;
 class Vector2D;
 class BackButton;
 class LevelEditorActionsPanel;
@@ -104,6 +105,7 @@ protected:
     std::unique_ptr<TextureWrapper> m_framebuffer;
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
+    std::unique_ptr<SnakeDeathTextureGpuProgramWrapper> m_snakeDeathTextureProgram;
     
     virtual TextureWrapper* loadTexture(const char* textureName, int repeatS = 0) = 0;
     

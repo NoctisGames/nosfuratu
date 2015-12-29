@@ -264,6 +264,14 @@
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
+		BBE1871F1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */; };
+		BBE187201C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */; };
+		BBE187231C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */; };
+		BBE187241C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */; };
+		BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE187251C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp */; };
+		BBE187281C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE187251C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp */; };
+		BBE1872A1C3235D000AC3FAE /* snake_death_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBE187291C3235D000AC3FAE /* snake_death_texture_shader.fsh */; };
+		BBE1872B1C3235D000AC3FAE /* snake_death_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBE187291C3235D000AC3FAE /* snake_death_texture_shader.fsh */; };
 		BBE4E1DC1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */; };
 		BBE4E1DD1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */; };
 		BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; };
@@ -530,6 +538,16 @@
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
 		BBE012691B9E545900D983B0 /* GroundPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundPlatform.h; sourceTree = "<group>"; };
+		BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeDeathTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBE1871E1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeDeathTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeDeathTextureProgram.cpp; sourceTree = "<group>"; };
+		BBE187221C3234B300AC3FAE /* SnakeDeathTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeDeathTextureProgram.h; sourceTree = "<group>"; };
+		BBE187251C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBE187261C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESSnakeDeathTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBE187291C3235D000AC3FAE /* snake_death_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = snake_death_texture_shader.fsh; sourceTree = "<group>"; };
+		BBE1872C1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSinWaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBE1872D1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSinWaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBE1872E1C323D9700AC3FAE /* SinWaveTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SinWaveTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeEnemy.cpp; sourceTree = "<group>"; };
 		BBE4E1DB1C30B5C500919BAA /* SnakeEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeEnemy.h; sourceTree = "<group>"; };
 		BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelectorPanel.cpp; sourceTree = "<group>"; };
@@ -1273,6 +1291,8 @@
 				BBE68AB91BBEF85300C56FEA /* RendererType.h */,
 				BB8E5E4E1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp */,
 				BB8E5E4F1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.h */,
+				BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */,
+				BBE1871E1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.h */,
 				BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */,
 				BBC7B87E1BC32E0300140BCA /* TrashCan.h */,
 			);
@@ -1286,6 +1306,9 @@
 				BBEA16591B97B9BB009B4711 /* Direct3DGameScreen.h */,
 				BBEA165A1B97B9BB009B4711 /* Direct3DRenderer.cpp */,
 				BBEA165B1B97B9BB009B4711 /* Direct3DRenderer.h */,
+				BBE1872C1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.cpp */,
+				BBE1872D1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.h */,
+				BBE1872E1C323D9700AC3FAE /* SinWaveTexturePixelShader.hlsl */,
 			);
 			path = direct3d;
 			sourceTree = "<group>";
@@ -1301,9 +1324,14 @@
 				BBEA166A1B97B9BB009B4711 /* OpenGLESRenderer.h */,
 				BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */,
 				BB8E5E4B1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.h */,
+				BBE187251C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp */,
+				BBE187261C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.h */,
+				BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */,
 				BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */,
 				BB8E5E471BC439B400520DFB /* SinWaveTextureProgram.h */,
-				BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */,
+				BBE187291C3235D000AC3FAE /* snake_death_texture_shader.fsh */,
+				BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */,
+				BBE187221C3234B300AC3FAE /* SnakeDeathTextureProgram.h */,
 			);
 			path = opengles;
 			sourceTree = "<group>";
@@ -1424,6 +1452,7 @@
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BB900C451C25303F001DA002 /* footstep_left_grass.wav in Resources */,
 				BB74E80718C2541F007C223E /* Localizable.strings in Resources */,
+				BBE1872A1C3235D000AC3FAE /* snake_death_texture_shader.fsh in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
 				BB66EC031C0E4F93006DE4F5 /* death.wav in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -1468,6 +1497,7 @@
 				BB4237B71BBDB6AB005D9B44 /* color_shader.fsh in Resources */,
 				BB900C461C25303F001DA002 /* footstep_left_grass.wav in Resources */,
 				BB4237B81BBDB6AB005D9B44 /* Localizable.strings in Resources */,
+				BBE1872B1C3235D000AC3FAE /* snake_death_texture_shader.fsh in Resources */,
 				BB4237B91BBDB6AB005D9B44 /* color_shader.vsh in Resources */,
 				BB66EC041C0E4F93006DE4F5 /* death.wav in Resources */,
 				BB4237BA1BBDB6AB005D9B44 /* MainStoryboard_iPhone.storyboard in Resources */,
@@ -1494,6 +1524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBEA16911B97B9BB009B4711 /* Font.cpp in Sources */,
+				BBE1871F1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BBEA16941B97B9BB009B4711 /* asset_utils.c in Sources */,
 				BB5C577B19B9F87700AD76E7 /* GameViewController.mm in Sources */,
 				BBEA16821B97B9BB009B4711 /* CircleBatcher.cpp in Sources */,
@@ -1535,6 +1566,7 @@
 				BBEA166F1B97B9BB009B4711 /* EntityManager.cpp in Sources */,
 				BB5C7AF11BB2297D0049DFDF /* LogVerticalTall.cpp in Sources */,
 				BB8900C61BB1D4AF00963083 /* BackgroundTrees.cpp in Sources */,
+				BBE187231C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */,
 				BBEA16AF1B97B9BB009B4711 /* GameScreen.cpp in Sources */,
 				BB8E5E501BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBF39E151BBC9FC800D1A072 /* GameScreenStates.cpp in Sources */,
@@ -1547,6 +1579,7 @@
 				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */,
+				BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */,
 				BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */,
 				BBD572151BBB3C2300870723 /* Rock.cpp in Sources */,
@@ -1608,6 +1641,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB42374A1BBDB6AB005D9B44 /* Font.cpp in Sources */,
+				BBE187201C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB42374B1BBDB6AB005D9B44 /* asset_utils.c in Sources */,
 				BB42374D1BBDB6AB005D9B44 /* GameViewController.mm in Sources */,
 				BB42374E1BBDB6AB005D9B44 /* CircleBatcher.cpp in Sources */,
@@ -1649,6 +1683,7 @@
 				BB4237691BBDB6AB005D9B44 /* EntityManager.cpp in Sources */,
 				BB42376A1BBDB6AB005D9B44 /* LogVerticalTall.cpp in Sources */,
 				BB42376B1BBDB6AB005D9B44 /* BackgroundTrees.cpp in Sources */,
+				BBE187241C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */,
 				BB42376C1BBDB6AB005D9B44 /* GameScreen.cpp in Sources */,
 				BB8E5E511BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB42376D1BBDB6AB005D9B44 /* GameScreenStates.cpp in Sources */,
@@ -1661,6 +1696,7 @@
 				BBE631791BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BB4237721BBDB6AB005D9B44 /* Stump.cpp in Sources */,
 				BB4237731BBDB6AB005D9B44 /* Carrot.cpp in Sources */,
+				BBE187281C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB4237741BBDB6AB005D9B44 /* FrameBufferToScreenProgram.cpp in Sources */,
 				BB4237751BBDB6AB005D9B44 /* GroundPlatform.cpp in Sources */,
 				BB4237761BBDB6AB005D9B44 /* Rock.cpp in Sources */,

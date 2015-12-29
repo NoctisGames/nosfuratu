@@ -34,6 +34,7 @@
 #include "LevelSelectorPanel.h"
 #include "GpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
+#include "SnakeDeathTextureGpuProgramWrapper.h"
 
 #include <math.h>
 #include <sstream>
@@ -573,10 +574,31 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntitiesWithColor(game.getRocks());
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntitiesWithColor(game.getSnakeGruntEnemies());
-    renderPhysicalEntitiesWithColor(game.getSnakeHornedEnemies());
+    for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
+    {
+        std::unique_ptr<SnakeGrunt>& upItem = *i;
+        SnakeGrunt* pItem = upItem.get();
+        SnakeGrunt& item = *pItem;
+        
+        m_spriteBatcher->beginBatch();
+        m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
+        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+        m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
+    }
     
+    for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
+    {
+        std::unique_ptr<SnakeHorned>& upItem = *i;
+        SnakeHorned* pItem = upItem.get();
+        SnakeHorned& item = *pItem;
+        
+        m_spriteBatcher->beginBatch();
+        m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
+        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+        m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
+    }
+    
+    m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
     {
         renderPhysicalEntities((*i)->getSnakeSpirits());
@@ -850,10 +872,31 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntitiesWithColor(leep.getRocks());
         m_spriteBatcher->endBatch(*m_world_1_objects);
         
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntitiesWithColor(leep.getSnakeGruntEnemies());
-        renderPhysicalEntitiesWithColor(leep.getSnakeHornedEnemies());
+        for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = leep.getSnakeGruntEnemies().begin(); i != leep.getSnakeGruntEnemies().end(); i++)
+        {
+            std::unique_ptr<SnakeGrunt>& upItem = *i;
+            SnakeGrunt* pItem = upItem.get();
+            SnakeGrunt& item = *pItem;
+            
+            m_spriteBatcher->beginBatch();
+            m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
+            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+            m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
+        }
         
+        for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = leep.getSnakeHornedEnemies().begin(); i != leep.getSnakeHornedEnemies().end(); i++)
+        {
+            std::unique_ptr<SnakeHorned>& upItem = *i;
+            SnakeHorned* pItem = upItem.get();
+            SnakeHorned& item = *pItem;
+            
+            m_spriteBatcher->beginBatch();
+            m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
+            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+            m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
+        }
+        
+        m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = leep.getSnakeGruntEnemies().begin(); i != leep.getSnakeGruntEnemies().end(); i++)
         {
             renderPhysicalEntities((*i)->getSnakeSpirits());
@@ -863,7 +906,6 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         {
             renderPhysicalEntities((*i)->getSnakeSpirits());
         }
-        
         m_spriteBatcher->endBatch(*m_world_1_enemies);
     }
     
