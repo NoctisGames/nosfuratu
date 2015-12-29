@@ -45,21 +45,9 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
 	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources));
 	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources, true));
-}
 
-void Direct3DRenderer::init(RendererType type)
-{
-	Renderer::init(type);
-
-	if (!m_sinWaveTextureProgram)
-	{
-		m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
-	}
-	
-	if (!m_snakeDeathTextureProgram)
-	{
-		m_snakeDeathTextureProgram = std::unique_ptr<Direct3DSnakeDeathTextureGpuProgramWrapper>(new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources));
-	}
+	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
+	m_snakeDeathTextureProgram = std::unique_ptr<Direct3DSnakeDeathTextureGpuProgramWrapper>(new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources));
 }
 
 bool Direct3DRenderer::isLoaded()
