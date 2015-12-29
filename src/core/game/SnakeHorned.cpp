@@ -55,7 +55,7 @@ void SnakeHorned::update(float deltaTime)
             m_fStateTime = 0;
         }
     }
-    else if (jon.getBounds().getRight() > getBounds().getLowerLeft().getX() - 1
+    else if (jon.getBounds().getRight() > getBounds().getLowerLeft().getX() - 2
         && jon.getBounds().getLowerLeft().getY() > getBounds().getTop())
     {
         m_isRising = true;

@@ -15,11 +15,13 @@
 class OpenGLESSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper
 {
 public:
-    OpenGLESSnakeDeathTextureGpuProgramWrapper(SnakeDeathTextureProgramStruct program);
+    OpenGLESSnakeDeathTextureGpuProgramWrapper();
     
     virtual void bind();
     
     virtual void unbind();
+    
+    virtual void cleanUp();
     
 private:
     SnakeDeathTextureProgramStruct m_program;

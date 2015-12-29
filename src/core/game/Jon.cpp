@@ -406,6 +406,7 @@ void Jon::Rabbit::enter(Jon* jon)
     jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
     jon->m_fGravity = RABBIT_GRAVITY;
     jon->m_acceleration->setY(RABBIT_GRAVITY);
+    jon->m_abilityState = ABILITY_NONE;
     
     m_isSpinningBackFistDelivered = false;
     m_isBurrowEffective = false;
@@ -547,6 +548,7 @@ void Jon::Vampire::enter(Jon* jon)
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
     jon->m_fGravity = VAMP_GRAVITY;
     jon->m_acceleration->setY(VAMP_GRAVITY);
+    jon->m_abilityState = ABILITY_NONE;
 }
 
 void Jon::Vampire::execute(Jon* jon)
@@ -664,18 +666,14 @@ Jon::RabbitToVampire * Jon::RabbitToVampire::getInstance()
 void Jon::RabbitToVampire::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
-    jon->m_fMaxSpeed = 0;
-    jon->m_fDefaultMaxSpeed = 0;
-    jon->m_fGravity = 0;
-    jon->m_acceleration->setY(0);
-    jon->m_velocity->setY(0);
+    jon->m_abilityState = ABILITY_NONE;
 }
 
 void Jon::RabbitToVampire::execute(Jon* jon)
 {
     jon->m_fTransformStateTime += jon->m_fDeltaTime;
     
-    if (jon->m_fTransformStateTime > 0.95f)
+    if (jon->m_fTransformStateTime > 0.565f)
     {
         jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
     }
@@ -698,11 +696,7 @@ Jon::VampireToRabbit * Jon::VampireToRabbit::getInstance()
 void Jon::VampireToRabbit::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
-    jon->m_fMaxSpeed = 0;
-    jon->m_fDefaultMaxSpeed = 0;
-    jon->m_fGravity = 0;
-    jon->m_acceleration->setY(0);
-    jon->m_velocity->setY(0);
+    jon->m_abilityState = ABILITY_NONE;
 }
 
 void Jon::VampireToRabbit::execute(Jon* jon)
@@ -712,7 +706,7 @@ void Jon::VampireToRabbit::execute(Jon* jon)
     jon->m_color.green = 1 - jon->m_fTransformStateTime;
     jon->m_color.blue = 1 - jon->m_fTransformStateTime;
     
-    if (jon->m_fTransformStateTime > 0.95f)
+    if (jon->m_fTransformStateTime > 0.565f)
     {
         jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
     }

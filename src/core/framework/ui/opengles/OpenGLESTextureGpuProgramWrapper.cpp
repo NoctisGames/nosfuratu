@@ -10,9 +10,15 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
-OpenGLESTextureGpuProgramWrapper::OpenGLESTextureGpuProgramWrapper(TextureProgramStruct program) : m_program(program)
+extern "C"
 {
-    // Empty
+#include "asset_utils.h"
+}
+
+OpenGLESTextureGpuProgramWrapper::OpenGLESTextureGpuProgramWrapper()
+{
+    m_program = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
+    m_isLoaded = true;
 }
 
 void OpenGLESTextureGpuProgramWrapper::bind()
@@ -42,4 +48,9 @@ void OpenGLESTextureGpuProgramWrapper::unbind()
     glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
     
     glUseProgram(0);
+}
+
+void OpenGLESTextureGpuProgramWrapper::cleanUp()
+{
+    glDeleteProgram(m_program.program);
 }

@@ -33,6 +33,9 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     m_boundsRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher());
     m_highlightRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher(true));
+    
+    m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper());
+    m_snakeDeathTextureProgram = std::unique_ptr<OpenGLESSnakeDeathTextureGpuProgramWrapper>(new OpenGLESSnakeDeathTextureGpuProgramWrapper());
 }
 
 void OpenGLESRenderer::init(RendererType type)
@@ -40,18 +43,6 @@ void OpenGLESRenderer::init(RendererType type)
     Renderer::init(type);
     
     m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
-
-	if (!m_sinWaveTextureProgram)
-	{
-		SinWaveTextureProgramStruct program = SinWaveTextureProgram::build(build_program_from_assets("texture_shader.vsh", "sin_wave_texture_shader.fsh"));
-		m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper(program));
-	}
-
-	if (!m_snakeDeathTextureProgram)
-	{
-		SnakeDeathTextureProgramStruct program = SnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
-		m_snakeDeathTextureProgram = std::unique_ptr<OpenGLESSnakeDeathTextureGpuProgramWrapper>(new OpenGLESSnakeDeathTextureGpuProgramWrapper(program));
-	}
 }
 
 bool OpenGLESRenderer::isLoaded()

@@ -10,9 +10,15 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
-OpenGLESSinWaveTextureGpuProgramWrapper::OpenGLESSinWaveTextureGpuProgramWrapper(SinWaveTextureProgramStruct program) : m_program(program)
+extern "C"
 {
-    // Empty
+#include "asset_utils.h"
+}
+
+OpenGLESSinWaveTextureGpuProgramWrapper::OpenGLESSinWaveTextureGpuProgramWrapper()
+{
+    m_program = SinWaveTextureProgram::build(build_program_from_assets("texture_shader.vsh", "sin_wave_texture_shader.fsh"));
+    m_isLoaded = true;
 }
 
 void OpenGLESSinWaveTextureGpuProgramWrapper::bind()
@@ -43,4 +49,9 @@ void OpenGLESSinWaveTextureGpuProgramWrapper::unbind()
     glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
     
     glUseProgram(0);
+}
+
+void OpenGLESSinWaveTextureGpuProgramWrapper::cleanUp()
+{
+    glDeleteProgram(m_program.program);
 }

@@ -10,9 +10,15 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
-OpenGLESSnakeDeathTextureGpuProgramWrapper::OpenGLESSnakeDeathTextureGpuProgramWrapper(SnakeDeathTextureProgramStruct program) : m_program(program)
+extern "C"
 {
-    // Empty
+#include "asset_utils.h"
+}
+
+OpenGLESSnakeDeathTextureGpuProgramWrapper::OpenGLESSnakeDeathTextureGpuProgramWrapper()
+{
+    m_program = SnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
+    m_isLoaded = true;
 }
 
 void OpenGLESSnakeDeathTextureGpuProgramWrapper::bind()
@@ -43,4 +49,9 @@ void OpenGLESSnakeDeathTextureGpuProgramWrapper::unbind()
     glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
     
     glUseProgram(0);
+}
+
+void OpenGLESSnakeDeathTextureGpuProgramWrapper::cleanUp()
+{
+    glDeleteProgram(m_program.program);
 }

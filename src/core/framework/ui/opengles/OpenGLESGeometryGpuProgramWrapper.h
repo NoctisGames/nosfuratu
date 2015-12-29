@@ -15,11 +15,13 @@
 class OpenGLESGeometryGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    OpenGLESGeometryGpuProgramWrapper(ColorProgramStruct program);
+    OpenGLESGeometryGpuProgramWrapper();
     
     virtual void bind();
     
     virtual void unbind();
+    
+    virtual void cleanUp();
     
 private:
     ColorProgramStruct m_program;

@@ -15,11 +15,13 @@
 class OpenGLESTextureGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    OpenGLESTextureGpuProgramWrapper(TextureProgramStruct program);
+    OpenGLESTextureGpuProgramWrapper();
     
     virtual void bind();
     
     virtual void unbind();
+    
+    virtual void cleanUp();
     
 private:
     TextureProgramStruct m_program;

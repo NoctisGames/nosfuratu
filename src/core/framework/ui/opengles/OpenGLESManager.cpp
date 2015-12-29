@@ -17,7 +17,6 @@
 
 extern "C"
 {
-#include "asset_utils.h"
 #include <assert.h>
 }
 
@@ -83,13 +82,9 @@ void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLflo
 
 void OpenGLESManager::buildShaderPrograms()
 {
-    TextureProgramStruct textureProgramStruct = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
-    ColorProgramStruct colorProgramStruct = ColorProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
-	FrameBufferToScreenProgramStruct frameBufferToScreenProgramStruct = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
-    
-    m_textureProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper(textureProgramStruct));
-    m_colorProgram = std::unique_ptr<OpenGLESGeometryGpuProgramWrapper>(new OpenGLESGeometryGpuProgramWrapper(colorProgramStruct));
-	m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper(frameBufferToScreenProgramStruct));
+    m_textureProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper());
+    m_colorProgram = std::unique_ptr<OpenGLESGeometryGpuProgramWrapper>(new OpenGLESGeometryGpuProgramWrapper());
+    m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper());
 }
 
 void OpenGLESManager::generateIndices(int maxBatchSize)
@@ -142,4 +137,8 @@ OpenGLESManager::~OpenGLESManager()
 {
     glDeleteTextures(1, &fbo_texture);
     glDeleteFramebuffers(1, &fbo);
+    
+    m_textureProgram->cleanUp();
+    m_colorProgram->cleanUp();
+    m_fbToScreenProgram->cleanUp();
 }

@@ -15,11 +15,13 @@
 class OpenGLESFrameBufferToScreenGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    OpenGLESFrameBufferToScreenGpuProgramWrapper(FrameBufferToScreenProgramStruct program);
+    OpenGLESFrameBufferToScreenGpuProgramWrapper();
     
     virtual void bind();
     
     virtual void unbind();
+    
+    virtual void cleanUp();
     
 private:
     FrameBufferToScreenProgramStruct m_program;

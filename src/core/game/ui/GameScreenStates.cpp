@@ -165,6 +165,11 @@ void GamePlay::execute(GameScreen* gs)
         }
         else
         {
+            if ((jon.isTransformingIntoVampire() || jon.isRevertingToRabbit()) && jon.getTransformStateTime() < 0.125f)
+            {
+                gs->m_fDeltaTime /= 8;
+            }
+            
             m_game->updateAndClean(gs->m_fDeltaTime);
         }
         

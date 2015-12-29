@@ -10,9 +10,15 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
-OpenGLESGeometryGpuProgramWrapper::OpenGLESGeometryGpuProgramWrapper(ColorProgramStruct program) : m_program(program)
+extern "C"
 {
-    // Empty
+#include "asset_utils.h"
+}
+
+OpenGLESGeometryGpuProgramWrapper::OpenGLESGeometryGpuProgramWrapper()
+{
+    m_program = ColorProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
+    m_isLoaded = true;
 }
 
 void OpenGLESGeometryGpuProgramWrapper::bind()
@@ -39,4 +45,9 @@ void OpenGLESGeometryGpuProgramWrapper::unbind()
     glDeleteBuffers(1, &OGLESManager->gb_vbo_object);
     
     glUseProgram(0);
+}
+
+void OpenGLESGeometryGpuProgramWrapper::cleanUp()
+{
+    glDeleteProgram(m_program.program);
 }

@@ -15,11 +15,13 @@
 class OpenGLESSinWaveTextureGpuProgramWrapper : public SinWaveTextureGpuProgramWrapper
 {
 public:
-    OpenGLESSinWaveTextureGpuProgramWrapper(SinWaveTextureProgramStruct program);
+    OpenGLESSinWaveTextureGpuProgramWrapper();
     
     virtual void bind();
     
     virtual void unbind();
+    
+    virtual void cleanUp();
     
 private:
     SinWaveTextureProgramStruct m_program;

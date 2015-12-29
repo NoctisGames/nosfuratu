@@ -10,9 +10,15 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
-OpenGLESFrameBufferToScreenGpuProgramWrapper::OpenGLESFrameBufferToScreenGpuProgramWrapper(FrameBufferToScreenProgramStruct program) : m_program(program)
+extern "C"
 {
-    // Empty
+#include "asset_utils.h"
+}
+
+OpenGLESFrameBufferToScreenGpuProgramWrapper::OpenGLESFrameBufferToScreenGpuProgramWrapper()
+{
+    m_program = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
+    m_isLoaded = true;
 }
 
 void OpenGLESFrameBufferToScreenGpuProgramWrapper::bind()
@@ -37,4 +43,9 @@ void OpenGLESFrameBufferToScreenGpuProgramWrapper::unbind()
     glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
     
     glUseProgram(0);
+}
+
+void OpenGLESFrameBufferToScreenGpuProgramWrapper::cleanUp()
+{
+    glDeleteProgram(m_program.program);
 }

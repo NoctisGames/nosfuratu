@@ -327,7 +327,7 @@ TextureRegion& Assets::get(SnakeSpirit& snakeSpirit)
 
 TextureRegion& Assets::get(Jon& jon)
 {
-    static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 256 * 3, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 19);
+    static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 256 * 3, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 19, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
     
     if (jon.isTransformingIntoVampire())
     {
