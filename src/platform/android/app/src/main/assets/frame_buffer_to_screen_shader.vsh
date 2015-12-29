@@ -1,1 +1,0 @@
-../../../../../../core/framework/ui/opengles/frame_buffer_to_screen_shader.vsh

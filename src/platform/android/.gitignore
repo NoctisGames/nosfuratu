@@ -9,5 +9,3 @@ local.properties
 *.bin
 *.so
 assets/
-!*.fsh
-!*.vsh

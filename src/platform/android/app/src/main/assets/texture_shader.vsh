@@ -1,1 +1,0 @@
-../../../../../../core/framework/ui/opengles/texture_shader.vsh

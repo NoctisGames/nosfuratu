@@ -51,6 +51,22 @@ android {
     }
     clean.dependsOn cleanNative
 
+    task copyFrameworkShaders(type: Copy)
+    copyFrameworkShaders {
+        description = 'Copies shaders from src/core/framework/ui/opengles into project assets'
+        from '../../../../src/core/framework/ui/opengles'
+        into 'src/main/assets'
+        include('*.*sh')
+    }
+
+    task copyGameShaders(type: Copy)
+    copyGameShaders {
+        description = 'Copies shaders from src/core/framework/ui/opengles into project assets'
+        from '../../../../src/core/game/ui/opengles'
+        into 'src/main/assets'
+        include('*.*sh')
+    }
+
     task copyTextures(type: Copy)
     copyTextures {
         description = 'Copies textures from root assets into project assets'
@@ -67,6 +83,8 @@ android {
         include('*.wav')
     }
 
+    preBuild.dependsOn(copyFrameworkShaders)
+    preBuild.dependsOn(copyGameShaders)
     preBuild.dependsOn(copyTextures)
     preBuild.dependsOn(copySounds)
 }

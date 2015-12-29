@@ -1,1 +1,0 @@
-../../../../../../core/framework/ui/opengles/color_shader.vsh
