@@ -573,28 +573,41 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntitiesWithColor(game.getRocks());
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
-    /// Render Jon Effects (e.g. Dust Clouds)
-    
     m_spriteBatcher->beginBatch();
-    for (std::vector<std::unique_ptr<Jon>>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+    renderPhysicalEntitiesWithColor(game.getSnakeGruntEnemies());
+    renderPhysicalEntitiesWithColor(game.getSnakeHornedEnemies());
+    
+    for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
     {
-        renderPhysicalEntitiesWithColor((*i)->getDustClouds());
+        renderPhysicalEntities((*i)->getSnakeSpirits());
     }
-    Jon& jon = game.getJon();
-    bool isVampire = jon.isVampire();
-    m_spriteBatcher->endBatch(isVampire ? *m_vampire : *m_jon);
+    
+    for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
+    {
+        renderPhysicalEntities((*i)->getSnakeSpirits());
+    }
+    m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
 
 void Renderer::renderJon(Game& game)
 {
-	/// Render Jon
-    
     if (game.getJons().size() > 0)
     {
         Jon& jon = game.getJon();
         bool isTransformingIntoVampire = jon.isTransformingIntoVampire();
         bool isVampire = jon.isVampire();
         bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
+        
+        /// Render Jon Effects (e.g. Dust Clouds)
+        
+        m_spriteBatcher->beginBatch();
+        for (std::vector<std::unique_ptr<Jon>>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+        {
+            renderPhysicalEntitiesWithColor((*i)->getDustClouds());
+        }
+        m_spriteBatcher->endBatch(isVampire ? *m_vampire : *m_jon);
+        
+        /// Render Jon
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getJons());
@@ -653,6 +666,8 @@ void Renderer::renderBounds(Game& game)
     renderBoundsForPhysicalEntities(game.getCarrots());
     renderBoundsForPhysicalEntities(game.getGoldenCarrots());
     renderBoundsForPhysicalEntities(game.getRocks());
+    renderBoundsForPhysicalEntities(game.getSnakeGruntEnemies());
+    renderBoundsForPhysicalEntities(game.getSnakeHornedEnemies());
     m_boundsRectangleBatcher->endBatch();
 }
 
@@ -834,6 +849,22 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getGoldenCarrots());
         renderPhysicalEntitiesWithColor(leep.getRocks());
         m_spriteBatcher->endBatch(*m_world_1_objects);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntitiesWithColor(leep.getSnakeGruntEnemies());
+        renderPhysicalEntitiesWithColor(leep.getSnakeHornedEnemies());
+        
+        for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = leep.getSnakeGruntEnemies().begin(); i != leep.getSnakeGruntEnemies().end(); i++)
+        {
+            renderPhysicalEntities((*i)->getSnakeSpirits());
+        }
+        
+        for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = leep.getSnakeHornedEnemies().begin(); i != leep.getSnakeHornedEnemies().end(); i++)
+        {
+            renderPhysicalEntities((*i)->getSnakeSpirits());
+        }
+        
+        m_spriteBatcher->endBatch(*m_world_1_enemies);
     }
     
     if (lsp.isOpen())

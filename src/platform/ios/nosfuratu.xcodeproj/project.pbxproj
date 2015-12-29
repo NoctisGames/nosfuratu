@@ -222,6 +222,12 @@
 		BB8900C61BB1D4AF00963083 /* BackgroundTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C31BB1D4AF00963083 /* BackgroundTrees.cpp */; };
 		BB8900CB1BB1EEEF00963083 /* GoldenCarrot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C91BB1EEEF00963083 /* GoldenCarrot.cpp */; };
 		BB8900CF1BB20E0E00963083 /* EndSign.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900CD1BB20E0E00963083 /* EndSign.cpp */; };
+		BB8CF9FE1C31E06A00701C15 /* SnakeGrunt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CF9FC1C31E06A00701C15 /* SnakeGrunt.cpp */; };
+		BB8CF9FF1C31E06A00701C15 /* SnakeGrunt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CF9FC1C31E06A00701C15 /* SnakeGrunt.cpp */; };
+		BB8CFA021C32010500701C15 /* SnakeHorned.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CFA001C32010500701C15 /* SnakeHorned.cpp */; };
+		BB8CFA031C32010500701C15 /* SnakeHorned.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CFA001C32010500701C15 /* SnakeHorned.cpp */; };
+		BB8CFA061C3210EB00701C15 /* SnakeSpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CFA041C3210EB00701C15 /* SnakeSpirit.cpp */; };
+		BB8CFA071C3210EB00701C15 /* SnakeSpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CFA041C3210EB00701C15 /* SnakeSpirit.cpp */; };
 		BB8E5E481BC439B400520DFB /* SinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */; };
 		BB8E5E491BC439B400520DFB /* SinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */; };
 		BB8E5E4C1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */; };
@@ -258,8 +264,8 @@
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
-		BBE4E1DC1C30B5C500919BAA /* SnakeGrunt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeGrunt.cpp */; };
-		BBE4E1DD1C30B5C500919BAA /* SnakeGrunt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeGrunt.cpp */; };
+		BBE4E1DC1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */; };
+		BBE4E1DD1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */; };
 		BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; };
 		BBE631791BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; };
 		BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */; };
@@ -456,6 +462,12 @@
 		BB8900CC1BB1F30A00963083 /* TreeType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeType.h; sourceTree = "<group>"; };
 		BB8900CD1BB20E0E00963083 /* EndSign.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndSign.cpp; sourceTree = "<group>"; };
 		BB8900CE1BB20E0E00963083 /* EndSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndSign.h; sourceTree = "<group>"; };
+		BB8CF9FC1C31E06A00701C15 /* SnakeGrunt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeGrunt.cpp; sourceTree = "<group>"; };
+		BB8CF9FD1C31E06A00701C15 /* SnakeGrunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeGrunt.h; sourceTree = "<group>"; };
+		BB8CFA001C32010500701C15 /* SnakeHorned.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeHorned.cpp; sourceTree = "<group>"; };
+		BB8CFA011C32010500701C15 /* SnakeHorned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeHorned.h; sourceTree = "<group>"; };
+		BB8CFA041C3210EB00701C15 /* SnakeSpirit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeSpirit.cpp; sourceTree = "<group>"; };
+		BB8CFA051C3210EB00701C15 /* SnakeSpirit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeSpirit.h; sourceTree = "<group>"; };
 		BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinWaveTextureProgram.cpp; sourceTree = "<group>"; };
 		BB8E5E471BC439B400520DFB /* SinWaveTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinWaveTextureProgram.h; sourceTree = "<group>"; };
 		BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESSinWaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
@@ -518,8 +530,8 @@
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
 		BBE012691B9E545900D983B0 /* GroundPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroundPlatform.h; sourceTree = "<group>"; };
-		BBE4E1DA1C30B5C500919BAA /* SnakeGrunt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeGrunt.cpp; sourceTree = "<group>"; };
-		BBE4E1DB1C30B5C500919BAA /* SnakeGrunt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeGrunt.h; sourceTree = "<group>"; };
+		BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeEnemy.cpp; sourceTree = "<group>"; };
+		BBE4E1DB1C30B5C500919BAA /* SnakeEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeEnemy.h; sourceTree = "<group>"; };
 		BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelectorPanel.cpp; sourceTree = "<group>"; };
 		BBE631771BE1194B009C06B1 /* LevelSelectorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectorPanel.h; sourceTree = "<group>"; };
 		BBE68AB91BBEF85300C56FEA /* RendererType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RendererType.h; sourceTree = "<group>"; };
@@ -1215,8 +1227,14 @@
 				BBD572141BBB3C2300870723 /* Rock.h */,
 				BB731C301BBB9A4300A32A3A /* SideSpike.cpp */,
 				BB731C311BBB9A4300A32A3A /* SideSpike.h */,
-				BBE4E1DA1C30B5C500919BAA /* SnakeGrunt.cpp */,
-				BBE4E1DB1C30B5C500919BAA /* SnakeGrunt.h */,
+				BBE4E1DA1C30B5C500919BAA /* SnakeEnemy.cpp */,
+				BBE4E1DB1C30B5C500919BAA /* SnakeEnemy.h */,
+				BB8CF9FC1C31E06A00701C15 /* SnakeGrunt.cpp */,
+				BB8CF9FD1C31E06A00701C15 /* SnakeGrunt.h */,
+				BB8CFA001C32010500701C15 /* SnakeHorned.cpp */,
+				BB8CFA011C32010500701C15 /* SnakeHorned.h */,
+				BB8CFA041C3210EB00701C15 /* SnakeSpirit.cpp */,
+				BB8CFA051C3210EB00701C15 /* SnakeSpirit.h */,
 				BBBA6E8E1BBB59E3007158E6 /* Stump.cpp */,
 				BBBA6E8F1BBB59E3007158E6 /* Stump.h */,
 				BBBA6E941BBB6BD6007158E6 /* Thorns.cpp */,
@@ -1507,7 +1525,9 @@
 				BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBEA169D1B97B9BB009B4711 /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BBEA16751B97B9BB009B4711 /* Line.cpp in Sources */,
+				BB8CFA021C32010500701C15 /* SnakeHorned.cpp in Sources */,
 				0A8FBF7F179E07320039BA29 /* pngmem.c in Sources */,
+				BB8CF9FE1C31E06A00701C15 /* SnakeGrunt.cpp in Sources */,
 				BBBDCF8F1BD6E2A200605805 /* HoleCover.cpp in Sources */,
 				0A8FBF80179E07320039BA29 /* pngpread.c in Sources */,
 				BBEA16741B97B9BB009B4711 /* Circle.cpp in Sources */,
@@ -1548,7 +1568,7 @@
 				BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */,
 				BB731C321BBB9A4300A32A3A /* SideSpike.cpp in Sources */,
 				BBEA169F1B97B9BB009B4711 /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */,
-				BBE4E1DC1C30B5C500919BAA /* SnakeGrunt.cpp in Sources */,
+				BBE4E1DC1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */,
 				0A8FBF85179E07320039BA29 /* pngset.c in Sources */,
 				BBBDCF8B1BD6E29000605805 /* Hole.cpp in Sources */,
 				BBEA16701B97B9BB009B4711 /* PhysicalEntity.cpp in Sources */,
@@ -1561,6 +1581,7 @@
 				BB3D8CFB1B98F96D009D58DE /* Game.cpp in Sources */,
 				0A8FBF86179E07320039BA29 /* pngtrans.c in Sources */,
 				BBEA16A01B97B9BB009B4711 /* platform_file_utils.c in Sources */,
+				BB8CFA061C3210EB00701C15 /* SnakeSpirit.cpp in Sources */,
 				BB8900CF1BB20E0E00963083 /* EndSign.cpp in Sources */,
 				0A8FBF87179E07320039BA29 /* pngwio.c in Sources */,
 				BB8900C51BB1D4AF00963083 /* BackgroundCave.cpp in Sources */,
@@ -1618,7 +1639,9 @@
 				BB4237631BBDB6AB005D9B44 /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB4237641BBDB6AB005D9B44 /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BB4237651BBDB6AB005D9B44 /* Line.cpp in Sources */,
+				BB8CFA031C32010500701C15 /* SnakeHorned.cpp in Sources */,
 				BB4237661BBDB6AB005D9B44 /* pngmem.c in Sources */,
+				BB8CF9FF1C31E06A00701C15 /* SnakeGrunt.cpp in Sources */,
 				BBBDCF901BD6E2A200605805 /* HoleCover.cpp in Sources */,
 				BB4237671BBDB6AB005D9B44 /* pngpread.c in Sources */,
 				BB4237681BBDB6AB005D9B44 /* Circle.cpp in Sources */,
@@ -1659,7 +1682,7 @@
 				BB4237851BBDB6AB005D9B44 /* DustCloud.cpp in Sources */,
 				BB4237861BBDB6AB005D9B44 /* SideSpike.cpp in Sources */,
 				BB4237881BBDB6AB005D9B44 /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */,
-				BBE4E1DD1C30B5C500919BAA /* SnakeGrunt.cpp in Sources */,
+				BBE4E1DD1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */,
 				BB42378A1BBDB6AB005D9B44 /* pngset.c in Sources */,
 				BBBDCF8C1BD6E29000605805 /* Hole.cpp in Sources */,
 				BB42378B1BBDB6AB005D9B44 /* PhysicalEntity.cpp in Sources */,
@@ -1672,6 +1695,7 @@
 				BB42378F1BBDB6AB005D9B44 /* Game.cpp in Sources */,
 				BB4237901BBDB6AB005D9B44 /* pngtrans.c in Sources */,
 				BB4237911BBDB6AB005D9B44 /* platform_file_utils.c in Sources */,
+				BB8CFA071C3210EB00701C15 /* SnakeSpirit.cpp in Sources */,
 				BB4237921BBDB6AB005D9B44 /* EndSign.cpp in Sources */,
 				BB4237931BBDB6AB005D9B44 /* pngwio.c in Sources */,
 				BB4237941BBDB6AB005D9B44 /* BackgroundCave.cpp in Sources */,

@@ -16,6 +16,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    virtual void onDeletion();
+    
     int getID();
     
     float getStateTime();

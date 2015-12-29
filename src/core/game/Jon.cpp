@@ -125,7 +125,10 @@ void Jon::update(float deltaTime)
         m_iNumJumps = 1;
     }
     
-    if (m_game->isJonLandingOnSpring(deltaTime))
+    bool isLandingOnSpring = m_game->isJonLandingOnSpring(deltaTime);
+    bool isLandingOnEnemy = m_game->isJonLandingOnEnemy(deltaTime);
+    
+    if (isLandingOnSpring || isLandingOnEnemy)
     {
         m_acceleration->setY(m_fGravity);
         m_velocity->setY(m_iBoostVelocity);
@@ -133,7 +136,10 @@ void Jon::update(float deltaTime)
         setState(ACTION_JUMPING);
         
         m_iNumJumps = 1;
-        
+    }
+    
+    if (isLandingOnSpring)
+    {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JUMP_SPRING);
     }
     
@@ -154,6 +160,11 @@ void Jon::update(float deltaTime)
     }
     
     m_formStateMachine->execute();
+}
+
+void Jon::onDeletion()
+{
+    getDustClouds().clear();
 }
 
 void Jon::triggerTransform()

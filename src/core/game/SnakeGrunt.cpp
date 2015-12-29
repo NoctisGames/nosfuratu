@@ -2,7 +2,7 @@
 //  SnakeGrunt.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 12/27/15.
+//  Created by Stephen Gowen on 12/28/15.
 //  Copyright © 2015 Gowen Game Dev. All rights reserved.
 //
 
@@ -13,19 +13,19 @@ SnakeGrunt* SnakeGrunt::create(float x, float y, int type)
     return new SnakeGrunt(x, y);
 }
 
-SnakeGrunt::SnakeGrunt(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_isDying(false)
+SnakeGrunt::SnakeGrunt(float x, float y, float width, float height) : SnakeEnemy(x, y, width, height)
 {
     updateBounds();
 }
 
 void SnakeGrunt::update(float deltaTime)
 {
-    Entity::update(deltaTime);
+    SnakeEnemy::update(deltaTime);
 }
 
 void SnakeGrunt::triggerHit()
 {
-    m_isDying = true;
+    SnakeEnemy::triggerHit();
 }
 
 void SnakeGrunt::updateBounds()
@@ -43,19 +43,4 @@ void SnakeGrunt::updateBounds()
         // Bye bye!
         lowerLeft.setY(1337);
     }
-}
-
-Color SnakeGrunt::getColor()
-{
-    return m_color;
-}
-
-bool SnakeGrunt::isDying()
-{
-    return m_isDying;
-}
-
-int SnakeGrunt::getType()
-{
-    return -1;
 }

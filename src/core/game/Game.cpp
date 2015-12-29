@@ -33,6 +33,8 @@
 #define carrotsKey "carrots"
 #define goldenCarrotsKey "goldenCarrots"
 #define jonsKey "jons"
+#define snakeGruntEnemiesKey "snakeGruntEnemies"
+#define snakeHornedEnemiesKey "snakeHornedEnemies"
 
 Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
 {
@@ -62,9 +64,13 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getEndSigns(), m_endSigns);
     copyPhysicalEntities(game->getCarrots(), m_carrots);
     copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
+    copyPhysicalEntities(game->getSnakeGruntEnemies(), m_snakeGruntEnemies);
+    copyPhysicalEntities(game->getSnakeHornedEnemies(), m_snakeHornedEnemies);
     copyPhysicalEntities(game->getJons(), m_jons);
     
-    setGameToJons(m_jons, this);
+    setGameToEntities(m_snakeGruntEnemies, this);
+    setGameToEntities(m_snakeHornedEnemies, this);
+    setGameToEntities(m_jons, this);
     
     m_iNumTotalCarrots = (int) m_carrots.size();
     m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
@@ -98,9 +104,13 @@ void Game::load(const char* json)
     loadArray(m_endSigns, d, endSignsKey);
     loadArray(m_carrots, d, carrotsKey);
     loadArray(m_goldenCarrots, d, goldenCarrotsKey);
+    loadArray(m_snakeGruntEnemies, d, snakeGruntEnemiesKey);
+    loadArray(m_snakeHornedEnemies, d, snakeHornedEnemiesKey);
     loadArray(m_jons, d, jonsKey);
     
-    setGameToJons(m_jons, this);
+    setGameToEntities(m_snakeGruntEnemies, this);
+    setGameToEntities(m_snakeHornedEnemies, this);
+    setGameToEntities(m_jons, this);
     
     m_iNumTotalCarrots = (int) m_carrots.size();
     m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
@@ -139,6 +149,8 @@ const char* Game::save()
     saveArray(m_endSigns, w, endSignsKey);
     saveArray(m_carrots, w, carrotsKey);
     saveArray(m_goldenCarrots, w, goldenCarrotsKey);
+    saveArray(m_snakeGruntEnemies, w, snakeGruntEnemiesKey);
+    saveArray(m_snakeHornedEnemies, w, snakeHornedEnemiesKey);
     saveArray(m_jons, w, jonsKey);
     
     w.EndObject();
@@ -167,6 +179,8 @@ void Game::reset()
     m_endSigns.clear();
     m_carrots.clear();
     m_goldenCarrots.clear();
+    m_snakeGruntEnemies.clear();
+    m_snakeHornedEnemies.clear();
     m_jons.clear();
     
     m_fStateTime = 0;
@@ -178,13 +192,6 @@ void Game::reset()
 void Game::updateAndClean(float deltaTime)
 {
     m_fStateTime += deltaTime;
-    
-    if (getJons().size() > 0)
-    {
-        getJon().update(deltaTime);
-    }
-    
-    EntityUtils::clean(getJons());
     
     EntityUtils::updateAndClean(getTrees(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
@@ -202,6 +209,9 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getEndSigns(), deltaTime);
     EntityUtils::updateAndClean(getCarrots(), deltaTime);
     EntityUtils::updateAndClean(getGoldenCarrots(), deltaTime);
+    EntityUtils::updateAndClean(getSnakeGruntEnemies(), deltaTime);
+    EntityUtils::updateAndClean(getSnakeHornedEnemies(), deltaTime);
+    EntityUtils::updateAndClean(getJons(), deltaTime);
 }
 
 int Game::calcSum()
@@ -227,6 +237,8 @@ int Game::calcSum()
     sum += m_endSigns.size();
     sum += m_carrots.size();
     sum += m_goldenCarrots.size();
+    sum += m_snakeGruntEnemies.size();
+    sum += m_snakeHornedEnemies.size();
     sum += m_jons.size();
     
     return sum;
@@ -249,7 +261,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
 
 bool Game::isJonHit()
 {
-    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes());
+    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes()) || EntityUtils::isKilledByEnemy(getJon(), getSnakeGruntEnemies()) || EntityUtils::isKilledByEnemy(getJon(), getSnakeHornedEnemies());
 }
 
 bool Game::isJonLandingOnSpring(float deltaTime)
@@ -257,9 +269,14 @@ bool Game::isJonLandingOnSpring(float deltaTime)
     return EntityUtils::isLandingOnSpring(getJon(), getJumpSprings(), deltaTime);
 }
 
+bool Game::isJonLandingOnEnemy(float deltaTime)
+{
+    return EntityUtils::isLandingOnEnemy(getJon(), getSnakeGruntEnemies(), deltaTime);
+}
+
 bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
-    return EntityUtils::isHitting(getJon(), getLogVerticalTalls()) || EntityUtils::isHitting(getJon(), getLogVerticalShorts()) || EntityUtils::isHitting(getJon(), getRocks());
+    return EntityUtils::isHitting(getJon(), getLogVerticalTalls()) || EntityUtils::isHitting(getJon(), getLogVerticalShorts()) || EntityUtils::isHitting(getJon(), getRocks()) || EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getSnakeGruntEnemies()) || EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getSnakeHornedEnemies());
 }
 
 bool Game::isBurrowEffective()
@@ -362,6 +379,16 @@ std::vector<std::unique_ptr<GoldenCarrot>>& Game::getGoldenCarrots()
     return m_goldenCarrots;
 }
 
+std::vector<std::unique_ptr<SnakeGrunt>>& Game::getSnakeGruntEnemies()
+{
+    return m_snakeGruntEnemies;
+}
+
+std::vector<std::unique_ptr<SnakeHorned>>& Game::getSnakeHornedEnemies()
+{
+    return m_snakeHornedEnemies;
+}
+
 std::vector<std::unique_ptr<Jon>>& Game::getJons()
 {
     return m_jons;
@@ -457,12 +484,4 @@ bool Game::isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::uni
     }
     
     return false;
-}
-
-void Game::setGameToJons(std::vector<std::unique_ptr<Jon>>& jons, Game* game)
-{
-    for (std::vector<std::unique_ptr<Jon>>::iterator i = jons.begin(); i != jons.end(); i++)
-    {
-        (*i)->setGame(game);
-    }
 }

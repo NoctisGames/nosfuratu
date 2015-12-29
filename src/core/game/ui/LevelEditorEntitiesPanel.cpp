@@ -88,6 +88,10 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
+    m_snakeGruntEnemies.push_back(std::unique_ptr<SnakeGrunt>(new SnakeGrunt(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
+    m_snakeHornedEnemies.push_back(std::unique_ptr<SnakeHorned>(new SnakeHorned(eX, eY + (i++ * eHeight), eWidth, eHeight)));
+    
     m_carrots.push_back(std::unique_ptr<Carrot>(new Carrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_goldenCarrots.push_back(std::unique_ptr<GoldenCarrot>(new GoldenCarrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_endSigns.push_back(std::unique_ptr<EndSign>(new EndSign(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -108,6 +112,8 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     boxInAll(m_platforms, size);
     boxInAll(m_carrots, size);
     boxInAll(m_goldenCarrots, size);
+    boxInAll(m_snakeGruntEnemies, size);
+    boxInAll(m_snakeHornedEnemies, size);
     boxInAll(m_endSigns, size);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
@@ -172,6 +178,8 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_rocks, game.getRocks(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_carrots, game.getCarrots(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_goldenCarrots, game.getGoldenCarrots(), x, y, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_snakeGruntEnemies, game.getSnakeGruntEnemies(), x, y, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_snakeHornedEnemies, game.getSnakeHornedEnemies(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_endSigns, game.getEndSigns(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_platforms, game.getPlatforms(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint)
@@ -290,6 +298,16 @@ std::vector<std::unique_ptr<Carrot>>& LevelEditorEntitiesPanel::getCarrots()
 std::vector<std::unique_ptr<GoldenCarrot>>& LevelEditorEntitiesPanel::getGoldenCarrots()
 {
     return m_goldenCarrots;
+}
+
+std::vector<std::unique_ptr<SnakeGrunt>>& LevelEditorEntitiesPanel::getSnakeGruntEnemies()
+{
+    return m_snakeGruntEnemies;
+}
+
+std::vector<std::unique_ptr<SnakeHorned>>& LevelEditorEntitiesPanel::getSnakeHornedEnemies()
+{
+    return m_snakeHornedEnemies;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

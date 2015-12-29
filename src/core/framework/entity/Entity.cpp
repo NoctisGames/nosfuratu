@@ -18,6 +18,11 @@ void Entity::update(float deltaTime)
     m_fStateTime += deltaTime;
 }
 
+void Entity::onDeletion()
+{
+    // Empty
+}
+
 int Entity::getID()
 {
     return m_ID;

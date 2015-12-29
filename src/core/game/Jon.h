@@ -33,7 +33,9 @@ public:
     
     Jon(float x, float y, float width = 2.2f, float height = 2.2f);
     
-    void update(float deltaTime);
+    virtual void update(float deltaTime);
+    
+    virtual void onDeletion();
     
     void triggerTransform();
     

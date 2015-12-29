@@ -36,6 +36,9 @@
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
+#include "SnakeGrunt.h"
+#include "SnakeHorned.h"
+#include "SnakeSpirit.h"
 
 #include <vector>
 
@@ -89,6 +92,12 @@ public:
     static TextureRegion& get(Carrot& carrot);
     
     static TextureRegion& get(GoldenCarrot& goldenCarrot);
+    
+    static TextureRegion& get(SnakeGrunt& snakeEnemy);
+    
+    static TextureRegion& get(SnakeHorned& snakeEnemy);
+    
+    static TextureRegion& get(SnakeSpirit& snakeSpirit);
     
     static TextureRegion& get(Jon& jon);
     

@@ -32,6 +32,9 @@
 #include "GoldenCarrot.h"
 #include "OverlapTester.h"
 #include "Jon.h"
+#include "SnakeEnemy.h"
+#include "SnakeGrunt.h"
+#include "SnakeHorned.h"
 
 #include <vector>
 
@@ -81,6 +84,10 @@ public:
     std::vector<std::unique_ptr<Carrot>>& getCarrots();
     
     std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
+    
+    std::vector<std::unique_ptr<SnakeGrunt>>& getSnakeGruntEnemies();
+    
+    std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
     
     float getEntitiesCameraPos();
     
@@ -148,6 +155,8 @@ private:
     std::vector<std::unique_ptr<EndSign>> m_endSigns;
     std::vector<std::unique_ptr<Carrot>> m_carrots;
     std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
+    std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
+    std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

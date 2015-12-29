@@ -155,6 +155,39 @@ public:
     }
     
     template<typename T>
+    static bool isLandingOnEnemy(Jon& jon, std::vector<T>& items, float deltaTime)
+    {
+        float jonVelocityY = jon.getVelocity().getY();
+        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+        float jonYDelta = fabsf(jonVelocityY * deltaTime);
+        
+        if (jonVelocityY <= 0)
+        {
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            {
+                if ((*i)->canBeLandedOnToKill() && OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+                {
+                    float itemTop = (*i)->getBounds().getTop();
+                    float padding = itemTop * .01f;
+                    padding += jonYDelta;
+                    float itemTopReq = itemTop - padding;
+                    
+                    if (jonLowerLeftY >= itemTopReq)
+                    {
+                        (*i)->triggerHit();
+                        
+                        jon.setBoostVelocity(fabsf(jonVelocityY) / 1.5f);
+                        
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
     static bool isBlockedOnRight(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
     {
         float entityVelocityX = entity.getVelocity().getX();
@@ -242,22 +275,32 @@ public:
         Rectangle& bounds = entity.getBounds();
         Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
         
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             if (OverlapTester::doRectanglesOverlap(hittingBounds, (*i)->getBounds()))
             {
                 (*i)->triggerHit();
                 
-                if ((*i)->isRequestingDeletion())
-                {
-                    i = items.erase(i);
-                }
-                
                 return true;
             }
-            else
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
+    static bool isHorizontallyHittingAnEnemy(PhysicalEntity& entity, std::vector<T>& items)
+    {
+        Rectangle& bounds = entity.getBounds();
+        Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
+        
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if ((*i)->canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, (*i)->getBounds()))
             {
-                i++;
+                (*i)->triggerHit();
+                
+                return true;
             }
         }
         
@@ -270,6 +313,20 @@ public:
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
+    static bool isKilledByEnemy(PhysicalEntity& entity, std::vector<T>& items)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if ((*i)->hasKilledJon())
             {
                 return true;
             }
@@ -323,15 +380,6 @@ public:
     }
     
     template<typename T>
-    static void update(std::vector<T>& items, float deltaTime)
-    {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            (*i)->update(deltaTime);
-        }
-    }
-    
-    template<typename T>
     static void updateAndClean(std::vector<T>& items, float deltaTime)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
@@ -340,22 +388,8 @@ public:
             
             if ((*i)->isRequestingDeletion())
             {
-                i = items.erase(i);
-            }
-            else
-            {
-                i++;
-            }
-        }
-    }
-    
-    template<typename T>
-    static void clean(std::vector<T>& items)
-    {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
-        {
-            if ((*i)->isRequestingDeletion())
-            {
+                (*i)->onDeletion();
+                
                 i = items.erase(i);
             }
             else

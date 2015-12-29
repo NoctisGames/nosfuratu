@@ -29,6 +29,9 @@
 #include "Carrot.h"
 #include "GoldenCarrot.h"
 #include "Jon.h"
+#include "SnakeEnemy.h"
+#include "SnakeGrunt.h"
+#include "SnakeHorned.h"
 
 #include <memory>
 #include <vector>
@@ -69,6 +72,8 @@ public:
     bool isJonHit();
     
     bool isJonLandingOnSpring(float deltaTime);
+    
+    bool isJonLandingOnEnemy(float deltaTime);
     
     bool isSpinningBackFistDelivered(float deltaTime);
     
@@ -112,6 +117,10 @@ public:
     
     std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
     
+    std::vector<std::unique_ptr<SnakeGrunt>>& getSnakeGruntEnemies();
+    
+    std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
+    
     std::vector<std::unique_ptr<Jon>>& getJons();
     
     Jon& getJon();
@@ -146,6 +155,8 @@ private:
     std::vector<std::unique_ptr<EndSign>> m_endSigns;
     std::vector<std::unique_ptr<Carrot>> m_carrots;
     std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
+    std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
+    std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
     std::vector<std::unique_ptr<Jon>> m_jons;
     
     float m_fStateTime;
@@ -224,9 +235,17 @@ private:
         w.EndArray();
     }
     
+    template<typename T>
+    void setGameToEntities(std::vector<std::unique_ptr<T>>& items, Game* game)
+    {
+        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            (*i)->setGame(game);
+        }
+    }
+    
     static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
     static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
-    static void setGameToJons(std::vector<std::unique_ptr<Jon>>& jons, Game* game);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

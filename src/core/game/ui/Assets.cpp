@@ -298,6 +298,33 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
     return anim.getTextureRegion(goldenCarrot.getStateTime());
 }
 
+TextureRegion& Assets::get(SnakeGrunt& snakeEnemy)
+{
+    static Animation snakeGruntAnim = Animation(0, 0, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 4);
+    
+    return snakeGruntAnim.getTextureRegion(snakeEnemy.getStateTime());
+}
+
+TextureRegion& Assets::get(SnakeHorned& snakeEnemy)
+{
+    static Animation snakeHornedAnim = Animation(0, 768, 256, 360, 1536, 360, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 6);
+    static Animation snakeHornedRiseAnim = Animation(0, 1128, 256, 360, 2048, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
+    
+    if (snakeEnemy.isRising())
+    {
+        return snakeHornedRiseAnim.getTextureRegion(snakeEnemy.getStateTime());
+    }
+    
+    return snakeHornedAnim.getTextureRegion(snakeEnemy.getStateTime());
+}
+
+TextureRegion& Assets::get(SnakeSpirit& snakeSpirit)
+{
+    static Animation deathAnim = Animation(0, 256, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
+    
+    return deathAnim.getTextureRegion(snakeSpirit.getStateTime());
+}
+
 TextureRegion& Assets::get(Jon& jon)
 {
     static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 256 * 3, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 19);

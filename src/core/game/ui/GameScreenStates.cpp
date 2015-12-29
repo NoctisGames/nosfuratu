@@ -514,8 +514,18 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 
                 if (dynamic_cast<Jon*>(m_lastAddedEntity))
                 {
-                    Jon* jon = dynamic_cast<Jon*>(m_lastAddedEntity);
-                    jon->setGame(m_game.get());
+                    Jon* entity = dynamic_cast<Jon*>(m_lastAddedEntity);
+                    entity->setGame(m_game.get());
+                }
+                else if (dynamic_cast<SnakeGrunt*>(m_lastAddedEntity))
+                {
+                    SnakeGrunt* entity = dynamic_cast<SnakeGrunt*>(m_lastAddedEntity);
+                    entity->setGame(m_game.get());
+                }
+                else if (dynamic_cast<SnakeHorned*>(m_lastAddedEntity))
+                {
+                    SnakeHorned* entity = dynamic_cast<SnakeHorned*>(m_lastAddedEntity);
+                    entity->setGame(m_game.get());
                 }
             }
             
@@ -740,6 +750,8 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getGoldenCarrots(), m_gameEntities);
     EntityUtils::addAll(m_game->getEndSigns(), m_gameEntities);
+    EntityUtils::addAll(m_game->getSnakeGruntEnemies(), m_gameEntities);
+    EntityUtils::addAll(m_game->getSnakeHornedEnemies(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
     for (std::vector<PhysicalEntity*>::iterator i = m_addedEntities.begin(); i != m_addedEntities.end(); )
