@@ -16,12 +16,17 @@ DummyGpuProgramWrapper * DummyGpuProgramWrapper::getInstance()
 
 void DummyGpuProgramWrapper::bind()
 {
-    // TODO
+    // Empty
 }
 
 void DummyGpuProgramWrapper::unbind()
 {
-    // TODO
+    // Empty
+}
+
+void DummyGpuProgramWrapper::cleanUp()
+{
+	// Empty
 }
 
 DummyGpuProgramWrapper::DummyGpuProgramWrapper()

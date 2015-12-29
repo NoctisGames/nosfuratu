@@ -32,11 +32,10 @@ void Direct3DManager::createDeviceDependentResources()
 {
 	createBlendState();
 	createSamplerState();
-	createInputLayoutForSpriteBatcher();
-	createInputLayoutForGeometryBatcher();
+	createVertexBufferForSpriteBatcher();
+	createVertexBufferForGeometryBatchers();
 	createIndexBuffer();
 	createConstantBuffer();
-	createOffsetBuffer();
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper(m_deviceResources));
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper(m_deviceResources));
@@ -89,33 +88,22 @@ void Direct3DManager::createWindowSizeDependentResources()
 
 void Direct3DManager::releaseDeviceDependentResources()
 {
-	m_iNumShadersLoaded = 0;
-	m_areSpriteBatcherResourcesCreated = false;
-	m_areGeometryBatcherResourcesCreated = false;
-
 	m_offscreenRenderTarget.Reset();
 	m_offscreenRenderTargetView.Reset();
 	m_offscreenShaderResourceView.Reset();
 	m_blendState.Reset();
 	m_screenBlendState.Reset();
 	m_matrixConstantbuffer.Reset();
-	m_offsetConstantBuffer.Reset();
 	m_indexbuffer.Reset();
 	m_sbSamplerState.Reset();
-	m_sbVertexShader.Reset();
-	m_sbPixelShader.Reset();
-	m_sbSinWavePixelShader.Reset();
-	m_sbInputLayout.Reset();
 	m_sbVertexBuffer.Reset();
 	m_textureVertices.clear();
-	m_fbVertexShader.Reset();
-	m_fbPixelShader.Reset();
-	m_fbInputLayout.Reset();
-	m_gbVertexShader.Reset();
-	m_gbPixelShader.Reset();
-	m_gbInputLayout.Reset();
 	m_gbVertexBuffer.Reset();
 	m_colorVertices.clear();
+
+	m_textureProgram->cleanUp();
+	m_colorProgram->cleanUp();
+	m_fbToScreenProgram->cleanUp();
 }
 
 void Direct3DManager::createMatrix(float left, float right, float bottom, float top)
@@ -150,7 +138,9 @@ void Direct3DManager::addVertexCoordinate(float x, float y, float z, float r, fl
 
 bool Direct3DManager::isLoaded()
 {
-	return m_iNumShadersLoaded >= 7 && m_areSpriteBatcherResourcesCreated && m_areGeometryBatcherResourcesCreated;
+	return m_textureProgram->isLoaded()
+		&& m_colorProgram->isLoaded()
+		&& m_fbToScreenProgram->isLoaded();
 }
 
 void Direct3DManager::createBlendState()
@@ -210,232 +200,54 @@ void Direct3DManager::createSamplerState()
 	m_deviceResources->GetD3DDeviceContext()->PSSetSamplers(0, 1, m_sbSamplerState.GetAddressOf());
 }
 
-void Direct3DManager::createInputLayoutForSpriteBatcher()
+void Direct3DManager::createVertexBufferForSpriteBatcher()
 {
+	m_textureVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
+	TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
 	{
-		// Load shaders asynchronously.
-		auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
-		auto loadPSTask = DX::ReadDataAsync(L"TexturePixelShader.cso");
-
-		// After the vertex shader file is loaded, create the shader and input layout.
-		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateVertexShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_sbVertexShader
-					)
-				);
-			m_iNumShadersLoaded++;
-
-			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-			};
-
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateInputLayout(
-					vertexDesc,
-					ARRAYSIZE(vertexDesc),
-					&fileData[0],
-					fileData.size(),
-					&m_sbInputLayout
-					)
-				);
-		});
-
-		// After the pixel shader file is loaded, create the shader
-		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreatePixelShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_sbPixelShader
-					)
-				);
-			m_iNumShadersLoaded++;
-		});
-
-		// Once both shaders are created, create SpriteBatcher resources
-		auto createSpriteBatcherResources = (createPSTask && createVSTask).then([this]() {
-			m_textureVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
-			TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-			for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
-			{
-				m_textureVertices.push_back(tv);
-			}
-
-			D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
-			vertexBufferDesc.ByteWidth = sizeof(TEXTURE_VERTEX) * m_textureVertices.size();
-			vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-			vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-			vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-			vertexBufferDesc.MiscFlags = 0;
-			vertexBufferDesc.StructureByteStride = 0;
-
-			D3D11_SUBRESOURCE_DATA vertexBufferData;
-			vertexBufferData.pSysMem = &m_textureVertices[0];
-			vertexBufferData.SysMemPitch = 0;
-			vertexBufferData.SysMemSlicePitch = 0;
-
-			DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
-		});
-
-		createSpriteBatcherResources.then([this]() {
-			m_areSpriteBatcherResourcesCreated = true;
-		});
+		m_textureVertices.push_back(tv);
 	}
 
-	{
-		// Load shaders asynchronously.
-		auto loadPSTask = DX::ReadDataAsync(L"SinWaveTexturePixelShader.cso");
+	D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+	vertexBufferDesc.ByteWidth = sizeof(TEXTURE_VERTEX) * m_textureVertices.size();
+	vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.StructureByteStride = 0;
 
-		// After the pixel shader file is loaded, create the shader
-		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreatePixelShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_sbSinWavePixelShader
-					)
-				);
-			m_iNumShadersLoaded++;
-		});
-	}
+	D3D11_SUBRESOURCE_DATA vertexBufferData;
+	vertexBufferData.pSysMem = &m_textureVertices[0];
+	vertexBufferData.SysMemPitch = 0;
+	vertexBufferData.SysMemSlicePitch = 0;
 
-	{
-		// Load shaders asynchronously.
-		auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-		auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
-
-		// After the vertex shader file is loaded, create the shader and input layout.
-		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateVertexShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_fbVertexShader
-					)
-				);
-			m_iNumShadersLoaded++;
-
-			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-			};
-
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateInputLayout(
-					vertexDesc,
-					ARRAYSIZE(vertexDesc),
-					&fileData[0],
-					fileData.size(),
-					&m_fbInputLayout
-					)
-				);
-		});
-
-		// After the pixel shader file is loaded, create the shader
-		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreatePixelShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_fbPixelShader
-					)
-				);
-			m_iNumShadersLoaded++;
-		});
-	}
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_sbVertexBuffer));
 }
 
-void Direct3DManager::createInputLayoutForGeometryBatcher()
+void Direct3DManager::createVertexBufferForGeometryBatchers()
 {
+	m_colorVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
+	COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
+	for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
 	{
-		// Load shaders asynchronously.
-		auto loadVSTask = DX::ReadDataAsync(L"ColorVertexShader.cso");
-		auto loadPSTask = DX::ReadDataAsync(L"ColorPixelShader.cso");
-
-		// After the vertex shader file is loaded, create the shader and input layout.
-		auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateVertexShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_gbVertexShader
-					)
-				);
-			m_iNumShadersLoaded++;
-
-			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
-			};
-
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreateInputLayout(
-					vertexDesc,
-					ARRAYSIZE(vertexDesc),
-					&fileData[0],
-					fileData.size(),
-					&m_gbInputLayout
-					)
-				);
-		});
-
-		// After the pixel shader file is loaded, create the shader
-		auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-			DX::ThrowIfFailed(
-				m_deviceResources->GetD3DDevice()->CreatePixelShader(
-					&fileData[0],
-					fileData.size(),
-					nullptr,
-					&m_gbPixelShader
-					)
-				);
-			m_iNumShadersLoaded++;
-		});
-
-		// Once both shaders are created, create GeometryBatcher resources
-		auto createGeometryBatcherResources = (createPSTask && createVSTask).then([this]() {
-			m_colorVertices.reserve(m_iMaxBatchSize * VERTICES_PER_RECTANGLE);
-			COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
-			for (int i = 0; i < m_iMaxBatchSize * VERTICES_PER_RECTANGLE; i++)
-			{
-				m_colorVertices.push_back(cv);
-			}
-
-			D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
-			vertexBufferDesc.ByteWidth = sizeof(COLOR_VERTEX) * m_colorVertices.size();
-			vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-			vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-			vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-			vertexBufferDesc.MiscFlags = 0;
-			vertexBufferDesc.StructureByteStride = 0;
-
-			D3D11_SUBRESOURCE_DATA vertexBufferData;
-			vertexBufferData.pSysMem = &m_colorVertices[0];
-			vertexBufferData.SysMemPitch = 0;
-			vertexBufferData.SysMemSlicePitch = 0;
-
-			DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
-		});
-
-		createGeometryBatcherResources.then([this]() {
-			m_areGeometryBatcherResourcesCreated = true;
-		});
+		m_colorVertices.push_back(cv);
 	}
+
+	D3D11_BUFFER_DESC vertexBufferDesc = { 0 };
+	vertexBufferDesc.ByteWidth = sizeof(COLOR_VERTEX) * m_colorVertices.size();
+	vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.StructureByteStride = 0;
+
+	D3D11_SUBRESOURCE_DATA vertexBufferData;
+	vertexBufferData.pSysMem = &m_colorVertices[0];
+	vertexBufferData.SysMemPitch = 0;
+	vertexBufferData.SysMemSlicePitch = 0;
+
+	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &m_gbVertexBuffer));
 }
 
 void Direct3DManager::createIndexBuffer()
@@ -468,17 +280,6 @@ void Direct3DManager::createConstantBuffer()
 	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_matrixConstantbuffer));
 }
 
-void Direct3DManager::createOffsetBuffer()
-{
-	D3D11_BUFFER_DESC bd = { 0 };
-
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 16;
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
-}
-
 std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 {
 	std::vector<short> indices;
@@ -499,7 +300,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 	return indices;
 }
 
-Direct3DManager::Direct3DManager() : m_iNumShadersLoaded(0), m_areSpriteBatcherResourcesCreated(false), m_areGeometryBatcherResourcesCreated(false)
+Direct3DManager::Direct3DManager()
 {
 	// Hide Constructor for Singleton
 }

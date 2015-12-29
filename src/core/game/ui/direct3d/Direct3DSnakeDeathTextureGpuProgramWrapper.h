@@ -1,21 +1,21 @@
 //
-//  Direct3DSinWaveTextureGpuProgramWrapper.h
+//  Direct3DSnakeDeathTextureGpuProgramWrapper.h
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 10/18/15.
+//  Created by Stephen Gowen on 12/29/15.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__
-#define __gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__
+#ifndef __gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__
+#define __gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "DeviceResources.h"
 
-class Direct3DSinWaveTextureGpuProgramWrapper : public SinWaveTextureGpuProgramWrapper
+class Direct3DSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper
 {
 public:
-	Direct3DSinWaveTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+	Direct3DSnakeDeathTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void bind();
 
@@ -28,7 +28,7 @@ private:
 
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_offsetConstantBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_colorAdditiveConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
@@ -36,4 +36,4 @@ private:
 	void createConstantBuffer();
 };
 
-#endif /* defined(__gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__) */
+#endif /* defined(__gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__) */

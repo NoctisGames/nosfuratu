@@ -129,7 +129,7 @@ void GameScreen::processTouchEvents()
 {
     for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
     {
-        if(m_touchEventsPool.size() < 50)
+        if (m_touchEventsPool.size() < 50)
         {
             m_touchEventsPool.push_back(*i);
         }

@@ -21,9 +21,16 @@ public:
 
 	virtual void unbind();
 
+	virtual void cleanUp();
+
 private:
+	int m_iNumShadersLoaded;
+	
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 };
 
 #endif /* defined(__gowengamedev__Direct3DFrameBufferToScreenGpuProgramWrapper__) */

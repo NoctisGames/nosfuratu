@@ -19,6 +19,8 @@ public:
     virtual void bind();
     
     virtual void unbind();
+
+	virtual void cleanUp();
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

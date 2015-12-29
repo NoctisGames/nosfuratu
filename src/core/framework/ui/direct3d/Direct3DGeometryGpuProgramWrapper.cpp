@@ -10,20 +10,66 @@
 #include "Direct3DGeometryGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 
-Direct3DGeometryGpuProgramWrapper::Direct3DGeometryGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources)
+Direct3DGeometryGpuProgramWrapper::Direct3DGeometryGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
-	// Empty
+	// Load shaders asynchronously.
+	auto loadVSTask = DX::ReadDataAsync(L"ColorVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"ColorPixelShader.cso");
+
+	// After the vertex shader file is loaded, create the shader and input layout.
+	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateVertexShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_vertexShader
+				)
+			);
+		m_iNumShadersLoaded++;
+		m_isLoaded = m_iNumShadersLoaded == 2;
+
+		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		};
+
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateInputLayout(
+				vertexDesc,
+				ARRAYSIZE(vertexDesc),
+				&fileData[0],
+				fileData.size(),
+				&m_inputLayout
+				)
+			);
+	});
+
+	// After the pixel shader file is loaded, create the shader
+	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreatePixelShader(
+				&fileData[0],
+				fileData.size(),
+				nullptr,
+				&m_pixelShader
+				)
+			);
+		m_iNumShadersLoaded++;
+		m_isLoaded = m_iNumShadersLoaded == 2;
+	});
 }
 
 void Direct3DGeometryGpuProgramWrapper::bind()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_blendState.Get(), 0, 0xffffffff);
 
-	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(D3DManager->m_gbInputLayout.Get());
+	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
 
 	// set the shader objects as the active shaders
-	m_deviceResources->GetD3DDeviceContext()->VSSetShader(D3DManager->m_gbVertexShader.Get(), nullptr, 0);
-	m_deviceResources->GetD3DDeviceContext()->PSSetShader(D3DManager->m_gbPixelShader.Get(), nullptr, 0);
+	m_deviceResources->GetD3DDeviceContext()->VSSetShader(m_vertexShader.Get(), nullptr, 0);
+	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
 	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(0, 1, D3DManager->m_matrixConstantbuffer.GetAddressOf());
 
@@ -50,5 +96,12 @@ void Direct3DGeometryGpuProgramWrapper::bind()
 
 void Direct3DGeometryGpuProgramWrapper::unbind()
 {
+	// Empty
+}
 
+void Direct3DGeometryGpuProgramWrapper::cleanUp()
+{
+	m_vertexShader.Reset();
+	m_pixelShader.Reset();
+	m_inputLayout.Reset();
 }

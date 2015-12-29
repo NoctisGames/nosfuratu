@@ -17,6 +17,13 @@ public:
     virtual void bind() = 0;
     
     virtual void unbind() = 0;
+
+	virtual void cleanUp() = 0;
+
+	bool isLoaded();
+
+protected:
+	bool m_isLoaded;
 };
 
 #endif /* defined(__gowengamedev__GpuProgramWrapper__) */

@@ -31,6 +31,7 @@
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
 #include "Direct3DSinWaveTextureGpuProgramWrapper.h"
+#include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
 
 #include <string>
 #include <sstream>
@@ -44,14 +45,26 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
 	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources));
 	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources, true));
+}
 
-	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
+void Direct3DRenderer::init(RendererType type)
+{
+	Renderer::init(type);
+
+	if (!m_sinWaveTextureProgram)
+	{
+		m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
+	}
+	
+	if (!m_snakeDeathTextureProgram)
+	{
+		m_snakeDeathTextureProgram = std::unique_ptr<Direct3DSnakeDeathTextureGpuProgramWrapper>(new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources));
+	}
 }
 
 bool Direct3DRenderer::isLoaded()
 {
-	// TODO, also return if textures are still loading
-	return D3DManager->isLoaded();
+	return D3DManager->isLoaded() && m_sinWaveTextureProgram->isLoaded() && m_snakeDeathTextureProgram->isLoaded();
 }
 
 TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repeatS)
@@ -93,8 +106,6 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 void Direct3DRenderer::bindToOffscreenFramebuffer()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
-
-	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get()));
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
@@ -114,6 +125,8 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 void Direct3DRenderer::beginFrame()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
+
+	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get()));
 }
 
 void Direct3DRenderer::endFrame()

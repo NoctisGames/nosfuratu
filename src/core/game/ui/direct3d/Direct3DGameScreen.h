@@ -38,6 +38,13 @@ namespace NosFURatu
 		std::unique_ptr<GameSound> m_collectCarrotSound;
 		std::unique_ptr<GameSound> m_collectGoldenCarrotSound;
 		std::unique_ptr<GameSound> m_deathSound;
+		std::unique_ptr<GameSound> m_footstepLeftGrassSound;
+		std::unique_ptr<GameSound> m_footstepRightGrassSound;
+		std::unique_ptr<GameSound> m_footstepLeftCaveSound;
+		std::unique_ptr<GameSound> m_footstepRightCaveSound;
+		std::unique_ptr<GameSound> m_jumpSpringSound;
+		std::unique_ptr<GameSound> m_landingGrassSound;
+		std::unique_ptr<GameSound> m_landingCaveSound;
 
 		void handleSound();
 		void handleMusic();

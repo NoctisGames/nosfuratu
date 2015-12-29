@@ -1,7 +1,7 @@
 cbuffer OffsetBuffer : register(b0)
 {
 	float offset;
-}; 
+};
 
 Texture2D Texture;
 SamplerState ss;

@@ -26,6 +26,13 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_carrot.wav"));
 	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_golden_carrot.wav"));
 	m_deathSound = std::unique_ptr<GameSound>(new GameSound("death.wav"));
+	m_footstepLeftGrassSound = std::unique_ptr<GameSound>(new GameSound("footstep_left_grass.wav"));
+	m_footstepRightGrassSound = std::unique_ptr<GameSound>(new GameSound("footstep_right_grass.wav"));
+	m_footstepLeftCaveSound = std::unique_ptr<GameSound>(new GameSound("footstep_left_cave.wav"));
+	m_footstepRightCaveSound = std::unique_ptr<GameSound>(new GameSound("footstep_right_cave.wav"));
+	m_jumpSpringSound = std::unique_ptr<GameSound>(new GameSound("jump_spring.wav"));
+	m_landingGrassSound = std::unique_ptr<GameSound>(new GameSound("landing_grass.wav"));
+	m_landingCaveSound = std::unique_ptr<GameSound>(new GameSound("landing_cave.wav"));
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
@@ -143,6 +150,27 @@ void Direct3DGameScreen::handleSound()
 			break;
 		case SOUND_DEATH:
 			m_deathSound->play();
+			break;
+		case SOUND_FOOTSTEP_LEFT_GRASS:
+			m_footstepLeftGrassSound->play();
+			break;
+		case SOUND_FOOTSTEP_RIGHT_GRASS:
+			m_footstepRightGrassSound->play();
+			break;
+		case SOUND_FOOTSTEP_LEFT_CAVE:
+			m_footstepLeftCaveSound->play();
+			break;
+		case SOUND_FOOTSTEP_RIGHT_CAVE:
+			m_footstepRightCaveSound->play();
+			break;
+		case SOUND_JUMP_SPRING:
+			m_jumpSpringSound->play();
+			break;
+		case SOUND_LANDING_GRASS:
+			m_landingGrassSound->play();
+			break;
+		case SOUND_LANDING_CAVE:
+			m_landingCaveSound->play();
 			break;
 		default:
 			continue;

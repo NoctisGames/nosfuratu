@@ -8,7 +8,12 @@
 
 #include "GpuProgramWrapper.h"
 
-GpuProgramWrapper::GpuProgramWrapper()
+GpuProgramWrapper::GpuProgramWrapper() : m_isLoaded(false)
 {
     // Empty
+}
+
+bool GpuProgramWrapper::isLoaded()
+{
+	return m_isLoaded;
 }

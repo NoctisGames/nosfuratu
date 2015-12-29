@@ -16,6 +16,8 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
     
+	virtual void init(RendererType type);
+
     virtual bool isLoaded();
 
 protected:

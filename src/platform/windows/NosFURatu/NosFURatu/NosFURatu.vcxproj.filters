@@ -105,6 +105,13 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\LandPhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SnakeGrunt.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SnakeHorned.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SnakeSpirit.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\SnakeEnemy.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -201,6 +208,15 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
+    <ClInclude Include="..\..\..\..\core\game\JonFormState.h" />
+    <ClInclude Include="..\..\..\..\core\game\LandPhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
+    <ClInclude Include="..\..\..\..\core\game\SnakeGrunt.h" />
+    <ClInclude Include="..\..\..\..\core\game\SnakeHorned.h" />
+    <ClInclude Include="..\..\..\..\core\game\SnakeSpirit.h" />
+    <ClInclude Include="..\..\..\..\core\game\SnakeEnemy.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -226,6 +242,7 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SnakeDeathTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
@@ -238,6 +255,27 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jump_spring.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>
@@ -273,6 +311,15 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_poses.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>

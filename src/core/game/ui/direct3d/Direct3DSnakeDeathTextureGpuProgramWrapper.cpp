@@ -1,21 +1,22 @@
 //
-//  Direct3DFrameBufferToScreenGpuProgramWrapper.cpp
-//  gowengamedev-framework
+//  Direct3DSnakeDeathTextureGpuProgramWrapper.cpp
+//  nosfuratu
 //
-//  Created by Stephen Gowen on 9/7/15.
+//  Created by Stephen Gowen on 12/29/15.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
 #include "pch.h"
-#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
 #include "Direct3DManager.h"
-#include "macros.h"
 
-Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DSnakeDeathTextureGpuProgramWrapper::Direct3DSnakeDeathTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
+	createConstantBuffer();
+
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"SnakeDeathTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -27,6 +28,8 @@ Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProg
 				&m_vertexShader
 				)
 			);
+		m_iNumShadersLoaded++;
+		m_isLoaded = m_iNumShadersLoaded == 2;
 
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 		{
@@ -44,9 +47,6 @@ Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProg
 				&m_inputLayout
 				)
 			);
-
-		m_iNumShadersLoaded++;
-		m_isLoaded = m_iNumShadersLoaded == 2;
 	});
 
 	// After the pixel shader file is loaded, create the shader
@@ -59,21 +59,29 @@ Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProg
 				&m_pixelShader
 				)
 			);
-		
 		m_iNumShadersLoaded++;
 		m_isLoaded = m_iNumShadersLoaded == 2;
 	});
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
+void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
 {
-	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
+	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_blendState.Get(), 0, 0xffffffff);
 
 	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
 
 	// set the shader objects as the active shaders
 	m_deviceResources->GetD3DDeviceContext()->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
+
+	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(0, 1, D3DManager->m_matrixConstantbuffer.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_colorAdditiveConstantBuffer.GetAddressOf());
+
+	// send the final matrix to video memory
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(D3DManager->m_matrixConstantbuffer.Get(), 0, 0, &D3DManager->m_matFinal, 0, 0);
+
+	// send the new offset to video memory
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_colorAdditiveConstantBuffer.Get(), 0, 0, &m_fColorAdditive, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -94,16 +102,28 @@ void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::unbind()
+void Direct3DSnakeDeathTextureGpuProgramWrapper::unbind()
 {
 	// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, pSRV);
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::cleanUp()
+void Direct3DSnakeDeathTextureGpuProgramWrapper::cleanUp()
 {
+	m_colorAdditiveConstantBuffer.Reset();
 	m_vertexShader.Reset();
-	m_pixelShader.Reset();
 	m_inputLayout.Reset();
+	m_pixelShader.Reset();
+}
+
+void Direct3DSnakeDeathTextureGpuProgramWrapper::createConstantBuffer()
+{
+	D3D11_BUFFER_DESC bd = { 0 };
+
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = 16;
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_colorAdditiveConstantBuffer);
 }
