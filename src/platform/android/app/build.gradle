@@ -61,7 +61,7 @@ android {
 
     task copyGameShaders(type: Copy)
     copyGameShaders {
-        description = 'Copies shaders from src/core/framework/ui/opengles into project assets'
+        description = 'Copies shaders from src/core/game/ui/opengles into project assets'
         from '../../../../src/core/game/ui/opengles'
         into 'src/main/assets'
         include('*.*sh')
