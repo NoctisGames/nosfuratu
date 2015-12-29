@@ -10,10 +10,10 @@ void main()
 {
     gl_FragColor = texture2D(u_TextureUnit, v_TextureCoordinates);
     
-    if (gl_FragColor.w > 0.0)
+    if (gl_FragColor.a > 0.0)
     {
-        float m = min(gl_FragColor.x, gl_FragColor.y);
-        m = min(m, gl_FragColor.z);
+        float m = min(gl_FragColor.r, gl_FragColor.g);
+        m = min(m, gl_FragColor.b);
         float additive = (1.0 - m) * u_ColorAdditive;
         gl_FragColor += additive;
     }
