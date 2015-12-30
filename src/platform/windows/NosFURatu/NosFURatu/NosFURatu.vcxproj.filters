@@ -278,6 +278,12 @@
     <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\destroy_rock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
