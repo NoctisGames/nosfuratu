@@ -44,6 +44,8 @@ public:
 
 	virtual bool isLoaded() = 0;
     
+    virtual void endFrame() = 0;
+    
     void reinit();
     
     void beginOpeningPanningSequence(Game& game);
@@ -118,8 +120,6 @@ protected:
     virtual void clearFrameBufferWithColor(float r, float g, float b, float a) = 0;
     
     virtual void bindToScreenFramebuffer() = 0;
-    
-    virtual void endFrame() = 0;
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
 

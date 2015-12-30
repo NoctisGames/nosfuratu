@@ -55,6 +55,11 @@ bool Direct3DRenderer::isLoaded()
 	return D3DManager->isLoaded() && m_sinWaveTextureProgram->isLoaded() && m_snakeDeathTextureProgram->isLoaded();
 }
 
+void Direct3DRenderer::endFrame()
+{
+    // Empty
+}
+
 TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repeatS)
 {
 	UNUSED(repeatS);
@@ -115,11 +120,6 @@ void Direct3DRenderer::beginFrame()
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
 
 	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get()));
-}
-
-void Direct3DRenderer::endFrame()
-{
-	// Empty
 }
 
 GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()

@@ -19,6 +19,8 @@ public:
     virtual void init(RendererType type);
     
     virtual bool isLoaded();
+    
+    virtual void endFrame();
 
 protected:
     virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
@@ -32,8 +34,6 @@ protected:
     virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
     
     virtual void bindToScreenFramebuffer();
-    
-    virtual void endFrame();
     
     virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
     

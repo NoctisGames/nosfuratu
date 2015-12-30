@@ -50,6 +50,13 @@ bool OpenGLESRenderer::isLoaded()
     return true; // Fine for now since loading on Android/iOS is synchronous
 }
 
+void OpenGLESRenderer::endFrame()
+{
+    glDisable(GL_BLEND);
+    
+    glDisable(GL_TEXTURE_2D);
+}
+
 TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repeatS)
 {
     size_t len = strlen(textureName);
@@ -97,13 +104,6 @@ void OpenGLESRenderer::clearFrameBufferWithColor(float r, float g, float b, floa
 void OpenGLESRenderer::bindToScreenFramebuffer()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_screenFBO);
-}
-
-void OpenGLESRenderer::endFrame()
-{
-    glDisable(GL_BLEND);
-    
-    glDisable(GL_TEXTURE_2D);
 }
 
 GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()

@@ -948,8 +948,6 @@ void Renderer::renderToScreen()
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
-    
-    endFrame();
 }
 
 void Renderer::cleanUp()

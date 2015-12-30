@@ -38,6 +38,8 @@ void Title::execute(GameScreen* gs)
         }
         
         gs->m_renderer->renderToScreen();
+        
+        gs->m_renderer->endFrame();
     }
     else
     {
@@ -121,11 +123,13 @@ void GamePlay::execute(GameScreen* gs)
     {
         gs->m_renderer->renderWorld(*m_game);
         
+        gs->m_renderer->renderToScreen();
+        
         gs->m_renderer->renderJon(*m_game);
         
         gs->m_renderer->renderHud(*m_game, *m_backButton);
         
-        gs->m_renderer->renderToScreen();
+        gs->m_renderer->endFrame();
     }
     else
     {
@@ -393,9 +397,11 @@ void LevelEditor::execute(GameScreen* gs)
             gs->m_renderer->renderBounds(*m_game);
         }
         
+        gs->m_renderer->renderToScreen();
+        
         gs->m_renderer->renderLevelEditor(*m_levelEditorActionsPanel, *m_levelEditorEntitiesPanel, *m_trashCan, *m_levelSelectorPanel);
         
-        gs->m_renderer->renderToScreen();
+        gs->m_renderer->endFrame();
     }
     else
     {
