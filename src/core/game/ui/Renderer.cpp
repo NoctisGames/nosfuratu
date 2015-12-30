@@ -560,6 +560,7 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getPlatforms());
     renderPhysicalEntities(game.getLogVerticalTalls());
     renderPhysicalEntities(game.getLogVerticalShorts());
     renderPhysicalEntities(game.getThorns());
@@ -567,7 +568,6 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getSideSpikes());
     renderPhysicalEntities(game.getUpwardSpikes());
     renderPhysicalEntities(game.getJumpSprings());
-    renderPhysicalEntities(game.getPlatforms());
     renderPhysicalEntities(game.getEndSigns());
     renderPhysicalEntities(game.getCarrots());
     renderPhysicalEntities(game.getGoldenCarrots());
@@ -676,6 +676,7 @@ void Renderer::renderBounds(Game& game)
     m_boundsRectangleBatcher->endBatch();
     
     m_boundsRectangleBatcher->beginBatch();
+    renderBoundsForPhysicalEntities(game.getPlatforms());
     renderBoundsForPhysicalEntities(game.getLogVerticalTalls());
     renderBoundsForPhysicalEntities(game.getLogVerticalShorts());
     renderBoundsForPhysicalEntities(game.getThorns());
@@ -683,7 +684,6 @@ void Renderer::renderBounds(Game& game)
     renderBoundsForPhysicalEntities(game.getSideSpikes());
     renderBoundsForPhysicalEntities(game.getUpwardSpikes());
     renderBoundsForPhysicalEntities(game.getJumpSprings());
-    renderBoundsForPhysicalEntities(game.getPlatforms());
     renderBoundsForPhysicalEntities(game.getEndSigns());
     renderBoundsForPhysicalEntities(game.getCarrots());
     renderBoundsForPhysicalEntities(game.getGoldenCarrots());
@@ -858,6 +858,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
         
         m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getPlatforms());
         renderPhysicalEntities(leep.getLogVerticalTalls());
         renderPhysicalEntities(leep.getLogVerticalShorts());
         renderPhysicalEntities(leep.getThorns());
@@ -865,7 +866,6 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getSideSpikes());
         renderPhysicalEntities(leep.getUpwardSpikes());
         renderPhysicalEntities(leep.getJumpSprings());
-        renderPhysicalEntities(leep.getPlatforms());
         renderPhysicalEntities(leep.getEndSigns());
         renderPhysicalEntities(leep.getCarrots());
         renderPhysicalEntities(leep.getGoldenCarrots());
