@@ -50,6 +50,7 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_LANDING_CAVE = 10;
     private static final short SOUND_BREAK_LOG = 11;
     private static final short SOUND_DESTROY_ROCK = 12;
+    private static final short SOUND_SNAKE_DEATH = 13;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -67,6 +68,7 @@ public final class GameRenderer implements Renderer
     private Sound _landingCaveSound;
     private Sound _breakLogSound;
     private Sound _destroyRockSound;
+    private Sound _snakeDeathSound;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -88,8 +90,7 @@ public final class GameRenderer implements Renderer
         _landingCaveSound = _audio.newSound("landing_cave.wav");
         _breakLogSound = _audio.newSound("break_log.wav");
         _destroyRockSound = _audio.newSound("destroy_rock.wav");
-
-        _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
+        _snakeDeathSound = _audio.newSound("snake_death.wav");
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -102,6 +103,8 @@ public final class GameRenderer implements Renderer
         Log.d("GameRenderer", "GL Surface created!");
 
         on_surface_created();
+
+        _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
     }
 
     @Override
@@ -232,6 +235,9 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_DESTROY_ROCK:
                     _destroyRockSound.play(1);
+                    break;
+                case SOUND_SNAKE_DEATH:
+                    _snakeDeathSound.play(1);
                     break;
                 default:
                     break;

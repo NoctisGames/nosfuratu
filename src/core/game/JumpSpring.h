@@ -51,7 +51,7 @@ private:
 class JumpSpringLight : public JumpSpring
 {
 public:
-    JumpSpringLight(float x, float y, float width = 1.4382022471910112f, float height = 1.018641810918775f) : JumpSpring(x, y, width, height, 18, JumpSpringType_Light) {}
+    JumpSpringLight(float x, float y, float width = 1.4382022471910112f, float height = 1.018641810918775f) : JumpSpring(x, y, width, height, 20, JumpSpringType_Light) {}
     
     virtual void updateBounds();
     
@@ -61,7 +61,7 @@ public:
 class JumpSpringMedium : public JumpSpring
 {
 public:
-    JumpSpringMedium(float x, float y, float width = 3.295880149812734f, float height = 1.689747003994674f) : JumpSpring(x, y, width, height, 27, JumpSpringType_Medium) {}
+    JumpSpringMedium(float x, float y, float width = 3.295880149812734f, float height = 1.689747003994674f) : JumpSpring(x, y, width, height, 25, JumpSpringType_Medium) {}
     
     virtual void updateBounds();
     
@@ -71,7 +71,7 @@ public:
 class JumpSpringHeavy : public JumpSpring
 {
 public:
-    JumpSpringHeavy(float x, float y, float width = 3.1760299625468167f, float height = 2.6245006657789616f) : JumpSpring(x, y, width, height, 36, JumpSpringType_Heavy) {}
+    JumpSpringHeavy(float x, float y, float width = 3.1760299625468167f, float height = 2.6245006657789616f) : JumpSpring(x, y, width, height, 30, JumpSpringType_Heavy) {}
     
     virtual void updateBounds();
     

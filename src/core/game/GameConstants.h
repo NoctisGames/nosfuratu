@@ -36,6 +36,7 @@
 #define SOUND_LANDING_CAVE 10
 #define SOUND_BREAK_LOG 11
 #define SOUND_DESTROY_ROCK 12
+#define SOUND_SNAKE_DEATH 13
 
 //// Render Definitions ////
 

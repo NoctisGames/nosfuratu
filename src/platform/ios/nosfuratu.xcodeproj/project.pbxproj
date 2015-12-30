@@ -252,6 +252,8 @@
 		BBA1ACE81C34493A00CDE963 /* break_log.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACE51C34493A00CDE963 /* break_log.wav */; };
 		BBA1ACE91C34493A00CDE963 /* destroy_rock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */; };
 		BBA1ACEA1C34493A00CDE963 /* destroy_rock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */; };
+		BBA1ACEC1C34642700CDE963 /* snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACEB1C34642700CDE963 /* snake_death.wav */; };
+		BBA1ACED1C34642700CDE963 /* snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACEB1C34642700CDE963 /* snake_death.wav */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; };
 		BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E8E1BBB59E3007158E6 /* Stump.cpp */; };
@@ -369,7 +371,6 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		BB156E051C2DA716001EA9DA /* JonFormState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonFormState.h; sourceTree = "<group>"; };
 		BB17E7571C2E16A500C56A36 /* landing_cave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = landing_cave.wav; path = ../../../../assets/sounds/landing_cave.wav; sourceTree = "<group>"; };
 		BB17E7581C2E16A500C56A36 /* landing_grass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = landing_grass.wav; path = ../../../../assets/sounds/landing_grass.wav; sourceTree = "<group>"; };
 		BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonActionState.h; sourceTree = "<group>"; };
@@ -498,6 +499,7 @@
 		BB9B10F91BE94C6000708C2B /* CaveExit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaveExit.h; sourceTree = "<group>"; };
 		BBA1ACE51C34493A00CDE963 /* break_log.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = break_log.wav; path = ../../../../assets/sounds/break_log.wav; sourceTree = "<group>"; };
 		BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = destroy_rock.wav; path = ../../../../assets/sounds/destroy_rock.wav; sourceTree = "<group>"; };
+		BBA1ACEB1C34642700CDE963 /* snake_death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = snake_death.wav; path = ../../../../assets/sounds/snake_death.wav; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
 		BBB7A8791BBAD34400829FF6 /* DustCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DustCloud.h; sourceTree = "<group>"; };
@@ -890,6 +892,7 @@
 		BBD079F518AA879D00E010AF /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BBA1ACEB1C34642700CDE963 /* snake_death.wav */,
 				BB66EBF91C0E4F93006DE4F5 /* bgm.wav */,
 				BBA1ACE51C34493A00CDE963 /* break_log.wav */,
 				BB66EBFA1C0E4F93006DE4F5 /* collect_carrot.wav */,
@@ -1238,7 +1241,6 @@
 				BB3D8CF21B98CDBF009D58DE /* Jon.h */,
 				BB19BDBD1BB9C9F400FA29E8 /* JonAbilityState.h */,
 				BB19BDBC1BB9C76000FA29E8 /* JonActionState.h */,
-				BB156E051C2DA716001EA9DA /* JonFormState.h */,
 				BB19BDC21BB9EAF600FA29E8 /* JonPhysicalState.h */,
 				BB19BDC11BB9EAF600FA29E8 /* JonState.h */,
 				BB731C281BBB81C000A32A3A /* JumpSpring.cpp */,
@@ -1442,6 +1444,7 @@
 				BB66EBED1C0E4F7E006DE4F5 /* vampire.png in Resources */,
 				BB66EBF11C0E4F7E006DE4F5 /* world_1_cave.png in Resources */,
 				BB17E7591C2E16A500C56A36 /* landing_cave.wav in Resources */,
+				BBA1ACEC1C34642700CDE963 /* snake_death.wav in Resources */,
 				BB66EBE31C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
 				BB66EBEB1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
@@ -1489,6 +1492,7 @@
 				BB66EBEE1C0E4F7E006DE4F5 /* vampire.png in Resources */,
 				BB66EBF21C0E4F7E006DE4F5 /* world_1_cave.png in Resources */,
 				BB17E75A1C2E16A500C56A36 /* landing_cave.wav in Resources */,
+				BBA1ACED1C34642700CDE963 /* snake_death.wav in Resources */,
 				BB66EBE41C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BB4237B21BBDB6AB005D9B44 /* texture_shader.fsh in Resources */,
 				BB66EBEC1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,

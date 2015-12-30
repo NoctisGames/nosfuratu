@@ -14,7 +14,8 @@ typedef enum
     ABILITY_NONE,
     ABILITY_SPINNING_BACK_FIST,
     ABILITY_BURROW,
-    ABILITY_GLIDE
+    ABILITY_GLIDE,
+    ABILITY_UPWARD_THRUST
 } JonAbilityState;
 
 #endif /* defined(__nosfuratu__JonAbilityState__) */

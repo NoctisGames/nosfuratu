@@ -178,6 +178,12 @@ void Jon::triggerTransform()
     jfs->triggerTransform(this);
 }
 
+void Jon::triggerCancelTransform()
+{
+    JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
+    jfs->triggerCancelTransform(this);
+}
+
 void Jon::triggerJump()
 {
     if (m_state != JON_ALIVE)
@@ -480,7 +486,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
         jon->m_fStateTime = 0;
         
         jon->m_acceleration->setY(jon->m_fGravity);
-        jon->m_velocity->setY(12 - jon->m_iNumJumps * 3);
+        jon->m_velocity->setY(13 - jon->m_iNumJumps * 3);
         
         jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         
@@ -565,6 +571,19 @@ void Jon::Vampire::execute(Jon* jon)
             }
         }
             break;
+        case ABILITY_UPWARD_THRUST:
+        {
+            if (jon->m_game->isUpwardThrustEffectiveAgainstEnemy())
+            {
+                // TODO, maybe do something here?
+            }
+            
+            if (jon->isFalling() || jon->m_iNumJumps == 2)
+            {
+                jon->setState(ABILITY_NONE);
+            }
+        }
+            break;
         default:
             break;
     }
@@ -573,16 +592,19 @@ void Jon::Vampire::execute(Jon* jon)
     {
         m_isFallingAfterGlide = false;
     }
+    else if (jon->m_physicalState == PHYSICAL_IN_AIR && jon->m_velocity->getY() > 0 && jon->m_iNumJumps == 1)
+    {
+        jon->m_velocity->setX(0);
+    }
     
     if (jon->isFalling())
     {
         if (jon->m_fStateTime > 0.54f && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
         {
             jon->setState(ABILITY_GLIDE);
-            jon->m_fGravity = VAMP_GRAVITY / 8;
-            jon->m_velocity->setY(0);
+            jon->m_fGravity = VAMP_GRAVITY / 36;
             jon->m_acceleration->setY(jon->m_fGravity);
-            jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 1.5f;
+            jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
         }
         
         jon->setState(ACTION_NONE);
@@ -620,9 +642,14 @@ void Jon::Vampire::triggerJump(Jon* jon)
             jon->m_fStateTime = 0;
             
             jon->m_acceleration->setY(jon->m_fGravity);
-            jon->m_velocity->setY(12 - jon->m_iNumJumps * 3);
+            jon->m_velocity->setY(11 - jon->m_iNumJumps);
             
             jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
+            
+            if (jon->m_iNumJumps == 0)
+            {
+                jon->setState(ABILITY_UPWARD_THRUST);
+            }
         }
         
         jon->m_iNumJumps++;
@@ -684,6 +711,11 @@ void Jon::RabbitToVampire::exit(Jon* jon)
     // TODO
 }
 
+void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+}
+
 /// Transform to Rabbit ///
 
 Jon::VampireToRabbit * Jon::VampireToRabbit::getInstance()
@@ -716,4 +748,9 @@ void Jon::VampireToRabbit::exit(Jon* jon)
 {
     jon->m_color.green = 1;
     jon->m_color.blue = 1;
+}
+
+void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
+{
+    jon->m_formStateMachine->revertToPreviousState();
 }

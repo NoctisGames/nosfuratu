@@ -157,6 +157,8 @@ public:
     template<typename T>
     static bool isLandingOnEnemy(Jon& jon, std::vector<T>& items, float deltaTime)
     {
+        bool ret = false;
+        
         float jonVelocityY = jon.getVelocity().getY();
         float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
         float jonYDelta = fabsf(jonVelocityY * deltaTime);
@@ -176,15 +178,17 @@ public:
                     {
                         (*i)->triggerHit();
                         
-                        jon.setBoostVelocity(fabsf(jonVelocityY) / 1.5f);
+                        float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 2);
                         
-                        return true;
+                        jon.setBoostVelocity(boost);
+                        
+                        ret = true;
                     }
                 }
             }
         }
         
-        return false;
+        return ret;
     }
     
     template<typename T>
@@ -289,6 +293,26 @@ public:
     }
     
     template<typename T>
+    static bool isHittingEnemyFromBelow(Jon& jon, std::vector<T>& items)
+    {
+        bool retval = false;
+        
+        Rectangle& bounds = jon.getBounds();
+        
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if (jon.getAbilityState() == ABILITY_UPWARD_THRUST && (*i)->canBeHitFromBelow() && OverlapTester::doRectanglesOverlap(bounds, (*i)->getBounds()))
+            {
+                (*i)->triggerHit();
+                
+                retval = true;
+            }
+        }
+        
+        return retval;
+    }
+    
+    template<typename T>
     static bool isHorizontallyHittingAnEnemy(PhysicalEntity& entity, std::vector<T>& items)
     {
         Rectangle& bounds = entity.getBounds();
@@ -376,6 +400,15 @@ public:
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             (*i)->update(cameraPosition);
+        }
+    }
+    
+    template<typename T>
+    static void update(std::vector<T>& items, float deltaTime)
+    {
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            (*i)->update(deltaTime);
         }
     }
     

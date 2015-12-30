@@ -45,6 +45,8 @@ public:
     
     virtual bool canBeLandedOnToKill();
     
+    virtual bool canBeHitFromBelow();
+    
     void setGame(Game* game);
     
     int getType();

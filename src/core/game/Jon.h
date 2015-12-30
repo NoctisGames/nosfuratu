@@ -19,7 +19,6 @@
 #include "GroundSoundType.h"
 #include "StateMachine.h"
 #include "State.h"
-#include "JonFormState.h"
 
 #include <memory>
 #include <vector>
@@ -38,6 +37,8 @@ public:
     virtual void onDeletion();
     
     void triggerTransform();
+    
+    void triggerCancelTransform();
     
     void triggerJump();
     
@@ -133,6 +134,30 @@ private:
     
     void setState(JonAbilityState state);
     
+    class JonFormState : public State<Jon>
+    {
+    public:
+        virtual void enter(Jon* jon) = 0;
+        virtual void execute(Jon* jon) = 0;
+        virtual void exit(Jon* jon) = 0;
+        
+        virtual void triggerTransform(Jon* jon) = 0;
+        virtual void triggerCancelTransform(Jon* jon) = 0;
+        
+        virtual void triggerJump(Jon* jon) = 0;
+        virtual void triggerLeftAction(Jon* jon) = 0;
+        virtual void triggerRightAction(Jon* jon) = 0;
+        virtual void triggerUpAction(Jon* jon) = 0;
+        virtual void triggerDownAction(Jon* jon) = 0;
+        
+        JonFormState() {};
+        
+    private:
+        // ctor, copy ctor, and assignment should be private in a Singleton
+        JonFormState(const JonFormState&);
+        JonFormState& operator=(const JonFormState&);
+    };
+    
     class Rabbit : public JonFormState
     {
     public:
@@ -143,6 +168,7 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
+        virtual void triggerCancelTransform(Jon* jon) {};
         
         virtual void triggerJump(Jon* jon);
         virtual void triggerLeftAction(Jon* jon);
@@ -170,6 +196,7 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
+        virtual void triggerCancelTransform(Jon* jon) {};
         
         virtual void triggerJump(Jon* jon);
         virtual void triggerLeftAction(Jon* jon);
@@ -196,6 +223,7 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon) {};
+        virtual void triggerCancelTransform(Jon* jon);
         
         virtual void triggerJump(Jon* jon) {};
         virtual void triggerLeftAction(Jon* jon) {};
@@ -220,6 +248,7 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon) {};
+        virtual void triggerCancelTransform(Jon* jon);
         
         virtual void triggerJump(Jon* jon) {};
         virtual void triggerLeftAction(Jon* jon) {};

@@ -211,7 +211,7 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getGoldenCarrots(), deltaTime);
     EntityUtils::updateAndClean(getSnakeGruntEnemies(), deltaTime);
     EntityUtils::updateAndClean(getSnakeHornedEnemies(), deltaTime);
-    EntityUtils::updateAndClean(getJons(), deltaTime);
+    EntityUtils::update(getJons(), deltaTime);
 }
 
 int Game::calcSum()
@@ -282,6 +282,11 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
 bool Game::isBurrowEffective()
 {
     return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
+}
+
+bool Game::isUpwardThrustEffectiveAgainstEnemy()
+{
+    return EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeGruntEnemies()) || EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeHornedEnemies());
 }
 
 std::vector<std::unique_ptr<BackgroundSky>>& Game::getBackgroundSkies()
@@ -435,7 +440,7 @@ bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<st
     float entityLeft = entity.getBounds().getLowerLeft().getX();
     float entityBottom = entity.getBounds().getLowerLeft().getY();
     
-    if (entityVelocityY > 13)
+    if (entityVelocityY > 13.1f)
     {
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
         {

@@ -47,6 +47,7 @@ namespace NosFURatu
 		std::unique_ptr<GameSound> m_landingCaveSound;
         std::unique_ptr<GameSound> m_breakLogSound;
         std::unique_ptr<GameSound> m_destroyRockSound;
+        std::unique_ptr<GameSound> m_snakeDeathSound;
 
 		void handleSound();
 		void handleMusic();

@@ -79,6 +79,8 @@ public:
     
     bool isBurrowEffective();
     
+    bool isUpwardThrustEffectiveAgainstEnemy();
+    
     std::vector<std::unique_ptr<BackgroundSky>>& getBackgroundSkies();
     
     std::vector<std::unique_ptr<BackgroundTrees>>& getBackgroundTrees();

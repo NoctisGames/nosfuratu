@@ -35,6 +35,7 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	m_landingCaveSound = std::unique_ptr<GameSound>(new GameSound("landing_cave.wav"));
     m_breakLogSound = std::unique_ptr<GameSound>(new GameSound("break_log.wav"));
     m_destroyRockSound = std::unique_ptr<GameSound>(new GameSound("destroy_rock.wav"));
+    m_snakeDeathSound = std::unique_ptr<GameSound>(new GameSound("snake_death.wav"));
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
@@ -179,6 +180,9 @@ void Direct3DGameScreen::handleSound()
             break;
         case SOUND_DESTROY_ROCK:
             m_destroyRockSound->play();
+            break;
+        case SOUND_SNAKE_DEATH:
+            m_snakeDeathSound->play();
             break;
 		default:
 			continue;

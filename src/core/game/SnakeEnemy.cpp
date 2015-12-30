@@ -10,6 +10,7 @@
 #include "SnakeGrunt.h"
 #include "Game.h"
 #include "OverlapTester.h"
+#include "Assets.h"
 
 SnakeEnemy::SnakeEnemy(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_fColorAdditive(0), m_fSpiritStateTime(0), m_fXOfDeath(0), m_fYOfDeath(0), m_isDying(false), m_isDead(false), m_hasKilledJon(false)
 {
@@ -66,6 +67,8 @@ void SnakeEnemy::triggerHit()
     
     m_fXOfDeath = getBounds().getLowerLeft().getX() + getBounds().getWidth() / 2;
     m_fYOfDeath = getBounds().getLowerLeft().getY() + getBounds().getHeight() / 2;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_DEATH);
 }
 
 void SnakeEnemy::onDeletion()
@@ -109,6 +112,11 @@ bool SnakeEnemy::canBeHitHorizontally()
 }
 
 bool SnakeEnemy::canBeLandedOnToKill()
+{
+    return true;
+}
+
+bool SnakeEnemy::canBeHitFromBelow()
 {
     return true;
 }
