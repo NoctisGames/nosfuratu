@@ -208,7 +208,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonFormState.h" />
     <ClInclude Include="..\..\..\..\core\game\LandPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
     <ClInclude Include="..\..\..\..\core\game\SnakeGrunt.h" />
@@ -282,6 +281,9 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>

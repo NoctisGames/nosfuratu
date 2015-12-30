@@ -891,7 +891,6 @@
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
     <ClInclude Include="..\..\..\..\core\game\JonAbilityState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonActionState.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonFormState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonPhysicalState.h" />
     <ClInclude Include="..\..\..\..\core\game\JonState.h" />
     <ClInclude Include="..\..\..\..\core\game\JumpSpring.h" />
@@ -1234,6 +1233,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
