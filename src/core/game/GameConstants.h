@@ -34,6 +34,8 @@
 #define SOUND_JUMP_SPRING 8
 #define SOUND_LANDING_GRASS 9
 #define SOUND_LANDING_CAVE 10
+#define SOUND_BREAK_LOG 11
+#define SOUND_DESTROY_ROCK 12
 
 //// Render Definitions ////
 

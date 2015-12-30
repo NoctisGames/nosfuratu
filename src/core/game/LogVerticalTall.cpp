@@ -7,6 +7,7 @@
 //
 
 #include "LogVerticalTall.h"
+#include "Assets.h"
 
 LogVerticalTall* LogVerticalTall::create(float x, float y, int type)
 {
@@ -38,6 +39,8 @@ void LogVerticalTall::triggerHit()
         m_isBlowingUp = true;
         m_fStateTime = 0;
         updateBounds();
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BREAK_LOG);
     }
 }
 

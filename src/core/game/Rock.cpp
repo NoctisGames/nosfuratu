@@ -7,6 +7,7 @@
 //
 
 #include "Rock.h"
+#include "Assets.h"
 
 Rock* Rock::create(float x, float y, int type)
 {
@@ -52,6 +53,8 @@ void Rock::triggerHit()
     {
         m_isBlowingUp = true;
         m_fStateTime = 0;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DESTROY_ROCK);
     }
     
     m_isCracked = true;

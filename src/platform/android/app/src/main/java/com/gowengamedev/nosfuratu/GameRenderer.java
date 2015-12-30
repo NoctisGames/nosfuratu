@@ -23,13 +23,21 @@ public final class GameRenderer implements Renderer
     }
 
     // Definitions from src/core/game/GameConstants.h
+    //// Requested Action Definitions ////
+
     private static final short REQUESTED_ACTION_UPDATE = 0;
+    // Save/Load actions are passed in this format: [1-2][1-5][0-20], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
+
+    //// Music Definitions ////
 
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_RESUME = 2;
     private static final short MUSIC_PLAY_DEMO = 3;
+
+    //// Sound Definitions ////
+
     private static final short SOUND_COLLECT_CARROT = 1;
     private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
     private static final short SOUND_DEATH = 3;
@@ -40,6 +48,8 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_JUMP_SPRING = 8;
     private static final short SOUND_LANDING_GRASS = 9;
     private static final short SOUND_LANDING_CAVE = 10;
+    private static final short SOUND_BREAK_LOG = 11;
+    private static final short SOUND_DESTROY_ROCK = 12;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -55,6 +65,8 @@ public final class GameRenderer implements Renderer
     private Sound _jumpSpringSound;
     private Sound _landingGrassSound;
     private Sound _landingCaveSound;
+    private Sound _breakLogSound;
+    private Sound _destroyRockSound;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -74,6 +86,8 @@ public final class GameRenderer implements Renderer
         _jumpSpringSound = _audio.newSound("jump_spring.wav");
         _landingGrassSound = _audio.newSound("landing_grass.wav");
         _landingCaveSound = _audio.newSound("landing_cave.wav");
+        _breakLogSound = _audio.newSound("break_log.wav");
+        _destroyRockSound = _audio.newSound("destroy_rock.wav");
 
         _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
 
@@ -212,6 +226,12 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_LANDING_CAVE:
                     _landingCaveSound.play(1);
+                    break;
+                case SOUND_BREAK_LOG:
+                    _breakLogSound.play(1);
+                    break;
+                case SOUND_DESTROY_ROCK:
+                    _destroyRockSound.play(1);
                     break;
                 default:
                     break;

@@ -33,6 +33,8 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	m_jumpSpringSound = std::unique_ptr<GameSound>(new GameSound("jump_spring.wav"));
 	m_landingGrassSound = std::unique_ptr<GameSound>(new GameSound("landing_grass.wav"));
 	m_landingCaveSound = std::unique_ptr<GameSound>(new GameSound("landing_cave.wav"));
+    m_breakLogSound = std::unique_ptr<GameSound>(new GameSound("break_log.wav"));
+    m_destroyRockSound = std::unique_ptr<GameSound>(new GameSound("destroy_rock.wav"));
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
@@ -172,6 +174,12 @@ void Direct3DGameScreen::handleSound()
 		case SOUND_LANDING_CAVE:
 			m_landingCaveSound->play();
 			break;
+        case SOUND_BREAK_LOG:
+            m_breakLogSound->play();
+            break;
+        case SOUND_DESTROY_ROCK:
+            m_destroyRockSound->play();
+            break;
 		default:
 			continue;
 		}
