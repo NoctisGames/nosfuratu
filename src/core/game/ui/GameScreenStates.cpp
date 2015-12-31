@@ -242,6 +242,7 @@ void GamePlay::execute(GameScreen* gs)
             m_game->reset();
             
             m_fStateTime = 0;
+            m_isReleasingShockwave = false;
             
             enter(gs);
             

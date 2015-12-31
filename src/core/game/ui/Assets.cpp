@@ -345,7 +345,7 @@ TextureRegion& Assets::get(Jon& jon)
         static Animation pushedBackAnim = Animation(512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
         static Animation idleAnim = Animation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.125f, 8);
         static Animation runningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 10);
-        static Animation jumpingAnim = Animation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 10);
+        static Animation jumpingAnim = Animation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 10);
         static Animation doubleJumpingAnim = Animation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 6);
         static Animation glidingAnim = Animation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 2);
         static Animation fallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);

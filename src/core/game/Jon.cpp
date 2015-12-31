@@ -599,7 +599,6 @@ void Jon::Vampire::execute(Jon* jon)
             
             if (jon->isFalling() || jon->m_iNumJumps == 2)
             {
-                jon->m_fHeight = 2.2f;
                 jon->setState(ABILITY_NONE);
             }
         }
@@ -619,6 +618,8 @@ void Jon::Vampire::execute(Jon* jon)
     
     if (jon->isFalling())
     {
+        jon->m_fHeight = 2.2f;
+        
         if (jon->m_fStateTime > 0.54f && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
         {
             jon->setState(ABILITY_GLIDE);
@@ -628,6 +629,11 @@ void Jon::Vampire::execute(Jon* jon)
         }
         
         jon->setState(ACTION_NONE);
+    }
+    
+    if (jon->m_iNumJumps == 2)
+    {
+        jon->m_fHeight = 2.2f;
     }
 }
 
