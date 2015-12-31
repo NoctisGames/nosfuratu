@@ -105,7 +105,7 @@
     <PackageCertificateKeyFile>NosFURatu_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <PackageCertificateThumbprint>EF21B4D4ABC6541411A582463059C88A4CE54711</PackageCertificateThumbprint>
     <AppxPackageDir>C:\Users\Alucard\Downloads\</AppxPackageDir>
   </PropertyGroup>
