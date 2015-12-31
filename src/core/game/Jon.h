@@ -232,8 +232,10 @@ private:
         virtual void triggerDownAction(Jon* jon) {};
         
     private:
+        bool m_hasCompletedSlowMotion;
+        
         // ctor, copy ctor, and assignment should be private in a Singleton
-        RabbitToVampire() {};
+        RabbitToVampire();
         RabbitToVampire(const RabbitToVampire&);
         RabbitToVampire& operator=(const RabbitToVampire&);
     };
@@ -257,8 +259,10 @@ private:
         virtual void triggerDownAction(Jon* jon) {};
         
     private:
+        bool m_hasCompletedSlowMotion;
+        
         // ctor, copy ctor, and assignment should be private in a Singleton
-        VampireToRabbit() {};
+        VampireToRabbit();
         VampireToRabbit(const VampireToRabbit&);
         VampireToRabbit& operator=(const VampireToRabbit&);
     };

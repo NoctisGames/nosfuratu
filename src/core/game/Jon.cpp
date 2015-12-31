@@ -694,6 +694,10 @@ void Jon::RabbitToVampire::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
     jon->m_abilityState = ABILITY_NONE;
+    
+    m_hasCompletedSlowMotion = false;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TRIGGER_TRANSFORM);
 }
 
 void Jon::RabbitToVampire::execute(Jon* jon)
@@ -703,6 +707,11 @@ void Jon::RabbitToVampire::execute(Jon* jon)
     if (jon->m_fTransformStateTime > 0.565f)
     {
         jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
+    }
+    
+    if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f) {
+        m_hasCompletedSlowMotion = true;
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
     }
 }
 
@@ -714,6 +723,13 @@ void Jon::RabbitToVampire::exit(Jon* jon)
 void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
 {
     jon->m_formStateMachine->revertToPreviousState();
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+}
+
+Jon::RabbitToVampire::RabbitToVampire() : JonFormState(), m_hasCompletedSlowMotion(false)
+{
+    // Empty
 }
 
 /// Transform to Rabbit ///
@@ -729,6 +745,10 @@ void Jon::VampireToRabbit::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
     jon->m_abilityState = ABILITY_NONE;
+    
+    m_hasCompletedSlowMotion = false;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TRIGGER_TRANSFORM);
 }
 
 void Jon::VampireToRabbit::execute(Jon* jon)
@@ -742,6 +762,11 @@ void Jon::VampireToRabbit::execute(Jon* jon)
     {
         jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
     }
+    
+    if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f) {
+        m_hasCompletedSlowMotion = true;
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
+    }
 }
 
 void Jon::VampireToRabbit::exit(Jon* jon)
@@ -753,4 +778,11 @@ void Jon::VampireToRabbit::exit(Jon* jon)
 void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
 {
     jon->m_formStateMachine->revertToPreviousState();
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+}
+
+Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMotion(false)
+{
+    // Empty
 }

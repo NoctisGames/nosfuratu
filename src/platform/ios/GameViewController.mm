@@ -32,7 +32,10 @@ enum GameSoundIds {
     LANDING_CAVE,
     BREAK_LOG,
     DESTROY_ROCK,
-    SNAKE_DEATH
+    SNAKE_DEATH,
+    TRIGGER_TRANSFORM,
+    CANCEL_TRANSFORM,
+    COMPLETE_TRANSFORM
 };
 
 @interface GameViewController ()
@@ -230,6 +233,15 @@ static bool isRunningiOS8 = false;
             case SOUND_SNAKE_DEATH:
                 [self.soundMgr playSoundWithID:SNAKE_DEATH];
                 break;
+            case SOUND_TRIGGER_TRANSFORM:
+                [self.soundMgr playSoundWithID:TRIGGER_TRANSFORM];
+                break;
+            case SOUND_CANCEL_TRANSFORM:
+                [self.soundMgr playSoundWithID:CANCEL_TRANSFORM];
+                break;
+            case SOUND_COMPLETE_TRANSFORM:
+                [self.soundMgr playSoundWithID:COMPLETE_TRANSFORM];
+                break;
             default:
                 continue;
         }
@@ -356,7 +368,7 @@ static bool isRunningiOS8 = false;
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", nil];
 }
 
 @end

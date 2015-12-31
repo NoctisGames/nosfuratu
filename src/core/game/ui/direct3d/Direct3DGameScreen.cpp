@@ -36,6 +36,9 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
     m_breakLogSound = std::unique_ptr<GameSound>(new GameSound("break_log.wav"));
     m_destroyRockSound = std::unique_ptr<GameSound>(new GameSound("destroy_rock.wav"));
     m_snakeDeathSound = std::unique_ptr<GameSound>(new GameSound("snake_death.wav"));
+    m_triggerTransformSound = std::unique_ptr<GameSound>(new GameSound("trigger_transform.wav"));
+    m_cancelTransformSound = std::unique_ptr<GameSound>(new GameSound("cancel_transform.wav"));
+    m_completeTransformSound = std::unique_ptr<GameSound>(new GameSound("complete_transform.wav"));
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
@@ -183,6 +186,15 @@ void Direct3DGameScreen::handleSound()
             break;
         case SOUND_SNAKE_DEATH:
             m_snakeDeathSound->play();
+            break;
+        case SOUND_TRIGGER_TRANSFORM:
+            m_triggerTransformSound->play();
+            break;
+        case SOUND_CANCEL_TRANSFORM:
+            m_cancelTransformSound->play();
+            break;
+        case SOUND_COMPLETE_TRANSFORM:
+            m_completeTransformSound->play();
             break;
 		default:
 			continue;

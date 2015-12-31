@@ -277,6 +277,12 @@
 		BBC7B87C1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */; };
 		BBC7B87F1BC32E0300140BCA /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */; };
 		BBC7B8801BC32E0300140BCA /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */; };
+		BBC971091C35885700722602 /* cancel_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971061C35885700722602 /* cancel_transform.wav */; };
+		BBC9710A1C35885700722602 /* cancel_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971061C35885700722602 /* cancel_transform.wav */; };
+		BBC9710B1C35885700722602 /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971071C35885700722602 /* complete_transform.wav */; };
+		BBC9710C1C35885700722602 /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971071C35885700722602 /* complete_transform.wav */; };
+		BBC9710D1C35885700722602 /* trigger_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971081C35885700722602 /* trigger_transform.wav */; };
+		BBC9710E1C35885700722602 /* trigger_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971081C35885700722602 /* trigger_transform.wav */; };
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
@@ -563,6 +569,9 @@
 		BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sin_wave_texture_shader.fsh; sourceTree = "<group>"; };
 		BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrashCan.cpp; sourceTree = "<group>"; };
 		BBC7B87E1BC32E0300140BCA /* TrashCan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashCan.h; sourceTree = "<group>"; };
+		BBC971061C35885700722602 /* cancel_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = cancel_transform.wav; path = ../../../../assets/sounds/cancel_transform.wav; sourceTree = "<group>"; };
+		BBC971071C35885700722602 /* complete_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = complete_transform.wav; path = ../../../../assets/sounds/complete_transform.wav; sourceTree = "<group>"; };
+		BBC971081C35885700722602 /* trigger_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trigger_transform.wav; path = ../../../../assets/sounds/trigger_transform.wav; sourceTree = "<group>"; };
 		BBD572131BBB3C2300870723 /* Rock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rock.cpp; sourceTree = "<group>"; };
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
@@ -913,11 +922,12 @@
 		BBD079F518AA879D00E010AF /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				BBA1ACEB1C34642700CDE963 /* snake_death.wav */,
 				BB66EBF91C0E4F93006DE4F5 /* bgm.wav */,
 				BBA1ACE51C34493A00CDE963 /* break_log.wav */,
+				BBC971061C35885700722602 /* cancel_transform.wav */,
 				BB66EBFA1C0E4F93006DE4F5 /* collect_carrot.wav */,
 				BB66EBFB1C0E4F93006DE4F5 /* collect_golden_carrot.wav */,
+				BBC971071C35885700722602 /* complete_transform.wav */,
 				BB66EBFC1C0E4F93006DE4F5 /* death.wav */,
 				BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */,
 				BB900C3E1C25303F001DA002 /* footstep_left_cave.wav */,
@@ -931,7 +941,9 @@
 				BB17E7571C2E16A500C56A36 /* landing_cave.wav */,
 				BB17E7581C2E16A500C56A36 /* landing_grass.wav */,
 				BB66EBDA1C0E4F7E006DE4F5 /* level_editor.png */,
+				BBA1ACEB1C34642700CDE963 /* snake_death.wav */,
 				BB66EBDB1C0E4F7E006DE4F5 /* title_font.png */,
+				BBC971081C35885700722602 /* trigger_transform.wav */,
 				BB66EBDC1C0E4F7E006DE4F5 /* vampire_transform.png */,
 				BB66EBDD1C0E4F7E006DE4F5 /* vampire.png */,
 				BB66EBDE1C0E4F7E006DE4F5 /* world_1_background.png */,
@@ -1480,11 +1492,13 @@
 				BB66EBE31C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
 				BB66EBEB1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
+				BBC9710B1C35885700722602 /* complete_transform.wav in Resources */,
 				BB900C471C25303F001DA002 /* footstep_right_cave.wav in Resources */,
 				BB66EBF51C0E4F7E006DE4F5 /* world_1_ground_wo_cave.png in Resources */,
 				BB3D5EF71C1A40EC00DD0549 /* world_1_enemies.png in Resources */,
 				BBEA16A51B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
+				BBC9710D1C35885700722602 /* trigger_transform.wav in Resources */,
 				BB66EBFD1C0E4F93006DE4F5 /* bgm.wav in Resources */,
 				BB900C491C25303F001DA002 /* footstep_right_grass.wav in Resources */,
 				BB66EBF71C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
@@ -1493,6 +1507,7 @@
 				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB17E75B1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055A1C24681C001EEE20 /* jon_poses.png in Resources */,
+				BBC971091C35885700722602 /* cancel_transform.wav in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BBA1ACE91C34493A00CDE963 /* destroy_rock.wav in Resources */,
@@ -1530,11 +1545,13 @@
 				BB66EBE41C0E4F7E006DE4F5 /* jon_ability.png in Resources */,
 				BB4237B21BBDB6AB005D9B44 /* texture_shader.fsh in Resources */,
 				BB66EBEC1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
+				BBC9710C1C35885700722602 /* complete_transform.wav in Resources */,
 				BB900C481C25303F001DA002 /* footstep_right_cave.wav in Resources */,
 				BB66EBF61C0E4F7E006DE4F5 /* world_1_ground_wo_cave.png in Resources */,
 				BB3D5EF81C1A40EC00DD0549 /* world_1_enemies.png in Resources */,
 				BB4237B31BBDB6AB005D9B44 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB4237B41BBDB6AB005D9B44 /* InfoPlist.strings in Resources */,
+				BBC9710E1C35885700722602 /* trigger_transform.wav in Resources */,
 				BB66EBFE1C0E4F93006DE4F5 /* bgm.wav in Resources */,
 				BB900C4A1C25303F001DA002 /* footstep_right_grass.wav in Resources */,
 				BB66EBF81C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
@@ -1543,6 +1560,7 @@
 				BBA1AD021C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB17E75C1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055B1C24681C001EEE20 /* jon_poses.png in Resources */,
+				BBC9710A1C35885700722602 /* cancel_transform.wav in Resources */,
 				BBA1ACF71C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BB4237B71BBDB6AB005D9B44 /* color_shader.fsh in Resources */,
 				BBA1ACEA1C34493A00CDE963 /* destroy_rock.wav in Resources */,

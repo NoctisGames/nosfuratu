@@ -51,24 +51,15 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_BREAK_LOG = 11;
     private static final short SOUND_DESTROY_ROCK = 12;
     private static final short SOUND_SNAKE_DEATH = 13;
+    private static final short SOUND_TRIGGER_TRANSFORM = 14;
+    private static final short SOUND_CANCEL_TRANSFORM = 15;
+    private static final short SOUND_COMPLETE_TRANSFORM = 16;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
     private final Audio _audio;
     private Music _bgm;
-    private Sound _collectCarrotSound;
-    private Sound _collectGoldenCarrotSound;
-    private Sound _deathSound;
-    private Sound _footstepLeftGrassSound;
-    private Sound _footstepRightGrassSound;
-    private Sound _footstepLeftCaveSound;
-    private Sound _footstepRightCaveSound;
-    private Sound _jumpSpringSound;
-    private Sound _landingGrassSound;
-    private Sound _landingCaveSound;
-    private Sound _breakLogSound;
-    private Sound _destroyRockSound;
-    private Sound _snakeDeathSound;
+    private Sound[] _sounds = new Sound[16];
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -78,19 +69,22 @@ public final class GameRenderer implements Renderer
         _activity = activity;
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
         _audio = new Audio(activity.getAssets());
-        _collectCarrotSound = _audio.newSound("collect_carrot.wav");
-        _collectGoldenCarrotSound = _audio.newSound("collect_golden_carrot.wav");
-        _deathSound = _audio.newSound("death.wav");
-        _footstepLeftGrassSound = _audio.newSound("footstep_left_grass.wav");
-        _footstepRightGrassSound = _audio.newSound("footstep_right_grass.wav");
-        _footstepLeftCaveSound = _audio.newSound("footstep_left_cave.wav");
-        _footstepRightCaveSound = _audio.newSound("footstep_right_cave.wav");
-        _jumpSpringSound = _audio.newSound("jump_spring.wav");
-        _landingGrassSound = _audio.newSound("landing_grass.wav");
-        _landingCaveSound = _audio.newSound("landing_cave.wav");
-        _breakLogSound = _audio.newSound("break_log.wav");
-        _destroyRockSound = _audio.newSound("destroy_rock.wav");
-        _snakeDeathSound = _audio.newSound("snake_death.wav");
+        _sounds[0] = _audio.newSound("collect_carrot.wav");
+        _sounds[1] = _audio.newSound("collect_golden_carrot.wav");
+        _sounds[2] = _audio.newSound("death.wav");
+        _sounds[3] = _audio.newSound("footstep_left_grass.wav");
+        _sounds[4] = _audio.newSound("footstep_right_grass.wav");
+        _sounds[5] = _audio.newSound("footstep_left_cave.wav");
+        _sounds[6] = _audio.newSound("footstep_right_cave.wav");
+        _sounds[7] = _audio.newSound("jump_spring.wav");
+        _sounds[8] = _audio.newSound("landing_grass.wav");
+        _sounds[9] = _audio.newSound("landing_cave.wav");
+        _sounds[10] = _audio.newSound("break_log.wav");
+        _sounds[11] = _audio.newSound("destroy_rock.wav");
+        _sounds[12] = _audio.newSound("snake_death.wav");
+        _sounds[13] = _audio.newSound("trigger_transform.wav");
+        _sounds[14] = _audio.newSound("cancel_transform.wav");
+        _sounds[15] = _audio.newSound("complete_transform.wav");
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -201,43 +195,52 @@ public final class GameRenderer implements Renderer
             switch (soundId)
             {
                 case SOUND_COLLECT_CARROT:
-                    _collectCarrotSound.play(1);
+                    _sounds[0].play(1);
                     break;
                 case SOUND_COLLECT_GOLDEN_CARROT:
-                    _collectGoldenCarrotSound.play(1);
+                    _sounds[1].play(1);
                     break;
                 case SOUND_DEATH:
-                    _deathSound.play(1);
+                    _sounds[2].play(1);
                     break;
                 case SOUND_FOOTSTEP_LEFT_GRASS:
-                    _footstepLeftGrassSound.play(1);
+                    _sounds[3].play(1);
                     break;
                 case SOUND_FOOTSTEP_RIGHT_GRASS:
-                    _footstepRightGrassSound.play(1);
+                    _sounds[4].play(1);
                     break;
                 case SOUND_FOOTSTEP_LEFT_CAVE:
-                    _footstepLeftCaveSound.play(1);
+                    _sounds[5].play(1);
                     break;
                 case SOUND_FOOTSTEP_RIGHT_CAVE:
-                    _footstepRightCaveSound.play(1);
+                    _sounds[6].play(1);
                     break;
                 case SOUND_JUMP_SPRING:
-                    _jumpSpringSound.play(1);
+                    _sounds[7].play(1);
                     break;
                 case SOUND_LANDING_GRASS:
-                    _landingGrassSound.play(1);
+                    _sounds[8].play(1);
                     break;
                 case SOUND_LANDING_CAVE:
-                    _landingCaveSound.play(1);
+                    _sounds[9].play(1);
                     break;
                 case SOUND_BREAK_LOG:
-                    _breakLogSound.play(1);
+                    _sounds[10].play(1);
                     break;
                 case SOUND_DESTROY_ROCK:
-                    _destroyRockSound.play(1);
+                    _sounds[11].play(1);
                     break;
                 case SOUND_SNAKE_DEATH:
-                    _snakeDeathSound.play(1);
+                    _sounds[12].play(1);
+                    break;
+                case SOUND_TRIGGER_TRANSFORM:
+                    _sounds[13].play(1);
+                    break;
+                case SOUND_CANCEL_TRANSFORM:
+                    _sounds[14].play(1);
+                    break;
+                case SOUND_COMPLETE_TRANSFORM:
+                    _sounds[15].play(1);
                     break;
                 default:
                     break;
