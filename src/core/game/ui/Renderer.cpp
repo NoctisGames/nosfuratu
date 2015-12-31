@@ -1021,6 +1021,7 @@ void Renderer::cleanUp()
 
 	m_sinWaveTextureProgram->cleanUp();
 	m_snakeDeathTextureProgram->cleanUp();
+	m_shockwaveTextureGpuProgramWrapper->cleanUp();
 }
 
 Vector2D& Renderer::getCameraPosition()

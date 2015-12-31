@@ -112,6 +112,8 @@
     <ClCompile Include="..\..\..\..\core\game\SnakeEnemy.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -216,6 +218,8 @@
     <ClInclude Include="..\..\..\..\core\game\SnakeEnemy.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -242,6 +246,8 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SnakeDeathTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTextureVertexShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">

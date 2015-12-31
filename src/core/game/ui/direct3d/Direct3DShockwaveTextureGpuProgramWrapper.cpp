@@ -1,5 +1,5 @@
 //
-//  Direct3DSnakeDeathTextureGpuProgramWrapper.cpp
+//  Direct3DShockwaveTextureGpuProgramWrapper.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 12/29/15.
@@ -7,16 +7,16 @@
 //
 
 #include "pch.h"
-#include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
+#include "Direct3DShockwaveTextureGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 
-Direct3DSnakeDeathTextureGpuProgramWrapper::Direct3DSnakeDeathTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DShockwaveTextureGpuProgramWrapper::Direct3DShockwaveTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
-	createConstantBuffer();
+	createConstantBuffers();
 
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"SnakeDeathTexturePixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"ShockwaveTextureVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"ShockwaveTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -64,9 +64,9 @@ Direct3DSnakeDeathTextureGpuProgramWrapper::Direct3DSnakeDeathTextureGpuProgramW
 	});
 }
 
-void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
+void Direct3DShockwaveTextureGpuProgramWrapper::bind()
 {
-	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_blendState.Get(), 0, 0xffffffff);
+	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
 
 	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
 
@@ -75,13 +75,19 @@ void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
 	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(0, 1, D3DManager->m_matrixConstantbuffer.GetAddressOf());
-	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_colorAdditiveConstantBuffer.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(1, 1, m_centerXConstantBuffer.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(2, 1, m_centerYConstantBuffer.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_timeElapsedConstantBuffer.GetAddressOf());
 
 	// send the final matrix to video memory
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(D3DManager->m_matrixConstantbuffer.Get(), 0, 0, &D3DManager->m_matFinal, 0, 0);
 
-	// send the new color additive to video memory
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_colorAdditiveConstantBuffer.Get(), 0, 0, &m_fColorAdditive, 0, 0);
+	// send center and time elapsed to video memory
+	float centerX = m_center->getX();
+	float centerY = m_center->getY();
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerXConstantBuffer.Get(), 0, 0, &centerX, 0, 0);
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerYConstantBuffer.Get(), 0, 0, &centerY, 0, 0);
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_timeElapsedConstantBuffer.Get(), 0, 0, &m_fTimeElapsed, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -102,28 +108,52 @@ void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DSnakeDeathTextureGpuProgramWrapper::unbind()
+void Direct3DShockwaveTextureGpuProgramWrapper::unbind()
 {
 	// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, pSRV);
 }
 
-void Direct3DSnakeDeathTextureGpuProgramWrapper::cleanUp()
+void Direct3DShockwaveTextureGpuProgramWrapper::cleanUp()
 {
-	m_colorAdditiveConstantBuffer.Reset();
+	m_centerXConstantBuffer.Reset();
+	m_centerYConstantBuffer.Reset();
+	m_timeElapsedConstantBuffer.Reset();
 	m_vertexShader.Reset();
 	m_inputLayout.Reset();
 	m_pixelShader.Reset();
 }
 
-void Direct3DSnakeDeathTextureGpuProgramWrapper::createConstantBuffer()
+void Direct3DShockwaveTextureGpuProgramWrapper::createConstantBuffers()
 {
-	D3D11_BUFFER_DESC bd = { 0 };
+	{
+		D3D11_BUFFER_DESC bd = { 0 };
 
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 16;
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = 16;
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_colorAdditiveConstantBuffer);
+		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_centerXConstantBuffer);
+	}
+
+	{
+		D3D11_BUFFER_DESC bd = { 0 };
+
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = 16;
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_centerYConstantBuffer);
+	}
+
+	{
+		D3D11_BUFFER_DESC bd = { 0 };
+
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = 16;
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_timeElapsedConstantBuffer);
+	}
 }
