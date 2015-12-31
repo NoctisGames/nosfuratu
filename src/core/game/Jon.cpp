@@ -70,6 +70,7 @@ void Jon::update(float deltaTime)
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
         setState(JON_DYING_FADING);
+        m_fHeight = 2.2f;
         return;
     }
     
@@ -132,15 +133,26 @@ void Jon::update(float deltaTime)
     {
         m_acceleration->setY(m_fGravity);
         m_velocity->setY(m_iBoostVelocity);
-        
-        setState(ACTION_JUMPING);
-        
-        m_iNumJumps = 1;
     }
     
     if (isLandingOnSpring)
     {
+        setState(ACTION_JUMPING);
+        
+        m_iNumJumps = 1;
+        
+        if (isVampire())
+        {
+            m_fHeight = 4.4f;
+        }
+        
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JUMP_SPRING);
+    }
+    else if (isLandingOnEnemy)
+    {
+        setState(ACTION_DOUBLE_JUMPING);
+        
+        m_iNumJumps = 2;
     }
     
     if (m_game->isJonBlockedVertically(deltaTime))
@@ -160,6 +172,13 @@ void Jon::update(float deltaTime)
     }
     
     m_formStateMachine->execute();
+}
+
+void Jon::updateBounds()
+{
+    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    float height = m_abilityState == ABILITY_UPWARD_THRUST ? m_bounds->getHeight() / 2 : m_bounds->getHeight();
+    lowerLeft.set(m_position->getX() - m_bounds->getWidth() / 2, m_position->getY() - height / 2);
 }
 
 void Jon::onDeletion()
@@ -580,6 +599,7 @@ void Jon::Vampire::execute(Jon* jon)
             
             if (jon->isFalling() || jon->m_iNumJumps == 2)
             {
+                jon->m_fHeight = 2.2f;
                 jon->setState(ABILITY_NONE);
             }
         }
@@ -613,7 +633,7 @@ void Jon::Vampire::execute(Jon* jon)
 
 void Jon::Vampire::exit(Jon* jon)
 {
-    // TODO
+    jon->m_fHeight = 2.2f;
 }
 
 void Jon::Vampire::triggerTransform(Jon* jon)
@@ -648,6 +668,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
             
             if (jon->m_iNumJumps == 0)
             {
+                jon->m_fHeight = 4.4f;
                 jon->setState(ABILITY_UPWARD_THRUST);
             }
         }
@@ -717,7 +738,7 @@ void Jon::RabbitToVampire::execute(Jon* jon)
 
 void Jon::RabbitToVampire::exit(Jon* jon)
 {
-    // TODO
+    // Empty
 }
 
 void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
@@ -755,9 +776,6 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 {
     jon->m_fTransformStateTime += jon->m_fDeltaTime;
     
-    jon->m_color.green = 1 - jon->m_fTransformStateTime;
-    jon->m_color.blue = 1 - jon->m_fTransformStateTime;
-    
     if (jon->m_fTransformStateTime > 0.565f)
     {
         jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
@@ -771,8 +789,7 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 
 void Jon::VampireToRabbit::exit(Jon* jon)
 {
-    jon->m_color.green = 1;
-    jon->m_color.blue = 1;
+    // Empty
 }
 
 void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)

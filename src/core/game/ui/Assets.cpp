@@ -327,27 +327,27 @@ TextureRegion& Assets::get(SnakeSpirit& snakeSpirit)
 
 TextureRegion& Assets::get(Jon& jon)
 {
-    static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 256 * 3, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 19, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
-    
     if (jon.isTransformingIntoVampire())
     {
+        static Animation transformingIntoVampire = Animation(0, 0, 256, 256, 2048, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
+        
         return transformingIntoVampire.getTextureRegion(jon.getTransformStateTime());
     }
     else if (jon.isRevertingToRabbit())
     {
-        static Animation idleAnim = Animation(0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
+        static Animation revertingToRabbit = Animation(0, 768, 256, 256, 2048, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 23, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f);
         
-        return idleAnim.getTextureRegion(jon.getTransformStateTime());
+        return revertingToRabbit.getTextureRegion(jon.getTransformStateTime());
     }
     
     if (jon.isVampire())
     {
-        static Animation pushedBackAnim = Animation(256, 1024, 256, 256, 1792, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
+        static Animation pushedBackAnim = Animation(512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
         static Animation idleAnim = Animation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.125f, 8);
         static Animation runningAnim = Animation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 10);
-        static Animation jumpingAnim = Animation(0, 512, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
-        static Animation doubleJumpingAnim = Animation(0, 768, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 6);
-        static Animation glidingAnim = Animation(1536, 768, 256, 256, 512, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 2);
+        static Animation jumpingAnim = Animation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.08f, 10);
+        static Animation doubleJumpingAnim = Animation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.09f, 6);
+        static Animation glidingAnim = Animation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 2);
         static Animation fallingAnim = Animation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
         static Animation landingAnim = Animation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.066f, 3);
         

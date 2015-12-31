@@ -622,7 +622,7 @@ void Renderer::renderJon(Game& game)
     if (game.getJons().size() > 0)
     {
         Jon& jon = game.getJon();
-        bool isTransformingIntoVampire = jon.isTransformingIntoVampire();
+        bool isTransforming = jon.isTransformingIntoVampire() || jon.isRevertingToRabbit();
         bool isVampire = jon.isVampire();
         bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
         
@@ -644,7 +644,7 @@ void Renderer::renderJon(Game& game)
             m_sinWaveTextureProgram->setOffset(game.getStateTime());
             m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon, *m_sinWaveTextureProgram);
         }
-        else if (isTransformingIntoVampire)
+        else if (isTransforming)
         {
             m_spriteBatcher->endBatch(*m_vampire_transform);
         }

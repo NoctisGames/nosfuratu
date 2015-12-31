@@ -34,6 +34,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    virtual void updateBounds();
+    
     virtual void onDeletion();
     
     void triggerTransform();
