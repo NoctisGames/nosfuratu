@@ -188,7 +188,7 @@ void GamePlay::execute(GameScreen* gs)
                     {
                         m_fShockwaveCenterX = jon.getPosition().getX();
                         m_fShockwaveCenterY = jon.getPosition().getY();
-                        m_fShockwaveElapsedTime = 0.25f;
+                        m_fShockwaveElapsedTime = 0.0f;
                         m_isReleasingShockwave = true;
                     }
                 }
