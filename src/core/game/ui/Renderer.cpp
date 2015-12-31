@@ -35,6 +35,7 @@
 #include "GpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
+#include "ShockwaveTextureGpuProgramWrapper.h"
 
 #include <math.h>
 #include <sstream>
@@ -948,6 +949,22 @@ void Renderer::renderToScreen()
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
+}
+
+void Renderer::renderToScreenWithShockwave(float centerX, float centerY, float timeElapsed)
+{
+    m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed);
+    
+    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    
+    bindToScreenFramebuffer();
+    
+    float x = m_camPos->getX() + m_fCamWidth / 2;
+    float y = m_camPos->getY() + m_fCamHeight / 2;
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(x, y, m_fCamWidth, m_fCamHeight, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(*m_framebuffer, *m_shockwaveTextureGpuProgramWrapper);
 }
 
 void Renderer::cleanUp()

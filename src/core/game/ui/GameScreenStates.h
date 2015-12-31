@@ -58,6 +58,10 @@ private:
     Game* m_sourceGame;
     std::unique_ptr<BackButton> m_backButton;
     float m_fStateTime;
+    bool m_isReleasingShockwave;
+    float m_fShockwaveCenterX;
+    float m_fShockwaveCenterY;
+    float m_fShockwaveElapsedTime;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     

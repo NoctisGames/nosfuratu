@@ -254,6 +254,16 @@
 		BBA1ACEA1C34493A00CDE963 /* destroy_rock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */; };
 		BBA1ACEC1C34642700CDE963 /* snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACEB1C34642700CDE963 /* snake_death.wav */; };
 		BBA1ACED1C34642700CDE963 /* snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACEB1C34642700CDE963 /* snake_death.wav */; };
+		BBA1ACF31C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */; };
+		BBA1ACF41C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */; };
+		BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */; };
+		BBA1ACF71C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */; };
+		BBA1ACFA1C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */; };
+		BBA1ACFB1C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */; };
+		BBA1ACFE1C349F4900CDE963 /* ShockwaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */; };
+		BBA1ACFF1C349F4900CDE963 /* ShockwaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */; };
+		BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */; };
+		BBA1AD021C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; };
 		BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBA6E8E1BBB59E3007158E6 /* Stump.cpp */; };
@@ -500,6 +510,17 @@
 		BBA1ACE51C34493A00CDE963 /* break_log.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = break_log.wav; path = ../../../../assets/sounds/break_log.wav; sourceTree = "<group>"; };
 		BBA1ACE61C34493A00CDE963 /* destroy_rock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = destroy_rock.wav; path = ../../../../assets/sounds/destroy_rock.wav; sourceTree = "<group>"; };
 		BBA1ACEB1C34642700CDE963 /* snake_death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = snake_death.wav; path = ../../../../assets/sounds/snake_death.wav; sourceTree = "<group>"; };
+		BBA1ACEE1C349AEF00CDE963 /* Direct3DSnakeDeathTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSnakeDeathTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBA1ACEF1C349AEF00CDE963 /* Direct3DSnakeDeathTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSnakeDeathTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBA1ACF01C349AEF00CDE963 /* SnakeDeathTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnakeDeathTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShockwaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBA1ACF21C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShockwaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_shockwave_texture_shader.fsh; sourceTree = "<group>"; };
+		BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESShockwaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBA1ACF91C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESShockwaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShockwaveTextureProgram.cpp; sourceTree = "<group>"; };
+		BBA1ACFD1C349F4900CDE963 /* ShockwaveTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShockwaveTextureProgram.h; sourceTree = "<group>"; };
+		BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_shockwave_texture_shader.vsh; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
 		BBB7A8791BBAD34400829FF6 /* DustCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DustCloud.h; sourceTree = "<group>"; };
@@ -1303,6 +1324,8 @@
 				BB8E5E4F1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.h */,
 				BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */,
 				BBE1871E1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.h */,
+				BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */,
+				BBA1ACF21C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.h */,
 				BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */,
 				BBC7B87E1BC32E0300140BCA /* TrashCan.h */,
 			);
@@ -1318,7 +1341,10 @@
 				BBEA165B1B97B9BB009B4711 /* Direct3DRenderer.h */,
 				BBE1872C1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.cpp */,
 				BBE1872D1C323D9700AC3FAE /* Direct3DSinWaveTextureGpuProgramWrapper.h */,
+				BBA1ACEE1C349AEF00CDE963 /* Direct3DSnakeDeathTextureGpuProgramWrapper.cpp */,
+				BBA1ACEF1C349AEF00CDE963 /* Direct3DSnakeDeathTextureGpuProgramWrapper.h */,
 				BBE1872E1C323D9700AC3FAE /* SinWaveTexturePixelShader.hlsl */,
+				BBA1ACF01C349AEF00CDE963 /* SnakeDeathTexturePixelShader.hlsl */,
 			);
 			path = direct3d;
 			sourceTree = "<group>";
@@ -1332,10 +1358,16 @@
 				BBEA16681B97B9BB009B4711 /* OpenGLESGameScreen.h */,
 				BBEA16691B97B9BB009B4711 /* OpenGLESRenderer.cpp */,
 				BBEA166A1B97B9BB009B4711 /* OpenGLESRenderer.h */,
+				BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */,
+				BBA1ACF91C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.h */,
 				BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */,
 				BB8E5E4B1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.h */,
 				BBE187251C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp */,
 				BBE187261C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.h */,
+				BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */,
+				BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */,
+				BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */,
+				BBA1ACFD1C349F4900CDE963 /* ShockwaveTextureProgram.h */,
 				BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */,
 				BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */,
 				BB8E5E471BC439B400520DFB /* SinWaveTextureProgram.h */,
@@ -1458,8 +1490,10 @@
 				BB66EBF71C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB66EBFF1C0E4F93006DE4F5 /* collect_carrot.wav in Resources */,
+				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB17E75B1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055A1C24681C001EEE20 /* jon_poses.png in Resources */,
+				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
 				BBA1ACE91C34493A00CDE963 /* destroy_rock.wav in Resources */,
 				BB900C451C25303F001DA002 /* footstep_left_grass.wav in Resources */,
@@ -1506,8 +1540,10 @@
 				BB66EBF81C0E4F7E006DE4F5 /* world_1_misc.png in Resources */,
 				BB4237B61BBDB6AB005D9B44 /* Images.xcassets in Resources */,
 				BB66EC001C0E4F93006DE4F5 /* collect_carrot.wav in Resources */,
+				BBA1AD021C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB17E75C1C2E16A500C56A36 /* landing_grass.wav in Resources */,
 				BB3F055B1C24681C001EEE20 /* jon_poses.png in Resources */,
+				BBA1ACF71C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BB4237B71BBDB6AB005D9B44 /* color_shader.fsh in Resources */,
 				BBA1ACEA1C34493A00CDE963 /* destroy_rock.wav in Resources */,
 				BB900C461C25303F001DA002 /* footstep_left_grass.wav in Resources */,
@@ -1615,7 +1651,9 @@
 				BBEA169C1B97B9BB009B4711 /* OpenGLESManager.cpp in Sources */,
 				BBC7B87F1BC32E0300140BCA /* TrashCan.cpp in Sources */,
 				BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */,
+				BBA1ACFA1C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB731C321BBB9A4300A32A3A /* SideSpike.cpp in Sources */,
+				BBA1ACFE1C349F4900CDE963 /* ShockwaveTextureProgram.cpp in Sources */,
 				BBEA169F1B97B9BB009B4711 /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */,
 				BBE4E1DC1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */,
 				0A8FBF85179E07320039BA29 /* pngset.c in Sources */,
@@ -1638,6 +1676,7 @@
 				BBEA16B41B97B9BB009B4711 /* OpenGLESRenderer.cpp in Sources */,
 				BB9B10FA1BE94C6000708C2B /* CaveExit.cpp in Sources */,
 				BB254B611BA49CCB00851994 /* Tree.cpp in Sources */,
+				BBA1ACF31C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBEA16981B97B9BB009B4711 /* image.c in Sources */,
 				BBEA16931B97B9BB009B4711 /* LineBatcher.cpp in Sources */,
 				BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */,
@@ -1732,7 +1771,9 @@
 				BB4237841BBDB6AB005D9B44 /* OpenGLESManager.cpp in Sources */,
 				BBC7B8801BC32E0300140BCA /* TrashCan.cpp in Sources */,
 				BB4237851BBDB6AB005D9B44 /* DustCloud.cpp in Sources */,
+				BBA1ACFB1C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB4237861BBDB6AB005D9B44 /* SideSpike.cpp in Sources */,
+				BBA1ACFF1C349F4900CDE963 /* ShockwaveTextureProgram.cpp in Sources */,
 				BB4237881BBDB6AB005D9B44 /* OpenGLESTextureGpuProgramWrapper.cpp in Sources */,
 				BBE4E1DD1C30B5C500919BAA /* SnakeEnemy.cpp in Sources */,
 				BB42378A1BBDB6AB005D9B44 /* pngset.c in Sources */,
@@ -1755,6 +1796,7 @@
 				BB4237961BBDB6AB005D9B44 /* OpenGLESRenderer.cpp in Sources */,
 				BB9B10FB1BE94C6000708C2B /* CaveExit.cpp in Sources */,
 				BB4237971BBDB6AB005D9B44 /* Tree.cpp in Sources */,
+				BBA1ACF41C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB4237981BBDB6AB005D9B44 /* image.c in Sources */,
 				BB4237991BBDB6AB005D9B44 /* LineBatcher.cpp in Sources */,
 				BB42379A1BBDB6AB005D9B44 /* Ground.cpp in Sources */,

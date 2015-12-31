@@ -123,7 +123,14 @@ void GamePlay::execute(GameScreen* gs)
     {
         gs->m_renderer->renderWorld(*m_game);
         
-        gs->m_renderer->renderToScreen();
+        if (m_isReleasingShockwave)
+        {
+            gs->m_renderer->renderToScreenWithShockwave(m_fShockwaveCenterX, m_fShockwaveCenterY, m_fShockwaveElapsedTime);
+        }
+        else
+        {
+            gs->m_renderer->renderToScreen();
+        }
         
         gs->m_renderer->renderJon(*m_game);
         
@@ -169,9 +176,33 @@ void GamePlay::execute(GameScreen* gs)
         }
         else
         {
-            if ((jon.isTransformingIntoVampire() || jon.isRevertingToRabbit()) && jon.getTransformStateTime() < 0.125f)
+            if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
             {
-                gs->m_fDeltaTime /= 8;
+                if (jon.getTransformStateTime() < 0.125f)
+                {
+                    gs->m_fDeltaTime /= 8;
+                }
+                else
+                {
+                    if (!m_isReleasingShockwave)
+                    {
+                        m_fShockwaveCenterX = jon.getPosition().getX();
+                        m_fShockwaveCenterY = jon.getPosition().getY();
+                        m_fShockwaveElapsedTime = 0.25f;
+                        m_isReleasingShockwave = true;
+                    }
+                }
+            }
+            
+            if (m_isReleasingShockwave)
+            {
+                m_fShockwaveElapsedTime += gs->m_fDeltaTime;
+                
+                if (m_fShockwaveElapsedTime > 4)
+                {
+                    m_fShockwaveElapsedTime = 0;
+                    m_isReleasingShockwave = false;
+                }
             }
             
             m_game->updateAndClean(gs->m_fDeltaTime);
@@ -196,6 +227,8 @@ void GamePlay::execute(GameScreen* gs)
                 jon.triggerTransform();
                 gs->m_isScreenHeldDown = false;
                 gs->m_fScreenHeldTime = 0;
+                m_fShockwaveElapsedTime = 0;
+                m_isReleasingShockwave = false;
             }
         }
         
@@ -228,6 +261,10 @@ void GamePlay::exit(GameScreen* gs)
     m_game->reset();
     
     m_fStateTime = 0;
+    m_isReleasingShockwave = false;
+    m_fShockwaveElapsedTime = 0;
+    m_fShockwaveCenterX = 0;
+    m_fShockwaveCenterY = 0;
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
 }
@@ -341,7 +378,7 @@ bool GamePlay::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-GamePlay::GamePlay() : m_sourceGame(nullptr), m_fStateTime(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
+GamePlay::GamePlay() : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());

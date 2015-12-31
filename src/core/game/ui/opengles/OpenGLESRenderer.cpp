@@ -21,6 +21,7 @@
 #include "Jon.h"
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
+#include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
 
 extern "C"
 {
@@ -36,6 +37,7 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     
     m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper());
     m_snakeDeathTextureProgram = std::unique_ptr<OpenGLESSnakeDeathTextureGpuProgramWrapper>(new OpenGLESSnakeDeathTextureGpuProgramWrapper());
+    m_shockwaveTextureGpuProgramWrapper = std::unique_ptr<OpenGLESShockwaveTextureGpuProgramWrapper>(new OpenGLESShockwaveTextureGpuProgramWrapper());
 }
 
 void OpenGLESRenderer::init(RendererType type)

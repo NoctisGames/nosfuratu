@@ -48,6 +48,7 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 
 	m_sinWaveTextureProgram = std::unique_ptr<Direct3DSinWaveTextureGpuProgramWrapper>(new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources));
 	m_snakeDeathTextureProgram = std::unique_ptr<Direct3DSnakeDeathTextureGpuProgramWrapper>(new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources));
+    m_shockwaveTextureGpuProgramWrapper = std::unique_ptr<Direct3DShockwaveTextureGpuProgramWrapper>(new Direct3DShockwaveTextureGpuProgramWrapper());
 }
 
 bool Direct3DRenderer::isLoaded()

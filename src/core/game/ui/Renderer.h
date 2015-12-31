@@ -26,6 +26,7 @@ class Jon;
 class GpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
+class ShockwaveTextureGpuProgramWrapper;
 class Vector2D;
 class BackButton;
 class LevelEditorActionsPanel;
@@ -78,6 +79,8 @@ public:
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     
     void renderToScreen();
+    
+    void renderToScreenWithShockwave(float centerX, float centerY, float timeElapsed);
 
     void cleanUp();
     
@@ -108,6 +111,7 @@ protected:
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
     std::unique_ptr<SnakeDeathTextureGpuProgramWrapper> m_snakeDeathTextureProgram;
+    std::unique_ptr<ShockwaveTextureGpuProgramWrapper> m_shockwaveTextureGpuProgramWrapper;
     
     virtual TextureWrapper* loadTexture(const char* textureName, int repeatS = 0) = 0;
     

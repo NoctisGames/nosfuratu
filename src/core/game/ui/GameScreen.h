@@ -27,6 +27,7 @@
 #include "GpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
+#include "ShockwaveTextureGpuProgramWrapper.h"
 #include "GameScreenStates.h"
 
 class GameScreen
