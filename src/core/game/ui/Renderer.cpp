@@ -439,7 +439,7 @@ void Renderer::renderTitleScreen()
     m_spriteBatcher->beginBatch();
     
     static Color fontColor = Color(1, 1, 1, 1);
-    static float fgWidth = CAM_WIDTH / 24;
+    static float fgWidth = CAM_WIDTH / 28;
     static float fgHeight = fgWidth * 1.140625f;
     
     float fontStartingY = CAM_HEIGHT * 2 / 5;
@@ -451,6 +451,11 @@ void Renderer::renderTitleScreen()
     
     {
         static std::string text = std::string("Swipe right to punch");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
+    }
+    
+    {
+        static std::string text = std::string("Hold screen to transform");
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY -= fgHeight, fgWidth, fgHeight, fontColor, true);
     }
     
