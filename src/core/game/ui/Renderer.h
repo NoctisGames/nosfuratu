@@ -130,9 +130,7 @@ protected:
     virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     
 private:
-    std::unique_ptr<Vector2D> m_camPos;
-    float m_fCamWidth;
-    float m_fCamHeight;
+    std::unique_ptr<Rectangle> m_camBounds;
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     std::unique_ptr<Vector2D> m_camAcceleration;
@@ -150,26 +148,26 @@ private:
     bool m_areLevelEditorTexturesLoaded;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
+    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items, bool performBoundsCheck = false)
     {
         for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::get(item));
+            renderPhysicalEntity(item, Assets::get(item), performBoundsCheck);
         }
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items)
+    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items, bool performBoundsCheck = false)
     {
         for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), performBoundsCheck);
         }
     }
     
@@ -185,9 +183,9 @@ private:
         }
     }
     
-    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr);
+    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool performBoundsCheck = false);
     
-    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
+    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool performBoundsCheck = false);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     

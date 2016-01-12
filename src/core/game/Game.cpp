@@ -189,10 +189,13 @@ void Game::reset()
     m_isLoaded = false;
 }
 
-void Game::updateAndClean(float deltaTime)
+void Game::update(float deltaTime)
 {
     m_fStateTime += deltaTime;
-    
+}
+
+void Game::updateAndClean(float deltaTime)
+{
     EntityUtils::updateAndClean(getTrees(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);

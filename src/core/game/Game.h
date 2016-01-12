@@ -59,6 +59,8 @@ public:
     
     void reset();
     
+    void update(float deltaTime);
+    
     void updateAndClean(float deltaTime);
     
     int calcSum();

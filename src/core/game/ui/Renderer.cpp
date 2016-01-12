@@ -43,10 +43,10 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fCamWidth(CAM_WIDTH), m_fCamHeight(CAM_HEIGHT), m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areJonPosesTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr)
+Renderer::Renderer() : m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areJonPosesTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr)
 {
     m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 73, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
-    m_camPos = std::unique_ptr<Vector2D>(new Vector2D(0, aboveGroundRegionBottomY));
+    m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -202,21 +202,21 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     
     updateCameraToFollowJon(game, 1337);
     
-    m_camPos->setX(getCamPosFarRight(game));
+    m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
     
     float changeInX = getCamPosFarRight(game) - farLeft;
     
-    m_camPosAcceleration->set(changeInX / 8, m_camPos->getY() * 0.3f);
-    m_camAcceleration->set((ZOOMED_OUT_CAM_WIDTH - m_fCamWidth) * 0.3f, (GAME_HEIGHT - m_fCamHeight) * 0.3f);
+    m_camPosAcceleration->set(changeInX / 8, m_camBounds->getLowerLeft().getY() * 0.3f);
+    m_camAcceleration->set((ZOOMED_OUT_CAM_WIDTH - m_camBounds->getWidth()) * 0.3f, (GAME_HEIGHT - m_camBounds->getHeight()) * 0.3f);
     m_camVelocity->set(0, 0);
     m_camPosVelocity->set(0, 0);
     
-    m_fOriginalY = m_camPos->getY();
-    m_fOriginalWidth = m_fCamWidth;
-    m_fOriginalHeight = m_fCamHeight;
+    m_fOriginalY = m_camBounds->getLowerLeft().getY();
+    m_fOriginalWidth = m_camBounds->getWidth();
+    m_fOriginalHeight = m_camBounds->getHeight();
 }
 
 bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
@@ -233,23 +233,23 @@ bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
         m_camPosVelocity->add(m_camPosAcceleration->getX() * deltaTime, 0);
         m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
         m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
-        m_fCamWidth += m_camVelocity->getX() * deltaTime;
-        m_fCamHeight += m_camVelocity->getY() * deltaTime;
-        m_camPos->sub(0, m_camPosVelocity->getY() * deltaTime);
+        m_camBounds->setWidth(m_camBounds->getWidth() + m_camVelocity->getX() * deltaTime);
+        m_camBounds->setHeight(m_camBounds->getHeight() + m_camVelocity->getY() * deltaTime);
+        m_camBounds->getLowerLeft().sub(0, m_camPosVelocity->getY() * deltaTime);
         
-        if (m_camPos->getY() < 0)
+        if (m_camBounds->getLowerLeft().getY() < 0)
         {
-            m_camPos->setY(0);
+            m_camBounds->getLowerLeft().setY(0);
         }
         
-        if (m_fCamWidth > ZOOMED_OUT_CAM_WIDTH)
+        if (m_camBounds->getWidth() > ZOOMED_OUT_CAM_WIDTH)
         {
-            m_fCamWidth = ZOOMED_OUT_CAM_WIDTH;
+            m_camBounds->setWidth(ZOOMED_OUT_CAM_WIDTH);
         }
         
-        if (m_fCamHeight > GAME_HEIGHT)
+        if (m_camBounds->getHeight() > GAME_HEIGHT)
         {
-            m_fCamHeight = GAME_HEIGHT;
+            m_camBounds->setHeight(GAME_HEIGHT);
         }
     }
     else if (m_fStateTime >= 5.0825f)
@@ -257,23 +257,23 @@ bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
         m_camPosVelocity->sub(m_camPosAcceleration->getX() * deltaTime, 0);
         m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
         m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
-        m_fCamWidth -= m_camVelocity->getX() * deltaTime;
-        m_fCamHeight -= m_camVelocity->getY() * deltaTime;
-        m_camPos->add(0, m_camPosVelocity->getY() * deltaTime);
+        m_camBounds->setWidth(m_camBounds->getWidth() - m_camVelocity->getX() * deltaTime);
+        m_camBounds->setHeight(m_camBounds->getHeight() - m_camVelocity->getY() * deltaTime);
+        m_camBounds->getLowerLeft().add(0, m_camPosVelocity->getY() * deltaTime);
         
-        if (m_camPos->getY() > m_fOriginalY)
+        if (m_camBounds->getLowerLeft().getY() > m_fOriginalY)
         {
-            m_camPos->setY(m_fOriginalY);
+            m_camBounds->getLowerLeft().setY(m_fOriginalY);
         }
         
-        if (m_fCamWidth < m_fOriginalWidth)
+        if (m_camBounds->getWidth() < m_fOriginalWidth)
         {
-            m_fCamWidth = m_fOriginalWidth;
+            m_camBounds->setWidth(m_fOriginalWidth);
         }
         
-        if (m_fCamHeight < m_fOriginalHeight)
+        if (m_camBounds->getHeight() < m_fOriginalHeight)
         {
-            m_fCamHeight = m_fOriginalHeight;
+            m_camBounds->setHeight(m_fOriginalHeight);
         }
         
         if (m_camPosVelocity->getX() < 0)
@@ -297,11 +297,11 @@ bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
         m_camPosVelocity->setX(changeInX * 0.28f);
     }
     
-    m_camPos->sub(m_camPosVelocity->getX() * deltaTime, 0);
+    m_camBounds->getLowerLeft().sub(m_camPosVelocity->getX() * deltaTime, 0);
     
-    if (m_camPos->getX() < farLeft)
+    if (m_camBounds->getLowerLeft().getX() < farLeft)
     {
-        m_camPos->setX(farLeft);
+        m_camBounds->getLowerLeft().setX(farLeft);
     }
     
     return m_fStateTime >= 8.065f;
@@ -310,7 +310,7 @@ bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
 {
     Jon& jon = game.getJon();
-    m_camPos->setX(jon.getPosition().getX() - CAM_WIDTH / 5);
+    m_camBounds->getLowerLeft().setX(jon.getPosition().getX() - CAM_WIDTH / 5);
     float jy = jon.getPosition().getY() - jon.getHeight() / 2;
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
@@ -350,69 +350,69 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
         }
     }
     
-    float camSpeed = regionBottomY - m_camPos->getY();
-    float camVelocityY = regionBottomY > m_camPos->getY() ? camSpeed : regionBottomY == m_camPos->getY() ? 0 : camSpeed * 4;
-    m_camPos->add(0, camVelocityY * deltaTime);
+    float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
+    float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
+    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
     
     if (camVelocityY > 0)
     {
         if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
         {
             float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
-            if (newCamPos > m_camPos->getY())
+            if (newCamPos > m_camBounds->getLowerLeft().getY())
             {
-                m_camPos->setY(newCamPos);
+                m_camBounds->getLowerLeft().setY(newCamPos);
             }
         }
         
-        if (m_camPos->getY() > regionBottomY)
+        if (m_camBounds->getLowerLeft().getY() > regionBottomY)
         {
-            m_camPos->setY(regionBottomY);
+            m_camBounds->getLowerLeft().setY(regionBottomY);
         }
     }
     
     if (camVelocityY < 0)
     {
-        if (m_camPos->getY() < regionBottomY)
+        if (m_camBounds->getLowerLeft().getY() < regionBottomY)
         {
-            m_camPos->setY(regionBottomY);
+            m_camBounds->getLowerLeft().setY(regionBottomY);
         }
     }
     
-    if (m_camPos->getY() < 0)
+    if (m_camBounds->getLowerLeft().getY() < 0)
     {
-        m_camPos->setY(0);
+        m_camBounds->getLowerLeft().setY(0);
     }
     
-    if (m_camPos->getY() > GAME_HEIGHT - CAM_HEIGHT)
+    if (m_camBounds->getLowerLeft().getY() > GAME_HEIGHT - CAM_HEIGHT)
     {
-        m_camPos->setY(GAME_HEIGHT - CAM_HEIGHT);
+        m_camBounds->getLowerLeft().setY(GAME_HEIGHT - CAM_HEIGHT);
     }
     
     float farCamPos = getCamPosFarRight(game);
-    if (m_camPos->getX() > farCamPos)
+    if (m_camBounds->getLowerLeft().getX() > farCamPos)
     {
-        m_camPos->setX(farCamPos);
+        m_camBounds->getLowerLeft().setX(farCamPos);
     }
 }
 
 void Renderer::moveCamera(float x)
 {
-    m_camPos->add(x, 0);
+    m_camBounds->getLowerLeft().add(x, 0);
 }
 
 void Renderer::zoomOut()
 {
-    m_camPos->set(0, 0);
-    m_fCamWidth = ZOOMED_OUT_CAM_WIDTH;
-    m_fCamHeight = GAME_HEIGHT;
+    m_camBounds->getLowerLeft().set(0, 0);
+    m_camBounds->setWidth(ZOOMED_OUT_CAM_WIDTH);
+    m_camBounds->setHeight(GAME_HEIGHT);
 }
 
 void Renderer::zoomIn()
 {
-    m_camPos->set(0, aboveGroundRegionBottomY);
-    m_fCamWidth = CAM_WIDTH;
-    m_fCamHeight = CAM_HEIGHT;
+    m_camBounds->getLowerLeft().set(0, aboveGroundRegionBottomY);
+    m_camBounds->setWidth(CAM_WIDTH);
+    m_camBounds->setHeight(CAM_HEIGHT);
 }
 
 void Renderer::renderTitleScreen()
@@ -499,7 +499,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render Background
     
-    updateMatrix(0, m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundSkies());
@@ -515,10 +515,10 @@ void Renderer::renderWorld(Game& game)
     
     /// Render World midground Trees
     
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getTrees());
+    renderPhysicalEntities(game.getTrees(), true);
     m_spriteBatcher->endBatch(*m_world_1_misc);
     
     /// Render World
@@ -528,7 +528,7 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_cave);
@@ -536,22 +536,22 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers(), true);
     }
     
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
         if ((*i)->is_world_1_ground_w_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
         }
     }
     
     for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
-        renderPhysicalEntities((*i)->getHoleCovers());
+        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+        renderPhysicalEntities((*i)->getHoleCovers(), true);
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
     
@@ -560,24 +560,24 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_ground_wo_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getPlatforms());
-    renderPhysicalEntities(game.getLogVerticalTalls());
-    renderPhysicalEntities(game.getLogVerticalShorts());
-    renderPhysicalEntities(game.getThorns());
-    renderPhysicalEntities(game.getStumps());
-    renderPhysicalEntities(game.getSideSpikes());
-    renderPhysicalEntities(game.getUpwardSpikes());
-    renderPhysicalEntities(game.getJumpSprings());
-    renderPhysicalEntities(game.getEndSigns());
-    renderPhysicalEntities(game.getCarrots());
-    renderPhysicalEntities(game.getGoldenCarrots());
-    renderPhysicalEntitiesWithColor(game.getRocks());
+    renderPhysicalEntities(game.getPlatforms(), true);
+    renderPhysicalEntities(game.getLogVerticalTalls(), true);
+    renderPhysicalEntities(game.getLogVerticalShorts(), true);
+    renderPhysicalEntities(game.getThorns(), true);
+    renderPhysicalEntities(game.getStumps(), true);
+    renderPhysicalEntities(game.getSideSpikes(), true);
+    renderPhysicalEntities(game.getUpwardSpikes(), true);
+    renderPhysicalEntities(game.getJumpSprings(), true);
+    renderPhysicalEntities(game.getEndSigns(), true);
+    renderPhysicalEntities(game.getCarrots(), true);
+    renderPhysicalEntities(game.getGoldenCarrots(), true);
+    renderPhysicalEntitiesWithColor(game.getRocks(), true);
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
@@ -588,7 +588,7 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), true);
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
@@ -600,19 +600,19 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), true);
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits());
+        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
     }
     
     for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits());
+        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
@@ -663,7 +663,7 @@ void Renderer::renderBounds(Game& game)
 {
 	/// Render World midground Trees
     
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_boundsRectangleBatcher->beginBatch();
     renderBoundsForPhysicalEntities(game.getJons());
@@ -701,7 +701,7 @@ void Renderer::renderBounds(Game& game)
 
 void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
 {
-	updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+	updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     renderHighlightForPhysicalEntity(entity, c);
@@ -786,7 +786,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
 	static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
     static Color originMarkerColor = Color(0, 0, 0, 0.7f);
     
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     m_highlightRectangleBatcher->renderRectangle(originMarker, originMarkerColor);
@@ -801,7 +801,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
     renderPhysicalEntity(leep, Assets::get(leep));
     m_spriteBatcher->endBatch(*m_level_editor);
     
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(tc, Assets::get(tc));
@@ -960,15 +960,15 @@ void Renderer::renderToScreenWithShockwave(float centerX, float centerY, float t
 {
     m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed);
     
-    updateMatrix(m_camPos->getX(), m_camPos->getX() + m_fCamWidth, m_camPos->getY(), m_camPos->getY() + m_fCamHeight);
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     bindToScreenFramebuffer();
     
-    float x = m_camPos->getX() + m_fCamWidth / 2;
-    float y = m_camPos->getY() + m_fCamHeight / 2;
+    float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
+    float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
     
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(x, y, m_fCamWidth, m_fCamHeight, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(x, y, m_camBounds->getWidth(), m_camBounds->getHeight(), 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(*m_framebuffer, *m_shockwaveTextureGpuProgramWrapper);
 }
 
@@ -1031,18 +1031,36 @@ void Renderer::cleanUp()
 
 Vector2D& Renderer::getCameraPosition()
 {
-    return *m_camPos;
+    return m_camBounds->getLowerLeft();
 }
 
 #pragma mark private
 
-void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool performBoundsCheck)
 {
+    if (performBoundsCheck)
+    {
+        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
+        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
+        {
+            return;
+        }
+    }
+    
     m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
 }
 
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool performBoundsCheck)
 {
+    if (performBoundsCheck)
+    {
+        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
+        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
+        {
+            return;
+        }
+    }
+    
     m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
 }
 

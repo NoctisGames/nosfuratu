@@ -176,6 +176,8 @@ void GamePlay::execute(GameScreen* gs)
         }
         else
         {
+            m_game->update(gs->m_fDeltaTime);
+            
             if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
             {
                 if (jon.getTransformStateTime() < 0.125f)
@@ -447,7 +449,8 @@ void LevelEditor::execute(GameScreen* gs)
         
         int oldSum = m_game->calcSum();
         
-        m_game->updateAndClean(gs->m_fDeltaTime / 8);
+        m_game->update(gs->m_fDeltaTime);
+        m_game->updateAndClean(gs->m_fDeltaTime / 4);
         
         if (m_game->getJons().size() > 1)
         {
