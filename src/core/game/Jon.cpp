@@ -70,7 +70,6 @@ void Jon::update(float deltaTime)
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
         setState(JON_DYING_FADING);
-        m_fHeight = 2.2f;
         return;
     }
     
