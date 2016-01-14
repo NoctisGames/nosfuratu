@@ -335,7 +335,7 @@ TextureRegion& Assets::get(Jon& jon)
     }
     else if (jon.isRevertingToRabbit())
     {
-        static Animation revertingToRabbit = Animation(0, 768, 256, 256, 2048, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 23, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.0078125f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f, 0.06285714285714f);
+        static Animation revertingToRabbit = Animation(0, 768, 256, 256, 2048, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
         
         return revertingToRabbit.getTextureRegion(jon.getTransformStateTime());
     }
