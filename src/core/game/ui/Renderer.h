@@ -92,22 +92,22 @@ protected:
     std::unique_ptr<RectangleBatcher> m_highlightRectangleBatcher;
     std::unique_ptr<Font> m_font;
     
-    std::unique_ptr<TextureWrapper> m_jon_ability;
-    std::unique_ptr<TextureWrapper> m_jon_poses;
-    std::unique_ptr<TextureWrapper> m_jon;
-    std::unique_ptr<TextureWrapper> m_level_editor;
-    std::unique_ptr<TextureWrapper> m_title_font;
-    std::unique_ptr<TextureWrapper> m_vampire_transform;
-    std::unique_ptr<TextureWrapper> m_vampire;
-    std::unique_ptr<TextureWrapper> m_world_1_background;
-    std::unique_ptr<TextureWrapper> m_world_1_cave;
-    std::unique_ptr<TextureWrapper> m_world_1_enemies;
-    std::unique_ptr<TextureWrapper> m_world_1_ground_w_cave;
-    std::unique_ptr<TextureWrapper> m_world_1_ground_wo_cave;
-    std::unique_ptr<TextureWrapper> m_world_1_misc;
-    std::unique_ptr<TextureWrapper> m_world_1_objects;
+    TextureWrapper* m_jon_ability;
+    TextureWrapper* m_jon_poses;
+    TextureWrapper* m_jon;
+    TextureWrapper* m_level_editor;
+    TextureWrapper* m_title_font;
+    TextureWrapper* m_vampire_transform;
+    TextureWrapper* m_vampire;
+    TextureWrapper* m_world_1_background;
+    TextureWrapper* m_world_1_cave;
+    TextureWrapper* m_world_1_enemies;
+    TextureWrapper* m_world_1_ground_w_cave;
+    TextureWrapper* m_world_1_ground_wo_cave;
+    TextureWrapper* m_world_1_misc;
+    TextureWrapper* m_world_1_objects;
     
-    std::unique_ptr<TextureWrapper> m_framebuffer;
+    TextureWrapper* m_framebuffer;
     
     std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
     std::unique_ptr<SnakeDeathTextureGpuProgramWrapper> m_snakeDeathTextureProgram;
@@ -182,6 +182,8 @@ private:
             renderBoundsForPhysicalEntity(item);
         }
     }
+    
+    void tearDownTexture(TextureWrapper* textureWrapper);
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool performBoundsCheck = false);
     

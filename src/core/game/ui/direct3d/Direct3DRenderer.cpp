@@ -121,7 +121,10 @@ void Direct3DRenderer::beginFrame()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetView.GetAddressOf(), nullptr);
 
-	m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get()));
+    if (!m_framebuffer)
+    {
+        m_framebuffer = new TextureWrapper(D3DManager->m_offscreenShaderResourceView.Get());
+    }
 }
 
 GpuProgramWrapper& Direct3DRenderer::getFramebufferToScreenGpuProgramWrapper()

@@ -44,7 +44,7 @@ void OpenGLESRenderer::init(RendererType type)
 {
     Renderer::init(type);
     
-    m_framebuffer = std::unique_ptr<TextureWrapper>(new TextureWrapper(OGLESManager->fbo_texture));
+    m_framebuffer = new TextureWrapper(OGLESManager->fbo_texture);
 }
 
 bool OpenGLESRenderer::isLoaded()
