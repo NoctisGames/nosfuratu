@@ -14,8 +14,6 @@
 #include "OpenGLESManager.h"
 #include "OpenGLESTextureGpuProgramWrapper.h"
 
-class OpenGLESRenderer;
-
 class OpenGLESGameScreen : public GameScreen
 {
 public:

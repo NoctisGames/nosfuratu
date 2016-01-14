@@ -113,15 +113,15 @@ public:
     
     static TextureRegion& get(LevelSelectorPanel& levelSelectorPanel);
     
-    void setMusicId(short musicId);
-    
-    short getMusicId();
-    
     short getFirstSoundId();
     
     void addSoundIdToPlayQueue(short soundId);
     
     void eraseFirstSoundId();
+    
+    void setMusicId(short musicId);
+    
+    short getMusicId();
 
 private:
     std::vector<short> m_sSoundIds;

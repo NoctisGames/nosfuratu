@@ -557,16 +557,6 @@ TextureRegion& Assets::get(LevelSelectorPanel& levelSelectorPanel)
     return tr;
 }
 
-void Assets::setMusicId(short musicId)
-{
-    m_sMusicId = musicId;
-}
-
-short Assets::getMusicId()
-{
-    return m_sMusicId;
-}
-
 short Assets::getFirstSoundId()
 {
     return m_sSoundIds.size() > 0 ? m_sSoundIds.front() : 0;
@@ -586,6 +576,16 @@ void Assets::eraseFirstSoundId()
     {
         m_sSoundIds.erase(m_sSoundIds.begin());
     }
+}
+
+void Assets::setMusicId(short musicId)
+{
+    m_sMusicId = musicId;
+}
+
+short Assets::getMusicId()
+{
+    return m_sMusicId;
 }
 
 Assets::Assets()
