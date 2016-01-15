@@ -92,7 +92,7 @@ public final class GameRenderer implements Renderer
         Resources res = activity.getResources();
         boolean isTablet = res.getBoolean(R.bool.isTablet);
 
-        init(isTablet, BuildConfig.IS_LEVEL_EDITOR);
+        init(!isTablet, BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
