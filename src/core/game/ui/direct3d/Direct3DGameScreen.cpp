@@ -40,6 +40,8 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
     m_cancelTransformSound = std::unique_ptr<GameSound>(new GameSound("cancel_transform.wav"));
     m_completeTransformSound = std::unique_ptr<GameSound>(new GameSound("complete_transform.wav"));
 
+	Assets::getInstance()->setUsingCompressedTextureSet(true);
+
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
 	CreateDeviceDependentResources();

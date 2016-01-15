@@ -345,5 +345,20 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
       <Filter>Assets</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_misc.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
