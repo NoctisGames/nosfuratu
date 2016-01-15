@@ -14,7 +14,7 @@
 #define IS_LEVEL_EDITOR false
 #endif
 
-IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen(IS_LEVEL_EDITOR)
+IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool isUsingCompressedTextureSet) : OpenGLESGameScreen(isUsingCompressedTextureSet, IS_LEVEL_EDITOR)
 {
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
@@ -28,5 +28,5 @@ IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, 
 
 void IOSOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 {
-    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * CAM_WIDTH, (((float)m_iPointsHeight - touchEvent.getY()) / (float) m_iPointsHeight) * CAM_HEIGHT);
+    m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * CAM_WIDTH, (1 - touchEvent.getY() / (float) m_iPointsHeight) * CAM_HEIGHT);
 }

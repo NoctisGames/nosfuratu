@@ -36,19 +36,19 @@ private:
 class TreeOne : public Tree
 {
 public:
-    TreeOne(float x, float y, float width = 6.112359550561798f, float height = 8.089214380825565f) : Tree(x, y, width, height, TreeType_One) {}
+    TreeOne(float x, float y, float width = 6.112359550561798f, float height = 8.101198402130493f) : Tree(x, y, width, height, TreeType_One) {}
 };
 
 class TreeTwo : public Tree
 {
 public:
-    TreeTwo(float x, float y, float width = 11.217977528089888f, float height = 10.246338215712383f) : Tree(x, y, width, height, TreeType_Two) {}
+    TreeTwo(float x, float y, float width = 11.217977528089888f, float height = 10.25832223701731f) : Tree(x, y, width, height, TreeType_Two) {}
 };
 
 class TreeThree : public Tree
 {
 public:
-    TreeThree(float x, float y, float width = 7.89812734082397f, float height = 9.623169107856192f) : Tree(x, y, width, height, TreeType_Three) {}
+    TreeThree(float x, float y, float width = 7.910112359550562f, float height = 9.63515312916112f) : Tree(x, y, width, height, TreeType_Three) {}
 };
 
 #endif /* defined(__nosfuratu__Tree__) */

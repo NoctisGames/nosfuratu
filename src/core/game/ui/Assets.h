@@ -44,74 +44,82 @@
 
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
+typedef enum
+{
+    TOP_LEFT,
+    TOP_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_RIGHT
+} TextureRegionQuad;
+
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    static TextureRegion& get(BackgroundSky& backgroundSky);
+    TextureRegion& get(BackgroundSky& backgroundSky);
     
-    static TextureRegion& get(BackgroundTrees& backgroundTrees);
+    TextureRegion& get(BackgroundTrees& backgroundTrees);
     
-    static TextureRegion& get(BackgroundCave& backgroundCave);
+    TextureRegion& get(BackgroundCave& backgroundCave);
     
-    static TextureRegion& get(Tree& tree);
+    TextureRegion& get(Tree& tree);
     
-    static TextureRegion& get(Ground& ground);
+    TextureRegion& get(Ground& ground);
     
-    static TextureRegion& get(Hole& hole);
+    TextureRegion& get(Hole& hole);
     
-    static TextureRegion& get(HoleCover& holeCover);
+    TextureRegion& get(HoleCover& holeCover);
     
-    static TextureRegion& get(CaveExit& caveExit);
+    TextureRegion& get(CaveExit& caveExit);
     
-    static TextureRegion& get(CaveExitCover& caveExitCover);
+    TextureRegion& get(CaveExitCover& caveExitCover);
     
-    static TextureRegion& get(LogVerticalTall& logVerticalTall);
+    TextureRegion& get(LogVerticalTall& logVerticalTall);
     
-    static TextureRegion& get(LogVerticalShort& logVerticalShort);
+    TextureRegion& get(LogVerticalShort& logVerticalShort);
     
-    static TextureRegion& get(Thorns& thorns);
+    TextureRegion& get(Thorns& thorns);
     
-    static TextureRegion& get(Stump& stump);
+    TextureRegion& get(Stump& stump);
     
-    static TextureRegion& get(SideSpike& sideSpike);
+    TextureRegion& get(SideSpike& sideSpike);
     
-    static TextureRegion& get(UpwardSpike& upwardSpike);
+    TextureRegion& get(UpwardSpike& upwardSpike);
     
-    static TextureRegion& get(JumpSpring& jumpSpring);
+    TextureRegion& get(JumpSpring& jumpSpring);
     
-    static TextureRegion& get(Rock& rock);
+    TextureRegion& get(Rock& rock);
     
-    static TextureRegion& get(CrackedRock& rock);
+    TextureRegion& get(CrackedRock& rock);
     
-    static TextureRegion& get(GroundPlatform& platform);
+    TextureRegion& get(GroundPlatform& platform);
     
-    static TextureRegion& get(EndSign& endSign);
+    TextureRegion& get(EndSign& endSign);
     
-    static TextureRegion& get(Carrot& carrot);
+    TextureRegion& get(Carrot& carrot);
     
-    static TextureRegion& get(GoldenCarrot& goldenCarrot);
+    TextureRegion& get(GoldenCarrot& goldenCarrot);
     
-    static TextureRegion& get(SnakeGrunt& snakeEnemy);
+    TextureRegion& get(SnakeGrunt& snakeEnemy);
     
-    static TextureRegion& get(SnakeHorned& snakeEnemy);
+    TextureRegion& get(SnakeHorned& snakeEnemy);
     
-    static TextureRegion& get(SnakeSpirit& snakeSpirit);
+    TextureRegion& get(SnakeSpirit& snakeSpirit);
     
-    static TextureRegion& get(Jon& jon);
+    TextureRegion& get(Jon& jon);
     
-    static TextureRegion& get(DustCloud& dustCloud);
+    TextureRegion& get(DustCloud& dustCloud);
     
-    static TextureRegion& get(BackButton& backButton);
+    TextureRegion& get(BackButton& backButton);
     
-    static TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
+    TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
     
-    static TextureRegion& get(LevelEditorActionsPanel& levelEditorActionsPanel);
+    TextureRegion& get(LevelEditorActionsPanel& levelEditorActionsPanel);
     
-    static TextureRegion& get(TrashCan& trashCan);
+    TextureRegion& get(TrashCan& trashCan);
     
-    static TextureRegion& get(LevelSelectorPanel& levelSelectorPanel);
+    TextureRegion& get(LevelSelectorPanel& levelSelectorPanel);
     
     short getFirstSoundId();
     
@@ -122,10 +130,21 @@ public:
     void setMusicId(short musicId);
     
     short getMusicId();
+    
+    bool isUsingCompressedTextureSet();
+    
+    void setUsingCompressedTextureSet(bool isUsingCompressedTextureSet);
 
 private:
     std::vector<short> m_sSoundIds;
     short m_sMusicId;
+    bool m_isUsingCompressedTextureSet;
+    
+    Animation createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    
+    Animation createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    
+    TextureRegion createTextureRegion(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Assets();

@@ -14,7 +14,7 @@
 class HoleCover : public DestructiblePhysicalEntity
 {
 public:
-    HoleCover(float x, float y = 8.095320623916809f, float width = 3.1760299625468167f, float height = 2.229027962716378f);
+    HoleCover(float x, float y = 8.095320623916809f, float width = 3.187749667110519f, float height = 2.229027962716378f);
     
     virtual void update(float deltaTime);
     

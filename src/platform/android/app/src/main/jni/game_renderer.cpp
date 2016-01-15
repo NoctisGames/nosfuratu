@@ -17,7 +17,7 @@ AndroidOpenGLESGameScreen *gameScreen;
 /* These functions are called from Java. */
 extern "C"
 {
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor);
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_using_compressed_texture_set, jboolean is_level_editor);
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1created(JNIEnv * env, jclass cls);
 
@@ -52,12 +52,12 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
 };
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor)
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_using_compressed_texture_set, jboolean is_level_editor)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen = new AndroidOpenGLESGameScreen(is_level_editor);
+	gameScreen = new AndroidOpenGLESGameScreen(is_using_compressed_texture_set, is_level_editor);
 }
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1created(JNIEnv * env, jclass cls)

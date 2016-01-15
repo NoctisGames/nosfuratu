@@ -141,9 +141,6 @@ private:
     float m_fStateTime;
     RendererType m_rendererType;
     bool m_areTitleTexturesLoaded;
-    bool m_areJonTexturesLoaded;
-    bool m_areJonPosesTexturesLoaded;
-    bool m_areVampireAndAbilityTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;
     
@@ -155,7 +152,7 @@ private:
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::get(item), performBoundsCheck);
+            renderPhysicalEntity(item, Assets::getInstance()->get(item), performBoundsCheck);
         }
     }
     
@@ -167,7 +164,7 @@ private:
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), performBoundsCheck);
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), performBoundsCheck);
         }
     }
     

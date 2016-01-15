@@ -43,9 +43,22 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areJonTexturesLoaded(false), m_areJonPosesTexturesLoaded(false), m_areVampireAndAbilityTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_framebuffer(nullptr), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr)
+Renderer::Renderer() : m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_framebuffer(nullptr), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr)
 {
-    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 73, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
+    int x = 0;
+    int y = 0;
+    int glyphWidth = 64;
+    int glyphHeight = 73;
+    
+    if (Assets::getInstance()->isUsingCompressedTextureSet())
+    {
+        x = x / 2.0;
+        y = y / 2.0;
+        glyphWidth = glyphWidth / 2.0;
+        glyphHeight = glyphHeight / 2.0;
+    }
+    
+    m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -57,124 +70,10 @@ void Renderer::init(RendererType type)
 {
     m_rendererType = type;
     
-    switch (type)
-    {
-        case RENDERER_TYPE_TITLE:
-            if (m_areJonTexturesLoaded)
-            {
-                destroyTexture(*m_jon);
-                
-                m_areJonTexturesLoaded = false;
-            }
-            
-            if (m_areJonPosesTexturesLoaded)
-            {
-                destroyTexture(*m_jon_poses);
-                
-                m_areJonPosesTexturesLoaded = false;
-            }
-            
-            if (m_areVampireAndAbilityTexturesLoaded)
-            {
-                destroyTexture(*m_jon_ability);
-                destroyTexture(*m_vampire_transform);
-                destroyTexture(*m_vampire);
-                
-                m_areVampireAndAbilityTexturesLoaded = false;
-            }
-            
-            if (m_areWorld1TexturesLoaded)
-            {
-                destroyTexture(*m_world_1_background);
-                destroyTexture(*m_world_1_cave);
-                destroyTexture(*m_world_1_enemies);
-                destroyTexture(*m_world_1_ground_w_cave);
-                destroyTexture(*m_world_1_ground_wo_cave);
-                destroyTexture(*m_world_1_misc);
-                destroyTexture(*m_world_1_objects);
-                
-                m_areWorld1TexturesLoaded = false;
-            }
-            
-            break;
-        case RENDERER_TYPE_WORLD_1:
-            if (m_areLevelEditorTexturesLoaded)
-            {
-                destroyTexture(*m_level_editor);
-                
-                m_areLevelEditorTexturesLoaded = false;
-            }
-            
-            break;
-        case RENDERER_TYPE_LEVEL_EDITOR:
-            if (m_areVampireAndAbilityTexturesLoaded)
-            {
-                destroyTexture(*m_jon_ability);
-                destroyTexture(*m_vampire_transform);
-                destroyTexture(*m_vampire);
-                
-                m_areVampireAndAbilityTexturesLoaded = false;
-            }
-            
-            break;
-        default:
-            break;
-    }
+    bool compressed = Assets::getInstance()->isUsingCompressedTextureSet();
     
     switch (type)
     {
-        case RENDERER_TYPE_WORLD_1:
-        case RENDERER_TYPE_LEVEL_EDITOR:
-            if (!m_areJonTexturesLoaded)
-            {
-                m_jon = loadTexture("jon");
-                
-                m_areJonTexturesLoaded = true;
-            }
-            
-            if (!m_areJonPosesTexturesLoaded)
-            {
-                m_jon_poses = loadTexture("jon_poses");
-                
-                m_areJonPosesTexturesLoaded = true;
-            }
-            
-            if (!m_areWorld1TexturesLoaded)
-            {
-                m_world_1_background = loadTexture("world_1_background", 1);
-                m_world_1_cave = loadTexture("world_1_cave");
-                m_world_1_enemies = loadTexture("world_1_enemies");
-                m_world_1_ground_w_cave = loadTexture("world_1_ground_w_cave");
-                m_world_1_ground_wo_cave = loadTexture("world_1_ground_wo_cave");
-                m_world_1_misc = loadTexture("world_1_misc");
-                m_world_1_objects = loadTexture("world_1_objects");
-                
-                m_areWorld1TexturesLoaded = true;
-            }
-        case RENDERER_TYPE_TITLE:
-            if (!m_areTitleTexturesLoaded)
-            {
-                m_title_font = loadTexture("title_font");
-                
-                m_areTitleTexturesLoaded = true;
-            }
-        default:
-            break;
-    }
-    
-    switch (type)
-    {
-        case RENDERER_TYPE_WORLD_1:
-            if (!m_areVampireAndAbilityTexturesLoaded)
-            {
-                m_jon_ability = loadTexture("jon_ability");
-                m_vampire_transform = loadTexture("vampire_transform");
-                m_vampire = loadTexture("vampire");
-                
-                m_areVampireAndAbilityTexturesLoaded = true;
-            }
-            
-            break;
         case RENDERER_TYPE_LEVEL_EDITOR:
             if (!m_areLevelEditorTexturesLoaded)
             {
@@ -182,8 +81,35 @@ void Renderer::init(RendererType type)
                 
                 m_areLevelEditorTexturesLoaded = true;
             }
-            
-            break;
+        case RENDERER_TYPE_WORLD_1:
+            if (!m_areWorld1TexturesLoaded)
+            {
+                m_world_1_background = loadTexture("world_1_background", 1);
+                
+                m_world_1_ground_w_cave = loadTexture(compressed ? "compressed_world_1_ground" : "world_1_ground_w_cave");
+                m_world_1_ground_wo_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_ground_wo_cave");
+                m_world_1_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_cave");
+                
+                m_world_1_objects = loadTexture(compressed ? "compressed_world_1_objects" : "world_1_objects");
+                m_world_1_misc = compressed ? m_world_1_objects : loadTexture("world_1_misc");
+                m_world_1_enemies = compressed ? m_world_1_objects : loadTexture("world_1_enemies");
+                
+                m_jon = loadTexture(compressed ? "compressed_jon" : "jon");
+                m_jon_ability = compressed ? m_jon : loadTexture("jon_ability");
+                m_jon_poses = compressed ? m_jon : loadTexture("jon_poses");
+                
+                m_vampire = loadTexture(compressed ? "compressed_vampire" : "vampire");
+                m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
+                
+                m_areWorld1TexturesLoaded = true;
+            }
+        case RENDERER_TYPE_TITLE:
+            if (!m_areTitleTexturesLoaded)
+            {
+                m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
+                
+                m_areTitleTexturesLoaded = true;
+            }
         default:
             break;
     }
@@ -432,7 +358,21 @@ void Renderer::renderTitleScreen()
     m_spriteBatcher->beginBatch();
     static float tlWidth = CAM_WIDTH * 2 / 3;
     static float tlHeight = tlWidth * 0.4921875f;
-    static TextureRegion tlTr = TextureRegion(0, 1040, 2048, 1008, 2048, 2048);
+    
+    int x = 0;
+    int y = 1040;
+    int regionWidth = 2048;
+    int regionHeight = 1008;
+    
+    if (Assets::getInstance()->isUsingCompressedTextureSet())
+    {
+        x = x / 2.0;
+        y = y / 2.0;
+        regionWidth = regionWidth / 2.0;
+        regionHeight = regionHeight / 2.0;
+    }
+    
+    static TextureRegion tlTr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, tlWidth, tlHeight, 0, tlTr);
     m_spriteBatcher->endBatch(*m_title_font);
     
@@ -528,7 +468,7 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_cave);
@@ -536,7 +476,7 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
         renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers(), true);
     }
     
@@ -544,13 +484,13 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_ground_w_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
         }
     }
     
     for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
         renderPhysicalEntities((*i)->getHoleCovers(), true);
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
@@ -560,7 +500,7 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_ground_wo_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
@@ -588,7 +528,7 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
@@ -600,7 +540,7 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
@@ -715,7 +655,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     /// Render Back Button
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(backButton, Assets::get(backButton));
+    renderPhysicalEntity(backButton, Assets::getInstance()->get(backButton));
     m_spriteBatcher->endBatch(*m_title_font);
     
     static Color fontColor = Color(1, 1, 1, 1);
@@ -776,8 +716,8 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     static GoldenCarrot uiGoldenCarrot = GoldenCarrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(uiCarrot, Assets::get(uiCarrot));
-    renderPhysicalEntity(uiGoldenCarrot, Assets::get(uiGoldenCarrot));
+    renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(uiCarrot));
+    renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(uiGoldenCarrot));
     m_spriteBatcher->endBatch(*m_world_1_objects);
 }
 
@@ -797,14 +737,14 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
     /// Render Level Editor
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(leap, Assets::get(leap));
-    renderPhysicalEntity(leep, Assets::get(leep));
+    renderPhysicalEntity(leap, Assets::getInstance()->get(leap));
+    renderPhysicalEntity(leep, Assets::getInstance()->get(leep));
     m_spriteBatcher->endBatch(*m_level_editor);
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(tc, Assets::get(tc));
+    renderPhysicalEntity(tc, Assets::getInstance()->get(tc));
     m_spriteBatcher->endBatch(*m_level_editor);
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
@@ -826,7 +766,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         {
             if ((*i)->is_world_1_cave())
             {
-                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+                renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             }
         }
         m_spriteBatcher->endBatch(*m_world_1_cave);
@@ -834,7 +774,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
         }
         
@@ -842,13 +782,13 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         {
             if ((*i)->is_world_1_ground_w_cave())
             {
-                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+                renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             }
         }
         
         for (std::vector<std::unique_ptr<Hole>>::iterator i = leep.getHoles().begin(); i != leep.getHoles().end(); i++)
         {
-            renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             renderPhysicalEntities((*i)->getHoleCovers());
         }
         m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
@@ -858,7 +798,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         {
             if ((*i)->is_world_1_ground_wo_cave())
             {
-                renderPhysicalEntity(*(*i).get(), Assets::get(*(*i).get()));
+                renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             }
         }
         m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
@@ -886,7 +826,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
             
             m_spriteBatcher->beginBatch();
             m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
             m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
         }
         
@@ -898,7 +838,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
             
             m_spriteBatcher->beginBatch();
             m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-            renderPhysicalEntityWithColor(item, Assets::get(item), item.getColor());
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
             m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
         }
         
@@ -920,7 +860,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(lsp, Assets::get(lsp));
+        renderPhysicalEntity(lsp, Assets::getInstance()->get(lsp));
         m_spriteBatcher->endBatch(*m_level_editor);
         
         static Color fontColor = Color(1, 1, 1, 1);
@@ -974,6 +914,8 @@ void Renderer::renderToScreenWithShockwave(float centerX, float centerY, float t
 
 void Renderer::cleanUp()
 {
+    bool compressed = Assets::getInstance()->isUsingCompressedTextureSet();
+    
     if (m_areTitleTexturesLoaded)
     {
         tearDownTexture(m_title_font);
@@ -981,38 +923,31 @@ void Renderer::cleanUp()
         m_areTitleTexturesLoaded = false;
     }
     
-    if (m_areJonTexturesLoaded)
-    {
-        tearDownTexture(m_jon);
-        
-        m_areJonTexturesLoaded = false;
-    }
-    
-    if (m_areJonPosesTexturesLoaded)
-    {
-        tearDownTexture(m_jon_poses);
-        
-        m_areJonPosesTexturesLoaded = false;
-    }
-    
-    if (m_areVampireAndAbilityTexturesLoaded)
-    {
-        tearDownTexture(m_jon_ability);
-        tearDownTexture(m_vampire_transform);
-        tearDownTexture(m_vampire);
-        
-        m_areVampireAndAbilityTexturesLoaded = false;
-    }
-    
     if (m_areWorld1TexturesLoaded)
     {
         tearDownTexture(m_world_1_background);
-        tearDownTexture(m_world_1_cave);
-        tearDownTexture(m_world_1_enemies);
+        
         tearDownTexture(m_world_1_ground_w_cave);
-        tearDownTexture(m_world_1_ground_wo_cave);
-        tearDownTexture(m_world_1_misc);
+        
         tearDownTexture(m_world_1_objects);
+        
+        tearDownTexture(m_jon);
+        
+        tearDownTexture(m_vampire);
+        
+        if (!compressed)
+        {
+            tearDownTexture(m_world_1_ground_wo_cave);
+            tearDownTexture(m_world_1_cave);
+            
+            tearDownTexture(m_world_1_misc);
+            tearDownTexture(m_world_1_enemies);
+            
+            tearDownTexture(m_jon_ability);
+            tearDownTexture(m_jon_poses);
+            
+            tearDownTexture(m_vampire_transform);
+        }
         
         m_areWorld1TexturesLoaded = false;
     }

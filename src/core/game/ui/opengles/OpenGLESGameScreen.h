@@ -17,7 +17,7 @@
 class OpenGLESGameScreen : public GameScreen
 {
 public:
-    OpenGLESGameScreen(bool isLevelEditor = false);
+    OpenGLESGameScreen(bool isUsingCompressedTextureSet = false, bool isLevelEditor = false);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */

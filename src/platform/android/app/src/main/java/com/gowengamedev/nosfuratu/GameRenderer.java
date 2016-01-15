@@ -1,6 +1,7 @@
 package com.gowengamedev.nosfuratu;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -88,7 +89,10 @@ public final class GameRenderer implements Renderer
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
-        init(BuildConfig.IS_LEVEL_EDITOR);
+        Resources res = activity.getResources();
+        boolean isTablet = res.getBoolean(R.bool.isTablet);
+
+        init(isTablet, BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
@@ -360,7 +364,7 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private static native void init(boolean isLevelEditor);
+    private static native void init(boolean isUsingCompressedTextureSet, boolean isLevelEditor);
 
     private static native void on_surface_created();
 

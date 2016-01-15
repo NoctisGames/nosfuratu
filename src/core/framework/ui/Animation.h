@@ -16,15 +16,19 @@ class TextureRegion;
 class Animation
 {
 public:
-    Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames, ...);
+    Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
     Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    
+    void setFrameTimes(int numFrames, ...);
     
     TextureRegion& getTextureRegion(float stateTime);
     
     TextureRegion& getTextureRegion(int keyFrameNumber);
     
     int getKeyFrameNumber(float stateTime);
+    
+    bool hasFrameTimes();
     
     ~Animation();
     

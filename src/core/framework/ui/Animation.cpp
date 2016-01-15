@@ -10,22 +10,9 @@
 #include "TextureRegion.h"
 #include <stdarg.h>
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames, ...) : m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)
+Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames) : m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
-
-	va_list arguments;
-
-	va_start(arguments, numFrames);
-
-	for (int i = 0; i < numFrames; i++)
-	{
-		float f = va_arg(arguments, double);
-		m_frameTimes.push_back(f);
-		m_fCycleTime += f;
-	}
-
-	va_end(arguments);
 }
 
 Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame) : m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
@@ -37,6 +24,22 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
 		m_frameTimes.push_back(frameTime);
 		m_fCycleTime += frameTime;
 	}
+}
+
+void Animation::setFrameTimes(int numFrames, ...)
+{
+    va_list arguments;
+    
+    va_start(arguments, numFrames);
+    
+    for (int i = 0; i < numFrames; i++)
+    {
+        float f = va_arg(arguments, double);
+        m_frameTimes.push_back(f);
+        m_fCycleTime += f;
+    }
+    
+    va_end(arguments);
 }
 
 TextureRegion& Animation::getTextureRegion(float stateTime)
@@ -89,6 +92,11 @@ int Animation::getKeyFrameNumber(float stateTime)
     }
     
     return 0;
+}
+
+bool Animation::hasFrameTimes()
+{
+    return m_frameTimes.size() > 0;
 }
 
 Animation::~Animation()

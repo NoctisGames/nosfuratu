@@ -8,7 +8,7 @@
 
 #include "OpenGLESGameScreen.h"
 
-OpenGLESGameScreen::OpenGLESGameScreen(bool isLevelEditor) : GameScreen(isLevelEditor)
+OpenGLESGameScreen::OpenGLESGameScreen(bool isUsingCompressedTextureSet, bool isLevelEditor) : GameScreen(isLevelEditor)
 {
-    // Empty
+    Assets::getInstance()->setUsingCompressedTextureSet(isUsingCompressedTextureSet);
 }
