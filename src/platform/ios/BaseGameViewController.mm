@@ -7,7 +7,6 @@
 //
 
 #import "BaseGameViewController.h"
-#import "GGDDeviceUtil.h"
 #import "UIView+Toast.h"
 
 // Sound Engine
@@ -34,7 +33,8 @@ enum GameSoundIds {
     SNAKE_DEATH,
     TRIGGER_TRANSFORM,
     CANCEL_TRANSFORM,
-    COMPLETE_TRANSFORM
+    COMPLETE_TRANSFORM,
+    JUMP_SPRING_HEAVY
 };
 
 @interface BaseGameViewController ()
@@ -48,13 +48,6 @@ enum GameSoundIds {
 @end
 
 @implementation BaseGameViewController
-
-static bool isRunningiOS8 = false;
-
-+ (void)initialize
-{
-    isRunningiOS8 = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0");
-}
 
 - (void)viewDidLoad
 {
@@ -240,6 +233,9 @@ static bool isRunningiOS8 = false;
             case SOUND_COMPLETE_TRANSFORM:
                 [self.soundMgr playSoundWithID:COMPLETE_TRANSFORM];
                 break;
+            case SOUND_JUMP_SPRING_HEAVY:
+                [self.soundMgr playSoundWithID:JUMP_SPRING_HEAVY];
+                break;
             default:
                 continue;
         }
@@ -366,7 +362,7 @@ static bool isRunningiOS8 = false;
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", nil];
 }
 
 @end

@@ -145,7 +145,7 @@ void Jon::update(float deltaTime)
             m_fHeight = 4.4f;
         }
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JUMP_SPRING);
+        Assets::getInstance()->addSoundIdToPlayQueue(m_iBoostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
     }
     else if (isLandingOnEnemy)
     {

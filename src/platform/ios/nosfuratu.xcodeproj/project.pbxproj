@@ -147,7 +147,6 @@
 		BB4237991BBDB6AB005D9B44 /* LineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16191B97B9BB009B4711 /* LineBatcher.cpp */; };
 		BB42379A1BBDB6AB005D9B44 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB42379B1BBDB6AB005D9B44 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16391B97B9BB009B4711 /* texture.c */; };
-		BB42379C1BBDB6AB005D9B44 /* GGDDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */; };
 		BB42379D1BBDB6AB005D9B44 /* OpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16671B97B9BB009B4711 /* OpenGLESGameScreen.cpp */; };
 		BB42379E1BBDB6AB005D9B44 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C51B97B9BB009B4711 /* Entity.cpp */; };
 		BB42379F1BBDB6AB005D9B44 /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A8FBF57179DF0B80039BA29 /* pngwrite.c */; };
@@ -229,7 +228,6 @@
 		BB731C321BBB9A4300A32A3A /* SideSpike.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB731C301BBB9A4300A32A3A /* SideSpike.cpp */; };
 		BB74E80718C2541F007C223E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB74E80518C2541F007C223E /* Localizable.strings */; };
 		BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7DCF041B9A5EE000394A73 /* Carrot.cpp */; };
-		BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */; };
 		BB8900C01BB1D32D00963083 /* BackgroundSky.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900BE1BB1D32D00963083 /* BackgroundSky.cpp */; };
 		BB8900C51BB1D4AF00963083 /* BackgroundCave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C11BB1D4AF00963083 /* BackgroundCave.cpp */; };
 		BB8900C61BB1D4AF00963083 /* BackgroundTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8900C31BB1D4AF00963083 /* BackgroundTrees.cpp */; };
@@ -296,6 +294,8 @@
 		BBC9710C1C35885700722602 /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971071C35885700722602 /* complete_transform.wav */; };
 		BBC9710D1C35885700722602 /* trigger_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971081C35885700722602 /* trigger_transform.wav */; };
 		BBC9710E1C35885700722602 /* trigger_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971081C35885700722602 /* trigger_transform.wav */; };
+		BBCCE5D41C4D46C20088629C /* jump_spring_heavy.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */; };
+		BBCCE5D51C4D46C20088629C /* jump_spring_heavy.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */; };
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
@@ -499,8 +499,6 @@
 		BB74E80618C2541F007C223E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BB7DCF041B9A5EE000394A73 /* Carrot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Carrot.cpp; sourceTree = "<group>"; };
 		BB7DCF051B9A5EE000394A73 /* Carrot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
-		BB81B1BB19BE1A1800548837 /* GGDDeviceUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGDDeviceUtil.h; sourceTree = "<group>"; };
-		BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGDDeviceUtil.m; sourceTree = "<group>"; };
 		BB8900BE1BB1D32D00963083 /* BackgroundSky.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackgroundSky.cpp; sourceTree = "<group>"; };
 		BB8900BF1BB1D32D00963083 /* BackgroundSky.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundSky.h; sourceTree = "<group>"; };
 		BB8900C11BB1D4AF00963083 /* BackgroundCave.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackgroundCave.cpp; sourceTree = "<group>"; };
@@ -593,6 +591,7 @@
 		BBC971061C35885700722602 /* cancel_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = cancel_transform.wav; path = ../../../../assets/sounds/cancel_transform.wav; sourceTree = "<group>"; };
 		BBC971071C35885700722602 /* complete_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = complete_transform.wav; path = ../../../../assets/sounds/complete_transform.wav; sourceTree = "<group>"; };
 		BBC971081C35885700722602 /* trigger_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trigger_transform.wav; path = ../../../../assets/sounds/trigger_transform.wav; sourceTree = "<group>"; };
+		BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jump_spring_heavy.wav; path = ../../../../assets/sounds/jump_spring_heavy.wav; sourceTree = "<group>"; };
 		BBD572131BBB3C2300870723 /* Rock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rock.cpp; sourceTree = "<group>"; };
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
@@ -873,8 +872,6 @@
 				BB3CCB911C48AAF60032A5EA /* PhoneGameViewController.mm */,
 				BB3CCB921C48AAF60032A5EA /* TabletGameViewController.h */,
 				BB3CCB931C48AAF60032A5EA /* TabletGameViewController.mm */,
-				BB81B1BB19BE1A1800548837 /* GGDDeviceUtil.h */,
-				BB81B1BC19BE1A1800548837 /* GGDDeviceUtil.m */,
 				0A8FBF6D179DF3850039BA29 /* platform_asset_utils.m */,
 				BB66EC0D1C0E50F3006DE4F5 /* soundengine */,
 				0ADF1882178E2185005DA99E /* Supporting Files */,
@@ -966,6 +963,7 @@
 				BB3F05591C24681C001EEE20 /* jon_poses.png */,
 				BB66EBD91C0E4F7E006DE4F5 /* jon.png */,
 				BB900C421C25303F001DA002 /* jump_spring.wav */,
+				BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */,
 				BB17E7571C2E16A500C56A36 /* landing_cave.wav */,
 				BB17E7581C2E16A500C56A36 /* landing_grass.wav */,
 				BB66EBDA1C0E4F7E006DE4F5 /* level_editor.png */,
@@ -1522,6 +1520,7 @@
 				BB66EBEB1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
 				BBC9710B1C35885700722602 /* complete_transform.wav in Resources */,
 				BB900C471C25303F001DA002 /* footstep_right_cave.wav in Resources */,
+				BBCCE5D41C4D46C20088629C /* jump_spring_heavy.wav in Resources */,
 				BB66EBF51C0E4F7E006DE4F5 /* world_1_ground_wo_cave.png in Resources */,
 				BB3D5EF71C1A40EC00DD0549 /* world_1_enemies.png in Resources */,
 				BBEA16A51B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh in Resources */,
@@ -1580,6 +1579,7 @@
 				BB66EBEC1C0E4F7E006DE4F5 /* vampire_transform.png in Resources */,
 				BBC9710C1C35885700722602 /* complete_transform.wav in Resources */,
 				BB900C481C25303F001DA002 /* footstep_right_cave.wav in Resources */,
+				BBCCE5D51C4D46C20088629C /* jump_spring_heavy.wav in Resources */,
 				BB66EBF61C0E4F7E006DE4F5 /* world_1_ground_wo_cave.png in Resources */,
 				BB3D5EF81C1A40EC00DD0549 /* world_1_enemies.png in Resources */,
 				BB4237B31BBDB6AB005D9B44 /* frame_buffer_to_screen_shader.vsh in Resources */,
@@ -1753,7 +1753,6 @@
 				BBEA16931B97B9BB009B4711 /* LineBatcher.cpp in Sources */,
 				BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */,
 				BBEA16A21B97B9BB009B4711 /* texture.c in Sources */,
-				BB81B1BD19BE1A1800548837 /* GGDDeviceUtil.m in Sources */,
 				BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */,
 				BBEA16B31B97B9BB009B4711 /* OpenGLESGameScreen.cpp in Sources */,
 				BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */,
@@ -1874,7 +1873,6 @@
 				BB4237991BBDB6AB005D9B44 /* LineBatcher.cpp in Sources */,
 				BB42379A1BBDB6AB005D9B44 /* Ground.cpp in Sources */,
 				BB42379B1BBDB6AB005D9B44 /* texture.c in Sources */,
-				BB42379C1BBDB6AB005D9B44 /* GGDDeviceUtil.m in Sources */,
 				BBE68AC91BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */,
 				BB42379D1BBDB6AB005D9B44 /* OpenGLESGameScreen.cpp in Sources */,
 				BB42379E1BBDB6AB005D9B44 /* Entity.cpp in Sources */,
