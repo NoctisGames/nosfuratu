@@ -619,7 +619,7 @@ void Jon::Vampire::execute(Jon* jon)
     {
         jon->m_fHeight = 2.2f;
         
-        if (jon->m_fStateTime > 0.54f && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
+        if (!m_isFallingAfterGlide && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
         {
             jon->setState(ABILITY_GLIDE);
             jon->m_fGravity = VAMP_GRAVITY / 36;
@@ -658,11 +658,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
     }
     else if (jon->m_iNumJumps < 2)
     {
-        if (m_isFallingAfterGlide)
-        {
-            jon->m_fStateTime = 0.54f;
-        }
-        else
+        if (!m_isFallingAfterGlide)
         {
             jon->m_fStateTime = 0;
             
