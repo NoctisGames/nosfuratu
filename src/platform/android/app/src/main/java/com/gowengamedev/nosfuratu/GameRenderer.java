@@ -67,7 +67,7 @@ public final class GameRenderer implements Renderer
     private final FileHandler _fileHandler;
     private final Audio _audio;
     private Music _bgm;
-    private Sound[] _sounds = new Sound[16];
+    private Sound[] _sounds = new Sound[SOUND_JON_VAMPIRE_GLIDE];
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
