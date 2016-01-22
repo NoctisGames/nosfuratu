@@ -210,15 +210,8 @@ void GamePlay::execute(GameScreen* gs)
             m_game->updateAndClean(gs->m_fDeltaTime);
         }
         
-        if (EntityUtils::isCollected(jon, m_game->getCarrots(), gs->m_fDeltaTime))
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_CARROT);
-        }
-        
-        if (EntityUtils::isCollected(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime))
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COLLECT_GOLDEN_CARROT);
-        }
+        EntityUtils::handleCollections(jon, m_game->getCarrots(), gs->m_fDeltaTime);
+        EntityUtils::handleCollections(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime);
         
         if (gs->m_isScreenHeldDown)
         {
@@ -232,11 +225,6 @@ void GamePlay::execute(GameScreen* gs)
                 m_fShockwaveElapsedTime = 0;
                 m_isReleasingShockwave = false;
             }
-        }
-        
-        if (jon.getState() == JON_DYING_FADING && (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit()))
-        {
-            jon.triggerCancelTransform();
         }
         
         if (jon.isDead() || m_fStateTime > 5)
@@ -367,10 +355,7 @@ bool GamePlay::handleTouchInput(GameScreen* gs)
                     jon.triggerJump();
                 }
                 
-                if ((jon.isTransformingIntoVampire() || jon.isRevertingToRabbit()) && jon.getTransformStateTime() < 0.125f)
-                {
-                    jon.triggerCancelTransform();
-                }
+                jon.triggerCancelTransform();
                 
                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                 

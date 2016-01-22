@@ -253,24 +253,15 @@ public:
     }
     
     template<typename T>
-    static bool isCollected(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static void handleCollections(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
     {
-        bool retval = false;
-        
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
             {
-                retval = true;
-                i = items.erase(i);
-            }
-            else
-            {
-                i++;
+                (*i)->collect();
             }
         }
-        
-        return retval;
     }
     
     template<typename T>

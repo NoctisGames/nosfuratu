@@ -34,7 +34,10 @@ enum GameSoundIds {
     TRIGGER_TRANSFORM,
     CANCEL_TRANSFORM,
     COMPLETE_TRANSFORM,
-    JUMP_SPRING_HEAVY
+    JUMP_SPRING_HEAVY,
+    JON_RABBIT_JUMP,
+    JON_VAMPIRE_JUMP,
+    JON_RABBIT_DOUBLE_JUMP
 };
 
 @interface BaseGameViewController ()
@@ -236,6 +239,15 @@ enum GameSoundIds {
             case SOUND_JUMP_SPRING_HEAVY:
                 [self.soundMgr playSoundWithID:JUMP_SPRING_HEAVY];
                 break;
+            case SOUND_JON_RABBIT_JUMP:
+                [self.soundMgr playSoundWithID:JON_RABBIT_JUMP];
+                break;
+            case SOUND_JON_VAMPIRE_JUMP:
+                [self.soundMgr playSoundWithID:JON_VAMPIRE_JUMP];
+                break;
+            case SOUND_JON_RABBIT_DOUBLE_JUMP:
+                [self.soundMgr playSoundWithID:JON_RABBIT_DOUBLE_JUMP];
+                break;
             default:
                 continue;
         }
@@ -362,7 +374,7 @@ enum GameSoundIds {
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", nil];
 }
 
 @end

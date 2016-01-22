@@ -25,7 +25,7 @@ img.save('../../../assets/textures/compressed_jon.png')
           
           
           
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire_transform.png")
+os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire_poses.png ../../../assets/textures/vampire_transform.png")
 
 print('\nResizing ../../../assets/textures/compressed_vampire.png down to 2048x2048')
 
@@ -41,7 +41,7 @@ img.save('../../../assets/textures/compressed_vampire.png')
 
 
 
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/title_font.png ../../../assets/textures/title_font.png ../../../assets/textures/title_font.png")
+os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/world_1_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/title_font.png")
 
 print('\nResizing ../../../assets/textures/compressed_misc.png down to 2048x2048')
 
@@ -73,7 +73,7 @@ img.save('../../../assets/textures/compressed_world_1_ground.png')
           
           
           
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_world_1_objects.png ../../../assets/textures/world_1_objects.png ../../../assets/textures/world_1_misc.png ../../../assets/textures/world_1_enemies.png")
+os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_world_1_objects.png ../../../assets/textures/world_1_objects.png ../../../assets/textures/game_objects.png ../../../assets/textures/world_1_enemies.png ../../../assets/textures/world_1_snake_cave.png")
 
 print('\nResizing ../../../assets/textures/compressed_world_1_objects.png down to 2048x2048')
 

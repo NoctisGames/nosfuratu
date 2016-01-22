@@ -213,18 +213,18 @@ TextureRegion& Assets::get(JumpSpring& jumpSpring)
     {
         case JumpSpringType_Light:
         {
-            static Animation anim = createAnimation(TOP_LEFT, 931, 1958, 120, 85, 480, 85, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 3);
+            static Animation anim = createAnimation(TOP_RIGHT, 931, 1958, 120, 85, 480, 85, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 3);
             return anim.getTextureRegion(jumpSpring.getStateTime());
         }
         case JumpSpringType_Medium:
         {
-            static Animation anim = createAnimation(TOP_LEFT, 0, 745, 275, 141, 1925, 141, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 7);
+            static Animation anim = createAnimation(TOP_RIGHT, 0, 745, 275, 141, 1925, 141, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 7);
             return anim.getTextureRegion(jumpSpring.getStateTime());
         }
         case JumpSpringType_Heavy:
         default:
         {
-            static Animation anim = createAnimation(TOP_LEFT, 265, 936, 265, 219, 1855, 219, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 6);
+            static Animation anim = createAnimation(TOP_RIGHT, 265, 936, 265, 219, 1855, 219, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.04f, 6);
             return anim.getTextureRegion(jumpSpring.getStateTime());
         }
     }
@@ -287,19 +287,28 @@ TextureRegion& Assets::get(EndSign& endSign)
 
 TextureRegion& Assets::get(Carrot& carrot)
 {
-    static TextureRegion tr = createTextureRegion(TOP_LEFT, 1278, 1862, 102, 81, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
+    static Animation floatAnim = createAnimation(TOP_RIGHT, 1200, 380, 102, 92, 816, 92, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 8);
+    static Animation grabAnim = createAnimation(TOP_RIGHT, 1174, 488, 156, 220, 780, 220, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 5);
+    
+    if (carrot.isCollected())
+    {
+        return grabAnim.getTextureRegion(carrot.getStateTime());
+    }
+    
+    return floatAnim.getTextureRegion(carrot.getStateTime());
 }
 
 TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 {
-    static Animation anim = createAnimation(TOP_LEFT, 1418, 1946, 104, 98, 624, 98, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 6);
-    if (!anim.hasFrameTimes())
+    static Animation floatAnim = createAnimation(TOP_RIGHT, 1420, 4, 104, 112, 624, 112, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.12f, 6);
+    static Animation grabAnim = createAnimation(TOP_RIGHT, 272, 120, 222, 170, 1776, 170, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 8);
+    
+    if (goldenCarrot.isCollected())
     {
-        anim.setFrameTimes(6, 0.68f, 0.06f, 0.06f, 0.06f, 0.06f, 0.06f);
+        return grabAnim.getTextureRegion(goldenCarrot.getStateTime());
     }
     
-    return anim.getTextureRegion(goldenCarrot.getStateTime());
+    return floatAnim.getTextureRegion(goldenCarrot.getStateTime());
 }
 
 TextureRegion& Assets::get(SnakeGrunt& snakeEnemy)
@@ -354,6 +363,7 @@ TextureRegion& Assets::get(Jon& jon)
     
     if (jon.isVampire())
     {
+        static Animation deathAnim = createAnimation(BOTTOM_LEFT, 0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06666666666667f, 15);
         static Animation pushedBackAnim = createAnimation(TOP_LEFT, 512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 6);
         static Animation idleAnim = createAnimation(TOP_LEFT, 0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.125f, 8);
         static Animation runningAnim = createAnimation(TOP_LEFT, 0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 10);
@@ -362,6 +372,11 @@ TextureRegion& Assets::get(Jon& jon)
         static Animation glidingAnim = createAnimation(TOP_LEFT, 0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 2);
         static Animation fallingAnim = createAnimation(TOP_LEFT, 0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 3);
         static Animation landingAnim = createAnimation(TOP_LEFT, 0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.066f, 3);
+        
+        if (jon.getState() != JON_ALIVE)
+        {
+            return deathAnim.getTextureRegion(jon.getDyingStateTime());
+        }
         
         switch (jon.getAbilityState())
         {
@@ -440,6 +455,7 @@ TextureRegion& Assets::get(Jon& jon)
     }
     else
     {
+        static Animation deathAnim = createAnimation(BOTTOM_RIGHT, 0, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
         static Animation warmUpAnim = createAnimation(BOTTOM_RIGHT, 0, 0, 256, 256, 2048, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 28);
         static Animation pushedBackAnim = createAnimation(TOP_LEFT, 512, 1024, 256, 256, 1536, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.07f, 6);
         static Animation idleAnim = createAnimation(TOP_LEFT, 0, 1792, 256, 256, 1024, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.25f, 4);
@@ -450,6 +466,11 @@ TextureRegion& Assets::get(Jon& jon)
         static Animation landingAnim = createAnimation(TOP_LEFT, 0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.05f, 4);
         static Animation spinningBackFistAnimation = createAnimation(TOP_RIGHT, 0, 0, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.06f, 7);
         static Animation burrowAnimation = createAnimation(TOP_RIGHT, 0, 256, 256, 256, 2048, 256, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.06f, 5, 1);
+        
+        if (jon.getState() != JON_ALIVE)
+        {
+            return deathAnim.getTextureRegion(jon.getDyingStateTime());
+        }
         
         switch (jon.getAbilityState())
         {

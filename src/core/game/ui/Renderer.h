@@ -97,15 +97,18 @@ protected:
     TextureWrapper* m_jon;
     TextureWrapper* m_level_editor;
     TextureWrapper* m_title_font;
+    TextureWrapper* m_vampire_poses;
     TextureWrapper* m_vampire_transform;
     TextureWrapper* m_vampire;
     TextureWrapper* m_world_1_background;
     TextureWrapper* m_world_1_cave;
     TextureWrapper* m_world_1_enemies;
+    TextureWrapper* m_world_1_snake_cave;
     TextureWrapper* m_world_1_ground_w_cave;
     TextureWrapper* m_world_1_ground_wo_cave;
     TextureWrapper* m_world_1_misc;
     TextureWrapper* m_world_1_objects;
+    TextureWrapper* m_game_objects;
     
     TextureWrapper* m_framebuffer;
     

@@ -54,10 +54,9 @@ void Jon::update(float deltaTime)
     
     if (m_state == JON_DYING_FADING)
     {
-        m_color.alpha -= deltaTime / 2;
-        if (m_color.alpha < 0)
+        m_fDyingStateTime += deltaTime;
+        if (m_fDyingStateTime > 1)
         {
-            m_color.alpha = 0;
             setState(JON_DEAD);
         }
         
@@ -70,6 +69,14 @@ void Jon::update(float deltaTime)
     {
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
         setState(JON_DYING_FADING);
+        m_fDyingStateTime = 0;
+        
+        bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
+        if (isTransforming)
+        {
+            m_formStateMachine->revertToPreviousState();
+        }
+        
         return;
     }
     
@@ -302,6 +309,11 @@ float Jon::getTransformStateTime()
     return m_fTransformStateTime;
 }
 
+float Jon::getDyingStateTime()
+{
+    return m_fDyingStateTime;
+}
+
 bool Jon::isMoving()
 {
     return m_velocity->getX() > 0;
@@ -425,6 +437,7 @@ void Jon::Rabbit::enter(Jon* jon)
 {
     jon->m_fActionStateTime = 0;
     jon->m_fAbilityStateTime = 0;
+    jon->m_fDyingStateTime = 0;
     jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
@@ -509,6 +522,8 @@ void Jon::Rabbit::triggerJump(Jon* jon)
         jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         
         jon->m_iNumJumps++;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_RABBIT_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
     }
 }
 
@@ -567,6 +582,7 @@ void Jon::Vampire::enter(Jon* jon)
 {
     jon->m_fActionStateTime = 0;
     jon->m_fAbilityStateTime = 0;
+    jon->m_fDyingStateTime = 0;
     jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
@@ -624,7 +640,7 @@ void Jon::Vampire::execute(Jon* jon)
             jon->setState(ABILITY_GLIDE);
             jon->m_fGravity = VAMP_GRAVITY / 36;
             jon->m_acceleration->setY(jon->m_fGravity);
-            jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
+            jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
         }
         
         jon->setState(ACTION_NONE);
@@ -675,6 +691,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
         }
         
         jon->m_iNumJumps++;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
     }
 }
 
@@ -715,6 +733,7 @@ Jon::RabbitToVampire * Jon::RabbitToVampire::getInstance()
 void Jon::RabbitToVampire::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
+    jon->m_fDyingStateTime = 0;
     jon->m_abilityState = ABILITY_NONE;
     
     m_hasCompletedSlowMotion = false;
@@ -744,9 +763,12 @@ void Jon::RabbitToVampire::exit(Jon* jon)
 
 void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
 {
-    jon->m_formStateMachine->revertToPreviousState();
-    
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+    if (!m_hasCompletedSlowMotion)
+    {
+        jon->m_formStateMachine->revertToPreviousState();
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+    }
 }
 
 Jon::RabbitToVampire::RabbitToVampire() : JonFormState(), m_hasCompletedSlowMotion(false)
@@ -766,6 +788,7 @@ Jon::VampireToRabbit * Jon::VampireToRabbit::getInstance()
 void Jon::VampireToRabbit::enter(Jon* jon)
 {
     jon->m_fTransformStateTime = 0;
+    jon->m_fDyingStateTime = 0;
     jon->m_abilityState = ABILITY_NONE;
     
     m_hasCompletedSlowMotion = false;
@@ -795,9 +818,12 @@ void Jon::VampireToRabbit::exit(Jon* jon)
 
 void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
 {
-    jon->m_formStateMachine->revertToPreviousState();
-    
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+    if (!m_hasCompletedSlowMotion)
+    {
+        jon->m_formStateMachine->revertToPreviousState();
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+    }
 }
 
 Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMotion(false)

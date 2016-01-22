@@ -91,14 +91,16 @@ void Renderer::init(RendererType type)
                 m_world_1_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_cave");
                 
                 m_world_1_objects = loadTexture(compressed ? "compressed_world_1_objects" : "world_1_objects");
-                m_world_1_misc = compressed ? m_world_1_objects : loadTexture("world_1_misc");
+                m_game_objects = compressed ? m_world_1_objects : loadTexture("game_objects");
                 m_world_1_enemies = compressed ? m_world_1_objects : loadTexture("world_1_enemies");
+                m_world_1_snake_cave = compressed ? m_world_1_objects : loadTexture("world_1_snake_cave");
                 
                 m_jon = loadTexture(compressed ? "compressed_jon" : "jon");
                 m_jon_ability = compressed ? m_jon : loadTexture("jon_ability");
                 m_jon_poses = compressed ? m_jon : loadTexture("jon_poses");
                 
                 m_vampire = loadTexture(compressed ? "compressed_vampire" : "vampire");
+                m_vampire_poses = compressed ? m_vampire : loadTexture("vampire_poses");
                 m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
                 
                 m_areWorld1TexturesLoaded = true;
@@ -107,6 +109,7 @@ void Renderer::init(RendererType type)
             if (!m_areTitleTexturesLoaded)
             {
                 m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
+                m_world_1_misc = compressed ? m_title_font : loadTexture("world_1_misc");
                 
                 m_areTitleTexturesLoaded = true;
             }
@@ -506,6 +509,12 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getJumpSprings(), true);
+    renderPhysicalEntities(game.getCarrots(), true);
+    renderPhysicalEntities(game.getGoldenCarrots(), true);
+    m_spriteBatcher->endBatch(*m_game_objects);
+    
+    m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getPlatforms(), true);
     renderPhysicalEntities(game.getLogVerticalTalls(), true);
     renderPhysicalEntities(game.getLogVerticalShorts(), true);
@@ -513,10 +522,7 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getStumps(), true);
     renderPhysicalEntities(game.getSideSpikes(), true);
     renderPhysicalEntities(game.getUpwardSpikes(), true);
-    renderPhysicalEntities(game.getJumpSprings(), true);
     renderPhysicalEntities(game.getEndSigns(), true);
-    renderPhysicalEntities(game.getCarrots(), true);
-    renderPhysicalEntities(game.getGoldenCarrots(), true);
     renderPhysicalEntitiesWithColor(game.getRocks(), true);
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
@@ -579,12 +585,7 @@ void Renderer::renderJon(Game& game)
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getJons());
-        if (jon.getState() == JON_DYING_FADING)
-        {
-            m_sinWaveTextureProgram->setOffset(game.getStateTime());
-            m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon, *m_sinWaveTextureProgram);
-        }
-        else if (isTransforming)
+        if (isTransforming)
         {
             m_spriteBatcher->endBatch(*m_vampire_transform);
         }
@@ -594,7 +595,7 @@ void Renderer::renderJon(Game& game)
         }
         else
         {
-            m_spriteBatcher->endBatch(*m_jon_poses);
+            m_spriteBatcher->endBatch(isVampire ? *m_vampire_poses : *m_jon_poses);
         }
     }
 }
@@ -804,6 +805,12 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
         
         m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getJumpSprings(), true);
+        renderPhysicalEntities(leep.getCarrots(), true);
+        renderPhysicalEntities(leep.getGoldenCarrots(), true);
+        m_spriteBatcher->endBatch(*m_game_objects);
+        
+        m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getPlatforms());
         renderPhysicalEntities(leep.getLogVerticalTalls());
         renderPhysicalEntities(leep.getLogVerticalShorts());
@@ -811,10 +818,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         renderPhysicalEntities(leep.getStumps());
         renderPhysicalEntities(leep.getSideSpikes());
         renderPhysicalEntities(leep.getUpwardSpikes());
-        renderPhysicalEntities(leep.getJumpSprings());
         renderPhysicalEntities(leep.getEndSigns());
-        renderPhysicalEntities(leep.getCarrots());
-        renderPhysicalEntities(leep.getGoldenCarrots());
         renderPhysicalEntitiesWithColor(leep.getRocks());
         m_spriteBatcher->endBatch(*m_world_1_objects);
         
@@ -919,6 +923,7 @@ void Renderer::cleanUp()
     if (m_areTitleTexturesLoaded)
     {
         tearDownTexture(m_title_font);
+        tearDownTexture(m_game_objects);
         
         m_areTitleTexturesLoaded = false;
     }
@@ -940,12 +945,14 @@ void Renderer::cleanUp()
             tearDownTexture(m_world_1_ground_wo_cave);
             tearDownTexture(m_world_1_cave);
             
-            tearDownTexture(m_world_1_misc);
+            tearDownTexture(m_game_objects);
             tearDownTexture(m_world_1_enemies);
+            tearDownTexture(m_world_1_snake_cave);
             
             tearDownTexture(m_jon_ability);
             tearDownTexture(m_jon_poses);
             
+            tearDownTexture(m_vampire_poses);
             tearDownTexture(m_vampire_transform);
         }
         

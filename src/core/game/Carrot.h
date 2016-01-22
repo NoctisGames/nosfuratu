@@ -16,9 +16,18 @@ class Carrot : public PhysicalEntity
 public:
     static Carrot* create(float x, float y, int type);
     
-    Carrot(float x, float y, float width = 1.2224719101123596f, float height = 0.9707057256990679f);
+    Carrot(float x, float y, float width = 1.2224719101123596f, float height = 1.1025299600532623f);
+    
+    virtual void update(float deltaTime);
+    
+    void collect();
+    
+    bool isCollected();
     
     int getType();
+    
+private:
+    bool m_isCollected;
 };
 
 #endif /* defined(__nosfuratu__Carrot__) */

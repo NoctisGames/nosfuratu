@@ -70,6 +70,8 @@ public:
     
     float getTransformStateTime();
     
+    float getDyingStateTime();
+    
     bool isMoving();
     
     bool isPushedBack();
@@ -118,6 +120,7 @@ private:
     float m_fActionStateTime;
     float m_fAbilityStateTime;
     float m_fTransformStateTime;
+    float m_fDyingStateTime;
 	float m_fDefaultMaxSpeed;
     float m_fMaxSpeed;
 	float m_fAccelerationX;
