@@ -55,6 +55,13 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_TRIGGER_TRANSFORM = 14;
     private static final short SOUND_CANCEL_TRANSFORM = 15;
     private static final short SOUND_COMPLETE_TRANSFORM = 16;
+    private static final short SOUND_JUMP_SPRING_HEAVY = 17;
+    private static final short SOUND_JON_RABBIT_JUMP = 18;
+    private static final short SOUND_JON_VAMPIRE_JUMP = 19;
+    private static final short SOUND_JON_RABBIT_DOUBLE_JUMP = 20;
+    private static final short SOUND_JON_VAMPIRE_DOUBLE_JUMP = 21;
+    private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
+    private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = 1021;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -86,6 +93,10 @@ public final class GameRenderer implements Renderer
         _sounds[13] = _audio.newSound("trigger_transform.wav");
         _sounds[14] = _audio.newSound("cancel_transform.wav");
         _sounds[15] = _audio.newSound("complete_transform.wav");
+        _sounds[16] = _audio.newSound("jump_spring_heavy.wav");
+        _sounds[17] = _audio.newSound("jon_rabbit_jump.wav");
+        _sounds[18] = _audio.newSound("jon_vampire_jump.wav");
+        _sounds[19] = _audio.newSound("jon_rabbit_double_jump.wav");
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -245,6 +256,18 @@ public final class GameRenderer implements Renderer
                     break;
                 case SOUND_COMPLETE_TRANSFORM:
                     _sounds[15].play(1);
+                    break;
+                case SOUND_JUMP_SPRING_HEAVY:
+                    _sounds[16].play(1);
+                    break;
+                case SOUND_JON_RABBIT_JUMP:
+                    _sounds[17].play(1);
+                    break;
+                case SOUND_JON_VAMPIRE_JUMP:
+                    _sounds[18].play(1);
+                    break;
+                case SOUND_JON_RABBIT_DOUBLE_JUMP:
+                    _sounds[19].play(1);
                     break;
                 default:
                     break;
