@@ -23,22 +23,26 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	D3DManager->init(m_deviceResources, maxBatchSize);
 
 	// Load Sound Effects
-	m_collectCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_carrot.wav"));
-	m_collectGoldenCarrotSound = std::unique_ptr<GameSound>(new GameSound("collect_golden_carrot.wav"));
-	m_deathSound = std::unique_ptr<GameSound>(new GameSound("death.wav"));
-	m_footstepLeftGrassSound = std::unique_ptr<GameSound>(new GameSound("footstep_left_grass.wav"));
-	m_footstepRightGrassSound = std::unique_ptr<GameSound>(new GameSound("footstep_right_grass.wav"));
-	m_footstepLeftCaveSound = std::unique_ptr<GameSound>(new GameSound("footstep_left_cave.wav"));
-	m_footstepRightCaveSound = std::unique_ptr<GameSound>(new GameSound("footstep_right_cave.wav"));
-	m_jumpSpringSound = std::unique_ptr<GameSound>(new GameSound("jump_spring.wav"));
-	m_landingGrassSound = std::unique_ptr<GameSound>(new GameSound("landing_grass.wav"));
-	m_landingCaveSound = std::unique_ptr<GameSound>(new GameSound("landing_cave.wav"));
-    m_breakLogSound = std::unique_ptr<GameSound>(new GameSound("break_log.wav"));
-    m_destroyRockSound = std::unique_ptr<GameSound>(new GameSound("destroy_rock.wav"));
-    m_snakeDeathSound = std::unique_ptr<GameSound>(new GameSound("snake_death.wav"));
-    m_triggerTransformSound = std::unique_ptr<GameSound>(new GameSound("trigger_transform.wav"));
-    m_cancelTransformSound = std::unique_ptr<GameSound>(new GameSound("cancel_transform.wav"));
-    m_completeTransformSound = std::unique_ptr<GameSound>(new GameSound("complete_transform.wav"));
+	m_sounds.push_back("collect_carrot.wav");
+	m_sounds.push_back("collect_golden_carrot.wav");
+	m_sounds.push_back("death.wav");
+	m_sounds.push_back("footstep_left_grass.wav");
+	m_sounds.push_back("footstep_right_grass.wav");
+	m_sounds.push_back("footstep_left_cave.wav");
+	m_sounds.push_back("footstep_right_cave.wav");
+	m_sounds.push_back("jump_spring.wav");
+	m_sounds.push_back("landing_grass.wav");
+	m_sounds.push_back("landing_cave.wav");
+	m_sounds.push_back("break_log.wav");
+	m_sounds.push_back("destroy_rock.wav");
+	m_sounds.push_back("snake_death.wav");
+	m_sounds.push_back("trigger_transform.wav");
+	m_sounds.push_back("cancel_transform.wav");
+	m_sounds.push_back("complete_transform.wav");
+	m_sounds.push_back("jump_spring_heavy.wav");
+	m_sounds.push_back("jon_rabbit_jump.wav");
+	m_sounds.push_back("jon_vampire_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
 
 	Assets::getInstance()->setUsingCompressedTextureSet(true);
 
@@ -151,53 +155,65 @@ void Direct3DGameScreen::handleSound()
 		switch (soundId)
 		{
 		case SOUND_COLLECT_CARROT:
-			m_collectCarrotSound->play();
+			m_sounds.at(0).play();
 			break;
 		case SOUND_COLLECT_GOLDEN_CARROT:
-			m_collectGoldenCarrotSound->play();
+			m_sounds.at(1).play();
 			break;
 		case SOUND_DEATH:
-			m_deathSound->play();
+			m_sounds.at(2).play();
 			break;
 		case SOUND_FOOTSTEP_LEFT_GRASS:
-			m_footstepLeftGrassSound->play();
+			m_sounds.at(3).play();
 			break;
 		case SOUND_FOOTSTEP_RIGHT_GRASS:
-			m_footstepRightGrassSound->play();
+			m_sounds.at(4).play();
 			break;
 		case SOUND_FOOTSTEP_LEFT_CAVE:
-			m_footstepLeftCaveSound->play();
+			m_sounds.at(5).play();
 			break;
 		case SOUND_FOOTSTEP_RIGHT_CAVE:
-			m_footstepRightCaveSound->play();
+			m_sounds.at(6).play();
 			break;
 		case SOUND_JUMP_SPRING:
-			m_jumpSpringSound->play();
+			m_sounds.at(7).play();
 			break;
 		case SOUND_LANDING_GRASS:
-			m_landingGrassSound->play();
+			m_sounds.at(8).play();
 			break;
 		case SOUND_LANDING_CAVE:
-			m_landingCaveSound->play();
+			m_sounds.at(9).play();
 			break;
-        case SOUND_BREAK_LOG:
-            m_breakLogSound->play();
-            break;
-        case SOUND_DESTROY_ROCK:
-            m_destroyRockSound->play();
-            break;
-        case SOUND_SNAKE_DEATH:
-            m_snakeDeathSound->play();
-            break;
-        case SOUND_TRIGGER_TRANSFORM:
-            m_triggerTransformSound->play();
-            break;
-        case SOUND_CANCEL_TRANSFORM:
-            m_cancelTransformSound->play();
-            break;
-        case SOUND_COMPLETE_TRANSFORM:
-            m_completeTransformSound->play();
-            break;
+		case SOUND_BREAK_LOG:
+			m_sounds.at(10).play();
+			break;
+		case SOUND_DESTROY_ROCK:
+			m_sounds.at(11).play();
+			break;
+		case SOUND_SNAKE_DEATH:
+			m_sounds.at(12).play();
+			break;
+		case SOUND_TRIGGER_TRANSFORM:
+			m_sounds.at(13).play();
+			break;
+		case SOUND_CANCEL_TRANSFORM:
+			m_sounds.at(14).play();
+			break;
+		case SOUND_COMPLETE_TRANSFORM:
+			m_sounds.at(15).play();
+			break;
+		case SOUND_JUMP_SPRING_HEAVY:
+			m_sounds.at(16).play();
+			break;
+		case SOUND_JON_RABBIT_JUMP:
+			m_sounds.at(17).play();
+			break;
+		case SOUND_JON_VAMPIRE_JUMP:
+			m_sounds.at(18).play();
+			break;
+		case SOUND_JON_RABBIT_DOUBLE_JUMP:
+			m_sounds.at(19).play();
+			break;
 		default:
 			continue;
 		}

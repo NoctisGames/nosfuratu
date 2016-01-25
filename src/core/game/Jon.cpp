@@ -70,6 +70,7 @@ void Jon::update(float deltaTime)
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
         setState(JON_DYING_FADING);
         m_fDyingStateTime = 0;
+		m_fHeight = 2.2f;
         
         bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
         if (isTransforming)

@@ -20,7 +20,7 @@ public:
     
     virtual void unbind() = 0;
 
-	virtual void cleanUp() = 0;
+	virtual void cleanUp();
 
 	bool isLoaded();
 

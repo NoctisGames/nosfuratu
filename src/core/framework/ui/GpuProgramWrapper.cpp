@@ -18,6 +18,11 @@ GpuProgramWrapper::~GpuProgramWrapper()
     cleanUp();
 }
 
+void GpuProgramWrapper::cleanUp()
+{
+	// Empty
+}
+
 bool GpuProgramWrapper::isLoaded()
 {
 	return m_isLoaded;

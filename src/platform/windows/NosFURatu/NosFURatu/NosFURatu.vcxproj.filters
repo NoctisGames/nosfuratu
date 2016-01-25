@@ -250,59 +250,6 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTextureVertexShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jump_spring.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\landing_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\destroy_rock.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\trigger_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
       <Filter>Assets</Filter>
     </CustomBuild>
@@ -360,5 +307,79 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_objects.png">
       <Filter>Assets</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_snake_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_poses.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\game_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\destroy_rock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_vampire_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jump_spring.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jump_spring_heavy.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\trigger_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
 </Project>

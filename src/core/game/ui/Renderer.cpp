@@ -571,6 +571,7 @@ void Renderer::renderJon(Game& game)
         bool isTransforming = jon.isTransformingIntoVampire() || jon.isRevertingToRabbit();
         bool isVampire = jon.isVampire();
         bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
+		bool isDying = jon.getState() != JON_ALIVE;
         
         /// Render Jon Effects (e.g. Dust Clouds)
         
@@ -585,7 +586,11 @@ void Renderer::renderJon(Game& game)
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getJons());
-        if (isTransforming)
+		if (isDying)
+		{
+			m_spriteBatcher->endBatch(isVampire ? *m_vampire_poses : *m_jon_poses);
+		}
+		else if (isTransforming)
         {
             m_spriteBatcher->endBatch(*m_vampire_transform);
         }
