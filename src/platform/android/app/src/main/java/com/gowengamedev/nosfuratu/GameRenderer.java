@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -67,7 +69,7 @@ public final class GameRenderer implements Renderer
     private final FileHandler _fileHandler;
     private final Audio _audio;
     private Music _bgm;
-    private Sound[] _sounds = new Sound[SOUND_JON_VAMPIRE_GLIDE];
+    private List<Sound> _sounds = new ArrayList<Sound>();
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -77,26 +79,26 @@ public final class GameRenderer implements Renderer
         _activity = activity;
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
         _audio = new Audio(activity.getAssets());
-        _sounds[0] = _audio.newSound("collect_carrot.wav");
-        _sounds[1] = _audio.newSound("collect_golden_carrot.wav");
-        _sounds[2] = _audio.newSound("death.wav");
-        _sounds[3] = _audio.newSound("footstep_left_grass.wav");
-        _sounds[4] = _audio.newSound("footstep_right_grass.wav");
-        _sounds[5] = _audio.newSound("footstep_left_cave.wav");
-        _sounds[6] = _audio.newSound("footstep_right_cave.wav");
-        _sounds[7] = _audio.newSound("jump_spring.wav");
-        _sounds[8] = _audio.newSound("landing_grass.wav");
-        _sounds[9] = _audio.newSound("landing_cave.wav");
-        _sounds[10] = _audio.newSound("break_log.wav");
-        _sounds[11] = _audio.newSound("destroy_rock.wav");
-        _sounds[12] = _audio.newSound("snake_death.wav");
-        _sounds[13] = _audio.newSound("trigger_transform.wav");
-        _sounds[14] = _audio.newSound("cancel_transform.wav");
-        _sounds[15] = _audio.newSound("complete_transform.wav");
-        _sounds[16] = _audio.newSound("jump_spring_heavy.wav");
-        _sounds[17] = _audio.newSound("jon_rabbit_jump.wav");
-        _sounds[18] = _audio.newSound("jon_vampire_jump.wav");
-        _sounds[19] = _audio.newSound("jon_rabbit_double_jump.wav");
+        _sounds.add(_audio.newSound("collect_carrot.wav"));
+        _sounds.add(_audio.newSound("collect_golden_carrot.wav"));
+        _sounds.add(_audio.newSound("death.wav"));
+        _sounds.add(_audio.newSound("footstep_left_grass.wav"));
+        _sounds.add(_audio.newSound("footstep_right_grass.wav"));
+        _sounds.add(_audio.newSound("footstep_left_cave.wav"));
+        _sounds.add(_audio.newSound("footstep_right_cave.wav"));
+        _sounds.add(_audio.newSound("jump_spring.wav"));
+        _sounds.add(_audio.newSound("landing_grass.wav"));
+        _sounds.add(_audio.newSound("landing_cave.wav"));
+        _sounds.add(_audio.newSound("break_log.wav"));
+        _sounds.add(_audio.newSound("destroy_rock.wav"));
+        _sounds.add(_audio.newSound("snake_death.wav"));
+        _sounds.add(_audio.newSound("trigger_transform.wav"));
+        _sounds.add(_audio.newSound("cancel_transform.wav"));
+        _sounds.add(_audio.newSound("complete_transform.wav"));
+        _sounds.add(_audio.newSound("jump_spring_heavy.wav"));
+        _sounds.add(_audio.newSound("jon_rabbit_jump.wav"));
+        _sounds.add(_audio.newSound("jon_vampire_jump.wav"));
+        _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -210,64 +212,64 @@ public final class GameRenderer implements Renderer
             switch (soundId)
             {
                 case SOUND_COLLECT_CARROT:
-                    _sounds[0].play(1);
+                    _sounds.get(0).play(1);
                     break;
                 case SOUND_COLLECT_GOLDEN_CARROT:
-                    _sounds[1].play(1);
+                    _sounds.get(1).play(1);
                     break;
                 case SOUND_DEATH:
-                    _sounds[2].play(1);
+                    _sounds.get(2).play(1);
                     break;
                 case SOUND_FOOTSTEP_LEFT_GRASS:
-                    _sounds[3].play(1);
+                    _sounds.get(3).play(1);
                     break;
                 case SOUND_FOOTSTEP_RIGHT_GRASS:
-                    _sounds[4].play(1);
+                    _sounds.get(4).play(1);
                     break;
                 case SOUND_FOOTSTEP_LEFT_CAVE:
-                    _sounds[5].play(1);
+                    _sounds.get(5).play(1);
                     break;
                 case SOUND_FOOTSTEP_RIGHT_CAVE:
-                    _sounds[6].play(1);
+                    _sounds.get(6).play(1);
                     break;
                 case SOUND_JUMP_SPRING:
-                    _sounds[7].play(1);
+                    _sounds.get(7).play(1);
                     break;
                 case SOUND_LANDING_GRASS:
-                    _sounds[8].play(1);
+                    _sounds.get(8).play(1);
                     break;
                 case SOUND_LANDING_CAVE:
-                    _sounds[9].play(1);
+                    _sounds.get(9).play(1);
                     break;
                 case SOUND_BREAK_LOG:
-                    _sounds[10].play(1);
+                    _sounds.get(10).play(1);
                     break;
                 case SOUND_DESTROY_ROCK:
-                    _sounds[11].play(1);
+                    _sounds.get(11).play(1);
                     break;
                 case SOUND_SNAKE_DEATH:
-                    _sounds[12].play(1);
+                    _sounds.get(12).play(1);
                     break;
                 case SOUND_TRIGGER_TRANSFORM:
-                    _sounds[13].play(1);
+                    _sounds.get(13).play(1);
                     break;
                 case SOUND_CANCEL_TRANSFORM:
-                    _sounds[14].play(1);
+                    _sounds.get(14).play(1);
                     break;
                 case SOUND_COMPLETE_TRANSFORM:
-                    _sounds[15].play(1);
+                    _sounds.get(15).play(1);
                     break;
                 case SOUND_JUMP_SPRING_HEAVY:
-                    _sounds[16].play(1);
+                    _sounds.get(16).play(1);
                     break;
                 case SOUND_JON_RABBIT_JUMP:
-                    _sounds[17].play(1);
+                    _sounds.get(17).play(1);
                     break;
                 case SOUND_JON_VAMPIRE_JUMP:
-                    _sounds[18].play(1);
+                    _sounds.get(18).play(1);
                     break;
                 case SOUND_JON_RABBIT_DOUBLE_JUMP:
-                    _sounds[19].play(1);
+                    _sounds.get(19).play(1);
                     break;
                 default:
                     break;
