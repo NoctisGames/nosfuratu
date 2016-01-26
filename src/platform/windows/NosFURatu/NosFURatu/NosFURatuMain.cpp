@@ -19,8 +19,6 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	bool isUsingCompressedTextureSet = false;
 	if (api->DeviceFamily->Equals("Windows.Mobile"))
 	{
-		m_timer.SetFixedTimeStep(true);
-		m_timer.SetTargetElapsedSeconds(1.0 / 60.0);
 		isUsingCompressedTextureSet = true;
 	}
 
