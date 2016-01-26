@@ -27,6 +27,7 @@ using namespace concurrency;
 
 DirectXPage::DirectXPage():
 	m_windowVisible(true),
+	m_isPointerPressed(false),
 	m_coreInput(nullptr)
 {
 	InitializeComponent();
@@ -156,16 +157,21 @@ void DirectXPage::OnDisplayContentsInvalidated(DisplayInformation^ sender, Objec
 void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 {
 	m_main->onTouchDown(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+	m_isPointerPressed = true;
 }
 
 void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
-	m_main->onTouchDragged(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+	if (m_isPointerPressed)
+	{
+		m_main->onTouchDragged(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+	}
 }
 
 void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 {
 	m_main->onTouchUp(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+	m_isPointerPressed = false;
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)

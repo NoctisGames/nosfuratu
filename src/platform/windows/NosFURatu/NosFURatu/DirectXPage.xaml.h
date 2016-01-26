@@ -53,6 +53,7 @@ namespace NosFURatu
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 		std::unique_ptr<NosFURatuMain> m_main; 
 		bool m_windowVisible;
+		bool m_isPointerPressed;
 	};
 }
 
