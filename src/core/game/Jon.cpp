@@ -101,6 +101,7 @@ void Jon::update(float deltaTime)
         {
             m_isLanding = true;
             m_fStateTime = 0;
+			m_fHeight = 2.2f;
             
             m_dustClouds.push_back(std::unique_ptr<DustCloud>(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f))));
             
