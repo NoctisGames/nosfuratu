@@ -4,6 +4,7 @@
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
+using namespace Windows::System::Profile;
 using namespace Windows::System::Threading;
 using namespace Concurrency;
 
@@ -13,7 +14,16 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, MAX_BATCH_SIZE));
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+
+	bool isUsingCompressedTextureSet = false;
+	if (api->DeviceFamily->Equals("Windows.Mobile"))
+	{
+		m_timer.SetFixedTimeStep(true);
+		isUsingCompressedTextureSet = true;
+	}
+
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, MAX_BATCH_SIZE, isUsingCompressedTextureSet));
 }
 
 NosFURatuMain::~NosFURatuMain()

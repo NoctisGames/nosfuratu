@@ -18,7 +18,7 @@ using namespace NosFURatu;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize) : GameScreen(IS_LEVEL_EDITOR), m_deviceResources(deviceResources), m_mediaPlayer(nullptr)
+Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, bool isUsingCompressedTextureSet) : GameScreen(IS_LEVEL_EDITOR), m_deviceResources(deviceResources), m_mediaPlayer(nullptr)
 {
 	D3DManager->init(m_deviceResources, maxBatchSize);
 
@@ -44,7 +44,7 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	m_sounds.push_back("jon_vampire_jump.wav");
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
 
-	Assets::getInstance()->setUsingCompressedTextureSet(true);
+	Assets::getInstance()->setUsingCompressedTextureSet(isUsingCompressedTextureSet);
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
