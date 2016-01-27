@@ -19,6 +19,11 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 		ret += additive;
 	}
 
+	if (color.a < 0)
+	{
+		color.a = 0;
+	}
+
 	ret = ret * color;
 
 	return ret;
