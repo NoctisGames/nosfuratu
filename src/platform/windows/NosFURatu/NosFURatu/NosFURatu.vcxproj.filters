@@ -270,6 +270,7 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FrameBufferTintToScreenPixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathInTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathOutTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransTitleToWorldMapAltTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">

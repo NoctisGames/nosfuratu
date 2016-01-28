@@ -11,13 +11,22 @@
 #include "Direct3DManager.h"
 #include "macros.h"
 
+using namespace Windows::System::Profile;
+
 Direct3DTransTitleToWorldMapGpuProgramWrapper::Direct3DTransTitleToWorldMapGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
 	createConstantBuffers();
 
+	bool isWindowsMobile = false;
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	if (api->DeviceFamily->Equals("Windows.Mobile"))
+	{
+		isWindowsMobile = true;
+	}
+
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"TransTitleToWorldMapTexturePixelShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(isWindowsMobile ? L"TransTitleToWorldMapAltTexturePixelShader.cso" : L"TransTitleToWorldMapTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
