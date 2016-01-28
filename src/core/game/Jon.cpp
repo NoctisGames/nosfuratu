@@ -678,6 +678,11 @@ void Jon::Vampire::execute(Jon* jon)
 void Jon::Vampire::exit(Jon* jon)
 {
 	jon->m_fHeight = 2.2f;
+
+	if (jon->m_abilityState == ABILITY_GLIDE)
+	{
+		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+	}
 }
 
 void Jon::Vampire::triggerTransform(Jon* jon)
