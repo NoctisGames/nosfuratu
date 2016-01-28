@@ -44,7 +44,7 @@ void AndroidOpenGLESGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 bool AndroidOpenGLESGameScreen::handleOnBackPressed()
 {
-    if (m_stateMachine->isInState(*GamePlay::getInstance()))
+    if (m_stateMachine->getPreviousState())
     {
         onTouch(Touch_Type::UP, m_iScreenWidth / 20, m_iScreenHeight / 20);
         return true;

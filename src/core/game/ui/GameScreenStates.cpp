@@ -25,6 +25,7 @@ Title * Title::getInstance()
 
 void Title::enter(GameScreen* gs)
 {
+    gs->m_stateMachine->setPreviousState(nullptr);
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
@@ -118,7 +119,6 @@ void TitleToWorldMap::execute(GameScreen* gs)
         
         if (m_fTransitionStateTime > 0.5f)
         {
-            gs->m_stateMachine->setPreviousState(Title::getInstance());
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
         }
     }
