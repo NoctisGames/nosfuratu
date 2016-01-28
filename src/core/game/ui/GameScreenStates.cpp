@@ -145,6 +145,7 @@ WorldMap * WorldMap::getInstance()
 
 void WorldMap::enter(GameScreen* gs)
 {
+	gs->m_stateMachine->setPreviousState(Title::getInstance());
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
@@ -178,7 +179,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         
         gs->processTouchEvents();
-        
+
         for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
             gs->touchToWorld((*i));
@@ -193,6 +194,7 @@ void WorldMap::execute(GameScreen* gs)
                     if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                     {
                         gs->m_stateMachine->revertToPreviousState();
+						return;
                     }
                     else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
                     {
