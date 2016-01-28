@@ -10,6 +10,9 @@
 #include "OpenGLESManager.h"
 #include "macros.h"
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 extern "C"
 {
 #include "asset_utils.h"
@@ -17,7 +20,13 @@ extern "C"
 
 OpenGLESTransWorldMapToLevelGpuProgramWrapper::OpenGLESTransWorldMapToLevelGpuProgramWrapper() : TransitionGpuProgramWrapper()
 {
-    m_program = TransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "trans_world_map_to_level_shader.fsh"));
+    /* initialize random seed: */
+    srand (time(NULL));
+    
+    /* generate secret number between 1 and 10: */
+    int random = rand() % 2;
+    
+    m_program = TransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", random == 1 ? "trans_world_map_to_level_shader.fsh" : "trans_world_map_to_level_shader_alt.fsh"));
     m_isLoaded = true;
 }
 

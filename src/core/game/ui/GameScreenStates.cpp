@@ -242,6 +242,8 @@ void GamePlay::enter(GameScreen* gs)
 {
     m_fStateTime = 0;
     m_isReleasingShockwave = false;
+    gs->m_isScreenHeldDown = false;
+    gs->m_fScreenHeldTime = 0;
     
     if (!m_game->isLoaded())
     {
@@ -373,6 +375,8 @@ void GamePlay::execute(GameScreen* gs)
         else if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
         {
             // Has Cleared the Level
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
             
             m_fStateTime += gs->m_fDeltaTime;
             
@@ -645,7 +649,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderHud(m_levelState->getGame(), m_levelState->getBackButton());
         
-        gs->m_renderer->renderToScreenWorldMapToLevelTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToScreenWorldMapToLevelTransition(m_fTransitionStateTime / 2);
         
         gs->m_renderer->endFrame();
     }
@@ -655,7 +659,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
-        if (m_fTransitionStateTime > 1)
+        if (m_fTransitionStateTime > 2)
         {
             gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
             gs->m_stateMachine->setCurrentState(m_levelState);
