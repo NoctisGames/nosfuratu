@@ -30,8 +30,8 @@ public:
 	static Direct3DManager * getInstance();
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_offscreenRenderTarget; // the offscreen render target texture
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_offscreenRenderTargetView; // the offscreen render target interface
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_offscreenShaderResourceView; // this is needed for the screen pixel shader
+	std::vector<Microsoft::WRL::ComPtr<ID3D11RenderTargetView>> m_offscreenRenderTargetViews; // the offscreen render target interface
+	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_offscreenShaderResourceViews; // this is needed for the screen pixel shader
 	Microsoft::WRL::ComPtr<ID3D11BlendState> m_blendState; // the blend state interface
 	Microsoft::WRL::ComPtr<ID3D11BlendState> m_screenBlendState; // the blend state interface, but for rendering to the screen
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_matrixConstantbuffer; // the matrix constant buffer interface
@@ -53,12 +53,7 @@ public:
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
 	std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
 
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-
-	int m_iMaxBatchSize;
-
-	void init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize);
+	void init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers = 1);
 	void createDeviceDependentResources();
 	void createWindowSizeDependentResources();
 	void releaseDeviceDependentResources();
@@ -72,6 +67,12 @@ public:
 	bool isLoaded();
 
 private:
+	// Cached pointer to device resources.
+	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+
+	int m_iMaxBatchSize;
+	int m_iNumFramebuffers;
+
 	void createBlendState();
 	void createSamplerState();
 	void createVertexBufferForSpriteBatcher();

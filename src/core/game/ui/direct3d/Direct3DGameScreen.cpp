@@ -20,7 +20,7 @@ using namespace Windows::Foundation;
 
 Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, bool isUsingCompressedTextureSet) : GameScreen(IS_LEVEL_EDITOR), m_deviceResources(deviceResources), m_mediaPlayer(nullptr)
 {
-	D3DManager->init(m_deviceResources, maxBatchSize);
+	D3DManager->init(m_deviceResources, maxBatchSize, NUM_FRAMEBUFFERS);
 
 	// Load Sound Effects
 	m_sounds.push_back("collect_carrot.wav");

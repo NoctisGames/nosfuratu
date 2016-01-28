@@ -17,23 +17,25 @@ public:
 	Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
     virtual bool isLoaded();
+
+	virtual void beginFrame();
     
     virtual void endFrame();
 
 protected:
-	virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
-
-	virtual void updateMatrix(float left, float right, float bottom, float top);
-
-	virtual void bindToOffscreenFramebuffer();
-
-	virtual void beginFrame();
-
-	virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
-
-	virtual void bindToScreenFramebuffer();
-
-	virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper();
+	virtual void loadShaders();
+    
+    virtual void addFramebuffers();
+    
+    virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
+    
+    virtual void updateMatrix(float left, float right, float bottom, float top);
+    
+    virtual void bindToOffscreenFramebuffer(int index);
+    
+    virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
+    
+    virtual void bindToScreenFramebuffer();
     
     virtual void destroyTexture(TextureWrapper& textureWrapper);
 

@@ -22,10 +22,11 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize)
+void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers)
 {
-	m_iMaxBatchSize = maxBatchSize;
 	m_deviceResources = deviceResources;
+	m_iMaxBatchSize = maxBatchSize;
+	m_iNumFramebuffers = numFramebuffers;
 }
 
 void Direct3DManager::createDeviceDependentResources()
@@ -44,53 +45,71 @@ void Direct3DManager::createDeviceDependentResources()
 
 void Direct3DManager::createWindowSizeDependentResources()
 {
-	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
+	for (int i = 0; i < m_iNumFramebuffers; i++)
+	{
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_offscreenRenderTargetView;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_offscreenShaderResourceView;
 
-	D3D11_TEXTURE2D_DESC textureDesc;
-	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
-	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+		Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 
-	// Initialize the render target texture description.
-	ZeroMemory(&textureDesc, sizeof(textureDesc));
+		D3D11_TEXTURE2D_DESC textureDesc;
+		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
 
-	// Setup the render target texture description.
-	textureDesc.Width = renderTargetSize.Width;
-	textureDesc.Height = renderTargetSize.Height;
-	textureDesc.MipLevels = 1;
-	textureDesc.ArraySize = 1;
-	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	textureDesc.SampleDesc.Count = 1;
-	textureDesc.Usage = D3D11_USAGE_DEFAULT;
-	textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	textureDesc.CPUAccessFlags = 0;
-	textureDesc.MiscFlags = 0;
+		// Initialize the render target texture description.
+		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
-	// Create the render target texture.
-	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
+		// Setup the render target texture description.
+		textureDesc.Width = renderTargetSize.Width;
+		textureDesc.Height = renderTargetSize.Height;
+		textureDesc.MipLevels = 1;
+		textureDesc.ArraySize = 1;
+		textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.Usage = D3D11_USAGE_DEFAULT;
+		textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		textureDesc.CPUAccessFlags = 0;
+		textureDesc.MiscFlags = 0;
 
-	// Setup the description of the render target view.
-	renderTargetViewDesc.Format = textureDesc.Format;
-	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
-	renderTargetViewDesc.Texture2D.MipSlice = 0;
+		// Create the render target texture.
+		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateTexture2D(&textureDesc, NULL, &m_offscreenRenderTarget));
 
-	// Create the render target view.
-	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRenderTargetView(m_offscreenRenderTarget.Get(), &renderTargetViewDesc, &m_offscreenRenderTargetView));
+		// Setup the description of the render target view.
+		renderTargetViewDesc.Format = textureDesc.Format;
+		renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+		renderTargetViewDesc.Texture2D.MipSlice = 0;
 
-	// Setup the description of the shader resource view.
-	shaderResourceViewDesc.Format = textureDesc.Format;
-	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-	shaderResourceViewDesc.Texture2D.MipLevels = 1;
+		// Create the render target view.
+		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRenderTargetView(m_offscreenRenderTarget.Get(), &renderTargetViewDesc, &m_offscreenRenderTargetView));
 
-	// Create the shader resource view.
-	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateShaderResourceView(m_offscreenRenderTarget.Get(), &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+		// Setup the description of the shader resource view.
+		shaderResourceViewDesc.Format = textureDesc.Format;
+		shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+		shaderResourceViewDesc.Texture2D.MipLevels = 1;
+
+		// Create the shader resource view.
+		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateShaderResourceView(m_offscreenRenderTarget.Get(), &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+
+		m_offscreenRenderTargetViews.push_back(m_offscreenRenderTargetView);
+		m_offscreenShaderResourceViews.push_back(m_offscreenShaderResourceView);
+	}
 }
 
 void Direct3DManager::releaseDeviceDependentResources()
 {
 	m_offscreenRenderTarget.Reset();
-	m_offscreenRenderTargetView.Reset();
-	m_offscreenShaderResourceView.Reset();
+
+	for (std::vector<Microsoft::WRL::ComPtr<ID3D11RenderTargetView>>::iterator i = m_offscreenRenderTargetViews.begin(); i != m_offscreenRenderTargetViews.end(); )
+	{
+		(*i).Reset();
+	}
+
+	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator i = m_offscreenShaderResourceViews.begin(); i != m_offscreenShaderResourceViews.end(); )
+	{
+		(*i).Reset();
+	}
+
 	m_blendState.Reset();
 	m_screenBlendState.Reset();
 	m_matrixConstantbuffer.Reset();

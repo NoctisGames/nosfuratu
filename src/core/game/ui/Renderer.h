@@ -145,6 +145,8 @@ protected:
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
+
+	int m_iFramebufferIndex;
     
     virtual void loadShaders() = 0;
     
@@ -173,7 +175,6 @@ private:
     float m_fOriginalHeight;
     float m_fStateTime;
     RendererType m_rendererType;
-    int m_iFramebufferIndex;
     bool m_areTitleTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;

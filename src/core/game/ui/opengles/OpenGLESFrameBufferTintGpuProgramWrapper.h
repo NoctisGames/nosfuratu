@@ -1,9 +1,9 @@
 //
 //  OpenGLESFrameBufferTintGpuProgramWrapper.h
-//  gowengamedev-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 1/23/16.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
 #ifndef __gowengamedev__OpenGLESFrameBufferTintGpuProgramWrapper__

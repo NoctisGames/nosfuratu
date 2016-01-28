@@ -104,9 +104,7 @@ void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
 
 void Direct3DSnakeDeathTextureGpuProgramWrapper::unbind()
 {
-	// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
-	ID3D11ShaderResourceView *pSRV[1] = { NULL };
-	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, pSRV);
+	// Empty
 }
 
 void Direct3DSnakeDeathTextureGpuProgramWrapper::cleanUp()

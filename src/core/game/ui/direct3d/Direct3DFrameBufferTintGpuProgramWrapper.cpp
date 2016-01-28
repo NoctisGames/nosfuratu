@@ -1,22 +1,21 @@
 //
-//  Direct3DSinWaveTextureGpuProgramWrapper.cpp
+//  Direct3DFrameBufferTintGpuProgramWrapper.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 10/18/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Created by Stephen Gowen on 1/28/16.
+//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
 #include "pch.h"
-#include "Direct3DSinWaveTextureGpuProgramWrapper.h"
+#include "Direct3DFrameBufferTintGpuProgramWrapper.h"
 #include "Direct3DManager.h"
+#include "macros.h"
 
-Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DFrameBufferTintGpuProgramWrapper::Direct3DFrameBufferTintGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
-	createConstantBuffer();
-
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"SinWaveTexturePixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"FrameBufferTintToScreenPixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -28,8 +27,6 @@ Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper
 				&m_vertexShader
 				)
 			);
-		m_iNumShadersLoaded++;
-		m_isLoaded = m_iNumShadersLoaded == 2;
 
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 		{
@@ -47,6 +44,9 @@ Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper
 				&m_inputLayout
 				)
 			);
+
+		m_iNumShadersLoaded++;
+		m_isLoaded = m_iNumShadersLoaded == 2;
 	});
 
 	// After the pixel shader file is loaded, create the shader
@@ -59,29 +59,21 @@ Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper
 				&m_pixelShader
 				)
 			);
+
 		m_iNumShadersLoaded++;
 		m_isLoaded = m_iNumShadersLoaded == 2;
 	});
 }
 
-void Direct3DSinWaveTextureGpuProgramWrapper::bind()
+void Direct3DFrameBufferTintGpuProgramWrapper::bind()
 {
-	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_blendState.Get(), 0, 0xffffffff);
+	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
 
 	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
 
 	// set the shader objects as the active shaders
 	m_deviceResources->GetD3DDeviceContext()->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
-
-	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(0, 1, D3DManager->m_matrixConstantbuffer.GetAddressOf());
-	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_offsetConstantBuffer.GetAddressOf());
-
-	// send the final matrix to video memory
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(D3DManager->m_matrixConstantbuffer.Get(), 0, 0, &D3DManager->m_matFinal, 0, 0);
-
-	// send the new offset to video memory
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_offsetConstantBuffer.Get(), 0, 0, &m_fOffset, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -102,26 +94,14 @@ void Direct3DSinWaveTextureGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DSinWaveTextureGpuProgramWrapper::unbind()
+void Direct3DFrameBufferTintGpuProgramWrapper::unbind()
 {
 	// Empty
 }
 
-void Direct3DSinWaveTextureGpuProgramWrapper::cleanUp()
+void Direct3DFrameBufferTintGpuProgramWrapper::cleanUp()
 {
-	m_offsetConstantBuffer.Reset();
 	m_vertexShader.Reset();
-	m_inputLayout.Reset();
 	m_pixelShader.Reset();
-}
-
-void Direct3DSinWaveTextureGpuProgramWrapper::createConstantBuffer()
-{
-	D3D11_BUFFER_DESC bd = { 0 };
-
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 16;
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
+	m_inputLayout.Reset();
 }

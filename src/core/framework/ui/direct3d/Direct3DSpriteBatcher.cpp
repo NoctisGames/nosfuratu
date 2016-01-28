@@ -48,6 +48,9 @@ void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramW
 		m_deviceResources->GetD3DDeviceContext()->DrawIndexed(m_iNumSprites * INDICES_PER_RECTANGLE, 0, 0);
 
 		gpuProgramWrapper.unbind();
+
+		ID3D11ShaderResourceView *pSRV[1] = { NULL };
+		m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, pSRV);
 	}
 }
 

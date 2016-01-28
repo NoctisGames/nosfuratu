@@ -96,9 +96,7 @@ void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
 
 void Direct3DFrameBufferToScreenGpuProgramWrapper::unbind()
 {
-	// Clear out shader resource, since we are going to be binding to it again for writing on the next frame
-	ID3D11ShaderResourceView *pSRV[1] = { NULL };
-	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(0, 1, pSRV);
+	// Empty
 }
 
 void Direct3DFrameBufferToScreenGpuProgramWrapper::cleanUp()

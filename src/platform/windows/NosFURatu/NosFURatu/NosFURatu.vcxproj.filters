@@ -114,6 +114,14 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Levels.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferTintGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransTitleToWorldMapGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransWorldMapToLevelGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -220,6 +228,14 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\Chapter1Levels.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferTintGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransTitleToWorldMapGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransWorldMapToLevelGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -248,100 +264,14 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SnakeDeathTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTextureVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransTitleToWorldMapTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransWorldMapToLevelAltTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransWorldMapToLevelTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FrameBufferTintToScreenPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathInTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathOutTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_wo_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_w_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_transform.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\title_font.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_ability.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_poses.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_jon.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_misc.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_vampire.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_ground.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_snake_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_poses.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\game_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\destroy_rock.wav">
-      <Filter>Assets</Filter>
-    </Media>
     <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
       <Filter>Assets</Filter>
     </Media>
@@ -381,5 +311,106 @@
     <Media Include="..\..\..\..\..\assets\sounds\trigger_transform.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\vampire_glide_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\destroy_rock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_misc.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\game_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_ability.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_poses.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\title_font.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\trans_death_shader_helper.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_poses.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_transform.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_w_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_wo_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_snake_cave.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
