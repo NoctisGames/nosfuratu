@@ -78,6 +78,7 @@ void Direct3DShockwaveTextureGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(1, 1, m_centerXConstantBuffer.GetAddressOf());
 	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(2, 1, m_centerYConstantBuffer.GetAddressOf());
 	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_timeElapsedConstantBuffer.GetAddressOf());
+	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(1, 1, m_isTransformingConstantBuffer.GetAddressOf());
 
 	// send the final matrix to video memory
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(D3DManager->m_matrixConstantbuffer.Get(), 0, 0, &D3DManager->m_matFinal, 0, 0);
@@ -85,9 +86,11 @@ void Direct3DShockwaveTextureGpuProgramWrapper::bind()
 	// send center and time elapsed to video memory
 	float centerX = m_center->getX();
 	float centerY = m_center->getY();
+	int isTransforming = m_isTransforming ? 1 : 0;
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerXConstantBuffer.Get(), 0, 0, &centerX, 0, 0);
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerYConstantBuffer.Get(), 0, 0, &centerY, 0, 0);
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_timeElapsedConstantBuffer.Get(), 0, 0, &m_fTimeElapsed, 0, 0);
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_isTransformingConstantBuffer.Get(), 0, 0, &isTransforming, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -153,5 +156,15 @@ void Direct3DShockwaveTextureGpuProgramWrapper::createConstantBuffers()
 		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
 		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_timeElapsedConstantBuffer);
+	}
+
+	{
+		D3D11_BUFFER_DESC bd = { 0 };
+
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = 16;
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isTransformingConstantBuffer);
 	}
 }

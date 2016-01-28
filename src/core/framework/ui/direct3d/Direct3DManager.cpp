@@ -45,10 +45,15 @@ void Direct3DManager::createDeviceDependentResources()
 
 void Direct3DManager::createWindowSizeDependentResources()
 {
+	m_offscreenRenderTargets.clear();
+	m_offscreenRenderTargetViews.clear();
+	m_offscreenShaderResourceViews.clear();
+
 	for (int i = 0; i < m_iNumFramebuffers; i++)
 	{
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_offscreenRenderTargetView;
-		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_offscreenShaderResourceView;
+		ID3D11Texture2D* m_offscreenRenderTarget;
+		ID3D11RenderTargetView* m_offscreenRenderTargetView;
+		ID3D11ShaderResourceView* m_offscreenShaderResourceView;
 
 		Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 
@@ -80,7 +85,7 @@ void Direct3DManager::createWindowSizeDependentResources()
 		renderTargetViewDesc.Texture2D.MipSlice = 0;
 
 		// Create the render target view.
-		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRenderTargetView(m_offscreenRenderTarget.Get(), &renderTargetViewDesc, &m_offscreenRenderTargetView));
+		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRenderTargetView(m_offscreenRenderTarget, &renderTargetViewDesc, &m_offscreenRenderTargetView));
 
 		// Setup the description of the shader resource view.
 		shaderResourceViewDesc.Format = textureDesc.Format;
@@ -89,8 +94,9 @@ void Direct3DManager::createWindowSizeDependentResources()
 		shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 		// Create the shader resource view.
-		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateShaderResourceView(m_offscreenRenderTarget.Get(), &shaderResourceViewDesc, &m_offscreenShaderResourceView));
+		DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateShaderResourceView(m_offscreenRenderTarget, &shaderResourceViewDesc, &m_offscreenShaderResourceView));
 
+		m_offscreenRenderTargets.push_back(m_offscreenRenderTarget);
 		m_offscreenRenderTargetViews.push_back(m_offscreenRenderTargetView);
 		m_offscreenShaderResourceViews.push_back(m_offscreenShaderResourceView);
 	}
@@ -98,16 +104,19 @@ void Direct3DManager::createWindowSizeDependentResources()
 
 void Direct3DManager::releaseDeviceDependentResources()
 {
-	m_offscreenRenderTarget.Reset();
-
-	for (std::vector<Microsoft::WRL::ComPtr<ID3D11RenderTargetView>>::iterator i = m_offscreenRenderTargetViews.begin(); i != m_offscreenRenderTargetViews.end(); )
+	for (std::vector<ID3D11Texture2D*>::iterator i = m_offscreenRenderTargets.begin(); i != m_offscreenRenderTargets.end(); )
 	{
-		(*i).Reset();
+		(*i)->Release();
 	}
 
-	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator i = m_offscreenShaderResourceViews.begin(); i != m_offscreenShaderResourceViews.end(); )
+	for (std::vector<ID3D11RenderTargetView*>::iterator i = m_offscreenRenderTargetViews.begin(); i != m_offscreenRenderTargetViews.end(); )
 	{
-		(*i).Reset();
+		(*i)->Release();
+	}
+
+	for (std::vector<ID3D11ShaderResourceView*>::iterator i = m_offscreenShaderResourceViews.begin(); i != m_offscreenShaderResourceViews.end(); )
+	{
+		(*i)->Release();
 	}
 
 	m_blendState.Reset();

@@ -3,6 +3,11 @@ cbuffer TimeElapsedConstantBufferBuffer : register(b0)
 	float timeElapsed;
 };
 
+cbuffer IsTransformingConstantBufferBuffer : register(b1)
+{
+	int isTransforming;
+};
+
 Texture2D Texture;
 SamplerState ss;
 
@@ -23,5 +28,18 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 		texCoord = uv + (diffUV * diffTime);
 	}
 
-	return Texture.Sample(ss, texCoord);
+	float4 ret = Texture.Sample(ss, texCoord);
+
+	if (isTransforming == 1 && d < time)
+	{
+		ret.r *= 1.2;
+		ret.b *= 1.1;
+	}
+	else if (isTransforming == 0 && d > time)
+	{
+		ret.r *= 1.2;
+		ret.b *= 1.1;
+	}
+
+	return ret;
 }

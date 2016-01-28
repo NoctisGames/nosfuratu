@@ -3,6 +3,7 @@
 #include "Direct3DRenderer.h"
 #include "Direct3DManager.h"
 #include "DirectXHelper.h"
+#include "GameScreenStates.h"
 
 #ifdef GGD_LEVEL_EDITOR
 #define IS_LEVEL_EDITOR true

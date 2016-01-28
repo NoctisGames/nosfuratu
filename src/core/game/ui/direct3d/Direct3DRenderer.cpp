@@ -52,7 +52,16 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 
 bool Direct3DRenderer::isLoaded()
 {
-	return D3DManager->isLoaded() && m_sinWaveTextureProgram->isLoaded() && m_snakeDeathTextureProgram->isLoaded() && m_shockwaveTextureGpuProgramWrapper->isLoaded();
+	return D3DManager->isLoaded() &&
+		m_transTitleToWorldMapGpuProgramWrapper->isLoaded() &&
+		m_transWorldMapToLevelGpuProgramWrapper->isLoaded() &&
+		m_sinWaveTextureProgram->isLoaded() &&
+		m_snakeDeathTextureProgram->isLoaded() &&
+		m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
+		m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
+		m_framebufferTintGpuProgramWrapper->isLoaded() &&
+		m_transDeathInGpuProgramWrapper->isLoaded() &&
+		m_transDeathOutGpuProgramWrapper->isLoaded();
 }
 
 void Direct3DRenderer::beginFrame()
@@ -83,9 +92,9 @@ void Direct3DRenderer::loadShaders()
 
 void Direct3DRenderer::addFramebuffers()
 {
-	for (std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>::iterator i = D3DManager->m_offscreenShaderResourceViews.begin(); i != D3DManager->m_offscreenShaderResourceViews.end(); i++)
+	for (std::vector<ID3D11ShaderResourceView*>::iterator i = D3DManager->m_offscreenShaderResourceViews.begin(); i != D3DManager->m_offscreenShaderResourceViews.end(); i++)
 	{
-		m_framebuffers.push_back(TextureWrapper((*i).Get()));
+		m_framebuffers.push_back(TextureWrapper((*i)));
 	}
 }
 
@@ -127,7 +136,7 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 
 void Direct3DRenderer::bindToOffscreenFramebuffer(int index)
 {
-	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, D3DManager->m_offscreenRenderTargetViews.at(index).GetAddressOf(), nullptr);
+	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetViews.at(index), nullptr);
 }
 
 void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
@@ -135,7 +144,7 @@ void Direct3DRenderer::clearFrameBufferWithColor(float r, float g, float b, floa
 	float color[] = { r, g, b, a };
 
 	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), color);
-	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetViews.at(m_iFramebufferIndex).Get(), color);
+	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetViews.at(m_iFramebufferIndex), color);
 }
 
 void Direct3DRenderer::bindToScreenFramebuffer()

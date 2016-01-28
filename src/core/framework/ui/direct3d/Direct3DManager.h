@@ -29,9 +29,9 @@ class Direct3DManager
 public:
 	static Direct3DManager * getInstance();
 
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> m_offscreenRenderTarget; // the offscreen render target texture
-	std::vector<Microsoft::WRL::ComPtr<ID3D11RenderTargetView>> m_offscreenRenderTargetViews; // the offscreen render target interface
-	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_offscreenShaderResourceViews; // this is needed for the screen pixel shader
+	std::vector<ID3D11Texture2D*> m_offscreenRenderTargets; // the offscreen render target texture
+	std::vector<ID3D11RenderTargetView*> m_offscreenRenderTargetViews; // the offscreen render target interface
+	std::vector<ID3D11ShaderResourceView*> m_offscreenShaderResourceViews; // this is needed for the screen pixel shader
 	Microsoft::WRL::ComPtr<ID3D11BlendState> m_blendState; // the blend state interface
 	Microsoft::WRL::ComPtr<ID3D11BlendState> m_screenBlendState; // the blend state interface, but for rendering to the screen
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_matrixConstantbuffer; // the matrix constant buffer interface
