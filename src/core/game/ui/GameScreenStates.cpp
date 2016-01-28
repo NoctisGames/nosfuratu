@@ -651,6 +651,8 @@ void WorldMapToLevel::execute(GameScreen* gs)
     }
     else
     {
+        gs->processTouchEvents();
+        
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
