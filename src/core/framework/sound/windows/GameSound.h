@@ -17,7 +17,9 @@ public:
 
 	GameSound(Platform::String^ fileName);
 
-	void play();
+	void play(bool isLoop = false);
+
+	void stop();
 
 	void clearFrame();
 

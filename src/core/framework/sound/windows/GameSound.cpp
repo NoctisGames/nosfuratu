@@ -26,14 +26,22 @@ GameSound::GameSound(Platform::String^ fileName)
 	m_iSoundIndex = 0;
 }
 
-void GameSound::play()
+void GameSound::play(bool isLoop)
 {
-	getSoundPlayerInstance()->PlaySound(m_sounds[m_iSoundIndex++]);
+	getSoundPlayerInstance()->PlaySound(m_sounds[m_iSoundIndex++], isLoop);
 
 	if (m_iSoundIndex > 3)
 	{
 		m_iSoundIndex = 0;
 	}
+}
+
+void GameSound::stop()
+{
+	getSoundPlayerInstance()->StopSound(m_sounds[0]);
+	getSoundPlayerInstance()->StopSound(m_sounds[1]);
+	getSoundPlayerInstance()->StopSound(m_sounds[2]);
+	getSoundPlayerInstance()->StopSound(m_sounds[3]);
 }
 
 int GameSound::loadSound(Platform::String^ fileName)

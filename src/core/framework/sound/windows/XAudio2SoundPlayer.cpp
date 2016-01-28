@@ -186,7 +186,7 @@ size_t XAudio2SoundPlayer::AddSound(
 // Name: XAudio2SoundPlayer::PlaySound
 // Desc: Stop if already playing, setup XAudio2 Sound buffer and play
 //--------------------------------------------------------------------------------------
-bool XAudio2SoundPlayer::PlaySound(size_t index)
+bool XAudio2SoundPlayer::PlaySound(size_t index, bool isLoop)
 {
 	//
 	// Setup buffer
@@ -196,6 +196,7 @@ bool XAudio2SoundPlayer::PlaySound(size_t index)
 	playBuffer.AudioBytes = soundData->playData->Length;
 	playBuffer.pAudioData = soundData->playData->Data;
 	playBuffer.Flags = XAUDIO2_END_OF_STREAM;
+	playBuffer.LoopCount = isLoop ? XAUDIO2_LOOP_INFINITE : 0;
 
 	//
 	// In case it is playing, stop it and flush the buffers.

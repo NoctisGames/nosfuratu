@@ -44,6 +44,8 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	m_sounds.push_back("jon_rabbit_jump.wav");
 	m_sounds.push_back("jon_vampire_jump.wav");
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("vampire_glide_loop.wav");
 
 	Assets::getInstance()->setUsingCompressedTextureSet(isUsingCompressedTextureSet);
 
@@ -214,6 +216,15 @@ void Direct3DGameScreen::handleSound()
 			break;
 		case SOUND_JON_RABBIT_DOUBLE_JUMP:
 			m_sounds.at(19).play();
+			break;
+		case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
+			m_sounds.at(20).play();
+			break;
+		case SOUND_JON_VAMPIRE_GLIDE:
+			m_sounds.at(21).play(true);
+			break;
+		case SOUND_STOP_JON_VAMPIRE_GLIDE:
+			m_sounds.at(21).stop();
 			break;
 		default:
 			continue;

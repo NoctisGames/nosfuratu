@@ -20,7 +20,7 @@ public:
 	~XAudio2SoundPlayer();
 
 	size_t AddSound(_In_ WAVEFORMATEX* format, _In_ Platform::Array<byte>^ data);
-	bool   PlaySound(size_t index);
+	bool   PlaySound(size_t index, bool isLoop);
 	bool   StopSound(size_t index);
 	bool   IsSoundPlaying(size_t index) const;
 	size_t GetSoundCount() const;
