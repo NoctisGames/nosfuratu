@@ -20,11 +20,12 @@ class ShockwaveTextureGpuProgramWrapper : public GpuProgramWrapper
 public:
     ShockwaveTextureGpuProgramWrapper();
     
-    void configure(float x, float y, float timeElapsed);
+    void configure(float x, float y, float timeElapsed, bool isTransforming);
     
 protected:
     std::unique_ptr<Vector2D> m_center;
     float m_fTimeElapsed;
+    bool m_isTransforming;
 };
 
 #endif /* defined(__gowengamedev__ShockwaveTextureGpuProgramWrapper__) */

@@ -31,7 +31,7 @@ void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeig
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
 
-    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
     m_stateMachine->getCurrentState()->enter(this);
 }

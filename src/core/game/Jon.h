@@ -80,6 +80,10 @@ public:
     
     bool isLanding();
     
+    bool isAlive();
+    
+    bool isDying();
+    
     bool isDead();
     
     int getType();

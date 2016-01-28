@@ -12,7 +12,7 @@
 typedef enum
 {
     JON_ALIVE,
-    JON_DYING_FADING,
+    JON_DYING,
     JON_DEAD
 } JonState;
 

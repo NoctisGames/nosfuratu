@@ -22,6 +22,8 @@
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
+#include "OpenGLESFrameBufferTintGpuProgramWrapper.h"
+#include "OpenGLESTransDeathGpuProgramWrapper.h"
 
 extern "C"
 {
@@ -34,17 +36,6 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     m_boundsRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher());
     m_highlightRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher(true));
-    
-    m_sinWaveTextureProgram = std::unique_ptr<OpenGLESSinWaveTextureGpuProgramWrapper>(new OpenGLESSinWaveTextureGpuProgramWrapper());
-    m_snakeDeathTextureProgram = std::unique_ptr<OpenGLESSnakeDeathTextureGpuProgramWrapper>(new OpenGLESSnakeDeathTextureGpuProgramWrapper());
-    m_shockwaveTextureGpuProgramWrapper = std::unique_ptr<OpenGLESShockwaveTextureGpuProgramWrapper>(new OpenGLESShockwaveTextureGpuProgramWrapper());
-}
-
-void OpenGLESRenderer::init(RendererType type)
-{
-    Renderer::init(type);
-    
-    m_framebuffer = new TextureWrapper(OGLESManager->fbo_texture);
 }
 
 bool OpenGLESRenderer::isLoaded()
@@ -57,6 +48,25 @@ void OpenGLESRenderer::endFrame()
     glDisable(GL_BLEND);
     
     glDisable(GL_TEXTURE_2D);
+}
+
+void OpenGLESRenderer::loadShaders()
+{
+    m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
+    m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
+    m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
+    m_framebufferToScreenGpuProgramWrapper = OGLESManager->m_fbToScreenProgram.get();
+    m_framebufferTintGpuProgramWrapper = new OpenGLESFrameBufferTintGpuProgramWrapper();
+    m_transDeathInGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(true);
+    m_transDeathOutGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(false);
+}
+
+void OpenGLESRenderer::addFramebuffers()
+{
+    for (std::vector<GLuint>::iterator i = OGLESManager->m_fbo_textures.begin(); i != OGLESManager->m_fbo_textures.end(); i++)
+    {
+        m_framebuffers.push_back(TextureWrapper((*i)));
+    }
 }
 
 TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repeatS)
@@ -84,9 +94,9 @@ void OpenGLESRenderer::updateMatrix(float left, float right, float bottom, float
     OGLESManager->createMatrix(left, right, bottom, top);
 }
 
-void OpenGLESRenderer::bindToOffscreenFramebuffer()
+void OpenGLESRenderer::bindToOffscreenFramebuffer(int index)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_fbos.at(index));
 }
 
 void OpenGLESRenderer::beginFrame()
@@ -106,11 +116,6 @@ void OpenGLESRenderer::clearFrameBufferWithColor(float r, float g, float b, floa
 void OpenGLESRenderer::bindToScreenFramebuffer()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_screenFBO);
-}
-
-GpuProgramWrapper& OpenGLESRenderer::getFramebufferToScreenGpuProgramWrapper()
-{
-    return *OGLESManager->m_fbToScreenProgram;
 }
 
 void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)

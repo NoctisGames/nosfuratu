@@ -4,39 +4,44 @@ import android.media.SoundPool;
 
 public final class Sound
 {
-    private final SoundPool soundPool;
-    private final int soundID;
+    private final SoundPool _soundPool;
+    private final int _soundID;
 
-    private int streamID;
+    private int _streamID;
 
     public Sound(SoundPool soundPool, int soundID)
     {
-        this.soundPool = soundPool;
-        this.soundID = soundID;
+        _soundPool = soundPool;
+        _soundID = soundID;
     }
 
     public void play(float volume)
     {
-        this.streamID = soundPool.play(soundID, volume, volume, 0, 0, 1);
+        play(volume, false);
+    }
+
+    public void play(float volume, boolean isLooping)
+    {
+        _streamID = _soundPool.play(_soundID, volume, volume, 0, isLooping ? -1 : 0, 1);
     }
 
     public void pause()
     {
-        soundPool.pause(streamID);
+        _soundPool.pause(_streamID);
     }
 
     public void resume()
     {
-        soundPool.resume(streamID);
+        _soundPool.resume(_streamID);
     }
 
     public void stop()
     {
-        soundPool.stop(streamID);
+        _soundPool.stop(_streamID);
     }
 
     public void dispose()
     {
-        soundPool.unload(soundID);
+        _soundPool.unload(_soundID);
     }
 }

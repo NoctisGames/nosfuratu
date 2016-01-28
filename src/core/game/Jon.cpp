@@ -52,7 +52,7 @@ void Jon::update(float deltaTime)
 		return;
 	}
 
-	if (m_state == JON_DYING_FADING)
+	if (m_state == JON_DYING)
 	{
 		m_fDyingStateTime += deltaTime;
 		if (m_fDyingStateTime > 1)
@@ -68,7 +68,7 @@ void Jon::update(float deltaTime)
 	if (m_game->isJonHit() || m_position->getY() < -m_fHeight / 2)
 	{
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
-		setState(JON_DYING_FADING);
+		setState(JON_DYING);
 		m_fDyingStateTime = 0;
 		m_fHeight = 2.2f;
 
@@ -77,6 +77,12 @@ void Jon::update(float deltaTime)
 		{
 			m_formStateMachine->revertToPreviousState();
 		}
+        
+        if (m_abilityState == ABILITY_GLIDE)
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+            setState(ABILITY_NONE);
+        }
 
 		return;
 	}
@@ -334,6 +340,16 @@ bool Jon::isLanding()
 bool Jon::isFalling()
 {
 	return m_velocity->getY() < 0;
+}
+
+bool Jon::isAlive()
+{
+    return m_state == JON_ALIVE;
+}
+
+bool Jon::isDying()
+{
+    return m_state == JON_DYING;
 }
 
 bool Jon::isDead()
@@ -604,6 +620,8 @@ void Jon::Vampire::execute(Jon* jon)
 			jon->setState(ABILITY_NONE);
 			jon->m_fGravity = VAMP_GRAVITY;
 			jon->m_acceleration->setY(jon->m_fGravity);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
 		}
 	}
 	break;
@@ -644,6 +662,8 @@ void Jon::Vampire::execute(Jon* jon)
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(0);
 			jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_VAMPIRE_GLIDE);
 		}
 
 		jon->setState(ACTION_NONE);
@@ -674,6 +694,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		jon->m_acceleration->setY(jon->m_fGravity);
 		jon->m_iNumJumps = 1;
 		m_isFallingAfterGlide = true;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
 	}
 	else if (jon->m_iNumJumps < 2)
 	{
@@ -695,7 +717,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 		jon->m_iNumJumps++;
 
-		Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
+		Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);
 	}
 }
 

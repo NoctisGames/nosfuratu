@@ -27,6 +27,7 @@ class GpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
+class TransDeathGpuProgramWrapper;
 class Vector2D;
 class BackButton;
 class LevelEditorActionsPanel;
@@ -41,7 +42,7 @@ class Renderer
 public:
     Renderer();
     
-	virtual void init(RendererType type);
+    void init(RendererType type);
 
 	virtual bool isLoaded() = 0;
     
@@ -66,6 +67,12 @@ public:
     
     void renderLoadingTextOnTitleScreen();
     
+    void renderWorldMapScreenBackground();
+    
+    void renderWorldMapScreenUi(BackButton& backButton);
+    
+    void renderLoadingTextOnWorldMapScreen();
+    
     void renderWorld(Game& game);
     
     void renderJon(Game& game);
@@ -78,9 +85,15 @@ public:
     
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     
-    void renderToScreen();
+    void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
     
-    void renderToScreenWithShockwave(float centerX, float centerY, float timeElapsed);
+    void renderToSecondFramebuffer(Game& game);
+    
+    void renderToScreenWithTransDeathIn(float timeElapsed);
+    
+    void renderToScreenWithTransDeathOut(float timeElapsed);
+    
+    void renderToScreen();
 
     void cleanUp();
     
@@ -109,26 +122,34 @@ protected:
     TextureWrapper* m_world_1_misc;
     TextureWrapper* m_world_1_objects;
     TextureWrapper* m_game_objects;
+    TextureWrapper* m_world_map;
+    TextureWrapper* m_trans_death_shader_helper;
     
-    TextureWrapper* m_framebuffer;
+    std::vector<TextureWrapper> m_framebuffers;
     
-    std::unique_ptr<SinWaveTextureGpuProgramWrapper> m_sinWaveTextureProgram;
-    std::unique_ptr<SnakeDeathTextureGpuProgramWrapper> m_snakeDeathTextureProgram;
-    std::unique_ptr<ShockwaveTextureGpuProgramWrapper> m_shockwaveTextureGpuProgramWrapper;
+    SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
+    SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
+    ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
+    TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;
+    TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
+    GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
+    GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
+    
+    virtual void loadShaders() = 0;
+    
+    virtual void addFramebuffers() = 0;
     
     virtual TextureWrapper* loadTexture(const char* textureName, int repeatS = 0) = 0;
     
     virtual void updateMatrix(float left, float right, float bottom, float top) = 0;
     
-    virtual void bindToOffscreenFramebuffer() = 0;
+    virtual void bindToOffscreenFramebuffer(int index = 0) = 0;
     
     virtual void beginFrame() = 0;
     
     virtual void clearFrameBufferWithColor(float r, float g, float b, float a) = 0;
     
     virtual void bindToScreenFramebuffer() = 0;
-    
-    virtual GpuProgramWrapper& getFramebufferToScreenGpuProgramWrapper() = 0;
 
     virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     
@@ -143,9 +164,11 @@ private:
     float m_fOriginalHeight;
     float m_fStateTime;
     RendererType m_rendererType;
+    int m_iLastUsedFramebufferIndex;
     bool m_areTitleTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;
+    bool m_areShadersLoaded;
     
     template<typename T>
     void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items, bool performBoundsCheck = false)
@@ -184,6 +207,8 @@ private:
     }
     
     void tearDownTexture(TextureWrapper* textureWrapper);
+    
+    void tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper);
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool performBoundsCheck = false);
     

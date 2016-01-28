@@ -16,6 +16,7 @@
 #include "IOSOpenGLESGameScreen.h"
 #include "GameConstants.h"
 #include "GameScreenStates.h"
+#include "LevelEditor.h"
 
 enum GameSoundIds {
     COLLECT_CARROT,
@@ -37,7 +38,9 @@ enum GameSoundIds {
     JUMP_SPRING_HEAVY,
     JON_RABBIT_JUMP,
     JON_VAMPIRE_JUMP,
-    JON_RABBIT_DOUBLE_JUMP
+    JON_RABBIT_DOUBLE_JUMP,
+    JON_VAMPIRE_DOUBLE_JUMP,
+    JON_VAMPIRE_GLIDE
 };
 
 @interface BaseGameViewController ()
@@ -248,6 +251,15 @@ enum GameSoundIds {
             case SOUND_JON_RABBIT_DOUBLE_JUMP:
                 [self.soundMgr playSoundWithID:JON_RABBIT_DOUBLE_JUMP];
                 break;
+            case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
+                [self.soundMgr playSoundWithID:JON_VAMPIRE_DOUBLE_JUMP];
+                break;
+            case SOUND_JON_VAMPIRE_GLIDE:
+                [self.soundMgr playSoundWithID:JON_VAMPIRE_GLIDE isLooping:YES];
+                break;
+            case SOUND_STOP_JON_VAMPIRE_GLIDE:
+                [self.soundMgr stopSoundWithID:JON_VAMPIRE_GLIDE];
+                break;
             default:
                 continue;
         }
@@ -270,7 +282,7 @@ enum GameSoundIds {
             [self initSoundEngine];
             self.soundMgr.backgroundMusicVolume = 0.5f;
             self.soundMgr.soundEffectsVolume = 1;
-            [self.soundMgr playBackgroundMusic:@"bgm.wav"]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
+            [self.soundMgr playBackgroundMusic:@"bgm.wav" forcePlay:YES]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
             break;
         default:
             break;
@@ -351,7 +363,7 @@ enum GameSoundIds {
     
     if (world > 0 && level > 0)
     {
-        return [NSString stringWithFormat:@"nosfuratu_w%i_l%i.json", world, level];
+        return [NSString stringWithFormat:@"nosfuratu_c%i_l%i.json", world, level];
     }
     else
     {
@@ -374,7 +386,7 @@ enum GameSoundIds {
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_rabbit_double_jump.wav", @"vampire_glide_loop.wav", nil];
 }
 
 @end

@@ -300,25 +300,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 
 - (void) playSoundWithID:(NSUInteger)soundID
 {	
-	//get sound key
-	NSString *soundFile = [self keyForSoundID:soundID];
-	if(!soundFile) return;
-	
-	CMOpenALSound *sound = [soundDictionary objectForKey:soundFile];
-	
-	if(!sound)
-	{
-		//create a new sound
-		sound = [[CMOpenALSound alloc] initWithSoundFile:soundFile doesLoop:NO]; //this will return nil on failure
-		
-		if(!sound) //error
-			return;
-		
-		[soundDictionary setObject:sound forKey:soundFile];
-	}
-	
-	[sound play];
-	sound.volume = self.soundEffectsVolume;
+    [self playSoundWithID:soundID isLooping:NO];
+}
+
+- (void) playSoundWithID:(NSUInteger)soundID isLooping:(BOOL)looping
+{
+    //get sound key
+    NSString *soundFile = [self keyForSoundID:soundID];
+    if(!soundFile) return;
+    
+    CMOpenALSound *sound = [soundDictionary objectForKey:soundFile];
+    
+    if(!sound)
+    {
+        //create a new sound
+        sound = [[CMOpenALSound alloc] initWithSoundFile:soundFile doesLoop:looping]; //this will return nil on failure
+        
+        if(!sound) //error
+            return;
+        
+        [soundDictionary setObject:sound forKey:soundFile];
+    }
+    
+    [sound play];
+    sound.volume = self.soundEffectsVolume;
 }
 
 - (void) stopSoundWithID:(NSUInteger)soundID

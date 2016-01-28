@@ -36,6 +36,7 @@
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
+#include "TransDeathGpuProgramWrapper.h"
 
 #include <math.h>
 #include <sstream>
@@ -43,7 +44,7 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fStateTime(0), m_areTitleTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_framebuffer(nullptr), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr)
+Renderer::Renderer() : m_fStateTime(0), m_iLastUsedFramebufferIndex(0), m_areTitleTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
 {
     int x = 0;
     int y = 0;
@@ -103,6 +104,8 @@ void Renderer::init(RendererType type)
                 m_vampire_poses = compressed ? m_vampire : loadTexture("vampire_poses");
                 m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
                 
+                m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
+                
                 m_areWorld1TexturesLoaded = true;
             }
         case RENDERER_TYPE_TITLE:
@@ -110,11 +113,24 @@ void Renderer::init(RendererType type)
             {
                 m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
                 m_world_1_misc = compressed ? m_title_font : loadTexture("world_1_misc");
+                m_world_map = compressed ? m_title_font : loadTexture("world_map");
                 
                 m_areTitleTexturesLoaded = true;
             }
         default:
             break;
+    }
+    
+    if (m_framebuffers.size() == 0)
+    {
+        addFramebuffers();
+    }
+    
+    if (!m_areShadersLoaded)
+    {
+        loadShaders();
+        
+        m_areShadersLoaded = true;
     }
 }
 
@@ -348,6 +364,8 @@ void Renderer::renderTitleScreen()
 {
 	beginFrame();
     
+    m_iLastUsedFramebufferIndex = 0;
+    
     clearFrameBufferWithColor(0, 0, 0, 1);
     
     bindToOffscreenFramebuffer();
@@ -430,9 +448,128 @@ void Renderer::renderLoadingTextOnTitleScreen()
     m_spriteBatcher->endBatch(*m_title_font);
 }
 
+void Renderer::renderWorldMapScreenBackground()
+{
+    beginFrame();
+    
+    m_iLastUsedFramebufferIndex = 0;
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    bindToOffscreenFramebuffer();
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    /// Render Title Logo
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    
+    int x = 0;
+    int y = 0;
+    int regionWidth = 2048;
+    int regionHeight = 766;
+    
+    if (Assets::getInstance()->isUsingCompressedTextureSet())
+    {
+        x = x / 2.0;
+        y = y / 2.0;
+        y += 1024;
+        regionWidth = regionWidth / 2.0;
+        regionHeight = regionHeight / 2.0;
+    }
+    
+    static TextureRegion tr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static Color bgColor = Color(1, 1, 1, 1);
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, bgColor, tr);
+    m_spriteBatcher->endBatch(*m_world_map);
+}
+
+void Renderer::renderWorldMapScreenUi(BackButton& backButton)
+{
+    /// Render Back Button
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(backButton, Assets::getInstance()->get(backButton));
+    m_spriteBatcher->endBatch(*m_title_font);
+    
+    m_spriteBatcher->beginBatch();
+    
+    static Color fontColor = Color(0, 0, 0, 1);
+    static float fgWidth = CAM_WIDTH / 28;
+    static float fgHeight = fgWidth * 1.140625f;
+    
+    m_highlightRectangleBatcher->beginBatch();
+    
+    float fontStartingY = CAM_HEIGHT - fgHeight;
+    
+    {
+        Rectangle r = Rectangle(CAM_WIDTH / 2 - fgWidth * 8, fontStartingY - fgHeight / 2, fgWidth * 16, fgHeight);
+        static Color c = Color(0, 0.4f, 1, 0.9f);
+        m_highlightRectangleBatcher->renderRectangle(r, c);
+        
+        static std::string text = std::string("Select a Level:");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, fontStartingY, fgWidth, fgHeight, fontColor, true);
+        fontStartingY -= fgHeight;
+    }
+    
+    fontStartingY -= fgHeight * 8;
+    
+    {
+        Rectangle r = Rectangle(0.6f, fontStartingY, CAM_WIDTH / 4, CAM_HEIGHT / 2);
+        static Color c = Color(0, 0.4f, 1, 0.9f);
+        m_highlightRectangleBatcher->renderRectangle(r, c);
+        
+        static std::string text = std::string("1");
+        m_font->renderText(*m_spriteBatcher, text, 0.6f + CAM_WIDTH / 8, fontStartingY + CAM_HEIGHT / 4, fgWidth, fgHeight, fontColor, true);
+    }
+    
+    {
+        Rectangle r = Rectangle(0.6f + CAM_WIDTH / 3, fontStartingY, CAM_WIDTH / 4, CAM_HEIGHT / 2);
+        static Color c = Color(0, 0.4f, 1, 0.9f);
+        m_highlightRectangleBatcher->renderRectangle(r, c);
+        
+        static std::string text = std::string("2");
+        m_font->renderText(*m_spriteBatcher, text, 0.6f + CAM_WIDTH / 3 + CAM_WIDTH / 8, fontStartingY + CAM_HEIGHT / 4, fgWidth, fgHeight, fontColor, true);
+    }
+    
+    {
+        Rectangle r = Rectangle(0.6f + CAM_WIDTH / 3 * 2, fontStartingY, CAM_WIDTH / 4, CAM_HEIGHT / 2);
+        static Color c = Color(0, 0.4f, 1, 0.9f);
+        m_highlightRectangleBatcher->renderRectangle(r, c);
+        
+        static std::string text = std::string("3");
+        m_font->renderText(*m_spriteBatcher, text, 0.6f + CAM_WIDTH / 3 * 2 + CAM_WIDTH / 8, fontStartingY + CAM_HEIGHT / 4, fgWidth, fgHeight, fontColor, true);
+    }
+    
+    m_highlightRectangleBatcher->endBatch();
+    m_spriteBatcher->endBatch(*m_title_font);
+}
+
+void Renderer::renderLoadingTextOnWorldMapScreen()
+{
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    
+    static Color fontColor = Color(0, 0, 0, 1);
+    static float fgWidth = CAM_WIDTH / 30;
+    static float fgHeight = fgWidth * 1.140625f;
+    
+    {
+        static std::string text = std::string("Loading...");
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth / 2, fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
+    }
+    
+    m_spriteBatcher->endBatch(*m_title_font);
+}
+
 void Renderer::renderWorld(Game& game)
 {
 	beginFrame();
+    
+    m_iLastUsedFramebufferIndex = 0;
     
     clearFrameBufferWithColor(0, 0, 0, 1);
     
@@ -580,7 +717,7 @@ void Renderer::renderJon(Game& game)
         {
             renderPhysicalEntitiesWithColor((*i)->getDustClouds());
         }
-        m_spriteBatcher->endBatch(isVampire ? *m_vampire : *m_jon);
+        m_spriteBatcher->endBatch((isVampire || jon.isRevertingToRabbit()) ? *m_vampire : *m_jon);
         
         /// Render Jon
         
@@ -810,9 +947,9 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getJumpSprings(), true);
-        renderPhysicalEntities(leep.getCarrots(), true);
-        renderPhysicalEntities(leep.getGoldenCarrots(), true);
+        renderPhysicalEntities(leep.getJumpSprings());
+        renderPhysicalEntities(leep.getCarrots());
+        renderPhysicalEntities(leep.getGoldenCarrots());
         m_spriteBatcher->endBatch(*m_game_objects);
         
         m_spriteBatcher->beginBatch();
@@ -894,6 +1031,69 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
     }
 }
 
+void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming)
+{
+    m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed, isTransforming);
+    
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
+    m_iLastUsedFramebufferIndex = 1;
+    bindToOffscreenFramebuffer(1);
+    
+    float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
+    float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(x, y, m_camBounds->getWidth(), m_camBounds->getHeight(), 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_shockwaveTextureGpuProgramWrapper);
+}
+
+void Renderer::renderToSecondFramebuffer(Game& game)
+{
+    m_iLastUsedFramebufferIndex = 1;
+    bindToOffscreenFramebuffer(1);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    
+    if (game.getJons().size() > 0)
+    {
+        Jon& jon = game.getJon();
+        bool isVampire = jon.isVampire();
+        m_spriteBatcher->endBatch(m_framebuffers.at(0), (isVampire || jon.isRevertingToRabbit()) ? *m_framebufferTintGpuProgramWrapper : *m_framebufferToScreenGpuProgramWrapper);
+    }
+    else
+    {
+        m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_framebufferToScreenGpuProgramWrapper);
+    }
+}
+
+void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
+{
+    /// Render the death transition to the screen
+    
+    m_transDeathInGpuProgramWrapper->configure(m_trans_death_shader_helper, timeElapsed);
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_transDeathInGpuProgramWrapper);
+}
+
+void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
+{
+    /// Render the new game to the screen
+    
+    m_transDeathOutGpuProgramWrapper->configure(m_trans_death_shader_helper, timeElapsed);
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_transDeathOutGpuProgramWrapper);
+}
+
 void Renderer::renderToScreen()
 {
 	/// Render everything to the screen
@@ -902,23 +1102,7 @@ void Renderer::renderToScreen()
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(*m_framebuffer, getFramebufferToScreenGpuProgramWrapper());
-}
-
-void Renderer::renderToScreenWithShockwave(float centerX, float centerY, float timeElapsed)
-{
-    m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed);
-    
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
-    
-    bindToScreenFramebuffer();
-    
-    float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
-    float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
-    
-    m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(x, y, m_camBounds->getWidth(), m_camBounds->getHeight(), 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(*m_framebuffer, *m_shockwaveTextureGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
 }
 
 void Renderer::cleanUp()
@@ -928,7 +1112,8 @@ void Renderer::cleanUp()
     if (m_areTitleTexturesLoaded)
     {
         tearDownTexture(m_title_font);
-        tearDownTexture(m_game_objects);
+        tearDownTexture(m_world_1_misc);
+        tearDownTexture(m_world_map);
         
         m_areTitleTexturesLoaded = false;
     }
@@ -944,6 +1129,8 @@ void Renderer::cleanUp()
         tearDownTexture(m_jon);
         
         tearDownTexture(m_vampire);
+        
+        tearDownTexture(m_trans_death_shader_helper);
         
         if (!compressed)
         {
@@ -972,8 +1159,9 @@ void Renderer::cleanUp()
     }
 
 	m_sinWaveTextureProgram->cleanUp();
-	m_snakeDeathTextureProgram->cleanUp();
-	m_shockwaveTextureGpuProgramWrapper->cleanUp();
+    m_snakeDeathTextureProgram->cleanUp();
+    m_shockwaveTextureGpuProgramWrapper->cleanUp();
+    m_framebufferTintGpuProgramWrapper->cleanUp();
 }
 
 Vector2D& Renderer::getCameraPosition()
@@ -988,6 +1176,12 @@ void Renderer::tearDownTexture(TextureWrapper* textureWrapper)
     destroyTexture(*textureWrapper);
     delete textureWrapper;
     textureWrapper = nullptr;
+}
+
+void Renderer::tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper)
+{
+    delete gpuProgramWrapper;
+    gpuProgramWrapper = nullptr;
 }
 
 void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool performBoundsCheck)

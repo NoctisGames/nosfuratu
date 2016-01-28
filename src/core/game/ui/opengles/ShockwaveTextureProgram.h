@@ -26,6 +26,7 @@ typedef struct
     GLint u_center_x_unit_location;
     GLint u_center_y_unit_location;
     GLint u_time_elapsed_unit_location;
+    GLint u_is_transforming;
 } ShockwaveTextureProgramStruct;
 
 class ShockwaveTextureProgram

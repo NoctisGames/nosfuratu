@@ -2,6 +2,7 @@ precision mediump float;
 
 uniform sampler2D u_TextureUnit;
 uniform float u_TimeElapsed;
+uniform int u_IsTransforming;
 
 varying vec4 v_Color;
 varying vec2 v_TextureCoordinates;
@@ -24,4 +25,15 @@ void main()
     }
     
     gl_FragColor = texture2D(u_TextureUnit, texCoord);
+    
+    if (u_IsTransforming == 1 && distance < time)
+    {
+        gl_FragColor.r *= 1.2;
+        gl_FragColor.b *= 1.1;
+    }
+    else if (u_IsTransforming == 0 && distance > time)
+    {
+        gl_FragColor.r *= 1.2;
+        gl_FragColor.b *= 1.1;
+    }
 }

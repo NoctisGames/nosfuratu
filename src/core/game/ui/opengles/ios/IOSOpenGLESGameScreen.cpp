@@ -19,7 +19,7 @@ IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, 
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
     
-    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE);
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
     

@@ -20,6 +20,7 @@ ShockwaveTextureProgramStruct ShockwaveTextureProgram::build(GLuint program)
         glGetUniformLocation(program, "u_TextureUnit"),
         glGetUniformLocation(program, "u_CenterX"),
         glGetUniformLocation(program, "u_CenterY"),
-        glGetUniformLocation(program, "u_TimeElapsed")
+        glGetUniformLocation(program, "u_TimeElapsed"),
+        glGetUniformLocation(program, "u_IsTransforming")
     };
 }

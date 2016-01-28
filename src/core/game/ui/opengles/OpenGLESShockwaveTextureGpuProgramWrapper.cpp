@@ -30,6 +30,7 @@ void OpenGLESShockwaveTextureGpuProgramWrapper::bind()
     glUniform1f(m_program.u_center_x_unit_location, m_center->getX());
     glUniform1f(m_program.u_center_y_unit_location, m_center->getY());
     glUniform1f(m_program.u_time_elapsed_unit_location, m_fTimeElapsed);
+    glUniform1i(m_program.u_is_transforming, m_isTransforming ? 1 : 0);
     
     glGenBuffers(1, &OGLESManager->sb_vbo_object);
     glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);

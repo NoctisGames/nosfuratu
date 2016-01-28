@@ -62,7 +62,7 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_JON_VAMPIRE_JUMP = 19;
     private static final short SOUND_JON_RABBIT_DOUBLE_JUMP = 20;
     private static final short SOUND_JON_VAMPIRE_DOUBLE_JUMP = 21;
-    private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
+    private static final short SOUND_JON_VAMPIRE_GLIDE = 22;
     private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = 1021;
 
     private final Activity _activity;
@@ -99,6 +99,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_rabbit_jump.wav"));
         _sounds.add(_audio.newSound("jon_vampire_jump.wav"));
         _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
+        _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
+        _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -271,6 +273,15 @@ public final class GameRenderer implements Renderer
                 case SOUND_JON_RABBIT_DOUBLE_JUMP:
                     _sounds.get(19).play(1);
                     break;
+                case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
+                    _sounds.get(20).play(1);
+                    break;
+                case SOUND_JON_VAMPIRE_GLIDE:
+                    _sounds.get(21).play(1, true);
+                    break;
+                case SOUND_STOP_JON_VAMPIRE_GLIDE:
+                    _sounds.get(21).stop();
+                    break;
                 default:
                     break;
             }
@@ -381,7 +392,7 @@ public final class GameRenderer implements Renderer
 
         if (world > 0 && level > 0)
         {
-            return String.format("nosfuratu_w%d_l%d.json", world, level);
+            return String.format("nosfuratu_c%d_l%d.json", world, level);
         }
         else
         {

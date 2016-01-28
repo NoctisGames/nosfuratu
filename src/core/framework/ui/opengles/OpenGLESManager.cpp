@@ -26,7 +26,7 @@ OpenGLESManager * OpenGLESManager::getInstance()
     return openGLESManager;
 }
 
-void OpenGLESManager::init(int width, int height, int maxBatchSize)
+void OpenGLESManager::init(int width, int height, int maxBatchSize, int numFramebuffers)
 {
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
     
@@ -36,7 +36,10 @@ void OpenGLESManager::init(int width, int height, int maxBatchSize)
     buildShaderPrograms();
     generateIndices(maxBatchSize);
     
-    createFrameBufferObject(width, height);
+    for (int i = 0; i < numFramebuffers; i++)
+    {
+        createFrameBufferObject(width, height);
+    }
 }
 
 void OpenGLESManager::createMatrix(float left, float right, float bottom, float top)
@@ -105,6 +108,9 @@ void OpenGLESManager::generateIndices(int maxBatchSize)
 
 void OpenGLESManager::createFrameBufferObject(int width, int height)
 {
+    GLuint fbo_texture;
+    GLuint fbo;
+    
     // Texture
     glActiveTexture(GL_TEXTURE0);
     glGenTextures(1, &fbo_texture);
@@ -126,6 +132,9 @@ void OpenGLESManager::createFrameBufferObject(int width, int height)
     glBindFramebuffer(GL_FRAMEBUFFER, m_screenFBO);
     
     assert(status == GL_FRAMEBUFFER_COMPLETE);
+    
+    m_fbo_textures.push_back(fbo_texture);
+    m_fbos.push_back(fbo);
 }
 
 OpenGLESManager::OpenGLESManager()
@@ -135,8 +144,15 @@ OpenGLESManager::OpenGLESManager()
 
 OpenGLESManager::~OpenGLESManager()
 {
-    glDeleteTextures(1, &fbo_texture);
-    glDeleteFramebuffers(1, &fbo);
+    for (std::vector<GLuint>::iterator i = m_fbo_textures.begin(); i != m_fbo_textures.end(); )
+    {
+        glDeleteTextures(1, &(*i));
+    }
+    
+    for (std::vector<GLuint>::iterator i = m_fbos.begin(); i != m_fbos.end(); )
+    {
+        glDeleteFramebuffers(1, &(*i));
+    }
     
     m_textureProgram->cleanUp();
     m_colorProgram->cleanUp();

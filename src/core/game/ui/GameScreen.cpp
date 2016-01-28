@@ -7,6 +7,8 @@
 //
 
 #include "GameScreen.h"
+#include "GameScreenStates.h"
+#include "LevelEditor.h"
 
 GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
 {

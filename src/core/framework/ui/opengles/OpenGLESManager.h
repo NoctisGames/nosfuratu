@@ -41,7 +41,8 @@ public:
     GLuint sb_vbo_object; // For Sprite Batcher
     GLuint gb_vbo_object; // For Geometry Batcher
     
-    GLuint fbo, fbo_texture;
+    std::vector<GLuint> m_fbos;
+    std::vector<GLuint> m_fbo_textures;
     
     GLint m_screenFBO;
     
@@ -49,7 +50,7 @@ public:
     
     static OpenGLESManager * getInstance();
     
-    void init(int width, int height, int maxBatchSize);
+    void init(int width, int height, int maxBatchSize, int numFramebuffers = 1);
     
     void createMatrix(float left, float right, float bottom, float top);
     

@@ -11,14 +11,11 @@
 
 #include "State.h"
 #include "BackButton.h"
-#include "LevelEditorActionsPanel.h"
-#include "LevelEditorEntitiesPanel.h"
-#include "TrashCan.h"
-#include "LevelSelectorPanel.h"
 
 #include <memory>
 
 class GameScreen;
+class Game;
 
 class Title : public State<GameScreen>
 {
@@ -32,12 +29,33 @@ public:
     virtual void exit(GameScreen* gs);
     
 private:
-    bool m_isRequestingEnterGamePlay;
+    bool m_isRequestingNextState;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();
     Title(const Title&);
     Title& operator=(const Title&);
+};
+
+class WorldMap : public State<GameScreen>
+{
+public:
+    static WorldMap* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    std::unique_ptr<BackButton> m_backButton;
+    int m_iLevelToLoad;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    WorldMap();
+    WorldMap(const WorldMap&);
+    WorldMap& operator=(const WorldMap&);
 };
 
 class GamePlay : public State<GameScreen>
@@ -53,7 +71,8 @@ public:
     
     void setSourceGame(Game* game);
     
-private:
+protected:
+    const char* m_json;
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<BackButton> m_backButton;
@@ -64,57 +83,16 @@ private:
     float m_fShockwaveElapsedTime;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
+    bool m_hasSwiped;
+    bool m_showDeathTransOut;
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    GamePlay();
+    GamePlay(const char* m_json);
     GamePlay(const GamePlay&);
     GamePlay& operator=(const GamePlay&);
-};
-
-class LevelEditor : public State<GameScreen>
-{
-public:
-    static LevelEditor* getInstance();
-    
-    virtual void enter(GameScreen* gs);
-    
-    virtual void execute(GameScreen* gs);
-    
-    virtual void exit(GameScreen* gs);
-    
-    const char* save();
-    
-    void load(const char* json);
-    
-private:
-    std::unique_ptr<Game> m_game;
-    std::unique_ptr<LevelEditorActionsPanel> m_levelEditorActionsPanel;
-    std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
-    std::unique_ptr<TrashCan> m_trashCan;
-    std::unique_ptr<LevelSelectorPanel> m_levelSelectorPanel;
-    std::vector<PhysicalEntity*> m_gameEntities;
-    std::vector<PhysicalEntity*> m_addedEntities;
-    PhysicalEntity* m_lastAddedEntity;
-    PhysicalEntity* m_draggingEntity;
-    PhysicalEntity* m_attachToEntity;
-    float m_fDraggingEntityOriginalY;
-    bool m_isVerticalChangeAllowed;
-    bool m_useYCorrection;
-    bool m_allowAttachment;
-    bool m_allowPlaceOn;
-    float m_fYOffset;
-    
-    void handleTouchInput(GameScreen* gs);
-    
-    void resetEntities(bool clearLastAddedEntity);
-    
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    LevelEditor();
-    LevelEditor(const LevelEditor&);
-    LevelEditor& operator=(const LevelEditor&);
 };
 
 #endif /* defined(__nosfuratu__GameScreenStates__) */

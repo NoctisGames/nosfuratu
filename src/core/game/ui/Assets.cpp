@@ -300,7 +300,7 @@ TextureRegion& Assets::get(Carrot& carrot)
 
 TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
 {
-    static Animation floatAnim = createAnimation(TOP_RIGHT, 1420, 4, 104, 112, 624, 112, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.12f, 6);
+    static Animation floatAnim = createAnimation(TOP_RIGHT, 1004, 4, 104, 112, 1040, 112, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.12f, 10);
     static Animation grabAnim = createAnimation(TOP_RIGHT, 272, 120, 222, 170, 1776, 170, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.05f, 8);
     
     if (goldenCarrot.isCollected())
@@ -633,11 +633,6 @@ void Assets::setUsingCompressedTextureSet(bool isUsingCompressedTextureSet)
 
 Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames)
 {
-    if (x % 2 != 0 || y % 2 != 0 || regionWidth % 2 != 0 || regionHeight % 2 != 0 || animationWidth % 2 != 0 || animationHeight % 2 != 0)
-    {
-        bool error = true;
-    }
-    
     if (m_isUsingCompressedTextureSet)
     {
         x = x / 2.0;
@@ -663,11 +658,6 @@ Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionW
 
 Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame)
 {
-    if (x % 2 != 0 || y % 2 != 0 || regionWidth % 2 != 0 || regionHeight % 2 != 0 || animationWidth % 2 != 0 || animationHeight % 2 != 0)
-    {
-        bool error = true;
-    }
-        
     if (m_isUsingCompressedTextureSet)
     {
         x = x / 2.0;
@@ -693,11 +683,6 @@ Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionW
 
 TextureRegion Assets::createTextureRegion(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight)
 {
-    if (x % 2 != 0 || y % 2 != 0 || regionWidth % 2 != 0 || regionHeight % 2 != 0)
-    {
-        bool error = true;
-    }
-    
     if (m_isUsingCompressedTextureSet)
     {
         x = x / 2.0;

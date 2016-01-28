@@ -41,7 +41,7 @@ img.save('../../../assets/textures/compressed_vampire.png')
 
 
 
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/world_1_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/title_font.png")
+os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/world_1_misc.png ../../../assets/textures/world_map.png ../../../assets/textures/title_font.png")
 
 print('\nResizing ../../../assets/textures/compressed_misc.png down to 2048x2048')
 

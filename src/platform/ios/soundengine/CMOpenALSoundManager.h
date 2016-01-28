@@ -65,6 +65,7 @@
 - (void) resumeBackgroundMusic;
 
 - (void) playSoundWithID:(NSUInteger)soundID;	//id is the index in the sound filename array
+- (void) playSoundWithID:(NSUInteger)soundID isLooping:(BOOL)looping; // id is the index in the sound filename array
 - (void) stopSoundWithID:(NSUInteger)soundID;
 - (void) pauseSoundWithID:(NSUInteger)soundID;
 - (void) rewindSoundWithID:(NSUInteger)soundID;
