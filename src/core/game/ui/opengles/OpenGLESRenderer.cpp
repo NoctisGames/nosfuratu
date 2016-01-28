@@ -19,6 +19,7 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Jon.h"
+#include "OpenGLESTransTitleToWorldGpuProgramWrapper.h"
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
@@ -43,6 +44,16 @@ bool OpenGLESRenderer::isLoaded()
     return true; // Fine for now since loading on Android/iOS is synchronous
 }
 
+void OpenGLESRenderer::beginFrame()
+{
+    Renderer::beginFrame();
+    
+    glEnable(GL_TEXTURE_2D);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
 void OpenGLESRenderer::endFrame()
 {
     glDisable(GL_BLEND);
@@ -52,6 +63,7 @@ void OpenGLESRenderer::endFrame()
 
 void OpenGLESRenderer::loadShaders()
 {
+    m_transTitleToWorldGpuProgramWrapper = new OpenGLESTransTitleToWorldGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
     m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
@@ -97,14 +109,6 @@ void OpenGLESRenderer::updateMatrix(float left, float right, float bottom, float
 void OpenGLESRenderer::bindToOffscreenFramebuffer(int index)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_fbos.at(index));
-}
-
-void OpenGLESRenderer::beginFrame()
-{
-    glEnable(GL_TEXTURE_2D);
-    
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void OpenGLESRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)

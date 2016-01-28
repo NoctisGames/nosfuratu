@@ -48,6 +48,8 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    BackButton& getBackButton();
+    
 private:
     std::unique_ptr<BackButton> m_backButton;
     int m_iLevelToLoad;
@@ -56,6 +58,26 @@ private:
     WorldMap();
     WorldMap(const WorldMap&);
     WorldMap& operator=(const WorldMap&);
+};
+
+class TitleToWorldMap : public State<GameScreen>
+{
+public:
+    static TitleToWorldMap* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    float m_fTransitionStateTime;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    TitleToWorldMap();
+    TitleToWorldMap(const TitleToWorldMap&);
+    TitleToWorldMap& operator=(const TitleToWorldMap&);
 };
 
 class GamePlay : public State<GameScreen>

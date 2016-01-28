@@ -11,6 +11,7 @@
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenStates.h"
+#include "LevelEditor.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
 

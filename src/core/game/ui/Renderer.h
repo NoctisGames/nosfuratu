@@ -24,6 +24,7 @@ class TextureRegion;
 class Game;
 class Jon;
 class GpuProgramWrapper;
+class TransTitleToWorldGpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
@@ -46,7 +47,11 @@ public:
 
 	virtual bool isLoaded() = 0;
     
+    virtual void beginFrame();
+    
     virtual void endFrame() = 0;
+    
+    void setFramebuffer(int framebufferIndex);
     
     void reinit();
     
@@ -93,6 +98,10 @@ public:
     
     void renderToScreenWithTransDeathOut(float timeElapsed);
     
+    void renderToScreenTitleToWorldMapTransition(float progress);
+    
+    void renderToScreenWorldMapToLevelTransition(float progress);
+    
     void renderToScreen();
 
     void cleanUp();
@@ -127,6 +136,7 @@ protected:
     
     std::vector<TextureWrapper> m_framebuffers;
     
+    TransTitleToWorldGpuProgramWrapper* m_transTitleToWorldGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
@@ -145,8 +155,6 @@ protected:
     
     virtual void bindToOffscreenFramebuffer(int index = 0) = 0;
     
-    virtual void beginFrame() = 0;
-    
     virtual void clearFrameBufferWithColor(float r, float g, float b, float a) = 0;
     
     virtual void bindToScreenFramebuffer() = 0;
@@ -164,7 +172,7 @@ private:
     float m_fOriginalHeight;
     float m_fStateTime;
     RendererType m_rendererType;
-    int m_iLastUsedFramebufferIndex;
+    int m_iFramebufferIndex;
     bool m_areTitleTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;

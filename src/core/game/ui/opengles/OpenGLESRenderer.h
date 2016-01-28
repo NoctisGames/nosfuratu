@@ -18,6 +18,8 @@ public:
     
     virtual bool isLoaded();
     
+    virtual void beginFrame();
+    
     virtual void endFrame();
 
 protected:
@@ -30,8 +32,6 @@ protected:
     virtual void updateMatrix(float left, float right, float bottom, float top);
     
     virtual void bindToOffscreenFramebuffer(int index);
-    
-    virtual void beginFrame();
     
     virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
     

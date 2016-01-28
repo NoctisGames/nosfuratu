@@ -35,6 +35,8 @@ void LevelEditor::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
+        gs->m_renderer->beginFrame();
+        
         gs->m_renderer->renderWorld(*m_game);
         
         gs->m_renderer->renderJon(*m_game);

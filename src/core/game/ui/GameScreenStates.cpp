@@ -32,6 +32,8 @@ void Title::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
+        gs->m_renderer->beginFrame();
+        
         gs->m_renderer->renderTitleScreen();
         
         if (m_isRequestingNextState)
@@ -47,7 +49,7 @@ void Title::execute(GameScreen* gs)
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine->changeState(WorldMap::getInstance());
+            gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
         }
         
         gs->processTouchEvents();
@@ -95,6 +97,8 @@ void WorldMap::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
+        gs->m_renderer->beginFrame();
+        
         gs->m_renderer->renderWorldMapScreenBackground();
         
         if (m_iLevelToLoad > 0)
@@ -172,9 +176,69 @@ void WorldMap::exit(GameScreen* gs)
     m_iLevelToLoad = 0;
 }
 
+BackButton& WorldMap::getBackButton()
+{
+    return *m_backButton;
+}
+
 WorldMap::WorldMap() : m_iLevelToLoad(0)
 {
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
+}
+
+/// TitleToWorldMap ///
+
+TitleToWorldMap * TitleToWorldMap::getInstance()
+{
+    static TitleToWorldMap *instance = new TitleToWorldMap();
+    
+    return instance;
+}
+
+void TitleToWorldMap::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = 0;
+    WorldMap::getInstance()->enter(gs);
+}
+
+void TitleToWorldMap::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame();
+        
+        gs->m_renderer->renderTitleScreen();
+        gs->m_renderer->renderLoadingTextOnTitleScreen();
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderWorldMapScreenBackground();
+        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getBackButton());
+        
+        gs->m_renderer->renderToScreenTitleToWorldMapTransition(m_fTransitionStateTime * 2);
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        m_fTransitionStateTime += gs->m_fDeltaTime;
+        
+        if (m_fTransitionStateTime > 0.5f)
+        {
+            gs->m_stateMachine->setPreviousState(Title::getInstance());
+            gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
+        }
+    }
+}
+
+void TitleToWorldMap::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = 0;
+}
+
+TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
+{
+    // Empty
 }
 
 /// Game Play ///
@@ -228,6 +292,8 @@ void GamePlay::execute(GameScreen* gs)
     
     if (gs->m_isRequestingRender)
     {
+        gs->m_renderer->beginFrame();
+        
         gs->m_renderer->renderWorld(*m_game);
         
         if (m_isReleasingShockwave)
@@ -492,7 +558,9 @@ bool GamePlay::handleTouchInput(GameScreen* gs)
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                 {
                     Assets::getInstance()->setMusicId(MUSIC_STOP);
+                    
                     gs->m_stateMachine->revertToPreviousState();
+                    
                     return true;
                 }
                 

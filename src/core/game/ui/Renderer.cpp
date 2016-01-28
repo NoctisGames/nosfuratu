@@ -33,6 +33,7 @@
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
 #include "GpuProgramWrapper.h"
+#include "TransTitleToWorldGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
@@ -44,7 +45,7 @@
 
 #define aboveGroundRegionBottomY 8.750433275563259f
 
-Renderer::Renderer() : m_fStateTime(0), m_iLastUsedFramebufferIndex(0), m_areTitleTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
+Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areLevelEditorTexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
 {
     int x = 0;
     int y = 0;
@@ -132,6 +133,21 @@ void Renderer::init(RendererType type)
         
         m_areShadersLoaded = true;
     }
+}
+
+void Renderer::beginFrame()
+{
+    clearFrameBufferWithColor(0, 0, 0, 1);
+    
+    setFramebuffer(0);
+    
+    clearFrameBufferWithColor(0, 0, 0, 1);
+}
+
+void Renderer::setFramebuffer(int framebufferIndex)
+{
+    m_iFramebufferIndex = framebufferIndex;
+    bindToOffscreenFramebuffer(framebufferIndex);
 }
 
 void Renderer::reinit()
@@ -362,16 +378,6 @@ void Renderer::zoomIn()
 
 void Renderer::renderTitleScreen()
 {
-	beginFrame();
-    
-    m_iLastUsedFramebufferIndex = 0;
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
-    bindToOffscreenFramebuffer();
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
     /// Render Title Logo
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
@@ -450,16 +456,6 @@ void Renderer::renderLoadingTextOnTitleScreen()
 
 void Renderer::renderWorldMapScreenBackground()
 {
-    beginFrame();
-    
-    m_iLastUsedFramebufferIndex = 0;
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
-    bindToOffscreenFramebuffer();
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
     /// Render Title Logo
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
@@ -567,16 +563,6 @@ void Renderer::renderLoadingTextOnWorldMapScreen()
 
 void Renderer::renderWorld(Game& game)
 {
-	beginFrame();
-    
-    m_iLastUsedFramebufferIndex = 0;
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
-    bindToOffscreenFramebuffer();
-    
-    clearFrameBufferWithColor(0, 0, 0, 1);
-    
     /// Render Background
     
     updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
@@ -1037,8 +1023,7 @@ void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float cente
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
-    m_iLastUsedFramebufferIndex = 1;
-    bindToOffscreenFramebuffer(1);
+    setFramebuffer(1);
     
     float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
     float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
@@ -1050,8 +1035,7 @@ void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float cente
 
 void Renderer::renderToSecondFramebuffer(Game& game)
 {
-    m_iLastUsedFramebufferIndex = 1;
-    bindToOffscreenFramebuffer(1);
+    setFramebuffer(1);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
@@ -1078,7 +1062,7 @@ void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_transDeathInGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathInGpuProgramWrapper);
 }
 
 void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
@@ -1091,7 +1075,25 @@ void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_transDeathOutGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathOutGpuProgramWrapper);
+}
+
+void Renderer::renderToScreenTitleToWorldMapTransition(float progress)
+{
+    /// Render the Title to World Map transition to the screen
+    
+    m_transTitleToWorldGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transTitleToWorldGpuProgramWrapper);
+}
+
+void Renderer::renderToScreenWorldMapToLevelTransition(float progress)
+{
+    // TODO
 }
 
 void Renderer::renderToScreen()
@@ -1102,7 +1104,7 @@ void Renderer::renderToScreen()
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(m_iLastUsedFramebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
 }
 
 void Renderer::cleanUp()
