@@ -138,7 +138,7 @@ void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
 
 bool Direct3DGameScreen::handleOnBackPressed()
 {
-	if (m_stateMachine->isInState(*GamePlay::getInstance()))
+	if (m_stateMachine->getPreviousState())
 	{
 		Size logicalSize = m_deviceResources->GetLogicalSize();
 		onTouch(Touch_Type::UP, logicalSize.Width / 20, logicalSize.Height / 20);

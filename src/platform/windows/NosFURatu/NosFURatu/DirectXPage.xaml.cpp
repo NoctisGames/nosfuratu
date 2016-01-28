@@ -12,6 +12,7 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
+using namespace Windows::Phone::UI::Input;
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Input;
@@ -57,6 +58,11 @@ DirectXPage::DirectXPage():
 
 	swapChainPanel->SizeChanged +=
 		ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
+
+	if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+	{
+		HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
+	}
 
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
@@ -186,4 +192,9 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetLogicalSize(e->NewSize);
 	m_main->CreateWindowSizeDependentResources();
+}
+
+void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
+{
+	args->Handled = m_main->handleOnBackPressed();
 }
