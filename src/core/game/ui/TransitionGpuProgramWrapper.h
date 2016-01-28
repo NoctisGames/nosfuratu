@@ -1,23 +1,23 @@
 //
-//  TransTitleToWorldGpuProgramWrapper.h
+//  TransitionGpuProgramWrapper.h
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright © 2016 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __gowengamedev__TransTitleToWorldGpuProgramWrapper__
-#define __gowengamedev__TransTitleToWorldGpuProgramWrapper__
+#ifndef __gowengamedev__TransitionGpuProgramWrapper__
+#define __gowengamedev__TransitionGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "TextureWrapper.h"
 
-class TransTitleToWorldGpuProgramWrapper : public GpuProgramWrapper
+class TransitionGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-    TransTitleToWorldGpuProgramWrapper();
+    TransitionGpuProgramWrapper();
     
     void configure(TextureWrapper* to, float progress);
     
@@ -26,4 +26,4 @@ protected:
     float m_fProgress;
 };
 
-#endif /* defined(__gowengamedev__TransTitleToWorldGpuProgramWrapper__) */
+#endif /* defined(__gowengamedev__TransitionGpuProgramWrapper__) */

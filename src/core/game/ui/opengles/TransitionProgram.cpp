@@ -1,16 +1,16 @@
 //
-//  TransTitleToWorldProgram.cpp
+//  TransitionProgram.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
-#include "TransTitleToWorldProgram.h"
+#include "TransitionProgram.h"
 
-TransTitleToWorldProgramStruct TransTitleToWorldProgram::build(GLuint program)
+TransitionProgramStruct TransitionProgram::build(GLuint program)
 {
-    return (TransTitleToWorldProgramStruct)
+    return (TransitionProgramStruct)
     {
         program,
         glGetAttribLocation(program, "a_Position"),

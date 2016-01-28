@@ -37,6 +37,26 @@ private:
     Title& operator=(const Title&);
 };
 
+class TitleToWorldMap : public State<GameScreen>
+{
+public:
+    static TitleToWorldMap* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    float m_fTransitionStateTime;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    TitleToWorldMap();
+    TitleToWorldMap(const TitleToWorldMap&);
+    TitleToWorldMap& operator=(const TitleToWorldMap&);
+};
+
 class WorldMap : public State<GameScreen>
 {
 public:
@@ -60,26 +80,6 @@ private:
     WorldMap& operator=(const WorldMap&);
 };
 
-class TitleToWorldMap : public State<GameScreen>
-{
-public:
-    static TitleToWorldMap* getInstance();
-    
-    virtual void enter(GameScreen* gs);
-    
-    virtual void execute(GameScreen* gs);
-    
-    virtual void exit(GameScreen* gs);
-    
-private:
-    float m_fTransitionStateTime;
-    
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    TitleToWorldMap();
-    TitleToWorldMap(const TitleToWorldMap&);
-    TitleToWorldMap& operator=(const TitleToWorldMap&);
-};
-
 class GamePlay : public State<GameScreen>
 {
 public:
@@ -92,6 +92,10 @@ public:
     virtual void exit(GameScreen* gs);
     
     void setSourceGame(Game* game);
+    
+    Game& getGame();
+    
+    BackButton& getBackButton();
     
 protected:
     const char* m_json;
@@ -115,6 +119,30 @@ protected:
     GamePlay(const char* m_json);
     GamePlay(const GamePlay&);
     GamePlay& operator=(const GamePlay&);
+};
+
+class WorldMapToLevel : public State<GameScreen>
+{
+public:
+    static WorldMapToLevel* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+    void setLevelToLoad(int levelToLoad);
+    
+private:
+    GamePlay* m_levelState;
+    float m_fTransitionStateTime;
+    int m_iLevelToLoad;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    WorldMapToLevel();
+    WorldMapToLevel(const WorldMapToLevel&);
+    WorldMapToLevel& operator=(const WorldMapToLevel&);
 };
 
 #endif /* defined(__nosfuratu__GameScreenStates__) */

@@ -33,7 +33,7 @@
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
 #include "GpuProgramWrapper.h"
-#include "TransTitleToWorldGpuProgramWrapper.h"
+#include "TransitionGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
@@ -1082,18 +1082,26 @@ void Renderer::renderToScreenTitleToWorldMapTransition(float progress)
 {
     /// Render the Title to World Map transition to the screen
     
-    m_transTitleToWorldGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
+    m_transTitleToWorldMapGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
     
     bindToScreenFramebuffer();
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transTitleToWorldGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transTitleToWorldMapGpuProgramWrapper);
 }
 
 void Renderer::renderToScreenWorldMapToLevelTransition(float progress)
 {
-    // TODO
+    /// Render the World Map to Level transition to the screen
+    
+    m_transWorldMapToLevelGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transWorldMapToLevelGpuProgramWrapper);
 }
 
 void Renderer::renderToScreen()

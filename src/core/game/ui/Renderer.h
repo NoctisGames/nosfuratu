@@ -24,7 +24,7 @@ class TextureRegion;
 class Game;
 class Jon;
 class GpuProgramWrapper;
-class TransTitleToWorldGpuProgramWrapper;
+class TransitionGpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
@@ -136,7 +136,8 @@ protected:
     
     std::vector<TextureWrapper> m_framebuffers;
     
-    TransTitleToWorldGpuProgramWrapper* m_transTitleToWorldGpuProgramWrapper;
+    TransitionGpuProgramWrapper* m_transTitleToWorldMapGpuProgramWrapper;
+    TransitionGpuProgramWrapper* m_transWorldMapToLevelGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;

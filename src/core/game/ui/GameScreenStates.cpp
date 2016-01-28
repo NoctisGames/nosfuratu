@@ -79,114 +79,7 @@ Title::Title() : m_isRequestingNextState(false)
     // Empty
 }
 
-/// World Map Screen ///
-
-WorldMap * WorldMap::getInstance()
-{
-    static WorldMap *instance = new WorldMap();
-    
-    return instance;
-}
-
-void WorldMap::enter(GameScreen* gs)
-{
-    gs->m_renderer->init(RENDERER_TYPE_TITLE);
-}
-
-void WorldMap::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderWorldMapScreenBackground();
-        
-        if (m_iLevelToLoad > 0)
-        {
-            gs->m_renderer->renderLoadingTextOnWorldMapScreen();
-        }
-        else
-        {
-            gs->m_renderer->renderWorldMapScreenUi(*m_backButton);
-        }
-        
-        gs->m_renderer->renderToScreen();
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        if (m_iLevelToLoad > 0)
-        {
-            switch (m_iLevelToLoad)
-            {
-                case 1:
-                    gs->m_stateMachine->changeState(Chapter1Level1::getInstance());
-                    break;
-                case 2:
-                    gs->m_stateMachine->changeState(Chapter1Level2::getInstance());
-                    break;
-                case 3:
-                    gs->m_stateMachine->changeState(Chapter1Level3::getInstance());
-                    break;
-                default:
-                    break;
-            }
-        }
-        
-        gs->processTouchEvents();
-        
-        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-        {
-            gs->touchToWorld((*i));
-            
-            switch (i->getTouchType())
-            {
-                case DOWN:
-                    continue;
-                case DRAGGED:
-                    continue;
-                case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
-                    {
-                        gs->m_stateMachine->revertToPreviousState();
-                    }
-                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
-                    {
-                        if (gs->m_touchPoint->getX() > CAM_WIDTH * 2 / 3)
-                        {
-                            m_iLevelToLoad = 3;
-                        }
-                        else if (gs->m_touchPoint->getX() > CAM_WIDTH / 3)
-                        {
-                            m_iLevelToLoad = 2;
-                        }
-                        else if (gs->m_touchPoint->getX() > 0)
-                        {
-                            m_iLevelToLoad = 1;
-                        }
-                    }
-            }
-        }
-    }
-}
-
-void WorldMap::exit(GameScreen* gs)
-{
-    m_iLevelToLoad = 0;
-}
-
-BackButton& WorldMap::getBackButton()
-{
-    return *m_backButton;
-}
-
-WorldMap::WorldMap() : m_iLevelToLoad(0)
-{
-    m_backButton = std::unique_ptr<BackButton>(new BackButton());
-}
-
-/// TitleToWorldMap ///
+/// Title To World Map Transition ///
 
 TitleToWorldMap * TitleToWorldMap::getInstance()
 {
@@ -239,6 +132,101 @@ void TitleToWorldMap::exit(GameScreen* gs)
 TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
 {
     // Empty
+}
+
+/// World Map Screen ///
+
+WorldMap * WorldMap::getInstance()
+{
+    static WorldMap *instance = new WorldMap();
+    
+    return instance;
+}
+
+void WorldMap::enter(GameScreen* gs)
+{
+    gs->m_renderer->init(RENDERER_TYPE_TITLE);
+}
+
+void WorldMap::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame();
+        
+        gs->m_renderer->renderWorldMapScreenBackground();
+        
+        if (m_iLevelToLoad > 0)
+        {
+            gs->m_renderer->renderLoadingTextOnWorldMapScreen();
+        }
+        else
+        {
+            gs->m_renderer->renderWorldMapScreenUi(*m_backButton);
+        }
+        
+        gs->m_renderer->renderToScreen();
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_iLevelToLoad > 0)
+        {
+            WorldMapToLevel::getInstance()->setLevelToLoad(m_iLevelToLoad);
+            gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
+        }
+        
+        gs->processTouchEvents();
+        
+        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+        {
+            gs->touchToWorld((*i));
+            
+            switch (i->getTouchType())
+            {
+                case DOWN:
+                    continue;
+                case DRAGGED:
+                    continue;
+                case UP:
+                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
+                    {
+                        gs->m_stateMachine->revertToPreviousState();
+                    }
+                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
+                    {
+                        if (gs->m_touchPoint->getX() > CAM_WIDTH * 2 / 3)
+                        {
+                            m_iLevelToLoad = 3;
+                        }
+                        else if (gs->m_touchPoint->getX() > CAM_WIDTH / 3)
+                        {
+                            m_iLevelToLoad = 2;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0)
+                        {
+                            m_iLevelToLoad = 1;
+                        }
+                    }
+            }
+        }
+    }
+}
+
+void WorldMap::exit(GameScreen* gs)
+{
+    m_iLevelToLoad = 0;
+}
+
+BackButton& WorldMap::getBackButton()
+{
+    return *m_backButton;
+}
+
+WorldMap::WorldMap() : m_iLevelToLoad(0)
+{
+    m_backButton = std::unique_ptr<BackButton>(new BackButton());
 }
 
 /// Game Play ///
@@ -478,6 +466,16 @@ void GamePlay::setSourceGame(Game* game)
     m_sourceGame = game;
 }
 
+Game& GamePlay::getGame()
+{
+    return *m_game;
+}
+
+BackButton& GamePlay::getBackButton()
+{
+    return *m_backButton;
+}
+
 bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
@@ -597,4 +595,87 @@ GamePlay::GamePlay(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f)
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
+}
+
+/// World Map to Level Transition ///
+
+WorldMapToLevel * WorldMapToLevel::getInstance()
+{
+    static WorldMapToLevel *instance = new WorldMapToLevel();
+    
+    return instance;
+}
+
+void WorldMapToLevel::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = 0;
+    
+    switch (m_iLevelToLoad)
+    {
+        case 1:
+            m_levelState = Chapter1Level1::getInstance();
+            break;
+        case 2:
+            m_levelState = Chapter1Level2::getInstance();
+            break;
+        case 3:
+            m_levelState = Chapter1Level3::getInstance();
+            break;
+        default:
+            break;
+    }
+    
+    m_levelState->enter(gs);
+}
+
+void WorldMapToLevel::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame();
+        
+        gs->m_renderer->renderWorldMapScreenBackground();
+        gs->m_renderer->renderLoadingTextOnWorldMapScreen();
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderWorld(m_levelState->getGame());
+        
+        gs->m_renderer->renderJon(m_levelState->getGame());
+        
+        gs->m_renderer->renderHud(m_levelState->getGame(), m_levelState->getBackButton());
+        
+        gs->m_renderer->renderToScreenWorldMapToLevelTransition(m_fTransitionStateTime);
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        m_fTransitionStateTime += gs->m_fDeltaTime;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
+            gs->m_stateMachine->setCurrentState(m_levelState);
+        }
+        
+        m_levelState->execute(gs);
+    }
+}
+
+void WorldMapToLevel::exit(GameScreen* gs)
+{
+    m_levelState = nullptr;
+    m_fTransitionStateTime = 0;
+    m_iLevelToLoad = 0;
+}
+
+void WorldMapToLevel::setLevelToLoad(int levelToLoad)
+{
+    m_iLevelToLoad = levelToLoad;
+}
+
+WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fTransitionStateTime(0), m_iLevelToLoad(0)
+{
+    // Empty
 }

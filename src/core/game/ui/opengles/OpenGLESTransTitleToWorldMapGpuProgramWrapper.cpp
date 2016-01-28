@@ -1,12 +1,12 @@
 //
-//  OpenGLESTransTitleToWorldGpuProgramWrapper.cpp
+//  OpenGLESTransTitleToWorldMapGpuProgramWrapper.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
-#include "OpenGLESTransTitleToWorldGpuProgramWrapper.h"
+#include "OpenGLESTransTitleToWorldMapGpuProgramWrapper.h"
 #include "OpenGLESManager.h"
 #include "macros.h"
 
@@ -15,13 +15,13 @@ extern "C"
 #include "asset_utils.h"
 }
 
-OpenGLESTransTitleToWorldGpuProgramWrapper::OpenGLESTransTitleToWorldGpuProgramWrapper() : TransTitleToWorldGpuProgramWrapper()
+OpenGLESTransTitleToWorldMapGpuProgramWrapper::OpenGLESTransTitleToWorldMapGpuProgramWrapper() : TransitionGpuProgramWrapper()
 {
-    m_program = TransTitleToWorldProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "trans_title_to_world_map_shader.fsh"));
+    m_program = TransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "trans_title_to_world_map_shader.fsh"));
     m_isLoaded = true;
 }
 
-void OpenGLESTransTitleToWorldGpuProgramWrapper::bind()
+void OpenGLESTransTitleToWorldMapGpuProgramWrapper::bind()
 {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_to->texture);
@@ -41,7 +41,7 @@ void OpenGLESTransTitleToWorldGpuProgramWrapper::bind()
     glEnableVertexAttribArray(m_program.a_position_location);
 }
 
-void OpenGLESTransTitleToWorldGpuProgramWrapper::unbind()
+void OpenGLESTransTitleToWorldMapGpuProgramWrapper::unbind()
 {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -53,7 +53,7 @@ void OpenGLESTransTitleToWorldGpuProgramWrapper::unbind()
     glUseProgram(0);
 }
 
-void OpenGLESTransTitleToWorldGpuProgramWrapper::cleanUp()
+void OpenGLESTransTitleToWorldMapGpuProgramWrapper::cleanUp()
 {
     glDeleteProgram(m_program.program);
 }
