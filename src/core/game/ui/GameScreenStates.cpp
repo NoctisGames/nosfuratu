@@ -650,8 +650,6 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderJon(m_levelState->getGame());
         
-        gs->m_renderer->renderHud(m_levelState->getGame(), m_levelState->getBackButton());
-        
         gs->m_renderer->renderToScreenWorldMapToLevelTransition(m_fTransitionStateTime / 2);
         
         gs->m_renderer->endFrame();
