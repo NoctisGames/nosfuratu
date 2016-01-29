@@ -705,6 +705,40 @@ void Renderer::renderJon(Game& game)
         }
         m_spriteBatcher->endBatch((isVampire || jon.isRevertingToRabbit()) ? *m_vampire : *m_jon);
         
+        /// Render Jon After Images
+        
+        for (std::vector<std::unique_ptr<Jon>>::iterator i = jon.getAfterImages().begin(); i != jon.getAfterImages().end(); i++)
+        {
+            m_spriteBatcher->beginBatch();
+            
+            std::unique_ptr<Jon>& upItem = *i;
+            Jon* pItem = upItem.get();
+            Jon& item = *pItem;
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
+            
+            bool iisTransforming = item.isTransformingIntoVampire() || item.isRevertingToRabbit();
+            bool iisVampire = item.isVampire();
+            bool iisUsingAbility = item.getAbilityState() != ABILITY_NONE;
+            bool iisDying = item.getState() != JON_ALIVE;
+            
+            if (iisDying)
+            {
+                m_spriteBatcher->endBatch(iisVampire ? *m_vampire_poses : *m_jon_poses);
+            }
+            else if (iisTransforming)
+            {
+                m_spriteBatcher->endBatch(*m_vampire_transform);
+            }
+            else if (item.isAllowedToMove() || item.isFalling() || item.isLanding())
+            {
+                m_spriteBatcher->endBatch(iisVampire ? *m_vampire : iisUsingAbility ?  *m_jon_ability : *m_jon);
+            }
+            else
+            {
+                m_spriteBatcher->endBatch(iisVampire ? *m_vampire_poses : *m_jon_poses);
+            }
+        }
+        
         /// Render Jon
         
         m_spriteBatcher->beginBatch();

@@ -54,6 +54,8 @@ public:
     
     std::vector<std::unique_ptr<DustCloud>>& getDustClouds();
     
+    std::vector<std::unique_ptr<Jon>>& getAfterImages();
+    
     JonState getState();
     
     JonPhysicalState getPhysicalState();
@@ -114,6 +116,7 @@ private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;
     std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
+    std::vector<std::unique_ptr<Jon>> m_afterImages;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;
@@ -214,6 +217,8 @@ private:
         virtual void triggerDownAction(Jon* jon);
         
     private:
+        std::unique_ptr<Vector2D> m_lastKnownVelocity;
+        float m_fTimeSinceLastVelocityCheck;
         bool m_isFallingAfterGlide;
         
         // ctor, copy ctor, and assignment should be private in a Singleton

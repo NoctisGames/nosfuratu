@@ -15,6 +15,11 @@
 
 #include <math.h>
 
+float clamp(float x, float upper, float lower)
+{
+    return fminf(upper, fmaxf(x, lower));
+}
+
 Jon* Jon::create(float x, float y, int type)
 {
 	return new Jon(x, y);
@@ -46,6 +51,23 @@ void Jon::update(float deltaTime)
 			i++;
 		}
 	}
+    
+    for (std::vector<std::unique_ptr<Jon>>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
+    {
+        (*i)->m_color.red -= m_fDeltaTime * 3;
+        (*i)->m_color.green -= m_fDeltaTime * 3;
+        (*i)->m_color.blue += m_fDeltaTime * 3;
+        (*i)->m_color.alpha -= m_fDeltaTime * 3;
+        
+        if ((*i)->m_color.alpha < 0.0)
+        {
+            i = m_afterImages.erase(i);
+        }
+        else
+        {
+            i++;
+        }
+    }
 
 	if (m_state == JON_DEAD)
 	{
@@ -125,6 +147,7 @@ void Jon::update(float deltaTime)
 		{
 			m_isLanding = false;
 			m_fStateTime = 0.21f;
+            m_velocity->setX(fminf(m_fMaxSpeed - 2, m_velocity->getX()));
 		}
 
 		m_acceleration->set(m_isAllowedToMove ? m_fAccelerationX : 0, 0);
@@ -275,6 +298,11 @@ void Jon::triggerDownAction()
 std::vector<std::unique_ptr<DustCloud>>& Jon::getDustClouds()
 {
 	return m_dustClouds;
+}
+
+std::vector<std::unique_ptr<Jon>>& Jon::getAfterImages()
+{
+    return m_afterImages;
 }
 
 JonState Jon::getState()
@@ -673,6 +701,53 @@ void Jon::Vampire::execute(Jon* jon)
 	{
 		jon->m_fHeight = 2.2f;
 	}
+    
+    m_fTimeSinceLastVelocityCheck += jon->m_fDeltaTime;
+    float dist = jon->m_velocity->dist(*m_lastKnownVelocity);
+    if (m_fTimeSinceLastVelocityCheck > 0.10 && (dist > 0.01 || dist < -0.01))
+    {
+        m_lastKnownVelocity->set(*jon->m_velocity);
+        m_fTimeSinceLastVelocityCheck = 0;
+        
+        Jon* afterImage = new Jon(jon->getPosition().getX(), jon->getPosition().getY());
+        afterImage->m_formStateMachine = std::unique_ptr<StateMachine<Jon>>(new StateMachine<Jon>(afterImage));
+        afterImage->m_formStateMachine->setCurrentState(jon->m_formStateMachine->getCurrentState());
+        afterImage->m_velocity->set(*jon->m_velocity);
+        afterImage->m_state = jon->m_state;
+        afterImage->m_physicalState = jon->m_physicalState;
+        afterImage->m_actionState = jon->m_actionState;
+        afterImage->m_abilityState = jon->m_abilityState;
+        afterImage->m_groundSoundType = jon->m_groundSoundType;
+        
+        afterImage->m_color = jon->m_color;
+        afterImage->m_fDeltaTime = jon->m_fDeltaTime;
+        afterImage->m_fActionStateTime = jon->m_fActionStateTime;
+        afterImage->m_fAbilityStateTime = jon->m_fAbilityStateTime;
+        afterImage->m_fTransformStateTime = jon->m_fTransformStateTime;
+        
+        afterImage->m_fDyingStateTime = jon->m_fDyingStateTime;
+        afterImage->m_fDefaultMaxSpeed = jon->m_fDefaultMaxSpeed;
+        afterImage->m_fMaxSpeed = jon->m_fMaxSpeed;
+        afterImage->m_fAccelerationX = jon->m_fAccelerationX;
+        afterImage->m_fGravity = jon->m_fGravity;
+        
+        afterImage->m_iNumJumps = jon->m_iNumJumps;
+        afterImage->m_iBoostVelocity = jon->m_iBoostVelocity;
+        afterImage->m_isLanding = jon->m_isLanding;
+        afterImage->m_isRightFoot = jon->m_isRightFoot;
+        afterImage->m_isAllowedToMove = jon->m_isAllowedToMove;
+        afterImage->m_fHeight = jon->m_fHeight;
+        afterImage->m_fWidth = jon->m_fWidth;
+        afterImage->m_fStateTime = jon->m_fStateTime;
+        
+        afterImage->m_color.red *= 0.9f;
+        afterImage->m_color.green *= 0.9f;
+        afterImage->m_color.blue *= 1.1f;
+        afterImage->m_color.alpha *= (dist + 0.25f);
+        afterImage->m_color.alpha = clamp(afterImage->m_color.alpha, 1, 0);
+        
+        jon->m_afterImages.push_back(std::unique_ptr<Jon>(afterImage));
+    }
 }
 
 void Jon::Vampire::exit(Jon* jon)
@@ -746,9 +821,9 @@ void Jon::Vampire::triggerDownAction(Jon* jon)
 	// TODO
 }
 
-Jon::Vampire::Vampire() : JonFormState(), m_isFallingAfterGlide(false)
+Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false)
 {
-	// Empty
+    m_lastKnownVelocity = std::unique_ptr<Vector2D>(new Vector2D());
 }
 
 /// Transform to Vampire ///

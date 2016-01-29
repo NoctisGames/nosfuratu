@@ -147,6 +147,7 @@ void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
+    gs->m_iNumFramesToDiscard = 1;
 }
 
 void WorldMap::execute(GameScreen* gs)
