@@ -1,12 +1,12 @@
 //
-//  OpenGLESFrameBufferTintGpuProgramWrapper.cpp
+//  OpenGLESFramebufferTintGpuProgramWrapper.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/23/16.
 //  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
-#include "OpenGLESFrameBufferTintGpuProgramWrapper.h"
+#include "OpenGLESFramebufferTintGpuProgramWrapper.h"
 #include "OpenGLESManager.h"
 #include "macros.h"
 
@@ -15,13 +15,13 @@ extern "C"
 #include "asset_utils.h"
 }
 
-OpenGLESFrameBufferTintGpuProgramWrapper::OpenGLESFrameBufferTintGpuProgramWrapper()
+OpenGLESFramebufferTintGpuProgramWrapper::OpenGLESFramebufferTintGpuProgramWrapper()
 {
-    m_program = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_purple_highlight_shader.fsh"));
+    m_program = FramebufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_purple_highlight_shader.fsh"));
     m_isLoaded = true;
 }
 
-void OpenGLESFrameBufferTintGpuProgramWrapper::bind()
+void OpenGLESFramebufferTintGpuProgramWrapper::bind()
 {
     glUseProgram(m_program.program);
     
@@ -36,7 +36,7 @@ void OpenGLESFrameBufferTintGpuProgramWrapper::bind()
     glEnableVertexAttribArray(m_program.a_position_location);
 }
 
-void OpenGLESFrameBufferTintGpuProgramWrapper::unbind()
+void OpenGLESFramebufferTintGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
@@ -45,7 +45,7 @@ void OpenGLESFrameBufferTintGpuProgramWrapper::unbind()
     glUseProgram(0);
 }
 
-void OpenGLESFrameBufferTintGpuProgramWrapper::cleanUp()
+void OpenGLESFramebufferTintGpuProgramWrapper::cleanUp()
 {
     glDeleteProgram(m_program.program);
 }

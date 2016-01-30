@@ -61,7 +61,7 @@ public:
 private:
     void buildShaderPrograms();
     void generateIndices(int maxBatchSize);
-    void createFrameBufferObject(int width, int height);
+    void createFramebufferObject(int width, int height);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     OpenGLESManager();

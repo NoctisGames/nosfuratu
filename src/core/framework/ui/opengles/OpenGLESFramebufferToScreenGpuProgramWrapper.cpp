@@ -1,12 +1,12 @@
 //
-//  OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp
+//  OpenGLESFramebufferToScreenGpuProgramWrapper.cpp
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#include "OpenGLESFrameBufferToScreenGpuProgramWrapper.h"
+#include "OpenGLESFramebufferToScreenGpuProgramWrapper.h"
 #include "OpenGLESManager.h"
 #include "macros.h"
 
@@ -15,13 +15,13 @@ extern "C"
 #include "asset_utils.h"
 }
 
-OpenGLESFrameBufferToScreenGpuProgramWrapper::OpenGLESFrameBufferToScreenGpuProgramWrapper()
+OpenGLESFramebufferToScreenGpuProgramWrapper::OpenGLESFramebufferToScreenGpuProgramWrapper()
 {
-    m_program = FrameBufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
+    m_program = FramebufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_shader.fsh"));
     m_isLoaded = true;
 }
 
-void OpenGLESFrameBufferToScreenGpuProgramWrapper::bind()
+void OpenGLESFramebufferToScreenGpuProgramWrapper::bind()
 {
     glUseProgram(m_program.program);
     
@@ -36,7 +36,7 @@ void OpenGLESFrameBufferToScreenGpuProgramWrapper::bind()
     glEnableVertexAttribArray(m_program.a_position_location);
 }
 
-void OpenGLESFrameBufferToScreenGpuProgramWrapper::unbind()
+void OpenGLESFramebufferToScreenGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
@@ -45,7 +45,7 @@ void OpenGLESFrameBufferToScreenGpuProgramWrapper::unbind()
     glUseProgram(0);
 }
 
-void OpenGLESFrameBufferToScreenGpuProgramWrapper::cleanUp()
+void OpenGLESFramebufferToScreenGpuProgramWrapper::cleanUp()
 {
     glDeleteProgram(m_program.program);
 }

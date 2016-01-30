@@ -24,8 +24,9 @@
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
-#include "OpenGLESFrameBufferTintGpuProgramWrapper.h"
+#include "OpenGLESFramebufferTintGpuProgramWrapper.h"
 #include "OpenGLESTransDeathGpuProgramWrapper.h"
+#include "OpenGLESFramebufferRadialBlurGpuProgramWrapper.h"
 
 extern "C"
 {
@@ -70,9 +71,10 @@ void OpenGLESRenderer::loadShaders()
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
     m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
     m_framebufferToScreenGpuProgramWrapper = OGLESManager->m_fbToScreenProgram.get();
-    m_framebufferTintGpuProgramWrapper = new OpenGLESFrameBufferTintGpuProgramWrapper();
+    m_framebufferTintGpuProgramWrapper = new OpenGLESFramebufferTintGpuProgramWrapper();
     m_transDeathInGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(true);
     m_transDeathOutGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(false);
+    m_framebufferRadialBlurGpuProgramWrapper = new OpenGLESFramebufferRadialBlurGpuProgramWrapper();
 }
 
 void OpenGLESRenderer::addFramebuffers()
@@ -113,7 +115,7 @@ void OpenGLESRenderer::bindToOffscreenFramebuffer(int index)
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_fbos.at(index));
 }
 
-void OpenGLESRenderer::clearFrameBufferWithColor(float r, float g, float b, float a)
+void OpenGLESRenderer::clearFramebufferWithColor(float r, float g, float b, float a)
 {
     glClearColor(r, g, b, a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

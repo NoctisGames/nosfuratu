@@ -137,11 +137,11 @@ void Renderer::init(RendererType type)
 
 void Renderer::beginFrame()
 {
-    clearFrameBufferWithColor(0, 0, 0, 1);
+    clearFramebufferWithColor(0, 0, 0, 1);
     
     setFramebuffer(0);
     
-    clearFrameBufferWithColor(0, 0, 0, 1);
+    clearFramebufferWithColor(0, 0, 0, 1);
 }
 
 void Renderer::setFramebuffer(int framebufferIndex)
@@ -1136,6 +1136,17 @@ void Renderer::renderToScreenWorldMapToLevelTransition(float progress)
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transWorldMapToLevelGpuProgramWrapper);
+}
+
+void Renderer::renderToScreenWithRadialBlur()
+{
+    /// Render everything to the screen
+    
+    bindToScreenFramebuffer();
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_framebufferRadialBlurGpuProgramWrapper);
 }
 
 void Renderer::renderToScreen()

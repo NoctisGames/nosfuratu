@@ -102,6 +102,8 @@ public:
     
     void renderToScreenWorldMapToLevelTransition(float progress);
     
+    void renderToScreenWithRadialBlur();
+    
     void renderToScreen();
 
     void cleanUp();
@@ -145,6 +147,7 @@ protected:
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
+    GpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
 
 	int m_iFramebufferIndex;
     
@@ -158,7 +161,7 @@ protected:
     
     virtual void bindToOffscreenFramebuffer(int index = 0) = 0;
     
-    virtual void clearFrameBufferWithColor(float r, float g, float b, float a) = 0;
+    virtual void clearFramebufferWithColor(float r, float g, float b, float a) = 0;
     
     virtual void bindToScreenFramebuffer() = 0;
 

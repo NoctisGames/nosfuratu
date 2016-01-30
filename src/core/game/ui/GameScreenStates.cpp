@@ -313,7 +313,14 @@ void GamePlay::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderToScreen();
+            if (!m_hasOpeningSequenceCompleted)
+            {
+                gs->m_renderer->renderToScreenWithRadialBlur();
+            }
+            else
+            {
+                gs->m_renderer->renderToScreen();
+            }
         }
         
         gs->m_renderer->endFrame();

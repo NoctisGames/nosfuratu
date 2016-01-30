@@ -50,8 +50,8 @@
 		BB2DF29B1C59BF7D00DD7BE3 /* trans_world_map_to_level_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB2DF29A1C59BF7D00DD7BE3 /* trans_world_map_to_level_shader.fsh */; };
 		BB3CCB941C48AAF60032A5EA /* PhoneGameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3CCB911C48AAF60032A5EA /* PhoneGameViewController.mm */; };
 		BB3CCB961C48AAF60032A5EA /* TabletGameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3CCB931C48AAF60032A5EA /* TabletGameViewController.mm */; };
-		BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */; };
-		BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */; };
+		BB3D8CE91B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CE71B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp */; };
+		BB3D8CEC1B9891A2009D58DE /* FramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CEA1B9891A2009D58DE /* FramebufferToScreenProgram.cpp */; };
 		BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */; };
 		BB3D8CF31B98CDBF009D58DE /* Jon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CF11B98CDBF009D58DE /* Jon.cpp */; };
 		BB3D8CF81B98D387009D58DE /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB3D8CF61B98D387009D58DE /* Animation.cpp */; };
@@ -59,7 +59,7 @@
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */; };
 		BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */; };
-		BB4495711C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44956F1C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.cpp */; };
+		BB4495711C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */; };
 		BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB574F361C59231500926A9B /* trans_out_death_shader.fsh */; };
 		BB574F3A1C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB574F381C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp */; };
@@ -153,6 +153,8 @@
 		BBC9710B1C35885700722602 /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971071C35885700722602 /* complete_transform.wav */; };
 		BBC9710D1C35885700722602 /* trigger_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC971081C35885700722602 /* trigger_transform.wav */; };
 		BBCCE5D41C4D46C20088629C /* jump_spring_heavy.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */; };
+		BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */; };
+		BBD3869F1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */; };
 		BBD572151BBB3C2300870723 /* Rock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD572131BBB3C2300870723 /* Rock.cpp */; };
 		BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE012681B9E545900D983B0 /* GroundPlatform.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
@@ -273,10 +275,10 @@
 		BB3CCB911C48AAF60032A5EA /* PhoneGameViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PhoneGameViewController.mm; sourceTree = "<group>"; };
 		BB3CCB921C48AAF60032A5EA /* TabletGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabletGameViewController.h; sourceTree = "<group>"; };
 		BB3CCB931C48AAF60032A5EA /* TabletGameViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TabletGameViewController.mm; sourceTree = "<group>"; };
-		BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB3D8CE81B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFrameBufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBufferToScreenProgram.cpp; sourceTree = "<group>"; };
-		BB3D8CEB1B9891A2009D58DE /* FrameBufferToScreenProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameBufferToScreenProgram.h; sourceTree = "<group>"; };
+		BB3D8CE71B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB3D8CE81B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB3D8CEA1B9891A2009D58DE /* FramebufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FramebufferToScreenProgram.cpp; sourceTree = "<group>"; };
+		BB3D8CEB1B9891A2009D58DE /* FramebufferToScreenProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FramebufferToScreenProgram.h; sourceTree = "<group>"; };
 		BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.fsh; sourceTree = "<group>"; };
 		BB3D8CF11B98CDBF009D58DE /* Jon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Jon.cpp; sourceTree = "<group>"; };
 		BB3D8CF21B98CDBF009D58DE /* Jon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Jon.h; sourceTree = "<group>"; };
@@ -304,8 +306,8 @@
 		BB430E24189313C600E4EAE1 /* pngstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngstruct.h; path = ../../3rdparty/libpng/pngstruct.h; sourceTree = "<group>"; };
 		BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_in_death_shader.fsh; sourceTree = "<group>"; };
 		BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_purple_highlight_shader.fsh; sourceTree = "<group>"; };
-		BB44956F1C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFrameBufferTintGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB4495701C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFrameBufferTintGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferTintGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB4495701C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferTintGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BB4CB3591B9B3620001093FE /* Ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
 		BB4CB35A1B9B3620001093FE /* Ground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ground.h; sourceTree = "<group>"; };
@@ -473,6 +475,9 @@
 		BBC971071C35885700722602 /* complete_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = complete_transform.wav; path = ../../../../assets/sounds/complete_transform.wav; sourceTree = "<group>"; };
 		BBC971081C35885700722602 /* trigger_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = trigger_transform.wav; path = ../../../../assets/sounds/trigger_transform.wav; sourceTree = "<group>"; };
 		BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jump_spring_heavy.wav; path = ../../../../assets/sounds/jump_spring_heavy.wav; sourceTree = "<group>"; };
+		BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_radial_blue_texture_shader.fsh; sourceTree = "<group>"; };
+		BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBD3869E1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBD572131BBB3C2300870723 /* Rock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rock.cpp; sourceTree = "<group>"; };
 		BBD572141BBB3C2300870723 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rock.h; sourceTree = "<group>"; };
 		BBE012681B9E545900D983B0 /* GroundPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GroundPlatform.cpp; sourceTree = "<group>"; };
@@ -1069,15 +1074,15 @@
 				BBEA16211B97B9BB009B4711 /* ColorProgram.h */,
 				BB3D8CED1B989274009D58DE /* frame_buffer_to_screen_shader.fsh */,
 				BBEA163D1B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh */,
-				BB3D8CEA1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp */,
-				BB3D8CEB1B9891A2009D58DE /* FrameBufferToScreenProgram.h */,
+				BB3D8CEA1B9891A2009D58DE /* FramebufferToScreenProgram.cpp */,
+				BB3D8CEB1B9891A2009D58DE /* FramebufferToScreenProgram.h */,
 				BBEA16221B97B9BB009B4711 /* image.c */,
 				BBEA16231B97B9BB009B4711 /* image.h */,
 				BBEA16241B97B9BB009B4711 /* linmath.h */,
 				BBEA16251B97B9BB009B4711 /* OpenGLESCircleBatcher.cpp */,
 				BBEA16261B97B9BB009B4711 /* OpenGLESCircleBatcher.h */,
-				BB3D8CE71B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp */,
-				BB3D8CE81B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.h */,
+				BB3D8CE71B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp */,
+				BB3D8CE81B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.h */,
 				BBEA16271B97B9BB009B4711 /* OpenGLESGeometryGpuProgramWrapper.cpp */,
 				BBEA16281B97B9BB009B4711 /* OpenGLESGeometryGpuProgramWrapper.h */,
 				BBEA16291B97B9BB009B4711 /* OpenGLESLineBatcher.cpp */,
@@ -1270,8 +1275,10 @@
 				BBEA165F1B97B9BB009B4711 /* android */,
 				BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */,
 				BBEA16621B97B9BB009B4711 /* ios */,
-				BB44956F1C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.cpp */,
-				BB4495701C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.h */,
+				BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */,
+				BB4495701C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.h */,
+				BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */,
+				BBD3869E1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.h */,
 				BBEA16671B97B9BB009B4711 /* OpenGLESGameScreen.cpp */,
 				BBEA16681B97B9BB009B4711 /* OpenGLESGameScreen.h */,
 				BBEA16691B97B9BB009B4711 /* OpenGLESRenderer.cpp */,
@@ -1288,6 +1295,7 @@
 				BB2DF2951C59B70C00DD7BE3 /* OpenGLESTransTitleToWorldMapGpuProgramWrapper.h */,
 				BB2DF2971C59BF4F00DD7BE3 /* OpenGLESTransWorldMapToLevelGpuProgramWrapper.cpp */,
 				BB2DF2981C59BF4F00DD7BE3 /* OpenGLESTransWorldMapToLevelGpuProgramWrapper.h */,
+				BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */,
 				BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */,
 				BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */,
 				BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */,
@@ -1336,7 +1344,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0ADF18A2178E2185005DA99E /* Build configuration list for PBXNativeTarget "nosfuratu" */;
 			buildPhases = (
-				BBA0C5271C5848CD00170B29 /* ShellScript */,
+				BBD386A01C5C3494002CA862 /* ShellScript */,
 				0ADF1870178E2185005DA99E /* Sources */,
 				0ADF1871178E2185005DA99E /* Frameworks */,
 				0ADF1872178E2185005DA99E /* Resources */,
@@ -1421,6 +1429,7 @@
 				BB9181F51C5860E0002B95CF /* compressed_vampire.png in Resources */,
 				BBC971091C35885700722602 /* cancel_transform.wav in Resources */,
 				BB9181FE1C5860E0002B95CF /* trans_death_shader_helper.png in Resources */,
+				BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */,
 				BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
@@ -1459,7 +1468,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BBA0C5271C5848CD00170B29 /* ShellScript */ = {
+		BBD386A01C5C3494002CA862 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1501,8 +1510,9 @@
 				0A8FBF7D179E07320039BA29 /* pngerror.c in Sources */,
 				BB3CCB961C48AAF60032A5EA /* TabletGameViewController.mm in Sources */,
 				BB19BDC01BB9E51000FA29E8 /* DestructiblePhysicalEntity.cpp in Sources */,
-				BB4495711C538022004D1950 /* OpenGLESFrameBufferTintGpuProgramWrapper.cpp in Sources */,
+				BB4495711C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				0A8FBF7E179E07320039BA29 /* pngget.c in Sources */,
+				BBD3869F1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BBF519C11BE84045003C6C06 /* CaveExitCover.cpp in Sources */,
 				BB2DF2991C59BF4F00DD7BE3 /* OpenGLESTransWorldMapToLevelGpuProgramWrapper.cpp in Sources */,
 				BBEA16A81B97B9BB009B4711 /* SpriteBatcher.cpp in Sources */,
@@ -1515,7 +1525,7 @@
 				BB2DF28B1C599A0100DD7BE3 /* LevelEditor.cpp in Sources */,
 				BBEA16971B97B9BB009B4711 /* ColorProgram.cpp in Sources */,
 				BBEA16AC1B97B9BB009B4711 /* Assets.cpp in Sources */,
-				BB3D8CE91B989156009D58DE /* OpenGLESFrameBufferToScreenGpuProgramWrapper.cpp in Sources */,
+				BB3D8CE91B989156009D58DE /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBEA169D1B97B9BB009B4711 /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BBEA16751B97B9BB009B4711 /* Line.cpp in Sources */,
 				BB8CFA021C32010500701C15 /* SnakeHorned.cpp in Sources */,
@@ -1544,7 +1554,7 @@
 				BBBA6E901BBB59E3007158E6 /* Stump.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* Carrot.cpp in Sources */,
 				BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
-				BB3D8CEC1B9891A2009D58DE /* FrameBufferToScreenProgram.cpp in Sources */,
+				BB3D8CEC1B9891A2009D58DE /* FramebufferToScreenProgram.cpp in Sources */,
 				BBE0126A1B9E545900D983B0 /* GroundPlatform.cpp in Sources */,
 				BBD572151BBB3C2300870723 /* Rock.cpp in Sources */,
 				0A8FBF81179E07320039BA29 /* pngread.c in Sources */,

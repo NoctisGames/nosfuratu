@@ -1,16 +1,16 @@
 //
-//  FrameBufferToScreenProgram.cpp
+//  FramebufferToScreenProgram.cpp
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
 //  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
 //
 
-#include "FrameBufferToScreenProgram.h"
+#include "FramebufferToScreenProgram.h"
 
-FrameBufferToScreenProgramStruct FrameBufferToScreenProgram::build(GLuint program)
+FramebufferToScreenProgramStruct FramebufferToScreenProgram::build(GLuint program)
 {
-    return (FrameBufferToScreenProgramStruct)
+    return (FramebufferToScreenProgramStruct)
     {
         program,
         glGetAttribLocation(program, "a_Position"),

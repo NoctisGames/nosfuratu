@@ -9,10 +9,10 @@
 #include "OpenGLESManager.h"
 #include "OpenGLESTextureGpuProgramWrapper.h"
 #include "OpenGLESGeometryGpuProgramWrapper.h"
-#include "OpenGLESFrameBufferToScreenGpuProgramWrapper.h"
+#include "OpenGLESFramebufferToScreenGpuProgramWrapper.h"
 #include "ColorProgram.h"
 #include "TextureProgram.h"
-#include "FrameBufferToScreenProgram.h"
+#include "FramebufferToScreenProgram.h"
 #include "macros.h"
 
 extern "C"
@@ -38,7 +38,7 @@ void OpenGLESManager::init(int width, int height, int maxBatchSize, int numFrame
     
     for (int i = 0; i < numFramebuffers; i++)
     {
-        createFrameBufferObject(width, height);
+        createFramebufferObject(width, height);
     }
 }
 
@@ -87,7 +87,7 @@ void OpenGLESManager::buildShaderPrograms()
 {
     m_textureProgram = std::unique_ptr<OpenGLESTextureGpuProgramWrapper>(new OpenGLESTextureGpuProgramWrapper());
     m_colorProgram = std::unique_ptr<OpenGLESGeometryGpuProgramWrapper>(new OpenGLESGeometryGpuProgramWrapper());
-    m_fbToScreenProgram = std::unique_ptr<OpenGLESFrameBufferToScreenGpuProgramWrapper>(new OpenGLESFrameBufferToScreenGpuProgramWrapper());
+    m_fbToScreenProgram = std::unique_ptr<OpenGLESFramebufferToScreenGpuProgramWrapper>(new OpenGLESFramebufferToScreenGpuProgramWrapper());
 }
 
 void OpenGLESManager::generateIndices(int maxBatchSize)
@@ -106,7 +106,7 @@ void OpenGLESManager::generateIndices(int maxBatchSize)
     }
 }
 
-void OpenGLESManager::createFrameBufferObject(int width, int height)
+void OpenGLESManager::createFramebufferObject(int width, int height)
 {
     GLuint fbo_texture;
     GLuint fbo;
