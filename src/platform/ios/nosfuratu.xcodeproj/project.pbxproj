@@ -77,6 +77,7 @@
 		BB66EC2E1C0E5892006DE4F5 /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC261C0E5892006DE4F5 /* CMOpenALSoundManager.m */; };
 		BB66EC301C0E5892006DE4F5 /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC281C0E5892006DE4F5 /* DebugOutput.m */; };
 		BB66EC341C0E5A26006DE4F5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC331C0E5A26006DE4F5 /* UIView+Toast.m */; };
+		BB6BCFFE1C5D3A3E00CDEA54 /* jon_vampire_double_jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB6BCFFD1C5D3A3E00CDEA54 /* jon_vampire_double_jump.wav */; };
 		BB6F4D711BB31AB40081CAE4 /* EntityUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB6F4D6F1BB31AB40081CAE4 /* EntityUtils.cpp */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
@@ -338,6 +339,7 @@
 		BB66EC291C0E5892006DE4F5 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		BB66EC321C0E5A26006DE4F5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		BB66EC331C0E5A26006DE4F5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		BB6BCFFD1C5D3A3E00CDEA54 /* jon_vampire_double_jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jon_vampire_double_jump.wav; path = ../../../../assets/sounds/jon_vampire_double_jump.wav; sourceTree = "<group>"; };
 		BB6F4D6E1BB319E50081CAE4 /* EntityAnchor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntityAnchor.h; sourceTree = "<group>"; };
 		BB6F4D6F1BB31AB40081CAE4 /* EntityUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityUtils.cpp; sourceTree = "<group>"; };
 		BB6F4D701BB31AB40081CAE4 /* EntityUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityUtils.h; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 				BB9181E21C5860E0002B95CF /* jon_poses.png */,
 				BB89FFEB1C51885300558400 /* jon_rabbit_double_jump.wav */,
 				BBA347CA1C4F03B00066D70D /* jon_rabbit_jump.wav */,
+				BB6BCFFD1C5D3A3E00CDEA54 /* jon_vampire_double_jump.wav */,
 				BB887DF81C4F1C760073CEDF /* jon_vampire_jump.wav */,
 				BB9181E31C5860E0002B95CF /* jon.png */,
 				BBCCE5D31C4D46C20088629C /* jump_spring_heavy.wav */,
@@ -1419,6 +1422,7 @@
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB9181FA1C5860E0002B95CF /* jon_poses.png in Resources */,
 				BB89FFEC1C51885300558400 /* jon_rabbit_double_jump.wav in Resources */,
+				BB6BCFFE1C5D3A3E00CDEA54 /* jon_vampire_double_jump.wav in Resources */,
 				BB66EBFF1C0E4F93006DE4F5 /* collect_carrot.wav in Resources */,
 				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB9181F41C5860E0002B95CF /* compressed_misc.png in Resources */,

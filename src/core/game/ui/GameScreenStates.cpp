@@ -313,7 +313,7 @@ void GamePlay::execute(GameScreen* gs)
         }
         else
         {
-            if (!m_hasOpeningSequenceCompleted)
+            if (m_activateRadialBlur)
             {
                 gs->m_renderer->renderToScreenWithRadialBlur();
             }
@@ -339,7 +339,9 @@ void GamePlay::execute(GameScreen* gs)
             
             jon.update(gs->m_fDeltaTime);
             
-            m_hasOpeningSequenceCompleted = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+            int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+            m_hasOpeningSequenceCompleted = result == 2;
+            m_activateRadialBlur = result == 1;
             jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
@@ -463,6 +465,8 @@ void GamePlay::execute(GameScreen* gs)
 void GamePlay::exit(GameScreen* gs)
 {
     m_game->reset();
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
     
     m_fStateTime = 0;
     m_isReleasingShockwave = false;
@@ -604,7 +608,7 @@ bool GamePlay::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-GamePlay::GamePlay(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_hasSwiped(false), m_showDeathTransOut(false)
+GamePlay::GamePlay(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

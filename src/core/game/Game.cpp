@@ -417,6 +417,16 @@ float Game::getFarRight()
     return getEndSigns().at(0)->getPosition().getX() + getEndSigns().at(0)->getWidth();
 }
 
+float Game::getFarRightBottom()
+{
+    if (getEndSigns().size() == 0)
+    {
+        return 8.750433275563259f;
+    }
+    
+    return getEndSigns().at(0)->getPosition().getY() - getJon().getHeight() / 2;
+}
+
 float Game::getStateTime()
 {
     return m_fStateTime;

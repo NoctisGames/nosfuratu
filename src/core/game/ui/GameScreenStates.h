@@ -109,6 +109,7 @@ protected:
     float m_fShockwaveElapsedTime;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
+    bool m_activateRadialBlur;
     bool m_hasSwiped;
     bool m_showDeathTransOut;
     

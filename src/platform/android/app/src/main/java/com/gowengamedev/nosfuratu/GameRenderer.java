@@ -99,7 +99,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_rabbit_jump.wav"));
         _sounds.add(_audio.newSound("jon_vampire_jump.wav"));
         _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
-        _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
+        _sounds.add(_audio.newSound("jon_vampire_double_jump.wav"));
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());

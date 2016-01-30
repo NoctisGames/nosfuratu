@@ -64,8 +64,6 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTextur
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
-    m_camAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
-    m_camVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
 }
 
 void Renderer::init(RendererType type)
@@ -164,108 +162,44 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     updateCameraToFollowJon(game, 1337);
     
     m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
+    m_camBounds->getLowerLeft().setY(game.getFarRightBottom());
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+    float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
     
-    float changeInX = getCamPosFarRight(game) - farLeft;
+    float changeInX = farLeft - getCamPosFarRight(game);
+    float changeInY = farLeftBottom - game.getFarRightBottom();
     
-    m_camPosAcceleration->set(changeInX / 8, m_camBounds->getLowerLeft().getY() * 0.3f);
-    m_camAcceleration->set((ZOOMED_OUT_CAM_WIDTH - m_camBounds->getWidth()) * 0.3f, (GAME_HEIGHT - m_camBounds->getHeight()) * 0.3f);
-    m_camVelocity->set(0, 0);
-    m_camPosVelocity->set(0, 0);
-    
-    m_fOriginalY = m_camBounds->getLowerLeft().getY();
-    m_fOriginalWidth = m_camBounds->getWidth();
-    m_fOriginalHeight = m_camBounds->getHeight();
+    m_camPosVelocity->set(changeInX, changeInY);
 }
 
-bool Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
+int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 {
     m_fStateTime += deltaTime;
     
-    if (m_fStateTime < 1.5f)
+    if (m_fStateTime >= 5.065f && m_fStateTime < 6.065f)
     {
-        return false;
-    }
-    
-    if (m_fStateTime <= 4.4825f)
-    {
-        m_camPosVelocity->add(m_camPosAcceleration->getX() * deltaTime, 0);
-        m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
-        m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
-        m_camBounds->setWidth(m_camBounds->getWidth() + m_camVelocity->getX() * deltaTime);
-        m_camBounds->setHeight(m_camBounds->getHeight() + m_camVelocity->getY() * deltaTime);
-        m_camBounds->getLowerLeft().sub(0, m_camPosVelocity->getY() * deltaTime);
+        m_camBounds->getLowerLeft().add(m_camPosVelocity->getX() * deltaTime, m_camPosVelocity->getY() * deltaTime);
+        
+        if (m_camBounds->getLowerLeft().getX() < 0)
+        {
+            m_camBounds->getLowerLeft().setX(0);
+        }
         
         if (m_camBounds->getLowerLeft().getY() < 0)
         {
             m_camBounds->getLowerLeft().setY(0);
         }
         
-        if (m_camBounds->getWidth() > ZOOMED_OUT_CAM_WIDTH)
-        {
-            m_camBounds->setWidth(ZOOMED_OUT_CAM_WIDTH);
-        }
-        
-        if (m_camBounds->getHeight() > GAME_HEIGHT)
-        {
-            m_camBounds->setHeight(GAME_HEIGHT);
-        }
+        return 1;
     }
-    else if (m_fStateTime >= 5.0825f)
+    else if (m_fStateTime >= 6.065f)
     {
-        m_camPosVelocity->sub(m_camPosAcceleration->getX() * deltaTime, 0);
-        m_camPosVelocity->add(0, m_camPosAcceleration->getY() * deltaTime);
-        m_camVelocity->add(m_camAcceleration->getX() * deltaTime, m_camAcceleration->getY() * deltaTime);
-        m_camBounds->setWidth(m_camBounds->getWidth() - m_camVelocity->getX() * deltaTime);
-        m_camBounds->setHeight(m_camBounds->getHeight() - m_camVelocity->getY() * deltaTime);
-        m_camBounds->getLowerLeft().add(0, m_camPosVelocity->getY() * deltaTime);
-        
-        if (m_camBounds->getLowerLeft().getY() > m_fOriginalY)
-        {
-            m_camBounds->getLowerLeft().setY(m_fOriginalY);
-        }
-        
-        if (m_camBounds->getWidth() < m_fOriginalWidth)
-        {
-            m_camBounds->setWidth(m_fOriginalWidth);
-        }
-        
-        if (m_camBounds->getHeight() < m_fOriginalHeight)
-        {
-            m_camBounds->setHeight(m_fOriginalHeight);
-        }
-        
-        if (m_camPosVelocity->getX() < 0)
-        {
-            m_camPosVelocity->setX(0);
-        }
-    }
-    else
-    {
-        m_camVelocity->set(0, 0);
-        m_camPosVelocity->setY(0);
+        updateCameraToFollowJon(game, 1337);
     }
     
-    Jon& jon = game.getJon();
-    float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
-    
-    float changeInX = getCamPosFarRight(game) - farLeft;
-    
-    if (m_camPosVelocity->getX() > changeInX * 0.28f)
-    {
-        m_camPosVelocity->setX(changeInX * 0.28f);
-    }
-    
-    m_camBounds->getLowerLeft().sub(m_camPosVelocity->getX() * deltaTime, 0);
-    
-    if (m_camBounds->getLowerLeft().getX() < farLeft)
-    {
-        m_camBounds->getLowerLeft().setX(farLeft);
-    }
-    
-    return m_fStateTime >= 8.065f;
+    return m_fStateTime >= 8.065f ? 2 : 0;
 }
 
 void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)

@@ -57,8 +57,10 @@ public:
     
     void beginOpeningPanningSequence(Game& game);
     
-    // Return true if the beginning of the stage has been reached
-    bool updateCameraToFollowPathToJon(Game& game, float deltaTime);
+    // Return 2 if the beginning of the stage has been reached
+    // Return 1 to activate the radial blur effect
+    // Return 0 to do nothing
+    int updateCameraToFollowPathToJon(Game& game, float deltaTime);
     
     void updateCameraToFollowJon(Game& game, float deltaTime);
     
@@ -171,11 +173,6 @@ private:
     std::unique_ptr<Rectangle> m_camBounds;
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
-    std::unique_ptr<Vector2D> m_camAcceleration;
-    std::unique_ptr<Vector2D> m_camVelocity;
-    float m_fOriginalY;
-    float m_fOriginalWidth;
-    float m_fOriginalHeight;
     float m_fStateTime;
     RendererType m_rendererType;
     bool m_areTitleTexturesLoaded;

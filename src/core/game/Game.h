@@ -131,6 +131,8 @@ public:
     
     float getFarRight();
     
+    float getFarRightBottom();
+    
     float getStateTime();
     
     int getNumTotalCarrots();
