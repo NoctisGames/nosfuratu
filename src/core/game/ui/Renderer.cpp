@@ -169,7 +169,9 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
     
     float changeInX = farLeft - getCamPosFarRight(game);
+    changeInX *= 2;
     float changeInY = farLeftBottom - game.getFarRightBottom();
+    changeInY *= 2;
     
     m_camPosVelocity->set(changeInX, changeInY);
 }
@@ -178,7 +180,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 {
     m_fStateTime += deltaTime;
     
-    if (m_fStateTime >= 5.065f && m_fStateTime < 6.065f)
+    if (m_fStateTime >= 5.065f && m_fStateTime < 5.565f)
     {
         m_camBounds->getLowerLeft().add(m_camPosVelocity->getX() * deltaTime, m_camPosVelocity->getY() * deltaTime);
         
@@ -1046,30 +1048,17 @@ void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathOutGpuProgramWrapper);
 }
 
-void Renderer::renderToScreenTitleToWorldMapTransition(float progress)
+void Renderer::renderToScreenTransition(float progress)
 {
-    /// Render the Title to World Map transition to the screen
+    /// Render the screen transition to the screen
     
-    m_transTitleToWorldMapGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
+    m_transScreenGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
     
     bindToScreenFramebuffer();
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transTitleToWorldMapGpuProgramWrapper);
-}
-
-void Renderer::renderToScreenWorldMapToLevelTransition(float progress)
-{
-    /// Render the World Map to Level transition to the screen
-    
-    m_transWorldMapToLevelGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
-    
-    bindToScreenFramebuffer();
-    
-    m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transWorldMapToLevelGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transScreenGpuProgramWrapper);
 }
 
 void Renderer::renderToScreenWithRadialBlur()

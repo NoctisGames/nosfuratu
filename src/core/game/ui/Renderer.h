@@ -100,9 +100,7 @@ public:
     
     void renderToScreenWithTransDeathOut(float timeElapsed);
     
-    void renderToScreenTitleToWorldMapTransition(float progress);
-    
-    void renderToScreenWorldMapToLevelTransition(float progress);
+    void renderToScreenTransition(float progress);
     
     void renderToScreenWithRadialBlur();
     
@@ -140,8 +138,7 @@ protected:
     
     std::vector<TextureWrapper> m_framebuffers;
     
-    TransitionGpuProgramWrapper* m_transTitleToWorldMapGpuProgramWrapper;
-    TransitionGpuProgramWrapper* m_transWorldMapToLevelGpuProgramWrapper;
+    TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;

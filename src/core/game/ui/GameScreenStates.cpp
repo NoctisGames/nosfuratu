@@ -109,7 +109,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenBackground();
         gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getBackButton());
         
-        gs->m_renderer->renderToScreenTitleToWorldMapTransition(m_fTransitionStateTime * 2);
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
         gs->m_renderer->endFrame();
     }
@@ -117,7 +117,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
     {
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
-        if (m_fTransitionStateTime > 0.5f)
+        if (m_fTransitionStateTime > 1)
         {
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
         }
@@ -301,7 +301,10 @@ void GamePlay::execute(GameScreen* gs)
         
         gs->m_renderer->renderJon(*m_game);
         
-        gs->m_renderer->renderHud(*m_game, *m_backButton);
+        if (m_hasOpeningSequenceCompleted)
+        {
+            gs->m_renderer->renderHud(*m_game, *m_backButton);
+        }
         
         if (jon.isDead())
         {
@@ -661,7 +664,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderJon(m_levelState->getGame());
         
-        gs->m_renderer->renderToScreenWorldMapToLevelTransition(m_fTransitionStateTime / 2);
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
         gs->m_renderer->endFrame();
     }
@@ -671,7 +674,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
-        if (m_fTransitionStateTime > 2)
+        if (m_fTransitionStateTime > 1)
         {
             gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
             gs->m_stateMachine->setCurrentState(m_levelState);

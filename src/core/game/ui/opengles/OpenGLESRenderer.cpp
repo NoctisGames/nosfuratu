@@ -19,8 +19,7 @@
 #include "Rectangle.h"
 #include "Game.h"
 #include "Jon.h"
-#include "OpenGLESTransTitleToWorldMapGpuProgramWrapper.h"
-#include "OpenGLESTransWorldMapToLevelGpuProgramWrapper.h"
+#include "OpenGLESTransScreenGpuProgramWrapper.h"
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
@@ -65,8 +64,7 @@ void OpenGLESRenderer::endFrame()
 
 void OpenGLESRenderer::loadShaders()
 {
-    m_transTitleToWorldMapGpuProgramWrapper = new OpenGLESTransTitleToWorldMapGpuProgramWrapper();
-    m_transWorldMapToLevelGpuProgramWrapper = new OpenGLESTransWorldMapToLevelGpuProgramWrapper();
+    m_transScreenGpuProgramWrapper = new OpenGLESTransScreenGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
     m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
