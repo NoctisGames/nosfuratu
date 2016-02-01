@@ -11,8 +11,15 @@
 #include "Direct3DManager.h"
 #include "macros.h"
 
-Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+using namespace Windows::System::Profile;
+
+Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_isWindowsMobile(false), m_deviceResources(deviceResources)
 {
+	createConstantBuffers();
+
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");
 	auto loadPSTask = DX::ReadDataAsync(L"RadialBlurTexturePixelShader.cso");
@@ -75,6 +82,12 @@ void Direct3DFramebufferRadialBlurGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
+	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_isWindowsMobileConstantBuffer.GetAddressOf());
+
+	// send isWindowsMobile to video memory
+	int isWindowsMobile = m_isWindowsMobile ? 1 : 0;
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_isWindowsMobileConstantBuffer.Get(), 0, 0, &isWindowsMobile, 0, 0);
+
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
 
@@ -102,7 +115,21 @@ void Direct3DFramebufferRadialBlurGpuProgramWrapper::unbind()
 
 void Direct3DFramebufferRadialBlurGpuProgramWrapper::cleanUp()
 {
+	m_isWindowsMobileConstantBuffer.Reset();
 	m_vertexShader.Reset();
 	m_pixelShader.Reset();
 	m_inputLayout.Reset();
+}
+
+void Direct3DFramebufferRadialBlurGpuProgramWrapper::createConstantBuffers()
+{
+	{
+		D3D11_BUFFER_DESC bd = { 0 };
+
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = 16;
+		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isWindowsMobileConstantBuffer);
+	}
 }
