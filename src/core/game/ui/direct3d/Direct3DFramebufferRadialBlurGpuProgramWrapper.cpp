@@ -18,7 +18,12 @@ Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpu
 	createConstantBuffers();
 
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+
+	m_isWindowsMobile = false;
+	if (api->DeviceFamily->Equals("Windows.Mobile"))
+	{
+		m_isWindowsMobile = true;
+	}
 
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");

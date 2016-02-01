@@ -16,7 +16,7 @@ float4 main(float4 position : SV_POSITION, float2 texcoordIn : TEXCOORD) : SV_TA
 
 	float2 uv = fragCoord.xy;
 
-	float2 pos = isWindowsMobile == 1 ? float2(0.5, 1.0) : float2(0.0, 0.5);
+	float2 pos = isWindowsMobile == 1 ? float2(0.5, 0.0) : float2(0.0, 0.5);
 	float2 dir = (fragCoord.xy - pos.xy);
 
 	float4 color = float4(0.0, 0.0, 0.0, 0.0);
