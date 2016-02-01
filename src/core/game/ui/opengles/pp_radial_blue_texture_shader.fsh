@@ -7,7 +7,7 @@ varying vec2 v_TextureCoordinates;
 void main()
 {
     const float strength = 0.125;
-    const int samples = 16; // multiple of 2
+    const int samples = 8; // multiple of 2
     
     vec2 fragCoord = v_TextureCoordinates;
     

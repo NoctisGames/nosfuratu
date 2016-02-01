@@ -169,9 +169,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
     
     float changeInX = farLeft - getCamPosFarRight(game);
-    changeInX *= 2;
     float changeInY = farLeftBottom - game.getFarRightBottom();
-    changeInY *= 2;
     
     m_camPosVelocity->set(changeInX, changeInY);
 }
@@ -180,21 +178,39 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 {
     m_fStateTime += deltaTime;
     
-    if (m_fStateTime >= 5.065f && m_fStateTime < 5.565f)
+    if (m_fStateTime >= 5.065f && m_fStateTime <= 6.065f)
     {
-        m_camBounds->getLowerLeft().add(m_camPosVelocity->getX() * deltaTime, m_camPosVelocity->getY() * deltaTime);
+        bool isComplete = false;
+        float progress = (m_fStateTime - 5.065f) / 0.5f;
+        if (progress > 1)
+        {
+            progress = 1;
+            isComplete = true;
+        }
         
-		Jon& jon = game.getJon();
-		float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+        Jon& jon = game.getJon();
+        float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+        float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
+        
+        float changeInX = farLeft - getCamPosFarRight(game);
+        float changeInY = farLeftBottom - game.getFarRightBottom();
+        
+        m_camBounds->getLowerLeft().set(getCamPosFarRight(game) + changeInX * progress, game.getFarRightBottom() + changeInY * progress);
 
         if (m_camBounds->getLowerLeft().getX() < farLeft)
         {
             m_camBounds->getLowerLeft().setX(farLeft);
         }
         
-        return 1;
+        if ((m_camPosVelocity->getY() < 0 && m_camBounds->getLowerLeft().getY() < farLeftBottom)
+            || (m_camPosVelocity->getY() > 0 && m_camBounds->getLowerLeft().getY() > farLeftBottom))
+        {
+            m_camBounds->getLowerLeft().setY(farLeftBottom);
+        }
+        
+        return isComplete ? 0 : 1;
     }
-    else if (m_fStateTime >= 6.065f)
+    else if (m_fStateTime > 6.065f)
     {
         updateCameraToFollowJon(game, 1337);
     }
