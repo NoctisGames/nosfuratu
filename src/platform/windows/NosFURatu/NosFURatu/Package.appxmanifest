@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="6859TechneGames.NosFURatu" Publisher="CN=713F20D9-DD35-437E-AD6D-D22B798A9E75" Version="0.2.0.3" />
+  <Identity Name="6859TechneGames.NosFURatu" Publisher="CN=713F20D9-DD35-437E-AD6D-D22B798A9E75" Version="0.2.0.4" />
   <mp:PhoneIdentity PhoneProductId="662e3635-3253-4a76-8aa5-d66e3f025db5" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NosFURatu</DisplayName>

@@ -5,7 +5,7 @@ SamplerState ss;
 float4 main(float4 position : SV_POSITION, float2 texcoordIn : TEXCOORD) : SV_TARGET
 {
 	const float strength = 0.125;
-	const int samples = 16; // multiple of 2
+	const int samples = 8; // multiple of 2
 
 	float2 fragCoord = texcoordIn;
 
