@@ -1,5 +1,5 @@
 //
-//  Direct3DTransWorldMapToLevelGpuProgramWrapper.cpp
+//  Direct3DTransScreenGpuProgramWrapper.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/28/16.
@@ -7,26 +7,17 @@
 //
 
 #include "pch.h"
-#include "Direct3DTransWorldMapToLevelGpuProgramWrapper.h"
+#include "Direct3DTransScreenGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 #include "macros.h"
 
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
-
-Direct3DTransWorldMapToLevelGpuProgramWrapper::Direct3DTransWorldMapToLevelGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DTransScreenGpuProgramWrapper::Direct3DTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
 	createConstantBuffers();
 
-	/* initialize random seed: */
-	srand(time(NULL));
-
-	/* generate secret number between 1 and 10: */
-	int random = rand() % 2;
-
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(random == 1 ? L"TransWorldMapToLevelTexturePixelShader.cso" : L"TransWorldMapToLevelAltTexturePixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"TransScreenTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -76,7 +67,7 @@ Direct3DTransWorldMapToLevelGpuProgramWrapper::Direct3DTransWorldMapToLevelGpuPr
 	});
 }
 
-void Direct3DTransWorldMapToLevelGpuProgramWrapper::bind()
+void Direct3DTransScreenGpuProgramWrapper::bind()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
 
@@ -113,13 +104,13 @@ void Direct3DTransWorldMapToLevelGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DTransWorldMapToLevelGpuProgramWrapper::unbind()
+void Direct3DTransScreenGpuProgramWrapper::unbind()
 {
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
 }
 
-void Direct3DTransWorldMapToLevelGpuProgramWrapper::cleanUp()
+void Direct3DTransScreenGpuProgramWrapper::cleanUp()
 {
 	m_progressConstantBuffer.Reset();
 	m_vertexShader.Reset();
@@ -127,7 +118,7 @@ void Direct3DTransWorldMapToLevelGpuProgramWrapper::cleanUp()
 	m_inputLayout.Reset();
 }
 
-void Direct3DTransWorldMapToLevelGpuProgramWrapper::createConstantBuffers()
+void Direct3DTransScreenGpuProgramWrapper::createConstantBuffers()
 {
 	{
 		D3D11_BUFFER_DESC bd = { 0 };

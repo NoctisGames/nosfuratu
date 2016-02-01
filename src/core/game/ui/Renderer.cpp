@@ -184,14 +184,12 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
     {
         m_camBounds->getLowerLeft().add(m_camPosVelocity->getX() * deltaTime, m_camPosVelocity->getY() * deltaTime);
         
-        if (m_camBounds->getLowerLeft().getX() < 0)
+		Jon& jon = game.getJon();
+		float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+
+        if (m_camBounds->getLowerLeft().getX() < farLeft)
         {
-            m_camBounds->getLowerLeft().setX(0);
-        }
-        
-        if (m_camBounds->getLowerLeft().getY() < 0)
-        {
-            m_camBounds->getLowerLeft().setY(0);
+            m_camBounds->getLowerLeft().setX(farLeft);
         }
         
         return 1;

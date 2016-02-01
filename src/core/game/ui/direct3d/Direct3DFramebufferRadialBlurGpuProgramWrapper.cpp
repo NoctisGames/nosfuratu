@@ -1,5 +1,5 @@
 //
-//  Direct3DTransTitleToWorldMapGpuProgramWrapper.cpp
+//  Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/28/16.
@@ -7,26 +7,15 @@
 //
 
 #include "pch.h"
-#include "Direct3DTransTitleToWorldMapGpuProgramWrapper.h"
+#include "Direct3DFramebufferRadialBlurGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 #include "macros.h"
 
-using namespace Windows::System::Profile;
-
-Direct3DTransTitleToWorldMapGpuProgramWrapper::Direct3DTransTitleToWorldMapGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
-	createConstantBuffers();
-
-	bool isWindowsMobile = false;
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	if (api->DeviceFamily->Equals("Windows.Mobile"))
-	{
-		isWindowsMobile = true;
-	}
-
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(isWindowsMobile ? L"TransTitleToWorldMapAltTexturePixelShader.cso" : L"TransTitleToWorldMapTexturePixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"RadialBlurTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -76,7 +65,7 @@ Direct3DTransTitleToWorldMapGpuProgramWrapper::Direct3DTransTitleToWorldMapGpuPr
 	});
 }
 
-void Direct3DTransTitleToWorldMapGpuProgramWrapper::bind()
+void Direct3DFramebufferRadialBlurGpuProgramWrapper::bind()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
 
@@ -85,14 +74,6 @@ void Direct3DTransTitleToWorldMapGpuProgramWrapper::bind()
 	// set the shader objects as the active shaders
 	m_deviceResources->GetD3DDeviceContext()->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
-
-	// tell the GPU which texture to use
-	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, &m_to->texture);
-
-	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_progressConstantBuffer.GetAddressOf());
-
-	// send time elapsed to video memory
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_progressConstantBuffer.Get(), 0, 0, &m_fProgress, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -113,29 +94,15 @@ void Direct3DTransTitleToWorldMapGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DTransTitleToWorldMapGpuProgramWrapper::unbind()
+void Direct3DFramebufferRadialBlurGpuProgramWrapper::unbind()
 {
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
 }
 
-void Direct3DTransTitleToWorldMapGpuProgramWrapper::cleanUp()
+void Direct3DFramebufferRadialBlurGpuProgramWrapper::cleanUp()
 {
-	m_progressConstantBuffer.Reset();
 	m_vertexShader.Reset();
 	m_pixelShader.Reset();
 	m_inputLayout.Reset();
-}
-
-void Direct3DTransTitleToWorldMapGpuProgramWrapper::createConstantBuffers()
-{
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_progressConstantBuffer);
-	}
 }

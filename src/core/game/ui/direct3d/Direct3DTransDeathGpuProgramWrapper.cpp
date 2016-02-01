@@ -16,7 +16,7 @@ Direct3DTransDeathGpuProgramWrapper::Direct3DTransDeathGpuProgramWrapper(const s
 	createConstantBuffers();
 
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");
 	auto loadPSTask = DX::ReadDataAsync(isTransIn ? L"TransDeathInTexturePixelShader.cso" : L"TransDeathOutTexturePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.

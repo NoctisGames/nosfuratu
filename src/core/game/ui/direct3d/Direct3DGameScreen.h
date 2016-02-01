@@ -6,7 +6,7 @@
 #include "Direct3DProgram.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
-#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "Direct3DFramebufferToScreenGpuProgramWrapper.h"
 #include "DeviceResources.h"
 #include "StepTimer.h"
 

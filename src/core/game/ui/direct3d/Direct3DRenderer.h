@@ -33,7 +33,7 @@ protected:
     
     virtual void bindToOffscreenFramebuffer(int index);
     
-    virtual void clearFrameBufferWithColor(float r, float g, float b, float a);
+    virtual void clearFramebufferWithColor(float r, float g, float b, float a);
     
     virtual void bindToScreenFramebuffer();
     

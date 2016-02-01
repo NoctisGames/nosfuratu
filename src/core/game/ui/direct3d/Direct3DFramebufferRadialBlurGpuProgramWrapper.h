@@ -1,21 +1,21 @@
 //
-//  Direct3DFramebufferTintGpuProgramWrapper.h
+//  Direct3DFramebufferRadialBlurGpuProgramWrapper.h
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/28/16.
 //  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__
-#define __gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__
+#ifndef __gowengamedev__Direct3DFramebufferRadialBlurGpuProgramWrapper__
+#define __gowengamedev__Direct3DFramebufferRadialBlurGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "DeviceResources.h"
 
-class Direct3DFramebufferTintGpuProgramWrapper : public GpuProgramWrapper
+class Direct3DFramebufferRadialBlurGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
-	Direct3DFramebufferTintGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+	Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void bind();
 
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 };
 
-#endif /* defined(__gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__) */
+#endif /* defined(__gowengamedev__Direct3DFramebufferRadialBlurGpuProgramWrapper__) */

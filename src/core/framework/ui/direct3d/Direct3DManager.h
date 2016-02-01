@@ -22,7 +22,7 @@
 
 class Direct3DTextureGpuProgramWrapper;
 class Direct3DGeometryGpuProgramWrapper;
-class Direct3DFrameBufferToScreenGpuProgramWrapper;
+class Direct3DFramebufferToScreenGpuProgramWrapper;
 
 class Direct3DManager
 {
@@ -51,7 +51,7 @@ public:
 
 	std::unique_ptr<Direct3DTextureGpuProgramWrapper> m_textureProgram;
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
-	std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
+	std::unique_ptr<Direct3DFramebufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
 
 	void init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers = 1);
 	void createDeviceDependentResources();

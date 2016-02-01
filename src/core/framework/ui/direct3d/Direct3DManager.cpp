@@ -10,7 +10,7 @@
 #include "Direct3DManager.h"
 #include "Direct3DTextureGpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
-#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "Direct3DFramebufferToScreenGpuProgramWrapper.h"
 #include "DirectXHelper.h"
 
 using namespace DirectX;
@@ -40,7 +40,7 @@ void Direct3DManager::createDeviceDependentResources()
 
 	m_textureProgram = std::unique_ptr<Direct3DTextureGpuProgramWrapper>(new Direct3DTextureGpuProgramWrapper(m_deviceResources));
 	m_colorProgram = std::unique_ptr<Direct3DGeometryGpuProgramWrapper>(new Direct3DGeometryGpuProgramWrapper(m_deviceResources));
-	m_fbToScreenProgram = std::unique_ptr<Direct3DFrameBufferToScreenGpuProgramWrapper>(new Direct3DFrameBufferToScreenGpuProgramWrapper(m_deviceResources));
+	m_fbToScreenProgram = std::unique_ptr<Direct3DFramebufferToScreenGpuProgramWrapper>(new Direct3DFramebufferToScreenGpuProgramWrapper(m_deviceResources));
 }
 
 void Direct3DManager::createWindowSizeDependentResources()

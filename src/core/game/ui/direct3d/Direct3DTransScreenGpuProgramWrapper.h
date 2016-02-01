@@ -1,21 +1,21 @@
 //
-//  Direct3DTransWorldMapToLevelGpuProgramWrapper.h
+//  Direct3DTransScreenGpuProgramWrapper.h
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/28/16.
 //  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DTransWorldMapToLevelGpuProgramWrapper__
-#define __gowengamedev__Direct3DTransWorldMapToLevelGpuProgramWrapper__
+#ifndef __gowengamedev__Direct3DTransScreenGpuProgramWrapper__
+#define __gowengamedev__Direct3DTransScreenGpuProgramWrapper__
 
 #include "TransitionGpuProgramWrapper.h"
 #include "DeviceResources.h"
 
-class Direct3DTransWorldMapToLevelGpuProgramWrapper : public TransitionGpuProgramWrapper
+class Direct3DTransScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 {
 public:
-	Direct3DTransWorldMapToLevelGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+	Direct3DTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 	virtual void bind();
 
@@ -36,4 +36,4 @@ private:
 	void createConstantBuffers();
 };
 
-#endif /* defined(__gowengamedev__Direct3DTransWorldMapToLevelGpuProgramWrapper__) */
+#endif /* defined(__gowengamedev__Direct3DTransScreenGpuProgramWrapper__) */

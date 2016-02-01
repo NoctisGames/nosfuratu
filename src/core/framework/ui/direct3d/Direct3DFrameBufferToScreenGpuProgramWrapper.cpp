@@ -1,5 +1,5 @@
 //
-//  Direct3DFrameBufferToScreenGpuProgramWrapper.cpp
+//  Direct3DFramebufferToScreenGpuProgramWrapper.cpp
 //  gowengamedev-framework
 //
 //  Created by Stephen Gowen on 9/7/15.
@@ -7,15 +7,15 @@
 //
 
 #include "pch.h"
-#include "Direct3DFrameBufferToScreenGpuProgramWrapper.h"
+#include "Direct3DFramebufferToScreenGpuProgramWrapper.h"
 #include "Direct3DManager.h"
 #include "macros.h"
 
-Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+Direct3DFramebufferToScreenGpuProgramWrapper::Direct3DFramebufferToScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"FrameBufferToScreenVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"FrameBufferToScreenPixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"FramebufferToScreenPixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
@@ -65,7 +65,7 @@ Direct3DFrameBufferToScreenGpuProgramWrapper::Direct3DFrameBufferToScreenGpuProg
 	});
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
+void Direct3DFramebufferToScreenGpuProgramWrapper::bind()
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
 
@@ -94,12 +94,12 @@ void Direct3DFrameBufferToScreenGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->IASetVertexBuffers(0, 1, D3DManager->m_sbVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::unbind()
+void Direct3DFramebufferToScreenGpuProgramWrapper::unbind()
 {
 	// Empty
 }
 
-void Direct3DFrameBufferToScreenGpuProgramWrapper::cleanUp()
+void Direct3DFramebufferToScreenGpuProgramWrapper::cleanUp()
 {
 	m_vertexShader.Reset();
 	m_pixelShader.Reset();
