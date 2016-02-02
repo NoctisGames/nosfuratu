@@ -22,7 +22,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 		isUsingCompressedTextureSet = true;
 	}
 
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, MAX_BATCH_SIZE, isUsingCompressedTextureSet));
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isUsingCompressedTextureSet));
 }
 
 NosFURatuMain::~NosFURatuMain()
