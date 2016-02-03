@@ -167,7 +167,7 @@ void Direct3DRenderer::renderHud(Game& game, BackButton &backButton)
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
 
 	std::stringstream ss;
-	ss << D3DManager->m_iFps;
+	ss << D3DManager->m_iFps << " FPS";
 	std::string fps = ss.str();
 
 	// Render fps
