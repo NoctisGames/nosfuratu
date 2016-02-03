@@ -51,16 +51,18 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTextur
     int y = 0;
     int glyphWidth = 64;
     int glyphHeight = 73;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        glyphWidth = glyphWidth / 2.0;
-        glyphHeight = glyphHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        glyphWidth /= 2.0;
+        glyphHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
+    m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, textureSize, textureSize));
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -71,48 +73,97 @@ void Renderer::init(RendererType type)
     m_rendererType = type;
     
     bool compressed = Assets::getInstance()->isUsingCompressedTextureSet();
+    compressed = true;
+
+//    switch (type)
+//    {
+//        case RENDERER_TYPE_LEVEL_EDITOR:
+//            if (!m_areLevelEditorTexturesLoaded)
+//            {
+//                m_level_editor = loadTexture("level_editor");
+//                
+//                m_areLevelEditorTexturesLoaded = true;
+//            }
+//        case RENDERER_TYPE_WORLD_1:
+//            if (!m_areWorld1TexturesLoaded)
+//            {
+//                m_world_1_background = loadTexture("world_1_background", 1);
+//                
+//                m_world_1_ground_w_cave = loadTexture(compressed ? "compressed_world_1_ground" : "world_1_ground_w_cave");
+//                m_world_1_ground_wo_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_ground_wo_cave");
+//                m_world_1_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_cave");
+//                
+//                m_world_1_objects = loadTexture(compressed ? "compressed_world_1_objects" : "world_1_objects");
+//                m_game_objects = compressed ? m_world_1_objects : loadTexture("game_objects");
+//                m_world_1_enemies = compressed ? m_world_1_objects : loadTexture("world_1_enemies");
+//                m_world_1_snake_cave = compressed ? m_world_1_objects : loadTexture("world_1_snake_cave");
+//                
+//                m_jon = loadTexture(compressed ? "compressed_jon" : "jon");
+//                m_jon_ability = compressed ? m_jon : loadTexture("jon_ability");
+//                m_jon_poses = compressed ? m_jon : loadTexture("jon_poses");
+//                
+//                m_vampire = loadTexture(compressed ? "compressed_vampire" : "vampire");
+//                m_vampire_poses = compressed ? m_vampire : loadTexture("vampire_poses");
+//                m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
+//                
+//                m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
+//                
+//                m_areWorld1TexturesLoaded = true;
+//            }
+//        case RENDERER_TYPE_TITLE:
+//            if (!m_areTitleTexturesLoaded)
+//            {
+//                m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
+//                m_world_1_misc = compressed ? m_title_font : loadTexture("world_1_misc");
+//                m_world_map = compressed ? m_title_font : loadTexture("world_map");
+//                
+//                m_areTitleTexturesLoaded = true;
+//            }
+//        default:
+//            break;
+//    }
     
     switch (type)
     {
         case RENDERER_TYPE_LEVEL_EDITOR:
             if (!m_areLevelEditorTexturesLoaded)
             {
-                m_level_editor = loadTexture("level_editor");
+                m_level_editor = loadTexture(compressed ? "c_level_editor" : "level_editor");
                 
                 m_areLevelEditorTexturesLoaded = true;
             }
         case RENDERER_TYPE_WORLD_1:
             if (!m_areWorld1TexturesLoaded)
             {
-                m_world_1_background = loadTexture("world_1_background", 1);
+                m_world_1_background = loadTexture((compressed ? "c_world_1_background" : "world_1_background"), 1);
                 
-                m_world_1_ground_w_cave = loadTexture(compressed ? "compressed_world_1_ground" : "world_1_ground_w_cave");
-                m_world_1_ground_wo_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_ground_wo_cave");
-                m_world_1_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_cave");
+                m_world_1_ground_w_cave = loadTexture(compressed ? "c_world_1_ground_w_cave" : "world_1_ground_w_cave");
+                m_world_1_ground_wo_cave = loadTexture(compressed ? "c_world_1_ground_wo_cave" : "world_1_ground_wo_cave");
+                m_world_1_cave = loadTexture(compressed ? "c_world_1_cave" : "world_1_cave");
                 
-                m_world_1_objects = loadTexture(compressed ? "compressed_world_1_objects" : "world_1_objects");
-                m_game_objects = compressed ? m_world_1_objects : loadTexture("game_objects");
-                m_world_1_enemies = compressed ? m_world_1_objects : loadTexture("world_1_enemies");
-                m_world_1_snake_cave = compressed ? m_world_1_objects : loadTexture("world_1_snake_cave");
+                m_world_1_objects = loadTexture(compressed ? "c_world_1_objects" : "world_1_objects");
+                m_game_objects = loadTexture(compressed ? "c_game_objects" : "game_objects");
+                m_world_1_enemies = loadTexture(compressed ? "c_world_1_enemies" : "world_1_enemies");
+                m_world_1_snake_cave = loadTexture(compressed ? "c_world_1_snake_cave" : "world_1_snake_cave");
                 
-                m_jon = loadTexture(compressed ? "compressed_jon" : "jon");
-                m_jon_ability = compressed ? m_jon : loadTexture("jon_ability");
-                m_jon_poses = compressed ? m_jon : loadTexture("jon_poses");
+                m_jon = loadTexture(compressed ? "c_jon" : "jon");
+                m_jon_ability = loadTexture(compressed ? "c_jon_ability" : "jon_ability");
+                m_jon_poses = loadTexture(compressed ? "c_jon_poses" : "jon_poses");
                 
-                m_vampire = loadTexture(compressed ? "compressed_vampire" : "vampire");
-                m_vampire_poses = compressed ? m_vampire : loadTexture("vampire_poses");
-                m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
+                m_vampire = loadTexture(compressed ? "c_vampire" : "vampire");
+                m_vampire_poses = loadTexture(compressed ? "c_vampire_poses" : "vampire_poses");
+                m_vampire_transform = loadTexture(compressed ? "c_vampire_transform" : "vampire_transform");
                 
-                m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
+                m_trans_death_shader_helper = loadTexture(compressed ? "c_trans_death_shader_helper" : "trans_death_shader_helper");
                 
                 m_areWorld1TexturesLoaded = true;
             }
         case RENDERER_TYPE_TITLE:
             if (!m_areTitleTexturesLoaded)
             {
-                m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
-                m_world_1_misc = compressed ? m_title_font : loadTexture("world_1_misc");
-                m_world_map = compressed ? m_title_font : loadTexture("world_map");
+                m_title_font = loadTexture(compressed ? "c_title_font" : "title_font");
+                m_world_1_misc = loadTexture(compressed ? "c_world_1_misc" : "world_1_misc");
+                m_world_map = loadTexture(compressed ? "c_world_map" : "world_map");
                 
                 m_areTitleTexturesLoaded = true;
             }
@@ -340,16 +391,18 @@ void Renderer::renderTitleScreen()
     int y = 1040;
     int regionWidth = 2048;
     int regionHeight = 1008;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    static TextureRegion tlTr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tlTr = TextureRegion(x, y, regionWidth, regionHeight, textureSize, textureSize);
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, tlWidth, tlHeight, 0, tlTr);
     m_spriteBatcher->endBatch(*m_title_font);
     
@@ -416,17 +469,18 @@ void Renderer::renderWorldMapScreenBackground()
     int y = 0;
     int regionWidth = 2048;
     int regionHeight = 766;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        y += 1024;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    static TextureRegion tr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(x, y, regionWidth, regionHeight, textureSize, textureSize);
     static Color bgColor = Color(1, 1, 1, 1);
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, bgColor, tr);
     m_spriteBatcher->endBatch(*m_world_map);

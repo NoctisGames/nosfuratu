@@ -635,22 +635,24 @@ Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionW
 {
     if (m_isUsingCompressedTextureSet)
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
-        animationWidth = animationWidth / 2.0;
-        animationHeight = animationHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        animationWidth /= 2.0;
+        animationHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
         
-        if (q == 1 || q == 3)
-        {
-            x += 1024;
-        }
-        
-        if (q >= 2)
-        {
-            y += 1024;
-        }
+//        if (q == 1 || q == 3)
+//        {
+//            x += 1024;
+//        }
+//        
+//        if (q >= 2)
+//        {
+//            y += 1024;
+//        }
     }
     
     return Animation(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, looping, numFrames);
@@ -660,22 +662,24 @@ Animation Assets::createAnimation(TextureRegionQuad q, int x, int y, int regionW
 {
     if (m_isUsingCompressedTextureSet)
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
-        animationWidth = animationWidth / 2.0;
-        animationHeight = animationHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        animationWidth /= 2.0;
+        animationHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
         
-        if (q == 1 || q == 3)
-        {
-            x += 1024;
-        }
-        
-        if (q >= 2)
-        {
-            y += 1024;
-        }
+//        if (q == 1 || q == 3)
+//        {
+//            x += 1024;
+//        }
+//        
+//        if (q >= 2)
+//        {
+//            y += 1024;
+//        }
     }
     
     return Animation(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, looping, frameTime, numFrames, firstLoopingFrame);
@@ -685,20 +689,22 @@ TextureRegion Assets::createTextureRegion(TextureRegionQuad q, int x, int y, int
 {
     if (m_isUsingCompressedTextureSet)
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
         
-        if (q == 1 || q == 3)
-        {
-            x += 1024;
-        }
-        
-        if (q >= 2)
-        {
-            y += 1024;
-        }
+//        if (q == 1 || q == 3)
+//        {
+//            x += 1024;
+//        }
+//        
+//        if (q >= 2)
+//        {
+//            y += 1024;
+//        }
     }
     
     return TextureRegion(x, y, regionWidth, regionHeight, textureWidth, textureHeight);
