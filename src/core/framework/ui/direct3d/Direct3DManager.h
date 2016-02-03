@@ -39,6 +39,7 @@ public:
 
 	// Used in SpriteBatcher
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sbSamplerState;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> m_sbWrapSamplerState;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_sbVertexBuffer;
 	std::vector<TEXTURE_VERTEX> m_textureVertices;
 
@@ -48,6 +49,8 @@ public:
 
 	// All above rendering takes place inside this matrix
 	DirectX::XMMATRIX m_matFinal;
+
+	int m_iFps;
 
 	std::unique_ptr<Direct3DTextureGpuProgramWrapper> m_textureProgram;
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
@@ -73,8 +76,8 @@ private:
 	int m_iMaxBatchSize;
 	int m_iNumFramebuffers;
 
-	void createBlendState();
-	void createSamplerState();
+	void createBlendStates();
+	void createSamplerStates();
 	void createVertexBufferForSpriteBatcher();
 	void createVertexBufferForGeometryBatchers();
 	void createIndexBuffer();

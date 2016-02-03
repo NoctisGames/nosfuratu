@@ -31,8 +31,8 @@ void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceRes
 
 void Direct3DManager::createDeviceDependentResources()
 {
-	createBlendState();
-	createSamplerState();
+	createBlendStates();
+	createSamplerStates();
 	createVertexBufferForSpriteBatcher();
 	createVertexBufferForGeometryBatchers();
 	createIndexBuffer();
@@ -171,7 +171,7 @@ bool Direct3DManager::isLoaded()
 		&& m_fbToScreenProgram->isLoaded();
 }
 
-void Direct3DManager::createBlendState()
+void Direct3DManager::createBlendStates()
 {
 	{
 		D3D11_BLEND_DESC bd;
@@ -206,26 +206,47 @@ void Direct3DManager::createBlendState()
 	}
 }
 
-void Direct3DManager::createSamplerState()
+void Direct3DManager::createSamplerStates()
 {
-	D3D11_SAMPLER_DESC sd;
-	sd.Filter = D3D11_FILTER_ANISOTROPIC;
-	sd.MaxAnisotropy = 16;
-	sd.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-	sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-	sd.BorderColor[0] = 0.0f;
-	sd.BorderColor[1] = 0.0f;
-	sd.BorderColor[2] = 0.0f;
-	sd.BorderColor[3] = 0.0f;
-	sd.MinLOD = 0.0f;
-	sd.MaxLOD = FLT_MAX;
-	sd.MipLODBias = 0.0f;
-	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR; // linear filtering
-	sd.MinLOD = 5.0f; // mip level 5 will appear blurred
+	{
+		D3D11_SAMPLER_DESC sd;
+		sd.Filter = D3D11_FILTER_ANISOTROPIC;
+		sd.MaxAnisotropy = 16;
+		sd.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		sd.BorderColor[0] = 0.0f;
+		sd.BorderColor[1] = 0.0f;
+		sd.BorderColor[2] = 0.0f;
+		sd.BorderColor[3] = 0.0f;
+		sd.MinLOD = 0.0f;
+		sd.MaxLOD = FLT_MAX;
+		sd.MipLODBias = 0.0f;
+		sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR; // linear filtering
+		sd.MinLOD = 5.0f; // mip level 5 will appear blurred
 
-	m_deviceResources->GetD3DDevice()->CreateSamplerState(&sd, m_sbSamplerState.GetAddressOf());
-	m_deviceResources->GetD3DDeviceContext()->PSSetSamplers(0, 1, m_sbSamplerState.GetAddressOf());
+		m_deviceResources->GetD3DDevice()->CreateSamplerState(&sd, m_sbSamplerState.GetAddressOf());
+	}
+
+	{
+		D3D11_SAMPLER_DESC sd;
+		sd.Filter = D3D11_FILTER_ANISOTROPIC;
+		sd.MaxAnisotropy = 16;
+		sd.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		sd.BorderColor[0] = 0.0f;
+		sd.BorderColor[1] = 0.0f;
+		sd.BorderColor[2] = 0.0f;
+		sd.BorderColor[3] = 0.0f;
+		sd.MinLOD = 0.0f;
+		sd.MaxLOD = FLT_MAX;
+		sd.MipLODBias = 0.0f;
+		sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR; // linear filtering
+		sd.MinLOD = 5.0f; // mip level 5 will appear blurred
+
+		m_deviceResources->GetD3DDevice()->CreateSamplerState(&sd, m_sbWrapSamplerState.GetAddressOf());
+	}
 }
 
 void Direct3DManager::createVertexBufferForSpriteBatcher()
@@ -328,7 +349,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 	return indices;
 }
 
-Direct3DManager::Direct3DManager()
+Direct3DManager::Direct3DManager() : m_iFps(0)
 {
 	// Hide Constructor for Singleton
 }

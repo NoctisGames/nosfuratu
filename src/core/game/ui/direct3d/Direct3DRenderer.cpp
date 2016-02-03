@@ -35,6 +35,7 @@
 #include "Direct3DFramebufferTintGpuProgramWrapper.h"
 #include "Direct3DTransDeathGpuProgramWrapper.h"
 #include "Direct3DFramebufferRadialBlurGpuProgramWrapper.h"
+#include "Direct3DBackgroundTextureGpuProgramWrapper.h"
 
 #include <string>
 #include <sstream>
@@ -81,6 +82,7 @@ void Direct3DRenderer::loadShaders()
 {
 	m_transScreenGpuProgramWrapper = new Direct3DTransScreenGpuProgramWrapper(m_deviceResources);
 	m_sinWaveTextureProgram = new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources);
+	m_backgroundTextureWrapper = new Direct3DBackgroundTextureGpuProgramWrapper(m_deviceResources);
 	m_snakeDeathTextureProgram = new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources);
 	m_shockwaveTextureGpuProgramWrapper = new Direct3DShockwaveTextureGpuProgramWrapper(m_deviceResources);
 	m_framebufferToScreenGpuProgramWrapper = D3DManager->m_fbToScreenProgram.get();
@@ -156,6 +158,25 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
 {
 	textureWrapper.texture->Release();
+}
+
+void Direct3DRenderer::renderHud(Game& game, BackButton &backButton)
+{
+	Renderer::renderHud(game, backButton);
+
+	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+
+	std::stringstream ss;
+	ss << D3DManager->m_iFps;
+	std::string fps = ss.str();
+
+	// Render fps
+
+	static Color fontColor = Color(1, 1, 1, 1);
+
+	m_spriteBatcher->beginBatch();
+	m_font->renderText(*m_spriteBatcher, fps, CAM_WIDTH / 2, CAM_HEIGHT / 2, 1, 1, fontColor);
+	m_spriteBatcher->endBatch(*m_title_font);
 }
 
 #pragma mark private

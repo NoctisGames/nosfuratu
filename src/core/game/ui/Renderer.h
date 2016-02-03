@@ -88,7 +88,7 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(Game& game, BackButton& backButton);
+    virtual void renderHud(Game& game, BackButton& backButton);
     
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     
@@ -140,6 +140,7 @@ protected:
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
+	GpuProgramWrapper* m_backgroundTextureWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;

@@ -87,6 +87,8 @@ void Direct3DGameScreen::Update(DX::StepTimer const& timer)
 	switch (getRequestedAction())
 	{
 	case REQUESTED_ACTION_UPDATE:
+		D3DManager->m_iFps = timer.GetFramesPerSecond();
+
 		update(timer.GetElapsedSeconds());
 		break;
 	case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
