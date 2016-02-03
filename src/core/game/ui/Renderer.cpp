@@ -767,8 +767,8 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     /// Render Back Button
     
     m_spriteBatcher->beginBatch();
+
     renderPhysicalEntity(backButton, Assets::getInstance()->get(backButton));
-    m_spriteBatcher->endBatch(*m_title_font);
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
@@ -776,14 +776,12 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     /// Render Play Time
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << std::fixed << std::setprecision(2) << game.getStateTime();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }
-    m_spriteBatcher->endBatch(*m_title_font);
     
     std::stringstream ss;
     ss << game.getNumTotalCarrots();
@@ -792,7 +790,6 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     /// Render Num / Total Carrots
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << (game.getNumTotalCarrots() - game.getCarrots().size());
@@ -811,17 +808,16 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - text.size() * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
-    m_spriteBatcher->endBatch(*m_title_font);
     
     /// Render Num / Total Golden Carrots
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << (game.getNumTotalGoldenCarrots() - game.getGoldenCarrots().size()) << "/" << game.getNumTotalGoldenCarrots();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
+
     m_spriteBatcher->endBatch(*m_title_font);
     
     static Carrot uiCarrot = Carrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight);
