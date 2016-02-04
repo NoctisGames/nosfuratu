@@ -57,7 +57,8 @@ public:
     
     void beginOpeningPanningSequence(Game& game);
     
-    // Return 2 if the beginning of the stage has been reached
+    // Return 3 if the beginning of the stage has been reached
+    // Return 2 if Jon should begin warming up
     // Return 1 to activate the radial blur effect
     // Return 0 to do nothing
     int updateCameraToFollowPathToJon(Game& game, float deltaTime);

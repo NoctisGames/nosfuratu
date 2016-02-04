@@ -445,6 +445,11 @@ void Jon::setGame(Game* game)
 	m_game = game;
 }
 
+void Jon::beginWarmingUp()
+{
+    m_fStateTime = 0;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)

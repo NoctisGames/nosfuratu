@@ -13,6 +13,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "Chapter1Levels.h"
+#include "LevelEditor.h"
 
 /// Title Screen ///
 
@@ -332,20 +333,28 @@ void GamePlay::execute(GameScreen* gs)
     {
         if (!m_hasOpeningSequenceCompleted)
         {
-            if (handleOpeningSequenceTouchInput(gs))
+            if (gs->m_stateMachine->getPreviousState() == LevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
             {
                 gs->m_renderer->zoomIn();
                 m_hasOpeningSequenceCompleted = true;
                 jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
                 return;
             }
+            else
+            {
+                gs->processTouchEvents();
+            }
             
             jon.update(gs->m_fDeltaTime);
             
             int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
-            m_hasOpeningSequenceCompleted = result == 2;
+            m_hasOpeningSequenceCompleted = result == 3;
             m_activateRadialBlur = result == 1;
             jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+            if (result == 2)
+            {
+                jon.beginWarmingUp();
+            }
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
             EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
@@ -363,7 +372,7 @@ void GamePlay::execute(GameScreen* gs)
         {
             // Starting new game after death
             
-            m_fStateTime += gs->m_fDeltaTime;
+            m_fStateTime += gs->m_fDeltaTime * 2;
             
             if (m_fStateTime > 2.4f)
             {
@@ -376,7 +385,7 @@ void GamePlay::execute(GameScreen* gs)
         {
             // Starting death transition, when screen goes black, new game begins
             
-            m_fStateTime += gs->m_fDeltaTime;
+            m_fStateTime += gs->m_fDeltaTime * 2;
             
             if (m_fStateTime > 1.6f)
             {

@@ -178,10 +178,10 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
 {
     m_fStateTime += deltaTime;
     
-    if (m_fStateTime >= 5.065f && m_fStateTime <= 6.065f)
+    if (m_fStateTime >= 5.0f && m_fStateTime <= 5.265f)
     {
         bool isComplete = false;
-        float progress = (m_fStateTime - 5.065f) / 0.5f;
+        float progress = (m_fStateTime - 5.0f) / 0.2f;
         if (progress > 1)
         {
             progress = 1;
@@ -208,14 +208,15 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
             m_camBounds->getLowerLeft().setY(farLeftBottom);
         }
         
-        return isComplete ? 0 : 1;
-    }
-    else if (m_fStateTime > 6.065f)
-    {
-        updateCameraToFollowJon(game, 1337);
+        if (isComplete)
+        {
+            updateCameraToFollowJon(game, 1337);
+        }
+        
+        return isComplete ? 2 : 1;
     }
     
-    return m_fStateTime >= 8.065f ? 2 : 0;
+    return m_fStateTime >= 8.065f ? 3 : 0;
 }
 
 void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)

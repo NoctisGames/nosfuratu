@@ -112,6 +112,8 @@ public:
     
     void setGame(Game* game);
     
+    void beginWarmingUp();
+    
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;
