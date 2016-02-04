@@ -1,5 +1,5 @@
 //
-//  BaseGameViewController.h
+//  GameViewController.h
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 9/5/14.
@@ -8,7 +8,7 @@
 
 #import <GLKit/GLKit.h>
 
-@interface BaseGameViewController : GLKViewController
+@interface GameViewController : GLKViewController
 {
     // Empty
 }
