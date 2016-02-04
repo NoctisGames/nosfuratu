@@ -9,22 +9,14 @@
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenStates.h"
 
-AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool useCompressedTextureSet, bool isLevelEditor) : OpenGLESGameScreen(useCompressedTextureSet, isLevelEditor)
+AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool isLevelEditor) : OpenGLESGameScreen(isLevelEditor)
 {
     // Empty
 }
 
 void AndroidOpenGLESGameScreen::onSurfaceCreated()
 {
-    if (m_renderer)
-    {
-        m_renderer->cleanUp();
-        m_renderer->reinit();
-    }
-    else
-    {
-        m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
-    }
+    // Empty
 }
 
 void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeight)
@@ -32,7 +24,20 @@ void AndroidOpenGLESGameScreen::onSurfaceChanged(int screenWidth, int screenHeig
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
 
+    if (m_renderer)
+    {
+        m_renderer->cleanUp();
+        OGLESManager->cleanUp();
+    }
+    
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
+    
+    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 4096);
+    
+    if (!m_renderer)
+    {
+        m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
+    }
     
     m_stateMachine->getCurrentState()->enter(this);
 }

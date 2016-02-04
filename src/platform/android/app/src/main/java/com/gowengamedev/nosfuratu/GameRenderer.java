@@ -1,13 +1,11 @@
 package com.gowengamedev.nosfuratu;
 
 import android.app.Activity;
-import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Display;
 import android.widget.Toast;
 
 import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
@@ -108,15 +106,7 @@ public final class GameRenderer implements Renderer
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        Log.d("GameRenderer", "width = " + width);
-        Log.d("GameRenderer", "height = " + height);
-
-        init(Math.max(width, height) < 1200, BuildConfig.IS_LEVEL_EDITOR);
+        init(BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
@@ -428,7 +418,7 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private static native void init(boolean useCompressedTextureSet, boolean isLevelEditor);
+    private static native void init(boolean isLevelEditor);
 
     private static native void on_surface_created();
 

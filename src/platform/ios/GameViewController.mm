@@ -89,7 +89,7 @@ enum GameSoundIds {
     
     [view bindDrawable];
     
-    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, MAX(size.width, size.height) < 1136);
+    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onPause)

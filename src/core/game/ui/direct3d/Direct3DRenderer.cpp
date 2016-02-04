@@ -78,7 +78,7 @@ void Direct3DRenderer::endFrame()
     // Empty
 }
 
-void Direct3DRenderer::loadShaders()
+void Direct3DRenderer::loadShaderPrograms()
 {
 	m_transScreenGpuProgramWrapper = new Direct3DTransScreenGpuProgramWrapper(m_deviceResources);
 	m_sinWaveTextureProgram = new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources);

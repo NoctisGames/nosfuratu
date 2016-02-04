@@ -23,7 +23,7 @@ public:
     virtual void endFrame();
 
 protected:
-    virtual void loadShaders();
+    virtual void loadShaderPrograms();
     
     virtual void addFramebuffers();
     

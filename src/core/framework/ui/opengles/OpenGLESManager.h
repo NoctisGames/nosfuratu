@@ -29,6 +29,8 @@ class GpuProgramWrapper;
 class OpenGLESManager
 {
 public:
+    static OpenGLESManager * getInstance();
+    
     std::vector<GLfloat> m_textureVertices;
     std::vector<GLfloat> m_colorVertices;
     
@@ -44,13 +46,14 @@ public:
     std::vector<GLuint> m_fbos;
     std::vector<GLuint> m_fbo_textures;
     
-    GLint m_screenFBO;
+    GLint m_iScreenFBO;
+    GLint m_iMaxTextureSize;
     
     mat4x4 m_viewProjectionMatrix;
     
-    static OpenGLESManager * getInstance();
-    
     void init(int width, int height, int maxBatchSize, int numFramebuffers = 1);
+    
+    void cleanUp();
     
     void createMatrix(float left, float right, float bottom, float top);
     

@@ -14,12 +14,14 @@
 #define IS_LEVEL_EDITOR false
 #endif
 
-IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool useCompressedTextureSet) : OpenGLESGameScreen(useCompressedTextureSet, IS_LEVEL_EDITOR)
+IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen(IS_LEVEL_EDITOR)
 {
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;
     
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
+    
+    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 4096);
     
     m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
     

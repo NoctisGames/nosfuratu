@@ -25,7 +25,7 @@ public:
 	virtual void renderHud(Game& game, BackButton& backButton);
 
 protected:
-	virtual void loadShaders();
+	virtual void loadShaderPrograms();
     
     virtual void addFramebuffers();
     

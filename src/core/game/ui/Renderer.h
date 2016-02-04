@@ -43,6 +43,8 @@ class Renderer
 public:
     Renderer();
     
+    ~Renderer();
+    
     void init(RendererType type);
 
 	virtual bool isLoaded() = 0;
@@ -52,8 +54,6 @@ public:
     virtual void endFrame() = 0;
     
     void setFramebuffer(int framebufferIndex);
-    
-    void reinit();
     
     void beginOpeningPanningSequence(Game& game);
     
@@ -151,7 +151,7 @@ protected:
 
 	int m_iFramebufferIndex;
     
-    virtual void loadShaders() = 0;
+    virtual void loadShaderPrograms() = 0;
     
     virtual void addFramebuffers() = 0;
     
@@ -172,7 +172,6 @@ private:
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
-    RendererType m_rendererType;
     bool m_areTitleTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areLevelEditorTexturesLoaded;
@@ -213,10 +212,6 @@ private:
             renderBoundsForPhysicalEntity(item);
         }
     }
-    
-    void tearDownTexture(TextureWrapper* textureWrapper);
-    
-    void tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper);
     
     void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr);
     

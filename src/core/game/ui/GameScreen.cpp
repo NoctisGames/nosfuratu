@@ -64,7 +64,7 @@ void GameScreen::update(float deltaTime)
                     continue;
                 case UP:
                     m_isPaused = false;
-                    if (m_stateMachine->isInState(*GamePlay::getInstance()))
+                    if (dynamic_cast<GamePlay*>(m_stateMachine->getCurrentState()))
                     {
                         Assets::getInstance()->setMusicId(MUSIC_RESUME);
                     }

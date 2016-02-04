@@ -22,13 +22,15 @@ extern "C"
 
 OpenGLESManager * OpenGLESManager::getInstance()
 {
-    static OpenGLESManager *openGLESManager = new OpenGLESManager();
-    return openGLESManager;
+    static OpenGLESManager *instance = new OpenGLESManager();
+    
+    return instance;
 }
 
 void OpenGLESManager::init(int width, int height, int maxBatchSize, int numFramebuffers)
 {
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_screenFBO);
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_iScreenFBO);
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &m_iMaxTextureSize);
     
     glViewport(0, 0, width, height);
     glScissor(0, 0, width, height);
@@ -40,6 +42,29 @@ void OpenGLESManager::init(int width, int height, int maxBatchSize, int numFrame
     {
         createFramebufferObject(width, height);
     }
+}
+
+void OpenGLESManager::cleanUp()
+{
+    m_textureProgram->cleanUp();
+    m_colorProgram->cleanUp();
+    m_fbToScreenProgram->cleanUp();
+    
+    m_indices.clear();
+    
+    for (std::vector<GLuint>::iterator i = m_fbo_textures.begin(); i != m_fbo_textures.end(); i++)
+    {
+        glDeleteTextures(1, &(*i));
+    }
+    
+    m_fbo_textures.clear();
+    
+    for (std::vector<GLuint>::iterator i = m_fbos.begin(); i != m_fbos.end(); i++)
+    {
+        glDeleteFramebuffers(1, &(*i));
+    }
+    
+    m_fbos.clear();
 }
 
 void OpenGLESManager::createMatrix(float left, float right, float bottom, float top)
@@ -129,7 +154,7 @@ void OpenGLESManager::createFramebufferObject(int width, int height)
     
     GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     
-    glBindFramebuffer(GL_FRAMEBUFFER, m_screenFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, m_iScreenFBO);
     
     assert(status == GL_FRAMEBUFFER_COMPLETE);
     
@@ -137,24 +162,12 @@ void OpenGLESManager::createFramebufferObject(int width, int height)
     m_fbos.push_back(fbo);
 }
 
-OpenGLESManager::OpenGLESManager()
+OpenGLESManager::OpenGLESManager() : m_iMaxTextureSize(64)
 {
     // Hide Constructor for Singleton
 }
 
 OpenGLESManager::~OpenGLESManager()
 {
-    for (std::vector<GLuint>::iterator i = m_fbo_textures.begin(); i != m_fbo_textures.end(); )
-    {
-        glDeleteTextures(1, &(*i));
-    }
-    
-    for (std::vector<GLuint>::iterator i = m_fbos.begin(); i != m_fbos.end(); )
-    {
-        glDeleteFramebuffers(1, &(*i));
-    }
-    
-    m_textureProgram->cleanUp();
-    m_colorProgram->cleanUp();
-    m_fbToScreenProgram->cleanUp();
+    cleanUp();
 }

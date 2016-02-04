@@ -62,7 +62,7 @@ void OpenGLESRenderer::endFrame()
     glDisable(GL_TEXTURE_2D);
 }
 
-void OpenGLESRenderer::loadShaders()
+void OpenGLESRenderer::loadShaderPrograms()
 {
     m_backgroundTextureWrapper = OGLESManager->m_textureProgram.get();
     m_transScreenGpuProgramWrapper = new OpenGLESTransScreenGpuProgramWrapper();
@@ -122,7 +122,7 @@ void OpenGLESRenderer::clearFramebufferWithColor(float r, float g, float b, floa
 
 void OpenGLESRenderer::bindToScreenFramebuffer()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_screenFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_iScreenFBO);
 }
 
 void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)

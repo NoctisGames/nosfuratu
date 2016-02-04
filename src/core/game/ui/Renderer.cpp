@@ -68,10 +68,13 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTextur
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
 }
 
+Renderer::~Renderer()
+{
+    cleanUp();
+}
+
 void Renderer::init(RendererType type)
 {
-    m_rendererType = type;
-    
     bool compressed = Assets::getInstance()->isUsingCompressedTextureSet();
     
     switch (type)
@@ -96,6 +99,7 @@ void Renderer::init(RendererType type)
                 m_game_objects = loadTexture(compressed ? "c_game_objects" : "game_objects");
                 m_world_1_enemies = loadTexture(compressed ? "c_world_1_enemies" : "world_1_enemies");
                 m_world_1_snake_cave = loadTexture(compressed ? "c_world_1_snake_cave" : "world_1_snake_cave");
+                m_world_1_misc = loadTexture(compressed ? "c_world_1_misc" : "world_1_misc");
                 
                 m_jon = loadTexture(compressed ? "c_jon" : "jon");
                 m_jon_ability = loadTexture(compressed ? "c_jon_ability" : "jon_ability");
@@ -113,7 +117,6 @@ void Renderer::init(RendererType type)
             if (!m_areTitleTexturesLoaded)
             {
                 m_title_font = loadTexture(compressed ? "c_title_font" : "title_font");
-                m_world_1_misc = loadTexture(compressed ? "c_world_1_misc" : "world_1_misc");
                 m_world_map = loadTexture(compressed ? "c_world_map" : "world_map");
                 
                 m_areTitleTexturesLoaded = true;
@@ -122,16 +125,16 @@ void Renderer::init(RendererType type)
             break;
     }
     
+    if (!m_areShadersLoaded)
+    {
+        loadShaderPrograms();
+        
+        m_areShadersLoaded = true;
+    }
+    
     if (m_framebuffers.size() == 0)
     {
         addFramebuffers();
-    }
-    
-    if (!m_areShadersLoaded)
-    {
-        loadShaders();
-        
-        m_areShadersLoaded = true;
     }
 }
 
@@ -148,11 +151,6 @@ void Renderer::setFramebuffer(int framebufferIndex)
 {
     m_iFramebufferIndex = framebufferIndex;
     bindToOffscreenFramebuffer(framebufferIndex);
-}
-
-void Renderer::reinit()
-{
-    init(m_rendererType);
 }
 
 void Renderer::beginOpeningPanningSequence(Game& game)
@@ -1096,55 +1094,63 @@ void Renderer::cleanUp()
 {
 	if (m_areLevelEditorTexturesLoaded)
 	{
-		tearDownTexture(m_level_editor);
+		destroyTexture(*m_level_editor);
 
 		m_areLevelEditorTexturesLoaded = false;
 	}
 
 	if (m_areWorld1TexturesLoaded)
 	{
-		tearDownTexture(m_world_1_background);
+		destroyTexture(*m_world_1_background);
 
-		tearDownTexture(m_world_1_ground_w_cave);
-		tearDownTexture(m_world_1_ground_wo_cave);
-		tearDownTexture(m_world_1_cave);
+		destroyTexture(*m_world_1_ground_w_cave);
+		destroyTexture(*m_world_1_ground_wo_cave);
+		destroyTexture(*m_world_1_cave);
 
-		tearDownTexture(m_world_1_objects);
-		tearDownTexture(m_game_objects);
-		tearDownTexture(m_world_1_enemies);
-		tearDownTexture(m_world_1_snake_cave);
+		destroyTexture(*m_world_1_objects);
+		destroyTexture(*m_game_objects);
+		destroyTexture(*m_world_1_enemies);
+		destroyTexture(*m_world_1_snake_cave);
 
-		tearDownTexture(m_jon);
-		tearDownTexture(m_jon_ability);
-		tearDownTexture(m_jon_poses);
+		destroyTexture(*m_jon);
+		destroyTexture(*m_jon_ability);
+		destroyTexture(*m_jon_poses);
 
-		tearDownTexture(m_vampire);
-		tearDownTexture(m_vampire_poses);
-		tearDownTexture(m_vampire_transform);
+		destroyTexture(*m_vampire);
+		destroyTexture(*m_vampire_poses);
+		destroyTexture(*m_vampire_transform);
 
-		tearDownTexture(m_trans_death_shader_helper);
+		destroyTexture(*m_trans_death_shader_helper);
 
 		m_areWorld1TexturesLoaded = false;
 	}
 
 	if (m_areTitleTexturesLoaded)
 	{
-		tearDownTexture(m_title_font);
-		tearDownTexture(m_world_1_misc);
-		tearDownTexture(m_world_map);
+		destroyTexture(*m_title_font);
+		destroyTexture(*m_world_1_misc);
+		destroyTexture(*m_world_map);
 
 		m_areTitleTexturesLoaded = false;
 	}
-	
-	m_transScreenGpuProgramWrapper->cleanUp();
-	m_sinWaveTextureProgram->cleanUp();
-	m_snakeDeathTextureProgram->cleanUp();
-	m_shockwaveTextureGpuProgramWrapper->cleanUp();
-	m_framebufferToScreenGpuProgramWrapper->cleanUp();
-	m_framebufferTintGpuProgramWrapper->cleanUp();
-	m_framebufferRadialBlurGpuProgramWrapper->cleanUp();
-	m_transDeathInGpuProgramWrapper->cleanUp();
-	m_transDeathOutGpuProgramWrapper->cleanUp();
+    
+    if (m_areShadersLoaded)
+    {
+        m_transScreenGpuProgramWrapper->cleanUp();
+        m_sinWaveTextureProgram->cleanUp();
+        m_backgroundTextureWrapper->cleanUp();
+        m_snakeDeathTextureProgram->cleanUp();
+        m_shockwaveTextureGpuProgramWrapper->cleanUp();
+        m_transDeathInGpuProgramWrapper->cleanUp();
+        m_transDeathOutGpuProgramWrapper->cleanUp();
+        m_framebufferToScreenGpuProgramWrapper->cleanUp();
+        m_framebufferTintGpuProgramWrapper->cleanUp();
+        m_framebufferRadialBlurGpuProgramWrapper->cleanUp();
+        
+        m_areShadersLoaded = false;
+    }
+    
+    m_framebuffers.clear();
 }
 
 Vector2D& Renderer::getCameraPosition()
@@ -1153,19 +1159,6 @@ Vector2D& Renderer::getCameraPosition()
 }
 
 #pragma mark private
-
-void Renderer::tearDownTexture(TextureWrapper* textureWrapper)
-{
-    destroyTexture(*textureWrapper);
-    delete textureWrapper;
-    textureWrapper = nullptr;
-}
-
-void Renderer::tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper)
-{
-    delete gpuProgramWrapper;
-    gpuProgramWrapper = nullptr;
-}
 
 void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
 {

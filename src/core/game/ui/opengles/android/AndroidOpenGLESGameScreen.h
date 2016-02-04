@@ -14,7 +14,7 @@
 class AndroidOpenGLESGameScreen : public OpenGLESGameScreen
 {
 public:
-    AndroidOpenGLESGameScreen(bool useCompressedTextureSet, bool isLevelEditor = false);
+    AndroidOpenGLESGameScreen(bool isLevelEditor = false);
 
     void onSurfaceCreated();
     
