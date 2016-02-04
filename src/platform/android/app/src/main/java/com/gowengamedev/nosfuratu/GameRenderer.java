@@ -115,7 +115,7 @@ public final class GameRenderer implements Renderer
         Log.d("GameRenderer", "width = " + width);
         Log.d("GameRenderer", "height = " + height);
 
-        init(width < 1024 || height < 1024, BuildConfig.IS_LEVEL_EDITOR);
+        init(Math.max(width, height) < 1200, BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
