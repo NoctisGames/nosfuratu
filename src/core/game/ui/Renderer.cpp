@@ -105,7 +105,7 @@ void Renderer::init(RendererType type)
                 m_vampire_poses = loadTexture(compressed ? "c_vampire_poses" : "vampire_poses");
                 m_vampire_transform = loadTexture(compressed ? "c_vampire_transform" : "vampire_transform");
                 
-                m_trans_death_shader_helper = loadTexture(compressed ? "c_trans_death_shader_helper" : "trans_death_shader_helper");
+                m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
                 
                 m_areWorld1TexturesLoaded = true;
             }
