@@ -73,7 +73,7 @@ enum GameSoundIds {
     view.userInteractionEnabled = YES;
     [view setMultipleTouchEnabled:YES];
     
-    self.preferredFramesPerSecond = 30;
+    self.preferredFramesPerSecond = 60;
     
     [EAGLContext setCurrentContext:self.context];
     
