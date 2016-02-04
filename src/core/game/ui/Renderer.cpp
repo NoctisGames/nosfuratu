@@ -86,7 +86,7 @@ void Renderer::init(RendererType type)
         case RENDERER_TYPE_WORLD_1:
             if (!m_areWorld1TexturesLoaded)
             {
-                m_world_1_background = loadTexture((compressed ? "c_world_1_background" : "world_1_background"), 1);
+                m_world_1_background = loadTexture("world_1_background", 1);
                 
                 m_world_1_ground_w_cave = loadTexture(compressed ? "c_world_1_ground_w_cave" : "world_1_ground_w_cave");
                 m_world_1_ground_wo_cave = loadTexture(compressed ? "c_world_1_ground_wo_cave" : "world_1_ground_wo_cave");

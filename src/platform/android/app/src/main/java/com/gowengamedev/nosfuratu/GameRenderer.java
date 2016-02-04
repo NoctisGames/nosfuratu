@@ -1,13 +1,11 @@
 package com.gowengamedev.nosfuratu;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemClock;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
@@ -73,6 +71,7 @@ public final class GameRenderer implements Renderer
     private final Audio _audio;
     private Music _bgm;
     private List<Sound> _sounds = new ArrayList<Sound>();
+    private FPSCounter _fpsCounter;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -104,6 +103,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
         _sounds.add(_audio.newSound("jon_vampire_double_jump.wav"));
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
+
+        _fpsCounter = new FPSCounter();
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -173,6 +174,8 @@ public final class GameRenderer implements Renderer
         handleMusic();
 
         _lastRealTimeMeasurement_ms = currTimePick_ms;
+
+        _fpsCounter.logFrame();
     }
 
     public void onResume()
@@ -405,6 +408,23 @@ public final class GameRenderer implements Renderer
         else
         {
             return "nosfuratu.json";
+        }
+    }
+
+    public final class FPSCounter
+    {
+        long startTime = System.nanoTime();
+        int frames = 0;
+
+        public void logFrame()
+        {
+            frames++;
+            if (System.nanoTime() - startTime >= 1000000000)
+            {
+                Log.d("FPSCounter", "fps: " + frames);
+                frames = 0;
+                startTime = System.nanoTime();
+            }
         }
     }
 
