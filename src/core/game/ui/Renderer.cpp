@@ -533,7 +533,7 @@ void Renderer::renderWorld(Game& game)
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getTrees(), true);
+    renderPhysicalEntities(game.getTrees());
     m_spriteBatcher->endBatch(*m_world_1_misc);
     
     /// Render World
@@ -543,7 +543,7 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_cave);
@@ -551,22 +551,22 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
-        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers(), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
+        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
     }
     
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
         if ((*i)->is_world_1_ground_w_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     
     for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
-        renderPhysicalEntities((*i)->getHoleCovers(), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
+        renderPhysicalEntities((*i)->getHoleCovers());
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
     
@@ -575,27 +575,27 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_ground_wo_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getJumpSprings(), true);
-    renderPhysicalEntities(game.getCarrots(), true);
-    renderPhysicalEntities(game.getGoldenCarrots(), true);
+    renderPhysicalEntities(game.getJumpSprings());
+    renderPhysicalEntities(game.getCarrots());
+    renderPhysicalEntities(game.getGoldenCarrots());
     m_spriteBatcher->endBatch(*m_game_objects);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getPlatforms(), true);
-    renderPhysicalEntities(game.getLogVerticalTalls(), true);
-    renderPhysicalEntities(game.getLogVerticalShorts(), true);
-    renderPhysicalEntities(game.getThorns(), true);
-    renderPhysicalEntities(game.getStumps(), true);
-    renderPhysicalEntities(game.getSideSpikes(), true);
-    renderPhysicalEntities(game.getUpwardSpikes(), true);
-    renderPhysicalEntities(game.getEndSigns(), true);
-    renderPhysicalEntitiesWithColor(game.getRocks(), true);
+    renderPhysicalEntities(game.getPlatforms());
+    renderPhysicalEntities(game.getLogVerticalTalls());
+    renderPhysicalEntities(game.getLogVerticalShorts());
+    renderPhysicalEntities(game.getThorns());
+    renderPhysicalEntities(game.getStumps());
+    renderPhysicalEntities(game.getSideSpikes());
+    renderPhysicalEntities(game.getUpwardSpikes());
+    renderPhysicalEntities(game.getEndSigns());
+    renderPhysicalEntitiesWithColor(game.getRocks());
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
@@ -606,7 +606,7 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
@@ -618,19 +618,19 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
+        renderPhysicalEntities((*i)->getSnakeSpirits());
     }
     
     for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
+        renderPhysicalEntities((*i)->getSnakeSpirits());
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
@@ -1167,32 +1167,14 @@ void Renderer::tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper)
     gpuProgramWrapper = nullptr;
 }
 
-void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool performBoundsCheck)
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
 {
-    if (performBoundsCheck)
-    {
-        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
-        {
-            return;
-        }
-    }
-    
-    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
+	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
 }
 
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool performBoundsCheck)
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
 {
-    if (performBoundsCheck)
-    {
-        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
-        {
-            return;
-        }
-    }
-    
-    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
+	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
 }
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
