@@ -15,7 +15,8 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_deviceResources->RegisterDeviceNotify(this);
 
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, api->DeviceFamily->Equals("Windows.Mobile"), false));
+	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isMobile));
 }
 
 NosFURatuMain::~NosFURatuMain()
