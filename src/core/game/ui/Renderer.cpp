@@ -51,16 +51,18 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTextur
     int y = 0;
     int glyphWidth = 64;
     int glyphHeight = 73;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        glyphWidth = glyphWidth / 2.0;
-        glyphHeight = glyphHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        glyphWidth /= 2.0;
+        glyphHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048));
+    m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, textureSize, textureSize));
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -77,42 +79,42 @@ void Renderer::init(RendererType type)
         case RENDERER_TYPE_LEVEL_EDITOR:
             if (!m_areLevelEditorTexturesLoaded)
             {
-                m_level_editor = loadTexture("level_editor");
+                m_level_editor = loadTexture(compressed ? "c_level_editor" : "level_editor");
                 
                 m_areLevelEditorTexturesLoaded = true;
             }
         case RENDERER_TYPE_WORLD_1:
             if (!m_areWorld1TexturesLoaded)
             {
-                m_world_1_background = loadTexture("world_1_background", 1);
+                m_world_1_background = loadTexture((compressed ? "c_world_1_background" : "world_1_background"), 1);
                 
-                m_world_1_ground_w_cave = loadTexture(compressed ? "compressed_world_1_ground" : "world_1_ground_w_cave");
-                m_world_1_ground_wo_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_ground_wo_cave");
-                m_world_1_cave = compressed ? m_world_1_ground_w_cave : loadTexture("world_1_cave");
+                m_world_1_ground_w_cave = loadTexture(compressed ? "c_world_1_ground_w_cave" : "world_1_ground_w_cave");
+                m_world_1_ground_wo_cave = loadTexture(compressed ? "c_world_1_ground_wo_cave" : "world_1_ground_wo_cave");
+                m_world_1_cave = loadTexture(compressed ? "c_world_1_cave" : "world_1_cave");
                 
-                m_world_1_objects = loadTexture(compressed ? "compressed_world_1_objects" : "world_1_objects");
-                m_game_objects = compressed ? m_world_1_objects : loadTexture("game_objects");
-                m_world_1_enemies = compressed ? m_world_1_objects : loadTexture("world_1_enemies");
-                m_world_1_snake_cave = compressed ? m_world_1_objects : loadTexture("world_1_snake_cave");
+                m_world_1_objects = loadTexture(compressed ? "c_world_1_objects" : "world_1_objects");
+                m_game_objects = loadTexture(compressed ? "c_game_objects" : "game_objects");
+                m_world_1_enemies = loadTexture(compressed ? "c_world_1_enemies" : "world_1_enemies");
+                m_world_1_snake_cave = loadTexture(compressed ? "c_world_1_snake_cave" : "world_1_snake_cave");
                 
-                m_jon = loadTexture(compressed ? "compressed_jon" : "jon");
-                m_jon_ability = compressed ? m_jon : loadTexture("jon_ability");
-                m_jon_poses = compressed ? m_jon : loadTexture("jon_poses");
+                m_jon = loadTexture(compressed ? "c_jon" : "jon");
+                m_jon_ability = loadTexture(compressed ? "c_jon_ability" : "jon_ability");
+                m_jon_poses = loadTexture(compressed ? "c_jon_poses" : "jon_poses");
                 
-                m_vampire = loadTexture(compressed ? "compressed_vampire" : "vampire");
-                m_vampire_poses = compressed ? m_vampire : loadTexture("vampire_poses");
-                m_vampire_transform = compressed ? m_vampire : loadTexture("vampire_transform");
+                m_vampire = loadTexture(compressed ? "c_vampire" : "vampire");
+                m_vampire_poses = loadTexture(compressed ? "c_vampire_poses" : "vampire_poses");
+                m_vampire_transform = loadTexture(compressed ? "c_vampire_transform" : "vampire_transform");
                 
-                m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
+                m_trans_death_shader_helper = loadTexture(compressed ? "c_trans_death_shader_helper" : "trans_death_shader_helper");
                 
                 m_areWorld1TexturesLoaded = true;
             }
         case RENDERER_TYPE_TITLE:
             if (!m_areTitleTexturesLoaded)
             {
-                m_title_font = loadTexture(compressed ? "compressed_misc" : "title_font");
-                m_world_1_misc = compressed ? m_title_font : loadTexture("world_1_misc");
-                m_world_map = compressed ? m_title_font : loadTexture("world_map");
+                m_title_font = loadTexture(compressed ? "c_title_font" : "title_font");
+                m_world_1_misc = loadTexture(compressed ? "c_world_1_misc" : "world_1_misc");
+                m_world_map = loadTexture(compressed ? "c_world_map" : "world_map");
                 
                 m_areTitleTexturesLoaded = true;
             }
@@ -340,16 +342,18 @@ void Renderer::renderTitleScreen()
     int y = 1040;
     int regionWidth = 2048;
     int regionHeight = 1008;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    static TextureRegion tlTr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tlTr = TextureRegion(x, y, regionWidth, regionHeight, textureSize, textureSize);
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, tlWidth, tlHeight, 0, tlTr);
     m_spriteBatcher->endBatch(*m_title_font);
     
@@ -416,17 +420,18 @@ void Renderer::renderWorldMapScreenBackground()
     int y = 0;
     int regionWidth = 2048;
     int regionHeight = 766;
+    int textureSize = TEXTURE_SIZE_2048;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
-        x = x / 2.0;
-        y = y / 2.0;
-        y += 1024;
-        regionWidth = regionWidth / 2.0;
-        regionHeight = regionHeight / 2.0;
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureSize /= 2.0;
     }
     
-    static TextureRegion tr = TextureRegion(x, y, regionWidth, regionHeight, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(x, y, regionWidth, regionHeight, textureSize, textureSize);
     static Color bgColor = Color(1, 1, 1, 1);
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, bgColor, tr);
     m_spriteBatcher->endBatch(*m_world_map);
@@ -519,22 +524,16 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundSkies());
-    m_spriteBatcher->endBatch(*m_world_1_background);
-    
-    m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundTrees());
-    m_spriteBatcher->endBatch(*m_world_1_background);
-    
-    m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundCaves());
-    m_spriteBatcher->endBatch(*m_world_1_background);
+    m_spriteBatcher->endBatch(*m_world_1_background, *m_backgroundTextureWrapper);
     
     /// Render World midground Trees
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getTrees(), true);
+    renderPhysicalEntities(game.getTrees());
     m_spriteBatcher->endBatch(*m_world_1_misc);
     
     /// Render World
@@ -544,7 +543,7 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_cave);
@@ -552,22 +551,22 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
-        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers(), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
+        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
     }
     
     for (std::vector<std::unique_ptr<Ground>>::iterator i = game.getGrounds().begin(); i != game.getGrounds().end(); i++)
     {
         if ((*i)->is_world_1_ground_w_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     
     for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
-        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
-        renderPhysicalEntities((*i)->getHoleCovers(), true);
+        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
+        renderPhysicalEntities((*i)->getHoleCovers());
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
     
@@ -576,27 +575,27 @@ void Renderer::renderWorld(Game& game)
     {
         if ((*i)->is_world_1_ground_wo_cave())
         {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()), true);
+            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getJumpSprings(), true);
-    renderPhysicalEntities(game.getCarrots(), true);
-    renderPhysicalEntities(game.getGoldenCarrots(), true);
+    renderPhysicalEntities(game.getJumpSprings());
+    renderPhysicalEntities(game.getCarrots());
+    renderPhysicalEntities(game.getGoldenCarrots());
     m_spriteBatcher->endBatch(*m_game_objects);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getPlatforms(), true);
-    renderPhysicalEntities(game.getLogVerticalTalls(), true);
-    renderPhysicalEntities(game.getLogVerticalShorts(), true);
-    renderPhysicalEntities(game.getThorns(), true);
-    renderPhysicalEntities(game.getStumps(), true);
-    renderPhysicalEntities(game.getSideSpikes(), true);
-    renderPhysicalEntities(game.getUpwardSpikes(), true);
-    renderPhysicalEntities(game.getEndSigns(), true);
-    renderPhysicalEntitiesWithColor(game.getRocks(), true);
+    renderPhysicalEntities(game.getPlatforms());
+    renderPhysicalEntities(game.getLogVerticalTalls());
+    renderPhysicalEntities(game.getLogVerticalShorts());
+    renderPhysicalEntities(game.getThorns());
+    renderPhysicalEntities(game.getStumps());
+    renderPhysicalEntities(game.getSideSpikes());
+    renderPhysicalEntities(game.getUpwardSpikes());
+    renderPhysicalEntities(game.getEndSigns());
+    renderPhysicalEntitiesWithColor(game.getRocks());
     m_spriteBatcher->endBatch(*m_world_1_objects);
     
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
@@ -607,7 +606,7 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
@@ -619,19 +618,19 @@ void Renderer::renderWorld(Game& game)
         
         m_spriteBatcher->beginBatch();
         m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), true);
+        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
     }
     
     m_spriteBatcher->beginBatch();
     for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
+        renderPhysicalEntities((*i)->getSnakeSpirits());
     }
     
     for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
     {
-        renderPhysicalEntities((*i)->getSnakeSpirits(), true);
+        renderPhysicalEntities((*i)->getSnakeSpirits());
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
@@ -768,8 +767,8 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     /// Render Back Button
     
     m_spriteBatcher->beginBatch();
+
     renderPhysicalEntity(backButton, Assets::getInstance()->get(backButton));
-    m_spriteBatcher->endBatch(*m_title_font);
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
@@ -777,14 +776,12 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     /// Render Play Time
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << std::fixed << std::setprecision(2) << game.getStateTime();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }
-    m_spriteBatcher->endBatch(*m_title_font);
     
     std::stringstream ss;
     ss << game.getNumTotalCarrots();
@@ -793,7 +790,6 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     
     /// Render Num / Total Carrots
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << (game.getNumTotalCarrots() - game.getCarrots().size());
@@ -812,17 +808,16 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - text.size() * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
-    m_spriteBatcher->endBatch(*m_title_font);
     
     /// Render Num / Total Golden Carrots
     
-    m_spriteBatcher->beginBatch();
     {
         std::stringstream ss;
         ss << (game.getNumTotalGoldenCarrots() - game.getGoldenCarrots().size()) << "/" << game.getNumTotalGoldenCarrots();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
+
     m_spriteBatcher->endBatch(*m_title_font);
     
     static Carrot uiCarrot = Carrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight);
@@ -1099,61 +1094,57 @@ void Renderer::renderToScreen()
 
 void Renderer::cleanUp()
 {
-    bool compressed = Assets::getInstance()->isUsingCompressedTextureSet();
-    
-    if (m_areTitleTexturesLoaded)
-    {
-        tearDownTexture(m_title_font);
-        tearDownTexture(m_world_1_misc);
-        tearDownTexture(m_world_map);
-        
-        m_areTitleTexturesLoaded = false;
-    }
-    
-    if (m_areWorld1TexturesLoaded)
-    {
-        tearDownTexture(m_world_1_background);
-        
-        tearDownTexture(m_world_1_ground_w_cave);
-        
-        tearDownTexture(m_world_1_objects);
-        
-        tearDownTexture(m_jon);
-        
-        tearDownTexture(m_vampire);
-        
-        tearDownTexture(m_trans_death_shader_helper);
-        
-        if (!compressed)
-        {
-            tearDownTexture(m_world_1_ground_wo_cave);
-            tearDownTexture(m_world_1_cave);
-            
-            tearDownTexture(m_game_objects);
-            tearDownTexture(m_world_1_enemies);
-            tearDownTexture(m_world_1_snake_cave);
-            
-            tearDownTexture(m_jon_ability);
-            tearDownTexture(m_jon_poses);
-            
-            tearDownTexture(m_vampire_poses);
-            tearDownTexture(m_vampire_transform);
-        }
-        
-        m_areWorld1TexturesLoaded = false;
-    }
-    
-    if (m_areLevelEditorTexturesLoaded)
-    {
-        tearDownTexture(m_level_editor);
-        
-        m_areLevelEditorTexturesLoaded = false;
-    }
+	if (m_areLevelEditorTexturesLoaded)
+	{
+		tearDownTexture(m_level_editor);
 
+		m_areLevelEditorTexturesLoaded = false;
+	}
+
+	if (m_areWorld1TexturesLoaded)
+	{
+		tearDownTexture(m_world_1_background);
+
+		tearDownTexture(m_world_1_ground_w_cave);
+		tearDownTexture(m_world_1_ground_wo_cave);
+		tearDownTexture(m_world_1_cave);
+
+		tearDownTexture(m_world_1_objects);
+		tearDownTexture(m_game_objects);
+		tearDownTexture(m_world_1_enemies);
+		tearDownTexture(m_world_1_snake_cave);
+
+		tearDownTexture(m_jon);
+		tearDownTexture(m_jon_ability);
+		tearDownTexture(m_jon_poses);
+
+		tearDownTexture(m_vampire);
+		tearDownTexture(m_vampire_poses);
+		tearDownTexture(m_vampire_transform);
+
+		tearDownTexture(m_trans_death_shader_helper);
+
+		m_areWorld1TexturesLoaded = false;
+	}
+
+	if (m_areTitleTexturesLoaded)
+	{
+		tearDownTexture(m_title_font);
+		tearDownTexture(m_world_1_misc);
+		tearDownTexture(m_world_map);
+
+		m_areTitleTexturesLoaded = false;
+	}
+	
+	m_transScreenGpuProgramWrapper->cleanUp();
 	m_sinWaveTextureProgram->cleanUp();
-    m_snakeDeathTextureProgram->cleanUp();
-    m_shockwaveTextureGpuProgramWrapper->cleanUp();
-    m_framebufferTintGpuProgramWrapper->cleanUp();
+	m_snakeDeathTextureProgram->cleanUp();
+	m_shockwaveTextureGpuProgramWrapper->cleanUp();
+	m_framebufferToScreenGpuProgramWrapper->cleanUp();
+	m_framebufferTintGpuProgramWrapper->cleanUp();
+	m_framebufferRadialBlurGpuProgramWrapper->cleanUp();
+	m_transDeathInGpuProgramWrapper->cleanUp();
+	m_transDeathOutGpuProgramWrapper->cleanUp();
 }
 
 Vector2D& Renderer::getCameraPosition()
@@ -1176,32 +1167,14 @@ void Renderer::tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper)
     gpuProgramWrapper = nullptr;
 }
 
-void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool performBoundsCheck)
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
 {
-    if (performBoundsCheck)
-    {
-        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
-        {
-            return;
-        }
-    }
-    
-    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
+	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
 }
 
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool performBoundsCheck)
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
 {
-    if (performBoundsCheck)
-    {
-        Rectangle renderBounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-        if (!OverlapTester::doRectanglesOverlap(*m_camBounds, renderBounds))
-        {
-            return;
-        }
-    }
-    
-    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
+	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
 }
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)

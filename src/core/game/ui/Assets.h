@@ -44,14 +44,6 @@
 
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
-typedef enum
-{
-    TOP_LEFT,
-    TOP_RIGHT,
-    BOTTOM_LEFT,
-    BOTTOM_RIGHT
-} TextureRegionQuad;
-
 class Assets
 {
 public:
@@ -140,11 +132,13 @@ private:
     short m_sMusicId;
     bool m_isUsingCompressedTextureSet;
     
-    Animation createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    Animation createAnimation(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
     
-    TextureRegion createTextureRegion(TextureRegionQuad q, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+
+	void initTextureRegion(TextureRegion& tr, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Assets();

@@ -64,6 +64,7 @@ void OpenGLESRenderer::endFrame()
 
 void OpenGLESRenderer::loadShaders()
 {
+    m_backgroundTextureWrapper = OGLESManager->m_textureProgram.get();
     m_transScreenGpuProgramWrapper = new OpenGLESTransScreenGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();

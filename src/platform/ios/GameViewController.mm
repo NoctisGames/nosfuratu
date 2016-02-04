@@ -1,12 +1,12 @@
 //
-//  BaseGameViewController.m
+//  GameViewController.m
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 9/5/14.
 //  Copyright (c) 2014 Gowen Game Dev. All rights reserved.
 //
 
-#import "BaseGameViewController.h"
+#import "GameViewController.h"
 #import "UIView+Toast.h"
 
 // Sound Engine
@@ -43,7 +43,7 @@ enum GameSoundIds {
     JON_VAMPIRE_GLIDE
 };
 
-@interface BaseGameViewController ()
+@interface GameViewController ()
 {
     IOSOpenGLESGameScreen *gameScreen;
 }
@@ -53,7 +53,7 @@ enum GameSoundIds {
 
 @end
 
-@implementation BaseGameViewController
+@implementation GameViewController
 
 - (void)viewDidLoad
 {
@@ -73,7 +73,7 @@ enum GameSoundIds {
     view.userInteractionEnabled = YES;
     [view setMultipleTouchEnabled:YES];
     
-    self.preferredFramesPerSecond = 60;
+    self.preferredFramesPerSecond = 30;
     
     [EAGLContext setCurrentContext:self.context];
     
@@ -81,15 +81,15 @@ enum GameSoundIds {
     CGFloat screenScale = [[UIScreen mainScreen] scale];
     CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
     
-    CGSize newSize = CGSizeMake(screenSize.width, screenSize.height);
-    newSize.width = roundf(newSize.width);
-    newSize.height = roundf(newSize.height);
+    CGSize size = CGSizeMake(screenSize.width, screenSize.height);
+    size.width = roundf(size.width);
+    size.height = roundf(size.height);
     
-    NSLog(@"dimension %f x %f", newSize.width, newSize.height);
+    NSLog(@"dimension %f x %f", size.width, size.height);
     
     [view bindDrawable];
     
-    gameScreen = [self getGameScreen:newSize];
+    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, MAX(size.width, size.height) < 1136);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onPause)
@@ -172,14 +172,6 @@ enum GameSoundIds {
     gameScreen->render();
     [self handleSound];
     [self handleMusic];
-}
-
-#pragma mark <Protected>
-
-- (IOSOpenGLESGameScreen *)getGameScreen:(CGSize)size
-{
-    // Subclasses must override
-    return nullptr;
 }
 
 #pragma mark <Private>

@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Phone Game View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="j9Y-YP-K2l">
             <objects>
-                <viewController id="gMz-4X-cty" customClass="PhoneGameViewController" sceneMemberID="viewController">
+                <viewController id="gMz-4X-cty" customClass="GameViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r17-uf-hLf" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

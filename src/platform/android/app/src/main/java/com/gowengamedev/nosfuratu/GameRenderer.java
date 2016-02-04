@@ -2,11 +2,14 @@ package com.gowengamedev.nosfuratu;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.widget.Toast;
 
 import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
@@ -104,10 +107,15 @@ public final class GameRenderer implements Renderer
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
-        Resources res = activity.getResources();
-        boolean isTablet = res.getBoolean(R.bool.isTablet);
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        Log.d("GameRenderer", "width = " + width);
+        Log.d("GameRenderer", "height = " + height);
 
-        init(!isTablet, BuildConfig.IS_LEVEL_EDITOR);
+        init(Math.max(width, height) < 1200, BuildConfig.IS_LEVEL_EDITOR);
     }
 
     @Override
@@ -400,7 +408,7 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private static native void init(boolean isUsingCompressedTextureSet, boolean isLevelEditor);
+    private static native void init(boolean useCompressedTextureSet, boolean isLevelEditor);
 
     private static native void on_surface_created();
 

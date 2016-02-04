@@ -88,7 +88,7 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(Game& game, BackButton& backButton);
+    virtual void renderHud(Game& game, BackButton& backButton);
     
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     
@@ -140,6 +140,7 @@ protected:
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
+	GpuProgramWrapper* m_backgroundTextureWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;
@@ -167,7 +168,7 @@ protected:
     virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
     
 private:
-    std::unique_ptr<Rectangle> m_camBounds;
+	std::unique_ptr<Rectangle> m_camBounds;
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
@@ -178,26 +179,26 @@ private:
     bool m_areShadersLoaded;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items, bool performBoundsCheck = false)
+    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
     {
         for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::getInstance()->get(item), performBoundsCheck);
+            renderPhysicalEntity(item, Assets::getInstance()->get(item));
         }
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items, bool performBoundsCheck = false)
+    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items)
     {
         for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
         {
             std::unique_ptr<T>& upItem = *i;
             T* pItem = upItem.get();
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor(), performBoundsCheck);
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         }
     }
     
@@ -217,9 +218,9 @@ private:
     
     void tearDownGpuProgramWrapper(GpuProgramWrapper* gpuProgramWrapper);
     
-    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool performBoundsCheck = false);
+    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr);
     
-    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool performBoundsCheck = false);
+    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     

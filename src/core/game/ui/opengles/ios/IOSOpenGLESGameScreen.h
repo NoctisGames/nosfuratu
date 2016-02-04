@@ -14,7 +14,7 @@
 class IOSOpenGLESGameScreen : public OpenGLESGameScreen
 {
 public:
-    IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool isUsingCompressedTextureSet);
+    IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool useCompressedTextureSet);
     
     virtual void touchToWorld(TouchEvent &touchEvent);
     

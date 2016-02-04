@@ -22,6 +22,8 @@ public:
     
     virtual void endFrame();
 
+	virtual void renderHud(Game& game, BackButton& backButton);
+
 protected:
 	virtual void loadShaders();
     

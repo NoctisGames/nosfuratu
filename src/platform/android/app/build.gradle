@@ -75,6 +75,14 @@ android {
         include('*.png')
     }
 
+    task copyCompressedTextures(type: Copy)
+    copyCompressedTextures {
+        description = 'Copies compressed textures from root assets into project assets'
+        from '../../../../assets/textures/compressed'
+        into 'src/main/assets'
+        include('*.png')
+    }
+
     task copySounds(type: Copy)
     copySounds {
         description = 'Copies sounds from root assets into project assets'
@@ -86,6 +94,7 @@ android {
     preBuild.dependsOn(copyFrameworkShaders)
     preBuild.dependsOn(copyGameShaders)
     preBuild.dependsOn(copyTextures)
+    preBuild.dependsOn(copyCompressedTextures)
     preBuild.dependsOn(copySounds)
 }
 

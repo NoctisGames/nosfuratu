@@ -18,7 +18,7 @@ namespace NosFURatu
 	class Direct3DGameScreen : public GameScreen
 	{
 	public:
-		Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isUsingCompressedTextureSet);
+		Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isMobile, bool useCompressedTextureSet);
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();

@@ -15,14 +15,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_deviceResources->RegisterDeviceNotify(this);
 
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-
-	bool isUsingCompressedTextureSet = false;
-	if (api->DeviceFamily->Equals("Windows.Mobile"))
-	{
-		isUsingCompressedTextureSet = true;
-	}
-
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isUsingCompressedTextureSet));
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, api->DeviceFamily->Equals("Windows.Mobile"), false));
 }
 
 NosFURatuMain::~NosFURatuMain()

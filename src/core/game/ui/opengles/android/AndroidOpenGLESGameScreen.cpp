@@ -9,7 +9,7 @@
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenStates.h"
 
-AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool isUsingCompressedTextureSet, bool isLevelEditor) : OpenGLESGameScreen(isUsingCompressedTextureSet, isLevelEditor)
+AndroidOpenGLESGameScreen::AndroidOpenGLESGameScreen(bool useCompressedTextureSet, bool isLevelEditor) : OpenGLESGameScreen(useCompressedTextureSet, isLevelEditor)
 {
     // Empty
 }

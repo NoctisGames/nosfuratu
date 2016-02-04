@@ -1,85 +1,40 @@
-import os
-import PIL
+#!/usr/bin/python
 from PIL import Image
+import os, sys
 
-print('Creating compressed textures for phones...\n')
+path = "../../../assets/textures/"
+dirs = os.listdir(path)
 
+if not os.path.exists("../../../assets/textures/compressed"):
+    os.makedirs("../../../assets/textures/compressed")
 
+def resize():
+    for item in dirs:
+        if os.path.isfile(path+item):
+            f, e = os.path.splitext(path+item)
+            if e == ".png":
+                fn, ne = os.path.splitext(item)
+                img = Image.open(path+item)
+                size = int(img.size[1] / 2);
+                imResize = img.resize((size, size), Image.ANTIALIAS)
+                imResize.save(path + 'compressed/' + 'c_' + item, 'png', quality=100)
 
-
-
-
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_jon.png ../../../assets/textures/jon.png ../../../assets/textures/jon_ability.png ../../../assets/textures/jon_ability.png ../../../assets/textures/jon_poses.png")
-
-print('\nResizing ../../../assets/textures/compressed_jon.png down to 2048x2048')
-
-basewidth = 2048
-img = Image.open('../../../assets/textures/compressed_jon.png')
-wpercent = (basewidth/float(img.size[0]))
-hsize = int((float(img.size[1])*float(wpercent)))
-img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-img.save('../../../assets/textures/compressed_jon.png')
-          
-
-          
-          
-          
-          
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire.png ../../../assets/textures/vampire_poses.png ../../../assets/textures/vampire_transform.png")
-
-print('\nResizing ../../../assets/textures/compressed_vampire.png down to 2048x2048')
-
-basewidth = 2048
-img = Image.open('../../../assets/textures/compressed_vampire.png')
-wpercent = (basewidth/float(img.size[0]))
-hsize = int((float(img.size[1])*float(wpercent)))
-img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-img.save('../../../assets/textures/compressed_vampire.png')
+resize()
 
 
 
 
-
-
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_misc.png ../../../assets/textures/title_font.png ../../../assets/textures/world_1_misc.png ../../../assets/textures/world_map.png ../../../assets/textures/title_font.png")
-
-print('\nResizing ../../../assets/textures/compressed_misc.png down to 2048x2048')
-
-basewidth = 2048
-img = Image.open('../../../assets/textures/compressed_misc.png')
-wpercent = (basewidth/float(img.size[0]))
-hsize = int((float(img.size[1])*float(wpercent)))
-img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-img.save('../../../assets/textures/compressed_misc.png')
-
-          
-          
-          
-          
-          
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_world_1_ground.png ../../../assets/textures/world_1_ground_w_cave.png ../../../assets/textures/world_1_ground_wo_cave.png ../../../assets/textures/world_1_cave.png")
-
-print('\nResizing ../../../assets/textures/compressed_world_1_ground.png down to 2048x2048')
-
-basewidth = 2048
-img = Image.open('../../../assets/textures/compressed_world_1_ground.png')
-wpercent = (basewidth/float(img.size[0]))
-hsize = int((float(img.size[1])*float(wpercent)))
-img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-img.save('../../../assets/textures/compressed_world_1_ground.png')
-
-          
-         
-          
-          
-          
-os.system("python3 ../../../assets/textures/merge_images.py -f --columns 2 --height 2048 --output ../../../assets/textures/compressed_world_1_objects.png ../../../assets/textures/world_1_objects.png ../../../assets/textures/game_objects.png ../../../assets/textures/world_1_enemies.png ../../../assets/textures/world_1_snake_cave.png")
-
-print('\nResizing ../../../assets/textures/compressed_world_1_objects.png down to 2048x2048')
-
-basewidth = 2048
-img = Image.open('../../../assets/textures/compressed_world_1_objects.png')
-wpercent = (basewidth/float(img.size[0]))
-hsize = int((float(img.size[1])*float(wpercent)))
-img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
-img.save('../../../assets/textures/compressed_world_1_objects.png')
+#import os
+#import PIL
+#from PIL import Image
+#
+#print('Creating compressed textures for phones...\n')
+#
+#print('\nResizing ../../../assets/textures/game_objects.png down to 1024x1024')
+#
+#basewidth = 1024
+#img = Image.open('../../../assets/textures/game_objects.png')
+#wpercent = (basewidth/float(img.size[0]))
+#hsize = int((float(img.size[1])*float(wpercent)))
+#img = img.resize((basewidth,hsize), PIL.Image.ANTIALIAS)
+#img.save('../../../assets/textures/c_game_objects.png')
