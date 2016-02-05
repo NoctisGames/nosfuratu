@@ -39,25 +39,21 @@ DirectXPage::DirectXPage():
 	// Register event handlers for page lifecycle.
 	CoreWindow^ window = Window::Current->CoreWindow;
 
-	window->VisibilityChanged +=
-		ref new TypedEventHandler<CoreWindow^, VisibilityChangedEventArgs^>(this, &DirectXPage::OnVisibilityChanged);
+	window->KeyDown += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &DirectXPage::onKeyDown);
+
+	window->VisibilityChanged += ref new TypedEventHandler<CoreWindow^, VisibilityChangedEventArgs^>(this, &DirectXPage::OnVisibilityChanged);
 
 	DisplayInformation^ currentDisplayInformation = DisplayInformation::GetForCurrentView();
 
-	currentDisplayInformation->DpiChanged +=
-		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnDpiChanged);
+	currentDisplayInformation->DpiChanged += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnDpiChanged);
 
-	currentDisplayInformation->OrientationChanged +=
-		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnOrientationChanged);
+	currentDisplayInformation->OrientationChanged += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnOrientationChanged);
 
-	DisplayInformation::DisplayContentsInvalidated +=
-		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnDisplayContentsInvalidated);
+	DisplayInformation::DisplayContentsInvalidated += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &DirectXPage::OnDisplayContentsInvalidated);
 
-	swapChainPanel->CompositionScaleChanged += 
-		ref new TypedEventHandler<SwapChainPanel^, Object^>(this, &DirectXPage::OnCompositionScaleChanged);
+	swapChainPanel->CompositionScaleChanged += ref new TypedEventHandler<SwapChainPanel^, Object^>(this, &DirectXPage::OnCompositionScaleChanged);
 
-	swapChainPanel->SizeChanged +=
-		ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
+	swapChainPanel->SizeChanged += ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
 
 	if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 	{
@@ -178,6 +174,60 @@ void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 {
 	m_main->onTouchUp(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
 	m_isPointerPressed = false;
+}
+
+void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
+{
+	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
+
+	if (e->VirtualKey == Windows::System::VirtualKey::W
+		|| e->VirtualKey == Windows::System::VirtualKey::GamepadA)
+	{
+		m_main->onTouchUp(300, 300);
+		m_isPointerPressed = false;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::S
+		|| e->VirtualKey == Windows::System::VirtualKey::GamepadX)
+	{
+		m_main->onTouchDown(300, 300);
+		m_isPointerPressed = true;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Left || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
+	{
+		m_main->onTouchDown(500, 500);
+		m_isPointerPressed = true;
+		m_main->onTouchDragged(500, 500);
+		m_main->onTouchDragged(0, 500);
+		m_main->onTouchUp(0, 500);
+		m_isPointerPressed = false;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Up || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
+	{
+		m_main->onTouchDown(500, 500);
+		m_isPointerPressed = true;
+		m_main->onTouchDragged(500, 500);
+		m_main->onTouchDragged(500, 0);
+		m_main->onTouchUp(500, 0);
+		m_isPointerPressed = false;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Right || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
+	{
+		m_main->onTouchDown(500, 500);
+		m_isPointerPressed = true;
+		m_main->onTouchDragged(500, 500);
+		m_main->onTouchDragged(900, 500);
+		m_main->onTouchUp(900, 500);
+		m_isPointerPressed = false;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Down || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
+	{
+		m_main->onTouchDown(500, 500);
+		m_isPointerPressed = true;
+		m_main->onTouchDragged(500, 500);
+		m_main->onTouchDragged(500, 900);
+		m_main->onTouchUp(500, 900);
+		m_isPointerPressed = false;
+	}
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)
