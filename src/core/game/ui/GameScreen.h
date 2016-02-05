@@ -40,7 +40,10 @@ public:
     std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Vector2D> m_touchPointDown2;
-    float m_fDeltaTime;
+	float m_fFPSStateTime;
+	int m_iFrames;
+	int m_iFPS;
+	float m_fDeltaTime;
     float m_fScreenHeldTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
