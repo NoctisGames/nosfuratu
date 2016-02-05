@@ -10,7 +10,7 @@
 #include "GameScreenStates.h"
 #include "LevelEditor.h"
 
-GameScreen::GameScreen() : m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
+GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -37,6 +37,15 @@ void GameScreen::onPause()
 
 void GameScreen::update(float deltaTime)
 {
+	m_fFPSStateTime += deltaTime;
+	m_iFrames++;
+	if (m_fFPSStateTime >= 1.0f)
+	{
+		m_fFPSStateTime -= 1.0f;
+		m_iFPS = m_iFrames;
+		m_iFrames = 0;
+	}
+
     if (m_iNumFramesToDiscard > 0)
     {
         m_iNumFramesToDiscard--;

@@ -304,7 +304,7 @@ void GamePlay::execute(GameScreen* gs)
         
         if (m_hasOpeningSequenceCompleted)
         {
-            gs->m_renderer->renderHud(*m_game, *m_backButton);
+            gs->m_renderer->renderHud(*m_game, *m_backButton, gs->m_iFPS);
         }
         
         if (jon.isDead())

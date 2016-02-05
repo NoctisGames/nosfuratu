@@ -716,7 +716,7 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(Game& game, BackButton &backButton)
+void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -783,6 +783,20 @@ void Renderer::renderHud(Game& game, BackButton &backButton)
     renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(uiCarrot));
     renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(uiGoldenCarrot));
     m_spriteBatcher->endBatch(*m_world_1_objects);
+
+	{
+		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+
+		std::stringstream ss;
+		ss << fps << " FPS";
+		std::string fps_string = ss.str();
+
+		// Render FPS
+
+		m_spriteBatcher->beginBatch();
+		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_spriteBatcher->endBatch(*m_title_font);
+	}
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp)

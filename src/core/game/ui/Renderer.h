@@ -89,7 +89,7 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    virtual void renderHud(Game& game, BackButton& backButton);
+    void renderHud(Game& game, BackButton& backButton, int fps);
     
     void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
     

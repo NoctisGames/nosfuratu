@@ -160,25 +160,6 @@ void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
 	textureWrapper.texture->Release();
 }
 
-void Direct3DRenderer::renderHud(Game& game, BackButton &backButton)
-{
-	Renderer::renderHud(game, backButton);
-
-	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-
-	std::stringstream ss;
-	ss << 69 << " FPS";
-	std::string fps = ss.str();
-
-	// Render fps
-
-	static Color fontColor = Color(1, 1, 1, 1);
-
-	m_spriteBatcher->beginBatch();
-	m_font->renderText(*m_spriteBatcher, fps, CAM_WIDTH / 2, CAM_HEIGHT / 2, 1, 1, fontColor);
-	m_spriteBatcher->endBatch(*m_title_font);
-}
-
 #pragma mark private
 
 void Direct3DRenderer::loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView)
