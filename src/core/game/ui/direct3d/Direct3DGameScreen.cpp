@@ -84,7 +84,13 @@ void Direct3DGameScreen::ReleaseDeviceDependentResources()
 
 void Direct3DGameScreen::Update(DX::StepTimer const& timer)
 {
-	switch (getRequestedAction())
+	int requestedAction = getRequestedAction();
+	if (requestedAction >= 1000)
+	{
+		requestedAction /= 1000;
+	}
+
+	switch (requestedAction)
 	{
 	case REQUESTED_ACTION_UPDATE:
 		D3DManager->m_iFps = timer.GetFramesPerSecond();
