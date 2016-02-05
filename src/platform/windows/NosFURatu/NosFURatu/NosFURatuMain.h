@@ -26,18 +26,31 @@ namespace NosFURatu
 		virtual void OnDeviceRestored();
 
 	private:
-		void Update();
-		bool Render();
-
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 		std::unique_ptr<Direct3DGameScreen> m_gameScreen;
+
+		std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
+		std::vector<GameSound> m_sounds;
 
 		Windows::Foundation::IAsyncAction^ m_renderLoopWorker;
 		Concurrency::critical_section m_criticalSection;
 
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
+
+		void Update();
+		bool Render();
+
+		void handleSound();
+		void handleMusic();
+
+		void saveLevel(int requestedAction);
+		void loadLevel(int requestedAction);
+
+		Platform::String^ getLevelName(int requestedAction);
+
+		void displayToast(Platform::String^ message);
 	};
 }

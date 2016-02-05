@@ -22,23 +22,14 @@ namespace NosFURatu
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
-		void Update(DX::StepTimer const& timer);
-		void Render();
 
-		virtual void onResume();
-		virtual void onPause();
 		virtual void touchToWorld(TouchEvent &touchEvent);
+
 		bool handleOnBackPressed();
 
 	private:
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-
-		std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
-		std::vector<GameSound> m_sounds;
-
-		void handleSound();
-		void handleMusic();
 	};
 }
 

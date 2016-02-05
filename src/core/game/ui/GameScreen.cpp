@@ -78,9 +78,13 @@ void GameScreen::update(float deltaTime)
 
 void GameScreen::render()
 {
-    m_stateMachine->execute();
-    
-    m_isRequestingRender = false;
+	// Loading may be asynchronous, so make sure we are loaded before rendering
+	if (m_renderer->isLoaded())
+	{
+		m_stateMachine->execute();
+
+		m_isRequestingRender = false;
+	}
 }
 
 int GameScreen::getRequestedAction()
