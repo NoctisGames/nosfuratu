@@ -48,7 +48,7 @@ public:
     bool m_isPaused;
     bool m_isScreenHeldDown;
     
-	GameScreen(bool isLevelEditor = false);
+	GameScreen();
     
     virtual void touchToWorld(TouchEvent &touchEvent) = 0;
 

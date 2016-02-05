@@ -10,7 +10,7 @@
 #include "GameScreenStates.h"
 #include "LevelEditor.h"
 
-GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
+GameScreen::GameScreen() : m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -22,15 +22,7 @@ GameScreen::GameScreen(bool isLevelEditor) : m_fDeltaTime(0), m_fScreenHeldTime(
     }
     
     m_stateMachine = std::unique_ptr<StateMachine<GameScreen>>(new StateMachine<GameScreen>(this));
-    
-    if (isLevelEditor)
-    {
-        m_stateMachine->setCurrentState(LevelEditor::getInstance());
-    }
-    else
-    {
-        m_stateMachine->setCurrentState(Title::getInstance());
-    }
+    m_stateMachine->setCurrentState(Title::getInstance());
 }
 
 void GameScreen::onResume()

@@ -32,21 +32,11 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     
     m_jons.push_back(std::unique_ptr<Jon>(new Jon(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
-    m_trees.push_back(std::unique_ptr<Tree>(new TreeOne(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_trees.push_back(std::unique_ptr<Tree>(new TreeTwo(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_trees.push_back(std::unique_ptr<Tree>(new TreeThree(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_holes.push_back(std::unique_ptr<Hole>(new Hole(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_caveExits.push_back(std::unique_ptr<CaveExit>(new CaveExitEnd(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_caveExits.push_back(std::unique_ptr<CaveExit>(new CaveExitMid(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
@@ -63,58 +53,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
     
-    m_logVerticalTalls.push_back(std::unique_ptr<LogVerticalTall>(new LogVerticalTall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_logVerticalShorts.push_back(std::unique_ptr<LogVerticalShort>(new LogVerticalShort(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_thorns.push_back(std::unique_ptr<Thorns>(new Thorns(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_stumps.push_back(std::unique_ptr<Stump>(new Stump(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_sideSpikes.push_back(std::unique_ptr<SideSpike>(new SideSpike(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeMetalGrass(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeWoodGrass(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_upwardSpikes.push_back(std::unique_ptr<UpwardSpike>(new UpwardSpikeMetalCave(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringLight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_jumpSprings.push_back(std::unique_ptr<JumpSpring>(new JumpSpringHeavy(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_rocks.push_back(std::unique_ptr<Rock>(new Rock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_rocks.push_back(std::unique_ptr<CrackedRock>(new CrackedRock(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassDefault(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassCenter(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformGrassEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveCenter(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_platforms.push_back(std::unique_ptr<GroundPlatform>(new GroundPlatformCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_snakeGruntEnemies.push_back(std::unique_ptr<SnakeGrunt>(new SnakeGrunt(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_snakeHornedEnemies.push_back(std::unique_ptr<SnakeHorned>(new SnakeHorned(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_carrots.push_back(std::unique_ptr<Carrot>(new Carrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_goldenCarrots.push_back(std::unique_ptr<GoldenCarrot>(new GoldenCarrot(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_endSigns.push_back(std::unique_ptr<EndSign>(new EndSign(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    boxInAll(m_jons, size);
-    boxInAll(m_trees, size);
     boxInAll(m_grounds, size);
-    boxInAll(m_holes, size);
-    boxInAll(m_caveExits, size);
-    boxInAll(m_logVerticalTalls, size);
-    boxInAll(m_logVerticalShorts, size);
-    boxInAll(m_thorns, size);
-    boxInAll(m_stumps, size);
-    boxInAll(m_sideSpikes, size);
-    boxInAll(m_upwardSpikes, size);
-    boxInAll(m_jumpSprings, size);
-    boxInAll(m_rocks, size);
-    boxInAll(m_platforms, size);
-    boxInAll(m_carrots, size);
-    boxInAll(m_goldenCarrots, size);
-    boxInAll(m_snakeGruntEnemies, size);
-    boxInAll(m_snakeHornedEnemies, size);
-    boxInAll(m_endSigns, size);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
 }
@@ -168,23 +107,6 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     float y = GAME_HEIGHT / 2;
                     
                     if (isTouchingEntityForPlacement(m_jons, game.getJons(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_logVerticalTalls, game.getLogVerticalTalls(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_logVerticalShorts, game.getLogVerticalShorts(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_thorns, game.getThorns(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_stumps, game.getStumps(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_sideSpikes, game.getSideSpikes(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_upwardSpikes, game.getUpwardSpikes(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_jumpSprings, game.getJumpSprings(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_rocks, game.getRocks(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_carrots, game.getCarrots(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_goldenCarrots, game.getGoldenCarrots(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_snakeGruntEnemies, game.getSnakeGruntEnemies(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_snakeHornedEnemies, game.getSnakeHornedEnemies(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_endSigns, game.getEndSigns(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_platforms, game.getPlatforms(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_trees, game.getTrees(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_holes, game.getHoles(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_caveExits, game.getCaveExits(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
@@ -220,94 +142,9 @@ std::vector<std::unique_ptr<Jon>>& LevelEditorEntitiesPanel::getJons()
     return m_jons;
 }
 
-std::vector<std::unique_ptr<Tree>>& LevelEditorEntitiesPanel::getTrees()
-{
-    return m_trees;
-}
-
 std::vector<std::unique_ptr<Ground>>& LevelEditorEntitiesPanel::getGrounds()
 {
     return m_grounds;
-}
-
-std::vector<std::unique_ptr<Hole>>& LevelEditorEntitiesPanel::getHoles()
-{
-    return m_holes;
-}
-
-std::vector<std::unique_ptr<CaveExit>>& LevelEditorEntitiesPanel::getCaveExits()
-{
-    return m_caveExits;
-}
-
-std::vector<std::unique_ptr<LogVerticalTall>>& LevelEditorEntitiesPanel::getLogVerticalTalls()
-{
-    return m_logVerticalTalls;
-}
-
-std::vector<std::unique_ptr<LogVerticalShort>>& LevelEditorEntitiesPanel::getLogVerticalShorts()
-{
-    return m_logVerticalShorts;
-}
-
-std::vector<std::unique_ptr<Thorns>>& LevelEditorEntitiesPanel::getThorns()
-{
-    return m_thorns;
-}
-
-std::vector<std::unique_ptr<Stump>>& LevelEditorEntitiesPanel::getStumps()
-{
-    return m_stumps;
-}
-
-std::vector<std::unique_ptr<SideSpike>>& LevelEditorEntitiesPanel::getSideSpikes()
-{
-    return m_sideSpikes;
-}
-
-std::vector<std::unique_ptr<UpwardSpike>>& LevelEditorEntitiesPanel::getUpwardSpikes()
-{
-    return m_upwardSpikes;
-}
-
-std::vector<std::unique_ptr<JumpSpring>>& LevelEditorEntitiesPanel::getJumpSprings()
-{
-    return m_jumpSprings;
-}
-
-std::vector<std::unique_ptr<Rock>>& LevelEditorEntitiesPanel::getRocks()
-{
-    return m_rocks;
-}
-
-std::vector<std::unique_ptr<GroundPlatform>>& LevelEditorEntitiesPanel::getPlatforms()
-{
-    return m_platforms;
-}
-
-std::vector<std::unique_ptr<EndSign>>& LevelEditorEntitiesPanel::getEndSigns()
-{
-    return m_endSigns;
-}
-
-std::vector<std::unique_ptr<Carrot>>& LevelEditorEntitiesPanel::getCarrots()
-{
-    return m_carrots;
-}
-
-std::vector<std::unique_ptr<GoldenCarrot>>& LevelEditorEntitiesPanel::getGoldenCarrots()
-{
-    return m_goldenCarrots;
-}
-
-std::vector<std::unique_ptr<SnakeGrunt>>& LevelEditorEntitiesPanel::getSnakeGruntEnemies()
-{
-    return m_snakeGruntEnemies;
-}
-
-std::vector<std::unique_ptr<SnakeHorned>>& LevelEditorEntitiesPanel::getSnakeHornedEnemies()
-{
-    return m_snakeHornedEnemies;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

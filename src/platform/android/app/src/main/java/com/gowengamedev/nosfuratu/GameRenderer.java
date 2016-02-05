@@ -106,7 +106,7 @@ public final class GameRenderer implements Renderer
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
-        init(BuildConfig.IS_LEVEL_EDITOR);
+        init();
     }
 
     @Override
@@ -418,7 +418,7 @@ public final class GameRenderer implements Renderer
         }
     }
 
-    private static native void init(boolean isLevelEditor);
+    private static native void init();
 
     private static native void on_surface_created();
 

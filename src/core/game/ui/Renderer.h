@@ -117,13 +117,9 @@ protected:
     std::unique_ptr<RectangleBatcher> m_highlightRectangleBatcher;
     std::unique_ptr<Font> m_font;
     
-    TextureWrapper* m_jon_ability;
-    TextureWrapper* m_jon_poses;
     TextureWrapper* m_jon;
     TextureWrapper* m_level_editor;
     TextureWrapper* m_title_font;
-    TextureWrapper* m_vampire_poses;
-    TextureWrapper* m_vampire_transform;
     TextureWrapper* m_vampire;
     TextureWrapper* m_world_1_background;
     TextureWrapper* m_world_1_cave;

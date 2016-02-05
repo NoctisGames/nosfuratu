@@ -51,7 +51,7 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_areTitleTextur
     int y = 0;
     int glyphWidth = 64;
     int glyphHeight = 73;
-    int textureSize = TEXTURE_SIZE_2048;
+    int textureSize = TEXTURE_SIZE_4096;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
@@ -102,12 +102,8 @@ void Renderer::init(RendererType type)
                 m_world_1_misc = loadTexture(compressed ? "c_world_1_misc" : "world_1_misc");
                 
                 m_jon = loadTexture(compressed ? "c_jon" : "jon");
-                m_jon_ability = loadTexture(compressed ? "c_jon_ability" : "jon_ability");
-                m_jon_poses = loadTexture(compressed ? "c_jon_poses" : "jon_poses");
                 
                 m_vampire = loadTexture(compressed ? "c_vampire" : "vampire");
-                m_vampire_poses = loadTexture(compressed ? "c_vampire_poses" : "vampire_poses");
-                m_vampire_transform = loadTexture(compressed ? "c_vampire_transform" : "vampire_transform");
                 
                 m_trans_death_shader_helper = loadTexture("trans_death_shader_helper");
                 
@@ -341,7 +337,7 @@ void Renderer::renderTitleScreen()
     int y = 1040;
     int regionWidth = 2048;
     int regionHeight = 1008;
-    int textureSize = TEXTURE_SIZE_2048;
+    int textureSize = TEXTURE_SIZE_4096;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
@@ -419,7 +415,7 @@ void Renderer::renderWorldMapScreenBackground()
     int y = 0;
     int regionWidth = 2048;
     int regionHeight = 766;
-    int textureSize = TEXTURE_SIZE_2048;
+    int textureSize = TEXTURE_SIZE_4096;
     
     if (Assets::getInstance()->isUsingCompressedTextureSet())
     {
@@ -641,8 +637,6 @@ void Renderer::renderJon(Game& game)
         Jon& jon = game.getJon();
         bool isTransforming = jon.isTransformingIntoVampire() || jon.isRevertingToRabbit();
         bool isVampire = jon.isVampire();
-        bool isUsingAbility = jon.getAbilityState() != ABILITY_NONE;
-		bool isDying = jon.getState() != JON_ALIVE;
         
         /// Render Jon Effects (e.g. Dust Clouds)
         
@@ -655,58 +649,21 @@ void Renderer::renderJon(Game& game)
         
         /// Render Jon After Images
         
+        m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Jon>>::iterator i = jon.getAfterImages().begin(); i != jon.getAfterImages().end(); i++)
         {
-            m_spriteBatcher->beginBatch();
-            
             std::unique_ptr<Jon>& upItem = *i;
             Jon* pItem = upItem.get();
             Jon& item = *pItem;
             renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
-            
-            bool iisTransforming = item.isTransformingIntoVampire() || item.isRevertingToRabbit();
-            bool iisVampire = item.isVampire();
-            bool iisUsingAbility = item.getAbilityState() != ABILITY_NONE;
-            bool iisDying = item.getState() != JON_ALIVE;
-            
-            if (iisDying)
-            {
-                m_spriteBatcher->endBatch(iisVampire ? *m_vampire_poses : *m_jon_poses);
-            }
-            else if (iisTransforming)
-            {
-                m_spriteBatcher->endBatch(*m_vampire_transform);
-            }
-            else if (item.isAllowedToMove() || item.isFalling() || item.isLanding())
-            {
-                m_spriteBatcher->endBatch(iisVampire ? *m_vampire : iisUsingAbility ?  *m_jon_ability : *m_jon);
-            }
-            else
-            {
-                m_spriteBatcher->endBatch(iisVampire ? *m_vampire_poses : *m_jon_poses);
-            }
         }
+        m_spriteBatcher->endBatch(*m_vampire);
         
         /// Render Jon
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getJons());
-		if (isDying)
-		{
-			m_spriteBatcher->endBatch(isVampire ? *m_vampire_poses : *m_jon_poses);
-		}
-		else if (isTransforming)
-        {
-            m_spriteBatcher->endBatch(*m_vampire_transform);
-        }
-        else if (jon.isAllowedToMove() || jon.isFalling() || jon.isLanding())
-        {
-            m_spriteBatcher->endBatch(isVampire ? *m_vampire : isUsingAbility ?  *m_jon_ability : *m_jon);
-        }
-        else
-        {
-            m_spriteBatcher->endBatch(isVampire ? *m_vampire_poses : *m_jon_poses);
-        }
+        m_spriteBatcher->endBatch(isVampire || isTransforming ? *m_vampire : *m_jon);
     }
 }
 
@@ -865,10 +822,6 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_jon);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getTrees());
-        m_spriteBatcher->endBatch(*m_world_1_misc);
-        
-        m_spriteBatcher->beginBatch();
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
             if ((*i)->is_world_1_cave())
@@ -879,24 +832,12 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_cave);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = leep.getCaveExits().begin(); i != leep.getCaveExits().end(); i++)
-        {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
-            renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
-        }
-        
         for (std::vector<std::unique_ptr<Ground>>::iterator i = leep.getGrounds().begin(); i != leep.getGrounds().end(); i++)
         {
             if ((*i)->is_world_1_ground_w_cave())
             {
                 renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
             }
-        }
-        
-        for (std::vector<std::unique_ptr<Hole>>::iterator i = leep.getHoles().begin(); i != leep.getHoles().end(); i++)
-        {
-            renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
-            renderPhysicalEntities((*i)->getHoleCovers());
         }
         m_spriteBatcher->endBatch(*m_world_1_ground_w_cave);
         
@@ -909,60 +850,6 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
             }
         }
         m_spriteBatcher->endBatch(*m_world_1_ground_wo_cave);
-        
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getJumpSprings());
-        renderPhysicalEntities(leep.getCarrots());
-        renderPhysicalEntities(leep.getGoldenCarrots());
-        m_spriteBatcher->endBatch(*m_game_objects);
-        
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getPlatforms());
-        renderPhysicalEntities(leep.getLogVerticalTalls());
-        renderPhysicalEntities(leep.getLogVerticalShorts());
-        renderPhysicalEntities(leep.getThorns());
-        renderPhysicalEntities(leep.getStumps());
-        renderPhysicalEntities(leep.getSideSpikes());
-        renderPhysicalEntities(leep.getUpwardSpikes());
-        renderPhysicalEntities(leep.getEndSigns());
-        renderPhysicalEntitiesWithColor(leep.getRocks());
-        m_spriteBatcher->endBatch(*m_world_1_objects);
-        
-        for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = leep.getSnakeGruntEnemies().begin(); i != leep.getSnakeGruntEnemies().end(); i++)
-        {
-            std::unique_ptr<SnakeGrunt>& upItem = *i;
-            SnakeGrunt* pItem = upItem.get();
-            SnakeGrunt& item = *pItem;
-            
-            m_spriteBatcher->beginBatch();
-            m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
-            m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
-        }
-        
-        for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = leep.getSnakeHornedEnemies().begin(); i != leep.getSnakeHornedEnemies().end(); i++)
-        {
-            std::unique_ptr<SnakeHorned>& upItem = *i;
-            SnakeHorned* pItem = upItem.get();
-            SnakeHorned& item = *pItem;
-            
-            m_spriteBatcher->beginBatch();
-            m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
-            m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
-        }
-        
-        m_spriteBatcher->beginBatch();
-        for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = leep.getSnakeGruntEnemies().begin(); i != leep.getSnakeGruntEnemies().end(); i++)
-        {
-            renderPhysicalEntities((*i)->getSnakeSpirits());
-        }
-        
-        for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = leep.getSnakeHornedEnemies().begin(); i != leep.getSnakeHornedEnemies().end(); i++)
-        {
-            renderPhysicalEntities((*i)->getSnakeSpirits());
-        }
-        m_spriteBatcher->endBatch(*m_world_1_enemies);
     }
     
     if (lsp.isOpen())
@@ -1114,12 +1001,8 @@ void Renderer::cleanUp()
 		destroyTexture(*m_world_1_snake_cave);
 
 		destroyTexture(*m_jon);
-		destroyTexture(*m_jon_ability);
-		destroyTexture(*m_jon_poses);
 
 		destroyTexture(*m_vampire);
-		destroyTexture(*m_vampire_poses);
-		destroyTexture(*m_vampire_transform);
 
 		destroyTexture(*m_trans_death_shader_helper);
 

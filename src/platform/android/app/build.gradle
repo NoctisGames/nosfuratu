@@ -25,13 +25,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_LEVEL_EDITOR", "false"
         }
         debug {
             debuggable true
-            applicationIdSuffix ".le"
-            versionNameSuffix "-le"
-            buildConfigField "boolean", "IS_LEVEL_EDITOR", "true"
         }
     }
     sourceSets.main.jni.srcDirs 'src/main/jni'

@@ -53,41 +53,7 @@ public:
     
     std::vector<std::unique_ptr<Jon>>& getJons();
     
-    std::vector<std::unique_ptr<Tree>>& getTrees();
-    
     std::vector<std::unique_ptr<Ground>>& getGrounds();
-    
-    std::vector<std::unique_ptr<Hole>>& getHoles();
-    
-    std::vector<std::unique_ptr<CaveExit>>& getCaveExits();
-    
-    std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
-    
-    std::vector<std::unique_ptr<LogVerticalShort>>& getLogVerticalShorts();
-    
-    std::vector<std::unique_ptr<Thorns>>& getThorns();
-    
-    std::vector<std::unique_ptr<Stump>>& getStumps();
-    
-    std::vector<std::unique_ptr<SideSpike>>& getSideSpikes();
-    
-    std::vector<std::unique_ptr<UpwardSpike>>& getUpwardSpikes();
-    
-    std::vector<std::unique_ptr<JumpSpring>>& getJumpSprings();
-    
-    std::vector<std::unique_ptr<Rock>>& getRocks();
-    
-    std::vector<std::unique_ptr<GroundPlatform>>& getPlatforms();
-    
-    std::vector<std::unique_ptr<EndSign>>& getEndSigns();
-    
-    std::vector<std::unique_ptr<Carrot>>& getCarrots();
-    
-    std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
-    
-    std::vector<std::unique_ptr<SnakeGrunt>>& getSnakeGruntEnemies();
-    
-    std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
     
     float getEntitiesCameraPos();
     
@@ -139,24 +105,7 @@ private:
     }
     
     std::vector<std::unique_ptr<Jon>> m_jons;
-    std::vector<std::unique_ptr<Tree>> m_trees;
     std::vector<std::unique_ptr<Ground>> m_grounds;
-    std::vector<std::unique_ptr<Hole>> m_holes;
-    std::vector<std::unique_ptr<CaveExit>> m_caveExits;
-    std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
-    std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
-    std::vector<std::unique_ptr<Thorns>> m_thorns;
-    std::vector<std::unique_ptr<Stump>> m_stumps;
-    std::vector<std::unique_ptr<SideSpike>> m_sideSpikes;
-    std::vector<std::unique_ptr<UpwardSpike>> m_upwardSpikes;
-    std::vector<std::unique_ptr<JumpSpring>> m_jumpSprings;
-    std::vector<std::unique_ptr<Rock>> m_rocks;
-    std::vector<std::unique_ptr<GroundPlatform>> m_platforms;
-    std::vector<std::unique_ptr<EndSign>> m_endSigns;
-    std::vector<std::unique_ptr<Carrot>> m_carrots;
-    std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
-    std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
-    std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

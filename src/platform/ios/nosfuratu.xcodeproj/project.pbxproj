@@ -111,14 +111,10 @@
 		BB939CEB1C626E41006D945A /* vampire_glide_loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C961C626E41006D945A /* vampire_glide_loop.wav */; };
 		BB939CEC1C626E41006D945A /* c_game_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C991C626E41006D945A /* c_game_objects.png */; };
 		BB939CED1C626E41006D945A /* c_jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9A1C626E41006D945A /* c_jon.png */; };
-		BB939CEE1C626E41006D945A /* c_jon_ability.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9B1C626E41006D945A /* c_jon_ability.png */; };
-		BB939CEF1C626E41006D945A /* c_jon_poses.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9C1C626E41006D945A /* c_jon_poses.png */; };
 		BB939CF01C626E41006D945A /* c_level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9D1C626E41006D945A /* c_level_editor.png */; };
 		BB939CF11C626E41006D945A /* c_title_font.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9E1C626E41006D945A /* c_title_font.png */; };
 		BB939CF21C626E41006D945A /* c_trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939C9F1C626E41006D945A /* c_trans_death_shader_helper.png */; };
 		BB939CF31C626E41006D945A /* c_vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA01C626E41006D945A /* c_vampire.png */; };
-		BB939CF41C626E41006D945A /* c_vampire_poses.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA11C626E41006D945A /* c_vampire_poses.png */; };
-		BB939CF51C626E41006D945A /* c_vampire_transform.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA21C626E41006D945A /* c_vampire_transform.png */; };
 		BB939CF61C626E41006D945A /* c_world_1_background.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA31C626E41006D945A /* c_world_1_background.png */; };
 		BB939CF71C626E41006D945A /* c_world_1_cave.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA41C626E41006D945A /* c_world_1_cave.png */; };
 		BB939CF81C626E41006D945A /* c_world_1_enemies.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CA51C626E41006D945A /* c_world_1_enemies.png */; };
@@ -130,14 +126,10 @@
 		BB939CFE1C626E41006D945A /* c_world_map.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CAB1C626E41006D945A /* c_world_map.png */; };
 		BB939D011C626E41006D945A /* game_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CAE1C626E41006D945A /* game_objects.png */; };
 		BB939D021C626E41006D945A /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CAF1C626E41006D945A /* jon.png */; };
-		BB939D031C626E41006D945A /* jon_ability.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CB01C626E41006D945A /* jon_ability.png */; };
-		BB939D041C626E41006D945A /* jon_poses.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CB11C626E41006D945A /* jon_poses.png */; };
 		BB939D051C626E41006D945A /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CB21C626E41006D945A /* level_editor.png */; };
 		BB939D191C626E41006D945A /* title_font.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC71C626E41006D945A /* title_font.png */; };
 		BB939D1A1C626E41006D945A /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC81C626E41006D945A /* trans_death_shader_helper.png */; };
 		BB939D1B1C626E41006D945A /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC91C626E41006D945A /* vampire.png */; };
-		BB939D1C1C626E41006D945A /* vampire_poses.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CCA1C626E41006D945A /* vampire_poses.png */; };
-		BB939D1D1C626E41006D945A /* vampire_transform.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CCB1C626E41006D945A /* vampire_transform.png */; };
 		BB939D1E1C626E41006D945A /* world_1_background.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CCC1C626E41006D945A /* world_1_background.png */; };
 		BB939D1F1C626E41006D945A /* world_1_cave.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CCD1C626E41006D945A /* world_1_cave.png */; };
 		BB939D201C626E41006D945A /* world_1_enemies.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CCE1C626E41006D945A /* world_1_enemies.png */; };
@@ -426,14 +418,10 @@
 		BB939C961C626E41006D945A /* vampire_glide_loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = vampire_glide_loop.wav; sourceTree = "<group>"; };
 		BB939C991C626E41006D945A /* c_game_objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_game_objects.png; sourceTree = "<group>"; };
 		BB939C9A1C626E41006D945A /* c_jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_jon.png; sourceTree = "<group>"; };
-		BB939C9B1C626E41006D945A /* c_jon_ability.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_jon_ability.png; sourceTree = "<group>"; };
-		BB939C9C1C626E41006D945A /* c_jon_poses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_jon_poses.png; sourceTree = "<group>"; };
 		BB939C9D1C626E41006D945A /* c_level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_level_editor.png; sourceTree = "<group>"; };
 		BB939C9E1C626E41006D945A /* c_title_font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_title_font.png; sourceTree = "<group>"; };
 		BB939C9F1C626E41006D945A /* c_trans_death_shader_helper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_trans_death_shader_helper.png; sourceTree = "<group>"; };
 		BB939CA01C626E41006D945A /* c_vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_vampire.png; sourceTree = "<group>"; };
-		BB939CA11C626E41006D945A /* c_vampire_poses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_vampire_poses.png; sourceTree = "<group>"; };
-		BB939CA21C626E41006D945A /* c_vampire_transform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_vampire_transform.png; sourceTree = "<group>"; };
 		BB939CA31C626E41006D945A /* c_world_1_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_background.png; sourceTree = "<group>"; };
 		BB939CA41C626E41006D945A /* c_world_1_cave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_cave.png; sourceTree = "<group>"; };
 		BB939CA51C626E41006D945A /* c_world_1_enemies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_enemies.png; sourceTree = "<group>"; };
@@ -447,15 +435,11 @@
 		BB939CAD1C626E41006D945A /* create_compressed_textures.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = create_compressed_textures.sh; sourceTree = "<group>"; };
 		BB939CAE1C626E41006D945A /* game_objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_objects.png; sourceTree = "<group>"; };
 		BB939CAF1C626E41006D945A /* jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon.png; sourceTree = "<group>"; };
-		BB939CB01C626E41006D945A /* jon_ability.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon_ability.png; sourceTree = "<group>"; };
-		BB939CB11C626E41006D945A /* jon_poses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon_poses.png; sourceTree = "<group>"; };
 		BB939CB21C626E41006D945A /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BB939CB31C626E41006D945A /* merge_images.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = merge_images.py; sourceTree = "<group>"; };
 		BB939CC71C626E41006D945A /* title_font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_font.png; sourceTree = "<group>"; };
 		BB939CC81C626E41006D945A /* trans_death_shader_helper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trans_death_shader_helper.png; sourceTree = "<group>"; };
 		BB939CC91C626E41006D945A /* vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire.png; sourceTree = "<group>"; };
-		BB939CCA1C626E41006D945A /* vampire_poses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire_poses.png; sourceTree = "<group>"; };
-		BB939CCB1C626E41006D945A /* vampire_transform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire_transform.png; sourceTree = "<group>"; };
 		BB939CCC1C626E41006D945A /* world_1_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background.png; sourceTree = "<group>"; };
 		BB939CCD1C626E41006D945A /* world_1_cave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_cave.png; sourceTree = "<group>"; };
 		BB939CCE1C626E41006D945A /* world_1_enemies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_enemies.png; sourceTree = "<group>"; };
@@ -886,15 +870,11 @@
 				BB939CAC1C626E41006D945A /* create_compressed_textures.py */,
 				BB939CAD1C626E41006D945A /* create_compressed_textures.sh */,
 				BB939CAE1C626E41006D945A /* game_objects.png */,
-				BB939CB01C626E41006D945A /* jon_ability.png */,
-				BB939CB11C626E41006D945A /* jon_poses.png */,
 				BB939CAF1C626E41006D945A /* jon.png */,
 				BB939CB21C626E41006D945A /* level_editor.png */,
 				BB939CB31C626E41006D945A /* merge_images.py */,
 				BB939CC71C626E41006D945A /* title_font.png */,
 				BB939CC81C626E41006D945A /* trans_death_shader_helper.png */,
-				BB939CCA1C626E41006D945A /* vampire_poses.png */,
-				BB939CCB1C626E41006D945A /* vampire_transform.png */,
 				BB939CC91C626E41006D945A /* vampire.png */,
 				BB939CCC1C626E41006D945A /* world_1_background.png */,
 				BB939CCD1C626E41006D945A /* world_1_cave.png */,
@@ -913,14 +893,10 @@
 			isa = PBXGroup;
 			children = (
 				BB939C991C626E41006D945A /* c_game_objects.png */,
-				BB939C9B1C626E41006D945A /* c_jon_ability.png */,
-				BB939C9C1C626E41006D945A /* c_jon_poses.png */,
 				BB939C9A1C626E41006D945A /* c_jon.png */,
 				BB939C9D1C626E41006D945A /* c_level_editor.png */,
 				BB939C9E1C626E41006D945A /* c_title_font.png */,
 				BB939C9F1C626E41006D945A /* c_trans_death_shader_helper.png */,
-				BB939CA11C626E41006D945A /* c_vampire_poses.png */,
-				BB939CA21C626E41006D945A /* c_vampire_transform.png */,
 				BB939CA01C626E41006D945A /* c_vampire.png */,
 				BB939CA31C626E41006D945A /* c_world_1_background.png */,
 				BB939CA41C626E41006D945A /* c_world_1_cave.png */,
@@ -1489,7 +1465,6 @@
 			files = (
 				BB939CEA1C626E41006D945A /* trigger_transform.wav in Resources */,
 				BB939D201C626E41006D945A /* world_1_enemies.png in Resources */,
-				BB939D1D1C626E41006D945A /* vampire_transform.png in Resources */,
 				BB939CFE1C626E41006D945A /* c_world_map.png in Resources */,
 				BB939CE21C626E41006D945A /* jon_rabbit_jump.wav in Resources */,
 				BB939D251C626E41006D945A /* world_1_snake_cave.png in Resources */,
@@ -1497,7 +1472,6 @@
 				BB939CE61C626E41006D945A /* jump_spring_heavy.wav in Resources */,
 				BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
-				BB939CF41C626E41006D945A /* c_vampire_poses.png in Resources */,
 				BB939CF01C626E41006D945A /* c_level_editor.png in Resources */,
 				BB939CE91C626E41006D945A /* snake_death.wav in Resources */,
 				BBEA16A51B97B9BB009B4711 /* frame_buffer_to_screen_shader.vsh in Resources */,
@@ -1506,25 +1480,20 @@
 				BB939CFC1C626E41006D945A /* c_world_1_objects.png in Resources */,
 				BB939CE01C626E41006D945A /* footstep_right_grass.wav in Resources */,
 				BB939CF71C626E41006D945A /* c_world_1_cave.png in Resources */,
-				BB939CF51C626E41006D945A /* c_vampire_transform.png in Resources */,
 				BB939D1E1C626E41006D945A /* world_1_background.png in Resources */,
-				BB939CEE1C626E41006D945A /* c_jon_ability.png in Resources */,
 				BB939CEC1C626E41006D945A /* c_game_objects.png in Resources */,
 				BB939CDC1C626E41006D945A /* destroy_rock.wav in Resources */,
 				BB939D051C626E41006D945A /* level_editor.png in Resources */,
-				BB939D031C626E41006D945A /* jon_ability.png in Resources */,
 				BB939CF21C626E41006D945A /* c_trans_death_shader_helper.png in Resources */,
 				BB939CE81C626E41006D945A /* landing_grass.wav in Resources */,
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
 				BB939CDE1C626E41006D945A /* footstep_left_grass.wav in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB939CFD1C626E41006D945A /* c_world_1_snake_cave.png in Resources */,
-				BB939D1C1C626E41006D945A /* vampire_poses.png in Resources */,
 				BB939CFB1C626E41006D945A /* c_world_1_misc.png in Resources */,
 				BB939CED1C626E41006D945A /* c_jon.png in Resources */,
 				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */,
-				BB939D041C626E41006D945A /* jon_poses.png in Resources */,
 				BB939CF91C626E41006D945A /* c_world_1_ground_w_cave.png in Resources */,
 				BB939CF11C626E41006D945A /* c_title_font.png in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
@@ -1550,7 +1519,6 @@
 				BB939D191C626E41006D945A /* title_font.png in Resources */,
 				BB939CDD1C626E41006D945A /* footstep_left_cave.wav in Resources */,
 				BB939D1F1C626E41006D945A /* world_1_cave.png in Resources */,
-				BB939CEF1C626E41006D945A /* c_jon_poses.png in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
 				BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */,
