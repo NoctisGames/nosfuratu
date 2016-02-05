@@ -350,7 +350,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 	return indices;
 }
 
-Direct3DManager::Direct3DManager() : m_iFps(0)
+Direct3DManager::Direct3DManager()
 {
 	// Hide Constructor for Singleton
 }

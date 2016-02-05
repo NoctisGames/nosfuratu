@@ -25,8 +25,15 @@ namespace NosFURatu
 		void LoadInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 
 	private:
-		// XAML low-level rendering event handler.
-		void OnRendering(Platform::Object^ sender, Platform::Object^ args);
+		// Track our independent input on a background worker thread.
+		Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
+		Windows::UI::Core::CoreIndependentInputSource^ m_coreInput;
+
+		// Resources used to render the DirectX content in the XAML page background.
+		std::shared_ptr<DX::DeviceResources> m_deviceResources;
+		std::unique_ptr<NosFURatuMain> m_main;
+		bool m_windowVisible;
+		bool m_isPointerPressed;
 
 		// Window event handlers.
 		void OnVisibilityChanged(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::VisibilityChangedEventArgs^ args);
@@ -43,20 +50,10 @@ namespace NosFURatu
 		// Back Button Handling (only for Windows Phone)
 		void OnBackPressed(Platform::Object^ sender, Windows::Phone::UI::Input::BackPressedEventArgs^ args);
 
-		// Track our independent input on a background worker thread.
-		Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
-		Windows::UI::Core::CoreIndependentInputSource^ m_coreInput;
-
 		// Independent input handling functions.
 		void OnPointerPressed(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 		void OnPointerMoved(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 		void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
-
-		// Resources used to render the DirectX content in the XAML page background.
-		std::shared_ptr<DX::DeviceResources> m_deviceResources;
-		std::unique_ptr<NosFURatuMain> m_main; 
-		bool m_windowVisible;
-		bool m_isPointerPressed;
 	};
 }
 

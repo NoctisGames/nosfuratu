@@ -1,15 +1,17 @@
 ﻿#include "pch.h"
 #include "NosFURatuMain.h"
 #include "DirectXHelper.h"
+#include "LevelEditor.h"
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
 using namespace Windows::System::Profile;
 using namespace Windows::System::Threading;
+using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources)
+NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources), m_mediaPlayer(nullptr)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -17,6 +19,30 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
 	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
 	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isMobile));
+
+	// Load Sound Effects
+	m_sounds.push_back("collect_carrot.wav");
+	m_sounds.push_back("collect_golden_carrot.wav");
+	m_sounds.push_back("death.wav");
+	m_sounds.push_back("footstep_left_grass.wav");
+	m_sounds.push_back("footstep_right_grass.wav");
+	m_sounds.push_back("footstep_left_cave.wav");
+	m_sounds.push_back("footstep_right_cave.wav");
+	m_sounds.push_back("jump_spring.wav");
+	m_sounds.push_back("landing_grass.wav");
+	m_sounds.push_back("landing_cave.wav");
+	m_sounds.push_back("break_log.wav");
+	m_sounds.push_back("destroy_rock.wav");
+	m_sounds.push_back("snake_death.wav");
+	m_sounds.push_back("trigger_transform.wav");
+	m_sounds.push_back("cancel_transform.wav");
+	m_sounds.push_back("complete_transform.wav");
+	m_sounds.push_back("jump_spring_heavy.wav");
+	m_sounds.push_back("jon_rabbit_jump.wav");
+	m_sounds.push_back("jon_vampire_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("vampire_glide_loop.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -58,12 +84,21 @@ void NosFURatuMain::StartRenderLoop()
 	m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
 	m_gameScreen->onResume();
+
+	GameSound::getSoundPlayerInstance()->Resume();
 }
 
 void NosFURatuMain::StopRenderLoop()
 {
 	m_renderLoopWorker->Cancel();
 	m_gameScreen->onPause();
+
+	GameSound::getSoundPlayerInstance()->Suspend();
+
+	if (m_mediaPlayer)
+	{
+		m_mediaPlayer->Pause();
+	}
 }
 
 void NosFURatuMain::onTouchDown(float screenX, float screenY)
@@ -90,6 +125,9 @@ bool NosFURatuMain::handleOnBackPressed()
 void NosFURatuMain::OnDeviceLost()
 {
 	m_gameScreen->ReleaseDeviceDependentResources();
+
+	m_mediaPlayer->Shutdown();
+	m_mediaPlayer = nullptr;
 }
 
 // Notifies renderers that device resources may now be recreated.
@@ -103,7 +141,28 @@ void NosFURatuMain::Update()
 {
 	m_timer.Tick([&]()
 	{
-		m_gameScreen->Update(m_timer);
+		int requestedAction = m_gameScreen->getRequestedAction();
+		if (requestedAction >= 1000)
+		{
+			requestedAction /= 1000;
+		}
+
+		switch (requestedAction)
+		{
+		case REQUESTED_ACTION_UPDATE:
+			m_gameScreen->update(m_timer.GetElapsedSeconds());
+			break;
+		case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+			saveLevel(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
+			break;
+		case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+			loadLevel(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
+			break;
+		default:
+			break;
+		}
 	});
 }
 
@@ -127,7 +186,246 @@ bool NosFURatuMain::Render()
 	context->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), DirectX::Colors::Black);
 	context->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
-	m_gameScreen->Render();
+	m_gameScreen->render();
+
+	handleSound();
+	handleMusic();
 
 	return true;
+}
+
+void NosFURatuMain::handleSound()
+{
+	short soundId;
+	while ((soundId = Assets::getInstance()->getFirstSoundId()) > 0)
+	{
+		Assets::getInstance()->eraseFirstSoundId();
+
+		switch (soundId)
+		{
+		case SOUND_COLLECT_CARROT:
+			m_sounds.at(0).play();
+			break;
+		case SOUND_COLLECT_GOLDEN_CARROT:
+			m_sounds.at(1).play();
+			break;
+		case SOUND_DEATH:
+			m_sounds.at(2).play();
+			break;
+		case SOUND_FOOTSTEP_LEFT_GRASS:
+			m_sounds.at(3).play();
+			break;
+		case SOUND_FOOTSTEP_RIGHT_GRASS:
+			m_sounds.at(4).play();
+			break;
+		case SOUND_FOOTSTEP_LEFT_CAVE:
+			m_sounds.at(5).play();
+			break;
+		case SOUND_FOOTSTEP_RIGHT_CAVE:
+			m_sounds.at(6).play();
+			break;
+		case SOUND_JUMP_SPRING:
+			m_sounds.at(7).play();
+			break;
+		case SOUND_LANDING_GRASS:
+			m_sounds.at(8).play();
+			break;
+		case SOUND_LANDING_CAVE:
+			m_sounds.at(9).play();
+			break;
+		case SOUND_BREAK_LOG:
+			m_sounds.at(10).play();
+			break;
+		case SOUND_DESTROY_ROCK:
+			m_sounds.at(11).play();
+			break;
+		case SOUND_SNAKE_DEATH:
+			m_sounds.at(12).play();
+			break;
+		case SOUND_TRIGGER_TRANSFORM:
+			m_sounds.at(13).play();
+			break;
+		case SOUND_CANCEL_TRANSFORM:
+			m_sounds.at(14).play();
+			break;
+		case SOUND_COMPLETE_TRANSFORM:
+			m_sounds.at(15).play();
+			break;
+		case SOUND_JUMP_SPRING_HEAVY:
+			m_sounds.at(16).play();
+			break;
+		case SOUND_JON_RABBIT_JUMP:
+			m_sounds.at(17).play();
+			break;
+		case SOUND_JON_VAMPIRE_JUMP:
+			m_sounds.at(18).play();
+			break;
+		case SOUND_JON_RABBIT_DOUBLE_JUMP:
+			m_sounds.at(19).play();
+			break;
+		case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
+			m_sounds.at(20).play();
+			break;
+		case SOUND_JON_VAMPIRE_GLIDE:
+			m_sounds.at(21).play(true);
+			break;
+		case SOUND_STOP_JON_VAMPIRE_GLIDE:
+			m_sounds.at(21).stop();
+			break;
+		default:
+			continue;
+		}
+	}
+}
+
+void NosFURatuMain::handleMusic()
+{
+	short musicId = Assets::getInstance()->getMusicId();
+	Assets::getInstance()->setMusicId(0);
+
+	switch (musicId)
+	{
+	case MUSIC_STOP:
+		if (m_mediaPlayer)
+		{
+			m_mediaPlayer->Shutdown();
+			m_mediaPlayer = nullptr;
+		}
+		break;
+	case MUSIC_RESUME:
+		m_mediaPlayer->Play();
+		break;
+	case MUSIC_PLAY_DEMO:
+		// Load Background Music
+		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+		m_mediaPlayer->SetSource("bgm.wav");
+		m_mediaPlayer->Play();
+		break;
+	default:
+		break;
+	}
+}
+
+void NosFURatuMain::saveLevel(int requestedAction)
+{
+	Platform::String^ filename = getLevelName(requestedAction);
+	create_task(KnownFolders::PicturesLibrary->CreateFileAsync(filename, CreationCollisionOption::ReplaceExisting)).then([this](StorageFile^ file)
+	{
+		if (file != nullptr)
+		{
+			const char *level_json = LevelEditor::getInstance()->save();
+			std::string s(level_json);
+			std::wstring ws;
+			ws.assign(s.begin(), s.end());
+			Platform::String^ levelJson = ref new Platform::String(ws.c_str());
+			if (levelJson != nullptr && !levelJson->IsEmpty())
+			{
+				create_task(FileIO::WriteTextAsync(file, levelJson)).then([this, file, levelJson](task<void> task)
+				{
+					try
+					{
+						task.get();
+
+						displayToast(L"Level saved successfully");
+					}
+					catch (Platform::COMException^ ex)
+					{
+						displayToast(L"Error occurred while saving level... Please try again!");
+					}
+				});
+			}
+			else
+			{
+				displayToast(L"Error occurred while saving level... Please try again!");
+			}
+		}
+	});
+}
+
+void NosFURatuMain::loadLevel(int requestedAction)
+{
+	Platform::String^ filename = getLevelName(requestedAction);
+	create_task(KnownFolders::PicturesLibrary->CreateFileAsync(filename, CreationCollisionOption::OpenIfExists)).then([this](StorageFile^ file)
+	{
+		if (file != nullptr)
+		{
+			create_task(FileIO::ReadTextAsync(file)).then([this, file](task<Platform::String^> task)
+			{
+				try
+				{
+					Platform::String^ fileContent = task.get();
+					if (fileContent != nullptr)
+					{
+						std::wstring fooW(fileContent->Begin());
+						std::string fooA(fooW.begin(), fooW.end());
+						const char *levelContent = fooA.c_str();
+						LevelEditor::getInstance()->load(levelContent);
+
+						displayToast(L"Level loaded successfully");
+					}
+					else
+					{
+						displayToast(L"Error occurred while loading level...");
+					}
+				}
+				catch (Platform::COMException^ ex)
+				{
+					displayToast(L"Error occurred while loading level...");
+				}
+			});
+		}
+	});
+}
+
+Platform::String^ NosFURatuMain::getLevelName(int requestedAction)
+{
+	int world = 0;
+	int level = 0;
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	while (requestedAction >= 100)
+	{
+		requestedAction -= 100;
+		world++;
+	}
+
+	while (requestedAction >= 1)
+	{
+		requestedAction--;
+		level++;
+	}
+
+	if (world > 0 && level > 0)
+	{
+		return L"nosfuratu_c" + world + L"_l" + level + L".json";
+	}
+	else
+	{
+		return L"nosfuratu.json";
+	}
+}
+
+void NosFURatuMain::displayToast(Platform::String^ message)
+{
+	Platform::String^ toast = "<toast>"
+		+ "<visual>"
+		+ "<binding template = \"ToastGeneric\" >"
+		+ "<text>"
+		+ message
+		+ "</text>"
+		+ "</binding>"
+		+ "</visual>"
+		+ "</toast>";
+
+	Windows::Data::Xml::Dom::XmlDocument^ toastDOM = ref new Windows::Data::Xml::Dom::XmlDocument();
+	toastDOM->LoadXml(toast);
+
+	ToastNotification^ toastNotification = ref new ToastNotification(toastDOM);
+
+	Windows::UI::Notifications::ToastNotifier^ toastNotifier = Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier();
+	toastNotifier->Show(toastNotification);
 }

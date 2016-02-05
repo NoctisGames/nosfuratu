@@ -50,8 +50,6 @@ public:
 	// All above rendering takes place inside this matrix
 	DirectX::XMMATRIX m_matFinal;
 
-	int m_iFps;
-
 	std::unique_ptr<Direct3DTextureGpuProgramWrapper> m_textureProgram;
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
 	std::unique_ptr<Direct3DFramebufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
