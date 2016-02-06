@@ -28,6 +28,7 @@
 #include "Tree.h"
 #include "DustCloud.h"
 #include "BackButton.h"
+#include "LevelEditorButton.h"
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
@@ -400,6 +401,15 @@ void Renderer::renderLoadingTextOnTitleScreen()
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth / 2, fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     }
     
+    m_spriteBatcher->endBatch(*m_title_font);
+}
+
+void Renderer::renderTitleScreenUi(LevelEditorButton& levelEditorButton)
+{
+    /// Render Level Editor Button
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(levelEditorButton, Assets::getInstance()->get(levelEditorButton));
     m_spriteBatcher->endBatch(*m_title_font);
 }
 

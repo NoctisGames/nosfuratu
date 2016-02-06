@@ -31,6 +31,7 @@ class ShockwaveTextureGpuProgramWrapper;
 class TransDeathGpuProgramWrapper;
 class Vector2D;
 class BackButton;
+class LevelEditorButton;
 class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class TrashCan;
@@ -72,6 +73,8 @@ public:
     void zoomIn();
     
     void renderTitleScreen();
+    
+    void renderTitleScreenUi(LevelEditorButton& levelEditorButton);
     
     void renderLoadingTextOnTitleScreen();
     

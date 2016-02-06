@@ -38,10 +38,12 @@ void Title::execute(GameScreen* gs)
         
         gs->m_renderer->renderTitleScreen();
         
-        if (m_isRequestingNextState)
+        if (m_isRequestingNextState || m_isRequestingLevelEditor)
         {
             gs->m_renderer->renderLoadingTextOnTitleScreen();
         }
+        
+        gs->m_renderer->renderTitleScreenUi(*m_levelEditorButton);
         
         gs->m_renderer->renderToScreen();
         
@@ -53,11 +55,17 @@ void Title::execute(GameScreen* gs)
         {
             gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
         }
+        else if (m_isRequestingLevelEditor)
+        {
+            gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
+        }
         
         gs->processTouchEvents();
         
         for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
+            gs->touchToWorld((*i));
+            
             switch (i->getTouchType())
             {
                 case DOWN:
@@ -65,7 +73,16 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    m_isRequestingNextState = true;
+                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getBounds()))
+                    {
+                        m_isRequestingLevelEditor = true;
+                    }
+                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
+                    {
+                        m_isRequestingNextState = true;
+                    }
+                    
+                    return;
             }
         }
     }
@@ -74,11 +91,17 @@ void Title::execute(GameScreen* gs)
 void Title::exit(GameScreen* gs)
 {
     m_isRequestingNextState = false;
+    m_isRequestingLevelEditor = false;
 }
 
-Title::Title() : m_isRequestingNextState(false)
+LevelEditorButton& Title::getLevelEditorButton()
 {
-    // Empty
+    return *m_levelEditorButton;
+}
+
+Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
+{
+    m_levelEditorButton = std::unique_ptr<LevelEditorButton>(new LevelEditorButton());
 }
 
 /// Title To World Map Transition ///
@@ -103,6 +126,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderTitleScreen();
+        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
         gs->m_renderer->renderLoadingTextOnTitleScreen();
         
         gs->m_renderer->setFramebuffer(1);
@@ -131,6 +155,64 @@ void TitleToWorldMap::exit(GameScreen* gs)
 }
 
 TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
+/// Title To Level Editor Transition ///
+
+TitleToLevelEditor * TitleToLevelEditor::getInstance()
+{
+    static TitleToLevelEditor *instance = new TitleToLevelEditor();
+    
+    return instance;
+}
+
+void TitleToLevelEditor::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = 0;
+    LevelEditor::getInstance()->enter(gs);
+}
+
+void TitleToLevelEditor::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame();
+        
+        gs->m_renderer->renderTitleScreen();
+        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
+        gs->m_renderer->renderLoadingTextOnTitleScreen();
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderWorld(LevelEditor::getInstance()->getGame());
+        
+        gs->m_renderer->renderJon(LevelEditor::getInstance()->getGame());
+        
+        gs->m_renderer->renderLevelEditor(LevelEditor::getInstance()->getLevelEditorActionsPanel(), LevelEditor::getInstance()->getLevelEditorEntitiesPanel(), LevelEditor::getInstance()->getTrashCan(), LevelEditor::getInstance()->getLevelSelectorPanel());
+        
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        m_fTransitionStateTime += gs->m_fDeltaTime;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(LevelEditor::getInstance());
+        }
+    }
+}
+
+void TitleToLevelEditor::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = 0;
+}
+
+TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
 {
     // Empty
 }
@@ -196,7 +278,6 @@ void WorldMap::execute(GameScreen* gs)
                     if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
                     {
                         gs->m_stateMachine->revertToPreviousState();
-						return;
                     }
                     else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
                     {
@@ -213,6 +294,8 @@ void WorldMap::execute(GameScreen* gs)
                             m_iLevelToLoad = 1;
                         }
                     }
+                    
+                    return;
             }
         }
     }

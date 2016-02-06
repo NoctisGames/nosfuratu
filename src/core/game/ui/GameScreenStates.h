@@ -11,6 +11,7 @@
 
 #include "State.h"
 #include "BackButton.h"
+#include "LevelEditorButton.h"
 
 #include <memory>
 
@@ -28,8 +29,12 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    LevelEditorButton& getLevelEditorButton();
+    
 private:
+    std::unique_ptr<LevelEditorButton> m_levelEditorButton;
     bool m_isRequestingNextState;
+    bool m_isRequestingLevelEditor;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();
@@ -55,6 +60,26 @@ private:
     TitleToWorldMap();
     TitleToWorldMap(const TitleToWorldMap&);
     TitleToWorldMap& operator=(const TitleToWorldMap&);
+};
+
+class TitleToLevelEditor : public State<GameScreen>
+{
+public:
+    static TitleToLevelEditor* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    float m_fTransitionStateTime;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    TitleToLevelEditor();
+    TitleToLevelEditor(const TitleToLevelEditor&);
+    TitleToLevelEditor& operator=(const TitleToLevelEditor&);
 };
 
 class WorldMap : public State<GameScreen>

@@ -34,6 +34,16 @@ public:
     
     void load(const char* json);
     
+    Game& getGame();
+    
+    LevelEditorActionsPanel& getLevelEditorActionsPanel();
+    
+    LevelEditorEntitiesPanel& getLevelEditorEntitiesPanel();
+    
+    TrashCan& getTrashCan();
+    
+    LevelSelectorPanel& getLevelSelectorPanel();
+    
 private:
     std::unique_ptr<Game> m_game;
     std::unique_ptr<LevelEditorActionsPanel> m_levelEditorActionsPanel;

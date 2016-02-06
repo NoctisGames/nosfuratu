@@ -32,6 +32,7 @@
 #include "BackgroundTrees.h"
 #include "BackgroundCave.h"
 #include "BackButton.h"
+#include "LevelEditorButton.h"
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
@@ -104,6 +105,8 @@ public:
     TextureRegion& get(DustCloud& dustCloud);
     
     TextureRegion& get(BackButton& backButton);
+    
+    TextureRegion& get(LevelEditorButton& levelEditorButton);
     
     TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
     

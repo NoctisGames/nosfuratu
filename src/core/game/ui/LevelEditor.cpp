@@ -139,6 +139,33 @@ void LevelEditor::load(const char* json)
     resetEntities(true);
 }
 
+Game& LevelEditor::getGame()
+{
+    return *m_game;
+}
+
+LevelEditorActionsPanel& LevelEditor::getLevelEditorActionsPanel()
+{
+    return *m_levelEditorActionsPanel;
+}
+
+LevelEditorEntitiesPanel& LevelEditor::getLevelEditorEntitiesPanel()
+{
+    return *m_levelEditorEntitiesPanel;
+}
+
+TrashCan& LevelEditor::getTrashCan()
+{
+    return *m_trashCan;
+}
+
+LevelSelectorPanel& LevelEditor::getLevelSelectorPanel()
+{
+    return *m_levelSelectorPanel;
+}
+
+#pragma mark private
+
 void LevelEditor::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
@@ -185,6 +212,9 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     m_game->reset();
                     enter(gs);
 					return;
+                case LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT:
+                    gs->m_stateMachine->revertToPreviousState();
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (m_game->getJons().size() > 0)
                     {
@@ -192,7 +222,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         gs->m_stateMachine->changeState(GamePlay::getInstance());
 						return;
                     }
-                    break;
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO:
                     if (m_addedEntities.size() > 0)
                     {
@@ -201,7 +231,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         
                         resetEntities(true);
                     }
-                    break;
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
                     m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
                     return;
@@ -210,7 +240,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     {
                         m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_SAVE);
                     }
-                    break;
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
                 default:
                     break;

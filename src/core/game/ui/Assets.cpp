@@ -564,6 +564,12 @@ TextureRegion& Assets::get(BackButton& backButton)
     return tr;
 }
 
+TextureRegion& Assets::get(LevelEditorButton& levelEditorButton)
+{
+    static TextureRegion tr = createTextureRegion(1824, 119, 189, 61, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    return tr;
+}
+
 TextureRegion& Assets::get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel)
 {
     static TextureRegion tr = TextureRegion(0, 33, 593, 1338, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);

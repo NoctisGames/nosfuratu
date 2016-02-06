@@ -55,7 +55,7 @@
 //// Texture Definitions ////
 
 #define TEXTURE_SIZE_2048 2048
-#define TEXTURE_SIZE_4096 4096
+#define TEXTURE_SIZE_4096 2048 // temporary
 #define PIXEL_WIDTH_FOR_BACKGROUND 684.0f
 
 //// Matrix Definitions ////
