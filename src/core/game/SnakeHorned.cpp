@@ -12,9 +12,9 @@
 
 #include <math.h>
 
-SnakeHorned* SnakeHorned::create(float x, float y, int type)
+SnakeHorned* SnakeHorned::create(int gridX, int gridY, int type)
 {
-    return new SnakeHorned(x, y);
+    return new SnakeHorned(gridX, gridY);
 }
 
 SnakeHorned::SnakeHorned(float x, float y, float width, float height) : SnakeEnemy(x, y, width, height), m_isRising(false)

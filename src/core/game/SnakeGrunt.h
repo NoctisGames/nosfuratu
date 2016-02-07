@@ -14,7 +14,7 @@
 class SnakeGrunt : public SnakeEnemy
 {
 public:
-    static SnakeGrunt* create(float x, float y, int type);
+    static SnakeGrunt* create(int gridX, int gridY, int type);
     
     SnakeGrunt(float x, float y, float width = 3.0681647940074908f, float height = 3.0679094540612515f);
     

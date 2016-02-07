@@ -24,7 +24,7 @@ typedef enum
 class Rock : public DestructiblePhysicalEntity
 {
 public:
-    static Rock* create(float x, float y, int type);
+    static Rock* create(int gridX, int gridY, int type);
     
     Rock(float x, float y, float width = ROCK_WIDTH, float height = ROCK_HEIGHT, bool isCracked = false, RockType type = RockType_Rock);
     

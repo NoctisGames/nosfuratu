@@ -11,18 +11,18 @@
 
 #define HOLE_WIDTH 3.2046783625730995f
 
-CaveExit* CaveExit::create(float x, float y, int type)
+CaveExit* CaveExit::create(int gridX, int gridY, int type)
 {
     CaveExit* pCaveExit;
     
     switch ((CaveExitType)type)
     {
         case CaveExitType_End:
-            pCaveExit = new CaveExitEnd(x);
+            pCaveExit = new CaveExitEnd(gridX);
             break;
         case CaveExitType_Mid:
         default:
-            pCaveExit = new CaveExitMid(x);
+            pCaveExit = new CaveExitMid(gridX);
             break;
     }
     
@@ -41,7 +41,7 @@ void CaveExit::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    EntityUtils::updateAndClean(m_caveExitCovers, deltaTime);
+    //EntityUtils::updateAndClean(m_caveExitCovers, deltaTime);
     
     for (std::vector<std::unique_ptr<CaveExitCover>>::iterator i = m_caveExitCovers.begin(); i != m_caveExitCovers.end(); i++)
     {

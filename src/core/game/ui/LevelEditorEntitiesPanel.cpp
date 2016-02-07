@@ -14,8 +14,6 @@
 #include "Game.h"
 #include "EntityUtils.h"
 
-#include <math.h>
-
 LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_fEntitiesCameraPos(0), m_fEntitiesHeight(0)
 {
     m_openButton = std::unique_ptr<Rectangle>(new Rectangle(CAM_WIDTH - 1, height * 0.49081920903955f, 1, 1));
@@ -23,37 +21,51 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
+    m_jons.push_back(new Jon(0, 0, 1, 1));
+    
+    m_grounds.push_back(new CaveExtraDeepEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new CaveExtraDeepSmall(0, 0, 1, 1));
+    m_grounds.push_back(new CaveExtraDeepMedium(0, 0, 1, 1));
+    m_grounds.push_back(new CaveExtraDeepLarge(0, 0, 1, 1));
+    m_grounds.push_back(new CaveExtraDeepEndRight(0, 0, 1, 1));
+    
+    m_grounds.push_back(new CaveDeepEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new CaveDeepSmall(0, 0, 1, 1));
+    m_grounds.push_back(new CaveDeepMedium(0, 0, 1, 1));
+    m_grounds.push_back(new CaveDeepLarge(0, 0, 1, 1));
+    m_grounds.push_back(new CaveDeepEndRight(0, 0, 1, 1));
+    
+    m_grounds.push_back(new CaveEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new CaveSmall(0, 0, 1, 1));
+    m_grounds.push_back(new CaveMedium(0, 0, 1, 1));
+    m_grounds.push_back(new CaveLarge(0, 0, 1, 1));
+    m_grounds.push_back(new CaveEndRight(0, 0, 1, 1));
+    
+    m_grounds.push_back(new CaveRaisedEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new CaveRaisedSmall(0, 0, 1, 1));
+    m_grounds.push_back(new CaveRaisedMedium(0, 0, 1, 1));
+    m_grounds.push_back(new CaveRaisedLarge(0, 0, 1, 1));
+    m_grounds.push_back(new CaveRaisedEndRight(0, 0, 1, 1));
+    
+    m_grounds.push_back(new GrassWithCaveEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithCaveSmall(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithCaveMedium(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithCaveLarge(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithCaveEndRight(0, 0, 1, 1));
+    
+    m_grounds.push_back(new GrassWithoutCaveEndLeft(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithoutCaveSmall(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithoutCaveMedium(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithoutCaveLarge(0, 0, 1, 1));
+    m_grounds.push_back(new GrassWithoutCaveEndRight(0, 0, 1, 1));
+    
     float eWidth = width * 0.6f;
     float eHeight = height / 6;
-    float size = fminf(eWidth, eHeight);
-    float eX = CAM_WIDTH - getWidth() / 2 + 0.4f;
+    float eX = CAM_WIDTH - width / 2 + 0.4f;
     float eY = eHeight / 2;
-    int i = 0;
     
-    m_jons.push_back(std::unique_ptr<Jon>(new Jon(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundGrassWithoutCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedLarge(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedMedium(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedSmall(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndLeft(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    m_grounds.push_back(std::unique_ptr<Ground>(new GroundCaveRaisedEndRight(eX, eY + (i++ * eHeight), eWidth, eHeight)));
-    
-    boxInAll(m_grounds, size);
+    int i = boxInAll(m_jons, eX, eY, eWidth, eHeight, 0);
+    i = boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
 }
@@ -103,8 +115,8 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                 {
                     touchPoint.add(0, m_fEntitiesCameraPos);
                     
-                    float x = camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2;
-                    float y = GAME_HEIGHT / 2;
+                    float x = camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2 / GRID_CELL_SIZE;
+                    float y = GAME_HEIGHT / 2 / GRID_CELL_SIZE;
                     
                     if (isTouchingEntityForPlacement(m_jons, game.getJons(), x, y, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
@@ -137,12 +149,12 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
 }
 
-std::vector<std::unique_ptr<Jon>>& LevelEditorEntitiesPanel::getJons()
+std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
 {
     return m_jons;
 }
 
-std::vector<std::unique_ptr<Ground>>& LevelEditorEntitiesPanel::getGrounds()
+std::vector<Ground *>& LevelEditorEntitiesPanel::getGrounds()
 {
     return m_grounds;
 }

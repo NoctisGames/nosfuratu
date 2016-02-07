@@ -9,9 +9,9 @@
 #include "LogVerticalTall.h"
 #include "Assets.h"
 
-LogVerticalTall* LogVerticalTall::create(float x, float y, int type)
+LogVerticalTall* LogVerticalTall::create(int gridX, int gridY, int type)
 {
-    return new LogVerticalTall(x, y);
+    return new LogVerticalTall(gridX, gridY);
 }
 
 LogVerticalTall::LogVerticalTall(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_isBlowingUp(false)

@@ -14,7 +14,7 @@
 class SnakeHorned : public SnakeEnemy
 {
 public:
-    static SnakeHorned* create(float x, float y, int type);
+    static SnakeHorned* create(int gridX, int gridY, int type);
     
     SnakeHorned(float x, float y, float width = 3.0681647940074908f, float height = 4.314247669773635f);
     

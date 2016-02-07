@@ -13,6 +13,13 @@
 #include "EntityUtils.h"
 #include "Vector2D.h"
 
+#include <algorithm>    // std::sort
+
+bool sortGround(Ground* i, Ground* j)
+{
+    return i->getType() < j->getType();
+}
+
 LevelEditor * LevelEditor::getInstance()
 {
     static LevelEditor *instance = new LevelEditor();
@@ -24,10 +31,10 @@ void LevelEditor::enter(GameScreen* gs)
 {
     if (!m_game->isLoaded())
     {
-        load("{\"backgroundSkies\":[{\"x\":8,\"y\":19.9809},{\"x\":24,\"y\":19.9809},{\"x\":40,\"y\":19.9809}],\"backgroundTrees\":[{\"x\":8,\"y\":14.9623},{\"x\":24,\"y\":14.9623},{\"x\":40,\"y\":14.9623}],\"backgroundCaves\":[{\"x\":8,\"y\":5.63865},{\"x\":24,\"y\":5.63865},{\"x\":40,\"y\":5.63865}],\"jons\":[{\"x\":3.2,\"y\":10.1312}]}");
+        load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     }
     
-    gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
+    gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
     gs->m_renderer->zoomOut();
 }
 
@@ -51,11 +58,6 @@ void LevelEditor::execute(GameScreen* gs)
         {
             static Color highlight = Color(1, 1, 1, 0.5f);
             gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
-            
-            if (m_attachToEntity != nullptr)
-            {
-                gs->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
-            }
         }
         
         if (m_levelEditorActionsPanel->isShowEntityBoundsRequested())
@@ -80,7 +82,7 @@ void LevelEditor::execute(GameScreen* gs)
         
         if (m_game->getJons().size() > 1)
         {
-            for (std::vector<std::unique_ptr<Jon>>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
+            for (std::vector<Jon *>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
             {
                 if (m_game->getJons().size() == 1)
                 {
@@ -91,10 +93,12 @@ void LevelEditor::execute(GameScreen* gs)
                 {
                     (*i)->onDeletion();
                     
+                    delete *i;
                     i = m_game->getJons().erase(i);
                 }
                 else
                 {
+                    (*i)->snapToGrid();
                     i++;
                 }
             }
@@ -116,9 +120,9 @@ void LevelEditor::execute(GameScreen* gs)
         
         m_trashCan->update(gs->m_renderer->getCameraPosition());
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
     }
 }
 
@@ -223,15 +227,6 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
 						return;
                     }
                     return;
-                case LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO:
-                    if (m_addedEntities.size() > 0)
-                    {
-                        m_addedEntities.at(m_addedEntities.size() - 1)->requestDeletion();
-                        m_addedEntities.pop_back();
-                        
-                        resetEntities(true);
-                    }
-                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
                     m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
                     return;
@@ -253,21 +248,9 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
-                m_addedEntities.push_back(m_lastAddedEntity);
-                
                 if (dynamic_cast<Jon*>(m_lastAddedEntity))
                 {
                     Jon* entity = dynamic_cast<Jon*>(m_lastAddedEntity);
-                    entity->setGame(m_game.get());
-                }
-                else if (dynamic_cast<SnakeGrunt*>(m_lastAddedEntity))
-                {
-                    SnakeGrunt* entity = dynamic_cast<SnakeGrunt*>(m_lastAddedEntity);
-                    entity->setGame(m_game.get());
-                }
-                else if (dynamic_cast<SnakeHorned*>(m_lastAddedEntity))
-                {
-                    SnakeHorned* entity = dynamic_cast<SnakeHorned*>(m_lastAddedEntity);
                     entity->setGame(m_game.get());
                 }
             }
@@ -282,15 +265,11 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
             case DOWN:
             {
                 Vector2D tp = gs->m_touchPoint->cpy();
-                tp.mul(3);
+                tp.mul(4);
                 float camPosX = gs->m_renderer->getCameraPosition().getX();
                 tp.add(camPosX, 0);
                 
                 m_isVerticalChangeAllowed = true;
-                m_useYCorrection = false;
-                m_allowAttachment = true;
-                m_allowPlaceOn = true;
-                m_fYOffset = 0;
                 m_fDraggingEntityOriginalY = 0;
                 
                 int index = -1;
@@ -298,31 +277,10 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (dynamic_cast<Ground*>(m_draggingEntity) || dynamic_cast<CaveExit*>(m_draggingEntity))
+                    if (dynamic_cast<Ground*>(m_draggingEntity) || dynamic_cast<CaveExit*>(m_draggingEntity) || dynamic_cast<Hole*>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
-                    }
-                    else if (dynamic_cast<Hole*>(m_draggingEntity))
-                    {
-                        m_isVerticalChangeAllowed = false;
-                        m_allowAttachment = false;
-                        m_allowPlaceOn = false;
-                        m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
-                    }
-                    else if (dynamic_cast<GroundPlatform*>(m_draggingEntity))
-                    {
-                        m_useYCorrection = true;
-                    }
-                    else if (dynamic_cast<SideSpike*>(m_draggingEntity))
-                    {
-                        m_allowAttachment = false;
-                        m_allowPlaceOn = false;
-                    }
-                    else if (dynamic_cast<Carrot*>(m_draggingEntity) || dynamic_cast<GoldenCarrot*>(m_draggingEntity))
-                    {
-                        m_allowAttachment = false;
-                        m_fYOffset = 0.8f;
                     }
                 }
                 
@@ -333,9 +291,9 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
             case DRAGGED:
             {
                 float xDelta = gs->m_touchPoint->getX() - gs->m_touchPointDown->getX();
-                xDelta *= 3;
+                xDelta *= 4;
                 float yDelta = gs->m_touchPoint->getY() - gs->m_touchPointDown->getY();
-                yDelta *= 3;
+                yDelta *= 4;
                 
                 if (m_draggingEntity != nullptr)
                 {
@@ -359,39 +317,17 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         m_draggingEntity->updateBounds();
                     }
                     
-                    int index = -1;
-                    if ((index = EntityUtils::doRectanglesOverlap(m_game->getGrounds(), m_draggingEntity)) != -1)
-                    {
-                        m_attachToEntity = m_game->getGrounds().at(index).get();
-                    }
-                    else if ((index = EntityUtils::doRectanglesOverlap(m_game->getCaveExits(), m_draggingEntity)) != -1)
-                    {
-                        m_attachToEntity = m_game->getCaveExits().at(index).get();
-                    }
-                    else if ((index = EntityUtils::doRectanglesOverlap(m_game->getPlatforms(), m_draggingEntity)) != -1)
-                    {
-                        m_attachToEntity = m_game->getPlatforms().at(index).get();
-                    }
-                    else if (dynamic_cast<Carrot*>(m_draggingEntity) && (index = EntityUtils::doRectanglesOverlap(m_game->getCarrots(), m_draggingEntity)) != -1)
-                    {
-                        m_attachToEntity = m_game->getCarrots().at(index).get();
-                    }
-                    else
-                    {
-                        m_attachToEntity = nullptr;
-                    }
-                    
                     m_trashCan->setHighlighted(OverlapTester::doRectanglesOverlap(m_draggingEntity->getBounds(), m_trashCan->getBounds()));
                     
-                    if ((gs->m_touchPoint->getX() > (CAM_WIDTH * 0.666f) && xDelta > 0)
-                        || (gs->m_touchPoint->getX() < (CAM_WIDTH * 0.333f) && xDelta < 0))
+                    if ((gs->m_touchPoint->getX() > (CAM_WIDTH * 0.8f) && xDelta > 0)
+                        || (gs->m_touchPoint->getX() < (CAM_WIDTH * 0.2f) && xDelta < 0))
                     {
                         gs->m_renderer->moveCamera(xDelta);
                     }
                 }
                 else
                 {
-                    xDelta *= 3;
+                    xDelta *= 4;
                     gs->m_renderer->moveCamera(-xDelta);
                 }
                 
@@ -416,38 +352,13 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else
                     {
-                        if (m_attachToEntity != nullptr)
-                        {
-                            float draggingPosY = m_draggingEntity->getPosition().getY();
-                            float draggingPosX = m_draggingEntity->getBounds().getLowerLeft().getX();
-                            float attachToWidth = m_attachToEntity->getBounds().getWidth();
-                            float attachToTop = m_attachToEntity->getBounds().getTop();
-                            float attachToLeft = m_attachToEntity->getBounds().getLowerLeft().getX();
-                            float attachToRight = attachToLeft + attachToWidth * 0.75f;
-                            attachToLeft += attachToWidth * 0.25f;
-                            
-                            if (m_allowAttachment && (!m_isVerticalChangeAllowed || draggingPosY < attachToTop))
-                            {
-                                if (draggingPosX > attachToRight)
-                                {
-                                    EntityUtils::attach(*m_draggingEntity, *m_attachToEntity, false, m_useYCorrection);
-                                }
-                                else if (draggingPosX < attachToLeft)
-                                {
-                                    EntityUtils::attach(*m_draggingEntity, *m_attachToEntity, true, m_useYCorrection);
-                                }
-                            }
-                            else if (m_isVerticalChangeAllowed && draggingPosY > attachToTop && m_allowPlaceOn)
-                            {
-                                EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_fYOffset);
-                            }
-                        }
-                        
                         if (!m_isVerticalChangeAllowed)
                         {
                             m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
                             m_draggingEntity->updateBounds();
                         }
+                        
+                        m_draggingEntity->snapToGrid(4);
                     }
                 }
                 else if (m_lastAddedEntity != nullptr && gs->m_touchPoint->getX() < gs->m_touchPointDown2->getX() + 0.5f && gs->m_touchPoint->getX() > gs->m_touchPointDown2->getX() - 0.5f)
@@ -455,19 +366,17 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                     if (dynamic_cast<Carrot*>(m_lastAddedEntity))
                     {
                         Vector2D tp = gs->m_touchPoint->cpy();
-                        tp.mul(3);
+                        tp.mul(4);
                         float camPosX = gs->m_renderer->getCameraPosition().getX();
                         tp.add(camPosX, 0);
                         
                         m_lastAddedEntity = new Carrot(tp.getX(), m_lastAddedEntity->getPosition().getY());
                         m_game->getCarrots().push_back(std::unique_ptr<Carrot>(dynamic_cast<Carrot*>(m_lastAddedEntity)));
-                        m_addedEntities.push_back(m_lastAddedEntity);
                         resetEntities(false);
                     }
                 }
                 
                 m_trashCan->setHighlighted(false);
-                m_attachToEntity = nullptr;
                 
                 if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
                 {
@@ -486,47 +395,10 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
 {
     m_gameEntities.clear();
     
-    EntityUtils::addAll(m_game->getTrees(), m_gameEntities);
-    EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
-    EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
-    EntityUtils::addAll(m_game->getCaveExits(), m_gameEntities);
-    EntityUtils::addAll(m_game->getLogVerticalTalls(), m_gameEntities);
-    EntityUtils::addAll(m_game->getLogVerticalShorts(), m_gameEntities);
-    EntityUtils::addAll(m_game->getThorns(), m_gameEntities);
-    EntityUtils::addAll(m_game->getStumps(), m_gameEntities);
-    EntityUtils::addAll(m_game->getSideSpikes(), m_gameEntities);
-    EntityUtils::addAll(m_game->getUpwardSpikes(), m_gameEntities);
-    EntityUtils::addAll(m_game->getJumpSprings(), m_gameEntities);
-    EntityUtils::addAll(m_game->getRocks(), m_gameEntities);
-    EntityUtils::addAll(m_game->getPlatforms(), m_gameEntities);
-    EntityUtils::addAll(m_game->getCarrots(), m_gameEntities);
-    EntityUtils::addAll(m_game->getGoldenCarrots(), m_gameEntities);
-    EntityUtils::addAll(m_game->getEndSigns(), m_gameEntities);
-    EntityUtils::addAll(m_game->getSnakeGruntEnemies(), m_gameEntities);
-    EntityUtils::addAll(m_game->getSnakeHornedEnemies(), m_gameEntities);
-	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
+    std::sort(m_game->getGrounds().begin(), m_game->getGrounds().end(), sortGround);
     
-    for (std::vector<PhysicalEntity*>::iterator i = m_addedEntities.begin(); i != m_addedEntities.end(); )
-    {
-        bool containedInGameEntities = false;
-        for (std::vector<PhysicalEntity*>::iterator j = m_gameEntities.begin(); j != m_gameEntities.end(); j++)
-        {
-            if ((*i) == (*j))
-            {
-                containedInGameEntities = true;
-                break;
-            }
-        }
-        
-        if (containedInGameEntities)
-        {
-            i++;
-        }
-        else
-        {
-            i = m_addedEntities.erase(i);
-        }
-    }
+    EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
+	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
     if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
     {
@@ -535,7 +407,6 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     }
     
     m_draggingEntity = nullptr;
-    m_attachToEntity = nullptr;
     
     if (clearLastAddedEntity)
     {
@@ -543,7 +414,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_useYCorrection(false), m_allowAttachment(true), m_allowPlaceOn(true), m_fYOffset(0)
+LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

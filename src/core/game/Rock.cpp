@@ -9,15 +9,15 @@
 #include "Rock.h"
 #include "Assets.h"
 
-Rock* Rock::create(float x, float y, int type)
+Rock* Rock::create(int gridX, int gridY, int type)
 {
     switch ((RockType) type)
     {
         case RockType_Rock:
-            return new Rock(x, y);
+            return new Rock(gridX, gridY);
         case RockType_CrackedRock:
         default:
-            return new CrackedRock(x, y);
+            return new CrackedRock(gridX, gridY);
     }
 }
 

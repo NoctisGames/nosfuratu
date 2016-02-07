@@ -9,9 +9,9 @@
 #include "LogVerticalShort.h"
 #include "Assets.h"
 
-LogVerticalShort* LogVerticalShort::create(float x, float y, int type)
+LogVerticalShort* LogVerticalShort::create(int gridX, int gridY, int type)
 {
-    return new LogVerticalShort(x, y);
+    return new LogVerticalShort(gridX, gridY);
 }
 
 LogVerticalShort::LogVerticalShort(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_isBlowingUp(false)

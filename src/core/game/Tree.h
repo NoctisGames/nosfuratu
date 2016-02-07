@@ -21,7 +21,7 @@ typedef enum
 class Tree : public PhysicalEntity
 {
 public:
-    static Tree* create(float x, float y, int type);
+    static Tree* create(int gridX, int gridY, int type);
     
     Tree(float x, float y, float width, float height, TreeType type);
     

@@ -8,9 +8,9 @@
 
 #include "Thorns.h"
 
-Thorns* Thorns::create(float x, float y, int type)
+Thorns* Thorns::create(int gridX, int gridY, int type)
 {
-    return new Thorns(x, y);
+    return new Thorns(gridX, gridY);
 }
 
 Thorns::Thorns(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

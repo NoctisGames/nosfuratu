@@ -9,9 +9,9 @@
 #include "Hole.h"
 #include "EntityUtils.h"
 
-Hole* Hole::create(float x, float y, int type)
+Hole* Hole::create(int gridX, int gridY, int type)
 {
-    return new Hole(x);
+    return new Hole(gridX);
 }
 
 Hole::Hole(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
@@ -23,7 +23,7 @@ void Hole::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    EntityUtils::updateAndClean(m_holeCovers, deltaTime);
+    //EntityUtils::updateAndClean(m_holeCovers, deltaTime);
     
     for (std::vector<std::unique_ptr<HoleCover>>::iterator i = m_holeCovers.begin(); i != m_holeCovers.end(); i++)
     {

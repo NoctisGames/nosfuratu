@@ -13,6 +13,7 @@
 #include "OverlapTester.h"
 #include "PhysicalEntity.h"
 #include "DestructiblePhysicalEntity.h"
+#include "GridLockedPhysicalEntity.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "Jon.h"
@@ -404,9 +405,9 @@ public:
     }
     
     template<typename T>
-    static void updateAndClean(std::vector<T>& items, float deltaTime)
+    static void updateAndClean(std::vector<T*>& items, float deltaTime)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); )
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); )
         {
             (*i)->update(deltaTime);
             
@@ -414,6 +415,7 @@ public:
             {
                 (*i)->onDeletion();
                 
+                delete *i;
                 i = items.erase(i);
             }
             else
@@ -424,11 +426,11 @@ public:
     }
     
     template<typename T>
-    static void addAll(std::vector<T>& itemsFrom, std::vector<PhysicalEntity*>& itemsTo)
+    static void addAll(std::vector<T>& itemsFrom, std::vector<GridLockedPhysicalEntity*>& itemsTo)
     {
         for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
         {
-            itemsTo.push_back((*i).get());
+            itemsTo.push_back((*i));
         }
     }
     

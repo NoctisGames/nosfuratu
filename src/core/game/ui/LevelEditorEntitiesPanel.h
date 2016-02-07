@@ -14,29 +14,12 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "Tree.h"
 #include "Ground.h"
-#include "Hole.h"
-#include "CaveExit.h"
-#include "LogVerticalTall.h"
-#include "LogVerticalShort.h"
-#include "Thorns.h"
-#include "Stump.h"
-#include "SideSpike.h"
-#include "UpwardSpike.h"
-#include "JumpSpring.h"
-#include "Rock.h"
-#include "GroundPlatform.h"
-#include "EndSign.h"
-#include "Carrot.h"
-#include "GoldenCarrot.h"
 #include "OverlapTester.h"
 #include "Jon.h"
-#include "SnakeEnemy.h"
-#include "SnakeGrunt.h"
-#include "SnakeHorned.h"
 
 #include <vector>
+#include <math.h>
 
 class Game;
 
@@ -51,9 +34,9 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
-    std::vector<std::unique_ptr<Jon>>& getJons();
+    std::vector<Jon *>& getJons();
     
-    std::vector<std::unique_ptr<Ground>>& getGrounds();
+    std::vector<Ground *>& getGrounds();
     
     float getEntitiesCameraPos();
     
@@ -61,14 +44,13 @@ public:
     
 private:
     template<typename T>
-    static bool isTouchingEntityForPlacement(std::vector<std::unique_ptr<T>>& items, std::vector<std::unique_ptr<T>>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
+    static bool isTouchingEntityForPlacement(std::vector<T*>& items, std::vector<T*>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
     {
         int retVal = -1;
         int index = 0;
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++, index++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* item = upItem.get();
+            T* item = *i;
             float width = item->getWidth();
             float height = item->getHeight();
             float x = item->getPosition().getX() - width / 2;
@@ -85,7 +67,7 @@ private:
         if (retVal != -1)
         {
             T* pT = T::create(x, y, items.at(index)->getType());
-            gameItems.push_back(std::unique_ptr<T>(pT));
+            gameItems.push_back(pT);
             
             *lastAddedEntity = pT;
         }
@@ -94,18 +76,37 @@ private:
     }
     
     template<typename T>
-    static void boxInAll(std::vector<std::unique_ptr<T>>& items, float size)
+    static int boxInAll(std::vector<T*>& items, float eX, float eY, float eWidth, float eHeight, int index)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        float size = fminf(eWidth, eHeight);
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* item = upItem.get();
-            item->boxIn(size);
+            T* item = *i;
+            
+            item->getPosition().set(eX, eY + (index++ * eHeight));
+            item->setWidth(eWidth);
+            item->setHeight(eHeight);
+            
+            if (item->getWidth() > item->getHeight())
+            {
+                item->setHeight(item->getHeight() / item->getWidth());
+                item->setHeight(item->getHeight() * size);
+                item->setWidth(size);
+            }
+            else
+            {
+                item->setWidth(item->getWidth() / item->getHeight());
+                item->setWidth(item->getWidth() * size);
+                item->setHeight(size);
+            }
         }
+        
+        return index;
     }
     
-    std::vector<std::unique_ptr<Jon>> m_jons;
-    std::vector<std::unique_ptr<Ground>> m_grounds;
+    std::vector<Jon *> m_jons;
+    std::vector<Ground *> m_grounds;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

@@ -14,7 +14,7 @@
 class Thorns : public PhysicalEntity
 {
 public:
-    static Thorns* create(float x, float y, int type);
+    static Thorns* create(int gridX, int gridY, int type);
     
     Thorns(float x, float y, float width = 2.8284644194756554f, float height = 1.4500665778961384f);
     

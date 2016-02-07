@@ -25,8 +25,6 @@ public:
     virtual void resetBounds(float width, float height);
 
     virtual void updateBounds();
-    
-    void boxIn(float size);
 
     Vector2D& getPosition();
     
@@ -35,10 +33,14 @@ public:
     Vector2D& getAcceleration();
 
     Rectangle& getBounds();
-
+    
     const float& getWidth();
-
+    
+    void setWidth(float width);
+    
     const float& getHeight();
+    
+    void setHeight(float height);
     
     float getAngle();
     

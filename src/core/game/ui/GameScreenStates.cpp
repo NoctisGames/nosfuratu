@@ -27,7 +27,7 @@ Title * Title::getInstance()
 void Title::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(nullptr);
-    gs->m_renderer->init(RENDERER_TYPE_TITLE);
+    gs->m_renderer->init(RENDERER_TYPE_MENU);
 }
 
 void Title::execute(GameScreen* gs)
@@ -229,7 +229,7 @@ WorldMap * WorldMap::getInstance()
 void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
-    gs->m_renderer->init(RENDERER_TYPE_TITLE);
+    gs->m_renderer->init(RENDERER_TYPE_MENU);
     gs->m_iNumFramesToDiscard = 1;
 }
 
@@ -439,9 +439,9 @@ void GamePlay::execute(GameScreen* gs)
                 jon.beginWarmingUp();
             }
             
-            EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
+            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
             
             return;
         }
@@ -551,9 +551,9 @@ void GamePlay::execute(GameScreen* gs)
         
         gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundSkies(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundTrees(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundCaves(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
     }
 }
 

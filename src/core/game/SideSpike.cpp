@@ -8,9 +8,9 @@
 
 #include "SideSpike.h"
 
-SideSpike* SideSpike::create(float x, float y, int type)
+SideSpike* SideSpike::create(int gridX, int gridY, int type)
 {
-    return new SideSpike(x, y);
+    return new SideSpike(gridX, gridY);
 }
 
 SideSpike::SideSpike(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

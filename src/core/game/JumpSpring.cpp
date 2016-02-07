@@ -8,17 +8,17 @@
 
 #include "JumpSpring.h"
 
-JumpSpring* JumpSpring::create(float x, float y, int type)
+JumpSpring* JumpSpring::create(int gridX, int gridY, int type)
 {
     switch ((JumpSpringType) type)
     {
         case JumpSpringType_Light:
-            return new JumpSpringLight(x, y);
+            return new JumpSpringLight(gridX, gridY);
         case JumpSpringType_Medium:
-            return new JumpSpringMedium(x, y);
+            return new JumpSpringMedium(gridX, gridY);
         case JumpSpringType_Heavy:
         default:
-            return new JumpSpringHeavy(x, y);
+            return new JumpSpringHeavy(gridX, gridY);
     }
 }
 

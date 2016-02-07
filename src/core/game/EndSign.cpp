@@ -8,9 +8,9 @@
 
 #include "EndSign.h"
 
-EndSign* EndSign::create(float x, float y, int type)
+EndSign* EndSign::create(int gridX, int gridY, int type)
 {
-    return new EndSign(x, y);
+    return new EndSign(gridX, gridY);
 }
 
 EndSign::EndSign(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

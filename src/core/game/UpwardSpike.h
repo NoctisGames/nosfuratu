@@ -21,7 +21,7 @@ typedef enum
 class UpwardSpike : public PhysicalEntity
 {
 public:
-    static UpwardSpike* create(float x, float y, int type);
+    static UpwardSpike* create(int gridX, int gridY, int type);
     
     UpwardSpike(float x, float y, float width, float height, UpwardSpikeType type);
     

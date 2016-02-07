@@ -8,9 +8,9 @@
 
 #include "Stump.h"
 
-Stump* Stump::create(float x, float y, int type)
+Stump* Stump::create(int gridX, int gridY, int type)
 {
-    return new Stump(x, y);
+    return new Stump(gridX, gridY);
 }
 
 Stump::Stump(float x, float y, float width, float height) : LandPhysicalEntity(x, y, width, height)

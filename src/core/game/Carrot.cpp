@@ -10,9 +10,9 @@
 #include "Assets.h"
 #include "GameConstants.h"
 
-Carrot* Carrot::create(float x, float y, int type)
+Carrot* Carrot::create(int gridX, int gridY, int type)
 {
-    return new Carrot(x, y);
+    return new Carrot(gridX, gridY);
 }
 
 Carrot::Carrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isCollected(false)

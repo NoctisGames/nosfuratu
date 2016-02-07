@@ -14,7 +14,7 @@
 class Stump : public LandPhysicalEntity
 {
 public:
-    static Stump* create(float x, float y, int type);
+    static Stump* create(int gridX, int gridY, int type);
     
     Stump(float x, float y, float width = 3.8951310861423223f, float height = 3.355525965379494f);
     

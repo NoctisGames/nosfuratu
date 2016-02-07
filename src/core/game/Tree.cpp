@@ -8,17 +8,17 @@
 
 #include "Tree.h"
 
-Tree* Tree::create(float x, float y, int type)
+Tree* Tree::create(int gridX, int gridY, int type)
 {
     switch ((TreeType) type)
     {
         case TreeType_One:
-            return new TreeOne(x, y);
+            return new TreeOne(gridX, gridY);
         case TreeType_Two:
-            return new TreeTwo(x, y);
+            return new TreeTwo(gridX, gridY);
         case TreeType_Three:
         default:
-            return new TreeThree(x, y);
+            return new TreeThree(gridX, gridY);
     }
 }
 

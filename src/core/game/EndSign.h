@@ -14,7 +14,7 @@
 class EndSign : public PhysicalEntity
 {
 public:
-    static EndSign* create(float x, float y, int type);
+    static EndSign* create(int gridX, int gridY, int type);
     
     EndSign(float x, float y, float width = 0.7910112359550562f, float height = 1.114513981358189f);
     

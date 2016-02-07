@@ -8,9 +8,9 @@
 
 #include "SnakeGrunt.h"
 
-SnakeGrunt* SnakeGrunt::create(float x, float y, int type)
+SnakeGrunt* SnakeGrunt::create(int gridX, int gridY, int type)
 {
-    return new SnakeGrunt(x, y);
+    return new SnakeGrunt(gridX, gridY);
 }
 
 SnakeGrunt::SnakeGrunt(float x, float y, float width, float height) : SnakeEnemy(x, y, width, height)

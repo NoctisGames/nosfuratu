@@ -17,7 +17,7 @@
 class Hole : public PhysicalEntity
 {
 public:
-    static Hole* create(float x, float y, int type);
+    static Hole* create(int gridX, int gridY, int type);
     
     Hole(float x, float y = 8.095320623916809f, float width = 3.187749667110519f, float height = 2.229027962716378f);
     

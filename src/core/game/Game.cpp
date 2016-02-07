@@ -13,63 +13,26 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 
-#define backgroundSkiesKey "backgroundSkies"
-#define backgroundTreesKey "backgroundTrees"
-#define backgroundCavesKey "backgroundCaves"
-#define treesKey "trees"
 #define groundsKey "grounds"
-#define holesKey "holes"
-#define caveExitsKey "caveExits"
-#define logVerticalTallsKey "logVerticalTalls"
-#define logVerticalShortsKey "logVerticalShorts"
-#define thornsKey "thorns"
-#define stumpsKey "stumps"
-#define sideSpikesKey "sideSpikes"
-#define upwardSpikesKey "upwardSpikes"
-#define jumpSpringsKey "jumpSprings"
-#define rocksKey "rocks"
-#define platformsKey "platforms"
-#define endSignsKey "endSigns"
-#define carrotsKey "carrots"
-#define goldenCarrotsKey "goldenCarrots"
 #define jonsKey "jons"
-#define snakeGruntEnemiesKey "snakeGruntEnemies"
-#define snakeHornedEnemiesKey "snakeHornedEnemies"
 
 Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
 {
-    // Empty
+    for (int i = 0; i < 4; i++)
+    {
+        m_backgroundUppers.push_back(new BackgroundUpper(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundMids.push_back(new BackgroundMid(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundLowers.push_back(new BackgroundLower(i * CAM_WIDTH + CAM_WIDTH / 2));
+    }
 }
 
 void Game::copy(Game* game)
 {
     reset();
     
-    copyPhysicalEntities(game->getBackgroundSkies(), m_backgroundSkies);
-    copyPhysicalEntities(game->getBackgroundTrees(), m_backgroundTrees);
-    copyPhysicalEntities(game->getBackgroundCaves(), m_backgroundCaves);
-    copyPhysicalEntities(game->getTrees(), m_trees);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
-    copyPhysicalEntities(game->getHoles(), m_holes);
-    copyPhysicalEntities(game->getCaveExits(), m_caveExits);
-    copyPhysicalEntities(game->getLogVerticalTalls(), m_logVerticalTalls);
-    copyPhysicalEntities(game->getLogVerticalShorts(), m_logVerticalShorts);
-    copyPhysicalEntities(game->getThorns(), m_thorns);
-    copyPhysicalEntities(game->getStumps(), m_stumps);
-    copyPhysicalEntities(game->getSideSpikes(), m_sideSpikes);
-    copyPhysicalEntities(game->getUpwardSpikes(), m_upwardSpikes);
-    copyPhysicalEntities(game->getJumpSprings(), m_jumpSprings);
-    copyPhysicalEntities(game->getRocks(), m_rocks);
-    copyPhysicalEntities(game->getPlatforms(), m_platforms);
-    copyPhysicalEntities(game->getEndSigns(), m_endSigns);
-    copyPhysicalEntities(game->getCarrots(), m_carrots);
-    copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
-    copyPhysicalEntities(game->getSnakeGruntEnemies(), m_snakeGruntEnemies);
-    copyPhysicalEntities(game->getSnakeHornedEnemies(), m_snakeHornedEnemies);
     copyPhysicalEntities(game->getJons(), m_jons);
     
-    setGameToEntities(m_snakeGruntEnemies, this);
-    setGameToEntities(m_snakeHornedEnemies, this);
     setGameToEntities(m_jons, this);
     
     m_iNumTotalCarrots = (int) m_carrots.size();
@@ -85,31 +48,9 @@ void Game::load(const char* json)
     rapidjson::Document d;
     d.Parse<0>(json);
     
-    loadArray(m_backgroundSkies, d, backgroundSkiesKey);
-    loadArray(m_backgroundTrees, d, backgroundTreesKey);
-    loadArray(m_backgroundCaves, d, backgroundCavesKey);
-    loadArray(m_trees, d, treesKey);
     loadArray(m_grounds, d, groundsKey);
-    loadArray(m_holes, d, holesKey);
-    loadArray(m_caveExits, d, caveExitsKey);
-    loadArray(m_logVerticalTalls, d, logVerticalTallsKey);
-    loadArray(m_logVerticalShorts, d, logVerticalShortsKey);
-    loadArray(m_thorns, d, thornsKey);
-    loadArray(m_stumps, d, stumpsKey);
-    loadArray(m_sideSpikes, d, sideSpikesKey);
-    loadArray(m_upwardSpikes, d, upwardSpikesKey);
-    loadArray(m_jumpSprings, d, jumpSpringsKey);
-    loadArray(m_rocks, d, rocksKey);
-    loadArray(m_platforms, d, platformsKey);
-    loadArray(m_endSigns, d, endSignsKey);
-    loadArray(m_carrots, d, carrotsKey);
-    loadArray(m_goldenCarrots, d, goldenCarrotsKey);
-    loadArray(m_snakeGruntEnemies, d, snakeGruntEnemiesKey);
-    loadArray(m_snakeHornedEnemies, d, snakeHornedEnemiesKey);
     loadArray(m_jons, d, jonsKey);
     
-    setGameToEntities(m_snakeGruntEnemies, this);
-    setGameToEntities(m_snakeHornedEnemies, this);
     setGameToEntities(m_jons, this);
     
     m_iNumTotalCarrots = (int) m_carrots.size();
@@ -130,27 +71,7 @@ const char* Game::save()
     
     w.StartObject();
     
-    saveArray(m_backgroundSkies, w, backgroundSkiesKey);
-    saveArray(m_backgroundTrees, w, backgroundTreesKey);
-    saveArray(m_backgroundCaves, w, backgroundCavesKey);
-    saveArray(m_trees, w, treesKey);
     saveArray(m_grounds, w, groundsKey);
-    saveArray(m_holes, w, holesKey);
-    saveArray(m_caveExits, w, caveExitsKey);
-    saveArray(m_logVerticalTalls, w, logVerticalTallsKey);
-    saveArray(m_logVerticalShorts, w, logVerticalShortsKey);
-    saveArray(m_thorns, w, thornsKey);
-    saveArray(m_stumps, w, stumpsKey);
-    saveArray(m_sideSpikes, w, sideSpikesKey);
-    saveArray(m_upwardSpikes, w, upwardSpikesKey);
-    saveArray(m_jumpSprings, w, jumpSpringsKey);
-    saveArray(m_rocks, w, rocksKey);
-    saveArray(m_platforms, w, platformsKey);
-    saveArray(m_endSigns, w, endSignsKey);
-    saveArray(m_carrots, w, carrotsKey);
-    saveArray(m_goldenCarrots, w, goldenCarrotsKey);
-    saveArray(m_snakeGruntEnemies, w, snakeGruntEnemiesKey);
-    saveArray(m_snakeHornedEnemies, w, snakeHornedEnemiesKey);
     saveArray(m_jons, w, jonsKey);
     
     w.EndObject();
@@ -160,27 +81,7 @@ const char* Game::save()
 
 void Game::reset()
 {
-    m_backgroundSkies.clear();
-    m_backgroundTrees.clear();
-    m_backgroundCaves.clear();
-    m_trees.clear();
     m_grounds.clear();
-    m_holes.clear();
-    m_caveExits.clear();
-    m_logVerticalTalls.clear();
-    m_logVerticalShorts.clear();
-    m_thorns.clear();
-    m_stumps.clear();
-    m_sideSpikes.clear();
-    m_upwardSpikes.clear();
-    m_jumpSprings.clear();
-    m_rocks.clear();
-    m_platforms.clear();
-    m_endSigns.clear();
-    m_carrots.clear();
-    m_goldenCarrots.clear();
-    m_snakeGruntEnemies.clear();
-    m_snakeHornedEnemies.clear();
     m_jons.clear();
     
     m_fStateTime = 0;
@@ -196,24 +97,7 @@ void Game::update(float deltaTime)
 
 void Game::updateAndClean(float deltaTime)
 {
-    EntityUtils::updateAndClean(getTrees(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
-    EntityUtils::updateAndClean(getHoles(), deltaTime);
-    EntityUtils::updateAndClean(getCaveExits(), deltaTime);
-    EntityUtils::updateAndClean(getLogVerticalTalls(), deltaTime);
-    EntityUtils::updateAndClean(getLogVerticalShorts(), deltaTime);
-    EntityUtils::updateAndClean(getThorns(), deltaTime);
-    EntityUtils::updateAndClean(getStumps(), deltaTime);
-    EntityUtils::updateAndClean(getSideSpikes(), deltaTime);
-    EntityUtils::updateAndClean(getUpwardSpikes(), deltaTime);
-    EntityUtils::updateAndClean(getJumpSprings(), deltaTime);
-    EntityUtils::updateAndClean(getRocks(), deltaTime);
-    EntityUtils::updateAndClean(getPlatforms(), deltaTime);
-    EntityUtils::updateAndClean(getEndSigns(), deltaTime);
-    EntityUtils::updateAndClean(getCarrots(), deltaTime);
-    EntityUtils::updateAndClean(getGoldenCarrots(), deltaTime);
-    EntityUtils::updateAndClean(getSnakeGruntEnemies(), deltaTime);
-    EntityUtils::updateAndClean(getSnakeHornedEnemies(), deltaTime);
     EntityUtils::update(getJons(), deltaTime);
 }
 
@@ -221,27 +105,7 @@ int Game::calcSum()
 {
     int sum = 0;
     
-    sum += m_backgroundSkies.size();
-    sum += m_backgroundTrees.size();
-    sum += m_backgroundCaves.size();
-    sum += m_trees.size();
     sum += m_grounds.size();
-    sum += m_holes.size();
-    sum += m_caveExits.size();
-    sum += m_logVerticalTalls.size();
-    sum += m_logVerticalShorts.size();
-    sum += m_thorns.size();
-    sum += m_stumps.size();
-    sum += m_sideSpikes.size();
-    sum += m_upwardSpikes.size();
-    sum += m_jumpSprings.size();
-    sum += m_rocks.size();
-    sum += m_platforms.size();
-    sum += m_endSigns.size();
-    sum += m_carrots.size();
-    sum += m_goldenCarrots.size();
-    sum += m_snakeGruntEnemies.size();
-    sum += m_snakeHornedEnemies.size();
     sum += m_jons.size();
     
     return sum;
@@ -292,19 +156,19 @@ bool Game::isUpwardThrustEffectiveAgainstEnemy()
     return EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeGruntEnemies()) || EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeHornedEnemies());
 }
 
-std::vector<std::unique_ptr<BackgroundSky>>& Game::getBackgroundSkies()
+std::vector<Background *>& Game::getBackgroundUppers()
 {
-    return m_backgroundSkies;
+    return m_backgroundUppers;
 }
 
-std::vector<std::unique_ptr<BackgroundTrees>>& Game::getBackgroundTrees()
+std::vector<Background *>& Game::getBackgroundLowers()
 {
-    return m_backgroundTrees;
+    return m_backgroundLowers;
 }
 
-std::vector<std::unique_ptr<BackgroundCave>>& Game::getBackgroundCaves()
+std::vector<Background *>& Game::getBackgroundMids()
 {
-    return m_backgroundCaves;
+    return m_backgroundMids;
 }
 
 std::vector<std::unique_ptr<Tree>>& Game::getTrees()
@@ -312,7 +176,7 @@ std::vector<std::unique_ptr<Tree>>& Game::getTrees()
     return m_trees;
 }
 
-std::vector<std::unique_ptr<Ground>>& Game::getGrounds()
+std::vector<Ground *>& Game::getGrounds()
 {
     return m_grounds;
 }
@@ -397,14 +261,14 @@ std::vector<std::unique_ptr<SnakeHorned>>& Game::getSnakeHornedEnemies()
     return m_snakeHornedEnemies;
 }
 
-std::vector<std::unique_ptr<Jon>>& Game::getJons()
+std::vector<Jon *>& Game::getJons()
 {
     return m_jons;
 }
 
 Jon& Game::getJon()
 {
-    return *getJons().at(getJons().size() - 1).get();
+    return *getJons().at(getJons().size() - 1);
 }
 
 float Game::getFarRight()

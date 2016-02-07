@@ -16,6 +16,8 @@ public:
     
     void init(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
+    void init(int x, int regionWidth, int textureWidth);
+    
 	float u1, v1, u2, v2;
 };
 

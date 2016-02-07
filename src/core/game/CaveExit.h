@@ -27,7 +27,7 @@ typedef enum
 class CaveExit : public LandPhysicalEntity
 {
 public:
-    static CaveExit* create(float x, float y, int type);
+    static CaveExit* create(int gridX, int gridY, int type);
     
     CaveExit(float x, float y, float width, float height, CaveExitType type);
     

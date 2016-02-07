@@ -9,9 +9,7 @@
 #ifndef __nosfuratu__Game__
 #define __nosfuratu__Game__
 
-#include "BackgroundSky.h"
-#include "BackgroundTrees.h"
-#include "BackgroundCave.h"
+#include "Background.h"
 #include "Tree.h"
 #include "Ground.h"
 #include "Hole.h"
@@ -40,10 +38,8 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
-#define xKey "x"
-#define ykey "y"
-#define widthKey "width"
-#define heightKey "height"
+#define gridXKey "gridX"
+#define gridYKey "gridY"
 #define typeKey "type"
 
 class Game
@@ -83,15 +79,15 @@ public:
     
     bool isUpwardThrustEffectiveAgainstEnemy();
     
-    std::vector<std::unique_ptr<BackgroundSky>>& getBackgroundSkies();
+    std::vector<Background *>& getBackgroundUppers();
     
-    std::vector<std::unique_ptr<BackgroundTrees>>& getBackgroundTrees();
+    std::vector<Background *>& getBackgroundMids();
     
-    std::vector<std::unique_ptr<BackgroundCave>>& getBackgroundCaves();
+    std::vector<Background *>& getBackgroundLowers();
     
     std::vector<std::unique_ptr<Tree>>& getTrees();
     
-    std::vector<std::unique_ptr<Ground>>& getGrounds();
+    std::vector<Ground *>& getGrounds();
     
     std::vector<std::unique_ptr<Hole>>& getHoles();
     
@@ -125,7 +121,7 @@ public:
     
     std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
     
-    std::vector<std::unique_ptr<Jon>>& getJons();
+    std::vector<Jon *>& getJons();
     
     Jon& getJon();
     
@@ -142,11 +138,11 @@ public:
     bool isLoaded();
     
 private:
-    std::vector<std::unique_ptr<BackgroundSky>> m_backgroundSkies;
-    std::vector<std::unique_ptr<BackgroundTrees>> m_backgroundTrees;
-    std::vector<std::unique_ptr<BackgroundCave>> m_backgroundCaves;
+    std::vector<Background *> m_backgroundUppers;
+    std::vector<Background *> m_backgroundMids;
+    std::vector<Background *> m_backgroundLowers;
     std::vector<std::unique_ptr<Tree>> m_trees;
-    std::vector<std::unique_ptr<Ground>> m_grounds;
+    std::vector<Ground *> m_grounds;
     std::vector<std::unique_ptr<Hole>> m_holes;
     std::vector<std::unique_ptr<CaveExit>> m_caveExits;
     std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
@@ -163,7 +159,7 @@ private:
     std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
     std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
     std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
-    std::vector<std::unique_ptr<Jon>> m_jons;
+    std::vector<Jon *> m_jons;
     
     float m_fStateTime;
     int m_iNumTotalCarrots;
@@ -171,11 +167,11 @@ private:
     bool m_isLoaded;
     
     template<typename T>
-    void copyPhysicalEntities(std::vector<std::unique_ptr<T>>& itemsFrom, std::vector<std::unique_ptr<T>>& itemsTo)
+    void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        for (typename std::vector<T*>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
         {
-            itemsTo.push_back(std::unique_ptr<T>(T::create((*i)->getPosition().getX(), (*i)->getPosition().getY(), (*i)->getType())));
+            itemsTo.push_back(T::create((*i)->getGridX(), (*i)->getGridY(), (*i)->getType()));
         }
     }
     
@@ -183,15 +179,15 @@ private:
     static void serialize(T* item, rapidjson::Writer<rapidjson::StringBuffer>& w)
     {
         w.StartObject();
-        w.String(xKey);
-        w.Double(item->getPosition().getX());
-        w.String(ykey);
-        w.Double(item->getPosition().getY());
+        w.String(gridXKey);
+        w.Int(item->getGridX());
+        w.String(gridYKey);
+        w.Int(item->getGridY());
         int type = item->getType();
         if (type != -1)
         {
             w.String(typeKey);
-            w.Double(type);
+            w.Int(type);
         }
         
         w.EndObject();
@@ -200,19 +196,19 @@ private:
     template<typename T>
     static T* deserialize(rapidjson::Value& v)
     {
-        float x = v[xKey].GetDouble();
-        float y = v[ykey].GetDouble();
+        int gridX = v[gridXKey].GetInt();
+        int gridY = v[gridYKey].GetInt();
         int type = 0;
         if (v.HasMember(typeKey))
         {
             type = v[typeKey].GetInt();
         }
         
-        return T::create(x, y, type);
+        return T::create(gridX, gridY, type);
     }
     
     template<typename T>
-    void loadArray(std::vector<std::unique_ptr<T>>& items, rapidjson::Document& d, const char * key)
+    void loadArray(std::vector<T*>& items, rapidjson::Document& d, const char * key)
     {
         using namespace rapidjson;
         
@@ -222,29 +218,29 @@ private:
             assert(v.IsArray());
             for (SizeType i = 0; i < v.Size(); i++)
             {
-                items.push_back(std::unique_ptr<T>(deserialize<T>(v[i])));
+                items.push_back(deserialize<T>(v[i]));
             }
         }
     }
     
     template<typename T>
-    void saveArray(std::vector<std::unique_ptr<T>>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
+    void saveArray(std::vector<T*>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
     {
         w.String(key);
         w.StartArray();
         
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            serialize((*i).get(), w);
+            serialize((*i), w);
         }
         
         w.EndArray();
     }
     
     template<typename T>
-    void setGameToEntities(std::vector<std::unique_ptr<T>>& items, Game* game)
+    void setGameToEntities(std::vector<T*>& items, Game* game)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             (*i)->setGame(game);
         }

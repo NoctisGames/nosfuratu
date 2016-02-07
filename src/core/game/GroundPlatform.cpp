@@ -8,25 +8,25 @@
 
 #include "GroundPlatform.h"
 
-GroundPlatform* GroundPlatform::create(float x, float y, int type)
+GroundPlatform* GroundPlatform::create(int gridX, int gridY, int type)
 {
     switch ((GroundPlatformType) type)
     {
         case GroundPlatformType::GroundPlatformType_GrassDefault:
-            return new GroundPlatformGrassDefault(x, y);
+            return new GroundPlatformGrassDefault(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_GrassEndLeft:
-            return new GroundPlatformGrassEndLeft(x, y);
+            return new GroundPlatformGrassEndLeft(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_GrassCenter:
-            return new GroundPlatformGrassCenter(x, y);
+            return new GroundPlatformGrassCenter(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_GrassEndRight:
-            return new GroundPlatformGrassEndRight(x, y);
+            return new GroundPlatformGrassEndRight(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_CaveEndLeft:
-            return new GroundPlatformCaveEndLeft(x, y);
+            return new GroundPlatformCaveEndLeft(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_CaveCenter:
-            return new GroundPlatformCaveCenter(x, y);
+            return new GroundPlatformCaveCenter(gridX, gridY);
         case GroundPlatformType::GroundPlatformType_CaveEndRight:
         default:
-            return new GroundPlatformCaveEndRight(x, y);
+            return new GroundPlatformCaveEndRight(gridX, gridY);
     }
 }
 

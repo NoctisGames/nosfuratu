@@ -14,7 +14,7 @@
 class LogVerticalShort : public DestructiblePhysicalEntity
 {
 public:
-    static LogVerticalShort* create(float x, float y, int type);
+    static LogVerticalShort* create(int gridX, int gridY, int type);
     
     LogVerticalShort(float x, float y, float width = 3.655430711610487f, float height = 1.3422103861517976f);
     

@@ -21,7 +21,7 @@ typedef enum
 class JumpSpring : public LandPhysicalEntity
 {
 public:
-    static JumpSpring* create(float x, float y, int type);
+    static JumpSpring* create(int gridX, int gridY, int type);
     
     JumpSpring(float x, float y, float width, float height, int boostVelocity, JumpSpringType type);
     

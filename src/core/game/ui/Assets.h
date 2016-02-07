@@ -28,9 +28,7 @@
 #include "LogVerticalTall.h"
 #include "Rock.h"
 #include "Game.h"
-#include "BackgroundSky.h"
-#include "BackgroundTrees.h"
-#include "BackgroundCave.h"
+#include "Background.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
 #include "LevelEditorActionsPanel.h"
@@ -50,11 +48,7 @@ class Assets
 public:
 	static Assets * getInstance();
     
-    TextureRegion& get(BackgroundSky& backgroundSky);
-    
-    TextureRegion& get(BackgroundTrees& backgroundTrees);
-    
-    TextureRegion& get(BackgroundCave& backgroundCave);
+    TextureRegion& get(Background& background);
     
     TextureRegion& get(Tree& tree);
     
@@ -141,7 +135,7 @@ private:
     
     TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
-	void initTextureRegion(TextureRegion& tr, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Assets();

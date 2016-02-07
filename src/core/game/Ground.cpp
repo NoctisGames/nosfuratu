@@ -10,92 +10,116 @@
 #include "EntityAnchor.h"
 #include "EntityUtils.h"
 
-Ground* Ground::create(float x, float y, int type)
+Ground* Ground::create(int gridX, int gridY, int type)
 {
     Ground* pGround;
     
     switch ((GroundType)type)
     {
-        case GroundType_Grass_with_Cave_Large:
-            pGround = new GroundGrassWithCaveLarge(x);
+        case GroundType_CaveExtraDeepEndLeft:
+            pGround = new CaveExtraDeepEndLeft(gridX);
             break;
-        case GroundType_Grass_with_Cave_Medium:
-            pGround = new GroundGrassWithCaveMedium(x);
+        case GroundType_CaveExtraDeepSmall:
+            pGround = new CaveExtraDeepSmall(gridX);
             break;
-        case GroundType_Grass_with_Cave_Small:
-            pGround = new GroundGrassWithCaveSmall(x);
+        case GroundType_CaveExtraDeepMedium:
+            pGround = new CaveExtraDeepMedium(gridX);
             break;
-        case GroundType_Grass_with_Cave_End_Left:
-            pGround = new GroundGrassWithCaveEndLeft(x);
+        case GroundType_CaveExtraDeepLarge:
+            pGround = new CaveExtraDeepLarge(gridX);
             break;
-        case GroundType_Grass_with_Cave_End_Right:
-            pGround = new GroundGrassWithCaveEndRight(x);
-            break;
-            
-        case GroundType_Grass_without_Cave_Large:
-            pGround = new GroundGrassWithoutCaveLarge(x);
-            break;
-        case GroundType_Grass_without_Cave_Medium:
-            pGround = new GroundGrassWithoutCaveMedium(x);
-            break;
-        case GroundType_Grass_without_Cave_Small:
-            pGround = new GroundGrassWithoutCaveSmall(x);
-            break;
-        case GroundType_Grass_without_Cave_End_Left:
-            pGround = new GroundGrassWithoutCaveEndLeft(x);
-            break;
-        case GroundType_Grass_without_Cave_End_Right:
-            pGround = new GroundGrassWithoutCaveEndRight(x);
+        case GroundType_CaveExtraDeepEndRight:
+            pGround = new CaveExtraDeepEndRight(gridX);
             break;
             
-        case GroundType_Cave_Large:
-            pGround = new GroundCaveLarge(x);
+        case GroundType_CaveDeepEndLeft:
+            pGround = new CaveDeepEndLeft(gridX);
             break;
-        case GroundType_Cave_Medium:
-            pGround = new GroundCaveMedium(x);
+        case GroundType_CaveDeepSmall:
+            pGround = new CaveDeepSmall(gridX);
             break;
-        case GroundType_Cave_Small:
-            pGround = new GroundCaveSmall(x);
+        case GroundType_CaveDeepMedium:
+            pGround = new CaveDeepMedium(gridX);
             break;
-        case GroundType_Cave_End_Left:
-            pGround = new GroundCaveEndLeft(x);
+        case GroundType_CaveDeepLarge:
+            pGround = new CaveDeepLarge(gridX);
             break;
-        case GroundType_Cave_End_Right:
-            pGround = new GroundCaveEndRight(x);
+        case GroundType_CaveDeepEndRight:
+            pGround = new CaveDeepEndRight(gridX);
             break;
             
-        case GroundType_Cave_Raised_Large:
-            pGround = new GroundCaveRaisedLarge(x);
+        case GroundType_CaveEndLeft:
+            pGround = new CaveEndLeft(gridX);
             break;
-        case GroundType_Cave_Raised_Medium:
-            pGround = new GroundCaveRaisedMedium(x);
+        case GroundType_CaveSmall:
+            pGround = new CaveSmall(gridX);
             break;
-        case GroundType_Cave_Raised_Small:
-            pGround = new GroundCaveRaisedSmall(x);
+        case GroundType_CaveMedium:
+            pGround = new CaveMedium(gridX);
             break;
-        case GroundType_Cave_Raised_End_Left:
-            pGround = new GroundCaveRaisedEndLeft(x);
+        case GroundType_CaveLarge:
+            pGround = new CaveLarge(gridX);
             break;
-        case GroundType_Cave_Raised_End_Right:
+        case GroundType_CaveEndRight:
+            pGround = new CaveEndRight(gridX);
+            break;
+            
+        case GroundType_CaveRaisedEndLeft:
+            pGround = new CaveRaisedEndLeft(gridX);
+            break;
+        case GroundType_CaveRaisedSmall:
+            pGround = new CaveRaisedSmall(gridX);
+            break;
+        case GroundType_CaveRaisedMedium:
+            pGround = new CaveRaisedMedium(gridX);
+            break;
+        case GroundType_CaveRaisedLarge:
+            pGround = new CaveRaisedLarge(gridX);
+            break;
+        case GroundType_CaveRaisedEndRight:
+            pGround = new CaveRaisedEndRight(gridX);
+            break;
+            
+        case GroundType_GrassWithCaveEndLeft:
+            pGround = new GrassWithCaveEndLeft(gridX);
+            break;
+        case GroundType_GrassWithCaveSmall:
+            pGround = new GrassWithCaveSmall(gridX);
+            break;
+        case GroundType_GrassWithCaveMedium:
+            pGround = new GrassWithCaveMedium(gridX);
+            break;
+        case GroundType_GrassWithCaveLarge:
+            pGround = new GrassWithCaveLarge(gridX);
+            break;
+        case GroundType_GrassWithCaveEndRight:
+            pGround = new GrassWithCaveEndRight(gridX);
+            break;
+            
+        case GroundType_GrassWithoutCaveEndLeft:
+            pGround = new GrassWithoutCaveEndLeft(gridX);
+            break;
+        case GroundType_GrassWithoutCaveSmall:
+            pGround = new GrassWithoutCaveSmall(gridX);
+            break;
+        case GroundType_GrassWithoutCaveMedium:
+            pGround = new GrassWithoutCaveMedium(gridX);
+            break;
+        case GroundType_GrassWithoutCaveLarge:
+            pGround = new GrassWithoutCaveLarge(gridX);
+            break;
+        case GroundType_GrassWithoutCaveEndRight:
+            pGround = new GrassWithoutCaveEndRight(gridX);
+            break;
+        
         default:
-            pGround = new GroundCaveRaisedEndRight(x);
-            break;
-    }
-    
-    if (type != GroundType_Grass_with_Cave_Large
-        && type != GroundType_Grass_with_Cave_Medium
-        && type != GroundType_Grass_with_Cave_Small
-        && type != GroundType_Grass_with_Cave_End_Left
-        && type != GroundType_Grass_with_Cave_End_Right)
-    {
-        EntityUtils::applyAnchor(*pGround, ANCHOR_BOTTOM);
-        pGround->updateBounds();
+            assert(false);
     }
     
     return pGround;
 }
 
-Ground::Ground(float x, float y, float width, float height, float boundsHeightFactor, GroundType type) : LandPhysicalEntity(x, y, width, height), m_type(type), m_fBoundsHeightFactor(boundsHeightFactor)
+Ground::Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, GroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsHeightFactor(boundsHeightFactor), m_type(type), m_groundSoundType(groundSoundType)
 {
     updateBounds();
 }
@@ -109,49 +133,12 @@ void Ground::updateBounds()
     m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
-bool Ground::is_world_1_cave()
-{
-    return m_type == GroundType_Cave_Large
-    || m_type == GroundType_Cave_Medium
-    || m_type == GroundType_Cave_Small
-    || m_type == GroundType_Cave_End_Left
-    || m_type == GroundType_Cave_End_Right
-    || m_type == GroundType_Cave_Raised_Large
-    || m_type == GroundType_Cave_Raised_Medium
-    || m_type == GroundType_Cave_Raised_Small
-    || m_type == GroundType_Cave_Raised_End_Left
-    || m_type == GroundType_Cave_Raised_End_Right;
-}
-
-bool Ground::is_world_1_ground_w_cave()
-{
-    return m_type == GroundType_Grass_with_Cave_Large
-    || m_type == GroundType_Grass_with_Cave_Medium
-    || m_type == GroundType_Grass_with_Cave_Small
-    || m_type == GroundType_Grass_with_Cave_End_Left
-    || m_type == GroundType_Grass_with_Cave_End_Right;
-}
-
-bool Ground::is_world_1_ground_wo_cave()
-{
-    return m_type == GroundType_Grass_without_Cave_Large
-    || m_type == GroundType_Grass_without_Cave_Medium
-    || m_type == GroundType_Grass_without_Cave_Small
-    || m_type == GroundType_Grass_without_Cave_End_Left
-    || m_type == GroundType_Grass_without_Cave_End_Right;
-}
-
-GroundType Ground::getEnumType()
-{
-    return m_type;
-}
-
-int Ground::getType()
+GroundType Ground::getType()
 {
     return m_type;
 }
 
 GroundSoundType Ground::getGroundSoundType()
 {
-    return is_world_1_cave() ? GROUND_SOUND_CAVE : GROUND_SOUND_GRASS;
+    return m_groundSoundType;
 }

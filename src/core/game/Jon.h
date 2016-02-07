@@ -9,7 +9,7 @@
 #ifndef __nosfuratu__Jon__
 #define __nosfuratu__Jon__
 
-#include "PhysicalEntity.h"
+#include "GridLockedPhysicalEntity.h"
 #include "JonState.h"
 #include "JonPhysicalState.h"
 #include "JonActionState.h"
@@ -25,12 +25,12 @@
 
 class Game;
 
-class Jon : public PhysicalEntity
+class Jon : public GridLockedPhysicalEntity
 {
 public:
-    static Jon* create(float x, float y, int type);
+    static Jon* create(int gridX, int gridY, int type);
     
-    Jon(float x, float y, float width = 2.2f, float height = 2.2f);
+    Jon(int gridX, int gridY, int gridWidth = 16, int gridHeight = 16);
     
     virtual void update(float deltaTime);
     
@@ -52,9 +52,9 @@ public:
     
     void triggerDownAction();
     
-    std::vector<std::unique_ptr<DustCloud>>& getDustClouds();
+    std::vector<DustCloud *>& getDustClouds();
     
-    std::vector<std::unique_ptr<Jon>>& getAfterImages();
+    std::vector<Jon *>& getAfterImages();
     
     JonState getState();
     
@@ -117,8 +117,8 @@ public:
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;
-    std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
-    std::vector<std::unique_ptr<Jon>> m_afterImages;
+    std::vector<DustCloud *> m_dustClouds;
+    std::vector<Jon *> m_afterImages;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;

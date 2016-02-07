@@ -14,7 +14,7 @@
 class Carrot : public PhysicalEntity
 {
 public:
-    static Carrot* create(float x, float y, int type);
+    static Carrot* create(int gridX, int gridY, int type);
     
     Carrot(float x, float y, float width = 1.2224719101123596f, float height = 1.1025299600532623f);
     

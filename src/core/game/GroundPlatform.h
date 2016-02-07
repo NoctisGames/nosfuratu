@@ -27,7 +27,7 @@ typedef enum
 class GroundPlatform : public LandPhysicalEntity
 {
 public:
-    static GroundPlatform* create(float x, float y, int type);
+    static GroundPlatform* create(int gridX, int gridY, int type);
     
     GroundPlatform(float x, float y, float width, float height, GroundPlatformType type);
     

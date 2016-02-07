@@ -10,9 +10,9 @@
 #include "Assets.h"
 #include "GameConstants.h"
 
-GoldenCarrot* GoldenCarrot::create(float x, float y, int type)
+GoldenCarrot* GoldenCarrot::create(int gridX, int gridY, int type)
 {
-    return new GoldenCarrot(x, y);
+    return new GoldenCarrot(gridX, gridY);
 }
 
 GoldenCarrot::GoldenCarrot(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isCollected(false)

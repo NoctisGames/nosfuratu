@@ -8,17 +8,17 @@
 
 #include "UpwardSpike.h"
 
-UpwardSpike* UpwardSpike::create(float x, float y, int type)
+UpwardSpike* UpwardSpike::create(int gridX, int gridY, int type)
 {
     switch ((UpwardSpikeType) type)
     {
         case UpwardSpikeType_MetalGrass:
-            return new UpwardSpikeMetalGrass(x, y);
+            return new UpwardSpikeMetalGrass(gridX, gridY);
         case UpwardSpikeType_WoodGrass:
-            return new UpwardSpikeWoodGrass(x, y);
+            return new UpwardSpikeWoodGrass(gridX, gridY);
         case UpwardSpikeType_MetalCave:
         default:
-            return new UpwardSpikeMetalCave(x, y);
+            return new UpwardSpikeMetalCave(gridX, gridY);
     }
 }
 

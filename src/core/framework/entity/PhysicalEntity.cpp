@@ -45,22 +45,6 @@ void PhysicalEntity::updateBounds()
     lowerLeft.set(m_position->getX() - m_bounds->getWidth() / 2, m_position->getY() - m_bounds->getHeight() / 2);
 }
 
-void PhysicalEntity::boxIn(float size)
-{
-    if (m_fWidth > m_fHeight)
-    {
-        m_fHeight /= m_fWidth;
-        m_fHeight *= size;
-        m_fWidth = size;
-    }
-    else
-    {
-        m_fWidth /= m_fHeight;
-        m_fWidth *= size;
-        m_fHeight = size;
-    }
-}
-
 Vector2D& PhysicalEntity::getPosition()
 {
     return *m_position;
@@ -86,9 +70,19 @@ const float& PhysicalEntity::getWidth()
     return m_fWidth;
 }
 
+void PhysicalEntity::setWidth(float width)
+{
+    m_fWidth = width;
+}
+
 const float& PhysicalEntity::getHeight()
 {
     return m_fHeight;
+}
+
+void PhysicalEntity::setHeight(float height)
+{
+    m_fHeight = height;
 }
 
 float PhysicalEntity::getAngle()

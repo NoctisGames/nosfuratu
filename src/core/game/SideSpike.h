@@ -14,7 +14,7 @@
 class SideSpike : public PhysicalEntity
 {
 public:
-    static SideSpike* create(float x, float y, int type);
+    static SideSpike* create(int gridX, int gridY, int type);
     
     SideSpike(float x, float y, float width = 1.1146067415730336f, float height = 0.4194407456724368f);
     

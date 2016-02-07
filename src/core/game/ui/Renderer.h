@@ -18,6 +18,7 @@
 
 class SpriteBatcher;
 class RectangleBatcher;
+class LineBatcher;
 struct TextureWrapper;
 class PhysicalEntity;
 class TextureRegion;
@@ -118,23 +119,17 @@ protected:
     std::unique_ptr<SpriteBatcher> m_spriteBatcher;
     std::unique_ptr<RectangleBatcher> m_boundsRectangleBatcher;
     std::unique_ptr<RectangleBatcher> m_highlightRectangleBatcher;
+    std::unique_ptr<LineBatcher> m_lineBatcher;
     std::unique_ptr<Font> m_font;
     
     TextureWrapper* m_jon;
-    TextureWrapper* m_level_editor;
-    TextureWrapper* m_title_font;
-    TextureWrapper* m_vampire;
-    TextureWrapper* m_world_1_background;
-    TextureWrapper* m_world_1_cave;
-    TextureWrapper* m_world_1_enemies;
-    TextureWrapper* m_world_1_snake_cave;
-    TextureWrapper* m_world_1_ground_w_cave;
-    TextureWrapper* m_world_1_ground_wo_cave;
-    TextureWrapper* m_world_1_misc;
-    TextureWrapper* m_world_1_objects;
-    TextureWrapper* m_game_objects;
-    TextureWrapper* m_world_map;
+    TextureWrapper* m_misc;
     TextureWrapper* m_trans_death_shader_helper;
+    TextureWrapper* m_vampire;
+    TextureWrapper* m_world_1_background_lower;
+    TextureWrapper* m_world_1_background_mid;
+    TextureWrapper* m_world_1_background_upper;
+    TextureWrapper* m_world_1_ground;
     
     std::vector<TextureWrapper> m_framebuffers;
     
@@ -172,42 +167,38 @@ private:
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
-    bool m_areTitleTexturesLoaded;
+    bool m_areMenuTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
-    bool m_areLevelEditorTexturesLoaded;
     bool m_areShadersLoaded;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
+    void renderPhysicalEntities(std::vector<T*>& items)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* pItem = upItem.get();
+            T* pItem = *i;
             T& item = *pItem;
             renderPhysicalEntity(item, Assets::getInstance()->get(item));
         }
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<std::unique_ptr<T>>& items)
+    void renderPhysicalEntitiesWithColor(std::vector<T*>& items)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* pItem = upItem.get();
+            T* pItem = *i;
             T& item = *pItem;
             renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
         }
     }
     
     template<typename T>
-    void renderBoundsForPhysicalEntities(std::vector<std::unique_ptr<T>>& items)
+    void renderBoundsForPhysicalEntities(std::vector<T*>& items)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* pItem = upItem.get();
+            T* pItem = *i;
             T& item = *pItem;
             renderBoundsForPhysicalEntity(item);
         }

@@ -22,7 +22,6 @@
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST 3
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD 4
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE 5
-#define LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO 6
 
 class LevelEditorActionsPanel : public PhysicalEntity
 {
@@ -37,7 +36,6 @@ private:
     std::unique_ptr<Rectangle> m_toggleBoundsButton;
     std::unique_ptr<Rectangle> m_resetButton;
     std::unique_ptr<Rectangle> m_exitButton;
-    std::unique_ptr<Rectangle> m_undoButton;
     std::unique_ptr<Rectangle> m_testButton;
     std::unique_ptr<Rectangle> m_loadButton;
     std::unique_ptr<Rectangle> m_saveButton;

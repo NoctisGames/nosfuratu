@@ -55,12 +55,12 @@
 //// Texture Definitions ////
 
 #define TEXTURE_SIZE_2048 2048
-#define TEXTURE_SIZE_4096 2048 // temporary
-#define PIXEL_WIDTH_FOR_BACKGROUND 684.0f
+#define TEXTURE_SIZE_4096 4096
+#define PIXEL_WIDTH_FOR_BACKGROUND 1808
 
 //// Matrix Definitions ////
 
-#define CAM_WIDTH 16.0f
+#define CAM_WIDTH 15.890625f
 #define CAM_HEIGHT 9.0f
 
 //// Touch Input Definitions ////
@@ -70,8 +70,8 @@
 
 //// World Definitions ////
 
-#define ZOOMED_OUT_CAM_WIDTH 48.0f
-#define GAME_HEIGHT 27.0f
+#define ZOOMED_OUT_CAM_WIDTH 63.5625f
+#define GAME_HEIGHT 36.0f
 
 #define RABBIT_GRAVITY -18.0f
 #define VAMP_GRAVITY -20.0f

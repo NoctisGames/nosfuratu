@@ -14,7 +14,7 @@
 class GoldenCarrot : public PhysicalEntity
 {
 public:
-    static GoldenCarrot* create(float x, float y, int type);
+    static GoldenCarrot* create(int gridX, int gridY, int type);
     
     GoldenCarrot(float x, float y, float width = 1.246441947565543f, float height = 1.3422103861517976f);
     

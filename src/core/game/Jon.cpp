@@ -20,14 +20,14 @@ float clamp(float x, float upper, float lower)
     return fminf(upper, fmaxf(x, lower));
 }
 
-Jon* Jon::create(float x, float y, int type)
+Jon* Jon::create(int gridX, int gridY, int type)
 {
-	return new Jon(x, y);
+	return new Jon(gridX, gridY);
 }
 
-Jon::Jon(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fDeltaTime(0), m_iNumJumps(0), m_iBoostVelocity(0), m_isLanding(false), m_isRightFoot(false), m_isAllowedToMove(false)
+Jon::Jon(int gridX, int gridY, int gridWidth, int gridHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fDeltaTime(0), m_iNumJumps(0), m_iBoostVelocity(0), m_isLanding(false), m_isRightFoot(false), m_isAllowedToMove(false)
 {
-	resetBounds(width * 0.6796875f, height * 0.8203125f);
+	resetBounds(m_fWidth * 0.6796875f, m_fHeight * 0.8203125f);
 
 	m_formStateMachine = std::unique_ptr<StateMachine<Jon>>(new StateMachine<Jon>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
@@ -38,12 +38,13 @@ void Jon::update(float deltaTime)
 {
 	m_fDeltaTime = deltaTime;
 
-	for (std::vector<std::unique_ptr<DustCloud>>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
+	for (std::vector<DustCloud *>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
 	{
 		(*i)->update(deltaTime);
 
 		if ((*i)->isRequestingDeletion())
 		{
+            delete *i;
 			i = getDustClouds().erase(i);
 		}
 		else
@@ -52,7 +53,7 @@ void Jon::update(float deltaTime)
 		}
 	}
     
-    for (std::vector<std::unique_ptr<Jon>>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
+    for (std::vector<Jon *>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
     {
         (*i)->m_color.red -= m_fDeltaTime * 3;
         (*i)->m_color.green -= m_fDeltaTime * 3;
@@ -61,6 +62,7 @@ void Jon::update(float deltaTime)
         
         if ((*i)->m_color.alpha < 0.0)
         {
+            delete *i;
             i = m_afterImages.erase(i);
         }
         else
@@ -131,7 +133,7 @@ void Jon::update(float deltaTime)
 			m_fStateTime = 0;
 			m_fHeight = 2.2f;
 
-			m_dustClouds.push_back(std::unique_ptr<DustCloud>(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f))));
+			m_dustClouds.push_back(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
 
 			if (m_groundSoundType == GROUND_SOUND_GRASS)
 			{
@@ -295,12 +297,12 @@ void Jon::triggerDownAction()
 	jfs->triggerDownAction(this);
 }
 
-std::vector<std::unique_ptr<DustCloud>>& Jon::getDustClouds()
+std::vector<DustCloud *>& Jon::getDustClouds()
 {
 	return m_dustClouds;
 }
 
-std::vector<std::unique_ptr<Jon>>& Jon::getAfterImages()
+std::vector<Jon *>& Jon::getAfterImages()
 {
     return m_afterImages;
 }
@@ -751,7 +753,7 @@ void Jon::Vampire::execute(Jon* jon)
         afterImage->m_color.alpha *= (dist + 0.25f);
         afterImage->m_color.alpha = clamp(afterImage->m_color.alpha, 1, 0);
         
-        jon->m_afterImages.push_back(std::unique_ptr<Jon>(afterImage));
+        jon->m_afterImages.push_back(afterImage);
     }
 }
 
