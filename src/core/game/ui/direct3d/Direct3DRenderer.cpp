@@ -22,6 +22,7 @@
 #include "Direct3DSpriteBatcher.h"
 #include "Direct3DLineBatcher.h"
 #include "Direct3DCircleBatcher.h"
+#include "Direct3DLineBatcher.h"
 #include "Rectangle.h"
 #include "Circle.h"
 #include "Direct3DManager.h"
@@ -49,6 +50,7 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
 	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources));
 	m_highlightRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources, true));
+	m_lineBatcher = std::unique_ptr<Direct3DLineBatcher>(new Direct3DLineBatcher(m_deviceResources));
 }
 
 bool Direct3DRenderer::isLoaded()

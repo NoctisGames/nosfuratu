@@ -919,9 +919,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundCave.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
+    <ClInclude Include="..\..\..\..\core\game\Background.h" />
     <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
     <ClInclude Include="..\..\..\..\core\game\CaveExit.h" />
     <ClInclude Include="..\..\..\..\core\game\CaveExitCover.h" />
@@ -933,6 +931,7 @@
     <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
     <ClInclude Include="..\..\..\..\core\game\GoldenCarrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\Ground.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundPlatform.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
@@ -974,6 +973,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditor.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
@@ -1029,9 +1029,7 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundCave.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CaveExit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CaveExitCover.cpp" />
@@ -1041,6 +1039,7 @@
     <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
     <ClCompile Include="..\..\..\..\core\game\GoldenCarrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
@@ -1076,6 +1075,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditor.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />

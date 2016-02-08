@@ -12,7 +12,7 @@
 
 Ground* Ground::create(int gridX, int gridY, int type)
 {
-    Ground* pGround;
+    Ground* pGround = nullptr;
     
     switch ((GroundType)type)
     {
