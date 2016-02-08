@@ -645,7 +645,7 @@ void Renderer::renderJon(Game& game)
     }
 }
 
-void Renderer::renderBounds(Game& game)
+void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 {
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getRight(), m_camBounds->getBottom(), m_camBounds->getTop());
     
@@ -660,37 +660,14 @@ void Renderer::renderBounds(Game& game)
     int len = right;
     
     m_lineBatcher->beginBatch();
-//    for (int i = left; i < len; i++)
-//    {
-//        float x = i * GRID_CELL_SIZE;
-//        m_lineBatcher->renderLine(x, 0, x, GAME_HEIGHT, gridColor);
-//    }
-//    
-//    for (int j = 0; j < 256; j++)
-//    {
-//        float y = j * GRID_CELL_SIZE;
-//        m_lineBatcher->renderLine(m_camBounds->getLeft(), y, m_camBounds->getRight(), y, gridColor);
-//    }
-//    
-//    for (int i = left; i < len; i+= 2)
-//    {
-//        float x = i * GRID_CELL_SIZE;
-//        m_lineBatcher->renderLine(x, 0, x, GAME_HEIGHT, gridColor);
-//    }
-//    
-//    for (int j = 0; j < 256; j+= 2)
-//    {
-//        float y = j * GRID_CELL_SIZE;
-//        m_lineBatcher->renderLine(m_camBounds->getLeft(), y, m_camBounds->getRight(), y, gridColor);
-//    }
     
-    for (int i = 0; i < len; i+= 4)
+    for (int i = 0; i < len; i+= boundsLevelRequested)
     {
         float x = i * GRID_CELL_SIZE;
         m_lineBatcher->renderLine(x, 0, x, GAME_HEIGHT, gridColor);
     }
     
-    for (int j = 0; j < 256; j+= 4)
+    for (int j = 0; j < 256; j+= boundsLevelRequested)
     {
         float y = j * GRID_CELL_SIZE;
         m_lineBatcher->renderLine(m_camBounds->getLeft(), y, m_camBounds->getRight(), y, gridColor);
@@ -974,6 +951,8 @@ void Renderer::cleanUp()
         destroyTexture(*m_world_1_background_lower);
         destroyTexture(*m_world_1_background_mid);
         destroyTexture(*m_world_1_background_upper);
+        
+        destroyTexture(*m_world_1_ground);
         
         m_areWorld1TexturesLoaded = false;
     }

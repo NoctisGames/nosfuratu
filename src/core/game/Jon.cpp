@@ -716,10 +716,11 @@ void Jon::Vampire::execute(Jon* jon)
         m_lastKnownVelocity->set(*jon->m_velocity);
         m_fTimeSinceLastVelocityCheck = 0;
         
-        Jon* afterImage = new Jon(jon->getPosition().getX(), jon->getPosition().getY());
+        Jon* afterImage = new Jon(jon->getGridX(), jon->getGridY());
         afterImage->m_formStateMachine = std::unique_ptr<StateMachine<Jon>>(new StateMachine<Jon>(afterImage));
         afterImage->m_formStateMachine->setCurrentState(jon->m_formStateMachine->getCurrentState());
         afterImage->m_velocity->set(*jon->m_velocity);
+        afterImage->m_position->set(*jon->m_position);
         afterImage->m_state = jon->m_state;
         afterImage->m_physicalState = jon->m_physicalState;
         afterImage->m_actionState = jon->m_actionState;

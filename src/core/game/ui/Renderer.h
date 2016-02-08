@@ -89,7 +89,7 @@ public:
     
     void renderJon(Game& game);
     
-    void renderBounds(Game& game);
+    void renderBounds(Game& game, int boundsLevelRequested);
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     

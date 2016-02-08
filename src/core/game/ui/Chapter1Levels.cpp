@@ -14,7 +14,7 @@
 
 Chapter1Level1 * Chapter1Level1::getInstance()
 {
-    static Chapter1Level1 *instance = new Chapter1Level1("ZZZZZZZZZZ");
+    static Chapter1Level1 *instance = new Chapter1Level1("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
     return instance;
 }
@@ -23,7 +23,7 @@ Chapter1Level1 * Chapter1Level1::getInstance()
 
 Chapter1Level2 * Chapter1Level2::getInstance()
 {
-    static Chapter1Level2 *instance = new Chapter1Level2("ZZZZZZZZZZ");
+    static Chapter1Level2 *instance = new Chapter1Level2("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
     return instance;
 }
@@ -32,7 +32,7 @@ Chapter1Level2 * Chapter1Level2::getInstance()
 
 Chapter1Level3 * Chapter1Level3::getInstance()
 {
-    static Chapter1Level3 *instance = new Chapter1Level3("ZZZZZZZZZZ");
+    static Chapter1Level3 *instance = new Chapter1Level3("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
     return instance;
 }

@@ -111,15 +111,15 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     
                     return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                 }
-                else if (touchPoint.getY() < m_touchPointDown2->getY() + 0.5f && touchPoint.getY() > m_touchPointDown2->getY() - 0.5f)
+                else if (touchPoint.getY() < m_touchPointDown2->getY() + 0.25f && touchPoint.getY() > m_touchPointDown2->getY() - 0.25f)
                 {
                     touchPoint.add(0, m_fEntitiesCameraPos);
                     
-                    float x = camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2 / GRID_CELL_SIZE;
-                    float y = GAME_HEIGHT / 2 / GRID_CELL_SIZE;
+                    int gridX = (camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
+                    int gridY = GAME_HEIGHT / 2 / GRID_CELL_SIZE;
                     
-                    if (isTouchingEntityForPlacement(m_jons, game.getJons(), x, y, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), x, y, lastAddedEntity, touchPoint))
+                    if (isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
@@ -131,9 +131,6 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     {
         switch (te.getTouchType())
         {
-            case DOWN:
-            case DRAGGED:
-                return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
             case UP:
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
                 {
@@ -143,6 +140,9 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     
                     return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                 }
+            case DOWN:
+            case DRAGGED:
+                return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
         }
     }
     

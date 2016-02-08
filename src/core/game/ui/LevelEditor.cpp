@@ -60,9 +60,10 @@ void LevelEditor::execute(GameScreen* gs)
             gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
         }
         
-        if (m_levelEditorActionsPanel->isShowEntityBoundsRequested())
+        int boundsLevelRequested;
+        if ((boundsLevelRequested = m_levelEditorActionsPanel->boundsLevelRequested()) > 0)
         {
-            gs->m_renderer->renderBounds(*m_game);
+            gs->m_renderer->renderBounds(*m_game, boundsLevelRequested);
         }
         
         gs->m_renderer->renderToScreen();
@@ -358,7 +359,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                             m_draggingEntity->updateBounds();
                         }
                         
-                        m_draggingEntity->snapToGrid(4);
+                        m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
                     }
                 }
                 else if (m_lastAddedEntity != nullptr && gs->m_touchPoint->getX() < gs->m_touchPointDown2->getX() + 0.5f && gs->m_touchPoint->getX() > gs->m_touchPointDown2->getX() - 0.5f)

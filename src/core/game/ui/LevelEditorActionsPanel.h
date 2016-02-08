@@ -30,7 +30,7 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint);
     
-    bool isShowEntityBoundsRequested();
+    int boundsLevelRequested();
     
 private:
     std::unique_ptr<Rectangle> m_toggleBoundsButton;
@@ -41,8 +41,9 @@ private:
     std::unique_ptr<Rectangle> m_saveButton;
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;
+    
+    int m_iBoundsLevelRequested;
     bool m_isOpen;
-    bool m_isShowEntityBoundsRequested;
 };
 
 #endif /* defined(__nosfuratu__LevelEditorActionsPanel__) */

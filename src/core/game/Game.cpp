@@ -98,7 +98,8 @@ void Game::update(float deltaTime)
 void Game::updateAndClean(float deltaTime)
 {
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
-    EntityUtils::update(getJons(), deltaTime);
+    
+    getJon().update(deltaTime);
 }
 
 int Game::calcSum()
