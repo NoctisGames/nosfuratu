@@ -10,7 +10,7 @@ using namespace NosFURatu;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isMobile, bool useCompressedTextureSet) : GameScreen(false), m_deviceResources(deviceResources)
+Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isMobile, bool useCompressedTextureSet) : GameScreen(), m_deviceResources(deviceResources)
 {
 	D3DManager->init(m_deviceResources, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS, isMobile);
 

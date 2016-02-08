@@ -341,25 +341,7 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\game_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_ability.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_poses.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\title_font.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\trans_death_shader_helper.png">
@@ -368,91 +350,40 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\vampire.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_poses.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_lower.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_transform.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_mid.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_upper.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cave.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_w_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_wo_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_snake_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_game_objects.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\misc.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon_ability.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon_poses.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_level_editor.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_title_font.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_trans_death_shader_helper.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_misc.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire_poses.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire_transform.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground_w_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground_wo_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_misc.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_snake_cave.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_map.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>
