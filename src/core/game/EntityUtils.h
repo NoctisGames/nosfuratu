@@ -36,28 +36,14 @@ public:
     static bool isLanding(Jon& jon, std::vector<T>& items, float deltaTime)
     {
         float jonVelocityY = jon.getVelocity().getY();
-        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
-        float jonYDelta = fabsf(jonVelocityY * deltaTime);
         
         if (jonVelocityY <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+                if ((*i)->isJonLanding(jon, deltaTime))
                 {
-                    float itemTop = (*i)->getBounds().getTop();
-                    float padding = itemTop * .01f;
-                    padding += jonYDelta;
-                    float itemTopReq = itemTop - padding;
-                    
-                    if (jonLowerLeftY >= itemTopReq)
-                    {
-                        jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
-                        jon.updateBounds();
-                        jon.setGroundSoundType((*i)->getGroundSoundType());
-                        
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

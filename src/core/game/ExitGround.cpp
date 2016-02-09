@@ -42,6 +42,39 @@ void ExitGround::updateBounds()
     m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
+bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
+{
+    float jonVelocityY = jon.getVelocity().getY();
+    float jonBottomY = jon.getBounds().getBottom();
+    float jonLeftX = jon.getBounds().getLeft();
+    float jonRightX = jon.getBounds().getRight();
+    float jonYDelta = fabsf(jonVelocityY * deltaTime);
+    
+    if (jonVelocityY <= 0)
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        {
+            float itemTop = getBounds().getTop();
+            float padding = itemTop * .01f;
+            padding += jonYDelta;
+            float itemTopReq = itemTop - padding;
+            float pitEntranceLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
+            float pitEntranceRight = getBounds().getLeft() + getBounds().getWidth() * 0.75f;
+            
+            if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
+            {
+                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.updateBounds();
+                jon.setGroundSoundType(getGroundSoundType());
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 ExitGroundType ExitGround::getType()
 {
     return m_type;

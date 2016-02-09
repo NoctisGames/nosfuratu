@@ -11,6 +11,7 @@
 
 #include "GridLockedPhysicalEntity.h"
 #include "GroundSoundType.h"
+#include "Jon.h"
 
 typedef enum
 {
@@ -30,6 +31,8 @@ public:
     
     virtual void updateBounds();
     
+    bool isJonLanding(Jon& jon, float deltaTime);
+    
     ExitGroundType getType();
     
     GroundSoundType getGroundSoundType();
@@ -43,13 +46,13 @@ private:
 class GrassWithCaveSmallExitMid : public ExitGround
 {
 public:
-    GrassWithCaveSmallExitMid(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.71428571428571f, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitMid, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveSmallExitMid(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.57142857142857f, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitMid, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
 };
 
 class GrassWithCaveSmallExitEnd : public ExitGround
 {
 public:
-    GrassWithCaveSmallExitEnd(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.71428571428571f, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitEnd, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveSmallExitEnd(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.57142857142857f, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitEnd, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
 };
 
 class CaveSmallExit : public ExitGround

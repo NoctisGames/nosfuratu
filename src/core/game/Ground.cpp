@@ -98,6 +98,35 @@ void Ground::updateBounds()
     m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
+bool Ground::isJonLanding(Jon& jon, float deltaTime)
+{
+    float jonVelocityY = jon.getVelocity().getY();
+    float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+    float jonYDelta = fabsf(jonVelocityY * deltaTime);
+    
+    if (jonVelocityY <= 0)
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        {
+            float itemTop = getBounds().getTop();
+            float padding = itemTop * .01f;
+            padding += jonYDelta;
+            float itemTopReq = itemTop - padding;
+            
+            if (jonLowerLeftY >= itemTopReq)
+            {
+                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.updateBounds();
+                jon.setGroundSoundType(getGroundSoundType());
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 GroundType Ground::getType()
 {
     return m_type;

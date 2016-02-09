@@ -11,6 +11,7 @@
 
 #include "GridLockedPhysicalEntity.h"
 #include "GroundSoundType.h"
+#include "Jon.h"
 
 typedef enum
 {
@@ -59,6 +60,8 @@ public:
     Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, GroundType type, GroundSoundType groundSoundType);
     
     virtual void updateBounds();
+    
+    bool isJonLanding(Jon& jon, float deltaTime);
     
     GroundType getType();
     
