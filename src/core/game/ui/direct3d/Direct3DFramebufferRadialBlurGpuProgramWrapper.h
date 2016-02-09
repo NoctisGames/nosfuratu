@@ -9,10 +9,10 @@
 #ifndef __gowengamedev__Direct3DFramebufferRadialBlurGpuProgramWrapper__
 #define __gowengamedev__Direct3DFramebufferRadialBlurGpuProgramWrapper__
 
-#include "GpuProgramWrapper.h"
+#include "FramebufferRadialBlurGpuProgramWrapper.h"
 #include "DeviceResources.h"
 
-class Direct3DFramebufferRadialBlurGpuProgramWrapper : public GpuProgramWrapper
+class Direct3DFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlurGpuProgramWrapper
 {
 public:
 	Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
@@ -30,6 +30,7 @@ private:
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_directionConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
