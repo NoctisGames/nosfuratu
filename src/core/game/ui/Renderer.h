@@ -30,6 +30,7 @@ class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
 class TransDeathGpuProgramWrapper;
+class FramebufferRadialBlurGpuProgramWrapper;
 class Vector2D;
 class BackButton;
 class LevelEditorButton;
@@ -130,6 +131,8 @@ protected:
     TextureWrapper* m_world_1_background_mid;
     TextureWrapper* m_world_1_background_upper;
     TextureWrapper* m_world_1_ground;
+    TextureWrapper* m_world_1_midground;
+    TextureWrapper* m_world_1_objects;
     
     std::vector<TextureWrapper> m_framebuffers;
     
@@ -142,7 +145,7 @@ protected:
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
-    GpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
+    FramebufferRadialBlurGpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
 
 	int m_iFramebufferIndex;
     
@@ -167,6 +170,7 @@ private:
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
+    int m_iRadialBlurDirection;
     bool m_areMenuTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areShadersLoaded;

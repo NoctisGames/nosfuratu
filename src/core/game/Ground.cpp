@@ -12,111 +12,76 @@
 
 Ground* Ground::create(int gridX, int gridY, int type)
 {
-    Ground* pGround = nullptr;
-    
     switch ((GroundType)type)
     {
         case GroundType_CaveExtraDeepEndLeft:
-            pGround = new CaveExtraDeepEndLeft(gridX);
-            break;
+            return new CaveExtraDeepEndLeft(gridX);
         case GroundType_CaveExtraDeepSmall:
-            pGround = new CaveExtraDeepSmall(gridX);
-            break;
+            return new CaveExtraDeepSmall(gridX);
         case GroundType_CaveExtraDeepMedium:
-            pGround = new CaveExtraDeepMedium(gridX);
-            break;
+            return new CaveExtraDeepMedium(gridX);
         case GroundType_CaveExtraDeepLarge:
-            pGround = new CaveExtraDeepLarge(gridX);
-            break;
+            return new CaveExtraDeepLarge(gridX);
         case GroundType_CaveExtraDeepEndRight:
-            pGround = new CaveExtraDeepEndRight(gridX);
-            break;
+            return new CaveExtraDeepEndRight(gridX);
             
         case GroundType_CaveDeepEndLeft:
-            pGround = new CaveDeepEndLeft(gridX);
-            break;
+            return new CaveDeepEndLeft(gridX);
         case GroundType_CaveDeepSmall:
-            pGround = new CaveDeepSmall(gridX);
-            break;
+            return new CaveDeepSmall(gridX);
         case GroundType_CaveDeepMedium:
-            pGround = new CaveDeepMedium(gridX);
-            break;
+            return new CaveDeepMedium(gridX);
         case GroundType_CaveDeepLarge:
-            pGround = new CaveDeepLarge(gridX);
-            break;
+            return new CaveDeepLarge(gridX);
         case GroundType_CaveDeepEndRight:
-            pGround = new CaveDeepEndRight(gridX);
-            break;
+            return new CaveDeepEndRight(gridX);
             
         case GroundType_CaveEndLeft:
-            pGround = new CaveEndLeft(gridX);
-            break;
+            return new CaveEndLeft(gridX);
         case GroundType_CaveSmall:
-            pGround = new CaveSmall(gridX);
-            break;
+            return new CaveSmall(gridX);
         case GroundType_CaveMedium:
-            pGround = new CaveMedium(gridX);
-            break;
+            return new CaveMedium(gridX);
         case GroundType_CaveLarge:
-            pGround = new CaveLarge(gridX);
-            break;
+            return new CaveLarge(gridX);
         case GroundType_CaveEndRight:
-            pGround = new CaveEndRight(gridX);
-            break;
+            return new CaveEndRight(gridX);
             
         case GroundType_CaveRaisedEndLeft:
-            pGround = new CaveRaisedEndLeft(gridX);
-            break;
+            return new CaveRaisedEndLeft(gridX);
         case GroundType_CaveRaisedSmall:
-            pGround = new CaveRaisedSmall(gridX);
-            break;
+            return new CaveRaisedSmall(gridX);
         case GroundType_CaveRaisedMedium:
-            pGround = new CaveRaisedMedium(gridX);
-            break;
+            return new CaveRaisedMedium(gridX);
         case GroundType_CaveRaisedLarge:
-            pGround = new CaveRaisedLarge(gridX);
-            break;
+            return new CaveRaisedLarge(gridX);
         case GroundType_CaveRaisedEndRight:
-            pGround = new CaveRaisedEndRight(gridX);
-            break;
+            return new CaveRaisedEndRight(gridX);
             
         case GroundType_GrassWithCaveEndLeft:
-            pGround = new GrassWithCaveEndLeft(gridX);
-            break;
+            return new GrassWithCaveEndLeft(gridX);
         case GroundType_GrassWithCaveSmall:
-            pGround = new GrassWithCaveSmall(gridX);
-            break;
+            return new GrassWithCaveSmall(gridX);
         case GroundType_GrassWithCaveMedium:
-            pGround = new GrassWithCaveMedium(gridX);
-            break;
+            return new GrassWithCaveMedium(gridX);
         case GroundType_GrassWithCaveLarge:
-            pGround = new GrassWithCaveLarge(gridX);
-            break;
+            return new GrassWithCaveLarge(gridX);
         case GroundType_GrassWithCaveEndRight:
-            pGround = new GrassWithCaveEndRight(gridX);
-            break;
+            return new GrassWithCaveEndRight(gridX);
             
         case GroundType_GrassWithoutCaveEndLeft:
-            pGround = new GrassWithoutCaveEndLeft(gridX);
-            break;
+            return new GrassWithoutCaveEndLeft(gridX);
         case GroundType_GrassWithoutCaveSmall:
-            pGround = new GrassWithoutCaveSmall(gridX);
-            break;
+            return new GrassWithoutCaveSmall(gridX);
         case GroundType_GrassWithoutCaveMedium:
-            pGround = new GrassWithoutCaveMedium(gridX);
-            break;
+            return new GrassWithoutCaveMedium(gridX);
         case GroundType_GrassWithoutCaveLarge:
-            pGround = new GrassWithoutCaveLarge(gridX);
-            break;
+            return new GrassWithoutCaveLarge(gridX);
         case GroundType_GrassWithoutCaveEndRight:
-            pGround = new GrassWithoutCaveEndRight(gridX);
-            break;
-        
-        default:
-            assert(false);
+            return new GrassWithoutCaveEndRight(gridX);
     }
     
-    return pGround;
+    assert(false);
 }
 
 Ground::Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, GroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsHeightFactor(boundsHeightFactor), m_type(type), m_groundSoundType(groundSoundType)

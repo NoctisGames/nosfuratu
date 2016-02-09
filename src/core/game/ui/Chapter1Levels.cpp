@@ -9,6 +9,7 @@
 #include "Chapter1Levels.h"
 #include "State.h"
 #include "GameScreen.h"
+#include "Game.h"
 
 /// Chapter 1 Level 1 ///
 

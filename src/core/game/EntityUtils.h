@@ -387,11 +387,11 @@ public:
     }
     
     template<typename T>
-    static void updateBackgrounds(std::vector<T>& items, Vector2D& cameraPosition)
+    static void updateBackgrounds(std::vector<T>& items, Vector2D& cameraPosition, float deltaTime)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            (*i)->update(cameraPosition);
+            (*i)->update(cameraPosition, deltaTime);
         }
     }
     

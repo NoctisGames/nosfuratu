@@ -438,122 +438,119 @@ void GamePlay::execute(GameScreen* gs)
             {
                 jon.beginWarmingUp();
             }
-            
-            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
-            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
-            
-            return;
-        }
-        
-        if (handleTouchInput(gs))
-        {
-            return;
-        }
-        
-        if (m_showDeathTransOut)
-        {
-            // Starting new game after death
-            
-            m_fStateTime += gs->m_fDeltaTime * 2;
-            
-            if (m_fStateTime > 2.4f)
-            {
-                m_fStateTime = 0;
-                m_showDeathTransOut = false;
-            }
-        }
-        
-        if (jon.isDead())
-        {
-            // Starting death transition, when screen goes black, new game begins
-            
-            m_fStateTime += gs->m_fDeltaTime * 2;
-            
-            if (m_fStateTime > 1.6f)
-            {
-                m_game->reset();
-                enter(gs);
-                m_showDeathTransOut = true;
-            }
-            
-            return;
-        }
-        else if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
-        {
-            // Has Cleared the Level
-            
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
-            
-            m_fStateTime += gs->m_fDeltaTime;
-            
-            if (m_fStateTime > 5)
-            {
-                m_game->reset();
-                enter(gs);
-                
-                return;
-            }
         }
         else
         {
-            // Is Still Actively playing the Level
-            
-            m_game->update(gs->m_fDeltaTime);
-            
-            if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
+            if (handleTouchInput(gs))
             {
-                if (jon.getTransformStateTime() < 0.125f)
+                return;
+            }
+            
+            if (m_showDeathTransOut)
+            {
+                // Starting new game after death
+                
+                m_fStateTime += gs->m_fDeltaTime * 2;
+                
+                if (m_fStateTime > 2.4f)
                 {
-                    gs->m_fDeltaTime /= 8;
+                    m_fStateTime = 0;
+                    m_showDeathTransOut = false;
                 }
-                else
+            }
+            
+            if (jon.isDead())
+            {
+                // Starting death transition, when screen goes black, new game begins
+                
+                m_fStateTime += gs->m_fDeltaTime * 2;
+                
+                if (m_fStateTime > 1.6f)
                 {
-                    if (!m_isReleasingShockwave)
+                    m_game->reset();
+                    enter(gs);
+                    m_showDeathTransOut = true;
+                }
+                
+                return;
+            }
+            else if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
+            {
+                // Has Cleared the Level
+                
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+                
+                m_fStateTime += gs->m_fDeltaTime;
+                
+                if (m_fStateTime > 5)
+                {
+                    m_game->reset();
+                    enter(gs);
+                    
+                    return;
+                }
+            }
+            else
+            {
+                // Is Still Actively playing the Level
+                
+                m_game->update(gs->m_fDeltaTime);
+                
+                if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
+                {
+                    if (jon.getTransformStateTime() < 0.125f)
                     {
-                        m_fShockwaveCenterX = jon.getPosition().getX();
-                        m_fShockwaveCenterY = jon.getPosition().getY();
-                        m_fShockwaveElapsedTime = 0.0f;
-                        m_isReleasingShockwave = true;
+                        gs->m_fDeltaTime /= 8;
+                    }
+                    else
+                    {
+                        if (!m_isReleasingShockwave)
+                        {
+                            m_fShockwaveCenterX = jon.getPosition().getX();
+                            m_fShockwaveCenterY = jon.getPosition().getY();
+                            m_fShockwaveElapsedTime = 0.0f;
+                            m_isReleasingShockwave = true;
+                        }
+                    }
+                }
+                
+                if (m_isReleasingShockwave)
+                {
+                    m_fShockwaveElapsedTime += gs->m_fDeltaTime;
+                    
+                    if (m_fShockwaveElapsedTime > 4)
+                    {
+                        m_fShockwaveElapsedTime = 0;
+                        m_isReleasingShockwave = false;
+                    }
+                }
+                
+                m_game->updateAndClean(gs->m_fDeltaTime);
+                
+//                EntityUtils::handleCollections(jon, m_game->getCarrots(), gs->m_fDeltaTime);
+//                EntityUtils::handleCollections(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime);
+                
+                if (gs->m_isScreenHeldDown)
+                {
+                    gs->m_fScreenHeldTime += gs->m_fDeltaTime;
+                    
+                    if (gs->m_fScreenHeldTime > 0.4f)
+                    {
+                        jon.triggerTransform();
+                        gs->m_isScreenHeldDown = false;
+                        m_fShockwaveElapsedTime = 0;
+                        m_isReleasingShockwave = false;
                     }
                 }
             }
             
-            if (m_isReleasingShockwave)
-            {
-                m_fShockwaveElapsedTime += gs->m_fDeltaTime;
-                
-                if (m_fShockwaveElapsedTime > 4)
-                {
-                    m_fShockwaveElapsedTime = 0;
-                    m_isReleasingShockwave = false;
-                }
-            }
-            
-            m_game->updateAndClean(gs->m_fDeltaTime);
-            
-            EntityUtils::handleCollections(jon, m_game->getCarrots(), gs->m_fDeltaTime);
-            EntityUtils::handleCollections(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime);
-            
-            if (gs->m_isScreenHeldDown)
-            {
-                gs->m_fScreenHeldTime += gs->m_fDeltaTime;
-                
-                if (gs->m_fScreenHeldTime > 0.4f)
-                {
-                    jon.triggerTransform();
-                    gs->m_isScreenHeldDown = false;
-                    m_fShockwaveElapsedTime = 0;
-                    m_isReleasingShockwave = false;
-                }
-            }
+            gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
         }
         
-        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
-        
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 

@@ -11,7 +11,7 @@
 #include "GameConstants.h"
 #include "OverlapTester.h"
 
-LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_iBoundsLevelRequested(0)
+LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(1), m_showBounds(false), m_isOpen(false)
 {
     m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.63901345291479f, width * 0.68990825688073f, height * 0.08968609865471f));
@@ -32,21 +32,34 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
             case UP:
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleBoundsButton))
                 {
-                    m_iBoundsLevelRequested++;
-                    
-                    if (m_iBoundsLevelRequested == 3)
+                    if (m_showBounds)
                     {
                         m_iBoundsLevelRequested++;
+                        
+                        if (m_iBoundsLevelRequested == 3)
+                        {
+                            m_iBoundsLevelRequested++;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 5)
+                        {
+                            m_iBoundsLevelRequested = 8;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 9)
+                        {
+                            m_iBoundsLevelRequested = 16;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 17)
+                        {
+                            m_iBoundsLevelRequested = 1;
+                            m_showBounds = false;
+                        }
                     }
-                    
-                    if (m_iBoundsLevelRequested == 5)
+                    else
                     {
-                        m_iBoundsLevelRequested = 8;
-                    }
-                    
-                    if (m_iBoundsLevelRequested > 8)
-                    {
-                        m_iBoundsLevelRequested = 0;
+                        m_showBounds = true;
                     }
                     
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
@@ -111,4 +124,9 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 int LevelEditorActionsPanel::boundsLevelRequested()
 {
     return m_iBoundsLevelRequested;
+}
+
+bool LevelEditorActionsPanel::showBounds()
+{
+    return m_showBounds;
 }

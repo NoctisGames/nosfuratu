@@ -9,10 +9,10 @@
 #ifndef __gowengamedev__OpenGLESFramebufferRadialBlurGpuProgramWrapper__
 #define __gowengamedev__OpenGLESFramebufferRadialBlurGpuProgramWrapper__
 
-#include "GpuProgramWrapper.h"
+#include "FramebufferRadialBlurGpuProgramWrapper.h"
 #include "FramebufferToScreenProgram.h"
 
-class OpenGLESFramebufferRadialBlurGpuProgramWrapper : public GpuProgramWrapper
+class OpenGLESFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlurGpuProgramWrapper
 {
 public:
     OpenGLESFramebufferRadialBlurGpuProgramWrapper();

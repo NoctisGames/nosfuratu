@@ -32,6 +32,8 @@ public:
     
     int boundsLevelRequested();
     
+    bool showBounds();
+    
 private:
     std::unique_ptr<Rectangle> m_toggleBoundsButton;
     std::unique_ptr<Rectangle> m_resetButton;
@@ -43,6 +45,7 @@ private:
     std::unique_ptr<Rectangle> m_closeButton;
     
     int m_iBoundsLevelRequested;
+    bool m_showBounds;
     bool m_isOpen;
 };
 

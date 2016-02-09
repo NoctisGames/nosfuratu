@@ -19,37 +19,65 @@ TextureRegion& Assets::get(Background& background)
 	static TextureRegion upper = createTextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 2048, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
 	static TextureRegion mid = createTextureRegion(0, 1024, PIXEL_WIDTH_FOR_BACKGROUND, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
 	static TextureRegion lower = createTextureRegion(0, 320, PIXEL_WIDTH_FOR_BACKGROUND, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion waterBack = createTextureRegion(0, 168, PIXEL_WIDTH_FOR_BACKGROUND, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion waterFront = createTextureRegion(0, 248, PIXEL_WIDTH_FOR_BACKGROUND, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
 
     switch (background.getType())
     {
-        case 0:
+        case BackgroundType_Upper:
             initTextureRegion(upper, background.getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
             return upper;
-        case 1:
+        case BackgroundType_Mid:
             initTextureRegion(mid, background.getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
             return mid;
-        case 2:
+        case BackgroundType_Lower:
             initTextureRegion(lower, background.getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
             return lower;
+        case BackgroundType_WaterBack:
+            initTextureRegion(waterBack, background.getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return waterBack;
+        case BackgroundType_WaterFront:
+            initTextureRegion(waterFront, background.getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return waterFront;
     }
     
     assert(false);
 }
 
-TextureRegion& Assets::get(Tree& tree)
+TextureRegion& Assets::get(Midground& midground)
 {
-    static TextureRegion tr1 = createTextureRegion(1536, 1212, 510, 676, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr2 = createTextureRegion(400, 760, 936, 856, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr3 = createTextureRegion(1386, 392, 660, 804, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    
-    switch (tree.getEnumType())
+    switch (midground.getType())
     {
-        case TreeType_One:
-            return tr1;
-        case TreeType_Two:
-            return tr2;
-        case TreeType_Three:
-            return tr3;
+        case MidgroundType_TreeOne:
+        {
+            static TextureRegion tr = createTextureRegion(1154, 3424, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case MidgroundType_TreeTwo:
+        {
+            static TextureRegion tr = createTextureRegion(1682, 3296, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case MidgroundType_TreeThree:
+        {
+            static TextureRegion tr = createTextureRegion(2370, 3248, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case MidgroundType_DeepCaveColumnSmall:
+        {
+            static TextureRegion tr = createTextureRegion(0, 3808, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case MidgroundType_DeepCaveColumnMedium:
+        {
+            static TextureRegion tr = createTextureRegion(832, 3264, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case MidgroundType_DeepCaveColumnBig:
+        {
+            static TextureRegion tr = createTextureRegion(258, 3264, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
     }
     
     assert(false);
@@ -214,177 +242,39 @@ TextureRegion& Assets::get(Ground& ground)
             static TextureRegion tr = createTextureRegion(3712, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
-        
-        default:
-            assert(false);
-    }
-}
-
-TextureRegion& Assets::get(Hole& hole)
-{
-    static TextureRegion tr = createTextureRegion(0, 1532, 266, 186, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
-}
-
-TextureRegion& Assets::get(HoleCover& holeCover)
-{
-    static Animation anim = createAnimation(266, 1532, 266, 186, 1596, 372, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 12);
-    
-    return anim.getTextureRegion(holeCover.getStateTime());
-}
-
-TextureRegion& Assets::get(CaveExit& caveExit)
-{
-    static TextureRegion tr0 = createTextureRegion(20, 468, 500, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr1 = createTextureRegion(20, 768, 500, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    
-    switch (caveExit.getEnumType())
-    {
-        case CaveExitType_End:
-            return tr0;
-        case CaveExitType_Mid:
-            return tr1;
     }
     
     assert(false);
 }
 
-TextureRegion& Assets::get(CaveExitCover& caveExit)
+TextureRegion& Assets::get(ExitGround& exitGround)
 {
-    static Animation anim = createAnimation(530, 468, 500, 288, 1500, 864, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 9);
-    
-    return anim.getTextureRegion(caveExit.getStateTime());
-}
-
-TextureRegion& Assets::get(LogVerticalTall& logVerticalTall)
-{
-    static Animation anim = createAnimation(0, 1172, 258, 256, 1548, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
-    
-    return anim.getTextureRegion(logVerticalTall.getStateTime());
-}
-
-TextureRegion& Assets::get(LogVerticalShort& logVerticalShort)
-{
-    static Animation anim = createAnimation(0, 1470, 305, 112, 1830, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04f, 7);
-    
-    return anim.getTextureRegion(logVerticalShort.getStateTime());
-}
-
-TextureRegion& Assets::get(Thorns& thorns)
-{
-    static TextureRegion tr = createTextureRegion(9, 1734, 236, 121, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
-}
-
-TextureRegion& Assets::get(Stump& stump)
-{
-    static TextureRegion tr = createTextureRegion(473, 1758, 325, 280, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
-}
-
-TextureRegion& Assets::get(SideSpike& sideSpike)
-{
-    static TextureRegion tr = createTextureRegion(358, 1764, 93, 35, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
-}
-
-TextureRegion& Assets::get(UpwardSpike& upwardSpike)
-{
-    static TextureRegion tr1 = createTextureRegion(370, 1859, 55, 85, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr2 = createTextureRegion(269, 1745, 81, 90, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr3 = createTextureRegion(320, 1849, 35, 93, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    
-    switch (upwardSpike.getEnumType())
+    switch (exitGround.getType())
     {
-        case UpwardSpikeType_MetalGrass:
-            return tr1;
-        case UpwardSpikeType_WoodGrass:
-            return tr2;
-        case UpwardSpikeType_MetalCave:
-            return tr3;
-    }
-    
-    assert(false);
-}
-
-TextureRegion& Assets::get(JumpSpring& jumpSpring)
-{
-    switch (jumpSpring.getEnumType())
-    {
-        case JumpSpringType_Light:
+        case ExitGroundType_GrassWithCaveSmallExitMid:
         {
-            static Animation anim = createAnimation(931, 1958, 120, 85, 480, 85, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04f, 3);
-            return anim.getTextureRegion(jumpSpring.getStateTime());
+            static TextureRegion tr = createTextureRegion(0, 860, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
         }
-        case JumpSpringType_Medium:
+        case ExitGroundType_GrassWithCaveSmallExitEnd:
         {
-            static Animation anim = createAnimation(0, 745, 275, 141, 1925, 141, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04f, 7);
-            return anim.getTextureRegion(jumpSpring.getStateTime());
+            static TextureRegion tr = createTextureRegion(2512, 360, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
         }
-        case JumpSpringType_Heavy:
+        case ExitGroundType_CaveSmallExit:
         {
-            static Animation anim = createAnimation(265, 936, 265, 219, 1855, 219, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04f, 6);
-            return anim.getTextureRegion(jumpSpring.getStateTime());
+            static TextureRegion tr = createTextureRegion(0, 1488, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ExitGroundType_CaveDeepSmallWaterfall:
+        {
+            static Animation anim = createAnimation(0, 1876, 512, 448, 1536, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 3);
+            return anim.getTextureRegion(exitGround.getStateTime());
         }
     }
     
     assert(false);
-}
-
-TextureRegion& Assets::get(Rock& rock)
-{
-    static TextureRegion tr = createTextureRegion(0, 0, 357, 357, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static Animation anim = createAnimation(370, 0, 357, 357, 1428, 714, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
-    
-    if (rock.isBlowingUp())
-    {
-        return anim.getTextureRegion(rock.getStateTime());
-    }
-    else if(rock.isCracked())
-    {
-        return anim.getTextureRegion(0);
-    }
-    else
-    {
-        return tr;
-    }
-}
-
-TextureRegion& Assets::get(GroundPlatform& platform)
-{
-    static TextureRegion tr1 = createTextureRegion(861, 1854, 227, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr2 = createTextureRegion(811, 1745, 57, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr3 = createTextureRegion(867, 1745, 224, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr4 = createTextureRegion(1091, 1745, 57, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr5 = createTextureRegion(1176, 1754, 64, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr6 = createTextureRegion(1240, 1754, 224, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    static TextureRegion tr7 = createTextureRegion(1464, 1754, 64, 97, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    
-    switch (platform.getEnumType())
-    {
-        case GroundPlatformType_GrassDefault:
-            return tr1;
-        case GroundPlatformType_GrassEndLeft:
-            return tr2;
-        case GroundPlatformType_GrassCenter:
-            return tr3;
-        case GroundPlatformType_GrassEndRight:
-            return tr4;
-        case GroundPlatformType_CaveEndLeft:
-            return tr5;
-        case GroundPlatformType_CaveCenter:
-            return tr6;
-        case GroundPlatformType_CaveEndRight:
-            return tr7;
-    }
-    
-    assert(false);
-}
-
-TextureRegion& Assets::get(EndSign& endSign)
-{
-    static TextureRegion tr = createTextureRegion(31, 1944, 66, 93, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
 }
 
 TextureRegion& Assets::get(Carrot& carrot)
@@ -411,33 +301,6 @@ TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
     }
     
     return floatAnim.getTextureRegion(goldenCarrot.getStateTime());
-}
-
-TextureRegion& Assets::get(SnakeGrunt& snakeEnemy)
-{
-    static Animation snakeGruntAnim = createAnimation(0, 4, 256, 256, 1024, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
-    
-    return snakeGruntAnim.getTextureRegion(snakeEnemy.getStateTime());
-}
-
-TextureRegion& Assets::get(SnakeHorned& snakeEnemy)
-{
-    static Animation snakeHornedAnim = createAnimation(0, 772, 256, 360, 1536, 360, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
-    static Animation snakeHornedRiseAnim = createAnimation(0, 1132, 256, 360, 2048, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 11);
-    
-    if (snakeEnemy.isRising())
-    {
-        return snakeHornedRiseAnim.getTextureRegion(snakeEnemy.getStateTime());
-    }
-    
-    return snakeHornedAnim.getTextureRegion(snakeEnemy.getStateTime());
-}
-
-TextureRegion& Assets::get(SnakeSpirit& snakeSpirit)
-{
-    static Animation deathAnim = createAnimation(0, 260, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 10);
-    
-    return deathAnim.getTextureRegion(snakeSpirit.getStateTime());
 }
 
 TextureRegion& Assets::get(Jon& jon)

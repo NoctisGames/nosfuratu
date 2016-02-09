@@ -48,7 +48,7 @@ typedef enum
     GroundType_GrassWithoutCaveSmall,
     GroundType_GrassWithoutCaveMedium,
     GroundType_GrassWithoutCaveLarge,
-    GroundType_GrassWithoutCaveEndRight,
+    GroundType_GrassWithoutCaveEndRight
 } GroundType;
 
 class Ground : public GridLockedPhysicalEntity

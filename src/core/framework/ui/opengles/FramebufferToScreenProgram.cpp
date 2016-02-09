@@ -14,6 +14,7 @@ FramebufferToScreenProgramStruct FramebufferToScreenProgram::build(GLuint progra
     {
         program,
         glGetAttribLocation(program, "a_Position"),
-        glGetUniformLocation(program, "u_TextureUnit")
+        glGetUniformLocation(program, "u_TextureUnit"),
+        glGetUniformLocation(program, "u_Direction")
     };
 }

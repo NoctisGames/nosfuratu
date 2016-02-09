@@ -10,7 +10,6 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "GameConstants.h"
-#include "Tree.h"
 #include "Game.h"
 #include "EntityUtils.h"
 
@@ -21,7 +20,12 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
-    m_jons.push_back(new Jon(0, 0, 1, 1));
+    m_midgrounds.push_back(new TreeOne(0, 0, 1, 1));
+    m_midgrounds.push_back(new TreeTwo(0, 0, 1, 1));
+    m_midgrounds.push_back(new TreeThree(0, 0, 1, 1));
+    m_midgrounds.push_back(new DeepCaveColumnSmall(0, 0, 1, 1));
+    m_midgrounds.push_back(new DeepCaveColumnMedium(0, 0, 1, 1));
+    m_midgrounds.push_back(new DeepCaveColumnBig(0, 0, 1, 1));
     
     m_grounds.push_back(new CaveExtraDeepEndLeft(0, 0, 1, 1));
     m_grounds.push_back(new CaveExtraDeepSmall(0, 0, 1, 1));
@@ -59,13 +63,23 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_grounds.push_back(new GrassWithoutCaveLarge(0, 0, 1, 1));
     m_grounds.push_back(new GrassWithoutCaveEndRight(0, 0, 1, 1));
     
+    m_exitGrounds.push_back(new GrassWithCaveSmallExitMid(0, 0, 1, 1));
+    m_exitGrounds.push_back(new GrassWithCaveSmallExitEnd(0, 0, 1, 1));
+    m_exitGrounds.push_back(new CaveSmallExit(0, 0, 1, 1));
+    
+    m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0, 0, 1, 1));
+    
+    m_jons.push_back(new Jon(0, 0, 1, 1));
+    
     float eWidth = width * 0.6f;
     float eHeight = height / 6;
     float eX = CAM_WIDTH - width / 2 + 0.4f;
     float eY = eHeight / 2;
     
-    int i = boxInAll(m_jons, eX, eY, eWidth, eHeight, 0);
+    int i = boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
     i = boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
 }
@@ -118,8 +132,10 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     int gridX = (camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
                     int gridY = GAME_HEIGHT / 2 / GRID_CELL_SIZE;
                     
-                    if (isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint))
+                    if (isTouchingEntityForPlacement(m_midgrounds, game.getMidgrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
@@ -149,14 +165,24 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
 }
 
-std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
+std::vector<Midground *>& LevelEditorEntitiesPanel::getMidgrounds()
 {
-    return m_jons;
+    return m_midgrounds;
 }
 
 std::vector<Ground *>& LevelEditorEntitiesPanel::getGrounds()
 {
     return m_grounds;
+}
+
+std::vector<ExitGround *>& LevelEditorEntitiesPanel::getExitGrounds()
+{
+    return m_exitGrounds;
+}
+
+std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
+{
+    return m_jons;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

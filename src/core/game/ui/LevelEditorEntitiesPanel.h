@@ -14,8 +14,10 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "Ground.h"
 #include "OverlapTester.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
 #include "Jon.h"
 
 #include <vector>
@@ -34,9 +36,13 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
-    std::vector<Jon *>& getJons();
+    std::vector<Midground *>& getMidgrounds();
     
     std::vector<Ground *>& getGrounds();
+    
+    std::vector<ExitGround *>& getExitGrounds();
+    
+    std::vector<Jon *>& getJons();
     
     float getEntitiesCameraPos();
     
@@ -105,13 +111,16 @@ private:
         return index;
     }
     
-    std::vector<Jon *> m_jons;
+    std::vector<Midground *> m_midgrounds;
     std::vector<Ground *> m_grounds;
+    std::vector<ExitGround *> m_exitGrounds;
+    std::vector<Jon *> m_jons;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Vector2D> m_touchPointDown2;
+    
     float m_fEntitiesCameraPos;
     float m_fEntitiesHeight;
     bool m_isOpen;

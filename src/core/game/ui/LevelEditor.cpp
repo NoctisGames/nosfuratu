@@ -12,6 +12,7 @@
 #include "GameScreen.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
+#include "Game.h"
 
 #include <algorithm>    // std::sort
 
@@ -60,10 +61,9 @@ void LevelEditor::execute(GameScreen* gs)
             gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
         }
         
-        int boundsLevelRequested;
-        if ((boundsLevelRequested = m_levelEditorActionsPanel->boundsLevelRequested()) > 0)
+        if (m_levelEditorActionsPanel->showBounds())
         {
-            gs->m_renderer->renderBounds(*m_game, boundsLevelRequested);
+            gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
         }
         
         gs->m_renderer->renderToScreen();
@@ -79,7 +79,7 @@ void LevelEditor::execute(GameScreen* gs)
         int oldSum = m_game->calcSum();
         
         m_game->update(gs->m_fDeltaTime);
-        m_game->updateAndClean(gs->m_fDeltaTime / 4);
+        m_game->updateAndClean(gs->m_fDeltaTime);
         
         if (m_game->getJons().size() > 1)
         {
@@ -121,9 +121,10 @@ void LevelEditor::execute(GameScreen* gs)
         
         m_trashCan->update(gs->m_renderer->getCameraPosition());
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition());
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition());
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 
@@ -278,7 +279,9 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (dynamic_cast<Ground*>(m_draggingEntity) || dynamic_cast<CaveExit*>(m_draggingEntity) || dynamic_cast<Hole*>(m_draggingEntity))
+                    if (dynamic_cast<Ground *>(m_draggingEntity)
+                        || dynamic_cast<ExitGround *>(m_draggingEntity)
+                        || dynamic_cast<Midground *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
@@ -362,20 +365,6 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                         m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
                     }
                 }
-                else if (m_lastAddedEntity != nullptr && gs->m_touchPoint->getX() < gs->m_touchPointDown2->getX() + 0.5f && gs->m_touchPoint->getX() > gs->m_touchPointDown2->getX() - 0.5f)
-                {
-                    if (dynamic_cast<Carrot*>(m_lastAddedEntity))
-                    {
-                        Vector2D tp = gs->m_touchPoint->cpy();
-                        tp.mul(4);
-                        float camPosX = gs->m_renderer->getCameraPosition().getX();
-                        tp.add(camPosX, 0);
-                        
-                        m_lastAddedEntity = new Carrot(tp.getX(), m_lastAddedEntity->getPosition().getY());
-                        m_game->getCarrots().push_back(std::unique_ptr<Carrot>(dynamic_cast<Carrot*>(m_lastAddedEntity)));
-                        resetEntities(false);
-                    }
-                }
                 
                 m_trashCan->setHighlighted(false);
                 
@@ -398,7 +387,9 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     
     std::sort(m_game->getGrounds().begin(), m_game->getGrounds().end(), sortGround);
     
+    EntityUtils::addAll(m_game->getMidgrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
+    EntityUtils::addAll(m_game->getExitGrounds(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
     if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)

@@ -10,26 +10,10 @@
 #define __nosfuratu__Game__
 
 #include "Background.h"
-#include "Tree.h"
+#include "Midground.h"
 #include "Ground.h"
-#include "Hole.h"
-#include "CaveExit.h"
-#include "LogVerticalTall.h"
-#include "LogVerticalShort.h"
-#include "Thorns.h"
-#include "Stump.h"
-#include "SideSpike.h"
-#include "UpwardSpike.h"
-#include "JumpSpring.h"
-#include "Rock.h"
-#include "GroundPlatform.h"
-#include "EndSign.h"
-#include "Carrot.h"
-#include "GoldenCarrot.h"
+#include "ExitGround.h"
 #include "Jon.h"
-#include "SnakeEnemy.h"
-#include "SnakeGrunt.h"
-#include "SnakeHorned.h"
 
 #include <memory>
 #include <vector>
@@ -85,41 +69,13 @@ public:
     
     std::vector<Background *>& getBackgroundLowers();
     
-    std::vector<std::unique_ptr<Tree>>& getTrees();
+    std::vector<Midground *>& getMidgrounds();
+    
+    std::vector<Background *>& getBackgroundMidgroundCovers();
     
     std::vector<Ground *>& getGrounds();
     
-    std::vector<std::unique_ptr<Hole>>& getHoles();
-    
-    std::vector<std::unique_ptr<CaveExit>>& getCaveExits();
-    
-    std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
-    
-    std::vector<std::unique_ptr<LogVerticalShort>>& getLogVerticalShorts();
-    
-    std::vector<std::unique_ptr<Thorns>>& getThorns();
-    
-    std::vector<std::unique_ptr<Stump>>& getStumps();
-    
-    std::vector<std::unique_ptr<SideSpike>>& getSideSpikes();
-    
-    std::vector<std::unique_ptr<UpwardSpike>>& getUpwardSpikes();
-    
-    std::vector<std::unique_ptr<JumpSpring>>& getJumpSprings();
-    
-    std::vector<std::unique_ptr<Rock>>& getRocks();
-    
-    std::vector<std::unique_ptr<GroundPlatform>>& getPlatforms();
-    
-    std::vector<std::unique_ptr<EndSign>>& getEndSigns();
-    
-    std::vector<std::unique_ptr<Carrot>>& getCarrots();
-    
-    std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
-    
-    std::vector<std::unique_ptr<SnakeGrunt>>& getSnakeGruntEnemies();
-    
-    std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
+    std::vector<ExitGround *>& getExitGrounds();
     
     std::vector<Jon *>& getJons();
     
@@ -141,24 +97,10 @@ private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
     std::vector<Background *> m_backgroundLowers;
-    std::vector<std::unique_ptr<Tree>> m_trees;
+    std::vector<Midground *> m_midgrounds;
+    std::vector<Background *> m_backgroundMidgroundCovers;
     std::vector<Ground *> m_grounds;
-    std::vector<std::unique_ptr<Hole>> m_holes;
-    std::vector<std::unique_ptr<CaveExit>> m_caveExits;
-    std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
-    std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
-    std::vector<std::unique_ptr<Thorns>> m_thorns;
-    std::vector<std::unique_ptr<Stump>> m_stumps;
-    std::vector<std::unique_ptr<SideSpike>> m_sideSpikes;
-    std::vector<std::unique_ptr<UpwardSpike>> m_upwardSpikes;
-    std::vector<std::unique_ptr<JumpSpring>> m_jumpSprings;
-    std::vector<std::unique_ptr<Rock>> m_rocks;
-    std::vector<std::unique_ptr<GroundPlatform>> m_platforms;
-    std::vector<std::unique_ptr<EndSign>> m_endSigns;
-    std::vector<std::unique_ptr<Carrot>> m_carrots;
-    std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
-    std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
-    std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
+    std::vector<ExitGround *> m_exitGrounds;
     std::vector<Jon *> m_jons;
     
     float m_fStateTime;
@@ -246,8 +188,8 @@ private:
         }
     }
     
-    static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
-    static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
+//    static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
+//    static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

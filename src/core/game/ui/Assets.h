@@ -14,30 +14,20 @@
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "GameConstants.h"
-#include "Tree.h"
+#include "Background.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
 #include "DustCloud.h"
 #include "Jon.h"
-#include "GroundPlatform.h"
-#include "Carrot.h"
-#include "Ground.h"
-#include "Hole.h"
-#include "HoleCover.h"
-#include "CaveExit.h"
-#include "CaveExitCover.h"
-#include "UpwardSpike.h"
-#include "LogVerticalTall.h"
-#include "Rock.h"
-#include "Game.h"
-#include "Background.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
-#include "SnakeGrunt.h"
-#include "SnakeHorned.h"
-#include "SnakeSpirit.h"
+#include "Carrot.h"
+#include "GoldenCarrot.h"
 
 #include <vector>
 
@@ -50,49 +40,15 @@ public:
     
     TextureRegion& get(Background& background);
     
-    TextureRegion& get(Tree& tree);
+    TextureRegion& get(Midground& midground);
     
     TextureRegion& get(Ground& ground);
     
-    TextureRegion& get(Hole& hole);
-    
-    TextureRegion& get(HoleCover& holeCover);
-    
-    TextureRegion& get(CaveExit& caveExit);
-    
-    TextureRegion& get(CaveExitCover& caveExitCover);
-    
-    TextureRegion& get(LogVerticalTall& logVerticalTall);
-    
-    TextureRegion& get(LogVerticalShort& logVerticalShort);
-    
-    TextureRegion& get(Thorns& thorns);
-    
-    TextureRegion& get(Stump& stump);
-    
-    TextureRegion& get(SideSpike& sideSpike);
-    
-    TextureRegion& get(UpwardSpike& upwardSpike);
-    
-    TextureRegion& get(JumpSpring& jumpSpring);
-    
-    TextureRegion& get(Rock& rock);
-    
-    TextureRegion& get(CrackedRock& rock);
-    
-    TextureRegion& get(GroundPlatform& platform);
-    
-    TextureRegion& get(EndSign& endSign);
+    TextureRegion& get(ExitGround& exitGround);
     
     TextureRegion& get(Carrot& carrot);
     
     TextureRegion& get(GoldenCarrot& goldenCarrot);
-    
-    TextureRegion& get(SnakeGrunt& snakeEnemy);
-    
-    TextureRegion& get(SnakeHorned& snakeEnemy);
-    
-    TextureRegion& get(SnakeSpirit& snakeSpirit);
     
     TextureRegion& get(Jon& jon);
     

@@ -1,6 +1,7 @@
 precision mediump float;
 
 uniform sampler2D u_TextureUnit;
+uniform int u_Direction; // 0 for left, 1 for up-left, 2 for down-left
 
 varying vec2 v_TextureCoordinates;
 
@@ -13,7 +14,7 @@ void main()
     
     vec2 uv = fragCoord.xy;
     
-    vec2 pos = vec2(0.0, 0.5);
+    vec2 pos = vec2(0.0, u_Direction == 0 ? 0.5 : u_Direction == 1 ? 1.0 : 0.0);
     vec2 dir = (fragCoord.xy - pos.xy);
     
     vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
