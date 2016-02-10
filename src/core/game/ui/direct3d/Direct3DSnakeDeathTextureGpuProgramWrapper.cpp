@@ -75,13 +75,9 @@ void Direct3DSnakeDeathTextureGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
 	m_deviceResources->GetD3DDeviceContext()->VSSetConstantBuffers(0, 1, D3DManager->m_matrixConstantbuffer.GetAddressOf());
-	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_colorAdditiveConstantBuffer.GetAddressOf());
 
 	// send the final matrix to video memory
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(D3DManager->m_matrixConstantbuffer.Get(), 0, 0, &D3DManager->m_matFinal, 0, 0);
-
-	// send the new color additive to video memory
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_colorAdditiveConstantBuffer.Get(), 0, 0, &m_fColorAdditive, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -109,19 +105,7 @@ void Direct3DSnakeDeathTextureGpuProgramWrapper::unbind()
 
 void Direct3DSnakeDeathTextureGpuProgramWrapper::cleanUp()
 {
-	m_colorAdditiveConstantBuffer.Reset();
 	m_vertexShader.Reset();
 	m_inputLayout.Reset();
 	m_pixelShader.Reset();
-}
-
-void Direct3DSnakeDeathTextureGpuProgramWrapper::createConstantBuffer()
-{
-	D3D11_BUFFER_DESC bd = { 0 };
-
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 16;
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_colorAdditiveConstantBuffer);
 }
