@@ -1,13 +1,13 @@
 //
-//  LevelEditor.cpp
+//  GameScreenLevelEditor.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 1/27/16.
+//  Created by Stephen Gowen on 2/10/16.
 //  Copyright © 2016 Gowen Game Dev. All rights reserved.
 //
 
-#include "LevelEditor.h"
-#include "GameScreenStates.h"
+#include "GameScreenLevelEditor.h"
+#include "GameScreenLevels.h"
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
@@ -21,14 +21,14 @@ bool sortGround(Ground* i, Ground* j)
     return i->getType() < j->getType();
 }
 
-LevelEditor * LevelEditor::getInstance()
+GameScreenLevelEditor * GameScreenLevelEditor::getInstance()
 {
-    static LevelEditor *instance = new LevelEditor();
+    static GameScreenLevelEditor *instance = new GameScreenLevelEditor();
     
     return instance;
 }
 
-void LevelEditor::enter(GameScreen* gs)
+void GameScreenLevelEditor::enter(GameScreen* gs)
 {
     if (!m_game->isLoaded())
     {
@@ -39,7 +39,7 @@ void LevelEditor::enter(GameScreen* gs)
     gs->m_renderer->zoomOut();
 }
 
-void LevelEditor::execute(GameScreen* gs)
+void GameScreenLevelEditor::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
@@ -122,51 +122,51 @@ void LevelEditor::execute(GameScreen* gs)
     }
 }
 
-void LevelEditor::exit(GameScreen* gs)
+void GameScreenLevelEditor::exit(GameScreen* gs)
 {
     // TODO
 }
 
-const char* LevelEditor::save()
+const char* GameScreenLevelEditor::save()
 {
     return m_game->save();
 }
 
-void LevelEditor::load(const char* json)
+void GameScreenLevelEditor::load(const char* json)
 {
     m_game->load(json);
     
     resetEntities(true);
 }
 
-Game& LevelEditor::getGame()
+Game& GameScreenLevelEditor::getGame()
 {
     return *m_game;
 }
 
-LevelEditorActionsPanel& LevelEditor::getLevelEditorActionsPanel()
+LevelEditorActionsPanel& GameScreenLevelEditor::getLevelEditorActionsPanel()
 {
     return *m_levelEditorActionsPanel;
 }
 
-LevelEditorEntitiesPanel& LevelEditor::getLevelEditorEntitiesPanel()
+LevelEditorEntitiesPanel& GameScreenLevelEditor::getLevelEditorEntitiesPanel()
 {
     return *m_levelEditorEntitiesPanel;
 }
 
-TrashCan& LevelEditor::getTrashCan()
+TrashCan& GameScreenLevelEditor::getTrashCan()
 {
     return *m_trashCan;
 }
 
-LevelSelectorPanel& LevelEditor::getLevelSelectorPanel()
+LevelSelectorPanel& GameScreenLevelEditor::getLevelSelectorPanel()
 {
     return *m_levelSelectorPanel;
 }
 
 #pragma mark private
 
-void LevelEditor::handleTouchInput(GameScreen* gs)
+void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
@@ -218,8 +218,8 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (m_game->getJons().size() > 0)
                     {
-                        GamePlay::getInstance()->setSourceGame(m_game.get());
-                        gs->m_stateMachine->changeState(GamePlay::getInstance());
+                        Level::getInstance()->setSourceGame(m_game.get());
+                        gs->m_stateMachine->changeState(Level::getInstance());
 						return;
                     }
                     return;
@@ -381,7 +381,7 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
     }
 }
 
-void LevelEditor::resetEntities(bool clearLastAddedEntity)
+void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
 {
     m_gameEntities.clear();
     
@@ -410,7 +410,7 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-LevelEditor::LevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true)
+GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

@@ -73,6 +73,18 @@ void Enemy::update(float deltaTime)
     }
 }
 
+void Enemy::updateBounds()
+{
+    PhysicalEntity::updateBounds();
+    
+    if (m_isDying)
+    {
+        // Bye bye!
+        Vector2D &lowerLeft = m_bounds->getLowerLeft();
+        lowerLeft.setY(1337);
+    }
+}
+
 void Enemy::triggerHit()
 {
     m_isDying = true;

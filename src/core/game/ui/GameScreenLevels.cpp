@@ -1,331 +1,29 @@
 //
-//  GameScreenStates.cpp
+//  GameScreenLevels.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 9/29/15.
-//  Copyright © 2015 Gowen Game Dev. All rights reserved.
+//  Created by Stephen Gowen on 2/10/16.
+//  Copyright © 2016 Gowen Game Dev. All rights reserved.
 //
 
-#include "GameScreenStates.h"
+#include "GameScreenLevels.h"
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
 #include "Game.h"
-#include "Chapter1Levels.h"
-#include "LevelEditor.h"
+#include "GameScreenLevelEditor.h"
 
-/// Title Screen ///
+/// Level ///
 
-Title * Title::getInstance()
+Level * Level::getInstance()
 {
-    static Title *instance = new Title();
+    static Level *instance = new Level(nullptr);
     
     return instance;
 }
 
-void Title::enter(GameScreen* gs)
-{
-    gs->m_stateMachine->setPreviousState(nullptr);
-    gs->m_renderer->init(RENDERER_TYPE_MENU);
-}
-
-void Title::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderTitleScreen();
-        
-        if (m_isRequestingNextState || m_isRequestingLevelEditor)
-        {
-            gs->m_renderer->renderLoadingTextOnTitleScreen();
-        }
-        
-        gs->m_renderer->renderTitleScreenUi(*m_levelEditorButton);
-        
-        gs->m_renderer->renderToScreen();
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        if (m_isRequestingNextState)
-        {
-            gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
-        }
-        else if (m_isRequestingLevelEditor)
-        {
-            gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
-        }
-        
-        gs->processTouchEvents();
-        
-        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-        {
-            gs->touchToWorld((*i));
-            
-            switch (i->getTouchType())
-            {
-                case DOWN:
-                    continue;
-                case DRAGGED:
-                    continue;
-                case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getBounds()))
-                    {
-                        m_isRequestingLevelEditor = true;
-                    }
-                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
-                    {
-                        m_isRequestingNextState = true;
-                    }
-                    
-                    return;
-            }
-        }
-    }
-}
-
-void Title::exit(GameScreen* gs)
-{
-    m_isRequestingNextState = false;
-    m_isRequestingLevelEditor = false;
-}
-
-LevelEditorButton& Title::getLevelEditorButton()
-{
-    return *m_levelEditorButton;
-}
-
-Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
-{
-    m_levelEditorButton = std::unique_ptr<LevelEditorButton>(new LevelEditorButton());
-}
-
-/// Title To World Map Transition ///
-
-TitleToWorldMap * TitleToWorldMap::getInstance()
-{
-    static TitleToWorldMap *instance = new TitleToWorldMap();
-    
-    return instance;
-}
-
-void TitleToWorldMap::enter(GameScreen* gs)
-{
-    m_fTransitionStateTime = 0;
-    WorldMap::getInstance()->enter(gs);
-}
-
-void TitleToWorldMap::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderTitleScreen();
-        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
-        gs->m_renderer->renderLoadingTextOnTitleScreen();
-        
-        gs->m_renderer->setFramebuffer(1);
-        
-        gs->m_renderer->renderWorldMapScreenBackground();
-        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getBackButton());
-        
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        m_fTransitionStateTime += gs->m_fDeltaTime;
-        
-        if (m_fTransitionStateTime > 1)
-        {
-            gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
-        }
-    }
-}
-
-void TitleToWorldMap::exit(GameScreen* gs)
-{
-    m_fTransitionStateTime = 0;
-}
-
-TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
-{
-    // Empty
-}
-
-/// Title To Level Editor Transition ///
-
-TitleToLevelEditor * TitleToLevelEditor::getInstance()
-{
-    static TitleToLevelEditor *instance = new TitleToLevelEditor();
-    
-    return instance;
-}
-
-void TitleToLevelEditor::enter(GameScreen* gs)
-{
-    m_fTransitionStateTime = 0;
-    LevelEditor::getInstance()->enter(gs);
-}
-
-void TitleToLevelEditor::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderTitleScreen();
-        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
-        gs->m_renderer->renderLoadingTextOnTitleScreen();
-        
-        gs->m_renderer->setFramebuffer(1);
-        
-        gs->m_renderer->renderWorld(LevelEditor::getInstance()->getGame());
-        
-        gs->m_renderer->renderJon(LevelEditor::getInstance()->getGame());
-        
-        gs->m_renderer->renderLevelEditor(LevelEditor::getInstance()->getLevelEditorActionsPanel(), LevelEditor::getInstance()->getLevelEditorEntitiesPanel(), LevelEditor::getInstance()->getTrashCan(), LevelEditor::getInstance()->getLevelSelectorPanel());
-        
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        m_fTransitionStateTime += gs->m_fDeltaTime;
-        
-        if (m_fTransitionStateTime > 1)
-        {
-            gs->m_stateMachine->setCurrentState(LevelEditor::getInstance());
-        }
-    }
-}
-
-void TitleToLevelEditor::exit(GameScreen* gs)
-{
-    m_fTransitionStateTime = 0;
-}
-
-TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
-{
-    // Empty
-}
-
-/// World Map Screen ///
-
-WorldMap * WorldMap::getInstance()
-{
-    static WorldMap *instance = new WorldMap();
-    
-    return instance;
-}
-
-void WorldMap::enter(GameScreen* gs)
-{
-	gs->m_stateMachine->setPreviousState(Title::getInstance());
-    gs->m_renderer->init(RENDERER_TYPE_MENU);
-    gs->m_iNumFramesToDiscard = 1;
-}
-
-void WorldMap::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderWorldMapScreenBackground();
-        
-        if (m_iLevelToLoad > 0)
-        {
-            gs->m_renderer->renderLoadingTextOnWorldMapScreen();
-        }
-        else
-        {
-            gs->m_renderer->renderWorldMapScreenUi(*m_backButton);
-        }
-        
-        gs->m_renderer->renderToScreen();
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        if (m_iLevelToLoad > 0)
-        {
-            WorldMapToLevel::getInstance()->setLevelToLoad(m_iLevelToLoad);
-            gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
-        }
-        
-        gs->processTouchEvents();
-
-        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-        {
-            gs->touchToWorld((*i));
-            
-            switch (i->getTouchType())
-            {
-                case DOWN:
-                    continue;
-                case DRAGGED:
-                    continue;
-                case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
-                    {
-                        gs->m_stateMachine->revertToPreviousState();
-                    }
-                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
-                    {
-                        if (gs->m_touchPoint->getX() > CAM_WIDTH * 2 / 3)
-                        {
-                            m_iLevelToLoad = 3;
-                        }
-                        else if (gs->m_touchPoint->getX() > CAM_WIDTH / 3)
-                        {
-                            m_iLevelToLoad = 2;
-                        }
-                        else if (gs->m_touchPoint->getX() > 0)
-                        {
-                            m_iLevelToLoad = 1;
-                        }
-                    }
-                    
-                    return;
-            }
-        }
-    }
-}
-
-void WorldMap::exit(GameScreen* gs)
-{
-    m_iLevelToLoad = 0;
-}
-
-BackButton& WorldMap::getBackButton()
-{
-    return *m_backButton;
-}
-
-WorldMap::WorldMap() : m_iLevelToLoad(0)
-{
-    m_backButton = std::unique_ptr<BackButton>(new BackButton());
-}
-
-/// Game Play ///
-
-GamePlay * GamePlay::getInstance()
-{
-    static GamePlay *instance = new GamePlay(nullptr);
-    
-    return instance;
-}
-
-void GamePlay::enter(GameScreen* gs)
+void Level::enter(GameScreen* gs)
 {
     m_fStateTime = 0;
     m_isReleasingShockwave = false;
@@ -363,7 +61,7 @@ void GamePlay::enter(GameScreen* gs)
     }
 }
 
-void GamePlay::execute(GameScreen* gs)
+void Level::execute(GameScreen* gs)
 {
     Jon& jon = m_game->getJon();
     
@@ -416,7 +114,7 @@ void GamePlay::execute(GameScreen* gs)
     {
         if (!m_hasOpeningSequenceCompleted)
         {
-            if (gs->m_stateMachine->getPreviousState() == LevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
+            if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
             {
                 gs->m_renderer->zoomIn();
                 m_hasOpeningSequenceCompleted = true;
@@ -558,7 +256,7 @@ void GamePlay::execute(GameScreen* gs)
     }
 }
 
-void GamePlay::exit(GameScreen* gs)
+void Level::exit(GameScreen* gs)
 {
     m_game->reset();
     
@@ -575,22 +273,22 @@ void GamePlay::exit(GameScreen* gs)
     m_showDeathTransOut = false;
 }
 
-void GamePlay::setSourceGame(Game* game)
+void Level::setSourceGame(Game* game)
 {
     m_sourceGame = game;
 }
 
-Game& GamePlay::getGame()
+Game& Level::getGame()
 {
     return *m_game;
 }
 
-BackButton& GamePlay::getBackButton()
+BackButton& Level::getBackButton()
 {
     return *m_backButton;
 }
 
-bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
+bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
@@ -610,7 +308,7 @@ bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
     return false;
 }
 
-bool GamePlay::handleTouchInput(GameScreen* gs)
+bool Level::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
@@ -704,92 +402,36 @@ bool GamePlay::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-GamePlay::GamePlay(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
+Level::Level(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
 }
 
-/// World Map to Level Transition ///
+/// Chapter 1 Level 1 ///
 
-WorldMapToLevel * WorldMapToLevel::getInstance()
+Chapter1Level1 * Chapter1Level1::getInstance()
 {
-    static WorldMapToLevel *instance = new WorldMapToLevel();
+    static Chapter1Level1 *instance = new Chapter1Level1("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
     return instance;
 }
 
-void WorldMapToLevel::enter(GameScreen* gs)
+/// Chapter 1 Level 2 ///
+
+Chapter1Level2 * Chapter1Level2::getInstance()
 {
-    m_fTransitionStateTime = 0;
+    static Chapter1Level2 *instance = new Chapter1Level2("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
-    switch (m_iLevelToLoad)
-    {
-        case 1:
-            m_levelState = Chapter1Level1::getInstance();
-            break;
-        case 2:
-            m_levelState = Chapter1Level2::getInstance();
-            break;
-        case 3:
-            m_levelState = Chapter1Level3::getInstance();
-            break;
-        default:
-            break;
-    }
+    return instance;
+}
+
+/// Chapter 1 Level 3 ///
+
+Chapter1Level3 * Chapter1Level3::getInstance()
+{
+    static Chapter1Level3 *instance = new Chapter1Level3("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
     
-    m_levelState->enter(gs);
-}
-
-void WorldMapToLevel::execute(GameScreen* gs)
-{
-    if (gs->m_isRequestingRender)
-    {
-        gs->m_renderer->beginFrame();
-        
-        gs->m_renderer->renderWorldMapScreenBackground();
-        gs->m_renderer->renderLoadingTextOnWorldMapScreen();
-        
-        gs->m_renderer->setFramebuffer(1);
-        
-        gs->m_renderer->renderWorld(m_levelState->getGame());
-        
-        gs->m_renderer->renderJon(m_levelState->getGame());
-        
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
-        
-        gs->m_renderer->endFrame();
-    }
-    else
-    {
-        gs->processTouchEvents();
-        
-        m_fTransitionStateTime += gs->m_fDeltaTime;
-        
-        if (m_fTransitionStateTime > 1)
-        {
-            gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
-            gs->m_stateMachine->setCurrentState(m_levelState);
-        }
-        
-        m_levelState->execute(gs);
-    }
-}
-
-void WorldMapToLevel::exit(GameScreen* gs)
-{
-    m_levelState = nullptr;
-    m_fTransitionStateTime = 0;
-    m_iLevelToLoad = 0;
-}
-
-void WorldMapToLevel::setLevelToLoad(int levelToLoad)
-{
-    m_iLevelToLoad = levelToLoad;
-}
-
-WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fTransitionStateTime(0), m_iLevelToLoad(0)
-{
-    // Empty
+    return instance;
 }

@@ -50,18 +50,17 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_JUMP_SPRING = 8;
     private static final short SOUND_LANDING_GRASS = 9;
     private static final short SOUND_LANDING_CAVE = 10;
-    private static final short SOUND_BREAK_LOG = 11;
-    private static final short SOUND_DESTROY_ROCK = 12;
-    private static final short SOUND_SNAKE_DEATH = 13;
-    private static final short SOUND_TRIGGER_TRANSFORM = 14;
-    private static final short SOUND_CANCEL_TRANSFORM = 15;
-    private static final short SOUND_COMPLETE_TRANSFORM = 16;
-    private static final short SOUND_JUMP_SPRING_HEAVY = 17;
-    private static final short SOUND_JON_RABBIT_JUMP = 18;
-    private static final short SOUND_JON_VAMPIRE_JUMP = 19;
-    private static final short SOUND_JON_RABBIT_DOUBLE_JUMP = 20;
-    private static final short SOUND_JON_VAMPIRE_DOUBLE_JUMP = 21;
-    private static final short SOUND_JON_VAMPIRE_GLIDE = 22;
+    private static final short SOUND_DESTROY_ROCK = 11;
+    private static final short SOUND_SNAKE_DEATH = 12;
+    private static final short SOUND_TRIGGER_TRANSFORM = 13;
+    private static final short SOUND_CANCEL_TRANSFORM = 14;
+    private static final short SOUND_COMPLETE_TRANSFORM = 15;
+    private static final short SOUND_JUMP_SPRING_HEAVY = 16;
+    private static final short SOUND_JON_RABBIT_JUMP = 17;
+    private static final short SOUND_JON_VAMPIRE_JUMP = 18;
+    private static final short SOUND_JON_RABBIT_DOUBLE_JUMP = 19;
+    private static final short SOUND_JON_VAMPIRE_DOUBLE_JUMP = 20;
+    private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
     private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = 1021;
 
     private final Activity _activity;
@@ -89,7 +88,6 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jump_spring.wav"));
         _sounds.add(_audio.newSound("landing_grass.wav"));
         _sounds.add(_audio.newSound("landing_cave.wav"));
-        _sounds.add(_audio.newSound("break_log.wav"));
         _sounds.add(_audio.newSound("destroy_rock.wav"));
         _sounds.add(_audio.newSound("snake_death.wav"));
         _sounds.add(_audio.newSound("trigger_transform.wav"));
@@ -244,44 +242,41 @@ public final class GameRenderer implements Renderer
                 case SOUND_LANDING_CAVE:
                     _sounds.get(9).play(1);
                     break;
-                case SOUND_BREAK_LOG:
+                case SOUND_DESTROY_ROCK:
                     _sounds.get(10).play(1);
                     break;
-                case SOUND_DESTROY_ROCK:
+                case SOUND_SNAKE_DEATH:
                     _sounds.get(11).play(1);
                     break;
-                case SOUND_SNAKE_DEATH:
+                case SOUND_TRIGGER_TRANSFORM:
                     _sounds.get(12).play(1);
                     break;
-                case SOUND_TRIGGER_TRANSFORM:
+                case SOUND_CANCEL_TRANSFORM:
                     _sounds.get(13).play(1);
                     break;
-                case SOUND_CANCEL_TRANSFORM:
+                case SOUND_COMPLETE_TRANSFORM:
                     _sounds.get(14).play(1);
                     break;
-                case SOUND_COMPLETE_TRANSFORM:
+                case SOUND_JUMP_SPRING_HEAVY:
                     _sounds.get(15).play(1);
                     break;
-                case SOUND_JUMP_SPRING_HEAVY:
+                case SOUND_JON_RABBIT_JUMP:
                     _sounds.get(16).play(1);
                     break;
-                case SOUND_JON_RABBIT_JUMP:
+                case SOUND_JON_VAMPIRE_JUMP:
                     _sounds.get(17).play(1);
                     break;
-                case SOUND_JON_VAMPIRE_JUMP:
+                case SOUND_JON_RABBIT_DOUBLE_JUMP:
                     _sounds.get(18).play(1);
                     break;
-                case SOUND_JON_RABBIT_DOUBLE_JUMP:
+                case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
                     _sounds.get(19).play(1);
                     break;
-                case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-                    _sounds.get(20).play(1);
-                    break;
                 case SOUND_JON_VAMPIRE_GLIDE:
-                    _sounds.get(21).play(1, true);
+                    _sounds.get(20).play(1, true);
                     break;
                 case SOUND_STOP_JON_VAMPIRE_GLIDE:
-                    _sounds.get(21).stop();
+                    _sounds.get(20).stop();
                     break;
                 default:
                     break;

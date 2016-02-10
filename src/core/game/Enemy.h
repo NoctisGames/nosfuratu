@@ -31,6 +31,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    virtual void updateBounds();
+    
     void triggerHit();
     
     virtual void onDeletion();
@@ -76,9 +78,7 @@ private:
 class SnakeGrunt : public Enemy
 {
 public:
-    SnakeGrunt(int gridX, int gridY, int gridWidth = 8, int gridHeight = 6, EnemyType type = EnemyType_SnakeGrunt, SpiritType spiritType = SpiritType_Snake);
-    
-    virtual void updateBounds();
+    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, SpiritType_Snake) {}
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

@@ -15,8 +15,7 @@
 // C++
 #include "IOSOpenGLESGameScreen.h"
 #include "GameConstants.h"
-#include "GameScreenStates.h"
-#include "LevelEditor.h"
+#include "GameScreenLevelEditor.h"
 
 enum GameSoundIds {
     COLLECT_CARROT,
@@ -29,7 +28,6 @@ enum GameSoundIds {
     JUMP_SPRING,
     LANDING_GRASS,
     LANDING_CAVE,
-    BREAK_LOG,
     DESTROY_ROCK,
     SNAKE_DEATH,
     TRIGGER_TRANSFORM,
@@ -213,9 +211,6 @@ enum GameSoundIds {
             case SOUND_LANDING_CAVE:
                 [self.soundMgr playSoundWithID:LANDING_CAVE];
                 break;
-            case SOUND_BREAK_LOG:
-                [self.soundMgr playSoundWithID:BREAK_LOG];
-                break;
             case SOUND_DESTROY_ROCK:
                 [self.soundMgr playSoundWithID:DESTROY_ROCK];
                 break;
@@ -286,7 +281,7 @@ enum GameSoundIds {
     NSString* levelFileName = [self getLevelName:requestedAction];
     
     bool result = false;
-    const char *level_json = LevelEditor::getInstance()->save();
+    const char *level_json = GameScreenLevelEditor::getInstance()->save();
     
     if (level_json)
     {
@@ -326,7 +321,7 @@ enum GameSoundIds {
         const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
         success = true;
         
-        LevelEditor::getInstance()->load(contentCString);
+        GameScreenLevelEditor::getInstance()->load(contentCString);
     }
     
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
@@ -378,7 +373,7 @@ enum GameSoundIds {
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", nil];
 }
 
 @end

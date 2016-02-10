@@ -58,25 +58,25 @@ private:
 class GrassWithCaveSmallExitMid : public ExitGround
 {
 public:
-    GrassWithCaveSmallExitMid(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.57142857142857f, bool hasCover = true, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitMid, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, hasCover, type, groundSoundType) {}
+    GrassWithCaveSmallExitMid(int gridX) : ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, ExitGroundType_GrassWithCaveSmallExitMid, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveSmallExitEnd : public ExitGround
 {
 public:
-    GrassWithCaveSmallExitEnd(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 14, float boundsHeightFactor = 0.57142857142857f, bool hasCover = true, ExitGroundType type = ExitGroundType_GrassWithCaveSmallExitEnd, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, hasCover, type, groundSoundType) {}
+    GrassWithCaveSmallExitEnd(int gridX) : ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, ExitGroundType_GrassWithCaveSmallExitEnd, GROUND_SOUND_GRASS) {}
 };
 
 class CaveSmallExit : public ExitGround
 {
 public:
-    CaveSmallExit(int gridX, int gridY = 48, int gridWidth = 32, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, bool hasCover = true, ExitGroundType type = ExitGroundType_CaveSmallExit, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, hasCover, type, groundSoundType) {}
+    CaveSmallExit(int gridX) : ExitGround(gridX, 48, 32, 24, 0.29166666666667f, true, ExitGroundType_CaveSmallExit, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepSmallWaterfall : public ExitGround
 {
 public:
-    CaveDeepSmallWaterfall(int gridX, int gridY = 0, int gridWidth = 32, int gridHeight = 28, float boundsHeightFactor = 0.96428571428571f, bool hasCover = false, ExitGroundType type = ExitGroundType_CaveDeepSmallWaterfall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, hasCover, type, groundSoundType) {}
+    CaveDeepSmallWaterfall(int gridX) : ExitGround(gridX, 0, 32, 28, 0.96428571428571f, false, ExitGroundType_CaveDeepSmallWaterfall, GROUND_SOUND_CAVE) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
 };

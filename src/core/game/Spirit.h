@@ -34,7 +34,7 @@ private:
 class SpiritSnake : public Spirit
 {
 public:
-    SpiritSnake(float x, float y, float width = 1.828125f, float height = 2.25f, SpiritType type = SpiritType_Snake) : Spirit(x, y, width, height, type) {}
+    SpiritSnake(float x, float y) : Spirit(x, y, 1.828125f, 2.25f, SpiritType_Snake) {}
 };
 
 #endif /* defined(__nosfuratu__Spirit__) */

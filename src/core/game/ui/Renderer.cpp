@@ -750,8 +750,8 @@ void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
 
     m_spriteBatcher->endBatch(*m_misc);
     
-    static CollectibleItem uiCarrot = Carrot(0, 0, 1, 1);
-    static CollectibleItem uiGoldenCarrot = GoldenCarrot(0, 0, 1, 1);
+    static CollectibleItem uiCarrot = Carrot(0, 0);
+    static CollectibleItem uiGoldenCarrot = GoldenCarrot(0, 0);
     
     uiCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2);
     uiCarrot.setWidth(fgWidth);

@@ -80,181 +80,181 @@ private:
 class CaveExtraDeepEndLeft : public Ground
 {
 public:
-    CaveExtraDeepEndLeft(int gridX, int gridY = 0, int gridWidth = 8, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveExtraDeepEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveExtraDeepEndLeft(int gridX) : Ground(gridX, 0, 8, 8, 0.875f, GroundType_CaveExtraDeepEndLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CaveExtraDeepSmall : public Ground
 {
 public:
-    CaveExtraDeepSmall(int gridX, int gridY = 0, int gridWidth = 32, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveExtraDeepSmall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveExtraDeepSmall(int gridX) : Ground(gridX, 0, 32, 8, 0.875f, GroundType_CaveExtraDeepSmall, GROUND_SOUND_CAVE) {}
 };
 
 class CaveExtraDeepMedium : public Ground
 {
 public:
-    CaveExtraDeepMedium(int gridX, int gridY = 0, int gridWidth = 64, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveExtraDeepMedium, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveExtraDeepMedium(int gridX) : Ground(gridX, 0, 64, 8, 0.875f, GroundType_CaveExtraDeepMedium, GROUND_SOUND_CAVE) {}
 };
 
 class CaveExtraDeepLarge : public Ground
 {
 public:
-    CaveExtraDeepLarge(int gridX, int gridY = 0, int gridWidth = 128, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveExtraDeepLarge, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveExtraDeepLarge(int gridX) : Ground(gridX, 0, 128, 8, 0.875f, GroundType_CaveExtraDeepLarge, GROUND_SOUND_CAVE) {}
 };
 
 class CaveExtraDeepEndRight : public Ground
 {
 public:
-    CaveExtraDeepEndRight(int gridX, int gridY = 0, int gridWidth = 8, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveExtraDeepEndRight, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveExtraDeepEndRight(int gridX) : Ground(gridX, 0, 8, 8, 0.875f, GroundType_CaveExtraDeepEndRight, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepEndLeft : public Ground
 {
 public:
-    CaveDeepEndLeft(int gridX, int gridY = 20, int gridWidth = 8, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveDeepEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveDeepEndLeft(int gridX) : Ground(gridX, 20, 8, 8, 0.875f, GroundType_CaveDeepEndLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepSmall : public Ground
 {
 public:
-    CaveDeepSmall(int gridX, int gridY = 20, int gridWidth = 32, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveDeepSmall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveDeepSmall(int gridX) : Ground(gridX, 20, 32, 8, 0.875f, GroundType_CaveDeepSmall, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepMedium : public Ground
 {
 public:
-    CaveDeepMedium(int gridX, int gridY = 20, int gridWidth = 64, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveDeepMedium, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveDeepMedium(int gridX) : Ground(gridX, 20, 64, 8, 0.875f, GroundType_CaveDeepMedium, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepLarge : public Ground
 {
 public:
-    CaveDeepLarge(int gridX, int gridY = 20, int gridWidth = 128, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveDeepLarge, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveDeepLarge(int gridX) : Ground(gridX, 20, 128, 8, 0.875f, GroundType_CaveDeepLarge, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepEndRight : public Ground
 {
 public:
-    CaveDeepEndRight(int gridX, int gridY = 20, int gridWidth = 8, int gridHeight = 8, float boundsHeightFactor = 0.875f, GroundType type = GroundType_CaveDeepEndRight, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveDeepEndRight(int gridX) : Ground(gridX, 20, 8, 8, 0.875f, GroundType_CaveDeepEndRight, GROUND_SOUND_CAVE) {}
 };
 
 class CaveEndLeft : public Ground
 {
 public:
-    CaveEndLeft(int gridX, int gridY = 48, int gridWidth = 8, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, GroundType type = GroundType_CaveEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveEndLeft(int gridX) : Ground(gridX, 48, 8, 24, 0.29166666666667f, GroundType_CaveEndLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CaveSmall : public Ground
 {
 public:
-    CaveSmall(int gridX, int gridY = 48, int gridWidth = 32, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, GroundType type = GroundType_CaveSmall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveSmall(int gridX) : Ground(gridX, 48, 32, 24, 0.29166666666667f, GroundType_CaveSmall, GROUND_SOUND_CAVE) {}
 };
 
 class CaveMedium : public Ground
 {
 public:
-    CaveMedium(int gridX, int gridY = 48, int gridWidth = 64, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, GroundType type = GroundType_CaveMedium, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveMedium(int gridX) : Ground(gridX, 48, 64, 24, 0.29166666666667f, GroundType_CaveMedium, GROUND_SOUND_CAVE) {}
 };
 
 class CaveLarge : public Ground
 {
 public:
-    CaveLarge(int gridX, int gridY = 48, int gridWidth = 128, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, GroundType type = GroundType_CaveLarge, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveLarge(int gridX) : Ground(gridX, 48, 128, 24, 0.29166666666667f, GroundType_CaveLarge, GROUND_SOUND_CAVE) {}
 };
 
 class CaveEndRight : public Ground
 {
 public:
-    CaveEndRight(int gridX, int gridY = 48, int gridWidth = 8, int gridHeight = 24, float boundsHeightFactor = 0.29166666666667f, GroundType type = GroundType_CaveEndRight, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveEndRight(int gridX) : Ground(gridX, 48, 8, 24, 0.29166666666667f, GroundType_CaveEndRight, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedEndLeft : public Ground
 {
 public:
-    CaveRaisedEndLeft(int gridX, int gridY = 48, int gridWidth = 8, int gridHeight = 32, float boundsHeightFactor = 0.84375f, GroundType type = GroundType_CaveRaisedEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveRaisedEndLeft(int gridX) : Ground(gridX, 48, 8, 32, 0.84375f, GroundType_CaveRaisedEndLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedSmall : public Ground
 {
 public:
-    CaveRaisedSmall(int gridX, int gridY = 48, int gridWidth = 32, int gridHeight = 32, float boundsHeightFactor = 0.84375f, GroundType type = GroundType_CaveRaisedSmall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveRaisedSmall(int gridX) : Ground(gridX, 48, 32, 32, 0.84375f, GroundType_CaveRaisedSmall, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedMedium : public Ground
 {
 public:
-    CaveRaisedMedium(int gridX, int gridY = 48, int gridWidth = 64, int gridHeight = 32, float boundsHeightFactor = 0.84375f, GroundType type = GroundType_CaveRaisedMedium, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveRaisedMedium(int gridX) : Ground(gridX, 48, 64, 32, 0.84375f, GroundType_CaveRaisedMedium, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedLarge : public Ground
 {
 public:
-    CaveRaisedLarge(int gridX, int gridY = 48, int gridWidth = 128, int gridHeight = 32, float boundsHeightFactor = 0.84375f, GroundType type = GroundType_CaveRaisedLarge, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveRaisedLarge(int gridX) : Ground(gridX, 48, 128, 32, 0.84375f, GroundType_CaveRaisedLarge, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedEndRight : public Ground
 {
 public:
-    CaveRaisedEndRight(int gridX, int gridY = 48, int gridWidth = 8, int gridHeight = 32, float boundsHeightFactor = 0.84375f, GroundType type = GroundType_CaveRaisedEndRight, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    CaveRaisedEndRight(int gridX) : Ground(gridX, 48, 8, 32, 0.84375f, GroundType_CaveRaisedEndRight, GROUND_SOUND_CAVE) {}
 };
 
 class GrassWithCaveEndLeft : public Ground
 {
 public:
-    GrassWithCaveEndLeft(int gridX, int gridY = 88, int gridWidth = 8, int gridHeight = 12, float boundsHeightFactor = 0.66666666666667f, GroundType type = GroundType_GrassWithCaveEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveEndLeft(int gridX) : Ground(gridX, 88, 8, 12, 0.66666666666667f, GroundType_GrassWithCaveEndLeft, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveSmall : public Ground
 {
 public:
-    GrassWithCaveSmall(int gridX, int gridY = 88, int gridWidth = 32, int gridHeight = 12, float boundsHeightFactor = 0.66666666666667f, GroundType type = GroundType_GrassWithCaveSmall, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveSmall(int gridX) : Ground(gridX, 88, 32, 12, 0.66666666666667f, GroundType_GrassWithCaveSmall, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveMedium : public Ground
 {
 public:
-    GrassWithCaveMedium(int gridX, int gridY = 88, int gridWidth = 64, int gridHeight = 12, float boundsHeightFactor = 0.66666666666667f, GroundType type = GroundType_GrassWithCaveMedium, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveMedium(int gridX) : Ground(gridX, 88, 64, 12, 0.66666666666667f, GroundType_GrassWithCaveMedium, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveLarge : public Ground
 {
 public:
-    GrassWithCaveLarge(int gridX, int gridY = 88, int gridWidth = 128, int gridHeight = 12, float boundsHeightFactor = 0.66666666666667f, GroundType type = GroundType_GrassWithCaveLarge, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveLarge(int gridX) : Ground(gridX, 88, 128, 12, 0.66666666666667f, GroundType_GrassWithCaveLarge, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveEndRight : public Ground
 {
 public:
-    GrassWithCaveEndRight(int gridX, int gridY = 88, int gridWidth = 8, int gridHeight = 12, float boundsHeightFactor = 0.66666666666667f, GroundType type = GroundType_GrassWithCaveEndRight, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithCaveEndRight(int gridX) : Ground(gridX, 88, 8, 12, 0.66666666666667f, GroundType_GrassWithCaveEndRight, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveEndLeft : public Ground
 {
 public:
-    GrassWithoutCaveEndLeft(int gridX, int gridY = 0, int gridWidth = 8, int gridHeight = 100, float boundsHeightFactor = 0.96f, GroundType type = GroundType_GrassWithoutCaveEndLeft, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithoutCaveEndLeft(int gridX) : Ground(gridX, 0, 8, 100, 0.96f, GroundType_GrassWithoutCaveEndLeft, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveSmall : public Ground
 {
 public:
-    GrassWithoutCaveSmall(int gridX, int gridY = 0, int gridWidth = 32, int gridHeight = 100, float boundsHeightFactor = 0.96f, GroundType type = GroundType_GrassWithoutCaveSmall, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithoutCaveSmall(int gridX) : Ground(gridX, 0, 32, 100, 0.96f, GroundType_GrassWithoutCaveSmall, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveMedium : public Ground
 {
 public:
-    GrassWithoutCaveMedium(int gridX, int gridY = 0, int gridWidth = 64, int gridHeight = 100, float boundsHeightFactor = 0.96f, GroundType type = GroundType_GrassWithoutCaveMedium, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithoutCaveMedium(int gridX) : Ground(gridX, 0, 64, 100, 0.96f, GroundType_GrassWithoutCaveMedium, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveLarge : public Ground
 {
 public:
-    GrassWithoutCaveLarge(int gridX, int gridY = 0, int gridWidth = 128, int gridHeight = 100, float boundsHeightFactor = 0.96f, GroundType type = GroundType_GrassWithoutCaveLarge, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithoutCaveLarge(int gridX) : Ground(gridX, 0, 128, 100, 0.96f, GroundType_GrassWithoutCaveLarge, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveEndRight : public Ground
 {
 public:
-    GrassWithoutCaveEndRight(int gridX, int gridY = 0, int gridWidth = 8, int gridHeight = 100, float boundsHeightFactor = 0.96f, GroundType type = GroundType_GrassWithoutCaveEndRight, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : Ground(gridX, gridY, gridWidth, gridHeight, boundsHeightFactor, type, groundSoundType) {}
+    GrassWithoutCaveEndRight(int gridX) : Ground(gridX, 0, 8, 100, 0.96f, GroundType_GrassWithoutCaveEndRight, GROUND_SOUND_GRASS) {}
 };
 
 #endif /* defined(__nosfuratu__Ground__) */

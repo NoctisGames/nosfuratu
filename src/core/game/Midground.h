@@ -37,37 +37,37 @@ private:
 class TreeOne : public Midground
 {
 public:
-    TreeOne(int gridX, int gridY = 96, int gridWidth = 32, int gridHeight = 42) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_TreeOne) {}
+    TreeOne(int gridX) : Midground(gridX, 96, 32, 42, MidgroundType_TreeOne) {}
 };
 
 class TreeTwo : public Midground
 {
 public:
-    TreeTwo(int gridX, int gridY = 96, int gridWidth = 41, int gridHeight = 50) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_TreeTwo) {}
+    TreeTwo(int gridX) : Midground(gridX, 96, 41, 50, MidgroundType_TreeTwo) {}
 };
 
 class TreeThree : public Midground
 {
 public:
-    TreeThree(int gridX, int gridY = 96, int gridWidth = 58, int gridHeight = 53) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_TreeThree) {}
+    TreeThree(int gridX) : Midground(gridX, 96, 58, 53, MidgroundType_TreeThree) {}
 };
 
 class DeepCaveColumnSmall : public Midground
 {
 public:
-    DeepCaveColumnSmall(int gridX, int gridY = 0, int gridWidth = 6, int gridHeight = 18) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_DeepCaveColumnSmall) {}
+    DeepCaveColumnSmall(int gridX) : Midground(gridX, 0, 6, 18, MidgroundType_DeepCaveColumnSmall) {}
 };
 
 class DeepCaveColumnMedium : public Midground
 {
 public:
-    DeepCaveColumnMedium(int gridX, int gridY = 0, int gridWidth = 8, int gridHeight = 52) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_DeepCaveColumnMedium) {}
+    DeepCaveColumnMedium(int gridX) : Midground(gridX, 0, 8, 52, MidgroundType_DeepCaveColumnMedium) {}
 };
 
 class DeepCaveColumnBig : public Midground
 {
 public:
-    DeepCaveColumnBig(int gridX, int gridY = 0, int gridWidth = 16, int gridHeight = 52) : Midground(gridX, gridY, gridWidth, gridHeight, MidgroundType_DeepCaveColumnBig) {}
+    DeepCaveColumnBig(int gridX) : Midground(gridX, 0, 16, 52, MidgroundType_DeepCaveColumnBig) {}
 };
 
 #endif /* defined(__nosfuratu__Midground__) */

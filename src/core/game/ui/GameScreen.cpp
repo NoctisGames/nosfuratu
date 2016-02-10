@@ -7,8 +7,9 @@
 //
 
 #include "GameScreen.h"
-#include "GameScreenStates.h"
-#include "LevelEditor.h"
+#include "GameScreenTitle.h"
+#include "GameScreenLevels.h"
+#include "Game.h"
 
 GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
 {
@@ -65,7 +66,7 @@ void GameScreen::update(float deltaTime)
                     continue;
                 case UP:
                     m_isPaused = false;
-                    if (dynamic_cast<GamePlay*>(m_stateMachine->getCurrentState()))
+                    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
                     {
                         Assets::getInstance()->setMusicId(MUSIC_RESUME);
                     }

@@ -67,7 +67,9 @@ class ForegroundObject : public GridLockedPhysicalEntity
 public:
     static ForegroundObject* create(int gridX, int gridY, int type);
     
-    ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE);
+    ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
+    
+    virtual void updateBounds();
     
     bool isJonLanding(Jon& jon, float deltaTime);
     
@@ -80,210 +82,214 @@ public:
 private:
     ForegroundObjectType m_type;
     GroundSoundType m_groundSoundType;
+    float m_fBoundsX;
+    float m_fBoundsY;
+    float m_fBoundsWidth;
+    float m_fBoundsHeight;
 };
 
 class GrassPlatformLeft : public ForegroundObject
 {
 public:
-    GrassPlatformLeft(int gridX, int gridY, int gridWidth = 4, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_GrassPlatformLeft, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    GrassPlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS) {}
 };
 
 class GrassPlatformCenter : public ForegroundObject
 {
 public:
-    GrassPlatformCenter(int gridX, int gridY, int gridWidth = 14, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_GrassPlatformCenter, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    GrassPlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS) {}
 };
 
 class GrassPlatformRight : public ForegroundObject
 {
 public:
-    GrassPlatformRight(int gridX, int gridY, int gridWidth = 4, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_GrassPlatformRight, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    GrassPlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS) {}
 };
 
 class CavePlatformLeft : public ForegroundObject
 {
 public:
-    CavePlatformLeft(int gridX, int gridY, int gridWidth = 4, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_CavePlatformLeft, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    CavePlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CavePlatformCenter : public ForegroundObject
 {
 public:
-    CavePlatformCenter(int gridX, int gridY, int gridWidth = 14, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_CavePlatformCenter, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    CavePlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE) {}
 };
 
 class CavePlatformRight : public ForegroundObject
 {
 public:
-    CavePlatformRight(int gridX, int gridY, int gridWidth = 4, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_CavePlatformRight, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    CavePlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE) {}
 };
 
 class RockLarge : public ForegroundObject
 {
 public:
-    RockLarge(int gridX, int gridY, int gridWidth = 44, int gridHeight = 32, ForegroundObjectType type = ForegroundObjectType_RockLarge, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    RockLarge(int gridX, int gridY) : ForegroundObject(gridX, gridY, 44, 32, ForegroundObjectType_RockLarge, GROUND_SOUND_CAVE) {}
 };
 
 class RockMedium : public ForegroundObject
 {
 public:
-    RockMedium(int gridX, int gridY, int gridWidth = 24, int gridHeight = 24, ForegroundObjectType type = ForegroundObjectType_RockMedium, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    RockMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 24, ForegroundObjectType_RockMedium, GROUND_SOUND_CAVE) {}
 };
 
 class RockSmall : public ForegroundObject
 {
 public:
-    RockSmall(int gridX, int gridY, int gridWidth = 24, int gridHeight = 23, ForegroundObjectType type = ForegroundObjectType_RockSmall, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE) {}
 };
 
 class RockSmallCracked : public ForegroundObject
 {
 public:
-    RockSmallCracked(int gridX, int gridY, int gridWidth = 24, int gridHeight = 23, ForegroundObjectType type = ForegroundObjectType_RockSmallCracked, GroundSoundType groundSoundType = GROUND_SOUND_CAVE) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    RockSmallCracked(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE) {}
 };
 
 class StumpBig : public ForegroundObject
 {
 public:
-    StumpBig(int gridX, int gridY, int gridWidth = 16, int gridHeight = 18, ForegroundObjectType type = ForegroundObjectType_StumpBig, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    StumpBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 16, 18, ForegroundObjectType_StumpBig, GROUND_SOUND_GRASS) {}
 };
 
 class StumpSmall : public ForegroundObject
 {
 public:
-    StumpSmall(int gridX, int gridY, int gridWidth = 20, int gridHeight = 17, ForegroundObjectType type = ForegroundObjectType_StumpSmall, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    StumpSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 20, 17, ForegroundObjectType_StumpSmall, GROUND_SOUND_GRASS) {}
 };
 
 class EndSign : public ForegroundObject
 {
 public:
-    EndSign(int gridX, int gridY, int gridWidth = 4, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_EndSign) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_EndSign) {}
 };
 
 class ThornsLeft : public ForegroundObject
 {
 public:
-    ThornsLeft(int gridX, int gridY, int gridWidth = 5, int gridHeight = 7, ForegroundObjectType type = ForegroundObjectType_ThornsLeft) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    ThornsLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsLeft) {}
 };
 
 class ThornsCenterSmall : public ForegroundObject
 {
 public:
-    ThornsCenterSmall(int gridX, int gridY, int gridWidth = 11, int gridHeight = 7, ForegroundObjectType type = ForegroundObjectType_ThornsCenterSmall) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    ThornsCenterSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 11, 7, ForegroundObjectType_ThornsCenterSmall) {}
 };
 
 class ThornsCenterBig : public ForegroundObject
 {
 public:
-    ThornsCenterBig(int gridX, int gridY, int gridWidth = 22, int gridHeight = 7, ForegroundObjectType type = ForegroundObjectType_ThornsCenterBig) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    ThornsCenterBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 22, 7, ForegroundObjectType_ThornsCenterBig) {}
 };
 
 class ThornsRight : public ForegroundObject
 {
 public:
-    ThornsRight(int gridX, int gridY, int gridWidth = 5, int gridHeight = 7, ForegroundObjectType type = ForegroundObjectType_ThornsRight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    ThornsRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsRight) {}
 };
 
 class LogVerticalTall : public ForegroundObject
 {
 public:
-    LogVerticalTall(int gridX, int gridY, int gridWidth = 8, int gridHeight = 11, ForegroundObjectType type = ForegroundObjectType_LogVerticalTall, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    LogVerticalTall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 11, ForegroundObjectType_LogVerticalTall, GROUND_SOUND_GRASS) {}
 };
 
 class LogVerticalShort : public ForegroundObject
 {
 public:
-    LogVerticalShort(int gridX, int gridY, int gridWidth = 8, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_LogVerticalShort, GroundSoundType groundSoundType = GROUND_SOUND_GRASS) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType) {}
+    LogVerticalShort(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 6, ForegroundObjectType_LogVerticalShort, GROUND_SOUND_GRASS) {}
 };
 
 class JumpSpringLight : public ForegroundObject
 {
 public:
-    JumpSpringLight(int gridX, int gridY, int gridWidth = 6, int gridHeight = 5, ForegroundObjectType type = ForegroundObjectType_JumpSpringLight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    JumpSpringLight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight) {}
 };
 
 class JumpSpringMedium : public ForegroundObject
 {
 public:
-    JumpSpringMedium(int gridX, int gridY, int gridWidth = 17, int gridHeight = 9, ForegroundObjectType type = ForegroundObjectType_JumpSpringMedium) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    JumpSpringMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium) {}
 };
 
 class JumpSpringHeavy : public ForegroundObject
 {
 public:
-    JumpSpringHeavy(int gridX, int gridY, int gridWidth = 17, int gridHeight = 14, ForegroundObjectType type = ForegroundObjectType_JumpSpringHeavy) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    JumpSpringHeavy(int gridX, int gridY) : ForegroundObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy) {}
 };
 
 class SpikeGrassSingle : public ForegroundObject
 {
 public:
-    SpikeGrassSingle(int gridX, int gridY, int gridWidth = 6, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeGrassSingle) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeGrassSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle) {}
 };
 
 class SpikeGrassFour : public ForegroundObject
 {
 public:
-    SpikeGrassFour(int gridX, int gridY, int gridWidth = 18, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeGrassFour) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeGrassFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour) {}
 };
 
 class SpikeGrassEight : public ForegroundObject
 {
 public:
-    SpikeGrassEight(int gridX, int gridY, int gridWidth = 34, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeGrassEight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeGrassEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight) {}
 };
 
 class SpikeCaveSingle : public ForegroundObject
 {
 public:
-    SpikeCaveSingle(int gridX, int gridY, int gridWidth = 6, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveSingle) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle) {}
 };
 
 class SpikeCaveFour : public ForegroundObject
 {
 public:
-    SpikeCaveFour(int gridX, int gridY, int gridWidth = 18, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveFour) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour) {}
 };
 
 class SpikeCaveEight : public ForegroundObject
 {
 public:
-    SpikeCaveEight(int gridX, int gridY, int gridWidth = 34, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveEight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight) {}
 };
 
 class SpikeCaveCeilingSingle : public ForegroundObject
 {
 public:
-    SpikeCaveCeilingSingle(int gridX, int gridY, int gridWidth = 6, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveCeilingSingle) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveCeilingSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle) {}
 };
 
 class SpikeCaveCeilingFour : public ForegroundObject
 {
 public:
-    SpikeCaveCeilingFour(int gridX, int gridY, int gridWidth = 18, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveCeilingFour) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveCeilingFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour) {}
 };
 
 class SpikeCaveCeilingEight : public ForegroundObject
 {
 public:
-    SpikeCaveCeilingEight(int gridX, int gridY, int gridWidth = 34, int gridHeight = 6, ForegroundObjectType type = ForegroundObjectType_SpikeCaveCeilingEight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeCaveCeilingEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight) {}
 };
 
 class SpikeWallSingle : public ForegroundObject
 {
 public:
-    SpikeWallSingle(int gridX, int gridY, int gridWidth = 6, int gridHeight = 4, ForegroundObjectType type = ForegroundObjectType_SpikeWallSingle) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeWallSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 4, ForegroundObjectType_SpikeWallSingle) {}
 };
 
 class SpikeWallFour : public ForegroundObject
 {
 public:
-    SpikeWallFour(int gridX, int gridY, int gridWidth = 6, int gridHeight = 16, ForegroundObjectType type = ForegroundObjectType_SpikeWallFour) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeWallFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 16, ForegroundObjectType_SpikeWallFour) {}
 };
 
 class SpikeWallEight : public ForegroundObject
 {
 public:
-    SpikeWallEight(int gridX, int gridY, int gridWidth = 6, int gridHeight = 34, ForegroundObjectType type = ForegroundObjectType_SpikeWallEight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    SpikeWallEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

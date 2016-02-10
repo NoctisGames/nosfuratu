@@ -42,13 +42,13 @@ private:
 class Carrot : public CollectibleItem
 {
 public:
-    Carrot(int gridX, int gridY, int gridWidth = 6, int gridHeight = 5, int collectSoundId = SOUND_COLLECT_CARROT, CollectibleItemType type = CollectibleItemType_Carrot) : CollectibleItem(gridX, gridY, gridWidth, gridHeight, collectSoundId, type) {}
+    Carrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 5, SOUND_COLLECT_CARROT, CollectibleItemType_Carrot) {}
 };
 
 class GoldenCarrot : public CollectibleItem
 {
 public:
-    GoldenCarrot(int gridX, int gridY, int gridWidth = 6, int gridHeight = 6, int collectSoundId = SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType type = CollectibleItemType_GoldenCarrot) : CollectibleItem(gridX, gridY, gridWidth, gridHeight, collectSoundId, type) {}
+    GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 6, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot) {}
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */

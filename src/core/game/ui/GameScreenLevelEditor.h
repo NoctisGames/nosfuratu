@@ -1,13 +1,13 @@
 //
-//  LevelEditor.h
+//  GameScreenLevelEditor.h
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 1/27/16.
+//  Created by Stephen Gowen on 2/10/16.
 //  Copyright © 2016 Gowen Game Dev. All rights reserved.
 //
 
-#ifndef __nosfuratu__LevelEditor__
-#define __nosfuratu__LevelEditor__
+#ifndef __nosfuratu__GameScreenLevelEditor__
+#define __nosfuratu__GameScreenLevelEditor__
 
 #include "State.h"
 #include "LevelEditorActionsPanel.h"
@@ -19,10 +19,10 @@
 
 class GameScreen;
 
-class LevelEditor : public State<GameScreen>
+class GameScreenLevelEditor : public State<GameScreen>
 {
 public:
-    static LevelEditor* getInstance();
+    static GameScreenLevelEditor* getInstance();
     
     virtual void enter(GameScreen* gs);
     
@@ -61,9 +61,9 @@ private:
     void resetEntities(bool clearLastAddedEntity);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    LevelEditor();
-    LevelEditor(const LevelEditor&);
-    LevelEditor& operator=(const LevelEditor&);
+    GameScreenLevelEditor();
+    GameScreenLevelEditor(const GameScreenLevelEditor&);
+    GameScreenLevelEditor& operator=(const GameScreenLevelEditor&);
 };
 
-#endif /* defined(__nosfuratu__LevelEditor__) */
+#endif /* defined(__nosfuratu__GameScreenLevelEditor__) */

@@ -186,11 +186,6 @@ bool Game::isJonHit()
     return EntityUtils::isHit(getJon(), getEnemies());
 }
 
-bool Game::isJonLandingOnSpring(float deltaTime)
-{
-    return false;
-}
-
 bool Game::isJonLandingOnEnemy(float deltaTime)
 {
     return EntityUtils::isLandingOnEnemy(getJon(), getEnemies(), deltaTime);
@@ -198,7 +193,7 @@ bool Game::isJonLandingOnEnemy(float deltaTime)
 
 bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
-    return false;
+    return EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getEnemies());
 }
 
 bool Game::isBurrowEffective()

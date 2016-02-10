@@ -165,34 +165,34 @@ void Jon::update(float deltaTime)
 		m_iNumJumps = 1;
 	}
 
-	bool isLandingOnSpring = m_game->isJonLandingOnSpring(deltaTime);
-	bool isLandingOnEnemy = m_game->isJonLandingOnEnemy(deltaTime);
-
-	if (isLandingOnSpring || isLandingOnEnemy)
-	{
-		m_acceleration->setY(m_fGravity);
-		m_velocity->setY(m_iBoostVelocity);
-	}
-
-	if (isLandingOnSpring)
-	{
-		setState(ACTION_JUMPING);
-
-		m_iNumJumps = 1;
-
-		if (isVampire())
-		{
-			m_fHeight = 4.4f;
-		}
-
-		Assets::getInstance()->addSoundIdToPlayQueue(m_iBoostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
-	}
-	else if (isLandingOnEnemy)
-	{
-		setState(ACTION_DOUBLE_JUMPING);
-
-		m_iNumJumps = 2;
-	}
+//	bool isLandingOnSpring = m_game->isJonLandingOnSpring(deltaTime);
+//	bool isLandingOnEnemy = m_game->isJonLandingOnEnemy(deltaTime);
+//
+//	if (isLandingOnSpring || isLandingOnEnemy)
+//	{
+//		m_acceleration->setY(m_fGravity);
+//		m_velocity->setY(m_iBoostVelocity);
+//	}
+//
+//	if (isLandingOnSpring)
+//	{
+//		setState(ACTION_JUMPING);
+//
+//		m_iNumJumps = 1;
+//
+//		if (isVampire())
+//		{
+//			m_fHeight = 4.4f;
+//		}
+//
+//		Assets::getInstance()->addSoundIdToPlayQueue(m_iBoostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+//	}
+//	else if (isLandingOnEnemy)
+//	{
+//		setState(ACTION_DOUBLE_JUMPING);
+//
+//		m_iNumJumps = 2;
+//	}
 
 	if (m_game->isJonBlockedVertically(deltaTime))
 	{

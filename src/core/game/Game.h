@@ -57,8 +57,6 @@ public:
     
     bool isJonHit();
     
-    bool isJonLandingOnSpring(float deltaTime);
-    
     bool isJonLandingOnEnemy(float deltaTime);
     
     bool isSpinningBackFistDelivered(float deltaTime);

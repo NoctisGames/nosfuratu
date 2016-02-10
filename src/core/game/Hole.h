@@ -43,13 +43,13 @@ private:
 class HoleGrass : public Hole
 {
 public:
-    HoleGrass(int gridX, int gridY = 80, int gridWidth = 16, int gridHeight = 16, HoleType type = HoleType_Grass) : Hole(gridX, gridY, gridWidth, gridHeight, type) {}
+    HoleGrass(int gridX) : Hole(gridX, 80, 16, 16, HoleType_Grass) {}
 };
 
 class HoleCave : public Hole
 {
 public:
-    HoleCave(int gridX, int gridY = 32, int gridWidth = 17, int gridHeight = 24, HoleType type = HoleType_Cave) : Hole(gridX, gridY, gridWidth, gridHeight, type) {}
+    HoleCave(int gridX) : Hole(gridX, 32, 17, 24, HoleType_Cave) {}
 };
 
 #endif /* defined(__nosfuratu__Hole__) */
