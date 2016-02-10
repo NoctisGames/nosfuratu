@@ -81,32 +81,26 @@ void LevelEditor::execute(GameScreen* gs)
         m_game->update(gs->m_fDeltaTime);
         m_game->updateAndClean(gs->m_fDeltaTime);
         
-        if (m_game->getJons().size() > 1)
+        for (std::vector<Jon *>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
         {
-            for (std::vector<Jon *>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
+            if ((*i)->isRequestingDeletion())
             {
-                if (m_game->getJons().size() == 1)
-                {
-                    break;
-                }
+                (*i)->onDeletion();
                 
-                if ((*i)->isRequestingDeletion())
-                {
-                    (*i)->onDeletion();
-                    
-                    delete *i;
-                    i = m_game->getJons().erase(i);
-                }
-                else
-                {
-                    (*i)->snapToGrid();
-                    i++;
-                }
+                delete *i;
+                i = m_game->getJons().erase(i);
             }
-            
-            Jon& jon = m_game->getJon();
-            
-            if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
+            else
+            {
+                i++;
+            }
+        }
+        
+        Jon& jon = m_game->getJon();
+        
+        if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
+        {
+            if (m_game->getJons().size() > 1)
             {
                 jon.requestDeletion();
             }
@@ -252,7 +246,12 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
             {
                 if (dynamic_cast<Jon*>(m_lastAddedEntity))
                 {
-                    Jon* entity = dynamic_cast<Jon*>(m_lastAddedEntity);
+                    Jon* entity = dynamic_cast<Jon *>(m_lastAddedEntity);
+                    entity->setGame(m_game.get());
+                }
+                else if (dynamic_cast<Enemy *>(m_lastAddedEntity))
+                {
+                    Enemy* entity = dynamic_cast<Enemy *>(m_lastAddedEntity);
                     entity->setGame(m_game.get());
                 }
             }
@@ -279,9 +278,10 @@ void LevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (dynamic_cast<Ground *>(m_draggingEntity)
+                    if (dynamic_cast<Midground *>(m_draggingEntity)
+                        || dynamic_cast<Ground *>(m_draggingEntity)
                         || dynamic_cast<ExitGround *>(m_draggingEntity)
-                        || dynamic_cast<Midground *>(m_draggingEntity))
+                        || dynamic_cast<Hole *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
@@ -390,6 +390,10 @@ void LevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getMidgrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getExitGrounds(), m_gameEntities);
+    EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
+    EntityUtils::addAll(m_game->getForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getEnemies(), m_gameEntities);
+    EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
     if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)

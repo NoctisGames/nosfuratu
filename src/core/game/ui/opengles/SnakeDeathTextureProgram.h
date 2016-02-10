@@ -23,7 +23,6 @@ typedef struct
     GLint a_color_location;
     GLint a_texture_coordinates_location;
     GLint u_texture_unit_location;
-    GLint u_color_additive_unit_location;
 } SnakeDeathTextureProgramStruct;
 
 class SnakeDeathTextureProgram

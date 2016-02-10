@@ -15,11 +15,6 @@ class SnakeDeathTextureGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
     SnakeDeathTextureGpuProgramWrapper();
-    
-    void setColorAdditive(float colorAdditive);
-    
-protected:
-    float m_fColorAdditive;
 };
 
 #endif /* defined(__gowengamedev__SnakeDeathTextureGpuProgramWrapper__) */

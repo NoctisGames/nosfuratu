@@ -18,6 +18,10 @@
 #include "Midground.h"
 #include "Ground.h"
 #include "ExitGround.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "Enemy.h"
+#include "CollectibleItem.h"
 #include "Jon.h"
 
 #include <vector>
@@ -41,6 +45,14 @@ public:
     std::vector<Ground *>& getGrounds();
     
     std::vector<ExitGround *>& getExitGrounds();
+    
+    std::vector<Hole *>& getHoles();
+    
+    std::vector<ForegroundObject *>& getForegroundObjects();
+    
+    std::vector<Enemy *>& getEnemies();
+    
+    std::vector<CollectibleItem *>& getCollectibleItems();
     
     std::vector<Jon *>& getJons();
     
@@ -114,6 +126,10 @@ private:
     std::vector<Midground *> m_midgrounds;
     std::vector<Ground *> m_grounds;
     std::vector<ExitGround *> m_exitGrounds;
+    std::vector<Hole *> m_holes;
+    std::vector<ForegroundObject *> m_foregroundObjects;
+    std::vector<Enemy *> m_enemies;
+    std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     
     std::unique_ptr<Rectangle> m_openButton;

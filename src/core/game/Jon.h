@@ -10,10 +10,6 @@
 #define __nosfuratu__Jon__
 
 #include "GridLockedPhysicalEntity.h"
-#include "JonState.h"
-#include "JonPhysicalState.h"
-#include "JonActionState.h"
-#include "JonAbilityState.h"
 #include "Color.h"
 #include "DustCloud.h"
 #include "GroundSoundType.h"
@@ -24,6 +20,35 @@
 #include <vector>
 
 class Game;
+
+typedef enum
+{
+    ABILITY_NONE,
+    ABILITY_SPINNING_BACK_FIST,
+    ABILITY_BURROW,
+    ABILITY_GLIDE,
+    ABILITY_UPWARD_THRUST
+} JonAbilityState;
+
+typedef enum
+{
+    ACTION_NONE,
+    ACTION_JUMPING,
+    ACTION_DOUBLE_JUMPING
+} JonActionState;
+
+typedef enum
+{
+    PHYSICAL_GROUNDED,
+    PHYSICAL_IN_AIR
+} JonPhysicalState;
+
+typedef enum
+{
+    JON_ALIVE,
+    JON_DYING,
+    JON_DEAD
+} JonState;
 
 class Jon : public GridLockedPhysicalEntity
 {
@@ -113,6 +138,8 @@ public:
     void setGame(Game* game);
     
     void beginWarmingUp();
+    
+    float getGravity();
     
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;

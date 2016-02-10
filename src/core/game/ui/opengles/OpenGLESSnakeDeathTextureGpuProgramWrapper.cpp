@@ -27,7 +27,6 @@ void OpenGLESSnakeDeathTextureGpuProgramWrapper::bind()
     
     glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLESManager->m_viewProjectionMatrix);
     glUniform1i(m_program.u_texture_unit_location, 0);
-    glUniform1f(m_program.u_color_additive_unit_location, m_fColorAdditive);
     
     glGenBuffers(1, &OGLESManager->sb_vbo_object);
     glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);

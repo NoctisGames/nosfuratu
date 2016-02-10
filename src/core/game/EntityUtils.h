@@ -9,10 +9,8 @@
 #ifndef __nosfuratu__EntityUtils__
 #define __nosfuratu__EntityUtils__
 
-#include "EntityAnchor.h"
 #include "OverlapTester.h"
 #include "PhysicalEntity.h"
-#include "DestructiblePhysicalEntity.h"
 #include "GridLockedPhysicalEntity.h"
 #include "Rectangle.h"
 #include "Vector2D.h"
@@ -26,12 +24,6 @@ class PhysicalEntity;
 class EntityUtils
 {
 public:
-    static void applyAnchor(PhysicalEntity& entity, EntityAnchor anchor);
-    
-    static void attach(PhysicalEntity& entity, PhysicalEntity& to, bool leftOf, bool yCorrection);
-    
-    static void placeOn(PhysicalEntity& entity, PhysicalEntity& on, float yOffset = 0);
-    
     template<typename T>
     static bool isLanding(Jon& jon, std::vector<T>& items, float deltaTime)
     {
@@ -52,14 +44,13 @@ public:
     }
     
     template<typename T>
-    static bool isFallingThroughHole(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static bool isFallingThroughHole(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        float entityVelocityY = entity.getVelocity().getY();
-        float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
-        float entityRight = entity.getBounds().getRight();
-        
-        if (entityVelocityY <= 0)
+        if (jon.getVelocity().getY() <= 0)
         {
+            float entityLeft = jon.getBounds().getLeft();
+            float entityRight = jon.getBounds().getRight();
+            
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
                 if (!(*i)->hasCover())
@@ -67,9 +58,9 @@ public:
                     float itemLowerLeftX = (*i)->getBounds().getLowerLeft().getX();
                     float itemRight = (*i)->getBounds().getRight();
                     
-                    if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
                     {
-                        if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
+                        if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
                         {
                             return true;
                         }
@@ -82,19 +73,19 @@ public:
     }
     
     template<typename T>
-    static bool isBurrowingThroughHole(PhysicalEntity& entity, std::vector<T>& items)
+    static bool isBurrowingThroughHole(Jon& jon, std::vector<T>& items)
     {
-        float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
-        float entityRight = entity.getBounds().getRight();
+        float entityLeft = jon.getBounds().getLeft();
+        float entityRight = jon.getBounds().getRight();
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            float itemLowerLeftX = (*i)->getBounds().getLowerLeft().getX();
+            float itemLeft = (*i)->getBounds().getLeft();
             float itemRight = (*i)->getBounds().getRight();
             
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
             {
-                if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
+                if (entityLeft >= itemLeft && entityRight <= itemRight)
                 {
                     (*i)->triggerBurrow();
                     return true;
@@ -179,32 +170,13 @@ public:
     }
     
     template<typename T>
-    static bool isBlockedOnRight(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static bool isBlockedOnRight(Jon& jon, std::vector<T*>& items, float deltaTime)
     {
-        float entityVelocityX = entity.getVelocity().getX();
-        float entityBottom = entity.getBounds().getLowerLeft().getY();
-        float entityRight = entity.getBounds().getRight();
-        float entityXDelta = fabsf(entityVelocityX * deltaTime);
-        
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            if ((*i)->isJonBlockedOnRight(jon, deltaTime))
             {
-                float itemTop = (*i)->getBounds().getTop();
-                float itemTopReq = itemTop * 0.99f;
-                
-                float itemLeft = (*i)->getBounds().getLowerLeft().getX();
-                float padding = itemLeft * .01f;
-                padding += entityXDelta;
-                float itemLeftReq = itemLeft + padding;
-                
-                if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
-                {
-                    entity.getPosition().setX(itemLeft - entity.getBounds().getWidth() / 2 * 1.01f);
-                    entity.updateBounds();
-                    
-                    return true;
-                }
+                return true;
             }
         }
         
@@ -212,23 +184,23 @@ public:
     }
     
     template<typename T>
-    static bool isBlockedAbove(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
+    static bool isBlockedAbove(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        float entityVelocityY = entity.getVelocity().getY();
-        float entityLeft = entity.getBounds().getLowerLeft().getX();
+        float entityVelocityY = jon.getVelocity().getY();
         
         if (entityVelocityY > 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
                 {
-                    float itemLeft = (*i)->getBounds().getLowerLeft().getX();
+                    float entityLeft = jon.getBounds().getLeft();
+                    float itemLeft = (*i)->getBounds().getLeft();
                     
                     if (itemLeft < entityLeft)
                     {
-                        entity.getPosition().sub(0, entity.getVelocity().getY() * deltaTime);
-                        entity.updateBounds();
+                        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+                        jon.updateBounds();
                         
                         return true;
                     }

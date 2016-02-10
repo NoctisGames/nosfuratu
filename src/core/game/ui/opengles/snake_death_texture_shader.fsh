@@ -1,7 +1,6 @@
 precision mediump float;
 
 uniform sampler2D u_TextureUnit;
-uniform float u_ColorAdditive;
 
 varying vec4 v_Color;
 varying vec2 v_TextureCoordinates;
@@ -14,9 +13,12 @@ void main()
     {
         float m = min(gl_FragColor.r, gl_FragColor.g);
         m = min(m, gl_FragColor.b);
-        float additive = (1.0 - m) * u_ColorAdditive;
+        float additive = (1.0 - m) * v_Color.r;
         gl_FragColor += additive;
     }
     
-    gl_FragColor *= v_Color;
+    vec4 color = v_Color;
+    color.r = 1.0;
+    
+    gl_FragColor *= color;
 }

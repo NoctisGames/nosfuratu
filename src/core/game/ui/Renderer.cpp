@@ -30,6 +30,7 @@
 #include "ShockwaveTextureGpuProgramWrapper.h"
 #include "TransDeathGpuProgramWrapper.h"
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
+#include "CollectibleItem.h"
 
 #include <math.h>
 #include <sstream>
@@ -83,6 +84,8 @@ void Renderer::init(RendererType type)
                 m_world_1_background_lower = loadTexture(compressed ? "c_world_1_background_lower" : "world_1_background_lower", 1);
                 m_world_1_background_mid = loadTexture(compressed ? "c_world_1_background_mid" : "world_1_background_mid", 1);
                 m_world_1_background_upper = loadTexture(compressed ? "c_world_1_background_upper" : "world_1_background_upper", 1);
+                
+                m_world_1_enemies = loadTexture(compressed ? "c_world_1_enemies" : "world_1_enemies", 1);
                 
                 m_world_1_ground = loadTexture(compressed ? "c_world_1_ground" : "world_1_ground");
                 
@@ -144,7 +147,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
-    float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
+    float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
     
     float changeInX = farLeft - getCamPosFarRight(game);
     float changeInY = farLeftBottom - game.getFarRightBottom();
@@ -181,7 +184,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game, float deltaTime)
         
         Jon& jon = game.getJon();
         float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
-        float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 2;
+        float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
         
         float changeInX = farLeft - getCamPosFarRight(game);
         float changeInY = farLeftBottom - game.getFarRightBottom();
@@ -214,73 +217,75 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
 {
     Jon& jon = game.getJon();
     m_camBounds->getLowerLeft().setX(jon.getPosition().getX() - CAM_WIDTH / 5);
-    float jy = jon.getPosition().getY() - jon.getHeight() / 2;
-    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
+    float jy = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
+//    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
-    float regionBottomY;
-    if (jon.getAbilityState() == ABILITY_BURROW)
-    {
-        regionBottomY = jy - 1.22451534f;
-    }
-    else if (jon.isFalling())
-    {
-        if (jy < aboveGroundRegionBottomY)
-        {
-            regionBottomY = 0;
-        }
-        else if (jy >= aboveGroundRegionBottomY && jy < 18.0f)
-        {
-            regionBottomY = aboveGroundRegionBottomY;
-        }
-        else
-        {
-            regionBottomY = 18.0f;
-        }
-    }
-    else
-    {
-        if (jy < (aboveGroundRegionBottomY - jonHeightPlusPadding))
-        {
-            regionBottomY = 0;
-        }
-        else if (jy >= (aboveGroundRegionBottomY - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
-        {
-            regionBottomY = aboveGroundRegionBottomY;
-        }
-        else
-        {
-            regionBottomY = 18.0f;
-        }
-    }
+    m_camBounds->getLowerLeft().setY(jy);
     
-    float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
-    float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
-    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
-    
-    if (camVelocityY > 0)
-    {
-        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
-        {
-            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
-            if (newCamPos > m_camBounds->getLowerLeft().getY())
-            {
-                m_camBounds->getLowerLeft().setY(newCamPos);
-            }
-        }
-        
-        if (m_camBounds->getLowerLeft().getY() > regionBottomY)
-        {
-            m_camBounds->getLowerLeft().setY(regionBottomY);
-        }
-    }
-    
-    if (camVelocityY < 0)
-    {
-        if (m_camBounds->getLowerLeft().getY() < regionBottomY)
-        {
-            m_camBounds->getLowerLeft().setY(regionBottomY);
-        }
-    }
+//    float regionBottomY;
+//    if (jon.getAbilityState() == ABILITY_BURROW)
+//    {
+//        regionBottomY = jy - 1.22451534f;
+//    }
+//    else if (jon.isFalling())
+//    {
+//        if (jy < aboveGroundRegionBottomY)
+//        {
+//            regionBottomY = 0;
+//        }
+//        else if (jy >= aboveGroundRegionBottomY && jy < 18.0f)
+//        {
+//            regionBottomY = aboveGroundRegionBottomY;
+//        }
+//        else
+//        {
+//            regionBottomY = 18.0f;
+//        }
+//    }
+//    else
+//    {
+//        if (jy < (aboveGroundRegionBottomY - jonHeightPlusPadding))
+//        {
+//            regionBottomY = 0;
+//        }
+//        else if (jy >= (aboveGroundRegionBottomY - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
+//        {
+//            regionBottomY = aboveGroundRegionBottomY;
+//        }
+//        else
+//        {
+//            regionBottomY = 18.0f;
+//        }
+//    }
+//    
+//    float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
+//    float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
+//    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
+//    
+//    if (camVelocityY > 0)
+//    {
+//        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
+//        {
+//            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
+//            if (newCamPos > m_camBounds->getLowerLeft().getY())
+//            {
+//                m_camBounds->getLowerLeft().setY(newCamPos);
+//            }
+//        }
+//        
+//        if (m_camBounds->getLowerLeft().getY() > regionBottomY)
+//        {
+//            m_camBounds->getLowerLeft().setY(regionBottomY);
+//        }
+//    }
+//    
+//    if (camVelocityY < 0)
+//    {
+//        if (m_camBounds->getLowerLeft().getY() < regionBottomY)
+//        {
+//            m_camBounds->getLowerLeft().setY(regionBottomY);
+//        }
+//    }
     
     if (m_camBounds->getLowerLeft().getY() < 0)
     {
@@ -547,6 +552,15 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getExitGrounds());
+    for (std::vector<ExitGround *>::iterator i = game.getExitGrounds().begin(); i != game.getExitGrounds().end(); i++)
+    {
+        renderPhysicalEntity(*(*i), Assets::getInstance()->get(*(*i)));
+        if ((*i)->hasCover())
+        {
+            ExitGroundCover& egc = (*i)->getExitCover();
+            renderPhysicalEntityWithColor(egc, Assets::getInstance()->get(egc), egc.getColor());
+        }
+    }
     m_spriteBatcher->endBatch(*m_world_1_midground);
     
     /// Render Background Midground Cover
@@ -564,71 +578,34 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getGrounds());
     m_spriteBatcher->endBatch(*m_world_1_ground);
-//    for (std::vector<std::unique_ptr<CaveExit>>::iterator i = game.getCaveExits().begin(); i != game.getCaveExits().end(); i++)
-//    {
-//        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
-//        renderPhysicalEntitiesWithColor((*i)->getCaveExitCovers());
-//    }
     
-//    for (std::vector<std::unique_ptr<Hole>>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
-//    {
-//        renderPhysicalEntity(*(*i).get(), Assets::getInstance()->get(*(*i).get()));
-//        renderPhysicalEntities((*i)->getHoleCovers());
-//    }
+    m_spriteBatcher->beginBatch();
+    for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
+    {
+        renderPhysicalEntity(*(*i), Assets::getInstance()->get(*(*i)));
+        if ((*i)->hasCover())
+        {
+            HoleCover& hc = (*i)->getHoleCover();
+            renderPhysicalEntity(hc, Assets::getInstance()->get(hc));
+        }
+    }
+    m_spriteBatcher->endBatch(*m_world_1_midground);
     
-//    m_spriteBatcher->beginBatch();
-//    renderPhysicalEntities(game.getJumpSprings());
-//    renderPhysicalEntities(game.getCarrots());
-//    renderPhysicalEntities(game.getGoldenCarrots());
-//    m_spriteBatcher->endBatch(*m_game_objects);
-//    
-//    m_spriteBatcher->beginBatch();
-//    renderPhysicalEntities(game.getPlatforms());
-//    renderPhysicalEntities(game.getLogVerticalTalls());
-//    renderPhysicalEntities(game.getLogVerticalShorts());
-//    renderPhysicalEntities(game.getThorns());
-//    renderPhysicalEntities(game.getStumps());
-//    renderPhysicalEntities(game.getSideSpikes());
-//    renderPhysicalEntities(game.getUpwardSpikes());
-//    renderPhysicalEntities(game.getEndSigns());
-//    renderPhysicalEntitiesWithColor(game.getRocks());
-//    m_spriteBatcher->endBatch(*m_world_1_objects);
-//    
-//    for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
-//    {
-//        std::unique_ptr<SnakeGrunt>& upItem = *i;
-//        SnakeGrunt* pItem = upItem.get();
-//        SnakeGrunt& item = *pItem;
-//        
-//        m_spriteBatcher->beginBatch();
-//        m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-//        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
-//        m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
-//    }
-//    
-//    for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
-//    {
-//        std::unique_ptr<SnakeHorned>& upItem = *i;
-//        SnakeHorned* pItem = upItem.get();
-//        SnakeHorned& item = *pItem;
-//        
-//        m_spriteBatcher->beginBatch();
-//        m_snakeDeathTextureProgram->setColorAdditive(item.getColorAdditive());
-//        renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
-//        m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
-//    }
-//    
-//    m_spriteBatcher->beginBatch();
-//    for (std::vector<std::unique_ptr<SnakeGrunt>>::iterator i = game.getSnakeGruntEnemies().begin(); i != game.getSnakeGruntEnemies().end(); i++)
-//    {
-//        renderPhysicalEntities((*i)->getSnakeSpirits());
-//    }
-//    
-//    for (std::vector<std::unique_ptr<SnakeHorned>>::iterator i = game.getSnakeHornedEnemies().begin(); i != game.getSnakeHornedEnemies().end(); i++)
-//    {
-//        renderPhysicalEntities((*i)->getSnakeSpirits());
-//    }
-//    m_spriteBatcher->endBatch(*m_world_1_enemies);
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getCollectibleItems());
+    renderPhysicalEntities(game.getForegroundObjects());
+    m_spriteBatcher->endBatch(*m_world_1_objects);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntitiesWithColor(game.getEnemies());
+    for (std::vector<Enemy *>::iterator i = game.getEnemies().begin(); i != game.getEnemies().end(); i++)
+    {
+        if ((*i)->hasSpirit())
+        {
+            renderPhysicalEntity((*i)->getSpirit(), Assets::getInstance()->get(*(*i)));
+        }
+    }
+    m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
 
 void Renderer::renderJon(Game& game)
@@ -672,8 +649,12 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getRight(), m_camBounds->getBottom(), m_camBounds->getTop());
     
     m_boundsRectangleBatcher->beginBatch();
-    renderBoundsForPhysicalEntities(game.getJons());
+    renderBoundsForPhysicalEntities(game.getMidgrounds());
+    renderBoundsForPhysicalEntities(game.getExitGrounds());
     renderBoundsForPhysicalEntities(game.getGrounds());
+    renderBoundsForPhysicalEntities(game.getHoles());
+    renderBoundsForPhysicalEntities(game.getCollectibleItems());
+    renderBoundsForPhysicalEntities(game.getJons());
     m_boundsRectangleBatcher->endBatch();
     
     static Color gridColor = Color(1, 1, 1, 0.3f);
@@ -740,7 +721,7 @@ void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
     {
         std::stringstream ss;
         ss << (game.getNumTotalCarrots() - 0);
-//        ss << (game.getNumTotalCarrots() - game.getCarrots().size());
+        ss << (game.getNumTotalCarrots() - game.getNumRemainingCarrots());
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (offset + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
@@ -762,20 +743,28 @@ void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
     {
         std::stringstream ss;
         ss << (game.getNumTotalGoldenCarrots() - 0) << "/" << game.getNumTotalGoldenCarrots();
-//        ss << (game.getNumTotalGoldenCarrots() - game.getGoldenCarrots().size()) << "/" << game.getNumTotalGoldenCarrots();
+        ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots()) << "/" << game.getNumTotalGoldenCarrots();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
 
     m_spriteBatcher->endBatch(*m_misc);
     
-    static Carrot uiCarrot = Carrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight);
-    static GoldenCarrot uiGoldenCarrot = GoldenCarrot(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight);
+    static CollectibleItem uiCarrot = Carrot(0, 0, 1, 1);
+    static CollectibleItem uiGoldenCarrot = GoldenCarrot(0, 0, 1, 1);
     
-//    m_spriteBatcher->beginBatch();
-//    renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(uiCarrot));
-//    renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(uiGoldenCarrot));
-//    m_spriteBatcher->endBatch(*m_world_1_objects);
+    uiCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2);
+    uiCarrot.setWidth(fgWidth);
+    uiCarrot.setHeight(fgHeight);
+    
+    uiGoldenCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2);
+    uiGoldenCarrot.setWidth(fgWidth);
+    uiGoldenCarrot.setHeight(fgHeight);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(uiCarrot));
+    renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(uiGoldenCarrot));
+    m_spriteBatcher->endBatch(*m_world_1_objects);
 
 	{
 		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
@@ -823,11 +812,9 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         updateMatrix(0, CAM_WIDTH, leep.getEntitiesCameraPos(), leep.getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getJons());
-        m_spriteBatcher->endBatch(*m_jon);
-        
-        m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getMidgrounds());
+        renderPhysicalEntities(leep.getExitGrounds());
+        renderPhysicalEntities(leep.getHoles());
         m_spriteBatcher->endBatch(*m_world_1_midground);
         
         m_spriteBatcher->beginBatch();
@@ -835,8 +822,17 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_ground);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep.getExitGrounds());
-        m_spriteBatcher->endBatch(*m_world_1_midground);
+        renderPhysicalEntities(leep.getCollectibleItems());
+        renderPhysicalEntities(leep.getForegroundObjects());
+        m_spriteBatcher->endBatch(*m_world_1_objects);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getEnemies());
+        m_spriteBatcher->endBatch(*m_world_1_enemies);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getJons());
+        m_spriteBatcher->endBatch(*m_jon);
     }
     
     if (lsp.isOpen())
@@ -981,7 +977,13 @@ void Renderer::cleanUp()
         destroyTexture(*m_world_1_background_mid);
         destroyTexture(*m_world_1_background_upper);
         
+        destroyTexture(*m_world_1_enemies);
+        
         destroyTexture(*m_world_1_ground);
+        
+        destroyTexture(*m_world_1_midground);
+        
+        destroyTexture(*m_world_1_objects);
         
         m_areWorld1TexturesLoaded = false;
     }

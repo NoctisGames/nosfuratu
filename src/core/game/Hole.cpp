@@ -11,46 +11,59 @@
 
 Hole* Hole::create(int gridX, int gridY, int type)
 {
-    return new Hole(gridX);
+    switch ((HoleType)type)
+    {
+        case HoleType_Grass:
+            return new HoleGrass(gridX);
+        case HoleType_Cave:
+            return new HoleCave(gridX);
+    }
+    
+    assert(false);
 }
 
-Hole::Hole(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+Hole::Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_holeCover(nullptr), m_type(type)
 {
-    m_holeCovers.push_back(std::unique_ptr<HoleCover>(new HoleCover(x, y, width, height)));
+    m_holeCover = new HoleCover(m_position->getX(), m_position->getY(), m_fWidth, m_fHeight, type == HoleType_Grass ? HoleCoverType_Grass : HoleCoverType_Cave);
 }
 
 void Hole::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    //EntityUtils::updateAndClean(m_holeCovers, deltaTime);
-    
-    for (std::vector<std::unique_ptr<HoleCover>>::iterator i = m_holeCovers.begin(); i != m_holeCovers.end(); i++)
+    if (m_holeCover)
     {
-        (*i)->getPosition().set(getPosition());
-        (*i)->updateBounds();
+        m_holeCover->update(deltaTime);
+        m_holeCover->getPosition().setX(getPosition().getX());
+        m_holeCover->updateBounds();
+        
+        if (m_holeCover->isRequestingDeletion())
+        {
+            delete m_holeCover;
+            m_holeCover = nullptr;
+        }
     }
 }
 
 void Hole::triggerBurrow()
 {
-    if (m_holeCovers.size() > 0)
+    if (m_holeCover)
     {
-        m_holeCovers.at(0)->triggerHit();
+        m_holeCover->triggerHit();
     }
 }
 
 bool Hole::hasCover()
 {
-    return m_holeCovers.size() > 0;
+    return m_holeCover ? true : false;
 }
 
-std::vector<std::unique_ptr<HoleCover>>& Hole::getHoleCovers()
+HoleCover& Hole::getHoleCover()
 {
-    return m_holeCovers;
+    return *m_holeCover;
 }
 
-int Hole::getType()
+HoleType Hole::getType()
 {
-    return -1;
+    return m_type;
 }

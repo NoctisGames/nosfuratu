@@ -438,6 +438,11 @@ void GamePlay::execute(GameScreen* gs)
             {
                 jon.beginWarmingUp();
             }
+            
+            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
         }
         else
         {
@@ -527,8 +532,7 @@ void GamePlay::execute(GameScreen* gs)
                 
                 m_game->updateAndClean(gs->m_fDeltaTime);
                 
-//                EntityUtils::handleCollections(jon, m_game->getCarrots(), gs->m_fDeltaTime);
-//                EntityUtils::handleCollections(jon, m_game->getGoldenCarrots(), gs->m_fDeltaTime);
+                EntityUtils::handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
                 
                 if (gs->m_isScreenHeldDown)
                 {
@@ -545,12 +549,12 @@ void GamePlay::execute(GameScreen* gs)
             }
             
             gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
+            
+            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+            EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
         }
-        
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 
@@ -595,11 +599,11 @@ bool GamePlay::handleOpeningSequenceTouchInput(GameScreen* gs)
         switch (i->getTouchType())
         {
             case DOWN:
-                return true;
+                continue;
             case DRAGGED:
                 continue;
             case UP:
-                continue;
+                return true;
         }
     }
     

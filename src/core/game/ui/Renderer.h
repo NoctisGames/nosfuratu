@@ -130,6 +130,7 @@ protected:
     TextureWrapper* m_world_1_background_lower;
     TextureWrapper* m_world_1_background_mid;
     TextureWrapper* m_world_1_background_upper;
+    TextureWrapper* m_world_1_enemies;
     TextureWrapper* m_world_1_ground;
     TextureWrapper* m_world_1_midground;
     TextureWrapper* m_world_1_objects;

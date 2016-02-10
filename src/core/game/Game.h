@@ -13,6 +13,10 @@
 #include "Midground.h"
 #include "Ground.h"
 #include "ExitGround.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "Enemy.h"
+#include "CollectibleItem.h"
 #include "Jon.h"
 
 #include <memory>
@@ -77,6 +81,14 @@ public:
     
     std::vector<ExitGround *>& getExitGrounds();
     
+    std::vector<Hole *>& getHoles();
+    
+    std::vector<ForegroundObject *>& getForegroundObjects();
+    
+    std::vector<Enemy *>& getEnemies();
+    
+    std::vector<CollectibleItem *>& getCollectibleItems();
+    
     std::vector<Jon *>& getJons();
     
     Jon& getJon();
@@ -89,7 +101,11 @@ public:
     
     int getNumTotalCarrots();
     
+    int getNumRemainingCarrots();
+    
     int getNumTotalGoldenCarrots();
+    
+    int getNumRemainingGoldenCarrots();
     
     bool isLoaded();
     
@@ -101,6 +117,10 @@ private:
     std::vector<Background *> m_backgroundMidgroundCovers;
     std::vector<Ground *> m_grounds;
     std::vector<ExitGround *> m_exitGrounds;
+    std::vector<Hole *> m_holes;
+    std::vector<ForegroundObject *> m_foregroundObjects;
+    std::vector<Enemy *> m_enemies;
+    std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     
     float m_fStateTime;
@@ -187,9 +207,6 @@ private:
             (*i)->setGame(game);
         }
     }
-    
-//    static bool isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
-//    static bool isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Game__) */

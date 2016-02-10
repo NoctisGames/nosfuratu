@@ -18,20 +18,24 @@
 #include "Midground.h"
 #include "Ground.h"
 #include "ExitGround.h"
+#include "Hole.h"
 #include "DustCloud.h"
 #include "Jon.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
-#include "LevelEditorActionsPanel.h"
-#include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
-#include "Carrot.h"
-#include "GoldenCarrot.h"
 
 #include <vector>
 
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
+
+class CollectibleItem;
+class LevelEditorActionsPanel;
+class LevelEditorEntitiesPanel;
+class Enemy;
+class Spirit;
+class ForegroundObject;
 
 class Assets
 {
@@ -46,9 +50,19 @@ public:
     
     TextureRegion& get(ExitGround& exitGround);
     
-    TextureRegion& get(Carrot& carrot);
+    TextureRegion& get(ExitGroundCover& exitGroundCover);
     
-    TextureRegion& get(GoldenCarrot& goldenCarrot);
+    TextureRegion& get(Hole& hole);
+    
+    TextureRegion& get(HoleCover& holeCover);
+    
+    TextureRegion& get(ForegroundObject& foregroundObject);
+    
+    TextureRegion& get(Enemy& enemy);
+    
+    TextureRegion& get(Spirit& spirit);
+    
+    TextureRegion& get(CollectibleItem& collectibleItem);
     
     TextureRegion& get(Jon& jon);
     

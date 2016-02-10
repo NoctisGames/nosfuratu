@@ -7,6 +7,12 @@
 //
 
 #include "Assets.h"
+#include "CollectibleItem.h"
+#include "LevelEditorActionsPanel.h"
+#include "LevelEditorEntitiesPanel.h"
+#include "Enemy.h"
+#include "Spirit.h"
+#include "ForegroundObject.h"
 
 Assets * Assets::getInstance()
 {
@@ -277,30 +283,308 @@ TextureRegion& Assets::get(ExitGround& exitGround)
     assert(false);
 }
 
-TextureRegion& Assets::get(Carrot& carrot)
+TextureRegion& Assets::get(ExitGroundCover& exitGroundCover)
 {
-    static Animation floatAnim = createAnimation(1200, 380, 102, 92, 816, 92, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
-    static Animation grabAnim = createAnimation(1174, 488, 156, 220, 780, 220, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
-    
-    if (carrot.isCollected())
+    switch (exitGroundCover.getType())
     {
-        return grabAnim.getTextureRegion(carrot.getStateTime());
+        case ExitGroundCoverType_Grass:
+        {
+            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+            return anim.getTextureRegion(exitGroundCover.getStateTime());
+        }
+        case ExitGroundCoverType_Cave:
+        {
+            static Animation anim = createAnimation(514, 1488, 512, 384, 2560, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
+            return anim.getTextureRegion(exitGroundCover.getStateTime());
+        }
     }
     
-    return floatAnim.getTextureRegion(carrot.getStateTime());
+    assert(false);
 }
 
-TextureRegion& Assets::get(GoldenCarrot& goldenCarrot)
+TextureRegion& Assets::get(Hole& hole)
 {
-    static Animation floatAnim = createAnimation(1004, 4, 104, 112, 1040, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.12f, 10);
-    static Animation grabAnim = createAnimation(272, 120, 222, 170, 1776, 170, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 8);
-    
-    if (goldenCarrot.isCollected())
+    switch (hole.getType())
     {
-        return grabAnim.getTextureRegion(goldenCarrot.getStateTime());
+        case HoleType_Grass:
+        {
+            static TextureRegion tr = createTextureRegion(0, 0, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case HoleType_Cave:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1100, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
     }
     
-    return floatAnim.getTextureRegion(goldenCarrot.getStateTime());
+    assert(false);
+}
+
+TextureRegion& Assets::get(HoleCover& holeCover)
+{
+    switch (holeCover.getType())
+    {
+        case HoleCoverType_Grass:
+        {
+            static Animation anim = createAnimation(256, 0, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 12);
+            return anim.getTextureRegion(holeCover.getStateTime());
+        }
+        case HoleCoverType_Cave:
+        {
+            static Animation anim = createAnimation(272, 1100, 272, 384, 2720, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            return anim.getTextureRegion(holeCover.getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(ForegroundObject& foregroundObject)
+{
+    switch (foregroundObject.getType())
+    {
+        case ForegroundObjectType_GrassPlatformLeft:
+        {
+            static TextureRegion tr = createTextureRegion(0, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_GrassPlatformCenter:
+        {
+            static TextureRegion tr = createTextureRegion(64, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_GrassPlatformRight:
+        {
+            static TextureRegion tr = createTextureRegion(288, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_CavePlatformLeft:
+        {
+            static TextureRegion tr = createTextureRegion(378, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_CavePlatformCenter:
+        {
+            static TextureRegion tr = createTextureRegion(442, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_CavePlatformRight:
+        {
+            static TextureRegion tr = createTextureRegion(666, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_RockLarge:
+        {
+            static TextureRegion tr = createTextureRegion(0, 130, 704, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_RockMedium:
+        {
+            static TextureRegion tr = createTextureRegion(0, 686, 384, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_RockSmall:
+        {
+            static TextureRegion tr = createTextureRegion(0, 3136, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_RockSmallCracked:
+        {
+            static Animation anim = createAnimation(384, 3136, 384, 368, 2304, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
+        }
+            
+        case ForegroundObjectType_StumpBig:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1096, 256, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_StumpSmall:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1406, 320, 272, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_EndSign:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1712, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_ThornsLeft:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1814, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_ThornsCenterSmall:
+        {
+            static TextureRegion tr = createTextureRegion(432, 1814, 176, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_ThornsCenterBig:
+        {
+            static TextureRegion tr = createTextureRegion(80, 1814, 352, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_ThornsRight:
+        {
+            static TextureRegion tr = createTextureRegion(608, 1814, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_LogVerticalTall:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1942, 128, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_LogVerticalShort:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2128, 128, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_JumpSpringLight:
+        {
+            static Animation anim = createAnimation(0, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
+        }
+        case ForegroundObjectType_JumpSpringMedium:
+        {
+            static Animation anim = createAnimation(0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 7);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
+        }
+        case ForegroundObjectType_JumpSpringHeavy:
+        {
+            static Animation anim = createAnimation(0, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 7);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
+        }
+            
+        case ForegroundObjectType_SpikeGrassSingle:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2244, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeGrassFour:
+        {
+            static TextureRegion tr = createTextureRegion(96, 2244, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeGrassEight:
+        {
+            static TextureRegion tr = createTextureRegion(384, 2244, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_SpikeCaveSingle:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2452, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeCaveFour:
+        {
+            static TextureRegion tr = createTextureRegion(96, 2452, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeCaveEight:
+        {
+            static TextureRegion tr = createTextureRegion(384, 2452, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_SpikeCaveCeilingSingle:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2348, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeCaveCeilingFour:
+        {
+            static TextureRegion tr = createTextureRegion(96, 2348, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeCaveCeilingEight:
+        {
+            static TextureRegion tr = createTextureRegion(384, 2348, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_SpikeWallSingle:
+        {
+            static TextureRegion tr = createTextureRegion(4000, 0, 96, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeWallFour:
+        {
+            static TextureRegion tr = createTextureRegion(4000, 704, 96, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeWallEight:
+        {
+            static TextureRegion tr = createTextureRegion(4000, 128, 96, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(Enemy& enemy)
+{
+    switch (enemy.getType())
+    {
+        case EnemyType_Mushroom:
+        {
+            static Animation anim = createAnimation(0, 0, 128, 128, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
+            return anim.getTextureRegion(enemy.getStateTime());
+        }
+        case EnemyType_MushroomCeiling:
+        {
+            static Animation anim = createAnimation(0, 200, 128, 128, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
+            return anim.getTextureRegion(enemy.getStateTime());
+        }
+        case EnemyType_SnakeGrunt:
+        {
+            static Animation anim = createAnimation(0, 332, 128, 96, 512, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 4);
+            return anim.getTextureRegion(enemy.getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(Spirit& spirit)
+{
+    switch (spirit.getType())
+    {
+        case SpiritType_Snake:
+        {
+            static Animation anim = createAnimation(0, 432, 208, 256, 2080, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            return anim.getTextureRegion(spirit.getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(CollectibleItem& collectibleItem)
+{
+    switch (collectibleItem.getType())
+    {
+        case CollectibleItemType_Carrot:
+        {
+            static Animation anim = createAnimation(0, 3028, 96, 80, 864, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 9);
+            return anim.getTextureRegion(collectibleItem.getStateTime());
+        }
+        case CollectibleItemType_GoldenCarrot:
+        {
+            static Animation anim = createAnimation(0, 2772, 96, 96, 960, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 10);
+            return anim.getTextureRegion(collectibleItem.getStateTime());
+        }
+    }
+    
+    assert(false);
 }
 
 TextureRegion& Assets::get(Jon& jon)

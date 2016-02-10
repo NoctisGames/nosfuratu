@@ -7,7 +7,6 @@
 //
 
 #include "Ground.h"
-#include "EntityAnchor.h"
 #include "EntityUtils.h"
 
 Ground* Ground::create(int gridX, int gridY, int type)
@@ -101,13 +100,14 @@ void Ground::updateBounds()
 bool Ground::isJonLanding(Jon& jon, float deltaTime)
 {
     float jonVelocityY = jon.getVelocity().getY();
-    float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
-    float jonYDelta = fabsf(jonVelocityY * deltaTime);
     
     if (jonVelocityY <= 0)
     {
         if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
         {
+            float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            
             float itemTop = getBounds().getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
@@ -121,6 +121,56 @@ bool Ground::isJonLanding(Jon& jon, float deltaTime)
                 
                 return true;
             }
+        }
+    }
+    
+    return false;
+}
+
+bool Ground::isJonBlockedOnRight(Jon &jon, float deltaTime)
+{
+    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        float entityVelocityX = jon.getVelocity().getX();
+        float entityBottom = jon.getBounds().getLowerLeft().getY();
+        float entityRight = jon.getBounds().getRight();
+        float entityXDelta = fabsf(entityVelocityX * deltaTime);
+        
+        float itemTop = getBounds().getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemLeft = getBounds().getLowerLeft().getX();
+        float padding = itemLeft * .01f;
+        padding += entityXDelta;
+        float itemLeftReq = itemLeft + padding;
+        
+        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+        {
+            jon.getPosition().setX(itemLeft - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool Ground::isJonBlockedAbove(Jon &jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        float entityLeft = jon.getBounds().getLeft();
+        float itemLeft = getBounds().getLeft();
+        
+        if (itemLeft < entityLeft)
+        {
+            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+            jon.updateBounds();
+            
+            return true;
         }
     }
     

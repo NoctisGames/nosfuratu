@@ -7,7 +7,6 @@
 //
 
 #include "Midground.h"
-#include "EntityAnchor.h"
 #include "EntityUtils.h"
 
 Midground* Midground::create(int gridX, int gridY, int type)

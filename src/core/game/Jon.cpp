@@ -452,6 +452,11 @@ void Jon::beginWarmingUp()
     m_fStateTime = 0;
 }
 
+float Jon::getGravity()
+{
+    return m_fGravity;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)

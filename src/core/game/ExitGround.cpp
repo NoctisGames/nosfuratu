@@ -7,7 +7,6 @@
 //
 
 #include "ExitGround.h"
-#include "EntityAnchor.h"
 #include "EntityUtils.h"
 
 ExitGround* ExitGround::create(int gridX, int gridY, int type)
@@ -28,9 +27,33 @@ ExitGround* ExitGround::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-ExitGround::ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, ExitGroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsHeightFactor(boundsHeightFactor), m_type(type), m_groundSoundType(groundSoundType)
+ExitGround::ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsHeightFactor(boundsHeightFactor), m_type(type), m_groundSoundType(groundSoundType), m_exitCover(nullptr)
 {
     updateBounds();
+    
+    if (hasCover)
+    {
+        ExitGroundCoverType t = m_type == ExitGroundType_GrassWithCaveSmallExitMid || m_type == ExitGroundType_GrassWithCaveSmallExitEnd ? ExitGroundCoverType_Grass : ExitGroundCoverType_Cave;
+        m_exitCover = new ExitGroundCover(m_position->getX(), m_position->getY(), m_fWidth, m_fHeight, t);
+    }
+}
+
+void ExitGround::update(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_exitCover)
+    {
+        m_exitCover->update(deltaTime);
+        m_exitCover->getPosition().set(getPosition());
+        m_exitCover->updateBounds();
+        
+        if (m_exitCover->isRequestingDeletion())
+        {
+            delete m_exitCover;
+            m_exitCover = nullptr;
+        }
+    }
 }
 
 void ExitGround::updateBounds()
@@ -45,20 +68,154 @@ void ExitGround::updateBounds()
 bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
 {
     float jonVelocityY = jon.getVelocity().getY();
-    float jonBottomY = jon.getBounds().getBottom();
-    float jonLeftX = jon.getBounds().getLeft();
-    float jonRightX = jon.getBounds().getRight();
-    float jonYDelta = fabsf(jonVelocityY * deltaTime);
     
     if (jonVelocityY <= 0)
     {
         if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
         {
+            float jonBottomY = jon.getBounds().getBottom();
+            float jonLeftX = jon.getBounds().getLeft();
+            float jonRightX = jon.getBounds().getRight();
+            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            
             float itemTop = getBounds().getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
             float itemTopReq = itemTop - padding;
             float pitEntranceLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
+            float pitEntranceRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
+            
+            bool isLanding = jonBottomY >= itemTopReq;
+            if (!hasCover())
+            {
+                isLanding = jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight;
+            }
+            
+            if (isLanding)
+            {
+                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.updateBounds();
+                jon.setGroundSoundType(getGroundSoundType());
+                
+                return true;
+            }
+            else
+            {
+                jon.getAcceleration().setY(jon.getGravity() * 2);
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool ExitGround::isJonBlockedOnRight(Jon &jon, float deltaTime)
+{
+    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        float entityVelocityX = jon.getVelocity().getX();
+        float entityBottom = jon.getBounds().getLowerLeft().getY();
+        float entityRight = jon.getBounds().getRight();
+        float entityXDelta = fabsf(entityVelocityX * deltaTime);
+        
+        float itemTop = getBounds().getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemLeft = getBounds().getLowerLeft().getX();
+        float padding = itemLeft * .01f;
+        padding += entityXDelta;
+        float itemLeftReq = itemLeft + padding;
+        
+        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+        {
+            jon.getPosition().setX(itemLeft - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        float entityLeft = jon.getBounds().getLeft();
+        float itemLeft = getBounds().getLeft();
+        
+        bool isBlocked = itemLeft < entityLeft && entityVelocityY <= 13.1f;
+        
+        if (!isBlocked)
+        {
+            float entityRight = jon.getBounds().getRight();
+            float exitLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
+            float exitRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
+            
+            if (entityVelocityY > 13.1f && entityRight < exitRight && entityLeft > exitLeft)
+            {
+                isBlocked = false;
+                
+                if (hasCover())
+                {
+                    m_exitCover->triggerHit();
+                }
+            }
+        }
+        
+        if (isBlocked)
+        {
+            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool ExitGround::hasCover()
+{
+    return m_exitCover ? true : false;
+}
+
+ExitGroundCover& ExitGround::getExitCover()
+{
+    return *m_exitCover;
+}
+
+ExitGroundType ExitGround::getType()
+{
+    return m_type;
+}
+
+GroundSoundType ExitGround::getGroundSoundType()
+{
+    return m_groundSoundType;
+}
+
+bool CaveDeepSmallWaterfall::isJonLanding(Jon& jon, float deltaTime)
+{
+    float jonVelocityY = jon.getVelocity().getY();
+    
+    if (jonVelocityY <= 0)
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        {
+            float jonBottomY = jon.getBounds().getBottom();
+            float jonLeftX = jon.getBounds().getLeft();
+            float jonRightX = jon.getBounds().getRight();
+            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            
+            float itemTop = getBounds().getTop();
+            float padding = itemTop * .01f;
+            padding += jonYDelta;
+            float itemTopReq = itemTop - padding;
+            float pitEntranceLeft = getBounds().getLeft() + getBounds().getWidth() * 0.328125f;
             float pitEntranceRight = getBounds().getLeft() + getBounds().getWidth() * 0.75f;
             
             if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
@@ -73,14 +230,4 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
     }
     
     return false;
-}
-
-ExitGroundType ExitGround::getType()
-{
-    return m_type;
-}
-
-GroundSoundType ExitGround::getGroundSoundType()
-{
-    return m_groundSoundType;
 }

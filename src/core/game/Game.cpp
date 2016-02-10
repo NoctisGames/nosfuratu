@@ -8,7 +8,6 @@
 
 #include "Game.h"
 #include "GameConstants.h"
-#include "EntityAnchor.h"
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
@@ -16,6 +15,10 @@
 #define midgroundsKey "midgrounds"
 #define groundsKey "grounds"
 #define exitGroundsKey "exitGrounds"
+#define holesKey "holes"
+#define foregroundObjectsKey "foregroundObjects"
+#define enemiesKey "enemies"
+#define collectiblesKey "collectibles"
 #define jonsKey "jons"
 
 Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
@@ -37,14 +40,16 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
     copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
+    copyPhysicalEntities(game->getHoles(), m_holes);
+    copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
+    copyPhysicalEntities(game->getEnemies(), m_enemies);
+    copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
     
     setGameToEntities(m_jons, this);
-
-    m_iNumTotalCarrots = 0;
-    m_iNumTotalGoldenCarrots = 0;
-//    m_iNumTotalCarrots = (int) m_carrots.size();
-//    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
+    
+    m_iNumTotalCarrots = getNumRemainingCarrots();
+    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     
     m_isLoaded = true;
 }
@@ -59,14 +64,16 @@ void Game::load(const char* json)
     loadArray(m_midgrounds, d, midgroundsKey);
     loadArray(m_grounds, d, groundsKey);
     loadArray(m_exitGrounds, d, exitGroundsKey);
+    loadArray(m_holes, d, holesKey);
+    loadArray(m_foregroundObjects, d, foregroundObjectsKey);
+    loadArray(m_enemies, d, enemiesKey);
+    loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     
     setGameToEntities(m_jons, this);
     
-    m_iNumTotalCarrots = 0;
-    m_iNumTotalGoldenCarrots = 0;
-//    m_iNumTotalCarrots = (int) m_carrots.size();
-//    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
+    m_iNumTotalCarrots = getNumRemainingCarrots();
+    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     
     m_isLoaded = true;
 }
@@ -86,6 +93,10 @@ const char* Game::save()
     saveArray(m_midgrounds, w, midgroundsKey);
     saveArray(m_grounds, w, groundsKey);
     saveArray(m_exitGrounds, w, exitGroundsKey);
+    saveArray(m_holes, w, holesKey);
+    saveArray(m_foregroundObjects, w, foregroundObjectsKey);
+    saveArray(m_enemies, w, enemiesKey);
+    saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
     
     w.EndObject();
@@ -98,6 +109,10 @@ void Game::reset()
     m_midgrounds.clear();
     m_grounds.clear();
     m_exitGrounds.clear();
+    m_holes.clear();
+    m_foregroundObjects.clear();
+    m_enemies.clear();
+    m_collectibleItems.clear();
     m_jons.clear();
     
     m_fStateTime = 0;
@@ -116,6 +131,10 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getMidgrounds(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getExitGrounds(), deltaTime);
+    EntityUtils::updateAndClean(getHoles(), deltaTime);
+    EntityUtils::updateAndClean(getForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getEnemies(), deltaTime);
+    EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     
     getJon().update(deltaTime);
 }
@@ -127,6 +146,10 @@ int Game::calcSum()
     sum += m_midgrounds.size();
     sum += m_grounds.size();
     sum += m_exitGrounds.size();
+    sum += m_holes.size();
+    sum += m_foregroundObjects.size();
+    sum += m_enemies.size();
+    sum += m_collectibleItems.size();
     sum += m_jons.size();
     
     return sum;
@@ -134,12 +157,21 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime);
+    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime))
+    {
+        return false;
+    }
+    
+    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getExitGrounds(), deltaTime);
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)
@@ -149,7 +181,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
 
 bool Game::isJonHit()
 {
-    return false;
+    return EntityUtils::isHit(getJon(), getEnemies());
 }
 
 bool Game::isJonLandingOnSpring(float deltaTime)
@@ -159,7 +191,7 @@ bool Game::isJonLandingOnSpring(float deltaTime)
 
 bool Game::isJonLandingOnEnemy(float deltaTime)
 {
-    return false;
+    return EntityUtils::isLandingOnEnemy(getJon(), getEnemies(), deltaTime);
 }
 
 bool Game::isSpinningBackFistDelivered(float deltaTime)
@@ -169,12 +201,12 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
 
 bool Game::isBurrowEffective()
 {
-    return false;
+    return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
 }
 
 bool Game::isUpwardThrustEffectiveAgainstEnemy()
 {
-    return false;
+    return EntityUtils::isHittingEnemyFromBelow(getJon(), getEnemies());
 }
 
 std::vector<Background *>& Game::getBackgroundUppers()
@@ -212,6 +244,26 @@ std::vector<ExitGround *>& Game::getExitGrounds()
     return m_exitGrounds;
 }
 
+std::vector<Hole *>& Game::getHoles()
+{
+    return m_holes;
+}
+
+std::vector<ForegroundObject *>& Game::getForegroundObjects()
+{
+    return m_foregroundObjects;
+}
+
+std::vector<Enemy *>& Game::getEnemies()
+{
+    return m_enemies;
+}
+
+std::vector<CollectibleItem *>& Game::getCollectibleItems()
+{
+    return m_collectibleItems;
+}
+
 std::vector<Jon *>& Game::getJons()
 {
     return m_jons;
@@ -225,23 +277,11 @@ Jon& Game::getJon()
 float Game::getFarRight()
 {
     return ZOOMED_OUT_CAM_WIDTH;
-//    if (getEndSigns().size() == 0)
-//    {
-//        return ZOOMED_OUT_CAM_WIDTH;
-//    }
-//    
-//    return getEndSigns().at(0)->getPosition().getX() + getEndSigns().at(0)->getWidth();
 }
 
 float Game::getFarRightBottom()
 {
-    return 0.0f;
-//    if (getEndSigns().size() == 0)
-//    {
-//        return 8.750433275563259f;
-//    }
-//    
-//    return getEndSigns().at(0)->getPosition().getY() - getJon().getHeight() / 2;
+    return GAME_HEIGHT / 2;
 }
 
 float Game::getStateTime()
@@ -254,69 +294,40 @@ int Game::getNumTotalCarrots()
     return m_iNumTotalCarrots;
 }
 
+int Game::getNumRemainingCarrots()
+{
+    int numRemaining = 0;
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    {
+        if ((*i)->getType() == CollectibleItemType_Carrot)
+        {
+            numRemaining++;
+        }
+    }
+    
+    return numRemaining;
+}
+
 int Game::getNumTotalGoldenCarrots()
 {
     return m_iNumTotalGoldenCarrots;
+}
+
+int Game::getNumRemainingGoldenCarrots()
+{
+    int numRemaining = 0;
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    {
+        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
+        {
+            numRemaining++;
+        }
+    }
+    
+    return numRemaining;
 }
 
 bool Game::isLoaded()
 {
     return m_isLoaded;
 }
-
-//bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
-//{
-//    float entityVelocityY = entity.getVelocity().getY();
-//    float entityLeft = entity.getBounds().getLowerLeft().getX();
-//    float entityBottom = entity.getBounds().getLowerLeft().getY();
-//    
-//    if (entityVelocityY > 13.1f)
-//    {
-//        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
-//        {
-//            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
-//            {
-//                float itemLeft = (*i)->getHoleBounds().getLowerLeft().getX();
-//                float itemTop = (*i)->getHoleBounds().getTop();
-//                
-//                if (itemLeft < entityLeft && entityBottom < itemTop)
-//                {
-//                    (*i)->triggerEruption();
-//                    
-//                    return true;
-//                }
-//            }
-//        }
-//    }
-//    
-//    return false;
-//}
-//
-//bool Game::isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
-//{
-//    float entityVelocityY = entity.getVelocity().getY();
-//    float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
-//    float entityRight = entity.getBounds().getRight();
-//    
-//    if (entityVelocityY <= 0)
-//    {
-//        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
-//        {
-//            if (!(*i)->hasCover())
-//            {
-//                float itemLowerLeftX = (*i)->getHoleBounds().getLowerLeft().getX();
-//                float itemRight = (*i)->getHoleBounds().getRight();
-//                
-//                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
-//                {
-//                    if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
-//                    {
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-//    return false;
-//}

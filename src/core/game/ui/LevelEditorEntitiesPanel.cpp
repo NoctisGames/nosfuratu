@@ -69,6 +69,60 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     
     m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0, 0, 1, 1));
     
+    m_holes.push_back(new HoleGrass(0, 0, 1, 1));
+    m_holes.push_back(new HoleCave(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new GrassPlatformLeft(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new GrassPlatformCenter(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new GrassPlatformRight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new CavePlatformLeft(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new CavePlatformCenter(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new CavePlatformRight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new RockLarge(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new RockMedium(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new RockSmall(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new RockSmallCracked(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new StumpBig(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new StumpSmall(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new EndSign(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new ThornsLeft(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new ThornsCenterSmall(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new ThornsCenterBig(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new ThornsRight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new LogVerticalTall(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new LogVerticalShort(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new JumpSpringLight(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new JumpSpringMedium(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new SpikeGrassSingle(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeGrassFour(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeGrassEight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new SpikeCaveSingle(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeCaveFour(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeCaveEight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new SpikeCaveCeilingSingle(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeCaveCeilingFour(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeCaveCeilingEight(0, 0, 1, 1));
+    
+    m_foregroundObjects.push_back(new SpikeWallSingle(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeWallFour(0, 0, 1, 1));
+    m_foregroundObjects.push_back(new SpikeWallEight(0, 0, 1, 1));
+    
+    m_enemies.push_back(new SnakeGrunt(0, 0, 1, 1));
+    
+    m_collectibleItems.push_back(new Carrot(0, 0, 1, 1));
+    m_collectibleItems.push_back(new GoldenCarrot(0, 0, 1, 1));
+    
     m_jons.push_back(new Jon(0, 0, 1, 1));
     
     float eWidth = width * 0.6f;
@@ -79,6 +133,10 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     int i = boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
     i = boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
@@ -135,6 +193,10 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     if (isTouchingEntityForPlacement(m_midgrounds, game.getMidgrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
@@ -178,6 +240,26 @@ std::vector<Ground *>& LevelEditorEntitiesPanel::getGrounds()
 std::vector<ExitGround *>& LevelEditorEntitiesPanel::getExitGrounds()
 {
     return m_exitGrounds;
+}
+
+std::vector<Hole *>& LevelEditorEntitiesPanel::getHoles()
+{
+    return m_holes;
+}
+
+std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundObjects()
+{
+    return m_foregroundObjects;
+}
+
+std::vector<Enemy *>& LevelEditorEntitiesPanel::getEnemies()
+{
+    return m_enemies;
+}
+
+std::vector<CollectibleItem *>& LevelEditorEntitiesPanel::getCollectibleItems()
+{
+    return m_collectibleItems;
 }
 
 std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
