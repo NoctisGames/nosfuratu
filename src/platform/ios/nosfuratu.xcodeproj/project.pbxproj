@@ -100,7 +100,6 @@
 		BB8E5E4C1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */; };
 		BB8E5E501BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4E1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp */; };
 		BB939CD51C626E41006D945A /* bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C801C626E41006D945A /* bgm.wav */; };
-		BB939CD61C626E41006D945A /* break_log.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C811C626E41006D945A /* break_log.wav */; };
 		BB939CD71C626E41006D945A /* cancel_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C821C626E41006D945A /* cancel_transform.wav */; };
 		BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C831C626E41006D945A /* collect_carrot.wav */; };
 		BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C841C626E41006D945A /* collect_golden_carrot.wav */; };
@@ -378,7 +377,6 @@
 		BB8E5E4F1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinWaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB900C3D1C252A40001DA002 /* GroundSoundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroundSoundType.h; sourceTree = "<group>"; };
 		BB939C801C626E41006D945A /* bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bgm.wav; sourceTree = "<group>"; };
-		BB939C811C626E41006D945A /* break_log.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = break_log.wav; sourceTree = "<group>"; };
 		BB939C821C626E41006D945A /* cancel_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cancel_transform.wav; sourceTree = "<group>"; };
 		BB939C831C626E41006D945A /* collect_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_carrot.wav; sourceTree = "<group>"; };
 		BB939C841C626E41006D945A /* collect_golden_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_golden_carrot.wav; sourceTree = "<group>"; };
@@ -778,7 +776,6 @@
 			isa = PBXGroup;
 			children = (
 				BB939C801C626E41006D945A /* bgm.wav */,
-				BB939C811C626E41006D945A /* break_log.wav */,
 				BB939C821C626E41006D945A /* cancel_transform.wav */,
 				BB939C831C626E41006D945A /* collect_carrot.wav */,
 				BB939C841C626E41006D945A /* collect_golden_carrot.wav */,
@@ -1428,7 +1425,6 @@
 				BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */,
 				BB939D1B1C626E41006D945A /* vampire.png in Resources */,
 				BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */,
-				BB939CD61C626E41006D945A /* break_log.wav in Resources */,
 				BB32DE981C671C6500F98904 /* c_world_1_background_lower.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
