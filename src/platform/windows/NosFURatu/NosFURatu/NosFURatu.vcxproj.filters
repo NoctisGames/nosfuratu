@@ -75,9 +75,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\DestructiblePhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
@@ -169,7 +167,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
-    <ClInclude Include="..\..\..\..\core\game\DestructiblePhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
@@ -356,6 +353,24 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_midground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_midground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>

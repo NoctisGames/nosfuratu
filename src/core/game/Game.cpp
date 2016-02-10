@@ -47,6 +47,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getJons(), m_jons);
     
     setGameToEntities(m_jons, this);
+	setGameToEntities(m_enemies, this);
     
     m_iNumTotalCarrots = getNumRemainingCarrots();
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
@@ -71,6 +72,7 @@ void Game::load(const char* json)
     loadArray(m_jons, d, jonsKey);
     
     setGameToEntities(m_jons, this);
+	setGameToEntities(m_enemies, this);
     
     m_iNumTotalCarrots = getNumRemainingCarrots();
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();

@@ -12,8 +12,6 @@
 
 Direct3DSnakeDeathTextureGpuProgramWrapper::Direct3DSnakeDeathTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
 {
-	createConstantBuffer();
-
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"TextureVertexShader.cso");
 	auto loadPSTask = DX::ReadDataAsync(L"SnakeDeathTexturePixelShader.cso");
