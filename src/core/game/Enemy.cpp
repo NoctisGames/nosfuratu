@@ -96,7 +96,7 @@ void Enemy::triggerHit()
 {
     m_isDying = true;
     
-    m_fXOfDeath = getBounds().getLowerLeft().getX() + getBounds().getWidth() / 2;
+    m_fXOfDeath = getBounds().getLeft() + getBounds().getWidth() / 2;
     m_fYOfDeath = getBounds().getLowerLeft().getY() + getBounds().getHeight() / 2;
     
     Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_DEATH);
@@ -104,24 +104,32 @@ void Enemy::triggerHit()
 
 bool Enemy::isJonLanding(Jon& jon, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
-    
-    if (jonVelocityY <= 0 && canBeLandedOnToKill() && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-    {
-        float jonYDelta = fabsf(jonVelocityY * deltaTime);
-        
-        float itemTop = getBounds().getTop();
-        float padding = itemTop * .01f;
-        padding += jonYDelta;
-        
-        triggerHit();
-        
-        float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
-        
-        jon.triggerBoostOffEnemy(boost);
-    }
-    
-    return false;
+	float jonVelocityY = jon.getVelocity().getY();
+
+	if (jonVelocityY <= 0)
+	{
+		if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+		{
+			float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+			float jonYDelta = fabsf(jonVelocityY * deltaTime);
+
+			float itemTop = getBounds().getTop();
+			float padding = itemTop * .01f;
+			padding += jonYDelta;
+			float itemTopReq = itemTop - padding;
+
+			if (jonLowerLeftY >= itemTopReq)
+			{
+				triggerHit();
+
+				float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
+
+				jon.triggerBoostOffEnemy(boost);
+			}
+		}
+	}
+
+	return false;
 }
 
 bool Enemy::isJonBlockedAbove(Jon& jon, float deltaTime)
@@ -132,7 +140,7 @@ bool Enemy::isJonBlockedAbove(Jon& jon, float deltaTime)
 bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getBounds();
-    Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
+    Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
     if (canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, getBounds()))
     {
@@ -216,20 +224,28 @@ EnemyType Enemy::getType()
 
 bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
-    
-    if (jonVelocityY <= 0 && canBeLandedOnToKill() && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-    {
-        float jonYDelta = fabsf(jonVelocityY * deltaTime);
-        
-        float itemTop = getBounds().getTop();
-        float padding = itemTop * .01f;
-        padding += jonYDelta;
-        
-        jon.triggerBoostOffEnemy(18);
-    }
-    
-    return false;
+	float jonVelocityY = jon.getVelocity().getY();
+
+	if (jonVelocityY <= 0)
+	{
+		if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+		{
+			float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+			float jonYDelta = fabsf(jonVelocityY * deltaTime);
+
+			float itemTop = getBounds().getTop();
+			float padding = itemTop * .01f;
+			padding += jonYDelta;
+			float itemTopReq = itemTop - padding;
+
+			if (jonLowerLeftY >= itemTopReq)
+			{
+				jon.triggerBoostOffEnemy(18);
+			}
+		}
+	}
+
+	return false;
 }
 
 bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)

@@ -100,7 +100,6 @@
     <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Spirit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
@@ -111,6 +110,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EnemySpirit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -199,7 +199,6 @@
     <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\Midground.h" />
-    <ClInclude Include="..\..\..\..\core\game\Spirit.h" />
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
     <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
     <ClInclude Include="..\..\..\..\core\game\ExitGround.h" />
@@ -210,6 +209,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
+    <ClInclude Include="..\..\..\..\core\game\EnemySpirit.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

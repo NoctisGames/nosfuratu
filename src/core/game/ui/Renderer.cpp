@@ -662,6 +662,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(game.getGrounds());
     renderBoundsForPhysicalEntities(game.getHoles());
     renderBoundsForPhysicalEntities(game.getForegroundObjects());
+	renderBoundsForPhysicalEntities(game.getEnemies());
     renderBoundsForPhysicalEntities(game.getCollectibleItems());
     renderBoundsForPhysicalEntities(game.getJons());
     m_boundsRectangleBatcher->endBatch();

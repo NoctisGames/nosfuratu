@@ -290,7 +290,7 @@ public:
 class JumpSpringLight : public ProvideBoostObject
 {
 public:
-    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f, 16.0f) {}
+    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f, 18.0f) {}
 };
 
 class JumpSpringMedium : public ProvideBoostObject

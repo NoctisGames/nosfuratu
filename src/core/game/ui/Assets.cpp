@@ -289,12 +289,12 @@ TextureRegion& Assets::get(ExitGroundCover& exitGroundCover)
     {
         case ExitGroundCoverType_Grass:
         {
-            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08333333333333f, 6);
+            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08333333333333f, 6);
             return anim.getTextureRegion(exitGroundCover.getStateTime());
         }
         case ExitGroundCoverType_Cave:
         {
-            static Animation anim = createAnimation(514, 1488, 512, 384, 2560, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
+            static Animation anim = createAnimation(514, 1488, 512, 384, 2560, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
             return anim.getTextureRegion(exitGroundCover.getStateTime());
         }
     }

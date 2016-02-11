@@ -117,7 +117,7 @@ bool ExitGround::isJonBlockedOnRight(Jon &jon, float deltaTime)
         float itemTop = getBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeft = getBounds().getLowerLeft().getX();
+        float itemLeft = getBounds().getLeft();
         float padding = itemLeft * .01f;
         padding += entityXDelta;
         float itemLeftReq = itemLeft + padding;
@@ -142,25 +142,23 @@ bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
     {
         float entityLeft = jon.getBounds().getLeft();
         float entityRight = jon.getBounds().getRight();
-        float exitLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
-        float exitRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
         
-        if (entityVelocityY > 13.0f && entityRight < exitRight && entityLeft > exitLeft)
-        {
-            if (hasCover())
-            {
-                m_exitCover->triggerHit();
-            }
-            
-            return false;
-        }
-        else
-        {
-            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
-            jon.updateBounds();
-            
-            return true;
-        }
+		if (hasCover())
+		{
+			if (entityVelocityY > 10.0f)
+			{
+				m_exitCover->triggerHit();
+
+				return false;
+			}
+			else
+			{
+				jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+				jon.updateBounds();
+
+				return true;
+			}
+		}
     }
     
     return false;

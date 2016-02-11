@@ -332,7 +332,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     m_draggingEntity->getPosition().add(xDelta, yDelta);
                     m_draggingEntity->updateBounds();
                     
-                    if (m_draggingEntity->getBounds().getLowerLeft().getX() < 0 && xDelta < 0)
+                    if (m_draggingEntity->getBounds().getLeft() < 0 && xDelta < 0)
                     {
                         m_draggingEntity->getPosition().sub(xDelta, 0);
                         m_draggingEntity->updateBounds();
@@ -413,19 +413,19 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else
                     {
+						bool needsSnapToGrid = true;
                         if (m_attachToEntity != nullptr)
                         {
-                            if (m_draggingEntity->getPosition().getY() > m_attachToEntity->getBounds().getTop())
-                            {
-                                if (m_allowPlaceOn)
-                                {
-                                    EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_levelEditorActionsPanel->boundsLevelRequested());
-                                }
-                                else if (m_allowPlaceUnder)
-                                {
-                                    EntityUtils::placeUnder(*m_draggingEntity, *m_attachToEntity, m_levelEditorActionsPanel->boundsLevelRequested());
-                                }
-                            }
+							if (m_allowPlaceOn)
+							{
+								EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, 1);
+								needsSnapToGrid = false;
+							}
+							else if (m_allowPlaceUnder)
+							{
+								EntityUtils::placeUnder(*m_draggingEntity, *m_attachToEntity, 1);
+								needsSnapToGrid = false;
+							}
                         }
                         
                         if (!m_isVerticalChangeAllowed)
@@ -434,7 +434,10 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                             m_draggingEntity->updateBounds();
                         }
                         
-                        m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
+						if (needsSnapToGrid)
+						{
+							m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
+						}
                     }
                 }
                 

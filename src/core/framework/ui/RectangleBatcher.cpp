@@ -17,7 +17,7 @@ RectangleBatcher::RectangleBatcher(bool isFill) : m_isFill(isFill), m_iNumRectan
 
 void RectangleBatcher::renderRectangle(Rectangle &rectangle, Color &color)
 {
-    float x1 = rectangle.getLowerLeft().getX();
+    float x1 = rectangle.getLeft();
     float y1 = rectangle.getLowerLeft().getY();
     float x2 = x1 + rectangle.getWidth();
     float y2 = y1 + rectangle.getHeight();

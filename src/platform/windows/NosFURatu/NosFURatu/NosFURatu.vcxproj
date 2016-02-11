@@ -1187,6 +1187,7 @@
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
+    <ClInclude Include="..\..\..\..\core\game\EnemySpirit.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
     <ClInclude Include="..\..\..\..\core\game\ExitGround.h" />
@@ -1201,7 +1202,6 @@
     <ClInclude Include="..\..\..\..\core\game\HoleCover.h" />
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
     <ClInclude Include="..\..\..\..\core\game\Midground.h" />
-    <ClInclude Include="..\..\..\..\core\game\Spirit.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
@@ -1281,6 +1281,7 @@
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EnemySpirit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
@@ -1291,7 +1292,6 @@
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Spirit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />

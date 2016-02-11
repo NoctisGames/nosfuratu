@@ -28,14 +28,14 @@ public:
     {
         if (leftOf)
         {
-            float left = to.getBounds().getLowerLeft().getX();
+            float left = to.getBounds().getLeft();
             float x = left - entity.getBounds().getWidth() / 2;
             
             entity.getPosition().setX(x);
         }
         else
         {
-            float right = to.getBounds().getLowerLeft().getX() + to.getBounds().getWidth();
+            float right = to.getBounds().getLeft() + to.getBounds().getWidth();
             float x = right + entity.getBounds().getWidth() / 2;
             
             entity.getPosition().setX(x);
@@ -63,12 +63,9 @@ public:
         
         entity.updateBounds();
         
-        float yDelta = top - entity.getBounds().getLowerLeft().getY();
-        entity.getPosition().add(0, yDelta);
-        
-        entity.updateBounds();
-        
         entity.snapToGrid(gridCellSizeScalar);
+
+		entity.updateBounds();
     }
     
     static void placeUnder(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& under, int gridCellSizeScalar)
@@ -82,6 +79,8 @@ public:
         entity.updateBounds();
         
         entity.snapToGrid(gridCellSizeScalar);
+
+		entity.updateBounds();
     }
     
     template<typename T>
@@ -115,7 +114,7 @@ public:
             {
                 if (!(*i)->hasCover())
                 {
-                    float itemLowerLeftX = (*i)->getBounds().getLowerLeft().getX();
+                    float itemLowerLeftX = (*i)->getBounds().getLeft();
                     float itemRight = (*i)->getBounds().getRight();
                     
                     if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
@@ -245,7 +244,7 @@ public:
             
             float width = entity.getBounds().getWidth();
             float height = entity.getBounds().getHeight();
-            float x = entity.getBounds().getLowerLeft().getX();
+            float x = entity.getBounds().getLeft();
             float y = entity.getBounds().getLowerLeft().getY();
             
             Rectangle tempBounds = Rectangle(x, y, width, height);

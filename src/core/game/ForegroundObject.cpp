@@ -156,7 +156,7 @@ bool ForegroundObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
         float itemTop = getBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeft = getBounds().getLowerLeft().getX();
+        float itemLeft = getBounds().getLeft();
         float padding = itemLeft * .01f;
         padding += entityXDelta;
         float itemLeftReq = itemLeft + padding;
@@ -225,7 +225,7 @@ void DestructibleObject::update(float deltaTime)
 bool DestructibleObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getBounds();
-    Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
+    Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
     if (OverlapTester::doRectanglesOverlap(hittingBounds, getBounds()))
     {

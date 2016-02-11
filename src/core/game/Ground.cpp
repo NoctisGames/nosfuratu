@@ -140,7 +140,7 @@ bool Ground::isJonBlockedOnRight(Jon &jon, float deltaTime)
         float itemTop = getBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeft = getBounds().getLowerLeft().getX();
+        float itemLeft = getBounds().getLeft();
         float padding = itemLeft * .01f;
         padding += entityXDelta;
         float itemLeftReq = itemLeft + padding;
