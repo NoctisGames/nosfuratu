@@ -1204,7 +1204,6 @@
     <ClInclude Include="..\..\..\..\core\game\Spirit.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\Chapter1Levels.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.h" />
@@ -1217,8 +1216,11 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTransitions.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
@@ -1289,11 +1291,9 @@
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeGrunt.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Spirit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Levels.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.cpp" />
@@ -1306,8 +1306,11 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
@@ -1534,14 +1537,6 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>

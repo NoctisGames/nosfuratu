@@ -3,7 +3,6 @@
 #include "Direct3DRenderer.h"
 #include "Direct3DManager.h"
 #include "DirectXHelper.h"
-#include "GameScreenStates.h"
 
 using namespace NosFURatu;
 

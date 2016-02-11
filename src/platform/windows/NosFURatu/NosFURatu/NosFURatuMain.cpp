@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "NosFURatuMain.h"
 #include "DirectXHelper.h"
-#include "LevelEditor.h"
+#include "GameScreenLevelEditor.h"
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
@@ -31,7 +31,6 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("jump_spring.wav");
 	m_sounds.push_back("landing_grass.wav");
 	m_sounds.push_back("landing_cave.wav");
-	m_sounds.push_back("break_log.wav");
 	m_sounds.push_back("destroy_rock.wav");
 	m_sounds.push_back("snake_death.wav");
 	m_sounds.push_back("trigger_transform.wav");
@@ -204,73 +203,70 @@ void NosFURatuMain::handleSound()
 		switch (soundId)
 		{
 		case SOUND_COLLECT_CARROT:
-			m_sounds.at(0).play();
+			playSound(SOUND_COLLECT_CARROT);
 			break;
 		case SOUND_COLLECT_GOLDEN_CARROT:
-			m_sounds.at(1).play();
+			playSound(SOUND_COLLECT_GOLDEN_CARROT);
 			break;
 		case SOUND_DEATH:
-			m_sounds.at(2).play();
+			playSound(SOUND_DEATH);
 			break;
 		case SOUND_FOOTSTEP_LEFT_GRASS:
-			m_sounds.at(3).play();
+			playSound(SOUND_FOOTSTEP_LEFT_GRASS);
 			break;
 		case SOUND_FOOTSTEP_RIGHT_GRASS:
-			m_sounds.at(4).play();
+			playSound(SOUND_FOOTSTEP_RIGHT_GRASS);
 			break;
 		case SOUND_FOOTSTEP_LEFT_CAVE:
-			m_sounds.at(5).play();
+			playSound(SOUND_FOOTSTEP_LEFT_CAVE);
 			break;
 		case SOUND_FOOTSTEP_RIGHT_CAVE:
-			m_sounds.at(6).play();
+			playSound(SOUND_FOOTSTEP_RIGHT_CAVE);
 			break;
 		case SOUND_JUMP_SPRING:
-			m_sounds.at(7).play();
+			playSound(SOUND_JUMP_SPRING);
 			break;
 		case SOUND_LANDING_GRASS:
-			m_sounds.at(8).play();
+			playSound(SOUND_LANDING_GRASS);
 			break;
 		case SOUND_LANDING_CAVE:
-			m_sounds.at(9).play();
-			break;
-		case SOUND_BREAK_LOG:
-			m_sounds.at(10).play();
+			playSound(SOUND_LANDING_CAVE);
 			break;
 		case SOUND_DESTROY_ROCK:
-			m_sounds.at(11).play();
+			playSound(SOUND_DESTROY_ROCK);
 			break;
 		case SOUND_SNAKE_DEATH:
-			m_sounds.at(12).play();
+			playSound(SOUND_SNAKE_DEATH);
 			break;
 		case SOUND_TRIGGER_TRANSFORM:
-			m_sounds.at(13).play();
+			playSound(SOUND_TRIGGER_TRANSFORM);
 			break;
 		case SOUND_CANCEL_TRANSFORM:
-			m_sounds.at(14).play();
+			playSound(SOUND_CANCEL_TRANSFORM);
 			break;
 		case SOUND_COMPLETE_TRANSFORM:
-			m_sounds.at(15).play();
+			playSound(SOUND_COMPLETE_TRANSFORM);
 			break;
 		case SOUND_JUMP_SPRING_HEAVY:
-			m_sounds.at(16).play();
+			playSound(SOUND_JUMP_SPRING_HEAVY);
 			break;
 		case SOUND_JON_RABBIT_JUMP:
-			m_sounds.at(17).play();
+			playSound(SOUND_JON_RABBIT_JUMP);
 			break;
 		case SOUND_JON_VAMPIRE_JUMP:
-			m_sounds.at(18).play();
+			playSound(SOUND_JON_VAMPIRE_JUMP);
 			break;
 		case SOUND_JON_RABBIT_DOUBLE_JUMP:
-			m_sounds.at(19).play();
+			playSound(SOUND_JON_RABBIT_DOUBLE_JUMP);
 			break;
 		case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-			m_sounds.at(20).play();
+			playSound(SOUND_JON_VAMPIRE_DOUBLE_JUMP);
 			break;
 		case SOUND_JON_VAMPIRE_GLIDE:
-			m_sounds.at(21).play(true);
+			playSound(SOUND_JON_VAMPIRE_GLIDE, true);
 			break;
 		case SOUND_STOP_JON_VAMPIRE_GLIDE:
-			m_sounds.at(21).stop();
+			stopSound(SOUND_JON_VAMPIRE_GLIDE);
 			break;
 		default:
 			continue;
@@ -307,6 +303,16 @@ void NosFURatuMain::handleMusic()
 	}
 }
 
+void NosFURatuMain::playSound(int soundId, bool isLoop)
+{
+	m_sounds.at(soundId - 1).play(isLoop);
+}
+
+void NosFURatuMain::stopSound(int soundId)
+{
+	m_sounds.at(soundId - 1).stop();
+}
+
 void NosFURatuMain::saveLevel(int requestedAction)
 {
 	Platform::String^ filename = getLevelName(requestedAction);
@@ -314,7 +320,7 @@ void NosFURatuMain::saveLevel(int requestedAction)
 	{
 		if (file != nullptr)
 		{
-			const char *level_json = LevelEditor::getInstance()->save();
+			const char *level_json = GameScreenLevelEditor::getInstance()->save();
 			std::string s(level_json);
 			std::wstring ws;
 			ws.assign(s.begin(), s.end());
@@ -360,7 +366,7 @@ void NosFURatuMain::loadLevel(int requestedAction)
 						std::wstring fooW(fileContent->Begin());
 						std::string fooA(fooW.begin(), fooW.end());
 						const char *levelContent = fooA.c_str();
-						LevelEditor::getInstance()->load(levelContent);
+						GameScreenLevelEditor::getInstance()->load(levelContent);
 
 						displayToast(L"Level loaded successfully");
 					}

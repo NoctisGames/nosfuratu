@@ -46,6 +46,9 @@ namespace NosFURatu
 		void handleSound();
 		void handleMusic();
 
+		void playSound(int soundId, bool isLoop = false);
+		void stopSound(int soundId);
+
 		void saveLevel(int requestedAction);
 		void loadLevel(int requestedAction);
 

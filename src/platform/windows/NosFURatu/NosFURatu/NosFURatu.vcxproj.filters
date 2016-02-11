@@ -66,7 +66,6 @@
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
@@ -84,14 +83,11 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeGrunt.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Levels.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditor.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.cpp" />
@@ -110,6 +106,11 @@
     <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -157,7 +158,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
@@ -188,8 +188,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\Chapter1Levels.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditor.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.h" />
@@ -207,6 +205,11 @@
     <ClInclude Include="..\..\..\..\core\game\ExitGround.h" />
     <ClInclude Include="..\..\..\..\core\game\ExitGroundCover.h" />
     <ClInclude Include="..\..\..\..\core\game\ForegroundObject.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTransitions.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -285,9 +288,6 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
