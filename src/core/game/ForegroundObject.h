@@ -220,13 +220,13 @@ public:
 class RockSmall : public ForegroundObject
 {
 public:
-    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE, 0.32291666666667f, 0.26358695652174f, 0.37239583333333f, 0.30978260869565f) {}
+    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE, 0.328125f, 0.1875f, 0.328125f, 0.3179347826087f) {}
 };
 
 class RockSmallCracked : public DestructibleObject
 {
 public:
-    RockSmallCracked(int gridX, int gridY) : DestructibleObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE, 0.32291666666667f, 0.26358695652174f, 0.37239583333333f, 0.30978260869565f) {}
+    RockSmallCracked(int gridX, int gridY) : DestructibleObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE, 0.328125f, 0.1875f, 0.328125f, 0.3179347826087f) {}
 };
 
 class StumpBig : public ForegroundObject
