@@ -85,7 +85,7 @@ private:
 class Mushroom : public Enemy
 {
 public:
-    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 8, 8, EnemyType_Mushroom, EnemySpiritType_None) {}
+    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_Mushroom, EnemySpiritType_None) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
 };
@@ -93,7 +93,7 @@ public:
 class MushroomCeiling : public Enemy
 {
 public:
-    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 8, 8, EnemyType_MushroomCeiling, EnemySpiritType_None) {}
+    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_MushroomCeiling, EnemySpiritType_None) {}
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };

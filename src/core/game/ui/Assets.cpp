@@ -536,12 +536,12 @@ TextureRegion& Assets::get(Enemy& enemy)
     {
         case EnemyType_Mushroom:
         {
-            static Animation anim = createAnimation(0, 0, 128, 128, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
+            static Animation anim = createAnimation(0, 0, 112, 128, 448, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
             return anim.getTextureRegion(enemy.getStateTime());
         }
         case EnemyType_MushroomCeiling:
         {
-            static Animation anim = createAnimation(0, 200, 128, 128, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
+            static Animation anim = createAnimation(0, 132, 112, 128, 448, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 4);
             return anim.getTextureRegion(enemy.getStateTime());
         }
         case EnemyType_SnakeGrunt:
