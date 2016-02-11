@@ -122,6 +122,8 @@ private:
     std::vector<Jon *> m_jons;
     
     float m_fStateTime;
+    float m_fFarRight;
+    float m_fFarRightBottom;
     int m_iNumTotalCarrots;
     int m_iNumTotalGoldenCarrots;
     bool m_isLoaded;

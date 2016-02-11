@@ -36,8 +36,6 @@
 #include <sstream>
 #include <iomanip>
 
-#define aboveGroundRegionBottomY 8.750433275563259f
-
 Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_iRadialBlurDirection(RADIAL_BLUR_DIRECTION_LEFT), m_areMenuTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
 {
     int x = 0;
@@ -56,7 +54,7 @@ Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_iRadialBlurDir
     }
     
     m_font = std::unique_ptr<Font>(new Font(x, y, 16, glyphWidth, glyphHeight, textureSize, textureSize));
-    m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, aboveGroundRegionBottomY, CAM_WIDTH, CAM_HEIGHT));
+    m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, 0, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
 }
@@ -218,74 +216,80 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
     Jon& jon = game.getJon();
     m_camBounds->getLowerLeft().setX(jon.getPosition().getX() - CAM_WIDTH / 5);
     float jy = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
-//    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
+    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
-    m_camBounds->getLowerLeft().setY(jy);
+    float regionBottomY;
+    if (jon.getAbilityState() == ABILITY_BURROW)
+    {
+        regionBottomY = jy - 1.22451534f;
+    }
+    else if (jon.isFalling())
+    {
+        if (jy < 9.0f)
+        {
+            regionBottomY = 0;
+        }
+        else if (jy >= 9.0f && jy < 18.0f)
+        {
+            regionBottomY = 9.0f;
+        }
+        else if (jy >= 18.0f && jy < 27.0f)
+        {
+            regionBottomY = 18.0f;
+        }
+        else
+        {
+            regionBottomY = 27.0f;
+        }
+    }
+    else
+    {
+        if (jy < (9.0f - jonHeightPlusPadding))
+        {
+            regionBottomY = 0;
+        }
+        else if (jy >= (9.0f - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
+        {
+            regionBottomY = 9.0f;
+        }
+        else if (jy >= (18.0f - jonHeightPlusPadding) && jy < (27.0f - jonHeightPlusPadding))
+        {
+            regionBottomY = 18.0f;
+        }
+        else
+        {
+            regionBottomY = 27.0f;
+        }
+    }
     
-//    float regionBottomY;
-//    if (jon.getAbilityState() == ABILITY_BURROW)
-//    {
-//        regionBottomY = jy - 1.22451534f;
-//    }
-//    else if (jon.isFalling())
-//    {
-//        if (jy < aboveGroundRegionBottomY)
-//        {
-//            regionBottomY = 0;
-//        }
-//        else if (jy >= aboveGroundRegionBottomY && jy < 18.0f)
-//        {
-//            regionBottomY = aboveGroundRegionBottomY;
-//        }
-//        else
-//        {
-//            regionBottomY = 18.0f;
-//        }
-//    }
-//    else
-//    {
-//        if (jy < (aboveGroundRegionBottomY - jonHeightPlusPadding))
-//        {
-//            regionBottomY = 0;
-//        }
-//        else if (jy >= (aboveGroundRegionBottomY - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
-//        {
-//            regionBottomY = aboveGroundRegionBottomY;
-//        }
-//        else
-//        {
-//            regionBottomY = 18.0f;
-//        }
-//    }
-//    
-//    float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
-//    float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
-//    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
-//    
-//    if (camVelocityY > 0)
-//    {
-//        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
-//        {
-//            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
-//            if (newCamPos > m_camBounds->getLowerLeft().getY())
-//            {
-//                m_camBounds->getLowerLeft().setY(newCamPos);
-//            }
-//        }
-//        
-//        if (m_camBounds->getLowerLeft().getY() > regionBottomY)
-//        {
-//            m_camBounds->getLowerLeft().setY(regionBottomY);
-//        }
-//    }
-//    
-//    if (camVelocityY < 0)
-//    {
-//        if (m_camBounds->getLowerLeft().getY() < regionBottomY)
-//        {
-//            m_camBounds->getLowerLeft().setY(regionBottomY);
-//        }
-//    }
+    float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
+    float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
+    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
+    
+    if (camVelocityY > 0)
+    {
+        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
+        {
+            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
+            if (newCamPos > m_camBounds->getLowerLeft().getY())
+            {
+                m_camBounds->getLowerLeft().setY(newCamPos);
+            }
+        }
+        
+        if (m_camBounds->getLowerLeft().getY() > regionBottomY)
+        {
+            m_camBounds->getLowerLeft().setY(regionBottomY);
+        }
+    }
+    
+    if (camVelocityY < 0)
+    {
+        if (m_camBounds->getLowerLeft().getY() < regionBottomY)
+        {
+            m_camBounds->getLowerLeft().setY(regionBottomY);
+        }
+    }
     
     if (m_camBounds->getLowerLeft().getY() < 0)
     {
@@ -318,7 +322,7 @@ void Renderer::zoomOut()
 
 void Renderer::zoomIn()
 {
-    m_camBounds->getLowerLeft().set(0, aboveGroundRegionBottomY);
+    m_camBounds->getLowerLeft().set(0, 0);
     m_camBounds->setWidth(CAM_WIDTH);
     m_camBounds->setHeight(CAM_HEIGHT);
 }

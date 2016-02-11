@@ -21,7 +21,7 @@
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
 
-Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
+Game::Game() : m_fStateTime(0.0f), m_fFarRight(ZOOMED_OUT_CAM_WIDTH), m_fFarRightBottom(GAME_HEIGHT / 2), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
 {
     for (int i = 0; i < 4; i++)
     {
@@ -76,6 +76,25 @@ void Game::load(const char* json)
     
     m_iNumTotalCarrots = getNumRemainingCarrots();
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
+    
+    for (std::vector<Ground *>::iterator i = m_grounds.begin(); i != m_grounds.end(); i++)
+    {
+        float right = (*i)->getBounds().getRight();
+        if (right > m_fFarRight)
+        {
+            m_fFarRight = right;
+        }
+    }
+    
+    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+    {
+        if (dynamic_cast<EndSign *>((*i)))
+        {
+            m_fFarRight = (*i)->getBounds().getRight();
+            m_fFarRightBottom = (*i)->getBounds().getBottom();
+            break;
+        }
+    }
     
     m_isLoaded = true;
 }
@@ -273,12 +292,12 @@ Jon& Game::getJon()
 
 float Game::getFarRight()
 {
-    return ZOOMED_OUT_CAM_WIDTH;
+    return m_fFarRight;
 }
 
 float Game::getFarRightBottom()
 {
-    return GAME_HEIGHT / 2;
+    return m_fFarRightBottom;
 }
 
 float Game::getStateTime()
