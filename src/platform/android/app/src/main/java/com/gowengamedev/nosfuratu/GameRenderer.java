@@ -40,26 +40,6 @@ public final class GameRenderer implements Renderer
 
     //// Sound Definitions ////
 
-    private static final short SOUND_COLLECT_CARROT = 1;
-    private static final short SOUND_COLLECT_GOLDEN_CARROT = 2;
-    private static final short SOUND_DEATH = 3;
-    private static final short SOUND_FOOTSTEP_LEFT_GRASS = 4;
-    private static final short SOUND_FOOTSTEP_RIGHT_GRASS = 5;
-    private static final short SOUND_FOOTSTEP_LEFT_CAVE = 6;
-    private static final short SOUND_FOOTSTEP_RIGHT_CAVE = 7;
-    private static final short SOUND_JUMP_SPRING = 8;
-    private static final short SOUND_LANDING_GRASS = 9;
-    private static final short SOUND_LANDING_CAVE = 10;
-    private static final short SOUND_DESTROY_ROCK = 11;
-    private static final short SOUND_SNAKE_DEATH = 12;
-    private static final short SOUND_TRIGGER_TRANSFORM = 13;
-    private static final short SOUND_CANCEL_TRANSFORM = 14;
-    private static final short SOUND_COMPLETE_TRANSFORM = 15;
-    private static final short SOUND_JUMP_SPRING_HEAVY = 16;
-    private static final short SOUND_JON_RABBIT_JUMP = 17;
-    private static final short SOUND_JON_VAMPIRE_JUMP = 18;
-    private static final short SOUND_JON_RABBIT_DOUBLE_JUMP = 19;
-    private static final short SOUND_JON_VAMPIRE_DOUBLE_JUMP = 20;
     private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
     private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = 1021;
 
@@ -67,7 +47,7 @@ public final class GameRenderer implements Renderer
     private final FileHandler _fileHandler;
     private final Audio _audio;
     private Music _bgm;
-    private List<Sound> _sounds = new ArrayList<Sound>();
+    private List<Sound> _sounds = new ArrayList<>();
     private FPSCounter _fpsCounter;
 
     private float _lastRealTimeMeasurement_ms;
@@ -212,73 +192,14 @@ public final class GameRenderer implements Renderer
         {
             switch (soundId)
             {
-                case SOUND_COLLECT_CARROT:
-                    _sounds.get(0).play(1);
-                    break;
-                case SOUND_COLLECT_GOLDEN_CARROT:
-                    _sounds.get(1).play(1);
-                    break;
-                case SOUND_DEATH:
-                    _sounds.get(2).play(1);
-                    break;
-                case SOUND_FOOTSTEP_LEFT_GRASS:
-                    _sounds.get(3).play(1);
-                    break;
-                case SOUND_FOOTSTEP_RIGHT_GRASS:
-                    _sounds.get(4).play(1);
-                    break;
-                case SOUND_FOOTSTEP_LEFT_CAVE:
-                    _sounds.get(5).play(1);
-                    break;
-                case SOUND_FOOTSTEP_RIGHT_CAVE:
-                    _sounds.get(6).play(1);
-                    break;
-                case SOUND_JUMP_SPRING:
-                    _sounds.get(7).play(1);
-                    break;
-                case SOUND_LANDING_GRASS:
-                    _sounds.get(8).play(1);
-                    break;
-                case SOUND_LANDING_CAVE:
-                    _sounds.get(9).play(1);
-                    break;
-                case SOUND_DESTROY_ROCK:
-                    _sounds.get(10).play(1);
-                    break;
-                case SOUND_SNAKE_DEATH:
-                    _sounds.get(11).play(1);
-                    break;
-                case SOUND_TRIGGER_TRANSFORM:
-                    _sounds.get(12).play(1);
-                    break;
-                case SOUND_CANCEL_TRANSFORM:
-                    _sounds.get(13).play(1);
-                    break;
-                case SOUND_COMPLETE_TRANSFORM:
-                    _sounds.get(14).play(1);
-                    break;
-                case SOUND_JUMP_SPRING_HEAVY:
-                    _sounds.get(15).play(1);
-                    break;
-                case SOUND_JON_RABBIT_JUMP:
-                    _sounds.get(16).play(1);
-                    break;
-                case SOUND_JON_VAMPIRE_JUMP:
-                    _sounds.get(17).play(1);
-                    break;
-                case SOUND_JON_RABBIT_DOUBLE_JUMP:
-                    _sounds.get(18).play(1);
-                    break;
-                case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-                    _sounds.get(19).play(1);
-                    break;
                 case SOUND_JON_VAMPIRE_GLIDE:
-                    _sounds.get(20).play(1, true);
+                    playSound(soundId, true);
                     break;
                 case SOUND_STOP_JON_VAMPIRE_GLIDE:
-                    _sounds.get(20).stop();
+                    stopSound(SOUND_STOP_JON_VAMPIRE_GLIDE);
                     break;
                 default:
+                    playSound(soundId);
                     break;
             }
         }
@@ -308,6 +229,21 @@ public final class GameRenderer implements Renderer
             default:
                 break;
         }
+    }
+
+    private void playSound(int soundId, boolean isLooping)
+    {
+        _sounds.get(soundId - 1).play(1, isLooping);
+    }
+
+    private void playSound(int soundId)
+    {
+        _sounds.get(soundId - 1).play(1);
+    }
+
+    private void stopSound(int soundId)
+    {
+        _sounds.get(soundId - 1).stop();
     }
 
     private void saveLevel(final int requestedAction)

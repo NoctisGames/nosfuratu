@@ -17,30 +17,6 @@
 #include "GameConstants.h"
 #include "GameScreenLevelEditor.h"
 
-enum GameSoundIds {
-    COLLECT_CARROT,
-    COLLECT_GOLDEN_CARROT,
-    DEATH,
-    FOOTSTEP_LEFT_GRASS,
-    FOOTSTEP_RIGHT_GRASS,
-    FOOTSTEP_LEFT_CAVE,
-    FOOTSTEP_RIGHT_CAVE,
-    JUMP_SPRING,
-    LANDING_GRASS,
-    LANDING_CAVE,
-    DESTROY_ROCK,
-    SNAKE_DEATH,
-    TRIGGER_TRANSFORM,
-    CANCEL_TRANSFORM,
-    COMPLETE_TRANSFORM,
-    JUMP_SPRING_HEAVY,
-    JON_RABBIT_JUMP,
-    JON_VAMPIRE_JUMP,
-    JON_RABBIT_DOUBLE_JUMP,
-    JON_VAMPIRE_DOUBLE_JUMP,
-    JON_VAMPIRE_GLIDE
-};
-
 @interface GameViewController ()
 {
     IOSOpenGLESGameScreen *gameScreen;
@@ -181,74 +157,15 @@ enum GameSoundIds {
     {
         switch (soundId)
         {
-            case SOUND_COLLECT_CARROT:
-                [self.soundMgr playSoundWithID:COLLECT_CARROT];
-                break;
-            case SOUND_COLLECT_GOLDEN_CARROT:
-                [self.soundMgr playSoundWithID:COLLECT_GOLDEN_CARROT];
-                break;
-            case SOUND_DEATH:
-                [self.soundMgr playSoundWithID:DEATH];
-                break;
-            case SOUND_FOOTSTEP_LEFT_GRASS:
-                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_GRASS];
-                break;
-            case SOUND_FOOTSTEP_RIGHT_GRASS:
-                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_GRASS];
-                break;
-            case SOUND_FOOTSTEP_LEFT_CAVE:
-                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_CAVE];
-                break;
-            case SOUND_FOOTSTEP_RIGHT_CAVE:
-                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_CAVE];
-                break;
-            case SOUND_JUMP_SPRING:
-                [self.soundMgr playSoundWithID:JUMP_SPRING];
-                break;
-            case SOUND_LANDING_GRASS:
-                [self.soundMgr playSoundWithID:LANDING_GRASS];
-                break;
-            case SOUND_LANDING_CAVE:
-                [self.soundMgr playSoundWithID:LANDING_CAVE];
-                break;
-            case SOUND_DESTROY_ROCK:
-                [self.soundMgr playSoundWithID:DESTROY_ROCK];
-                break;
-            case SOUND_SNAKE_DEATH:
-                [self.soundMgr playSoundWithID:SNAKE_DEATH];
-                break;
-            case SOUND_TRIGGER_TRANSFORM:
-                [self.soundMgr playSoundWithID:TRIGGER_TRANSFORM];
-                break;
-            case SOUND_CANCEL_TRANSFORM:
-                [self.soundMgr playSoundWithID:CANCEL_TRANSFORM];
-                break;
-            case SOUND_COMPLETE_TRANSFORM:
-                [self.soundMgr playSoundWithID:COMPLETE_TRANSFORM];
-                break;
-            case SOUND_JUMP_SPRING_HEAVY:
-                [self.soundMgr playSoundWithID:JUMP_SPRING_HEAVY];
-                break;
-            case SOUND_JON_RABBIT_JUMP:
-                [self.soundMgr playSoundWithID:JON_RABBIT_JUMP];
-                break;
-            case SOUND_JON_VAMPIRE_JUMP:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_JUMP];
-                break;
-            case SOUND_JON_RABBIT_DOUBLE_JUMP:
-                [self.soundMgr playSoundWithID:JON_RABBIT_DOUBLE_JUMP];
-                break;
-            case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_DOUBLE_JUMP];
-                break;
             case SOUND_JON_VAMPIRE_GLIDE:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_GLIDE isLooping:YES];
+                [self playSound:soundId isLooping:true];
                 break;
             case SOUND_STOP_JON_VAMPIRE_GLIDE:
-                [self.soundMgr stopSoundWithID:JON_VAMPIRE_GLIDE];
+                [self stopSound:SOUND_JON_VAMPIRE_GLIDE];
                 break;
             default:
-                continue;
+                [self playSound:soundId];
+                break;
         }
     }
 }
@@ -274,6 +191,21 @@ enum GameSoundIds {
         default:
             break;
     }
+}
+
+- (void)playSound:(int)soundId isLooping:(bool)isLooping
+{
+    [self.soundMgr playSoundWithID:soundId - 1 isLooping:isLooping];
+}
+
+- (void)playSound:(int)soundId
+{
+    [self.soundMgr playSoundWithID:soundId - 1];
+}
+
+- (void)stopSound:(int)soundId
+{
+    [self.soundMgr stopSoundWithID:soundId - 1];
 }
 
 - (void)saveLevel:(int)requestedAction
