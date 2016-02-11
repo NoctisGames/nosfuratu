@@ -24,6 +24,66 @@ class PhysicalEntity;
 class EntityUtils
 {
 public:
+    static void attach(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& to, int gridCellSizeScalar, bool leftOf, bool yCorrection)
+    {
+        if (leftOf)
+        {
+            float left = to.getBounds().getLowerLeft().getX();
+            float x = left - entity.getBounds().getWidth() / 2;
+            
+            entity.getPosition().setX(x);
+        }
+        else
+        {
+            float right = to.getBounds().getLowerLeft().getX() + to.getBounds().getWidth();
+            float x = right + entity.getBounds().getWidth() / 2;
+            
+            entity.getPosition().setX(x);
+        }
+        
+        entity.updateBounds();
+        
+        if (yCorrection)
+        {
+            float top = entity.getBounds().getTop();
+            float topTo = to.getBounds().getTop();
+            float yDelta = topTo - top;
+            entity.getPosition().add(0, yDelta);
+            entity.updateBounds();
+        }
+    }
+    
+    static void placeOn(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& on, int gridCellSizeScalar)
+    {
+        float halfHeight = entity.getBounds().getHeight() / 2;
+        float top = on.getBounds().getTop();
+        float y = top + halfHeight;
+        
+        entity.getPosition().setY(y);
+        
+        entity.updateBounds();
+        
+        float yDelta = top - entity.getBounds().getLowerLeft().getY();
+        entity.getPosition().add(0, yDelta);
+        
+        entity.updateBounds();
+        
+        entity.snapToGrid(gridCellSizeScalar);
+    }
+    
+    static void placeUnder(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& under, int gridCellSizeScalar)
+    {
+        float halfHeight = entity.getBounds().getHeight() / 2;
+        float bottom = under.getBounds().getBottom();
+        float y = bottom - halfHeight;
+        
+        entity.getPosition().setY(y);
+        
+        entity.updateBounds();
+        
+        entity.snapToGrid(gridCellSizeScalar);
+    }
+    
     template<typename T>
     static bool isLanding(Jon& jon, std::vector<T>& items, float deltaTime)
     {
@@ -75,98 +135,15 @@ public:
     template<typename T>
     static bool isBurrowingThroughHole(Jon& jon, std::vector<T>& items)
     {
-        float entityLeft = jon.getBounds().getLeft();
-        float entityRight = jon.getBounds().getRight();
-        
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            float itemLeft = (*i)->getBounds().getLeft();
-            float itemRight = (*i)->getBounds().getRight();
-            
             if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
             {
-                if (entityLeft >= itemLeft && entityRight <= itemRight)
-                {
-                    (*i)->triggerBurrow();
-                    return true;
-                }
+                return (*i)->triggerBurrow();
             }
         }
         
         return false;
-    }
-    
-    template<typename T>
-    static bool isLandingOnSpring(Jon& jon, std::vector<T>& items, float deltaTime)
-    {
-        float jonVelocityY = jon.getVelocity().getY();
-        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
-        float jonYDelta = fabsf(jonVelocityY * deltaTime);
-        
-        if (jonVelocityY <= 0)
-        {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-            {
-                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
-                {
-                    float itemTop = (*i)->getBounds().getTop();
-                    float padding = itemTop * .01f;
-                    padding += jonYDelta;
-                    float itemTopReq = itemTop - padding;
-                    
-                    if (jonLowerLeftY >= itemTopReq)
-                    {
-                        (*i)->trigger();
-                        
-                        if ((*i)->isBoosting())
-                        {
-                            jon.setBoostVelocity((*i)->getBoostVelocity());
-                            
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        
-        return false;
-    }
-    
-    template<typename T>
-    static bool isLandingOnEnemy(Jon& jon, std::vector<T>& items, float deltaTime)
-    {
-        bool ret = false;
-        
-        float jonVelocityY = jon.getVelocity().getY();
-        float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
-        float jonYDelta = fabsf(jonVelocityY * deltaTime);
-        
-        if (jonVelocityY <= 0)
-        {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-            {
-                if ((*i)->canBeLandedOnToKill() && OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
-                {
-                    float itemTop = (*i)->getBounds().getTop();
-                    float padding = itemTop * .01f;
-                    padding += jonYDelta;
-                    float itemTopReq = itemTop - padding;
-                    
-                    if (jonLowerLeftY >= itemTopReq)
-                    {
-                        (*i)->triggerHit();
-                        
-                        float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 2);
-                        
-                        jon.setBoostVelocity(boost);
-                        
-                        ret = true;
-                    }
-                }
-            }
-        }
-        
-        return ret;
     }
     
     template<typename T>
@@ -215,17 +192,12 @@ public:
     }
     
     template<typename T>
-    static bool isHitting(PhysicalEntity& entity, std::vector<T>& items)
+    static bool isHittingFromBelow(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        Rectangle& bounds = entity.getBounds();
-        Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
-        
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(hittingBounds, (*i)->getBounds()))
+            if ((*i)->isJonHittingFromBelow(jon, deltaTime))
             {
-                (*i)->triggerHit();
-                
                 return true;
             }
         }
@@ -234,50 +206,11 @@ public:
     }
     
     template<typename T>
-    static bool isHittingEnemyFromBelow(Jon& jon, std::vector<T>& items)
-    {
-        bool retval = false;
-        
-        Rectangle& bounds = jon.getBounds();
-        
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            if (jon.getAbilityState() == ABILITY_UPWARD_THRUST && (*i)->canBeHitFromBelow() && OverlapTester::doRectanglesOverlap(bounds, (*i)->getBounds()))
-            {
-                (*i)->triggerHit();
-                
-                retval = true;
-            }
-        }
-        
-        return retval;
-    }
-    
-    template<typename T>
-    static bool isHorizontallyHittingAnEnemy(PhysicalEntity& entity, std::vector<T>& items)
-    {
-        Rectangle& bounds = entity.getBounds();
-        Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
-        
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            if ((*i)->canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, (*i)->getBounds()))
-            {
-                (*i)->triggerHit();
-                
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    template<typename T>
-    static bool isHit(PhysicalEntity& entity, std::vector<T>& items)
+    static bool isHorizontallyHitting(Jon& jon, std::vector<T>& items, float deltaTime)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            if ((*i)->isJonHittingHorizontally(jon, deltaTime))
             {
                 return true;
             }
@@ -406,17 +339,37 @@ public:
     }
     
     template<typename T>
-    static int doRectanglesOverlap(std::vector<T>& items, PhysicalEntity* pe)
+    static int indexOfOverlappingObjectThatCanBePlacedOn(PhysicalEntity* pe, std::vector<T>& items)
     {
         int index = 0;
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
-            if ((*i).get() == pe)
+            if ((*i) == pe)
             {
                 continue;
             }
             
-            if (OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
+            if ((*i)->canObjectBePlacedOn() && OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
+            {
+                return index;
+            }
+        }
+        
+        return -1;
+    }
+    
+    template<typename T>
+    static int indexOfOverlappingObjectThatCanBePlacedUnder(PhysicalEntity* pe, std::vector<T>& items)
+    {
+        int index = 0;
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
+        {
+            if ((*i) == pe)
+            {
+                continue;
+            }
+            
+            if ((*i)->canObjectBePlacedUnder() && OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
             {
                 return index;
             }

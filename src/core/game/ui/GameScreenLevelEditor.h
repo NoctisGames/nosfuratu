@@ -53,8 +53,11 @@ private:
     std::vector<GridLockedPhysicalEntity*> m_gameEntities;
     PhysicalEntity* m_lastAddedEntity;
     GridLockedPhysicalEntity* m_draggingEntity;
+    GridLockedPhysicalEntity* m_attachToEntity;
     float m_fDraggingEntityOriginalY;
     bool m_isVerticalChangeAllowed;
+    bool m_allowPlaceOn;
+    bool m_allowPlaceUnder;
     
     void handleTouchInput(GameScreen* gs);
     

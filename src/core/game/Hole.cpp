@@ -45,12 +45,15 @@ void Hole::update(float deltaTime)
     }
 }
 
-void Hole::triggerBurrow()
+bool Hole::triggerBurrow()
 {
     if (m_holeCover)
     {
         m_holeCover->triggerHit();
+        return true;
     }
+    
+    return false;
 }
 
 bool Hole::hasCover()

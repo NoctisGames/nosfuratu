@@ -19,9 +19,9 @@ void ExitGroundCover::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.45f)
+        if (m_fStateTime > 0.50f)
         {
-            m_color.alpha = 1.00f - (m_fStateTime - 0.45f) * 2;
+            m_color.alpha = 1.00f - (m_fStateTime - 0.50f) * 2;
             
             if (m_color.alpha < 0)
             {

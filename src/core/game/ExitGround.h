@@ -40,6 +40,8 @@ public:
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
+    virtual bool canObjectBePlacedOn();
+    
     bool hasCover();
     
     ExitGroundCover& getExitCover();
@@ -79,6 +81,8 @@ public:
     CaveDeepSmallWaterfall(int gridX) : ExitGround(gridX, 0, 32, 28, 0.96428571428571f, false, ExitGroundType_CaveDeepSmallWaterfall, GROUND_SOUND_CAVE) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+    virtual bool canObjectBePlacedOn();
 };
 
 #endif /* defined(__nosfuratu__ExitGround__) */

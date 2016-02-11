@@ -225,13 +225,17 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
     }
     else if (jon.isFalling())
     {
-        if (jy < 12.76362286085f)
+        if (jy < 6.9979978125f)
         {
             regionBottomY = 0;
         }
-        else if (jy >= 12.76362286085 && jy < 21.76362286085f)
+        else if (jy < 12.76362286085f)
         {
-            regionBottomY = 12.76362286085;
+            regionBottomY = 6.9979978125f;
+        }
+        else if (jy < 21.76362286085f)
+        {
+            regionBottomY = 12.76362286085f;
         }
         else
         {
@@ -240,13 +244,17 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
     }
     else
     {
-        if (jy < (12.76362286085 - jonHeightPlusPadding))
+        if (jy < (6.9979978125f - jonHeightPlusPadding))
         {
             regionBottomY = 0;
         }
-        else if (jy >= (12.76362286085 - jonHeightPlusPadding) && jy < (21.76362286085f - jonHeightPlusPadding))
+        else if (jy < (12.76362286085 - jonHeightPlusPadding))
         {
-            regionBottomY = 12.76362286085;
+            regionBottomY = 6.9979978125f;
+        }
+        else if (jy < (21.76362286085f - jonHeightPlusPadding))
+        {
+            regionBottomY = 12.76362286085f;
         }
         else
         {
@@ -594,11 +602,15 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntitiesWithColor(game.getEnemies());
+    m_spriteBatcher->endBatch(*m_world_1_enemies, *m_snakeDeathTextureProgram);
+    
+    m_spriteBatcher->beginBatch();
     for (std::vector<Enemy *>::iterator i = game.getEnemies().begin(); i != game.getEnemies().end(); i++)
     {
         if ((*i)->hasSpirit())
         {
-            renderPhysicalEntity((*i)->getSpirit(), Assets::getInstance()->get(*(*i)));
+            EnemySpirit& spirit = (*i)->getSpirit();
+            renderPhysicalEntity(spirit, Assets::getInstance()->get(spirit));
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies);
@@ -717,7 +729,6 @@ void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
     
     {
         std::stringstream ss;
-        ss << (game.getNumTotalCarrots() - 0);
         ss << (game.getNumTotalCarrots() - game.getNumRemainingCarrots());
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (offset + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
@@ -739,7 +750,6 @@ void Renderer::renderHud(Game& game, BackButton &backButton, int fps)
     
     {
         std::stringstream ss;
-        ss << (game.getNumTotalGoldenCarrots() - 0) << "/" << game.getNumTotalGoldenCarrots();
         ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots()) << "/" << game.getNumTotalGoldenCarrots();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);

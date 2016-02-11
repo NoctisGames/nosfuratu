@@ -77,6 +77,12 @@ public:
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
+    
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
+    
+    virtual bool canObjectBePlacedOn();
+    
     ForegroundObjectType getType();
     
     GroundSoundType getGroundSoundType();
@@ -90,12 +96,27 @@ private:
     float m_fBoundsHeight;
 };
 
+class PlatformObject : public ForegroundObject
+{
+public:
+    PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    
+    virtual bool canObjectBePlacedOn();
+};
+
 class DestructibleObject : public ForegroundObject
 {
 public:
-    DestructibleObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    DestructibleObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isDestructing(false) {}
     
     virtual void update(float deltaTime);
+    
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
+    
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
+    
+private:
+    bool m_isDestructing;
 };
 
 class DeadlyObject : public ForegroundObject
@@ -137,47 +158,51 @@ public:
 class ProvideBoostObject : public ForegroundObject
 {
 public:
-    ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fBoostVelocity(boostVelocity), m_isBoosting(false) {}
     
     virtual void update(float deltaTime);
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+private:
+    float m_fBoostVelocity;
+    bool m_isBoosting;
 };
 
-class GrassPlatformLeft : public ForegroundObject
+class GrassPlatformLeft : public PlatformObject
 {
 public:
-    GrassPlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
+    GrassPlatformLeft(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
-class GrassPlatformCenter : public ForegroundObject
+class GrassPlatformCenter : public PlatformObject
 {
 public:
-    GrassPlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
+    GrassPlatformCenter(int gridX, int gridY) : PlatformObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
-class GrassPlatformRight : public ForegroundObject
+class GrassPlatformRight : public PlatformObject
 {
 public:
-    GrassPlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
+    GrassPlatformRight(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
-class CavePlatformLeft : public ForegroundObject
+class CavePlatformLeft : public PlatformObject
 {
 public:
-    CavePlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
+    CavePlatformLeft(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
 };
 
-class CavePlatformCenter : public ForegroundObject
+class CavePlatformCenter : public PlatformObject
 {
 public:
-    CavePlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
+    CavePlatformCenter(int gridX, int gridY) : PlatformObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
 };
 
-class CavePlatformRight : public ForegroundObject
+class CavePlatformRight : public PlatformObject
 {
 public:
-    CavePlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
+    CavePlatformRight(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
 };
 
 class RockLarge : public ForegroundObject
@@ -220,6 +245,10 @@ class EndSign : public ForegroundObject
 {
 public:
     EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_EndSign) {}
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime) { return false; }
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
 };
 
 class ThornsLeft : public DeadlyObject
@@ -261,19 +290,19 @@ public:
 class JumpSpringLight : public ProvideBoostObject
 {
 public:
-    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f) {}
+    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f, 16.0f) {}
 };
 
 class JumpSpringMedium : public ProvideBoostObject
 {
 public:
-    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 1, 0.33333333333333f) {}
+    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 1, 0.33333333333333f, 24.0f) {}
 };
 
 class JumpSpringHeavy : public ProvideBoostObject
 {
 public:
-    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 1, 0.52678571428571f) {}
+    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 1, 0.52678571428571f, 32.0f) {}
 };
 
 class SpikeGrassSingle : public LandingDeathObject

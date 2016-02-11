@@ -11,7 +11,7 @@
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "Enemy.h"
-#include "Spirit.h"
+#include "EnemySpirit.h"
 #include "ForegroundObject.h"
 
 Assets * Assets::getInstance()
@@ -289,7 +289,7 @@ TextureRegion& Assets::get(ExitGroundCover& exitGroundCover)
     {
         case ExitGroundCoverType_Grass:
         {
-            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08333333333333f, 6);
             return anim.getTextureRegion(exitGroundCover.getStateTime());
         }
         case ExitGroundCoverType_Cave:
@@ -448,17 +448,17 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
             
         case ForegroundObjectType_JumpSpringLight:
         {
-            static Animation anim = createAnimation(96, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 4);
+            static Animation anim = createAnimation(96, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
         case ForegroundObjectType_JumpSpringMedium:
         {
-            static Animation anim = createAnimation(0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 7);
+            static Animation anim = createAnimation(0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05142857142857, 7);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
         case ForegroundObjectType_JumpSpringHeavy:
         {
-            static Animation anim = createAnimation(272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
+            static Animation anim = createAnimation(272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
             
@@ -559,15 +559,22 @@ TextureRegion& Assets::get(Enemy& enemy)
     assert(false);
 }
 
-TextureRegion& Assets::get(Spirit& spirit)
+TextureRegion& Assets::get(EnemySpirit& spirit)
 {
     switch (spirit.getType())
     {
-        case SpiritType_Snake:
+        case EnemySpiritType_Snake:
         {
             static Animation anim = createAnimation(0, 432, 208, 256, 2080, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
             return anim.getTextureRegion(spirit.getStateTime());
         }
+        case EnemySpiritType_Sparrow:
+        {
+            static Animation anim = createAnimation(0, 856, 256, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);
+            return anim.getTextureRegion(spirit.getStateTime());
+        }
+        case EnemySpiritType_None:
+            assert(false);
     }
     
     assert(false);

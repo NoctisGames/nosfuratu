@@ -27,7 +27,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    void triggerBurrow();
+    bool triggerBurrow();
     
     bool hasCover();
     

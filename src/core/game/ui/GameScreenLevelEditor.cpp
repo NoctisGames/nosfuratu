@@ -13,12 +13,18 @@
 #include "EntityUtils.h"
 #include "Vector2D.h"
 #include "Game.h"
+#include "GameScreenTitle.h"
 
 #include <algorithm>    // std::sort
 
-bool sortGround(Ground* i, Ground* j)
+bool sortGrounds(Ground* i, Ground* j)
 {
     return i->getType() < j->getType();
+}
+
+bool sortGameEntities(Entity* i, Entity* j)
+{
+    return i->getID() < j->getID();
 }
 
 GameScreenLevelEditor * GameScreenLevelEditor::getInstance()
@@ -30,6 +36,8 @@ GameScreenLevelEditor * GameScreenLevelEditor::getInstance()
 
 void GameScreenLevelEditor::enter(GameScreen* gs)
 {
+    gs->m_stateMachine->setPreviousState(Title::getInstance());
+    
     if (!m_game->isLoaded())
     {
         load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
@@ -59,6 +67,11 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         {
             static Color highlight = Color(1, 1, 1, 0.5f);
             gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
+            
+            if (m_attachToEntity != nullptr)
+            {
+                gs->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
+            }
         }
         
         if (m_levelEditorActionsPanel->showBounds())
@@ -81,28 +94,21 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         m_game->update(gs->m_fDeltaTime);
         m_game->updateAndClean(gs->m_fDeltaTime);
         
-        for (std::vector<Jon *>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
+        if (m_game->getJons().size() > 1)
         {
-            if ((*i)->isRequestingDeletion())
+            for (std::vector<Jon *>::iterator i = m_game->getJons().begin(); i != m_game->getJons().end(); )
             {
-                (*i)->onDeletion();
-                
-                delete *i;
-                i = m_game->getJons().erase(i);
-            }
-            else
-            {
-                i++;
-            }
-        }
-        
-        Jon& jon = m_game->getJon();
-        
-        if (jon.isDead() || jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
-        {
-            if (m_game->getJons().size() > 1)
-            {
-                jon.requestDeletion();
+                if ((*i)->isDead())
+                {
+                    (*i)->onDeletion();
+                    
+                    delete *i;
+                    i = m_game->getJons().erase(i);
+                }
+                else
+                {
+                    i++;
+                }
             }
         }
         
@@ -206,6 +212,17 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
         {
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             
+            bool isLevelValid = true;
+            if (m_game->getJons().size() == 0)
+            {
+                isLevelValid = false;
+            }
+            
+            if (isLevelValid && m_game->getJon().getBounds().getRight() > m_game->getFarRight())
+            {
+                isLevelValid = false;
+            }
+            
             switch (rc)
             {
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
@@ -216,7 +233,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     gs->m_stateMachine->revertToPreviousState();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
-                    if (m_game->getJons().size() > 0)
+                    if (isLevelValid)
                     {
                         Level::getInstance()->setSourceGame(m_game.get());
                         gs->m_stateMachine->changeState(Level::getInstance());
@@ -227,7 +244,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
-                    if (m_game->getJons().size() > 0)
+                    if (isLevelValid)
                     {
                         m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_SAVE);
                     }
@@ -272,6 +289,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 
                 m_isVerticalChangeAllowed = true;
                 m_fDraggingEntityOriginalY = 0;
+                m_allowPlaceOn = true;
+                m_allowPlaceUnder = false;
                 
                 int index = -1;
                 if ((index = EntityUtils::isTouching(m_gameEntities, tp)) != -1)
@@ -284,7 +303,16 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         || dynamic_cast<Hole *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
+                        m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+                    }
+                    else if (dynamic_cast<CollectibleItem *>(m_draggingEntity))
+                    {
+                        m_allowPlaceOn = false;
+                    }
+                    else if (dynamic_cast<MushroomCeiling *>(m_draggingEntity) || dynamic_cast<DeathFromAboveObject *>(m_draggingEntity))
+                    {
+                        m_allowPlaceUnder = false;
                     }
                 }
                 
@@ -319,6 +347,35 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     {
                         m_draggingEntity->getPosition().sub(0, yDelta);
                         m_draggingEntity->updateBounds();
+                    }
+                    
+                    int index = -1;
+                    if (m_allowPlaceOn)
+                    {
+                        if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getGrounds())) != -1)
+                        {
+                            m_attachToEntity = m_game->getGrounds().at(index);
+                        }
+                        else if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getExitGrounds())) != -1)
+                        {
+                            m_attachToEntity = m_game->getExitGrounds().at(index);
+                        }
+                        else if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getForegroundObjects())) != -1)
+                        {
+                            m_attachToEntity = m_game->getForegroundObjects().at(index);
+                        }
+                    }
+                    else if (m_allowPlaceUnder)
+                    {
+                        if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedUnder(m_draggingEntity, m_game->getGrounds())) != -1)
+                        {
+                            m_attachToEntity = m_game->getGrounds().at(index);
+                        }
+                    }
+                    
+                    if (index == -1)
+                    {
+                        m_attachToEntity = nullptr;
                     }
                     
                     m_trashCan->setHighlighted(OverlapTester::doRectanglesOverlap(m_draggingEntity->getBounds(), m_trashCan->getBounds()));
@@ -356,6 +413,21 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else
                     {
+                        if (m_attachToEntity != nullptr)
+                        {
+                            if (m_draggingEntity->getPosition().getY() > m_attachToEntity->getBounds().getTop())
+                            {
+                                if (m_allowPlaceOn)
+                                {
+                                    EntityUtils::placeOn(*m_draggingEntity, *m_attachToEntity, m_levelEditorActionsPanel->boundsLevelRequested());
+                                }
+                                else if (m_allowPlaceUnder)
+                                {
+                                    EntityUtils::placeUnder(*m_draggingEntity, *m_attachToEntity, m_levelEditorActionsPanel->boundsLevelRequested());
+                                }
+                            }
+                        }
+                        
                         if (!m_isVerticalChangeAllowed)
                         {
                             m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
@@ -375,6 +447,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 }
                 
                 m_draggingEntity = nullptr;
+                m_attachToEntity = nullptr;
                 
                 return;
         }
@@ -385,7 +458,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
 {
     m_gameEntities.clear();
     
-    std::sort(m_game->getGrounds().begin(), m_game->getGrounds().end(), sortGround);
+    std::sort(m_game->getGrounds().begin(), m_game->getGrounds().end(), sortGrounds);
     
     EntityUtils::addAll(m_game->getMidgrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
@@ -396,6 +469,8 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
+    std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);
+    
     m_game->calcFarRight();
     
     if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
@@ -405,6 +480,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     }
     
     m_draggingEntity = nullptr;
+    m_attachToEntity = nullptr;
     
     if (clearLastAddedEntity)
     {
@@ -412,7 +488,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true)
+GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

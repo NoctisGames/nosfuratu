@@ -25,7 +25,7 @@ Jon* Jon::create(int gridX, int gridY, int type)
 	return new Jon(gridX, gridY);
 }
 
-Jon::Jon(int gridX, int gridY, int gridWidth, int gridHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fDeltaTime(0), m_iNumJumps(0), m_iBoostVelocity(0), m_isLanding(false), m_isRightFoot(false), m_isAllowedToMove(false)
+Jon::Jon(int gridX, int gridY, int gridWidth, int gridHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fDeltaTime(0), m_iNumJumps(0), m_isLanding(false), m_isRightFoot(false), m_isAllowedToMove(false)
 {
 	resetBounds(m_fWidth * 0.6796875f, m_fHeight * 0.8203125f);
 
@@ -89,7 +89,7 @@ void Jon::update(float deltaTime)
 
 	PhysicalEntity::update(deltaTime);
 
-	if (m_game->isJonHit() || m_position->getY() < -m_fHeight / 2)
+	if (m_position->getY() < -m_fHeight / 2)
 	{
         kill();
 
@@ -150,35 +150,6 @@ void Jon::update(float deltaTime)
 		m_iNumJumps = 1;
 	}
 
-//	bool isLandingOnSpring = m_game->isJonLandingOnSpring(deltaTime);
-//	bool isLandingOnEnemy = m_game->isJonLandingOnEnemy(deltaTime);
-//
-//	if (isLandingOnSpring || isLandingOnEnemy)
-//	{
-//		m_acceleration->setY(m_fGravity);
-//		m_velocity->setY(m_iBoostVelocity);
-//	}
-//
-//	if (isLandingOnSpring)
-//	{
-//		setState(ACTION_JUMPING);
-//
-//		m_iNumJumps = 1;
-//
-//		if (isVampire())
-//		{
-//			m_fHeight = 4.4f;
-//		}
-//
-//		Assets::getInstance()->addSoundIdToPlayQueue(m_iBoostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
-//	}
-//	else if (isLandingOnEnemy)
-//	{
-//		setState(ACTION_DOUBLE_JUMPING);
-//
-//		m_iNumJumps = 2;
-//	}
-
 	if (m_game->isJonBlockedVertically(deltaTime))
 	{
 		m_velocity->sub(0, 2);
@@ -186,6 +157,7 @@ void Jon::update(float deltaTime)
 	else if (m_game->isJonBlockedHorizontally(deltaTime))
 	{
 		m_velocity->setX(-2.0f);
+        m_acceleration->setX(m_fAccelerationX);
 
 		m_fStateTime = 0;
 	}
@@ -397,9 +369,40 @@ void Jon::setGroundSoundType(GroundSoundType groundSoundType)
 	m_groundSoundType = groundSoundType;
 }
 
-void Jon::setBoostVelocity(int boostVelocity)
+void Jon::triggerBoost(float boostVelocity)
 {
-	m_iBoostVelocity = boostVelocity;
+    m_acceleration->setY(m_fGravity);
+    m_velocity->setX(2);
+    m_velocity->setY(boostVelocity);
+    
+    setState(ACTION_JUMPING);
+    
+    m_iNumJumps = 1;
+    
+    if (isVampire())
+    {
+        m_fHeight = 4.4f;
+    }
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+}
+
+void Jon::triggerBoostOffEnemy(float boostVelocity)
+{
+    m_acceleration->setY(m_fGravity);
+    m_velocity->setY(boostVelocity);
+    
+    setState(ACTION_DOUBLE_JUMPING);
+    
+    m_iNumJumps = 2;
+}
+
+void Jon::triggerBounceDownardsOffEnemy(float bounceBackVelocity)
+{
+    m_acceleration->setY(m_fGravity);
+    m_velocity->setY(bounceBackVelocity);
+    
+    m_iNumJumps = 2;
 }
 
 bool Jon::isVampire()
@@ -537,24 +540,12 @@ void Jon::Rabbit::execute(Jon* jon)
 	{
 		jon->m_velocity->setX(0);
 		jon->m_acceleration->setX(0);
+        
+        m_isBurrowEffective = jon->m_game->isBurrowEffective();
 
-		if (!m_isBurrowEffective)
+		if (!m_isBurrowEffective || jon->m_physicalState != PHYSICAL_GROUNDED)
 		{
-			if (jon->m_fAbilityStateTime > 0.30f)
-			{
-				jon->setState(ABILITY_NONE);
-
-				jon->m_acceleration->setX(jon->m_fAccelerationX);
-			}
-			else if (jon->m_fAbilityStateTime > 0.06f)
-			{
-				m_isBurrowEffective = jon->m_game->isBurrowEffective();
-			}
-		}
-
-		if (jon->m_physicalState != PHYSICAL_GROUNDED)
-		{
-			jon->setState(ABILITY_NONE);
+            jon->setState(ABILITY_NONE);
 		}
 	}
 	break;
@@ -584,6 +575,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 	{
 		jon->m_fStateTime = 0;
 
+        jon->m_acceleration->setX(0);
 		jon->m_acceleration->setY(jon->m_fGravity);
 		jon->m_velocity->setY(13 - jon->m_iNumJumps * 3);
 
@@ -677,7 +669,7 @@ void Jon::Vampire::execute(Jon* jon)
 	break;
 	case ABILITY_UPWARD_THRUST:
 	{
-		if (jon->m_game->isUpwardThrustEffectiveAgainstEnemy())
+		if (jon->m_game->isUpwardThrustEffective(jon->m_fDeltaTime))
 		{
 			// TODO, maybe do something here?
 		}
@@ -755,7 +747,6 @@ void Jon::Vampire::execute(Jon* jon)
         afterImage->m_fGravity = jon->m_fGravity;
         
         afterImage->m_iNumJumps = jon->m_iNumJumps;
-        afterImage->m_iBoostVelocity = jon->m_iBoostVelocity;
         afterImage->m_isLanding = jon->m_isLanding;
         afterImage->m_isRightFoot = jon->m_isRightFoot;
         afterImage->m_isAllowedToMove = jon->m_isAllowedToMove;

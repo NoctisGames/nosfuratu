@@ -178,6 +178,21 @@ bool ForegroundObject::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
+bool ForegroundObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
+{
+    return false;
+}
+
+bool ForegroundObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
+{
+    return false;
+}
+
+bool ForegroundObject::canObjectBePlacedOn()
+{
+    return false;
+}
+
 ForegroundObjectType ForegroundObject::getType()
 {
     return m_type;
@@ -188,9 +203,54 @@ GroundSoundType ForegroundObject::getGroundSoundType()
     return m_groundSoundType;
 }
 
+bool PlatformObject::canObjectBePlacedOn()
+{
+    return true;
+}
+
 void DestructibleObject::update(float deltaTime)
 {
-    // TODO, if hit, begin destruction animation and then request to be deleted
+    if (m_isDestructing)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 0.30f)
+        {
+            m_isDestructing = false;
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+bool DestructibleObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
+{
+    Rectangle& bounds = jon.getBounds();
+    Rectangle hittingBounds = Rectangle(bounds.getLowerLeft().getX(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
+    
+    if (OverlapTester::doRectanglesOverlap(hittingBounds, getBounds()))
+    {
+        m_isDestructing = true;
+        m_fStateTime = 0;
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool DestructibleObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
+{
+    Rectangle& bounds = jon.getBounds();
+    
+    if (OverlapTester::doRectanglesOverlap(bounds, getBounds()))
+    {
+        m_isDestructing = true;
+        m_fStateTime = 0;
+        
+        return true;
+    }
+    
+    return false;
 }
 
 bool DeadlyObject::isJonLanding(Jon& jon, float deltaTime)
@@ -238,8 +298,6 @@ bool LandingDeathObject::isJonLanding(Jon& jon, float deltaTime)
     if (ForegroundObject::isJonLanding(jon, deltaTime))
     {
         jon.kill();
-        
-        return true;
     }
     
     return false;
@@ -250,8 +308,6 @@ bool RunningIntoDeathObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
     if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime))
     {
         jon.kill();
-        
-        return true;
     }
     
     return false;
@@ -266,8 +322,6 @@ bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
         jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
         jon.updateBounds();
         jon.kill();
-        
-        return true;
     }
     
     return false;
@@ -275,15 +329,25 @@ bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 void ProvideBoostObject::update(float deltaTime)
 {
-    // TODO, if boosting Jon, play animation and then revert back to idle
+    if (m_isBoosting)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 0.36f)
+        {
+            m_isBoosting = false;
+            m_fStateTime = 0;
+        }
+    }
 }
 
 bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
 {
     if (ForegroundObject::isJonLanding(jon, deltaTime))
     {
-        // TODO, set Jon's boost velocity
-        return true;
+        jon.triggerBoost(m_fBoostVelocity);
+        m_isBoosting = true;
+        m_fStateTime = 0;
     }
     
     return false;

@@ -154,7 +154,8 @@ bool Game::isJonGrounded(float deltaTime)
     
     return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime);
+    || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getEnemies(), deltaTime);
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
@@ -166,22 +167,16 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
-    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime) || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime);
-}
-
-bool Game::isJonHit()
-{
-    return EntityUtils::isHit(getJon(), getEnemies());
-}
-
-bool Game::isJonLandingOnEnemy(float deltaTime)
-{
-    return EntityUtils::isLandingOnEnemy(getJon(), getEnemies(), deltaTime);
+    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
 }
 
 bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
-    return EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getEnemies());
+    return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
+    || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isBurrowEffective()
@@ -189,9 +184,10 @@ bool Game::isBurrowEffective()
     return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
 }
 
-bool Game::isUpwardThrustEffectiveAgainstEnemy()
+bool Game::isUpwardThrustEffective(float deltaTime)
 {
-    return EntityUtils::isHittingEnemyFromBelow(getJon(), getEnemies());
+    return EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
+    || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime);
 }
 
 std::vector<Background *>& Game::getBackgroundUppers()
@@ -256,7 +252,7 @@ std::vector<Jon *>& Game::getJons()
 
 Jon& Game::getJon()
 {
-    return *getJons().at(getJons().size() - 1);
+    return *getJons().at(0);
 }
 
 float Game::getFarRight()

@@ -123,7 +123,11 @@ public:
     
     void setGroundSoundType(GroundSoundType groundSoundType);
     
-    void setBoostVelocity(int boostVelocity);
+    void triggerBoost(float boostVelocity);
+    
+    void triggerBoostOffEnemy(float boostVelocity);
+    
+    void triggerBounceDownardsOffEnemy(float bounceBackVelocity);
     
     bool isVampire();
     
@@ -164,7 +168,6 @@ private:
 	float m_fAccelerationX;
     float m_fGravity;
     int m_iNumJumps;
-    int m_iBoostVelocity;
     bool m_isLanding;
     bool m_isRightFoot;
     bool m_isAllowedToMove;

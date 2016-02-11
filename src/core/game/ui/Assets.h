@@ -34,7 +34,7 @@ class CollectibleItem;
 class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class Enemy;
-class Spirit;
+class EnemySpirit;
 class ForegroundObject;
 
 class Assets
@@ -60,7 +60,7 @@ public:
     
     TextureRegion& get(Enemy& enemy);
     
-    TextureRegion& get(Spirit& spirit);
+    TextureRegion& get(EnemySpirit& spirit);
     
     TextureRegion& get(CollectibleItem& collectibleItem);
     

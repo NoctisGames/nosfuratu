@@ -99,10 +99,6 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
                 
                 return true;
             }
-            else
-            {
-                jon.getAcceleration().setY(jon.getGravity() * 2);
-            }
         }
     }
     
@@ -145,28 +141,20 @@ bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
     if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
     {
         float entityLeft = jon.getBounds().getLeft();
-        float itemLeft = getBounds().getLeft();
+        float entityRight = jon.getBounds().getRight();
+        float exitLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
+        float exitRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
         
-        bool isBlocked = itemLeft < entityLeft && entityVelocityY <= 13.1f;
-        
-        if (!isBlocked)
+        if (entityVelocityY > 13.0f && entityRight < exitRight && entityLeft > exitLeft)
         {
-            float entityRight = jon.getBounds().getRight();
-            float exitLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
-            float exitRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
-            
-            if (entityVelocityY > 13.1f && entityRight < exitRight && entityLeft > exitLeft)
+            if (hasCover())
             {
-                isBlocked = false;
-                
-                if (hasCover())
-                {
-                    m_exitCover->triggerHit();
-                }
+                m_exitCover->triggerHit();
             }
+            
+            return false;
         }
-        
-        if (isBlocked)
+        else
         {
             jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
             jon.updateBounds();
@@ -176,6 +164,11 @@ bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
     }
     
     return false;
+}
+
+bool ExitGround::canObjectBePlacedOn()
+{
+    return true;
 }
 
 bool ExitGround::hasCover()
@@ -226,8 +219,17 @@ bool CaveDeepSmallWaterfall::isJonLanding(Jon& jon, float deltaTime)
                 
                 return true;
             }
+            else
+            {
+                jon.getAcceleration().setY(jon.getGravity() * 2);
+            }
         }
     }
     
+    return false;
+}
+
+bool CaveDeepSmallWaterfall::canObjectBePlacedOn()
+{
     return false;
 }

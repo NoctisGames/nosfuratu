@@ -55,15 +55,11 @@ public:
     
     bool isJonBlockedVertically(float deltaTime);
     
-    bool isJonHit();
-    
-    bool isJonLandingOnEnemy(float deltaTime);
-    
     bool isSpinningBackFistDelivered(float deltaTime);
     
     bool isBurrowEffective();
     
-    bool isUpwardThrustEffectiveAgainstEnemy();
+    bool isUpwardThrustEffective(float deltaTime);
     
     std::vector<Background *>& getBackgroundUppers();
     

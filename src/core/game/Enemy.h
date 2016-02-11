@@ -11,9 +11,10 @@
 
 #include "GridLockedPhysicalEntity.h"
 #include "Color.h"
-#include "Spirit.h"
+#include "EnemySpirit.h"
 
 class Game;
+class Jon;
 
 typedef enum
 {
@@ -28,7 +29,7 @@ class Enemy : public GridLockedPhysicalEntity
 public:
     static Enemy* create(int gridX, int gridY, int type);
     
-    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, SpiritType spiritType);
+    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType);
     
     virtual void update(float deltaTime);
     
@@ -36,19 +37,25 @@ public:
     
     void triggerHit();
     
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+    
+    bool isJonHittingHorizontally(Jon& jon, float deltaTime);
+    
+    bool isJonHittingFromBelow(Jon& jon, float deltaTime);
+    
     virtual void onDeletion();
     
     bool hasSpirit();
     
-    Spirit& getSpirit();
+    EnemySpirit& getSpirit();
     
     Color getColor();
     
     bool isDying();
     
     bool isDead();
-    
-    bool hasKilledJon();
     
     virtual bool canBeHitHorizontally();
     
@@ -63,29 +70,44 @@ public:
 protected:
     Game* m_game;
     bool m_isDying;
-    bool m_hasKilledJon;
     
 private:
-    Spirit* m_spirit;
+    EnemySpirit* m_enemySpirit;
     EnemyType m_type;
-    SpiritType m_spiritType;
+    EnemySpiritType m_enemySpiritType;
     Color m_color;
-    float m_fSpiritStateTime;
+    float m_fEnemySpiritStateTime;
     float m_fXOfDeath;
     float m_fYOfDeath;
     bool m_isDead;
 };
 
+class Mushroom : public Enemy
+{
+public:
+    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 8, 8, EnemyType_Mushroom, EnemySpiritType_None) {}
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+};
+
+class MushroomCeiling : public Enemy
+{
+public:
+    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 8, 8, EnemyType_MushroomCeiling, EnemySpiritType_None) {}
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+};
+
 class SnakeGrunt : public Enemy
 {
 public:
-    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, SpiritType_Snake) {}
+    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, EnemySpiritType_Snake) {}
 };
 
 class Sparrow : public Enemy
 {
 public:
-    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, SpiritType_Snake) {}
+    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, EnemySpiritType_Sparrow) {}
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */
