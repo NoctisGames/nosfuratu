@@ -202,66 +202,6 @@ void NosFURatuMain::handleSound()
 
 		switch (soundId)
 		{
-		case SOUND_COLLECT_CARROT:
-			playSound(SOUND_COLLECT_CARROT);
-			break;
-		case SOUND_COLLECT_GOLDEN_CARROT:
-			playSound(SOUND_COLLECT_GOLDEN_CARROT);
-			break;
-		case SOUND_DEATH:
-			playSound(SOUND_DEATH);
-			break;
-		case SOUND_FOOTSTEP_LEFT_GRASS:
-			playSound(SOUND_FOOTSTEP_LEFT_GRASS);
-			break;
-		case SOUND_FOOTSTEP_RIGHT_GRASS:
-			playSound(SOUND_FOOTSTEP_RIGHT_GRASS);
-			break;
-		case SOUND_FOOTSTEP_LEFT_CAVE:
-			playSound(SOUND_FOOTSTEP_LEFT_CAVE);
-			break;
-		case SOUND_FOOTSTEP_RIGHT_CAVE:
-			playSound(SOUND_FOOTSTEP_RIGHT_CAVE);
-			break;
-		case SOUND_JUMP_SPRING:
-			playSound(SOUND_JUMP_SPRING);
-			break;
-		case SOUND_LANDING_GRASS:
-			playSound(SOUND_LANDING_GRASS);
-			break;
-		case SOUND_LANDING_CAVE:
-			playSound(SOUND_LANDING_CAVE);
-			break;
-		case SOUND_DESTROY_ROCK:
-			playSound(SOUND_DESTROY_ROCK);
-			break;
-		case SOUND_SNAKE_DEATH:
-			playSound(SOUND_SNAKE_DEATH);
-			break;
-		case SOUND_TRIGGER_TRANSFORM:
-			playSound(SOUND_TRIGGER_TRANSFORM);
-			break;
-		case SOUND_CANCEL_TRANSFORM:
-			playSound(SOUND_CANCEL_TRANSFORM);
-			break;
-		case SOUND_COMPLETE_TRANSFORM:
-			playSound(SOUND_COMPLETE_TRANSFORM);
-			break;
-		case SOUND_JUMP_SPRING_HEAVY:
-			playSound(SOUND_JUMP_SPRING_HEAVY);
-			break;
-		case SOUND_JON_RABBIT_JUMP:
-			playSound(SOUND_JON_RABBIT_JUMP);
-			break;
-		case SOUND_JON_VAMPIRE_JUMP:
-			playSound(SOUND_JON_VAMPIRE_JUMP);
-			break;
-		case SOUND_JON_RABBIT_DOUBLE_JUMP:
-			playSound(SOUND_JON_RABBIT_DOUBLE_JUMP);
-			break;
-		case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-			playSound(SOUND_JON_VAMPIRE_DOUBLE_JUMP);
-			break;
 		case SOUND_JON_VAMPIRE_GLIDE:
 			playSound(SOUND_JON_VAMPIRE_GLIDE, true);
 			break;
@@ -269,7 +209,8 @@ void NosFURatuMain::handleSound()
 			stopSound(SOUND_JON_VAMPIRE_GLIDE);
 			break;
 		default:
-			continue;
+			playSound(soundId);
+			break;
 		}
 	}
 }
