@@ -225,40 +225,32 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
     }
     else if (jon.isFalling())
     {
-        if (jy < 9.0f)
+        if (jy < 12.76362286085f)
         {
             regionBottomY = 0;
         }
-        else if (jy >= 9.0f && jy < 18.0f)
+        else if (jy >= 12.76362286085 && jy < 21.76362286085f)
         {
-            regionBottomY = 9.0f;
-        }
-        else if (jy >= 18.0f && jy < 27.0f)
-        {
-            regionBottomY = 18.0f;
+            regionBottomY = 12.76362286085;
         }
         else
         {
-            regionBottomY = 27.0f;
+            regionBottomY = 21.76362286085f;
         }
     }
     else
     {
-        if (jy < (9.0f - jonHeightPlusPadding))
+        if (jy < (12.76362286085 - jonHeightPlusPadding))
         {
             regionBottomY = 0;
         }
-        else if (jy >= (9.0f - jonHeightPlusPadding) && jy < (18.0f - jonHeightPlusPadding))
+        else if (jy >= (12.76362286085 - jonHeightPlusPadding) && jy < (21.76362286085f - jonHeightPlusPadding))
         {
-            regionBottomY = 9.0f;
-        }
-        else if (jy >= (18.0f - jonHeightPlusPadding) && jy < (27.0f - jonHeightPlusPadding))
-        {
-            regionBottomY = 18.0f;
+            regionBottomY = 12.76362286085;
         }
         else
         {
-            regionBottomY = 27.0f;
+            regionBottomY = 21.76362286085f;
         }
     }
     
@@ -657,11 +649,12 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(game.getExitGrounds());
     renderBoundsForPhysicalEntities(game.getGrounds());
     renderBoundsForPhysicalEntities(game.getHoles());
+    renderBoundsForPhysicalEntities(game.getForegroundObjects());
     renderBoundsForPhysicalEntities(game.getCollectibleItems());
     renderBoundsForPhysicalEntities(game.getJons());
     m_boundsRectangleBatcher->endBatch();
     
-    static Color gridColor = Color(1, 1, 1, 0.3f);
+    static Color gridColor = Color(1, 1, 1, 0.4f);
     
     int right = m_camBounds->getRight() / GRID_CELL_SIZE;
     int len = right;

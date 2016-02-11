@@ -22,6 +22,8 @@ Enemy* Enemy::create(int gridX, int gridY, int type)
             return nullptr;
         case EnemyType_SnakeGrunt:
             return new SnakeGrunt(gridX, gridY);
+        case EnemyType_Sparrow:
+            return new Sparrow(gridX, gridY);
     }
     
     assert(false);

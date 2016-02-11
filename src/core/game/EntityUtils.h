@@ -192,18 +192,9 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+                if ((*i)->isJonBlockedAbove(jon, deltaTime))
                 {
-                    float entityLeft = jon.getBounds().getLeft();
-                    float itemLeft = (*i)->getBounds().getLeft();
-                    
-                    if (itemLeft < entityLeft)
-                    {
-                        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
-                        jon.updateBounds();
-                        
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

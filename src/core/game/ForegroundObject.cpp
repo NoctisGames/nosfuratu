@@ -173,6 +173,11 @@ bool ForegroundObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
     return false;
 }
 
+bool ForegroundObject::isJonBlockedAbove(Jon& jon, float deltaTime)
+{
+    return false;
+}
+
 ForegroundObjectType ForegroundObject::getType()
 {
     return m_type;
@@ -181,4 +186,105 @@ ForegroundObjectType ForegroundObject::getType()
 GroundSoundType ForegroundObject::getGroundSoundType()
 {
     return m_groundSoundType;
+}
+
+void DestructibleObject::update(float deltaTime)
+{
+    // TODO, if hit, begin destruction animation and then request to be deleted
+}
+
+bool DeadlyObject::isJonLanding(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool DeadlyObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+        jon.updateBounds();
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool LandingDeathObject::isJonLanding(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool RunningIntoDeathObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+        jon.updateBounds();
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+void ProvideBoostObject::update(float deltaTime)
+{
+    // TODO, if boosting Jon, play animation and then revert back to idle
+}
+
+bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    {
+        // TODO, set Jon's boost velocity
+        return true;
+    }
+    
+    return false;
 }

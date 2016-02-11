@@ -119,6 +119,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
     
     m_enemies.push_back(new SnakeGrunt(0, 0));
+    m_enemies.push_back(new Sparrow(0, 0));
     
     m_collectibleItems.push_back(new Carrot(0, 0));
     m_collectibleItems.push_back(new GoldenCarrot(0, 0));

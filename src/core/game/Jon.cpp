@@ -91,22 +91,7 @@ void Jon::update(float deltaTime)
 
 	if (m_game->isJonHit() || m_position->getY() < -m_fHeight / 2)
 	{
-		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
-		setState(JON_DYING);
-		m_fDyingStateTime = 0;
-		m_fHeight = 2.2f;
-
-		bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
-		if (isTransforming)
-		{
-			m_formStateMachine->revertToPreviousState();
-		}
-        
-        if (m_abilityState == ABILITY_GLIDE)
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
-            setState(ABILITY_NONE);
-        }
+        kill();
 
 		return;
 	}
@@ -127,7 +112,7 @@ void Jon::update(float deltaTime)
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
-		if (!wasGrounded)
+		if (!wasGrounded && m_state == JON_ALIVE)
 		{
 			m_isLanding = true;
 			m_fStateTime = 0;
@@ -455,6 +440,31 @@ void Jon::beginWarmingUp()
 float Jon::getGravity()
 {
     return m_fGravity;
+}
+
+void Jon::kill()
+{
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
+    setState(JON_DYING);
+    m_fDyingStateTime = 0;
+    m_fHeight = 2.2f;
+    
+    bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
+    if (isTransforming)
+    {
+        m_formStateMachine->revertToPreviousState();
+    }
+    
+    if (m_abilityState == ABILITY_GLIDE)
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+        setState(ABILITY_NONE);
+    }
 }
 
 #pragma mark private

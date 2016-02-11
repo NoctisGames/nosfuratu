@@ -141,6 +141,8 @@ public:
     
     float getGravity();
     
+    void kill();
+    
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;

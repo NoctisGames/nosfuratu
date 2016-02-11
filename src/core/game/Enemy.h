@@ -19,7 +19,8 @@ typedef enum
 {
     EnemyType_Mushroom,
     EnemyType_MushroomCeiling,
-    EnemyType_SnakeGrunt
+    EnemyType_SnakeGrunt,
+    EnemyType_Sparrow
 } EnemyType;
 
 class Enemy : public GridLockedPhysicalEntity
@@ -79,6 +80,12 @@ class SnakeGrunt : public Enemy
 {
 public:
     SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, SpiritType_Snake) {}
+};
+
+class Sparrow : public Enemy
+{
+public:
+    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, SpiritType_Snake) {}
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

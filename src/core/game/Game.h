@@ -107,6 +107,8 @@ public:
     
     bool isLoaded();
     
+    void calcFarRight();
+    
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
@@ -207,6 +209,8 @@ private:
             (*i)->setGame(game);
         }
     }
+    
+    void onLoaded();
 };
 
 #endif /* defined(__nosfuratu__Game__) */

@@ -396,6 +396,8 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     
+    m_game->calcFarRight();
+    
     if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
     {
         m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);

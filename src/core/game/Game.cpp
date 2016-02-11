@@ -46,13 +46,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
     
-    setGameToEntities(m_jons, this);
-	setGameToEntities(m_enemies, this);
-    
-    m_iNumTotalCarrots = getNumRemainingCarrots();
-    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
-    
-    m_isLoaded = true;
+    onLoaded();
 }
 
 void Game::load(const char* json)
@@ -71,32 +65,7 @@ void Game::load(const char* json)
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     
-    setGameToEntities(m_jons, this);
-	setGameToEntities(m_enemies, this);
-    
-    m_iNumTotalCarrots = getNumRemainingCarrots();
-    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
-    
-    for (std::vector<Ground *>::iterator i = m_grounds.begin(); i != m_grounds.end(); i++)
-    {
-        float right = (*i)->getBounds().getRight();
-        if (right > m_fFarRight)
-        {
-            m_fFarRight = right;
-        }
-    }
-    
-    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
-    {
-        if (dynamic_cast<EndSign *>((*i)))
-        {
-            m_fFarRight = (*i)->getBounds().getRight();
-            m_fFarRightBottom = (*i)->getBounds().getBottom();
-            break;
-        }
-    }
-    
-    m_isLoaded = true;
+    onLoaded();
 }
 
 const char* Game::save()
@@ -197,7 +166,7 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
-    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime);
+    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime) || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonHit()
@@ -346,4 +315,41 @@ int Game::getNumRemainingGoldenCarrots()
 bool Game::isLoaded()
 {
     return m_isLoaded;
+}
+
+void Game::calcFarRight()
+{
+    for (std::vector<Ground *>::iterator i = m_grounds.begin(); i != m_grounds.end(); i++)
+    {
+        float right = (*i)->getBounds().getRight();
+        if (right > m_fFarRight)
+        {
+            m_fFarRight = right;
+        }
+    }
+    
+    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+    {
+        if (dynamic_cast<EndSign *>((*i)))
+        {
+            m_fFarRight = (*i)->getBounds().getRight();
+            m_fFarRightBottom = (*i)->getBounds().getBottom();
+            break;
+        }
+    }
+}
+
+#pragma mark private
+
+void Game::onLoaded()
+{
+    setGameToEntities(m_jons, this);
+    setGameToEntities(m_enemies, this);
+    
+    m_iNumTotalCarrots = getNumRemainingCarrots();
+    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
+    
+    calcFarRight();
+    
+    m_isLoaded = true;
 }

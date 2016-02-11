@@ -68,13 +68,13 @@ public:
 class WaterBack : public Water
 {
 public:
-    WaterBack(float x) : Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 64, BackgroundType_WaterBack) {}
+    WaterBack(float x) : Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 96, BackgroundType_WaterBack) {}
 };
 
 class WaterFront : public Water
 {
 public:
-    WaterFront(float x) : Water(x, 0.2109375f, CAM_WIDTH, 0.421875f, 72, BackgroundType_WaterFront) {}
+    WaterFront(float x) : Water(x, 0.2109375f, CAM_WIDTH, 0.421875f, 112, BackgroundType_WaterFront) {}
 };
 
 #endif /* defined(__nosfuratu__Background__) */

@@ -71,9 +71,11 @@ public:
     
     virtual void updateBounds();
     
-    bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
     
-    bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
     ForegroundObjectType getType();
     
@@ -88,76 +90,130 @@ private:
     float m_fBoundsHeight;
 };
 
+class DestructibleObject : public ForegroundObject
+{
+public:
+    DestructibleObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    
+    virtual void update(float deltaTime);
+};
+
+class DeadlyObject : public ForegroundObject
+{
+public:
+    DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+};
+
+class LandingDeathObject : public ForegroundObject
+{
+public:
+    LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+};
+
+class RunningIntoDeathObject : public ForegroundObject
+{
+public:
+    RunningIntoDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+};
+
+class DeathFromAboveObject : public ForegroundObject
+{
+public:
+    DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+};
+
+class ProvideBoostObject : public ForegroundObject
+{
+public:
+    ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+};
+
 class GrassPlatformLeft : public ForegroundObject
 {
 public:
-    GrassPlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS) {}
+    GrassPlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
 class GrassPlatformCenter : public ForegroundObject
 {
 public:
-    GrassPlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS) {}
+    GrassPlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
 class GrassPlatformRight : public ForegroundObject
 {
 public:
-    GrassPlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS) {}
+    GrassPlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
 };
 
 class CavePlatformLeft : public ForegroundObject
 {
 public:
-    CavePlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE) {}
+    CavePlatformLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
 };
 
 class CavePlatformCenter : public ForegroundObject
 {
 public:
-    CavePlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE) {}
+    CavePlatformCenter(int gridX, int gridY) : ForegroundObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
 };
 
 class CavePlatformRight : public ForegroundObject
 {
 public:
-    CavePlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE) {}
+    CavePlatformRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE, 0, 0, 1, 0.89583333333333f) {}
 };
 
 class RockLarge : public ForegroundObject
 {
 public:
-    RockLarge(int gridX, int gridY) : ForegroundObject(gridX, gridY, 44, 32, ForegroundObjectType_RockLarge, GROUND_SOUND_CAVE) {}
+    RockLarge(int gridX, int gridY) : ForegroundObject(gridX, gridY, 44, 32, ForegroundObjectType_RockLarge, GROUND_SOUND_CAVE, 0.03551136363636f, 0, 0.77840909090909f, 0.9765625f) {}
 };
 
 class RockMedium : public ForegroundObject
 {
 public:
-    RockMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 24, ForegroundObjectType_RockMedium, GROUND_SOUND_CAVE) {}
+    RockMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 24, ForegroundObjectType_RockMedium, GROUND_SOUND_CAVE, 0.0625f, 0, 0.7734375f, 0.75520833333333f) {}
 };
 
 class RockSmall : public ForegroundObject
 {
 public:
-    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE) {}
+    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE, 0.32291666666667f, 0.26358695652174f, 0.37239583333333f, 0.30978260869565f) {}
 };
 
-class RockSmallCracked : public ForegroundObject
+class RockSmallCracked : public DestructibleObject
 {
 public:
-    RockSmallCracked(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE) {}
+    RockSmallCracked(int gridX, int gridY) : DestructibleObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE, 0.32291666666667f, 0.26358695652174f, 0.37239583333333f, 0.30978260869565f) {}
 };
 
 class StumpBig : public ForegroundObject
 {
 public:
-    StumpBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 16, 18, ForegroundObjectType_StumpBig, GROUND_SOUND_GRASS) {}
+    StumpBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 16, 18, ForegroundObjectType_StumpBig, GROUND_SOUND_GRASS, 0.19140625f, 0, 0.5f, 0.97569444444444f) {}
 };
 
 class StumpSmall : public ForegroundObject
 {
 public:
-    StumpSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 20, 17, ForegroundObjectType_StumpSmall, GROUND_SOUND_GRASS) {}
+    StumpSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 20, 17, ForegroundObjectType_StumpSmall, GROUND_SOUND_GRASS, 0.215625f, 0, 0.375f, 0.8125f) {}
 };
 
 class EndSign : public ForegroundObject
@@ -166,130 +222,130 @@ public:
     EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_EndSign) {}
 };
 
-class ThornsLeft : public ForegroundObject
+class ThornsLeft : public DeadlyObject
 {
 public:
-    ThornsLeft(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsLeft) {}
+    ThornsLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsLeft) {}
 };
 
-class ThornsCenterSmall : public ForegroundObject
+class ThornsCenterSmall : public DeadlyObject
 {
 public:
-    ThornsCenterSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 11, 7, ForegroundObjectType_ThornsCenterSmall) {}
+    ThornsCenterSmall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 11, 7, ForegroundObjectType_ThornsCenterSmall) {}
 };
 
-class ThornsCenterBig : public ForegroundObject
+class ThornsCenterBig : public DeadlyObject
 {
 public:
-    ThornsCenterBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 22, 7, ForegroundObjectType_ThornsCenterBig) {}
+    ThornsCenterBig(int gridX, int gridY) : DeadlyObject(gridX, gridY, 22, 7, ForegroundObjectType_ThornsCenterBig) {}
 };
 
-class ThornsRight : public ForegroundObject
+class ThornsRight : public DeadlyObject
 {
 public:
-    ThornsRight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsRight) {}
+    ThornsRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsRight) {}
 };
 
 class LogVerticalTall : public ForegroundObject
 {
 public:
-    LogVerticalTall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 11, ForegroundObjectType_LogVerticalTall, GROUND_SOUND_GRASS) {}
+    LogVerticalTall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 11, ForegroundObjectType_LogVerticalTall, GROUND_SOUND_GRASS, 0.1484375f, 0, 0.5f, 0.95454545454545f) {}
 };
 
 class LogVerticalShort : public ForegroundObject
 {
 public:
-    LogVerticalShort(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 6, ForegroundObjectType_LogVerticalShort, GROUND_SOUND_GRASS) {}
+    LogVerticalShort(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 6, ForegroundObjectType_LogVerticalShort, GROUND_SOUND_GRASS, 0.1462f, 0, 0.4453125f, 0.92708333333333f) {}
 };
 
-class JumpSpringLight : public ForegroundObject
+class JumpSpringLight : public ProvideBoostObject
 {
 public:
-    JumpSpringLight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight) {}
+    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f) {}
 };
 
-class JumpSpringMedium : public ForegroundObject
+class JumpSpringMedium : public ProvideBoostObject
 {
 public:
-    JumpSpringMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium) {}
+    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 1, 0.33333333333333f) {}
 };
 
-class JumpSpringHeavy : public ForegroundObject
+class JumpSpringHeavy : public ProvideBoostObject
 {
 public:
-    JumpSpringHeavy(int gridX, int gridY) : ForegroundObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy) {}
+    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 1, 0.52678571428571f) {}
 };
 
-class SpikeGrassSingle : public ForegroundObject
+class SpikeGrassSingle : public LandingDeathObject
 {
 public:
-    SpikeGrassSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle) {}
+    SpikeGrassSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle) {}
 };
 
-class SpikeGrassFour : public ForegroundObject
+class SpikeGrassFour : public LandingDeathObject
 {
 public:
-    SpikeGrassFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour) {}
+    SpikeGrassFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour) {}
 };
 
-class SpikeGrassEight : public ForegroundObject
+class SpikeGrassEight : public LandingDeathObject
 {
 public:
-    SpikeGrassEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight) {}
+    SpikeGrassEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight) {}
 };
 
-class SpikeCaveSingle : public ForegroundObject
+class SpikeCaveSingle : public LandingDeathObject
 {
 public:
-    SpikeCaveSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle) {}
+    SpikeCaveSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle) {}
 };
 
-class SpikeCaveFour : public ForegroundObject
+class SpikeCaveFour : public LandingDeathObject
 {
 public:
-    SpikeCaveFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour) {}
+    SpikeCaveFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour) {}
 };
 
-class SpikeCaveEight : public ForegroundObject
+class SpikeCaveEight : public LandingDeathObject
 {
 public:
-    SpikeCaveEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight) {}
+    SpikeCaveEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight) {}
 };
 
-class SpikeCaveCeilingSingle : public ForegroundObject
+class SpikeCaveCeilingSingle : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle) {}
+    SpikeCaveCeilingSingle(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle) {}
 };
 
-class SpikeCaveCeilingFour : public ForegroundObject
+class SpikeCaveCeilingFour : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour) {}
+    SpikeCaveCeilingFour(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour) {}
 };
 
-class SpikeCaveCeilingEight : public ForegroundObject
+class SpikeCaveCeilingEight : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight) {}
+    SpikeCaveCeilingEight(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight) {}
 };
 
-class SpikeWallSingle : public ForegroundObject
+class SpikeWallSingle : public RunningIntoDeathObject
 {
 public:
-    SpikeWallSingle(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 4, ForegroundObjectType_SpikeWallSingle) {}
+    SpikeWallSingle(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 4, ForegroundObjectType_SpikeWallSingle) {}
 };
 
-class SpikeWallFour : public ForegroundObject
+class SpikeWallFour : public RunningIntoDeathObject
 {
 public:
-    SpikeWallFour(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 16, ForegroundObjectType_SpikeWallFour) {}
+    SpikeWallFour(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 16, ForegroundObjectType_SpikeWallFour) {}
 };
 
-class SpikeWallEight : public ForegroundObject
+class SpikeWallEight : public RunningIntoDeathObject
 {
 public:
-    SpikeWallEight(int gridX, int gridY) : ForegroundObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
+    SpikeWallEight(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

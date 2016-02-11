@@ -448,7 +448,7 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
             
         case ForegroundObjectType_JumpSpringLight:
         {
-            static Animation anim = createAnimation(0, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
+            static Animation anim = createAnimation(96, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 4);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
         case ForegroundObjectType_JumpSpringMedium:
@@ -458,7 +458,7 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
         }
         case ForegroundObjectType_JumpSpringHeavy:
         {
-            static Animation anim = createAnimation(0, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 7);
+            static Animation anim = createAnimation(272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
             
@@ -549,6 +549,11 @@ TextureRegion& Assets::get(Enemy& enemy)
             static Animation anim = createAnimation(0, 332, 128, 96, 512, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 4);
             return anim.getTextureRegion(enemy.getStateTime());
         }
+        case EnemyType_Sparrow:
+        {
+            static Animation anim = createAnimation(0, 692, 160, 160, 1120, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
+            return anim.getTextureRegion(enemy.getStateTime());
+        }
     }
     
     assert(false);
@@ -574,12 +579,12 @@ TextureRegion& Assets::get(CollectibleItem& collectibleItem)
     {
         case CollectibleItemType_Carrot:
         {
-            static Animation anim = createAnimation(0, 3028, 96, 80, 864, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 9);
+            static Animation anim = createAnimation(0, 2692, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
             return anim.getTextureRegion(collectibleItem.getStateTime());
         }
         case CollectibleItemType_GoldenCarrot:
         {
-            static Animation anim = createAnimation(0, 2772, 96, 96, 960, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 10);
+            static Animation anim = createAnimation(0, 2560, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
             return anim.getTextureRegion(collectibleItem.getStateTime());
         }
     }
