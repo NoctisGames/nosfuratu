@@ -203,7 +203,7 @@ void NosFURatuMain::handleSound()
 		switch (soundId)
 		{
 		case SOUND_JON_VAMPIRE_GLIDE:
-			playSound(SOUND_JON_VAMPIRE_GLIDE, true);
+			playSound(soundId, true);
 			break;
 		case SOUND_STOP_JON_VAMPIRE_GLIDE:
 			stopSound(SOUND_JON_VAMPIRE_GLIDE);
