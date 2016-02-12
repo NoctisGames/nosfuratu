@@ -10,8 +10,7 @@
 #include <stdio.h>
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
-#include "GameScreenStates.h"
-#include "LevelEditor.h"
+#include "GameScreenLevelEditor.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
 
@@ -179,7 +178,7 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 
 	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
 
-	LevelEditor::getInstance()->load(nativeLevelJson);
+	GameScreenLevelEditor::getInstance()->load(nativeLevelJson);
 }
 
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
@@ -187,7 +186,7 @@ JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(
 	UNUSED(env);
 	UNUSED(cls);
 
-	const char *level_json = LevelEditor::getInstance()->save();
+	const char *level_json = GameScreenLevelEditor::getInstance()->save();
 	const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
 	if (level_json)
 	{
