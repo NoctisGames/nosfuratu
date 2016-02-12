@@ -8,9 +8,13 @@
 
 #include "GridLockedPhysicalEntity.h"
 
-GridLockedPhysicalEntity::GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PhysicalEntity(gridX * GRID_CELL_SIZE + (gridWidth * GRID_CELL_SIZE / 2), gridY * GRID_CELL_SIZE + (gridHeight * GRID_CELL_SIZE / 2), gridWidth * GRID_CELL_SIZE, gridHeight * GRID_CELL_SIZE), m_iGridX(gridX), m_iGridY(gridY), m_iGridWidth(gridWidth), m_iGridHeight(gridHeight), m_fBoundsX(boundsX), m_fBoundsY(boundsY), m_fBoundsWidth(boundsWidth), m_fBoundsHeight(boundsHeight)
+GridLockedPhysicalEntity::GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PhysicalEntity(gridX * GRID_CELL_SIZE, gridY * GRID_CELL_SIZE, gridWidth * GRID_CELL_SIZE, gridHeight * GRID_CELL_SIZE), m_iGridX(gridX), m_iGridY(gridY), m_iGridWidth(gridWidth), m_iGridHeight(gridHeight), m_fBoundsX(boundsX), m_fBoundsY(boundsY), m_fBoundsWidth(boundsWidth), m_fBoundsHeight(boundsHeight)
 {
-	updateBounds();
+    updateBounds();
+    m_bounds->getLowerLeft().set(gridX * GRID_CELL_SIZE, gridY * GRID_CELL_SIZE);
+    m_position->set(m_iGridX * GRID_CELL_SIZE, m_iGridY * GRID_CELL_SIZE);
+    m_position->sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+    m_position->add(getWidth() / 2, getHeight() / 2);
 }
 
 void GridLockedPhysicalEntity::updateBounds()
@@ -35,7 +39,10 @@ void GridLockedPhysicalEntity::snapToGrid(int gridCellSizeScalar)
     
     m_iGridY = bottom / gridCellSize;
     
-	m_position->set(m_iGridX * gridCellSize + (m_iGridWidth * GRID_CELL_SIZE / 2), m_iGridY * gridCellSize + (m_iGridHeight * GRID_CELL_SIZE / 2));
+	m_bounds->getLowerLeft().set(m_iGridX * gridCellSize, m_iGridY * gridCellSize);
+    m_position->set(m_iGridX * gridCellSize, m_iGridY * gridCellSize);
+    m_position->sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+    m_position->add(getWidth() / 2, getHeight() / 2);
     
     m_iGridX *= gridCellSizeScalar;
     m_iGridY *= gridCellSizeScalar;

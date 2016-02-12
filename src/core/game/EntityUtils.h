@@ -55,38 +55,22 @@ public:
     
     static void placeOn(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& on, int gridCellSizeScalar)
     {
-		float halfHeight = entity.getHeight() / 2;
 		float top = on.getBounds().getTop();
-		float y = top + halfHeight;
 
-		entity.getPosition().setY(y);
-
-		entity.updateBounds();
-
-		float yDelta = top - entity.getBounds().getBottom();
-		entity.getPosition().add(0, yDelta);
-
-		entity.updateBounds();
+		entity.getBounds().getLowerLeft().setY(top);
 
 		entity.snapToGrid(gridCellSizeScalar);
     }
     
     static void placeUnder(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& under, int gridCellSizeScalar)
     {
-        float halfHeight = entity.getBounds().getHeight() / 2;
+        float boundsHeight = entity.getBounds().getHeight();
         float bottom = under.getBounds().getBottom();
-        float y = bottom - halfHeight;
+        float lowerLeft = bottom - boundsHeight;
         
-        entity.getPosition().setY(y);
-        
-        entity.updateBounds();
+        entity.getBounds().getLowerLeft().setY(lowerLeft);
 
-		float yDelta = bottom - entity.getBounds().getTop();
-		entity.getPosition().add(0, yDelta);
-
-		entity.updateBounds();
-        
-        entity.snapToGrid(gridCellSizeScalar);
+		entity.snapToGrid(gridCellSizeScalar);
     }
     
     template<typename T>
