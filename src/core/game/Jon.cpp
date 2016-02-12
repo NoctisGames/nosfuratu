@@ -371,8 +371,9 @@ void Jon::setGroundSoundType(GroundSoundType groundSoundType)
 
 void Jon::triggerBoost(float boostVelocity)
 {
+	m_velocity->setX(4);
+	m_acceleration->setX(0);
     m_acceleration->setY(m_fGravity);
-    m_velocity->setX(2);
     m_velocity->setY(boostVelocity);
     
     setState(ACTION_JUMPING);
@@ -389,6 +390,8 @@ void Jon::triggerBoost(float boostVelocity)
 
 void Jon::triggerBoostOffEnemy(float boostVelocity)
 {
+	m_velocity->setX(4);
+	m_acceleration->setX(0);
     m_acceleration->setY(m_fGravity);
     m_velocity->setY(boostVelocity);
     
@@ -575,7 +578,6 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 	{
 		jon->m_fStateTime = 0;
 
-        jon->m_acceleration->setX(0);
 		jon->m_acceleration->setY(jon->m_fGravity);
 		jon->m_velocity->setY(13 - jon->m_iNumJumps * 3);
 

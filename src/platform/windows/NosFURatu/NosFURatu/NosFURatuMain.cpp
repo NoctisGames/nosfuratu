@@ -42,6 +42,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
 	m_sounds.push_back("vampire_glide_loop.wav");
+	m_sounds.push_back("mushroom_bounce.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
