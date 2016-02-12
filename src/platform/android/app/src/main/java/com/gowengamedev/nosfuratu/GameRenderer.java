@@ -197,7 +197,7 @@ public final class GameRenderer implements Renderer
                     playSound(soundId, true);
                     break;
                 case SOUND_STOP_JON_VAMPIRE_GLIDE:
-                    stopSound(SOUND_STOP_JON_VAMPIRE_GLIDE);
+                    stopSound(SOUND_JON_VAMPIRE_GLIDE);
                     break;
                 default:
                     playSound(soundId);
