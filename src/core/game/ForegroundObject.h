@@ -304,55 +304,55 @@ public:
 class SpikeGrassSingle : public LandingDeathObject
 {
 public:
-    SpikeGrassSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle) {}
+    SpikeGrassSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeGrassFour : public LandingDeathObject
 {
 public:
-    SpikeGrassFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour) {}
+    SpikeGrassFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeGrassEight : public LandingDeathObject
 {
 public:
-    SpikeGrassEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight) {}
+    SpikeGrassEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveSingle : public LandingDeathObject
 {
 public:
-    SpikeCaveSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle) {}
+    SpikeCaveSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveFour : public LandingDeathObject
 {
 public:
-    SpikeCaveFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour) {}
+    SpikeCaveFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveEight : public LandingDeathObject
 {
 public:
-    SpikeCaveEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight) {}
+    SpikeCaveEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveCeilingSingle : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingSingle(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle) {}
+    SpikeCaveCeilingSingle(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveCeilingFour : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingFour(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour) {}
+    SpikeCaveCeilingFour(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeCaveCeilingEight : public DeathFromAboveObject
 {
 public:
-    SpikeCaveCeilingEight(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight) {}
+    SpikeCaveCeilingEight(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight, 0.1f, 0, 0.8f, 0.9f) {}
 };
 
 class SpikeWallSingle : public RunningIntoDeathObject

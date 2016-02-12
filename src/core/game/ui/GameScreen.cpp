@@ -11,7 +11,7 @@
 #include "GameScreenLevels.h"
 #include "Game.h"
 
-GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(0), m_isPaused(false), m_isScreenHeldDown(false)
+GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_iNumFramesToDiscard(60), m_isPaused(false), m_isScreenHeldDown(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -89,7 +89,7 @@ void GameScreen::update(float deltaTime)
 void GameScreen::render()
 {
 	// Loading may be asynchronous, so make sure we are loaded before rendering
-	if (m_renderer->isLoaded())
+	if (m_renderer->isLoaded() && m_iNumFramesToDiscard <= 0)
 	{
 		m_stateMachine->execute();
 

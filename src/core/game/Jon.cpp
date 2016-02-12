@@ -156,7 +156,7 @@ void Jon::update(float deltaTime)
 	}
 	else if (m_game->isJonBlockedHorizontally(deltaTime))
 	{
-		m_velocity->setX(-2.0f);
+		m_velocity->setX(-3.0f);
         m_acceleration->setX(m_fAccelerationX);
 
 		m_fStateTime = 0;
@@ -371,7 +371,7 @@ void Jon::setGroundSoundType(GroundSoundType groundSoundType)
 
 void Jon::triggerBoost(float boostVelocity)
 {
-	m_velocity->setX(4);
+	m_velocity->setX(2);
 	m_acceleration->setX(0);
     m_acceleration->setY(m_fGravity);
     m_velocity->setY(boostVelocity);
@@ -390,7 +390,7 @@ void Jon::triggerBoost(float boostVelocity)
 
 void Jon::triggerBoostOffEnemy(float boostVelocity)
 {
-	m_velocity->setX(4);
+	m_velocity->setX(2);
 	m_acceleration->setX(0);
     m_acceleration->setY(m_fGravity);
     m_velocity->setY(boostVelocity);
@@ -578,6 +578,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 	{
 		jon->m_fStateTime = 0;
 
+        jon->m_acceleration->setX(0);
 		jon->m_acceleration->setY(jon->m_fGravity);
 		jon->m_velocity->setY(13 - jon->m_iNumJumps * 3);
 
