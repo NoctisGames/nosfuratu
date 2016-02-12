@@ -17,7 +17,6 @@ SnakeDeathTextureProgramStruct SnakeDeathTextureProgram::build(GLuint program)
         glGetAttribLocation(program, "a_Position"),
         glGetAttribLocation(program, "a_Color"),
         glGetAttribLocation(program, "a_TextureCoordinates"),
-        glGetUniformLocation(program, "u_TextureUnit"),
-        glGetUniformLocation(program, "u_ColorAdditive")
+        glGetUniformLocation(program, "u_TextureUnit")
     };
 }

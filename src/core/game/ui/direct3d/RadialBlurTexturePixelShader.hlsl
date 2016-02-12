@@ -1,7 +1,12 @@
 cbuffer IsWindowsMobileConstantBufferBuffer : register(b0)
 {
 	int isWindowsMobile;
-}; 
+};
+
+cbuffer DirectionConstantBufferBuffer : register(b1)
+{
+	int direction;
+};
 
 Texture2D Texture;
 SamplerState ss;
@@ -16,7 +21,16 @@ float4 main(float4 position : SV_POSITION, float2 texcoordIn : TEXCOORD) : SV_TA
 
 	float2 uv = fragCoord.xy;
 
-	float2 pos = isWindowsMobile == 1 ? float2(0.5, 0.0) : float2(0.0, 0.5);
+	float2 pos = float2(0, 0);
+	if (isWindowsMobile == 1)
+	{
+		pos = float2(direction == 0 ? 0.5 : direction == 1 ? 1.0 : 0.0, 0.0);
+	}
+	else
+	{
+		pos = float2(0.0, direction == 0 ? 0.5 : direction == 1 ? 1.0 : 0.0);
+	}
+	
 	float2 dir = (fragCoord.xy - pos.xy);
 
 	float4 color = float4(0.0, 0.0, 0.0, 0.0);

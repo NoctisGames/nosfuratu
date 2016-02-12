@@ -1,8 +1,3 @@
-cbuffer ColorAdditiveBuffer : register(b0)
-{
-	float colorAdditive;
-}; 
-
 Texture2D Texture;
 SamplerState ss;
 
@@ -15,7 +10,7 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 	{
 		float m = min(ret.r, ret.g);
 		m = min(m, ret.b);
-		float additive = (1.0 - m) * colorAdditive;
+		float additive = (1.0 - m) * color.r;
 		ret += additive;
 	}
 
@@ -23,6 +18,8 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 	{
 		color.a = 0;
 	}
+
+	color.r = 1;
 
 	ret = ret * color;
 

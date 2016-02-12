@@ -14,96 +14,63 @@
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "GameConstants.h"
-#include "Tree.h"
+#include "Background.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
+#include "Hole.h"
 #include "DustCloud.h"
 #include "Jon.h"
-#include "GroundPlatform.h"
-#include "Carrot.h"
-#include "Ground.h"
-#include "Hole.h"
-#include "HoleCover.h"
-#include "CaveExit.h"
-#include "CaveExitCover.h"
-#include "UpwardSpike.h"
-#include "LogVerticalTall.h"
-#include "Rock.h"
-#include "Game.h"
-#include "BackgroundSky.h"
-#include "BackgroundTrees.h"
-#include "BackgroundCave.h"
 #include "BackButton.h"
-#include "LevelEditorActionsPanel.h"
-#include "LevelEditorEntitiesPanel.h"
+#include "LevelEditorButton.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
-#include "SnakeGrunt.h"
-#include "SnakeHorned.h"
-#include "SnakeSpirit.h"
 
 #include <vector>
 
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
+
+class CollectibleItem;
+class LevelEditorActionsPanel;
+class LevelEditorEntitiesPanel;
+class Enemy;
+class EnemySpirit;
+class ForegroundObject;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    TextureRegion& get(BackgroundSky& backgroundSky);
+    TextureRegion& get(Background& background);
     
-    TextureRegion& get(BackgroundTrees& backgroundTrees);
-    
-    TextureRegion& get(BackgroundCave& backgroundCave);
-    
-    TextureRegion& get(Tree& tree);
+    TextureRegion& get(Midground& midground);
     
     TextureRegion& get(Ground& ground);
+    
+    TextureRegion& get(ExitGround& exitGround);
+    
+    TextureRegion& get(ExitGroundCover& exitGroundCover);
     
     TextureRegion& get(Hole& hole);
     
     TextureRegion& get(HoleCover& holeCover);
     
-    TextureRegion& get(CaveExit& caveExit);
+    TextureRegion& get(ForegroundObject& foregroundObject);
     
-    TextureRegion& get(CaveExitCover& caveExitCover);
+    TextureRegion& get(Enemy& enemy);
     
-    TextureRegion& get(LogVerticalTall& logVerticalTall);
+    TextureRegion& get(EnemySpirit& spirit);
     
-    TextureRegion& get(LogVerticalShort& logVerticalShort);
-    
-    TextureRegion& get(Thorns& thorns);
-    
-    TextureRegion& get(Stump& stump);
-    
-    TextureRegion& get(SideSpike& sideSpike);
-    
-    TextureRegion& get(UpwardSpike& upwardSpike);
-    
-    TextureRegion& get(JumpSpring& jumpSpring);
-    
-    TextureRegion& get(Rock& rock);
-    
-    TextureRegion& get(CrackedRock& rock);
-    
-    TextureRegion& get(GroundPlatform& platform);
-    
-    TextureRegion& get(EndSign& endSign);
-    
-    TextureRegion& get(Carrot& carrot);
-    
-    TextureRegion& get(GoldenCarrot& goldenCarrot);
-    
-    TextureRegion& get(SnakeGrunt& snakeEnemy);
-    
-    TextureRegion& get(SnakeHorned& snakeEnemy);
-    
-    TextureRegion& get(SnakeSpirit& snakeSpirit);
+    TextureRegion& get(CollectibleItem& collectibleItem);
     
     TextureRegion& get(Jon& jon);
     
     TextureRegion& get(DustCloud& dustCloud);
     
     TextureRegion& get(BackButton& backButton);
+    
+    TextureRegion& get(LevelEditorButton& levelEditorButton);
     
     TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
     
@@ -138,7 +105,7 @@ private:
     
     TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
-	void initTextureRegion(TextureRegion& tr, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Assets();

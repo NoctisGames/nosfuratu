@@ -26,6 +26,7 @@ void OpenGLESFramebufferRadialBlurGpuProgramWrapper::bind()
     glUseProgram(m_program.program);
     
     glUniform1i(m_program.u_texture_unit_location, 0);
+    glUniform1i(m_program.u_direction_location, m_iDirection);
     
     glGenBuffers(1, &OGLESManager->sb_vbo_object);
     glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);

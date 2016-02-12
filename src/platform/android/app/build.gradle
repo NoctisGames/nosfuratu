@@ -18,20 +18,16 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "0.2.005"
+        versionName "0.3.000"
         signingConfig signingConfigs.gowengamedev
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_LEVEL_EDITOR", "false"
         }
         debug {
             debuggable true
-            applicationIdSuffix ".le"
-            versionNameSuffix "-le"
-            buildConfigField "boolean", "IS_LEVEL_EDITOR", "true"
         }
     }
     sourceSets.main.jni.srcDirs 'src/main/jni'

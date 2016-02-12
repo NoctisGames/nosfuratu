@@ -8,12 +8,7 @@
 
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 
-SnakeDeathTextureGpuProgramWrapper::SnakeDeathTextureGpuProgramWrapper() : m_fColorAdditive(0.0f)
+SnakeDeathTextureGpuProgramWrapper::SnakeDeathTextureGpuProgramWrapper() : GpuProgramWrapper()
 {
     // Empty
-}
-
-void SnakeDeathTextureGpuProgramWrapper::setColorAdditive(float colorAdditive)
-{
-    m_fColorAdditive = colorAdditive;
 }

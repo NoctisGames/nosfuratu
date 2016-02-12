@@ -18,10 +18,10 @@
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED -1
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED 0
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET 1
-#define LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST 2
-#define LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD 3
-#define LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE 4
-#define LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO 5
+#define LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT 2
+#define LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST 3
+#define LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD 4
+#define LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE 5
 
 class LevelEditorActionsPanel : public PhysicalEntity
 {
@@ -30,19 +30,23 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint);
     
-    bool isShowEntityBoundsRequested();
+    int boundsLevelRequested();
+    
+    bool showBounds();
     
 private:
     std::unique_ptr<Rectangle> m_toggleBoundsButton;
     std::unique_ptr<Rectangle> m_resetButton;
-    std::unique_ptr<Rectangle> m_undoButton;
+    std::unique_ptr<Rectangle> m_exitButton;
     std::unique_ptr<Rectangle> m_testButton;
     std::unique_ptr<Rectangle> m_loadButton;
     std::unique_ptr<Rectangle> m_saveButton;
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;
+    
+    int m_iBoundsLevelRequested;
+    bool m_showBounds;
     bool m_isOpen;
-    bool m_isShowEntityBoundsRequested;
 };
 
 #endif /* defined(__nosfuratu__LevelEditorActionsPanel__) */

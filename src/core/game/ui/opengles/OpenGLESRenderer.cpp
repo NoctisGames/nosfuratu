@@ -9,6 +9,7 @@
 #include "OpenGLESRenderer.h"
 #include "OpenGLESSpriteBatcher.h"
 #include "OpenGLESRectangleBatcher.h"
+#include "OpenGLESLineBatcher.h"
 #include "TextureWrapper.h"
 #include "OpenGLESManager.h"
 #include "GameConstants.h"
@@ -38,6 +39,7 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     m_spriteBatcher = std::unique_ptr<OpenGLESSpriteBatcher>(new OpenGLESSpriteBatcher());
     m_boundsRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher());
     m_highlightRectangleBatcher = std::unique_ptr<OpenGLESRectangleBatcher>(new OpenGLESRectangleBatcher(true));
+    m_lineBatcher = std::unique_ptr<OpenGLESLineBatcher>(new OpenGLESLineBatcher());
 }
 
 bool OpenGLESRenderer::isLoaded()

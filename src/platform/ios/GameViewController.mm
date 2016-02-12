@@ -15,33 +15,7 @@
 // C++
 #include "IOSOpenGLESGameScreen.h"
 #include "GameConstants.h"
-#include "GameScreenStates.h"
-#include "LevelEditor.h"
-
-enum GameSoundIds {
-    COLLECT_CARROT,
-    COLLECT_GOLDEN_CARROT,
-    DEATH,
-    FOOTSTEP_LEFT_GRASS,
-    FOOTSTEP_RIGHT_GRASS,
-    FOOTSTEP_LEFT_CAVE,
-    FOOTSTEP_RIGHT_CAVE,
-    JUMP_SPRING,
-    LANDING_GRASS,
-    LANDING_CAVE,
-    BREAK_LOG,
-    DESTROY_ROCK,
-    SNAKE_DEATH,
-    TRIGGER_TRANSFORM,
-    CANCEL_TRANSFORM,
-    COMPLETE_TRANSFORM,
-    JUMP_SPRING_HEAVY,
-    JON_RABBIT_JUMP,
-    JON_VAMPIRE_JUMP,
-    JON_RABBIT_DOUBLE_JUMP,
-    JON_VAMPIRE_DOUBLE_JUMP,
-    JON_VAMPIRE_GLIDE
-};
+#include "GameScreenLevelEditor.h"
 
 @interface GameViewController ()
 {
@@ -183,77 +157,15 @@ enum GameSoundIds {
     {
         switch (soundId)
         {
-            case SOUND_COLLECT_CARROT:
-                [self.soundMgr playSoundWithID:COLLECT_CARROT];
-                break;
-            case SOUND_COLLECT_GOLDEN_CARROT:
-                [self.soundMgr playSoundWithID:COLLECT_GOLDEN_CARROT];
-                break;
-            case SOUND_DEATH:
-                [self.soundMgr playSoundWithID:DEATH];
-                break;
-            case SOUND_FOOTSTEP_LEFT_GRASS:
-                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_GRASS];
-                break;
-            case SOUND_FOOTSTEP_RIGHT_GRASS:
-                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_GRASS];
-                break;
-            case SOUND_FOOTSTEP_LEFT_CAVE:
-                [self.soundMgr playSoundWithID:FOOTSTEP_LEFT_CAVE];
-                break;
-            case SOUND_FOOTSTEP_RIGHT_CAVE:
-                [self.soundMgr playSoundWithID:FOOTSTEP_RIGHT_CAVE];
-                break;
-            case SOUND_JUMP_SPRING:
-                [self.soundMgr playSoundWithID:JUMP_SPRING];
-                break;
-            case SOUND_LANDING_GRASS:
-                [self.soundMgr playSoundWithID:LANDING_GRASS];
-                break;
-            case SOUND_LANDING_CAVE:
-                [self.soundMgr playSoundWithID:LANDING_CAVE];
-                break;
-            case SOUND_BREAK_LOG:
-                [self.soundMgr playSoundWithID:BREAK_LOG];
-                break;
-            case SOUND_DESTROY_ROCK:
-                [self.soundMgr playSoundWithID:DESTROY_ROCK];
-                break;
-            case SOUND_SNAKE_DEATH:
-                [self.soundMgr playSoundWithID:SNAKE_DEATH];
-                break;
-            case SOUND_TRIGGER_TRANSFORM:
-                [self.soundMgr playSoundWithID:TRIGGER_TRANSFORM];
-                break;
-            case SOUND_CANCEL_TRANSFORM:
-                [self.soundMgr playSoundWithID:CANCEL_TRANSFORM];
-                break;
-            case SOUND_COMPLETE_TRANSFORM:
-                [self.soundMgr playSoundWithID:COMPLETE_TRANSFORM];
-                break;
-            case SOUND_JUMP_SPRING_HEAVY:
-                [self.soundMgr playSoundWithID:JUMP_SPRING_HEAVY];
-                break;
-            case SOUND_JON_RABBIT_JUMP:
-                [self.soundMgr playSoundWithID:JON_RABBIT_JUMP];
-                break;
-            case SOUND_JON_VAMPIRE_JUMP:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_JUMP];
-                break;
-            case SOUND_JON_RABBIT_DOUBLE_JUMP:
-                [self.soundMgr playSoundWithID:JON_RABBIT_DOUBLE_JUMP];
-                break;
-            case SOUND_JON_VAMPIRE_DOUBLE_JUMP:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_DOUBLE_JUMP];
-                break;
             case SOUND_JON_VAMPIRE_GLIDE:
-                [self.soundMgr playSoundWithID:JON_VAMPIRE_GLIDE isLooping:YES];
+                [self playSound:soundId isLooping:true];
                 break;
             case SOUND_STOP_JON_VAMPIRE_GLIDE:
-                [self.soundMgr stopSoundWithID:JON_VAMPIRE_GLIDE];
+                [self stopSound:SOUND_JON_VAMPIRE_GLIDE];
                 break;
             default:
-                continue;
+                [self playSound:soundId];
+                break;
         }
     }
 }
@@ -281,12 +193,27 @@ enum GameSoundIds {
     }
 }
 
+- (void)playSound:(int)soundId isLooping:(bool)isLooping
+{
+    [self.soundMgr playSoundWithID:soundId - 1 isLooping:isLooping];
+}
+
+- (void)playSound:(int)soundId
+{
+    [self.soundMgr playSoundWithID:soundId - 1];
+}
+
+- (void)stopSound:(int)soundId
+{
+    [self.soundMgr stopSoundWithID:soundId - 1];
+}
+
 - (void)saveLevel:(int)requestedAction
 {
     NSString* levelFileName = [self getLevelName:requestedAction];
     
     bool result = false;
-    const char *level_json = LevelEditor::getInstance()->save();
+    const char *level_json = GameScreenLevelEditor::getInstance()->save();
     
     if (level_json)
     {
@@ -326,7 +253,7 @@ enum GameSoundIds {
         const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
         success = true;
         
-        LevelEditor::getInstance()->load(contentCString);
+        GameScreenLevelEditor::getInstance()->load(contentCString);
     }
     
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
@@ -378,7 +305,7 @@ enum GameSoundIds {
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"break_log.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", nil];
 }
 
 @end

@@ -11,11 +11,11 @@
 #include "GameConstants.h"
 #include "OverlapTester.h"
 
-LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_isShowEntityBoundsRequested(false)
+LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(1), m_showBounds(false), m_isOpen(false)
 {
     m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.60911808669656f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_undoButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.38789237668161, width * 0.68990825688073f, height * 0.08968609865471f));
+    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.63901345291479f, width * 0.68990825688073f, height * 0.08968609865471f));
+    m_exitButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.5134529147982f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_testButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.26233183856502f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_loadButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.1390134529148f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_saveButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.08968609865471f));
@@ -30,12 +30,37 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         switch (te.getTouchType())
         {
             case UP:
-            case DRAGGED:
-                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
-            case DOWN:
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleBoundsButton))
                 {
-                    m_isShowEntityBoundsRequested = !m_isShowEntityBoundsRequested;
+                    if (m_showBounds)
+                    {
+                        m_iBoundsLevelRequested++;
+                        
+                        if (m_iBoundsLevelRequested == 3)
+                        {
+                            m_iBoundsLevelRequested++;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 5)
+                        {
+                            m_iBoundsLevelRequested = 8;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 9)
+                        {
+                            m_iBoundsLevelRequested = 16;
+                        }
+                        
+                        if (m_iBoundsLevelRequested == 17)
+                        {
+                            m_iBoundsLevelRequested = 1;
+                            m_showBounds = false;
+                        }
+                    }
+                    else
+                    {
+                        m_showBounds = true;
+                    }
                     
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
                 }
@@ -43,9 +68,9 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
                 {
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET;
                 }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_undoButton))
+                else if (OverlapTester::isPointInRectangle(touchPoint, *m_exitButton))
                 {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNDO;
+                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT;
                 }
                 else if (OverlapTester::isPointInRectangle(touchPoint, *m_testButton))
                 {
@@ -67,6 +92,10 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
                     
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
                 }
+            case DRAGGED:
+            case DOWN:
+            default:
+                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
         }
     }
     else
@@ -74,9 +103,6 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         switch (te.getTouchType())
         {
             case UP:
-            case DRAGGED:
-                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
-            case DOWN:
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
                 {
                     m_position->setX(getWidth() / 2);
@@ -85,13 +111,22 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
                     
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
                 }
+            case DRAGGED:
+            case DOWN:
+            default:
+                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
         }
     }
     
     return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
 }
 
-bool LevelEditorActionsPanel::isShowEntityBoundsRequested()
+int LevelEditorActionsPanel::boundsLevelRequested()
 {
-    return m_isShowEntityBoundsRequested;
+    return m_iBoundsLevelRequested;
+}
+
+bool LevelEditorActionsPanel::showBounds()
+{
+    return m_showBounds;
 }

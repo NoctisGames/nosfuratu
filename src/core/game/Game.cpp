@@ -8,74 +8,45 @@
 
 #include "Game.h"
 #include "GameConstants.h"
-#include "EntityAnchor.h"
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
 
-#define backgroundSkiesKey "backgroundSkies"
-#define backgroundTreesKey "backgroundTrees"
-#define backgroundCavesKey "backgroundCaves"
-#define treesKey "trees"
+#define midgroundsKey "midgrounds"
 #define groundsKey "grounds"
+#define exitGroundsKey "exitGrounds"
 #define holesKey "holes"
-#define caveExitsKey "caveExits"
-#define logVerticalTallsKey "logVerticalTalls"
-#define logVerticalShortsKey "logVerticalShorts"
-#define thornsKey "thorns"
-#define stumpsKey "stumps"
-#define sideSpikesKey "sideSpikes"
-#define upwardSpikesKey "upwardSpikes"
-#define jumpSpringsKey "jumpSprings"
-#define rocksKey "rocks"
-#define platformsKey "platforms"
-#define endSignsKey "endSigns"
-#define carrotsKey "carrots"
-#define goldenCarrotsKey "goldenCarrots"
+#define foregroundObjectsKey "foregroundObjects"
+#define enemiesKey "enemies"
+#define collectiblesKey "collectibles"
 #define jonsKey "jons"
-#define snakeGruntEnemiesKey "snakeGruntEnemies"
-#define snakeHornedEnemiesKey "snakeHornedEnemies"
 
-Game::Game() : m_fStateTime(0.0f), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
+Game::Game() : m_fStateTime(0.0f), m_fFarRight(ZOOMED_OUT_CAM_WIDTH), m_fFarRightBottom(GAME_HEIGHT / 2), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
 {
-    // Empty
+    for (int i = 0; i < 4; i++)
+    {
+        m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundMids.push_back(new Mid(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundLowers.push_back(new Lower(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
+        m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
+    }
 }
 
 void Game::copy(Game* game)
 {
     reset();
     
-    copyPhysicalEntities(game->getBackgroundSkies(), m_backgroundSkies);
-    copyPhysicalEntities(game->getBackgroundTrees(), m_backgroundTrees);
-    copyPhysicalEntities(game->getBackgroundCaves(), m_backgroundCaves);
-    copyPhysicalEntities(game->getTrees(), m_trees);
+    copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
+    copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
-    copyPhysicalEntities(game->getCaveExits(), m_caveExits);
-    copyPhysicalEntities(game->getLogVerticalTalls(), m_logVerticalTalls);
-    copyPhysicalEntities(game->getLogVerticalShorts(), m_logVerticalShorts);
-    copyPhysicalEntities(game->getThorns(), m_thorns);
-    copyPhysicalEntities(game->getStumps(), m_stumps);
-    copyPhysicalEntities(game->getSideSpikes(), m_sideSpikes);
-    copyPhysicalEntities(game->getUpwardSpikes(), m_upwardSpikes);
-    copyPhysicalEntities(game->getJumpSprings(), m_jumpSprings);
-    copyPhysicalEntities(game->getRocks(), m_rocks);
-    copyPhysicalEntities(game->getPlatforms(), m_platforms);
-    copyPhysicalEntities(game->getEndSigns(), m_endSigns);
-    copyPhysicalEntities(game->getCarrots(), m_carrots);
-    copyPhysicalEntities(game->getGoldenCarrots(), m_goldenCarrots);
-    copyPhysicalEntities(game->getSnakeGruntEnemies(), m_snakeGruntEnemies);
-    copyPhysicalEntities(game->getSnakeHornedEnemies(), m_snakeHornedEnemies);
+    copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
+    copyPhysicalEntities(game->getEnemies(), m_enemies);
+    copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
     
-    setGameToEntities(m_snakeGruntEnemies, this);
-    setGameToEntities(m_snakeHornedEnemies, this);
-    setGameToEntities(m_jons, this);
-    
-    m_iNumTotalCarrots = (int) m_carrots.size();
-    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
-    
-    m_isLoaded = true;
+    onLoaded();
 }
 
 void Game::load(const char* json)
@@ -85,37 +56,16 @@ void Game::load(const char* json)
     rapidjson::Document d;
     d.Parse<0>(json);
     
-    loadArray(m_backgroundSkies, d, backgroundSkiesKey);
-    loadArray(m_backgroundTrees, d, backgroundTreesKey);
-    loadArray(m_backgroundCaves, d, backgroundCavesKey);
-    loadArray(m_trees, d, treesKey);
+    loadArray(m_midgrounds, d, midgroundsKey);
     loadArray(m_grounds, d, groundsKey);
+    loadArray(m_exitGrounds, d, exitGroundsKey);
     loadArray(m_holes, d, holesKey);
-    loadArray(m_caveExits, d, caveExitsKey);
-    loadArray(m_logVerticalTalls, d, logVerticalTallsKey);
-    loadArray(m_logVerticalShorts, d, logVerticalShortsKey);
-    loadArray(m_thorns, d, thornsKey);
-    loadArray(m_stumps, d, stumpsKey);
-    loadArray(m_sideSpikes, d, sideSpikesKey);
-    loadArray(m_upwardSpikes, d, upwardSpikesKey);
-    loadArray(m_jumpSprings, d, jumpSpringsKey);
-    loadArray(m_rocks, d, rocksKey);
-    loadArray(m_platforms, d, platformsKey);
-    loadArray(m_endSigns, d, endSignsKey);
-    loadArray(m_carrots, d, carrotsKey);
-    loadArray(m_goldenCarrots, d, goldenCarrotsKey);
-    loadArray(m_snakeGruntEnemies, d, snakeGruntEnemiesKey);
-    loadArray(m_snakeHornedEnemies, d, snakeHornedEnemiesKey);
+    loadArray(m_foregroundObjects, d, foregroundObjectsKey);
+    loadArray(m_enemies, d, enemiesKey);
+    loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     
-    setGameToEntities(m_snakeGruntEnemies, this);
-    setGameToEntities(m_snakeHornedEnemies, this);
-    setGameToEntities(m_jons, this);
-    
-    m_iNumTotalCarrots = (int) m_carrots.size();
-    m_iNumTotalGoldenCarrots = (int) m_goldenCarrots.size();
-    
-    m_isLoaded = true;
+    onLoaded();
 }
 
 const char* Game::save()
@@ -130,27 +80,13 @@ const char* Game::save()
     
     w.StartObject();
     
-    saveArray(m_backgroundSkies, w, backgroundSkiesKey);
-    saveArray(m_backgroundTrees, w, backgroundTreesKey);
-    saveArray(m_backgroundCaves, w, backgroundCavesKey);
-    saveArray(m_trees, w, treesKey);
+    saveArray(m_midgrounds, w, midgroundsKey);
     saveArray(m_grounds, w, groundsKey);
+    saveArray(m_exitGrounds, w, exitGroundsKey);
     saveArray(m_holes, w, holesKey);
-    saveArray(m_caveExits, w, caveExitsKey);
-    saveArray(m_logVerticalTalls, w, logVerticalTallsKey);
-    saveArray(m_logVerticalShorts, w, logVerticalShortsKey);
-    saveArray(m_thorns, w, thornsKey);
-    saveArray(m_stumps, w, stumpsKey);
-    saveArray(m_sideSpikes, w, sideSpikesKey);
-    saveArray(m_upwardSpikes, w, upwardSpikesKey);
-    saveArray(m_jumpSprings, w, jumpSpringsKey);
-    saveArray(m_rocks, w, rocksKey);
-    saveArray(m_platforms, w, platformsKey);
-    saveArray(m_endSigns, w, endSignsKey);
-    saveArray(m_carrots, w, carrotsKey);
-    saveArray(m_goldenCarrots, w, goldenCarrotsKey);
-    saveArray(m_snakeGruntEnemies, w, snakeGruntEnemiesKey);
-    saveArray(m_snakeHornedEnemies, w, snakeHornedEnemiesKey);
+    saveArray(m_foregroundObjects, w, foregroundObjectsKey);
+    saveArray(m_enemies, w, enemiesKey);
+    saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
     
     w.EndObject();
@@ -160,27 +96,13 @@ const char* Game::save()
 
 void Game::reset()
 {
-    m_backgroundSkies.clear();
-    m_backgroundTrees.clear();
-    m_backgroundCaves.clear();
-    m_trees.clear();
+    m_midgrounds.clear();
     m_grounds.clear();
+    m_exitGrounds.clear();
     m_holes.clear();
-    m_caveExits.clear();
-    m_logVerticalTalls.clear();
-    m_logVerticalShorts.clear();
-    m_thorns.clear();
-    m_stumps.clear();
-    m_sideSpikes.clear();
-    m_upwardSpikes.clear();
-    m_jumpSprings.clear();
-    m_rocks.clear();
-    m_platforms.clear();
-    m_endSigns.clear();
-    m_carrots.clear();
-    m_goldenCarrots.clear();
-    m_snakeGruntEnemies.clear();
-    m_snakeHornedEnemies.clear();
+    m_foregroundObjects.clear();
+    m_enemies.clear();
+    m_collectibleItems.clear();
     m_jons.clear();
     
     m_fStateTime = 0;
@@ -196,52 +118,31 @@ void Game::update(float deltaTime)
 
 void Game::updateAndClean(float deltaTime)
 {
-    EntityUtils::updateAndClean(getTrees(), deltaTime);
+    EntityUtils::updateAndClean(getMidgrounds(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
+    EntityUtils::updateAndClean(getExitGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);
-    EntityUtils::updateAndClean(getCaveExits(), deltaTime);
-    EntityUtils::updateAndClean(getLogVerticalTalls(), deltaTime);
-    EntityUtils::updateAndClean(getLogVerticalShorts(), deltaTime);
-    EntityUtils::updateAndClean(getThorns(), deltaTime);
-    EntityUtils::updateAndClean(getStumps(), deltaTime);
-    EntityUtils::updateAndClean(getSideSpikes(), deltaTime);
-    EntityUtils::updateAndClean(getUpwardSpikes(), deltaTime);
-    EntityUtils::updateAndClean(getJumpSprings(), deltaTime);
-    EntityUtils::updateAndClean(getRocks(), deltaTime);
-    EntityUtils::updateAndClean(getPlatforms(), deltaTime);
-    EntityUtils::updateAndClean(getEndSigns(), deltaTime);
-    EntityUtils::updateAndClean(getCarrots(), deltaTime);
-    EntityUtils::updateAndClean(getGoldenCarrots(), deltaTime);
-    EntityUtils::updateAndClean(getSnakeGruntEnemies(), deltaTime);
-    EntityUtils::updateAndClean(getSnakeHornedEnemies(), deltaTime);
-    EntityUtils::update(getJons(), deltaTime);
+    EntityUtils::updateAndClean(getForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getEnemies(), deltaTime);
+    EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
+    
+	if (getJons().size() >= 1)
+	{
+		getJon().update(deltaTime);
+	}
 }
 
 int Game::calcSum()
 {
     int sum = 0;
     
-    sum += m_backgroundSkies.size();
-    sum += m_backgroundTrees.size();
-    sum += m_backgroundCaves.size();
-    sum += m_trees.size();
+    sum += m_midgrounds.size();
     sum += m_grounds.size();
+    sum += m_exitGrounds.size();
     sum += m_holes.size();
-    sum += m_caveExits.size();
-    sum += m_logVerticalTalls.size();
-    sum += m_logVerticalShorts.size();
-    sum += m_thorns.size();
-    sum += m_stumps.size();
-    sum += m_sideSpikes.size();
-    sum += m_upwardSpikes.size();
-    sum += m_jumpSprings.size();
-    sum += m_rocks.size();
-    sum += m_platforms.size();
-    sum += m_endSigns.size();
-    sum += m_carrots.size();
-    sum += m_goldenCarrots.size();
-    sum += m_snakeGruntEnemies.size();
-    sum += m_snakeHornedEnemies.size();
+    sum += m_foregroundObjects.size();
+    sum += m_enemies.size();
+    sum += m_collectibleItems.size();
     sum += m_jons.size();
     
     return sum;
@@ -249,37 +150,36 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    return !EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime) && !isFallingThroughCaveExit(getJon(), getCaveExits(), deltaTime) && (EntityUtils::isLanding(getJon(), getGrounds(), deltaTime) || EntityUtils::isLanding(getJon(), getPlatforms(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isLanding(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isLanding(getJon(), getStumps(), deltaTime) || EntityUtils::isLanding(getJon(), getRocks(), deltaTime) || EntityUtils::isLanding(getJon(), getCaveExits(), deltaTime) || EntityUtils::isLanding(getJon(), getJumpSprings(), deltaTime));
+    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime))
+    {
+        return false;
+    }
+    
+    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getEnemies(), deltaTime);
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalTalls(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getLogVerticalShorts(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getStumps(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getRocks(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getUpwardSpikes(), deltaTime) || EntityUtils::isBlockedOnRight(getJon(), getJumpSprings(), deltaTime);
+    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
-    return (!isBurstingThroughCaveToSurface(getJon(), getCaveExits(), deltaTime) && EntityUtils::isBlockedAbove(getJon(), getCaveExits(), deltaTime)) || EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime);
-}
-
-bool Game::isJonHit()
-{
-    return EntityUtils::isHit(getJon(), getThorns()) || EntityUtils::isHit(getJon(), getSideSpikes()) || EntityUtils::isFallingIntoDeath(getJon(), getUpwardSpikes()) || EntityUtils::isKilledByEnemy(getJon(), getSnakeGruntEnemies()) || EntityUtils::isKilledByEnemy(getJon(), getSnakeHornedEnemies());
-}
-
-bool Game::isJonLandingOnSpring(float deltaTime)
-{
-    return EntityUtils::isLandingOnSpring(getJon(), getJumpSprings(), deltaTime);
-}
-
-bool Game::isJonLandingOnEnemy(float deltaTime)
-{
-    return EntityUtils::isLandingOnEnemy(getJon(), getSnakeGruntEnemies(), deltaTime);
+    return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
 }
 
 bool Game::isSpinningBackFistDelivered(float deltaTime)
 {
-    return EntityUtils::isHitting(getJon(), getLogVerticalTalls()) || EntityUtils::isHitting(getJon(), getLogVerticalShorts()) || EntityUtils::isHitting(getJon(), getRocks()) || EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getSnakeGruntEnemies()) || EntityUtils::isHorizontallyHittingAnEnemy(getJon(), getSnakeHornedEnemies());
+    return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
+    || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime);
 }
 
 bool Game::isBurrowEffective()
@@ -287,144 +187,85 @@ bool Game::isBurrowEffective()
     return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
 }
 
-bool Game::isUpwardThrustEffectiveAgainstEnemy()
+bool Game::isUpwardThrustEffective(float deltaTime)
 {
-    return EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeGruntEnemies()) || EntityUtils::isHittingEnemyFromBelow(getJon(), getSnakeHornedEnemies());
+    return EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
+    || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime);
 }
 
-std::vector<std::unique_ptr<BackgroundSky>>& Game::getBackgroundSkies()
+std::vector<Background *>& Game::getBackgroundUppers()
 {
-    return m_backgroundSkies;
+    return m_backgroundUppers;
 }
 
-std::vector<std::unique_ptr<BackgroundTrees>>& Game::getBackgroundTrees()
+std::vector<Background *>& Game::getBackgroundMids()
 {
-    return m_backgroundTrees;
+    return m_backgroundMids;
 }
 
-std::vector<std::unique_ptr<BackgroundCave>>& Game::getBackgroundCaves()
+std::vector<Background *>& Game::getBackgroundLowers()
 {
-    return m_backgroundCaves;
+    return m_backgroundLowers;
 }
 
-std::vector<std::unique_ptr<Tree>>& Game::getTrees()
+std::vector<Midground *>& Game::getMidgrounds()
 {
-    return m_trees;
+    return m_midgrounds;
 }
 
-std::vector<std::unique_ptr<Ground>>& Game::getGrounds()
+std::vector<Background *>& Game::getBackgroundMidgroundCovers()
+{
+    return m_backgroundMidgroundCovers;
+}
+
+std::vector<Ground *>& Game::getGrounds()
 {
     return m_grounds;
 }
 
-std::vector<std::unique_ptr<Hole>>& Game::getHoles()
+std::vector<ExitGround *>& Game::getExitGrounds()
+{
+    return m_exitGrounds;
+}
+
+std::vector<Hole *>& Game::getHoles()
 {
     return m_holes;
 }
 
-std::vector<std::unique_ptr<CaveExit>>& Game::getCaveExits()
+std::vector<ForegroundObject *>& Game::getForegroundObjects()
 {
-    return m_caveExits;
+    return m_foregroundObjects;
 }
 
-std::vector<std::unique_ptr<LogVerticalTall>>& Game::getLogVerticalTalls()
+std::vector<Enemy *>& Game::getEnemies()
 {
-    return m_logVerticalTalls;
+    return m_enemies;
 }
 
-std::vector<std::unique_ptr<LogVerticalShort>>& Game::getLogVerticalShorts()
+std::vector<CollectibleItem *>& Game::getCollectibleItems()
 {
-    return m_logVerticalShorts;
+    return m_collectibleItems;
 }
 
-std::vector<std::unique_ptr<Thorns>>& Game::getThorns()
-{
-    return m_thorns;
-}
-
-std::vector<std::unique_ptr<Stump>>& Game::getStumps()
-{
-    return m_stumps;
-}
-
-std::vector<std::unique_ptr<SideSpike>>& Game::getSideSpikes()
-{
-    return m_sideSpikes;
-}
-
-std::vector<std::unique_ptr<UpwardSpike>>& Game::getUpwardSpikes()
-{
-    return m_upwardSpikes;
-}
-
-std::vector<std::unique_ptr<JumpSpring>>& Game::getJumpSprings()
-{
-    return m_jumpSprings;
-}
-
-std::vector<std::unique_ptr<Rock>>& Game::getRocks()
-{
-    return m_rocks;
-}
-
-std::vector<std::unique_ptr<GroundPlatform>>& Game::getPlatforms()
-{
-    return m_platforms;
-}
-
-std::vector<std::unique_ptr<EndSign>>& Game::getEndSigns()
-{
-    return m_endSigns;
-}
-
-std::vector<std::unique_ptr<Carrot>>& Game::getCarrots()
-{
-    return m_carrots;
-}
-
-std::vector<std::unique_ptr<GoldenCarrot>>& Game::getGoldenCarrots()
-{
-    return m_goldenCarrots;
-}
-
-std::vector<std::unique_ptr<SnakeGrunt>>& Game::getSnakeGruntEnemies()
-{
-    return m_snakeGruntEnemies;
-}
-
-std::vector<std::unique_ptr<SnakeHorned>>& Game::getSnakeHornedEnemies()
-{
-    return m_snakeHornedEnemies;
-}
-
-std::vector<std::unique_ptr<Jon>>& Game::getJons()
+std::vector<Jon *>& Game::getJons()
 {
     return m_jons;
 }
 
 Jon& Game::getJon()
 {
-    return *getJons().at(getJons().size() - 1).get();
+    return *getJons().at(0);
 }
 
 float Game::getFarRight()
 {
-    if (getEndSigns().size() == 0)
-    {
-        return ZOOMED_OUT_CAM_WIDTH;
-    }
-    
-    return getEndSigns().at(0)->getPosition().getX() + getEndSigns().at(0)->getWidth();
+    return m_fFarRight;
 }
 
 float Game::getFarRightBottom()
 {
-    if (getEndSigns().size() == 0)
-    {
-        return 8.750433275563259f;
-    }
-    
-    return getEndSigns().at(0)->getPosition().getY() - getJon().getHeight() / 2;
+    return m_fFarRightBottom;
 }
 
 float Game::getStateTime()
@@ -437,9 +278,37 @@ int Game::getNumTotalCarrots()
     return m_iNumTotalCarrots;
 }
 
+int Game::getNumRemainingCarrots()
+{
+    int numRemaining = 0;
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    {
+        if ((*i)->getType() == CollectibleItemType_Carrot)
+        {
+            numRemaining++;
+        }
+    }
+    
+    return numRemaining;
+}
+
 int Game::getNumTotalGoldenCarrots()
 {
     return m_iNumTotalGoldenCarrots;
+}
+
+int Game::getNumRemainingGoldenCarrots()
+{
+    int numRemaining = 0;
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    {
+        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
+        {
+            numRemaining++;
+        }
+    }
+    
+    return numRemaining;
 }
 
 bool Game::isLoaded()
@@ -447,59 +316,39 @@ bool Game::isLoaded()
     return m_isLoaded;
 }
 
-bool Game::isBurstingThroughCaveToSurface(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
+void Game::calcFarRight()
 {
-    float entityVelocityY = entity.getVelocity().getY();
-    float entityLeft = entity.getBounds().getLowerLeft().getX();
-    float entityBottom = entity.getBounds().getLowerLeft().getY();
-    
-    if (entityVelocityY > 13.1f)
+    for (std::vector<Ground *>::iterator i = m_grounds.begin(); i != m_grounds.end(); i++)
     {
-        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
+        float right = (*i)->getBounds().getRight();
+        if (right > m_fFarRight)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
-            {
-                float itemLeft = (*i)->getHoleBounds().getLowerLeft().getX();
-                float itemTop = (*i)->getHoleBounds().getTop();
-                
-                if (itemLeft < entityLeft && entityBottom < itemTop)
-                {
-                    (*i)->triggerEruption();
-                    
-                    return true;
-                }
-            }
+            m_fFarRight = right;
         }
     }
     
-    return false;
+    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+    {
+        if (dynamic_cast<EndSign *>((*i)))
+        {
+            m_fFarRight = (*i)->getBounds().getRight();
+            m_fFarRightBottom = (*i)->getBounds().getBottom();
+            break;
+        }
+    }
 }
 
-bool Game::isFallingThroughCaveExit(PhysicalEntity& entity, std::vector<std::unique_ptr<CaveExit>>& items, float deltaTime)
+#pragma mark private
+
+void Game::onLoaded()
 {
-    float entityVelocityY = entity.getVelocity().getY();
-    float entityLowerLeftX = entity.getBounds().getLowerLeft().getX();
-    float entityRight = entity.getBounds().getRight();
+    setGameToEntities(m_jons, this);
+    setGameToEntities(m_enemies, this);
     
-    if (entityVelocityY <= 0)
-    {
-        for (std::vector<std::unique_ptr<CaveExit>>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            if (!(*i)->hasCover())
-            {
-                float itemLowerLeftX = (*i)->getHoleBounds().getLowerLeft().getX();
-                float itemRight = (*i)->getHoleBounds().getRight();
-                
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getHoleBounds()))
-                {
-                    if (entityLowerLeftX >= itemLowerLeftX && entityRight <= itemRight)
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
+    m_iNumTotalCarrots = getNumRemainingCarrots();
+    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     
-    return false;
+    calcFarRight();
+    
+    m_isLoaded = true;
 }

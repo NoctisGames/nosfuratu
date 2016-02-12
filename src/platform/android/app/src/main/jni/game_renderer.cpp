@@ -10,15 +10,14 @@
 #include <stdio.h>
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
-#include "GameScreenStates.h"
-#include "LevelEditor.h"
+#include "GameScreenLevelEditor.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
 
 /* These functions are called from Java. */
 extern "C"
 {
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor);
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls);
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1created(JNIEnv * env, jclass cls);
 
@@ -53,12 +52,12 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
 };
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls, jboolean is_level_editor)
+JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_init(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen = new AndroidOpenGLESGameScreen(is_level_editor);
+	gameScreen = new AndroidOpenGLESGameScreen();
 }
 
 JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_on_1surface_1created(JNIEnv * env, jclass cls)
@@ -179,7 +178,7 @@ JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_load_1level(
 
 	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
 
-	LevelEditor::getInstance()->load(nativeLevelJson);
+	GameScreenLevelEditor::getInstance()->load(nativeLevelJson);
 }
 
 JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
@@ -187,7 +186,7 @@ JNIEXPORT bool JNICALL Java_com_gowengamedev_nosfuratu_GameRenderer_save_1level(
 	UNUSED(env);
 	UNUSED(cls);
 
-	const char *level_json = LevelEditor::getInstance()->save();
+	const char *level_json = GameScreenLevelEditor::getInstance()->save();
 	const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
 	if (level_json)
 	{

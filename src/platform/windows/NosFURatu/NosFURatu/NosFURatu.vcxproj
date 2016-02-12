@@ -206,227 +206,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\game_objects.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_ability.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\jon_poses.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\title_font.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -558,7 +338,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_poses.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\misc.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -602,7 +382,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire_transform.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_lower.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -646,7 +426,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_mid.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -690,7 +470,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cave.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_upper.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -734,315 +514,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_wo_cave.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground_w_cave.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_misc.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_snake_cave.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_game_objects.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1130,183 +602,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon_ability.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon_poses.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_level_editor.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_title_font.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_trans_death_shader_helper.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_misc.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1394,7 +690,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire_poses.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1438,7 +734,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire_transform.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1482,7 +778,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1526,7 +822,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_cave.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1614,95 +910,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground_wo_cave.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground_w_cave.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_misc.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_midground.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1790,7 +998,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_snake_cave.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1834,7 +1042,51 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_map.png">
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_midground.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe -m 1 -nologo %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\DirectXTex-aug2015\Texconv\Bin\Desktop_2015\Win32\Release\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -1931,47 +1183,27 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundCave.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundSky.h" />
-    <ClInclude Include="..\..\..\..\core\game\BackgroundTrees.h" />
-    <ClInclude Include="..\..\..\..\core\game\Carrot.h" />
-    <ClInclude Include="..\..\..\..\core\game\CaveExit.h" />
-    <ClInclude Include="..\..\..\..\core\game\CaveExitCover.h" />
-    <ClInclude Include="..\..\..\..\core\game\DestructiblePhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\Background.h" />
+    <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
-    <ClInclude Include="..\..\..\..\core\game\EndSign.h" />
+    <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
+    <ClInclude Include="..\..\..\..\core\game\EnemySpirit.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
+    <ClInclude Include="..\..\..\..\core\game\ExitGround.h" />
+    <ClInclude Include="..\..\..\..\core\game\ExitGroundCover.h" />
+    <ClInclude Include="..\..\..\..\core\game\ForegroundObject.h" />
     <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
-    <ClInclude Include="..\..\..\..\core\game\GoldenCarrot.h" />
+    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\Ground.h" />
-    <ClInclude Include="..\..\..\..\core\game\GroundPlatform.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
     <ClInclude Include="..\..\..\..\core\game\Hole.h" />
     <ClInclude Include="..\..\..\..\core\game\HoleCover.h" />
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonAbilityState.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonActionState.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonPhysicalState.h" />
-    <ClInclude Include="..\..\..\..\core\game\JonState.h" />
-    <ClInclude Include="..\..\..\..\core\game\JumpSpring.h" />
-    <ClInclude Include="..\..\..\..\core\game\LandPhysicalEntity.h" />
-    <ClInclude Include="..\..\..\..\core\game\LogVerticalShort.h" />
-    <ClInclude Include="..\..\..\..\core\game\LogVerticalTall.h" />
-    <ClInclude Include="..\..\..\..\core\game\Rock.h" />
-    <ClInclude Include="..\..\..\..\core\game\SideSpike.h" />
-    <ClInclude Include="..\..\..\..\core\game\SnakeEnemy.h" />
-    <ClInclude Include="..\..\..\..\core\game\SnakeGrunt.h" />
-    <ClInclude Include="..\..\..\..\core\game\SnakeHorned.h" />
-    <ClInclude Include="..\..\..\..\core\game\SnakeSpirit.h" />
-    <ClInclude Include="..\..\..\..\core\game\Stump.h" />
-    <ClInclude Include="..\..\..\..\core\game\Thorns.h" />
-    <ClInclude Include="..\..\..\..\core\game\Tree.h" />
-    <ClInclude Include="..\..\..\..\core\game\TreeType.h" />
+    <ClInclude Include="..\..\..\..\core\game\Midground.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\Chapter1Levels.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.h" />
@@ -1982,10 +1214,15 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenStates.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTransitions.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
@@ -1996,7 +1233,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
-    <ClInclude Include="..\..\..\..\core\game\UpwardSpike.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -2041,39 +1277,23 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundCave.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundSky.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\BackgroundTrees.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Carrot.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\CaveExit.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\CaveExitCover.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\DestructiblePhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\EndSign.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\EntityUtils.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EnemySpirit.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GoldenCarrot.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GroundPlatform.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\JumpSpring.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\LandPhysicalEntity.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\LogVerticalShort.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\LogVerticalTall.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Rock.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SideSpike.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeEnemy.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeGrunt.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeHorned.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\SnakeSpirit.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Stump.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Thorns.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\Tree.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Levels.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.cpp" />
@@ -2084,10 +1304,15 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenStates.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />
@@ -2097,7 +1322,6 @@
     <ClCompile Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\UpwardSpike.cpp" />
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
@@ -2320,14 +1544,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\break_log.wav">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </Media>
     <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -2457,6 +1673,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mushroom_bounce.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>

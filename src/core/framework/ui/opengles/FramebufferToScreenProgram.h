@@ -20,6 +20,7 @@ typedef struct
     
     GLint a_position_location;
     GLint u_texture_unit_location;
+    GLint u_direction_location;
 } FramebufferToScreenProgramStruct;
 
 class FramebufferToScreenProgram

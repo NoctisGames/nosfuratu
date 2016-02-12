@@ -8,7 +8,21 @@
 
 #include "OpenGLESGameScreen.h"
 
-OpenGLESGameScreen::OpenGLESGameScreen(bool isLevelEditor) : GameScreen(isLevelEditor)
+OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
 {
     // Empty
+}
+
+void OpenGLESGameScreen::init(int screenWidth, int screenHeight)
+{
+    OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
+    
+    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 8192);
+    
+    if (!m_renderer)
+    {
+        m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
+    }
+    
+    m_stateMachine->getCurrentState()->enter(this);
 }

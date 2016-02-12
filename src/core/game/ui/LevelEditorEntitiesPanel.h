@@ -14,29 +14,18 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "Tree.h"
-#include "Ground.h"
-#include "Hole.h"
-#include "CaveExit.h"
-#include "LogVerticalTall.h"
-#include "LogVerticalShort.h"
-#include "Thorns.h"
-#include "Stump.h"
-#include "SideSpike.h"
-#include "UpwardSpike.h"
-#include "JumpSpring.h"
-#include "Rock.h"
-#include "GroundPlatform.h"
-#include "EndSign.h"
-#include "Carrot.h"
-#include "GoldenCarrot.h"
 #include "OverlapTester.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "Enemy.h"
+#include "CollectibleItem.h"
 #include "Jon.h"
-#include "SnakeEnemy.h"
-#include "SnakeGrunt.h"
-#include "SnakeHorned.h"
 
 #include <vector>
+#include <math.h>
 
 class Game;
 
@@ -51,43 +40,21 @@ public:
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
-    std::vector<std::unique_ptr<Jon>>& getJons();
+    std::vector<Midground *>& getMidgrounds();
     
-    std::vector<std::unique_ptr<Tree>>& getTrees();
+    std::vector<Ground *>& getGrounds();
     
-    std::vector<std::unique_ptr<Ground>>& getGrounds();
+    std::vector<ExitGround *>& getExitGrounds();
     
-    std::vector<std::unique_ptr<Hole>>& getHoles();
+    std::vector<Hole *>& getHoles();
     
-    std::vector<std::unique_ptr<CaveExit>>& getCaveExits();
+    std::vector<ForegroundObject *>& getForegroundObjects();
     
-    std::vector<std::unique_ptr<LogVerticalTall>>& getLogVerticalTalls();
+    std::vector<Enemy *>& getEnemies();
     
-    std::vector<std::unique_ptr<LogVerticalShort>>& getLogVerticalShorts();
+    std::vector<CollectibleItem *>& getCollectibleItems();
     
-    std::vector<std::unique_ptr<Thorns>>& getThorns();
-    
-    std::vector<std::unique_ptr<Stump>>& getStumps();
-    
-    std::vector<std::unique_ptr<SideSpike>>& getSideSpikes();
-    
-    std::vector<std::unique_ptr<UpwardSpike>>& getUpwardSpikes();
-    
-    std::vector<std::unique_ptr<JumpSpring>>& getJumpSprings();
-    
-    std::vector<std::unique_ptr<Rock>>& getRocks();
-    
-    std::vector<std::unique_ptr<GroundPlatform>>& getPlatforms();
-    
-    std::vector<std::unique_ptr<EndSign>>& getEndSigns();
-    
-    std::vector<std::unique_ptr<Carrot>>& getCarrots();
-    
-    std::vector<std::unique_ptr<GoldenCarrot>>& getGoldenCarrots();
-    
-    std::vector<std::unique_ptr<SnakeGrunt>>& getSnakeGruntEnemies();
-    
-    std::vector<std::unique_ptr<SnakeHorned>>& getSnakeHornedEnemies();
+    std::vector<Jon *>& getJons();
     
     float getEntitiesCameraPos();
     
@@ -95,14 +62,13 @@ public:
     
 private:
     template<typename T>
-    static bool isTouchingEntityForPlacement(std::vector<std::unique_ptr<T>>& items, std::vector<std::unique_ptr<T>>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
+    static bool isTouchingEntityForPlacement(std::vector<T*>& items, std::vector<T*>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
     {
         int retVal = -1;
         int index = 0;
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++, index++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* item = upItem.get();
+            T* item = *i;
             float width = item->getWidth();
             float height = item->getHeight();
             float x = item->getPosition().getX() - width / 2;
@@ -119,7 +85,7 @@ private:
         if (retVal != -1)
         {
             T* pT = T::create(x, y, items.at(index)->getType());
-            gameItems.push_back(std::unique_ptr<T>(pT));
+            gameItems.push_back(pT);
             
             *lastAddedEntity = pT;
         }
@@ -128,40 +94,49 @@ private:
     }
     
     template<typename T>
-    static void boxInAll(std::vector<std::unique_ptr<T>>& items, float size)
+    static int boxInAll(std::vector<T*>& items, float eX, float eY, float eWidth, float eHeight, int index)
     {
-        for (typename std::vector<std::unique_ptr<T>>::iterator i = items.begin(); i != items.end(); i++)
+        float size = fminf(eWidth, eHeight);
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            std::unique_ptr<T>& upItem = *i;
-            T* item = upItem.get();
-            item->boxIn(size);
+            T* item = *i;
+            
+            item->getPosition().set(eX, eY + (index++ * eHeight));
+            item->setWidth(eWidth);
+            item->setHeight(eHeight);
+            
+            if (item->getWidth() > item->getHeight())
+            {
+                item->setHeight(item->getHeight() / item->getWidth());
+                item->setHeight(item->getHeight() * size);
+                item->setWidth(size);
+            }
+            else
+            {
+                item->setWidth(item->getWidth() / item->getHeight());
+                item->setWidth(item->getWidth() * size);
+                item->setHeight(size);
+            }
         }
+        
+        return index;
     }
     
-    std::vector<std::unique_ptr<Jon>> m_jons;
-    std::vector<std::unique_ptr<Tree>> m_trees;
-    std::vector<std::unique_ptr<Ground>> m_grounds;
-    std::vector<std::unique_ptr<Hole>> m_holes;
-    std::vector<std::unique_ptr<CaveExit>> m_caveExits;
-    std::vector<std::unique_ptr<LogVerticalTall>> m_logVerticalTalls;
-    std::vector<std::unique_ptr<LogVerticalShort>> m_logVerticalShorts;
-    std::vector<std::unique_ptr<Thorns>> m_thorns;
-    std::vector<std::unique_ptr<Stump>> m_stumps;
-    std::vector<std::unique_ptr<SideSpike>> m_sideSpikes;
-    std::vector<std::unique_ptr<UpwardSpike>> m_upwardSpikes;
-    std::vector<std::unique_ptr<JumpSpring>> m_jumpSprings;
-    std::vector<std::unique_ptr<Rock>> m_rocks;
-    std::vector<std::unique_ptr<GroundPlatform>> m_platforms;
-    std::vector<std::unique_ptr<EndSign>> m_endSigns;
-    std::vector<std::unique_ptr<Carrot>> m_carrots;
-    std::vector<std::unique_ptr<GoldenCarrot>> m_goldenCarrots;
-    std::vector<std::unique_ptr<SnakeGrunt>> m_snakeGruntEnemies;
-    std::vector<std::unique_ptr<SnakeHorned>> m_snakeHornedEnemies;
+    std::vector<Midground *> m_midgrounds;
+    std::vector<Ground *> m_grounds;
+    std::vector<ExitGround *> m_exitGrounds;
+    std::vector<Hole *> m_holes;
+    std::vector<ForegroundObject *> m_foregroundObjects;
+    std::vector<Enemy *> m_enemies;
+    std::vector<CollectibleItem *> m_collectibleItems;
+    std::vector<Jon *> m_jons;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Vector2D> m_touchPointDown2;
+    
     float m_fEntitiesCameraPos;
     float m_fEntitiesHeight;
     bool m_isOpen;

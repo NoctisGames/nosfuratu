@@ -9,30 +9,47 @@
 #ifndef __nosfuratu__Hole__
 #define __nosfuratu__Hole__
 
-#include "PhysicalEntity.h"
+#include "GridLockedPhysicalEntity.h"
 #include "HoleCover.h"
 
-#include <vector>
+typedef enum
+{
+    HoleType_Grass,
+    HoleType_Cave
+} HoleType;
 
-class Hole : public PhysicalEntity
+class Hole : public GridLockedPhysicalEntity
 {
 public:
-    static Hole* create(float x, float y, int type);
+    static Hole* create(int gridX, int gridY, int type);
     
-    Hole(float x, float y = 8.095320623916809f, float width = 3.187749667110519f, float height = 2.229027962716378f);
+    Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type);
     
     virtual void update(float deltaTime);
     
-    void triggerBurrow();
+    bool triggerBurrow();
     
     bool hasCover();
     
-    std::vector<std::unique_ptr<HoleCover>>& getHoleCovers();
+    HoleCover& getHoleCover();
     
-    int getType();
+    HoleType getType();
     
 private:
-    std::vector<std::unique_ptr<HoleCover>> m_holeCovers;
+    HoleCover* m_holeCover;
+    HoleType m_type;
+};
+
+class HoleGrass : public Hole
+{
+public:
+    HoleGrass(int gridX) : Hole(gridX, 80, 16, 16, HoleType_Grass) {}
+};
+
+class HoleCave : public Hole
+{
+public:
+    HoleCave(int gridX) : Hole(gridX, 32, 17, 24, HoleType_Cave) {}
 };
 
 #endif /* defined(__nosfuratu__Hole__) */

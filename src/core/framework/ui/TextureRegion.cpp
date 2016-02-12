@@ -20,3 +20,9 @@ void TextureRegion::init(int x, int y, int regionWidth, int regionHeight, int te
     u2 = u1 + regionWidth / (float) textureWidth;
     v2 = v1 + regionHeight / (float) textureHeight;
 }
+
+void TextureRegion::init(int x, int regionWidth, int textureWidth)
+{
+    u1 = x / (float) textureWidth;
+    u2 = u1 + regionWidth / (float) textureWidth;
+}

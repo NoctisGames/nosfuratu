@@ -9,11 +9,7 @@
 #ifndef __nosfuratu__Jon__
 #define __nosfuratu__Jon__
 
-#include "PhysicalEntity.h"
-#include "JonState.h"
-#include "JonPhysicalState.h"
-#include "JonActionState.h"
-#include "JonAbilityState.h"
+#include "GridLockedPhysicalEntity.h"
 #include "Color.h"
 #include "DustCloud.h"
 #include "GroundSoundType.h"
@@ -25,12 +21,41 @@
 
 class Game;
 
-class Jon : public PhysicalEntity
+typedef enum
+{
+    ABILITY_NONE,
+    ABILITY_SPINNING_BACK_FIST,
+    ABILITY_BURROW,
+    ABILITY_GLIDE,
+    ABILITY_UPWARD_THRUST
+} JonAbilityState;
+
+typedef enum
+{
+    ACTION_NONE,
+    ACTION_JUMPING,
+    ACTION_DOUBLE_JUMPING
+} JonActionState;
+
+typedef enum
+{
+    PHYSICAL_GROUNDED,
+    PHYSICAL_IN_AIR
+} JonPhysicalState;
+
+typedef enum
+{
+    JON_ALIVE,
+    JON_DYING,
+    JON_DEAD
+} JonState;
+
+class Jon : public GridLockedPhysicalEntity
 {
 public:
-    static Jon* create(float x, float y, int type);
+    static Jon* create(int gridX, int gridY, int type);
     
-    Jon(float x, float y, float width = 2.2f, float height = 2.2f);
+    Jon(int gridX, int gridY, int gridWidth = 16, int gridHeight = 16);
     
     virtual void update(float deltaTime);
     
@@ -52,9 +77,9 @@ public:
     
     void triggerDownAction();
     
-    std::vector<std::unique_ptr<DustCloud>>& getDustClouds();
+    std::vector<DustCloud *>& getDustClouds();
     
-    std::vector<std::unique_ptr<Jon>>& getAfterImages();
+    std::vector<Jon *>& getAfterImages();
     
     JonState getState();
     
@@ -98,7 +123,11 @@ public:
     
     void setGroundSoundType(GroundSoundType groundSoundType);
     
-    void setBoostVelocity(int boostVelocity);
+    void triggerBoost(float boostVelocity);
+    
+    void triggerBoostOffEnemy(float boostVelocity);
+    
+    void triggerBounceDownardsOffEnemy(float bounceBackVelocity);
     
     bool isVampire();
     
@@ -114,11 +143,15 @@ public:
     
     void beginWarmingUp();
     
+    float getGravity();
+    
+    void kill();
+    
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;
-    std::vector<std::unique_ptr<DustCloud>> m_dustClouds;
-    std::vector<std::unique_ptr<Jon>> m_afterImages;
+    std::vector<DustCloud *> m_dustClouds;
+    std::vector<Jon *> m_afterImages;
     JonState m_state;
     JonPhysicalState m_physicalState;
     JonActionState m_actionState;
@@ -135,7 +168,6 @@ private:
 	float m_fAccelerationX;
     float m_fGravity;
     int m_iNumJumps;
-    int m_iBoostVelocity;
     bool m_isLanding;
     bool m_isRightFoot;
     bool m_isAllowedToMove;

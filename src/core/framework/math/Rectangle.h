@@ -24,6 +24,10 @@ public:
     
     float getTop();
     
+    float getLeft();
+    
+    float getBottom();
+    
     float getWidth();
     
     void setWidth(float width);

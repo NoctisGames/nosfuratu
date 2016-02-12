@@ -8,7 +8,7 @@
 
 #include "HoleCover.h"
 
-HoleCover::HoleCover(float x, float y, float width, float height) : DestructiblePhysicalEntity(x, y, width, height), m_isBreaking(false)
+HoleCover::HoleCover(float x, float y, float width, float height, HoleCoverType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isBreaking(false)
 {
     // Empty
 }
@@ -29,4 +29,9 @@ void HoleCover::update(float deltaTime)
 void HoleCover::triggerHit()
 {
     m_isBreaking = true;
+}
+
+HoleCoverType HoleCover::getType()
+{
+    return m_type;
 }

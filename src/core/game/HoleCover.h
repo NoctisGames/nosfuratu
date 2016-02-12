@@ -9,18 +9,27 @@
 #ifndef __nosfuratu__HoleCover__
 #define __nosfuratu__HoleCover__
 
-#include "DestructiblePhysicalEntity.h"
+#include "PhysicalEntity.h"
 
-class HoleCover : public DestructiblePhysicalEntity
+typedef enum
+{
+    HoleCoverType_Grass,
+    HoleCoverType_Cave
+} HoleCoverType;
+
+class HoleCover : public PhysicalEntity
 {
 public:
-    HoleCover(float x, float y = 8.095320623916809f, float width = 3.187749667110519f, float height = 2.229027962716378f);
+    HoleCover(float x, float y, float width, float height, HoleCoverType type);
     
     virtual void update(float deltaTime);
     
-    virtual void triggerHit();
+    void triggerHit();
+    
+    HoleCoverType getType();
     
 private:
+    HoleCoverType m_type;
     bool m_isBreaking;
 };
 

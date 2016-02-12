@@ -28,12 +28,9 @@ private:
 
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_colorAdditiveConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-
-	void createConstantBuffer();
 };
 
 #endif /* defined(__gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__) */

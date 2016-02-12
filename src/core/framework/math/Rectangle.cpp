@@ -32,6 +32,16 @@ float Rectangle::getTop()
     return m_lowerLeft->getY() + m_fHeight;
 }
 
+float Rectangle::getLeft()
+{
+    return m_lowerLeft->getX();
+}
+
+float Rectangle::getBottom()
+{
+    return m_lowerLeft->getY();
+}
+
 float Rectangle::getWidth()
 {
     return m_fWidth;
