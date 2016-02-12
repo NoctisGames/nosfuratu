@@ -141,31 +141,31 @@ public:
 class CaveEndLeft : public Ground
 {
 public:
-    CaveEndLeft(int gridX) : Ground(gridX, 48, 8, 26, 0.08333333333333f, 0.20833333333334f, GroundType_CaveEndLeft, GROUND_SOUND_CAVE) {}
+    CaveEndLeft(int gridX) : Ground(gridX, 50, 8, 24, 0.08333333333333f, 0.20833333333334f, GroundType_CaveEndLeft, GROUND_SOUND_CAVE) {}
 };
 
 class CaveSmall : public Ground
 {
 public:
-    CaveSmall(int gridX) : Ground(gridX, 48, 32, 26, 0.08333333333333f, 0.20833333333334f, GroundType_CaveSmall, GROUND_SOUND_CAVE) {}
+    CaveSmall(int gridX) : Ground(gridX, 50, 32, 24, 0.08333333333333f, 0.20833333333334f, GroundType_CaveSmall, GROUND_SOUND_CAVE) {}
 };
 
 class CaveMedium : public Ground
 {
 public:
-    CaveMedium(int gridX) : Ground(gridX, 48, 64, 26, 0.08333333333333f, 0.20833333333334f, GroundType_CaveMedium, GROUND_SOUND_CAVE) {}
+    CaveMedium(int gridX) : Ground(gridX, 50, 64, 24, 0.08333333333333f, 0.20833333333334f, GroundType_CaveMedium, GROUND_SOUND_CAVE) {}
 };
 
 class CaveLarge : public Ground
 {
 public:
-    CaveLarge(int gridX) : Ground(gridX, 48, 128, 26, 0.08333333333333f, 0.20833333333334f, GroundType_CaveLarge, GROUND_SOUND_CAVE) {}
+    CaveLarge(int gridX) : Ground(gridX, 50, 128, 24, 0.08333333333333f, 0.20833333333334f, GroundType_CaveLarge, GROUND_SOUND_CAVE) {}
 };
 
 class CaveEndRight : public Ground
 {
 public:
-    CaveEndRight(int gridX) : Ground(gridX, 48, 8, 26, 0.08333333333333f, 0.20833333333334f, GroundType_CaveEndRight, GROUND_SOUND_CAVE) {}
+    CaveEndRight(int gridX) : Ground(gridX, 50, 8, 24, 0.08333333333333f, 0.20833333333334f, GroundType_CaveEndRight, GROUND_SOUND_CAVE) {}
 };
 
 class CaveRaisedEndLeft : public Ground
@@ -201,31 +201,31 @@ public:
 class GrassWithCaveEndLeft : public Ground
 {
 public:
-    GrassWithCaveEndLeft(int gridX) : Ground(gridX, 88, 8, 14, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveEndLeft, GROUND_SOUND_GRASS) {}
+    GrassWithCaveEndLeft(int gridX) : Ground(gridX, 90, 8, 12, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveEndLeft, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveSmall : public Ground
 {
 public:
-    GrassWithCaveSmall(int gridX) : Ground(gridX, 88, 32, 14, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveSmall, GROUND_SOUND_GRASS) {}
+    GrassWithCaveSmall(int gridX) : Ground(gridX, 90, 32, 12, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveSmall, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveMedium : public Ground
 {
 public:
-    GrassWithCaveMedium(int gridX) : Ground(gridX, 88, 64, 14, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveMedium, GROUND_SOUND_GRASS) {}
+    GrassWithCaveMedium(int gridX) : Ground(gridX, 90, 64, 12, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveMedium, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveLarge : public Ground
 {
 public:
-    GrassWithCaveLarge(int gridX) : Ground(gridX, 88, 128, 14, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveLarge, GROUND_SOUND_GRASS) {}
+    GrassWithCaveLarge(int gridX) : Ground(gridX, 90, 128, 12, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveLarge, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveEndRight : public Ground
 {
 public:
-    GrassWithCaveEndRight(int gridX) : Ground(gridX, 88, 8, 14, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveEndRight, GROUND_SOUND_GRASS) {}
+    GrassWithCaveEndRight(int gridX) : Ground(gridX, 90, 8, 12, 0.16666666666667f, 0.5f, GroundType_GrassWithCaveEndRight, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithoutCaveEndLeft : public Ground
