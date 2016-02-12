@@ -126,7 +126,10 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getEnemies(), deltaTime);
     EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     
-    getJon().update(deltaTime);
+	if (getJons().size() >= 1)
+	{
+		getJon().update(deltaTime);
+	}
 }
 
 int Game::calcSum()

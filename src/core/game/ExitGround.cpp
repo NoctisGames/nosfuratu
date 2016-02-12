@@ -27,7 +27,7 @@ ExitGround* ExitGround::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-ExitGround::ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsHeightFactor(boundsHeightFactor), m_type(type), m_groundSoundType(groundSoundType), m_exitCover(nullptr)
+ExitGround::ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeight, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, 0, 0, 1, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_exitCover(nullptr)
 {
     updateBounds();
     
@@ -54,15 +54,6 @@ void ExitGround::update(float deltaTime)
             m_exitCover = nullptr;
         }
     }
-}
-
-void ExitGround::updateBounds()
-{
-    m_bounds->setHeight(getHeight());
-    
-    PhysicalEntity::updateBounds();
-    
-    m_bounds->setHeight(getHeight() * m_fBoundsHeightFactor);
 }
 
 bool ExitGround::isJonLanding(Jon& jon, float deltaTime)

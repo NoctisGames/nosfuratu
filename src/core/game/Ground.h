@@ -59,8 +59,6 @@ public:
     
     Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
-    virtual void updateBounds();
-    
     bool isJonLanding(Jon& jon, float deltaTime);
     
     bool isJonBlockedOnRight(Jon& jon, float deltaTime);
@@ -78,8 +76,6 @@ public:
 private:
     GroundType m_type;
     GroundSoundType m_groundSoundType;
-    float m_fBoundsY;
-    float m_fBoundsHeight;
 };
 
 class CaveExtraDeepEndLeft : public Ground

@@ -82,7 +82,7 @@ void Enemy::update(float deltaTime)
 
 void Enemy::updateBounds()
 {
-    PhysicalEntity::updateBounds();
+    GridLockedPhysicalEntity::updateBounds();
     
     if (m_isDying)
     {
@@ -240,6 +240,8 @@ bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
+				jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * 1.01f);
+				jon.updateBounds();
 				jon.triggerBoostOffEnemy(18);
 			}
 		}

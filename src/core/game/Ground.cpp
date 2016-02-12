@@ -83,19 +83,9 @@ Ground* Ground::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-Ground::Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_fBoundsY(boundsY), m_fBoundsHeight(boundsHeight), m_type(type), m_groundSoundType(groundSoundType)
+Ground::Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, 0, boundsY, 1, boundsHeight), m_type(type), m_groundSoundType(groundSoundType)
 {
     updateBounds();
-}
-
-void Ground::updateBounds()
-{
-    m_bounds->setHeight(getHeight());
-    
-    PhysicalEntity::updateBounds();
-    
-    m_bounds->getLowerLeft().add(0, getHeight() * m_fBoundsY);
-    m_bounds->setHeight(getHeight() * m_fBoundsHeight);
 }
 
 bool Ground::isJonLanding(Jon& jon, float deltaTime)

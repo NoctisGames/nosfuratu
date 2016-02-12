@@ -82,8 +82,6 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     
     m_foregroundObjects.push_back(new RockLarge(0, 0));
     m_foregroundObjects.push_back(new RockMedium(0, 0));
-    m_foregroundObjects.push_back(new RockSmall(0, 0));
-    m_foregroundObjects.push_back(new RockSmallCracked(0, 0));
     
     m_foregroundObjects.push_back(new StumpBig(0, 0));
     m_foregroundObjects.push_back(new StumpSmall(0, 0));
@@ -99,7 +97,6 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_foregroundObjects.push_back(new LogVerticalShort(0, 0));
     
     m_foregroundObjects.push_back(new JumpSpringLight(0, 0));
-    m_foregroundObjects.push_back(new JumpSpringMedium(0, 0));
     m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0));
     
     m_foregroundObjects.push_back(new SpikeGrassSingle(0, 0));

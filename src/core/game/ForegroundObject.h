@@ -69,8 +69,6 @@ public:
     
     ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
-    virtual void updateBounds();
-    
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
@@ -90,10 +88,6 @@ public:
 private:
     ForegroundObjectType m_type;
     GroundSoundType m_groundSoundType;
-    float m_fBoundsX;
-    float m_fBoundsY;
-    float m_fBoundsWidth;
-    float m_fBoundsHeight;
 };
 
 class PlatformObject : public ForegroundObject

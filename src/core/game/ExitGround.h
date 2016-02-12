@@ -28,11 +28,9 @@ class ExitGround : public GridLockedPhysicalEntity
 public:
     static ExitGround* create(int gridX, int gridY, int type);
     
-    ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeightFactor, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType);
+    ExitGround(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeight, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType);
     
     virtual void update(float deltaTime);
-    
-    virtual void updateBounds();
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
@@ -54,7 +52,6 @@ private:
     ExitGroundCover *m_exitCover;
     ExitGroundType m_type;
     GroundSoundType m_groundSoundType;
-    float m_fBoundsHeightFactor;
 };
 
 class GrassWithCaveSmallExitMid : public ExitGround

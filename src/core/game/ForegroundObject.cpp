@@ -97,21 +97,9 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_groundSoundType(groundSoundType), m_fBoundsX(boundsX), m_fBoundsY(boundsY), m_fBoundsWidth(boundsWidth), m_fBoundsHeight(boundsHeight)
+ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType)
 {
     // Empty
-}
-
-void ForegroundObject::updateBounds()
-{
-    m_bounds->setWidth(getWidth());
-    m_bounds->setHeight(getHeight());
-    
-    PhysicalEntity::updateBounds();
-    
-    m_bounds->getLowerLeft().add(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
-    m_bounds->setWidth(getWidth() * m_fBoundsWidth);
-    m_bounds->setHeight(getHeight() * m_fBoundsHeight);
 }
 
 bool ForegroundObject::isJonLanding(Jon& jon, float deltaTime)

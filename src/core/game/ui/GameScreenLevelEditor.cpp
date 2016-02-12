@@ -312,7 +312,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else if (dynamic_cast<MushroomCeiling *>(m_draggingEntity) || dynamic_cast<DeathFromAboveObject *>(m_draggingEntity))
                     {
-                        m_allowPlaceUnder = false;
+                        m_allowPlaceUnder = true;
+						m_allowPlaceOn = false;
                     }
                 }
                 

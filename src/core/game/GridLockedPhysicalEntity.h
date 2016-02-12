@@ -16,14 +16,22 @@
 class GridLockedPhysicalEntity : public PhysicalEntity
 {
 public:
-    GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight);
+    GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
+	virtual void updateBounds();
+
     void snapToGrid(int gridCellSizeScalar = 1);
     
     int getGridX();
     
     int getGridY();
     
+protected:
+	float m_fBoundsX;
+	float m_fBoundsY;
+	float m_fBoundsWidth;
+	float m_fBoundsHeight;
+
 private:
     int m_iGridX;
     int m_iGridY;
