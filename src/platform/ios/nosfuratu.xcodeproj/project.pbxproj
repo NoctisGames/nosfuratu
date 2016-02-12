@@ -124,6 +124,7 @@
 		BB939D021C626E41006D945A /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CAF1C626E41006D945A /* jon.png */; };
 		BB939D1A1C626E41006D945A /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC81C626E41006D945A /* trans_death_shader_helper.png */; };
 		BB939D1B1C626E41006D945A /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC91C626E41006D945A /* vampire.png */; };
+		BBA0DEBE1C6E42EB008A5073 /* mushroom_bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */; };
 		BBA1ACF31C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */; };
 		BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */; };
 		BBA1ACFA1C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */; };
@@ -404,6 +405,7 @@
 		BB939CB31C626E41006D945A /* merge_images.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = merge_images.py; sourceTree = "<group>"; };
 		BB939CC81C626E41006D945A /* trans_death_shader_helper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trans_death_shader_helper.png; sourceTree = "<group>"; };
 		BB939CC91C626E41006D945A /* vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire.png; sourceTree = "<group>"; };
+		BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mushroom_bounce.wav; sourceTree = "<group>"; };
 		BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShockwaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBA1ACF21C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShockwaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_shockwave_texture_shader.fsh; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 				BB939C901C626E41006D945A /* jump_spring.wav */,
 				BB939C921C626E41006D945A /* landing_cave.wav */,
 				BB939C931C626E41006D945A /* landing_grass.wav */,
+				BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */,
 				BB939C941C626E41006D945A /* snake_death.wav */,
 				BB939C951C626E41006D945A /* trigger_transform.wav */,
 				BB939C961C626E41006D945A /* vampire_glide_loop.wav */,
@@ -1399,6 +1402,7 @@
 				BB939CE11C626E41006D945A /* jon_rabbit_double_jump.wav in Resources */,
 				BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
 				BB939CE51C626E41006D945A /* jump_spring.wav in Resources */,
+				BBA0DEBE1C6E42EB008A5073 /* mushroom_bounce.wav in Resources */,
 				BB939D021C626E41006D945A /* jon.png in Resources */,
 				BB646DE41C695CA300313FBB /* world_1_midground.png in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,

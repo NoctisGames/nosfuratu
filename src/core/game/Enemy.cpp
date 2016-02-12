@@ -243,6 +243,8 @@ bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 				jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * 1.01f);
 				jon.updateBounds();
 				jon.triggerBoostOffEnemy(18);
+                
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
 			}
 		}
 	}
@@ -260,6 +262,8 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
         jon.updateBounds();
         
         jon.triggerBounceDownardsOffEnemy(-18);
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
         
         return true;
     }
