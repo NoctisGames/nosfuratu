@@ -95,6 +95,8 @@ class PlatformObject : public ForegroundObject
 public:
     PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
+	virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+
     virtual bool canObjectBePlacedOn();
 };
 

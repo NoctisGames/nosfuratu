@@ -191,6 +191,11 @@ GroundSoundType ForegroundObject::getGroundSoundType()
     return m_groundSoundType;
 }
 
+bool PlatformObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
+{
+	return false;
+}
+
 bool PlatformObject::canObjectBePlacedOn()
 {
     return true;
