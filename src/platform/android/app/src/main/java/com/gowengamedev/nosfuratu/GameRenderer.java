@@ -41,7 +41,7 @@ public final class GameRenderer implements Renderer
     //// Sound Definitions ////
 
     private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
-    private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = 1021;
+    private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = SOUND_JON_VAMPIRE_GLIDE + 1000;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -79,6 +79,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_rabbit_double_jump.wav"));
         _sounds.add(_audio.newSound("jon_vampire_double_jump.wav"));
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
+        _sounds.add(_audio.newSound("mushroom_bounce.wav"));
 
         _fpsCounter = new FPSCounter();
 
