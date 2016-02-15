@@ -656,16 +656,14 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 {
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getRight(), m_camBounds->getBottom(), m_camBounds->getTop());
     
-    m_boundsRectangleBatcher->beginBatch();
-    renderBoundsForPhysicalEntities(game.getMidgrounds());
-    renderBoundsForPhysicalEntities(game.getExitGrounds());
-    renderBoundsForPhysicalEntities(game.getGrounds());
-    renderBoundsForPhysicalEntities(game.getHoles());
-    renderBoundsForPhysicalEntities(game.getForegroundObjects());
-	renderBoundsForPhysicalEntities(game.getEnemies());
-    renderBoundsForPhysicalEntities(game.getCollectibleItems());
-    renderBoundsForPhysicalEntities(game.getJons());
-    m_boundsRectangleBatcher->endBatch();
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getMidgrounds());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getExitGrounds());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getGrounds());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getHoles());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getForegroundObjects());
+	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEnemies());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCollectibleItems());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getJons());
     
     static Color gridColor = Color(1, 1, 1, 0.4f);
     

@@ -199,13 +199,15 @@ private:
     }
     
     template<typename T>
-    void renderBoundsForPhysicalEntities(std::vector<T*>& items)
+    void renderBoundsForPhysicalEntities(RectangleBatcher& rectangleBatcher, std::vector<T*>& items)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
+			rectangleBatcher.beginBatch();
             T* pItem = *i;
             T& item = *pItem;
             renderBoundsForPhysicalEntity(item);
+			rectangleBatcher.endBatch();
         }
     }
     
