@@ -21,7 +21,7 @@
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
 
-Game::Game() : m_fStateTime(0.0f), m_fFarRight(ZOOMED_OUT_CAM_WIDTH), m_fFarRightBottom(GAME_HEIGHT / 2), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_isLoaded(false)
+Game::Game(int level) : m_fStateTime(0.0f), m_fFarRight(ZOOMED_OUT_CAM_WIDTH), m_fFarRightBottom(GAME_HEIGHT / 2), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_iLevel(level), m_isLoaded(false)
 {
     for (int i = 0; i < 4; i++)
     {
@@ -309,6 +309,11 @@ int Game::getNumRemainingGoldenCarrots()
     }
     
     return numRemaining;
+}
+
+int Game::getLevel()
+{
+    return m_iLevel;
 }
 
 bool Game::isLoaded()

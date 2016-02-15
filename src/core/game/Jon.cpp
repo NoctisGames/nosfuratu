@@ -116,7 +116,7 @@ void Jon::update(float deltaTime)
 		{
 			m_isLanding = true;
 			m_fStateTime = 0;
-			m_fHeight = 2.2f;
+			m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
 
 			m_dustClouds.push_back(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
 
@@ -156,8 +156,13 @@ void Jon::update(float deltaTime)
 	}
 	else if (m_game->isJonBlockedHorizontally(deltaTime))
 	{
-		m_velocity->setX(-3.0f);
-        m_acceleration->setX(m_fAccelerationX);
+		m_velocity->setX((m_fMaxSpeed - 2.5f) * -1.0f);
+        m_acceleration->setX(0);
+        
+        if (isFalling() || m_iNumJumps > 0)
+        {
+            m_velocity->setX(0);
+        }
 
 		m_fStateTime = 0;
 	}
@@ -252,6 +257,39 @@ void Jon::triggerDownAction()
 
 	JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
 	jfs->triggerDownAction(this);
+}
+
+void Jon::triggerBoost(float boostVelocity)
+{
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
+    JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
+    jfs->triggerBoost(this, boostVelocity);
+}
+
+void Jon::triggerBoostOffEnemy(float boostVelocity)
+{
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
+    JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
+    jfs->triggerBoostOffEnemy(this, boostVelocity);
+}
+
+void Jon::triggerBounceDownardsOffEnemy(float bounceBackVelocity)
+{
+    if (m_state != JON_ALIVE)
+    {
+        return;
+    }
+    
+    JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
+    jfs->triggerBounceDownardsOffEnemy(this, bounceBackVelocity);
 }
 
 std::vector<DustCloud *>& Jon::getDustClouds()
@@ -369,45 +407,6 @@ void Jon::setGroundSoundType(GroundSoundType groundSoundType)
 	m_groundSoundType = groundSoundType;
 }
 
-void Jon::triggerBoost(float boostVelocity)
-{
-	m_velocity->setX(3);
-	m_acceleration->setX(0);
-    m_acceleration->setY(m_fGravity);
-    m_velocity->setY(boostVelocity);
-    
-    setState(ACTION_JUMPING);
-    
-    m_iNumJumps = 1;
-    
-    if (isVampire())
-    {
-        m_fHeight = 4.4f;
-    }
-    
-    Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
-}
-
-void Jon::triggerBoostOffEnemy(float boostVelocity)
-{
-	m_velocity->setX(3);
-	m_acceleration->setX(fminf(m_fAccelerationX - 7, m_acceleration->getX()));
-    m_acceleration->setY(m_fGravity);
-    m_velocity->setY(boostVelocity);
-    
-    setState(ACTION_DOUBLE_JUMPING);
-    
-    m_iNumJumps = 2;
-}
-
-void Jon::triggerBounceDownardsOffEnemy(float bounceBackVelocity)
-{
-    m_acceleration->setY(m_fGravity);
-    m_velocity->setY(bounceBackVelocity);
-    
-    m_iNumJumps = 2;
-}
-
 bool Jon::isVampire()
 {
 	return m_formStateMachine->isInState(*Jon::Vampire::getInstance());
@@ -458,7 +457,7 @@ void Jon::kill()
     Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
     setState(JON_DYING);
     m_fDyingStateTime = 0;
-    m_fHeight = 2.2f;
+    m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
     
     bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
     if (isTransforming)
@@ -597,11 +596,21 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 
 void Jon::Rabbit::triggerLeftAction(Jon* jon)
 {
-	// TODO
+    if (jon->m_game->getLevel() < 31)
+    {
+        return;
+    }
+    
+    // TODO
 }
 
 void Jon::Rabbit::triggerRightAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 52)
+    {
+        return;
+    }
+    
 	if (jon->m_abilityState == ABILITY_SPINNING_BACK_FIST)
 	{
 		return;
@@ -614,11 +623,21 @@ void Jon::Rabbit::triggerRightAction(Jon* jon)
 
 void Jon::Rabbit::triggerUpAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 73)
+    {
+        return;
+    }
+    
 	// TODO
 }
 
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 10)
+    {
+        return;
+    }
+    
 	if (jon->m_abilityState == ABILITY_BURROW || jon->m_physicalState == PHYSICAL_IN_AIR)
 	{
 		return;
@@ -630,6 +649,53 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
 	jon->m_acceleration->setX(0);
 
 	m_isBurrowEffective = false;
+}
+
+void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
+{
+    jon->m_velocity->setX(3);
+    jon->m_acceleration->setX(0);
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(boostVelocity);
+    
+    if (jon->isVampire())
+    {
+        jon->setState(ACTION_DOUBLE_JUMPING);
+        
+        jon->m_iNumJumps = 2;
+        
+        jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
+    }
+    else
+    {
+        jon->setState(ACTION_JUMPING);
+        
+        jon->m_iNumJumps = 1;
+    }
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+}
+
+void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
+{
+    jon->m_velocity->setX(3);
+    jon->m_acceleration->setX(fminf(jon->m_fAccelerationX - 7, jon->m_acceleration->getX()));
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(boostVelocity);
+    
+    jon->setState(ACTION_DOUBLE_JUMPING);
+    
+    jon->m_iNumJumps = 2;
+}
+
+void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
+{
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(bounceBackVelocity);
+    
+    jon->setState(ACTION_DOUBLE_JUMPING);
+    
+    jon->m_iNumJumps = 2;
 }
 
 Jon::Rabbit::Rabbit() : JonFormState(), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false)
@@ -703,7 +769,7 @@ void Jon::Vampire::execute(Jon* jon)
 
 	if (jon->isFalling())
 	{
-		jon->m_fHeight = 2.2f;
+		jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
 		if (!m_isFallingAfterGlide && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
 		{
@@ -721,7 +787,7 @@ void Jon::Vampire::execute(Jon* jon)
 
 	if (jon->m_iNumJumps == 2)
 	{
-		jon->m_fHeight = 2.2f;
+		jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 	}
     
     m_fTimeSinceLastVelocityCheck += jon->m_fDeltaTime;
@@ -774,7 +840,7 @@ void Jon::Vampire::execute(Jon* jon)
 
 void Jon::Vampire::exit(Jon* jon)
 {
-	jon->m_fHeight = 2.2f;
+	jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
 	if (jon->m_abilityState == ABILITY_GLIDE)
 	{
@@ -812,7 +878,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 			if (jon->m_iNumJumps == 0)
 			{
-				jon->m_fHeight = 4.4f;
+				jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE * 2;
 				jon->setState(ABILITY_UPWARD_THRUST);
 			}
 		}
@@ -825,22 +891,86 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 void Jon::Vampire::triggerLeftAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 22)
+    {
+        return;
+    }
+    
 	// TODO
 }
 
 void Jon::Vampire::triggerRightAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 22)
+    {
+        return;
+    }
+    
 	// TODO
 }
 
 void Jon::Vampire::triggerUpAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 22)
+    {
+        return;
+    }
+    
 	// TODO
 }
 
 void Jon::Vampire::triggerDownAction(Jon* jon)
 {
+    if (jon->m_game->getLevel() < 22)
+    {
+        return;
+    }
+    
 	// TODO
+}
+
+void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
+{
+    jon->m_velocity->setX(3);
+    jon->m_acceleration->setX(0);
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(boostVelocity);
+    
+    m_isFallingAfterGlide = false;
+    
+    jon->setState(ACTION_DOUBLE_JUMPING);
+    
+    jon->m_iNumJumps = 2;
+    
+    jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+}
+
+void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
+{
+    jon->m_velocity->setX(3);
+    jon->m_acceleration->setX(fminf(jon->m_fAccelerationX - 7, jon->m_acceleration->getX()));
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(boostVelocity);
+    
+    m_isFallingAfterGlide = false;
+    
+    jon->setState(ACTION_DOUBLE_JUMPING);
+    
+    jon->m_iNumJumps = 2;
+}
+
+void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
+{
+    jon->m_acceleration->setY(jon->m_fGravity);
+    jon->m_velocity->setY(bounceBackVelocity);
+    
+    jon->setState(ACTION_DOUBLE_JUMPING);
+    
+    jon->m_iNumJumps = 2;
+    
+    m_isFallingAfterGlide = false;
 }
 
 Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false)
@@ -898,6 +1028,24 @@ void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
 	}
 }
 
+void Jon::RabbitToVampire::triggerBoost(Jon* jon, float boostVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoost(jon, boostVelocity);
+}
+
+void Jon::RabbitToVampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoostOffEnemy(jon, boostVelocity);
+}
+
+void Jon::RabbitToVampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceDownardsOffEnemy(jon, bounceBackVelocity);
+}
+
 Jon::RabbitToVampire::RabbitToVampire() : JonFormState(), m_hasCompletedSlowMotion(false)
 {
 	// Empty
@@ -951,6 +1099,24 @@ void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
 
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
 	}
+}
+
+void Jon::VampireToRabbit::triggerBoost(Jon* jon, float boostVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoost(jon, boostVelocity);
+}
+
+void Jon::VampireToRabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoostOffEnemy(jon, boostVelocity);
+}
+
+void Jon::VampireToRabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
+{
+    jon->m_formStateMachine->revertToPreviousState();
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceDownardsOffEnemy(jon, bounceBackVelocity);
 }
 
 Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMotion(false)

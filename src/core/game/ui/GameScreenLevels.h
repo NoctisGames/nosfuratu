@@ -55,7 +55,7 @@ protected:
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Level(const char* m_json);
+    Level(int level, const char* m_json);
     Level(const Level&);
     Level& operator=(const Level&);
 };
@@ -67,7 +67,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level1(const char* json) : Level(json) {};
+    Chapter1Level1(const char* json) : Level(1, json) {};
     Chapter1Level1(const Chapter1Level1&);
     Chapter1Level1& operator=(const Chapter1Level1&);
 };
@@ -79,7 +79,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level2(const char* json) : Level(json) {};
+    Chapter1Level2(const char* json) : Level(2, json) {};
     Chapter1Level2(const Chapter1Level2&);
     Chapter1Level2& operator=(const Chapter1Level2&);
 };
@@ -91,7 +91,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level3(const char* json) : Level(json) {};
+    Chapter1Level3(const char* json) : Level(3, json) {};
     Chapter1Level3(const Chapter1Level3&);
     Chapter1Level3& operator=(const Chapter1Level3&);
 };

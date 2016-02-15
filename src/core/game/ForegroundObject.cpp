@@ -338,6 +338,9 @@ bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
 {
     if (ForegroundObject::isJonLanding(jon, deltaTime))
     {
+        float itemTop = getBounds().getTop();
+        jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * 1.01f);
+        
         jon.triggerBoost(m_fBoostVelocity);
         m_isBoosting = true;
         m_fStateTime = 0;

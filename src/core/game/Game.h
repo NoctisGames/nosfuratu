@@ -33,7 +33,7 @@
 class Game
 {
 public:
-    Game();
+    Game(int level);
     
     void copy(Game* game);
     
@@ -101,6 +101,8 @@ public:
     
     int getNumRemainingGoldenCarrots();
     
+    int getLevel();
+    
     bool isLoaded();
     
     void calcFarRight();
@@ -124,6 +126,7 @@ private:
     float m_fFarRightBottom;
     int m_iNumTotalCarrots;
     int m_iNumTotalGoldenCarrots;
+    int m_iLevel;
     bool m_isLoaded;
     
     template<typename T>

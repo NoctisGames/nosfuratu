@@ -77,6 +77,12 @@ public:
     
     void triggerDownAction();
     
+    void triggerBoost(float boostVelocity);
+    
+    void triggerBoostOffEnemy(float boostVelocity);
+    
+    void triggerBounceDownardsOffEnemy(float bounceBackVelocity);
+    
     std::vector<DustCloud *>& getDustClouds();
     
     std::vector<Jon *>& getAfterImages();
@@ -122,12 +128,6 @@ public:
     GroundSoundType getGroundSoundType();
     
     void setGroundSoundType(GroundSoundType groundSoundType);
-    
-    void triggerBoost(float boostVelocity);
-    
-    void triggerBoostOffEnemy(float boostVelocity);
-    
-    void triggerBounceDownardsOffEnemy(float bounceBackVelocity);
     
     bool isVampire();
     
@@ -196,6 +196,10 @@ private:
         virtual void triggerUpAction(Jon* jon) = 0;
         virtual void triggerDownAction(Jon* jon) = 0;
         
+        virtual void triggerBoost(Jon* jon, float boostVelocity) = 0;
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity) = 0;
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
+        
         JonFormState() {};
         
     private:
@@ -214,13 +218,17 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
-        virtual void triggerCancelTransform(Jon* jon) {};
+        virtual void triggerCancelTransform(Jon* jon) {}
         
         virtual void triggerJump(Jon* jon);
         virtual void triggerLeftAction(Jon* jon);
         virtual void triggerRightAction(Jon* jon);
         virtual void triggerUpAction(Jon* jon);
         virtual void triggerDownAction(Jon* jon);
+        
+        virtual void triggerBoost(Jon* jon, float boostVelocity);
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_isSpinningBackFistDelivered;
@@ -242,13 +250,17 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
-        virtual void triggerCancelTransform(Jon* jon) {};
+        virtual void triggerCancelTransform(Jon* jon) {}
         
         virtual void triggerJump(Jon* jon);
         virtual void triggerLeftAction(Jon* jon);
         virtual void triggerRightAction(Jon* jon);
         virtual void triggerUpAction(Jon* jon);
         virtual void triggerDownAction(Jon* jon);
+        
+        virtual void triggerBoost(Jon* jon, float boostVelocity);
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         std::unique_ptr<Vector2D> m_lastKnownVelocity;
@@ -270,14 +282,18 @@ private:
         virtual void execute(Jon* jon);
         virtual void exit(Jon* jon);
         
-        virtual void triggerTransform(Jon* jon) {};
+        virtual void triggerTransform(Jon* jon) {}
         virtual void triggerCancelTransform(Jon* jon);
         
-        virtual void triggerJump(Jon* jon) {};
-        virtual void triggerLeftAction(Jon* jon) {};
-        virtual void triggerRightAction(Jon* jon) {};
-        virtual void triggerUpAction(Jon* jon) {};
-        virtual void triggerDownAction(Jon* jon) {};
+        virtual void triggerJump(Jon* jon) {}
+        virtual void triggerLeftAction(Jon* jon) {}
+        virtual void triggerRightAction(Jon* jon) {}
+        virtual void triggerUpAction(Jon* jon) {}
+        virtual void triggerDownAction(Jon* jon) {}
+        
+        virtual void triggerBoost(Jon* jon, float boostVelocity);
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_hasCompletedSlowMotion;
@@ -297,14 +313,18 @@ private:
         virtual void execute(Jon* jon);
         virtual void exit(Jon* jon);
         
-        virtual void triggerTransform(Jon* jon) {};
+        virtual void triggerTransform(Jon* jon) {}
         virtual void triggerCancelTransform(Jon* jon);
         
-        virtual void triggerJump(Jon* jon) {};
-        virtual void triggerLeftAction(Jon* jon) {};
-        virtual void triggerRightAction(Jon* jon) {};
-        virtual void triggerUpAction(Jon* jon) {};
-        virtual void triggerDownAction(Jon* jon) {};
+        virtual void triggerJump(Jon* jon) {}
+        virtual void triggerLeftAction(Jon* jon) {}
+        virtual void triggerRightAction(Jon* jon) {}
+        virtual void triggerUpAction(Jon* jon) {}
+        virtual void triggerDownAction(Jon* jon) {}
+        
+        virtual void triggerBoost(Jon* jon, float boostVelocity);
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_hasCompletedSlowMotion;

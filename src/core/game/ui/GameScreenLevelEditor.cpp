@@ -494,7 +494,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
 
 GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
 {
-    m_game = std::unique_ptr<Game>(new Game());
+    m_game = std::unique_ptr<Game>(new Game(1337));
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());

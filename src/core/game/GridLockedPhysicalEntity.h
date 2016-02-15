@@ -31,8 +31,6 @@ protected:
 	float m_fBoundsY;
 	float m_fBoundsWidth;
 	float m_fBoundsHeight;
-
-private:
     int m_iGridX;
     int m_iGridY;
     int m_iGridWidth;

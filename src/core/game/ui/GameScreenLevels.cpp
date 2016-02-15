@@ -18,7 +18,7 @@
 
 Level * Level::getInstance()
 {
-    static Level *instance = new Level(nullptr);
+    static Level *instance = new Level(-1, nullptr);
     
     return instance;
 }
@@ -402,10 +402,10 @@ bool Level::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-Level::Level(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
+Level::Level(int level, const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
 {
     m_json = json;
-    m_game = std::unique_ptr<Game>(new Game());
+    m_game = std::unique_ptr<Game>(new Game(level));
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
 }
 
