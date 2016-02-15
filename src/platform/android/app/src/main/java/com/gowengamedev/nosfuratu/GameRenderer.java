@@ -48,7 +48,6 @@ public final class GameRenderer implements Renderer
     private final Audio _audio;
     private Music _bgm;
     private List<Sound> _sounds = new ArrayList<>();
-    private FPSCounter _fpsCounter;
 
     private float _lastRealTimeMeasurement_ms;
     private boolean _isDoingIO = false;
@@ -80,8 +79,6 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_vampire_double_jump.wav"));
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
         _sounds.add(_audio.newSound("mushroom_bounce.wav"));
-
-        _fpsCounter = new FPSCounter();
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
 
@@ -143,8 +140,6 @@ public final class GameRenderer implements Renderer
         handleMusic();
 
         _lastRealTimeMeasurement_ms = currTimePick_ms;
-
-        _fpsCounter.logFrame();
     }
 
     public void onResume()
@@ -330,23 +325,6 @@ public final class GameRenderer implements Renderer
         else
         {
             return "nosfuratu.json";
-        }
-    }
-
-    public final class FPSCounter
-    {
-        long startTime = System.nanoTime();
-        int frames = 0;
-
-        public void logFrame()
-        {
-            frames++;
-            if (System.nanoTime() - startTime >= 1000000000)
-            {
-                Log.d("FPSCounter", "fps: " + frames);
-                frames = 0;
-                startTime = System.nanoTime();
-            }
         }
     }
 
