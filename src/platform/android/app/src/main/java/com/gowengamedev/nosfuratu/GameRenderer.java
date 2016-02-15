@@ -49,7 +49,7 @@ public final class GameRenderer implements Renderer
     private Music _bgm;
     private List<Sound> _sounds = new ArrayList<>();
 
-    private float _lastRealTimeMeasurement_ms;
+    private long _startTime;
     private boolean _isDoingIO = false;
 
     public GameRenderer(Activity activity)
@@ -92,7 +92,7 @@ public final class GameRenderer implements Renderer
 
         on_surface_created();
 
-        _lastRealTimeMeasurement_ms = (float) SystemClock.uptimeMillis();
+        _startTime = System.nanoTime();
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class GameRenderer implements Renderer
     @Override
     public void onDrawFrame(GL10 gl)
     {
-        float currTimePick_ms = (float) SystemClock.uptimeMillis();
+        float deltaTime = (System.nanoTime() - _startTime) / 1000000000.0f;
 
         int requestedAction = get_requested_action();
         if (requestedAction >= 1000)
@@ -120,7 +120,7 @@ public final class GameRenderer implements Renderer
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
                 {
-                    update((currTimePick_ms - _lastRealTimeMeasurement_ms) / 1000);
+                    update(deltaTime);
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
@@ -139,7 +139,7 @@ public final class GameRenderer implements Renderer
         handleSound();
         handleMusic();
 
-        _lastRealTimeMeasurement_ms = currTimePick_ms;
+        _startTime = System.nanoTime();
     }
 
     public void onResume()
