@@ -12,6 +12,7 @@
 #include "Assets.h"
 #include "RendererType.h"
 #include "Font.h"
+#include "RectangleBatcher.h"
 
 #include <memory>
 #include <vector>
