@@ -42,19 +42,19 @@ protected:
 class Upper : public Background
 {
 public:
-    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 48, BackgroundType_Upper) {}
+    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 12, BackgroundType_Upper) {}
 };
 
 class Mid : public Background
 {
 public:
-    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 80, BackgroundType_Mid) {}
+    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 32, BackgroundType_Mid) {}
 };
 
 class Lower : public Background
 {
 public:
-    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 100, BackgroundType_Lower) {}
+    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 40, BackgroundType_Lower) {}
 };
 
 class Water : public Background
