@@ -120,7 +120,7 @@ public final class GameRenderer implements Renderer
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
                 {
-                    update(deltaTime);
+                    update(deltaTime < 0.01666666666667f ? 0.01666666666667f : deltaTime);
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
