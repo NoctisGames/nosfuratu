@@ -42,19 +42,19 @@ protected:
 class Upper : public Background
 {
 public:
-    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 6, BackgroundType_Upper) {}
+    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 48, BackgroundType_Upper) {}
 };
 
 class Mid : public Background
 {
 public:
-    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 18, BackgroundType_Mid) {}
+    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 80, BackgroundType_Mid) {}
 };
 
 class Lower : public Background
 {
 public:
-    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 32, BackgroundType_Lower) {}
+    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 100, BackgroundType_Lower) {}
 };
 
 class Water : public Background
@@ -68,13 +68,13 @@ public:
 class WaterBack : public Water
 {
 public:
-    WaterBack(float x) : Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 96, BackgroundType_WaterBack) {}
+    WaterBack(float x) : Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 256, BackgroundType_WaterBack) {}
 };
 
 class WaterFront : public Water
 {
 public:
-    WaterFront(float x) : Water(x, 0.2109375f, CAM_WIDTH, 0.421875f, 112, BackgroundType_WaterFront) {}
+    WaterFront(float x) : Water(x, 0.2109375f, CAM_WIDTH, 0.421875f, 320, BackgroundType_WaterFront) {}
 };
 
 #endif /* defined(__nosfuratu__Background__) */

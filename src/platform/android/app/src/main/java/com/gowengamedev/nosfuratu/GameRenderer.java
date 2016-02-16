@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -120,7 +119,7 @@ public final class GameRenderer implements Renderer
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
                 {
-                    update(deltaTime < 0.01666666666667f ? 0.01666666666667f : deltaTime);
+                    update(deltaTime);
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
