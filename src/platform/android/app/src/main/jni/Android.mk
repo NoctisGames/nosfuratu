@@ -21,7 +21,7 @@ LOCAL_CFLAGS    := -Wall -Wextra -DGGD_OPENGL_ES -DGGD_ANDROID -DGL_GLEXT_PROTOT
 
 # Android
 LOCAL_SRC_FILES := platform_asset_utils.c
-LOCAL_SRC_FILES += game_renderer.cpp
+LOCAL_SRC_FILES += game.cpp
 
 # Game Framework
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/

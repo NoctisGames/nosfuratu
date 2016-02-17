@@ -18,11 +18,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public final class GameRenderer implements Renderer
 {
-    static
-    {
-        System.loadLibrary("game");
-    }
-
     // Definitions from src/core/game/GameConstants.h
     //// Requested Action Definitions ////
 
@@ -79,9 +74,9 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
         _sounds.add(_audio.newSound("mushroom_bounce.wav"));
 
-        PlatformAssetUtils.init_asset_manager(activity.getAssets());
+        Game.init();
 
-        init();
+        PlatformAssetUtils.init_asset_manager(activity.getAssets());
     }
 
     @Override
@@ -89,7 +84,7 @@ public final class GameRenderer implements Renderer
     {
         Log.d("GameRenderer", "GL Surface created!");
 
-        on_surface_created();
+        Game.on_surface_created();
 
         _startTime = System.nanoTime();
     }
@@ -99,16 +94,17 @@ public final class GameRenderer implements Renderer
     {
         Log.d("GameRenderer", "GL Surface changed!");
 
-        on_surface_changed(width, height);
-        on_resume();
+        Game.on_surface_changed(width, height);
+        Game.on_resume();
     }
 
     @Override
     public void onDrawFrame(GL10 gl)
     {
         float deltaTime = (System.nanoTime() - _startTime) / 1000000000.0f;
+        _startTime = System.nanoTime();
 
-        int requestedAction = get_requested_action();
+        int requestedAction = Game.get_requested_action();
         if (requestedAction >= 1000)
         {
             requestedAction /= 1000;
@@ -119,40 +115,39 @@ public final class GameRenderer implements Renderer
             case REQUESTED_ACTION_UPDATE:
                 if (!_isDoingIO)
                 {
-                    update(deltaTime);
+                    Game.update(deltaTime);
                 }
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-                saveLevel(get_requested_action());
-                clear_requested_action();
+                saveLevel(Game.get_requested_action());
+                Game.clear_requested_action();
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-                loadLevel(get_requested_action());
-                clear_requested_action();
+                loadLevel(Game.get_requested_action());
+                Game.clear_requested_action();
                 break;
             default:
                 break;
         }
 
-        render();
+        Game.render();
+
         handleSound();
         handleMusic();
-
-        _startTime = System.nanoTime();
     }
 
     public void onResume()
     {
         Log.d("GameRenderer", "onResume");
 
-        on_resume();
+        Game.on_resume();
     }
 
     public void onPause()
     {
         Log.d("GameRenderer", "onPause");
 
-        on_pause();
+        Game.on_pause();
 
         if (_bgm != null && _bgm.isPlaying())
         {
@@ -162,28 +157,28 @@ public final class GameRenderer implements Renderer
 
     public void handleTouchDown(float rawX, float rawY)
     {
-        on_touch_down(rawX, rawY);
+        Game.on_touch_down(rawX, rawY);
     }
 
     public void handleTouchDragged(float rawX, float rawY)
     {
-        on_touch_dragged(rawX, rawY);
+        Game.on_touch_dragged(rawX, rawY);
     }
 
     public void handleTouchUp(float rawX, float rawY)
     {
-        on_touch_up(rawX, rawY);
+        Game.on_touch_up(rawX, rawY);
     }
 
     public boolean handleOnBackPressed()
     {
-        return handle_on_back_pressed();
+        return Game.handle_on_back_pressed();
     }
 
     private void handleSound()
     {
         short soundId;
-        while ((soundId = get_current_sound_id()) > 0)
+        while ((soundId = Game.get_current_sound_id()) > 0)
         {
             switch (soundId)
             {
@@ -202,7 +197,7 @@ public final class GameRenderer implements Renderer
 
     private void handleMusic()
     {
-        short musicId = get_current_music_id();
+        short musicId = Game.get_current_music_id();
         switch (musicId)
         {
             case MUSIC_STOP:
@@ -247,7 +242,7 @@ public final class GameRenderer implements Renderer
 
         File file = _fileHandler.getFile(levelFileName);
         _isDoingIO = true;
-        final boolean result = save_level(file.getAbsolutePath());
+        final boolean result = Game.save_level(file.getAbsolutePath());
         _isDoingIO = false;
 
         _activity.runOnUiThread(new Runnable()
@@ -286,7 +281,7 @@ public final class GameRenderer implements Renderer
 
                         if (result != null)
                         {
-                            load_level(result);
+                            Game.load_level(result);
                         }
 
                         _isDoingIO = false;
@@ -326,38 +321,4 @@ public final class GameRenderer implements Renderer
             return "nosfuratu.json";
         }
     }
-
-    private static native void init();
-
-    private static native void on_surface_created();
-
-    private static native void on_surface_changed(int pixelWidth, int pixelHeight);
-
-    private static native void on_resume();
-
-    private static native void on_pause();
-
-    private static native void update(float deltaTime);
-
-    private static native void render();
-
-    private static native void on_touch_down(float normalized_x, float normalized_y);
-
-    private static native void on_touch_dragged(float normalized_x, float normalized_y);
-
-    private static native void on_touch_up(float normalized_x, float normalized_y);
-
-    private static native short get_current_music_id();
-
-    private static native short get_current_sound_id();
-
-    private static native int get_requested_action();
-
-    private static native void clear_requested_action();
-
-    private static native boolean handle_on_back_pressed();
-
-    private static native void load_level(String level_json);
-
-    private static native boolean save_level(String json_file_path);
 }

@@ -9,24 +9,23 @@ import java.io.IOException;
 
 public final class Audio
 {
-    private final AssetManager assets;
-    private SoundPool soundPool;
+    private final AssetManager _assets;
+    private SoundPool _soundPool;
 
     public Audio(AssetManager assets)
     {
-        this.assets = assets;
-        this.soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
+        _assets = assets;
+        _soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
     }
 
     public Music newMusic(String filename)
     {
         try
         {
-            AssetFileDescriptor assetDescriptor = assets.openFd(filename);
+            AssetFileDescriptor assetDescriptor = _assets.openFd(filename);
 
             return new Music(assetDescriptor);
-        }
-        catch (IOException ioException)
+        } catch (IOException ioException)
         {
             throw new RuntimeException("Couldn't load music '" + filename + "'" + ioException.getMessage());
         }
@@ -36,12 +35,11 @@ public final class Audio
     {
         try
         {
-            AssetFileDescriptor assetDescriptor = assets.openFd(filename);
-            int soundID = soundPool.load(assetDescriptor, 1);
+            AssetFileDescriptor assetDescriptor = _assets.openFd(filename);
+            int soundID = _soundPool.load(assetDescriptor, 1);
 
-            return new Sound(soundPool, soundID);
-        }
-        catch (IOException ioException)
+            return new Sound(_soundPool, soundID);
+        } catch (IOException ioException)
         {
             throw new RuntimeException("Couldn't load sound '" + filename + "'" + ioException.getMessage());
         }
@@ -49,8 +47,8 @@ public final class Audio
 
     public void reset()
     {
-        this.soundPool.release();
-        this.soundPool = null;
-        this.soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
+        _soundPool.release();
+        _soundPool = null;
+        _soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 0);
     }
 }
