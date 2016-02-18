@@ -1337,7 +1337,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Gowen Game Dev";
+				ORGANIZATIONNAME = "Noctis Games";
 				TargetAttributes = {
 					0ADF1873178E2185005DA99E = {
 						DevelopmentTeam = 83V22B9TY9;
@@ -1701,7 +1701,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gowengamedev.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
 				PRODUCT_NAME = NosFURatu;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1742,7 +1742,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gowengamedev.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
 				PRODUCT_NAME = NosFURatu;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

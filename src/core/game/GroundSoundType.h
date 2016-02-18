@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 12/19/15.
-//  Copyright © 2015 Gowen Game Dev. All rights reserved.
+//  Copyright © 2016 Noctis Games. All rights reserved.
 //
 
 #ifndef __nosfuratu__GroundSoundType__

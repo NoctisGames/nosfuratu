@@ -1,4 +1,4 @@
-package com.gowengamedev.nosfuratu;
+package com.noctisgames.nosfuratu;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView.Renderer;
@@ -7,7 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.gowengamedev.nosfuratu.platform.PlatformAssetUtils;
+import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 
 import java.io.File;
 import java.util.ArrayList;

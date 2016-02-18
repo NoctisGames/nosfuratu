@@ -1,13 +1,13 @@
 //
 //  Direct3DRectangleBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DRectangleBatcher__
-#define __gowengamedev__Direct3DRectangleBatcher__
+#ifndef __noctisgames__Direct3DRectangleBatcher__
+#define __noctisgames__Direct3DRectangleBatcher__
 
 #include "RectangleBatcher.h"
 #include "Direct3DManager.h"
@@ -30,4 +30,4 @@ private:
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
-#endif /* defined(__gowengamedev__Direct3DRectangleBatcher__) */
+#endif /* defined(__noctisgames__Direct3DRectangleBatcher__) */

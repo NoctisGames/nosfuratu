@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 10/18/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__
-#define __gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__
+#define __noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -36,4 +36,4 @@ private:
 	void createConstantBuffer();
 };
 
-#endif /* defined(__gowengamedev__Direct3DSinWaveTextureGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__) */

@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 7/22/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #ifndef __nosfuratu__AndroidOpenGLESGameScreen__

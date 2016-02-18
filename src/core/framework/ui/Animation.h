@@ -1,13 +1,13 @@
 //
 //  Animation.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Animation__
-#define __gowengamedev__Animation__
+#ifndef __noctisgames__Animation__
+#define __noctisgames__Animation__
 
 #include <vector>
 
@@ -42,4 +42,4 @@ private:
     void loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames);
 };
 
-#endif /* defined(__gowengamedev__Animation__) */
+#endif /* defined(__noctisgames__Animation__) */

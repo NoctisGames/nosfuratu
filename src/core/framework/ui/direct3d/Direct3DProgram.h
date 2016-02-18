@@ -1,13 +1,13 @@
 //
 //  Direct3DProgram.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/16/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DProgram__
-#define __gowengamedev__Direct3DProgram__
+#ifndef __noctisgames__Direct3DProgram__
+#define __noctisgames__Direct3DProgram__
 
 struct COLOR_VERTEX
 {
@@ -22,4 +22,4 @@ struct TEXTURE_VERTEX
 	float U, V;    // texture coordinates
 };
 
-#endif /* defined(__gowengamedev__Direct3DProgram__) */
+#endif /* defined(__noctisgames__Direct3DProgram__) */

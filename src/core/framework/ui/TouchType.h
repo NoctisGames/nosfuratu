@@ -1,13 +1,13 @@
 //
 //  TouchType.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 7/22/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__TouchType__
-#define __gowengamedev__TouchType__
+#ifndef __noctisgames__TouchType__
+#define __noctisgames__TouchType__
 
 typedef enum
 {
@@ -16,4 +16,4 @@ typedef enum
     UP
 } Touch_Type;
 
-#endif /* defined(__gowengamedev__TouchType__) */
+#endif /* defined(__noctisgames__TouchType__) */

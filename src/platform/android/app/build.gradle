@@ -4,22 +4,22 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        gowengamedev {
-            keyAlias 'gowengamedev'
-            keyPassword 'GGD_PASS'
+        noctisgames {
+            keyAlias 'noctisgames'
+            keyPassword 'NG_PASS'
             storeFile file('/Users/sgowen/Dropbox/Documents/Freelance/GowenGameDev/github/nosfuratu/src/platform/android/keystore.jks')
-            storePassword 'GGD_PASS'
+            storePassword 'NG_PASS'
         }
     }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
     defaultConfig {
-        applicationId "com.gowengamedev.nosfuratu"
+        applicationId "com.noctisgames.nosfuratu"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "0.3.000"
-        signingConfig signingConfigs.gowengamedev
+        signingConfig signingConfigs.noctisgames
     }
     buildTypes {
         release {

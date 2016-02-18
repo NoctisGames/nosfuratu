@@ -1,13 +1,13 @@
 //
 //  Font.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Font__
-#define __gowengamedev__Font__
+#ifndef __noctisgames__Font__
+#define __noctisgames__Font__
 
 #include <string>
 #include "TextureRegion.h"
@@ -29,4 +29,4 @@ private:
     std::vector<std::unique_ptr<TextureRegion>> m_glyphs;
 };
 
-#endif /* defined(__gowengamedev__Font__) */
+#endif /* defined(__noctisgames__Font__) */

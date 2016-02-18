@@ -1,13 +1,13 @@
 //
 //  FramebufferToScreenProgram.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__FramebufferToScreenProgram__
-#define __gowengamedev__FramebufferToScreenProgram__
+#ifndef __noctisgames__FramebufferToScreenProgram__
+#define __noctisgames__FramebufferToScreenProgram__
 
 extern "C"
 {
@@ -32,4 +32,4 @@ private:
     FramebufferToScreenProgram();
 };
 
-#endif /* defined(__gowengamedev__FramebufferToScreenProgram__) */
+#endif /* defined(__noctisgames__FramebufferToScreenProgram__) */

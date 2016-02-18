@@ -1,13 +1,13 @@
 //
 //  CircleBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/15/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__CircleBatcher__
-#define __gowengamedev__CircleBatcher__
+#ifndef __noctisgames__CircleBatcher__
+#define __noctisgames__CircleBatcher__
 
 #include "Color.h"
 
@@ -33,4 +33,4 @@ protected:
     virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper) = 0;
 };
 
-#endif /* defined(__gowengamedev__CircleBatcher__) */
+#endif /* defined(__noctisgames__CircleBatcher__) */

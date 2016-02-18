@@ -1,13 +1,13 @@
 //
 //  Direct3DLineBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/16/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DLineBatcher__
-#define __gowengamedev__Direct3DLineBatcher__
+#ifndef __noctisgames__Direct3DLineBatcher__
+#define __noctisgames__Direct3DLineBatcher__
 
 #include "LineBatcher.h"
 
@@ -29,4 +29,4 @@ private:
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 };
 
-#endif /* defined(__gowengamedev__Direct3DLineBatcher__) */
+#endif /* defined(__noctisgames__Direct3DLineBatcher__) */

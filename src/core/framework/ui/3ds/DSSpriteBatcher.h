@@ -1,13 +1,13 @@
 //
 //  DSSpriteBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/20/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__DSSpriteBatcher__
-#define __gowengamedev__DSSpriteBatcher__
+#ifndef __noctisgames__DSSpriteBatcher__
+#define __noctisgames__DSSpriteBatcher__
 
 #include "SpriteBatcher.h"
 
@@ -54,4 +54,4 @@ private:
     void addQuad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4, float r, float g, float b, float a);
 };
 
-#endif /* defined(__gowengamedev__DSSpriteBatcher__) */
+#endif /* defined(__noctisgames__DSSpriteBatcher__) */

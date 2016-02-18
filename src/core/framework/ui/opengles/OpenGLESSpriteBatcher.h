@@ -1,13 +1,13 @@
 //
 //  OpenGLESSpriteBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__OpenGLESSpriteBatcher__
-#define __gowengamedev__OpenGLESSpriteBatcher__
+#ifndef __noctisgames__OpenGLESSpriteBatcher__
+#define __noctisgames__OpenGLESSpriteBatcher__
 
 #include "SpriteBatcher.h"
 
@@ -32,4 +32,4 @@ protected:
     virtual void drawSprite(float x, float y, float width, float height, Color &c, TextureRegion tr);
 };
 
-#endif /* defined(__gowengamedev__OpenGLESSpriteBatcher__) */
+#endif /* defined(__noctisgames__OpenGLESSpriteBatcher__) */

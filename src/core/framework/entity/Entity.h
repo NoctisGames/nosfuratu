@@ -1,13 +1,13 @@
 //
 //  Entity.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/3/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Entity__
-#define __gowengamedev__Entity__
+#ifndef __noctisgames__Entity__
+#define __noctisgames__Entity__
 
 class Entity
 {
@@ -36,4 +36,4 @@ private:
     int m_ID;
 };
 
-#endif /* defined(__gowengamedev__Entity__) */
+#endif /* defined(__noctisgames__Entity__) */

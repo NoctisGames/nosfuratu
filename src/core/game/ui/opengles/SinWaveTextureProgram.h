@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__SinWaveTextureProgram__
-#define __gowengamedev__SinWaveTextureProgram__
+#ifndef __noctisgames__SinWaveTextureProgram__
+#define __noctisgames__SinWaveTextureProgram__
 
 extern "C"
 {
@@ -35,4 +35,4 @@ private:
     SinWaveTextureProgram();
 };
 
-#endif /* defined(__gowengamedev__SinWaveTextureProgram__) */
+#endif /* defined(__noctisgames__SinWaveTextureProgram__) */

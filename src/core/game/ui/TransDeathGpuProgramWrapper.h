@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
-//  Copyright © 2016 Gowen Game Dev. All rights reserved.
+//  Copyright © 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__TransDeathGpuProgramWrapper__
-#define __gowengamedev__TransDeathGpuProgramWrapper__
+#ifndef __noctisgames__TransDeathGpuProgramWrapper__
+#define __noctisgames__TransDeathGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "Vector2D.h"
@@ -27,4 +27,4 @@ protected:
     bool m_isTransIn;
 };
 
-#endif /* defined(__gowengamedev__TransDeathGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__TransDeathGpuProgramWrapper__) */

@@ -1,13 +1,13 @@
 //
 //  OpenGLESFramebufferToScreenGpuProgramWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__OpenGLESFramebufferToScreenGpuProgramWrapper__
-#define __gowengamedev__OpenGLESFramebufferToScreenGpuProgramWrapper__
+#ifndef __noctisgames__OpenGLESFramebufferToScreenGpuProgramWrapper__
+#define __noctisgames__OpenGLESFramebufferToScreenGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "FramebufferToScreenProgram.h"
@@ -27,4 +27,4 @@ private:
     FramebufferToScreenProgramStruct m_program;
 };
 
-#endif /* defined(__gowengamedev__OpenGLESFramebufferToScreenGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__OpenGLESFramebufferToScreenGpuProgramWrapper__) */

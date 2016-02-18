@@ -1,13 +1,13 @@
 //
 //  platform_gl.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2014 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef gowengamedev_platform_gl_h
-#define gowengamedev_platform_gl_h
+#ifndef __noctisgames__platform_gl_h
+#define __noctisgames__platform_gl_h
 
 #ifdef GGD_IOS
 #include <OpenGLES/ES2/gl.h>
@@ -17,4 +17,4 @@
 #include <GLES2/gl2ext.h>
 #endif
 
-#endif /* defined(gowengamedev_platform_gl_h) */
+#endif /* defined(__noctisgames__platform_gl_h) */

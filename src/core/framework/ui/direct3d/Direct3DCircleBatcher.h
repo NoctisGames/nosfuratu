@@ -1,13 +1,13 @@
 //
 //  Direct3DCircleBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/16/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DCircleBatcher__
-#define __gowengamedev__Direct3DCircleBatcher__
+#ifndef __noctisgames__Direct3DCircleBatcher__
+#define __noctisgames__Direct3DCircleBatcher__
 
 #include "CircleBatcher.h"
 
@@ -34,4 +34,4 @@ private:
 	void addVertexCoordinate(float x, float y, float z, float r, float g, float b, float a);
 };
 
-#endif /* defined(__gowengamedev__Direct3DCircleBatcher__) */
+#endif /* defined(__noctisgames__Direct3DCircleBatcher__) */

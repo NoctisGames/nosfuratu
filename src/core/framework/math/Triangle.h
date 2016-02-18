@@ -1,13 +1,13 @@
 //
 //  Triangle.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Triangle__
-#define __gowengamedev__Triangle__
+#ifndef __noctisgames__Triangle__
+#define __noctisgames__Triangle__
 
 #include <memory>
 #include "Line.h"
@@ -38,4 +38,4 @@ private:
     std::unique_ptr<Line> m_sideC;
 };
 
-#endif /* defined(__gowengamedev__Triangle__) */
+#endif /* defined(__noctisgames__Triangle__) */

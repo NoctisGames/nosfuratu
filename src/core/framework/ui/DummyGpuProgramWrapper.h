@@ -1,13 +1,13 @@
 //
 //  DummyGpuProgramWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/27/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__DummyGpuProgramWrapper__
-#define __gowengamedev__DummyGpuProgramWrapper__
+#ifndef __noctisgames__DummyGpuProgramWrapper__
+#define __noctisgames__DummyGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -29,4 +29,4 @@ private:
     DummyGpuProgramWrapper& operator=(const DummyGpuProgramWrapper&);
 };
 
-#endif /* defined(__gowengamedev__DummyGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__DummyGpuProgramWrapper__) */

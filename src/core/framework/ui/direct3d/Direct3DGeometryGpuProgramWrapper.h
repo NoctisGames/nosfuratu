@@ -1,13 +1,13 @@
 //
 //  Direct3DGeometryGpuProgramWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/30/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DGeometryGpuProgramWrapper__
-#define __gowengamedev__Direct3DGeometryGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DGeometryGpuProgramWrapper__
+#define __noctisgames__Direct3DGeometryGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 };
 
-#endif /* defined(__gowengamedev__Direct3DGeometryGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DGeometryGpuProgramWrapper__) */

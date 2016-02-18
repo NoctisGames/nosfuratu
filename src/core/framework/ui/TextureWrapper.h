@@ -1,13 +1,13 @@
 //
 //  TextureWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/25/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef gowengamedev_TextureWrapper_h
-#define gowengamedev_TextureWrapper_h
+#ifndef __noctisgames__TextureWrapper__
+#define __noctisgames__TextureWrapper__
 
 #ifdef GGD_OPENGL_ES
 extern "C"
@@ -46,4 +46,4 @@ struct TextureWrapper
 #endif
 };
 
-#endif /* defined(gowengamedev_TextureWrapper_h) */
+#endif /* defined(__noctisgames__TextureWrapper__) */

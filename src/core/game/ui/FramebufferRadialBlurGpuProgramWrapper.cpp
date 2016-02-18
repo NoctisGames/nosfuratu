@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/8/16.
-//  Copyright © 2016 Gowen Game Dev. All rights reserved.
+//  Copyright © 2016 Noctis Games. All rights reserved.
 //
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"

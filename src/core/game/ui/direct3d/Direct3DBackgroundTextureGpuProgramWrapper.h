@@ -1,13 +1,13 @@
 //
 //  Direct3DBackgroundTextureGpuProgramWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/3/16.
-//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DBackgroundTextureGpuProgramWrapper__
-#define __gowengamedev__Direct3DBackgroundTextureGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DBackgroundTextureGpuProgramWrapper__
+#define __noctisgames__Direct3DBackgroundTextureGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
 };
 
-#endif /* defined(__gowengamedev__Direct3DBackgroundTextureGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DBackgroundTextureGpuProgramWrapper__) */

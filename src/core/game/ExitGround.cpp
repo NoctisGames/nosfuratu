@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/8/16.
-//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #include "ExitGround.h"
@@ -131,10 +131,7 @@ bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
     
     if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
     {
-        float entityLeft = jon.getBounds().getLeft();
-        float entityRight = jon.getBounds().getRight();
-        
-		if (hasCover())
+        if (hasCover())
 		{
 			if (entityVelocityY > 10.0f)
 			{

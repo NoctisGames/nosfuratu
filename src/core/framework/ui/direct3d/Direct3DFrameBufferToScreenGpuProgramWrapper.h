@@ -1,13 +1,13 @@
 //
 //  Direct3DFramebufferToScreenGpuProgramWrapper.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/7/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DFramebufferToScreenGpuProgramWrapper__
-#define __gowengamedev__Direct3DFramebufferToScreenGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DFramebufferToScreenGpuProgramWrapper__
+#define __noctisgames__Direct3DFramebufferToScreenGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 };
 
-#endif /* defined(__gowengamedev__Direct3DFramebufferToScreenGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DFramebufferToScreenGpuProgramWrapper__) */

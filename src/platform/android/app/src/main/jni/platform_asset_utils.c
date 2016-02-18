@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2014 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #include "platform_asset_utils.h"
@@ -13,7 +13,7 @@
 
 static AAssetManager *asset_manager;
 
-JNIEXPORT void JNICALL Java_com_gowengamedev_nosfuratu_platform_PlatformAssetUtils_init_1asset_1manager(JNIEnv * env, jclass jclazz, jobject java_asset_manager)
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_platform_PlatformAssetUtils_init_1asset_1manager(JNIEnv * env, jclass jclazz, jobject java_asset_manager)
 {
 	UNUSED(jclazz);
 

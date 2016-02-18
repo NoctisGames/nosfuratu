@@ -1,13 +1,13 @@
 //
 //  StateMachine.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/28/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__StateMachine__
-#define __gowengamedev__StateMachine__
+#ifndef __noctisgames__StateMachine__
+#define __noctisgames__StateMachine__
 
 #include <cassert>
 
@@ -102,4 +102,4 @@ private:
     State<entity_type>* m_globalState;
 };
 
-#endif /* defined(__gowengamedev__StateMachine__) */
+#endif /* defined(__noctisgames__StateMachine__) */

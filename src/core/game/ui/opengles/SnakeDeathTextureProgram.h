@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 12/28/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__SnakeDeathTextureProgram__
-#define __gowengamedev__SnakeDeathTextureProgram__
+#ifndef __noctisgames__SnakeDeathTextureProgram__
+#define __noctisgames__SnakeDeathTextureProgram__
 
 extern "C"
 {
@@ -34,4 +34,4 @@ private:
     SnakeDeathTextureProgram();
 };
 
-#endif /* defined(__gowengamedev__SnakeDeathTextureProgram__) */
+#endif /* defined(__noctisgames__SnakeDeathTextureProgram__) */

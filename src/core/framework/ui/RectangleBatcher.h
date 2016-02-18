@@ -1,13 +1,13 @@
 //
 //  RectangleBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/25/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__RectangleBatcher__
-#define __gowengamedev__RectangleBatcher__
+#ifndef __noctisgames__RectangleBatcher__
+#define __noctisgames__RectangleBatcher__
 
 #include "Color.h"
 
@@ -31,4 +31,4 @@ protected:
     int m_iNumRectangles;
 };
 
-#endif /* defined(__gowengamedev__RectangleBatcher__) */
+#endif /* defined(__noctisgames__RectangleBatcher__) */

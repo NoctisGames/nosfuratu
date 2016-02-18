@@ -1,13 +1,13 @@
 //
 //  OpenGLESManager.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/19/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__OpenGLESManager__
-#define __gowengamedev__OpenGLESManager__
+#ifndef __noctisgames__OpenGLESManager__
+#define __noctisgames__OpenGLESManager__
 
 #define VERTICES_PER_LINE 2
 #define VERTICES_PER_RECTANGLE 4
@@ -73,4 +73,4 @@ private:
     ~OpenGLESManager();
 };
 
-#endif /* defined(__gowengamedev__OpenGLESManager__) */
+#endif /* defined(__noctisgames__OpenGLESManager__) */

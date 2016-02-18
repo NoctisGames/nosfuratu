@@ -1,9 +1,9 @@
 //
 //  GpuProgramWrapper.cpp
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/27/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #include "GpuProgramWrapper.h"

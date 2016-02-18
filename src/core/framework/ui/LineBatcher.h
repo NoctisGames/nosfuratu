@@ -1,13 +1,13 @@
 //
 //  LineBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/15/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__LineBatcher__
-#define __gowengamedev__LineBatcher__
+#ifndef __noctisgames__LineBatcher__
+#define __noctisgames__LineBatcher__
 
 #include "Color.h"
 
@@ -33,4 +33,4 @@ protected:
     int m_iNumLines;
 };
 
-#endif /* defined(__gowengamedev__LineBatcher__) */
+#endif /* defined(__noctisgames__LineBatcher__) */

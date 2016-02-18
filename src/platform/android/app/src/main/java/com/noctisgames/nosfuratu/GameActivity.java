@@ -1,4 +1,4 @@
-package com.gowengamedev.nosfuratu;
+package com.noctisgames.nosfuratu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

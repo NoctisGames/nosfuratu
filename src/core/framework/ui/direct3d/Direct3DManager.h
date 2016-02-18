@@ -1,13 +1,13 @@
 //
 //  Direct3DManager.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/17/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DManager__
-#define __gowengamedev__Direct3DManager__
+#ifndef __noctisgames__Direct3DManager__
+#define __noctisgames__Direct3DManager__
 
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
@@ -90,4 +90,4 @@ private:
 	Direct3DManager& operator=(const Direct3DManager&);
 };
 
-#endif /* defined(__gowengamedev__Direct3DManager__) */
+#endif /* defined(__noctisgames__Direct3DManager__) */

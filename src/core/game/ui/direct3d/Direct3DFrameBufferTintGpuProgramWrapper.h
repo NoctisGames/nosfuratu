@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/28/16.
-//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__
-#define __gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DFramebufferTintGpuProgramWrapper__
+#define __noctisgames__Direct3DFramebufferTintGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 };
 
-#endif /* defined(__gowengamedev__Direct3DFramebufferTintGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DFramebufferTintGpuProgramWrapper__) */

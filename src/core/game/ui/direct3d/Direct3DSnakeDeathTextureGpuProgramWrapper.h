@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 12/29/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__
-#define __gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__
+#ifndef __noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__
+#define __noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "DeviceResources.h"
@@ -33,4 +33,4 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
 };
 
-#endif /* defined(__gowengamedev__Direct3DSnakeDeathTextureGpuProgramWrapper__) */
+#endif /* defined(__noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__) */

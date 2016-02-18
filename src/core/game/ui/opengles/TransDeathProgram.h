@@ -3,11 +3,11 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
-//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__TransDeathProgram__
-#define __gowengamedev__TransDeathProgram__
+#ifndef __noctisgames__TransDeathProgram__
+#define __noctisgames__TransDeathProgram__
 
 extern "C"
 {
@@ -33,4 +33,4 @@ private:
     TransDeathProgram();
 };
 
-#endif /* defined(__gowengamedev__TransDeathProgram__) */
+#endif /* defined(__noctisgames__TransDeathProgram__) */

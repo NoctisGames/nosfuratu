@@ -1,13 +1,13 @@
 //
 //  PhysicalEntity.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__PhysicalEntity__
-#define __gowengamedev__PhysicalEntity__
+#ifndef __noctisgames__PhysicalEntity__
+#define __noctisgames__PhysicalEntity__
 
 #include "Entity.h"
 #include "Vector2D.h"
@@ -54,4 +54,4 @@ protected:
     float m_fAngle;
 };
 
-#endif /* defined(__gowengamedev__PhysicalEntity__) */
+#endif /* defined(__noctisgames__PhysicalEntity__) */

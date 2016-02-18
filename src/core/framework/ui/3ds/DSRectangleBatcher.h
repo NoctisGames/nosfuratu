@@ -1,13 +1,13 @@
 //
 //  DSRectangleBatcher.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/25/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__DSRectangleBatcher__
-#define __gowengamedev__DSRectangleBatcher__
+#ifndef __noctisgames__DSRectangleBatcher__
+#define __noctisgames__DSRectangleBatcher__
 
 #include "RectangleBatcher.h"
 
@@ -41,4 +41,4 @@ private:
     int m_iScreenHeight;
 };
 
-#endif /* defined(__gowengamedev__DSRectangleBatcher__) */
+#endif /* defined(__noctisgames__DSRectangleBatcher__) */

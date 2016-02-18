@@ -1,4 +1,4 @@
-package com.gowengamedev.nosfuratu.platform;
+package com.noctisgames.nosfuratu.platform;
 
 import android.content.res.AssetManager;
 

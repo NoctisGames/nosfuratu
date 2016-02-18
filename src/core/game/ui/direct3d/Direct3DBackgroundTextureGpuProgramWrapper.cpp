@@ -1,9 +1,9 @@
 //
 //  Direct3DBackgroundTextureGpuProgramWrapper.cpp
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/3/16.
-//  Copyright (c) 2016 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #include "pch.h"

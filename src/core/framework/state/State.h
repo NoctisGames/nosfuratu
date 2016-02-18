@@ -1,13 +1,13 @@
 //
 //  State.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/28/15.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__State__
-#define __gowengamedev__State__
+#ifndef __noctisgames__State__
+#define __noctisgames__State__
 
 template <class entity_type>
 class State
@@ -25,4 +25,4 @@ public:
     virtual void exit(entity_type*) = 0;
 };
 
-#endif /* defined(__gowengamedev__State__) */
+#endif /* defined(__noctisgames__State__) */

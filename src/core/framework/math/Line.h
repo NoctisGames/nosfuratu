@@ -1,13 +1,13 @@
 //
 //  Line.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__Line__
-#define __gowengamedev__Line__
+#ifndef __noctisgames__Line__
+#define __noctisgames__Line__
 
 #include <memory>
 
@@ -27,4 +27,4 @@ private:
     std::unique_ptr<Vector2D> m_end;
 };
 
-#endif /* defined(__gowengamedev__Line__) */
+#endif /* defined(__noctisgames__Line__) */

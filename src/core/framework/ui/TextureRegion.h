@@ -1,13 +1,13 @@
 //
 //  TextureRegion.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__TextureRegion__
-#define __gowengamedev__TextureRegion__
+#ifndef __noctisgames__TextureRegion__
+#define __noctisgames__TextureRegion__
 
 class TextureRegion
 {
@@ -21,4 +21,4 @@ public:
 	float u1, v1, u2, v2;
 };
 
-#endif /* defined(__gowengamedev__TextureRegion__) */
+#endif /* defined(__noctisgames__TextureRegion__) */

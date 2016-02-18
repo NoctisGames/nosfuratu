@@ -1,13 +1,13 @@
 //
 //  OverlapTester.h
-//  gowengamedev-framework
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2015 Gowen Game Dev. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __gowengamedev__OverlapTester__
-#define __gowengamedev__OverlapTester__
+#ifndef __noctisgames__OverlapTester__
+#define __noctisgames__OverlapTester__
 
 class Vector2D;
 class Circle;
@@ -43,4 +43,4 @@ private:
     OverlapTester();
 };
 
-#endif /* defined(__gowengamedev__OverlapTester__) */
+#endif /* defined(__noctisgames__OverlapTester__) */
