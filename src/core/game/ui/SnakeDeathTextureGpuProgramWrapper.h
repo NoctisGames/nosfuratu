@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 12/28/15.
-//  Copyright © 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__SnakeDeathTextureGpuProgramWrapper__

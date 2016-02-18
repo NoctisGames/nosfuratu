@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="662e3635-3253-4a76-8aa5-d66e3f025db5" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>NosFURatu</DisplayName>
-    <PublisherDisplayName>Gowen Game Dev</PublisherDisplayName>
+    <PublisherDisplayName>Noctis Games</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

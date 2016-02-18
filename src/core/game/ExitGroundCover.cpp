@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/9/16.
-//  Copyright © 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
 #include "ExitGroundCover.h"
