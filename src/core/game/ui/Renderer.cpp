@@ -8,8 +8,8 @@
 
 #include "Renderer.h"
 #include "SpriteBatcher.h"
-#include "RectangleBatcher.h"
 #include "LineBatcher.h"
+#include "Font.h"
 #include "TextureRegion.h"
 #include "Assets.h"
 #include "PhysicalEntity.h"

@@ -11,15 +11,14 @@
 
 #include "Assets.h"
 #include "RendererType.h"
-#include "Font.h"
 #include "RectangleBatcher.h"
 
 #include <memory>
 #include <vector>
 
 class SpriteBatcher;
-class RectangleBatcher;
 class LineBatcher;
+class Font;
 struct TextureWrapper;
 class PhysicalEntity;
 class TextureRegion;
