@@ -263,7 +263,7 @@ bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 
 void Mushroom::handleJonCollision(Jon& jon, float deltaTime)
 {
-    jon.triggerBounceBackOffEnemy(-18);
+    jon.triggerBounceBackOffEnemy(-9);
     
     m_fStateTime = 0;
     
@@ -293,7 +293,7 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 void MushroomCeiling::handleJonCollision(Jon& jon, float deltaTime)
 {
-    jon.triggerBounceBackOffEnemy(-18);
+    jon.triggerBounceBackOffEnemy(-9);
     
     m_fStateTime = 0;
     
@@ -304,7 +304,14 @@ void Sparrow::updateBounds()
 {
     Enemy::updateBounds();
     
-    if (OverlapTester::doRectanglesOverlap(m_game->getCameraBounds(), getBounds()))
+	Rectangle& camBounds = *m_game->getCameraBounds();
+
+	if (camBounds.getWidth() > CAM_WIDTH)
+	{
+		return;
+	}
+
+    if (OverlapTester::doRectanglesOverlap(camBounds, getBounds()))
     {
         if (!m_isOnScreen)
         {

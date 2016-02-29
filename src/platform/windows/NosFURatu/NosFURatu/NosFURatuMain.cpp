@@ -44,8 +44,8 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("vampire_glide_loop.wav");
 	m_sounds.push_back("mushroom_bounce.wav");
     m_sounds.push_back("jon_burrow_rocksfall.wav");
-    m_sounds.push_back("sparrow_die.wav");
     m_sounds.push_back("sparrow_fly.wav");
+	m_sounds.push_back("sparrow_die.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -209,8 +209,11 @@ void NosFURatuMain::handleSound()
 		case SOUND_JON_VAMPIRE_GLIDE:
 			playSound(soundId, true);
 			break;
-		case SOUND_STOP_JON_VAMPIRE_GLIDE:
+		case STOP_SOUND_JON_VAMPIRE_GLIDE:
 			stopSound(SOUND_JON_VAMPIRE_GLIDE);
+			break;
+		case SOUND_SPARROW_FLY:
+			playSound(soundId, true);
 			break;
         case STOP_SOUND_SPARROW_FLY:
             stopSound(SOUND_SPARROW_FLY);

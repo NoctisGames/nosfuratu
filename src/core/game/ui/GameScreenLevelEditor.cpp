@@ -264,11 +264,13 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 if (dynamic_cast<Jon*>(m_lastAddedEntity))
                 {
                     Jon* entity = dynamic_cast<Jon *>(m_lastAddedEntity);
+					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     entity->setGame(m_game.get());
                 }
                 else if (dynamic_cast<Enemy *>(m_lastAddedEntity))
                 {
                     Enemy* entity = dynamic_cast<Enemy *>(m_lastAddedEntity);
+					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     entity->setGame(m_game.get());
                 }
             }

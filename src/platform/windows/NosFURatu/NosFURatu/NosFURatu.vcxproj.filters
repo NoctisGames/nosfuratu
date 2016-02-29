@@ -215,6 +215,12 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\assets\textures\world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -309,6 +315,15 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\mushroom_bounce.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\sparrow_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\sparrow_fly.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_burrow_rocksfall.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>

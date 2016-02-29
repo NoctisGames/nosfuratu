@@ -157,11 +157,15 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime)
-        || EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime))
     {
         return false;
     }
+
+	if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+	{
+		return EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime);
+	}
     
     return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
@@ -282,12 +286,12 @@ Jon& Game::getJon()
     return *getJons().at(0);
 }
 
-void Game::setCameraBounds(Rectangle& cameraBounds)
+void Game::setCameraBounds(Rectangle* cameraBounds)
 {
     m_cameraBounds = cameraBounds;
 }
 
-Rectangle& Game::getCameraBounds()
+Rectangle* Game::getCameraBounds()
 {
     return m_cameraBounds;
 }

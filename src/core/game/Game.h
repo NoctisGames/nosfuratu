@@ -89,9 +89,9 @@ public:
     
     Jon& getJon();
     
-    void setCameraBounds(Rectangle& cameraBounds);
+    void setCameraBounds(Rectangle* cameraBounds);
     
-    Rectangle& getCameraBounds();
+    Rectangle* getCameraBounds();
     
     float getFarRight();
     
@@ -127,7 +127,7 @@ private:
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
-    Rectangle& m_cameraBounds;
+    Rectangle* m_cameraBounds;
     
     float m_fStateTime;
     float m_fFarRight;
