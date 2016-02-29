@@ -76,8 +76,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
         _sounds.add(_audio.newSound("mushroom_bounce.wav"));
         _sounds.add(_audio.newSound("jon_burrow_rocksfall.wav"));
-        _sounds.add(_audio.newSound("sparrow_die.wav"));
         _sounds.add(_audio.newSound("sparrow_fly.wav"));
+        _sounds.add(_audio.newSound("sparrow_die.wav"));
 
         Game.init();
 
