@@ -49,7 +49,12 @@ typedef enum
     GroundType_GrassWithoutCaveSmall,
     GroundType_GrassWithoutCaveMedium,
     GroundType_GrassWithoutCaveLarge,
-    GroundType_GrassWithoutCaveEndRight
+    GroundType_GrassWithoutCaveEndRight,
+    
+    GroundType_GrassPitSmall,
+    GroundType_GrassPitMedium,
+    GroundType_GrassPitLarge,
+    GroundType_GrassPitExtraLarge
 } GroundType;
 
 class Ground : public GridLockedPhysicalEntity
@@ -61,13 +66,13 @@ public:
     
     bool isJonLanding(Jon& jon, float deltaTime);
     
-    bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
-    bool canObjectBePlacedOn();
+    virtual bool canObjectBePlacedOn();
     
-    bool canObjectBePlacedUnder();
+    virtual bool canObjectBePlacedUnder();
     
     GroundType getType();
     
@@ -256,6 +261,42 @@ class GrassWithoutCaveEndRight : public Ground
 {
 public:
     GrassWithoutCaveEndRight(int gridX) : Ground(gridX, 0, 8, 100, 0, 0.96f, GroundType_GrassWithoutCaveEndRight, GROUND_SOUND_GRASS) {}
+};
+
+class GrassPit : public Ground
+{
+public:
+    GrassPit(int gridX, int gridWidth, GroundType type) : Ground(gridX, 0, gridWidth, 100, 0, 0.96f, type, GROUND_SOUND_NONE) {}
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    
+    virtual bool canObjectBePlacedOn();
+    
+    virtual bool canObjectBePlacedUnder();
+};
+
+class GrassPitSmall : public GrassPit
+{
+public:
+    GrassPitSmall(int gridX) : GrassPit(gridX, 40, GroundType_GrassPitSmall) {}
+};
+
+class GrassPitMedium : public GrassPit
+{
+public:
+    GrassPitMedium(int gridX) : GrassPit(gridX, 73, GroundType_GrassPitMedium) {}
+};
+
+class GrassPitLarge : public GrassPit
+{
+public:
+    GrassPitLarge(int gridX) : GrassPit(gridX, 128, GroundType_GrassPitLarge) {}
+};
+
+class GrassPitExtraLarge : public GrassPit
+{
+public:
+    GrassPitExtraLarge(int gridX) : GrassPit(gridX, 256, GroundType_GrassPitExtraLarge) {}
 };
 
 #endif /* defined(__nosfuratu__Ground__) */

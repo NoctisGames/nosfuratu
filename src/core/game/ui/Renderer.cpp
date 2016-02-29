@@ -91,6 +91,8 @@ void Renderer::init(RendererType type)
                 
                 m_world_1_objects = loadTexture(compressed ? "c_world_1_objects" : "world_1_objects");
                 
+                m_world_1_special = loadTexture(compressed ? "c_world_1_special" : "world_1_special");
+                
                 m_areWorld1TexturesLoaded = true;
             }
         case RENDERER_TYPE_MENU:
@@ -555,7 +557,6 @@ void Renderer::renderWorld(Game& game)
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getExitGrounds());
     for (std::vector<ExitGround *>::iterator i = game.getExitGrounds().begin(); i != game.getExitGrounds().end(); i++)
     {
         renderPhysicalEntity(*(*i), Assets::getInstance()->get(*(*i)));
@@ -582,6 +583,10 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getGrounds());
     m_spriteBatcher->endBatch(*m_world_1_ground);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getPits());
+    m_spriteBatcher->endBatch(*m_world_1_special);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
@@ -659,6 +664,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getMidgrounds());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getExitGrounds());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getGrounds());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getPits());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getHoles());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getForegroundObjects());
 	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEnemies());
@@ -828,6 +834,10 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->endBatch(*m_world_1_ground);
         
         m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getPits());
+        m_spriteBatcher->endBatch(*m_world_1_special);
+        
+        m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getCollectibleItems());
         renderPhysicalEntities(leep.getForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_objects);
@@ -991,6 +1001,8 @@ void Renderer::cleanUp()
         
         destroyTexture(*m_world_1_objects);
         
+        destroyTexture(*m_world_1_special);
+        
         m_areWorld1TexturesLoaded = false;
     }
     
@@ -1018,6 +1030,11 @@ void Renderer::cleanUp()
     }
     
     m_framebuffers.clear();
+}
+
+Rectangle& Renderer::getCameraBounds()
+{
+    return *m_camBounds;
 }
 
 Vector2D& Renderer::getCameraPosition()

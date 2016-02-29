@@ -35,7 +35,9 @@ public final class GameRenderer implements Renderer
     //// Sound Definitions ////
 
     private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
-    private static final short SOUND_STOP_JON_VAMPIRE_GLIDE = SOUND_JON_VAMPIRE_GLIDE + 1000;
+    private static final short SOUND_SPARROW_FLY = 24;
+    private static final short STOP_SOUND_JON_VAMPIRE_GLIDE = SOUND_JON_VAMPIRE_GLIDE + 1000;
+    private static final short STOP_SOUND_SPARROW_FLY = SOUND_SPARROW_FLY + 1000;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -73,6 +75,9 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jon_vampire_double_jump.wav"));
         _sounds.add(_audio.newSound("vampire_glide_loop.wav"));
         _sounds.add(_audio.newSound("mushroom_bounce.wav"));
+        _sounds.add(_audio.newSound("jon_burrow_rocksfall.wav"));
+        _sounds.add(_audio.newSound("sparrow_die.wav"));
+        _sounds.add(_audio.newSound("sparrow_fly.wav"));
 
         Game.init();
 
@@ -185,8 +190,11 @@ public final class GameRenderer implements Renderer
                 case SOUND_JON_VAMPIRE_GLIDE:
                     playSound(soundId, true);
                     break;
-                case SOUND_STOP_JON_VAMPIRE_GLIDE:
+                case STOP_SOUND_JON_VAMPIRE_GLIDE:
                     stopSound(SOUND_JON_VAMPIRE_GLIDE);
+                    break;
+                case STOP_SOUND_SPARROW_FLY:
+                    stopSound(SOUND_SPARROW_FLY);
                     break;
                 default:
                     playSound(soundId);

@@ -18,7 +18,7 @@
 
 Level * Level::getInstance()
 {
-    static Level *instance = new Level(-1, nullptr);
+    static Level *instance = new Level();
     
     return instance;
 }
@@ -40,6 +40,8 @@ void Level::enter(GameScreen* gs)
         {
             m_game->load(m_json);
         }
+        
+        m_game->setCameraBounds(gs->m_renderer->getCameraBounds());
     }
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
@@ -181,7 +183,7 @@ void Level::execute(GameScreen* gs)
             {
                 // Has Cleared the Level
                 
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+                Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
                 
                 m_fStateTime += gs->m_fDeltaTime;
                 
@@ -260,7 +262,7 @@ void Level::exit(GameScreen* gs)
 {
     m_game->reset();
     
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_STOP_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
     
     m_fStateTime = 0;
     m_isReleasingShockwave = false;

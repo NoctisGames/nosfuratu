@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "NosFURatuMain.h"
 #include "DirectXHelper.h"
 #include "GameScreenLevelEditor.h"
@@ -43,6 +43,9 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
 	m_sounds.push_back("vampire_glide_loop.wav");
 	m_sounds.push_back("mushroom_bounce.wav");
+    m_sounds.push_back("jon_burrow_rocksfall.wav");
+    m_sounds.push_back("sparrow_die.wav");
+    m_sounds.push_back("sparrow_fly.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -209,6 +212,9 @@ void NosFURatuMain::handleSound()
 		case SOUND_STOP_JON_VAMPIRE_GLIDE:
 			stopSound(SOUND_JON_VAMPIRE_GLIDE);
 			break;
+        case STOP_SOUND_SPARROW_FLY:
+            stopSound(SOUND_SPARROW_FLY);
+            break;
 		default:
 			playSound(soundId);
 			break;

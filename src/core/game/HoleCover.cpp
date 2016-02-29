@@ -19,7 +19,7 @@ void HoleCover::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.66f)
+        if (m_fStateTime > 0.50f)
         {
             m_isRequestingDeletion = true;
         }

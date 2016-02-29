@@ -63,6 +63,11 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_grounds.push_back(new GrassWithoutCaveLarge(0));
     m_grounds.push_back(new GrassWithoutCaveEndRight(0));
     
+    m_pits.push_back(new GrassPitSmall(0));
+    m_pits.push_back(new GrassPitMedium(0));
+    m_pits.push_back(new GrassPitLarge(0));
+    m_pits.push_back(new GrassPitExtraLarge(0));
+    
     m_exitGrounds.push_back(new GrassWithCaveSmallExitMid(0));
     m_exitGrounds.push_back(new GrassWithCaveSmallExitEnd(0));
     m_exitGrounds.push_back(new CaveSmallExit(0));
@@ -135,6 +140,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     
     int i = boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
     i = boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_pits, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
@@ -195,6 +201,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                     
                     if (isTouchingEntityForPlacement(m_midgrounds, game.getMidgrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_pits, game.getPits(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
@@ -238,6 +245,11 @@ std::vector<Midground *>& LevelEditorEntitiesPanel::getMidgrounds()
 std::vector<Ground *>& LevelEditorEntitiesPanel::getGrounds()
 {
     return m_grounds;
+}
+
+std::vector<Ground *>& LevelEditorEntitiesPanel::getPits()
+{
+    return m_pits;
 }
 
 std::vector<ExitGround *>& LevelEditorEntitiesPanel::getExitGrounds()

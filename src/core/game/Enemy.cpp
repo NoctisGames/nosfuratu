@@ -31,7 +31,7 @@ Enemy* Enemy::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-Enemy::Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_enemySpirit(nullptr), m_type(type), m_enemySpiritType(enemySpiritType), m_color(0, 1, 1, 1), m_fEnemySpiritStateTime(0), m_fXOfDeath(0), m_fYOfDeath(0), m_isDying(false), m_isDead(false)
+Enemy::Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_enemySpirit(nullptr), m_type(type), m_enemySpiritType(enemySpiritType), m_color(0, 1, 1, 1), m_fEnemySpiritStateTime(0), m_fXOfDeath(0), m_fYOfDeath(0), m_deathSoundId(deathSoundId), m_isDying(false), m_isDead(false)
 {
     // Empty
 }
@@ -75,7 +75,7 @@ void Enemy::update(float deltaTime)
         
         if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
         {
-            jon.kill();
+            handleJonCollision(jon, deltaTime);
         }
     }
 }
@@ -99,7 +99,7 @@ void Enemy::triggerHit()
     m_fXOfDeath = getBounds().getLeft() + getBounds().getWidth() / 2;
     m_fYOfDeath = getBounds().getLowerLeft().getY() + getBounds().getHeight() / 2;
     
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_DEATH);
+    Assets::getInstance()->addSoundIdToPlayQueue(m_deathSoundId);
 }
 
 bool Enemy::isJonLanding(Jon& jon, float deltaTime)
@@ -222,6 +222,13 @@ EnemyType Enemy::getType()
     return m_type;
 }
 
+#pragma mark protected
+
+void Enemy::handleJonCollision(Jon& jon, float deltaTime)
+{
+    jon.kill();
+}
+
 bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 {
 	float jonVelocityY = jon.getVelocity().getY();
@@ -254,6 +261,15 @@ bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 	return false;
 }
 
+void Mushroom::handleJonCollision(Jon& jon, float deltaTime)
+{
+    jon.triggerBounceBackOffEnemy(-18);
+    
+    m_fStateTime = 0;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+}
+
 bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
@@ -273,4 +289,34 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
     }
     
     return false;
+}
+
+void MushroomCeiling::handleJonCollision(Jon& jon, float deltaTime)
+{
+    jon.triggerBounceBackOffEnemy(-18);
+    
+    m_fStateTime = 0;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+}
+
+void Sparrow::updateBounds()
+{
+    Enemy::updateBounds();
+    
+    if (OverlapTester::doRectanglesOverlap(m_game->getCameraBounds(), getBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    }
 }

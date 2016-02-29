@@ -12,6 +12,7 @@
 #include "GridLockedPhysicalEntity.h"
 #include "Color.h"
 #include "EnemySpirit.h"
+#include "GameConstants.h"
 
 class Game;
 class Jon;
@@ -29,7 +30,7 @@ class Enemy : public GridLockedPhysicalEntity
 public:
     static Enemy* create(int gridX, int gridY, int type);
     
-    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType);
+    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId);
     
     virtual void update(float deltaTime);
     
@@ -71,6 +72,8 @@ protected:
     Game* m_game;
     bool m_isDying;
     
+    virtual void handleJonCollision(Jon& jon, float deltaTime);
+    
 private:
     EnemySpirit* m_enemySpirit;
     EnemyType m_type;
@@ -79,35 +82,45 @@ private:
     float m_fEnemySpiritStateTime;
     float m_fXOfDeath;
     float m_fYOfDeath;
+    short m_deathSoundId;
     bool m_isDead;
 };
 
 class Mushroom : public Enemy
 {
 public:
-    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_Mushroom, EnemySpiritType_None) {}
+    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_Mushroom, EnemySpiritType_None, NO_SOUND) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+    virtual void handleJonCollision(Jon& jon, float deltaTime);
 };
 
 class MushroomCeiling : public Enemy
 {
 public:
-    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_MushroomCeiling, EnemySpiritType_None) {}
+    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_MushroomCeiling, EnemySpiritType_None, NO_SOUND) {}
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+    
+    virtual void handleJonCollision(Jon& jon, float deltaTime);
 };
 
 class SnakeGrunt : public Enemy
 {
 public:
-    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, EnemySpiritType_Snake) {}
+    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_SNAKE_DEATH) {}
 };
 
 class Sparrow : public Enemy
 {
 public:
-    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, EnemySpiritType_Sparrow) {}
+    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_isOnScreen(false) {}
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

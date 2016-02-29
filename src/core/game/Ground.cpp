@@ -78,6 +78,15 @@ Ground* Ground::create(int gridX, int gridY, int type)
             return new GrassWithoutCaveLarge(gridX);
         case GroundType_GrassWithoutCaveEndRight:
             return new GrassWithoutCaveEndRight(gridX);
+            
+        case GroundType_GrassPitSmall:
+            return new GrassPitSmall(gridX);
+        case GroundType_GrassPitMedium:
+            return new GrassPitMedium(gridX);
+        case GroundType_GrassPitLarge:
+            return new GrassPitLarge(gridX);
+        case GroundType_GrassPitExtraLarge:
+            return new GrassPitExtraLarge(gridX);
     }
     
     assert(false);
@@ -186,4 +195,38 @@ GroundType Ground::getType()
 GroundSoundType Ground::getGroundSoundType()
 {
     return m_groundSoundType;
+}
+
+bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
+{
+    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    {
+        float entityBottom = jon.getBounds().getLowerLeft().getY();
+        float entityRight = jon.getBounds().getRight();
+        
+        float itemTop = getBounds().getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemLeftReq = getBounds().getRight() - 1.125f;
+        
+        if (entityRight >= itemLeftReq && entityBottom < itemTopReq)
+        {
+            jon.getPosition().setX(itemLeftReq - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool GrassPit::canObjectBePlacedOn()
+{
+    return false;
+}
+
+bool GrassPit::canObjectBePlacedUnder()
+{
+    return false;
 }

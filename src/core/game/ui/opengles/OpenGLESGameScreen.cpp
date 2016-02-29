@@ -17,7 +17,7 @@ void OpenGLESGameScreen::init(int screenWidth, int screenHeight)
 {
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
-    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 8192);
+    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 16384);
     
     if (!m_renderer)
     {

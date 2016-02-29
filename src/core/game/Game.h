@@ -73,6 +73,8 @@ public:
     
     std::vector<Ground *>& getGrounds();
     
+    std::vector<Ground *>& getPits();
+    
     std::vector<ExitGround *>& getExitGrounds();
     
     std::vector<Hole *>& getHoles();
@@ -86,6 +88,10 @@ public:
     std::vector<Jon *>& getJons();
     
     Jon& getJon();
+    
+    void setCameraBounds(Rectangle& cameraBounds);
+    
+    Rectangle& getCameraBounds();
     
     float getFarRight();
     
@@ -114,12 +120,14 @@ private:
     std::vector<Midground *> m_midgrounds;
     std::vector<Background *> m_backgroundMidgroundCovers;
     std::vector<Ground *> m_grounds;
+    std::vector<Ground *> m_pits;
     std::vector<ExitGround *> m_exitGrounds;
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
+    Rectangle& m_cameraBounds;
     
     float m_fStateTime;
     float m_fFarRight;

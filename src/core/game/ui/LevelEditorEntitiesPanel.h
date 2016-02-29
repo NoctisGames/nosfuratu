@@ -44,6 +44,8 @@ public:
     
     std::vector<Ground *>& getGrounds();
     
+    std::vector<Ground *>& getPits();
+    
     std::vector<ExitGround *>& getExitGrounds();
     
     std::vector<Hole *>& getHoles();
@@ -125,6 +127,7 @@ private:
     
     std::vector<Midground *> m_midgrounds;
     std::vector<Ground *> m_grounds;
+    std::vector<Ground *> m_pits;
     std::vector<ExitGround *> m_exitGrounds;
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;

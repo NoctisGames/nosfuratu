@@ -14,6 +14,7 @@
 
 #define midgroundsKey "midgrounds"
 #define groundsKey "grounds"
+#define pitsKey "pits"
 #define exitGroundsKey "exitGrounds"
 #define holesKey "holes"
 #define foregroundObjectsKey "foregroundObjects"
@@ -39,6 +40,7 @@ void Game::copy(Game* game)
     
     copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
+    copyPhysicalEntities(game->getPits(), m_pits);
     copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
     copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
@@ -58,6 +60,7 @@ void Game::load(const char* json)
     
     loadArray(m_midgrounds, d, midgroundsKey);
     loadArray(m_grounds, d, groundsKey);
+    loadArray(m_pits, d, pitsKey);
     loadArray(m_exitGrounds, d, exitGroundsKey);
     loadArray(m_holes, d, holesKey);
     loadArray(m_foregroundObjects, d, foregroundObjectsKey);
@@ -82,6 +85,7 @@ const char* Game::save()
     
     saveArray(m_midgrounds, w, midgroundsKey);
     saveArray(m_grounds, w, groundsKey);
+    saveArray(m_pits, w, pitsKey);
     saveArray(m_exitGrounds, w, exitGroundsKey);
     saveArray(m_holes, w, holesKey);
     saveArray(m_foregroundObjects, w, foregroundObjectsKey);
@@ -98,6 +102,7 @@ void Game::reset()
 {
     m_midgrounds.clear();
     m_grounds.clear();
+    m_pits.clear();
     m_exitGrounds.clear();
     m_holes.clear();
     m_foregroundObjects.clear();
@@ -120,6 +125,7 @@ void Game::updateAndClean(float deltaTime)
 {
     EntityUtils::updateAndClean(getMidgrounds(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
+    EntityUtils::updateAndClean(getPits(), deltaTime);
     EntityUtils::updateAndClean(getExitGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);
     EntityUtils::updateAndClean(getForegroundObjects(), deltaTime);
@@ -138,6 +144,7 @@ int Game::calcSum()
     
     sum += m_midgrounds.size();
     sum += m_grounds.size();
+    sum += m_pits.size();
     sum += m_exitGrounds.size();
     sum += m_holes.size();
     sum += m_foregroundObjects.size();
@@ -150,7 +157,8 @@ int Game::calcSum()
 
 bool Game::isJonGrounded(float deltaTime)
 {
-    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime))
+    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime)
+        || EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
     {
         return false;
     }
@@ -163,6 +171,12 @@ bool Game::isJonGrounded(float deltaTime)
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
+    if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+    {
+        return EntityUtils::isBlockedOnRight(getJon(), getPits(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime);
+    }
+    
     return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime);
@@ -170,6 +184,11 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
+    if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+    {
+        return false;
+    }
+    
     return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
@@ -223,6 +242,11 @@ std::vector<Ground *>& Game::getGrounds()
     return m_grounds;
 }
 
+std::vector<Ground *>& Game::getPits()
+{
+    return m_pits;
+}
+
 std::vector<ExitGround *>& Game::getExitGrounds()
 {
     return m_exitGrounds;
@@ -256,6 +280,16 @@ std::vector<Jon *>& Game::getJons()
 Jon& Game::getJon()
 {
     return *getJons().at(0);
+}
+
+void Game::setCameraBounds(Rectangle& cameraBounds)
+{
+    m_cameraBounds = cameraBounds;
+}
+
+Rectangle& Game::getCameraBounds()
+{
+    return m_cameraBounds;
 }
 
 float Game::getFarRight()

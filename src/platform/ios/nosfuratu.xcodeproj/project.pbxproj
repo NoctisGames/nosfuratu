@@ -91,6 +91,8 @@
 		BB66EC2E1C0E5892006DE4F5 /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC261C0E5892006DE4F5 /* CMOpenALSoundManager.m */; };
 		BB66EC301C0E5892006DE4F5 /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC281C0E5892006DE4F5 /* DebugOutput.m */; };
 		BB66EC341C0E5A26006DE4F5 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC331C0E5A26006DE4F5 /* UIView+Toast.m */; };
+		BB67E9241C83DCA3009E5F2B /* sparrow_die.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB67E9221C83DCA3009E5F2B /* sparrow_die.wav */; };
+		BB67E9251C83DCA3009E5F2B /* sparrow_fly.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB67E9231C83DCA3009E5F2B /* sparrow_fly.wav */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
 		BB74E80718C2541F007C223E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB74E80518C2541F007C223E /* Localizable.strings */; };
@@ -193,6 +195,9 @@
 		BBEA16B51B97B9BB009B4711 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA166B1B97B9BB009B4711 /* Renderer.cpp */; };
 		BBF39E151BBC9FC800D1A072 /* GameScreenTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF39E131BBC9FC800D1A072 /* GameScreenTransitions.cpp */; };
 		BBF519C11BE84045003C6C06 /* ExitGroundCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* ExitGroundCover.cpp */; };
+		BBF856821C7FBDE100328A0E /* jon_burrow_rocksfall.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBF856811C7FBDE100328A0E /* jon_burrow_rocksfall.wav */; };
+		BBF856841C7FCBCD00328A0E /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF856831C7FCBCD00328A0E /* world_1_special.png */; };
+		BBF856861C7FCBD400328A0E /* c_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBF856851C7FCBD400328A0E /* c_world_1_special.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -362,6 +367,8 @@
 		BB66EC291C0E5892006DE4F5 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		BB66EC321C0E5A26006DE4F5 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		BB66EC331C0E5A26006DE4F5 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		BB67E9221C83DCA3009E5F2B /* sparrow_die.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sparrow_die.wav; sourceTree = "<group>"; };
+		BB67E9231C83DCA3009E5F2B /* sparrow_fly.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sparrow_fly.wav; sourceTree = "<group>"; };
 		BB6F4D701BB31AB40081CAE4 /* EntityUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityUtils.h; sourceTree = "<group>"; };
 		BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -595,6 +602,9 @@
 		BBF39E141BBC9FC800D1A072 /* GameScreenTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenTransitions.h; sourceTree = "<group>"; };
 		BBF519BF1BE84045003C6C06 /* ExitGroundCover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExitGroundCover.cpp; sourceTree = "<group>"; };
 		BBF519C01BE84045003C6C06 /* ExitGroundCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitGroundCover.h; sourceTree = "<group>"; };
+		BBF856811C7FBDE100328A0E /* jon_burrow_rocksfall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jon_burrow_rocksfall.wav; sourceTree = "<group>"; };
+		BBF856831C7FCBCD00328A0E /* world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_special.png; sourceTree = "<group>"; };
+		BBF856851C7FCBD400328A0E /* c_world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_special.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -788,6 +798,7 @@
 				BB939C891C626E41006D945A /* footstep_left_grass.wav */,
 				BB939C8A1C626E41006D945A /* footstep_right_cave.wav */,
 				BB939C8B1C626E41006D945A /* footstep_right_grass.wav */,
+				BBF856811C7FBDE100328A0E /* jon_burrow_rocksfall.wav */,
 				BB939C8C1C626E41006D945A /* jon_rabbit_double_jump.wav */,
 				BB939C8D1C626E41006D945A /* jon_rabbit_jump.wav */,
 				BB939C8E1C626E41006D945A /* jon_vampire_double_jump.wav */,
@@ -798,6 +809,8 @@
 				BB939C931C626E41006D945A /* landing_grass.wav */,
 				BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */,
 				BB939C941C626E41006D945A /* snake_death.wav */,
+				BB67E9221C83DCA3009E5F2B /* sparrow_die.wav */,
+				BB67E9231C83DCA3009E5F2B /* sparrow_fly.wav */,
 				BB939C951C626E41006D945A /* trigger_transform.wav */,
 				BB939C961C626E41006D945A /* vampire_glide_loop.wav */,
 			);
@@ -822,6 +835,7 @@
 				BB32DE8C1C67113600F98904 /* world_1_ground.png */,
 				BB646DE31C695CA300313FBB /* world_1_midground.png */,
 				BB646DED1C69AC1300313FBB /* world_1_objects.png */,
+				BBF856831C7FCBCD00328A0E /* world_1_special.png */,
 			);
 			path = textures;
 			sourceTree = "<group>";
@@ -839,6 +853,7 @@
 				BB32DE941C671C6500F98904 /* c_world_1_ground.png */,
 				BB646DE51C695DEA00313FBB /* c_world_1_midground.png */,
 				BB646DEF1C69AC3100313FBB /* c_world_1_objects.png */,
+				BBF856851C7FCBD400328A0E /* c_world_1_special.png */,
 			);
 			path = compressed;
 			sourceTree = "<group>";
@@ -1373,8 +1388,11 @@
 				BB32DE9A1C671C6500F98904 /* c_world_1_background_upper.png in Resources */,
 				BB32DE8B1C66F43700F98904 /* world_1_background_upper.png in Resources */,
 				BB646DF01C69AC3100313FBB /* c_world_1_objects.png in Resources */,
+				BBF856861C7FCBD400328A0E /* c_world_1_special.png in Resources */,
+				BB67E9251C83DCA3009E5F2B /* sparrow_fly.wav in Resources */,
 				BB0AE8D11C6ABF4E0047EF19 /* c_world_1_enemies.png in Resources */,
 				BB939D1A1C626E41006D945A /* trans_death_shader_helper.png in Resources */,
+				BB67E9241C83DCA3009E5F2B /* sparrow_die.wav in Resources */,
 				BB939CE61C626E41006D945A /* jump_spring_heavy.wav in Resources */,
 				BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
@@ -1406,6 +1424,7 @@
 				BB939D021C626E41006D945A /* jon.png in Resources */,
 				BB646DE41C695CA300313FBB /* world_1_midground.png in Resources */,
 				BBEA16951B97B9BB009B4711 /* color_shader.fsh in Resources */,
+				BBF856821C7FBDE100328A0E /* jon_burrow_rocksfall.wav in Resources */,
 				BB32DE9B1C671C6500F98904 /* c_world_1_ground.png in Resources */,
 				BB939CE41C626E41006D945A /* jon_vampire_jump.wav in Resources */,
 				BB74E80718C2541F007C223E /* Localizable.strings in Resources */,
@@ -1417,6 +1436,7 @@
 				BB32DE891C66F43700F98904 /* world_1_background_lower.png in Resources */,
 				BB939CDB1C626E41006D945A /* death.wav in Resources */,
 				BB939CDD1C626E41006D945A /* footstep_left_cave.wav in Resources */,
+				BBF856841C7FCBCD00328A0E /* world_1_special.png in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
 				BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */,

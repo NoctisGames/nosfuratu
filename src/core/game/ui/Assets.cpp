@@ -248,6 +248,27 @@ TextureRegion& Assets::get(Ground& ground)
             static TextureRegion tr = createTextureRegion(3712, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
+            
+        case GroundType_GrassPitSmall:
+        {
+            static TextureRegion tr = createTextureRegion(2162, 880, 640, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case GroundType_GrassPitMedium:
+        {
+            static TextureRegion tr = createTextureRegion(2898, 880, 1168, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case GroundType_GrassPitLarge:
+        {
+            static TextureRegion tr = createTextureRegion(0, 880, 2048, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case GroundType_GrassPitExtraLarge:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2496, 4096, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
     }
     
     assert(false);
@@ -264,7 +285,7 @@ TextureRegion& Assets::get(ExitGround& exitGround)
         }
         case ExitGroundType_GrassWithCaveSmallExitEnd:
         {
-            static TextureRegion tr = createTextureRegion(2512, 360, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3500, 560, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ExitGroundType_CaveSmallExit:
@@ -327,7 +348,7 @@ TextureRegion& Assets::get(HoleCover& holeCover)
     {
         case HoleCoverType_Grass:
         {
-            static Animation anim = createAnimation(256, 0, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 12);
+            static Animation anim = createAnimation(256, 0, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);
             return anim.getTextureRegion(holeCover.getStateTime());
         }
         case HoleCoverType_Cave:
@@ -864,7 +885,7 @@ short Assets::getFirstSoundId()
 
 void Assets::addSoundIdToPlayQueue(short soundId)
 {
-    if (m_sSoundIds.size() < MAX_SOUNDS_TO_PLAY_PER_FRAME)
+    if (soundId > NO_SOUND && m_sSoundIds.size() < MAX_SOUNDS_TO_PLAY_PER_FRAME)
     {
         m_sSoundIds.push_back(soundId);
     }

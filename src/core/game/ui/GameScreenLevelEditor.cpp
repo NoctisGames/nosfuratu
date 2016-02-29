@@ -466,6 +466,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     
     EntityUtils::addAll(m_game->getMidgrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getGrounds(), m_gameEntities);
+    EntityUtils::addAll(m_game->getPits(), m_gameEntities);
     EntityUtils::addAll(m_game->getExitGrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
     EntityUtils::addAll(m_game->getForegroundObjects(), m_gameEntities);

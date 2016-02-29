@@ -114,6 +114,8 @@ public:
 
     void cleanUp();
     
+    Rectangle& getCameraBounds();
+    
     Vector2D& getCameraPosition();
     
 protected:
@@ -134,6 +136,7 @@ protected:
     TextureWrapper* m_world_1_ground;
     TextureWrapper* m_world_1_midground;
     TextureWrapper* m_world_1_objects;
+    TextureWrapper* m_world_1_special;
     
     std::vector<TextureWrapper> m_framebuffers;
     

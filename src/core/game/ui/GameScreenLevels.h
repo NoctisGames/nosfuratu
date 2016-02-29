@@ -55,7 +55,7 @@ protected:
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Level(int level, const char* m_json);
+    Level(int level = 1337, const char* m_json = nullptr);
     Level(const Level&);
     Level& operator=(const Level&);
 };

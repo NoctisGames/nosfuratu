@@ -83,6 +83,8 @@ public:
     
     void triggerBounceDownardsOffEnemy(float bounceBackVelocity);
     
+    void triggerBounceBackOffEnemy(float bounceBackVelocity);
+    
     std::vector<DustCloud *>& getDustClouds();
     
     std::vector<Jon *>& getAfterImages();
@@ -199,6 +201,7 @@ private:
         virtual void triggerBoost(Jon* jon, float boostVelocity) = 0;
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity) = 0;
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
         
         JonFormState() {};
         
@@ -229,6 +232,7 @@ private:
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_isSpinningBackFistDelivered;
@@ -261,6 +265,7 @@ private:
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         std::unique_ptr<Vector2D> m_lastKnownVelocity;
@@ -294,6 +299,7 @@ private:
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_hasCompletedSlowMotion;
@@ -325,6 +331,7 @@ private:
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
     private:
         bool m_hasCompletedSlowMotion;

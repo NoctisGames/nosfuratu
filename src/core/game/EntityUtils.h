@@ -122,6 +122,29 @@ public:
     }
     
     template<typename T>
+    static bool isFallingThroughPit(Jon& jon, std::vector<T>& items, float deltaTime)
+    {
+        float entityLeft = jon.getBounds().getLeft();
+        float entityRight = jon.getBounds().getRight();
+        
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            float itemLowerLeftX = (*i)->getBounds().getLeft();
+            float itemRight = (*i)->getBounds().getRight();
+            
+            if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+            {
+                if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
     static bool isBurrowingThroughHole(Jon& jon, std::vector<T>& items)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
