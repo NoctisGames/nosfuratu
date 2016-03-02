@@ -30,7 +30,7 @@ class Enemy : public GridLockedPhysicalEntity
 public:
     static Enemy* create(int gridX, int gridY, int type);
     
-    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId);
+    Enemy(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId);
     
     virtual void update(float deltaTime);
     
@@ -89,7 +89,7 @@ private:
 class Mushroom : public Enemy
 {
 public:
-    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_Mushroom, EnemySpiritType_None, NO_SOUND) {}
+    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, 0, 0, 1, 0.796875f, EnemyType_Mushroom, EnemySpiritType_None, NO_SOUND) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
@@ -99,7 +99,7 @@ public:
 class MushroomCeiling : public Enemy
 {
 public:
-    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, EnemyType_MushroomCeiling, EnemySpiritType_None, NO_SOUND) {}
+    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, 0, 0.203125f, 1, 0.796875f, EnemyType_MushroomCeiling, EnemySpiritType_None, NO_SOUND) {}
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -109,13 +109,13 @@ public:
 class SnakeGrunt : public Enemy
 {
 public:
-    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_SNAKE_DEATH) {}
+    SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, 0, 0, 1, 0.79166666666667f, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_SNAKE_DEATH) {}
 };
 
 class Sparrow : public Enemy
 {
 public:
-    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_isOnScreen(false) {}
+    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_isOnScreen(false) {}
     
     virtual void updateBounds();
     
