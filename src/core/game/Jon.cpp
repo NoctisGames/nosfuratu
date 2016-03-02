@@ -947,12 +947,14 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(3);
     jon->m_acceleration->setX(0);
-    jon->m_acceleration->setY(jon->m_fGravity);
+	jon->m_fGravity = VAMP_GRAVITY;
+	jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
     m_isFallingAfterGlide = false;
     
     jon->setState(ACTION_DOUBLE_JUMPING);
+	jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 2;
     
