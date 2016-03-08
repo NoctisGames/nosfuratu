@@ -215,10 +215,22 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_1_special.png">
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_1.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -320,10 +332,28 @@
     <Media Include="..\..\..\..\..\assets\sounds\sparrow_die.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\sparrow_fly.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\jon_burrow_rocksfall.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jon_burrow_rocksfall.wav">
+    <Media Include="..\..\..\..\..\assets\sounds\fox_bounced_on.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\fox_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\fox_strike.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\saw_grind_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\sparrow_fly_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\toad_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\toad_eat.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>
@@ -389,6 +419,12 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_special.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>
