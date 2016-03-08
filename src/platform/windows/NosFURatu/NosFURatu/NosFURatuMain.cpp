@@ -321,7 +321,7 @@ void NosFURatuMain::loadLevel(int requestedAction)
 						std::wstring fooW(fileContent->Begin());
 						std::string fooA(fooW.begin(), fooW.end());
 						const char *levelContent = fooA.c_str();
-						GameScreenLevelEditor::getInstance()->load(levelContent);
+						GameScreenLevelEditor::getInstance()->load(levelContent, m_gameScreen.get());
 
 						displayToast(L"Level loaded successfully");
 					}

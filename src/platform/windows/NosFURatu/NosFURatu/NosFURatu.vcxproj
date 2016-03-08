@@ -1646,6 +1646,7 @@
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level10.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.cpp" />
