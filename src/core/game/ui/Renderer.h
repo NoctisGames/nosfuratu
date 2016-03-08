@@ -88,7 +88,7 @@ public:
     
     void renderWorld(Game& game);
     
-    void renderJon(Game& game);
+    void renderJonAndExtraForegroundObjects(Game& game);
     
     void renderBounds(Game& game, int boundsLevelRequested);
     
@@ -134,6 +134,9 @@ protected:
     TextureWrapper* m_world_1_background_upper;
     TextureWrapper* m_world_1_enemies;
     TextureWrapper* m_world_1_ground;
+    TextureWrapper* m_world_1_mid_boss_part_1;
+    TextureWrapper* m_world_1_mid_boss_part_2;
+    TextureWrapper* m_world_1_mid_boss_part_3;
     TextureWrapper* m_world_1_midground;
     TextureWrapper* m_world_1_objects;
     TextureWrapper* m_world_1_special;
@@ -177,6 +180,7 @@ private:
     int m_iRadialBlurDirection;
     bool m_areMenuTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
+    bool m_areWorld1MidBossTexturesLoaded;
     bool m_areShadersLoaded;
     
     template<typename T>
@@ -204,13 +208,16 @@ private:
     template<typename T>
     void renderBoundsForPhysicalEntities(RectangleBatcher& rectangleBatcher, std::vector<T*>& items)
     {
+        static Color red = Color(1, 0, 0, 1);
+        
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-			rectangleBatcher.beginBatch();
-            T* pItem = *i;
-            T& item = *pItem;
-            renderBoundsForPhysicalEntity(item);
-			rectangleBatcher.endBatch();
+            for (typename std::vector<Rectangle>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
+            {
+                rectangleBatcher.beginBatch();
+                renderBoundsWithColor((*j), red);
+                rectangleBatcher.endBatch();
+            }
         }
     }
     
@@ -219,6 +226,8 @@ private:
     void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
+    
+    void renderBoundsWithColor(Rectangle &r, Color& c);
     
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
     

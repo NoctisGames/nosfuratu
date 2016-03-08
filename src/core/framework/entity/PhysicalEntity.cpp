@@ -14,7 +14,7 @@ PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : En
     m_position = std::unique_ptr<Vector2D>(new Vector2D(x, y));
     m_velocity = std::unique_ptr<Vector2D>(new Vector2D());
     m_acceleration = std::unique_ptr<Vector2D>(new Vector2D());
-    m_bounds = std::unique_ptr<Rectangle>(new Rectangle(x - width / 2, y - height / 2, width, height));
+    m_bounds.push_back(Rectangle(x - width / 2, y - height / 2, width, height));
 
     m_fWidth = width;
     m_fHeight = height;
@@ -33,16 +33,16 @@ void PhysicalEntity::update(float deltaTime)
 
 void PhysicalEntity::resetBounds(float width, float height)
 {
-    Vector2D &lowerLeft = m_bounds->getLowerLeft();
+    Vector2D &lowerLeft = m_bounds.at(0).getLowerLeft();
     lowerLeft.set(m_position->getX() - width / 2, m_position->getY() - height / 2);
-    m_bounds->setWidth(width);
-    m_bounds->setHeight(height);
+    m_bounds.at(0).setWidth(width);
+    m_bounds.at(0).setHeight(height);
 }
 
 void PhysicalEntity::updateBounds()
 {
-    Vector2D &lowerLeft = m_bounds->getLowerLeft();
-    lowerLeft.set(m_position->getX() - m_bounds->getWidth() / 2, m_position->getY() - m_bounds->getHeight() / 2);
+    Vector2D &lowerLeft = m_bounds.at(0).getLowerLeft();
+    lowerLeft.set(m_position->getX() - m_bounds.at(0).getWidth() / 2, m_position->getY() - m_bounds.at(0).getHeight() / 2);
 }
 
 Vector2D& PhysicalEntity::getPosition()
@@ -60,9 +60,14 @@ Vector2D& PhysicalEntity::getAcceleration()
     return *m_acceleration;
 }
 
-Rectangle& PhysicalEntity::getBounds()
+std::vector<Rectangle>& PhysicalEntity::getBounds()
 {
-    return *m_bounds;
+    return m_bounds;
+}
+
+Rectangle& PhysicalEntity::getMainBounds()
+{
+    return m_bounds.at(0);
 }
 
 const float& PhysicalEntity::getWidth()

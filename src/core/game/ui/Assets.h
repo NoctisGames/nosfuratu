@@ -28,7 +28,7 @@
 
 #include <vector>
 
-#define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
+#define MAX_SOUNDS_TO_PLAY_PER_FRAME 4
 
 class CollectibleItem;
 class LevelEditorActionsPanel;
@@ -83,6 +83,8 @@ public:
     short getFirstSoundId();
     
     void addSoundIdToPlayQueue(short soundId);
+    
+    void forceAddSoundIdToPlayQueue(short soundId);
     
     void eraseFirstSoundId();
     

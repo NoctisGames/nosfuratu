@@ -58,6 +58,8 @@ public:
     
     std::vector<Jon *>& getJons();
     
+    std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
+    
     float getEntitiesCameraPos();
     
     bool isOpen();
@@ -134,6 +136,7 @@ private:
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
+    std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

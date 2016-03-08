@@ -13,6 +13,8 @@ typedef enum
 {
     RENDERER_TYPE_MENU,
     RENDERER_TYPE_WORLD_1,
+    RENDERER_TYPE_WORLD_1_MID_BOSS,
+    RENDERER_TYPE_WORLD_1_END_BOSS
 } RendererType;
 
 #endif /* defined(__nosfuratu__RendererType__) */

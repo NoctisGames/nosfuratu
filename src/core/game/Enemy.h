@@ -19,10 +19,12 @@ class Jon;
 
 typedef enum
 {
-    EnemyType_Mushroom,
+    EnemyType_MushroomGround,
     EnemyType_MushroomCeiling,
     EnemyType_SnakeGrunt,
-    EnemyType_Sparrow
+    EnemyType_Sparrow,
+    EnemyType_Toad,
+    EnemyType_Fox
 } EnemyType;
 
 class Enemy : public GridLockedPhysicalEntity
@@ -72,7 +74,11 @@ protected:
     Game* m_game;
     bool m_isDying;
     
-    virtual void handleJonCollision(Jon& jon, float deltaTime);
+    virtual void handleDead(float deltaTime);
+    
+    virtual void handleDying(float deltaTime);
+    
+    virtual void handleAlive(float deltaTime);
     
 private:
     EnemySpirit* m_enemySpirit;
@@ -89,21 +95,25 @@ private:
 class Mushroom : public Enemy
 {
 public:
-    Mushroom(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, 0, 0, 1, 0.796875f, EnemyType_Mushroom, EnemySpiritType_None, NO_SOUND) {}
+    Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
-    
-    virtual void handleJonCollision(Jon& jon, float deltaTime);
+    virtual void handleAlive(float deltaTime);
 };
 
-class MushroomCeiling : public Enemy
+class MushroomGround : public Mushroom
 {
 public:
-    MushroomCeiling(int gridX, int gridY) : Enemy(gridX, gridY, 7, 8, 0, 0.203125f, 1, 0.796875f, EnemyType_MushroomCeiling, EnemySpiritType_None, NO_SOUND) {}
+    MushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 7, 8, 0, 0, 1, 0.796875f, EnemyType_MushroomGround) {}
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+};
+
+class MushroomCeiling : public Mushroom
+{
+public:
+    MushroomCeiling(int gridX, int gridY) : Mushroom(gridX, gridY, 7, 8, 0, 0.203125f, 1, 0.796875f, EnemyType_MushroomCeiling) {}
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
-    
-    virtual void handleJonCollision(Jon& jon, float deltaTime);
 };
 
 class SnakeGrunt : public Enemy
@@ -121,6 +131,22 @@ public:
     
 private:
     bool m_isOnScreen;
+};
+
+class Toad : public Enemy
+{
+public:
+    Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.34375f, 0.078125f, 0.59765625f, 0.546875f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH) {}
+    
+    virtual void handleAlive(float deltaTime);
+};
+
+class Fox : public Enemy
+{
+public:
+    Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0, 0, 1, 1, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH) {}
+    
+    virtual void handleAlive(float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

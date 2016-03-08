@@ -40,7 +40,7 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
     
     if (!m_game->isLoaded())
     {
-        load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}");
+        load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
     }
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
@@ -55,7 +55,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorld(*m_game);
         
-        gs->m_renderer->renderJon(*m_game);
+        gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
         
         if (m_lastAddedEntity != nullptr)
         {
@@ -138,9 +138,11 @@ const char* GameScreenLevelEditor::save()
     return m_game->save();
 }
 
-void GameScreenLevelEditor::load(const char* json)
+void GameScreenLevelEditor::load(const char* json, GameScreen* gs)
 {
     m_game->load(json);
+    
+    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
     
     resetEntities(true);
 }
@@ -213,12 +215,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             
             bool isLevelValid = true;
-            if (m_game->getJons().size() == 0)
-            {
-                isLevelValid = false;
-            }
-            
-            if (isLevelValid && m_game->getJon().getBounds().getRight() > m_game->getFarRight())
+            if (m_game->getJons().size() == 0
+                || m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
             {
                 isLevelValid = false;
             }
@@ -254,7 +252,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     break;
             }
             
-            continue;
+            return;
         }
         
         if ((rc = m_levelEditorEntitiesPanel->handleTouch(*i, *gs->m_touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
@@ -263,21 +261,27 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             {
                 if (dynamic_cast<Jon*>(m_lastAddedEntity))
                 {
-                    Jon* entity = dynamic_cast<Jon *>(m_lastAddedEntity);
+                    Jon* jon = dynamic_cast<Jon *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
-                    entity->setGame(m_game.get());
+                    jon->setGame(m_game.get());
                 }
                 else if (dynamic_cast<Enemy *>(m_lastAddedEntity))
                 {
-                    Enemy* entity = dynamic_cast<Enemy *>(m_lastAddedEntity);
+                    Enemy* e = dynamic_cast<Enemy *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
-                    entity->setGame(m_game.get());
+                    e->setGame(m_game.get());
+                }
+                else if (dynamic_cast<ForegroundObject *>(m_lastAddedEntity))
+                {
+                    ForegroundObject* fo = dynamic_cast<ForegroundObject *>(m_lastAddedEntity);
+                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+                    fo->setGame(m_game.get());
                 }
             }
             
             resetEntities(false);
             
-            continue;
+            return;
         }
         
         switch (i->getTouchType())
@@ -302,7 +306,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     if (dynamic_cast<Midground *>(m_draggingEntity)
                         || dynamic_cast<Ground *>(m_draggingEntity)
                         || dynamic_cast<ExitGround *>(m_draggingEntity)
-                        || dynamic_cast<Hole *>(m_draggingEntity))
+                        || dynamic_cast<Hole *>(m_draggingEntity)
+                        || dynamic_cast<SpikeTower *>(m_draggingEntity)
+                        || dynamic_cast<VerticalSaw *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
@@ -335,18 +341,18 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     m_draggingEntity->getPosition().add(xDelta, yDelta);
                     m_draggingEntity->updateBounds();
                     
-                    if (m_draggingEntity->getBounds().getLeft() < 0 && xDelta < 0)
+                    if (m_draggingEntity->getMainBounds().getLeft() < 0 && xDelta < 0)
                     {
                         m_draggingEntity->getPosition().sub(xDelta, 0);
                         m_draggingEntity->updateBounds();
                     }
                     
-                    if (m_draggingEntity->getBounds().getLowerLeft().getY() < 0 && yDelta < 0)
+                    if (m_draggingEntity->getMainBounds().getLowerLeft().getY() < 0 && yDelta < 0)
                     {
                         m_draggingEntity->getPosition().sub(0, yDelta);
                         m_draggingEntity->updateBounds();
                     }
-                    else if (m_draggingEntity->getBounds().getTop() > GAME_HEIGHT && yDelta > 0)
+                    else if (m_draggingEntity->getMainBounds().getTop() > GAME_HEIGHT && yDelta > 0)
                     {
                         m_draggingEntity->getPosition().sub(0, yDelta);
                         m_draggingEntity->updateBounds();
@@ -381,7 +387,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_attachToEntity = nullptr;
                     }
                     
-                    m_trashCan->setHighlighted(OverlapTester::doRectanglesOverlap(m_draggingEntity->getBounds(), m_trashCan->getBounds()));
+                    m_trashCan->setHighlighted(OverlapTester::doRectanglesOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()));
                     
                     if ((gs->m_touchPoint->getX() > (CAM_WIDTH * 0.8f) && xDelta > 0)
                         || (gs->m_touchPoint->getX() < (CAM_WIDTH * 0.2f) && xDelta < 0))
@@ -401,7 +407,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             case UP:
                 if (m_draggingEntity != nullptr)
                 {
-                    if (OverlapTester::doRectanglesOverlap(m_draggingEntity->getBounds(), m_trashCan->getBounds()))
+                    if (OverlapTester::doRectanglesOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()))
                     {
                         bool safeToDelete = true;
                         if (dynamic_cast<Jon*>(m_draggingEntity) && m_game->getJons().size() == 1)
@@ -475,6 +481,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getEnemies(), m_gameEntities);
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
+    EntityUtils::addAll(m_game->getExtraForegroundObjects(), m_gameEntities);
     
     std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);
     

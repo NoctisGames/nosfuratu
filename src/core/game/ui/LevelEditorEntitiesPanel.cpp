@@ -123,15 +123,24 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_foregroundObjects.push_back(new SpikeWallFour(0, 0));
     m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
     
-    m_enemies.push_back(new Mushroom(0, 0));
+    m_foregroundObjects.push_back(new GiantShakingTree(0, 0));
+    m_foregroundObjects.push_back(new GiantPerchTree(0, 0));
+    
+    m_foregroundObjects.push_back(new VerticalSaw(0));
+    
+    m_enemies.push_back(new MushroomGround(0, 0));
     m_enemies.push_back(new MushroomCeiling(0, 0));
     m_enemies.push_back(new SnakeGrunt(0, 0));
     m_enemies.push_back(new Sparrow(0, 0));
+    m_enemies.push_back(new Toad(0, 0));
+    m_enemies.push_back(new Fox(0, 0));
     
     m_collectibleItems.push_back(new Carrot(0, 0));
     m_collectibleItems.push_back(new GoldenCarrot(0, 0));
     
     m_jons.push_back(new Jon(0, 0));
+    
+    m_extraForegroundObjects.push_back(new SpikeTower(0));
     
     float eWidth = width * 0.6f;
     float eHeight = height / 6;
@@ -147,6 +156,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), height);
 }
@@ -207,7 +217,8 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint))
+                        || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_extraForegroundObjects, game.getExtraForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
@@ -280,6 +291,11 @@ std::vector<CollectibleItem *>& LevelEditorEntitiesPanel::getCollectibleItems()
 std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
 {
     return m_jons;
+}
+
+std::vector<ExtraForegroundObject *>& LevelEditorEntitiesPanel::getExtraForegroundObjects()
+{
+    return m_extraForegroundObjects;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

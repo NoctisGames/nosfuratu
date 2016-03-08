@@ -8,6 +8,9 @@
 
 #include "ForegroundObject.h"
 #include "EntityUtils.h"
+#include "GameConstants.h"
+#include "Assets.h"
+#include "Game.h"
 
 ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
 {
@@ -92,73 +95,42 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikeWallFour(gridX, gridY);
         case ForegroundObjectType_SpikeWallEight:
             return new SpikeWallEight(gridX, gridY);
+            
+        case ForegroundObjectType_GiantShakingTree:
+            return new GiantShakingTree(gridX, gridY);
+        case ForegroundObjectType_GiantPerchTree:
+            return new GiantPerchTree(gridX, gridY);
+            
+        case ForegroundObjectType_SpikeTower:
+            return new SpikeTower(gridX);
+        case ForegroundObjectType_SpikeTowerBg:
+            return new SpikeTowerBg(gridX);
+            
+        case ForegroundObjectType_VerticalSaw:
+            return new VerticalSaw(gridX);
     }
     
     assert(false);
 }
 
-ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType)
+ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr)
 {
     // Empty
 }
 
+void ForegroundObject::updateBounds()
+{
+    GridLockedPhysicalEntity::updateBounds();
+}
+
 bool ForegroundObject::isJonLanding(Jon& jon, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
-    
-    if (jonVelocityY <= 0)
-    {
-        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-        {
-            float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
-            float jonYDelta = fabsf(jonVelocityY * deltaTime);
-            
-            float itemTop = getBounds().getTop();
-            float padding = itemTop * .01f;
-            padding += jonYDelta;
-            float itemTopReq = itemTop - padding;
-            
-            if (jonLowerLeftY >= itemTopReq)
-            {
-                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
-                jon.updateBounds();
-                jon.setGroundSoundType(getGroundSoundType());
-                
-                return true;
-            }
-        }
-    }
-    
-    return false;
+    return isJonLanding(jon, getMainBounds(), deltaTime);
 }
 
 bool ForegroundObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-    {
-        float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getBounds().getLowerLeft().getY();
-        float entityRight = jon.getBounds().getRight();
-        float entityXDelta = fabsf(entityVelocityX * deltaTime);
-        
-        float itemTop = getBounds().getTop();
-        float itemTopReq = itemTop * 0.99f;
-        
-        float itemLeft = getBounds().getLeft();
-        float padding = itemLeft * .01f;
-        padding += entityXDelta;
-        float itemLeftReq = itemLeft + padding;
-        
-        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
-        {
-            jon.getPosition().setX(itemLeft - jon.getBounds().getWidth() / 2 * 1.01f);
-            jon.updateBounds();
-            
-            return true;
-        }
-    }
-    
-    return false;
+    return isJonBlockedOnRight(jon, getMainBounds(), deltaTime);
 }
 
 bool ForegroundObject::isJonBlockedAbove(Jon& jon, float deltaTime)
@@ -191,6 +163,74 @@ GroundSoundType ForegroundObject::getGroundSoundType()
     return m_groundSoundType;
 }
 
+void ForegroundObject::setGame(Game* game)
+{
+    m_game = game;
+}
+
+#pragma mark protected
+
+bool ForegroundObject::isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime)
+{
+    float jonVelocityY = jon.getVelocity().getY();
+    
+    if (jonVelocityY <= 0)
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
+        {
+            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
+            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            
+            float itemTop = bounds.getTop();
+            float padding = itemTop * .01f;
+            padding += jonYDelta;
+            float itemTopReq = itemTop - padding;
+            
+            if (jonLowerLeftY >= itemTopReq)
+            {
+                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
+                jon.updateBounds();
+                jon.setGroundSoundType(getGroundSoundType());
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
+bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float deltaTime)
+{
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
+    {
+        float entityVelocityX = jon.getVelocity().getX();
+        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
+        float entityRight = jon.getMainBounds().getRight();
+        float entityXDelta = fabsf(entityVelocityX * deltaTime);
+        
+        float itemTop = bounds.getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemLeft = bounds.getLeft();
+        float padding = itemLeft * .01f;
+        padding += entityXDelta;
+        float itemLeftReq = itemLeft + padding;
+        
+        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+        {
+            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+#pragma mark subclasses
+
 bool PlatformObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
 	return false;
@@ -217,10 +257,10 @@ void DestructibleObject::update(float deltaTime)
 
 bool DestructibleObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
-    Rectangle& bounds = jon.getBounds();
+    Rectangle& bounds = jon.getMainBounds();
     Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
-    if (OverlapTester::doRectanglesOverlap(hittingBounds, getBounds()))
+    if (OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
     {
         m_isDestructing = true;
         m_fStateTime = 0;
@@ -233,9 +273,9 @@ bool DestructibleObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
 
 bool DestructibleObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
 {
-    Rectangle& bounds = jon.getBounds();
+    Rectangle& bounds = jon.getMainBounds();
     
-    if (OverlapTester::doRectanglesOverlap(bounds, getBounds()))
+    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         m_isDestructing = true;
         m_fStateTime = 0;
@@ -270,22 +310,6 @@ bool DeadlyObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
     return false;
 }
 
-bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
-{
-    float entityVelocityY = jon.getVelocity().getY();
-    
-    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-    {
-        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
-        jon.updateBounds();
-        jon.kill();
-        
-        return true;
-    }
-    
-    return false;
-}
-
 bool LandingDeathObject::isJonLanding(Jon& jon, float deltaTime)
 {
     if (ForegroundObject::isJonLanding(jon, deltaTime))
@@ -310,7 +334,7 @@ bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
     
-    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
         jon.updateBounds();
@@ -338,8 +362,8 @@ bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
 {
     if (ForegroundObject::isJonLanding(jon, deltaTime))
     {
-        float itemTop = getBounds().getTop();
-        jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * 1.01f);
+        float itemTop = getMainBounds().getTop();
+        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
         
         jon.triggerBoost(m_fBoostVelocity);
         m_isBoosting = true;
@@ -347,4 +371,98 @@ bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
     }
     
     return false;
+}
+
+void GiantShakingTree::update(float deltaTime)
+{
+    if (m_isShaking)
+    {
+        ForegroundObject::update(deltaTime);
+        
+        if (m_fStateTime > 0.70f)
+        {
+            m_fStateTime = 0.0f;
+            m_isShaking = false;
+        }
+    }
+}
+
+void ExtraForegroundObject::update(float deltaTime)
+{
+    ForegroundObject::update(deltaTime);
+    
+    m_shadow->update(deltaTime);
+    m_shadow->getPosition().set(getPosition());
+    m_shadow->updateBounds();
+}
+
+void SpikeTower::updateBounds()
+{
+    ForegroundObject::updateBounds();
+    
+    Rectangle& bounds = getBounds().at(1);
+    
+    bounds.setWidth(getWidth());
+    bounds.setHeight(getHeight());
+    
+    Vector2D &lowerLeft = bounds.getLowerLeft();
+    lowerLeft.set(m_position->getX() - bounds.getWidth() / 2, m_position->getY() - bounds.getHeight() / 2);
+    
+    bounds.getLowerLeft().add(getWidth() * 0.0f, getHeight() * 0.79910714285714f);
+    bounds.setWidth(getWidth() * 1.0f);
+    bounds.setHeight(getHeight() * 0.20089285714286f);
+}
+
+bool SpikeTower::isJonLanding(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonLanding(jon, deltaTime)
+        || ForegroundObject::isJonLanding(jon, getBounds().at(1), deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool SpikeTower::isJonBlockedOnRight(Jon& jon, float deltaTime)
+{
+    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime)
+        || ForegroundObject::isJonBlockedOnRight(jon, getBounds().at(1), deltaTime))
+    {
+        jon.kill();
+        
+        return true;
+    }
+    
+    return false;
+}
+
+void VerticalSaw::updateBounds()
+{
+    ForegroundObject::updateBounds();
+    
+    Rectangle& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+        
+        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    }
 }

@@ -89,6 +89,8 @@ public:
     
     Jon& getJon();
     
+    std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
+    
     void setCameraBounds(Rectangle* cameraBounds);
     
     Rectangle* getCameraBounds();
@@ -127,6 +129,7 @@ private:
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
+    std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
     Rectangle* m_cameraBounds;
     
     float m_fStateTime;

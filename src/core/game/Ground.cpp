@@ -103,19 +103,19 @@ bool Ground::isJonLanding(Jon& jon, float deltaTime)
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
         {
-            float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
-            float itemTop = getBounds().getTop();
+            float itemTop = getMainBounds().getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
             float itemTopReq = itemTop - padding;
             
             if (jonLowerLeftY >= itemTopReq)
             {
-                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
                 jon.updateBounds();
                 jon.setGroundSoundType(getGroundSoundType());
                 
@@ -129,24 +129,24 @@ bool Ground::isJonLanding(Jon& jon, float deltaTime)
 
 bool Ground::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getBounds().getLowerLeft().getY();
-        float entityRight = jon.getBounds().getRight();
+        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
+        float entityRight = jon.getMainBounds().getRight();
         float entityXDelta = fabsf(entityVelocityX * deltaTime);
         
-        float itemTop = getBounds().getTop();
+        float itemTop = getMainBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeft = getBounds().getLeft();
+        float itemLeft = getMainBounds().getLeft();
         float padding = itemLeft * .01f;
         padding += entityXDelta;
         float itemLeftReq = itemLeft + padding;
         
         if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeft - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
             jon.updateBounds();
             
             return true;
@@ -160,10 +160,10 @@ bool Ground::isJonBlockedAbove(Jon &jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
     
-    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
-        float entityLeft = jon.getBounds().getLeft();
-        float itemLeft = getBounds().getLeft();
+        float entityLeft = jon.getMainBounds().getLeft();
+        float itemLeft = getMainBounds().getLeft();
         
         if (itemLeft < entityLeft)
         {
@@ -199,19 +199,19 @@ GroundSoundType Ground::getGroundSoundType()
 
 bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
-        float entityBottom = jon.getBounds().getLowerLeft().getY();
-        float entityRight = jon.getBounds().getRight();
+        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
+        float entityRight = jon.getMainBounds().getRight();
         
-        float itemTop = getBounds().getTop();
+        float itemTop = getMainBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeftReq = getBounds().getRight() - 1.125f;
+        float itemLeftReq = getMainBounds().getRight() - 1.125f;
         
         if (entityRight >= itemLeftReq && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeftReq - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.getPosition().setX(itemLeftReq - jon.getMainBounds().getWidth() / 2 * 1.01f);
             jon.updateBounds();
             
             return true;

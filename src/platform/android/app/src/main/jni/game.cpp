@@ -178,7 +178,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1level(JNIEnv* e
 
 	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
 
-	GameScreenLevelEditor::getInstance()->load(nativeLevelJson);
+	GameScreenLevelEditor::getInstance()->load(nativeLevelJson, gameScreen);
 }
 
 JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)

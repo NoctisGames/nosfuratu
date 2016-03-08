@@ -28,15 +28,15 @@ public:
     {
         if (leftOf)
         {
-            float left = to.getBounds().getLeft();
-            float x = left - entity.getBounds().getWidth() / 2;
+            float left = to.getMainBounds().getLeft();
+            float x = left - entity.getMainBounds().getWidth() / 2;
             
             entity.getPosition().setX(x);
         }
         else
         {
-            float right = to.getBounds().getLeft() + to.getBounds().getWidth();
-            float x = right + entity.getBounds().getWidth() / 2;
+            float right = to.getMainBounds().getLeft() + to.getMainBounds().getWidth();
+            float x = right + entity.getMainBounds().getWidth() / 2;
             
             entity.getPosition().setX(x);
         }
@@ -45,8 +45,8 @@ public:
         
         if (yCorrection)
         {
-            float top = entity.getBounds().getTop();
-            float topTo = to.getBounds().getTop();
+            float top = entity.getMainBounds().getTop();
+            float topTo = to.getMainBounds().getTop();
             float yDelta = topTo - top;
             entity.getPosition().add(0, yDelta);
             entity.updateBounds();
@@ -55,20 +55,20 @@ public:
     
     static void placeOn(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& on, int gridCellSizeScalar)
     {
-		float top = on.getBounds().getTop();
+		float top = on.getMainBounds().getTop();
 
-		entity.getBounds().getLowerLeft().setY(top);
+		entity.getMainBounds().getLowerLeft().setY(top);
 
 		entity.snapToGrid(gridCellSizeScalar);
     }
     
     static void placeUnder(GridLockedPhysicalEntity& entity, GridLockedPhysicalEntity& under, int gridCellSizeScalar)
     {
-        float boundsHeight = entity.getBounds().getHeight();
-        float bottom = under.getBounds().getBottom();
+        float boundsHeight = entity.getMainBounds().getHeight();
+        float bottom = under.getMainBounds().getBottom();
         float lowerLeft = bottom - boundsHeight;
         
-        entity.getBounds().getLowerLeft().setY(lowerLeft);
+        entity.getMainBounds().getLowerLeft().setY(lowerLeft);
 
 		entity.snapToGrid(gridCellSizeScalar);
     }
@@ -97,17 +97,17 @@ public:
     {
         if (jon.getVelocity().getY() <= 0)
         {
-            float entityLeft = jon.getBounds().getLeft();
-            float entityRight = jon.getBounds().getRight();
+            float entityLeft = jon.getMainBounds().getLeft();
+            float entityRight = jon.getMainBounds().getRight();
             
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
                 if (!(*i)->hasCover())
                 {
-                    float itemLowerLeftX = (*i)->getBounds().getLeft();
-                    float itemRight = (*i)->getBounds().getRight();
+                    float itemLowerLeftX = (*i)->getMainBounds().getLeft();
+                    float itemRight = (*i)->getMainBounds().getRight();
                     
-                    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+                    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                     {
                         if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
                         {
@@ -124,15 +124,15 @@ public:
     template<typename T>
     static bool isFallingThroughPit(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        float entityLeft = jon.getBounds().getLeft();
-        float entityRight = jon.getBounds().getRight();
+        float entityLeft = jon.getMainBounds().getLeft();
+        float entityRight = jon.getMainBounds().getRight();
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            float itemLowerLeftX = (*i)->getBounds().getLeft();
-            float itemRight = (*i)->getBounds().getRight();
+            float itemLowerLeftX = (*i)->getMainBounds().getLeft();
+            float itemRight = (*i)->getMainBounds().getRight();
             
-            if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
             {
                 if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
                 {
@@ -149,7 +149,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(jon.getBounds(), (*i)->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
             {
                 return (*i)->triggerBurrow();
             }
@@ -196,7 +196,7 @@ public:
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
             {
                 (*i)->collect();
             }
@@ -255,10 +255,10 @@ public:
             entity.getPosition().sub(0, entity.getVelocity().getY() * 0.5f);
             entity.updateBounds();
             
-            float width = entity.getBounds().getWidth();
-            float height = entity.getBounds().getHeight();
-            float x = entity.getBounds().getLeft();
-            float y = entity.getBounds().getLowerLeft().getY();
+            float width = entity.getMainBounds().getWidth();
+            float height = entity.getMainBounds().getHeight();
+            float x = entity.getMainBounds().getLeft();
+            float y = entity.getMainBounds().getLowerLeft().getY();
             
             Rectangle tempBounds = Rectangle(x, y, width, height);
             
@@ -267,9 +267,9 @@ public:
             
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(entity.getBounds(), (*i)->getBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
                 {
-                    if (tempBounds.getLowerLeft().getY() > (*i)->getBounds().getTop())
+                    if (tempBounds.getLowerLeft().getY() > (*i)->getMainBounds().getTop())
                     {
                         return true;
                     }
@@ -361,7 +361,7 @@ public:
                 continue;
             }
             
-            if ((*i)->canObjectBePlacedOn() && OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
+            if ((*i)->canObjectBePlacedOn() && OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
             {
                 return index;
             }
@@ -381,13 +381,24 @@ public:
                 continue;
             }
             
-            if ((*i)->canObjectBePlacedUnder() && OverlapTester::doRectanglesOverlap(pe->getBounds(), (*i)->getBounds()))
+            if ((*i)->canObjectBePlacedUnder() && OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
             {
                 return index;
             }
         }
         
         return -1;
+    }
+    
+    template<typename T>
+    static void cleanUpVectorOfPointers(std::vector<T*>& items)
+    {
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            delete (*i);
+        }
+        
+        items.clear();
     }
     
 private:

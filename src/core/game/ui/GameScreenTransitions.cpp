@@ -102,7 +102,7 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorld(GameScreenLevelEditor::getInstance()->getGame());
         
-        gs->m_renderer->renderJon(GameScreenLevelEditor::getInstance()->getGame());
+        gs->m_renderer->renderJonAndExtraForegroundObjects(GameScreenLevelEditor::getInstance()->getGame());
         
         gs->m_renderer->renderLevelEditor(GameScreenLevelEditor::getInstance()->getLevelEditorActionsPanel(), GameScreenLevelEditor::getInstance()->getLevelEditorEntitiesPanel(), GameScreenLevelEditor::getInstance()->getTrashCan(), GameScreenLevelEditor::getInstance()->getLevelSelectorPanel());
         
@@ -175,7 +175,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorld(m_levelState->getGame());
         
-        gs->m_renderer->renderJon(m_levelState->getGame());
+        gs->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         

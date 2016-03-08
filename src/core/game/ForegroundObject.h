@@ -13,6 +13,8 @@
 #include "GroundSoundType.h"
 #include "Jon.h"
 
+class Game;
+
 typedef enum
 {
     ForegroundObjectType_GrassPlatformLeft,
@@ -59,7 +61,15 @@ typedef enum
     
     ForegroundObjectType_SpikeWallSingle,
     ForegroundObjectType_SpikeWallFour,
-    ForegroundObjectType_SpikeWallEight
+    ForegroundObjectType_SpikeWallEight,
+    
+    ForegroundObjectType_GiantShakingTree,
+    ForegroundObjectType_GiantPerchTree,
+    
+    ForegroundObjectType_SpikeTower,
+    ForegroundObjectType_SpikeTowerBg,
+    
+    ForegroundObjectType_VerticalSaw
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -68,6 +78,8 @@ public:
     static ForegroundObject* create(int gridX, int gridY, int type);
     
     ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
+    
+    virtual void updateBounds();
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
@@ -84,6 +96,15 @@ public:
     ForegroundObjectType getType();
     
     GroundSoundType getGroundSoundType();
+    
+    void setGame(Game* game);
+
+protected:
+    Game* m_game;
+    
+    virtual bool isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime);
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, Rectangle& bounds, float deltaTime);
     
 private:
     ForegroundObjectType m_type;
@@ -118,13 +139,11 @@ private:
 class DeadlyObject : public ForegroundObject
 {
 public:
-    DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
-    
-    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };
 
 class LandingDeathObject : public ForegroundObject
@@ -371,6 +390,77 @@ class SpikeWallEight : public RunningIntoDeathObject
 {
 public:
     SpikeWallEight(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
+};
+
+class GiantShakingTree : public ForegroundObject
+{
+public:
+    GiantShakingTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantShakingTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f), m_isShaking(false) {}
+    
+    virtual void update(float deltaTime);
+    
+private:
+    bool m_isShaking;
+};
+
+class GiantPerchTree : public ForegroundObject
+{
+public:
+    GiantPerchTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantPerchTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f) {}
+};
+
+class ExtraForegroundObject : public ForegroundObject
+{
+public:
+    static ExtraForegroundObject* create(int gridX, int gridY, int type)
+    {
+        return dynamic_cast<ExtraForegroundObject*>(ForegroundObject::create(gridX, gridY, type));
+    }
+    
+    ExtraForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_shadow(nullptr)
+    {
+        m_shadow = std::unique_ptr<ForegroundObject>(ForegroundObject::create(gridX, gridY, shadowType));
+    }
+    
+    virtual void update(float deltaTime);
+    
+    ForegroundObject& getShadow() { return *m_shadow; }
+    
+protected:
+    std::unique_ptr<ForegroundObject> m_shadow;
+};
+
+class SpikeTower : public ExtraForegroundObject
+{
+public:
+    SpikeTower(int gridX) : ExtraForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTower, ForegroundObjectType_SpikeTowerBg, GROUND_SOUND_NONE, 0, 0, 1, 0.54017857142857f)
+    {
+        m_bounds.push_back(Rectangle(0, 0, 1, 1));
+        updateBounds();
+    }
+    
+    virtual void updateBounds();
+    
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+};
+
+class SpikeTowerBg : public ForegroundObject
+{
+public:
+    SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
+};
+
+class VerticalSaw : public DeadlyObject
+{
+public:
+    VerticalSaw(int gridX) : DeadlyObject(gridX, 95, 15, 33, ForegroundObjectType_VerticalSaw, GROUND_SOUND_NONE, 0, 0.33333333333333f, 1, 0.66666666666667f), m_isOnScreen(false) {}
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

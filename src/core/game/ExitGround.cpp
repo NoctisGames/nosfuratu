@@ -62,19 +62,19 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
         {
-            float jonBottomY = jon.getBounds().getBottom();
-            float jonLeftX = jon.getBounds().getLeft();
-            float jonRightX = jon.getBounds().getRight();
+            float jonBottomY = jon.getMainBounds().getBottom();
+            float jonLeftX = jon.getMainBounds().getLeft();
+            float jonRightX = jon.getMainBounds().getRight();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
-            float itemTop = getBounds().getTop();
+            float itemTop = getMainBounds().getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
             float itemTopReq = itemTop - padding;
-            float pitEntranceLeft = getBounds().getLeft() + getBounds().getWidth() * 0.2421875f;
-            float pitEntranceRight = getBounds().getLeft() + getBounds().getWidth() * 0.71875f;
+            float pitEntranceLeft = getMainBounds().getLeft() + getMainBounds().getWidth() * 0.2421875f;
+            float pitEntranceRight = getMainBounds().getLeft() + getMainBounds().getWidth() * 0.71875f;
             
             bool isLanding = jonBottomY >= itemTopReq;
             if (!hasCover())
@@ -84,7 +84,7 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
             
             if (isLanding)
             {
-                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
                 jon.updateBounds();
                 jon.setGroundSoundType(getGroundSoundType());
                 
@@ -98,24 +98,24 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
 
 bool ExitGround::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getBounds().getLowerLeft().getY();
-        float entityRight = jon.getBounds().getRight();
+        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
+        float entityRight = jon.getMainBounds().getRight();
         float entityXDelta = fabsf(entityVelocityX * deltaTime);
         
-        float itemTop = getBounds().getTop();
+        float itemTop = getMainBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeft = getBounds().getLeft();
+        float itemLeft = getMainBounds().getLeft();
         float padding = itemLeft * .01f;
         padding += entityXDelta;
         float itemLeftReq = itemLeft + padding;
         
         if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeft - jon.getBounds().getWidth() / 2 * 1.01f);
+            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
             jon.updateBounds();
             
             return true;
@@ -129,7 +129,7 @@ bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
     
-    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         if (hasCover())
 		{
@@ -183,23 +183,23 @@ bool CaveDeepSmallWaterfall::isJonLanding(Jon& jon, float deltaTime)
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
         {
-            float jonBottomY = jon.getBounds().getBottom();
-            float jonLeftX = jon.getBounds().getLeft();
-            float jonRightX = jon.getBounds().getRight();
+            float jonBottomY = jon.getMainBounds().getBottom();
+            float jonLeftX = jon.getMainBounds().getLeft();
+            float jonRightX = jon.getMainBounds().getRight();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
-            float itemTop = getBounds().getTop();
+            float itemTop = getMainBounds().getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
             float itemTopReq = itemTop - padding;
-            float pitEntranceLeft = getBounds().getLeft() + getBounds().getWidth() * 0.328125f;
-            float pitEntranceRight = getBounds().getLeft() + getBounds().getWidth() * 0.75f;
+            float pitEntranceLeft = getMainBounds().getLeft() + getMainBounds().getWidth() * 0.328125f;
+            float pitEntranceRight = getMainBounds().getLeft() + getMainBounds().getWidth() * 0.75f;
             
             if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
             {
-                jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * .99f);
+                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
                 jon.updateBounds();
                 jon.setGroundSoundType(getGroundSoundType());
                 

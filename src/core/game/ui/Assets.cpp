@@ -409,12 +409,12 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
         }
         case ForegroundObjectType_RockSmall:
         {
-            static TextureRegion tr = createTextureRegion(0, 3136, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 3236, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockSmallCracked:
         {
-            static Animation anim = createAnimation(384, 3136, 384, 368, 2304, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
+            static Animation anim = createAnimation(384, 3236, 384, 368, 2304, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
             
@@ -469,7 +469,7 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
             
         case ForegroundObjectType_JumpSpringLight:
         {
-            static Animation anim = createAnimation(96, 3584, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);
+            static Animation anim = createAnimation(96, 3070, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);
             return anim.getTextureRegion(foregroundObject.getStateTime());
         }
         case ForegroundObjectType_JumpSpringMedium:
@@ -485,66 +485,94 @@ TextureRegion& Assets::get(ForegroundObject& foregroundObject)
             
         case ForegroundObjectType_SpikeGrassSingle:
         {
-            static TextureRegion tr = createTextureRegion(0, 2244, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2004, 2394, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassFour:
         {
-            static TextureRegion tr = createTextureRegion(96, 2244, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2100, 2394, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassEight:
         {
-            static TextureRegion tr = createTextureRegion(384, 2244, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2388, 2394, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveSingle:
         {
-            static TextureRegion tr = createTextureRegion(0, 2452, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2004, 2602, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveFour:
         {
-            static TextureRegion tr = createTextureRegion(96, 2452, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2100, 2602, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveEight:
         {
-            static TextureRegion tr = createTextureRegion(384, 2452, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2388, 2602, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveCeilingSingle:
         {
-            static TextureRegion tr = createTextureRegion(0, 2348, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2004, 2498, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingFour:
         {
-            static TextureRegion tr = createTextureRegion(96, 2348, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2100, 2498, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingEight:
         {
-            static TextureRegion tr = createTextureRegion(384, 2348, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2388, 2498, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeWallSingle:
         {
-            static TextureRegion tr = createTextureRegion(4000, 0, 96, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(4000, 3140, 96, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeWallFour:
         {
-            static TextureRegion tr = createTextureRegion(4000, 704, 96, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(4000, 3824, 96, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeWallEight:
         {
-            static TextureRegion tr = createTextureRegion(4000, 128, 96, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(4000, 3248, 96, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
+        }
+            
+        case ForegroundObjectType_GiantShakingTree:
+        {
+            static Animation anim = createAnimation(832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 7);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
+        }
+        case ForegroundObjectType_GiantPerchTree:
+        {
+            static TextureRegion tr = createTextureRegion(3008, 2080, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_SpikeTower:
+        {
+            static TextureRegion tr = createTextureRegion(2892, 3146, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikeTowerBg:
+        {
+            static TextureRegion tr = createTextureRegion(3408, 3146, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_VerticalSaw:
+        {
+            static Animation anim = createAnimation(178, 2400, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
+            return anim.getTextureRegion(foregroundObject.getStateTime());
         }
     }
     
@@ -555,7 +583,7 @@ TextureRegion& Assets::get(Enemy& enemy)
 {
     switch (enemy.getType())
     {
-        case EnemyType_Mushroom:
+        case EnemyType_MushroomGround:
         {
             static Animation anim = createAnimation(0, 0, 112, 128, 448, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.12f, 4);
             return anim.getTextureRegion(enemy.getStateTime());
@@ -574,6 +602,96 @@ TextureRegion& Assets::get(Enemy& enemy)
         {
             static Animation anim = createAnimation(0, 692, 160, 160, 1120, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
             return anim.getTextureRegion(enemy.getStateTime());
+        }
+        case EnemyType_Toad:
+        {
+            bool isDead = false;
+            bool isEating = false;
+            if (isDead)
+            {
+                int i = 0;
+                if (i == 0)
+                {
+                    // Rabbit Part 1
+                    static Animation anim = createAnimation(0, 1888, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+                else if (i == 1)
+                {
+                    // Vampire Part 1
+                    static Animation anim = createAnimation(1024, 2144, 512, 256, 1024, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 2);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+                else
+                {
+                    // Part 2
+                    static Animation anim = createAnimation(2048, 1888, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 7);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+            }
+            else if (isEating)
+            {
+                bool isJonVampire = false;
+                if (isJonVampire)
+                {
+                    static Animation anim = createAnimation(2048, 1372, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 8);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(0, 1372, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 8);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+            }
+            else
+            {
+                static Animation anim = createAnimation(492, 0, 512, 256, 3584, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
+                return anim.getTextureRegion(enemy.getStateTime());
+            }
+        }
+        case EnemyType_Fox:
+        {
+            bool isDead = false;
+            bool isHitting = false;
+            bool isBeingHit = false;
+            
+            if (isDead)
+            {
+                static Animation anim = createAnimation(0, 2664, 256, 512, 2560, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+                return anim.getTextureRegion(enemy.getStateTime());
+            }
+            else if (isHitting)
+            {
+                bool isLeft = false;
+                if (isLeft)
+                {
+                    static Animation anim = createAnimation(2080, 260, 256, 256, 1792, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(0, 2404, 256, 256, 2816, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+            }
+            else if (isBeingHit)
+            {
+                static Animation anim = createAnimation(3072, 2404, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 6);
+                return anim.getTextureRegion(enemy.getStateTime());
+            }
+            else
+            {
+                if (enemy.getVelocity().getX() > 0)
+                {
+                    static Animation anim = createAnimation(3104, 772, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(3104, 516, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    return anim.getTextureRegion(enemy.getStateTime());
+                }
+            }
         }
     }
     
@@ -595,7 +713,8 @@ TextureRegion& Assets::get(EnemySpirit& spirit)
             return anim.getTextureRegion(spirit.getStateTime());
         }
         case EnemySpiritType_None:
-            assert(false);
+        default:
+            break;
     }
     
     assert(false);
@@ -607,12 +726,12 @@ TextureRegion& Assets::get(CollectibleItem& collectibleItem)
     {
         case CollectibleItemType_Carrot:
         {
-            static Animation anim = createAnimation(0, 2692, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
+            static Animation anim = createAnimation(2004, 2842, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
             return anim.getTextureRegion(collectibleItem.getStateTime());
         }
         case CollectibleItemType_GoldenCarrot:
         {
-            static Animation anim = createAnimation(0, 2560, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+            static Animation anim = createAnimation(2004, 2710, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
             return anim.getTextureRegion(collectibleItem.getStateTime());
         }
     }
@@ -748,6 +867,8 @@ TextureRegion& Assets::get(Jon& jon)
         static Animation landingAnim = createAnimation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 4);
         static Animation spinningBackFistAnimation = createAnimation(2048, 0, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 7);
         static Animation burrowAnimation = createAnimation(2048, 256, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 5, 1);
+        static Animation stompAnimation = createAnimation(2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 10, 8);
+        static Animation landingRollAnimation = createAnimation(2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
         
         if (jon.getState() != JON_ALIVE)
         {
@@ -760,6 +881,8 @@ TextureRegion& Assets::get(Jon& jon)
                 return spinningBackFistAnimation.getTextureRegion(jon.getAbilityStateTime());
             case ABILITY_BURROW:
                 return burrowAnimation.getTextureRegion(jon.getAbilityStateTime());
+            case ABILITY_STOMP:
+                return stompAnimation.getTextureRegion(jon.getAbilityStateTime());
             case ABILITY_NONE:
             default:
                 break;
@@ -780,6 +903,12 @@ TextureRegion& Assets::get(Jon& jon)
         {
             if (jon.isLanding())
             {
+                bool isRollingAfterStomp = false;
+                if (isRollingAfterStomp)
+                {
+                    return landingRollAnimation.getTextureRegion(jon.getStateTime());
+                }
+                
                 return landingAnim.getTextureRegion(jon.getStateTime());
             }
         }
@@ -886,6 +1015,14 @@ short Assets::getFirstSoundId()
 void Assets::addSoundIdToPlayQueue(short soundId)
 {
     if (soundId > NO_SOUND && m_sSoundIds.size() < MAX_SOUNDS_TO_PLAY_PER_FRAME)
+    {
+        m_sSoundIds.push_back(soundId);
+    }
+}
+
+void Assets::forceAddSoundIdToPlayQueue(short soundId)
+{
+    if (soundId > NO_SOUND)
     {
         m_sSoundIds.push_back(soundId);
     }

@@ -18,20 +18,24 @@ Enemy* Enemy::create(int gridX, int gridY, int type)
 {
     switch ((EnemyType)type)
     {
-        case EnemyType_Mushroom:
-            return new Mushroom(gridX, gridY);
+        case EnemyType_MushroomGround:
+            return new MushroomGround(gridX, gridY);
         case EnemyType_MushroomCeiling:
             return new MushroomCeiling(gridX, gridY);
         case EnemyType_SnakeGrunt:
             return new SnakeGrunt(gridX, gridY);
         case EnemyType_Sparrow:
             return new Sparrow(gridX, gridY);
+        case EnemyType_Toad:
+            return new Toad(gridX, gridY);
+        case EnemyType_Fox:
+            return new Fox(gridX, gridY);
     }
     
     assert(false);
 }
 
-Enemy::Enemy(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_enemySpirit(nullptr), m_type(type), m_enemySpiritType(enemySpiritType), m_color(0, 1, 1, 1), m_fEnemySpiritStateTime(0), m_fXOfDeath(0), m_fYOfDeath(0), m_deathSoundId(deathSoundId), m_isDying(false), m_isDead(false)
+Enemy::Enemy(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_enemySpirit(nullptr), m_type(type), m_enemySpiritType(enemySpiritType), m_color(0, 1, 1, 1), m_fEnemySpiritStateTime(0), m_fXOfDeath(0), m_fYOfDeath(0), m_deathSoundId(deathSoundId), m_isDying(false), m_isDead(false), m_game(nullptr)
 {
     // Empty
 }
@@ -42,41 +46,15 @@ void Enemy::update(float deltaTime)
     
     if (m_isDead)
     {
-        m_fEnemySpiritStateTime += deltaTime;
-        m_color.alpha -= deltaTime * 2;
-        
-        if (m_fEnemySpiritStateTime > 1.00f)
-        {
-            m_isRequestingDeletion = true;
-        }
-        
-        if (m_enemySpirit)
-        {
-            m_enemySpirit->update(deltaTime);
-        }
+        handleDead(deltaTime);
     }
     else if (m_isDying)
     {
-        m_color.red += deltaTime * 4;
-        
-        if (m_color.red > 1)
-        {
-            m_color.red = 1;
-            m_isDead = true;
-            
-            m_enemySpirit = EnemySpirit::create(m_fXOfDeath, m_fYOfDeath, m_enemySpiritType);
-        }
+        handleDying(deltaTime);
     }
     else
     {
-        Entity::update(deltaTime);
-        
-        Jon& jon = m_game->getJon();
-        
-        if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
-        {
-            handleJonCollision(jon, deltaTime);
-        }
+        handleAlive(deltaTime);
     }
 }
 
@@ -87,7 +65,7 @@ void Enemy::updateBounds()
     if (m_isDying)
     {
         // Bye bye!
-        Vector2D &lowerLeft = m_bounds->getLowerLeft();
+        Vector2D &lowerLeft = getMainBounds().getLowerLeft();
         lowerLeft.setY(1337);
     }
 }
@@ -96,8 +74,8 @@ void Enemy::triggerHit()
 {
     m_isDying = true;
     
-    m_fXOfDeath = getBounds().getLeft() + getBounds().getWidth() / 2;
-    m_fYOfDeath = getBounds().getLowerLeft().getY() + getBounds().getHeight() / 2;
+    m_fXOfDeath = getMainBounds().getLeft() + getMainBounds().getWidth() / 2;
+    m_fYOfDeath = getMainBounds().getLowerLeft().getY() + getMainBounds().getHeight() / 2;
     
     Assets::getInstance()->addSoundIdToPlayQueue(m_deathSoundId);
 }
@@ -108,12 +86,12 @@ bool Enemy::isJonLanding(Jon& jon, float deltaTime)
 
 	if (jonVelocityY <= 0)
 	{
-		if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
 		{
-			float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+			float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
 			float jonYDelta = fabsf(jonVelocityY * deltaTime);
 
-			float itemTop = getBounds().getTop();
+			float itemTop = getMainBounds().getTop();
 			float padding = itemTop * .01f;
 			padding += jonYDelta;
 			float itemTopReq = itemTop - padding;
@@ -139,10 +117,10 @@ bool Enemy::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
-    Rectangle& bounds = jon.getBounds();
+    Rectangle& bounds = jon.getMainBounds();
     Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
-    if (canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, getBounds()))
+    if (canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
     {
         triggerHit();
         
@@ -154,9 +132,9 @@ bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
 
 bool Enemy::isJonHittingFromBelow(Jon& jon, float deltaTime)
 {
-    Rectangle& bounds = jon.getBounds();
+    Rectangle& bounds = jon.getMainBounds();
     
-    if (canBeHitFromBelow() && OverlapTester::doRectanglesOverlap(bounds, getBounds()))
+    if (canBeHitFromBelow() && OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         triggerHit();
         
@@ -224,30 +202,84 @@ EnemyType Enemy::getType()
 
 #pragma mark protected
 
-void Enemy::handleJonCollision(Jon& jon, float deltaTime)
+void Enemy::handleDead(float deltaTime)
 {
-    jon.kill();
+    m_fEnemySpiritStateTime += deltaTime;
+    m_color.alpha -= deltaTime * 2;
+    
+    if (m_fEnemySpiritStateTime > 1.00f)
+    {
+        m_isRequestingDeletion = true;
+    }
+    
+    if (m_enemySpirit)
+    {
+        m_enemySpirit->update(deltaTime);
+    }
 }
 
-bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
+void Enemy::handleDying(float deltaTime)
+{
+    m_color.red += deltaTime * 4;
+    
+    if (m_color.red > 1)
+    {
+        m_color.red = 1;
+        m_isDead = true;
+        
+        m_enemySpirit = EnemySpirit::create(m_fXOfDeath, m_fYOfDeath, m_enemySpiritType);
+    }
+}
+
+void Enemy::handleAlive(float deltaTime)
+{
+    Entity::update(deltaTime);
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.kill();
+    }
+}
+
+#pragma mark subclasses
+
+void Mushroom::handleAlive(float deltaTime)
+{
+    Entity::update(deltaTime);
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.triggerBounceBackOffEnemy(-9);
+        
+        m_fStateTime = 0;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+    }
+}
+
+bool MushroomGround::isJonLanding(Jon& jon, float deltaTime)
 {
 	float jonVelocityY = jon.getVelocity().getY();
 
 	if (jonVelocityY <= 0)
 	{
-		if (OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
 		{
-			float jonLowerLeftY = jon.getBounds().getLowerLeft().getY();
+			float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
 			float jonYDelta = fabsf(jonVelocityY * deltaTime);
 
-			float itemTop = getBounds().getTop();
+			float itemTop = getMainBounds().getTop();
 			float padding = itemTop * .01f;
 			padding += jonYDelta;
 			float itemTopReq = itemTop - padding;
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
-				jon.getPosition().setY(itemTop + jon.getBounds().getHeight() / 2 * 1.01f);
+				jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
 				jon.updateBounds();
 				jon.triggerBoostOffEnemy(18);
 
@@ -261,20 +293,11 @@ bool Mushroom::isJonLanding(Jon& jon, float deltaTime)
 	return false;
 }
 
-void Mushroom::handleJonCollision(Jon& jon, float deltaTime)
-{
-    jon.triggerBounceBackOffEnemy(-9);
-    
-    m_fStateTime = 0;
-    
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
-}
-
 bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
     
-    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getBounds(), getBounds()))
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
         jon.updateBounds();
@@ -291,15 +314,6 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
-void MushroomCeiling::handleJonCollision(Jon& jon, float deltaTime)
-{
-    jon.triggerBounceBackOffEnemy(-9);
-    
-    m_fStateTime = 0;
-    
-    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
-}
-
 void Sparrow::updateBounds()
 {
     Enemy::updateBounds();
@@ -311,7 +325,7 @@ void Sparrow::updateBounds()
 		return;
 	}
 
-    if (OverlapTester::doRectanglesOverlap(camBounds, getBounds()))
+    if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
     {
         if (!m_isOnScreen)
         {
@@ -324,6 +338,36 @@ void Sparrow::updateBounds()
     {
         m_isOnScreen = false;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    }
+}
+
+void Toad::handleAlive(float deltaTime)
+{
+    Entity::update(deltaTime);
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        m_fStateTime = 0;
+        
+        // TODO try to eat Jon
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+    }
+}
+
+void Fox::handleAlive(float deltaTime)
+{
+    Entity::update(deltaTime);
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        m_fStateTime = 0;
+        
+        // TODO swing at Jon
     }
 }

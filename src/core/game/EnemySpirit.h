@@ -13,9 +13,9 @@
 
 typedef enum
 {
+    EnemySpiritType_None,
     EnemySpiritType_Snake,
-    EnemySpiritType_Sparrow,
-    EnemySpiritType_None
+    EnemySpiritType_Sparrow
 } EnemySpiritType;
 
 class EnemySpirit : public PhysicalEntity

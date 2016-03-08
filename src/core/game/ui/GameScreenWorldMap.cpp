@@ -74,7 +74,7 @@ void WorldMap::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
+                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                     {
                         gs->m_stateMachine->revertToPreviousState();
                     }

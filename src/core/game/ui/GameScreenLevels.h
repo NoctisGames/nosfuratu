@@ -96,4 +96,88 @@ private:
     Chapter1Level3& operator=(const Chapter1Level3&);
 };
 
+class Chapter1Level4 : public Level
+{
+public:
+    static Chapter1Level4* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level4(const char* json) : Level(4, json) {};
+    Chapter1Level4(const Chapter1Level4&);
+    Chapter1Level4& operator=(const Chapter1Level4&);
+};
+
+class Chapter1Level5 : public Level
+{
+public:
+    static Chapter1Level5* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level5(const char* json) : Level(5, json) {};
+    Chapter1Level5(const Chapter1Level5&);
+    Chapter1Level5& operator=(const Chapter1Level5&);
+};
+
+class Chapter1Level6 : public Level
+{
+public:
+    static Chapter1Level6* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level6(const char* json) : Level(6, json) {};
+    Chapter1Level6(const Chapter1Level6&);
+    Chapter1Level6& operator=(const Chapter1Level6&);
+};
+
+class Chapter1Level7 : public Level
+{
+public:
+    static Chapter1Level7* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level7(const char* json) : Level(7, json) {};
+    Chapter1Level7(const Chapter1Level7&);
+    Chapter1Level7& operator=(const Chapter1Level7&);
+};
+
+class Chapter1Level8 : public Level
+{
+public:
+    static Chapter1Level8* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level8(const char* json) : Level(8, json) {};
+    Chapter1Level8(const Chapter1Level8&);
+    Chapter1Level8& operator=(const Chapter1Level8&);
+};
+
+class Chapter1Level9 : public Level
+{
+public:
+    static Chapter1Level9* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level9(const char* json) : Level(9, json) {};
+    Chapter1Level9(const Chapter1Level9&);
+    Chapter1Level9& operator=(const Chapter1Level9&);
+};
+
+class Chapter1Level10 : public Level
+{
+public:
+    static Chapter1Level10* getInstance();
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    Chapter1Level10(const char* json) : Level(10, json) {};
+    Chapter1Level10(const Chapter1Level10&);
+    Chapter1Level10& operator=(const Chapter1Level10&);
+};
+
 #endif /* defined(__nosfuratu__GameScreenLevels__) */

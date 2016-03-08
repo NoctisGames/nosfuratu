@@ -32,7 +32,7 @@ public:
     
     const char* save();
     
-    void load(const char* json);
+    void load(const char* json, GameScreen* gs);
     
     Game& getGame();
     

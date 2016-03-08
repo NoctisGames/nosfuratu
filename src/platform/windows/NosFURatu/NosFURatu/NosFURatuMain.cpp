@@ -44,8 +44,14 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("vampire_glide_loop.wav");
 	m_sounds.push_back("mushroom_bounce.wav");
     m_sounds.push_back("jon_burrow_rocksfall.wav");
-    m_sounds.push_back("sparrow_fly.wav");
+    m_sounds.push_back("sparrow_fly_loop.wav");
 	m_sounds.push_back("sparrow_die.wav");
+    m_sounds.push_back("toad_die.wav");
+    m_sounds.push_back("toad_eat.wav");
+    m_sounds.push_back("saw_grind_loop.wav");
+    m_sounds.push_back("fox_bounced_on.wav");
+    m_sounds.push_back("fox_strike.wav");
+    m_sounds.push_back("fox_death.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -204,24 +210,22 @@ void NosFURatuMain::handleSound()
 	{
 		Assets::getInstance()->eraseFirstSoundId();
 
-		switch (soundId)
-		{
-		case SOUND_JON_VAMPIRE_GLIDE:
-			playSound(soundId, true);
-			break;
-		case STOP_SOUND_JON_VAMPIRE_GLIDE:
-			stopSound(SOUND_JON_VAMPIRE_GLIDE);
-			break;
-		case SOUND_SPARROW_FLY:
-			playSound(soundId, true);
-			break;
-        case STOP_SOUND_SPARROW_FLY:
-            stopSound(SOUND_SPARROW_FLY);
-            break;
-		default:
-			playSound(soundId);
-			break;
-		}
+        switch (soundId)
+        {
+            case SOUND_JON_VAMPIRE_GLIDE:
+            case SOUND_SPARROW_FLY:
+            case SOUND_SAW_GRIND:
+                playSound(soundId, true);
+                break;
+            case STOP_SOUND_JON_VAMPIRE_GLIDE:
+            case STOP_SOUND_SPARROW_FLY:
+            case STOP_SOUND_SAW_GRIND:
+                stopSound(soundId - 1000);
+                break;
+            default:
+                playSound(soundId);
+                break;
+        }
 	}
 }
 

@@ -72,7 +72,7 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getBounds()))
+                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getMainBounds()))
                     {
                         m_isRequestingLevelEditor = true;
                     }

@@ -36,7 +36,7 @@
 #include <sstream>
 #include <iomanip>
 
-Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_iRadialBlurDirection(RADIAL_BLUR_DIRECTION_LEFT), m_areMenuTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
+Renderer::Renderer() : m_fStateTime(0), m_iFramebufferIndex(0), m_iRadialBlurDirection(RADIAL_BLUR_DIRECTION_LEFT), m_areMenuTexturesLoaded(false), m_areWorld1TexturesLoaded(false), m_areWorld1MidBossTexturesLoaded(false), m_areShadersLoaded(false), m_sinWaveTextureProgram(nullptr), m_snakeDeathTextureProgram(nullptr), m_shockwaveTextureGpuProgramWrapper(nullptr), m_framebufferToScreenGpuProgramWrapper(nullptr), m_framebufferTintGpuProgramWrapper(nullptr)
 {
     int x = 0;
     int y = 0;
@@ -70,6 +70,17 @@ void Renderer::init(RendererType type)
     
     switch (type)
     {
+        case RENDERER_TYPE_WORLD_1_END_BOSS:
+            // TODO
+        case RENDERER_TYPE_WORLD_1_MID_BOSS:
+            if (!m_areWorld1MidBossTexturesLoaded)
+            {
+                m_world_1_mid_boss_part_1 = loadTexture(compressed ? "c_world_1_mid_boss_part_1" : "world_1_mid_boss_part_1");
+                m_world_1_mid_boss_part_2 = loadTexture(compressed ? "c_world_1_mid_boss_part_2" : "world_1_mid_boss_part_2");
+                m_world_1_mid_boss_part_3 = loadTexture(compressed ? "c_world_1_mid_boss_part_3" : "world_1_mid_boss_part_3");
+                
+                m_areWorld1MidBossTexturesLoaded = true;
+            }
         case RENDERER_TYPE_WORLD_1:
             if (!m_areWorld1TexturesLoaded)
             {
@@ -601,6 +612,14 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_midground);
     
     m_spriteBatcher->beginBatch();
+    for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
+    {
+        ForegroundObject& shadow = (*i)->getShadow();
+        renderPhysicalEntity(shadow, Assets::getInstance()->get(shadow));
+    }
+    m_spriteBatcher->endBatch(*m_world_1_objects);
+    
+    m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getCollectibleItems());
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects);
@@ -621,7 +640,7 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_enemies);
 }
 
-void Renderer::renderJon(Game& game)
+void Renderer::renderJonAndExtraForegroundObjects(Game& game)
 {
     if (game.getJons().size() > 0)
     {
@@ -655,6 +674,10 @@ void Renderer::renderJon(Game& game)
         renderPhysicalEntitiesWithColor(game.getJons());
         m_spriteBatcher->endBatch(isVampire || isTransforming ? *m_vampire : *m_jon);
     }
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getExtraForegroundObjects());
+    m_spriteBatcher->endBatch(*m_world_1_objects);
 }
 
 void Renderer::renderBounds(Game& game, int boundsLevelRequested)
@@ -670,6 +693,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEnemies());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCollectibleItems());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getJons());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getExtraForegroundObjects());
     
     static Color gridColor = Color(1, 1, 1, 0.4f);
     
@@ -849,6 +873,10 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getJons());
         m_spriteBatcher->endBatch(*m_jon);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(leep.getExtraForegroundObjects());
+        m_spriteBatcher->endBatch(*m_world_1_objects);
     }
     
     if (lsp.isOpen())
@@ -883,7 +911,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
 
 void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming)
 {
-    m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed, isTransforming);
+    m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed + 0.1f, isTransforming);
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
@@ -981,6 +1009,15 @@ void Renderer::renderToScreen()
 
 void Renderer::cleanUp()
 {
+    if (m_areWorld1MidBossTexturesLoaded)
+    {
+        destroyTexture(*m_world_1_mid_boss_part_1);
+        destroyTexture(*m_world_1_mid_boss_part_2);
+        destroyTexture(*m_world_1_mid_boss_part_3);
+        
+        m_areWorld1MidBossTexturesLoaded = false;
+    }
+    
     if (m_areWorld1TexturesLoaded)
     {
         destroyTexture(*m_jon);
@@ -1058,12 +1095,17 @@ void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 {
     static Color red = Color(1, 0, 0, 1);
     
-    m_boundsRectangleBatcher->renderRectangle(pe.getBounds(), red);
+    renderBoundsWithColor(pe.getMainBounds(), red);
+}
+
+void Renderer::renderBoundsWithColor(Rectangle &r, Color& c)
+{
+    m_boundsRectangleBatcher->renderRectangle(r, c);
 }
 
 void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 {
-    m_highlightRectangleBatcher->renderRectangle(pe.getBounds(), c);
+    m_highlightRectangleBatcher->renderRectangle(pe.getMainBounds(), c);
 }
 
 float Renderer::getCamPosFarRight(Game &game)

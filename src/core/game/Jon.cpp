@@ -177,9 +177,11 @@ void Jon::update(float deltaTime)
 
 void Jon::updateBounds()
 {
-	Vector2D &lowerLeft = m_bounds->getLowerLeft();
-	float height = m_abilityState == ABILITY_UPWARD_THRUST ? m_bounds->getHeight() / 2 : m_bounds->getHeight();
-	lowerLeft.set(m_position->getX() - m_bounds->getWidth() / 2, m_position->getY() - height / 2);
+	Vector2D &lowerLeft = getMainBounds().getLowerLeft();
+	float height = m_abilityState == ABILITY_UPWARD_THRUST ? getMainBounds().getHeight() / 2 : getMainBounds().getHeight();
+	lowerLeft.set(m_position->getX() - getMainBounds().getWidth() / 2, m_position->getY() - height / 2);
+    
+    getMainBounds().setAngle(m_abilityState == ABILITY_GLIDE ? 90 : 0);
 }
 
 void Jon::onDeletion()
@@ -476,11 +478,8 @@ void Jon::kill()
         m_formStateMachine->revertToPreviousState();
     }
     
-    if (m_abilityState == ABILITY_GLIDE)
-    {
-        Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-        setState(ABILITY_NONE);
-    }
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    setState(ABILITY_NONE);
 }
 
 #pragma mark private
@@ -566,6 +565,11 @@ void Jon::Rabbit::execute(Jon* jon)
             {
                 jon->setState(ABILITY_NONE);
             }
+        }
+            break;
+        case ABILITY_STOMP:
+        {
+            // TODO
         }
             break;
         default:
@@ -655,17 +659,29 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         return;
     }
     
-	if (jon->m_abilityState == ABILITY_BURROW || jon->m_physicalState == PHYSICAL_IN_AIR)
+    if (jon->m_physicalState == PHYSICAL_IN_AIR)
+    {
+        if (jon->m_abilityState == ABILITY_STOMP)
+        {
+            return;
+        }
+        
+        jon->setState(ABILITY_STOMP);
+    }
+    else
 	{
-		return;
+        if (jon->m_abilityState == ABILITY_BURROW)
+        {
+            return;
+        }
+        
+        jon->setState(ABILITY_BURROW);
+        
+        m_isBurrowEffective = false;
 	}
-
-	jon->setState(ABILITY_BURROW);
-
-	jon->m_velocity->setX(0);
-	jon->m_acceleration->setX(0);
-
-	m_isBurrowEffective = false;
+    
+    jon->m_velocity->setX(0);
+    jon->m_acceleration->setX(0);
 }
 
 void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
@@ -751,7 +767,7 @@ void Jon::Vampire::execute(Jon* jon)
 			jon->m_fGravity = VAMP_GRAVITY;
 			jon->m_acceleration->setY(jon->m_fGravity);
             
-            Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+            Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 		}
 	}
 	break;
@@ -788,7 +804,7 @@ void Jon::Vampire::execute(Jon* jon)
 		if (!m_isFallingAfterGlide && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
 		{
 			jon->setState(ABILITY_GLIDE);
-			jon->m_fGravity = VAMP_GRAVITY / 36;
+			jon->m_fGravity = VAMP_GRAVITY / 30;
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(0);
 			jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
@@ -856,10 +872,7 @@ void Jon::Vampire::exit(Jon* jon)
 {
 	jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
-	if (jon->m_abilityState == ABILITY_GLIDE)
-	{
-		Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-	}
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerTransform(Jon* jon)
@@ -877,7 +890,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		jon->m_iNumJumps = 1;
 		m_isFallingAfterGlide = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 	}
 	else if (jon->m_iNumJumps < 2)
 	{

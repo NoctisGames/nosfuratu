@@ -83,7 +83,7 @@ void Level::execute(GameScreen* gs)
             gs->m_renderer->renderToSecondFramebuffer(*m_game);
         }
         
-        gs->m_renderer->renderJon(*m_game);
+        gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
         
         if (m_hasOpeningSequenceCompleted)
         {
@@ -166,6 +166,8 @@ void Level::execute(GameScreen* gs)
             
             if (jon.isDead())
             {
+                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+                
                 // Starting death transition, when screen goes black, new game begins
                 
                 m_fStateTime += gs->m_fDeltaTime * 2;
@@ -183,7 +185,9 @@ void Level::execute(GameScreen* gs)
             {
                 // Has Cleared the Level
                 
-                Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
                 
                 m_fStateTime += gs->m_fDeltaTime;
                 
@@ -262,7 +266,9 @@ void Level::exit(GameScreen* gs)
 {
     m_game->reset();
     
-    Assets::getInstance()->addSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
     
     m_fStateTime = 0;
     m_isReleasingShockwave = false;
@@ -367,7 +373,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                 }
                 continue;
             case UP:
-                if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getBounds()))
+                if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                 {
                     Assets::getInstance()->setMusicId(MUSIC_STOP);
                     
@@ -434,6 +440,60 @@ Chapter1Level2 * Chapter1Level2::getInstance()
 Chapter1Level3 * Chapter1Level3::getInstance()
 {
     static Chapter1Level3 *instance = new Chapter1Level3("{\"midgrounds\":[{\"gridX\":0,\"gridY\":96,\"type\":2},{\"gridX\":68,\"gridY\":96,\"type\":2},{\"gridX\":132,\"gridY\":96,\"type\":0},{\"gridX\":168,\"gridY\":96,\"type\":0},{\"gridX\":200,\"gridY\":96,\"type\":2},{\"gridX\":488,\"gridY\":96,\"type\":2},{\"gridX\":544,\"gridY\":96,\"type\":0},{\"gridX\":724,\"gridY\":96,\"type\":0},{\"gridX\":892,\"gridY\":96,\"type\":0},{\"gridX\":816,\"gridY\":96,\"type\":1},{\"gridX\":960,\"gridY\":96,\"type\":1},{\"gridX\":1020,\"gridY\":96,\"type\":1}],\"grounds\":[{\"gridX\":0,\"gridY\":0,\"type\":25},{\"gridX\":744,\"gridY\":0,\"type\":26},{\"gridX\":584,\"gridY\":0,\"type\":26},{\"gridX\":776,\"gridY\":0,\"type\":26},{\"gridX\":520,\"gridY\":0,\"type\":27},{\"gridX\":8,\"gridY\":0,\"type\":28},{\"gridX\":136,\"gridY\":0,\"type\":28},{\"gridX\":808,\"gridY\":0,\"type\":28},{\"gridX\":936,\"gridY\":0,\"type\":28},{\"gridX\":264,\"gridY\":0,\"type\":28},{\"gridX\":392,\"gridY\":0,\"type\":28},{\"gridX\":616,\"gridY\":0,\"type\":28},{\"gridX\":1064,\"gridY\":0,\"type\":29}],\"pits\":[{\"gridX\":636,\"gridY\":0,\"type\":31},{\"gridX\":776,\"gridY\":0,\"type\":30},{\"gridX\":280,\"gridY\":0,\"type\":32},{\"gridX\":464,\"gridY\":0,\"type\":30}],\"exitGrounds\":[],\"holes\":[],\"foregroundObjects\":[{\"gridX\":292,\"gridY\":122,\"type\":0},{\"gridX\":296,\"gridY\":122,\"type\":1},{\"gridX\":310,\"gridY\":122,\"type\":1},{\"gridX\":324,\"gridY\":122,\"type\":1},{\"gridX\":338,\"gridY\":122,\"type\":2},{\"gridX\":177,\"gridY\":96,\"type\":8},{\"gridX\":91,\"gridY\":96,\"type\":22},{\"gridX\":122,\"gridY\":96,\"type\":22},{\"gridX\":364,\"gridY\":76,\"type\":3},{\"gridX\":368,\"gridY\":76,\"type\":4},{\"gridX\":382,\"gridY\":76,\"type\":4},{\"gridX\":396,\"gridY\":76,\"type\":5},{\"gridX\":393,\"gridY\":81,\"type\":19},{\"gridX\":400,\"gridY\":124,\"type\":0},{\"gridX\":404,\"gridY\":124,\"type\":1},{\"gridX\":418,\"gridY\":124,\"type\":1},{\"gridX\":432,\"gridY\":124,\"type\":2},{\"gridX\":581,\"gridY\":96,\"type\":7},{\"gridX\":1046,\"gridY\":96,\"type\":12}],\"enemies\":[{\"gridX\":939,\"gridY\":96,\"type\":0}],\"collectibles\":[{\"gridX\":56,\"gridY\":104,\"type\":0},{\"gridX\":64,\"gridY\":108,\"type\":0},{\"gridX\":72,\"gridY\":112,\"type\":0},{\"gridX\":112,\"gridY\":112,\"type\":0},{\"gridX\":120,\"gridY\":116,\"type\":0},{\"gridX\":128,\"gridY\":120,\"type\":0},{\"gridX\":208,\"gridY\":100,\"type\":0},{\"gridX\":200,\"gridY\":100,\"type\":0},{\"gridX\":216,\"gridY\":100,\"type\":0},{\"gridX\":296,\"gridY\":132,\"type\":0},{\"gridX\":304,\"gridY\":132,\"type\":0},{\"gridX\":312,\"gridY\":132,\"type\":0},{\"gridX\":320,\"gridY\":132,\"type\":0},{\"gridX\":328,\"gridY\":132,\"type\":0},{\"gridX\":336,\"gridY\":132,\"type\":0},{\"gridX\":392,\"gridY\":88,\"type\":1},{\"gridX\":428,\"gridY\":132,\"type\":0},{\"gridX\":420,\"gridY\":132,\"type\":0},{\"gridX\":472,\"gridY\":100,\"type\":0},{\"gridX\":512,\"gridY\":104,\"type\":0},{\"gridX\":504,\"gridY\":104,\"type\":0},{\"gridX\":496,\"gridY\":104,\"type\":0},{\"gridX\":488,\"gridY\":100,\"type\":0},{\"gridX\":480,\"gridY\":96,\"type\":0},{\"gridX\":448,\"gridY\":116,\"type\":0},{\"gridX\":440,\"gridY\":124,\"type\":0},{\"gridX\":456,\"gridY\":108,\"type\":0},{\"gridX\":464,\"gridY\":104,\"type\":0},{\"gridX\":624,\"gridY\":152,\"type\":1},{\"gridX\":732,\"gridY\":104,\"type\":0},{\"gridX\":740,\"gridY\":104,\"type\":0},{\"gridX\":748,\"gridY\":104,\"type\":0},{\"gridX\":960,\"gridY\":168,\"type\":1},{\"gridX\":828,\"gridY\":104,\"type\":0},{\"gridX\":836,\"gridY\":104,\"type\":0},{\"gridX\":844,\"gridY\":104,\"type\":0},{\"gridX\":872,\"gridY\":104,\"type\":0},{\"gridX\":880,\"gridY\":104,\"type\":0},{\"gridX\":888,\"gridY\":104,\"type\":0},{\"gridX\":412,\"gridY\":132,\"type\":0},{\"gridX\":404,\"gridY\":132,\"type\":0}],\"jons\":[{\"gridX\":12,\"gridY\":100}]}");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 4 ///
+
+Chapter1Level4 * Chapter1Level4::getInstance()
+{
+    static Chapter1Level4 *instance = new Chapter1Level4("TODO");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 5 ///
+
+Chapter1Level5 * Chapter1Level5::getInstance()
+{
+    static Chapter1Level5 *instance = new Chapter1Level5("TODO");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 6 ///
+
+Chapter1Level6 * Chapter1Level6::getInstance()
+{
+    static Chapter1Level6 *instance = new Chapter1Level6("TODO");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 7 ///
+
+Chapter1Level7 * Chapter1Level7::getInstance()
+{
+    static Chapter1Level7 *instance = new Chapter1Level7("TODO");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 8 ///
+
+Chapter1Level8 * Chapter1Level8::getInstance()
+{
+    static Chapter1Level8 *instance = new Chapter1Level8("TODO");
+    
+    return instance;
+}
+
+/// Chapter 1 Level 9 ///
+
+Chapter1Level9 * Chapter1Level9::getInstance()
+{
+    static Chapter1Level9 *instance = new Chapter1Level9("TODO");
     
     return instance;
 }

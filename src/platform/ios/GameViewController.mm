@@ -158,13 +158,14 @@
         switch (soundId)
         {
             case SOUND_JON_VAMPIRE_GLIDE:
+            case SOUND_SPARROW_FLY:
+            case SOUND_SAW_GRIND:
                 [self playSound:soundId isLooping:true];
                 break;
             case STOP_SOUND_JON_VAMPIRE_GLIDE:
-                [self stopSound:SOUND_JON_VAMPIRE_GLIDE];
-                break;
             case STOP_SOUND_SPARROW_FLY:
-                [self stopSound:SOUND_SPARROW_FLY];
+            case STOP_SOUND_SAW_GRIND:
+                [self stopSound:soundId - 1000];
                 break;
             default:
                 [self playSound:soundId];
@@ -185,11 +186,10 @@
             [self.soundMgr resumeBackgroundMusic];
             break;
         case MUSIC_PLAY_DEMO:
-            // start background music
             [self initSoundEngine];
             self.soundMgr.backgroundMusicVolume = 0.5f;
             self.soundMgr.soundEffectsVolume = 1;
-            [self.soundMgr playBackgroundMusic:@"bgm.wav" forcePlay:YES]; // you could use forcePlay: YES if you wanted to stop any other audio source (iPod)
+            [self.soundMgr playBackgroundMusic:@"bgm.wav" forcePlay:YES];
             break;
         default:
             break;
@@ -256,7 +256,7 @@
         const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
         success = true;
         
-        GameScreenLevelEditor::getInstance()->load(contentCString);
+        GameScreenLevelEditor::getInstance()->load(contentCString, gameScreen);
     }
     
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
@@ -308,7 +308,7 @@
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly.wav", @"sparrow_die.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", nil];
 }
 
 @end

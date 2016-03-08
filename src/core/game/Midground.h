@@ -18,7 +18,7 @@ typedef enum
     MidgroundType_TreeThree,
     MidgroundType_DeepCaveColumnSmall,
     MidgroundType_DeepCaveColumnMedium,
-    MidgroundType_DeepCaveColumnBig,
+    MidgroundType_DeepCaveColumnBig
 } MidgroundType;
 
 class Midground : public GridLockedPhysicalEntity
