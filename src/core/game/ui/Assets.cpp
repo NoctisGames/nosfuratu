@@ -56,32 +56,32 @@ TextureRegion& Assets::get(Midground& midground)
     {
         case MidgroundType_TreeOne:
         {
-            static TextureRegion tr = createTextureRegion(1154, 3424, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1904, 424, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_TreeTwo:
         {
-            static TextureRegion tr = createTextureRegion(1682, 3296, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2432, 296, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_TreeThree:
         {
-            static TextureRegion tr = createTextureRegion(2370, 3248, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3120, 248, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnSmall:
         {
-            static TextureRegion tr = createTextureRegion(0, 3808, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(750, 808, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnMedium:
         {
-            static TextureRegion tr = createTextureRegion(832, 3264, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1582, 264, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnBig:
         {
-            static TextureRegion tr = createTextureRegion(258, 3264, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1008, 264, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -95,131 +95,131 @@ TextureRegion& Assets::get(Ground& ground)
     {
         case GroundType_CaveExtraDeepEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 774, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveExtraDeepSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 774, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveExtraDeepMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 774, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveExtraDeepLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 774, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1664, 1132, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveExtraDeepEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 774, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3712, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case GroundType_CaveDeepEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 960, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveDeepSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 960, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(128, 1264, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveDeepMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 960, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(640, 1264, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveDeepLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 960, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1664, 1264, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveDeepEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 960, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3712, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case GroundType_CaveEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1772, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1772, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(128, 1912, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1772, 1024, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(640, 1912, 1024, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1772, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1664, 1912, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1772, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3712, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case GroundType_CaveRaisedEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1180, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveRaisedSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1180, 512, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(128, 1396, 512, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveRaisedMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1180, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(640, 1396, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveRaisedLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1180, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1664, 1396, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_CaveRaisedEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1180, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3712, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case GroundType_GrassWithCaveEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 2252, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassWithCaveSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 2252, 512, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(128, 2300, 512, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassWithCaveMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 2252, 1024, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(640, 2300, 1024, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassWithCaveLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 2252, 2048, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1664, 2300, 2048, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassWithCaveEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 2252, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3712, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -280,23 +280,23 @@ TextureRegion& Assets::get(ExitGround& exitGround)
     {
         case ExitGroundType_GrassWithCaveSmallExitMid:
         {
-            static TextureRegion tr = createTextureRegion(0, 860, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 0, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ExitGroundType_GrassWithCaveSmallExitEnd:
         {
-            static TextureRegion tr = createTextureRegion(3500, 560, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3500, 228, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ExitGroundType_CaveSmallExit:
         {
-            static TextureRegion tr = createTextureRegion(0, 1488, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 228, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ExitGroundType_CaveDeepSmallWaterfall:
         {
-            static Animation anim = createAnimation(0, 1876, 512, 448, 1536, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 3);
+            static Animation anim = createAnimation(0, 616, 512, 448, 1536, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 3);
             return anim.getTextureRegion(exitGround.getStateTime());
         }
     }
@@ -310,12 +310,12 @@ TextureRegion& Assets::get(ExitGroundCover& exitGroundCover)
     {
         case ExitGroundCoverType_Grass:
         {
-            static Animation anim = createAnimation(1024, 860, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08333333333333f, 6);
+            static Animation anim = createAnimation(1024, 0, 512, 224, 3072, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08333333333333f, 6);
             return anim.getTextureRegion(exitGroundCover.getStateTime());
         }
         case ExitGroundCoverType_Cave:
         {
-            static Animation anim = createAnimation(514, 1488, 512, 384, 2560, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
+            static Animation anim = createAnimation(514, 228, 512, 384, 2560, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
             return anim.getTextureRegion(exitGroundCover.getStateTime());
         }
     }
@@ -334,7 +334,7 @@ TextureRegion& Assets::get(Hole& hole)
         }
         case HoleType_Cave:
         {
-            static TextureRegion tr = createTextureRegion(0, 1100, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 260, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -353,7 +353,7 @@ TextureRegion& Assets::get(HoleCover& holeCover)
         }
         case HoleCoverType_Cave:
         {
-            static Animation anim = createAnimation(272, 1100, 272, 384, 2720, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            static Animation anim = createAnimation(272, 260, 272, 384, 2720, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
             return anim.getTextureRegion(holeCover.getStateTime());
         }
     }

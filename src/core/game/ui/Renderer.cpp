@@ -78,6 +78,7 @@ void Renderer::init(RendererType type)
                 m_world_1_mid_boss_part_1 = loadTexture(compressed ? "c_world_1_mid_boss_part_1" : "world_1_mid_boss_part_1");
                 m_world_1_mid_boss_part_2 = loadTexture(compressed ? "c_world_1_mid_boss_part_2" : "world_1_mid_boss_part_2");
                 m_world_1_mid_boss_part_3 = loadTexture(compressed ? "c_world_1_mid_boss_part_3" : "world_1_mid_boss_part_3");
+                m_world_1_mid_boss_part_4 = loadTexture(compressed ? "c_world_1_mid_boss_part_4" : "world_1_mid_boss_part_4");
                 
                 m_areWorld1MidBossTexturesLoaded = true;
             }
@@ -97,8 +98,6 @@ void Renderer::init(RendererType type)
                 m_world_1_enemies = loadTexture(compressed ? "c_world_1_enemies" : "world_1_enemies", 1);
                 
                 m_world_1_ground = loadTexture(compressed ? "c_world_1_ground" : "world_1_ground");
-                
-                m_world_1_midground = loadTexture(compressed ? "c_world_1_midground" : "world_1_midground");
                 
                 m_world_1_objects = loadTexture(compressed ? "c_world_1_objects" : "world_1_objects");
                 
@@ -561,7 +560,7 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getMidgrounds());
-    m_spriteBatcher->endBatch(*m_world_1_midground);
+    m_spriteBatcher->endBatch(*m_world_1_objects);
     
     /// Render Exit Ground
     
@@ -577,7 +576,7 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntityWithColor(egc, Assets::getInstance()->get(egc), egc.getColor());
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_midground);
+    m_spriteBatcher->endBatch(*m_world_1_ground);
     
     /// Render Background Midground Cover
     
@@ -609,7 +608,7 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntity(hc, Assets::getInstance()->get(hc));
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_midground);
+    m_spriteBatcher->endBatch(*m_world_1_special);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
@@ -849,16 +848,16 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntit
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getMidgrounds());
-        renderPhysicalEntities(leep.getExitGrounds());
-        renderPhysicalEntities(leep.getHoles());
-        m_spriteBatcher->endBatch(*m_world_1_midground);
+        m_spriteBatcher->endBatch(*m_world_1_objects);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getGrounds());
+        renderPhysicalEntities(leep.getExitGrounds());
         m_spriteBatcher->endBatch(*m_world_1_ground);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep.getPits());
+        renderPhysicalEntities(leep.getHoles());
         m_spriteBatcher->endBatch(*m_world_1_special);
         
         m_spriteBatcher->beginBatch();
@@ -1033,8 +1032,6 @@ void Renderer::cleanUp()
         destroyTexture(*m_world_1_enemies);
         
         destroyTexture(*m_world_1_ground);
-        
-        destroyTexture(*m_world_1_midground);
         
         destroyTexture(*m_world_1_objects);
         

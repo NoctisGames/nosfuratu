@@ -137,6 +137,7 @@ protected:
     TextureWrapper* m_world_1_mid_boss_part_1;
     TextureWrapper* m_world_1_mid_boss_part_2;
     TextureWrapper* m_world_1_mid_boss_part_3;
+    TextureWrapper* m_world_1_mid_boss_part_4;
     TextureWrapper* m_world_1_midground;
     TextureWrapper* m_world_1_objects;
     TextureWrapper* m_world_1_special;
