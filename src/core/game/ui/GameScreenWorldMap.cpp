@@ -28,7 +28,7 @@ WorldMap * WorldMap::getInstance()
 void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
-    gs->m_renderer->init(RENDERER_TYPE_MENU);
+    gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
     gs->m_iNumFramesToDiscard = 1;
 }
 
@@ -38,15 +38,15 @@ void WorldMap::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame();
         
-        gs->m_renderer->renderWorldMapScreenBackground();
+        gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
         if (m_iLevelToLoad > 0)
         {
-            gs->m_renderer->renderLoadingTextOnWorldMapScreen();
+            gs->m_renderer->renderWorldMapScreenLoading();
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(*m_backButton);
+            gs->m_renderer->renderWorldMapScreenUi(m_backButton.get());
         }
         
         gs->m_renderer->renderToScreen();
@@ -80,15 +80,43 @@ void WorldMap::execute(GameScreen* gs)
                     }
                     else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
                     {
-                        if (gs->m_touchPoint->getX() > CAM_WIDTH * 2 / 3)
+                        if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 9 / 11)
+                        {
+                            m_iLevelToLoad = 10;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 8 / 11)
+                        {
+                            m_iLevelToLoad = 9;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 7 / 11)
+                        {
+                            m_iLevelToLoad = 8;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 6 / 11)
+                        {
+                            m_iLevelToLoad = 7;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 5 / 11)
+                        {
+                            m_iLevelToLoad = 6;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 4 / 11)
+                        {
+                            m_iLevelToLoad = 5;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 3 / 11)
+                        {
+                            m_iLevelToLoad = 4;
+                        }
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 2 / 11)
                         {
                             m_iLevelToLoad = 3;
                         }
-                        else if (gs->m_touchPoint->getX() > CAM_WIDTH / 3)
+                        else if (gs->m_touchPoint->getX() > 0.25f + CAM_WIDTH * 1 / 11)
                         {
                             m_iLevelToLoad = 2;
                         }
-                        else if (gs->m_touchPoint->getX() > 0)
+                        else
                         {
                             m_iLevelToLoad = 1;
                         }
@@ -105,12 +133,18 @@ void WorldMap::exit(GameScreen* gs)
     m_iLevelToLoad = 0;
 }
 
-BackButton& WorldMap::getBackButton()
+WorldMapPanel* WorldMap::getWorldMapPanel()
 {
-    return *m_backButton;
+    return m_panel.get();
+}
+
+BackButton* WorldMap::getBackButton()
+{
+    return m_backButton.get();
 }
 
 WorldMap::WorldMap() : m_iLevelToLoad(0)
 {
+    m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
 }

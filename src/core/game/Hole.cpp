@@ -22,7 +22,7 @@ Hole* Hole::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-Hole::Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_holeCover(nullptr), m_type(type)
+Hole::Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, 0, 0, 1, 2), m_holeCover(nullptr), m_type(type)
 {
     m_holeCover = new HoleCover(m_position->getX(), m_position->getY(), m_fWidth, m_fHeight, type == HoleType_Grass ? HoleCoverType_Grass : HoleCoverType_Cave);
 }
@@ -45,11 +45,11 @@ void Hole::update(float deltaTime)
     }
 }
 
-bool Hole::triggerBurrow()
+bool Hole::triggerBurrow(float jonDownwardsVelocity)
 {
     if (m_holeCover)
     {
-        m_holeCover->triggerHit();
+        m_holeCover->triggerHit(jonDownwardsVelocity);
         return true;
     }
     

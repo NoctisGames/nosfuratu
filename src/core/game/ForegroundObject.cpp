@@ -415,28 +415,40 @@ void SpikeTower::updateBounds()
 
 bool SpikeTower::isJonLanding(Jon& jon, float deltaTime)
 {
+    bool ret = false;
+    
+    jon.getMainBounds().setAngle(jon.getAbilityState() == ABILITY_GLIDE ? 90 : 0);
+    
     if (ForegroundObject::isJonLanding(jon, deltaTime)
         || ForegroundObject::isJonLanding(jon, getBounds().at(1), deltaTime))
     {
         jon.kill();
         
-        return true;
+        ret = true;
     }
     
-    return false;
+    jon.getMainBounds().setAngle(0);
+    
+    return ret;
 }
 
 bool SpikeTower::isJonBlockedOnRight(Jon& jon, float deltaTime)
 {
+    bool ret = false;
+    
+    jon.getMainBounds().setAngle(jon.getAbilityState() == ABILITY_GLIDE ? 90 : 0);
+    
     if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime)
         || ForegroundObject::isJonBlockedOnRight(jon, getBounds().at(1), deltaTime))
     {
         jon.kill();
         
-        return true;
+        ret = true;
     }
     
-    return false;
+    jon.getMainBounds().setAngle(0);
+    
+    return ret;
 }
 
 void VerticalSaw::updateBounds()

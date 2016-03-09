@@ -36,13 +36,13 @@ public:
     
     Game& getGame();
     
-    LevelEditorActionsPanel& getLevelEditorActionsPanel();
+    LevelEditorActionsPanel* getLevelEditorActionsPanel();
     
-    LevelEditorEntitiesPanel& getLevelEditorEntitiesPanel();
+    LevelEditorEntitiesPanel* getLevelEditorEntitiesPanel();
     
-    TrashCan& getTrashCan();
+    TrashCan* getTrashCan();
     
-    LevelSelectorPanel& getLevelSelectorPanel();
+    LevelSelectorPanel* getLevelSelectorPanel();
     
 private:
     std::unique_ptr<Game> m_game;

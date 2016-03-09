@@ -36,49 +36,55 @@ class LevelEditorEntitiesPanel;
 class Enemy;
 class EnemySpirit;
 class ForegroundObject;
+class TitlePanel;
+class WorldMapPanel;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
     
-    TextureRegion& get(Background& background);
+    TextureRegion& get(TitlePanel* panel);
     
-    TextureRegion& get(Midground& midground);
+    TextureRegion& get(WorldMapPanel* panel);
     
-    TextureRegion& get(Ground& ground);
+    TextureRegion& get(Background* background);
     
-    TextureRegion& get(ExitGround& exitGround);
+    TextureRegion& get(Midground* midground);
     
-    TextureRegion& get(ExitGroundCover& exitGroundCover);
+    TextureRegion& get(Ground* ground);
     
-    TextureRegion& get(Hole& hole);
+    TextureRegion& get(ExitGround* exitGround);
     
-    TextureRegion& get(HoleCover& holeCover);
+    TextureRegion& get(ExitGroundCover* exitGroundCover);
     
-    TextureRegion& get(ForegroundObject& foregroundObject);
+    TextureRegion& get(Hole* hole);
     
-    TextureRegion& get(Enemy& enemy);
+    TextureRegion& get(HoleCover* holeCover);
     
-    TextureRegion& get(EnemySpirit& spirit);
+    TextureRegion& get(ForegroundObject* foregroundObject);
     
-    TextureRegion& get(CollectibleItem& collectibleItem);
+    TextureRegion& get(Enemy* enemy);
     
-    TextureRegion& get(Jon& jon);
+    TextureRegion& get(EnemySpirit* spirit);
     
-    TextureRegion& get(DustCloud& dustCloud);
+    TextureRegion& get(CollectibleItem* collectibleItem);
     
-    TextureRegion& get(BackButton& backButton);
+    TextureRegion& get(Jon* jon);
     
-    TextureRegion& get(LevelEditorButton& levelEditorButton);
+    TextureRegion& get(DustCloud* dustCloud);
     
-    TextureRegion& get(LevelEditorEntitiesPanel& levelEditorEntitiesPanel);
+    TextureRegion& get(BackButton* backButton);
     
-    TextureRegion& get(LevelEditorActionsPanel& levelEditorActionsPanel);
+    TextureRegion& get(LevelEditorButton* levelEditorButton);
     
-    TextureRegion& get(TrashCan& trashCan);
+    TextureRegion& get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel);
     
-    TextureRegion& get(LevelSelectorPanel& levelSelectorPanel);
+    TextureRegion& get(LevelEditorActionsPanel* levelEditorActionsPanel);
+    
+    TextureRegion& get(TrashCan* trashCan);
+    
+    TextureRegion& get(LevelSelectorPanel* levelSelectorPanel);
     
     short getFirstSoundId();
     

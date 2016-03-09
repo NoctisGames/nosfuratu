@@ -15,7 +15,7 @@
 #include "Game.h"
 #include "GameScreenTitle.h"
 
-#include <algorithm>    // std::sort
+#include <algorithm> // std::sort
 
 bool sortGrounds(Ground* i, Ground* j)
 {
@@ -43,7 +43,7 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
         load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
     }
     
-    gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
+    gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
     gs->m_renderer->zoomOut();
 }
 
@@ -81,7 +81,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreen();
         
-        gs->m_renderer->renderLevelEditor(*m_levelEditorActionsPanel, *m_levelEditorEntitiesPanel, *m_trashCan, *m_levelSelectorPanel);
+        gs->m_renderer->renderLevelEditor(m_levelEditorActionsPanel.get(), m_levelEditorEntitiesPanel.get(), m_trashCan.get(), m_levelSelectorPanel.get());
         
         gs->m_renderer->endFrame();
     }
@@ -152,24 +152,24 @@ Game& GameScreenLevelEditor::getGame()
     return *m_game;
 }
 
-LevelEditorActionsPanel& GameScreenLevelEditor::getLevelEditorActionsPanel()
+LevelEditorActionsPanel* GameScreenLevelEditor::getLevelEditorActionsPanel()
 {
-    return *m_levelEditorActionsPanel;
+    return m_levelEditorActionsPanel.get();
 }
 
-LevelEditorEntitiesPanel& GameScreenLevelEditor::getLevelEditorEntitiesPanel()
+LevelEditorEntitiesPanel* GameScreenLevelEditor::getLevelEditorEntitiesPanel()
 {
-    return *m_levelEditorEntitiesPanel;
+    return m_levelEditorEntitiesPanel.get();
 }
 
-TrashCan& GameScreenLevelEditor::getTrashCan()
+TrashCan* GameScreenLevelEditor::getTrashCan()
 {
-    return *m_trashCan;
+    return m_trashCan.get();
 }
 
-LevelSelectorPanel& GameScreenLevelEditor::getLevelSelectorPanel()
+LevelSelectorPanel* GameScreenLevelEditor::getLevelSelectorPanel()
 {
-    return *m_levelSelectorPanel;
+    return m_levelSelectorPanel.get();
 }
 
 #pragma mark private
@@ -478,6 +478,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getExitGrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
     EntityUtils::addAll(m_game->getForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getBossForegroundObjects(), m_gameEntities);
     EntityUtils::addAll(m_game->getEnemies(), m_gameEntities);
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);

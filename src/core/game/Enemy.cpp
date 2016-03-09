@@ -202,19 +202,15 @@ EnemyType Enemy::getType()
 
 #pragma mark protected
 
-void Enemy::handleDead(float deltaTime)
+void Enemy::handleAlive(float deltaTime)
 {
-    m_fEnemySpiritStateTime += deltaTime;
-    m_color.alpha -= deltaTime * 2;
+    Entity::update(deltaTime);
     
-    if (m_fEnemySpiritStateTime > 1.00f)
-    {
-        m_isRequestingDeletion = true;
-    }
+    Jon& jon = m_game->getJon();
     
-    if (m_enemySpirit)
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
-        m_enemySpirit->update(deltaTime);
+        jon.kill();
     }
 }
 
@@ -231,15 +227,19 @@ void Enemy::handleDying(float deltaTime)
     }
 }
 
-void Enemy::handleAlive(float deltaTime)
+void Enemy::handleDead(float deltaTime)
 {
-    Entity::update(deltaTime);
+    m_fEnemySpiritStateTime += deltaTime;
+    m_color.alpha -= deltaTime * 2;
     
-    Jon& jon = m_game->getJon();
-    
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    if (m_fEnemySpiritStateTime > 1.00f)
     {
-        jon.kill();
+        m_isRequestingDeletion = true;
+    }
+    
+    if (m_enemySpirit)
+    {
+        m_enemySpirit->update(deltaTime);
     }
 }
 
@@ -358,6 +358,16 @@ void Toad::handleAlive(float deltaTime)
     }
 }
 
+void Toad::handleDying(float deltaTime)
+{
+    // TODO
+}
+
+void Toad::handleDead(float deltaTime)
+{
+    // TODO
+}
+
 void Fox::handleAlive(float deltaTime)
 {
     Entity::update(deltaTime);
@@ -370,4 +380,14 @@ void Fox::handleAlive(float deltaTime)
         
         // TODO swing at Jon
     }
+}
+
+void Fox::handleDying(float deltaTime)
+{
+    // TODO
+}
+
+void Fox::handleDead(float deltaTime)
+{
+    // TODO
 }

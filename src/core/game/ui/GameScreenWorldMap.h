@@ -12,6 +12,7 @@
 #include "State.h"
 #include "BackButton.h"
 #include "GameScreenLevels.h"
+#include "WorldMapPanel.h"
 
 #include <memory>
 
@@ -28,9 +29,12 @@ public:
     
     virtual void exit(GameScreen* gs);
     
-    BackButton& getBackButton();
+    WorldMapPanel* getWorldMapPanel();
+    
+    BackButton* getBackButton();
     
 private:
+    std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<BackButton> m_backButton;
     int m_iLevelToLoad;
     

@@ -38,6 +38,8 @@ class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class TrashCan;
 class LevelSelectorPanel;
+class TitlePanel;
+class WorldMapPanel;
 
 struct Color;
 
@@ -48,7 +50,7 @@ public:
     
     ~Renderer();
     
-    void init(RendererType type);
+    void init(RendererType rendererType);
 
 	virtual bool isLoaded() = 0;
     
@@ -74,17 +76,17 @@ public:
     
     void zoomIn();
     
-    void renderTitleScreen();
+    void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(LevelEditorButton& levelEditorButton);
+    void renderTitleScreenUi(LevelEditorButton* levelEditorButton);
     
-    void renderLoadingTextOnTitleScreen();
+    void renderTitleScreenLoading();
     
-    void renderWorldMapScreenBackground();
+    void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(BackButton& backButton);
+    void renderWorldMapScreenUi(BackButton* backButton);
     
-    void renderLoadingTextOnWorldMapScreen();
+    void renderWorldMapScreenLoading();
     
     void renderWorld(Game& game);
     
@@ -94,9 +96,9 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(Game& game, BackButton& backButton, int fps);
+    void renderHud(Game& game, BackButton* backButton, int fps);
     
-    void renderLevelEditor(LevelEditorActionsPanel& leap, LevelEditorEntitiesPanel& leep, TrashCan& tc, LevelSelectorPanel& lsp);
+    void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp);
     
     void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
     
@@ -126,7 +128,8 @@ protected:
     std::unique_ptr<Font> m_font;
     
     TextureWrapper* m_jon;
-    TextureWrapper* m_misc;
+    TextureWrapper* m_level_editor;
+    TextureWrapper* m_title_screen;
     TextureWrapper* m_trans_death_shader_helper;
     TextureWrapper* m_vampire;
     TextureWrapper* m_world_1_background_lower;
@@ -138,9 +141,9 @@ protected:
     TextureWrapper* m_world_1_mid_boss_part_2;
     TextureWrapper* m_world_1_mid_boss_part_3;
     TextureWrapper* m_world_1_mid_boss_part_4;
-    TextureWrapper* m_world_1_midground;
     TextureWrapper* m_world_1_objects;
     TextureWrapper* m_world_1_special;
+    TextureWrapper* m_world_map_screen;
     
     std::vector<TextureWrapper> m_framebuffers;
     
@@ -179,9 +182,27 @@ private:
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
     int m_iRadialBlurDirection;
-    bool m_areMenuTexturesLoaded;
+    bool m_compressed;
+    
+    bool m_areTitleTexturesLoaded;
+    bool m_areWorldMapTexturesLoaded;
+    bool m_areLevelEditorTexturesLoaded;
     bool m_areWorld1TexturesLoaded;
     bool m_areWorld1MidBossTexturesLoaded;
+    bool m_areWorld1EndBossTexturesLoaded;
+    bool m_areWorld2TexturesLoaded;
+    bool m_areWorld2MidBossTexturesLoaded;
+    bool m_areWorld2EndBossTexturesLoaded;
+    bool m_areWorld3TexturesLoaded;
+    bool m_areWorld3MidBossTexturesLoaded;
+    bool m_areWorld3EndBossTexturesLoaded;
+    bool m_areWorld4TexturesLoaded;
+    bool m_areWorld4MidBossTexturesLoaded;
+    bool m_areWorld4EndBossTexturesLoaded;
+    bool m_areWorld5TexturesLoaded;
+    bool m_areWorld5MidBossTexturesLoaded;
+    bool m_areWorld5EndBossTexturesLoaded;
+    
     bool m_areShadersLoaded;
     
     template<typename T>
@@ -191,7 +212,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::getInstance()->get(item));
+            renderPhysicalEntity(item, Assets::getInstance()->get(pItem));
         }
     }
     
@@ -202,7 +223,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(item), item.getColor());
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(pItem), item.getColor());
         }
     }
     
@@ -233,6 +254,34 @@ private:
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
     
     float getCamPosFarRight(Game& game);
+    
+    Font* loadFont();
+    
+    void loadTitle();
+    void loadWorldMap();
+    void loadLevelEditor();
+    
+    void loadWorld1();
+    void loadWorld1MidBoss();
+    void loadWorld1EndBoss();
+    
+    void loadWorld2();
+    void loadWorld2MidBoss();
+    void loadWorld2EndBoss();
+    
+    void loadWorld3();
+    void loadWorld3MidBoss();
+    void loadWorld3EndBoss();
+    
+    void loadWorld4();
+    void loadWorld4MidBoss();
+    void loadWorld4EndBoss();
+    
+    void loadWorld5();
+    void loadWorld5MidBoss();
+    void loadWorld5EndBoss();
+    
+    void cleanUpTextures();
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

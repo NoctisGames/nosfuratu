@@ -39,13 +39,12 @@ void TitleToWorldMap::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreen();
-        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
-        gs->m_renderer->renderLoadingTextOnTitleScreen();
+        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        gs->m_renderer->renderTitleScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderWorldMapScreenBackground();
+        gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getBackButton());
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
@@ -94,9 +93,8 @@ void TitleToLevelEditor::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreen();
-        gs->m_renderer->renderTitleScreenUi(Title::getInstance()->getLevelEditorButton());
-        gs->m_renderer->renderLoadingTextOnTitleScreen();
+        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        gs->m_renderer->renderTitleScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -155,6 +153,27 @@ void WorldMapToLevel::enter(GameScreen* gs)
         case 3:
             m_levelState = Chapter1Level3::getInstance();
             break;
+        case 4:
+            m_levelState = Chapter1Level4::getInstance();
+            break;
+        case 5:
+            m_levelState = Chapter1Level5::getInstance();
+            break;
+        case 6:
+            m_levelState = Chapter1Level6::getInstance();
+            break;
+        case 7:
+            m_levelState = Chapter1Level7::getInstance();
+            break;
+        case 8:
+            m_levelState = Chapter1Level8::getInstance();
+            break;
+        case 9:
+            m_levelState = Chapter1Level9::getInstance();
+            break;
+        case 10:
+            m_levelState = Chapter1Level10::getInstance();
+            break;
         default:
             break;
     }
@@ -168,8 +187,8 @@ void WorldMapToLevel::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame();
         
-        gs->m_renderer->renderWorldMapScreenBackground();
-        gs->m_renderer->renderLoadingTextOnWorldMapScreen();
+        gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        gs->m_renderer->renderWorldMapScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         

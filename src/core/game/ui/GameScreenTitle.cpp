@@ -26,7 +26,7 @@ Title * Title::getInstance()
 void Title::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(nullptr);
-    gs->m_renderer->init(RENDERER_TYPE_MENU);
+    gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
 void Title::execute(GameScreen* gs)
@@ -35,14 +35,14 @@ void Title::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreen();
+        gs->m_renderer->renderTitleScreenBackground(m_panel.get());
         
         if (m_isRequestingNextState || m_isRequestingLevelEditor)
         {
-            gs->m_renderer->renderLoadingTextOnTitleScreen();
+            gs->m_renderer->renderTitleScreenLoading();
         }
         
-        gs->m_renderer->renderTitleScreenUi(*m_levelEditorButton);
+        gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
         
         gs->m_renderer->renderToScreen();
         
@@ -50,6 +50,8 @@ void Title::execute(GameScreen* gs)
     }
     else
     {
+        m_panel->Entity::update(gs->m_fDeltaTime);
+        
         if (m_isRequestingNextState)
         {
             gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
@@ -93,12 +95,18 @@ void Title::exit(GameScreen* gs)
     m_isRequestingLevelEditor = false;
 }
 
-LevelEditorButton& Title::getLevelEditorButton()
+TitlePanel* Title::getTitlePanel()
 {
-    return *m_levelEditorButton;
+    return m_panel.get();
+}
+
+LevelEditorButton* Title::getLevelEditorButton()
+{
+    return m_levelEditorButton.get();
 }
 
 Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
 {
+    m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
     m_levelEditorButton = std::unique_ptr<LevelEditorButton>(new LevelEditorButton());
 }

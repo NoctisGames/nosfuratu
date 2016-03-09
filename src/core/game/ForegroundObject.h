@@ -392,6 +392,17 @@ public:
     SpikeWallEight(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
 };
 
+class VerticalSaw : public DeadlyObject
+{
+public:
+    VerticalSaw(int gridX) : DeadlyObject(gridX, 95, 15, 33, ForegroundObjectType_VerticalSaw, GROUND_SOUND_NONE, 0.3f, 0.33333333333333f, 0.3f, 0.66666666666667f), m_isOnScreen(false) {}
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
+};
+
 class GiantShakingTree : public ForegroundObject
 {
 public:
@@ -450,17 +461,6 @@ class SpikeTowerBg : public ForegroundObject
 {
 public:
     SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
-};
-
-class VerticalSaw : public DeadlyObject
-{
-public:
-    VerticalSaw(int gridX) : DeadlyObject(gridX, 95, 15, 33, ForegroundObjectType_VerticalSaw, GROUND_SOUND_NONE, 0, 0.33333333333333f, 1, 0.66666666666667f), m_isOnScreen(false) {}
-    
-    virtual void updateBounds();
-    
-private:
-    bool m_isOnScreen;
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

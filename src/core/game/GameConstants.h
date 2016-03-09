@@ -86,7 +86,7 @@
 #define GAME_HEIGHT 36.0f
 
 #define RABBIT_GRAVITY -18.0f
-#define VAMP_GRAVITY -20.0f
+#define VAMP_GRAVITY -24.0f
 
 #define JON_STARTING_X CAM_WIDTH / 5
 #define RABBIT_DEFAULT_MAX_SPEED 7.2f

@@ -24,7 +24,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    void triggerHit();
+    void triggerHit(float jonDownwardsVelocity);
     
     HoleCoverType getType();
     

@@ -116,6 +116,8 @@ public:
     
     bool isLanding();
     
+    bool isRollLanding();
+    
     bool isAlive();
     
     bool isDying();
@@ -172,6 +174,7 @@ private:
     float m_fGravity;
     int m_iNumJumps;
     bool m_isLanding;
+    bool m_isRollLanding;
     bool m_isRightFoot;
     bool m_isAllowedToMove;
     

@@ -123,10 +123,10 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_foregroundObjects.push_back(new SpikeWallFour(0, 0));
     m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
     
-    m_foregroundObjects.push_back(new GiantShakingTree(0, 0));
-    m_foregroundObjects.push_back(new GiantPerchTree(0, 0));
-    
     m_foregroundObjects.push_back(new VerticalSaw(0));
+    
+    m_bossForegroundObjects.push_back(new GiantShakingTree(0, 0));
+    m_bossForegroundObjects.push_back(new GiantPerchTree(0, 0));
     
     m_enemies.push_back(new MushroomGround(0, 0));
     m_enemies.push_back(new MushroomCeiling(0, 0));
@@ -153,6 +153,7 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_bossForegroundObjects, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
@@ -215,6 +216,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_bossForegroundObjects, game.getBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
@@ -276,6 +278,11 @@ std::vector<Hole *>& LevelEditorEntitiesPanel::getHoles()
 std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundObjects()
 {
     return m_foregroundObjects;
+}
+
+std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getBossForegroundObjects()
+{
+    return m_bossForegroundObjects;
 }
 
 std::vector<Enemy *>& LevelEditorEntitiesPanel::getEnemies()

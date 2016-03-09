@@ -81,6 +81,8 @@ public:
     
     std::vector<ForegroundObject *>& getForegroundObjects();
     
+    std::vector<ForegroundObject *>& getBossForegroundObjects();
+    
     std::vector<Enemy *>& getEnemies();
     
     std::vector<CollectibleItem *>& getCollectibleItems();
@@ -126,6 +128,7 @@ private:
     std::vector<ExitGround *> m_exitGrounds;
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
+    std::vector<ForegroundObject *> m_bossForegroundObjects;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;

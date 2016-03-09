@@ -74,11 +74,11 @@ protected:
     Game* m_game;
     bool m_isDying;
     
-    virtual void handleDead(float deltaTime);
+    virtual void handleAlive(float deltaTime);
     
     virtual void handleDying(float deltaTime);
     
-    virtual void handleAlive(float deltaTime);
+    virtual void handleDead(float deltaTime);
     
 private:
     EnemySpirit* m_enemySpirit;
@@ -136,17 +136,52 @@ private:
 class Toad : public Enemy
 {
 public:
-    Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.34375f, 0.078125f, 0.59765625f, 0.546875f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH) {}
+    Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.09375f, 0.33984375f, 0.359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH),
+    m_isDead(false),
+    m_isEating(false),
+    m_isJonVampire(false) {}
     
     virtual void handleAlive(float deltaTime);
+    
+    virtual void handleDying(float deltaTime);
+    
+    virtual void handleDead(float deltaTime);
+    
+    bool isDead() { return m_isDead; }
+    bool isEating() { return m_isEating; }
+    bool isJonVampire() { return m_isJonVampire; }
+    
+private:
+    bool m_isDead;
+    bool m_isEating;
+    bool m_isJonVampire;
 };
 
 class Fox : public Enemy
 {
 public:
-    Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0, 0, 1, 1, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH) {}
+    Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.1015625f, 0.09375f, 0.6171875f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH),
+    m_isDead(false),
+    m_isHitting(false),
+    m_isLeft(true),
+    m_isBeingHit(false) {}
     
     virtual void handleAlive(float deltaTime);
+    
+    virtual void handleDying(float deltaTime);
+    
+    virtual void handleDead(float deltaTime);
+    
+    bool isDead() { return m_isDead; }
+    bool isHitting() { return m_isHitting; }
+    bool isLeft() { return m_isLeft; }
+    bool isBeingHit() { return m_isBeingHit; }
+    
+private:
+    bool m_isDead;
+    bool m_isHitting;
+    bool m_isLeft;
+    bool m_isBeingHit;
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

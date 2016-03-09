@@ -97,22 +97,13 @@ public:
     {
         if (jon.getVelocity().getY() <= 0)
         {
-            float entityLeft = jon.getMainBounds().getLeft();
-            float entityRight = jon.getMainBounds().getRight();
-            
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
                 if (!(*i)->hasCover())
                 {
-                    float itemLowerLeftX = (*i)->getMainBounds().getLeft();
-                    float itemRight = (*i)->getMainBounds().getRight();
-                    
                     if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                     {
-                        if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
@@ -147,11 +138,14 @@ public:
     template<typename T>
     static bool isBurrowingThroughHole(Jon& jon, std::vector<T>& items)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        if (jon.getVelocity().getY() <= 0)
         {
-            if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                return (*i)->triggerBurrow();
+                if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
+                {
+                    return (*i)->triggerBurrow(jon.getAcceleration().getY());
+                }
             }
         }
         

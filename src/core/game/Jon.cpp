@@ -25,9 +25,21 @@ Jon* Jon::create(int gridX, int gridY, int type)
 	return new Jon(gridX, gridY);
 }
 
-Jon::Jon(int gridX, int gridY, int gridWidth, int gridHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_state(JON_ALIVE), m_physicalState(PHYSICAL_GROUNDED), m_actionState(ACTION_NONE), m_abilityState(ABILITY_NONE), m_groundSoundType(GROUND_SOUND_NONE), m_color(1, 1, 1, 1), m_fDeltaTime(0), m_iNumJumps(0), m_isLanding(false), m_isRightFoot(false), m_isAllowedToMove(false)
+Jon::Jon(int gridX, int gridY, int gridWidth, int gridHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight),
+m_state(JON_ALIVE),
+m_physicalState(PHYSICAL_GROUNDED),
+m_actionState(ACTION_NONE),
+m_abilityState(ABILITY_NONE),
+m_groundSoundType(GROUND_SOUND_NONE),
+m_color(1, 1, 1, 1),
+m_fDeltaTime(0),
+m_iNumJumps(0),
+m_isLanding(false),
+m_isRollLanding(false),
+m_isRightFoot(false),
+m_isAllowedToMove(false)
 {
-	resetBounds(m_fWidth * 0.6796875f, m_fHeight * 0.8203125f);
+	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
 	m_formStateMachine = std::unique_ptr<StateMachine<Jon>>(new StateMachine<Jon>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
@@ -130,11 +142,14 @@ void Jon::update(float deltaTime)
 			}
 		}
 
-		if (m_isLanding && m_fStateTime > 0.20f)
+		if (m_isLanding || m_isRollLanding)
 		{
-			m_isLanding = false;
-			m_fStateTime = 0.21f;
-            m_velocity->setX(fminf(m_fMaxSpeed - 2, m_velocity->getX()));
+            if (m_fStateTime > 0.20f)
+            {
+                m_isLanding = false;
+                m_isRollLanding = false;
+                m_velocity->setX(fminf(m_fMaxSpeed - 2, m_velocity->getX()));
+            }
 		}
 
 		m_acceleration->set(m_isAllowedToMove ? m_fAccelerationX : 0, 0);
@@ -180,13 +195,11 @@ void Jon::updateBounds()
 	Vector2D &lowerLeft = getMainBounds().getLowerLeft();
 	float height = m_abilityState == ABILITY_UPWARD_THRUST ? getMainBounds().getHeight() / 2 : getMainBounds().getHeight();
 	lowerLeft.set(m_position->getX() - getMainBounds().getWidth() / 2, m_position->getY() - height / 2);
-    
-    getMainBounds().setAngle(m_abilityState == ABILITY_GLIDE ? 90 : 0);
 }
 
 void Jon::onDeletion()
 {
-	getDustClouds().clear();
+    EntityUtils::cleanUpVectorOfPointers(getDustClouds());
 }
 
 void Jon::triggerTransform()
@@ -373,6 +386,11 @@ bool Jon::isPushedBack()
 bool Jon::isLanding()
 {
 	return m_isLanding;
+}
+
+bool Jon::isRollLanding()
+{
+    return m_isRollLanding;
 }
 
 bool Jon::isFalling()
@@ -569,7 +587,31 @@ void Jon::Rabbit::execute(Jon* jon)
             break;
         case ABILITY_STOMP:
         {
-            // TODO
+            jon->m_velocity->setX(0);
+            jon->m_acceleration->setX(0);
+            
+            if (jon->m_fAbilityStateTime > 0.35f)
+            {
+                jon->m_acceleration->setY(RABBIT_GRAVITY * 3.5f);
+                
+                bool wasBurrowEffective = m_isBurrowEffective;
+                m_isBurrowEffective = jon->m_game->isBurrowEffective();
+                
+                if (m_isBurrowEffective && !wasBurrowEffective)
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
+                }
+                
+                if (jon->m_isLanding)
+                {
+                    jon->m_isRollLanding = true;
+                }
+                
+                if (jon->m_physicalState == PHYSICAL_GROUNDED)
+                {
+                    jon->setState(ABILITY_NONE);
+                }
+            }
         }
             break;
         default:
@@ -608,6 +650,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 		jon->m_velocity->setY(13 - jon->m_iNumJumps * 3);
 
 		jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
+        jon->setState(ABILITY_NONE);
 
 		jon->m_iNumJumps++;
 
@@ -667,6 +710,9 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         }
         
         jon->setState(ABILITY_STOMP);
+        jon->m_acceleration->setY(0);
+        jon->m_velocity->setY(0);
+        jon->m_isRollLanding = false;
     }
     else
 	{
@@ -692,6 +738,7 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_velocity->setY(boostVelocity);
     
     jon->setState(ACTION_JUMPING);
+    jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 1;
     
@@ -706,6 +753,7 @@ void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     jon->m_velocity->setY(boostVelocity);
     
     jon->setState(ACTION_DOUBLE_JUMPING);
+    jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 2;
 }
@@ -716,6 +764,7 @@ void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloci
     jon->m_velocity->setY(bounceBackVelocity);
     
     jon->setState(ACTION_DOUBLE_JUMPING);
+    jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 2;
 }
@@ -724,6 +773,8 @@ void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
 {
     jon->m_velocity->setX(bounceBackVelocity);
     jon->m_acceleration->setX(0);
+    
+    jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
 }
@@ -804,7 +855,7 @@ void Jon::Vampire::execute(Jon* jon)
 		if (!m_isFallingAfterGlide && jon->m_iNumJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
 		{
 			jon->setState(ABILITY_GLIDE);
-			jon->m_fGravity = VAMP_GRAVITY / 30;
+			jon->m_fGravity = VAMP_GRAVITY / 36;
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(0);
 			jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
@@ -899,7 +950,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 			jon->m_fStateTime = 0;
 
 			jon->m_acceleration->setY(jon->m_fGravity);
-			jon->m_velocity->setY(11 - jon->m_iNumJumps);
+			jon->m_velocity->setY(10 - jon->m_iNumJumps);
 
 			jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
 
@@ -980,6 +1031,7 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(3);
     jon->m_acceleration->setX(fminf(jon->m_fAccelerationX - 7, jon->m_acceleration->getX()));
+    jon->m_fGravity = VAMP_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
@@ -992,6 +1044,7 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 
 void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
 {
+    jon->m_fGravity = VAMP_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(bounceBackVelocity);
     
@@ -1004,8 +1057,12 @@ void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloc
 
 void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
 {
+    jon->m_fGravity = VAMP_GRAVITY;
+    jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setX(bounceBackVelocity);
     jon->m_acceleration->setX(0);
+    
+    jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
 }
