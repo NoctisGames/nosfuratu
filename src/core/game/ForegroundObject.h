@@ -415,13 +415,13 @@ private:
 class GiantTree : public ForegroundObject
 {
 public:
-    GiantTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f) {}
+    GiantTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantTree, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f) {}
 };
 
 class GiantShakingTree : public ForegroundObject
 {
 public:
-    GiantShakingTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantShakingTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f), m_isShaking(false) {}
+    GiantShakingTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantShakingTree, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f), m_isShaking(false) {}
     
     virtual void update(float deltaTime);
     
