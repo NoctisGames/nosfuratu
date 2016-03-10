@@ -650,6 +650,13 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     
+    if (m_world_1_mid_boss_part_4.gpuTextureWrapper != nullptr)
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(game.getBossForegroundObjects());
+        m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
+    }
+    
     m_spriteBatcher->beginBatch();
     renderPhysicalEntitiesWithColor(game.getEnemies());
     m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper, *m_snakeDeathTextureProgram);
@@ -664,18 +671,6 @@ void Renderer::renderWorld(Game& game)
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper);
-}
-
-void Renderer::renderWorld1MidBoss(Game& game)
-{
-    if (m_world_1_mid_boss_part_4.gpuTextureWrapper == nullptr)
-    {
-        return;
-    }
-    
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBossForegroundObjects());
-    m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
 }
 
 void Renderer::renderJonAndExtraForegroundObjects(Game& game)

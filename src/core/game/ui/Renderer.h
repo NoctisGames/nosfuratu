@@ -95,8 +95,6 @@ public:
     
     void renderWorld(Game& game);
     
-    void renderWorld1MidBoss(Game& game);
-    
     void renderJonAndExtraForegroundObjects(Game& game);
     
     void renderBounds(Game& game, int boundsLevelRequested);

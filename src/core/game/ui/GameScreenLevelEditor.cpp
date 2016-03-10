@@ -60,11 +60,6 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorld(*m_game);
         
-        if (m_game->getLevel() == 10)
-        {
-            gs->m_renderer->renderWorld1MidBoss(*m_game);
-        }
-        
         gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
         
         if (m_lastAddedEntity != nullptr)
