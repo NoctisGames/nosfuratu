@@ -63,6 +63,7 @@ typedef enum
     ForegroundObjectType_SpikeWallFour,
     ForegroundObjectType_SpikeWallEight,
     
+    ForegroundObjectType_GiantTree,
     ForegroundObjectType_GiantShakingTree,
     ForegroundObjectType_GiantPerchTree,
     
@@ -401,6 +402,12 @@ public:
     
 private:
     bool m_isOnScreen;
+};
+
+class GiantTree : public ForegroundObject
+{
+public:
+    GiantTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f) {}
 };
 
 class GiantShakingTree : public ForegroundObject

@@ -14,7 +14,7 @@
 #include "Assets.h"
 #include "Vector2D.h"
 #include "Font.h"
-#include "TextureWrapper.h"
+#include "GpuTextureWrapper.h"
 #include "Line.h"
 #include "Rectangle.h"
 #include "SpriteBatcher.h"
@@ -53,26 +53,12 @@ Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& d
 	m_lineBatcher = std::unique_ptr<Direct3DLineBatcher>(new Direct3DLineBatcher(m_deviceResources));
 }
 
-bool Direct3DRenderer::isLoaded()
+void Direct3DRenderer::beginFrame(float deltaTime)
 {
-	return D3DManager->isLoaded() &&
-		m_transScreenGpuProgramWrapper->isLoaded() &&
-		m_sinWaveTextureProgram->isLoaded() &&
-		m_snakeDeathTextureProgram->isLoaded() &&
-		m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
-		m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
-		m_framebufferTintGpuProgramWrapper->isLoaded() &&
-		m_framebufferRadialBlurGpuProgramWrapper->isLoaded() &&
-		m_transDeathInGpuProgramWrapper->isLoaded() &&
-		m_transDeathOutGpuProgramWrapper->isLoaded();
-}
-
-void Direct3DRenderer::beginFrame()
-{
-	Renderer::beginFrame();
-
-	m_framebuffers.clear();
+    m_framebuffers.clear();
 	addFramebuffers();
+    
+    Renderer::beginFrame(deltaTime);
 }
 
 void Direct3DRenderer::endFrame()
@@ -84,7 +70,7 @@ void Direct3DRenderer::loadShaderPrograms()
 {
 	m_transScreenGpuProgramWrapper = new Direct3DTransScreenGpuProgramWrapper(m_deviceResources);
 	m_sinWaveTextureProgram = new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources);
-	m_backgroundTextureWrapper = new Direct3DBackgroundTextureGpuProgramWrapper(m_deviceResources);
+	m_backgroundGpuTextureProgramWrapper = new Direct3DBackgroundTextureGpuProgramWrapper(m_deviceResources);
 	m_snakeDeathTextureProgram = new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources);
 	m_shockwaveTextureGpuProgramWrapper = new Direct3DShockwaveTextureGpuProgramWrapper(m_deviceResources);
 	m_framebufferToScreenGpuProgramWrapper = D3DManager->m_fbToScreenProgram.get();
@@ -94,19 +80,31 @@ void Direct3DRenderer::loadShaderPrograms()
 	m_transDeathOutGpuProgramWrapper = new Direct3DTransDeathGpuProgramWrapper(m_deviceResources, false);
 }
 
+bool Direct3DRenderer::areShadersLoaded()
+{
+    return D3DManager->isLoaded() &&
+    m_transScreenGpuProgramWrapper->isLoaded() &&
+    m_sinWaveTextureProgram->isLoaded() &&
+    m_snakeDeathTextureProgram->isLoaded() &&
+    m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
+    m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
+    m_framebufferTintGpuProgramWrapper->isLoaded() &&
+    m_framebufferRadialBlurGpuProgramWrapper->isLoaded() &&
+    m_transDeathInGpuProgramWrapper->isLoaded() &&
+    m_transDeathOutGpuProgramWrapper->isLoaded();
+}
+
 void Direct3DRenderer::addFramebuffers()
 {
 	for (std::vector<ID3D11ShaderResourceView*>::iterator i = D3DManager->m_offscreenShaderResourceViews.begin(); i != D3DManager->m_offscreenShaderResourceViews.end(); i++)
 	{
-		m_framebuffers.push_back(TextureWrapper((*i)));
+		m_framebuffers.push_back(GpuTextureWrapper((*i)));
 	}
 }
 
-TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repeatS)
+GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName)
 {
-	UNUSED(repeatS);
-
-	size_t len = strlen(textureName);
+    size_t len = strlen(textureName);
 
 	char* textureFileName = new char[8 + len + 5];
 
@@ -122,15 +120,28 @@ TextureWrapper* Direct3DRenderer::loadTexture(const char* textureName, int repea
 
 	ID3D11ShaderResourceView *pShaderResourceView;
 	g_shaderResourceViews.push_back(pShaderResourceView);
-	loadTexture(wString, &g_shaderResourceViews[m_iNumTexturesLoaded]);
-	TextureWrapper* tw = new TextureWrapper(g_shaderResourceViews[m_iNumTexturesLoaded]);
+    
+    TexMetadata info = TexMetadata();
+    DX::ThrowIfFailed(GetMetadataFromDDSFile(wString, DDS_FLAGS_NONE, info));
+    
+    ScratchImage image;
+    DX::ThrowIfFailed(LoadFromDDSFile(wString, DDS_FLAGS_NONE, &info, image));
+    
+	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(image, info, m_iNumTexturesLoaded);
 
 	m_iNumTexturesLoaded++;
 	
 	delete wString;
 	delete textureFileName;
 
-	return tw;
+	return tdw;
+}
+
+GpuTextureWrapper* Direct3DRenderer::loadTexture(GpuTextureDataWrapper* textureData, int repeatS)
+{
+    UNUSED(repeatS);
+    
+    DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), textureData->image.GetImages(), textureData->image.GetImageCount(), textureData->info, &g_shaderResourceViews[textureData->shaderResourceViewIndex]));
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -157,7 +168,7 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, targets, nullptr);
 }
 
-void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
+void Direct3DRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)
 {
 	textureWrapper.texture->Release();
 }
@@ -166,10 +177,6 @@ void Direct3DRenderer::destroyTexture(TextureWrapper& textureWrapper)
 
 void Direct3DRenderer::loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView)
 {
-	TexMetadata info = TexMetadata();
-	DX::ThrowIfFailed(GetMetadataFromDDSFile(szFile, DDS_FLAGS_NONE, info));
-
-	ScratchImage image;
-	DX::ThrowIfFailed(LoadFromDDSFile(szFile, DDS_FLAGS_NONE, &info, image));
-	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, shaderResourceView));
+	
+	
 }

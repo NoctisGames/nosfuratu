@@ -82,32 +82,16 @@ void Enemy::triggerHit()
 
 bool Enemy::isJonLanding(Jon& jon, float deltaTime)
 {
-	float jonVelocityY = jon.getVelocity().getY();
-
-	if (jonVelocityY <= 0)
-	{
-		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-		{
-			float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
-			float jonYDelta = fabsf(jonVelocityY * deltaTime);
-
-			float itemTop = getMainBounds().getTop();
-			float padding = itemTop * .01f;
-			padding += jonYDelta;
-			float itemTopReq = itemTop - padding;
-
-			if (jonLowerLeftY >= itemTopReq)
-			{
-				triggerHit();
-
-				float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
-
-				jon.triggerBoostOffEnemy(boost);
-			}
-		}
-	}
-
-	return false;
+	if (calcIsJonLanding(jon, deltaTime))
+    {
+        triggerHit();
+        
+        float boost = fmaxf(fabsf(jon.getVelocity().getY()) / 1.5f, 6);
+        
+        jon.triggerBoostOffEnemy(boost);
+    }
+    
+    return false;
 }
 
 bool Enemy::isJonBlockedAbove(Jon& jon, float deltaTime)
@@ -120,7 +104,7 @@ bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
     Rectangle& bounds = jon.getMainBounds();
     Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
-    if (canBeHitHorizontally() && OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
+    if (OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
     {
         triggerHit();
         
@@ -134,7 +118,7 @@ bool Enemy::isJonHittingFromBelow(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getMainBounds();
     
-    if (canBeHitFromBelow() && OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
+    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         triggerHit();
         
@@ -173,21 +157,6 @@ bool Enemy::isDying()
 bool Enemy::isDead()
 {
     return m_isDead;
-}
-
-bool Enemy::canBeHitHorizontally()
-{
-    return true;
-}
-
-bool Enemy::canBeLandedOnToKill()
-{
-    return true;
-}
-
-bool Enemy::canBeHitFromBelow()
-{
-    return true;
 }
 
 void Enemy::setGame(Game* game)
@@ -243,6 +212,32 @@ void Enemy::handleDead(float deltaTime)
     }
 }
 
+bool Enemy::calcIsJonLanding(Jon &jon, float deltaTime)
+{
+    float jonVelocityY = jon.getVelocity().getY();
+    
+    if (jonVelocityY <= 0)
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+        {
+            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
+            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            
+            float itemTop = getMainBounds().getTop();
+            float padding = itemTop * .01f;
+            padding += jonYDelta;
+            float itemTopReq = itemTop - padding;
+            
+            if (jonLowerLeftY >= itemTopReq)
+            {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 #pragma mark subclasses
 
 void Mushroom::handleAlive(float deltaTime)
@@ -263,32 +258,17 @@ void Mushroom::handleAlive(float deltaTime)
 
 bool MushroomGround::isJonLanding(Jon& jon, float deltaTime)
 {
-	float jonVelocityY = jon.getVelocity().getY();
-
-	if (jonVelocityY <= 0)
-	{
-		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-		{
-			float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
-			float jonYDelta = fabsf(jonVelocityY * deltaTime);
-
-			float itemTop = getMainBounds().getTop();
-			float padding = itemTop * .01f;
-			padding += jonYDelta;
-			float itemTopReq = itemTop - padding;
-
-			if (jonLowerLeftY >= itemTopReq)
-			{
-				jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
-				jon.updateBounds();
-				jon.triggerBoostOffEnemy(18);
-
-				m_fStateTime = 0;
-                
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
-			}
-		}
-	}
+    if (calcIsJonLanding(jon, deltaTime))
+    {
+        float itemTop = getMainBounds().getTop();
+        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
+        jon.updateBounds();
+        jon.triggerBoostOffEnemy(18);
+        
+        m_fStateTime = 0;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+    }
 
 	return false;
 }
@@ -344,50 +324,217 @@ void Sparrow::updateBounds()
 
 void Toad::handleAlive(float deltaTime)
 {
-    Entity::update(deltaTime);
+    PhysicalEntity::update(deltaTime);
     
     Jon& jon = m_game->getJon();
     
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    if (m_isEating)
     {
-        m_fStateTime = 0;
-        
-        // TODO try to eat Jon
-        
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+        if (m_hasSwallowedJon)
+        {
+            // TODO ?
+        }
+        else
+        {
+            if (m_fStateTime > 0.40f)
+            {
+                m_hasSwallowedJon = true;
+                
+                jon.getPosition().set(getPosition());
+                jon.updateBounds();
+                
+                if (!m_isJonVampire)
+                {
+                    jon.kill();
+                }
+            }
+            else if (m_fStateTime > 0.10f)
+            {
+                if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+                    && jon.getMainBounds().getRight() > getMainBounds().getLeft() - 1.2f
+                    && jon.getMainBounds().getRight() < getMainBounds().getLeft())
+                {
+                    jon.consume();
+                }
+                else
+                {
+                    m_fStateTime = 0;
+                    m_isEating = false;
+                }
+            }
+        }
+    }
+    else
+    {
+        float jonPredictedRight = jon.getMainBounds().getRight() + jon.getVelocity().getX() * 0.10f;
+        if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+            && jonPredictedRight > getMainBounds().getLeft() - 1.2f
+            && jonPredictedRight < getMainBounds().getLeft())
+        {
+            m_fStateTime = 0;
+            m_isEating = true;
+            
+            m_isJonVampire = jon.isVampire();
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+        }
     }
 }
 
 void Toad::handleDying(float deltaTime)
 {
-    // TODO
+    m_fStateTime = 0;
+    m_isDead = true;
+    m_isDeadPart1 = true;
 }
 
 void Toad::handleDead(float deltaTime)
 {
-    // TODO
+    m_fStateTime += deltaTime;
+    
+    if (m_isDeadPart1)
+    {
+        if (m_hasSwallowedJon && m_isJonVampire)
+        {
+            if (m_fStateTime > 0.10f)
+            {
+                m_fStateTime = 0;
+                m_isDeadPart1 = false;
+            }
+        }
+        else
+        {
+            if (m_fStateTime > 0.25f)
+            {
+                m_fStateTime = 0;
+                m_isDeadPart1 = false;
+            }
+        }
+    }
+    else
+    {
+        if (m_fStateTime > 0.35f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+bool Fox::isJonLanding(Jon& jon, float deltaTime)
+{
+    if (calcIsJonLanding(jon, deltaTime))
+    {
+        float jonVelocityY = jon.getVelocity().getY();
+        float jonAccelY = jon.getAcceleration().getY();
+        
+        if (jonAccelY < RABBIT_GRAVITY * 2)
+        {
+            triggerHit();
+        }
+        
+        m_fStateTime = 0;
+        m_isBeingHit = true;
+        m_isHitting = false;
+        m_velocity->setX(0);
+        
+        float itemTop = getMainBounds().getTop();
+        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
+        jon.updateBounds();
+        
+        float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
+        
+        jon.triggerBoostOffEnemy(boost);
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
+    }
+    
+    return false;
 }
 
 void Fox::handleAlive(float deltaTime)
 {
-    Entity::update(deltaTime);
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_isBeingHit)
+    {
+        if (m_fStateTime > 0.30f)
+        {
+            m_isBeingHit = false;
+        }
+        
+        return;
+    }
     
     Jon& jon = m_game->getJon();
     
+    if (m_isHitting)
+    {
+        if (m_fStateTime > 0.6f)
+        {
+            m_velocity->setX(0);
+            m_isHitting = false;
+        }
+    }
+    else
+    {
+        if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+            && jon.getMainBounds().getRight() > getMainBounds().getLeft() - 4
+            && jon.getMainBounds().getRight() < getMainBounds().getLeft())
+        {
+            m_fStateTime = 0;
+            m_isHitting = true;
+            m_isLeft = true;
+            
+            m_velocity->setX(-7);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+        }
+        else if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+                 && jon.getMainBounds().getLeft() < getMainBounds().getRight() + 4
+                 && jon.getMainBounds().getLeft() > getMainBounds().getRight())
+        {
+            m_fStateTime = 0;
+            m_isHitting = true;
+            m_isLeft = false;
+            
+            m_velocity->setX(7);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+        }
+        else
+        {
+            if (m_fStateTime > 0.50f)
+            {
+                m_fStateTime = 0;
+                m_isLeft = !m_isLeft;
+                m_velocity->setX(m_isLeft ? -2 : 2);
+            }
+        }
+    }
+        
     if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
-        m_fStateTime = 0;
-        
-        // TODO swing at Jon
+        jon.kill();
     }
 }
 
 void Fox::handleDying(float deltaTime)
 {
-    // TODO
+    m_fStateTime = 0;
+    m_isDead = true;
+    
+    float halfHeight = m_fHeight / 2;
+    m_fHeight *= 2;
+    m_position->add(0, halfHeight);
+    updateBounds();
 }
 
 void Fox::handleDead(float deltaTime)
 {
-    // TODO
+    m_fStateTime += deltaTime;
+    
+    if (m_fStateTime > 0.50f)
+    {
+        m_isRequestingDeletion = true;
+    }
 }

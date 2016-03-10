@@ -9,7 +9,7 @@
 #include "LevelSelectorPanel.h"
 #include "OverlapTester.h"
 
-LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iMode(LEVEL_SELECTOR_PANEL_MODE_LOAD), m_iWorld(1), m_iLevel(0), m_isOpen(false)
+LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iWorld(1), m_iLevel(0), m_isOpen(false)
 {
     float l = x - width / 2;
     float b = y - height / 2;
@@ -22,10 +22,14 @@ LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float heig
     m_levelTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleLevelButton->getLowerLeft().getX() + m_toggleLevelButton->getWidth() - m_toggleLevelButton->getWidth() / 3, m_toggleLevelButton->getLowerLeft().getY() + m_toggleLevelButton->getHeight() / 2));
 }
 
-void LevelSelectorPanel::openForMode(int mode)
+void LevelSelectorPanel::open()
 {
-    m_iMode = mode;
     m_isOpen = true;
+}
+
+void LevelSelectorPanel::close()
+{
+    m_isOpen = false;
 }
 
 int LevelSelectorPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
@@ -45,7 +49,7 @@ int LevelSelectorPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         else if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleLevelButton))
         {
             m_iLevel++;
-            if (m_iLevel > 20)
+            if (m_iLevel > 21)
             {
                 m_iLevel = 0;
             }
@@ -55,7 +59,7 @@ int LevelSelectorPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         else if (OverlapTester::isPointInRectangle(touchPoint, *m_confirmButton))
         {
             m_isOpen = false;
-            return m_iMode == LEVEL_SELECTOR_PANEL_MODE_SAVE ? LEVEL_SELECTOR_PANEL_RC_CONFIRM_SAVE : LEVEL_SELECTOR_PANEL_RC_CONFIRM_LOAD;
+            return LEVEL_SELECTOR_PANEL_RC_CONFIRM;
         }
     }
     

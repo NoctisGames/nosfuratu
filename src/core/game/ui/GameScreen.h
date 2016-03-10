@@ -47,7 +47,6 @@ public:
     float m_fScreenHeldTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
-    int m_iNumFramesToDiscard;
     bool m_isPaused;
     bool m_isScreenHeldDown;
     

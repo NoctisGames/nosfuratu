@@ -13,7 +13,7 @@ TransitionGpuProgramWrapper::TransitionGpuProgramWrapper() : m_to(nullptr), m_fP
     // Empty
 }
 
-void TransitionGpuProgramWrapper::configure(TextureWrapper* to, float progress)
+void TransitionGpuProgramWrapper::configure(GpuTextureWrapper* to, float progress)
 {
     m_to = to;
     m_fProgress = progress;

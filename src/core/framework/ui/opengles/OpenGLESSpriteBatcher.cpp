@@ -26,12 +26,12 @@ void OpenGLESSpriteBatcher::beginBatch()
     m_iNumSprites = 0;
 }
 
-void OpenGLESSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
+void OpenGLESSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper)
 {
     endBatch(textureWrapper, *OGLESManager->m_textureProgram);
 }
 
-void OpenGLESSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+void OpenGLESSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
 {
     if(m_iNumSprites > 0)
     {

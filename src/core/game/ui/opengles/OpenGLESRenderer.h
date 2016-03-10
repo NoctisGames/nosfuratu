@@ -16,9 +16,9 @@ class OpenGLESRenderer : public Renderer
 public:
     OpenGLESRenderer();
     
-    virtual bool isLoaded();
+    virtual bool areShadersLoaded();
     
-    virtual void beginFrame();
+    virtual void beginFrame(float deltaTime);
     
     virtual void endFrame();
 
@@ -27,7 +27,9 @@ protected:
     
     virtual void addFramebuffers();
     
-    virtual TextureWrapper* loadTexture(const char* textureName, int repeatS);
+    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName);
+    
+    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, int repeatS);
     
     virtual void updateMatrix(float left, float right, float bottom, float top);
     
@@ -37,7 +39,7 @@ protected:
     
     virtual void bindToScreenFramebuffer();
     
-    virtual void destroyTexture(TextureWrapper& textureWrapper);
+    virtual void destroyTexture(GpuTextureWrapper& textureWrapper);
 };
 
 #endif /* defined(__nosfuratu__OpenGLESRenderer__) */

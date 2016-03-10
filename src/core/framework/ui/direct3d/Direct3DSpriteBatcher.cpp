@@ -28,12 +28,12 @@ void Direct3DSpriteBatcher::beginBatch()
 	m_iNumSprites = 0;
 }
 
-void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
+void Direct3DSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper)
 {
 	endBatch(textureWrapper, *D3DManager->m_textureProgram);
 }
 
-void Direct3DSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+void Direct3DSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
 {
 	if (m_iNumSprites > 0)
 	{

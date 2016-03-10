@@ -10,7 +10,7 @@ if not os.path.exists("../../../assets/textures/compressed"):
 
 def resize():
     for item in dirs:
-        if not item.startswith("trans"):
+        if not item.startswith("trans") and not item.startswith("misc"):
             if os.path.isfile(path + item):
                 f, e = os.path.splitext(path + item)
                 if e == ".png":

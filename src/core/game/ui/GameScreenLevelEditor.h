@@ -55,6 +55,8 @@ private:
     GridLockedPhysicalEntity* m_draggingEntity;
     GridLockedPhysicalEntity* m_attachToEntity;
     float m_fDraggingEntityOriginalY;
+    int m_iWorld;
+    int m_iLevel;
     bool m_isVerticalChangeAllowed;
     bool m_allowPlaceOn;
     bool m_allowPlaceUnder;

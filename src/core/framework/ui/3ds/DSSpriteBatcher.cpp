@@ -28,12 +28,12 @@ void DSSpriteBatcher::beginBatch()
     m_iNumSprites = 0;
 }
 
-void DSSpriteBatcher::endBatch(TextureWrapper &textureWrapper)
+void DSSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper)
 {
     endBatch(textureWrapper, *DummyGpuProgramWrapper::getInstance());
 }
 
-void DSSpriteBatcher::endBatch(TextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+void DSSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
 {
     if (m_iNumSprites > 0)
     {

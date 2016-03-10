@@ -13,7 +13,7 @@ TransDeathGpuProgramWrapper::TransDeathGpuProgramWrapper(bool isTransIn) : m_gra
     // Empty
 }
 
-void TransDeathGpuProgramWrapper::configure(TextureWrapper* grayMap, float timeElapsed)
+void TransDeathGpuProgramWrapper::configure(GpuTextureWrapper* grayMap, float timeElapsed)
 {
     m_grayMap = grayMap;
     m_fTimeElapsed = timeElapsed;

@@ -37,10 +37,9 @@ void TitleToWorldMap::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
-        gs->m_renderer->renderTitleScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -49,15 +48,28 @@ void TitleToWorldMap::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
         gs->m_renderer->endFrame();
     }
     else
     {
+        gs->processTouchEvents();
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            return;
+        }
+        
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
+            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
         }
     }
 }
@@ -91,10 +103,9 @@ void TitleToLevelEditor::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
-        gs->m_renderer->renderTitleScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -106,15 +117,28 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
         gs->m_renderer->endFrame();
     }
     else
     {
+        gs->processTouchEvents();
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            return;
+        }
+        
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
             gs->m_stateMachine->setCurrentState(GameScreenLevelEditor::getInstance());
+            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
         }
     }
 }
@@ -185,10 +209,9 @@ void WorldMapToLevel::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenLoading();
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -198,11 +221,21 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
         gs->m_renderer->endFrame();
     }
     else
     {
         gs->processTouchEvents();
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            return;
+        }
         
         m_fTransitionStateTime += gs->m_fDeltaTime;
         
@@ -210,9 +243,8 @@ void WorldMapToLevel::execute(GameScreen* gs)
         {
             gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
             gs->m_stateMachine->setCurrentState(m_levelState);
+            gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
         }
-        
-        m_levelState->execute(gs);
     }
 }
 

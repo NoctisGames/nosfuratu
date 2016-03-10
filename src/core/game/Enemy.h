@@ -60,12 +60,6 @@ public:
     
     bool isDead();
     
-    virtual bool canBeHitHorizontally();
-    
-    virtual bool canBeLandedOnToKill();
-    
-    virtual bool canBeHitFromBelow();
-    
     void setGame(Game* game);
     
     EnemyType getType();
@@ -73,12 +67,15 @@ public:
 protected:
     Game* m_game;
     bool m_isDying;
+    bool m_isDead;
     
     virtual void handleAlive(float deltaTime);
     
     virtual void handleDying(float deltaTime);
     
     virtual void handleDead(float deltaTime);
+    
+    virtual bool calcIsJonLanding(Jon& jon, float deltaTime);
     
 private:
     EnemySpirit* m_enemySpirit;
@@ -89,7 +86,6 @@ private:
     float m_fXOfDeath;
     float m_fYOfDeath;
     short m_deathSoundId;
-    bool m_isDead;
 };
 
 class Mushroom : public Enemy
@@ -136,24 +132,26 @@ private:
 class Toad : public Enemy
 {
 public:
-    Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.09375f, 0.33984375f, 0.359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH),
-    m_isDead(false),
+    Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.109375f, 0.33984375f, 0.3359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH),
+    m_isDeadPart1(false),
     m_isEating(false),
+    m_hasSwallowedJon(false),
     m_isJonVampire(false) {}
     
+    bool isDeadPart1() { return m_isDeadPart1; }
+    bool isEating() { return m_isEating; }
+    bool hasSwallowedJon() { return m_hasSwallowedJon; }
+    bool isJonVampire() { return m_isJonVampire; }
+
+protected:
     virtual void handleAlive(float deltaTime);
-    
     virtual void handleDying(float deltaTime);
-    
     virtual void handleDead(float deltaTime);
     
-    bool isDead() { return m_isDead; }
-    bool isEating() { return m_isEating; }
-    bool isJonVampire() { return m_isJonVampire; }
-    
 private:
-    bool m_isDead;
+    bool m_isDeadPart1;
     bool m_isEating;
+    bool m_hasSwallowedJon;
     bool m_isJonVampire;
 };
 
@@ -161,24 +159,25 @@ class Fox : public Enemy
 {
 public:
     Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.1015625f, 0.09375f, 0.6171875f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH),
-    m_isDead(false),
     m_isHitting(false),
     m_isLeft(true),
-    m_isBeingHit(false) {}
+    m_isBeingHit(false)
+    {
+        m_velocity->setX(-3);
+    }
     
-    virtual void handleAlive(float deltaTime);
+    virtual bool isJonLanding(Jon& jon, float deltaTime);
     
-    virtual void handleDying(float deltaTime);
-    
-    virtual void handleDead(float deltaTime);
-    
-    bool isDead() { return m_isDead; }
     bool isHitting() { return m_isHitting; }
     bool isLeft() { return m_isLeft; }
     bool isBeingHit() { return m_isBeingHit; }
     
+protected:
+    virtual void handleAlive(float deltaTime);
+    virtual void handleDying(float deltaTime);
+    virtual void handleDead(float deltaTime);
+    
 private:
-    bool m_isDead;
     bool m_isHitting;
     bool m_isLeft;
     bool m_isBeingHit;

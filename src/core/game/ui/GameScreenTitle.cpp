@@ -33,16 +33,18 @@ void Title::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderTitleScreenBackground(m_panel.get());
         
-        if (m_isRequestingNextState || m_isRequestingLevelEditor)
+        if (gs->m_renderer->isLoadingAdditionalTextures())
         {
-            gs->m_renderer->renderTitleScreenLoading();
+            gs->m_renderer->renderLoading();
         }
-        
-        gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+        else
+        {
+            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+        }
         
         gs->m_renderer->renderToScreen();
         
@@ -50,6 +52,12 @@ void Title::execute(GameScreen* gs)
     }
     else
     {
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->processTouchEvents();
+            return;
+        }
+        
         m_panel->Entity::update(gs->m_fDeltaTime);
         
         if (m_isRequestingNextState)

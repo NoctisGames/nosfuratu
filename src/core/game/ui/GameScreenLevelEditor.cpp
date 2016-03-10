@@ -45,15 +45,25 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
     
     gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
     gs->m_renderer->zoomOut();
+    
+    if (m_iWorld == 0)
+    {
+        m_levelSelectorPanel->open();
+    }
 }
 
 void GameScreenLevelEditor::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderWorld(*m_game);
+        
+        if (m_game->getLevel() == 10)
+        {
+            gs->m_renderer->renderWorld1MidBoss(*m_game);
+        }
         
         gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
         
@@ -83,10 +93,21 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderLevelEditor(m_levelEditorActionsPanel.get(), m_levelEditorEntitiesPanel.get(), m_trashCan.get(), m_levelSelectorPanel.get());
         
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
         gs->m_renderer->endFrame();
     }
     else
     {
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->processTouchEvents();
+            return;
+        }
+        
         handleTouchInput(gs);
         
         int oldSum = m_game->calcSum();
@@ -189,17 +210,48 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             {
                 switch (rc)
                 {
-                    case LEVEL_SELECTOR_PANEL_RC_CONFIRM_SAVE:
-                        resetEntities(true);
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
-                        gs->m_iRequestedAction += (m_levelSelectorPanel->getWorld() * 100);
-                        gs->m_iRequestedAction += m_levelSelectorPanel->getLevel();
-                        break;
-                    case LEVEL_SELECTOR_PANEL_RC_CONFIRM_LOAD:
-                        resetEntities(true);
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
-                        gs->m_iRequestedAction += (m_levelSelectorPanel->getWorld() * 100);
-                        gs->m_iRequestedAction += m_levelSelectorPanel->getLevel();
+                    case LEVEL_SELECTOR_PANEL_RC_CONFIRM:
+                    {
+                        int oldWorld = m_iWorld;
+                        int oldLevel = m_iLevel;
+                        
+                        m_iWorld = m_levelSelectorPanel->getWorld();
+                        m_iLevel = m_levelSelectorPanel->getLevel();
+                        
+                        m_game->setLevel((m_iWorld - 1) * 21 + m_iLevel);
+                        
+                        if (m_iWorld != oldWorld || m_iLevel != oldLevel)
+                        {
+                            m_game->reset();
+                            enter(gs);
+                            
+                            if (oldWorld == 1)
+                            {
+                                if (oldLevel == 10)
+                                {
+                                    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+                                }
+                                else
+                                {
+                                    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+                                }
+                            }
+                            
+                            if (m_iWorld == 1)
+                            {
+                                if (m_iLevel == 10)
+                                {
+                                    gs->m_renderer->load(RENDERER_TYPE_WORLD_1_MID_BOSS);
+                                }
+                                else
+                                {
+                                    gs->m_renderer->load(RENDERER_TYPE_WORLD_1);
+                                }
+                                
+                                m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
+                            }
+                        }
+                    }
                         break;
                     case LEVEL_SELECTOR_PANEL_RC_HANDLED:
                     default:
@@ -230,6 +282,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT:
                     gs->m_stateMachine->revertToPreviousState();
                     return;
+                case LEVEL_EDITOR_ACTIONS_PANEL_RC_LEVEL:
+                    m_levelSelectorPanel->open();
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (isLevelValid)
                     {
@@ -239,12 +294,18 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
-                    m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_LOAD);
+                    resetEntities(true);
+                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
+                    gs->m_iRequestedAction += m_iWorld * 100;
+                    gs->m_iRequestedAction += m_iLevel;
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
                     if (isLevelValid)
                     {
-                        m_levelSelectorPanel->openForMode(LEVEL_SELECTOR_PANEL_MODE_SAVE);
+                        resetEntities(true);
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
+                        gs->m_iRequestedAction += m_iWorld * 100;
+                        gs->m_iRequestedAction += m_iLevel;
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
@@ -503,7 +564,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     }
 }
 
-GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
+GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_iWorld(0), m_iLevel(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
 {
     m_game = std::unique_ptr<Game>(new Game(1337));
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

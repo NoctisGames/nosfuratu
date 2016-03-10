@@ -96,6 +96,8 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_SpikeWallEight:
             return new SpikeWallEight(gridX, gridY);
             
+        case ForegroundObjectType_GiantTree:
+            return new GiantTree(gridX, gridY);
         case ForegroundObjectType_GiantShakingTree:
             return new GiantShakingTree(gridX, gridY);
         case ForegroundObjectType_GiantPerchTree:

@@ -61,6 +61,8 @@ public:
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat u, GLfloat v);
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
     
+    bool isLoaded();
+    
 private:
     void buildShaderPrograms();
     void generateIndices(int maxBatchSize);

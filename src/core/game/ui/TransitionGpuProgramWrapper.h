@@ -12,17 +12,17 @@
 #include "GpuProgramWrapper.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "TextureWrapper.h"
+#include "GpuTextureWrapper.h"
 
 class TransitionGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
     TransitionGpuProgramWrapper();
     
-    void configure(TextureWrapper* to, float progress);
+    void configure(GpuTextureWrapper* to, float progress);
     
 protected:
-    TextureWrapper* m_to;
+    GpuTextureWrapper* m_to;
     float m_fProgress;
 };
 

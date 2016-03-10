@@ -12,17 +12,17 @@
 #include "GpuProgramWrapper.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
-#include "TextureWrapper.h"
+#include "GpuTextureWrapper.h"
 
 class TransDeathGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
     TransDeathGpuProgramWrapper(bool isTransIn);
     
-    void configure(TextureWrapper* grayMap, float timeElapsed);
+    void configure(GpuTextureWrapper* grayMap, float timeElapsed);
     
 protected:
-    TextureWrapper* m_grayMap;
+    GpuTextureWrapper* m_grayMap;
     float m_fTimeElapsed;
     bool m_isTransIn;
 };

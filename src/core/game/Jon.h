@@ -124,6 +124,8 @@ public:
     
     bool isDead();
     
+    bool isConsumed();
+    
     int getType();
     
     bool isRightFoot();
@@ -149,6 +151,8 @@ public:
     void beginWarmingUp();
     
     float getGravity();
+    
+    void consume();
     
     void kill();
     
@@ -177,6 +181,7 @@ private:
     bool m_isRollLanding;
     bool m_isRightFoot;
     bool m_isAllowedToMove;
+    bool m_isConsumed;
     
     void setState(JonState state);
     

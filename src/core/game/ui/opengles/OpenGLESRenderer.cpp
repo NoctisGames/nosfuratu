@@ -10,7 +10,8 @@
 #include "OpenGLESSpriteBatcher.h"
 #include "OpenGLESRectangleBatcher.h"
 #include "OpenGLESLineBatcher.h"
-#include "TextureWrapper.h"
+#include "GpuTextureWrapper.h"
+#include "GpuTextureDataWrapper.h"
 #include "OpenGLESManager.h"
 #include "GameConstants.h"
 #include "Assets.h"
@@ -42,19 +43,14 @@ OpenGLESRenderer::OpenGLESRenderer() : Renderer()
     m_lineBatcher = std::unique_ptr<OpenGLESLineBatcher>(new OpenGLESLineBatcher());
 }
 
-bool OpenGLESRenderer::isLoaded()
+void OpenGLESRenderer::beginFrame(float deltaTime)
 {
-    return true; // Fine for now since loading on Android/iOS is synchronous
-}
-
-void OpenGLESRenderer::beginFrame()
-{
-    Renderer::beginFrame();
-    
     glEnable(GL_TEXTURE_2D);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    Renderer::beginFrame(deltaTime);
 }
 
 void OpenGLESRenderer::endFrame()
@@ -66,7 +62,7 @@ void OpenGLESRenderer::endFrame()
 
 void OpenGLESRenderer::loadShaderPrograms()
 {
-    m_backgroundTextureWrapper = OGLESManager->m_textureProgram.get();
+    m_backgroundGpuTextureProgramWrapper = OGLESManager->m_textureProgram.get();
     m_transScreenGpuProgramWrapper = new OpenGLESTransScreenGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
@@ -78,19 +74,33 @@ void OpenGLESRenderer::loadShaderPrograms()
     m_framebufferRadialBlurGpuProgramWrapper = new OpenGLESFramebufferRadialBlurGpuProgramWrapper();
 }
 
+bool OpenGLESRenderer::areShadersLoaded()
+{
+    return OGLESManager->isLoaded() &&
+    m_transScreenGpuProgramWrapper->isLoaded() &&
+    m_sinWaveTextureProgram->isLoaded() &&
+    m_snakeDeathTextureProgram->isLoaded() &&
+    m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
+    m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
+    m_framebufferTintGpuProgramWrapper->isLoaded() &&
+    m_framebufferRadialBlurGpuProgramWrapper->isLoaded() &&
+    m_transDeathInGpuProgramWrapper->isLoaded() &&
+    m_transDeathOutGpuProgramWrapper->isLoaded();
+}
+
 void OpenGLESRenderer::addFramebuffers()
 {
     for (std::vector<GLuint>::iterator i = OGLESManager->m_fbo_textures.begin(); i != OGLESManager->m_fbo_textures.end(); i++)
     {
-        m_framebuffers.push_back(TextureWrapper((*i)));
+        m_framebuffers.push_back(GpuTextureWrapper((*i)));
     }
 }
 
-TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repeatS)
+GpuTextureDataWrapper* OpenGLESRenderer::loadTextureData(const char* textureName)
 {
     size_t len = strlen(textureName);
     
-    char* textureFileName = new char[len+5];
+    char* textureFileName = new char[len + 5];
     
     strcpy(textureFileName, textureName);
     textureFileName[len] = '.';
@@ -99,11 +109,16 @@ TextureWrapper* OpenGLESRenderer::loadTexture(const char* textureName, int repea
     textureFileName[len+3] = 'g';
     textureFileName[len+4] = '\0';
     
-    TextureWrapper* tw = new TextureWrapper(load_png_asset_into_texture(textureFileName, repeatS));
+    GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(load_png_asset(textureFileName));
     
     delete textureFileName;
     
-    return tw;
+    return tdw;
+}
+
+GpuTextureWrapper* OpenGLESRenderer::loadTexture(GpuTextureDataWrapper* textureData, int repeatS)
+{
+    return new GpuTextureWrapper(load_png_asset_into_texture(textureData->raw_image_data, repeatS));
 }
 
 void OpenGLESRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -127,7 +142,7 @@ void OpenGLESRenderer::bindToScreenFramebuffer()
     glBindFramebuffer(GL_FRAMEBUFFER, OGLESManager->m_iScreenFBO);
 }
 
-void OpenGLESRenderer::destroyTexture(TextureWrapper& textureWrapper)
+void OpenGLESRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)
 {
     glDeleteTextures(1, &textureWrapper.texture);
 }

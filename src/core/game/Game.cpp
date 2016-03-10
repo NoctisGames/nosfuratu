@@ -18,7 +18,7 @@
 #define exitGroundsKey "exitGrounds"
 #define holesKey "holes"
 #define foregroundObjectsKey "foregroundObjects"
-#define bossForegroundObjectsKey "bossForegroundObjects"
+#define midBossForegroundObjectsKey "midBossForegroundObjects"
 #define enemiesKey "enemies"
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
@@ -46,7 +46,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
     copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
-    copyPhysicalEntities(game->getBossForegroundObjects(), m_bossForegroundObjects);
+    copyPhysicalEntities(game->getBossForegroundObjects(), m_midBossForegroundObjects);
     copyPhysicalEntities(game->getEnemies(), m_enemies);
     copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
@@ -68,7 +68,7 @@ void Game::load(const char* json)
     loadArray(m_exitGrounds, d, exitGroundsKey);
     loadArray(m_holes, d, holesKey);
     loadArray(m_foregroundObjects, d, foregroundObjectsKey);
-    loadArray(m_bossForegroundObjects, d, bossForegroundObjectsKey);
+    loadArray(m_midBossForegroundObjects, d, midBossForegroundObjectsKey);
     loadArray(m_enemies, d, enemiesKey);
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
@@ -95,7 +95,7 @@ const char* Game::save()
     saveArray(m_exitGrounds, w, exitGroundsKey);
     saveArray(m_holes, w, holesKey);
     saveArray(m_foregroundObjects, w, foregroundObjectsKey);
-    saveArray(m_bossForegroundObjects, w, bossForegroundObjectsKey);
+    saveArray(m_midBossForegroundObjects, w, midBossForegroundObjectsKey);
     saveArray(m_enemies, w, enemiesKey);
     saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
@@ -114,7 +114,7 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_exitGrounds);
     EntityUtils::cleanUpVectorOfPointers(m_holes);
     EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
-    EntityUtils::cleanUpVectorOfPointers(m_bossForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
     EntityUtils::cleanUpVectorOfPointers(m_enemies);
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
@@ -160,7 +160,7 @@ int Game::calcSum()
     sum += m_exitGrounds.size();
     sum += m_holes.size();
     sum += m_foregroundObjects.size();
-    sum += m_bossForegroundObjects.size();
+    sum += m_midBossForegroundObjects.size();
     sum += m_enemies.size();
     sum += m_collectibleItems.size();
     sum += m_jons.size();
@@ -296,7 +296,7 @@ std::vector<ForegroundObject *>& Game::getForegroundObjects()
 
 std::vector<ForegroundObject *>& Game::getBossForegroundObjects()
 {
-    return m_bossForegroundObjects;
+    return m_midBossForegroundObjects;
 }
 
 std::vector<Enemy *>& Game::getEnemies()
@@ -387,6 +387,11 @@ int Game::getNumRemainingGoldenCarrots()
     return numRemaining;
 }
 
+void Game::setLevel(int level)
+{
+    m_iLevel = level;
+}
+
 int Game::getLevel()
 {
     return m_iLevel;
@@ -426,7 +431,7 @@ void Game::onLoaded()
     setGameToEntities(m_jons, this);
     setGameToEntities(m_enemies, this);
     setGameToEntities(m_foregroundObjects, this);
-    setGameToEntities(m_bossForegroundObjects, this);
+    setGameToEntities(m_midBossForegroundObjects, this);
     setGameToEntities(m_extraForegroundObjects, this);
     
     m_iNumTotalCarrots = getNumRemainingCarrots();

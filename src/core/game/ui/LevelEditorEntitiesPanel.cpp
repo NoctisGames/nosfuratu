@@ -20,131 +20,158 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
-    m_midgrounds.push_back(new TreeOne(0));
-    m_midgrounds.push_back(new TreeTwo(0));
-    m_midgrounds.push_back(new TreeThree(0));
-    m_midgrounds.push_back(new DeepCaveColumnSmall(0));
-    m_midgrounds.push_back(new DeepCaveColumnMedium(0));
-    m_midgrounds.push_back(new DeepCaveColumnBig(0));
     
-    m_grounds.push_back(new CaveExtraDeepEndLeft(0));
-    m_grounds.push_back(new CaveExtraDeepSmall(0));
-    m_grounds.push_back(new CaveExtraDeepMedium(0));
-    m_grounds.push_back(new CaveExtraDeepLarge(0));
-    m_grounds.push_back(new CaveExtraDeepEndRight(0));
+}
+
+void LevelEditorEntitiesPanel::initForLevel(int world, int level)
+{
+    EntityUtils::cleanUpVectorOfPointers(m_midgrounds);
+    EntityUtils::cleanUpVectorOfPointers(m_grounds);
+    EntityUtils::cleanUpVectorOfPointers(m_pits);
+    EntityUtils::cleanUpVectorOfPointers(m_exitGrounds);
+    EntityUtils::cleanUpVectorOfPointers(m_holes);
+    EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_enemies);
+    EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
+    EntityUtils::cleanUpVectorOfPointers(m_jons);
+    EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
     
-    m_grounds.push_back(new CaveDeepEndLeft(0));
-    m_grounds.push_back(new CaveDeepSmall(0));
-    m_grounds.push_back(new CaveDeepMedium(0));
-    m_grounds.push_back(new CaveDeepLarge(0));
-    m_grounds.push_back(new CaveDeepEndRight(0));
+    if (world == 1)
+    {
+        m_midgrounds.push_back(new TreeOne(0));
+        m_midgrounds.push_back(new TreeTwo(0));
+        m_midgrounds.push_back(new TreeThree(0));
+        m_midgrounds.push_back(new DeepCaveColumnSmall(0));
+        m_midgrounds.push_back(new DeepCaveColumnMedium(0));
+        m_midgrounds.push_back(new DeepCaveColumnBig(0));
+        
+        m_grounds.push_back(new CaveExtraDeepEndLeft(0));
+        m_grounds.push_back(new CaveExtraDeepSmall(0));
+        m_grounds.push_back(new CaveExtraDeepMedium(0));
+        m_grounds.push_back(new CaveExtraDeepLarge(0));
+        m_grounds.push_back(new CaveExtraDeepEndRight(0));
+        
+        m_grounds.push_back(new CaveDeepEndLeft(0));
+        m_grounds.push_back(new CaveDeepSmall(0));
+        m_grounds.push_back(new CaveDeepMedium(0));
+        m_grounds.push_back(new CaveDeepLarge(0));
+        m_grounds.push_back(new CaveDeepEndRight(0));
+        
+        m_grounds.push_back(new CaveEndLeft(0));
+        m_grounds.push_back(new CaveSmall(0));
+        m_grounds.push_back(new CaveMedium(0));
+        m_grounds.push_back(new CaveLarge(0));
+        m_grounds.push_back(new CaveEndRight(0));
+        
+        m_grounds.push_back(new CaveRaisedEndLeft(0));
+        m_grounds.push_back(new CaveRaisedSmall(0));
+        m_grounds.push_back(new CaveRaisedMedium(0));
+        m_grounds.push_back(new CaveRaisedLarge(0));
+        m_grounds.push_back(new CaveRaisedEndRight(0));
+        
+        m_grounds.push_back(new GrassWithCaveEndLeft(0));
+        m_grounds.push_back(new GrassWithCaveSmall(0));
+        m_grounds.push_back(new GrassWithCaveMedium(0));
+        m_grounds.push_back(new GrassWithCaveLarge(0));
+        m_grounds.push_back(new GrassWithCaveEndRight(0));
+        
+        m_grounds.push_back(new GrassWithoutCaveEndLeft(0));
+        m_grounds.push_back(new GrassWithoutCaveSmall(0));
+        m_grounds.push_back(new GrassWithoutCaveMedium(0));
+        m_grounds.push_back(new GrassWithoutCaveLarge(0));
+        m_grounds.push_back(new GrassWithoutCaveEndRight(0));
+        
+        m_pits.push_back(new GrassPitSmall(0));
+        m_pits.push_back(new GrassPitMedium(0));
+        m_pits.push_back(new GrassPitLarge(0));
+        m_pits.push_back(new GrassPitExtraLarge(0));
+        
+        m_exitGrounds.push_back(new GrassWithCaveSmallExitMid(0));
+        m_exitGrounds.push_back(new GrassWithCaveSmallExitEnd(0));
+        m_exitGrounds.push_back(new CaveSmallExit(0));
+        
+        m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0));
+        
+        m_holes.push_back(new HoleGrass(0));
+        m_holes.push_back(new HoleCave(0));
+        
+        m_foregroundObjects.push_back(new GrassPlatformLeft(0, 0));
+        m_foregroundObjects.push_back(new GrassPlatformCenter(0, 0));
+        m_foregroundObjects.push_back(new GrassPlatformRight(0, 0));
+        
+        m_foregroundObjects.push_back(new CavePlatformLeft(0, 0));
+        m_foregroundObjects.push_back(new CavePlatformCenter(0, 0));
+        m_foregroundObjects.push_back(new CavePlatformRight(0, 0));
+        
+        m_foregroundObjects.push_back(new RockLarge(0, 0));
+        m_foregroundObjects.push_back(new RockMedium(0, 0));
+        m_foregroundObjects.push_back(new RockSmall(0, 0));
+        m_foregroundObjects.push_back(new RockSmallCracked(0, 0));
+        
+        m_foregroundObjects.push_back(new StumpBig(0, 0));
+        m_foregroundObjects.push_back(new StumpSmall(0, 0));
+        
+        m_foregroundObjects.push_back(new EndSign(0, 0));
+        
+        m_foregroundObjects.push_back(new ThornsLeft(0, 0));
+        m_foregroundObjects.push_back(new ThornsCenterSmall(0, 0));
+        m_foregroundObjects.push_back(new ThornsCenterBig(0, 0));
+        m_foregroundObjects.push_back(new ThornsRight(0, 0));
+        
+        m_foregroundObjects.push_back(new LogVerticalTall(0, 0));
+        m_foregroundObjects.push_back(new LogVerticalShort(0, 0));
+        
+        m_foregroundObjects.push_back(new JumpSpringLight(0, 0));
+        m_foregroundObjects.push_back(new JumpSpringMedium(0, 0));
+        m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0));
+        
+        m_foregroundObjects.push_back(new SpikeGrassSingle(0, 0));
+        m_foregroundObjects.push_back(new SpikeGrassFour(0, 0));
+        m_foregroundObjects.push_back(new SpikeGrassEight(0, 0));
+        
+        m_foregroundObjects.push_back(new SpikeCaveSingle(0, 0));
+        m_foregroundObjects.push_back(new SpikeCaveFour(0, 0));
+        m_foregroundObjects.push_back(new SpikeCaveEight(0, 0));
+        
+        m_foregroundObjects.push_back(new SpikeCaveCeilingSingle(0, 0));
+        m_foregroundObjects.push_back(new SpikeCaveCeilingFour(0, 0));
+        m_foregroundObjects.push_back(new SpikeCaveCeilingEight(0, 0));
+        
+        m_foregroundObjects.push_back(new SpikeWallSingle(0, 0));
+        m_foregroundObjects.push_back(new SpikeWallFour(0, 0));
+        m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
+        
+        m_foregroundObjects.push_back(new VerticalSaw(0));
+        
+        if (level == 10)
+        {
+            m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));
+            m_midBossForegroundObjects.push_back(new GiantPerchTree(0, 0));
+        }
+        else
+        {
+            m_foregroundObjects.push_back(new GiantTree(0, 0));
+        }
+        
+        m_enemies.push_back(new MushroomGround(0, 0));
+        m_enemies.push_back(new MushroomCeiling(0, 0));
+        m_enemies.push_back(new SnakeGrunt(0, 0));
+        m_enemies.push_back(new Sparrow(0, 0));
+        m_enemies.push_back(new Toad(0, 0));
+        m_enemies.push_back(new Fox(0, 0));
+        
+        m_collectibleItems.push_back(new Carrot(0, 0));
+        m_collectibleItems.push_back(new GoldenCarrot(0, 0));
+        
+        m_jons.push_back(new Jon(0, 0));
+        
+        m_extraForegroundObjects.push_back(new SpikeTower(0));
+    }
     
-    m_grounds.push_back(new CaveEndLeft(0));
-    m_grounds.push_back(new CaveSmall(0));
-    m_grounds.push_back(new CaveMedium(0));
-    m_grounds.push_back(new CaveLarge(0));
-    m_grounds.push_back(new CaveEndRight(0));
-    
-    m_grounds.push_back(new CaveRaisedEndLeft(0));
-    m_grounds.push_back(new CaveRaisedSmall(0));
-    m_grounds.push_back(new CaveRaisedMedium(0));
-    m_grounds.push_back(new CaveRaisedLarge(0));
-    m_grounds.push_back(new CaveRaisedEndRight(0));
-    
-    m_grounds.push_back(new GrassWithCaveEndLeft(0));
-    m_grounds.push_back(new GrassWithCaveSmall(0));
-    m_grounds.push_back(new GrassWithCaveMedium(0));
-    m_grounds.push_back(new GrassWithCaveLarge(0));
-    m_grounds.push_back(new GrassWithCaveEndRight(0));
-    
-    m_grounds.push_back(new GrassWithoutCaveEndLeft(0));
-    m_grounds.push_back(new GrassWithoutCaveSmall(0));
-    m_grounds.push_back(new GrassWithoutCaveMedium(0));
-    m_grounds.push_back(new GrassWithoutCaveLarge(0));
-    m_grounds.push_back(new GrassWithoutCaveEndRight(0));
-    
-    m_pits.push_back(new GrassPitSmall(0));
-    m_pits.push_back(new GrassPitMedium(0));
-    m_pits.push_back(new GrassPitLarge(0));
-    m_pits.push_back(new GrassPitExtraLarge(0));
-    
-    m_exitGrounds.push_back(new GrassWithCaveSmallExitMid(0));
-    m_exitGrounds.push_back(new GrassWithCaveSmallExitEnd(0));
-    m_exitGrounds.push_back(new CaveSmallExit(0));
-    
-    m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0));
-    
-    m_holes.push_back(new HoleGrass(0));
-    m_holes.push_back(new HoleCave(0));
-    
-    m_foregroundObjects.push_back(new GrassPlatformLeft(0, 0));
-    m_foregroundObjects.push_back(new GrassPlatformCenter(0, 0));
-    m_foregroundObjects.push_back(new GrassPlatformRight(0, 0));
-    
-    m_foregroundObjects.push_back(new CavePlatformLeft(0, 0));
-    m_foregroundObjects.push_back(new CavePlatformCenter(0, 0));
-    m_foregroundObjects.push_back(new CavePlatformRight(0, 0));
-    
-    m_foregroundObjects.push_back(new RockLarge(0, 0));
-    m_foregroundObjects.push_back(new RockMedium(0, 0));
-    m_foregroundObjects.push_back(new RockSmall(0, 0));
-    m_foregroundObjects.push_back(new RockSmallCracked(0, 0));
-    
-    m_foregroundObjects.push_back(new StumpBig(0, 0));
-    m_foregroundObjects.push_back(new StumpSmall(0, 0));
-    
-    m_foregroundObjects.push_back(new EndSign(0, 0));
-    
-    m_foregroundObjects.push_back(new ThornsLeft(0, 0));
-    m_foregroundObjects.push_back(new ThornsCenterSmall(0, 0));
-    m_foregroundObjects.push_back(new ThornsCenterBig(0, 0));
-    m_foregroundObjects.push_back(new ThornsRight(0, 0));
-    
-    m_foregroundObjects.push_back(new LogVerticalTall(0, 0));
-    m_foregroundObjects.push_back(new LogVerticalShort(0, 0));
-    
-    m_foregroundObjects.push_back(new JumpSpringLight(0, 0));
-    m_foregroundObjects.push_back(new JumpSpringMedium(0, 0));
-    m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0));
-    
-    m_foregroundObjects.push_back(new SpikeGrassSingle(0, 0));
-    m_foregroundObjects.push_back(new SpikeGrassFour(0, 0));
-    m_foregroundObjects.push_back(new SpikeGrassEight(0, 0));
-    
-    m_foregroundObjects.push_back(new SpikeCaveSingle(0, 0));
-    m_foregroundObjects.push_back(new SpikeCaveFour(0, 0));
-    m_foregroundObjects.push_back(new SpikeCaveEight(0, 0));
-    
-    m_foregroundObjects.push_back(new SpikeCaveCeilingSingle(0, 0));
-    m_foregroundObjects.push_back(new SpikeCaveCeilingFour(0, 0));
-    m_foregroundObjects.push_back(new SpikeCaveCeilingEight(0, 0));
-    
-    m_foregroundObjects.push_back(new SpikeWallSingle(0, 0));
-    m_foregroundObjects.push_back(new SpikeWallFour(0, 0));
-    m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
-    
-    m_foregroundObjects.push_back(new VerticalSaw(0));
-    
-    m_bossForegroundObjects.push_back(new GiantShakingTree(0, 0));
-    m_bossForegroundObjects.push_back(new GiantPerchTree(0, 0));
-    
-    m_enemies.push_back(new MushroomGround(0, 0));
-    m_enemies.push_back(new MushroomCeiling(0, 0));
-    m_enemies.push_back(new SnakeGrunt(0, 0));
-    m_enemies.push_back(new Sparrow(0, 0));
-    m_enemies.push_back(new Toad(0, 0));
-    m_enemies.push_back(new Fox(0, 0));
-    
-    m_collectibleItems.push_back(new Carrot(0, 0));
-    m_collectibleItems.push_back(new GoldenCarrot(0, 0));
-    
-    m_jons.push_back(new Jon(0, 0));
-    
-    m_extraForegroundObjects.push_back(new SpikeTower(0));
-    
-    float eWidth = width * 0.6f;
-    float eHeight = height / 6;
-    float eX = CAM_WIDTH - width / 2 + 0.4f;
+    float eWidth = m_fWidth * 0.6f;
+    float eHeight = m_fHeight / 6;
+    float eX = CAM_WIDTH - m_fWidth / 2 + 0.4f;
     float eY = eHeight / 2;
     
     int i = boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
@@ -153,13 +180,13 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
     i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_bossForegroundObjects, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_midBossForegroundObjects, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
     
-    m_fEntitiesHeight = fmaxf((i * eHeight), height);
+    m_fEntitiesHeight = fmaxf((i * eHeight), m_fHeight);
 }
 
 int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity)
@@ -216,7 +243,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_bossForegroundObjects, game.getBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
@@ -282,7 +309,7 @@ std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundObjects(
 
 std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getBossForegroundObjects()
 {
-    return m_bossForegroundObjects;
+    return m_midBossForegroundObjects;
 }
 
 std::vector<Enemy *>& LevelEditorEntitiesPanel::getEnemies()

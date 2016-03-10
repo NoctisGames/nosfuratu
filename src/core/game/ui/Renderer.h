@@ -12,14 +12,17 @@
 #include "Assets.h"
 #include "RendererType.h"
 #include "RectangleBatcher.h"
+#include "TextureWrapper.h"
 
 #include <memory>
 #include <vector>
+#include <thread>
 
 class SpriteBatcher;
 class LineBatcher;
 class Font;
-struct TextureWrapper;
+struct GpuTextureWrapper;
+struct GpuTextureDataWrapper;
 class PhysicalEntity;
 class TextureRegion;
 class Game;
@@ -51,10 +54,16 @@ public:
     ~Renderer();
     
     void init(RendererType rendererType);
-
-	virtual bool isLoaded() = 0;
     
-    virtual void beginFrame();
+    void load(RendererType rendererType);
+    
+    void unload(RendererType rendererType);
+
+    bool isLoadingAdditionalTextures();
+    
+    virtual bool isLoaded();
+    
+    virtual void beginFrame(float deltaTime);
     
     virtual void endFrame() = 0;
     
@@ -66,7 +75,7 @@ public:
     // Return 2 if Jon should begin warming up
     // Return 1 to activate the radial blur effect
     // Return 0 to do nothing
-    int updateCameraToFollowPathToJon(Game& game, float deltaTime);
+    int updateCameraToFollowPathToJon(Game& game);
     
     void updateCameraToFollowJon(Game& game, float deltaTime);
     
@@ -80,15 +89,13 @@ public:
     
     void renderTitleScreenUi(LevelEditorButton* levelEditorButton);
     
-    void renderTitleScreenLoading();
-    
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
     void renderWorldMapScreenUi(BackButton* backButton);
     
-    void renderWorldMapScreenLoading();
-    
     void renderWorld(Game& game);
+    
+    void renderWorld1MidBoss(Game& game);
     
     void renderJonAndExtraForegroundObjects(Game& game);
     
@@ -99,6 +106,8 @@ public:
     void renderHud(Game& game, BackButton* backButton, int fps);
     
     void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp);
+    
+    void renderLoading();
     
     void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
     
@@ -127,29 +136,31 @@ protected:
     std::unique_ptr<LineBatcher> m_lineBatcher;
     std::unique_ptr<Font> m_font;
     
-    TextureWrapper* m_jon;
-    TextureWrapper* m_level_editor;
-    TextureWrapper* m_title_screen;
-    TextureWrapper* m_trans_death_shader_helper;
-    TextureWrapper* m_vampire;
-    TextureWrapper* m_world_1_background_lower;
-    TextureWrapper* m_world_1_background_mid;
-    TextureWrapper* m_world_1_background_upper;
-    TextureWrapper* m_world_1_enemies;
-    TextureWrapper* m_world_1_ground;
-    TextureWrapper* m_world_1_mid_boss_part_1;
-    TextureWrapper* m_world_1_mid_boss_part_2;
-    TextureWrapper* m_world_1_mid_boss_part_3;
-    TextureWrapper* m_world_1_mid_boss_part_4;
-    TextureWrapper* m_world_1_objects;
-    TextureWrapper* m_world_1_special;
-    TextureWrapper* m_world_map_screen;
+    TextureWrapper m_jon;
+    TextureWrapper m_level_editor;
+    TextureWrapper m_misc;
+    TextureWrapper m_title_screen;
+    TextureWrapper m_trans_death_shader_helper;
+    TextureWrapper m_vampire;
+    TextureWrapper m_world_1_background_lower;
+    TextureWrapper m_world_1_background_mid;
+    TextureWrapper m_world_1_background_upper;
+    TextureWrapper m_world_1_enemies;
+    TextureWrapper m_world_1_ground;
+    TextureWrapper m_world_1_mid_boss_part_1;
+    TextureWrapper m_world_1_mid_boss_part_2;
+    TextureWrapper m_world_1_mid_boss_part_3;
+    TextureWrapper m_world_1_mid_boss_part_4;
+    TextureWrapper m_world_1_objects;
+    TextureWrapper m_world_1_special;
+    TextureWrapper m_world_map_screen;
     
-    std::vector<TextureWrapper> m_framebuffers;
+    std::vector<TextureWrapper *> m_textureWrappers;
+    std::vector<GpuTextureWrapper> m_framebuffers;
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
-	GpuProgramWrapper* m_backgroundTextureWrapper;
+	GpuProgramWrapper* m_backgroundGpuTextureProgramWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;
@@ -162,9 +173,13 @@ protected:
     
     virtual void loadShaderPrograms() = 0;
     
+    virtual bool areShadersLoaded() = 0;
+    
     virtual void addFramebuffers() = 0;
     
-    virtual TextureWrapper* loadTexture(const char* textureName, int repeatS = 0) = 0;
+    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName) = 0;
+    
+    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, int repeatS = 0) = 0;
     
     virtual void updateMatrix(float left, float right, float bottom, float top) = 0;
     
@@ -174,35 +189,17 @@ protected:
     
     virtual void bindToScreenFramebuffer() = 0;
 
-    virtual void destroyTexture(TextureWrapper& textureWrapper) = 0;
+    virtual void destroyTexture(GpuTextureWrapper& textureWrapper) = 0;
     
 private:
+    std::vector<std::thread> m_threads;
 	std::unique_ptr<Rectangle> m_camBounds;
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
+    int m_iNumAsyncLoads;
     int m_iRadialBlurDirection;
     bool m_compressed;
-    
-    bool m_areTitleTexturesLoaded;
-    bool m_areWorldMapTexturesLoaded;
-    bool m_areLevelEditorTexturesLoaded;
-    bool m_areWorld1TexturesLoaded;
-    bool m_areWorld1MidBossTexturesLoaded;
-    bool m_areWorld1EndBossTexturesLoaded;
-    bool m_areWorld2TexturesLoaded;
-    bool m_areWorld2MidBossTexturesLoaded;
-    bool m_areWorld2EndBossTexturesLoaded;
-    bool m_areWorld3TexturesLoaded;
-    bool m_areWorld3MidBossTexturesLoaded;
-    bool m_areWorld3EndBossTexturesLoaded;
-    bool m_areWorld4TexturesLoaded;
-    bool m_areWorld4MidBossTexturesLoaded;
-    bool m_areWorld4EndBossTexturesLoaded;
-    bool m_areWorld5TexturesLoaded;
-    bool m_areWorld5MidBossTexturesLoaded;
-    bool m_areWorld5EndBossTexturesLoaded;
-    
     bool m_areShadersLoaded;
     
     template<typename T>
@@ -255,7 +252,7 @@ private:
     
     float getCamPosFarRight(Game& game);
     
-    Font* loadFont();
+    void loadMisc();
     
     void loadTitle();
     void loadWorldMap();
@@ -281,7 +278,35 @@ private:
     void loadWorld5MidBoss();
     void loadWorld5EndBoss();
     
+    void unloadTitle();
+    void unloadWorldMap();
+    void unloadLevelEditor();
+    
+    void unloadWorld1();
+    void unloadWorld1MidBoss();
+    void unloadWorld1EndBoss();
+    
+    void unloadWorld2();
+    void unloadWorld2MidBoss();
+    void unloadWorld2EndBoss();
+    
+    void unloadWorld3();
+    void unloadWorld3MidBoss();
+    void unloadWorld3EndBoss();
+    
+    void unloadWorld4();
+    void unloadWorld4MidBoss();
+    void unloadWorld4EndBoss();
+    
+    void unloadWorld5();
+    void unloadWorld5MidBoss();
+    void unloadWorld5EndBoss();
+    
+    void handleAsyncTextureLoads();
+    
     void cleanUpTextures();
+    
+    void destroyTexture(TextureWrapper* textureWrapper);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

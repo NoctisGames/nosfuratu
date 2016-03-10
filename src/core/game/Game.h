@@ -111,6 +111,8 @@ public:
     
     int getNumRemainingGoldenCarrots();
     
+    void setLevel(int level);
+    
     int getLevel();
     
     bool isLoaded();
@@ -128,7 +130,7 @@ private:
     std::vector<ExitGround *> m_exitGrounds;
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
-    std::vector<ForegroundObject *> m_bossForegroundObjects;
+    std::vector<ForegroundObject *> m_midBossForegroundObjects;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;

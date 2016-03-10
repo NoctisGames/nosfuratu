@@ -27,7 +27,7 @@ TextureRegion& Assets::get(TitlePanel* panel)
     static Animation anim = createAnimation(0, 0, 640, 512, 1920, 1536, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 7);
     if (!anim.hasFrameTimes())
     {
-        anim.setFrameTimes(7, 5.0f, 0.1f, 0.1f, 0.1f, 4.5f, 0.15f, 0.15f);
+        anim.setFrameTimes(7, 3.0f, 0.1f, 0.1f, 0.1f, 2.5f, 0.15f, 0.15f);
     }
     
     return anim.getTextureRegion(panel->getStateTime());
@@ -75,32 +75,32 @@ TextureRegion& Assets::get(Midground* midground)
     {
         case MidgroundType_TreeOne:
         {
-            static TextureRegion tr = createTextureRegion(1904, 424, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1940, 424, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_TreeTwo:
         {
-            static TextureRegion tr = createTextureRegion(2432, 296, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2468, 296, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_TreeThree:
         {
-            static TextureRegion tr = createTextureRegion(3120, 248, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3156, 248, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnSmall:
         {
-            static TextureRegion tr = createTextureRegion(750, 808, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2052, 1742, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnMedium:
         {
-            static TextureRegion tr = createTextureRegion(1582, 264, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2884, 1198, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnBig:
         {
-            static TextureRegion tr = createTextureRegion(1008, 264, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2310, 1198, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -566,6 +566,11 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
+        case ForegroundObjectType_GiantTree:
+        {
+            static TextureRegion tr = createTextureRegion(832, 0, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
         case ForegroundObjectType_GiantShakingTree:
         {
             static Animation anim = createAnimation(832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 7);
@@ -628,18 +633,20 @@ TextureRegion& Assets::get(Enemy* enemy)
             
             if (toad->isDead())
             {
-                int i = 0;
-                if (i == 0)
+                if (toad->isDeadPart1())
                 {
-                    // Rabbit Part 1
-                    static Animation anim = createAnimation(0, 1888, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
-                    return anim.getTextureRegion(enemy->getStateTime());
-                }
-                else if (i == 1)
-                {
-                    // Vampire Part 1
-                    static Animation anim = createAnimation(1024, 2144, 512, 256, 1024, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 2);
-                    return anim.getTextureRegion(enemy->getStateTime());
+                    if (toad->isJonVampire())
+                    {
+                        // Vampire Part 1
+                        static Animation anim = createAnimation(1024, 2144, 512, 256, 1024, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 2);
+                        return anim.getTextureRegion(enemy->getStateTime());
+                    }
+                    else
+                    {
+                        // Rabbit Part 1
+                        static Animation anim = createAnimation(0, 1888, 512, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 5);
+                        return anim.getTextureRegion(enemy->getStateTime());
+                    }
                 }
                 else
                 {
@@ -663,7 +670,7 @@ TextureRegion& Assets::get(Enemy* enemy)
             }
             else
             {
-                static Animation anim = createAnimation(492, 0, 512, 256, 3584, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
+                static Animation anim = createAnimation(492, 0, 512, 256, 3584, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.15f, 7);
                 return anim.getTextureRegion(enemy->getStateTime());
             }
         }
@@ -696,14 +703,14 @@ TextureRegion& Assets::get(Enemy* enemy)
             }
             else
             {
-                if (enemy->getVelocity().getX() > 0)
+                if (fox->isLeft())
                 {
-                    static Animation anim = createAnimation(3104, 772, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    static Animation anim = createAnimation(3104, 516, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
                     return anim.getTextureRegion(enemy->getStateTime());
                 }
                 else
                 {
-                    static Animation anim = createAnimation(3104, 516, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    static Animation anim = createAnimation(3104, 772, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
                     return anim.getTextureRegion(enemy->getStateTime());
                 }
             }
@@ -985,7 +992,7 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
 
 TextureRegion& Assets::get(BackButton* backButton)
 {
-    static TextureRegion tr = createTextureRegion(1824, 48, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = createTextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     return tr;
 }
 

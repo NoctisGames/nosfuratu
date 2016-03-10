@@ -44,23 +44,24 @@ void Level::enter(GameScreen* gs)
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
     }
     
-    gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
-    
-    if (m_hasShownOpeningSequence)
+    if (m_game->getLevel() == 21)
     {
-        Jon& jon = m_game->getJon();
-        jon.setAllowedToMove(true);
+        gs->m_renderer->init(RENDERER_TYPE_WORLD_1_END_BOSS);
+    }
+    else if (m_game->getLevel() == 10)
+    {
+        gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS);
     }
     else
     {
-        Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
-        
-        gs->processTouchEvents();
-        gs->m_renderer->beginOpeningPanningSequence(*m_game);
-        gs->m_iNumFramesToDiscard = 1;
-        
-        m_hasShownOpeningSequence = true;
+        gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
     }
+    
+    gs->m_renderer->beginOpeningPanningSequence(*m_game);
+    EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+    EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+    EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+    EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
 }
 
 void Level::execute(GameScreen* gs)
@@ -69,9 +70,14 @@ void Level::execute(GameScreen* gs)
     
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderWorld(*m_game);
+        
+        if (m_game->getLevel() == 10)
+        {
+            gs->m_renderer->renderWorld1MidBoss(*m_game);
+        }
         
         if (m_isReleasingShockwave)
         {
@@ -114,7 +120,24 @@ void Level::execute(GameScreen* gs)
     }
     else
     {
-        if (!m_hasOpeningSequenceCompleted)
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->processTouchEvents();
+            return;
+        }
+        
+        Jon& jon = m_game->getJon();
+        jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+        
+        if (!m_hasShownOpeningSequence)
+        {
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_DEMO);
+            
+            gs->m_renderer->beginOpeningPanningSequence(*m_game);
+            
+            m_hasShownOpeningSequence = true;
+        }
+        else if (!m_hasOpeningSequenceCompleted)
         {
             if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
             {
@@ -130,7 +153,7 @@ void Level::execute(GameScreen* gs)
             
             jon.update(gs->m_fDeltaTime);
             
-            int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+            int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
             m_hasOpeningSequenceCompleted = result == 3;
             m_activateRadialBlur = result == 1;
             jon.setAllowedToMove(m_hasOpeningSequenceCompleted);

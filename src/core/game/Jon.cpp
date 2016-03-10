@@ -37,7 +37,8 @@ m_iNumJumps(0),
 m_isLanding(false),
 m_isRollLanding(false),
 m_isRightFoot(false),
-m_isAllowedToMove(false)
+m_isAllowedToMove(false),
+m_isConsumed(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -82,6 +83,11 @@ void Jon::update(float deltaTime)
             i++;
         }
     }
+    
+    if (m_isConsumed)
+    {
+        return;
+    }
 
 	if (m_state == JON_DEAD)
 	{
@@ -90,7 +96,7 @@ void Jon::update(float deltaTime)
 
 	if (m_state == JON_DYING)
 	{
-		m_fDyingStateTime += deltaTime;
+        m_fDyingStateTime += deltaTime;
 		if (m_fDyingStateTime > 1)
 		{
 			setState(JON_DEAD);
@@ -413,6 +419,11 @@ bool Jon::isDead()
 	return m_state == JON_DEAD;
 }
 
+bool Jon::isConsumed()
+{
+    return m_isConsumed;
+}
+
 int Jon::getType()
 {
 	return -1;
@@ -478,6 +489,12 @@ float Jon::getGravity()
     return m_fGravity;
 }
 
+void Jon::consume()
+{
+    // Used when Jon needs to be "transfered" i.e. grabbed by the owl or eaten by the toad
+    m_isConsumed = true;
+}
+
 void Jon::kill()
 {
     if (m_state != JON_ALIVE)
@@ -486,7 +503,7 @@ void Jon::kill()
     }
     
     Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
-    setState(JON_DYING);
+    setState(m_isConsumed ? JON_DEAD : JON_DYING);
     m_fDyingStateTime = 0;
     m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
     
@@ -960,6 +977,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
 				jon->setState(ABILITY_UPWARD_THRUST);
 			}
 		}
+        
+        jon->m_isConsumed = false;
 
 		jon->m_iNumJumps++;
 

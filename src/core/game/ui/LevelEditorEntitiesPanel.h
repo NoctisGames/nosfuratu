@@ -38,6 +38,8 @@ class LevelEditorEntitiesPanel : public PhysicalEntity
 public:
     LevelEditorEntitiesPanel(float x = CAM_WIDTH + (3.76608187134503f - 1.89473684210526) / 2, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
     
+    void initForLevel(int world, int level);
+    
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
     std::vector<Midground *>& getMidgrounds();
@@ -135,7 +137,7 @@ private:
     std::vector<ExitGround *> m_exitGrounds;
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
-    std::vector<ForegroundObject *> m_bossForegroundObjects;
+    std::vector<ForegroundObject *> m_midBossForegroundObjects;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;

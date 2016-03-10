@@ -29,20 +29,19 @@ void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
-    gs->m_iNumFramesToDiscard = 1;
 }
 
 void WorldMap::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
         gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
-        if (m_iLevelToLoad > 0)
+        if (gs->m_renderer->isLoadingAdditionalTextures())
         {
-            gs->m_renderer->renderWorldMapScreenLoading();
+            gs->m_renderer->renderLoading();
         }
         else
         {
@@ -55,6 +54,12 @@ void WorldMap::execute(GameScreen* gs)
     }
     else
     {
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->processTouchEvents();
+            return;
+        }
+        
         if (m_iLevelToLoad > 0)
         {
             WorldMapToLevel::getInstance()->setLevelToLoad(m_iLevelToLoad);

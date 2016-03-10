@@ -106,6 +106,13 @@ void OpenGLESManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLflo
     m_colorVertices.push_back(a);
 }
 
+bool OpenGLESManager::isLoaded()
+{
+    return m_textureProgram->isLoaded()
+    && m_colorProgram->isLoaded()
+    && m_fbToScreenProgram->isLoaded();
+}
+
 #pragma mark <Private>
 
 void OpenGLESManager::buildShaderPrograms()

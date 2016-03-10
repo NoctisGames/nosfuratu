@@ -66,6 +66,7 @@
 
 //// Texture Definitions ////
 
+#define TEXTURE_SIZE_1024 1024
 #define TEXTURE_SIZE_2048 2048
 #define TEXTURE_SIZE_4096 4096
 #define PIXEL_WIDTH_FOR_BACKGROUND 1808

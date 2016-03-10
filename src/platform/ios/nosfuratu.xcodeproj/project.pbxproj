@@ -169,6 +169,7 @@
 		BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */; };
 		BBE68ACA1BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC61BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp */; };
 		BBE68ACE1BBF051E00C56FEA /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */; };
+		BBE7EF811C908E5800CB8533 /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE7EF801C908E5800CB8533 /* misc.png */; };
 		BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C51B97B9BB009B4711 /* Entity.cpp */; };
 		BBEA166F1B97B9BB009B4711 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C71B97B9BB009B4711 /* EntityManager.cpp */; };
 		BBEA16701B97B9BB009B4711 /* PhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C91B97B9BB009B4711 /* PhysicalEntity.cpp */; };
@@ -497,6 +498,8 @@
 		BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sin_wave_texture_shader.fsh; sourceTree = "<group>"; };
 		BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrashCan.cpp; sourceTree = "<group>"; };
 		BBC7B87E1BC32E0300140BCA /* TrashCan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashCan.h; sourceTree = "<group>"; };
+		BBCA207A1C90A8280081DCC3 /* GpuTextureDataWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpuTextureDataWrapper.h; sourceTree = "<group>"; };
+		BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
 		BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_radial_blue_texture_shader.fsh; sourceTree = "<group>"; };
 		BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBD3869E1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.h; sourceTree = "<group>"; };
@@ -518,6 +521,7 @@
 		BBE68AC71BBF016D00C56FEA /* LevelEditorEntitiesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEditorEntitiesPanel.h; sourceTree = "<group>"; };
 		BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
 		BBE68ACD1BBF051E00C56FEA /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
+		BBE7EF801C908E5800CB8533 /* misc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = misc.png; sourceTree = "<group>"; };
 		BBEA15C51B97B9BB009B4711 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		BBEA15C61B97B9BB009B4711 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		BBEA15C71B97B9BB009B4711 /* EntityManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityManager.cpp; sourceTree = "<group>"; };
@@ -613,7 +617,7 @@
 		BBEA16431B97B9BB009B4711 /* SpriteBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBatcher.h; sourceTree = "<group>"; };
 		BBEA16441B97B9BB009B4711 /* TextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureRegion.cpp; sourceTree = "<group>"; };
 		BBEA16451B97B9BB009B4711 /* TextureRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureRegion.h; sourceTree = "<group>"; };
-		BBEA16461B97B9BB009B4711 /* TextureWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
+		BBEA16461B97B9BB009B4711 /* GpuTextureWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GpuTextureWrapper.h; sourceTree = "<group>"; };
 		BBEA16471B97B9BB009B4711 /* TouchEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchEvent.cpp; sourceTree = "<group>"; };
 		BBEA16481B97B9BB009B4711 /* TouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchEvent.h; sourceTree = "<group>"; };
 		BBEA16491B97B9BB009B4711 /* TouchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchType.h; sourceTree = "<group>"; };
@@ -872,6 +876,7 @@
 				BB939CAF1C626E41006D945A /* jon.png */,
 				BB264FF21C8F546E0091EA96 /* level_editor.png */,
 				BB939CB31C626E41006D945A /* merge_images.py */,
+				BBE7EF801C908E5800CB8533 /* misc.png */,
 				BB264FF31C8F546E0091EA96 /* title_screen.png */,
 				BB939CC81C626E41006D945A /* trans_death_shader_helper.png */,
 				BB939CC91C626E41006D945A /* vampire.png */,
@@ -1055,6 +1060,8 @@
 				BBEA16161B97B9BB009B4711 /* Font.h */,
 				BBEA16171B97B9BB009B4711 /* GpuProgramWrapper.cpp */,
 				BBEA16181B97B9BB009B4711 /* GpuProgramWrapper.h */,
+				BBCA207A1C90A8280081DCC3 /* GpuTextureDataWrapper.h */,
+				BBEA16461B97B9BB009B4711 /* GpuTextureWrapper.h */,
 				BBEA16191B97B9BB009B4711 /* LineBatcher.cpp */,
 				BBEA161A1B97B9BB009B4711 /* LineBatcher.h */,
 				BBEA161B1B97B9BB009B4711 /* opengles */,
@@ -1064,7 +1071,7 @@
 				BBEA16431B97B9BB009B4711 /* SpriteBatcher.h */,
 				BBEA16441B97B9BB009B4711 /* TextureRegion.cpp */,
 				BBEA16451B97B9BB009B4711 /* TextureRegion.h */,
-				BBEA16461B97B9BB009B4711 /* TextureWrapper.h */,
+				BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */,
 				BBEA16471B97B9BB009B4711 /* TouchEvent.cpp */,
 				BBEA16481B97B9BB009B4711 /* TouchEvent.h */,
 				BBEA16491B97B9BB009B4711 /* TouchType.h */,
@@ -1523,6 +1530,7 @@
 				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB939CE31C626E41006D945A /* jon_vampire_double_jump.wav in Resources */,
 				BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */,
+				BBE7EF811C908E5800CB8533 /* misc.png in Resources */,
 				BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */,
 				BB939D1B1C626E41006D945A /* vampire.png in Resources */,
 				BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */,
