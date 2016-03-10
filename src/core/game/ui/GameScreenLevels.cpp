@@ -302,6 +302,19 @@ void Level::exit(GameScreen* gs)
     m_hasOpeningSequenceCompleted = false;
     m_hasSwiped = false;
     m_showDeathTransOut = false;
+
+	if (m_game->getLevel() == 21)
+	{
+		gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+	}
+	else if (m_game->getLevel() == 10)
+	{
+		gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+	}
+	else
+	{
+		gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+	}
 }
 
 void Level::setSourceGame(Game* game)
