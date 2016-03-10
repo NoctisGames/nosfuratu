@@ -15,7 +15,8 @@ extern "C"
 #include "image.h"
 }
 #elif defined GGD_DIRECT_3D
-#include <d3d11_1.h>
+#include "DirectXTex.h"
+using namespace DirectX;
 #endif
 
 struct GpuTextureDataWrapper
@@ -28,11 +29,9 @@ struct GpuTextureDataWrapper
         // Empty
     }
 #elif defined GGD_DIRECT_3D
-    ScratchImage image;
-    TexMetadata info;
-    int shaderResourceViewIndex;
+    int resourceIndex;
     
-    GpuTextureDataWrapper(ScratchImage imageIn, TexMetadata infoIn, int shaderResourceViewIndexIn) : image(imageIn), info(infoIn), shaderResourceViewIndex(shaderResourceViewIndexIn)
+    GpuTextureDataWrapper(int resourceIndexIn) : resourceIndex(resourceIndexIn)
     {
         // Empty
     }

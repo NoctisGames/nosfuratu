@@ -46,8 +46,6 @@ private:
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 	int m_iNumTexturesLoaded;
-
-	void loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView);
 };
 
 #endif /* defined(__NosFURatu__Direct3DRenderer__) */

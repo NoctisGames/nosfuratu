@@ -127,7 +127,9 @@ GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName
     ScratchImage image;
     DX::ThrowIfFailed(LoadFromDDSFile(wString, DDS_FLAGS_NONE, &info, image));
     
-	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(image, info, m_iNumTexturesLoaded);
+	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, &g_shaderResourceViews[m_iNumTexturesLoaded]));
+
+	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(m_iNumTexturesLoaded);
 
 	m_iNumTexturesLoaded++;
 	
@@ -140,8 +142,8 @@ GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName
 GpuTextureWrapper* Direct3DRenderer::loadTexture(GpuTextureDataWrapper* textureData, int repeatS)
 {
     UNUSED(repeatS);
-    
-    DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), textureData->image.GetImages(), textureData->image.GetImageCount(), textureData->info, &g_shaderResourceViews[textureData->shaderResourceViewIndex]));
+
+	return new GpuTextureWrapper(g_shaderResourceViews[textureData->resourceIndex]);
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -171,12 +173,4 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 void Direct3DRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)
 {
 	textureWrapper.texture->Release();
-}
-
-#pragma mark private
-
-void Direct3DRenderer::loadTexture(LPCWSTR szFile, ID3D11ShaderResourceView **shaderResourceView)
-{
-	
-	
 }
