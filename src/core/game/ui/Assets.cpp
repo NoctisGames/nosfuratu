@@ -566,6 +566,18 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
+        case ForegroundObjectType_SpikeStar:
+        {
+            static TextureRegion tr = createTextureRegion(500, 1200, 224, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_VerticalSaw:
+        {
+            static Animation anim = createAnimation(178, 2400, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
+            return anim.getTextureRegion(foregroundObject->getStateTime());
+        }
+            
         case ForegroundObjectType_GiantTree:
         {
             static TextureRegion tr = createTextureRegion(832, 0, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -591,12 +603,6 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         {
             static TextureRegion tr = createTextureRegion(3408, 3146, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
-        }
-            
-        case ForegroundObjectType_VerticalSaw:
-        {
-            static Animation anim = createAnimation(178, 2400, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
-            return anim.getTextureRegion(foregroundObject->getStateTime());
         }
     }
     

@@ -63,14 +63,16 @@ typedef enum
     ForegroundObjectType_SpikeWallFour,
     ForegroundObjectType_SpikeWallEight,
     
+    ForegroundObjectType_SpikeStar,
+    
+    ForegroundObjectType_VerticalSaw,
+    
     ForegroundObjectType_GiantTree,
     ForegroundObjectType_GiantShakingTree,
     ForegroundObjectType_GiantPerchTree,
     
     ForegroundObjectType_SpikeTower,
-    ForegroundObjectType_SpikeTowerBg,
-    
-    ForegroundObjectType_VerticalSaw
+    ForegroundObjectType_SpikeTowerBg
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -391,6 +393,12 @@ class SpikeWallEight : public RunningIntoDeathObject
 {
 public:
     SpikeWallEight(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
+};
+
+class SpikeStar : public DeadlyObject
+{
+public:
+    SpikeStar(int gridX, int gridY) : DeadlyObject(gridX, gridY, 14, 14, ForegroundObjectType_SpikeStar, GROUND_SOUND_NONE, 0, 0, 0.95f, 0.95f) {}
 };
 
 class VerticalSaw : public DeadlyObject
