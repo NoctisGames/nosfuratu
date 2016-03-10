@@ -14,6 +14,7 @@
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
+#include "RendererType.h"
 
 #include <memory>
 

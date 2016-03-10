@@ -43,8 +43,6 @@
 
 using namespace DirectX;
 
-std::vector<ID3D11ShaderResourceView *> g_shaderResourceViews;
-
 Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0)
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
@@ -119,7 +117,6 @@ GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName
 	MultiByteToWideChar(CP_ACP, 0, textureFileName, -1, wString, 4096);
 
 	ID3D11ShaderResourceView *pShaderResourceView;
-	g_shaderResourceViews.push_back(pShaderResourceView);
     
     TexMetadata info = TexMetadata();
     DX::ThrowIfFailed(GetMetadataFromDDSFile(wString, DDS_FLAGS_NONE, info));
@@ -127,11 +124,9 @@ GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName
     ScratchImage image;
     DX::ThrowIfFailed(LoadFromDDSFile(wString, DDS_FLAGS_NONE, &info, image));
     
-	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, &g_shaderResourceViews[m_iNumTexturesLoaded]));
+	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, &pShaderResourceView));
 
-	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(m_iNumTexturesLoaded);
-
-	m_iNumTexturesLoaded++;
+	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(pShaderResourceView);
 	
 	delete wString;
 	delete textureFileName;
@@ -143,7 +138,7 @@ GpuTextureWrapper* Direct3DRenderer::loadTexture(GpuTextureDataWrapper* textureD
 {
     UNUSED(repeatS);
 
-	return new GpuTextureWrapper(g_shaderResourceViews[textureData->resourceIndex]);
+	return new GpuTextureWrapper(textureData->texture);
 }
 
 void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float top)
@@ -172,5 +167,8 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 
 void Direct3DRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)
 {
-	textureWrapper.texture->Release();
+	if (textureWrapper.texture)
+	{
+		textureWrapper.texture->Release();
+	}
 }

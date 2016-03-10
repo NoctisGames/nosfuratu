@@ -43,19 +43,8 @@ void Level::enter(GameScreen* gs)
         
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
     }
-    
-    if (m_game->getLevel() == 21)
-    {
-        gs->m_renderer->init(RENDERER_TYPE_WORLD_1_END_BOSS);
-    }
-    else if (m_game->getLevel() == 10)
-    {
-        gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS);
-    }
-    else
-    {
-        gs->m_renderer->init(RENDERER_TYPE_WORLD_1);
-    }
+
+	gs->m_renderer->init(calcRendererTypeFromLevel(1, m_game->getLevel()));
     
     gs->m_renderer->beginOpeningPanningSequence(*m_game);
     EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);

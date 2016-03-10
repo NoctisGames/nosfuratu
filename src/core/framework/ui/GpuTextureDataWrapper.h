@@ -29,12 +29,12 @@ struct GpuTextureDataWrapper
         // Empty
     }
 #elif defined GGD_DIRECT_3D
-    int resourceIndex;
-    
-    GpuTextureDataWrapper(int resourceIndexIn) : resourceIndex(resourceIndexIn)
-    {
-        // Empty
-    }
+	ID3D11ShaderResourceView *texture;
+
+	GpuTextureDataWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
+	{
+		// Empty
+	}
 #endif
 };
 

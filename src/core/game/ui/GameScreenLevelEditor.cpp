@@ -212,44 +212,27 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     case LEVEL_SELECTOR_PANEL_RC_CONFIRM:
                     {
-                        int oldWorld = m_iWorld;
-                        int oldLevel = m_iLevel;
+						RendererType oldRendererType = calcRendererTypeFromLevel(m_iWorld, m_iLevel);
                         
                         m_iWorld = m_levelSelectorPanel->getWorld();
                         m_iLevel = m_levelSelectorPanel->getLevel();
+
+						RendererType newRendererType = calcRendererTypeFromLevel(m_iWorld, m_iLevel);
                         
                         m_game->setLevel((m_iWorld - 1) * 21 + m_iLevel);
-                        
-                        if (m_iWorld != oldWorld || m_iLevel != oldLevel)
+						m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
+
+                        if (oldRendererType != newRendererType)
                         {
                             m_game->reset();
-                            enter(gs);
-                            
-                            if (oldWorld == 1)
-                            {
-                                if (oldLevel == 10)
-                                {
-                                    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
-                                }
-                                else
-                                {
-                                    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
-                                }
-                            }
-                            
-                            if (m_iWorld == 1)
-                            {
-                                if (m_iLevel == 10)
-                                {
-                                    gs->m_renderer->load(RENDERER_TYPE_WORLD_1_MID_BOSS);
-                                }
-                                else
-                                {
-                                    gs->m_renderer->load(RENDERER_TYPE_WORLD_1);
-                                }
-                                
-                                m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
-                            }
+							if (!m_game->isLoaded())
+							{
+								load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
+							}
+							resetEntities(true);
+
+							gs->m_renderer->unload(oldRendererType);
+							gs->m_renderer->load(newRendererType);
                         }
                     }
                         break;
@@ -277,9 +260,12 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             {
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
+					resetEntities(true);
                     enter(gs);
 					return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT:
+					m_iWorld = 0;
+					m_iLevel = 0;
                     gs->m_stateMachine->revertToPreviousState();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LEVEL:

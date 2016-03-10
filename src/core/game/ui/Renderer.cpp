@@ -187,6 +187,8 @@ void Renderer::load(RendererType rendererType)
             loadWorld5();
             loadWorld5EndBoss();
             break;
+
+		case RENDERER_TYPE_NONE:
         default:
             break;
     }
@@ -265,6 +267,8 @@ void Renderer::unload(RendererType rendererType)
             unloadWorld5();
             unloadWorld5EndBoss();
             break;
+
+		case RENDERER_TYPE_NONE:
         default:
             break;
     }
@@ -290,7 +294,10 @@ void Renderer::beginFrame(float deltaTime)
     
     m_fStateTime += deltaTime;
     
-    handleAsyncTextureLoads();
+	if (m_iNumAsyncLoads > 0)
+	{
+		handleAsyncTextureLoads();
+	}
 }
 
 void Renderer::setFramebuffer(int framebufferIndex)
@@ -967,6 +974,24 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntit
         }
         m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
     }
+
+	{
+		static Color fontColor = Color(1, 1, 1, 1);
+		static float fgWidth = CAM_WIDTH / 24;
+		static float fgHeight = fgWidth * 1.140625f;
+
+		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+
+		std::stringstream ss;
+		ss << "World " << lsp->getWorld() << " / Level " << lsp->getLevel();
+		std::string text_string = ss.str();
+
+		// Render FPS
+
+		m_spriteBatcher->beginBatch();
+		m_font->renderText(*m_spriteBatcher, text_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+	}
 }
 
 void Renderer::renderLoading()

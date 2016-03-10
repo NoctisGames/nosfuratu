@@ -144,7 +144,11 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_foregroundObjects.push_back(new VerticalSaw(0));
         
-        if (level == 10)
+		if (level == 21)
+		{
+			// TODO
+		}
+		else if (level == 10)
         {
             m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));
             m_midBossForegroundObjects.push_back(new GiantPerchTree(0, 0));
