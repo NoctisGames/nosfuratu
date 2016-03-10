@@ -95,6 +95,12 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikeWallFour(gridX, gridY);
         case ForegroundObjectType_SpikeWallEight:
             return new SpikeWallEight(gridX, gridY);
+        
+        case ForegroundObjectType_SpikeStar:
+            return new SpikeStar(gridX, gridY);
+            
+        case ForegroundObjectType_VerticalSaw:
+            return new VerticalSaw(gridX);
             
         case ForegroundObjectType_GiantTree:
             return new GiantTree(gridX, gridY);
@@ -107,9 +113,6 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikeTower(gridX);
         case ForegroundObjectType_SpikeTowerBg:
             return new SpikeTowerBg(gridX);
-            
-        case ForegroundObjectType_VerticalSaw:
-            return new VerticalSaw(gridX);
     }
     
     assert(false);
