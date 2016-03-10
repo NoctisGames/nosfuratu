@@ -515,12 +515,6 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 
 void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
 {
-	if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
-	{
-		m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
-		m_draggingEntity->updateBounds();
-	}
-
 	m_draggingEntity = nullptr;
 	m_attachToEntity = nullptr;
 
