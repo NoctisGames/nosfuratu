@@ -96,35 +96,6 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
     return false;
 }
 
-bool ExitGround::isJonBlockedOnRight(Jon &jon, float deltaTime)
-{
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-    {
-        float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
-        float entityRight = jon.getMainBounds().getRight();
-        float entityXDelta = fabsf(entityVelocityX * deltaTime);
-        
-        float itemTop = getMainBounds().getTop();
-        float itemTopReq = itemTop * 0.99f;
-        
-        float itemLeft = getMainBounds().getLeft();
-        float padding = itemLeft * .01f;
-        padding += entityXDelta;
-        float itemLeftReq = itemLeft + padding;
-        
-        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
-        {
-            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
-            jon.updateBounds();
-            
-            return true;
-        }
-    }
-    
-    return false;
-}
-
 bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();

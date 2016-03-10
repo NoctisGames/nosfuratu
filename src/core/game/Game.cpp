@@ -202,7 +202,6 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
     }
     
     return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getExtraForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getBossForegroundObjects(), deltaTime);

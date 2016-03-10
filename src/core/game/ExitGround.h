@@ -34,8 +34,6 @@ public:
     
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
-    bool isJonBlockedOnRight(Jon& jon, float deltaTime);
-    
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
