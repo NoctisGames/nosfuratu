@@ -230,16 +230,21 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 
                         if (oldRendererType != newRendererType)
                         {
-                            m_game->reset();
-							if (!m_game->isLoaded())
-							{
-								load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
-							}
-							resetEntities(true);
-
-							gs->m_renderer->unload(oldRendererType);
+                            gs->m_renderer->unload(oldRendererType);
 							gs->m_renderer->load(newRendererType);
                         }
+                        
+                        m_game->reset();
+                        if (!m_game->isLoaded())
+                        {
+                            load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
+                        }
+                        
+                        resetEntities(true);
+                        
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
+                        gs->m_iRequestedAction += m_iWorld * 100;
+                        gs->m_iRequestedAction += m_iLevel;
                     }
                         break;
                     case LEVEL_SELECTOR_PANEL_RC_HANDLED:
@@ -274,9 +279,6 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 					m_iLevel = 0;
                     gs->m_stateMachine->revertToPreviousState();
                     return;
-                case LEVEL_EDITOR_ACTIONS_PANEL_RC_LEVEL:
-                    m_levelSelectorPanel->open();
-                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (isLevelValid)
                     {
@@ -286,10 +288,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD:
-                    resetEntities(true);
-                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
-                    gs->m_iRequestedAction += m_iWorld * 100;
-                    gs->m_iRequestedAction += m_iLevel;
+                    m_levelSelectorPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
                     if (isLevelValid)
