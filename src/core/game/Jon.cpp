@@ -178,7 +178,6 @@ void Jon::update(float deltaTime)
 	else if (m_game->isJonBlockedHorizontally(deltaTime))
 	{
 		m_velocity->setX((m_fMaxSpeed - 2.5f) * -1.0f);
-        m_acceleration->setX(0);
         
         if (isFalling() || m_iNumJumps > 0)
         {
