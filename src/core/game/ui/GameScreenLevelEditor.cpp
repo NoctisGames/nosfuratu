@@ -113,7 +113,11 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         int oldSum = m_game->calcSum();
         
         m_game->update(gs->m_fDeltaTime);
-        m_game->updateAndClean(gs->m_fDeltaTime);
+
+		if (m_game->getJons().size() >= 1)
+		{
+			m_game->updateAndClean(gs->m_fDeltaTime);
+		}
         
         if (m_game->getJons().size() > 1)
         {
@@ -151,7 +155,9 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
 
 void GameScreenLevelEditor::exit(GameScreen* gs)
 {
-    // TODO
+	m_draggingEntity = nullptr;
+	m_attachToEntity = nullptr;
+	m_lastAddedEntity = nullptr;
 }
 
 const char* GameScreenLevelEditor::save()
@@ -515,6 +521,20 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 
 void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
 {
+	if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
+	{
+		m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
+		m_draggingEntity->updateBounds();
+	}
+
+	m_draggingEntity = nullptr;
+	m_attachToEntity = nullptr;
+
+	if (clearLastAddedEntity)
+	{
+		m_lastAddedEntity = nullptr;
+	}
+
     m_gameEntities.clear();
     
     std::sort(m_game->getGrounds().begin(), m_game->getGrounds().end(), sortGrounds);
@@ -534,20 +554,6 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);
     
     m_game->calcFarRight();
-    
-    if (m_draggingEntity != nullptr && !m_isVerticalChangeAllowed)
-    {
-        m_draggingEntity->getPosition().setY(m_fDraggingEntityOriginalY);
-        m_draggingEntity->updateBounds();
-    }
-    
-    m_draggingEntity = nullptr;
-    m_attachToEntity = nullptr;
-    
-    if (clearLastAddedEntity)
-    {
-        m_lastAddedEntity = nullptr;
-    }
 }
 
 GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_iWorld(0), m_iLevel(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)

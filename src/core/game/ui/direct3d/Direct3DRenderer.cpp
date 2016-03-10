@@ -155,8 +155,10 @@ void Direct3DRenderer::clearFramebufferWithColor(float r, float g, float b, floa
 {
 	float color[] = { r, g, b, a };
 
-	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), color);
-	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(D3DManager->m_offscreenRenderTargetViews.at(m_iFramebufferIndex), color);
+	ID3D11RenderTargetView * targets[1] = {  };
+	m_deviceResources->GetD3DDeviceContext()->OMGetRenderTargets(1, targets, nullptr);
+
+	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(targets[0], color);
 }
 
 void Direct3DRenderer::bindToScreenFramebuffer()
