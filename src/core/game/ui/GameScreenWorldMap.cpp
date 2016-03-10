@@ -29,6 +29,26 @@ void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
+    
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_END_BOSS);
+    
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_END_BOSS);
+    
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_END_BOSS);
+    
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
 }
 
 void WorldMap::execute(GameScreen* gs)

@@ -286,11 +286,7 @@ bool Renderer::isLoaded()
 
 void Renderer::beginFrame(float deltaTime)
 {
-    clearFramebufferWithColor(0, 0, 0, 1);
-    
     setFramebuffer(0);
-    
-    clearFramebufferWithColor(0, 0, 0, 1);
     
     m_fStateTime += deltaTime;
     
@@ -304,6 +300,7 @@ void Renderer::setFramebuffer(int framebufferIndex)
 {
     m_iFramebufferIndex = framebufferIndex;
     bindToOffscreenFramebuffer(framebufferIndex);
+    clearFramebufferWithColor(0, 0, 0, 1);
 }
 
 void Renderer::beginOpeningPanningSequence(Game& game)
@@ -1054,6 +1051,8 @@ void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
     
     bindToScreenFramebuffer();
     
+    clearFramebufferWithColor(0, 0, 0, 1);
+    
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathInGpuProgramWrapper);
@@ -1066,6 +1065,8 @@ void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
     m_transDeathOutGpuProgramWrapper->configure(m_trans_death_shader_helper.gpuTextureWrapper, timeElapsed);
     
     bindToScreenFramebuffer();
+    
+    clearFramebufferWithColor(0, 0, 0, 1);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
@@ -1080,6 +1081,8 @@ void Renderer::renderToScreenTransition(float progress)
     
     bindToScreenFramebuffer();
     
+    clearFramebufferWithColor(0, 0, 0, 1);
+    
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transScreenGpuProgramWrapper);
@@ -1093,6 +1096,8 @@ void Renderer::renderToScreenWithRadialBlur()
     
     bindToScreenFramebuffer();
     
+    clearFramebufferWithColor(0, 0, 0, 1);
+    
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_framebufferRadialBlurGpuProgramWrapper);
@@ -1103,6 +1108,8 @@ void Renderer::renderToScreen()
 	/// Render everything to the screen
     
     bindToScreenFramebuffer();
+    
+    clearFramebufferWithColor(0, 0, 0, 1);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
