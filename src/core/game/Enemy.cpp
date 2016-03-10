@@ -340,7 +340,7 @@ void Toad::handleAlive(float deltaTime)
             {
                 m_hasSwallowedJon = true;
                 
-                jon.getPosition().set(getPosition());
+                jon.getPosition().set(getMainBounds().getLeft() + getMainBounds().getWidth() / 2, jon.getPosition().getY());
                 jon.updateBounds();
                 
                 if (!m_isJonVampire)
@@ -469,7 +469,7 @@ void Fox::handleAlive(float deltaTime)
     
     if (m_isHitting)
     {
-        if (m_fStateTime > 0.6f)
+        if (m_fStateTime > 0.55f)
         {
             m_velocity->setX(0);
             m_isHitting = false;
@@ -503,11 +503,15 @@ void Fox::handleAlive(float deltaTime)
         }
         else
         {
-            if (m_fStateTime > 0.50f)
+            if (m_fStateTime > 0.45f)
             {
                 m_fStateTime = 0;
                 m_isLeft = !m_isLeft;
-                m_velocity->setX(m_isLeft ? -2 : 2);
+                m_velocity->setX(m_isLeft ? -4.0f : 4.0f);
+            }
+            else if (m_fStateTime > 0.30f)
+            {
+                m_velocity->setX(0);
             }
         }
     }

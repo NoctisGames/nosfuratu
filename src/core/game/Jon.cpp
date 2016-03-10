@@ -749,12 +749,13 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
 
 void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
 {
-    jon->m_velocity->setX(3);
-    jon->m_acceleration->setX(0);
+    jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
+    jon->m_acceleration->setX(jon->m_fAccelerationX);
+    jon->m_fGravity = RABBIT_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
-    jon->setState(ACTION_JUMPING);
+    jon->setState(ACTION_DOUBLE_JUMPING);
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 1;
@@ -764,15 +765,16 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
 
 void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
-    jon->m_velocity->setX(3);
-    jon->m_acceleration->setX(fminf(jon->m_fAccelerationX - 7, jon->m_acceleration->getX()));
+    jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
+    jon->m_acceleration->setX(jon->m_fAccelerationX);
+    jon->m_fGravity = RABBIT_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
     jon->setState(ACTION_DOUBLE_JUMPING);
     jon->setState(ABILITY_NONE);
     
-    jon->m_iNumJumps = 2;
+    jon->m_iNumJumps = 1;
 }
 
 void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -945,6 +947,11 @@ void Jon::Vampire::exit(Jon* jon)
 
 void Jon::Vampire::triggerTransform(Jon* jon)
 {
+    if (jon->m_isConsumed)
+    {
+        return;
+    }
+    
 	jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
 }
 
@@ -1028,8 +1035,8 @@ void Jon::Vampire::triggerDownAction(Jon* jon)
 
 void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
 {
-    jon->m_velocity->setX(3);
-    jon->m_acceleration->setX(0);
+    jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
+    jon->m_acceleration->setX(jon->m_fAccelerationX);
 	jon->m_fGravity = VAMP_GRAVITY;
 	jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
@@ -1039,7 +1046,7 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
     jon->setState(ACTION_DOUBLE_JUMPING);
 	jon->setState(ABILITY_NONE);
     
-    jon->m_iNumJumps = 2;
+    jon->m_iNumJumps = 1;
     
     jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
     
@@ -1048,8 +1055,8 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
 
 void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
-    jon->m_velocity->setX(3);
-    jon->m_acceleration->setX(fminf(jon->m_fAccelerationX - 7, jon->m_acceleration->getX()));
+    jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
+    jon->m_acceleration->setX(jon->m_fAccelerationX);
     jon->m_fGravity = VAMP_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
@@ -1057,8 +1064,11 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     m_isFallingAfterGlide = false;
     
     jon->setState(ACTION_DOUBLE_JUMPING);
+    jon->setState(ABILITY_NONE);
     
-    jon->m_iNumJumps = 2;
+    jon->m_iNumJumps = 1;
+    
+    jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 }
 
 void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)

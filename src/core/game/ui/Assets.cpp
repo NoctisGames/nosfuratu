@@ -711,12 +711,12 @@ TextureRegion& Assets::get(Enemy* enemy)
             {
                 if (fox->isLeft())
                 {
-                    static Animation anim = createAnimation(3104, 516, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    static Animation anim = createAnimation(3104, 516, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.15f, 3);
                     return anim.getTextureRegion(enemy->getStateTime());
                 }
                 else
                 {
-                    static Animation anim = createAnimation(3104, 772, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                    static Animation anim = createAnimation(3104, 772, 256, 256, 768, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.15f, 3);
                     return anim.getTextureRegion(enemy->getStateTime());
                 }
             }
