@@ -5,6 +5,7 @@
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
 using namespace Windows::System::Profile;
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Notifications;
@@ -272,46 +273,58 @@ void NosFURatuMain::saveLevel(int requestedAction)
 {
 	m_iRequestedAction = requestedAction;
 
-	create_task(KnownFolders::PicturesLibrary->GetFolderAsync(L"nosfuratu-levels")).then([this](StorageFolder^ folder)
+	create_task(KnownFolders::PicturesLibrary->GetFoldersAsync()).then([this](IVectorView<StorageFolder^>^ folders)
 	{
-		if (folder == nullptr)
+		bool hasNosfuratuLevelsFolder = false;
+		std::for_each(begin(folders), end(folders), [&](StorageFolder^ value)
 		{
-			displayToast(L"Move the nosfuratu-levels repo to your Pictures folder and try again!");
+			if (value->Name->Equals(L"nosfuratu-levels"))
+			{
+				hasNosfuratuLevelsFolder = true;
+			}
+		});
+
+		if (hasNosfuratuLevelsFolder)
+		{
+			create_task(KnownFolders::PicturesLibrary->GetFolderAsync(L"nosfuratu-levels")).then([this](StorageFolder^ folder)
+			{
+				Platform::String^ filename = getLevelName(m_iRequestedAction);
+				create_task(folder->CreateFileAsync(filename, CreationCollisionOption::ReplaceExisting)).then([this](StorageFile^ file)
+				{
+					if (file != nullptr)
+					{
+						const char *level_json = GameScreenLevelEditor::getInstance()->save();
+						std::string s(level_json);
+						std::wstring ws;
+						ws.assign(s.begin(), s.end());
+						Platform::String^ levelJson = ref new Platform::String(ws.c_str());
+						if (levelJson != nullptr && !levelJson->IsEmpty())
+						{
+							create_task(FileIO::WriteTextAsync(file, levelJson)).then([this, file, levelJson](task<void> task)
+							{
+								try
+								{
+									task.get();
+
+									displayToast(L"Level saved successfully");
+								}
+								catch (Platform::COMException^ ex)
+								{
+									displayToast(L"Error occurred while saving level... Please try again!");
+								}
+							});
+						}
+						else
+						{
+							displayToast(L"Error occurred while saving level... Please try again!");
+						}
+					}
+				});
+			});
 		}
 		else
 		{
-			Platform::String^ filename = getLevelName(m_iRequestedAction);
-			create_task(folder->CreateFileAsync(filename, CreationCollisionOption::ReplaceExisting)).then([this](StorageFile^ file)
-			{
-				if (file != nullptr)
-				{
-					const char *level_json = GameScreenLevelEditor::getInstance()->save();
-					std::string s(level_json);
-					std::wstring ws;
-					ws.assign(s.begin(), s.end());
-					Platform::String^ levelJson = ref new Platform::String(ws.c_str());
-					if (levelJson != nullptr && !levelJson->IsEmpty())
-					{
-						create_task(FileIO::WriteTextAsync(file, levelJson)).then([this, file, levelJson](task<void> task)
-						{
-							try
-							{
-								task.get();
-
-								displayToast(L"Level saved successfully");
-							}
-							catch (Platform::COMException^ ex)
-							{
-								displayToast(L"Error occurred while saving level... Please try again!");
-							}
-						});
-					}
-					else
-					{
-						displayToast(L"Error occurred while saving level... Please try again!");
-					}
-				}
-			});
+			displayToast(L"Move the nosfuratu-levels repo to your Pictures folder and try again!");
 		}
 	});
 }
@@ -320,45 +333,57 @@ void NosFURatuMain::loadLevel(int requestedAction)
 {
 	m_iRequestedAction = requestedAction;
 
-	create_task(KnownFolders::PicturesLibrary->GetFolderAsync(L"nosfuratu-levels")).then([this](StorageFolder^ folder)
+	create_task(KnownFolders::PicturesLibrary->GetFoldersAsync()).then([this](IVectorView<StorageFolder^>^ folders)
 	{
-		if (folder == nullptr)
+		bool hasNosfuratuLevelsFolder = false;
+		std::for_each(begin(folders), end(folders), [&](StorageFolder^ value)
 		{
-			displayToast(L"Move the nosfuratu-levels repo to your Pictures folder and try again!");
-		}
-		else
-		{
-			Platform::String^ filename = getLevelName(m_iRequestedAction);
-			create_task(folder->CreateFileAsync(filename, CreationCollisionOption::OpenIfExists)).then([this](StorageFile^ file)
+			if (value->Name->Equals(L"nosfuratu-levels"))
 			{
-				if (file != nullptr)
-				{
-					create_task(FileIO::ReadTextAsync(file)).then([this, file](task<Platform::String^> task)
-					{
-						try
-						{
-							Platform::String^ fileContent = task.get();
-							if (fileContent != nullptr)
-							{
-								std::wstring fooW(fileContent->Begin());
-								std::string fooA(fooW.begin(), fooW.end());
-								const char *levelContent = fooA.c_str();
-								GameScreenLevelEditor::getInstance()->load(levelContent, m_gameScreen.get());
+				hasNosfuratuLevelsFolder = true;
+			}
+		});
 
-								displayToast(L"Level loaded successfully");
+		if (hasNosfuratuLevelsFolder)
+		{
+			create_task(KnownFolders::PicturesLibrary->GetFolderAsync(L"nosfuratu-levels")).then([this](StorageFolder^ folder)
+			{
+				Platform::String^ filename = getLevelName(m_iRequestedAction);
+				create_task(folder->CreateFileAsync(filename, CreationCollisionOption::OpenIfExists)).then([this](StorageFile^ file)
+				{
+					if (file != nullptr)
+					{
+						create_task(FileIO::ReadTextAsync(file)).then([this, file](task<Platform::String^> task)
+						{
+							try
+							{
+								Platform::String^ fileContent = task.get();
+								if (fileContent != nullptr)
+								{
+									std::wstring fooW(fileContent->Begin());
+									std::string fooA(fooW.begin(), fooW.end());
+									const char *levelContent = fooA.c_str();
+									GameScreenLevelEditor::getInstance()->load(levelContent, m_gameScreen.get());
+
+									displayToast(L"Level loaded successfully");
+								}
+								else
+								{
+									displayToast(L"Error occurred while loading level...");
+								}
 							}
-							else
+							catch (Platform::COMException^ ex)
 							{
 								displayToast(L"Error occurred while loading level...");
 							}
-						}
-						catch (Platform::COMException^ ex)
-						{
-							displayToast(L"Error occurred while loading level...");
-						}
-					});
-				}
+						});
+					}
+				});
 			});
+		}
+		else
+		{
+			displayToast(L"Move the nosfuratu-levels repo to your Pictures folder and try again!");
 		}
 	});
 }
