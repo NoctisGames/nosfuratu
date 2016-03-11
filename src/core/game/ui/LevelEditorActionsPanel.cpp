@@ -14,6 +14,7 @@
 LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(1), m_showBounds(false), m_isOpen(false)
 {
     m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.08968609865471f));
+    m_markerButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.68133034379671, width * 0.68990825688073f, height * 0.08968609865471f));
     m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.63901345291479f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_exitButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.5134529147982f, width * 0.68990825688073f, height * 0.08968609865471f));
     m_testButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.26233183856502f, width * 0.68990825688073f, height * 0.08968609865471f));
@@ -63,6 +64,10 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
                     }
                     
                     return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+                }
+                else if (OverlapTester::isPointInRectangle(touchPoint, *m_markerButton))
+                {
+                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER;
                 }
                 else if (OverlapTester::isPointInRectangle(touchPoint, *m_resetButton))
                 {

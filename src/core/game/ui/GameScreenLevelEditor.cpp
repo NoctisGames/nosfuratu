@@ -264,6 +264,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             
             switch (rc)
             {
+                case LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER:
+                    // TODO, place a marker on the screen to denote where to begin and end loops
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
 					resetEntities(true);
