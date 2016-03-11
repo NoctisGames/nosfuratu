@@ -256,7 +256,10 @@ private:
     void loadWorldMap();
     void loadLevelEditor();
     
+    void loadJon();
+    
     void loadWorld1();
+    void loadWorld1Special();
     void loadWorld1MidBoss();
     void loadWorld1EndBoss();
     
@@ -280,7 +283,10 @@ private:
     void unloadWorldMap();
     void unloadLevelEditor();
     
+    void unloadJon();
+    
     void unloadWorld1();
+    void unloadWorld1Special();
     void unloadWorld1MidBoss();
     void unloadWorld1EndBoss();
     

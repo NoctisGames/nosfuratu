@@ -90,17 +90,17 @@ TextureRegion& Assets::get(Midground* midground)
         }
         case MidgroundType_DeepCaveColumnSmall:
         {
-            static TextureRegion tr = createTextureRegion(2052, 1742, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3052, 1742, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnMedium:
         {
-            static TextureRegion tr = createTextureRegion(2884, 1198, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3884, 1198, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case MidgroundType_DeepCaveColumnBig:
         {
-            static TextureRegion tr = createTextureRegion(2310, 1198, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3310, 1198, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -348,12 +348,12 @@ TextureRegion& Assets::get(Hole* hole)
     {
         case HoleType_Grass:
         {
-            static TextureRegion tr = createTextureRegion(0, 0, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 2300, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case HoleType_Cave:
         {
-            static TextureRegion tr = createTextureRegion(0, 260, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 2560, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -504,49 +504,49 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_SpikeGrassSingle:
         {
-            static TextureRegion tr = createTextureRegion(2004, 2394, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1904, 1394, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassFour:
         {
-            static TextureRegion tr = createTextureRegion(2100, 2394, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2000, 1394, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassEight:
         {
-            static TextureRegion tr = createTextureRegion(2388, 2394, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2288, 1394, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveSingle:
         {
-            static TextureRegion tr = createTextureRegion(2004, 2602, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1904, 1602, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveFour:
         {
-            static TextureRegion tr = createTextureRegion(2100, 2602, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2000, 1602, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveEight:
         {
-            static TextureRegion tr = createTextureRegion(2388, 2602, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2288, 1602, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveCeilingSingle:
         {
-            static TextureRegion tr = createTextureRegion(2004, 2498, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1904, 1498, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingFour:
         {
-            static TextureRegion tr = createTextureRegion(2100, 2498, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2000, 1498, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingEight:
         {
-            static TextureRegion tr = createTextureRegion(2388, 2498, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2288, 1498, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -574,7 +574,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_VerticalSaw:
         {
-            static Animation anim = createAnimation(178, 2400, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
+            static Animation anim = createAnimation(1178, 1400, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
             return anim.getTextureRegion(foregroundObject->getStateTime());
         }
             
@@ -754,12 +754,12 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
     {
         case CollectibleItemType_Carrot:
         {
-            static Animation anim = createAnimation(2004, 2842, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
+            static Animation anim = createAnimation(1904, 1842, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
             return anim.getTextureRegion(collectibleItem->getStateTime());
         }
         case CollectibleItemType_GoldenCarrot:
         {
-            static Animation anim = createAnimation(2004, 2710, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+            static Animation anim = createAnimation(1904, 1710, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
             return anim.getTextureRegion(collectibleItem->getStateTime());
         }
     }
