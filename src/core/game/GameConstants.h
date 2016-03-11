@@ -9,6 +9,13 @@
 #ifndef GAME_CONSTANTS_H
 #define GAME_CONSTANTS_H
 
+//// VERSION ////
+
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 3
+#define VERSION_BUILD 0
+#define VERSION_REVISION 2
+
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
