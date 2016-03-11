@@ -40,6 +40,8 @@ namespace NosFURatu
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
 
+		int m_iRequestedAction;
+
 		void Update();
 		bool Render();
 
