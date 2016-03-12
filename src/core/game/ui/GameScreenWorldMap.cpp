@@ -258,7 +258,20 @@ void WorldMap::loadUserSaveData(const char* json)
         
         bool isComplete = m_worldLevelCompletions.at(worldIndex)->m_levelCompletions.at(levelIndex);
         
-        (*j)->setVisible(true);
+        bool isPreviousLevelComplete = false;
+        if (worldIndex == 0 && levelIndex == 0)
+        {
+            isPreviousLevelComplete = true;
+        }
+        else
+        {
+            int previousLevelIndex = levelIndex == 0 ? 21 : levelIndex - 1;
+            int previousWorldIndex = levelIndex == 0 ? worldIndex - 1 : worldIndex;
+            
+            isPreviousLevelComplete = m_worldLevelCompletions.at(previousWorldIndex)->m_levelCompletions.at(previousLevelIndex);
+        }
+        
+        (*j)->setVisible(isComplete || isPreviousLevelComplete);
         (*j)->setCompleted(isComplete);
     }
 }

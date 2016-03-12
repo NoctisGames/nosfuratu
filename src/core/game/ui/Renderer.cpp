@@ -593,9 +593,12 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
     for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = levelThumbnails.begin(); j != levelThumbnails.end(); j++)
     {
         LevelThumbnail* pLt = (*j).get();
-        LevelThumbnail& lt = *pLt;
-        
-        renderPhysicalEntity(lt, Assets::getInstance()->get(pLt));
+        if (pLt->isVisible())
+        {
+            LevelThumbnail& lt = *pLt;
+            
+            renderPhysicalEntity(lt, Assets::getInstance()->get(pLt));
+        }
     }
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
