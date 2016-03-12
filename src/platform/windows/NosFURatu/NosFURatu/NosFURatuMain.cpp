@@ -2,6 +2,10 @@
 #include "NosFURatuMain.h"
 #include "DirectXHelper.h"
 #include "GameScreenLevelEditor.h"
+#include "GameScreenWorldMap.h"
+#include "Game.h"
+
+#include <sstream>
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
@@ -168,6 +172,14 @@ void NosFURatuMain::Update()
 			break;
 		case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
 			loadLevel(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
+			break;
+		case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
+			sendLevelCompletions();
+			m_gameScreen->clearRequestedAction();
+			break;
+		case REQUESTED_ACTION_LEVEL_COMPLETED:
+			markLevelAsCompleted(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
 		default:
@@ -388,10 +400,66 @@ void NosFURatuMain::loadLevel(int requestedAction)
 	});
 }
 
+void NosFURatuMain::markLevelAsCompleted(int requestedAction)
+{
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+
+	//SaveData::setLevelComplete(world, level);
+
+	sendLevelCompletions();
+}
+
+void NosFURatuMain::sendLevelCompletions()
+{
+	std::stringstream ss;
+	ss << "{";
+
+	for (int i = 1; i <= 5; i++)
+	{
+		ss << "\"world_" << i << "\":[";
+		for (int j = 1; j <= 21; j++)
+		{
+			bool isLevelCompleted = false;//SaveData::isLevelComplete(i, j);
+
+			ss << "" << isLevelCompleted;
+			if (j < 21)
+			{
+				ss << ",";
+			}
+		}
+		ss << "]";
+		if (i < 5)
+		{
+			ss << ",";
+		}
+	}
+	ss << "}";
+
+	std::string userSaveData = ss.str();
+
+	WorldMap::getInstance()->loadUserSaveData(userSaveData.c_str());
+}
+
 Platform::String^ NosFURatuMain::getLevelName(int requestedAction)
 {
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+
+	if (world > 0 && level > 0)
+	{
+		return L"nosfuratu_c" + world + L"_l" + level + L".json";
+	}
+	else
+	{
+		return L"nosfuratu.json";
+	}
+}
+
+int NosFURatuMain::calcWorld(int requestedAction)
+{
 	int world = 0;
-	int level = 0;
+
 	while (requestedAction >= 1000)
 	{
 		requestedAction -= 1000;
@@ -403,20 +471,30 @@ Platform::String^ NosFURatuMain::getLevelName(int requestedAction)
 		world++;
 	}
 
+	return world;
+}
+
+int NosFURatuMain::calcLevel(int requestedAction)
+{
+	int level = 0;
+
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	while (requestedAction >= 100)
+	{
+		requestedAction -= 100;
+	}
+
 	while (requestedAction >= 1)
 	{
 		requestedAction--;
 		level++;
 	}
 
-	if (world > 0 && level > 0)
-	{
-		return L"nosfuratu_c" + world + L"_l" + level + L".json";
-	}
-	else
-	{
-		return L"nosfuratu.json";
-	}
+	return level;
 }
 
 void NosFURatuMain::displayToast(Platform::String^ message)
