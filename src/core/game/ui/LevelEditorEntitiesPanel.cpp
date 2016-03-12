@@ -165,7 +165,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));
             m_midBossForegroundObjects.push_back(new GiantPerchTree(0, 0));
         }
-        else
+        else if (level > 10)
         {
             m_foregroundObjects.push_back(new GiantTree(0, 0));
         }
