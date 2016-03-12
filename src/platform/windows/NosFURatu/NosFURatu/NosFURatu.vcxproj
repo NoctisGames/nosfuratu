@@ -1816,6 +1816,7 @@
     <ClInclude Include="DirectXPage.xaml.h">
       <DependentUpon>DirectXPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="SaveData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
@@ -1908,6 +1909,7 @@
     <ClCompile Include="DirectXPage.xaml.cpp">
       <DependentUpon>DirectXPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="SaveData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

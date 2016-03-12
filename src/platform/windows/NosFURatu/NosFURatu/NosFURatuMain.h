@@ -4,7 +4,6 @@
 #include "DeviceResources.h"
 #include "Direct3DGameScreen.h"
 
-// Renders Direct2D and 3D content on the screen.
 namespace NosFURatu
 {
 	class NosFURatuMain : public DX::IDeviceNotify

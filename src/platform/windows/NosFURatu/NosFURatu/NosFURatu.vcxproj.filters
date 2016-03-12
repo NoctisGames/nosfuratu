@@ -114,6 +114,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level10.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\TitlePanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\WorldMapPanel.cpp" />
+    <ClCompile Include="SaveData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -217,33 +218,10 @@
     <ClInclude Include="..\..\..\..\core\framework\ui\GpuTextureWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\TitlePanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\WorldMapPanel.h" />
+    <ClInclude Include="SaveData.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_level_editor.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_title_screen.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_map_screen.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_4.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_4.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_map_screen.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\level_editor.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\title_screen.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -447,6 +425,30 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_title_screen.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_4.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_map_screen.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\title_screen.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_4.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
+#include "SaveData.h"
 
 #include <sstream>
 
@@ -405,7 +406,7 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
 
-	//SaveData::setLevelComplete(world, level);
+	SaveData::setLevelComplete(world, level);
 
 	sendLevelCompletions();
 }
@@ -420,7 +421,7 @@ void NosFURatuMain::sendLevelCompletions()
 		ss << "\"world_" << i << "\":[";
 		for (int j = 1; j <= 21; j++)
 		{
-			bool isLevelCompleted = false;//SaveData::isLevelComplete(i, j);
+			bool isLevelCompleted = SaveData::isLevelComplete(i, j);
 
 			ss << "" << isLevelCompleted;
 			if (j < 21)
