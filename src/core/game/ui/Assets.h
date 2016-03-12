@@ -38,6 +38,7 @@ class EnemySpirit;
 class ForegroundObject;
 class TitlePanel;
 class WorldMapPanel;
+class LevelThumbnail;
 
 class Assets
 {
@@ -47,6 +48,8 @@ public:
     TextureRegion& get(TitlePanel* panel);
     
     TextureRegion& get(WorldMapPanel* panel);
+    
+    TextureRegion& get(LevelThumbnail* thumbnail);
     
     TextureRegion& get(Background* background);
     

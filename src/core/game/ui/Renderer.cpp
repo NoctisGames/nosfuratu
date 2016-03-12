@@ -34,6 +34,7 @@
 #include "CollectibleItem.h"
 #include "TitlePanel.h"
 #include "WorldMapPanel.h"
+#include "GameScreenWorldMap.h"
 
 #include <math.h>
 #include <sstream>
@@ -46,6 +47,7 @@ m_iNumAsyncLoads(0),
 m_iRadialBlurDirection(RADIAL_BLUR_DIRECTION_LEFT),
 m_compressed(Assets::getInstance()->isUsingCompressedTextureSet()),
 m_areShadersLoaded(false),
+m_stopCamera(false),
 m_transScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
@@ -493,7 +495,7 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
     }
     
     float farCamPos = getCamPosFarRight(game);
-    if (m_camBounds->getLowerLeft().getX() > farCamPos)
+    if (m_stopCamera && m_camBounds->getLowerLeft().getX() > farCamPos)
     {
         m_camBounds->getLowerLeft().setX(farCamPos);
     }
@@ -502,6 +504,11 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
 void Renderer::moveCamera(float x)
 {
     m_camBounds->getLowerLeft().add(x, 0);
+}
+
+void Renderer::stopCamera()
+{
+    m_stopCamera = true;
 }
 
 void Renderer::zoomOut()
@@ -573,20 +580,24 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(BackButton* backButton)
+void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, BackButton* backButton)
 {
+    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    {
+        return;
+    }
+    
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static float y = CAM_HEIGHT / 3;
-    static Color c = Color(0, 0.4f, 1, 0.9f);
-    
-    m_highlightRectangleBatcher->beginBatch();
-    for (int i = 0; i < 10; i++)
+    m_spriteBatcher->beginBatch();
+    for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = levelThumbnails.begin(); j != levelThumbnails.end(); j++)
     {
-        Rectangle r = Rectangle(0.25f + CAM_WIDTH / 11 * i, y, CAM_WIDTH / 12, CAM_HEIGHT / 3);
-        m_highlightRectangleBatcher->renderRectangle(r, c);
+        LevelThumbnail* pLt = (*j).get();
+        LevelThumbnail& lt = *pLt;
+        
+        renderPhysicalEntity(lt, Assets::getInstance()->get(pLt));
     }
-    m_highlightRectangleBatcher->endBatch();
+    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton));
@@ -896,6 +907,24 @@ void Renderer::renderHud(Game& game, BackButton* backButton, int fps)
 		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
+}
+
+void Renderer::renderMarkers(Game& game)
+{
+    static Color originMarkerColor = Color(0, 1, 0, 0.5f);
+    static Color endMarkerColor = Color(1, 0, 0, 0.5f);
+    
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
+    m_highlightRectangleBatcher->beginBatch();
+    
+    for (std::vector<Marker *>::iterator i = game.getMarkers().begin(); i != game.getMarkers().end(); i++)
+    {
+        Rectangle& marker = (*i)->getMainBounds();
+        m_highlightRectangleBatcher->renderRectangle(marker, (*i)->getType() == 0 ? originMarkerColor : endMarkerColor);
+    }
+    
+    m_highlightRectangleBatcher->endBatch();
 }
 
 void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp)

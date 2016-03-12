@@ -15,6 +15,8 @@
 #include "ForegroundObject.h"
 #include "TitlePanel.h"
 #include "WorldMapPanel.h"
+#include "GameScreenWorldMap.h"
+#include "Game.h"
 
 Assets * Assets::getInstance()
 {
@@ -37,6 +39,20 @@ TextureRegion& Assets::get(WorldMapPanel* panel)
 {
     static TextureRegion tr = TextureRegion(0, 1000, 994, 576, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
+}
+
+TextureRegion& Assets::get(LevelThumbnail* thumbnail)
+{
+    if (thumbnail->isCompleted())
+    {
+        static TextureRegion tr = TextureRegion(128, 0, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        return tr;
+    }
+    else
+    {
+        static TextureRegion tr = TextureRegion(0, 0, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        return tr;
+    }
 }
 
 TextureRegion& Assets::get(Background* background)

@@ -43,6 +43,7 @@ class TrashCan;
 class LevelSelectorPanel;
 class TitlePanel;
 class WorldMapPanel;
+class LevelThumbnail;
 
 struct Color;
 
@@ -81,6 +82,8 @@ public:
     
     void moveCamera(float x);
     
+    void stopCamera();
+    
     void zoomOut();
     
     void zoomIn();
@@ -91,7 +94,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(BackButton* backButton);
+    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, BackButton* backButton);
     
     void renderWorld(Game& game);
     
@@ -102,6 +105,8 @@ public:
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
     void renderHud(Game& game, BackButton* backButton, int fps);
+    
+    void renderMarkers(Game& game);
     
     void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp);
     
@@ -199,6 +204,7 @@ private:
     int m_iRadialBlurDirection;
     bool m_compressed;
     bool m_areShadersLoaded;
+    bool m_stopCamera;
     
     template<typename T>
     void renderPhysicalEntities(std::vector<T*>& items)

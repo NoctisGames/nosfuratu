@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "UIView+Toast.h"
+#import "SaveData.h"
 
 // Sound Engine
 #import "CMOpenALSoundManager.h"
@@ -16,6 +17,8 @@
 #include "IOSOpenGLESGameScreen.h"
 #include "GameConstants.h"
 #include "GameScreenLevelEditor.h"
+#include "GameScreenWorldMap.h"
+#include "Game.h"
 
 @interface GameViewController ()
 {
@@ -132,6 +135,14 @@
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
             [self loadLevel:gameScreen->getRequestedAction()];
+            gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
+            [self sendLevelCompletions];
+            gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_LEVEL_COMPLETED:
+            [self markLevelAsCompleted:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
         default:
@@ -262,10 +273,64 @@
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
 }
 
+- (void)markLevelAsCompleted:(int)requestedAction
+{
+    int world = [self calcWorld:requestedAction];
+    int level = [self calcLevel:requestedAction];
+    
+    [SaveData setLevelComplete:world level:level];
+    
+    [self sendLevelCompletions];
+}
+
+- (void)sendLevelCompletions
+{
+    NSString* userSaveData = @"{";
+    for (int i = 1; i <= 5; i++)
+    {
+        userSaveData = [userSaveData stringByAppendingFormat:@"\"world_%i\":[", i];
+        for (int j = 1; j <= 21; j++)
+        {
+            bool isLevelCompleted = [SaveData isLevelComplete:i level:j];
+            
+            userSaveData = [userSaveData stringByAppendingFormat:@"%i", isLevelCompleted];
+            if (j < 21)
+            {
+                userSaveData = [userSaveData stringByAppendingString:@","];
+            }
+        }
+        userSaveData = [userSaveData stringByAppendingString:@"]"];
+        if (i < 5)
+        {
+            userSaveData = [userSaveData stringByAppendingString:@","];
+        }
+    }
+    userSaveData = [userSaveData stringByAppendingString:@"}"];
+    
+    const char* userSaveDataCString = [userSaveData cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    WorldMap::getInstance()->loadUserSaveData(userSaveDataCString);
+}
+
 - (NSString *)getLevelName:(int)requestedAction
 {
+    int world = [self calcWorld:requestedAction];
+    int level = [self calcLevel:requestedAction];
+    
+    if (world > 0 && level > 0)
+    {
+        return [NSString stringWithFormat:@"nosfuratu_c%i_l%i.json", world, level];
+    }
+    else
+    {
+        return @"nosfuratu.json";
+    }
+}
+
+- (int)calcWorld:(int)requestedAction
+{
     int world = 0;
-    int level = 0;
+    
     while (requestedAction >= 1000)
     {
         requestedAction -= 1000;
@@ -277,20 +342,30 @@
         world++;
     }
     
+    return world;
+}
+
+- (int)calcLevel:(int)requestedAction
+{
+    int level = 0;
+    
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    while (requestedAction >= 100)
+    {
+        requestedAction -= 100;
+    }
+    
     while (requestedAction >= 1)
     {
         requestedAction--;
         level++;
     }
     
-    if (world > 0 && level > 0)
-    {
-        return [NSString stringWithFormat:@"nosfuratu_c%i_l%i.json", world, level];
-    }
-    else
-    {
-        return @"nosfuratu.json";
-    }
+    return level;
 }
 
 - (void)onResume

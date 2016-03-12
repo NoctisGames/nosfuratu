@@ -37,4 +37,20 @@ protected:
     int m_iGridHeight;
 };
 
+class Marker : public GridLockedPhysicalEntity
+{
+public:
+    static Marker* create(int gridX, int gridY, int type)
+    {
+        return new Marker(gridX, type);
+    }
+    
+    Marker(int gridX, int type) : GridLockedPhysicalEntity(gridX, 0, 1, 256), m_type(type) {}
+    
+    int getType() { return m_type; };
+    
+private:
+    int m_type;
+};
+
 #endif /* defined(__nosfuratu__GridLockedPhysicalEntity__) */

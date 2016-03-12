@@ -44,7 +44,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->setFramebuffer(1);
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getBackButton());
+        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getLevelThumbnails(), WorldMap::getInstance()->getBackButton());
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         

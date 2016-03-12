@@ -12,6 +12,9 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 
+#define worldKey "world"
+#define levelKey "level"
+
 #define midgroundsKey "midgrounds"
 #define groundsKey "grounds"
 #define pitsKey "pits"
@@ -23,22 +26,27 @@
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
 #define extraForegroundObjectsKey "extraForegroundObjects"
+#define markersKey "markers"
 
-Game::Game(int level) : m_fStateTime(0.0f), m_fFarRight(ZOOMED_OUT_CAM_WIDTH), m_fFarRightBottom(GAME_HEIGHT / 2), m_iNumTotalCarrots(0), m_iNumTotalGoldenCarrots(0), m_iLevel(level), m_isLoaded(false)
+Game::Game() :
+m_fStateTime(0.0f),
+m_fFarRight(ZOOMED_OUT_CAM_WIDTH),
+m_fFarRightBottom(GAME_HEIGHT / 2),
+m_iNumTotalCarrots(0),
+m_iNumTotalGoldenCarrots(0),
+m_iWorld(1),
+m_iLevel(1),
+m_isLoaded(false)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
-        m_backgroundMids.push_back(new Mid(i * CAM_WIDTH + CAM_WIDTH / 2));
-        m_backgroundLowers.push_back(new Lower(i * CAM_WIDTH + CAM_WIDTH / 2));
-        m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
-        m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
-    }
+    // Empty
 }
 
 void Game::copy(Game* game)
 {
     reset();
+    
+    m_iWorld = game->getWorld();
+    m_iLevel = game->getLevel();
     
     copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
@@ -52,6 +60,8 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getJons(), m_jons);
     copyPhysicalEntities(game->getExtraForegroundObjects(), m_extraForegroundObjects);
     
+    copyPhysicalEntities(game->getMarkers(), m_markers);
+    
     onLoaded();
 }
 
@@ -61,6 +71,17 @@ void Game::load(const char* json)
     
     rapidjson::Document d;
     d.Parse<0>(json);
+    
+    if (d.HasMember(worldKey) && d.HasMember(levelKey))
+    {
+        rapidjson::Value& world = d[worldKey];
+        assert(world.IsInt());
+        m_iWorld = d[worldKey].GetInt();
+        
+        rapidjson::Value& level = d[levelKey];
+        assert(level.IsInt());
+        m_iLevel = d[levelKey].GetInt();
+    }
     
     loadArray(m_midgrounds, d, midgroundsKey);
     loadArray(m_grounds, d, groundsKey);
@@ -73,6 +94,8 @@ void Game::load(const char* json)
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     loadArray(m_extraForegroundObjects, d, extraForegroundObjectsKey);
+    
+    loadArray(m_markers, d, markersKey);
     
     onLoaded();
 }
@@ -89,6 +112,11 @@ const char* Game::save()
     
     w.StartObject();
     
+    w.String(worldKey);
+    w.Int(m_iWorld);
+    w.String(levelKey);
+    w.Int(m_iLevel);
+    
     saveArray(m_midgrounds, w, midgroundsKey);
     saveArray(m_grounds, w, groundsKey);
     saveArray(m_pits, w, pitsKey);
@@ -101,6 +129,8 @@ const char* Game::save()
     saveArray(m_jons, w, jonsKey);
     saveArray(m_extraForegroundObjects, w, extraForegroundObjectsKey);
     
+    saveArray(m_markers, w, markersKey);
+    
     w.EndObject();
     
     return s.GetString();
@@ -108,6 +138,12 @@ const char* Game::save()
 
 void Game::reset()
 {
+    EntityUtils::cleanUpVectorOfPointers(m_backgroundUppers);
+    EntityUtils::cleanUpVectorOfPointers(m_backgroundMids);
+    EntityUtils::cleanUpVectorOfPointers(m_backgroundLowers);
+    EntityUtils::cleanUpVectorOfPointers(m_backgroundLowers);
+    EntityUtils::cleanUpVectorOfPointers(m_backgroundMidgroundCovers);
+    
     EntityUtils::cleanUpVectorOfPointers(m_midgrounds);
     EntityUtils::cleanUpVectorOfPointers(m_grounds);
     EntityUtils::cleanUpVectorOfPointers(m_pits);
@@ -119,6 +155,8 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
     EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    
+    EntityUtils::cleanUpVectorOfPointers(m_markers);
     
     m_fStateTime = 0;
     m_iNumTotalCarrots = 0;
@@ -144,6 +182,8 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     EntityUtils::updateAndClean(getExtraForegroundObjects(), deltaTime);
     
+    EntityUtils::updateAndClean(getMarkers(), deltaTime);
+    
 	if (getJons().size() >= 1)
 	{
 		getJon().update(deltaTime);
@@ -165,6 +205,8 @@ int Game::calcSum()
     sum += m_collectibleItems.size();
     sum += m_jons.size();
     sum += m_extraForegroundObjects.size();
+    
+    sum += m_markers.size();
     
     return sum;
 }
@@ -323,6 +365,11 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
     return m_extraForegroundObjects;
 }
 
+std::vector<Marker *>& Game::getMarkers()
+{
+    return m_markers;
+}
+
 void Game::setCameraBounds(Rectangle* cameraBounds)
 {
     m_cameraBounds = cameraBounds;
@@ -386,9 +433,9 @@ int Game::getNumRemainingGoldenCarrots()
     return numRemaining;
 }
 
-void Game::setLevel(int level)
+int Game::getWorld()
 {
-    m_iLevel = level;
+    return m_iWorld;
 }
 
 int Game::getLevel()
@@ -427,6 +474,18 @@ void Game::calcFarRight()
 
 void Game::onLoaded()
 {
+    if (m_iWorld == 1)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundMids.push_back(new Mid(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundLowers.push_back(new Lower(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
+        }
+    }
+    
     setGameToEntities(m_jons, this);
     setGameToEntities(m_enemies, this);
     setGameToEntities(m_foregroundObjects, this);
@@ -437,6 +496,8 @@ void Game::onLoaded()
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     
     calcFarRight();
+    
+    // TODO, calc looping sections
     
     m_isLoaded = true;
 }

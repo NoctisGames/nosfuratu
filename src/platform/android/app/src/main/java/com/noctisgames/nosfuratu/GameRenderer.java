@@ -22,9 +22,11 @@ public final class GameRenderer implements Renderer
     //// Requested Action Definitions ////
 
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save/Load actions are passed in this format: [1-2][1-5][0-20], where the first digit is the action, second is the world, third is the level
+    // Save, Load, and Completion actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
+    private static final short REQUESTED_ACTION_GET_LEVEL_COMPLETIONS = 3;
+    private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 4;
 
     //// Music Definitions ////
 
@@ -137,6 +139,14 @@ public final class GameRenderer implements Renderer
                 break;
             case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
                 loadLevel(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
+                sendLevelCompletions();
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_LEVEL_COMPLETED:
+                markLevelAsCompleted(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
             default:
@@ -308,10 +318,62 @@ public final class GameRenderer implements Renderer
         });
     }
 
+    private void markLevelAsCompleted(int requestedAction)
+    {
+        int world = calcWorld(requestedAction);
+        int level = calcLevel(requestedAction);
+
+        SaveData.setLevelComplete(world, level);
+
+        sendLevelCompletions();
+    }
+
+    private void sendLevelCompletions()
+    {
+        String userSaveData = "{";
+        for (int i = 1; i <= 5; i++)
+        {
+            userSaveData += "\"world_" + i + "\":[";
+            for (int j = 1; j <= 21; j++)
+            {
+                boolean isLevelCompleted = SaveData.isLevelComplete(i, j);
+
+                userSaveData += "" + isLevelCompleted;
+                if (j < 21)
+                {
+                    userSaveData += ",";
+                }
+            }
+            userSaveData += "]";
+            if (i < 5)
+            {
+                userSaveData += ",";
+            }
+        }
+        userSaveData += "}";
+
+        Game.load_user_save_data(userSaveData);
+    }
+
     private String getLevelName(int requestedAction)
     {
+        int world = calcWorld(requestedAction);
+        int level = calcLevel(requestedAction);
+
+        if (world > 0 && level > 0)
+        {
+            return String.format("nosfuratu_c%d_l%d.json", world, level);
+        }
+        else
+        {
+            return "nosfuratu.json";
+        }
+    }
+
+    private int calcWorld(int requestedAction)
+    {
         int world = 0;
-        int level = 0;
+
         while (requestedAction >= 1000)
         {
             requestedAction -= 1000;
@@ -323,19 +385,29 @@ public final class GameRenderer implements Renderer
             world++;
         }
 
+        return world;
+    }
+
+    private int calcLevel(int requestedAction)
+    {
+        int level = 0;
+
+        while (requestedAction >= 1000)
+        {
+            requestedAction -= 1000;
+        }
+
+        while (requestedAction >= 100)
+        {
+            requestedAction -= 100;
+        }
+
         while (requestedAction >= 1)
         {
             requestedAction--;
             level++;
         }
 
-        if (world > 0 && level > 0)
-        {
-            return String.format("nosfuratu_c%d_l%d.json", world, level);
-        }
-        else
-        {
-            return "nosfuratu.json";
-        }
+        return level;
     }
 }

@@ -19,9 +19,11 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
-// Save/Load actions are passed in this format: [1-2][1-5][0-20], where the first digit is the action, second is the world, third is the level
+// Save, Load, and Completion actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
+#define REQUESTED_ACTION_GET_LEVEL_COMPLETIONS 3
+#define REQUESTED_ACTION_LEVEL_COMPLETED 4
 
 //// Music Definitions ////
 

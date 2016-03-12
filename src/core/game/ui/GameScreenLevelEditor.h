@@ -66,6 +66,8 @@ private:
     
     void resetEntities(bool clearLastAddedEntity);
     
+    void loadIfNecessary(GameScreen* gs);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     GameScreenLevelEditor();
     GameScreenLevelEditor(const GameScreenLevelEditor&);

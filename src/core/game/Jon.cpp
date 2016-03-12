@@ -822,6 +822,11 @@ void Jon::Vampire::enter(Jon* jon)
 	jon->m_fGravity = VAMP_GRAVITY;
 	jon->m_acceleration->setY(VAMP_GRAVITY);
 	jon->m_abilityState = ABILITY_NONE;
+    
+    if (jon->m_iNumJumps == 2)
+    {
+        jon->m_iNumJumps = 1;
+    }
 }
 
 void Jon::Vampire::execute(Jon* jon)

@@ -13,13 +13,13 @@
 
 LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(1), m_showBounds(false), m_isOpen(false)
 {
-    m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_markerButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.68133034379671, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.63901345291479f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_exitButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.5134529147982f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_testButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.26233183856502f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_loadButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.1390134529148f, width * 0.68990825688073f, height * 0.08968609865471f));
-    m_saveButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.08968609865471f));
+    m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_markerButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.76382660687593f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_resetButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.57100149476831f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_exitButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.44544095665172f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_testButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.26158445440957f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_loadButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.13976083707025f, width * 0.68990825688073f, height * 0.09118086696562f));
+    m_saveButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.09118086696562f));
     m_openButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0, height * 0.49081920903955f, 1, 1));
     m_closeButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.83305227655987f, height * 0.49081920903955f, 1, 1));
 }

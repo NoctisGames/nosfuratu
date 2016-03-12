@@ -11,6 +11,8 @@
 #include "macros.h"
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenLevelEditor.h"
+#include "GameScreenWorldMap.h"
+#include "Game.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
 
@@ -50,6 +52,8 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pre
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1level(JNIEnv* env, jclass cls, jstring level_json);
 
 JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
+
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls)
@@ -200,4 +204,14 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *e
 	{
 		return false;
 	}
+}
+
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	const char *nativeJson = (env)->GetStringUTFChars(json, nullptr);
+
+	WorldMap::getInstance()->loadUserSaveData(nativeJson);
 }

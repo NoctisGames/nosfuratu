@@ -55,7 +55,7 @@ protected:
     bool handleTouchInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Level(int level = 1337, const char* m_json = nullptr);
+    Level(const char* m_json = nullptr);
     Level(const Level&);
     Level& operator=(const Level&);
 };
@@ -67,7 +67,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level1(const char* json) : Level(1, json) {};
+    Chapter1Level1(const char* json) : Level(json) {};
     Chapter1Level1(const Chapter1Level1&);
     Chapter1Level1& operator=(const Chapter1Level1&);
 };
@@ -79,7 +79,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level2(const char* json) : Level(2, json) {};
+    Chapter1Level2(const char* json) : Level(json) {};
     Chapter1Level2(const Chapter1Level2&);
     Chapter1Level2& operator=(const Chapter1Level2&);
 };
@@ -91,7 +91,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level3(const char* json) : Level(3, json) {};
+    Chapter1Level3(const char* json) : Level(json) {};
     Chapter1Level3(const Chapter1Level3&);
     Chapter1Level3& operator=(const Chapter1Level3&);
 };
@@ -103,7 +103,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level4(const char* json) : Level(4, json) {};
+    Chapter1Level4(const char* json) : Level(json) {};
     Chapter1Level4(const Chapter1Level4&);
     Chapter1Level4& operator=(const Chapter1Level4&);
 };
@@ -115,7 +115,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level5(const char* json) : Level(5, json) {};
+    Chapter1Level5(const char* json) : Level(json) {};
     Chapter1Level5(const Chapter1Level5&);
     Chapter1Level5& operator=(const Chapter1Level5&);
 };
@@ -127,7 +127,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level6(const char* json) : Level(6, json) {};
+    Chapter1Level6(const char* json) : Level(json) {};
     Chapter1Level6(const Chapter1Level6&);
     Chapter1Level6& operator=(const Chapter1Level6&);
 };
@@ -139,7 +139,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level7(const char* json) : Level(7, json) {};
+    Chapter1Level7(const char* json) : Level(json) {};
     Chapter1Level7(const Chapter1Level7&);
     Chapter1Level7& operator=(const Chapter1Level7&);
 };
@@ -151,7 +151,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level8(const char* json) : Level(8, json) {};
+    Chapter1Level8(const char* json) : Level(json) {};
     Chapter1Level8(const Chapter1Level8&);
     Chapter1Level8& operator=(const Chapter1Level8&);
 };
@@ -163,7 +163,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level9(const char* json) : Level(9, json) {};
+    Chapter1Level9(const char* json) : Level(json) {};
     Chapter1Level9(const Chapter1Level9&);
     Chapter1Level9& operator=(const Chapter1Level9&);
 };
@@ -175,7 +175,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level10(const char* json) : Level(10, json) {};
+    Chapter1Level10(const char* json) : Level(json) {};
     Chapter1Level10(const Chapter1Level10&);
     Chapter1Level10& operator=(const Chapter1Level10&);
 };

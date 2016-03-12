@@ -153,6 +153,8 @@
 		BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; };
+		BBBB6CF51C93649200DC92A7 /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBB6CF21C93649200DC92A7 /* AppPrefs.m */; };
+		BBBB6CF61C93649200DC92A7 /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBB6CF41C93649200DC92A7 /* SaveData.m */; };
 		BBBDCF8B1BD6E29000605805 /* Hole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBDCF891BD6E29000605805 /* Hole.cpp */; };
 		BBBDCF8F1BD6E2A200605805 /* HoleCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBDCF8D1BD6E2A200605805 /* HoleCover.cpp */; };
 		BBC7B87B1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */; };
@@ -465,6 +467,10 @@
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
 		BBB7A8791BBAD34400829FF6 /* DustCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DustCloud.h; sourceTree = "<group>"; };
+		BBBB6CF11C93649200DC92A7 /* AppPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPrefs.h; sourceTree = "<group>"; };
+		BBBB6CF21C93649200DC92A7 /* AppPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppPrefs.m; sourceTree = "<group>"; };
+		BBBB6CF31C93649200DC92A7 /* SaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveData.h; sourceTree = "<group>"; };
+		BBBB6CF41C93649200DC92A7 /* SaveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveData.m; sourceTree = "<group>"; };
 		BBBDCF891BD6E29000605805 /* Hole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hole.cpp; sourceTree = "<group>"; };
 		BBBDCF8A1BD6E29000605805 /* Hole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hole.h; sourceTree = "<group>"; };
 		BBBDCF8D1BD6E2A200605805 /* HoleCover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HoleCover.cpp; sourceTree = "<group>"; };
@@ -749,9 +755,13 @@
 			children = (
 				0ADF188A178E2185005DA99E /* AppDelegate.h */,
 				0ADF188B178E2185005DA99E /* AppDelegate.m */,
+				BBBB6CF11C93649200DC92A7 /* AppPrefs.h */,
+				BBBB6CF21C93649200DC92A7 /* AppPrefs.m */,
 				BB5C577919B9F87700AD76E7 /* GameViewController.h */,
 				BB5C577A19B9F87700AD76E7 /* GameViewController.mm */,
 				0A8FBF6D179DF3850039BA29 /* platform_asset_utils.m */,
+				BBBB6CF31C93649200DC92A7 /* SaveData.h */,
+				BBBB6CF41C93649200DC92A7 /* SaveData.m */,
 				BB66EC0D1C0E50F3006DE4F5 /* soundengine */,
 				0ADF1882178E2185005DA99E /* Supporting Files */,
 				BB66EC321C0E5A26006DE4F5 /* UIView+Toast.h */,
@@ -1651,6 +1661,7 @@
 				BB8E5E4C1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB8E5E481BC439B400520DFB /* SinWaveTextureProgram.cpp in Sources */,
 				BB66EC2E1C0E5892006DE4F5 /* CMOpenALSoundManager.m in Sources */,
+				BBBB6CF51C93649200DC92A7 /* AppPrefs.m in Sources */,
 				BB3D8CFB1B98F96D009D58DE /* Game.cpp in Sources */,
 				0A8FBF86179E07320039BA29 /* pngtrans.c in Sources */,
 				BBEA16A01B97B9BB009B4711 /* platform_file_utils.c in Sources */,
@@ -1670,6 +1681,7 @@
 				BBEA16B31B97B9BB009B4711 /* OpenGLESGameScreen.cpp in Sources */,
 				BB574F3A1C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */,
+				BBBB6CF61C93649200DC92A7 /* SaveData.m in Sources */,
 				0A8FBF88179E07320039BA29 /* pngwrite.c in Sources */,
 				0A8FBF89179E07320039BA29 /* pngwtran.c in Sources */,
 				0A8FBF8A179E07320039BA29 /* pngwutil.c in Sources */,

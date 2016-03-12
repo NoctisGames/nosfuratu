@@ -33,7 +33,7 @@
 class Game
 {
 public:
-    Game(int level);
+    Game();
     
     void copy(Game* game);
     
@@ -93,6 +93,8 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
+    std::vector<Marker *>& getMarkers();
+    
     void setCameraBounds(Rectangle* cameraBounds);
     
     Rectangle* getCameraBounds();
@@ -111,7 +113,7 @@ public:
     
     int getNumRemainingGoldenCarrots();
     
-    void setLevel(int level);
+    int getWorld();
     
     int getLevel();
     
@@ -135,6 +137,7 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
+    std::vector<Marker *> m_markers;
     Rectangle* m_cameraBounds;
     
     float m_fStateTime;
@@ -142,6 +145,7 @@ private:
     float m_fFarRightBottom;
     int m_iNumTotalCarrots;
     int m_iNumTotalGoldenCarrots;
+    int m_iWorld;
     int m_iLevel;
     bool m_isLoaded;
     
@@ -195,6 +199,7 @@ private:
         {
             Value& v = d[key];
             assert(v.IsArray());
+            
             for (SizeType i = 0; i < v.Size(); i++)
             {
                 items.push_back(deserialize<T>(v[i]));

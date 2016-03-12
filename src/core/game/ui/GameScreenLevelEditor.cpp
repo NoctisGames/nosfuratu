@@ -17,6 +17,8 @@
 
 #include <algorithm> // std::sort
 
+#include <sstream>
+
 bool sortGrounds(Ground* i, Ground* j)
 {
     return i->getType() < j->getType();
@@ -38,10 +40,7 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(Title::getInstance());
     
-    if (!m_game->isLoaded())
-    {
-        load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
-    }
+    loadIfNecessary(gs);
     
     gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
     gs->m_renderer->zoomOut();
@@ -83,6 +82,8 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         {
             gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
         }
+        
+        gs->m_renderer->renderMarkers(*m_game);
         
         gs->m_renderer->renderToScreen();
         
@@ -219,9 +220,6 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_iLevel = m_levelSelectorPanel->getLevel();
 
 						RendererType newRendererType = calcRendererTypeFromLevel(m_iWorld, m_iLevel);
-                        
-                        m_game->setLevel((m_iWorld - 1) * 21 + m_iLevel);
-						m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
 
                         if (oldRendererType != newRendererType)
                         {
@@ -229,11 +227,11 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 							gs->m_renderer->load(newRendererType);
                         }
                         
+                        m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
+                        
                         m_game->reset();
-                        if (!m_game->isLoaded())
-                        {
-                            load("{\"jons\":[{\"gridX\":200,\"gridY\":200}]}", gs);
-                        }
+                        
+                        loadIfNecessary(gs);
                         
                         resetEntities(true);
                         
@@ -265,7 +263,17 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             switch (rc)
             {
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER:
-                    // TODO, place a marker on the screen to denote where to begin and end loops
+                {
+                    int gridX = (gs->m_renderer->getCameraPosition().getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
+                    int type = 0; // begin loop
+                    if (m_game->getMarkers().size() == 1 || m_game->getMarkers().size() % 2 == 1)
+                    {
+                        type = 1; // end loop
+                    }
+                    Marker* m = Marker::create(gridX, 0, type);
+                    m_game->getMarkers().push_back(m);
+                    resetEntities(true);
+                }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
@@ -541,15 +549,28 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     EntityUtils::addAll(m_game->getExtraForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getMarkers(), m_gameEntities);
     
     std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);
     
     m_game->calcFarRight();
 }
 
+void GameScreenLevelEditor::loadIfNecessary(GameScreen* gs)
+{
+    if (!m_game->isLoaded())
+    {
+        std::stringstream ss;
+        ss << "{\"world\":" << m_iWorld << ",\"level\":" << m_iLevel << ", \"jons\":[{\"gridX\":200,\"gridY\":200}]}";
+        std::string jsonString = ss.str();
+        
+        load(jsonString.c_str(), gs);
+    }
+}
+
 GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_iWorld(0), m_iLevel(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
 {
-    m_game = std::unique_ptr<Game>(new Game(1337));
+    m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());
