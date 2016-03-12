@@ -383,12 +383,12 @@ TextureRegion& Assets::get(HoleCover* holeCover)
     {
         case HoleCoverType_Grass:
         {
-            static Animation anim = createAnimation(256, 0, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);
+            static Animation anim = createAnimation(256, 2300, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);
             return anim.getTextureRegion(holeCover->getStateTime());
         }
         case HoleCoverType_Cave:
         {
-            static Animation anim = createAnimation(272, 260, 272, 384, 2720, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            static Animation anim = createAnimation(272, 2560, 272, 384, 2720, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
             return anim.getTextureRegion(holeCover->getStateTime());
         }
     }
