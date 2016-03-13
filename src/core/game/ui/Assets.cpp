@@ -487,7 +487,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_ThornsRight:
         {
-            static TextureRegion tr = createTextureRegion(2196, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1588, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -770,7 +770,7 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
     {
         case CollectibleItemType_Carrot:
         {
-            static Animation anim = createAnimation(1904, 1348, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
+            static Animation anim = createAnimation(884, 1054, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
             return anim.getTextureRegion(collectibleItem->getStateTime());
         }
         case CollectibleItemType_GoldenCarrot:
