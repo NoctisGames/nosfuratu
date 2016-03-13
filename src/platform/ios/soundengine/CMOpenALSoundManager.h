@@ -59,7 +59,7 @@
 - (void) endInterruption;
 
 - (void) playBackgroundMusic:(NSString *)file;	//file is the filename to play (from your main bundle)
-- (void) playBackgroundMusic:(NSString *)file forcePlay:(BOOL)forcePlay; //if forcePlay is YES, iPod audio will be stopped.
+- (void) playBackgroundMusic:(NSString *)file forcePlay:(BOOL)forcePlay isLooping:(BOOL)looping; //if forcePlay is YES, iPod audio will be stopped.
 - (void) stopBackgroundMusic;
 - (void) pauseBackgroundMusic;
 - (void) resumeBackgroundMusic;

@@ -225,10 +225,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 // plays a file as the background audio...
 - (void) playBackgroundMusic:(NSString *)file
 {
-	[self playBackgroundMusic:file forcePlay:NO];
+	[self playBackgroundMusic:file forcePlay:NO isLooping:YES];
 }
 
-- (void) playBackgroundMusic:(NSString *)file forcePlay:(BOOL)forcePlay
+- (void) playBackgroundMusic:(NSString *)file forcePlay:(BOOL)forcePlay isLooping:(BOOL)looping
 {		
 	if(forcePlay)	//if we want to kill other audio sources, like the iPod...
 	{
@@ -265,7 +265,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 	}	
 	
 	self.currentBackgroundAudioFile = file;
-	[player setNumberOfLoops:-1]; //loop forever
+    [player setNumberOfLoops:looping ? -1 : 1];
 	player.volume = backgroundMusicVolume;
 	[player play];		
 	

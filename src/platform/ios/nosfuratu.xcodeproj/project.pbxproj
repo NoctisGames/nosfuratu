@@ -82,6 +82,7 @@
 		BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */; };
 		BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */; };
 		BB4495711C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */; };
+		BB4B94F41C95C0590096D14A /* world_1_bgm_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB4B94F31C95C0590096D14A /* world_1_bgm_intro.wav */; };
 		BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB574F361C59231500926A9B /* trans_out_death_shader.fsh */; };
 		BB574F3A1C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB574F381C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp */; };
@@ -120,7 +121,7 @@
 		BB8E5E481BC439B400520DFB /* SinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */; };
 		BB8E5E4C1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */; };
 		BB8E5E501BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4E1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp */; };
-		BB939CD51C626E41006D945A /* bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C801C626E41006D945A /* bgm.wav */; };
+		BB939CD51C626E41006D945A /* world_1_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C801C626E41006D945A /* world_1_bgm.wav */; };
 		BB939CD71C626E41006D945A /* cancel_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C821C626E41006D945A /* cancel_transform.wav */; };
 		BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C831C626E41006D945A /* collect_carrot.wav */; };
 		BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C841C626E41006D945A /* collect_golden_carrot.wav */; };
@@ -368,6 +369,7 @@
 		BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferTintGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB4495701C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferTintGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BB4B94F31C95C0590096D14A /* world_1_bgm_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = world_1_bgm_intro.wav; sourceTree = "<group>"; };
 		BB4CB3591B9B3620001093FE /* Ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
 		BB4CB35A1B9B3620001093FE /* Ground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ground.h; sourceTree = "<group>"; };
 		BB574F361C59231500926A9B /* trans_out_death_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_out_death_shader.fsh; sourceTree = "<group>"; };
@@ -427,7 +429,7 @@
 		BB8E5E4E1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinWaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB8E5E4F1BC43DF300520DFB /* SinWaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinWaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB900C3D1C252A40001DA002 /* GroundSoundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroundSoundType.h; sourceTree = "<group>"; };
-		BB939C801C626E41006D945A /* bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bgm.wav; sourceTree = "<group>"; };
+		BB939C801C626E41006D945A /* world_1_bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = world_1_bgm.wav; sourceTree = "<group>"; };
 		BB939C821C626E41006D945A /* cancel_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cancel_transform.wav; sourceTree = "<group>"; };
 		BB939C831C626E41006D945A /* collect_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_carrot.wav; sourceTree = "<group>"; };
 		BB939C841C626E41006D945A /* collect_golden_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_golden_carrot.wav; sourceTree = "<group>"; };
@@ -841,7 +843,6 @@
 		BB939C7F1C626E41006D945A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				BB939C801C626E41006D945A /* bgm.wav */,
 				BB939C821C626E41006D945A /* cancel_transform.wav */,
 				BB939C831C626E41006D945A /* collect_carrot.wav */,
 				BB939C841C626E41006D945A /* collect_golden_carrot.wav */,
@@ -873,6 +874,8 @@
 				BB3652331C87CB82004B9CCD /* toad_eat.wav */,
 				BB939C951C626E41006D945A /* trigger_transform.wav */,
 				BB939C961C626E41006D945A /* vampire_glide_loop.wav */,
+				BB939C801C626E41006D945A /* world_1_bgm.wav */,
+				BB4B94F31C95C0590096D14A /* world_1_bgm_intro.wav */,
 			);
 			path = sounds;
 			sourceTree = "<group>";
@@ -1491,6 +1494,7 @@
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
 				BB3652351C87CB82004B9CCD /* toad_eat.wav in Resources */,
 				BB939CDE1C626E41006D945A /* footstep_left_grass.wav in Resources */,
+				BB4B94F41C95C0590096D14A /* world_1_bgm_intro.wav in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB5C891E1C8E411F00820366 /* world_1_mid_boss_part_1.png in Resources */,
 				BB5C89171C8DBEEB00820366 /* fox_strike.wav in Resources */,
@@ -1536,7 +1540,7 @@
 				BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */,
 				0ADF1898178E2185005DA99E /* MainStoryboard_iPad.storyboard in Resources */,
 				BBC7B87B1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */,
-				BB939CD51C626E41006D945A /* bgm.wav in Resources */,
+				BB939CD51C626E41006D945A /* world_1_bgm.wav in Resources */,
 				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB939CE31C626E41006D945A /* jon_vampire_double_jump.wav in Resources */,
 				BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */,

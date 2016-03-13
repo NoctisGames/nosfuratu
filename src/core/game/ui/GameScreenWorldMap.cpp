@@ -322,11 +322,11 @@ WorldMap::WorldMap() : m_iLevelToLoad(0)
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(1.0f, 7.0f, 1, 1)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 7.0f, 1, 2)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 7.0f, 1, 3)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 7.0f, 1, 4)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 7.0f, 1, 5)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(1.0f, 5.0f, 1, 6)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 5.0f, 1, 7)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 5.0f, 1, 8)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 5.0f, 1, 9)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 5.0f, 1, 10)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 7.0f, 1, 4)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 7.0f, 1, 5)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(1.0f, 5.0f, 1, 6)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 5.0f, 1, 7)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 5.0f, 1, 8)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 5.0f, 1, 9)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 5.0f, 1, 10)));
 }

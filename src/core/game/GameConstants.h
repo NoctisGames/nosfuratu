@@ -29,7 +29,8 @@
 
 #define MUSIC_STOP 1
 #define MUSIC_RESUME 2
-#define MUSIC_PLAY_DEMO 3
+#define MUSIC_PLAY_INTRO_WORLD_1 3
+#define MUSIC_PLAY_WORLD_1_LOOP 4
 
 //// Sound Definitions ////
 
