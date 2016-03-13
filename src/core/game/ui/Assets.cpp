@@ -487,7 +487,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_ThornsRight:
         {
-            static TextureRegion tr = createTextureRegion(1588, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1764, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
