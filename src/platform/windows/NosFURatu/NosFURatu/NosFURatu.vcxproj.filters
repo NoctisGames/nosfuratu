@@ -296,9 +296,6 @@
     <Media Include="..\..\..\..\..\assets\sounds\vampire_glide_loop.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
     <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
       <Filter>Assets</Filter>
     </Media>
@@ -345,6 +342,12 @@
       <Filter>Assets</Filter>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\toad_eat.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm_intro.wav">
       <Filter>Assets</Filter>
     </Media>
   </ItemGroup>
