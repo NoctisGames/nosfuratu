@@ -676,7 +676,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 
 void Jon::Rabbit::triggerLeftAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 31)
+    if (jon->m_game->getWorld() < 2 || jon->m_game->getLevel() < 10)
     {
         return;
     }
@@ -686,7 +686,7 @@ void Jon::Rabbit::triggerLeftAction(Jon* jon)
 
 void Jon::Rabbit::triggerRightAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 52)
+    if (jon->m_game->getWorld() < 3 || jon->m_game->getLevel() < 10)
     {
         return;
     }
@@ -703,7 +703,7 @@ void Jon::Rabbit::triggerRightAction(Jon* jon)
 
 void Jon::Rabbit::triggerUpAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 73)
+    if (jon->m_game->getWorld() < 4 || jon->m_game->getLevel() < 10)
     {
         return;
     }
@@ -713,7 +713,7 @@ void Jon::Rabbit::triggerUpAction(Jon* jon)
 
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 10)
+    if (jon->m_game->getWorld() < 1 || jon->m_game->getLevel() < 10)
     {
         return;
     }
@@ -999,7 +999,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 void Jon::Vampire::triggerLeftAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 22)
+    if (jon->m_game->getWorld() < 2)
     {
         return;
     }
@@ -1009,7 +1009,7 @@ void Jon::Vampire::triggerLeftAction(Jon* jon)
 
 void Jon::Vampire::triggerRightAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 22)
+    if (jon->m_game->getWorld() < 2)
     {
         return;
     }
@@ -1019,7 +1019,7 @@ void Jon::Vampire::triggerRightAction(Jon* jon)
 
 void Jon::Vampire::triggerUpAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 22)
+    if (jon->m_game->getWorld() < 2)
     {
         return;
     }
@@ -1029,7 +1029,7 @@ void Jon::Vampire::triggerUpAction(Jon* jon)
 
 void Jon::Vampire::triggerDownAction(Jon* jon)
 {
-    if (jon->m_game->getLevel() < 22)
+    if (jon->m_game->getWorld() < 2)
     {
         return;
     }
