@@ -14,6 +14,9 @@
 
 typedef enum
 {
+    HoleType_GrassTileLeft,
+    HoleType_GrassTileCenter,
+    HoleType_GrassTileRight,
     HoleType_Grass,
     HoleType_Cave
 } HoleType;
@@ -23,7 +26,7 @@ class Hole : public GridLockedPhysicalEntity
 public:
     static Hole* create(int gridX, int gridY, int type);
     
-    Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type);
+    Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type, HoleCoverType holeCoverType);
     
     virtual void update(float deltaTime);
     
@@ -40,16 +43,34 @@ private:
     HoleType m_type;
 };
 
+class HoleGrassTileLeft : public Hole
+{
+public:
+    HoleGrassTileLeft(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileLeft, HoleCoverType_GrassTileLeft) {}
+};
+
+class HoleGrassTileCenter : public Hole
+{
+public:
+    HoleGrassTileCenter(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileCenter, HoleCoverType_GrassTileCenter) {}
+};
+
+class HoleGrassTileRight : public Hole
+{
+public:
+    HoleGrassTileRight(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileRight, HoleCoverType_GrassTileRight) {}
+};
+
 class HoleGrass : public Hole
 {
 public:
-    HoleGrass(int gridX) : Hole(gridX, 80, 16, 16, HoleType_Grass) {}
+    HoleGrass(int gridX) : Hole(gridX, 80, 16, 16, HoleType_Grass, HoleCoverType_Grass) {}
 };
 
 class HoleCave : public Hole
 {
 public:
-    HoleCave(int gridX) : Hole(gridX, 32, 17, 24, HoleType_Cave) {}
+    HoleCave(int gridX) : Hole(gridX, 32, 17, 24, HoleType_Cave, HoleCoverType_Cave) {}
 };
 
 #endif /* defined(__nosfuratu__Hole__) */

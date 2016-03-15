@@ -100,6 +100,9 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             
             m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0));
             
+            m_holes.push_back(new HoleGrassTileLeft(0));
+            m_holes.push_back(new HoleGrassTileCenter(0));
+            m_holes.push_back(new HoleGrassTileRight(0));
             m_holes.push_back(new HoleGrass(0));
             m_holes.push_back(new HoleCave(0));
         }

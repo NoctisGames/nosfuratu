@@ -13,6 +13,12 @@ Hole* Hole::create(int gridX, int gridY, int type)
 {
     switch ((HoleType)type)
     {
+        case HoleType_GrassTileLeft:
+            return new HoleGrassTileLeft(gridX);
+        case HoleType_GrassTileCenter:
+            return new HoleGrassTileCenter(gridX);
+        case HoleType_GrassTileRight:
+            return new HoleGrassTileRight(gridX);
         case HoleType_Grass:
             return new HoleGrass(gridX);
         case HoleType_Cave:
@@ -22,9 +28,9 @@ Hole* Hole::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-Hole::Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, 0, 0, 1, 2), m_holeCover(nullptr), m_type(type)
+Hole::Hole(int gridX, int gridY, int gridWidth, int gridHeight, HoleType type, HoleCoverType holeCoverType) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, 0, 0, 1, 1.1f), m_holeCover(nullptr), m_type(type)
 {
-    m_holeCover = new HoleCover(m_position->getX(), m_position->getY(), m_fWidth, m_fHeight, type == HoleType_Grass ? HoleCoverType_Grass : HoleCoverType_Cave);
+    m_holeCover = new HoleCover(m_position->getX(), m_position->getY(), m_fWidth, m_fHeight, holeCoverType);
 }
 
 void Hole::update(float deltaTime)

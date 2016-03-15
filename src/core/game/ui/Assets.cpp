@@ -362,6 +362,21 @@ TextureRegion& Assets::get(Hole* hole)
 {
     switch (hole->getType())
     {
+        case HoleType_GrassTileLeft:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1400, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case HoleType_GrassTileCenter:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1772, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case HoleType_GrassTileRight:
+        {
+            static TextureRegion tr = createTextureRegion(0, 2144, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
         case HoleType_Grass:
         {
             static TextureRegion tr = createTextureRegion(0, 2528, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -381,6 +396,21 @@ TextureRegion& Assets::get(HoleCover* holeCover)
 {
     switch (holeCover->getType())
     {
+        case HoleCoverType_GrassTileLeft:
+        {
+            static Animation anim = createAnimation(256, 1400, 256, 368, 2560, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            return anim.getTextureRegion(holeCover->getStateTime());
+        }
+        case HoleCoverType_GrassTileCenter:
+        {
+            static Animation anim = createAnimation(256, 1772, 256, 368, 2560, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            return anim.getTextureRegion(holeCover->getStateTime());
+        }
+        case HoleCoverType_GrassTileRight:
+        {
+            static Animation anim = createAnimation(256, 2144, 256, 368, 2560, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+            return anim.getTextureRegion(holeCover->getStateTime());
+        }
         case HoleCoverType_Grass:
         {
             static Animation anim = createAnimation(256, 2528, 256, 256, 3072, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);

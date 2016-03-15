@@ -13,6 +13,9 @@
 
 typedef enum
 {
+    HoleCoverType_GrassTileLeft,
+    HoleCoverType_GrassTileCenter,
+    HoleCoverType_GrassTileRight,
     HoleCoverType_Grass,
     HoleCoverType_Cave
 } HoleCoverType;

@@ -138,18 +138,22 @@ public:
     template<typename T>
     static bool isBurrowingThroughHole(Jon& jon, std::vector<T>& items)
     {
+        bool ret = false;
         if (jon.getVelocity().getY() <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                 {
-                    return (*i)->triggerBurrow(jon.getAcceleration().getY());
+                    if ((*i)->triggerBurrow(jon.getAcceleration().getY()))
+                    {
+                        ret = true;
+                    }
                 }
             }
         }
         
-        return false;
+        return ret;
     }
     
     template<typename T>
