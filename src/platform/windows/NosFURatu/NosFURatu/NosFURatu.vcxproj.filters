@@ -115,6 +115,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\TitlePanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\WorldMapPanel.cpp" />
     <ClCompile Include="SaveData.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level21.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
