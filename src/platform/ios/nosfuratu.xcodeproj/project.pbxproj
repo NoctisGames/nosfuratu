@@ -160,6 +160,7 @@
 		BBBDCF8F1BD6E2A200605805 /* HoleCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBBDCF8D1BD6E2A200605805 /* HoleCover.cpp */; };
 		BBC7B87B1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */; };
 		BBC7B87F1BC32E0300140BCA /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */; };
+		BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */; };
 		BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */; };
 		BBD3869F1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */; };
 		BBDB22D61C6659BF002DDA61 /* LevelEditorButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDB22D41C6659BF002DDA61 /* LevelEditorButton.cpp */; };
@@ -508,6 +509,7 @@
 		BBC7B87E1BC32E0300140BCA /* TrashCan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashCan.h; sourceTree = "<group>"; };
 		BBCA207A1C90A8280081DCC3 /* GpuTextureDataWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpuTextureDataWrapper.h; sourceTree = "<group>"; };
 		BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
+		BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level21.cpp; sourceTree = "<group>"; };
 		BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_radial_blue_texture_shader.fsh; sourceTree = "<group>"; };
 		BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBD3869E1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.h; sourceTree = "<group>"; };
@@ -1258,6 +1260,7 @@
 				BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */,
 				BBE68ACD1BBF051E00C56FEA /* BackButton.h */,
 				BB5C89271C8E49A700820366 /* Chapter1Level10.cpp */,
+				BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */,
 				BBEA16571B97B9BB009B4711 /* direct3d */,
 				BB646DE71C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.cpp */,
 				BB646DE81C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.h */,
@@ -1626,6 +1629,7 @@
 				BBEA169B1B97B9BB009B4711 /* OpenGLESLineBatcher.cpp in Sources */,
 				BBEA16781B97B9BB009B4711 /* Triangle.cpp in Sources */,
 				BBDB22D61C6659BF002DDA61 /* LevelEditorButton.cpp in Sources */,
+				BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */,
 				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* CollectibleItem.cpp in Sources */,
 				BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,

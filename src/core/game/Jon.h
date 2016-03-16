@@ -299,11 +299,11 @@ private:
         virtual void triggerTransform(Jon* jon) {}
         virtual void triggerCancelTransform(Jon* jon);
         
-        virtual void triggerJump(Jon* jon) {}
-        virtual void triggerLeftAction(Jon* jon) {}
-        virtual void triggerRightAction(Jon* jon) {}
-        virtual void triggerUpAction(Jon* jon) {}
-        virtual void triggerDownAction(Jon* jon) {}
+        virtual void triggerJump(Jon* jon);
+        virtual void triggerLeftAction(Jon* jon);
+        virtual void triggerRightAction(Jon* jon);
+        virtual void triggerUpAction(Jon* jon);
+        virtual void triggerDownAction(Jon* jon);
         
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
@@ -331,11 +331,11 @@ private:
         virtual void triggerTransform(Jon* jon) {}
         virtual void triggerCancelTransform(Jon* jon);
         
-        virtual void triggerJump(Jon* jon) {}
-        virtual void triggerLeftAction(Jon* jon) {}
-        virtual void triggerRightAction(Jon* jon) {}
-        virtual void triggerUpAction(Jon* jon) {}
-        virtual void triggerDownAction(Jon* jon) {}
+        virtual void triggerJump(Jon* jon);
+        virtual void triggerLeftAction(Jon* jon);
+        virtual void triggerRightAction(Jon* jon);
+        virtual void triggerUpAction(Jon* jon);
+        virtual void triggerDownAction(Jon* jon);
         
         virtual void triggerBoost(Jon* jon, float boostVelocity);
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);

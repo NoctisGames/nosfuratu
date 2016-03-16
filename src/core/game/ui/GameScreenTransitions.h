@@ -68,11 +68,14 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    void setWorldToLoad(int worldToLoad);
+    
     void setLevelToLoad(int levelToLoad);
     
 private:
     Level* m_levelState;
     float m_fTransitionStateTime;
+    int m_iWorldToLoad;
     int m_iLevelToLoad;
     
     // ctor, copy ctor, and assignment should be private in a Singleton

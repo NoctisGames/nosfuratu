@@ -162,37 +162,367 @@ void WorldMapToLevel::enter(GameScreen* gs)
 {
     m_fTransitionStateTime = 0;
     
-    switch (m_iLevelToLoad)
+    switch (m_iWorldToLoad)
     {
         case 1:
-            m_levelState = Chapter1Level1::getInstance();
+        {
+            switch (m_iLevelToLoad)
+            {
+                case 1:
+                    m_levelState = Chapter1Level1::getInstance();
+                    break;
+                case 2:
+                    m_levelState = Chapter1Level2::getInstance();
+                    break;
+                case 3:
+                    m_levelState = Chapter1Level3::getInstance();
+                    break;
+                case 4:
+                    m_levelState = Chapter1Level4::getInstance();
+                    break;
+                case 5:
+                    m_levelState = Chapter1Level5::getInstance();
+                    break;
+                case 6:
+                    m_levelState = Chapter1Level6::getInstance();
+                    break;
+                case 7:
+                    m_levelState = Chapter1Level7::getInstance();
+                    break;
+                case 8:
+                    m_levelState = Chapter1Level8::getInstance();
+                    break;
+                case 9:
+                    m_levelState = Chapter1Level9::getInstance();
+                    break;
+                case 10:
+                    m_levelState = Chapter1Level10::getInstance();
+                    break;
+                case 11:
+                    m_levelState = Chapter1Level11::getInstance();
+                    break;
+                case 12:
+                    m_levelState = Chapter1Level12::getInstance();
+                    break;
+                case 13:
+                    m_levelState = Chapter1Level13::getInstance();
+                    break;
+                case 14:
+                    m_levelState = Chapter1Level14::getInstance();
+                    break;
+                case 15:
+                    m_levelState = Chapter1Level15::getInstance();
+                    break;
+                case 16:
+                    m_levelState = Chapter1Level16::getInstance();
+                    break;
+                case 17:
+                    m_levelState = Chapter1Level17::getInstance();
+                    break;
+                case 18:
+                    m_levelState = Chapter1Level18::getInstance();
+                    break;
+                case 19:
+                    m_levelState = Chapter1Level19::getInstance();
+                    break;
+                case 20:
+                    m_levelState = Chapter1Level20::getInstance();
+                    break;
+                case 21:
+                    m_levelState = Chapter1Level21::getInstance();
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         case 2:
-            m_levelState = Chapter1Level2::getInstance();
+        {
+            switch (m_iLevelToLoad)
+            {
+                case 1:
+                    m_levelState = Chapter1Level1::getInstance();
+                    break;
+                case 2:
+                    m_levelState = Chapter1Level2::getInstance();
+                    break;
+                case 3:
+                    m_levelState = Chapter1Level3::getInstance();
+                    break;
+                case 4:
+                    m_levelState = Chapter1Level4::getInstance();
+                    break;
+                case 5:
+                    m_levelState = Chapter1Level5::getInstance();
+                    break;
+                case 6:
+                    m_levelState = Chapter1Level6::getInstance();
+                    break;
+                case 7:
+                    m_levelState = Chapter1Level7::getInstance();
+                    break;
+                case 8:
+                    m_levelState = Chapter1Level8::getInstance();
+                    break;
+                case 9:
+                    m_levelState = Chapter1Level9::getInstance();
+                    break;
+                case 10:
+                    m_levelState = Chapter1Level10::getInstance();
+                    break;
+                case 11:
+                    m_levelState = Chapter1Level11::getInstance();
+                    break;
+                case 12:
+                    m_levelState = Chapter1Level12::getInstance();
+                    break;
+                case 13:
+                    m_levelState = Chapter1Level13::getInstance();
+                    break;
+                case 14:
+                    m_levelState = Chapter1Level14::getInstance();
+                    break;
+                case 15:
+                    m_levelState = Chapter1Level15::getInstance();
+                    break;
+                case 16:
+                    m_levelState = Chapter1Level16::getInstance();
+                    break;
+                case 17:
+                    m_levelState = Chapter1Level17::getInstance();
+                    break;
+                case 18:
+                    m_levelState = Chapter1Level18::getInstance();
+                    break;
+                case 19:
+                    m_levelState = Chapter1Level19::getInstance();
+                    break;
+                case 20:
+                    m_levelState = Chapter1Level20::getInstance();
+                    break;
+                case 21:
+                    m_levelState = Chapter1Level21::getInstance();
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         case 3:
-            m_levelState = Chapter1Level3::getInstance();
+        {
+            switch (m_iLevelToLoad)
+            {
+                case 1:
+                    m_levelState = Chapter1Level1::getInstance();
+                    break;
+                case 2:
+                    m_levelState = Chapter1Level2::getInstance();
+                    break;
+                case 3:
+                    m_levelState = Chapter1Level3::getInstance();
+                    break;
+                case 4:
+                    m_levelState = Chapter1Level4::getInstance();
+                    break;
+                case 5:
+                    m_levelState = Chapter1Level5::getInstance();
+                    break;
+                case 6:
+                    m_levelState = Chapter1Level6::getInstance();
+                    break;
+                case 7:
+                    m_levelState = Chapter1Level7::getInstance();
+                    break;
+                case 8:
+                    m_levelState = Chapter1Level8::getInstance();
+                    break;
+                case 9:
+                    m_levelState = Chapter1Level9::getInstance();
+                    break;
+                case 10:
+                    m_levelState = Chapter1Level10::getInstance();
+                    break;
+                case 11:
+                    m_levelState = Chapter1Level11::getInstance();
+                    break;
+                case 12:
+                    m_levelState = Chapter1Level12::getInstance();
+                    break;
+                case 13:
+                    m_levelState = Chapter1Level13::getInstance();
+                    break;
+                case 14:
+                    m_levelState = Chapter1Level14::getInstance();
+                    break;
+                case 15:
+                    m_levelState = Chapter1Level15::getInstance();
+                    break;
+                case 16:
+                    m_levelState = Chapter1Level16::getInstance();
+                    break;
+                case 17:
+                    m_levelState = Chapter1Level17::getInstance();
+                    break;
+                case 18:
+                    m_levelState = Chapter1Level18::getInstance();
+                    break;
+                case 19:
+                    m_levelState = Chapter1Level19::getInstance();
+                    break;
+                case 20:
+                    m_levelState = Chapter1Level20::getInstance();
+                    break;
+                case 21:
+                    m_levelState = Chapter1Level21::getInstance();
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         case 4:
-            m_levelState = Chapter1Level4::getInstance();
+        {
+            switch (m_iLevelToLoad)
+            {
+                case 1:
+                    m_levelState = Chapter1Level1::getInstance();
+                    break;
+                case 2:
+                    m_levelState = Chapter1Level2::getInstance();
+                    break;
+                case 3:
+                    m_levelState = Chapter1Level3::getInstance();
+                    break;
+                case 4:
+                    m_levelState = Chapter1Level4::getInstance();
+                    break;
+                case 5:
+                    m_levelState = Chapter1Level5::getInstance();
+                    break;
+                case 6:
+                    m_levelState = Chapter1Level6::getInstance();
+                    break;
+                case 7:
+                    m_levelState = Chapter1Level7::getInstance();
+                    break;
+                case 8:
+                    m_levelState = Chapter1Level8::getInstance();
+                    break;
+                case 9:
+                    m_levelState = Chapter1Level9::getInstance();
+                    break;
+                case 10:
+                    m_levelState = Chapter1Level10::getInstance();
+                    break;
+                case 11:
+                    m_levelState = Chapter1Level11::getInstance();
+                    break;
+                case 12:
+                    m_levelState = Chapter1Level12::getInstance();
+                    break;
+                case 13:
+                    m_levelState = Chapter1Level13::getInstance();
+                    break;
+                case 14:
+                    m_levelState = Chapter1Level14::getInstance();
+                    break;
+                case 15:
+                    m_levelState = Chapter1Level15::getInstance();
+                    break;
+                case 16:
+                    m_levelState = Chapter1Level16::getInstance();
+                    break;
+                case 17:
+                    m_levelState = Chapter1Level17::getInstance();
+                    break;
+                case 18:
+                    m_levelState = Chapter1Level18::getInstance();
+                    break;
+                case 19:
+                    m_levelState = Chapter1Level19::getInstance();
+                    break;
+                case 20:
+                    m_levelState = Chapter1Level20::getInstance();
+                    break;
+                case 21:
+                    m_levelState = Chapter1Level21::getInstance();
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         case 5:
-            m_levelState = Chapter1Level5::getInstance();
-            break;
-        case 6:
-            m_levelState = Chapter1Level6::getInstance();
-            break;
-        case 7:
-            m_levelState = Chapter1Level7::getInstance();
-            break;
-        case 8:
-            m_levelState = Chapter1Level8::getInstance();
-            break;
-        case 9:
-            m_levelState = Chapter1Level9::getInstance();
-            break;
-        case 10:
-            m_levelState = Chapter1Level10::getInstance();
+        {
+            switch (m_iLevelToLoad)
+            {
+                case 1:
+                    m_levelState = Chapter1Level1::getInstance();
+                    break;
+                case 2:
+                    m_levelState = Chapter1Level2::getInstance();
+                    break;
+                case 3:
+                    m_levelState = Chapter1Level3::getInstance();
+                    break;
+                case 4:
+                    m_levelState = Chapter1Level4::getInstance();
+                    break;
+                case 5:
+                    m_levelState = Chapter1Level5::getInstance();
+                    break;
+                case 6:
+                    m_levelState = Chapter1Level6::getInstance();
+                    break;
+                case 7:
+                    m_levelState = Chapter1Level7::getInstance();
+                    break;
+                case 8:
+                    m_levelState = Chapter1Level8::getInstance();
+                    break;
+                case 9:
+                    m_levelState = Chapter1Level9::getInstance();
+                    break;
+                case 10:
+                    m_levelState = Chapter1Level10::getInstance();
+                    break;
+                case 11:
+                    m_levelState = Chapter1Level11::getInstance();
+                    break;
+                case 12:
+                    m_levelState = Chapter1Level12::getInstance();
+                    break;
+                case 13:
+                    m_levelState = Chapter1Level13::getInstance();
+                    break;
+                case 14:
+                    m_levelState = Chapter1Level14::getInstance();
+                    break;
+                case 15:
+                    m_levelState = Chapter1Level15::getInstance();
+                    break;
+                case 16:
+                    m_levelState = Chapter1Level16::getInstance();
+                    break;
+                case 17:
+                    m_levelState = Chapter1Level17::getInstance();
+                    break;
+                case 18:
+                    m_levelState = Chapter1Level18::getInstance();
+                    break;
+                case 19:
+                    m_levelState = Chapter1Level19::getInstance();
+                    break;
+                case 20:
+                    m_levelState = Chapter1Level20::getInstance();
+                    break;
+                case 21:
+                    m_levelState = Chapter1Level21::getInstance();
+                    break;
+                default:
+                    break;
+            }
+        }
             break;
         default:
             break;
@@ -248,7 +578,13 @@ void WorldMapToLevel::exit(GameScreen* gs)
 {
     m_levelState = nullptr;
     m_fTransitionStateTime = 0;
+    m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
+}
+
+void WorldMapToLevel::setWorldToLoad(int worldToLoad)
+{
+    m_iWorldToLoad = worldToLoad;
 }
 
 void WorldMapToLevel::setLevelToLoad(int levelToLoad)
@@ -256,7 +592,7 @@ void WorldMapToLevel::setLevelToLoad(int levelToLoad)
     m_iLevelToLoad = levelToLoad;
 }
 
-WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fTransitionStateTime(0), m_iLevelToLoad(0)
+WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fTransitionStateTime(0), m_iWorldToLoad(0), m_iLevelToLoad(0)
 {
     // Empty
 }

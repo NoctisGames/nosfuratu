@@ -81,7 +81,7 @@ private:
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelCompletions;
     std::vector<std::unique_ptr<LevelThumbnail>> m_levelThumbnails;
     std::unique_ptr<BackButton> m_backButton;
-    int m_iLevelToLoad;
+    bool m_isReadyForTransition;
     
     void loadUserSaveData(rapidjson::Document& d, const char * key);
     

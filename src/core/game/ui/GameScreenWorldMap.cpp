@@ -16,116 +16,6 @@
 #include "GameScreenTransitions.h"
 #include "GameScreenTitle.h"
 
-#define world_1_level_1_name "A Picnic Cut Short"
-#define world_1_level_2_name "Insert Level Name Here"
-#define world_1_level_3_name "Insert Level Name Here"
-#define world_1_level_4_name "Insert Level Name Here"
-#define world_1_level_5_name "Insert Level Name Here"
-#define world_1_level_6_name "Insert Level Name Here"
-#define world_1_level_7_name "Insert Level Name Here"
-#define world_1_level_8_name "Insert Level Name Here"
-#define world_1_level_9_name "Insert Level Name Here"
-#define world_1_level_10_name "Insert Level Name Here"
-#define world_1_level_11_name "Insert Level Name Here"
-#define world_1_level_12_name "Insert Level Name Here"
-#define world_1_level_13_name "Insert Level Name Here"
-#define world_1_level_14_name "Insert Level Name Here"
-#define world_1_level_15_name "Insert Level Name Here"
-#define world_1_level_16_name "Insert Level Name Here"
-#define world_1_level_17_name "Insert Level Name Here"
-#define world_1_level_18_name "Insert Level Name Here"
-#define world_1_level_19_name "Insert Level Name Here"
-#define world_1_level_20_name "Insert Level Name Here"
-#define world_1_level_21_name "Insert Level Name Here"
-
-#define world_2_level_1_name "Insert Level Name Here"
-#define world_2_level_2_name "Insert Level Name Here"
-#define world_2_level_3_name "Insert Level Name Here"
-#define world_2_level_4_name "Insert Level Name Here"
-#define world_2_level_5_name "Insert Level Name Here"
-#define world_2_level_6_name "Insert Level Name Here"
-#define world_2_level_7_name "Insert Level Name Here"
-#define world_2_level_8_name "Insert Level Name Here"
-#define world_2_level_9_name "Insert Level Name Here"
-#define world_2_level_10_name "Insert Level Name Here"
-#define world_2_level_11_name "Insert Level Name Here"
-#define world_2_level_12_name "Insert Level Name Here"
-#define world_2_level_13_name "Insert Level Name Here"
-#define world_2_level_14_name "Insert Level Name Here"
-#define world_2_level_15_name "Insert Level Name Here"
-#define world_2_level_16_name "Insert Level Name Here"
-#define world_2_level_17_name "Insert Level Name Here"
-#define world_2_level_18_name "Insert Level Name Here"
-#define world_2_level_19_name "Insert Level Name Here"
-#define world_2_level_20_name "Insert Level Name Here"
-#define world_2_level_21_name "Insert Level Name Here"
-
-#define world_3_level_1_name "Insert Level Name Here"
-#define world_3_level_2_name "Insert Level Name Here"
-#define world_3_level_3_name "Insert Level Name Here"
-#define world_3_level_4_name "Insert Level Name Here"
-#define world_3_level_5_name "Insert Level Name Here"
-#define world_3_level_6_name "Insert Level Name Here"
-#define world_3_level_7_name "Insert Level Name Here"
-#define world_3_level_8_name "Insert Level Name Here"
-#define world_3_level_9_name "Insert Level Name Here"
-#define world_3_level_10_name "Insert Level Name Here"
-#define world_3_level_11_name "Insert Level Name Here"
-#define world_3_level_12_name "Insert Level Name Here"
-#define world_3_level_13_name "Insert Level Name Here"
-#define world_3_level_14_name "Insert Level Name Here"
-#define world_3_level_15_name "Insert Level Name Here"
-#define world_3_level_16_name "Insert Level Name Here"
-#define world_3_level_17_name "Insert Level Name Here"
-#define world_3_level_18_name "Insert Level Name Here"
-#define world_3_level_19_name "Insert Level Name Here"
-#define world_3_level_20_name "Insert Level Name Here"
-#define world_3_level_21_name "Insert Level Name Here"
-
-#define world_4_level_1_name "Insert Level Name Here"
-#define world_4_level_2_name "Insert Level Name Here"
-#define world_4_level_3_name "Insert Level Name Here"
-#define world_4_level_4_name "Insert Level Name Here"
-#define world_4_level_5_name "Insert Level Name Here"
-#define world_4_level_6_name "Insert Level Name Here"
-#define world_4_level_7_name "Insert Level Name Here"
-#define world_4_level_8_name "Insert Level Name Here"
-#define world_4_level_9_name "Insert Level Name Here"
-#define world_4_level_10_name "Insert Level Name Here"
-#define world_4_level_11_name "Insert Level Name Here"
-#define world_4_level_12_name "Insert Level Name Here"
-#define world_4_level_13_name "Insert Level Name Here"
-#define world_4_level_14_name "Insert Level Name Here"
-#define world_4_level_15_name "Insert Level Name Here"
-#define world_4_level_16_name "Insert Level Name Here"
-#define world_4_level_17_name "Insert Level Name Here"
-#define world_4_level_18_name "Insert Level Name Here"
-#define world_4_level_19_name "Insert Level Name Here"
-#define world_4_level_20_name "Insert Level Name Here"
-#define world_4_level_21_name "Insert Level Name Here"
-
-#define world_5_level_1_name "Insert Level Name Here"
-#define world_5_level_2_name "Insert Level Name Here"
-#define world_5_level_3_name "Insert Level Name Here"
-#define world_5_level_4_name "Insert Level Name Here"
-#define world_5_level_5_name "Insert Level Name Here"
-#define world_5_level_6_name "Insert Level Name Here"
-#define world_5_level_7_name "Insert Level Name Here"
-#define world_5_level_8_name "Insert Level Name Here"
-#define world_5_level_9_name "Insert Level Name Here"
-#define world_5_level_10_name "Insert Level Name Here"
-#define world_5_level_11_name "Insert Level Name Here"
-#define world_5_level_12_name "Insert Level Name Here"
-#define world_5_level_13_name "Insert Level Name Here"
-#define world_5_level_14_name "Insert Level Name Here"
-#define world_5_level_15_name "Insert Level Name Here"
-#define world_5_level_16_name "Insert Level Name Here"
-#define world_5_level_17_name "Insert Level Name Here"
-#define world_5_level_18_name "Insert Level Name Here"
-#define world_5_level_19_name "Insert Level Name Here"
-#define world_5_level_20_name "Insert Level Name Here"
-#define world_5_level_21_name "Insert Level Name Here"
-
 /// World Map ///
 
 WorldMap * WorldMap::getInstance()
@@ -193,9 +83,8 @@ void WorldMap::execute(GameScreen* gs)
             return;
         }
         
-        if (m_iLevelToLoad > 0)
+        if (m_isReadyForTransition)
         {
-            WorldMapToLevel::getInstance()->setLevelToLoad(m_iLevelToLoad);
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
         }
         
@@ -222,7 +111,13 @@ void WorldMap::execute(GameScreen* gs)
                         {
                             if ((*j)->isVisible() && OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
                             {
-                                m_iLevelToLoad = (*j)->getLevel();
+                                int worldToLoad = (*j)->getWorld();
+                                int levelToLoad = (*j)->getLevel();
+                                
+                                WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
+                                WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
+                                
+                                m_isReadyForTransition = true;
                             }
                         }
                     }
@@ -235,7 +130,7 @@ void WorldMap::execute(GameScreen* gs)
 
 void WorldMap::exit(GameScreen* gs)
 {
-    m_iLevelToLoad = 0;
+    m_isReadyForTransition = false;
 }
 
 void WorldMap::loadUserSaveData(const char* json)
@@ -271,7 +166,7 @@ void WorldMap::loadUserSaveData(const char* json)
             isPreviousLevelComplete = m_worldLevelCompletions.at(previousWorldIndex)->m_levelCompletions.at(previousLevelIndex);
         }
         
-        (*j)->setVisible(isComplete || isPreviousLevelComplete);
+        (*j)->setVisible(isPreviousLevelComplete);
         (*j)->setCompleted(isComplete);
     }
 }
@@ -314,19 +209,33 @@ void WorldMap::loadUserSaveData(rapidjson::Document& d, const char * key)
     }
 }
 
-WorldMap::WorldMap() : m_iLevelToLoad(0)
+WorldMap::WorldMap() : m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
     
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(1.0f, 7.0f, 1, 1)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 7.0f, 1, 2)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 7.0f, 1, 3)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 7.0f, 1, 4)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 7.0f, 1, 5)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(1.0f, 5.0f, 1, 6)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 5.0f, 1, 7)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 5.0f, 1, 8)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(10.0f, 5.0f, 1, 9)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(13.0f, 5.0f, 1, 10)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 7.8f, 1, 1)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 7.8f, 1, 2)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 7.8f, 1, 3)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 7.8f, 1, 4)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 7.8f, 1, 5)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 7.8f, 1, 6)));
+    
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 6.3f, 1, 7)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 6.3f, 1, 8)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 6.3f, 1, 9)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 6.3f, 1, 10)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 6.3f, 1, 11)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 6.3f, 1, 12)));
+    
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 4.8f, 1, 13)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 4.8f, 1, 14)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 4.8f, 1, 15)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 4.8f, 1, 16)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 4.8f, 1, 17)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 4.8f, 1, 18)));
+    
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 3.3f, 1, 19)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(8.0f, 3.3f, 1, 20)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 3.3f, 1, 21)));
 }
