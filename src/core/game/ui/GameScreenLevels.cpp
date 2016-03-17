@@ -119,7 +119,7 @@ void Level::execute(GameScreen* gs)
             
             m_hasShownOpeningSequence = true;
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_INTRO_WORLD_1);
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
         }
         else if (!m_hasOpeningSequenceCompleted)
         {
@@ -128,8 +128,6 @@ void Level::execute(GameScreen* gs)
                 m_hasOpeningSequenceCompleted = true;
                 
                 jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-                
-                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
                 
                 return;
             }
@@ -145,11 +143,7 @@ void Level::execute(GameScreen* gs)
             m_activateRadialBlur = result == 1;
             jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
             
-            if (m_hasOpeningSequenceCompleted)
-            {
-                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-            }
-            else if (result == 2)
+            if (result == 2)
             {
                 jon.beginWarmingUp();
             }

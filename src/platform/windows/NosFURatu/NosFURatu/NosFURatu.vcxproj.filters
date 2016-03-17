@@ -348,9 +348,6 @@
     <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm.wav">
       <Filter>Assets</Filter>
     </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm_intro.wav">
-      <Filter>Assets</Filter>
-    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">

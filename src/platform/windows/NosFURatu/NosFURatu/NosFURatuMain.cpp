@@ -260,18 +260,6 @@ void NosFURatuMain::handleMusic()
 	case MUSIC_RESUME:
 		m_mediaPlayer->Play();
 		break;
-	case MUSIC_PLAY_INTRO_WORLD_1:
-		if (m_mediaPlayer)
-		{
-			m_mediaPlayer->Shutdown();
-			m_mediaPlayer = nullptr;
-		}
-
-		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-		m_mediaPlayer->SetSource("world_1_bgm_intro.wav");
-		m_mediaPlayer->Play();
-		break; 
 	case MUSIC_PLAY_WORLD_1_LOOP:
 		if (m_mediaPlayer)
 		{
