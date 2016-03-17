@@ -30,6 +30,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     EntityUtils::cleanUpVectorOfPointers(m_holes);
     EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
     EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+	EntityUtils::cleanUpVectorOfPointers(m_countHissWithMinas);
     EntityUtils::cleanUpVectorOfPointers(m_enemies);
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
@@ -211,6 +212,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_midBossForegroundObjects, eX, eY, eWidth, eHeight, i);
+	i = boxInAll(m_countHissWithMinas, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
@@ -346,6 +348,11 @@ std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundObjects(
 std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getMidBossForegroundObjects()
 {
     return m_midBossForegroundObjects;
+}
+
+std::vector<CountHissWithMina *>& LevelEditorEntitiesPanel::getCountHissWithMinas()
+{
+	return m_countHissWithMinas;
 }
 
 std::vector<Enemy *>& LevelEditorEntitiesPanel::getEnemies()

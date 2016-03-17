@@ -17,7 +17,6 @@
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
-#include "CountHissWithMina.h"
 
 Assets * Assets::getInstance()
 {

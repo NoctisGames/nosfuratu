@@ -762,6 +762,13 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
             m_spriteBatcher->endBatch(isVampire || isTransforming ? *m_vampire.gpuTextureWrapper : *m_jon.gpuTextureWrapper);
         }
     }
+
+	if (m_vampire.gpuTextureWrapper)
+	{
+		m_spriteBatcher->beginBatch();
+		renderPhysicalEntities(game.getCountHissWithMinas());
+		m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
+	}
     
     if (m_world_1_objects.gpuTextureWrapper)
     {
@@ -993,6 +1000,13 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntit
             renderPhysicalEntities(leep->getMidBossForegroundObjects());
             m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
         }
+
+		if (m_vampire.gpuTextureWrapper)
+		{
+			m_spriteBatcher->beginBatch();
+			renderPhysicalEntities(leep->getCountHissWithMinas());
+			m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
+		}
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getEnemies());
