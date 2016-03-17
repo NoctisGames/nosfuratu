@@ -32,8 +32,7 @@ public final class GameRenderer implements Renderer
 
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_RESUME = 2;
-    private static final short MUSIC_PLAY_INTRO_WORLD_1 = 3;
-    private static final short MUSIC_PLAY_WORLD_1_LOOP = 4;
+    private static final short MUSIC_PLAY_WORLD_1_LOOP = 3;
 
     //// Sound Definitions ////
 
@@ -236,18 +235,6 @@ public final class GameRenderer implements Renderer
                 }
                 break;
             case MUSIC_RESUME:
-                _bgm.play();
-                break;
-            case MUSIC_PLAY_INTRO_WORLD_1:
-                if (_bgm != null)
-                {
-                    _bgm.stop();
-                    _bgm = null;
-                }
-
-                _bgm = _audio.newMusic("world_1_bgm_intro.wav");
-                _bgm.setLooping(false);
-                _bgm.setVolume(0.5f);
                 _bgm.play();
                 break;
             case MUSIC_PLAY_WORLD_1_LOOP:

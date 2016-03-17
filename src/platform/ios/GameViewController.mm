@@ -196,12 +196,7 @@
         case MUSIC_RESUME:
             [self.soundMgr resumeBackgroundMusic];
             break;
-        case MUSIC_PLAY_INTRO_WORLD_1:
-            [self initSoundEngine];
-            [self.soundMgr playBackgroundMusic:@"world_1_bgm_intro.wav" forcePlay:YES isLooping:NO];
-            break;
         case MUSIC_PLAY_WORLD_1_LOOP:
-            [self.soundMgr stopBackgroundMusic];
             [self initSoundEngine];
             [self.soundMgr playBackgroundMusic:@"world_1_bgm.wav" forcePlay:YES isLooping:YES];
             break;
