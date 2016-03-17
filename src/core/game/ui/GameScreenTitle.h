@@ -31,12 +31,15 @@ public:
     TitlePanel* getTitlePanel();
     
     LevelEditorButton* getLevelEditorButton();
+
+	void setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton);
     
 private:
     std::unique_ptr<TitlePanel> m_panel;
     std::unique_ptr<LevelEditorButton> m_levelEditorButton;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
+	bool m_isDisplayingLevelEditorButton;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();

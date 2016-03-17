@@ -119,12 +119,6 @@ void Level::execute(GameScreen* gs)
             
             m_hasShownOpeningSequence = true;
             
-            if (m_game->getCountHissWithMinas().size() > 0)
-            {
-                CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-                countHissWithMina.setMoving();
-            }
-            
             Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
         }
         else if (!m_hasOpeningSequenceCompleted)
@@ -153,6 +147,13 @@ void Level::execute(GameScreen* gs)
             {
                 jon.beginWarmingUp();
             }
+
+			if (m_game->getCountHissWithMinas().size() > 0)
+			{
+				CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+				countHissWithMina.setMoving();
+				countHissWithMina.update(gs->m_fDeltaTime);
+			}
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
             EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);

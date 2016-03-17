@@ -254,7 +254,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             
             bool isLevelValid = true;
-            if (m_game->getJons().size() == 0
+            if (!m_game->hasEndSign()
+				|| m_game->getJons().size() == 0
                 || m_game->getJon().getMainBounds().getRight() > m_game->getFarRight()
                 || m_game->getCountHissWithMinas().size() == 0
                 || m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())

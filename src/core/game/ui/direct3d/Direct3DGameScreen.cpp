@@ -3,6 +3,7 @@
 #include "Direct3DRenderer.h"
 #include "Direct3DManager.h"
 #include "DirectXHelper.h"
+#include "GameScreenTitle.h"
 
 using namespace NosFURatu;
 
@@ -14,6 +15,8 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 	D3DManager->init(m_deviceResources, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS, isMobile);
 
 	Assets::getInstance()->setUsingCompressedTextureSet(useCompressedTextureSet);
+
+	Title::getInstance()->setIsDisplayingLevelEditorButton(!isMobile);
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 

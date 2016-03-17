@@ -465,24 +465,28 @@ bool Game::isLoaded()
     return m_isLoaded;
 }
 
+bool Game::hasEndSign()
+{
+	for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+	{
+		if (dynamic_cast<EndSign *>((*i)))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Game::calcFarRight()
 {
     for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
     {
         if (dynamic_cast<EndSign *>((*i)))
         {
-            m_fFarRight = (*i)->getMainBounds().getRight();
-            m_fFarRightBottom = (*i)->getMainBounds().getBottom();
+            m_fFarRight = (*i)->getMainBounds().getLeft();
+            m_fFarRightBottom = (*i)->getMainBounds().getBottom() - 0.5625f;
             return;
-        }
-    }
-    
-    for (std::vector<Ground *>::iterator i = m_grounds.begin(); i != m_grounds.end(); i++)
-    {
-        float right = (*i)->getMainBounds().getRight();
-        if (right > m_fFarRight)
-        {
-            m_fFarRight = right;
         }
     }
 }

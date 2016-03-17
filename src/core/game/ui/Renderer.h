@@ -90,7 +90,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(LevelEditorButton* levelEditorButton);
+    void renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool isDisplayingLevelEditorButton);
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     

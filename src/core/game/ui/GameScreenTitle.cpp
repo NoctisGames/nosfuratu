@@ -67,7 +67,7 @@ void Title::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get(), m_isDisplayingLevelEditorButton);
         }
         
         gs->m_renderer->renderToScreen();
@@ -106,7 +106,8 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getMainBounds()))
+                    if (m_isDisplayingLevelEditorButton
+						&& OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_levelEditorButton->getMainBounds()))
                     {
                         m_isRequestingLevelEditor = true;
                     }
@@ -137,7 +138,12 @@ LevelEditorButton* Title::getLevelEditorButton()
     return m_levelEditorButton.get();
 }
 
-Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
+void Title::setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton)
+{
+	m_isDisplayingLevelEditorButton = isDisplayingLevelEditorButton;
+}
+
+Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false), m_isDisplayingLevelEditorButton(false)
 {
     m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
     m_levelEditorButton = std::unique_ptr<LevelEditorButton>(new LevelEditorButton());

@@ -340,7 +340,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
-    float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
+	float farLeftBottom = jon.getMainBounds().getBottom() - 0.5625f;
     
     float changeInX = farLeft - getCamPosFarRight(game);
     float changeInY = farLeftBottom - game.getFarRightBottom();
@@ -375,7 +375,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         
         Jon& jon = game.getJon();
         float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
-        float farLeftBottom = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
+        float farLeftBottom = jon.getMainBounds().getBottom() - 0.5625f;
         
         float changeInX = farLeft - getCamPosFarRight(game);
         float changeInY = farLeftBottom - game.getFarRightBottom();
@@ -408,7 +408,7 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
 {
     Jon& jon = game.getJon();
     m_camBounds->getLowerLeft().setX(jon.getPosition().getX() - CAM_WIDTH / 5);
-    float jy = jon.getPosition().getY() - jon.getHeight() / 4 * 3;
+    float jy = jon.getMainBounds().getBottom() - 0.5625f;
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
     float regionBottomY;
@@ -539,11 +539,11 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton)
+void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool isDisplayingLevelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    if (m_title_screen.gpuTextureWrapper)
+    if (isDisplayingLevelEditorButton && m_title_screen.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton));
@@ -1269,7 +1269,7 @@ void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 float Renderer::getCamPosFarRight(Game &game)
 {
     float farRight = game.getFarRight();
-    float farCamPos = farRight - CAM_WIDTH;
+	float farCamPos = farRight;// -CAM_WIDTH;
     
     return farCamPos;
 }

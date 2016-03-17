@@ -122,6 +122,8 @@ public:
     int getLevel();
     
     bool isLoaded();
+
+	bool hasEndSign();
     
     void calcFarRight();
     
