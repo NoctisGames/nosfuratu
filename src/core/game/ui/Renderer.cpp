@@ -705,7 +705,7 @@ void Renderer::renderWorld(Game& game)
     if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(game.getBossForegroundObjects());
+        renderPhysicalEntities(game.getMidBossForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
     }
     
@@ -781,7 +781,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getPits());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getHoles());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getForegroundObjects());
-    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getBossForegroundObjects());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getMidBossForegroundObjects());
 	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEnemies());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCollectibleItems());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getJons());
@@ -990,7 +990,7 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntit
         if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getBossForegroundObjects());
+            renderPhysicalEntities(leep->getMidBossForegroundObjects());
             m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
         }
         

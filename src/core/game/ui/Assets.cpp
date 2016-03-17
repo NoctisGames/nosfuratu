@@ -17,6 +17,7 @@
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
+#include "CountHissWithMina.h"
 
 Assets * Assets::getInstance()
 {
@@ -653,6 +654,12 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
     }
     
     assert(false);
+}
+
+TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
+{
+    static Animation anim = createAnimation(2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.15f, 7);
+    return anim.getTextureRegion(countHissWithMina->getStateTime());
 }
 
 TextureRegion& Assets::get(Enemy* enemy)

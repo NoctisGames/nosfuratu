@@ -45,12 +45,42 @@ public:
         return new Marker(gridX, type);
     }
     
-    Marker(int gridX, int type) : GridLockedPhysicalEntity(gridX, 0, 1, 256), m_type(type) {}
+    Marker(int gridX, int type) : GridLockedPhysicalEntity(gridX, 0, 2, 256), m_type(type) {}
     
     int getType() { return m_type; };
     
 private:
     int m_type;
+};
+
+class CountHissWithMina : public GridLockedPhysicalEntity
+{
+public:
+    static CountHissWithMina* create(int gridX, int gridY, int type)
+    {
+        return new CountHissWithMina(gridX, gridY);
+    }
+    
+    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32), m_type(-1), m_isMoving(false)
+    {
+        m_acceleration->setX(12.0f);
+    }
+    
+    virtual void update(float deltaTime)
+    {
+        if (m_isMoving)
+        {
+            GridLockedPhysicalEntity::update(deltaTime);
+        }
+    }
+    
+    void setMoving() { m_isMoving = true; }
+    
+    int getType() { return m_type; };
+    
+private:
+    int m_type;
+    bool m_isMoving;
 };
 
 #endif /* defined(__nosfuratu__GridLockedPhysicalEntity__) */

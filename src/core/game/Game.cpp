@@ -22,6 +22,7 @@
 #define holesKey "holes"
 #define foregroundObjectsKey "foregroundObjects"
 #define midBossForegroundObjectsKey "midBossForegroundObjects"
+#define countHissWithMinasKey "countHissWithMinas"
 #define enemiesKey "enemies"
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
@@ -54,7 +55,8 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
     copyPhysicalEntities(game->getHoles(), m_holes);
     copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
-    copyPhysicalEntities(game->getBossForegroundObjects(), m_midBossForegroundObjects);
+    copyPhysicalEntities(game->getMidBossForegroundObjects(), m_midBossForegroundObjects);
+    copyPhysicalEntities(game->getCountHissWithMinas(), m_countHissWithMinas);
     copyPhysicalEntities(game->getEnemies(), m_enemies);
     copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
@@ -90,6 +92,7 @@ void Game::load(const char* json)
     loadArray(m_holes, d, holesKey);
     loadArray(m_foregroundObjects, d, foregroundObjectsKey);
     loadArray(m_midBossForegroundObjects, d, midBossForegroundObjectsKey);
+    loadArray(m_countHissWithMinas, d, countHissWithMinasKey);
     loadArray(m_enemies, d, enemiesKey);
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
@@ -124,6 +127,7 @@ const char* Game::save()
     saveArray(m_holes, w, holesKey);
     saveArray(m_foregroundObjects, w, foregroundObjectsKey);
     saveArray(m_midBossForegroundObjects, w, midBossForegroundObjectsKey);
+    saveArray(m_countHissWithMinas, w, countHissWithMinasKey);
     saveArray(m_enemies, w, enemiesKey);
     saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
@@ -151,6 +155,7 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_holes);
     EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
     EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_countHissWithMinas);
     EntityUtils::cleanUpVectorOfPointers(m_enemies);
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
@@ -177,7 +182,8 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getExitGrounds(), deltaTime);
     EntityUtils::updateAndClean(getHoles(), deltaTime);
     EntityUtils::updateAndClean(getForegroundObjects(), deltaTime);
-    EntityUtils::updateAndClean(getBossForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getMidBossForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getCountHissWithMinas(), deltaTime);
     EntityUtils::updateAndClean(getEnemies(), deltaTime);
     EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     EntityUtils::updateAndClean(getExtraForegroundObjects(), deltaTime);
@@ -201,6 +207,7 @@ int Game::calcSum()
     sum += m_holes.size();
     sum += m_foregroundObjects.size();
     sum += m_midBossForegroundObjects.size();
+    sum += m_countHissWithMinas.size();
     sum += m_enemies.size();
     sum += m_collectibleItems.size();
     sum += m_jons.size();
@@ -222,14 +229,14 @@ bool Game::isJonGrounded(float deltaTime)
 	{
 		return EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isLanding(getJon(), getBossForegroundObjects(), deltaTime);
+        || EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime);
 	}
     
     return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getBossForegroundObjects(), deltaTime)
+    || EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(getJon(), getEnemies(), deltaTime);
 }
 
@@ -240,13 +247,13 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
         return EntityUtils::isBlockedOnRight(getJon(), getPits(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJon(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJon(), getBossForegroundObjects(), deltaTime);
+        || EntityUtils::isBlockedOnRight(getJon(), getMidBossForegroundObjects(), deltaTime);
     }
     
     return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getBossForegroundObjects(), deltaTime);
+    || EntityUtils::isBlockedOnRight(getJon(), getMidBossForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)
@@ -260,7 +267,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedAbove(getJon(), getBossForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
 }
 
@@ -269,7 +276,7 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
     return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getBossForegroundObjects(), deltaTime);
+    || EntityUtils::isHorizontallyHitting(getJon(), getMidBossForegroundObjects(), deltaTime);
 }
 
 bool Game::isBurrowEffective()
@@ -282,7 +289,7 @@ bool Game::isUpwardThrustEffective(float deltaTime)
     return EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isHittingFromBelow(getJon(), getBossForegroundObjects(), deltaTime);
+    || EntityUtils::isHittingFromBelow(getJon(), getMidBossForegroundObjects(), deltaTime);
 }
 
 std::vector<Background *>& Game::getBackgroundUppers()
@@ -335,9 +342,19 @@ std::vector<ForegroundObject *>& Game::getForegroundObjects()
     return m_foregroundObjects;
 }
 
-std::vector<ForegroundObject *>& Game::getBossForegroundObjects()
+std::vector<ForegroundObject *>& Game::getMidBossForegroundObjects()
 {
     return m_midBossForegroundObjects;
+}
+
+std::vector<CountHissWithMina *>& Game::getCountHissWithMinas()
+{
+    return m_countHissWithMinas;
+}
+
+CountHissWithMina& Game::getCountHissWithMina()
+{
+    return *getCountHissWithMinas().at(0);
 }
 
 std::vector<Enemy *>& Game::getEnemies()

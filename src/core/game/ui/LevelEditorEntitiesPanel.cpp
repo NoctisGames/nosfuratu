@@ -173,6 +173,8 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_foregroundObjects.push_back(new GiantTree(0, 0));
         }
         
+        m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
+        
         m_enemies.push_back(new MushroomGround(0, 0));
         
         if (level >= 10)
@@ -276,7 +278,8 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getMidBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_countHissWithMinas, game.getCountHissWithMinas(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
@@ -340,7 +343,7 @@ std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundObjects(
     return m_foregroundObjects;
 }
 
-std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getBossForegroundObjects()
+std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getMidBossForegroundObjects()
 {
     return m_midBossForegroundObjects;
 }

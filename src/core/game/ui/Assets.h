@@ -39,6 +39,7 @@ class ForegroundObject;
 class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
+class CountHissWithMina;
 
 class Assets
 {
@@ -66,6 +67,8 @@ public:
     TextureRegion& get(HoleCover* holeCover);
     
     TextureRegion& get(ForegroundObject* foregroundObject);
+    
+    TextureRegion& get(CountHissWithMina* countHissWithMina);
     
     TextureRegion& get(Enemy* enemy);
     

@@ -255,7 +255,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             
             bool isLevelValid = true;
             if (m_game->getJons().size() == 0
-                || m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
+                || m_game->getJon().getMainBounds().getRight() > m_game->getFarRight()
+                || m_game->getCountHissWithMinas().size() == 0
+                || m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
             {
                 isLevelValid = false;
             }
@@ -544,7 +546,8 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getExitGrounds(), m_gameEntities);
     EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
     EntityUtils::addAll(m_game->getForegroundObjects(), m_gameEntities);
-    EntityUtils::addAll(m_game->getBossForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getMidBossForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getCountHissWithMinas(), m_gameEntities);
     EntityUtils::addAll(m_game->getEnemies(), m_gameEntities);
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);

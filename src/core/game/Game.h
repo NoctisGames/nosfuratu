@@ -81,7 +81,11 @@ public:
     
     std::vector<ForegroundObject *>& getForegroundObjects();
     
-    std::vector<ForegroundObject *>& getBossForegroundObjects();
+    std::vector<ForegroundObject *>& getMidBossForegroundObjects();
+    
+    std::vector<CountHissWithMina *>& getCountHissWithMinas();
+    
+    CountHissWithMina& getCountHissWithMina();
     
     std::vector<Enemy *>& getEnemies();
     
@@ -133,6 +137,7 @@ private:
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
     std::vector<ForegroundObject *> m_midBossForegroundObjects;
+    std::vector<CountHissWithMina *> m_countHissWithMinas;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;

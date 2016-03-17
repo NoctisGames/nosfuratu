@@ -119,6 +119,12 @@ void Level::execute(GameScreen* gs)
             
             m_hasShownOpeningSequence = true;
             
+            if (m_game->getCountHissWithMinas().size() > 0)
+            {
+                CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+                countHissWithMina.setMoving();
+            }
+            
             Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
         }
         else if (!m_hasOpeningSequenceCompleted)
