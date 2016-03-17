@@ -61,7 +61,7 @@ public:
         return new CountHissWithMina(gridX, gridY);
     }
     
-    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32), m_type(-1), m_isMoving(false)
+    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false)
     {
         m_acceleration->setX(12.0f);
     }
