@@ -90,11 +90,11 @@ void WorldMap::execute(GameScreen* gs)
         
         gs->processTouchEvents();
 
-        for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+        for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
-            gs->touchToWorld((*i));
+            gs->touchToWorld(*(*i));
             
-            switch (i->getTouchType())
+            switch ((*i)->getTouchType())
             {
                 case DOWN:
                     continue;

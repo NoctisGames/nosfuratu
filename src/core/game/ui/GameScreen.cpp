@@ -17,9 +17,9 @@ GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDelta
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
     
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < 100; i++)
     {
-        m_touchEventsPool.push_back(TouchEvent(0, 0, Touch_Type::DOWN));
+		m_touchEventsPool.push_back(new TouchEvent(0, 0, Touch_Type::DOWN));
     }
     
     m_stateMachine = std::unique_ptr<StateMachine<GameScreen>>(new StateMachine<GameScreen>(this));
@@ -53,9 +53,9 @@ void GameScreen::update(float deltaTime)
     {
         processTouchEvents();
         
-        for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
+        for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
         {
-            switch (i->getTouchType())
+            switch ((*i)->getTouchType())
             {
                 case DOWN:
                     continue;
@@ -130,7 +130,7 @@ void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
 
 void GameScreen::processTouchEvents()
 {
-    for (std::vector<TouchEvent>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
+    for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
     {
         if (m_touchEventsPool.size() < 50)
         {
@@ -145,15 +145,15 @@ void GameScreen::processTouchEvents()
 
 #pragma mark private
 
-TouchEvent GameScreen::newTouchEvent()
+TouchEvent* GameScreen::newTouchEvent()
 {
     if (m_touchEventsPool.size() == 0)
     {
-        return TouchEvent(0, 0, Touch_Type::DOWN);
+        return new TouchEvent(0, 0, Touch_Type::DOWN);
     }
     else
     {
-        TouchEvent touchEvent = m_touchEventsPool.back();
+		TouchEvent* touchEvent = m_touchEventsPool.back();
         m_touchEventsPool.pop_back();
         
         return touchEvent;
@@ -162,10 +162,10 @@ TouchEvent GameScreen::newTouchEvent()
 
 void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)
 {
-    TouchEvent touchEvent = newTouchEvent();
-    touchEvent.setTouchType(type);
-    touchEvent.setX(x);
-    touchEvent.setY(y);
-    
-    m_touchEventsBuffer.push_back(touchEvent);
+	TouchEvent* touchEvent = newTouchEvent();
+	touchEvent->setTouchType(type);
+	touchEvent->setX(x);
+	touchEvent->setY(y);
+
+	m_touchEventsBuffer.push_back(touchEvent);
 }

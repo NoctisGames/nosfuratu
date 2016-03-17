@@ -33,9 +33,9 @@ class GameScreen
 {
 public:
     std::unique_ptr<StateMachine<GameScreen>> m_stateMachine;
-    std::vector<TouchEvent> m_touchEvents;
-    std::vector<TouchEvent> m_touchEventsPool;
-    std::vector<TouchEvent> m_touchEventsBuffer;
+    std::vector<TouchEvent *> m_touchEvents;
+    std::vector<TouchEvent *> m_touchEventsPool;
+    std::vector<TouchEvent *> m_touchEventsBuffer;
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
@@ -75,7 +75,7 @@ public:
     void processTouchEvents();
     
 private:
-    TouchEvent newTouchEvent();
+    TouchEvent* newTouchEvent();
     
     void addTouchEventForType(Touch_Type type, float x, float y);
     

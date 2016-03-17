@@ -201,14 +201,14 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
-        gs->touchToWorld((*i));
+        gs->touchToWorld(*(*i));
         
         int rc;
         if (m_levelSelectorPanel->isOpen())
         {
-            if ((rc = m_levelSelectorPanel->handleTouch(*i, *gs->m_touchPoint)) != LEVEL_SELECTOR_PANEL_RC_UNHANDLED)
+            if ((rc = m_levelSelectorPanel->handleTouch(*(*i), *gs->m_touchPoint)) != LEVEL_SELECTOR_PANEL_RC_UNHANDLED)
             {
                 switch (rc)
                 {
@@ -249,7 +249,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             return;
         }
         
-        if ((rc = m_levelEditorActionsPanel->handleTouch(*i, *gs->m_touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
+        if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), *gs->m_touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             
@@ -316,7 +316,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             return;
         }
         
-        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*i, *gs->m_touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
+        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*(*i), *gs->m_touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
@@ -345,7 +345,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             return;
         }
         
-        switch (i->getTouchType())
+        switch ((*i)->getTouchType())
         {
             case DOWN:
             {
@@ -369,7 +369,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         || dynamic_cast<ExitGround *>(m_draggingEntity)
                         || dynamic_cast<Hole *>(m_draggingEntity)
                         || dynamic_cast<SpikeTower *>(m_draggingEntity)
-                        || dynamic_cast<VerticalSaw *>(m_draggingEntity))
+                        || dynamic_cast<VerticalSaw *>(m_draggingEntity)
+						|| dynamic_cast<Marker *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;

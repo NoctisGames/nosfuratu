@@ -320,9 +320,9 @@ bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
     gs->processTouchEvents();
     
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
-        switch (i->getTouchType())
+        switch ((*i)->getTouchType())
         {
             case DOWN:
                 continue;
@@ -343,11 +343,11 @@ bool Level::handleTouchInput(GameScreen* gs)
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
     
-    for (std::vector<TouchEvent>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
-        gs->touchToWorld((*i));
+        gs->touchToWorld(*(*i));
         
-        switch (i->getTouchType())
+        switch ((*i)->getTouchType())
         {
             case DOWN:
                 if (isJonAlive)
