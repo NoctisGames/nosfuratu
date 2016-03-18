@@ -113,6 +113,13 @@ void Level::execute(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
         
+		if (m_game->getCountHissWithMinas().size() > 0)
+		{
+			CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+			countHissWithMina.setMoving();
+			countHissWithMina.update(gs->m_fDeltaTime);
+		}
+
         if (!m_hasShownOpeningSequence)
         {
             gs->m_renderer->beginOpeningPanningSequence(*m_game);
@@ -147,13 +154,6 @@ void Level::execute(GameScreen* gs)
             {
                 jon.beginWarmingUp();
             }
-
-			if (m_game->getCountHissWithMinas().size() > 0)
-			{
-				CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-				countHissWithMina.setMoving();
-				countHissWithMina.update(gs->m_fDeltaTime);
-			}
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
             EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
