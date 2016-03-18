@@ -657,7 +657,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
 
 TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
 {
-    static Animation anim = createAnimation(2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.15f, 7);
+    static Animation anim = createAnimation(2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
     return anim.getTextureRegion(countHissWithMina->getStateTime());
 }
 

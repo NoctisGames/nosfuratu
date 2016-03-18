@@ -63,7 +63,7 @@ public:
     
     CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false)
     {
-        m_velocity->setX(6.0f);
+        m_velocity->setX(4.0f);
     }
     
     virtual void update(float deltaTime)
