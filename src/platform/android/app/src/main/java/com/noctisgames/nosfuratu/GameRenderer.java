@@ -342,7 +342,7 @@ public final class GameRenderer implements Renderer
             userSaveData += "\"world_" + i + "\":[";
             for (int j = 1; j <= 21; j++)
             {
-                boolean isLevelCompleted = SaveData.isLevelComplete(i, j);
+                int isLevelCompleted = SaveData.isLevelComplete(i, j) ? 1 : 0;
 
                 userSaveData += "" + isLevelCompleted;
                 if (j < 21)
