@@ -1294,7 +1294,7 @@ void Renderer::loadTitle()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_title_screen.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_title_screen" : "title_screen");
+            r->m_title_screen.gpuTextureDataWrapper = r->loadTextureData("title_screen");
         }, this));
     }
 }
@@ -1307,7 +1307,7 @@ void Renderer::loadWorldMap()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_map_screen.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_map_screen" : "world_map_screen");
+            r->m_world_map_screen.gpuTextureDataWrapper = r->loadTextureData("world_map_screen");
         }, this));
     }
 }
@@ -1320,7 +1320,7 @@ void Renderer::loadLevelEditor()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_level_editor.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_level_editor" : "level_editor");
+            r->m_level_editor.gpuTextureDataWrapper = r->loadTextureData("level_editor");
         }, this));
     }
 }

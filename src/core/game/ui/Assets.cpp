@@ -26,7 +26,7 @@ Assets * Assets::getInstance()
 
 TextureRegion& Assets::get(TitlePanel* panel)
 {
-    static Animation anim = createAnimation(0, 0, 640, 512, 1920, 1536, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 7);
+    static Animation anim = Animation(0, 0, 640, 512, 1920, 1536, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 7);
     if (!anim.hasFrameTimes())
     {
         anim.setFrameTimes(7, 3.0f, 0.1f, 0.1f, 0.1f, 2.5f, 0.15f, 0.15f);
@@ -1050,13 +1050,13 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
 
 TextureRegion& Assets::get(BackButton* backButton)
 {
-    static TextureRegion tr = createTextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    static TextureRegion tr = TextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     return tr;
 }
 
 TextureRegion& Assets::get(LevelEditorButton* levelEditorButton)
 {
-    static TextureRegion tr = createTextureRegion(1824, 1620, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(1824, 1620, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
