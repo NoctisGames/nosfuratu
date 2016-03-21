@@ -225,6 +225,45 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_jon.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_vampire.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_4.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

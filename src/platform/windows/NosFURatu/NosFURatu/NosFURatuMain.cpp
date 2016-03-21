@@ -24,7 +24,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
 	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, false));
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isMobile));
 
 	// Load Sound Effects
 	m_sounds.push_back("collect_carrot.wav");
