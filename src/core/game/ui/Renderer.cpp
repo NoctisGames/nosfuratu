@@ -687,17 +687,13 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntity(hc, Assets::getInstance()->get(&hc));
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     
-    m_spriteBatcher->beginBatch();
     for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
     {
         ForegroundObject& shadow = (*i)->getShadow();
         renderPhysicalEntity(shadow, Assets::getInstance()->get(&shadow));
     }
-    m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     
-    m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getCollectibleItems());
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
