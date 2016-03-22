@@ -176,8 +176,6 @@ protected:
     
     virtual void loadShaderPrograms() = 0;
     
-    virtual bool areShadersLoaded() = 0;
-    
     virtual void addFramebuffers() = 0;
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName) = 0;

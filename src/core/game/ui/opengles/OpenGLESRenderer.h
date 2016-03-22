@@ -16,7 +16,7 @@ class OpenGLESRenderer : public Renderer
 public:
     OpenGLESRenderer();
     
-    virtual bool areShadersLoaded();
+    virtual bool isLoaded();
     
     virtual void beginFrame(float deltaTime);
     

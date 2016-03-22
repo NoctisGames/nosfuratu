@@ -305,7 +305,18 @@ bool Renderer::isLoadingAdditionalTextures()
 
 bool Renderer::isLoaded()
 {
-    return m_misc.gpuTextureWrapper && areShadersLoaded();
+    return m_misc.gpuTextureWrapper
+		&& areShadersLoaded()
+		&& m_transScreenGpuProgramWrapper->isLoaded()
+		&& m_sinWaveTextureProgram->isLoaded()
+		&& m_backgroundGpuTextureProgramWrapper->isLoaded
+		&& m_snakeDeathTextureProgram->isLoaded()
+		&& m_shockwaveTextureGpuProgramWrapper->isLoaded()
+		&& m_framebufferToScreenGpuProgramWrapper->isLoaded()
+		&& m_framebufferTintGpuProgramWrapper->isLoaded()
+		&& m_framebufferRadialBlurGpuProgramWrapper->isLoaded()
+		&& m_transDeathInGpuProgramWrapper->isLoaded()
+		&& m_transDeathOutGpuProgramWrapper->isLoaded();
 }
 
 void Renderer::beginFrame(float deltaTime)

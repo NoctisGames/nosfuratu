@@ -74,18 +74,9 @@ void OpenGLESRenderer::loadShaderPrograms()
     m_framebufferRadialBlurGpuProgramWrapper = new OpenGLESFramebufferRadialBlurGpuProgramWrapper();
 }
 
-bool OpenGLESRenderer::areShadersLoaded()
+bool OpenGLESRenderer::isLoaded()
 {
-    return OGLESManager->isLoaded() &&
-    m_transScreenGpuProgramWrapper->isLoaded() &&
-    m_sinWaveTextureProgram->isLoaded() &&
-    m_snakeDeathTextureProgram->isLoaded() &&
-    m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
-    m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
-    m_framebufferTintGpuProgramWrapper->isLoaded() &&
-    m_framebufferRadialBlurGpuProgramWrapper->isLoaded() &&
-    m_transDeathInGpuProgramWrapper->isLoaded() &&
-    m_transDeathOutGpuProgramWrapper->isLoaded();
+	return Renderer::isLoaded() && OGLESManager->isLoaded();
 }
 
 void OpenGLESRenderer::addFramebuffers()

@@ -43,7 +43,7 @@
 
 using namespace DirectX;
 
-Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0)
+Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0), m_isBoundToScreen(false)
 {
 	m_spriteBatcher = std::unique_ptr<Direct3DSpriteBatcher>(new Direct3DSpriteBatcher(m_deviceResources));
 	m_boundsRectangleBatcher = std::unique_ptr<Direct3DRectangleBatcher>(new Direct3DRectangleBatcher(m_deviceResources));
@@ -78,18 +78,9 @@ void Direct3DRenderer::loadShaderPrograms()
 	m_transDeathOutGpuProgramWrapper = new Direct3DTransDeathGpuProgramWrapper(m_deviceResources, false);
 }
 
-bool Direct3DRenderer::areShadersLoaded()
+bool Direct3DRenderer::isLoaded()
 {
-    return D3DManager->isLoaded() &&
-    m_transScreenGpuProgramWrapper->isLoaded() &&
-    m_sinWaveTextureProgram->isLoaded() &&
-    m_snakeDeathTextureProgram->isLoaded() &&
-    m_shockwaveTextureGpuProgramWrapper->isLoaded() &&
-    m_framebufferToScreenGpuProgramWrapper->isLoaded() &&
-    m_framebufferTintGpuProgramWrapper->isLoaded() &&
-    m_framebufferRadialBlurGpuProgramWrapper->isLoaded() &&
-    m_transDeathInGpuProgramWrapper->isLoaded() &&
-    m_transDeathOutGpuProgramWrapper->isLoaded();
+	return Renderer::isLoaded() && D3DManager->isLoaded();
 }
 
 void Direct3DRenderer::addFramebuffers()
@@ -149,14 +140,23 @@ void Direct3DRenderer::updateMatrix(float left, float right, float bottom, float
 void Direct3DRenderer::bindToOffscreenFramebuffer(int index)
 {
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, &D3DManager->m_offscreenRenderTargetViews.at(index), nullptr);
+
+	m_isBoundToScreen = false;
 }
 
 void Direct3DRenderer::clearFramebufferWithColor(float r, float g, float b, float a)
 {
 	float color[] = { r, g, b, a };
 
-	ID3D11RenderTargetView * targets[1] = {  };
-	m_deviceResources->GetD3DDeviceContext()->OMGetRenderTargets(1, targets, nullptr);
+	ID3D11RenderTargetView * targets[1] = {};
+	if (m_isBoundToScreen)
+	{
+		targets[0] = m_deviceResources->GetBackBufferRenderTargetView();
+	}
+	else
+	{
+		targets[0] = D3DManager->m_offscreenRenderTargetViews.at(m_iFramebufferIndex);
+	}
 
 	m_deviceResources->GetD3DDeviceContext()->ClearRenderTargetView(targets[0], color);
 }
@@ -165,6 +165,8 @@ void Direct3DRenderer::bindToScreenFramebuffer()
 {
 	ID3D11RenderTargetView *const targets[1] = { m_deviceResources->GetBackBufferRenderTargetView() };
 	m_deviceResources->GetD3DDeviceContext()->OMSetRenderTargets(1, targets, nullptr);
+
+	m_isBoundToScreen = true;
 }
 
 void Direct3DRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)

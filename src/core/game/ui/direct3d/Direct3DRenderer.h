@@ -16,7 +16,7 @@ class Direct3DRenderer : public Renderer
 public:
 	Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
-    virtual bool areShadersLoaded();
+	virtual bool isLoaded();
 
 	virtual void beginFrame(float deltaTime);
     
@@ -46,6 +46,7 @@ private:
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 	int m_iNumTexturesLoaded;
+	bool m_isBoundToScreen;
 };
 
 #endif /* defined(__NosFURatu__Direct3DRenderer__) */
