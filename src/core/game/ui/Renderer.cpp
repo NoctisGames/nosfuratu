@@ -306,10 +306,9 @@ bool Renderer::isLoadingAdditionalTextures()
 bool Renderer::isLoaded()
 {
     return m_misc.gpuTextureWrapper
-		&& areShadersLoaded()
 		&& m_transScreenGpuProgramWrapper->isLoaded()
 		&& m_sinWaveTextureProgram->isLoaded()
-		&& m_backgroundGpuTextureProgramWrapper->isLoaded
+		&& m_backgroundGpuTextureProgramWrapper->isLoaded()
 		&& m_snakeDeathTextureProgram->isLoaded()
 		&& m_shockwaveTextureGpuProgramWrapper->isLoaded()
 		&& m_framebufferToScreenGpuProgramWrapper->isLoaded()
