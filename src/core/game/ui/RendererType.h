@@ -15,9 +15,8 @@ typedef enum
     RENDERER_TYPE_TITLE,
     RENDERER_TYPE_WORLD_MAP,
     RENDERER_TYPE_LEVEL_EDITOR,
-    RENDERER_TYPE_WORLD_1_PRE_LEVEL_10,
+    RENDERER_TYPE_WORLD_1,
     RENDERER_TYPE_WORLD_1_MID_BOSS,
-    RENDERER_TYPE_WORLD_1_POST_LEVEL_10,
     RENDERER_TYPE_WORLD_1_END_BOSS,
     RENDERER_TYPE_WORLD_2,
     RENDERER_TYPE_WORLD_2_MID_BOSS,
@@ -41,17 +40,13 @@ inline RendererType calcRendererTypeFromLevel(int world, int level)
 		{
 			return RENDERER_TYPE_WORLD_1_END_BOSS;
 		}
-        else if (level > 10)
-        {
-            return RENDERER_TYPE_WORLD_1_POST_LEVEL_10;
-        }
 		else if (level == 10)
 		{
 			return RENDERER_TYPE_WORLD_1_MID_BOSS;
 		}
 		else
 		{
-			return RENDERER_TYPE_WORLD_1_PRE_LEVEL_10;
+			return RENDERER_TYPE_WORLD_1;
 		}
 	}
 	else if (world == 2)
