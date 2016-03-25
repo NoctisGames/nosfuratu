@@ -52,7 +52,8 @@ android {
         description = 'Copies shaders from src/core/framework/ui/opengles into project assets'
         from '../../../../src/core/framework/ui/opengles'
         into 'src/main/assets'
-        include('*.*sh')
+        include('*.vsh')
+        include('*.fsh')
     }
 
     task copyGameShaders(type: Copy)
@@ -60,7 +61,8 @@ android {
         description = 'Copies shaders from src/core/game/ui/opengles into project assets'
         from '../../../../src/core/game/ui/opengles'
         into 'src/main/assets'
-        include('*.*sh')
+        include('*.vsh')
+        include('*.fsh')
     }
 
     task copyTextures(type: Copy)

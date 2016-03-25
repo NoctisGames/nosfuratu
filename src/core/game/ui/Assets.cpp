@@ -33,7 +33,7 @@ TextureRegion& Assets::get(TitlePanel* panel)
     }
     else
     {
-        static Animation anim = Animation(0, 1444, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+        static Animation anim = Animation(0, 1448, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
         return anim.getTextureRegion(panel->getStateTime());
     }
 }
