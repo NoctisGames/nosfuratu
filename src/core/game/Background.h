@@ -48,13 +48,13 @@ public:
 class Mid : public Background
 {
 public:
-    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 32, BackgroundType_Mid) {}
+    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 24, BackgroundType_Mid) {}
 };
 
 class Lower : public Background
 {
 public:
-    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 40, BackgroundType_Lower) {}
+    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 36, BackgroundType_Lower) {}
 };
 
 class Water : public Background
