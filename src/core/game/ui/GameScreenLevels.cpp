@@ -192,6 +192,9 @@ void Level::execute(GameScreen* gs)
                 {
                     m_game->reset();
                     enter(gs);
+                    
+                    updateCamera(gs, true);
+                    
                     m_showDeathTransOut = true;
                 }
                 
@@ -207,10 +210,11 @@ void Level::execute(GameScreen* gs)
                 
                 m_fStateTime += gs->m_fDeltaTime;
                 
-                if (m_fStateTime > 5)
+                if (m_fStateTime > 2)
                 {
-                    m_game->reset();
-                    enter(gs);
+                    Assets::getInstance()->setMusicId(MUSIC_STOP);
+                    
+                    gs->m_stateMachine->revertToPreviousState();
                     
                     gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
                     gs->m_iRequestedAction += m_game->getWorld() * 100;
@@ -316,9 +320,9 @@ BackButton& Level::getBackButton()
     return *m_backButton;
 }
 
-void Level::updateCamera(GameScreen* gs)
+void Level::updateCamera(GameScreen* gs, bool instant)
 {
-    gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false);
+    gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false, instant);
 }
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)

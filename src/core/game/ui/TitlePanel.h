@@ -16,6 +16,14 @@ class TitlePanel : public PhysicalEntity
 {
 public:
     TitlePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
+    
+    virtual void update(float deltaTime);
+    
+    bool isLightningStriking();
+    
+private:
+    float m_fTimeBetweenStrikes;
+    bool m_isLightningStriking;
 };
 
 #endif /* defined(__nosfuratu__TitlePanel__) */

@@ -51,7 +51,7 @@ protected:
     bool m_hasSwiped;
     bool m_showDeathTransOut;
     
-    virtual void updateCamera(GameScreen* gs);
+    virtual void updateCamera(GameScreen* gs, bool instant = false);
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
@@ -182,7 +182,7 @@ public:
 private:
     bool m_isChaseCamActivated;
     
-    virtual void updateCamera(GameScreen* gs);
+    virtual void updateCamera(GameScreen* gs, bool instant = false);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level10(const char* json) : Level(json), m_isChaseCamActivated(false) {};

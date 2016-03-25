@@ -414,7 +414,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
     return m_fStateTime >= 8.065f ? 3 : 0;
 }
 
-void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase)
+void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, bool instant)
 {
     Jon& jon = game.getJon();
     
@@ -425,7 +425,9 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase)
     }
     
     float camVelocityX = idealCamX - m_camBounds->getLowerLeft().getX();
-    m_camBounds->getLowerLeft().add(camVelocityX < 0 ? camVelocityX * 2 * deltaTime : (camVelocityX * 2 + jon.getVelocity().getX()) * deltaTime, 0);
+    camVelocityX = camVelocityX < 0 ? camVelocityX * 2 : camVelocityX * 2 + jon.getVelocity().getX();
+    camVelocityX *= instant ? 1337 : deltaTime;
+    m_camBounds->getLowerLeft().add(camVelocityX, 0);
     
     if (camVelocityX < 0 && m_camBounds->getLowerLeft().getX() < idealCamX)
     {

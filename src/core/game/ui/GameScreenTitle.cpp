@@ -82,7 +82,7 @@ void Title::execute(GameScreen* gs)
             return;
         }
         
-        m_panel->Entity::update(gs->m_fDeltaTime);
+        m_panel->update(gs->m_fDeltaTime);
         
         if (m_isRequestingNextState)
         {

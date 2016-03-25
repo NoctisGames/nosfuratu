@@ -40,14 +40,14 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_isChaseCamActivated = false;
 }
 
-void Chapter1Level10::updateCamera(GameScreen* gs)
+void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
 {
     if (m_isChaseCamActivated)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true);
+        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true, instant);
     }
     else
     {
-        Level::updateCamera(gs);
+        Level::updateCamera(gs, instant);
     }
 }

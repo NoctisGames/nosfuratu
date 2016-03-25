@@ -26,9 +26,16 @@ Assets * Assets::getInstance()
 
 TextureRegion& Assets::get(TitlePanel* panel)
 {
-    static Animation anim = Animation(0, 0, 1280, 720, 3840, 2160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
-    
-    return anim.getTextureRegion(panel->getStateTime());
+    if (panel->isLightningStriking())
+    {
+        static Animation anim = Animation(0, 0, 1280, 720, 3840, 1440, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6);
+        return anim.getTextureRegion(panel->getStateTime());
+    }
+    else
+    {
+        static Animation anim = Animation(0, 1444, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+        return anim.getTextureRegion(panel->getStateTime());
+    }
 }
 
 TextureRegion& Assets::get(WorldMapPanel* panel)
