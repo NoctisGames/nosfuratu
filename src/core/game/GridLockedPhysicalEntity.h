@@ -72,6 +72,8 @@ public:
         {
             GridLockedPhysicalEntity::update(deltaTime);
         }
+
+		updateBounds();
     }
     
     void setMoving() { m_isMoving = true; }

@@ -75,6 +75,8 @@ public:
     void processTouchEvents();
     
 private:
+	int m_iPoolIndex;
+
     TouchEvent* newTouchEvent();
     
     void addTouchEventForType(Touch_Type type, float x, float y);

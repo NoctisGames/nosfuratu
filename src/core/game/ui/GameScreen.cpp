@@ -11,7 +11,17 @@
 #include "GameScreenLevels.h"
 #include "Game.h"
 
-GameScreen::GameScreen() : m_fFPSStateTime(0), m_iFrames(0), m_iFPS(0), m_fDeltaTime(0), m_fScreenHeldTime(0), m_isRequestingRender(false), m_iRequestedAction(REQUESTED_ACTION_UPDATE), m_isPaused(false), m_isScreenHeldDown(false)
+GameScreen::GameScreen() :
+	m_fFPSStateTime(0),
+	m_iFrames(0),
+	m_iFPS(0),
+	m_fDeltaTime(0),
+	m_fScreenHeldTime(0),
+	m_isRequestingRender(false),
+	m_iRequestedAction(REQUESTED_ACTION_UPDATE),
+	m_isPaused(false),
+	m_isScreenHeldDown(false),
+	m_iPoolIndex(0)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -130,15 +140,7 @@ void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
 
 void GameScreen::processTouchEvents()
 {
-    for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
-    {
-        if (m_touchEventsPool.size() < 50)
-        {
-            m_touchEventsPool.push_back(*i);
-        }
-    }
-    
-    m_touchEvents.clear();
+	m_touchEvents.clear();
     m_touchEvents.swap(m_touchEventsBuffer);
     m_touchEventsBuffer.clear();
 }
@@ -147,17 +149,14 @@ void GameScreen::processTouchEvents()
 
 TouchEvent* GameScreen::newTouchEvent()
 {
-    if (m_touchEventsPool.size() == 0)
-    {
-        return new TouchEvent(0, 0, Touch_Type::DOWN);
-    }
-    else
-    {
-		TouchEvent* touchEvent = m_touchEventsPool.back();
-        m_touchEventsPool.pop_back();
-        
-        return touchEvent;
-    }
+	TouchEvent* touchEvent = m_touchEventsPool.at(m_iPoolIndex++);
+
+	if (m_iPoolIndex >= 50)
+	{
+		m_iPoolIndex = 0;
+	}
+
+	return touchEvent;
 }
 
 void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)

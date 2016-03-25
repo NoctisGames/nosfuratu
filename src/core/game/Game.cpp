@@ -190,7 +190,7 @@ void Game::updateAndClean(float deltaTime)
     
     EntityUtils::updateAndClean(getMarkers(), deltaTime);
     
-	if (getJons().size() >= 1)
+	if (getJons().size() > 0)
 	{
 		getJon().update(deltaTime);
 	}
