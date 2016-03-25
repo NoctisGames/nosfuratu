@@ -225,17 +225,17 @@ WorldMap::WorldMap() : m_isReadyForTransition(false)
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 6.3f, 1, 8)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 6.3f, 1, 9)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 6.3f, 1, 10)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 6.3f, 1, 11)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 6.3f, 1, 12)));
-    
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 4.8f, 1, 13)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 4.8f, 1, 14)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 4.8f, 1, 15)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 4.8f, 1, 16)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 4.8f, 1, 17)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 4.8f, 1, 18)));
-    
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 3.3f, 1, 19)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(8.0f, 3.3f, 1, 20)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 3.3f, 1, 21)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 6.3f, 1, 11)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 6.3f, 1, 12)));
+//    
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 4.8f, 1, 13)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 4.8f, 1, 14)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 4.8f, 1, 15)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 4.8f, 1, 16)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 4.8f, 1, 17)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 4.8f, 1, 18)));
+//    
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 3.3f, 1, 19)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(8.0f, 3.3f, 1, 20)));
+//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 3.3f, 1, 21)));
 }

@@ -15,9 +15,9 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
 }
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame) : m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
+Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame, int yPadding) : m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
 {
-	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
+	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames, yPadding);
 
 	for (int i = 0; i < numFrames; i++)
 	{
@@ -105,12 +105,12 @@ Animation::~Animation()
 	m_frameTimes.clear();
 }
 
-void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames)
+void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames, int yPadding)
 {
 	int right = x + animationWidth;
 	int bottom = y + animationHeight;
 	int numTextureRegionsAdded = 0;
-	for (int j = y; j < bottom; j += regionHeight)
+	for (int j = y; j < bottom; j += regionHeight + yPadding)
 	{
 		for (int i = x; i < right; i += regionWidth)
 		{
