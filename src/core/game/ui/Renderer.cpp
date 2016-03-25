@@ -685,9 +685,7 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getGrounds());
     renderPhysicalEntities(game.getPits());
-    m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     
-    m_spriteBatcher->beginBatch();
     for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
     {
         renderPhysicalEntity(*(*i), Assets::getInstance()->get((*i)));
