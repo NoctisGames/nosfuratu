@@ -589,7 +589,7 @@ void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool is
     m_spriteBatcher->beginBatch();
     
     std::stringstream ss;
-    ss << "v" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD << "." << VERSION_REVISION;
+    ss << "v" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD;
     std::string text = ss.str();
     m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth / 2, fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     
