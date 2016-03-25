@@ -78,7 +78,7 @@ public:
     // Return 0 to do nothing
     int updateCameraToFollowPathToJon(Game& game);
     
-    void updateCameraToFollowJon(Game& game, float deltaTime);
+    void updateCameraToFollowJon(Game& game, float deltaTime, bool chase);
     
     void moveCamera(float x);
     

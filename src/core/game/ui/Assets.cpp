@@ -26,11 +26,7 @@ Assets * Assets::getInstance()
 
 TextureRegion& Assets::get(TitlePanel* panel)
 {
-    static Animation anim = Animation(0, 0, 640, 512, 1920, 1536, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 7);
-    if (!anim.hasFrameTimes())
-    {
-        anim.setFrameTimes(7, 3.0f, 0.1f, 0.1f, 0.1f, 2.5f, 0.15f, 0.15f);
-    }
+    static Animation anim = Animation(0, 0, 1280, 720, 3840, 2160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
     
     return anim.getTextureRegion(panel->getStateTime());
 }
@@ -1056,7 +1052,7 @@ TextureRegion& Assets::get(BackButton* backButton)
 
 TextureRegion& Assets::get(LevelEditorButton* levelEditorButton)
 {
-    static TextureRegion tr = TextureRegion(1824, 1620, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     return tr;
 }
 

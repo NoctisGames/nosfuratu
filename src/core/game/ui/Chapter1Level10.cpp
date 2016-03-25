@@ -21,3 +21,33 @@ Chapter1Level10 * Chapter1Level10::getInstance()
     
     return instance;
 }
+
+void Chapter1Level10::execute(GameScreen* gs)
+{
+    Level::execute(gs);
+    
+    if (m_game->getJons().size() > 0)
+    {
+        Jon& jon = m_game->getJon();
+        m_isChaseCamActivated = jon.getPosition().getY() > 12;
+    }
+}
+
+void Chapter1Level10::exit(GameScreen* gs)
+{
+    Level::exit(gs);
+    
+    m_isChaseCamActivated = false;
+}
+
+void Chapter1Level10::updateCamera(GameScreen* gs)
+{
+    if (m_isChaseCamActivated)
+    {
+        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true);
+    }
+    else
+    {
+        Level::updateCamera(gs);
+    }
+}

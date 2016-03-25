@@ -272,7 +272,7 @@ void Level::execute(GameScreen* gs)
                 }
             }
             
-            gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime);
+            updateCamera(gs);
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
             EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
@@ -314,6 +314,11 @@ Game& Level::getGame()
 BackButton& Level::getBackButton()
 {
     return *m_backButton;
+}
+
+void Level::updateCamera(GameScreen* gs)
+{
+    gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false);
 }
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)

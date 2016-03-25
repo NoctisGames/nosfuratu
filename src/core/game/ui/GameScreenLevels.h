@@ -51,6 +51,8 @@ protected:
     bool m_hasSwiped;
     bool m_showDeathTransOut;
     
+    virtual void updateCamera(GameScreen* gs);
+    
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
     
@@ -173,9 +175,17 @@ class Chapter1Level10 : public Level
 public:
     static Chapter1Level10* getInstance();
     
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
 private:
+    bool m_isChaseCamActivated;
+    
+    virtual void updateCamera(GameScreen* gs);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level10(const char* json) : Level(json) {};
+    Chapter1Level10(const char* json) : Level(json), m_isChaseCamActivated(false) {};
     Chapter1Level10(const Chapter1Level10&);
     Chapter1Level10& operator=(const Chapter1Level10&);
 };

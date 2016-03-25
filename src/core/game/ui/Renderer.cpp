@@ -343,13 +343,13 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     
     m_fStateTime = 0;
     
-    updateCameraToFollowJon(game, 1337);
+    updateCameraToFollowJon(game, 1337, false);
     
     m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
     m_camBounds->getLowerLeft().setY(game.getFarRightBottom());
     
     Jon& jon = game.getJon();
-    float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+    float farLeft = jon.getPosition().getX() - CAM_WIDTH / 6;
 	float farLeftBottom = jon.getMainBounds().getBottom() - 0.5625f;
     
     float changeInX = farLeft - getCamPosFarRight(game);
@@ -384,7 +384,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         }
         
         Jon& jon = game.getJon();
-        float farLeft = jon.getPosition().getX() - CAM_WIDTH / 5;
+        float farLeft = jon.getPosition().getX() - CAM_WIDTH / 6;
         float farLeftBottom = jon.getMainBounds().getBottom() - 0.5625f;
         
         float changeInX = farLeft - getCamPosFarRight(game);
@@ -405,7 +405,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         
         if (isComplete)
         {
-            updateCameraToFollowJon(game, 1337);
+            updateCameraToFollowJon(game, 1337, false);
         }
         
         return isComplete ? 2 : 1;
@@ -414,10 +414,28 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
     return m_fStateTime >= 8.065f ? 3 : 0;
 }
 
-void Renderer::updateCameraToFollowJon(Game& game, float deltaTime)
+void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase)
 {
     Jon& jon = game.getJon();
-    m_camBounds->getLowerLeft().setX(jon.getPosition().getX() - CAM_WIDTH / 5);
+    
+    float idealCamX = jon.getPosition().getX() - CAM_WIDTH / 6;
+    if (chase)
+    {
+        idealCamX = jon.getPosition().getX() - CAM_WIDTH * 5 / 6;
+    }
+    
+    float camVelocityX = idealCamX - m_camBounds->getLowerLeft().getX();
+    m_camBounds->getLowerLeft().add(camVelocityX < 0 ? camVelocityX * 2 * deltaTime : (camVelocityX * 2 + jon.getVelocity().getX()) * deltaTime, 0);
+    
+    if (camVelocityX < 0 && m_camBounds->getLowerLeft().getX() < idealCamX)
+    {
+        m_camBounds->getLowerLeft().setX(idealCamX);
+    }
+    else if (camVelocityX > 0 && m_camBounds->getLowerLeft().getX() > idealCamX)
+    {
+        m_camBounds->getLowerLeft().setX(idealCamX);
+    }
+    
     float jy = jon.getMainBounds().getBottom() - 0.5625f;
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
