@@ -148,8 +148,14 @@ protected:
     TextureWrapper m_world_1_background_lower;
     TextureWrapper m_world_1_background_mid;
     TextureWrapper m_world_1_background_upper;
-    TextureWrapper m_world_1_mid_boss;
+    TextureWrapper m_world_1_enemies;
+    TextureWrapper m_world_1_ground;
+    TextureWrapper m_world_1_mid_boss_part_1;
+    TextureWrapper m_world_1_mid_boss_part_2;
+    TextureWrapper m_world_1_mid_boss_part_3;
+    TextureWrapper m_world_1_mid_boss_part_4;
     TextureWrapper m_world_1_objects;
+    TextureWrapper m_world_1_special;
     TextureWrapper m_world_map_screen;
     
     std::vector<TextureWrapper *> m_textureWrappers;
