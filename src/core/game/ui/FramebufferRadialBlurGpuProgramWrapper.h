@@ -15,19 +15,15 @@
 
 #include <memory>
 
-#define RADIAL_BLUR_DIRECTION_LEFT 0
-#define RADIAL_BLUR_DIRECTION_TOP_LEFT 1
-#define RADIAL_BLUR_DIRECTION_BOTTOM_LEFT 2
-
 class FramebufferRadialBlurGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
     FramebufferRadialBlurGpuProgramWrapper();
     
-    void configure(int direction);
+    void configure(float direction);
     
 protected:
-    int m_iDirection;
+    float m_fDirection; // Some value between 1.0 and 0.0, where 1.0 is top and 0.0 is bottom
 };
 
 #endif /* defined(__noctisgames__FramebufferRadialBlurGpuProgramWrapper__) */

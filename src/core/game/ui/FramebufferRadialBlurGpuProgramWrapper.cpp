@@ -8,12 +8,16 @@
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
 
-FramebufferRadialBlurGpuProgramWrapper::FramebufferRadialBlurGpuProgramWrapper() : m_iDirection(0)
+#include <assert.h>
+
+FramebufferRadialBlurGpuProgramWrapper::FramebufferRadialBlurGpuProgramWrapper() : m_fDirection(0.0f)
 {
     // Empty
 }
 
-void FramebufferRadialBlurGpuProgramWrapper::configure(int direction)
+void FramebufferRadialBlurGpuProgramWrapper::configure(float direction)
 {
-    m_iDirection = direction;
+    assert(direction <= 1.0f && direction >= 0.0f);
+    
+    m_fDirection = direction;
 }

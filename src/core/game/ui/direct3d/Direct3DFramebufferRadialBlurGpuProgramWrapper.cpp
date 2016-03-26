@@ -93,7 +93,7 @@ void Direct3DFramebufferRadialBlurGpuProgramWrapper::bind()
 	// send isWindowsMobile to video memory
 	int isWindowsMobile = m_isWindowsMobile ? 1 : 0;
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_isWindowsMobileConstantBuffer.Get(), 0, 0, &isWindowsMobile, 0, 0);
-	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_directionConstantBuffer.Get(), 0, 0, &m_iDirection, 0, 0);
+	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_directionConstantBuffer.Get(), 0, 0, &m_fDirection, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));

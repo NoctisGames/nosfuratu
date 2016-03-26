@@ -44,7 +44,7 @@ Renderer::Renderer() :
 m_fStateTime(0),
 m_iFramebufferIndex(0),
 m_iNumAsyncLoads(0),
-m_iRadialBlurDirection(RADIAL_BLUR_DIRECTION_LEFT),
+m_fRadialBlurDirection(0.5f),
 m_compressed(Assets::getInstance()->isUsingCompressedTextureSet()),
 m_areShadersLoaded(false),
 m_stopCamera(false),
@@ -355,18 +355,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     float changeInX = farLeft - getCamPosFarRight(game);
     float changeInY = farLeftBottom - game.getFarRightBottom();
     
-    if (changeInY > (GAME_HEIGHT / 6))
-    {
-        m_iRadialBlurDirection = RADIAL_BLUR_DIRECTION_TOP_LEFT;
-    }
-    else if (changeInY < -(GAME_HEIGHT / 6))
-    {
-        m_iRadialBlurDirection = RADIAL_BLUR_DIRECTION_BOTTOM_LEFT;
-    }
-    else
-    {
-        m_iRadialBlurDirection = RADIAL_BLUR_DIRECTION_LEFT;
-    }
+    m_fRadialBlurDirection = 0.5f; // TODO, use trig here
     
     m_camPosVelocity->set(changeInX, changeInY);
 }
@@ -1200,7 +1189,7 @@ void Renderer::renderToScreenWithRadialBlur()
 {
     /// Render everything to the screen with a radial blur
     
-    m_framebufferRadialBlurGpuProgramWrapper->configure(m_iRadialBlurDirection);
+    m_framebufferRadialBlurGpuProgramWrapper->configure(m_fRadialBlurDirection);
     
     bindToScreenFramebuffer();
     
