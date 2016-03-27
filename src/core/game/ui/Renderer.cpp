@@ -1092,11 +1092,11 @@ void Renderer::renderLoading()
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static Animation anim = Animation(0, 700, 182, 176, 364, 176, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024, true, 0.1f, 2);
+    static Animation anim = Animation(0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024, true, 0.06f, 7);
     TextureRegion tr = anim.getTextureRegion(m_fStateTime);
     
-    static float width = 1.599609375f;
-    static float height = 1.546875f;
+    static float width = 1.265625f;
+    static float height = 0.84375f;
     static float x = CAM_WIDTH - width / 2;
     static float y = height / 2;
     
