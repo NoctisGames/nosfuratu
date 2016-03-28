@@ -35,6 +35,7 @@
 #include "TitlePanel.h"
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
+#include "macros.h"
 
 #include <math.h>
 #include <sstream>
@@ -355,9 +356,13 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     float changeInX = farLeft - getCamPosFarRight(game);
     float changeInY = farLeftBottom - game.getFarRightBottom();
     
-    m_fRadialBlurDirection = 0.5f; // TODO, use trig here
-    
     m_camPosVelocity->set(changeInX, changeInY);
+    
+    Vector2D camPosVelocityNormal = m_camPosVelocity->cpy().nor();
+    float angle = camPosVelocityNormal.angle();
+    float tanfAngle = tanf(DEGREES_TO_RADIANS(angle));
+    float y = tanfAngle * camPosVelocityNormal.getX();
+    m_fRadialBlurDirection = y / 2.0f + 0.5f;
 }
 
 int Renderer::updateCameraToFollowPathToJon(Game& game)
