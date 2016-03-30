@@ -15,8 +15,6 @@ using namespace Windows::System::Profile;
 
 Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : FramebufferRadialBlurGpuProgramWrapper(), m_iNumShadersLoaded(0), m_isWindowsMobile(false), m_deviceResources(deviceResources)
 {
-	createConstantBuffers();
-
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
 
 	m_isWindowsMobile = false;
@@ -24,6 +22,8 @@ Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpu
 	{
 		m_isWindowsMobile = true;
 	}
+    
+    createConstantBuffers();
 
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"FramebufferToScreenVertexShader.cso");

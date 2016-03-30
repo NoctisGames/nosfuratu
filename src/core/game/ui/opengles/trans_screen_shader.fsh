@@ -8,14 +8,17 @@ uniform float u_progress;
 
 varying vec2 v_TextureCoordinates;
 
-const vec2 center = vec2(0.5, 0.5);
-const float SQRT_2 = 1.414213562373;
+float rand (vec2 co)
+{
+    return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
 
-void main() {
-    float smoothness = 0.3;
-    bool opening = true;
+void main()
+{
+    float prog = 1.0 - u_progress;
+    float size = 0.15;
     vec2 p = v_TextureCoordinates;
-    float x = opening ? u_progress : 1.-u_progress;
-    float m = smoothstep(-smoothness, 0.0, SQRT_2*distance(center, p) - x*(1.+smoothness));
-    gl_FragColor = mix(texture2D(u_from, p), texture2D(u_to, p), opening ? 1.-m : m);
-} 
+    float r = rand(vec2(0, p.y));
+    float m = smoothstep(0.0, -size, p.x * (1.0-size) + size * r - (prog * (1.0 + size)));
+    gl_FragColor = mix(texture2D(u_to, p), texture2D(u_from, p), m);
+}

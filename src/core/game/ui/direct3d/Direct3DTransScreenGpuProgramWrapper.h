@@ -25,9 +25,11 @@ public:
 
 private:
 	int m_iNumShadersLoaded;
+    bool m_isWindowsMobile;
 
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+    Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;

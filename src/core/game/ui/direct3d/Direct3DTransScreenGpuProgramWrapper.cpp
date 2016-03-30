@@ -11,8 +11,18 @@
 #include "Direct3DManager.h"
 #include "macros.h"
 
-Direct3DTransScreenGpuProgramWrapper::Direct3DTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_deviceResources(deviceResources)
+using namespace Windows::System::Profile;
+
+Direct3DTransScreenGpuProgramWrapper::Direct3DTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_isWindowsMobile(false), m_deviceResources(deviceResources)
 {
+    AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+    
+    m_isWindowsMobile = false;
+    if (api->DeviceFamily->Equals("Windows.Mobile"))
+    {
+        m_isWindowsMobile = true;
+    }
+    
 	createConstantBuffers();
 
 	// Load shaders asynchronously.
@@ -81,9 +91,13 @@ void Direct3DTransScreenGpuProgramWrapper::bind()
 	m_deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, &m_to->texture);
 
 	m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(0, 1, m_progressConstantBuffer.GetAddressOf());
+    m_deviceResources->GetD3DDeviceContext()->PSSetConstantBuffers(1, 1, m_isWindowsMobileConstantBuffer.GetAddressOf());
 
 	// send time elapsed to video memory
 	m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_progressConstantBuffer.Get(), 0, 0, &m_fProgress, 0, 0);
+    
+    int isWindowsMobile = m_isWindowsMobile ? 1 : 0;
+    m_deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_isWindowsMobileConstantBuffer.Get(), 0, 0, &isWindowsMobile, 0, 0);
 
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
@@ -129,4 +143,14 @@ void Direct3DTransScreenGpuProgramWrapper::createConstantBuffers()
 
 		m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_progressConstantBuffer);
 	}
+    
+    {
+        D3D11_BUFFER_DESC bd = { 0 };
+        
+        bd.Usage = D3D11_USAGE_DEFAULT;
+        bd.ByteWidth = 16;
+        bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+        
+        m_deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isWindowsMobileConstantBuffer);
+    }
 }
