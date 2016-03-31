@@ -497,6 +497,7 @@ void Jon::consume()
 {
     // Used when Jon needs to be "transfered" i.e. grabbed by the owl or eaten by the toad
     m_isConsumed = true;
+    m_iNumJumps = 0;
 }
 
 void Jon::kill()
@@ -991,10 +992,10 @@ void Jon::Vampire::triggerJump(Jon* jon)
 			{
 				jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE * 2;
 				jon->setState(ABILITY_UPWARD_THRUST);
+                
+                jon->m_isConsumed = false;
 			}
 		}
-        
-        jon->m_isConsumed = false;
 
 		jon->m_iNumJumps++;
 
