@@ -97,6 +97,7 @@ Renderer::~Renderer()
 
 void Renderer::init(RendererType rendererType)
 {
+	m_stopCamera = false;
     m_fStateTime = 0;
     
     loadMisc();
