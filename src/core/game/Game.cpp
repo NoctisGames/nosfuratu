@@ -507,11 +507,11 @@ void Game::onLoaded()
         }
     }
     
-    setGameToEntities(m_jons, this);
-    setGameToEntities(m_enemies, this);
-    setGameToEntities(m_foregroundObjects, this);
-    setGameToEntities(m_midBossForegroundObjects, this);
-    setGameToEntities(m_extraForegroundObjects, this);
+    EntityUtils::setGameToEntities(m_jons, this);
+    EntityUtils::setGameToEntities(m_enemies, this);
+    EntityUtils::setGameToEntities(m_foregroundObjects, this);
+    EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
+    EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
     
     m_iNumTotalCarrots = getNumRemainingCarrots();
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();

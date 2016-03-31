@@ -400,6 +400,15 @@ public:
     }
     
     template<typename T>
+    static void setGameToEntities(std::vector<T*>& items, Game* game)
+    {
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            (*i)->setGame(game);
+        }
+    }
+    
+    template<typename T>
     static void copyAndOffset(std::vector<T*>& items, int beginGridX, int endGridX)
     {
         int gridSpacing = endGridX - beginGridX;

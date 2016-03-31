@@ -228,15 +228,6 @@ private:
         w.EndArray();
     }
     
-    template<typename T>
-    void setGameToEntities(std::vector<T*>& items, Game* game)
-    {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            (*i)->setGame(game);
-        }
-    }
-    
     void onLoaded();
 };
 
