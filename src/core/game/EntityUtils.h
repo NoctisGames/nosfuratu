@@ -412,13 +412,14 @@ public:
     static void copyAndOffset(std::vector<T*>& items, int beginGridX, int endGridX)
     {
         int gridSpacing = endGridX - beginGridX;
-        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 2.0f;
+        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             if ((*i)->getGridX() >= endGridX)
             {
                 (*i)->getPosition().add(offset, 0);
+                (*i)->updateBounds();
                 (*i)->snapToGrid(1);
             }
         }
@@ -438,11 +439,12 @@ public:
     static void offsetAll(std::vector<T*>& items, int beginGridX, int endGridX)
     {
         int gridSpacing = endGridX - beginGridX;
-        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 2.0f;
+        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             (*i)->getPosition().add(offset, 0);
+            (*i)->updateBounds();
             (*i)->snapToGrid(1);
         }
     }
