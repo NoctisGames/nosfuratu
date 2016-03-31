@@ -21,8 +21,24 @@
 // Save, Load, and Completion actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
-#define REQUESTED_ACTION_GET_LEVEL_COMPLETIONS 3
-#define REQUESTED_ACTION_LEVEL_COMPLETED 4
+#define REQUESTED_ACTION_LEVEL_COMPLETED 3
+
+#define REQUESTED_ACTION_GET_LEVEL_COMPLETIONS 4
+// Show Message is passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
+#define REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE 5
+
+#define MESSAGE_NO_END_SIGN_KEY 1
+#define MESSAGE_NO_END_SIGN_VALUE "Cannot save or test a level that does not contain an End Sign"
+#define MESSAGE_NO_JON_KEY 2
+#define MESSAGE_NO_JON_VALUE "Cannot save or test a level that does not contain a Jon"
+#define MESSAGE_INVALID_JON_KEY 3
+#define MESSAGE_INVALID_JON_VALUE "Cannot save or test a level unless Jon is placed to the left of the end sign"
+#define MESSAGE_NO_COUNT_HISS_KEY 4
+#define MESSAGE_NO_COUNT_HISS_VALUE "Cannot save or test a level that does not contain a Count Hiss"
+#define MESSAGE_INVALID_COUNT_HISS_KEY 5
+#define MESSAGE_INVALID_COUNT_HISS_VALUE "Cannot save or test a level unless Count Hiss is placed to the left of the end sign"
+#define MESSAGE_OFFSET_NEEDS_MARKERS_KEY 6
+#define MESSAGE_OFFSET_NEEDS_MARKERS_VALUE "2 markers must be placed to denote the section which you want to offset"
 
 //// Music Definitions ////
 

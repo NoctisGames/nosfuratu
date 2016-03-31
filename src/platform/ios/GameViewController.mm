@@ -137,12 +137,15 @@
             [self loadLevel:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_LEVEL_COMPLETED:
+            [self markLevelAsCompleted:gameScreen->getRequestedAction()];
+            gameScreen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
             [self sendLevelCompletions];
             gameScreen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_LEVEL_COMPLETED:
-            [self markLevelAsCompleted:gameScreen->getRequestedAction()];
+        case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
             gameScreen->clearRequestedAction();
             break;
         default:
@@ -308,6 +311,48 @@
     const char* userSaveDataCString = [userSaveData cStringUsingEncoding:NSUTF8StringEncoding];
     
     WorldMap::getInstance()->loadUserSaveData(userSaveDataCString);
+}
+
+- (void)showMessage:(int)requestedAction
+{
+    int messageKey = 0;
+    
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    messageKey = requestedAction;
+
+    NSString* toast = nil;
+    
+    switch (messageKey) {
+        case MESSAGE_NO_END_SIGN_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_NO_END_SIGN_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        case MESSAGE_NO_JON_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_NO_JON_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        case MESSAGE_INVALID_JON_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_INVALID_JON_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        case MESSAGE_NO_COUNT_HISS_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_NO_COUNT_HISS_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        case MESSAGE_INVALID_COUNT_HISS_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_INVALID_COUNT_HISS_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
+            toast = [[NSString alloc] initWithCString:MESSAGE_OFFSET_NEEDS_MARKERS_VALUE encoding:NSUTF8StringEncoding];
+            break;
+        default:
+            break;
+    }
+    
+    if (toast)
+    {
+        [self.view makeToast:toast];
+    }
 }
 
 - (NSString *)getLevelName:(int)requestedAction

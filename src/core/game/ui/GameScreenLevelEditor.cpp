@@ -253,16 +253,6 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
         {
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             
-            bool isLevelValid = true;
-            if (!m_game->hasEndSign()
-				|| m_game->getJons().size() == 0
-                || m_game->getJon().getMainBounds().getRight() > m_game->getFarRight()
-                || m_game->getCountHissWithMinas().size() == 0
-                || m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
-            {
-                isLevelValid = false;
-            }
-            
             switch (rc)
             {
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER:
@@ -278,6 +268,16 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     resetEntities(true);
                 }
                     return;
+                case LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET:
+                    if (m_game->getMarkers().size() < 2)
+                    {
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_OFFSET_NEEDS_MARKERS_KEY;
+                    }
+                    else
+                    {
+                        // TODO, show offset dialog
+                    }
+                    return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
                     m_game->reset();
 					resetEntities(true);
@@ -289,7 +289,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     gs->m_stateMachine->revertToPreviousState();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
-                    if (isLevelValid)
+                    if (isLevelValid(gs))
                     {
                         Level::getInstance()->setSourceGame(m_game.get());
                         gs->m_stateMachine->changeState(Level::getInstance());
@@ -300,7 +300,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     m_levelSelectorPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
-                    if (isLevelValid)
+                    if (isLevelValid(gs))
                     {
                         resetEntities(true);
                         gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
@@ -571,6 +571,41 @@ void GameScreenLevelEditor::loadIfNecessary(GameScreen* gs)
         
         load(jsonString.c_str(), gs);
     }
+}
+
+bool GameScreenLevelEditor::isLevelValid(GameScreen *gs)
+{
+    if (!m_game->hasEndSign())
+    {
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_END_SIGN_KEY;
+        return false;
+    }
+    
+    if (m_game->getJons().size() == 0)
+    {
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_JON_KEY;
+        return false;
+    }
+    
+    if (m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
+    {
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_JON_KEY;
+        return false;
+    }
+    
+    if (m_game->getCountHissWithMinas().size() == 0)
+    {
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_COUNT_HISS_KEY;
+        return false;
+    }
+    
+    if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
+    {
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_COUNT_HISS_KEY;
+        return false;
+    }
+    
+    return true;
 }
 
 GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_iWorld(0), m_iLevel(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)

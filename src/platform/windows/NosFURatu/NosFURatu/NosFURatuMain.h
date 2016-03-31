@@ -54,6 +54,7 @@ namespace NosFURatu
 		void loadLevel(int requestedAction);
 		void markLevelAsCompleted(int requestedAction);
 		void sendLevelCompletions();
+        void showMessage(int requestedAction);
 
 		Platform::String^ getLevelName(int requestedAction);
 

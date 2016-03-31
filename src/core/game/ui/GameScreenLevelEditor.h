@@ -68,6 +68,8 @@ private:
     
     void loadIfNecessary(GameScreen* gs);
     
+    bool isLevelValid(GameScreen* gs);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     GameScreenLevelEditor();
     GameScreenLevelEditor(const GameScreenLevelEditor&);

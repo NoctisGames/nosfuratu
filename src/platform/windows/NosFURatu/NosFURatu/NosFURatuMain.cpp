@@ -175,14 +175,18 @@ void NosFURatuMain::Update()
 			loadLevel(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
+        case REQUESTED_ACTION_LEVEL_COMPLETED:
+            markLevelAsCompleted(m_gameScreen->getRequestedAction());
+            m_gameScreen->clearRequestedAction();
+            break;
 		case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
 			sendLevelCompletions();
 			m_gameScreen->clearRequestedAction();
 			break;
-		case REQUESTED_ACTION_LEVEL_COMPLETED:
-			markLevelAsCompleted(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-			break;
+        case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
+            showMessage(m_gameScreen->getRequestedAction());
+            m_gameScreen->clearRequestedAction();
+            break;
 		default:
 			break;
 		}
@@ -445,6 +449,53 @@ void NosFURatuMain::sendLevelCompletions()
 	std::string userSaveData = ss.str();
 
 	WorldMap::getInstance()->loadUserSaveData(userSaveData.c_str());
+}
+
+void NosFURatuMain::showMessage(int requestedAction)
+{
+    int messageKey = 0;
+    
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    messageKey = requestedAction;
+    
+    const char* toast = nullptr;
+    
+    switch (messageKey) {
+        case MESSAGE_NO_END_SIGN_KEY:
+            toast = MESSAGE_NO_END_SIGN_VALUE;
+            break;
+        case MESSAGE_NO_JON_KEY:
+            toast = MESSAGE_NO_JON_VALUE;
+            break;
+        case MESSAGE_INVALID_JON_KEY:
+            toast = MESSAGE_INVALID_JON_VALUE;
+            break;
+        case MESSAGE_NO_COUNT_HISS_KEY:
+            toast = MESSAGE_NO_COUNT_HISS_VALUE;
+            break;
+        case MESSAGE_INVALID_COUNT_HISS_KEY:
+            toast = MESSAGE_INVALID_COUNT_HISS_VALUE;
+            break;
+        case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
+            toast = MESSAGE_OFFSET_NEEDS_MARKERS_VALUE;
+            break;
+        default:
+            break;
+    }
+    
+    if (toast)
+    {
+        std::string s_str = std::string(toast);
+        std::wstring wid_str = std::wstring(s_str.begin(), s_str.end());
+        const wchar_t* w_char = wid_str.c_str();
+        Platform::String^ p_string = ref new Platform::string(w_char);
+        
+        displayToast(p_string);
+    }
 }
 
 Platform::String^ NosFURatuMain::getLevelName(int requestedAction)
