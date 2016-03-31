@@ -198,6 +198,7 @@ private:
     std::unique_ptr<Vector2D> m_camPosAcceleration;
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
+	float m_fCamPosX;
     int m_iNumAsyncLoads;
     float m_fRadialBlurDirection;
     bool m_compressed;

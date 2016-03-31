@@ -445,6 +445,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                 else if (gs->m_touchPoint->getX() > CAM_WIDTH / 5 * 4)
                 {
                     m_exitLoop = true;
+					gs->m_renderer->stopCamera();
                 }
                 
                 if (isJonAlive)

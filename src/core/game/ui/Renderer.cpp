@@ -43,6 +43,7 @@
 
 Renderer::Renderer() :
 m_fStateTime(0),
+m_fCamPosX(0),
 m_iFramebufferIndex(0),
 m_iNumAsyncLoads(0),
 m_fRadialBlurDirection(0.5f),
@@ -518,10 +519,9 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, 
         m_camBounds->getLowerLeft().setY(GAME_HEIGHT - CAM_HEIGHT);
     }
     
-    float farCamPos = getCamPosFarRight(game);
-    if (m_stopCamera && m_camBounds->getLowerLeft().getX() > farCamPos)
+    if (m_stopCamera && m_camBounds->getLowerLeft().getX() > m_fCamPosX)
     {
-        m_camBounds->getLowerLeft().setX(farCamPos);
+        m_camBounds->getLowerLeft().setX(m_fCamPosX);
     }
 }
 
@@ -532,6 +532,7 @@ void Renderer::moveCamera(float x)
 
 void Renderer::stopCamera()
 {
+	m_fCamPosX = m_camBounds->getLeft();
     m_stopCamera = true;
 }
 

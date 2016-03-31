@@ -424,15 +424,16 @@ public:
             }
         }
         
-        int size = items.size();
-        int j = 0;
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end() && j < size; i++, j++)
+		std::vector<T*> newItems;
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             if((*i)->getGridX() >= beginGridX && (*i)->getGridX() < endGridX)
             {
-                items.push_back(T::create((*i)->getGridX() + gridSpacing, (*i)->getGridY(), (*i)->getType()));
+				newItems.push_back(T::create((*i)->getGridX() + gridSpacing, (*i)->getGridY(), (*i)->getType()));
             }
         }
+
+		items.insert(items.end(), newItems.begin(), newItems.end());
     }
     
     template<typename T>
