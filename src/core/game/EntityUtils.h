@@ -399,6 +399,45 @@ public:
         items.clear();
     }
     
+    template<typename T>
+    static void copyAndOffset(std::vector<T*>& items, int beginGridX, int endGridX)
+    {
+        int gridSpacing = endGridX - beginGridX;
+        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 2.0f;
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if ((*i)->getGridX() >= endGridX)
+            {
+                (*i)->getPosition().add(offset, 0);
+                (*i)->snapToGrid(1);
+            }
+        }
+        
+        int size = items.size();
+        int j = 0;
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end() && j < size; i++, j++)
+        {
+            if((*i)->getGridX() >= beginGridX && (*i)->getGridX() < endGridX)
+            {
+                items.push_back(T::create((*i)->getGridX() + gridSpacing, (*i)->getGridY(), (*i)->getType()));
+            }
+        }
+    }
+    
+    template<typename T>
+    static void offsetAll(std::vector<T*>& items, int beginGridX, int endGridX)
+    {
+        int gridSpacing = endGridX - beginGridX;
+        float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 2.0f;
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            (*i)->getPosition().add(offset, 0);
+            (*i)->snapToGrid(1);
+        }
+    }
+    
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
     EntityUtils();

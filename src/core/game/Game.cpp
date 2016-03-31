@@ -518,7 +518,5 @@ void Game::onLoaded()
     
     calcFarRight();
     
-    // TODO, calc looping sections
-    
     m_isLoaded = true;
 }

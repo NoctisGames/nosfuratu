@@ -50,6 +50,7 @@ protected:
     bool m_activateRadialBlur;
     bool m_hasSwiped;
     bool m_showDeathTransOut;
+    bool m_exitLoop;
     
     virtual void updateCamera(GameScreen* gs, bool instant = false);
     

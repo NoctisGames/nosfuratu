@@ -199,29 +199,6 @@ void Level::execute(GameScreen* gs)
                 
                 return;
             }
-            else if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
-            {
-                // Has Cleared the Level
-                
-                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
-                
-                m_fStateTime += gs->m_fDeltaTime;
-                
-                if (m_fStateTime > 2)
-                {
-                    Assets::getInstance()->setMusicId(MUSIC_STOP);
-                    
-                    gs->m_stateMachine->revertToPreviousState();
-                    
-                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-                    gs->m_iRequestedAction += m_game->getWorld() * 100;
-                    gs->m_iRequestedAction += m_game->getLevel();
-                    
-                    return;
-                }
-            }
             else
             {
                 // Is Still Actively playing the Level
@@ -276,6 +253,44 @@ void Level::execute(GameScreen* gs)
             }
             
             updateCamera(gs);
+            
+            if (m_game->getMarkers().size() > 0)
+            {
+                Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
+                if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
+                {
+                    if (m_exitLoop)
+                    {
+                        m_game->getMarkers().erase(m_game->getMarkers().begin());
+                        m_game->getMarkers().erase(m_game->getMarkers().begin());
+                        
+                        m_exitLoop = false;
+                    }
+                    else
+                    {
+                        Marker* beginLoopMarker = m_game->getMarkers().at(0);
+                        
+                        int beginGridX = beginLoopMarker->getGridX();
+                        int endGridX = nextEndLoopMarker->getGridX();
+                        
+                        EntityUtils::copyAndOffset(m_game->getMidgrounds(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getGrounds(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getPits(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getExitGrounds(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getHoles(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getForegroundObjects(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getMidBossForegroundObjects(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getCountHissWithMinas(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getCollectibleItems(), beginGridX, endGridX);
+                        EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
+                        
+                        EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
+                        
+                        m_game->calcFarRight();
+                    }
+                }
+            }
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
             EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
@@ -403,11 +418,28 @@ bool Level::handleTouchInput(GameScreen* gs)
             case UP:
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                 {
+                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+                    
                     Assets::getInstance()->setMusicId(MUSIC_STOP);
+                    
+                    if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
+                    {
+                        // Has Cleared the Level
+                        
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+                        gs->m_iRequestedAction += m_game->getWorld() * 100;
+                        gs->m_iRequestedAction += m_game->getLevel();
+                    }
                     
                     gs->m_stateMachine->revertToPreviousState();
                     
                     return true;
+                }
+                else if (gs->m_touchPoint->getX() > CAM_WIDTH / 5 * 4)
+                {
+                    m_exitLoop = true;
                 }
                 
                 if (isJonAlive)
@@ -438,7 +470,19 @@ bool Level::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-Level::Level(const char* json) : m_sourceGame(nullptr), m_fStateTime(0.0f), m_isReleasingShockwave(false), m_fShockwaveElapsedTime(0.0f), m_fShockwaveCenterX(0.0f), m_fShockwaveCenterY(0.0f), m_hasShownOpeningSequence(false), m_hasOpeningSequenceCompleted(false), m_activateRadialBlur(false), m_hasSwiped(false), m_showDeathTransOut(false)
+Level::Level(const char* json) :
+m_sourceGame(nullptr),
+m_fStateTime(0.0f),
+m_isReleasingShockwave(false),
+m_fShockwaveElapsedTime(0.0f),
+m_fShockwaveCenterX(0.0f),
+m_fShockwaveCenterY(0.0f),
+m_hasShownOpeningSequence(false),
+m_hasOpeningSequenceCompleted(false),
+m_activateRadialBlur(false),
+m_hasSwiped(false),
+m_showDeathTransOut(false),
+m_exitLoop(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
