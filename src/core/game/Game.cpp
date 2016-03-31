@@ -171,6 +171,14 @@ void Game::reset()
 
 void Game::update(float deltaTime)
 {
+    if (getJons().size() > 0)
+    {
+        if (getJon().getPosition().getX() - getJon().getWidth() > getFarRight())
+        {
+            return;
+        }
+    }
+    
     m_fStateTime += deltaTime;
 }
 
