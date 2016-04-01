@@ -87,7 +87,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreen();
         
-        gs->m_renderer->renderLevelEditor(m_levelEditorActionsPanel.get(), m_levelEditorEntitiesPanel.get(), m_trashCan.get(), m_levelSelectorPanel.get());
+        gs->m_renderer->renderLevelEditor(m_levelEditorActionsPanel.get(), m_levelEditorEntitiesPanel.get(), m_trashCan.get(), m_levelSelectorPanel.get(), m_offsetPanel.get());
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
@@ -249,6 +249,90 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
             return;
         }
         
+        if (m_offsetPanel->isOpen())
+        {
+            if ((rc = m_offsetPanel->handleTouch(*(*i), *gs->m_touchPoint)) != OFFSET_PANEL_RC_UNHANDLED)
+            {
+                switch (rc)
+                {
+                    case OFFSET_PANEL_RC_HANDLED:
+                    {
+                        int offset = m_offsetPanel->getOffset();
+                        
+                        Marker* endLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 1);
+                        Marker* beginLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 2);
+                        
+                        int beginGridX = beginLoopMarker->getGridX();
+                        int endGridX = endLoopMarker->getGridX();
+                        
+                        EntityUtils::offsetAllInRange(m_game->getMidgrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getGrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getPits(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getExitGrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getHoles(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getMidBossForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getCountHissWithMinas(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getEnemies(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRange(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
+                        
+                        EntityUtils::offsetAllInRange(m_game->getMarkers(), beginGridX, endGridX, offset);
+                    }
+                        break;
+                    case OFFSET_PANEL_RC_CONFIRM:
+                    default:
+                        break;
+                }
+            }
+            
+            return;
+        }
+        
+        if (m_confirmResetPanel->isOpen())
+        {
+            if ((rc = m_confirmResetPanel->handleTouch(*(*i), *gs->m_touchPoint)) != CONFIRM_RESET_PANEL_RC_UNHANDLED)
+            {
+                switch (rc)
+                {
+                    case CONFIRM_RESET_PANEL_RC_RESET:
+                    {
+                        m_game->reset();
+                        resetEntities(true);
+                        enter(gs);
+                    }
+                        break;
+                    case CONFIRM_RESET_PANEL_RC_CANCEL:
+                    default:
+                        break;
+                }
+            }
+            
+            return;
+        }
+        
+        if (m_confirmExitPanel->isOpen())
+        {
+            if ((rc = m_confirmExitPanel->handleTouch(*(*i), *gs->m_touchPoint)) != CONFIRM_EXIT_PANEL_RC_UNHANDLED)
+            {
+                switch (rc)
+                {
+                    case CONFIRM_EXIT_PANEL_RC_EXIT:
+                    {
+                        m_iWorld = 0;
+                        m_iLevel = 0;
+                        gs->m_stateMachine->revertToPreviousState();
+                    }
+                        break;
+                    case CONFIRM_EXIT_PANEL_RC_CANCEL:
+                    default:
+                        break;
+                }
+            }
+            
+            return;
+        }
+        
         if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), *gs->m_touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
             gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
@@ -275,18 +359,14 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else
                     {
-                        // TODO, show offset dialog
+                        m_offsetPanel->open();
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET:
-                    m_game->reset();
-					resetEntities(true);
-                    enter(gs);
+                    m_confirmResetPanel->open();
 					return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT:
-					m_iWorld = 0;
-					m_iLevel = 0;
-                    gs->m_stateMachine->revertToPreviousState();
+                    m_confirmExitPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (isLevelValid(gs))
@@ -615,4 +695,7 @@ GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_d
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());
     m_levelSelectorPanel = std::unique_ptr<LevelSelectorPanel>(new LevelSelectorPanel());
+    m_offsetPanel = std::unique_ptr<OffsetPanel>(new OffsetPanel());
+    m_confirmResetPanel = std::unique_ptr<ConfirmResetPanel>(new ConfirmResetPanel());
+    m_confirmExitPanel = std::unique_ptr<ConfirmExitPanel>(new ConfirmExitPanel());
 }

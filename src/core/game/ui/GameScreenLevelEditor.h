@@ -14,6 +14,9 @@
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
+#include "OffsetPanel.h"
+#include "ConfirmResetPanel.h"
+#include "ConfirmExitPanel.h"
 #include "RendererType.h"
 
 #include <memory>
@@ -51,6 +54,9 @@ private:
     std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
     std::unique_ptr<TrashCan> m_trashCan;
     std::unique_ptr<LevelSelectorPanel> m_levelSelectorPanel;
+    std::unique_ptr<OffsetPanel> m_offsetPanel;
+    std::unique_ptr<ConfirmResetPanel> m_confirmResetPanel;
+    std::unique_ptr<ConfirmExitPanel> m_confirmExitPanel;
     std::vector<GridLockedPhysicalEntity*> m_gameEntities;
     PhysicalEntity* m_lastAddedEntity;
     GridLockedPhysicalEntity* m_draggingEntity;

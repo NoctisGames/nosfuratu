@@ -41,6 +41,9 @@ class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class TrashCan;
 class LevelSelectorPanel;
+class OffsetPanel;
+class ConfirmResetPanel;
+class ConfirmExitPanel;
 class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
@@ -108,7 +111,7 @@ public:
     
     void renderMarkers(Game& game);
     
-    void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp);
+    void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp, OffsetPanel* osp, ConfirmResetPanel* crp, ConfirmExitPanel* cep);
     
     void renderLoading();
     

@@ -24,6 +24,7 @@
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
+#include "OffsetPanel.h"
 #include "GpuProgramWrapper.h"
 #include "TransitionGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
@@ -960,7 +961,7 @@ void Renderer::renderMarkers(Game& game)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp)
+void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp, OffsetPanel* osp, ConfirmResetPanel* crp, ConfirmExitPanel* cep)
 {
     if (m_level_editor.gpuTextureWrapper == nullptr)
     {
@@ -1074,6 +1075,57 @@ void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntit
             m_font->renderText(*m_spriteBatcher, text, lsp->getLevelTextPosition().getX(), lsp->getLevelTextPosition().getY(), fgWidth, fgHeight, fontColor, false, true);
         }
         m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    }
+    
+    if (osp->isOpen())
+    {
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntity(*osp, Assets::getInstance()->get(osp));
+        m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
+        
+        static Color fontColor = Color(1, 1, 1, 1);
+        
+        float fgWidth = osp->getTextSize();
+        float fgHeight = fgWidth * 1.140625f;
+        
+        int offset = osp->getOffset();
+        m_spriteBatcher->beginBatch();
+        if (offset <= 0)
+        {
+            std::stringstream ss;
+            ss << (offset * -1);
+            std::string text = ss.str();
+            m_font->renderText(*m_spriteBatcher, text, osp->getLeftTextPosition().getX(), osp->getLeftTextPosition().getY(), fgWidth, fgHeight, fontColor, false, true);
+        }
+        
+        if (offset >= 0)
+        {
+            std::stringstream ss;
+            ss << offset;
+            std::string text = ss.str();
+            m_font->renderText(*m_spriteBatcher, text, osp->getRightTextPosition().getX(), osp->getRightTextPosition().getY(), fgWidth, fgHeight, fontColor, false, true);
+        }
+        m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    }
+    
+    if (crp->isOpen())
+    {
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntity(*crp, Assets::getInstance()->get(crp));
+        m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
+    }
+    
+    if (cep->isOpen())
+    {
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntity(*cep, Assets::getInstance()->get(cep));
+        m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     }
 
 	{

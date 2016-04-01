@@ -39,6 +39,7 @@ public:
 private:
     std::unique_ptr<Rectangle> m_toggleBoundsButton;
     std::unique_ptr<Rectangle> m_markerButton;
+    std::unique_ptr<Rectangle> m_offsetButton;
     std::unique_ptr<Rectangle> m_resetButton;
     std::unique_ptr<Rectangle> m_exitButton;
     std::unique_ptr<Rectangle> m_testButton;

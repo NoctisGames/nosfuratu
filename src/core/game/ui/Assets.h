@@ -25,6 +25,9 @@
 #include "LevelEditorButton.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
+#include "OffsetPanel.h"
+#include "ConfirmResetPanel.h"
+#include "ConfirmExitPanel.h"
 
 #include <vector>
 
@@ -90,7 +93,13 @@ public:
     
     TextureRegion& get(TrashCan* trashCan);
     
-    TextureRegion& get(LevelSelectorPanel* levelSelectorPanel);
+    TextureRegion& get(LevelSelectorPanel* panel);
+    
+    TextureRegion& get(OffsetPanel* panel);
+    
+    TextureRegion& get(ConfirmResetPanel* panel);
+    
+    TextureRegion& get(ConfirmExitPanel* panel);
     
     short getFirstSoundId();
     

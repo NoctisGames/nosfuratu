@@ -1083,9 +1083,27 @@ TextureRegion& Assets::get(TrashCan* trashCan)
     return trashCan->isHighlighted() ? trashCanHighlightedTr : trashCanTr;
 }
 
-TextureRegion& Assets::get(LevelSelectorPanel* levelSelectorPanel)
+TextureRegion& Assets::get(LevelSelectorPanel* panel)
 {
     static TextureRegion tr = TextureRegion(1538, 12, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(OffsetPanel* panel)
+{
+    static TextureRegion tr = TextureRegion(1538, 542, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(ConfirmResetPanel* panel)
+{
+    static TextureRegion tr = TextureRegion(938, 1484, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(ConfirmExitPanel* panel)
+{
+    static TextureRegion tr = TextureRegion(1538, 1072, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
