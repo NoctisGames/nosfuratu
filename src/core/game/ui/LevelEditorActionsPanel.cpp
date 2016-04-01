@@ -29,103 +29,131 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 {
     if (m_isOpen)
     {
-        switch (te.getTouchType())
-        {
-            case UP:
-                if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleBoundsButton))
-                {
-                    if (m_showBounds)
-                    {
-                        m_iBoundsLevelRequested++;
-                        
-                        if (m_iBoundsLevelRequested == 3)
-                        {
-                            m_iBoundsLevelRequested++;
-                        }
-                        
-                        if (m_iBoundsLevelRequested == 5)
-                        {
-                            m_iBoundsLevelRequested = 8;
-                        }
-                        
-                        if (m_iBoundsLevelRequested == 9)
-                        {
-                            m_iBoundsLevelRequested = 16;
-                        }
-                        
-                        if (m_iBoundsLevelRequested == 17)
-                        {
-                            m_iBoundsLevelRequested = 1;
-                            m_showBounds = false;
-                        }
-                    }
-                    else
-                    {
-                        m_showBounds = true;
-                    }
-                    
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_markerButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_offsetButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_resetButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_exitButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_testButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_loadButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_saveButton))
-                {
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE;
-                }
-                else if (OverlapTester::isPointInRectangle(touchPoint, *m_closeButton))
-                {
-                    m_position->setX(-3.76608187134503f / 2 + 0.94736842105263f);
-                    
-                    m_isOpen = false;
-                    
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
-                }
-            case DRAGGED:
-            case DOWN:
-            default:
-                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
-        }
+		if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleBoundsButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				if (m_showBounds)
+				{
+					m_iBoundsLevelRequested++;
+
+					if (m_iBoundsLevelRequested == 3)
+					{
+						m_iBoundsLevelRequested++;
+					}
+
+					if (m_iBoundsLevelRequested == 5)
+					{
+						m_iBoundsLevelRequested = 8;
+					}
+
+					if (m_iBoundsLevelRequested == 9)
+					{
+						m_iBoundsLevelRequested = 16;
+					}
+
+					if (m_iBoundsLevelRequested == 17)
+					{
+						m_iBoundsLevelRequested = 1;
+						m_showBounds = false;
+					}
+				}
+				else
+				{
+					m_showBounds = true;
+				}
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_markerButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER;
+			}
+			
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_offsetButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_resetButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_exitButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_testButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_loadButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_saveButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				return LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
+		else if (OverlapTester::isPointInRectangle(touchPoint, *m_closeButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				m_position->setX(-3.76608187134503f / 2 + 0.94736842105263f);
+
+				m_isOpen = false;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
     }
     else
     {
-        switch (te.getTouchType())
-        {
-            case UP:
-                if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
-                {
-                    m_position->setX(getWidth() / 2);
-                    
-                    m_isOpen = true;
-                    
-                    return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
-                }
-            case DRAGGED:
-            case DOWN:
-            default:
-                return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;
-        }
+		if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				m_position->setX(getWidth() / 2);
+
+				m_isOpen = true;
+			}
+
+			return LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED;
+		}
     }
     
     return LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED;

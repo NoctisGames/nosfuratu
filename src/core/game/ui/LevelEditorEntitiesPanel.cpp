@@ -295,21 +295,17 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     }
     else
     {
-        switch (te.getTouchType())
-        {
-            case UP:
-                if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
-                {
-                    m_position->setX(CAM_WIDTH - getWidth() / 2);
-                    
-                    m_isOpen = true;
-                    
-                    return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
-                }
-            case DOWN:
-            case DRAGGED:
-                return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;
-        }
+		if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
+		{
+			if (te.getTouchType() == UP)
+			{
+				m_position->setX(CAM_WIDTH - getWidth() / 2);
+
+				m_isOpen = true;
+			}
+
+			return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
+		}
     }
     
     return LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED;

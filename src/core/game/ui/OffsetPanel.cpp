@@ -50,7 +50,10 @@ int OffsetPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         }
         else if (OverlapTester::isPointInRectangle(touchPoint, *m_confirmButton))
         {
-            m_isOpen = false;
+			m_iOffset = 0;
+            
+			m_isOpen = false;
+
             return OFFSET_PANEL_RC_CONFIRM;
         }
     }

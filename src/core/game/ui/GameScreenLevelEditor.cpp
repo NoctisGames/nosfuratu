@@ -300,6 +300,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                         break;
                     case OFFSET_PANEL_RC_CONFIRM:
+						m_iLastOffset = 0;
                     default:
                         break;
                 }
