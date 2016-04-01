@@ -116,6 +116,9 @@
     <ClCompile Include="..\..\..\..\core\game\ui\WorldMapPanel.cpp" />
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level21.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ConfirmResetPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\OffsetPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ConfirmExitPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -220,6 +223,9 @@
     <ClInclude Include="..\..\..\..\core\game\ui\TitlePanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\WorldMapPanel.h" />
     <ClInclude Include="SaveData.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ConfirmExitPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ConfirmResetPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\OffsetPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

@@ -109,7 +109,7 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderLevelEditor(GameScreenLevelEditor::getInstance()->getLevelEditorActionsPanel(), GameScreenLevelEditor::getInstance()->getLevelEditorEntitiesPanel(), GameScreenLevelEditor::getInstance()->getTrashCan(), GameScreenLevelEditor::getInstance()->getLevelSelectorPanel());
+        gs->m_renderer->renderLevelEditor(GameScreenLevelEditor::getInstance());
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         

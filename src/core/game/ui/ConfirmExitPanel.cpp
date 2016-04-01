@@ -40,6 +40,8 @@ int ConfirmExitPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         }
         else if (OverlapTester::isPointInRectangle(touchPoint, *m_exitButton))
         {
+			m_isOpen = false;
+
             return CONFIRM_EXIT_PANEL_RC_EXIT;
         }
     }

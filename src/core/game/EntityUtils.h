@@ -451,7 +451,7 @@ public:
     }
     
     template<typename T>
-    static void offsetAllInRange(std::vector<T*>& items, int beginGridX, int endGridX, int gridOffset)
+    static void offsetAllInRangeOpenEnd(std::vector<T*>& items, int beginGridX, int endGridX, int gridOffset)
     {
         float offset = gridOffset * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
@@ -465,6 +465,22 @@ public:
             }
         }
     }
+
+	template<typename T>
+	static void offsetAllInRangeClosedEnd(std::vector<T*>& items, int beginGridX, int endGridX, int gridOffset)
+	{
+		float offset = gridOffset * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
+
+		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+		{
+			if ((*i)->getGridX() >= beginGridX && (*i)->getGridX() <= endGridX)
+			{
+				(*i)->getPosition().add(offset, 0);
+				(*i)->updateBounds();
+				(*i)->snapToGrid(1);
+			}
+		}
+	}
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

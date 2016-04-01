@@ -20,11 +20,14 @@
 #include "Game.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
+#include "GameScreenLevelEditor.h"
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
 #include "OffsetPanel.h"
+#include "ConfirmResetPanel.h"
+#include "ConfirmExitPanel.h"
 #include "GpuProgramWrapper.h"
 #include "TransitionGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
@@ -961,8 +964,16 @@ void Renderer::renderMarkers(Game& game)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp, OffsetPanel* osp, ConfirmResetPanel* crp, ConfirmExitPanel* cep)
+void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 {
+	LevelEditorActionsPanel* leap = gameScreenLevelEditor->getLevelEditorActionsPanel();
+	LevelEditorEntitiesPanel* leep = gameScreenLevelEditor->getLevelEditorEntitiesPanel();
+	TrashCan* tc = gameScreenLevelEditor->getTrashCan();
+	LevelSelectorPanel* lsp = gameScreenLevelEditor->getLevelSelectorPanel();
+	OffsetPanel* osp = gameScreenLevelEditor->getOffsetPanel();
+	ConfirmResetPanel* crp = gameScreenLevelEditor->getConfirmResetPanel();
+	ConfirmExitPanel* cep = gameScreenLevelEditor->getConfirmExitPanel();
+
     if (m_level_editor.gpuTextureWrapper == nullptr)
     {
         return;

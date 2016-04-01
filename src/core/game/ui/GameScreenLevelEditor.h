@@ -47,6 +47,12 @@ public:
     TrashCan* getTrashCan();
     
     LevelSelectorPanel* getLevelSelectorPanel();
+
+	OffsetPanel* getOffsetPanel();
+
+	ConfirmResetPanel* getConfirmResetPanel();
+
+	ConfirmExitPanel* getConfirmExitPanel();
     
 private:
     std::unique_ptr<Game> m_game;
@@ -64,6 +70,7 @@ private:
     float m_fDraggingEntityOriginalY;
     int m_iWorld;
     int m_iLevel;
+	int m_iLastOffset;
     bool m_isVerticalChangeAllowed;
     bool m_allowPlaceOn;
     bool m_allowPlaceUnder;

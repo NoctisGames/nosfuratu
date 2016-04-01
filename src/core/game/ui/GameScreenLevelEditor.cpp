@@ -87,7 +87,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderToScreen();
         
-        gs->m_renderer->renderLevelEditor(m_levelEditorActionsPanel.get(), m_levelEditorEntitiesPanel.get(), m_trashCan.get(), m_levelSelectorPanel.get(), m_offsetPanel.get());
+        gs->m_renderer->renderLevelEditor(this);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
@@ -195,6 +195,21 @@ LevelSelectorPanel* GameScreenLevelEditor::getLevelSelectorPanel()
     return m_levelSelectorPanel.get();
 }
 
+OffsetPanel* GameScreenLevelEditor::getOffsetPanel()
+{
+	return m_offsetPanel.get();
+}
+
+ConfirmResetPanel* GameScreenLevelEditor::getConfirmResetPanel()
+{
+	return m_confirmResetPanel.get();
+}
+
+ConfirmExitPanel* GameScreenLevelEditor::getConfirmExitPanel()
+{
+	return m_confirmExitPanel.get();
+}
+
 #pragma mark private
 
 void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
@@ -257,7 +272,11 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     case OFFSET_PANEL_RC_HANDLED:
                     {
-                        int offset = m_offsetPanel->getOffset();
+						int rawOffset = m_offsetPanel->getOffset();
+
+						int offset = rawOffset > m_iLastOffset ? 1 : -1;
+
+						m_iLastOffset = rawOffset;
                         
                         Marker* endLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 1);
                         Marker* beginLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 2);
@@ -265,19 +284,19 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         int beginGridX = beginLoopMarker->getGridX();
                         int endGridX = endLoopMarker->getGridX();
                         
-                        EntityUtils::offsetAllInRange(m_game->getMidgrounds(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getGrounds(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getPits(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getExitGrounds(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getHoles(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getForegroundObjects(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getMidBossForegroundObjects(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getCountHissWithMinas(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getEnemies(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
-                        EntityUtils::offsetAllInRange(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getMidgrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getGrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getPits(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getExitGrounds(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getHoles(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getMidBossForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getCountHissWithMinas(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getEnemies(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
                         
-                        EntityUtils::offsetAllInRange(m_game->getMarkers(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeClosedEnd(m_game->getMarkers(), beginGridX, endGridX, offset);
                     }
                         break;
                     case OFFSET_PANEL_RC_CONFIRM:
@@ -688,7 +707,17 @@ bool GameScreenLevelEditor::isLevelValid(GameScreen *gs)
     return true;
 }
 
-GameScreenLevelEditor::GameScreenLevelEditor() : m_lastAddedEntity(nullptr), m_draggingEntity(nullptr), m_attachToEntity(nullptr), m_fDraggingEntityOriginalY(0), m_iWorld(0), m_iLevel(0), m_isVerticalChangeAllowed(true), m_allowPlaceOn(true), m_allowPlaceUnder(false)
+GameScreenLevelEditor::GameScreenLevelEditor() :
+	m_lastAddedEntity(nullptr),
+	m_draggingEntity(nullptr),
+	m_attachToEntity(nullptr),
+	m_fDraggingEntityOriginalY(0),
+	m_iWorld(0),
+	m_iLevel(0),
+	m_iLastOffset(0),
+	m_isVerticalChangeAllowed(true),
+	m_allowPlaceOn(true),
+	m_allowPlaceUnder(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());

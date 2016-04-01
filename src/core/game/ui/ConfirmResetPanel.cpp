@@ -40,6 +40,8 @@ int ConfirmResetPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
         }
         else if (OverlapTester::isPointInRectangle(touchPoint, *m_resetButton))
         {
+			m_isOpen = false;
+
             return CONFIRM_RESET_PANEL_RC_RESET;
         }
     }

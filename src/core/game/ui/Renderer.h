@@ -37,13 +37,7 @@ class FramebufferRadialBlurGpuProgramWrapper;
 class Vector2D;
 class BackButton;
 class LevelEditorButton;
-class LevelEditorActionsPanel;
-class LevelEditorEntitiesPanel;
-class TrashCan;
-class LevelSelectorPanel;
-class OffsetPanel;
-class ConfirmResetPanel;
-class ConfirmExitPanel;
+class GameScreenLevelEditor;
 class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
@@ -111,7 +105,7 @@ public:
     
     void renderMarkers(Game& game);
     
-    void renderLevelEditor(LevelEditorActionsPanel* leap, LevelEditorEntitiesPanel* leep, TrashCan* tc, LevelSelectorPanel* lsp, OffsetPanel* osp, ConfirmResetPanel* crp, ConfirmExitPanel* cep);
+    void renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor);
     
     void renderLoading();
     
