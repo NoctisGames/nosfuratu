@@ -492,7 +492,7 @@ void NosFURatuMain::showMessage(int requestedAction)
         std::string s_str = std::string(toast);
         std::wstring wid_str = std::wstring(s_str.begin(), s_str.end());
         const wchar_t* w_char = wid_str.c_str();
-        Platform::String^ p_string = ref new Platform::string(w_char);
+        Platform::String^ p_string = ref new Platform::String(w_char);
         
         displayToast(p_string);
     }
