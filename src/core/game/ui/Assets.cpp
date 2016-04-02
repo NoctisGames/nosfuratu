@@ -40,7 +40,7 @@ TextureRegion& Assets::get(TitlePanel* panel)
 
 TextureRegion& Assets::get(WorldMapPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(0, 1000, 994, 576, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 192, 1024, 576, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
@@ -48,12 +48,12 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
 {
     if (thumbnail->isCompleted())
     {
-        static TextureRegion tr = TextureRegion(128, 0, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        static TextureRegion tr = TextureRegion(68, 772, 68, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
         return tr;
     }
     else
     {
-        static TextureRegion tr = TextureRegion(0, 0, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        static TextureRegion tr = TextureRegion(0, 772, 68, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
         return tr;
     }
 }

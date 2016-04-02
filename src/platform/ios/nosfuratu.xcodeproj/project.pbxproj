@@ -71,6 +71,7 @@
 		BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */; };
 		BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */; };
 		BB4495711C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */; };
+		BB4BED781CAF4E0A00E6549E /* MidBossOwl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4BED761CAF4E0A00E6549E /* MidBossOwl.cpp */; };
 		BB4CB35B1B9B3620001093FE /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB4CB3591B9B3620001093FE /* Ground.cpp */; };
 		BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB574F361C59231500926A9B /* trans_out_death_shader.fsh */; };
 		BB574F3A1C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB574F381C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp */; };
@@ -358,6 +359,8 @@
 		BB44956F1C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferTintGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB4495701C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferTintGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BB4BED761CAF4E0A00E6549E /* MidBossOwl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidBossOwl.cpp; sourceTree = "<group>"; };
+		BB4BED771CAF4E0A00E6549E /* MidBossOwl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidBossOwl.h; sourceTree = "<group>"; };
 		BB4CB3591B9B3620001093FE /* Ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ground.cpp; sourceTree = "<group>"; };
 		BB4CB35A1B9B3620001093FE /* Ground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ground.h; sourceTree = "<group>"; };
 		BB574F361C59231500926A9B /* trans_out_death_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_out_death_shader.fsh; sourceTree = "<group>"; };
@@ -1236,6 +1239,8 @@
 				BBBDCF8E1BD6E2A200605805 /* HoleCover.h */,
 				BB3D8CF11B98CDBF009D58DE /* Jon.cpp */,
 				BB3D8CF21B98CDBF009D58DE /* Jon.h */,
+				BB4BED761CAF4E0A00E6549E /* MidBossOwl.cpp */,
+				BB4BED771CAF4E0A00E6549E /* MidBossOwl.h */,
 				BB646DE01C69575D00313FBB /* Midground.cpp */,
 				BB646DE11C69575D00313FBB /* Midground.h */,
 				BBEA16541B97B9BB009B4711 /* ui */,
@@ -1615,6 +1620,7 @@
 				BB3D8CEC1B9891A2009D58DE /* FramebufferToScreenProgram.cpp in Sources */,
 				0A8FBF81179E07320039BA29 /* pngread.c in Sources */,
 				BB3D8CF31B98CDBF009D58DE /* Jon.cpp in Sources */,
+				BB4BED781CAF4E0A00E6549E /* MidBossOwl.cpp in Sources */,
 				0A8FBF82179E07320039BA29 /* pngrio.c in Sources */,
 				BBEA16B51B97B9BB009B4711 /* Renderer.cpp in Sources */,
 				BBEA16771B97B9BB009B4711 /* Rectangle.cpp in Sources */,

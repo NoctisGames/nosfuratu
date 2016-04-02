@@ -17,6 +17,7 @@
 
 class GameScreen;
 class Game;
+class MidBossOwl;
 
 class Level : public State<GameScreen>
 {
@@ -176,17 +177,20 @@ class Chapter1Level10 : public Level
 public:
     static Chapter1Level10* getInstance();
     
+    virtual void enter(GameScreen* gs);
+    
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
     
 private:
+    std::unique_ptr<MidBossOwl> m_midBossOwl;
     bool m_isChaseCamActivated;
     
     virtual void updateCamera(GameScreen* gs, bool instant = false);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level10(const char* json) : Level(json), m_isChaseCamActivated(false) {};
+    Chapter1Level10(const char* json);
     Chapter1Level10(const Chapter1Level10&);
     Chapter1Level10& operator=(const Chapter1Level10&);
 };
