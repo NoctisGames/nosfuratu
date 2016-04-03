@@ -1051,6 +1051,38 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
     return anim.getTextureRegion(dustCloud->getStateTime());
 }
 
+TextureRegion& Assets::get(MidBossOwl* owl)
+{
+    switch (owl->getState())
+    {
+        case MidBossOwlState_Sleeping:
+        {
+            static Animation anim = createAnimation(0, 0, 702, 572, 702, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
+            
+            return anim.getTextureRegion(owl->getStateTime());
+        }
+            break;
+        case MidBossOwlState_Awakening:
+        {
+            static Animation anim = createAnimation(0, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
+            
+            return anim.getTextureRegion(owl->getStateTime());
+        }
+            break;
+        case MidBossOwlState_Screeching:
+        {
+            static Animation anim = createAnimation(1404, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+            
+            return anim.getTextureRegion(owl->getStateTime());
+        }
+            break;
+        default:
+            break;
+    }
+    
+    assert(false);
+}
+
 TextureRegion& Assets::get(BackButton* backButton)
 {
     static TextureRegion tr = TextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);

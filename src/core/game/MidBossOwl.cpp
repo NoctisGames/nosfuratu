@@ -56,8 +56,15 @@ void MidBossOwl::update(float deltaTime)
     }
 }
 
+MidBossOwlState MidBossOwl::getState()
+{
+    return m_state;
+}
+
 void MidBossOwl::goBackToSleep()
 {
+    m_fWidth = 6.169921875f;
+    m_fHeight = 5.02734375f;
     setState(MidBossOwlState_Sleeping);
 }
 
@@ -68,6 +75,9 @@ void MidBossOwl::awaken()
 
 void MidBossOwl::beginPursuit()
 {
+    m_fWidth = 4.5f;
+    m_fHeight = 4.5f;
+    
     setState(MidBossOwlState_Pursuing);
 }
 

@@ -27,9 +27,11 @@ typedef enum
 class MidBossOwl : public PhysicalEntity
 {
 public:
-    MidBossOwl(float x, float y, float width = 4.5f, float height = 4.5f);
+    MidBossOwl(float x, float y, float width = 6.169921875f, float height = 5.02734375f);
     
     virtual void update(float deltaTime);
+    
+    MidBossOwlState getState();
     
     void goBackToSleep();
     

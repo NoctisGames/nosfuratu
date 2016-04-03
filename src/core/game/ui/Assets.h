@@ -21,6 +21,7 @@
 #include "Hole.h"
 #include "DustCloud.h"
 #include "Jon.h"
+#include "MidBossOwl.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
 #include "TrashCan.h"
@@ -82,6 +83,8 @@ public:
     TextureRegion& get(Jon* jon);
     
     TextureRegion& get(DustCloud* dustCloud);
+    
+    TextureRegion& get(MidBossOwl* owl);
     
     TextureRegion& get(BackButton* backButton);
     
