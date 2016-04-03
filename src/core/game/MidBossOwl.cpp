@@ -63,8 +63,8 @@ MidBossOwlState MidBossOwl::getState()
 
 void MidBossOwl::goBackToSleep()
 {
-    m_fWidth = 6.169921875f;
-    m_fHeight = 5.02734375f;
+    m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
+    m_fHeight = MID_BOSS_OWL_SLEEPING_HEIGHT;
     setState(MidBossOwlState_Sleeping);
 }
 
@@ -75,8 +75,8 @@ void MidBossOwl::awaken()
 
 void MidBossOwl::beginPursuit()
 {
-    m_fWidth = 4.5f;
-    m_fHeight = 4.5f;
+    m_fWidth = MID_BOSS_OWL_NORMAL_WIDTH;
+    m_fHeight = MID_BOSS_OWL_NORMAL_HEIGHT;
     
     setState(MidBossOwlState_Pursuing);
 }

@@ -31,7 +31,8 @@ void Chapter1Level10::enter(GameScreen* gs)
     {
         if ((*i)->getType() == ForegroundObjectType_GiantPerchTree)
         {
-            m_midBossOwl->getPosition().set((*i)->getPosition());
+            Vector2D& lowerLeft = (*i)->getMainBounds().getLowerLeft();
+            m_midBossOwl->getPosition().set(lowerLeft.getX() + MID_BOSS_OWL_WIDTH / 2, lowerLeft.getY() + MID_BOSS_OWL_HEIGHT / 2);
             m_midBossOwl->goBackToSleep();
         }
     }

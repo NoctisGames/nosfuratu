@@ -13,6 +13,12 @@
 
 class Game;
 
+#define MID_BOSS_OWL_SLEEPING_WIDTH 6.169921875f
+#define MID_BOSS_OWL_SLEEPING_HEIGHT 5.02734375f
+
+#define MID_BOSS_OWL_NORMAL_WIDTH 4.5f
+#define MID_BOSS_OWL_NORMAL_HEIGHT 4.5f
+
 typedef enum
 {
     MidBossOwlState_Sleeping,
@@ -27,7 +33,7 @@ typedef enum
 class MidBossOwl : public PhysicalEntity
 {
 public:
-    MidBossOwl(float x, float y, float width = 6.169921875f, float height = 5.02734375f);
+    MidBossOwl(float x, float y, float width = MID_BOSS_OWL_SLEEPING_WIDTH, float height = MID_BOSS_OWL_SLEEPING_HEIGHT);
     
     virtual void update(float deltaTime);
     
