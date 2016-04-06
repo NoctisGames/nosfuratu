@@ -30,7 +30,7 @@ void Background::update(Vector2D& cameraPosition, float deltaTime)
 {
     m_fTextureRegionX = cameraPosition.getX() * m_iXScrollSpeed + m_fXOffset;
     
-    if (m_fTextureRegionX > TEXTURE_SIZE_2048)
+    while (m_fTextureRegionX > TEXTURE_SIZE_2048)
     {
         m_fTextureRegionX -= TEXTURE_SIZE_2048;
     }
@@ -52,7 +52,7 @@ void Water::update(Vector2D& cameraPosition, float deltaTime)
     
     m_fTextureRegionX = m_fXOffset + (m_iXScrollSpeed * m_fStateTime);
     
-    if (m_fTextureRegionX > TEXTURE_SIZE_2048)
+    while (m_fTextureRegionX > TEXTURE_SIZE_2048)
     {
         m_fTextureRegionX -= TEXTURE_SIZE_2048;
     }

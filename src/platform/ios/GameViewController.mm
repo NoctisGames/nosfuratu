@@ -66,6 +66,8 @@
     
     [view bindDrawable];
     
+    [self initSoundEngine];
+    
     gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -146,6 +148,7 @@
             gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
+            [self showMessage:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
         default:
@@ -190,7 +193,14 @@
 
 - (void)handleMusic
 {
-    short musicId = gameScreen->getCurrentMusicId();
+    short rawMusicId = gameScreen->getCurrentMusicId();
+    short musicId = rawMusicId;
+    if (musicId >= 1000)
+    {
+        musicId /= 1000;
+        rawMusicId -= musicId * 1000;
+    }
+    
     switch (musicId)
     {
         case MUSIC_STOP:
@@ -199,9 +209,36 @@
         case MUSIC_RESUME:
             [self.soundMgr resumeBackgroundMusic];
             break;
+        case MUSIC_SET_VOLUME:
+        {
+            float volume = rawMusicId / 100.0f;
+            if (volume < 0)
+            {
+                [self.soundMgr stopBackgroundMusic];
+            }
+            else
+            {
+                self.soundMgr.backgroundMusicVolume = volume;
+            }
+        }
+            break;
         case MUSIC_PLAY_WORLD_1_LOOP:
-            [self initSoundEngine];
+            if ([self.soundMgr isBackGroundMusicPlaying])
+            {
+                [self.soundMgr stopBackgroundMusic];
+            }
+            
+            self.soundMgr.backgroundMusicVolume = 0.5f;
             [self.soundMgr playBackgroundMusic:@"world_1_bgm.wav" forcePlay:YES isLooping:YES];
+            break;
+        case MUSIC_PLAY_MID_BOSS_LOOP:
+            if ([self.soundMgr isBackGroundMusicPlaying])
+            {
+                [self.soundMgr stopBackgroundMusic];
+            }
+            
+            self.soundMgr.backgroundMusicVolume = 0.5f;
+            [self.soundMgr playBackgroundMusic:@"mid_boss_bgm.wav" forcePlay:YES isLooping:YES];
             break;
         default:
             break;
@@ -426,9 +463,8 @@
 - (void)initSoundEngine
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.backgroundMusicVolume = 0.5f;
     self.soundMgr.soundEffectsVolume = 1;
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", @"world_1_bgm_intro.wav", @"mid_boss_bgm_intro.wav", nil];
 }
 
 @end

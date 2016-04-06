@@ -18,14 +18,13 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
-// Save, Load, and Completion actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
+// Save, Load, and Completed actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
 #define REQUESTED_ACTION_LEVEL_COMPLETED 3
 
 #define REQUESTED_ACTION_GET_LEVEL_COMPLETIONS 4
-// Show Message is passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
-#define REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE 5
+#define REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE 5 // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
 
 #define MESSAGE_NO_END_SIGN_KEY 1
 #define MESSAGE_NO_END_SIGN_VALUE "Cannot save or test a level that does not contain an End Sign"
@@ -44,7 +43,9 @@
 
 #define MUSIC_STOP 1
 #define MUSIC_RESUME 2
-#define MUSIC_PLAY_WORLD_1_LOOP 3
+#define MUSIC_SET_VOLUME 3 // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
+#define MUSIC_PLAY_WORLD_1_LOOP 4
+#define MUSIC_PLAY_MID_BOSS_LOOP 5
 
 //// Sound Definitions ////
 
@@ -83,6 +84,8 @@
 #define SOUND_FOX_BOUNCED_ON 29
 #define SOUND_FOX_STRIKE 30
 #define SOUND_FOX_DEATH 31
+#define SOUND_WORLD_1_LOOP_INTRO 32
+#define SOUND_MID_BOSS_LOOP_INTRO 33
 
 //// Render Definitions ////
 

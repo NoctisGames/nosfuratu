@@ -27,7 +27,7 @@ typedef enum
     MidBossOwlState_Pursuing,
     MidBossOwlState_SlammingIntoTree,
     MidBossOwlState_Dying,
-    MidBossOwlState_Dead,
+    MidBossOwlState_Dead
 } MidBossOwlState;
 
 class MidBossOwl : public PhysicalEntity

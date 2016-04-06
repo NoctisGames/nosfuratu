@@ -13,6 +13,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "MidBossOwl.h"
+#include "Assets.h"
 
 /// Chapter 1 Level 10 Mid Boss ///
 
@@ -31,8 +32,10 @@ void Chapter1Level10::enter(GameScreen* gs)
     {
         if ((*i)->getType() == ForegroundObjectType_GiantPerchTree)
         {
-            Vector2D& lowerLeft = (*i)->getMainBounds().getLowerLeft();
-            m_midBossOwl->getPosition().set(lowerLeft.getX() + MID_BOSS_OWL_WIDTH / 2, lowerLeft.getY() + MID_BOSS_OWL_HEIGHT / 2);
+            m_perchTree = (*i);
+            Vector2D& lowerLeft = m_perchTree->getMainBounds().getLowerLeft();
+            m_midBossOwl->getPosition().set(lowerLeft.getX() + MID_BOSS_OWL_SLEEPING_WIDTH / 2, lowerLeft.getY() + MID_BOSS_OWL_SLEEPING_HEIGHT / 2);
+            m_midBossOwl->updateBounds();
             m_midBossOwl->goBackToSleep();
         }
     }
@@ -42,10 +45,77 @@ void Chapter1Level10::execute(GameScreen* gs)
 {
     Level::execute(gs);
     
-    if (m_game->getJons().size() > 0)
+    if (!gs->m_isRequestingRender)
     {
+        if (m_game->getJons().size() == 0)
+        {
+            return;
+        }
+        
+        m_midBossOwl->update(gs->m_fDeltaTime);
+        
         Jon& jon = m_game->getJon();
-        m_isChaseCamActivated = jon.getPosition().getY() > 12;
+        
+        if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
+        {
+            if (jon.getNumBoosts() >= 1)
+            {
+                m_fMusicVolume -= gs->m_fDeltaTime / 8;
+                short musicId = MUSIC_SET_VOLUME + (short) (m_fMusicVolume * 100);
+                Assets::getInstance()->setMusicId(musicId);
+            }
+            
+            if (m_perchTree)
+            {
+                if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jon.getMainBounds()))
+                {
+                    jon.getAcceleration().set(0, 0);
+                    jon.getVelocity().set(0, 0);
+                    jon.setIdle(true);
+                    
+                    jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jon.getMainBounds().getWidth() / 2);
+                    
+                    m_midBossOwl->awaken();
+                }
+            }
+        }
+        else if (m_midBossOwl->getState() == MidBossOwlState_Awakening)
+        {
+            // Empty
+        }
+        else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
+        {
+            if (!m_hasTriggeredMidBossMusicLoopIntro)
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
+                
+                m_hasTriggeredMidBossMusicLoopIntro = true;
+            }
+            
+            if (!m_hasTriggeredMidBossMusicLoop && m_midBossOwl->getStateTime() > 4.80f)
+            {
+                Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
+                
+                m_hasTriggeredMidBossMusicLoop = true;
+            }
+            
+            jon.setIdle(false);
+            jon.triggerDownAction();
+            
+            if (jon.getNumBoosts() >= 2)
+            {
+                m_midBossOwl->beginPursuit();
+            }
+        }
+        else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing
+                 || m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
+        {
+            m_isChaseCamActivated = jon.getPosition().getY() > 12;
+        }
+        else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
+        {
+            m_isChaseCamActivated = false;
+        }
     }
 }
 
@@ -53,6 +123,9 @@ void Chapter1Level10::exit(GameScreen* gs)
 {
     Level::exit(gs);
     
+    m_perchTree = nullptr;
+    m_fMusicVolume = 0.5f;
+    m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
 }
 
@@ -68,7 +141,17 @@ void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
     }
 }
 
-Chapter1Level10::Chapter1Level10(const char* json) : Level(json), m_isChaseCamActivated(false)
+void Chapter1Level10::additionalRenderingBeforeHud(GameScreen* gs)
+{
+    gs->m_renderer->renderMidBossOwl(*m_midBossOwl);
+}
+
+Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
+m_perchTree(nullptr),
+m_fMusicVolume(0.5f),
+m_hasTriggeredMidBossMusicLoopIntro(false),
+m_hasTriggeredMidBossMusicLoop(false),
+m_isChaseCamActivated(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
 }

@@ -108,6 +108,10 @@ public:
     
     float getDyingStateTime();
     
+    int getNumJumps();
+    
+    int getNumBoosts();
+    
     bool isMoving();
     
     bool isPushedBack();
@@ -146,6 +150,10 @@ public:
     
     bool isAllowedToMove();
     
+    void setIdle(bool isIdle);
+    
+    bool isIdle();
+    
     void setGame(Game* game);
     
     void beginWarmingUp();
@@ -177,11 +185,13 @@ private:
 	float m_fAccelerationX;
     float m_fGravity;
     int m_iNumJumps;
+    int m_iNumBoosts;
     bool m_isLanding;
     bool m_isRollLanding;
     bool m_isRightFoot;
     bool m_isAllowedToMove;
     bool m_isConsumed;
+    bool m_isIdle;
     
     void setState(JonState state);
     

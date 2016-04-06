@@ -42,6 +42,8 @@ void Level::enter(GameScreen* gs)
         }
         
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+        
+        m_batPanel->setGame(m_game.get());
     }
 
 	gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
@@ -74,9 +76,11 @@ void Level::execute(GameScreen* gs)
         
         gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
         
+        additionalRenderingBeforeHud(gs);
+        
         if (m_hasOpeningSequenceCompleted)
         {
-            gs->m_renderer->renderHud(*m_game, m_backButton.get(), gs->m_iFPS);
+            gs->m_renderer->renderHud(*m_game, m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
         }
         
         if (jon.isDead())
@@ -124,8 +128,8 @@ void Level::execute(GameScreen* gs)
             gs->m_renderer->beginOpeningPanningSequence(*m_game);
             
             m_hasShownOpeningSequence = true;
-            
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
         }
         else if (!m_hasOpeningSequenceCompleted)
         {
@@ -134,6 +138,8 @@ void Level::execute(GameScreen* gs)
                 m_hasOpeningSequenceCompleted = true;
                 
                 jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+                
+                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
                 
                 return;
             }
@@ -149,9 +155,20 @@ void Level::execute(GameScreen* gs)
             m_activateRadialBlur = result == 1;
             jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
             
+            if (m_hasOpeningSequenceCompleted)
+            {
+                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+            }
+            
             if (result == 2)
             {
                 jon.beginWarmingUp();
+                
+                BatPanelType bpt = getBatPanelType();
+                if (bpt != BatPanelType_None)
+                {
+                    m_batPanel->open(bpt);
+                }
             }
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
@@ -165,6 +182,8 @@ void Level::execute(GameScreen* gs)
             {
                 return;
             }
+            
+            m_batPanel->update(gs->m_fDeltaTime);
             
             if (m_showDeathTransOut)
             {
@@ -205,6 +224,17 @@ void Level::execute(GameScreen* gs)
                 
                 m_game->update(gs->m_fDeltaTime);
                 
+                if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
+                {
+                    // Has Cleared the Level
+                    
+                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+                    gs->m_iRequestedAction += m_game->getWorld() * 100;
+                    gs->m_iRequestedAction += m_game->getLevel();
+                    
+                    m_hasCompletedLevel = true;
+                }
+                
                 if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
                 {
                     if (jon.getTransformStateTime() < 0.125f)
@@ -225,9 +255,9 @@ void Level::execute(GameScreen* gs)
                 
                 if (m_isReleasingShockwave)
                 {
-                    m_fShockwaveElapsedTime += gs->m_fDeltaTime;
+                    m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
                     
-                    if (m_fShockwaveElapsedTime > 4)
+                    if (m_fShockwaveElapsedTime > 2)
                     {
                         m_fShockwaveElapsedTime = 0;
                         m_isReleasingShockwave = false;
@@ -254,7 +284,7 @@ void Level::execute(GameScreen* gs)
             
             updateCamera(gs);
             
-            if (m_game->getMarkers().size() > 0)
+            if (m_game->getMarkers().size() > 1)
             {
                 Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
                 if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
@@ -313,6 +343,8 @@ void Level::exit(GameScreen* gs)
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
     
+    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    
     m_fStateTime = 0;
     m_isReleasingShockwave = false;
     m_fShockwaveElapsedTime = 0;
@@ -322,6 +354,8 @@ void Level::exit(GameScreen* gs)
     m_hasOpeningSequenceCompleted = false;
     m_hasSwiped = false;
     m_showDeathTransOut = false;
+    m_hasCompletedLevel = false;
+    m_exitLoop = false;
 }
 
 void Level::setSourceGame(Game* game)
@@ -342,6 +376,11 @@ BackButton& Level::getBackButton()
 void Level::updateCamera(GameScreen* gs, bool instant)
 {
     gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false, instant);
+}
+
+void Level::additionalRenderingBeforeHud(GameScreen* gs)
+{
+    // Empty, override in subclass
 }
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
@@ -423,29 +462,13 @@ bool Level::handleTouchInput(GameScreen* gs)
             case UP:
                 if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                 {
-                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-                    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+                    m_exitLoop = true;
                     
-                    Assets::getInstance()->setMusicId(MUSIC_STOP);
-                    
-                    if (jon.getPosition().getX() - jon.getWidth() > m_game->getFarRight())
-                    {
-                        // Has Cleared the Level
-                        
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-                        gs->m_iRequestedAction += m_game->getWorld() * 100;
-                        gs->m_iRequestedAction += m_game->getLevel();
-                    }
+                    gs->m_renderer->stopCamera();
                     
                     gs->m_stateMachine->revertToPreviousState();
                     
                     return true;
-                }
-                else if (gs->m_touchPoint->getX() > CAM_WIDTH / 5 * 4)
-                {
-                    m_exitLoop = true;
-					gs->m_renderer->stopCamera();
                 }
                 
                 if (isJonAlive)
@@ -476,6 +499,24 @@ bool Level::handleTouchInput(GameScreen* gs)
     return false;
 }
 
+BatPanelType Level::getBatPanelType()
+{
+    if (m_game->getWorld() == 1 && m_game->getLevel() == 1)
+    {
+        return BatPanelType_Jump;
+    }
+    else if (m_game->getWorld() == 1 && m_game->getLevel() == 2)
+    {
+        return BatPanelType_DoubleJump;
+    }
+    else if (m_game->getWorld() == 1 && m_game->getLevel() == 10)
+    {
+        return BatPanelType_Burrow;
+    }
+    
+    return BatPanelType_None;
+}
+
 Level::Level(const char* json) :
 m_sourceGame(nullptr),
 m_fStateTime(0.0f),
@@ -488,11 +529,13 @@ m_hasOpeningSequenceCompleted(false),
 m_activateRadialBlur(false),
 m_hasSwiped(false),
 m_showDeathTransOut(false),
-m_exitLoop(false)
+m_exitLoop(false),
+m_hasCompletedLevel(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
+    m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
 }
 
 /// Chapter 1 Level 1 ///

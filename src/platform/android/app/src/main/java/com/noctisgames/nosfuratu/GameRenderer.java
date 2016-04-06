@@ -22,17 +22,20 @@ public final class GameRenderer implements Renderer
     //// Requested Action Definitions ////
 
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, and Completion actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
+    // Save, Load, and Completed actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
-    private static final short REQUESTED_ACTION_GET_LEVEL_COMPLETIONS = 3;
-    private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 4;
+    private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
+    private static final short REQUESTED_ACTION_GET_LEVEL_COMPLETIONS = 4;
+    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE = 5; // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
 
     //// Music Definitions ////
 
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_RESUME = 2;
-    private static final short MUSIC_PLAY_WORLD_1_LOOP = 3;
+    private static final short MUSIC_SET_VOLUME = 3; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
+    private static final short MUSIC_PLAY_WORLD_1_LOOP = 4;
+    private static final short MUSIC_PLAY_MID_BOSS_LOOP = 5;
 
     //// Sound Definitions ////
 
@@ -88,6 +91,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("fox_bounced_on.wav"));
         _sounds.add(_audio.newSound("fox_strike.wav"));
         _sounds.add(_audio.newSound("fox_death.wav"));
+        _sounds.add(_audio.newSound("world_1_bgm_intro.wav"));
+        _sounds.add(_audio.newSound("mid_boss_bgm_intro.wav"));
 
         Game.init();
 
@@ -141,12 +146,23 @@ public final class GameRenderer implements Renderer
                 loadLevel(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
+            case REQUESTED_ACTION_LEVEL_COMPLETED:
+                markLevelAsCompleted(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
             case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
                 sendLevelCompletions();
                 Game.clear_requested_action();
                 break;
-            case REQUESTED_ACTION_LEVEL_COMPLETED:
-                markLevelAsCompleted(Game.get_requested_action());
+            case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
+                _activity.runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Toast.makeText(_activity, "REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE is currently not supported", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 Game.clear_requested_action();
                 break;
             default:
@@ -224,7 +240,14 @@ public final class GameRenderer implements Renderer
 
     private void handleMusic()
     {
-        short musicId = Game.get_current_music_id();
+        short rawMusicId = Game.get_current_music_id();
+        short musicId = rawMusicId;
+        if (musicId >= 1000)
+        {
+            musicId /= 1000;
+            rawMusicId -= musicId * 1000;
+        }
+
         switch (musicId)
         {
             case MUSIC_STOP:
@@ -237,6 +260,21 @@ public final class GameRenderer implements Renderer
             case MUSIC_RESUME:
                 _bgm.play();
                 break;
+            case MUSIC_SET_VOLUME:
+                if (_bgm != null)
+                {
+                    float volume = rawMusicId / 100.0f;
+                    if (volume < 0)
+                    {
+                        _bgm.stop();
+                        _bgm = null;
+                    }
+                    else
+                    {
+                        _bgm.setVolume(volume);
+                    }
+                }
+                break;
             case MUSIC_PLAY_WORLD_1_LOOP:
                 if (_bgm != null)
                 {
@@ -245,6 +283,18 @@ public final class GameRenderer implements Renderer
                 }
 
                 _bgm = _audio.newMusic("world_1_bgm.wav");
+                _bgm.setLooping(true);
+                _bgm.setVolume(0.5f);
+                _bgm.play();
+                break;
+            case MUSIC_PLAY_MID_BOSS_LOOP:
+                if (_bgm != null)
+                {
+                    _bgm.stop();
+                    _bgm = null;
+                }
+
+                _bgm = _audio.newMusic("mid_boss_bgm.wav");
                 _bgm.setLooping(true);
                 _bgm.setVolume(0.5f);
                 _bgm.play();

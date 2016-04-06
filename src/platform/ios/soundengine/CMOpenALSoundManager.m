@@ -275,6 +275,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 - (void) stopBackgroundMusic
 {
 	[backgroundAudio stop];
+    
+    self.currentBackgroundAudioFile = nil;
 }
 
 - (void) pauseBackgroundMusic

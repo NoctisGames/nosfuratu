@@ -41,6 +41,8 @@ class GameScreenLevelEditor;
 class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
+class BatPanel;
+class MidBossOwl;
 
 struct Color;
 
@@ -97,11 +99,13 @@ public:
     
     void renderJonAndExtraForegroundObjects(Game& game);
     
+    void renderMidBossOwl(MidBossOwl& midBossOwl);
+    
     void renderBounds(Game& game, int boundsLevelRequested);
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(Game& game, BackButton* backButton, int fps);
+    void renderHud(Game& game, BackButton* backButton, BatPanel* batPanel, int fps);
     
     void renderMarkers(Game& game);
     
@@ -156,6 +160,7 @@ protected:
     TextureWrapper m_world_map_screen;
     
     std::vector<TextureWrapper *> m_textureWrappers;
+    std::vector<void (Renderer::*)()> m_pendingLoadFunctions;
     std::vector<GpuTextureWrapper> m_framebuffers;
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
@@ -203,13 +208,13 @@ private:
     bool m_stopCamera;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<T*>& items)
+    void renderPhysicalEntities(std::vector<T*>& items, bool ignoreCamBounds = false)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::getInstance()->get(pItem));
+            renderPhysicalEntity(item, Assets::getInstance()->get(pItem), ignoreCamBounds);
         }
     }
     
@@ -240,9 +245,9 @@ private:
         }
     }
     
-    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr);
+    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool ignoreCamBounds = false);
     
-    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
+    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool ignoreCamBounds = false);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     

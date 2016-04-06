@@ -40,6 +40,8 @@
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "macros.h"
+#include "BatPanel.h"
+#include "MidBossOwl.h"
 
 #include <math.h>
 #include <sstream>
@@ -125,13 +127,6 @@ void Renderer::load(RendererType rendererType)
 {
     m_iNumAsyncLoads = 0;
     
-    if (rendererType != RENDERER_TYPE_TITLE
-        && rendererType != RENDERER_TYPE_WORLD_MAP
-        && rendererType != RENDERER_TYPE_LEVEL_EDITOR)
-    {
-        loadJon();
-    }
-    
     switch (rendererType)
     {
         case RENDERER_TYPE_TITLE:
@@ -145,19 +140,23 @@ void Renderer::load(RendererType rendererType)
             break;
             
         case RENDERER_TYPE_WORLD_1_PRE_LEVEL_10:
-            loadWorld1();
-            loadWorld1Special();
+            m_pendingLoadFunctions.push_back(&Renderer::loadJon);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
             break;
         case RENDERER_TYPE_WORLD_1_MID_BOSS:
-            loadWorld1();
-            loadWorld1MidBoss();
+            m_pendingLoadFunctions.push_back(&Renderer::loadJon);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBoss);
             break;
         case RENDERER_TYPE_WORLD_1_POST_LEVEL_10:
-            loadWorld1();
+            m_pendingLoadFunctions.push_back(&Renderer::loadJon);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1);
             break;
         case RENDERER_TYPE_WORLD_1_END_BOSS:
-            loadWorld1();
-            loadWorld1EndBoss();
+            m_pendingLoadFunctions.push_back(&Renderer::loadJon);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBoss);
             break;
             
         case RENDERER_TYPE_WORLD_2:
@@ -307,7 +306,7 @@ void Renderer::unload(RendererType rendererType)
 
 bool Renderer::isLoadingAdditionalTextures()
 {
-    return m_iNumAsyncLoads > 0;
+    return m_iNumAsyncLoads > 0 || m_pendingLoadFunctions.size() > 0;
 }
 
 bool Renderer::isLoaded()
@@ -335,6 +334,12 @@ void Renderer::beginFrame(float deltaTime)
 	{
 		handleAsyncTextureLoads();
 	}
+    else if (m_pendingLoadFunctions.size() > 0)
+    {
+        void (Renderer::*function)() = m_pendingLoadFunctions.at(0);
+        ((*this).*function)();
+        m_pendingLoadFunctions.erase(m_pendingLoadFunctions.begin());
+    }
 }
 
 void Renderer::setFramebuffer(int framebufferIndex)
@@ -373,10 +378,10 @@ void Renderer::beginOpeningPanningSequence(Game& game)
 
 int Renderer::updateCameraToFollowPathToJon(Game& game)
 {
-    if (m_fStateTime >= 5.0f && m_fStateTime <= 5.265f)
+    if (m_fStateTime >= 1.75f && m_fStateTime <= 2.0f)
     {
         bool isComplete = false;
-        float progress = (m_fStateTime - 5.0f) / 0.2f;
+        float progress = (m_fStateTime - 1.75f) / 0.2f;
         if (progress > 1)
         {
             progress = 1;
@@ -411,7 +416,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         return isComplete ? 2 : 1;
     }
     
-    return m_fStateTime >= 8.065f ? 3 : 0;
+    return m_fStateTime >= 4.0f ? 3 : 0;
 }
 
 void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, bool instant)
@@ -565,7 +570,7 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*panel, Assets::getInstance()->get(panel));
+    renderPhysicalEntity(*panel, Assets::getInstance()->get(panel), true);
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
@@ -576,7 +581,7 @@ void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool is
     if (isDisplayingLevelEditorButton && m_title_screen.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton));
+        renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
     
@@ -606,7 +611,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*panel, Assets::getInstance()->get(panel));
+    renderPhysicalEntity(*panel, Assets::getInstance()->get(panel), true);
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
@@ -627,13 +632,13 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
         {
             LevelThumbnail& lt = *pLt;
             
-            renderPhysicalEntity(lt, Assets::getInstance()->get(pLt));
+            renderPhysicalEntity(lt, Assets::getInstance()->get(pLt), true);
         }
     }
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton));
+    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 }
 
@@ -649,15 +654,15 @@ void Renderer::renderWorld(Game& game)
     updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundUppers());
+    renderPhysicalEntities(game.getBackgroundUppers(), true);
     m_spriteBatcher->endBatch(*m_world_1_background_upper.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundMids());
+    renderPhysicalEntities(game.getBackgroundMids(), true);
     m_spriteBatcher->endBatch(*m_world_1_background_mid.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundLowers());
+    renderPhysicalEntities(game.getBackgroundLowers(), true);
     m_spriteBatcher->endBatch(*m_world_1_background_lower.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     /// Render Midground
@@ -753,6 +758,8 @@ void Renderer::renderWorld(Game& game)
 
 void Renderer::renderJonAndExtraForegroundObjects(Game& game)
 {
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
     if (m_vampire.gpuTextureWrapper && game.getJons().size() > 0)
     {
         Jon& jon = game.getJon();
@@ -804,6 +811,18 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
     }
 }
 
+void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
+{
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
+    if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
+        m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
+    }
+}
+
 void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 {
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getRight(), m_camBounds->getBottom(), m_camBounds->getTop());
@@ -852,7 +871,7 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(Game& game, BackButton* backButton, int fps)
+void Renderer::renderHud(Game& game, BackButton* backButton, BatPanel* batPanel, int fps)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -860,7 +879,7 @@ void Renderer::renderHud(Game& game, BackButton* backButton, int fps)
     
     m_spriteBatcher->beginBatch();
 
-    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton));
+    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
@@ -926,8 +945,8 @@ void Renderer::renderHud(Game& game, BackButton* backButton, int fps)
         uiGoldenCarrot.setHeight(fgHeight);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(&uiCarrot));
-        renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(&uiGoldenCarrot));
+        renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(&uiCarrot), true);
+        renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(&uiGoldenCarrot), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     }
 
@@ -944,6 +963,27 @@ void Renderer::renderHud(Game& game, BackButton* backButton, int fps)
 		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
+    
+    if (m_vampire.gpuTextureWrapper)
+    {
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        if (batPanel->isOpening())
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+        }
+        else if (batPanel->isOpen())
+        {
+            BatInstruction& batInstruction = batPanel->getBatInstruction();
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
+            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+        }
+    }
 }
 
 void Renderer::renderMarkers(Game& game)
@@ -1198,16 +1238,9 @@ void Renderer::renderToSecondFramebuffer(Game& game)
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
     
-    if (game.getJons().size() > 0)
-    {
-        Jon& jon = game.getJon();
-        bool isVampire = jon.isVampire();
-        m_spriteBatcher->endBatch(m_framebuffers.at(0), (isVampire || jon.isRevertingToRabbit()) ? *m_framebufferTintGpuProgramWrapper : *m_framebufferToScreenGpuProgramWrapper);
-    }
-    else
-    {
-        m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_framebufferToScreenGpuProgramWrapper);
-    }
+    Jon& jon = game.getJon();
+    bool isVampire = jon.isVampire();
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), (isVampire || jon.isRevertingToRabbit()) ? *m_framebufferTintGpuProgramWrapper : *m_framebufferToScreenGpuProgramWrapper);
 }
 
 void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
@@ -1294,6 +1327,8 @@ void Renderer::cleanUp()
     
     m_threads.clear();
     
+    m_pendingLoadFunctions.clear();
+    
     if (m_areShadersLoaded)
     {
         m_transScreenGpuProgramWrapper->cleanUp();
@@ -1325,14 +1360,24 @@ Vector2D& Renderer::getCameraPosition()
 
 #pragma mark private
 
-void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool ignoreCamBounds)
 {
-	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
+    Rectangle bounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
+    
+    if (ignoreCamBounds || OverlapTester::doRectanglesOverlap(*m_camBounds, bounds))
+    {
+        m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
+    }
 }
 
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool ignoreCamBounds)
 {
-	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
+    Rectangle bounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
+    
+    if (ignoreCamBounds || OverlapTester::doRectanglesOverlap(*m_camBounds, bounds))
+    {
+        m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
+    }
 }
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
@@ -1462,13 +1507,14 @@ void Renderer::loadWorld1MidBoss()
 {
     if (m_world_1_mid_boss_part_4.gpuTextureWrapper == nullptr)
     {
-        m_iNumAsyncLoads += 4;
+        m_iNumAsyncLoads += 2;
+//        m_iNumAsyncLoads += 4;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
             r->m_world_1_mid_boss_part_1.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_1" : "world_1_mid_boss_part_1");
-            r->m_world_1_mid_boss_part_2.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_2" : "world_1_mid_boss_part_2");
-            r->m_world_1_mid_boss_part_3.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_3" : "world_1_mid_boss_part_3");
+//            r->m_world_1_mid_boss_part_2.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_2" : "world_1_mid_boss_part_2");
+//            r->m_world_1_mid_boss_part_3.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_3" : "world_1_mid_boss_part_3");
             r->m_world_1_mid_boss_part_4.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_4" : "world_1_mid_boss_part_4");
         }, this));
     }

@@ -44,6 +44,8 @@ class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
 class CountHissWithMina;
+class BatInstruction;
+class BatPanel;
 
 class Assets
 {
@@ -87,6 +89,10 @@ public:
     TextureRegion& get(MidBossOwl* owl);
     
     TextureRegion& get(BackButton* backButton);
+    
+    TextureRegion& get(BatInstruction* batInstruction);
+    
+    TextureRegion& get(BatPanel* batPanel);
     
     TextureRegion& get(LevelEditorButton* levelEditorButton);
     

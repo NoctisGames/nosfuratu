@@ -12,12 +12,14 @@
 #include "State.h"
 #include "BackButton.h"
 #include "LevelEditorButton.h"
+#include "BatPanel.h"
 
 #include <memory>
 
 class GameScreen;
 class Game;
 class MidBossOwl;
+class ForegroundObject;
 
 class Level : public State<GameScreen>
 {
@@ -41,6 +43,7 @@ protected:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<BackButton> m_backButton;
+    std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
     bool m_isReleasingShockwave;
     float m_fShockwaveCenterX;
@@ -52,8 +55,11 @@ protected:
     bool m_hasSwiped;
     bool m_showDeathTransOut;
     bool m_exitLoop;
+    bool m_hasCompletedLevel;
     
     virtual void updateCamera(GameScreen* gs, bool instant = false);
+    
+    virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
@@ -62,6 +68,9 @@ protected:
     Level(const char* m_json = nullptr);
     Level(const Level&);
     Level& operator=(const Level&);
+    
+private:
+    BatPanelType getBatPanelType();
 };
 
 class Chapter1Level1 : public Level
@@ -185,9 +194,15 @@ public:
     
 private:
     std::unique_ptr<MidBossOwl> m_midBossOwl;
+    ForegroundObject* m_perchTree;
+    float m_fMusicVolume;
+    bool m_hasTriggeredMidBossMusicLoopIntro;
+    bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
     
     virtual void updateCamera(GameScreen* gs, bool instant = false);
+    
+    virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level10(const char* json);

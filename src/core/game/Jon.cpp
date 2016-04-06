@@ -34,11 +34,13 @@ m_groundSoundType(GROUND_SOUND_NONE),
 m_color(1, 1, 1, 1),
 m_fDeltaTime(0),
 m_iNumJumps(0),
+m_iNumBoosts(0),
 m_isLanding(false),
 m_isRollLanding(false),
 m_isRightFoot(false),
 m_isAllowedToMove(false),
-m_isConsumed(false)
+m_isConsumed(false),
+m_isIdle(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -158,7 +160,7 @@ void Jon::update(float deltaTime)
             }
 		}
 
-		m_acceleration->set(m_isAllowedToMove ? m_fAccelerationX : 0, 0);
+		m_acceleration->set(m_isAllowedToMove && !m_isIdle ? m_fAccelerationX : 0, 0);
 		m_velocity->setY(0);
 		m_iNumJumps = 0;
 		m_fMaxSpeed = m_fDefaultMaxSpeed;
@@ -209,7 +211,7 @@ void Jon::onDeletion()
 
 void Jon::triggerTransform()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -231,7 +233,7 @@ void Jon::triggerCancelTransform()
 
 void Jon::triggerJump()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -242,7 +244,7 @@ void Jon::triggerJump()
 
 void Jon::triggerLeftAction()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -253,7 +255,7 @@ void Jon::triggerLeftAction()
 
 void Jon::triggerRightAction()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -264,7 +266,7 @@ void Jon::triggerRightAction()
 
 void Jon::triggerUpAction()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -275,7 +277,7 @@ void Jon::triggerUpAction()
 
 void Jon::triggerDownAction()
 {
-	if (m_state != JON_ALIVE)
+	if (m_state != JON_ALIVE || m_isIdle)
 	{
 		return;
 	}
@@ -383,6 +385,16 @@ float Jon::getDyingStateTime()
 	return m_fDyingStateTime;
 }
 
+int Jon::getNumJumps()
+{
+    return m_iNumJumps;
+}
+
+int Jon::getNumBoosts()
+{
+    return m_iNumBoosts;
+}
+
 bool Jon::isMoving()
 {
 	return m_velocity->getX() > 0;
@@ -476,6 +488,16 @@ void Jon::setAllowedToMove(bool isAllowedToMove)
 bool Jon::isAllowedToMove()
 {
 	return m_isAllowedToMove;
+}
+
+void Jon::setIdle(bool isIdle)
+{
+    m_isIdle = isIdle;
+}
+
+bool Jon::isIdle()
+{
+    return m_isIdle;
 }
 
 void Jon::setGame(Game* game)
@@ -764,6 +786,7 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 1;
+    jon->m_iNumBoosts++;
     
     Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
 }
@@ -1057,6 +1080,7 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
 	jon->setState(ABILITY_NONE);
     
     jon->m_iNumJumps = 1;
+    jon->m_iNumBoosts++;
     
     jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
     

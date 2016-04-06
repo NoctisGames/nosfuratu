@@ -432,7 +432,7 @@ private:
 class GiantPerchTree : public ForegroundObject
 {
 public:
-    GiantPerchTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantPerchTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f) {}
+    GiantPerchTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantPerchTree, GROUND_SOUND_NONE, 0, 0, 1, 1) {}
 };
 
 class ExtraForegroundObject : public ForegroundObject

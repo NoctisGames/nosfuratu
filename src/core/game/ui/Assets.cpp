@@ -17,6 +17,7 @@
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
+#include "BatPanel.h"
 
 Assets * Assets::getInstance()
 {
@@ -847,7 +848,7 @@ TextureRegion& Assets::get(Jon* jon)
     
     if (jon->isVampire())
     {
-        static Animation deathAnim = createAnimation(0, 2048, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06666666666667f, 15);
+        static Animation deathAnim = createAnimation(2048, 3584, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06666666666667f, 15);
         static Animation pushedBackAnim = createAnimation(512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
         static Animation idleAnim = createAnimation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.125f, 8);
         static Animation runningAnim = createAnimation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.056f, 10);
@@ -1040,7 +1041,7 @@ TextureRegion& Assets::get(Jon* jon)
             return pushedBackAnim.getTextureRegion(jon->getStateTime());
         }
         
-        return warmUpAnim.getTextureRegion(jon->getStateTime());
+        return jon->isIdle() ? idleAnim.getTextureRegion(jon->getStateTime()) : warmUpAnim.getTextureRegion(jon->getStateTime());
     }
 }
 
@@ -1061,21 +1062,18 @@ TextureRegion& Assets::get(MidBossOwl* owl)
             
             return anim.getTextureRegion(owl->getStateTime());
         }
-            break;
         case MidBossOwlState_Awakening:
         {
             static Animation anim = createAnimation(0, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
-            break;
         case MidBossOwlState_Screeching:
         {
             static Animation anim = createAnimation(1404, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
-            break;
         default:
             break;
     }
@@ -1087,6 +1085,52 @@ TextureRegion& Assets::get(BackButton* backButton)
 {
     static TextureRegion tr = TextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     return tr;
+}
+
+TextureRegion& Assets::get(BatInstruction* batInstruction)
+{
+    switch (batInstruction->getBatPanelType())
+    {
+        case BatPanelType_Jump:
+        {
+            static Animation anim = createAnimation(0, 2432, 512, 128, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 10);
+            
+            return anim.getTextureRegion(batInstruction->getStateTime());
+        }
+        case BatPanelType_DoubleJump:
+        {
+            static Animation anim = createAnimation(0, 2816, 512, 128, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 16);
+            
+            return anim.getTextureRegion(batInstruction->getStateTime());
+        }
+        case BatPanelType_Burrow:
+        {
+            static Animation anim = createAnimation(0, 3328, 512, 128, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 12);
+            
+            return anim.getTextureRegion(batInstruction->getStateTime());
+        }
+        case BatPanelType_None:
+        default:
+            break;
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(BatPanel* batPanel)
+{
+    if (batPanel->isOpening())
+    {
+        static Animation anim = createAnimation(0, 2048, 512, 128, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+        
+        return anim.getTextureRegion(batPanel->getStateTime());
+    }
+    else
+    {
+        static Animation anim = createAnimation(0, 2176, 512, 128, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+        
+        return anim.getTextureRegion(batPanel->getStateTime());
+    }
 }
 
 TextureRegion& Assets::get(LevelEditorButton* levelEditorButton)
