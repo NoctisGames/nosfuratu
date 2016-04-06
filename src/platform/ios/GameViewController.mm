@@ -218,7 +218,7 @@
             }
             else
             {
-                self.soundMgr.backgroundMusicVolume = volume;
+                [self.soundMgr setBackgroundMusicVolume:volume];
             }
         }
             break;
