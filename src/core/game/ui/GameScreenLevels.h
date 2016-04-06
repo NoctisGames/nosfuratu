@@ -201,6 +201,7 @@ private:
     bool m_hasTriggeredMidBossMusicLoopIntro;
     bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
+    bool m_hasRequestedPart2TexturesToBeLoaded;
     
     virtual void updateCamera(GameScreen* gs, bool instant = false);
     

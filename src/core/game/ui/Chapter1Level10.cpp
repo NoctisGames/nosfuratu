@@ -28,6 +28,8 @@ void Chapter1Level10::enter(GameScreen* gs)
 {
     Level::enter(gs);
     
+    m_hasRequestedPart2TexturesToBeLoaded = false;
+    
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
     {
         if ((*i)->getType() == ForegroundObjectType_GiantPerchTree)
@@ -37,6 +39,24 @@ void Chapter1Level10::enter(GameScreen* gs)
             m_midBossOwl->getPosition().set(lowerLeft.getX() + MID_BOSS_OWL_SLEEPING_WIDTH / 2, lowerLeft.getY() + MID_BOSS_OWL_SLEEPING_HEIGHT / 2);
             m_midBossOwl->updateBounds();
             m_midBossOwl->goBackToSleep();
+        }
+    }
+    
+    m_midBossOwl->setGame(m_game.get());
+    
+    if (m_hasTriggeredMidBossMusicLoop)
+    {
+        if (m_game->getJons().size() > 0)
+        {
+            Jon& jon = m_game->getJon();
+            
+            jon.getAcceleration().set(0, 0);
+            jon.getVelocity().set(0, 0);
+            
+            jon.getPosition().setX(m_perchTree->getMainBounds().getRight());
+            jon.getPosition().sub(0, 6);
+            
+            m_midBossOwl->setState(MidBossOwlState_Screeching);
         }
     }
 }
@@ -71,6 +91,16 @@ void Chapter1Level10::execute(GameScreen* gs)
                 
                 if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
                 {
+                    if (jon.isTransformingIntoVampire())
+                    {
+                        jon.triggerCancelTransform();
+                    }
+                    
+                    if (jon.isVampire())
+                    {
+                        jon.triggerTransform();
+                    }
+                    
                     jon.getAcceleration().set(0, 0);
                     jon.getVelocity().set(0, 0);
                     jon.setIdle(true);
@@ -86,7 +116,7 @@ void Chapter1Level10::execute(GameScreen* gs)
             {
                 m_fIdleWaitTime += gs->m_fDeltaTime;
                 
-                if (m_fIdleWaitTime > 2)
+                if (m_fIdleWaitTime > 2.0f)
                 {
                     m_midBossOwl->awaken();
                 }
@@ -125,6 +155,17 @@ void Chapter1Level10::execute(GameScreen* gs)
         {
             m_isChaseCamActivated = jon.getPosition().getY() > 12;
         }
+        else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
+        {
+            if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
+            {
+                gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
+                
+                m_exitLoop = true;
+                
+                m_hasRequestedPart2TexturesToBeLoaded = true;
+            }
+        }
         else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
         {
             m_isChaseCamActivated = false;
@@ -141,6 +182,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
+    m_hasRequestedPart2TexturesToBeLoaded = false;
     
     Level::exit(gs);
 }
@@ -169,7 +211,8 @@ m_fMusicVolume(0.5f),
 m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
-m_isChaseCamActivated(false)
+m_isChaseCamActivated(false),
+m_hasRequestedPart2TexturesToBeLoaded(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
 }

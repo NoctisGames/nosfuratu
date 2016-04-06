@@ -192,6 +192,11 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_enemies.push_back(new Fox(0, 0));
         }
         
+        if (level == 10)
+        {
+            m_enemies.clear();
+        }
+        
         m_collectibleItems.push_back(new Carrot(0, 0));
         m_collectibleItems.push_back(new GoldenCarrot(0, 0));
         

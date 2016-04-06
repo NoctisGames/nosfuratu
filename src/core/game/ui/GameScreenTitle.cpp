@@ -26,13 +26,12 @@ Title * Title::getInstance()
 void Title::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(nullptr);
-    gs->m_renderer->init(RENDERER_TYPE_TITLE);
     
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
     gs->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
     
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_PRE_LEVEL_10);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_POST_LEVEL_10);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
     
@@ -51,6 +50,8 @@ void Title::enter(GameScreen* gs)
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_MID_BOSS);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
+    
+    gs->m_renderer->init(RENDERER_TYPE_TITLE);
 }
 
 void Title::execute(GameScreen* gs)

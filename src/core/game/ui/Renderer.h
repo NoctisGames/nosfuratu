@@ -206,6 +206,7 @@ private:
     bool m_compressed;
     bool m_areShadersLoaded;
     bool m_stopCamera;
+    bool m_allowGameplayDuringLoading;
     
     template<typename T>
     void renderPhysicalEntities(std::vector<T*>& items, bool ignoreCamBounds = false)
@@ -257,61 +258,84 @@ private:
     
     float getCamPosFarRight(Game& game);
     
-    void loadMisc();
+    void loadMiscTextures();
     
     void loadTitle();
+    void loadTitleTextures();
+    
     void loadWorldMap();
+    void loadWorldMapTextures();
+    
     void loadLevelEditor();
+    void loadLevelEditorTextures();
     
     void loadJon();
+    void loadTransDeath();
+    void loadVampire();
+    void loadJonTextures();
     
-    void loadWorld1();
+    void loadWorld1BackgroundLower();
+    void loadWorld1BackgroundMid();
+    void loadWorld1BackgroundUpper();
+    void loadWorld1Enemies();
+    void loadWorld1Ground();
+    void loadWorld1Objects();
+    void loadWorld1Textures();
+    
     void loadWorld1Special();
-    void loadWorld1MidBoss();
-    void loadWorld1EndBoss();
+    void loadWorld1SpecialTextures();
     
-    void loadWorld2();
-    void loadWorld2MidBoss();
-    void loadWorld2EndBoss();
+    void loadWorld1MidBossPart1();
+    void loadWorld1MidBossPart2();
+    void loadWorld1MidBossPart3();
+    void loadWorld1MidBossPart4();
+    void loadWorld1MidBossTexturesPart1();
+    void loadWorld1MidBossTexturesPart2();
     
-    void loadWorld3();
-    void loadWorld3MidBoss();
-    void loadWorld3EndBoss();
+    void loadWorld1EndBossTextures();
     
-    void loadWorld4();
-    void loadWorld4MidBoss();
-    void loadWorld4EndBoss();
+    void loadWorld2Textures();
+    void loadWorld2MidBossTextures();
+    void loadWorld2EndBossTextures();
     
-    void loadWorld5();
-    void loadWorld5MidBoss();
-    void loadWorld5EndBoss();
+    void loadWorld3Textures();
+    void loadWorld3MidBossTextures();
+    void loadWorld3EndBossTextures();
     
-    void unloadTitle();
-    void unloadWorldMap();
-    void unloadLevelEditor();
+    void loadWorld4Textures();
+    void loadWorld4MidBossTextures();
+    void loadWorld4EndBossTextures();
     
-    void unloadJon();
+    void loadWorld5Textures();
+    void loadWorld5MidBossTextures();
+    void loadWorld5EndBossTextures();
     
-    void unloadWorld1();
-    void unloadWorld1Special();
-    void unloadWorld1MidBoss();
-    void unloadWorld1EndBoss();
+    void unloadTitleTextures();
+    void unloadWorldMapTextures();
+    void unloadLevelEditorTextures();
     
-    void unloadWorld2();
-    void unloadWorld2MidBoss();
-    void unloadWorld2EndBoss();
+    void unloadJonTextures();
     
-    void unloadWorld3();
-    void unloadWorld3MidBoss();
-    void unloadWorld3EndBoss();
+    void unloadWorld1Textures();
+    void unloadWorld1SpecialTextures();
+    void unloadWorld1MidBossTextures();
+    void unloadWorld1EndBossTextures();
     
-    void unloadWorld4();
-    void unloadWorld4MidBoss();
-    void unloadWorld4EndBoss();
+    void unloadWorld2Textures();
+    void unloadWorld2MidBossTextures();
+    void unloadWorld2EndBossTextures();
     
-    void unloadWorld5();
-    void unloadWorld5MidBoss();
-    void unloadWorld5EndBoss();
+    void unloadWorld3Textures();
+    void unloadWorld3MidBossTextures();
+    void unloadWorld3EndBossTextures();
+    
+    void unloadWorld4Textures();
+    void unloadWorld4MidBossTextures();
+    void unloadWorld4EndBossTextures();
+    
+    void unloadWorld5Textures();
+    void unloadWorld5MidBossTextures();
+    void unloadWorld5EndBossTextures();
     
     void handleAsyncTextureLoads();
     

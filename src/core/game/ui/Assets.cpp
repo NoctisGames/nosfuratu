@@ -1054,11 +1054,14 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
 
 TextureRegion& Assets::get(MidBossOwl* owl)
 {
+    int damage = owl->getDamage();
+    bool hasCaughtVampire = owl->hasCaughtVampire();
+    
     switch (owl->getState())
     {
         case MidBossOwlState_Sleeping:
         {
-            static Animation anim = createAnimation(0, 0, 638, 572, 638, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
+            static Animation anim = createAnimation(0, 0, 638, 572, 638, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.15f, 4);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
@@ -1075,12 +1078,79 @@ TextureRegion& Assets::get(MidBossOwl* owl)
             return anim.getTextureRegion(owl->getStateTime());
         }
         case MidBossOwlState_Pursuing:
+        case MidBossOwlState_FlyingOverTree:
+        {
+            if (damage < 2)
+            {
+                static Animation anim = createAnimation(0, 0, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(0, 2560, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+        }
+        case MidBossOwlState_SwoopingDown:
+        {
+            if (damage < 2)
+            {
+                static Animation anim = createAnimation(3072, 0, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(3072, 2560, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+        }
+        case MidBossOwlState_FlyingAwayAfterCatchingJon:
+        {
+            if (damage < 2)
+            {
+                if (hasCaughtVampire)
+                {
+                    static Animation anim = createAnimation(0, 1024, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+                    
+                    return anim.getTextureRegion(owl->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(0, 512, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+                    
+                    return anim.getTextureRegion(owl->getStateTime());
+                }
+            }
+            else
+            {
+                if (hasCaughtVampire)
+                {
+                    static Animation anim = createAnimation(0, 3584, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+                    
+                    return anim.getTextureRegion(owl->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(0, 3072, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+                    
+                    return anim.getTextureRegion(owl->getStateTime());
+                }
+            }
+        }
         case MidBossOwlState_SlammingIntoTree:
+        {
+            static Animation anim = createAnimation(0, 1536, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 10);
+            
+            return anim.getTextureRegion(owl->getStateTime());
+        }
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
         {
-            // TODO
-            static Animation anim = createAnimation(1276, 3300, 638, 572, 1276, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+            static Animation anim = createAnimation(0, 0, 720, 800, 3600, 4000, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 22);
             
             return anim.getTextureRegion(owl->getStateTime());
         }

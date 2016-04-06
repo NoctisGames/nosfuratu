@@ -211,7 +211,7 @@ void Jon::onDeletion()
 
 void Jon::triggerTransform()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
 	{
 		return;
 	}
@@ -244,7 +244,7 @@ void Jon::triggerJump()
 
 void Jon::triggerLeftAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
 	{
 		return;
 	}
@@ -255,7 +255,7 @@ void Jon::triggerLeftAction()
 
 void Jon::triggerRightAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
 	{
 		return;
 	}
@@ -266,7 +266,7 @@ void Jon::triggerRightAction()
 
 void Jon::triggerUpAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
 	{
 		return;
 	}
@@ -277,7 +277,7 @@ void Jon::triggerUpAction()
 
 void Jon::triggerDownAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
 	{
 		return;
 	}
@@ -515,10 +515,11 @@ float Jon::getGravity()
     return m_fGravity;
 }
 
-void Jon::consume()
+void Jon::consume(bool vampireDies)
 {
     // Used when Jon needs to be "transfered" i.e. grabbed by the owl or eaten by the toad
     m_isConsumed = true;
+    m_isFatallyConsumed = vampireDies;
     m_iNumJumps = 0;
 }
 
@@ -680,6 +681,11 @@ void Jon::Rabbit::triggerTransform(Jon* jon)
 
 void Jon::Rabbit::triggerJump(Jon* jon)
 {
+    if (jon->m_isConsumed)
+    {
+        return;
+    }
+    
 	if (jon->m_iNumJumps < 2)
 	{
 		jon->m_fStateTime = 0;
@@ -980,16 +986,16 @@ void Jon::Vampire::exit(Jon* jon)
 
 void Jon::Vampire::triggerTransform(Jon* jon)
 {
-    if (jon->m_isConsumed)
-    {
-        return;
-    }
-    
-	jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
+    jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
 }
 
 void Jon::Vampire::triggerJump(Jon* jon)
 {
+    if (jon->m_isConsumed && jon->m_isFatallyConsumed)
+    {
+        return;
+    }
+    
 	if (jon->m_abilityState == ABILITY_GLIDE)
 	{
 		jon->setState(ABILITY_NONE);

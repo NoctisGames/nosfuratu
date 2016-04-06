@@ -392,6 +392,11 @@ void GiantShakingTree::update(float deltaTime)
     }
 }
 
+void GiantShakingTree::triggerHit()
+{
+    m_isShaking = true;
+}
+
 void ExtraForegroundObject::update(float deltaTime)
 {
     ForegroundObject::update(deltaTime);

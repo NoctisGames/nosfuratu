@@ -160,7 +160,7 @@ public:
     
     float getGravity();
     
-    void consume();
+    void consume(bool vampireDies = false);
     
     void kill();
     
@@ -191,6 +191,7 @@ private:
     bool m_isRightFoot;
     bool m_isAllowedToMove;
     bool m_isConsumed;
+    bool m_isFatallyConsumed;
     bool m_isIdle;
     
     void setState(JonState state);

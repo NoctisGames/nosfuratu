@@ -425,6 +425,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    void triggerHit();
+    
 private:
     bool m_isShaking;
 };

@@ -19,13 +19,19 @@ class Game;
 #define MID_BOSS_OWL_NORMAL_WIDTH 4.5f
 #define MID_BOSS_OWL_NORMAL_HEIGHT 4.5f
 
+#define MID_BOSS_OWL_DYING_WIDTH 6.328125f
+#define MID_BOSS_OWL_DYING_HEIGHT 7.03125f
+
 typedef enum
 {
     MidBossOwlState_Sleeping,
     MidBossOwlState_Awakening,
     MidBossOwlState_Screeching,
     MidBossOwlState_Pursuing,
+    MidBossOwlState_SwoopingDown,
+    MidBossOwlState_FlyingAwayAfterCatchingJon,
     MidBossOwlState_SlammingIntoTree,
+    MidBossOwlState_FlyingOverTree,
     MidBossOwlState_Dying,
     MidBossOwlState_Dead
 } MidBossOwlState;
@@ -47,12 +53,18 @@ public:
     
     void setGame(Game* game);
     
+    int getDamage();
+    
+    bool hasCaughtVampire();
+    
+    void setState(MidBossOwlState state);
+    
 private:
     Game* m_game;
     int m_iDamage;
     MidBossOwlState m_state;
-    
-    void setState(MidBossOwlState state);
+    bool m_hasCaughtVampire;
+    int m_iNumTreesPassed;
 };
 
 #endif /* defined(__nosfuratu__MidBossOwl__) */
