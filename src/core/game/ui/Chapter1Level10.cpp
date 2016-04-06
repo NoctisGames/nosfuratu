@@ -33,7 +33,7 @@ void Chapter1Level10::enter(GameScreen* gs)
         if ((*i)->getType() == ForegroundObjectType_GiantPerchTree)
         {
             m_perchTree = (*i);
-            Vector2D& lowerLeft = m_perchTree->getMainBounds().getLowerLeft();
+            Vector2D lowerLeft = Vector2D(m_perchTree->getPosition().getX() - m_perchTree->getWidth() / 2, m_perchTree->getPosition().getY() - m_perchTree->getHeight() / 2);
             m_midBossOwl->getPosition().set(lowerLeft.getX() + MID_BOSS_OWL_SLEEPING_WIDTH / 2, lowerLeft.getY() + MID_BOSS_OWL_SLEEPING_HEIGHT / 2);
             m_midBossOwl->updateBounds();
             m_midBossOwl->goBackToSleep();
@@ -61,20 +61,33 @@ void Chapter1Level10::execute(GameScreen* gs)
             if (jon.getNumBoosts() >= 1)
             {
                 m_fMusicVolume -= gs->m_fDeltaTime / 8;
-                short musicId = MUSIC_SET_VOLUME + (short) (m_fMusicVolume * 100);
+                short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
                 Assets::getInstance()->setMusicId(musicId);
             }
             
             if (m_perchTree)
             {
-                if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jon.getMainBounds()))
+                Rectangle jonBounds = Rectangle(jon.getMainBounds().getLeft(), jon.getMainBounds().getBottom(), jon.getWidth() * 1.5f, jon.getHeight());
+                
+                if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
                 {
                     jon.getAcceleration().set(0, 0);
                     jon.getVelocity().set(0, 0);
                     jon.setIdle(true);
                     
-                    jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jon.getMainBounds().getWidth() / 2);
+                    jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2);
+                    jon.updateBounds();
                     
+                    m_isIdleWaitingForOwl = true;
+                }
+            }
+            
+            if (m_isIdleWaitingForOwl)
+            {
+                m_fIdleWaitTime += gs->m_fDeltaTime;
+                
+                if (m_fIdleWaitTime > 2)
+                {
                     m_midBossOwl->awaken();
                 }
             }
@@ -87,6 +100,9 @@ void Chapter1Level10::execute(GameScreen* gs)
         {
             if (!m_hasTriggeredMidBossMusicLoopIntro)
             {
+                jon.setIdle(false);
+                jon.triggerDownAction();
+                
                 Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
                 
                 m_hasTriggeredMidBossMusicLoopIntro = true;
@@ -98,9 +114,6 @@ void Chapter1Level10::execute(GameScreen* gs)
                 
                 m_hasTriggeredMidBossMusicLoop = true;
             }
-            
-            jon.setIdle(false);
-            jon.triggerDownAction();
             
             if (jon.getNumBoosts() >= 2)
             {
@@ -121,12 +134,15 @@ void Chapter1Level10::execute(GameScreen* gs)
 
 void Chapter1Level10::exit(GameScreen* gs)
 {
-    Level::exit(gs);
-    
+    m_isIdleWaitingForOwl = false;
+    m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
+    m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
+    
+    Level::exit(gs);
 }
 
 void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
@@ -148,7 +164,9 @@ void Chapter1Level10::additionalRenderingBeforeHud(GameScreen* gs)
 
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
 m_perchTree(nullptr),
+m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
+m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
 m_isChaseCamActivated(false)

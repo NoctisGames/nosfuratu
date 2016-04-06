@@ -1058,19 +1058,29 @@ TextureRegion& Assets::get(MidBossOwl* owl)
     {
         case MidBossOwlState_Sleeping:
         {
-            static Animation anim = createAnimation(0, 0, 702, 572, 702, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
+            static Animation anim = createAnimation(0, 0, 638, 572, 638, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
         case MidBossOwlState_Awakening:
         {
-            static Animation anim = createAnimation(0, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
+            static Animation anim = createAnimation(0, 3300, 638, 572, 1276, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
         case MidBossOwlState_Screeching:
         {
-            static Animation anim = createAnimation(1404, 3300, 702, 572, 1404, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+            static Animation anim = createAnimation(1276, 3300, 638, 572, 1276, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+            
+            return anim.getTextureRegion(owl->getStateTime());
+        }
+        case MidBossOwlState_Pursuing:
+        case MidBossOwlState_SlammingIntoTree:
+        case MidBossOwlState_Dying:
+        case MidBossOwlState_Dead:
+        {
+            // TODO
+            static Animation anim = createAnimation(1276, 3300, 638, 572, 1276, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
             
             return anim.getTextureRegion(owl->getStateTime());
         }

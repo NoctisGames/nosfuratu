@@ -214,12 +214,10 @@
             float volume = rawMusicId / 100.0f;
             if (volume < 0)
             {
-                [self.soundMgr stopBackgroundMusic];
+                volume = 0;
             }
-            else
-            {
-                [self.soundMgr setBackgroundMusicVolume:volume];
-            }
+            
+            self.soundMgr.backgroundMusicVolume = volume;
         }
             break;
         case MUSIC_PLAY_WORLD_1_LOOP:
