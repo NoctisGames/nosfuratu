@@ -266,13 +266,10 @@ public final class GameRenderer implements Renderer
                     float volume = rawMusicId / 100.0f;
                     if (volume < 0)
                     {
-                        _bgm.stop();
-                        _bgm = null;
+						volume = 0;
                     }
-                    else
-                    {
-                        _bgm.setVolume(volume);
-                    }
+
+					_bgm.setVolume(volume);
                 }
                 break;
             case MUSIC_PLAY_WORLD_1_LOOP:
