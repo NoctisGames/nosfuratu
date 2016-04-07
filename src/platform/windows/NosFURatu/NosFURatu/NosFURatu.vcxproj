@@ -1643,9 +1643,11 @@
     <ClInclude Include="..\..\..\..\core\game\Hole.h" />
     <ClInclude Include="..\..\..\..\core\game\HoleCover.h" />
     <ClInclude Include="..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="..\..\..\..\core\game\MidBossOwl.h" />
     <ClInclude Include="..\..\..\..\core\game\Midground.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\BatPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\ConfirmExitPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\ConfirmResetPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
@@ -1739,9 +1741,11 @@
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\MidBossOwl.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\BatPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level10.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level21.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\ConfirmExitPanel.cpp" />
@@ -2155,6 +2159,22 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm_intro.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
     <Media Include="..\..\..\..\..\assets\sounds\mushroom_bounce.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -2223,6 +2243,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm_intro.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>

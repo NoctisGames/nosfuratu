@@ -277,7 +277,8 @@ void MediaEnginePlayer::Play()
     if (m_spMediaEngine) 
     {
 		m_spMediaEngine->SetLoop(true);
-        DX::ThrowIfFailed(m_spMediaEngine->Play()); 
+        DX::ThrowIfFailed(m_spMediaEngine->Play());
+		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(0.5));
         m_isPlaying = true;             
     } 
     return; 
@@ -299,7 +300,13 @@ void MediaEnginePlayer::Pause()
     return; 
 } 
  
- 
+void MediaEnginePlayer::SetVolume(double volume)
+{
+	if (m_spMediaEngine)
+	{
+		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(volume));
+	}
+}
  
 //----------------------------------------------------------------------------- 
 // Mute 

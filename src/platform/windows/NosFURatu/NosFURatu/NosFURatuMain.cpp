@@ -49,15 +49,17 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("jon_rabbit_double_jump.wav");
 	m_sounds.push_back("vampire_glide_loop.wav");
 	m_sounds.push_back("mushroom_bounce.wav");
-    m_sounds.push_back("jon_burrow_rocksfall.wav");
-    m_sounds.push_back("sparrow_fly_loop.wav");
+	m_sounds.push_back("jon_burrow_rocksfall.wav");
+	m_sounds.push_back("sparrow_fly_loop.wav");
 	m_sounds.push_back("sparrow_die.wav");
-    m_sounds.push_back("toad_die.wav");
-    m_sounds.push_back("toad_eat.wav");
-    m_sounds.push_back("saw_grind_loop.wav");
-    m_sounds.push_back("fox_bounced_on.wav");
-    m_sounds.push_back("fox_strike.wav");
-    m_sounds.push_back("fox_death.wav");
+	m_sounds.push_back("toad_die.wav");
+	m_sounds.push_back("toad_eat.wav");
+	m_sounds.push_back("saw_grind_loop.wav");
+	m_sounds.push_back("fox_bounced_on.wav");
+	m_sounds.push_back("fox_strike.wav");
+	m_sounds.push_back("fox_death.wav");
+	m_sounds.push_back("world_1_bgm_intro.wav");
+	m_sounds.push_back("mid_boss_bgm_intro.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -67,7 +69,7 @@ NosFURatuMain::~NosFURatuMain()
 }
 
 // Updates application state when the window size changes (e.g. device orientation change)
-void NosFURatuMain::CreateWindowSizeDependentResources() 
+void NosFURatuMain::CreateWindowSizeDependentResources()
 {
 	m_gameScreen->CreateWindowSizeDependentResources();
 }
@@ -152,7 +154,7 @@ void NosFURatuMain::OnDeviceRestored()
 	CreateWindowSizeDependentResources();
 }
 
-void NosFURatuMain::Update() 
+void NosFURatuMain::Update()
 {
 	m_timer.Tick([&]()
 	{
@@ -175,18 +177,18 @@ void NosFURatuMain::Update()
 			loadLevel(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
-        case REQUESTED_ACTION_LEVEL_COMPLETED:
-            markLevelAsCompleted(m_gameScreen->getRequestedAction());
-            m_gameScreen->clearRequestedAction();
-            break;
+		case REQUESTED_ACTION_LEVEL_COMPLETED:
+			markLevelAsCompleted(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
+			break;
 		case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
 			sendLevelCompletions();
 			m_gameScreen->clearRequestedAction();
 			break;
-        case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
-            showMessage(m_gameScreen->getRequestedAction());
-            m_gameScreen->clearRequestedAction();
-            break;
+		case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
+			showMessage(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
+			break;
 		default:
 			break;
 		}
@@ -195,7 +197,7 @@ void NosFURatuMain::Update()
 
 // Renders the current frame according to the current application state.
 // Returns true if the frame was rendered and is ready to be displayed.
-bool NosFURatuMain::Render() 
+bool NosFURatuMain::Render()
 {
 	// Don't try to render anything before the first Update.
 	if (m_timer.GetFrameCount() == 0)
@@ -228,29 +230,35 @@ void NosFURatuMain::handleSound()
 	{
 		Assets::getInstance()->eraseFirstSoundId();
 
-        switch (soundId)
-        {
-            case SOUND_JON_VAMPIRE_GLIDE:
-            case SOUND_SPARROW_FLY:
-            case SOUND_SAW_GRIND:
-                playSound(soundId, true);
-                break;
-            case STOP_SOUND_JON_VAMPIRE_GLIDE:
-            case STOP_SOUND_SPARROW_FLY:
-            case STOP_SOUND_SAW_GRIND:
-                stopSound(soundId - 1000);
-                break;
-            default:
-                playSound(soundId);
-                break;
-        }
+		switch (soundId)
+		{
+		case SOUND_JON_VAMPIRE_GLIDE:
+		case SOUND_SPARROW_FLY:
+		case SOUND_SAW_GRIND:
+			playSound(soundId, true);
+			break;
+		case STOP_SOUND_JON_VAMPIRE_GLIDE:
+		case STOP_SOUND_SPARROW_FLY:
+		case STOP_SOUND_SAW_GRIND:
+			stopSound(soundId - 1000);
+			break;
+		default:
+			playSound(soundId);
+			break;
+		}
 	}
 }
 
 void NosFURatuMain::handleMusic()
 {
-	short musicId = Assets::getInstance()->getMusicId();
+	short rawMusicId = Assets::getInstance()->getMusicId();
 	Assets::getInstance()->setMusicId(0);
+	short musicId = rawMusicId;
+	if (musicId >= 1000)
+	{
+		musicId /= 1000;
+		rawMusicId -= musicId * 1000;
+	}
 
 	switch (musicId)
 	{
@@ -264,6 +272,18 @@ void NosFURatuMain::handleMusic()
 	case MUSIC_RESUME:
 		m_mediaPlayer->Play();
 		break;
+	case MUSIC_SET_VOLUME:
+		if (m_mediaPlayer)
+		{
+			float volume = rawMusicId / 100.0f;
+			if (volume < 0)
+			{
+				volume = 0;
+			}
+
+			m_mediaPlayer->SetVolume(volume);
+		}
+		break;
 	case MUSIC_PLAY_WORLD_1_LOOP:
 		if (m_mediaPlayer)
 		{
@@ -274,6 +294,18 @@ void NosFURatuMain::handleMusic()
 		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
 		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
 		m_mediaPlayer->SetSource("world_1_bgm.wav");
+		m_mediaPlayer->Play();
+		break;
+	case MUSIC_PLAY_MID_BOSS_LOOP:
+		if (m_mediaPlayer)
+		{
+			m_mediaPlayer->Shutdown();
+			m_mediaPlayer = nullptr;
+		}
+
+		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+		m_mediaPlayer->SetSource("mid_boss_bgm.wav");
 		m_mediaPlayer->Play();
 		break;
 	default:
@@ -453,49 +485,49 @@ void NosFURatuMain::sendLevelCompletions()
 
 void NosFURatuMain::showMessage(int requestedAction)
 {
-    int messageKey = 0;
-    
-    while (requestedAction >= 1000)
-    {
-        requestedAction -= 1000;
-    }
-    
-    messageKey = requestedAction;
-    
-    const char* toast = nullptr;
-    
-    switch (messageKey) {
-        case MESSAGE_NO_END_SIGN_KEY:
-            toast = MESSAGE_NO_END_SIGN_VALUE;
-            break;
-        case MESSAGE_NO_JON_KEY:
-            toast = MESSAGE_NO_JON_VALUE;
-            break;
-        case MESSAGE_INVALID_JON_KEY:
-            toast = MESSAGE_INVALID_JON_VALUE;
-            break;
-        case MESSAGE_NO_COUNT_HISS_KEY:
-            toast = MESSAGE_NO_COUNT_HISS_VALUE;
-            break;
-        case MESSAGE_INVALID_COUNT_HISS_KEY:
-            toast = MESSAGE_INVALID_COUNT_HISS_VALUE;
-            break;
-        case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
-            toast = MESSAGE_OFFSET_NEEDS_MARKERS_VALUE;
-            break;
-        default:
-            break;
-    }
-    
-    if (toast)
-    {
-        std::string s_str = std::string(toast);
-        std::wstring wid_str = std::wstring(s_str.begin(), s_str.end());
-        const wchar_t* w_char = wid_str.c_str();
-        Platform::String^ p_string = ref new Platform::String(w_char);
-        
-        displayToast(p_string);
-    }
+	int messageKey = 0;
+
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	messageKey = requestedAction;
+
+	const char* toast = nullptr;
+
+	switch (messageKey) {
+	case MESSAGE_NO_END_SIGN_KEY:
+		toast = MESSAGE_NO_END_SIGN_VALUE;
+		break;
+	case MESSAGE_NO_JON_KEY:
+		toast = MESSAGE_NO_JON_VALUE;
+		break;
+	case MESSAGE_INVALID_JON_KEY:
+		toast = MESSAGE_INVALID_JON_VALUE;
+		break;
+	case MESSAGE_NO_COUNT_HISS_KEY:
+		toast = MESSAGE_NO_COUNT_HISS_VALUE;
+		break;
+	case MESSAGE_INVALID_COUNT_HISS_KEY:
+		toast = MESSAGE_INVALID_COUNT_HISS_VALUE;
+		break;
+	case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
+		toast = MESSAGE_OFFSET_NEEDS_MARKERS_VALUE;
+		break;
+	default:
+		break;
+	}
+
+	if (toast)
+	{
+		std::string s_str = std::string(toast);
+		std::wstring wid_str = std::wstring(s_str.begin(), s_str.end());
+		const wchar_t* w_char = wid_str.c_str();
+		Platform::String^ p_string = ref new Platform::String(w_char);
+
+		displayToast(p_string);
+	}
 }
 
 Platform::String^ NosFURatuMain::getLevelName(int requestedAction)

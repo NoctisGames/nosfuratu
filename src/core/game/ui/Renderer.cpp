@@ -1067,14 +1067,14 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
     /// Render Level Editor
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*leap, Assets::getInstance()->get(leap));
-    renderPhysicalEntity(*leep, Assets::getInstance()->get(leep));
+    renderPhysicalEntity(*leap, Assets::getInstance()->get(leap), true);
+    renderPhysicalEntity(*leep, Assets::getInstance()->get(leep), true);
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*tc, Assets::getInstance()->get(tc));
+    renderPhysicalEntity(*tc, Assets::getInstance()->get(tc), true);
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
     if (leep->isOpen() && m_world_1_objects.gpuTextureWrapper)
@@ -1082,54 +1082,54 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, leep->getEntitiesCameraPos(), leep->getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getMidgrounds());
+        renderPhysicalEntities(leep->getMidgrounds(), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getGrounds());
-        renderPhysicalEntities(leep->getExitGrounds());
+        renderPhysicalEntities(leep->getGrounds(), true);
+        renderPhysicalEntities(leep->getExitGrounds(), true);
         m_spriteBatcher->endBatch(*m_world_1_ground.gpuTextureWrapper);
         
         if (m_world_1_special.gpuTextureWrapper)
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getPits());
+            renderPhysicalEntities(leep->getPits(), true);
             m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
         }
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getHoles());
-        renderPhysicalEntities(leep->getCollectibleItems());
-        renderPhysicalEntities(leep->getForegroundObjects());
+        renderPhysicalEntities(leep->getHoles(), true);
+        renderPhysicalEntities(leep->getCollectibleItems(), true);
+        renderPhysicalEntities(leep->getForegroundObjects(), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
         
         if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getMidBossForegroundObjects());
+            renderPhysicalEntities(leep->getMidBossForegroundObjects(), true);
             m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
         }
 
 		if (m_vampire.gpuTextureWrapper)
 		{
 			m_spriteBatcher->beginBatch();
-			renderPhysicalEntities(leep->getCountHissWithMinas());
+			renderPhysicalEntities(leep->getCountHissWithMinas(), true);
 			m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
 		}
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getEnemies());
+        renderPhysicalEntities(leep->getEnemies(), true);
         m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper);
         
         if (m_vampire.gpuTextureWrapper)
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getJons());
+            renderPhysicalEntities(leep->getJons(), true);
             m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
         }
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getExtraForegroundObjects());
+        renderPhysicalEntities(leep->getExtraForegroundObjects(), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     }
     
@@ -1138,7 +1138,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*lsp, Assets::getInstance()->get(lsp));
+        renderPhysicalEntity(*lsp, Assets::getInstance()->get(lsp), true);
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
         
         static Color fontColor = Color(1, 1, 1, 1);
@@ -1167,7 +1167,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*osp, Assets::getInstance()->get(osp));
+        renderPhysicalEntity(*osp, Assets::getInstance()->get(osp), true);
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
         
         static Color fontColor = Color(1, 1, 1, 1);
@@ -1200,7 +1200,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*crp, Assets::getInstance()->get(crp));
+        renderPhysicalEntity(*crp, Assets::getInstance()->get(crp), true);
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     }
     
@@ -1209,7 +1209,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*cep, Assets::getInstance()->get(cep));
+        renderPhysicalEntity(*cep, Assets::getInstance()->get(cep), true);
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     }
 
