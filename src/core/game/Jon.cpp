@@ -726,7 +726,8 @@ void Jon::Rabbit::triggerLeftAction(Jon* jon)
 
 void Jon::Rabbit::triggerRightAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() <= 1 && jon->m_game->getLevel() < 10)
+	int level = (jon->m_game->getWorld() - 1) * 21 + jon->m_game->getLevel();
+    if (level < 31)
     {
         return;
     }
@@ -753,10 +754,11 @@ void Jon::Rabbit::triggerUpAction(Jon* jon)
 
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() <= 1 && jon->m_game->getLevel() < 10)
-    {
-        return;
-    }
+	int level = (jon->m_game->getWorld() - 1) * 21 + jon->m_game->getLevel();
+	if (level < 10)
+	{
+		return;
+	}
     
     if (jon->m_physicalState == PHYSICAL_IN_AIR)
     {
