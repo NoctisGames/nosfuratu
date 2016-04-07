@@ -28,9 +28,9 @@ void MidBossOwl::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_velocity->getX() > VAMP_DEFAULT_MAX_SPEED)
+    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED + 1)
     {
-        m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
+        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1);
     }
     
     if (m_velocity->getY() < -0.05f)
@@ -78,7 +78,7 @@ void MidBossOwl::update(float deltaTime)
             if (getMainBounds().getLeft() > treeRightX)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(1.5f, -0.01f);
+                m_acceleration->set(2.0f, -0.01f);
                 
                 m_iNumTreesPassed++;
                 
@@ -87,7 +87,7 @@ void MidBossOwl::update(float deltaTime)
             else if (getMainBounds().getBottom() > treeTopY)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(1.5f, 0);
+                m_acceleration->set(2.0f, 0);
             }
         }
             break;
@@ -116,8 +116,8 @@ void MidBossOwl::update(float deltaTime)
                     {
                         m_iDamage++;
                         
-                        m_acceleration->set(3.0f, 0);
-                        m_velocity->set(-8, 0);
+                        m_acceleration->set(1.0f, 0);
+                        m_velocity->set(-4, 0);
                         
                         setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
                         

@@ -497,6 +497,7 @@ bool Jon::isAllowedToMove()
 
 void Jon::setIdle(bool isIdle)
 {
+    m_fStateTime = 0;
     m_isIdle = isIdle;
 }
 

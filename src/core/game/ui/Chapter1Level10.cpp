@@ -130,7 +130,7 @@ void Chapter1Level10::execute(GameScreen* gs)
             {
                 m_fIdleWaitTime += gs->m_fDeltaTime;
                 
-                if (m_fIdleWaitTime > 2.0f)
+                if (m_fIdleWaitTime > 1.0f)
                 {
                     m_midBossOwl->awaken();
                 }
