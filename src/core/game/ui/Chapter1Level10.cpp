@@ -28,6 +28,7 @@ void Chapter1Level10::enter(GameScreen* gs)
 {
     Level::enter(gs);
     
+    m_iLastKnownOwlDamage = 0;
     m_hasRequestedPart2TexturesToBeLoaded = false;
     
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
@@ -58,6 +59,8 @@ void Chapter1Level10::enter(GameScreen* gs)
             
             jon.getPosition().set(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2, m_fJonY);
             jon.updateBounds();
+            
+            jon.setNumBoosts(1);
             
             jon.triggerDownAction();
             
@@ -133,10 +136,12 @@ void Chapter1Level10::execute(GameScreen* gs)
                     m_midBossOwl->awaken();
                 }
             }
+            
+            m_isChaseCamActivated = false;
         }
         else if (m_midBossOwl->getState() == MidBossOwlState_Awakening)
         {
-            // Empty
+            m_isChaseCamActivated = false;
         }
         else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
         {
@@ -164,19 +169,29 @@ void Chapter1Level10::execute(GameScreen* gs)
             {
                 m_midBossOwl->beginPursuit();
             }
+            
+            m_isChaseCamActivated = false;
         }
-        else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing
-                 || m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
+        else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing)
         {
             m_isChaseCamActivated = jon.getPosition().getY() > 12;
+        }
+        else if (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
+        {
+            m_isChaseCamActivated = jon.getPosition().getY() > 12;
+            
+            if (m_midBossOwl->getDamage() > m_iLastKnownOwlDamage)
+            {
+                m_iLastKnownOwlDamage = m_midBossOwl->getDamage();
+                
+                m_exitLoop = true;
+            }
         }
         else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
         {
             if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
             {
                 gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
-                
-                m_exitLoop = true;
                 
                 m_hasRequestedPart2TexturesToBeLoaded = true;
             }
@@ -196,6 +211,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
+    m_iLastKnownOwlDamage = 0;
     m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
@@ -227,6 +243,7 @@ m_fJonY(0),
 m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
+m_iLastKnownOwlDamage(0),
 m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),

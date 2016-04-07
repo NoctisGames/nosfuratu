@@ -21,16 +21,16 @@ m_state(MidBossOwlState_Sleeping),
 m_hasCaughtVampire(false),
 m_iNumTreesPassed(0)
 {
-    resetBounds(0.6f, 0.6f);
+    resetBounds(width * 0.5f, height * 0.5f);
 }
 
 void MidBossOwl::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED + 1)
+    if (m_velocity->getX() > VAMP_DEFAULT_MAX_SPEED)
     {
-        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1);
+        m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
     }
     
     switch (m_state)
@@ -73,7 +73,7 @@ void MidBossOwl::update(float deltaTime)
             if (getMainBounds().getLeft() > treeRightX)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 2, -0.001f);
+                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION - 3, -0.0001f);
                 
                 m_iNumTreesPassed++;
                 
@@ -82,7 +82,7 @@ void MidBossOwl::update(float deltaTime)
             else if (getMainBounds().getBottom() > treeTopY)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 2, 0);
+                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION - 3, 0);
             }
         }
             break;
@@ -111,8 +111,8 @@ void MidBossOwl::update(float deltaTime)
                     {
                         m_iDamage++;
                         
-                        m_acceleration->set(0.8f, 0);
-                        m_velocity->set(-4, 0);
+                        m_acceleration->set(3.0f, 0);
+                        m_velocity->set(-8, 0);
                         
                         setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
                         
@@ -142,7 +142,7 @@ void MidBossOwl::update(float deltaTime)
             break;
         case MidBossOwlState_FlyingAwayAfterCatchingJon:
         {
-            if (m_fStateTime > 3)
+            if (m_fStateTime > 1.0f)
             {
                 if (m_game->getJons().size() > 0)
                 {
@@ -176,7 +176,12 @@ MidBossOwlState MidBossOwl::getState()
 
 void MidBossOwl::goBackToSleep()
 {
+    m_velocity->set(0, 0);
+    m_acceleration->set(0, 0);
+    
     m_iDamage = 0;
+    m_iNumTreesPassed = 0;
+    m_hasCaughtVampire = false;
     m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
     m_fHeight = MID_BOSS_OWL_SLEEPING_HEIGHT;
     

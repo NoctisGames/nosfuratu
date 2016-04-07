@@ -199,6 +199,7 @@ private:
     float m_fGameStateTime;
     float m_fIdleWaitTime;
     float m_fMusicVolume;
+    int m_iLastKnownOwlDamage;
     bool m_isIdleWaitingForOwl;
     bool m_hasTriggeredMidBossMusicLoopIntro;
     bool m_hasTriggeredMidBossMusicLoop;

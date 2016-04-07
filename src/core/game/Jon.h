@@ -112,6 +112,8 @@ public:
     
     int getNumBoosts();
     
+    void setNumBoosts(int numBoosts);
+    
     bool isMoving();
     
     bool isPushedBack();

@@ -395,6 +395,11 @@ int Jon::getNumBoosts()
     return m_iNumBoosts;
 }
 
+void Jon::setNumBoosts(int numBoosts)
+{
+    m_iNumBoosts = numBoosts;
+}
+
 bool Jon::isMoving()
 {
 	return m_velocity->getX() > 0;
