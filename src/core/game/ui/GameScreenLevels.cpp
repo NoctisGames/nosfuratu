@@ -224,17 +224,6 @@ void Level::execute(GameScreen* gs)
                 
                 m_game->update(gs->m_fDeltaTime);
                 
-                if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
-                {
-                    // Has Cleared the Level
-                    
-                    gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-                    gs->m_iRequestedAction += m_game->getWorld() * 100;
-                    gs->m_iRequestedAction += m_game->getLevel();
-                    
-                    m_hasCompletedLevel = true;
-                }
-                
                 if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
                 {
                     if (jon.getTransformStateTime() < 0.125f)
@@ -326,6 +315,17 @@ void Level::execute(GameScreen* gs)
                     }
                 }
             }
+
+			if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
+			{
+				// Has Cleared the Level
+
+				gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+				gs->m_iRequestedAction += m_game->getWorld() * 100;
+				gs->m_iRequestedAction += m_game->getLevel();
+
+				m_hasCompletedLevel = true;
+			}
             
             EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
             EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);

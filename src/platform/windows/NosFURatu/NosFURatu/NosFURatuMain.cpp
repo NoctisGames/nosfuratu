@@ -291,10 +291,13 @@ void NosFURatuMain::handleMusic()
 			m_mediaPlayer = nullptr;
 		}
 
-		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-		m_mediaPlayer->SetSource("world_1_bgm.wav");
-		m_mediaPlayer->Play();
+		m_threads.push_back(std::thread([](NosFURatuMain* nm)
+		{
+			nm->m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+			nm->m_mediaPlayer->Initialize(nm->m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+			nm->m_mediaPlayer->SetSource("world_1_bgm.wav");
+			nm->m_mediaPlayer->Play();
+		}, this));
 		break;
 	case MUSIC_PLAY_MID_BOSS_LOOP:
 		if (m_mediaPlayer)
@@ -303,10 +306,13 @@ void NosFURatuMain::handleMusic()
 			m_mediaPlayer = nullptr;
 		}
 
-		m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-		m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-		m_mediaPlayer->SetSource("mid_boss_bgm.wav");
-		m_mediaPlayer->Play();
+		m_threads.push_back(std::thread([](NosFURatuMain* nm)
+		{
+			nm->m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+			nm->m_mediaPlayer->Initialize(nm->m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+			nm->m_mediaPlayer->SetSource("mid_boss_bgm.wav");
+			nm->m_mediaPlayer->Play();
+		}, this));
 		break;
 	default:
 		break;

@@ -4,6 +4,9 @@
 #include "DeviceResources.h"
 #include "Direct3DGameScreen.h"
 
+#include <vector>
+#include <thread>
+
 namespace NosFURatu
 {
 	class NosFURatuMain : public DX::IDeviceNotify
@@ -38,6 +41,8 @@ namespace NosFURatu
 
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
+
+		std::vector<std::thread> m_threads;
 
 		int m_iRequestedAction;
 

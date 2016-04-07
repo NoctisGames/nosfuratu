@@ -340,7 +340,7 @@ void Toad::handleAlive(float deltaTime)
             {
                 m_hasSwallowedJon = true;
                 
-                jon.getPosition().set(getMainBounds().getLeft() + getMainBounds().getWidth() / 2, jon.getPosition().getY());
+                jon.getPosition().set(getMainBounds().getLeft() + getMainBounds().getWidth() / 2, getPosition().getY());
                 jon.updateBounds();
                 
                 if (!m_isJonVampire)

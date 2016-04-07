@@ -88,6 +88,11 @@ void Chapter1Level10::execute(GameScreen* gs)
             if (jon.getNumBoosts() >= 1)
             {
                 m_fMusicVolume -= gs->m_fDeltaTime / 8;
+				if (m_fMusicVolume < 0)
+				{
+					m_fMusicVolume = 0;
+				}
+
                 short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
                 Assets::getInstance()->setMusicId(musicId);
             }
