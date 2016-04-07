@@ -33,6 +33,11 @@ void MidBossOwl::update(float deltaTime)
         m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
     }
     
+    if (m_velocity->getY() < -0.05f)
+    {
+        m_velocity->setY(-0.05f);
+    }
+    
     switch (m_state)
     {
         case MidBossOwlState_Dying:
@@ -73,7 +78,7 @@ void MidBossOwl::update(float deltaTime)
             if (getMainBounds().getLeft() > treeRightX)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION - 3, -0.0001f);
+                m_acceleration->set(1.5f, -0.01f);
                 
                 m_iNumTreesPassed++;
                 
@@ -82,7 +87,7 @@ void MidBossOwl::update(float deltaTime)
             else if (getMainBounds().getBottom() > treeTopY)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION - 3, 0);
+                m_acceleration->set(1.5f, 0);
             }
         }
             break;
@@ -92,7 +97,7 @@ void MidBossOwl::update(float deltaTime)
             {
                 Jon& jon = m_game->getJon();
                 
-                if (getMainBounds().getBottom() < jon.getMainBounds().getTop() - 1)
+                if (getMainBounds().getBottom() < jon.getMainBounds().getTop() - 2)
                 {
                     m_acceleration->setY(0);
                     
