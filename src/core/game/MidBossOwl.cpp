@@ -21,7 +21,7 @@ m_state(MidBossOwlState_Sleeping),
 m_hasCaughtVampire(false),
 m_iNumTreesPassed(0)
 {
-    // Empty
+    resetBounds(0.6f, 0.6f);
 }
 
 void MidBossOwl::update(float deltaTime)
@@ -73,7 +73,7 @@ void MidBossOwl::update(float deltaTime)
             if (getMainBounds().getLeft() > treeRightX)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 1, -0.005f);
+                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 2, -0.001f);
                 
                 m_iNumTreesPassed++;
                 
@@ -82,7 +82,7 @@ void MidBossOwl::update(float deltaTime)
             else if (getMainBounds().getBottom() > treeTopY)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 1, 0);
+                m_acceleration->set(RABBIT_DEFAULT_ACCELERATION + 2, 0);
             }
         }
             break;
@@ -92,7 +92,7 @@ void MidBossOwl::update(float deltaTime)
             {
                 Jon& jon = m_game->getJon();
                 
-                if (getMainBounds().getBottom() < jon.getMainBounds().getTop())
+                if (getMainBounds().getBottom() < jon.getMainBounds().getTop() - 1)
                 {
                     m_acceleration->setY(0);
                     
@@ -111,8 +111,8 @@ void MidBossOwl::update(float deltaTime)
                     {
                         m_iDamage++;
                         
-                        m_acceleration->set(1.6f, 0);
-                        m_velocity->set(-8, 0);
+                        m_acceleration->set(0.8f, 0);
+                        m_velocity->set(-4, 0);
                         
                         setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
                         
@@ -176,8 +176,10 @@ MidBossOwlState MidBossOwl::getState()
 
 void MidBossOwl::goBackToSleep()
 {
+    m_iDamage = 0;
     m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
     m_fHeight = MID_BOSS_OWL_SLEEPING_HEIGHT;
+    
     setState(MidBossOwlState_Sleeping);
 }
 

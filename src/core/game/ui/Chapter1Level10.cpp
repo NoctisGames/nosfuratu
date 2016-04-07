@@ -44,7 +44,7 @@ void Chapter1Level10::enter(GameScreen* gs)
     
     m_midBossOwl->setGame(m_game.get());
     
-    if (m_hasTriggeredMidBossMusicLoop)
+    if (m_hasTriggeredMidBossMusicLoopIntro)
     {
         if (m_game->getJons().size() > 0)
         {
@@ -52,11 +52,18 @@ void Chapter1Level10::enter(GameScreen* gs)
             
             jon.getAcceleration().set(0, 0);
             jon.getVelocity().set(0, 0);
+            jon.setIdle(false);
             
-            jon.getPosition().setX(m_perchTree->getMainBounds().getRight());
-            jon.getPosition().sub(0, 6);
+            Rectangle jonBounds = Rectangle(jon.getMainBounds().getLeft(), jon.getMainBounds().getBottom(), jon.getWidth() * 1.5f, jon.getHeight());
+            
+            jon.getPosition().set(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2, m_fJonY);
+            jon.updateBounds();
+            
+            jon.triggerDownAction();
             
             m_midBossOwl->setState(MidBossOwlState_Screeching);
+            
+            m_game->setStateTime(m_fGameStateTime);
         }
     }
 }
@@ -130,6 +137,9 @@ void Chapter1Level10::execute(GameScreen* gs)
         {
             if (!m_hasTriggeredMidBossMusicLoopIntro)
             {
+                m_fJonY = jon.getPosition().getY();
+                m_fGameStateTime = m_game->getStateTime();
+                
                 jon.setIdle(false);
                 jon.triggerDownAction();
                 
@@ -176,6 +186,8 @@ void Chapter1Level10::execute(GameScreen* gs)
 void Chapter1Level10::exit(GameScreen* gs)
 {
     m_isIdleWaitingForOwl = false;
+    m_fJonY = 0.0f;
+    m_fGameStateTime = 0.0f;
     m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
@@ -206,6 +218,8 @@ void Chapter1Level10::additionalRenderingBeforeHud(GameScreen* gs)
 
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
 m_perchTree(nullptr),
+m_fJonY(0),
+m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
 m_isIdleWaitingForOwl(false),

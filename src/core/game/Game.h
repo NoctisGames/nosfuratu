@@ -127,6 +127,8 @@ public:
     
     void calcFarRight();
     
+    void setStateTime(float stateTime);
+    
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;

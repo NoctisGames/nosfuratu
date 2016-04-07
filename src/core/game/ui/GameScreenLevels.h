@@ -195,6 +195,8 @@ public:
 private:
     std::unique_ptr<MidBossOwl> m_midBossOwl;
     ForegroundObject* m_perchTree;
+    float m_fJonY;
+    float m_fGameStateTime;
     float m_fIdleWaitTime;
     float m_fMusicVolume;
     bool m_isIdleWaitingForOwl;

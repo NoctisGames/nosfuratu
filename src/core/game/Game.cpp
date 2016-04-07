@@ -499,6 +499,11 @@ void Game::calcFarRight()
     }
 }
 
+void Game::setStateTime(float stateTime)
+{
+    m_fStateTime = stateTime;
+}
+
 #pragma mark private
 
 void Game::onLoaded()
