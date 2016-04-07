@@ -430,11 +430,7 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, 
     float jonHeightPlusPadding = jon.getHeight() * 1.5f;
     
     float regionBottomY;
-    if (jon.getAbilityState() == ABILITY_BURROW)
-    {
-        regionBottomY = jy - 1.22451534f;
-    }
-    else if (jon.isFalling())
+    if (jon.isFalling())
     {
         if (jy < 6.9979978125f)
         {
