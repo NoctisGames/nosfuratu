@@ -43,6 +43,7 @@ typedef enum
     ForegroundObjectType_LogVerticalTall,
     ForegroundObjectType_LogVerticalShort,
     
+    ForegroundObjectType_JumpSpringLightFlush,
     ForegroundObjectType_JumpSpringLight,
     ForegroundObjectType_JumpSpringMedium,
     ForegroundObjectType_JumpSpringHeavy,
@@ -303,6 +304,14 @@ class LogVerticalShort : public ForegroundObject
 {
 public:
     LogVerticalShort(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 6, ForegroundObjectType_LogVerticalShort, GROUND_SOUND_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f) {}
+};
+
+class JumpSpringLightFlush : public ProvideBoostObject
+{
+public:
+    JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0, 1, 0.25f, 18.0f) {}
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
 };
 
 class JumpSpringLight : public ProvideBoostObject

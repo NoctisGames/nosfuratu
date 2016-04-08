@@ -137,6 +137,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(new LogVerticalTall(0, 0));
         m_foregroundObjects.push_back(new LogVerticalShort(0, 0));
         
+        m_foregroundObjects.push_back(new JumpSpringLightFlush(0, 0));
         m_foregroundObjects.push_back(new JumpSpringLight(0, 0));
         m_foregroundObjects.push_back(new JumpSpringMedium(0, 0));
         m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0));

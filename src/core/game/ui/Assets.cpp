@@ -536,6 +536,11 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
+        case ForegroundObjectType_JumpSpringLightFlush:
+        {
+            static Animation anim = createAnimation(2904, 1804, 160, 112, 1120, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05142857142857f, 7);
+            return anim.getTextureRegion(foregroundObject->getStateTime());
+        }
         case ForegroundObjectType_JumpSpringLight:
         {
             static Animation anim = createAnimation(2126, 3960, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);

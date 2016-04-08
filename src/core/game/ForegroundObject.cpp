@@ -61,6 +61,8 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_LogVerticalShort:
             return new LogVerticalShort(gridX, gridY);
             
+        case ForegroundObjectType_JumpSpringLightFlush:
+            return new JumpSpringLightFlush(gridX, gridY);
         case ForegroundObjectType_JumpSpringLight:
             return new JumpSpringLight(gridX, gridY);
         case ForegroundObjectType_JumpSpringMedium:
@@ -375,6 +377,11 @@ bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
         m_fStateTime = 0;
     }
     
+    return false;
+}
+
+bool JumpSpringLightFlush::isJonBlockedOnRight(Jon &jon, float deltaTime)
+{
     return false;
 }
 
