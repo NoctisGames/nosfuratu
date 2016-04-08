@@ -240,12 +240,12 @@ bool Game::isJonGrounded(float deltaTime)
         || EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime);
 	}
     
-    return EntityUtils::isLanding(getJon(), getGrounds(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime)
-    || EntityUtils::isLanding(getJon(), getEnemies(), deltaTime);
+    return EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(getJon(), getEnemies(), deltaTime)
+		|| EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
+		|| EntityUtils::isLanding(getJon(), getGrounds(), deltaTime);
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)

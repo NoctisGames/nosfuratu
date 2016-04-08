@@ -181,26 +181,17 @@ bool ForegroundObject::isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime
 {
     float jonVelocityY = jon.getVelocity().getY();
     
-    if (jonVelocityY <= 0)
+    if (jonVelocityY <= 0 && jon.getPosition().getX() > getMainBounds().getLeft())
     {
         if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
-        {
-            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
-            float jonYDelta = fabsf(jonVelocityY * deltaTime);
-            
+        {            
             float itemTop = bounds.getTop();
-            float padding = itemTop * .01f;
-            padding += jonYDelta;
-            float itemTopReq = itemTop - padding;
             
-            if (jonLowerLeftY >= itemTopReq)
-            {
-                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-                jon.updateBounds();
-                jon.setGroundSoundType(getGroundSoundType());
-                
-                return true;
-            }
+			jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
+			jon.updateBounds();
+			jon.setGroundSoundType(getGroundSoundType());
+
+			return true;
         }
     }
     
@@ -367,7 +358,7 @@ void ProvideBoostObject::update(float deltaTime)
 
 bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
 {
-    if (ForegroundObject::isJonLanding(jon, deltaTime))
+	if (ForegroundObject::isJonLanding(jon, deltaTime))
     {
         float itemTop = getMainBounds().getTop();
         jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);

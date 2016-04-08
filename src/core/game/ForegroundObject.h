@@ -309,7 +309,7 @@ public:
 class JumpSpringLightFlush : public ProvideBoostObject
 {
 public:
-    JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0, 1, 0.25f, 18.0f) {}
+    JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f) {}
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
 };

@@ -166,9 +166,6 @@ void NosFURatuMain::Update()
 
 		switch (requestedAction)
 		{
-		case REQUESTED_ACTION_UPDATE:
-			m_gameScreen->update(m_timer.GetElapsedSeconds());
-			break;
 		case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
 			saveLevel(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
@@ -189,9 +186,12 @@ void NosFURatuMain::Update()
 			showMessage(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
+		case REQUESTED_ACTION_UPDATE:
 		default:
 			break;
 		}
+
+		m_gameScreen->update(m_timer.GetElapsedSeconds());
 	});
 }
 
@@ -275,7 +275,7 @@ void NosFURatuMain::handleMusic()
 	case MUSIC_SET_VOLUME:
 		if (m_mediaPlayer)
 		{
-			float volume = rawMusicId / 100.0f;
+			float volume = rawMusicId / 100.0f * 2;
 			if (volume < 0)
 			{
 				volume = 0;
@@ -502,7 +502,8 @@ void NosFURatuMain::showMessage(int requestedAction)
 
 	const char* toast = nullptr;
 
-	switch (messageKey) {
+	switch (messageKey)
+	{
 	case MESSAGE_NO_END_SIGN_KEY:
 		toast = MESSAGE_NO_END_SIGN_VALUE;
 		break;
