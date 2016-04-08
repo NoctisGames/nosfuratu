@@ -278,7 +278,7 @@ void MediaEnginePlayer::Play()
     {
 		m_spMediaEngine->SetLoop(true);
         DX::ThrowIfFailed(m_spMediaEngine->Play());
-		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(0.5));
+		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(1.0));
         m_isPlaying = true;             
     } 
     return; 

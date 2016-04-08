@@ -69,7 +69,7 @@ void MidBossOwl::update(float deltaTime)
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * 1.0f, sinf(radians) * 1.0f);
+                        m_velocity->add(cosf(radians) * (1.0f + (0.15f * m_iDamage)), sinf(radians) * (1.0f + (0.15f * m_iDamage)));
                         
                         if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < (9.0f - m_iDamage))
                         {

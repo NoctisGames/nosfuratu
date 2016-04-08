@@ -755,13 +755,14 @@ void Jon::Rabbit::triggerUpAction(Jon* jon)
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
 	int level = (jon->m_game->getWorld() - 1) * 21 + jon->m_game->getLevel();
-	if (level < 10)
-	{
-		return;
-	}
     
     if (jon->m_physicalState == PHYSICAL_IN_AIR)
     {
+		if (level < 11)
+		{
+			return;
+		}
+
         if (jon->m_abilityState == ABILITY_STOMP)
         {
             return;
@@ -774,6 +775,11 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
     }
     else
 	{
+		if (level < 10)
+		{
+			return;
+		}
+
         if (jon->m_abilityState == ABILITY_BURROW)
         {
             return;
