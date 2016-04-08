@@ -57,9 +57,15 @@ protected:
     bool m_exitLoop;
     bool m_hasCompletedLevel;
     
+    virtual void update(GameScreen* gs);
+    
+    virtual void render(GameScreen* gs);
+    
     virtual void updateCamera(GameScreen* gs, bool instant = false);
     
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
+    
+    virtual bool isInSlowMotionMode();
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
@@ -188,8 +194,6 @@ public:
     
     virtual void enter(GameScreen* gs);
     
-    virtual void execute(GameScreen* gs);
-    
     virtual void exit(GameScreen* gs);
     
 private:
@@ -200,6 +204,7 @@ private:
     float m_fIdleWaitTime;
     float m_fMusicVolume;
     int m_iLastKnownOwlDamage;
+    int m_iLastKnownJonNumBoosts;
     bool m_isIdleWaitingForOwl;
     bool m_hasTriggeredMidBossMusicLoopIntro;
     bool m_hasTriggeredMidBossMusicLoop;
@@ -207,9 +212,13 @@ private:
     bool m_hasRequestedPart2TexturesToBeLoaded;
     bool m_hasTriggeredBurrow;
     
+    virtual void update(GameScreen* gs);
+    
     virtual void updateCamera(GameScreen* gs, bool instant = false);
     
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
+    
+    virtual bool isInSlowMotionMode();
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level10(const char* json);

@@ -57,281 +57,13 @@ void Level::enter(GameScreen* gs)
 
 void Level::execute(GameScreen* gs)
 {
-    Jon& jon = m_game->getJon();
-    
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
-        
-        gs->m_renderer->renderWorld(*m_game);
-        
-        if (m_isReleasingShockwave)
-        {
-            gs->m_renderer->renderToSecondFramebufferWithShockwave(m_fShockwaveCenterX, m_fShockwaveCenterY, m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
-        }
-        else
-        {
-            gs->m_renderer->renderToSecondFramebuffer(*m_game);
-        }
-        
-        gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
-        
-        additionalRenderingBeforeHud(gs);
-        
-        if (m_hasOpeningSequenceCompleted)
-        {
-            gs->m_renderer->renderHud(*m_game, m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
-        }
-        
-        if (jon.isDead())
-        {
-            gs->m_renderer->renderToScreenWithTransDeathIn(m_fStateTime);
-        }
-        else if (m_showDeathTransOut)
-        {
-            gs->m_renderer->renderToScreenWithTransDeathOut(m_fStateTime);
-        }
-        else
-        {
-            if (m_activateRadialBlur)
-            {
-                gs->m_renderer->renderToScreenWithRadialBlur();
-            }
-            else
-            {
-                gs->m_renderer->renderToScreen();
-            }
-        }
-        
-        gs->m_renderer->endFrame();
+        render(gs);
     }
     else
     {
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            gs->processTouchEvents();
-            return;
-        }
-        
-        Jon& jon = m_game->getJon();
-        jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-        
-		if (m_game->getCountHissWithMinas().size() > 0)
-		{
-			CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-			countHissWithMina.setMoving();
-			countHissWithMina.update(gs->m_fDeltaTime);
-		}
-
-        if (!m_hasShownOpeningSequence)
-        {
-            gs->m_renderer->beginOpeningPanningSequence(*m_game);
-            
-            m_hasShownOpeningSequence = true;
-
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
-        }
-        else if (!m_hasOpeningSequenceCompleted)
-        {
-            if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
-            {
-                m_hasOpeningSequenceCompleted = true;
-                
-                jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-                
-                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-                
-                return;
-            }
-            else
-            {
-                gs->processTouchEvents();
-            }
-            
-            jon.update(gs->m_fDeltaTime);
-            
-            int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
-            m_hasOpeningSequenceCompleted = result == 3;
-            m_activateRadialBlur = result == 1;
-            jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-            
-            if (m_hasOpeningSequenceCompleted)
-            {
-                Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-            }
-            
-            if (result == 2)
-            {
-                jon.beginWarmingUp();
-                
-                BatPanelType bpt = getBatPanelType();
-                if (bpt != BatPanelType_None)
-                {
-                    m_batPanel->open(bpt);
-                }
-            }
-            
-            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
-        }
-        else
-        {
-            if (handleTouchInput(gs))
-            {
-                return;
-            }
-            
-            m_batPanel->update(gs->m_fDeltaTime);
-            
-            if (m_showDeathTransOut)
-            {
-                // Starting new game after death
-                
-                m_fStateTime += gs->m_fDeltaTime * 2;
-                
-                if (m_fStateTime > 2.4f)
-                {
-                    m_fStateTime = 0;
-                    m_showDeathTransOut = false;
-                }
-            }
-            
-            if (jon.isDead())
-            {
-                Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-                
-                // Starting death transition, when screen goes black, new game begins
-                
-                m_fStateTime += gs->m_fDeltaTime * 2;
-                
-                if (m_fStateTime > 1.6f)
-                {
-                    m_game->reset();
-                    enter(gs);
-                    
-                    updateCamera(gs, true);
-                    
-                    m_showDeathTransOut = true;
-                }
-                
-                return;
-            }
-            else
-            {
-                // Is Still Actively playing the Level
-                
-                m_game->update(gs->m_fDeltaTime);
-                
-                if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
-                {
-                    if (jon.getTransformStateTime() < 0.125f)
-                    {
-                        gs->m_fDeltaTime /= 8;
-                    }
-                    else
-                    {
-                        if (!m_isReleasingShockwave)
-                        {
-                            m_fShockwaveCenterX = jon.getPosition().getX();
-                            m_fShockwaveCenterY = jon.getPosition().getY();
-                            m_fShockwaveElapsedTime = 0.0f;
-                            m_isReleasingShockwave = true;
-                        }
-                    }
-                }
-                
-                if (m_isReleasingShockwave)
-                {
-                    m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
-                    
-                    if (m_fShockwaveElapsedTime > 2)
-                    {
-                        m_fShockwaveElapsedTime = 0;
-                        m_isReleasingShockwave = false;
-                    }
-                }
-                
-                m_game->updateAndClean(gs->m_fDeltaTime);
-                
-                EntityUtils::handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
-                
-                if (gs->m_isScreenHeldDown)
-                {
-                    gs->m_fScreenHeldTime += gs->m_fDeltaTime;
-                    
-                    if (gs->m_fScreenHeldTime > 0.4f)
-                    {
-                        jon.triggerTransform();
-                        gs->m_isScreenHeldDown = false;
-                        m_fShockwaveElapsedTime = 0;
-                        m_isReleasingShockwave = false;
-                    }
-                }
-            }
-            
-            updateCamera(gs);
-            
-            if (m_game->getMarkers().size() > 1)
-            {
-                Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
-                if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
-                {
-                    if (m_exitLoop)
-                    {
-                        m_game->getMarkers().erase(m_game->getMarkers().begin());
-                        m_game->getMarkers().erase(m_game->getMarkers().begin());
-                        
-                        m_exitLoop = false;
-                    }
-                    else
-                    {
-                        Marker* beginLoopMarker = m_game->getMarkers().at(0);
-                        
-                        int beginGridX = beginLoopMarker->getGridX();
-                        int endGridX = nextEndLoopMarker->getGridX();
-                        
-                        EntityUtils::copyAndOffset(m_game->getMidgrounds(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getGrounds(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getPits(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getExitGrounds(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getHoles(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getForegroundObjects(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getMidBossForegroundObjects(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getCountHissWithMinas(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getCollectibleItems(), beginGridX, endGridX);
-                        EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
-                        
-                        EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
-                        
-                        EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game.get());
-                        EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game.get());
-                        EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
-                        EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
-                        
-                        m_game->calcFarRight();
-                    }
-                }
-            }
-
-			if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
-			{
-				// Has Cleared the Level
-
-				gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-				gs->m_iRequestedAction += m_game->getWorld() * 100;
-				gs->m_iRequestedAction += m_game->getLevel();
-
-				m_hasCompletedLevel = true;
-			}
-            
-            EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-            EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        }
+        update(gs);
     }
 }
 
@@ -373,6 +105,292 @@ BackButton& Level::getBackButton()
     return *m_backButton;
 }
 
+void Level::update(GameScreen* gs)
+{
+    if (gs->m_renderer->isLoadingAdditionalTextures())
+    {
+        gs->processTouchEvents();
+        return;
+    }
+    
+    Jon& jon = m_game->getJon();
+    jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+    
+    if (m_game->getCountHissWithMinas().size() > 0)
+    {
+        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+        countHissWithMina.setMoving();
+        countHissWithMina.update(gs->m_fDeltaTime);
+    }
+    
+    if (!m_hasShownOpeningSequence)
+    {
+        gs->m_renderer->beginOpeningPanningSequence(*m_game);
+        
+        m_hasShownOpeningSequence = true;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+    }
+    else if (!m_hasOpeningSequenceCompleted)
+    {
+        if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
+        {
+            m_hasOpeningSequenceCompleted = true;
+            
+            jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+            
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+            
+            return;
+        }
+        else
+        {
+            gs->processTouchEvents();
+        }
+        
+        jon.update(gs->m_fDeltaTime);
+        
+        int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
+        m_hasOpeningSequenceCompleted = result == 3;
+        m_activateRadialBlur = result == 1;
+        jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+        
+        if (m_hasOpeningSequenceCompleted)
+        {
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+        }
+        
+        if (result == 2)
+        {
+            jon.beginWarmingUp();
+            
+            BatPanelType bpt = getBatPanelType();
+            if (bpt != BatPanelType_None)
+            {
+                m_batPanel->open(bpt);
+            }
+        }
+        
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+    }
+    else
+    {
+        if (handleTouchInput(gs))
+        {
+            return;
+        }
+        
+        m_batPanel->update(gs->m_fDeltaTime);
+        
+        if (m_showDeathTransOut)
+        {
+            // Starting new game after death
+            
+            m_fStateTime += gs->m_fDeltaTime * 2;
+            
+            if (m_fStateTime > 2.4f)
+            {
+                m_fStateTime = 0;
+                m_showDeathTransOut = false;
+            }
+        }
+        
+        if (jon.isDead())
+        {
+            Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+            
+            // Starting death transition, when screen goes black, new game begins
+            
+            m_fStateTime += gs->m_fDeltaTime * 2;
+            
+            if (m_fStateTime > 1.6f)
+            {
+                m_game->reset();
+                enter(gs);
+                
+                updateCamera(gs, true);
+                
+                m_showDeathTransOut = true;
+            }
+            
+            return;
+        }
+        else
+        {
+            // Is Still Actively playing the Level
+            
+            m_game->update(gs->m_fDeltaTime);
+            
+            if (isInSlowMotionMode())
+            {
+                gs->m_fDeltaTime /= 8;
+            }
+            
+            if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
+            {
+                if (jon.getTransformStateTime() < 0.125f)
+                {
+                    if (!isInSlowMotionMode())
+                    {
+                        gs->m_fDeltaTime /= 8;
+                    }
+                }
+                else
+                {
+                    if (!m_isReleasingShockwave)
+                    {
+                        m_fShockwaveCenterX = jon.getPosition().getX();
+                        m_fShockwaveCenterY = jon.getPosition().getY();
+                        m_fShockwaveElapsedTime = 0.0f;
+                        m_isReleasingShockwave = true;
+                    }
+                }
+            }
+            
+            if (m_isReleasingShockwave)
+            {
+                m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
+                
+                if (m_fShockwaveElapsedTime > 2)
+                {
+                    m_fShockwaveElapsedTime = 0;
+                    m_isReleasingShockwave = false;
+                }
+            }
+            
+            m_game->updateAndClean(gs->m_fDeltaTime);
+            
+            EntityUtils::handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
+            
+            if (gs->m_isScreenHeldDown)
+            {
+                gs->m_fScreenHeldTime += gs->m_fDeltaTime;
+                
+                if (gs->m_fScreenHeldTime > 0.4f)
+                {
+                    jon.triggerTransform();
+                    gs->m_isScreenHeldDown = false;
+                    m_fShockwaveElapsedTime = 0;
+                    m_isReleasingShockwave = false;
+                }
+            }
+        }
+        
+        updateCamera(gs);
+        
+        if (m_game->getMarkers().size() > 1)
+        {
+            Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
+            if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
+            {
+                if (m_exitLoop)
+                {
+                    m_game->getMarkers().erase(m_game->getMarkers().begin());
+                    m_game->getMarkers().erase(m_game->getMarkers().begin());
+                    
+                    m_exitLoop = false;
+                }
+                else
+                {
+                    Marker* beginLoopMarker = m_game->getMarkers().at(0);
+                    
+                    int beginGridX = beginLoopMarker->getGridX();
+                    int endGridX = nextEndLoopMarker->getGridX();
+                    
+                    EntityUtils::copyAndOffset(m_game->getMidgrounds(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getGrounds(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getPits(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getExitGrounds(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getHoles(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getForegroundObjects(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getMidBossForegroundObjects(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getCountHissWithMinas(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getCollectibleItems(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
+                    
+                    EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
+                    
+                    EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
+                    
+                    m_game->calcFarRight();
+                }
+            }
+        }
+        
+        if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
+        {
+            // Has Cleared the Level
+            
+            gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+            gs->m_iRequestedAction += m_game->getWorld() * 100;
+            gs->m_iRequestedAction += m_game->getLevel();
+            
+            m_hasCompletedLevel = true;
+        }
+        
+        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+    }
+}
+
+void Level::render(GameScreen* gs)
+{
+    Jon& jon = m_game->getJon();
+    
+    gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+    
+    gs->m_renderer->renderWorld(*m_game);
+    
+    if (m_isReleasingShockwave)
+    {
+        gs->m_renderer->renderToSecondFramebufferWithShockwave(m_fShockwaveCenterX, m_fShockwaveCenterY, m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
+    }
+    else
+    {
+        gs->m_renderer->renderToSecondFramebuffer(*m_game);
+    }
+    
+    gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
+    
+    additionalRenderingBeforeHud(gs);
+    
+    if (m_hasOpeningSequenceCompleted)
+    {
+        gs->m_renderer->renderHud(*m_game, m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
+    }
+    
+    if (jon.isDead())
+    {
+        gs->m_renderer->renderToScreenWithTransDeathIn(m_fStateTime);
+    }
+    else if (m_showDeathTransOut)
+    {
+        gs->m_renderer->renderToScreenWithTransDeathOut(m_fStateTime);
+    }
+    else
+    {
+        if (m_activateRadialBlur)
+        {
+            gs->m_renderer->renderToScreenWithRadialBlur();
+        }
+        else
+        {
+            gs->m_renderer->renderToScreen();
+        }
+    }
+    
+    gs->m_renderer->endFrame();
+}
+
 void Level::updateCamera(GameScreen* gs, bool instant)
 {
     gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false, instant);
@@ -381,6 +399,11 @@ void Level::updateCamera(GameScreen* gs, bool instant)
 void Level::additionalRenderingBeforeHud(GameScreen* gs)
 {
     // Empty, override in subclass
+}
+
+bool Level::isInSlowMotionMode()
+{
+    return false;
 }
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)

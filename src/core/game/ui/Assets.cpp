@@ -1148,14 +1148,14 @@ TextureRegion& Assets::get(MidBossOwl* owl)
         }
         case MidBossOwlState_SlammingIntoTree:
         {
-            static Animation anim = createAnimation(0, 1536, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 10);
+            static Animation anim = createAnimation(0, 1536, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05, 10);
             
             return anim.getTextureRegion(owl->getStateTime());
         }
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
         {
-            static Animation anim = createAnimation(0, 0, 720, 800, 3600, 4000, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 22);
+            static Animation anim = createAnimation(0, 0, 720, 800, 3600, 4000, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 22);
             
             return anim.getTextureRegion(owl->getStateTime());
         }

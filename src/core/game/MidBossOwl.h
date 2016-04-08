@@ -61,10 +61,12 @@ public:
     
 private:
     Game* m_game;
+    float m_fTreeTopY;
+    float m_fGroundTopYWithPadding;
+    float m_fTimeUnderTreeTop;
     int m_iDamage;
     MidBossOwlState m_state;
     bool m_hasCaughtVampire;
-    int m_iNumTreesPassed;
 };
 
 #endif /* defined(__nosfuratu__MidBossOwl__) */

@@ -57,6 +57,7 @@ m_compressed(Assets::getInstance()->isUsingCompressedTextureSet()),
 m_areShadersLoaded(false),
 m_stopCamera(false),
 m_allowGameplayDuringLoading(false),
+m_hasCompletedRadialBlur(false),
 m_transScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
@@ -332,6 +333,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     zoomIn();
     
     m_fStateTime = 0;
+    m_hasCompletedRadialBlur = false;
     
     updateCameraToFollowJon(game, 1337, false);
     
@@ -389,11 +391,17 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         if (isComplete)
         {
             updateCameraToFollowJon(game, 1337, false);
+            
+            if (!m_hasCompletedRadialBlur)
+            {
+                m_hasCompletedRadialBlur = true;
+                
+                return 2;
+            }
         }
-        
-        if (m_fStateTime < 2)
+        else if (m_fStateTime < 2)
         {
-            return isComplete ? 2 : 1;
+            return 1;
         }
         
         return m_fStateTime >= 4.0f ? 3 : 0;

@@ -29,6 +29,7 @@ void Chapter1Level10::enter(GameScreen* gs)
     Level::enter(gs);
     
     m_iLastKnownOwlDamage = 0;
+    m_iLastKnownJonNumBoosts = 1;
     m_hasRequestedPart2TexturesToBeLoaded = false;
     m_hasTriggeredBurrow = false;
     
@@ -70,145 +71,6 @@ void Chapter1Level10::enter(GameScreen* gs)
     }
 }
 
-void Chapter1Level10::execute(GameScreen* gs)
-{
-    Level::execute(gs);
-    
-    if (!gs->m_isRequestingRender)
-    {
-        if (m_game->getJons().size() == 0)
-        {
-            return;
-        }
-        
-        m_midBossOwl->update(gs->m_fDeltaTime);
-        
-        Jon& jon = m_game->getJon();
-        
-        if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
-        {
-            if (jon.getNumBoosts() >= 1)
-            {
-                m_fMusicVolume -= gs->m_fDeltaTime / 8;
-				if (m_fMusicVolume < 0)
-				{
-					m_fMusicVolume = 0;
-				}
-
-                short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-                Assets::getInstance()->setMusicId(musicId);
-            }
-            
-            if (m_perchTree)
-            {
-                Rectangle jonBounds = Rectangle(jon.getPosition().getX() - jon.getWidth() / 2, jon.getPosition().getY() - jon.getHeight() / 2, jon.getWidth(), jon.getHeight());
-                
-                if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
-                {
-                    if (jon.isTransformingIntoVampire())
-                    {
-                        jon.triggerCancelTransform();
-                    }
-                    
-                    if (jon.isVampire())
-                    {
-                        jon.triggerTransform();
-                    }
-                    
-                    jon.getAcceleration().set(0, 0);
-                    jon.getVelocity().set(0, 0);
-                    jon.setIdle(true);
-                    
-                    jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2);
-                    jon.updateBounds();
-                    
-                    m_isIdleWaitingForOwl = true;
-                }
-            }
-            
-            if (m_isIdleWaitingForOwl)
-            {
-                m_fIdleWaitTime += gs->m_fDeltaTime;
-                
-                if (m_fIdleWaitTime > 1.0f)
-                {
-                    m_midBossOwl->awaken();
-                }
-            }
-            
-            m_isChaseCamActivated = false;
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_Awakening)
-        {
-            m_isChaseCamActivated = false;
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
-        {
-            if (!m_hasTriggeredMidBossMusicLoopIntro)
-            {
-                m_fJonY = jon.getPosition().getY();
-                m_fGameStateTime = m_game->getStateTime();
-                
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
-                
-                m_hasTriggeredMidBossMusicLoopIntro = true;
-            }
-            
-            if (!m_hasTriggeredBurrow)
-            {
-                jon.setIdle(false);
-                jon.triggerDownAction();
-                
-                m_hasTriggeredBurrow = true;
-            }
-            
-            if (!m_hasTriggeredMidBossMusicLoop && m_midBossOwl->getStateTime() > 4.80f)
-            {
-                Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
-                
-                m_hasTriggeredMidBossMusicLoop = true;
-            }
-            
-            if (jon.getNumBoosts() >= 2)
-            {
-                m_midBossOwl->beginPursuit();
-            }
-            
-            m_isChaseCamActivated = false;
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing)
-        {
-            m_isChaseCamActivated = jon.getPosition().getY() > 12;
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
-        {
-            m_isChaseCamActivated = jon.getPosition().getY() > 12;
-            
-            if (m_midBossOwl->getDamage() > m_iLastKnownOwlDamage)
-            {
-                m_iLastKnownOwlDamage = m_midBossOwl->getDamage();
-                
-                m_exitLoop = true;
-            }
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
-        {
-            if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
-            {
-                gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
-                
-                m_hasRequestedPart2TexturesToBeLoaded = true;
-            }
-            
-            m_isChaseCamActivated = false;
-        }
-        else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
-        {
-            m_isChaseCamActivated = false;
-        }
-    }
-}
-
 void Chapter1Level10::exit(GameScreen* gs)
 {
     m_isIdleWaitingForOwl = false;
@@ -218,6 +80,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
     m_iLastKnownOwlDamage = 0;
+    m_iLastKnownJonNumBoosts = 0;
     m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
@@ -227,8 +90,188 @@ void Chapter1Level10::exit(GameScreen* gs)
     Level::exit(gs);
 }
 
+void Chapter1Level10::update(GameScreen* gs)
+{
+    Level::update(gs);
+    
+    if (m_game->getJons().size() == 0)
+    {
+        return;
+    }
+    
+    m_midBossOwl->update(gs->m_fDeltaTime);
+    
+    Jon& jon = m_game->getJon();
+    
+    if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
+    {
+        if (jon.getNumBoosts() >= 1)
+        {
+            m_fMusicVolume -= gs->m_fDeltaTime / 8;
+            if (m_fMusicVolume < 0)
+            {
+                m_fMusicVolume = 0;
+            }
+            
+            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
+            Assets::getInstance()->setMusicId(musicId);
+        }
+        
+        if (m_perchTree)
+        {
+            Rectangle jonBounds = Rectangle(jon.getPosition().getX() - jon.getWidth() / 2, jon.getPosition().getY() - jon.getHeight() / 2, jon.getWidth(), jon.getHeight());
+            
+            if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
+            {
+                if (jon.isTransformingIntoVampire())
+                {
+                    jon.triggerCancelTransform();
+                }
+                
+                if (jon.isVampire())
+                {
+                    jon.triggerTransform();
+                }
+                
+                jon.getAcceleration().set(0, 0);
+                jon.getVelocity().set(0, 0);
+                jon.setIdle(true);
+                
+                jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2);
+                jon.updateBounds();
+                
+                m_isIdleWaitingForOwl = true;
+            }
+        }
+        
+        if (m_isIdleWaitingForOwl)
+        {
+            m_fIdleWaitTime += gs->m_fDeltaTime;
+            
+            if (m_fIdleWaitTime > 1.0f)
+            {
+                m_midBossOwl->awaken();
+            }
+        }
+        
+        m_isChaseCamActivated = false;
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_Awakening)
+    {
+        m_isChaseCamActivated = false;
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
+    {
+        if (!m_hasTriggeredMidBossMusicLoopIntro)
+        {
+            m_fJonY = jon.getPosition().getY();
+            m_fGameStateTime = m_game->getStateTime();
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
+            
+            m_hasTriggeredMidBossMusicLoopIntro = true;
+        }
+        
+        if (!m_hasTriggeredBurrow)
+        {
+            jon.setIdle(false);
+            jon.triggerDownAction();
+            jon.setIdle(true);
+            
+            m_hasTriggeredBurrow = true;
+        }
+        
+        if (m_midBossOwl->getStateTime() > 0.50f && jon.isIdle())
+        {
+            jon.setIdle(false);
+        }
+        
+        if (!m_hasTriggeredMidBossMusicLoop && m_midBossOwl->getStateTime() > 4.80f)
+        {
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
+            
+            m_hasTriggeredMidBossMusicLoop = true;
+        }
+        
+        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
+        {
+            m_iLastKnownJonNumBoosts = jon.getNumBoosts();
+            m_midBossOwl->beginPursuit();
+        }
+        
+        m_isChaseCamActivated = false;
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing)
+    {
+        m_isChaseCamActivated = true;
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
+    {
+        m_isChaseCamActivated = true;
+        
+        if (jon.getPosition().getY() < 12)
+        {
+            jon.getAcceleration().setX(0);
+            jon.getVelocity().setX(0);
+            jon.setIdle(true);
+        }
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
+    {
+        m_iLastKnownJonNumBoosts = jon.getNumBoosts();
+        m_isChaseCamActivated = jon.getPosition().getY() > 12;
+        
+        if (m_midBossOwl->getDamage() > m_iLastKnownOwlDamage)
+        {
+            m_iLastKnownOwlDamage = m_midBossOwl->getDamage();
+            
+            m_exitLoop = true;
+        }
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
+    {
+        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
+        {
+            m_iLastKnownJonNumBoosts = jon.getNumBoosts();
+            m_midBossOwl->beginPursuit();
+            
+            if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
+            {
+                gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
+                
+                m_hasRequestedPart2TexturesToBeLoaded = true;
+            }
+        }
+        
+        if (jon.isIdle())
+        {
+            jon.setIdle(false);
+        }
+        
+        m_isChaseCamActivated = false;
+    }
+    else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
+    {
+        m_isChaseCamActivated = false;
+    }
+}
+
 void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
 {
+    if ((m_midBossOwl->getState() == MidBossOwlState_Pursuing
+         || m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
+        && m_game->getJons().size() > 0
+        && m_game->getJon().getPosition().getY() < 12)
+    {
+        return;
+    }
+    
+    if ((m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.5f)
+        || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 1.1f))
+    {
+        return;
+    }
+    
     if (m_isChaseCamActivated)
     {
         gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true, instant);
@@ -244,6 +287,12 @@ void Chapter1Level10::additionalRenderingBeforeHud(GameScreen* gs)
     gs->m_renderer->renderMidBossOwl(*m_midBossOwl);
 }
 
+bool Chapter1Level10::isInSlowMotionMode()
+{
+    return (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.5f)
+    || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 1.1f);
+}
+
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
 m_perchTree(nullptr),
 m_fJonY(0),
@@ -251,6 +300,7 @@ m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
 m_iLastKnownOwlDamage(0),
+m_iLastKnownJonNumBoosts(0),
 m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),

@@ -207,6 +207,7 @@ private:
     bool m_areShadersLoaded;
     bool m_stopCamera;
     bool m_allowGameplayDuringLoading;
+    bool m_hasCompletedRadialBlur;
     
     template<typename T>
     void renderPhysicalEntities(std::vector<T*>& items, bool ignoreCamBounds = false)

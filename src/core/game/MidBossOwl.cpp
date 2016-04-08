@@ -11,15 +11,18 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 #include "Jon.h"
+#include "macros.h"
 
 #include <math.h>
 
 MidBossOwl::MidBossOwl(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
 m_game(nullptr),
+m_fTreeTopY(24.0f),
+m_fGroundTopYWithPadding(14),
+m_fTimeUnderTreeTop(0),
 m_iDamage(0),
 m_state(MidBossOwlState_Sleeping),
-m_hasCaughtVampire(false),
-m_iNumTreesPassed(0)
+m_hasCaughtVampire(false)
 {
     resetBounds(width * 0.5f, height * 0.5f);
 }
@@ -27,16 +30,6 @@ m_iNumTreesPassed(0)
 void MidBossOwl::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
-    
-    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED + 1)
-    {
-        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1);
-    }
-    
-    if (m_velocity->getY() < -0.05f)
-    {
-        m_velocity->setY(-0.05f);
-    }
     
     switch (m_state)
     {
@@ -47,47 +40,12 @@ void MidBossOwl::update(float deltaTime)
             break;
         case MidBossOwlState_SlammingIntoTree:
         {
-            if (m_fStateTime > 4.00f)
+            if (m_fStateTime > 2)
             {
+                m_velocity->set(0, 0);
+                m_acceleration->set(0, 0);
+                
                 setState(MidBossOwlState_FlyingOverTree);
-                
-                m_velocity->set(0, 12);
-            }
-        }
-            break;
-        case MidBossOwlState_FlyingOverTree:
-        {
-            float treeTopY = 0.0;
-            float treeRightX = 8000.0;
-            int numTreesPassed = 0;
-            for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
-            {
-                if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
-                {
-                    numTreesPassed++;
-                    
-                    treeTopY = (*i)->getMainBounds().getTop();
-                    if (numTreesPassed > m_iNumTreesPassed)
-                    {
-                        treeRightX = (*i)->getMainBounds().getRight();
-                        break;
-                    }
-                }
-            }
-            
-            if (getMainBounds().getLeft() > treeRightX)
-            {
-                m_velocity->set(0, 0);
-                m_acceleration->set(2.0f, -0.01f);
-                
-                m_iNumTreesPassed++;
-                
-                setState(MidBossOwlState_Pursuing);
-            }
-            else if (getMainBounds().getBottom() > treeTopY)
-            {
-                m_velocity->set(0, 0);
-                m_acceleration->set(2.0f, 0);
             }
         }
             break;
@@ -97,17 +55,65 @@ void MidBossOwl::update(float deltaTime)
             {
                 Jon& jon = m_game->getJon();
                 
-                if (getMainBounds().getBottom() < jon.getMainBounds().getTop() - 2)
+                if (getPosition().getY() + getHeight() / 2 < m_fTreeTopY)
                 {
-                    m_acceleration->setY(0);
+                    m_velocity->setX(jon.getVelocity().getX());
+                    m_velocity->setY(0);
                     
-                    setState(MidBossOwlState_SwoopingDown);
+                    m_fTimeUnderTreeTop += deltaTime;
+                    
+                    if (m_fTimeUnderTreeTop > 3)
+                    {
+                        Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
+                        
+                        float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
+                        float radians = DEGREES_TO_RADIANS(angle);
+                        
+                        m_velocity->add(cosf(radians) * 1.0f, sinf(radians) * 1.0f);
+                        
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < (9.0f - m_iDamage))
+                        {
+                            m_velocity->add(cosf(radians) * (3.0f + m_iDamage), sinf(radians) * (3.0f + m_iDamage));
+                            
+                            setState(MidBossOwlState_SwoopingDown);
+                            
+                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                        }
+                        
+                        for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+                        {
+                            if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
+                            {
+                                if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
+                                {
+                                    m_velocity->set(0, 0);
+                                    m_acceleration->set(0, 4);
+                                    
+                                    setState(MidBossOwlState_FlyingOverTree);
+                                }
+                            }
+                        }
+                        
+                        if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
+                        {
+                            getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+                        }
+                    }
+                }
+                else
+                {
+                    m_velocity->setX(jon.getVelocity().getX());
                 }
             }
         }
             break;
         case MidBossOwlState_SwoopingDown:
         {
+            if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
+            {
+                getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+            }
+            
             for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
             {
                 if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
@@ -116,8 +122,8 @@ void MidBossOwl::update(float deltaTime)
                     {
                         m_iDamage++;
                         
-                        m_acceleration->set(1.0f, 0);
-                        m_velocity->set(-4, 0);
+                        m_acceleration->set(1.00f, 0);
+                        m_velocity->set(-3, 0);
                         
                         setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
                         
@@ -138,7 +144,7 @@ void MidBossOwl::update(float deltaTime)
                     m_hasCaughtVampire = jon.isVampire();
                     
                     m_velocity->set(0, 0);
-                    m_acceleration->set(0, 6);
+                    m_acceleration->set(0, 4);
                     
                     setState(MidBossOwlState_FlyingAwayAfterCatchingJon);
                 }
@@ -169,6 +175,7 @@ void MidBossOwl::update(float deltaTime)
         case MidBossOwlState_Dead:
         case MidBossOwlState_Screeching:
         case MidBossOwlState_Sleeping:
+        case MidBossOwlState_FlyingOverTree:
         default:
             break;
     }
@@ -185,7 +192,6 @@ void MidBossOwl::goBackToSleep()
     m_acceleration->set(0, 0);
     
     m_iDamage = 0;
-    m_iNumTreesPassed = 0;
     m_hasCaughtVampire = false;
     m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
     m_fHeight = MID_BOSS_OWL_SLEEPING_HEIGHT;
@@ -203,14 +209,46 @@ void MidBossOwl::beginPursuit()
     m_fWidth = MID_BOSS_OWL_NORMAL_WIDTH;
     m_fHeight = MID_BOSS_OWL_NORMAL_HEIGHT;
     
-    m_velocity->set(0, 12);
+    m_fTimeUnderTreeTop = 0;
     
-    setState(MidBossOwlState_FlyingOverTree);
+    m_acceleration->set(0, 0);
+    
+    m_position->setY(m_fTreeTopY + getHeight() / 2);
+    
+    if (m_game->getJons().size() > 0)
+    {
+        Jon& jon = m_game->getJon();
+        
+        m_velocity->set(jon.getVelocity().getX(), -0.8f);
+        
+        m_position->setX(jon.getPosition().getX() - CAM_WIDTH * 0.70f);
+    }
+    
+    setState(MidBossOwlState_Pursuing);
 }
 
 void MidBossOwl::setGame(Game* game)
 {
     m_game = game;
+    
+    for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+    {
+        if ((*i)->getType() == ForegroundObjectType_GiantShakingTree
+            || (*i)->getType() == ForegroundObjectType_GiantPerchTree)
+        {
+            m_fTreeTopY = (*i)->getMainBounds().getTop();
+            break;
+        }
+    }
+    
+    for (std::vector<Ground*>::iterator i = m_game->getGrounds().begin(); i != m_game->getGrounds().end(); i++)
+    {
+        if ((*i)->getType() == GroundType_GrassWithCaveLarge)
+        {
+            m_fGroundTopYWithPadding = (*i)->getMainBounds().getTop() + 1;
+            break;
+        }
+    }
 }
 
 int MidBossOwl::getDamage()

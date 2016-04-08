@@ -86,6 +86,7 @@
 #define SOUND_FOX_DEATH 31
 #define SOUND_WORLD_1_LOOP_INTRO 32
 #define SOUND_MID_BOSS_LOOP_INTRO 33
+#define SOUND_MID_BOSS_SWOOP_DOWN 34
 
 //// Render Definitions ////
 
@@ -114,7 +115,7 @@
 #define GAME_HEIGHT 36.0f
 
 #define RABBIT_GRAVITY -18.0f
-#define VAMP_GRAVITY -24.0f
+#define VAMP_GRAVITY -18.0f
 
 #define RABBIT_DEFAULT_MAX_SPEED 7.5f
 #define RABBIT_DEFAULT_ACCELERATION 7.5f

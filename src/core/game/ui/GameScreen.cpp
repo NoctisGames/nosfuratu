@@ -43,7 +43,10 @@ void GameScreen::onResume()
 
 void GameScreen::onPause()
 {
-    m_isPaused = true;
+    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
+    {
+        m_isPaused = true;
+    }
 }
 
 void GameScreen::update(float deltaTime)

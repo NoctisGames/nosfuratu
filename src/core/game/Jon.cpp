@@ -1021,7 +1021,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 			jon->m_fStateTime = 0;
 
 			jon->m_acceleration->setY(jon->m_fGravity);
-			jon->m_velocity->setY(10 - jon->m_iNumJumps);
+			jon->m_velocity->setY(7 - jon->m_iNumJumps);
 
 			jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
 
