@@ -43,7 +43,6 @@ typedef enum
     ForegroundObjectType_LogVerticalTall,
     ForegroundObjectType_LogVerticalShort,
     
-    ForegroundObjectType_JumpSpringLightFlush,
     ForegroundObjectType_JumpSpringLight,
     ForegroundObjectType_JumpSpringMedium,
     ForegroundObjectType_JumpSpringHeavy,
@@ -73,7 +72,9 @@ typedef enum
     ForegroundObjectType_GiantPerchTree,
     
     ForegroundObjectType_SpikeTower,
-    ForegroundObjectType_SpikeTowerBg
+    ForegroundObjectType_SpikeTowerBg,
+
+	ForegroundObjectType_JumpSpringLightFlush
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity

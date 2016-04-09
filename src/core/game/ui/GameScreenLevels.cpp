@@ -286,7 +286,7 @@ void Level::update(GameScreen* gs)
             Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
             if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
             {
-                if (m_exitLoop || gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
+                if (m_exitLoop || gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
                 {
                     m_game->getMarkers().erase(m_game->getMarkers().begin());
                     m_game->getMarkers().erase(m_game->getMarkers().begin());
