@@ -209,7 +209,6 @@ private:
     bool m_hasTriggeredMidBossMusicLoopIntro;
     bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
-    bool m_hasRequestedPart2TexturesToBeLoaded;
     bool m_hasTriggeredBurrow;
     
     virtual void update(GameScreen* gs);

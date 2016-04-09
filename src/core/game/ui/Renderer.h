@@ -154,7 +154,6 @@ protected:
     TextureWrapper m_world_1_mid_boss_part_1;
     TextureWrapper m_world_1_mid_boss_part_2;
     TextureWrapper m_world_1_mid_boss_part_3;
-    TextureWrapper m_world_1_mid_boss_part_4;
     TextureWrapper m_world_1_objects;
     TextureWrapper m_world_1_special;
     TextureWrapper m_world_map_screen;
@@ -206,7 +205,6 @@ private:
     bool m_compressed;
     bool m_areShadersLoaded;
     bool m_stopCamera;
-    bool m_allowGameplayDuringLoading;
     bool m_hasCompletedRadialBlur;
     
     template<typename T>
@@ -281,17 +279,13 @@ private:
     void loadWorld1Enemies();
     void loadWorld1Ground();
     void loadWorld1Objects();
-    void loadWorld1Textures();
-    
     void loadWorld1Special();
-    void loadWorld1SpecialTextures();
+    void loadWorld1Textures();
     
     void loadWorld1MidBossPart1();
     void loadWorld1MidBossPart2();
     void loadWorld1MidBossPart3();
-    void loadWorld1MidBossPart4();
-    void loadWorld1MidBossTexturesPart1();
-    void loadWorld1MidBossTexturesPart2();
+    void loadWorld1MidBossTextures();
     
     void loadWorld1EndBossTextures();
     
@@ -318,7 +312,6 @@ private:
     void unloadJonTextures();
     
     void unloadWorld1Textures();
-    void unloadWorld1SpecialTextures();
     void unloadWorld1MidBossTextures();
     void unloadWorld1EndBossTextures();
     

@@ -30,7 +30,6 @@ void Chapter1Level10::enter(GameScreen* gs)
     
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 1;
-    m_hasRequestedPart2TexturesToBeLoaded = false;
     m_hasTriggeredBurrow = false;
     
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
@@ -84,7 +83,6 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
-    m_hasRequestedPart2TexturesToBeLoaded = false;
     m_hasTriggeredBurrow = false;
     
     Level::exit(gs);
@@ -231,13 +229,6 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
-        if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
-        {
-            gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
-            
-            m_hasRequestedPart2TexturesToBeLoaded = true;
-        }
-        
         if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
         {
             m_iLastKnownJonNumBoosts = jon.getNumBoosts();
@@ -299,8 +290,8 @@ void Chapter1Level10::additionalRenderingBeforeHud(GameScreen* gs)
 
 bool Chapter1Level10::isInSlowMotionMode()
 {
-    return (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.5f)
-    || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 1.1f);
+    return (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.25f)
+    || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 0.5f);
 }
 
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
@@ -315,7 +306,6 @@ m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
 m_isChaseCamActivated(false),
-m_hasRequestedPart2TexturesToBeLoaded(false),
 m_hasTriggeredBurrow(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));

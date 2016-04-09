@@ -55,8 +55,6 @@ public:
     
     int getDamage();
     
-    bool hasCaughtVampire();
-    
     void setState(MidBossOwlState state);
     
 private:
@@ -65,8 +63,8 @@ private:
     float m_fGroundTopYWithPadding;
     float m_fTimeUnderTreeTop;
     int m_iDamage;
+    bool m_didJonTransform;
     MidBossOwlState m_state;
-    bool m_hasCaughtVampire;
 };
 
 #endif /* defined(__nosfuratu__MidBossOwl__) */

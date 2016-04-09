@@ -56,7 +56,6 @@ m_fRadialBlurDirection(0.5f),
 m_compressed(Assets::getInstance()->isUsingCompressedTextureSet()),
 m_areShadersLoaded(false),
 m_stopCamera(false),
-m_allowGameplayDuringLoading(false),
 m_hasCompletedRadialBlur(false),
 m_transScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
@@ -92,7 +91,6 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_1);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_2);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_3);
-    m_textureWrappers.push_back(&m_world_1_mid_boss_part_4);
     m_textureWrappers.push_back(&m_world_1_objects);
     m_textureWrappers.push_back(&m_world_1_special);
     m_textureWrappers.push_back(&m_world_map_screen);
@@ -128,7 +126,6 @@ void Renderer::init(RendererType rendererType)
 void Renderer::load(RendererType rendererType)
 {
     m_iNumAsyncLoads = 0;
-    m_allowGameplayDuringLoading = false;
     
     switch (rendererType)
     {
@@ -142,17 +139,11 @@ void Renderer::load(RendererType rendererType)
             loadLevelEditorTextures();
             break;
             
-        case RENDERER_TYPE_WORLD_1_PRE_LEVEL_10:
-            loadWorld1SpecialTextures();
-            break;
-        case RENDERER_TYPE_WORLD_1_MID_BOSS_PART_1:
-            loadWorld1MidBossTexturesPart1();
-            break;
-        case RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2:
-            loadWorld1MidBossTexturesPart2();
-            break;
-        case RENDERER_TYPE_WORLD_1_POST_LEVEL_10:
+        case RENDERER_TYPE_WORLD_1:
             loadWorld1Textures();
+            break;
+        case RENDERER_TYPE_WORLD_1_MID_BOSS:
+            loadWorld1MidBossTextures();
             break;
         case RENDERER_TYPE_WORLD_1_END_BOSS:
             loadWorld1EndBossTextures();
@@ -218,15 +209,11 @@ void Renderer::unload(RendererType rendererType)
             unloadLevelEditorTextures();
             break;
             
-        case RENDERER_TYPE_WORLD_1_PRE_LEVEL_10:
-            unloadWorld1SpecialTextures();
-            break;
-        case RENDERER_TYPE_WORLD_1_MID_BOSS_PART_1:
-        case RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2:
-            unloadWorld1MidBossTextures();
-            break;
-        case RENDERER_TYPE_WORLD_1_POST_LEVEL_10:
+        case RENDERER_TYPE_WORLD_1:
             unloadWorld1Textures();
+            break;
+        case RENDERER_TYPE_WORLD_1_MID_BOSS:
+            unloadWorld1MidBossTextures();
             break;
         case RENDERER_TYPE_WORLD_1_END_BOSS:
             unloadWorld1EndBossTextures();
@@ -280,11 +267,6 @@ void Renderer::unload(RendererType rendererType)
 
 bool Renderer::isLoadingAdditionalTextures()
 {
-    if (m_allowGameplayDuringLoading)
-    {
-        return false;
-    }
-    
     return m_iNumAsyncLoads > 0 || m_pendingLoadFunctions.size() > 0;
 }
 
@@ -720,11 +702,11 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     
-    if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
+    if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getMidBossForegroundObjects());
-        m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
     }
     
     m_spriteBatcher->beginBatch();
@@ -802,58 +784,37 @@ void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
 {
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
-    int damage = midBossOwl.getDamage();
-    
     switch (midBossOwl.getState())
     {
         case MidBossOwlState_Sleeping:
         case MidBossOwlState_Awakening:
         case MidBossOwlState_Screeching:
-            if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
+            if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
             {
                 m_spriteBatcher->beginBatch();
                 renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
+                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
             }
             break;
         case MidBossOwlState_Pursuing:
         case MidBossOwlState_FlyingOverTree:
         case MidBossOwlState_SwoopingDown:
         case MidBossOwlState_FlyingAwayAfterCatchingJon:
-            if (damage == 0 && m_world_1_mid_boss_part_1.gpuTextureWrapper)
-            {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_1.gpuTextureWrapper);
-            }
-            else if (damage > 0 && m_world_1_mid_boss_part_2.gpuTextureWrapper)
-            {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_2.gpuTextureWrapper);
-            }
-            break;
         case MidBossOwlState_SlammingIntoTree:
-            if (damage == 1 && m_world_1_mid_boss_part_1.gpuTextureWrapper)
+            if (m_world_1_mid_boss_part_1.gpuTextureWrapper)
             {
                 m_spriteBatcher->beginBatch();
                 renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
                 m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_1.gpuTextureWrapper);
-            }
-            else if (damage > 1 && m_world_1_mid_boss_part_2.gpuTextureWrapper)
-            {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_2.gpuTextureWrapper);
             }
             break;
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
-            if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
+            if (m_world_1_mid_boss_part_2.gpuTextureWrapper)
             {
                 m_spriteBatcher->beginBatch();
                 renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
+                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_2.gpuTextureWrapper);
             }
             break;
         default:
@@ -1107,11 +1068,11 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         renderPhysicalEntities(leep->getForegroundObjects(), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
         
-        if (m_world_1_mid_boss_part_4.gpuTextureWrapper)
+        if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
         {
             m_spriteBatcher->beginBatch();
             renderPhysicalEntities(leep->getMidBossForegroundObjects(), true);
-            m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_4.gpuTextureWrapper);
+            m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
         }
 
 		if (m_vampire.gpuTextureWrapper)
@@ -1633,18 +1594,6 @@ void Renderer::loadWorld1Objects()
     }
 }
 
-void Renderer::loadWorld1Textures()
-{
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
-    
-    loadJonTextures();
-}
-
 void Renderer::loadWorld1Special()
 {
     if (m_world_1_special.gpuTextureWrapper == nullptr)
@@ -1658,11 +1607,19 @@ void Renderer::loadWorld1Special()
     }
 }
 
-void Renderer::loadWorld1SpecialTextures()
+void Renderer::loadWorld1Textures()
 {
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+    
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+    
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
     
-    loadWorld1Textures();
+    loadJonTextures();
 }
 
 void Renderer::loadWorld1MidBossPart1()
@@ -1704,44 +1661,20 @@ void Renderer::loadWorld1MidBossPart3()
     }
 }
 
-void Renderer::loadWorld1MidBossPart4()
+void Renderer::loadWorld1MidBossTextures()
 {
-    if (m_world_1_mid_boss_part_4.gpuTextureWrapper == nullptr)
-    {
-        m_iNumAsyncLoads++;
-        
-        m_threads.push_back(std::thread([](Renderer* r)
-        {
-            r->m_world_1_mid_boss_part_4.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_mid_boss_part_4" : "world_1_mid_boss_part_4");
-        }, this));
-    }
-}
-
-void Renderer::loadWorld1MidBossTexturesPart1()
-{
-    destroyTexture(&m_world_1_mid_boss_part_2);
-    destroyTexture(&m_world_1_mid_boss_part_3);
-    
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart1);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart4);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+    
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
     
     loadJonTextures();
-}
-
-void Renderer::loadWorld1MidBossTexturesPart2()
-{
-    destroyTexture(&m_world_1_mid_boss_part_1);
-    
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart2);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
-    
-    m_allowGameplayDuringLoading = true;
 }
 
 void Renderer::loadWorld1EndBossTextures()
@@ -1841,14 +1774,9 @@ void Renderer::unloadWorld1Textures()
     destroyTexture(&m_world_1_ground);
     destroyTexture(&m_world_1_objects);
     
-    unloadJonTextures();
-}
-
-void Renderer::unloadWorld1SpecialTextures()
-{
     destroyTexture(&m_world_1_special);
     
-    unloadWorld1Textures();
+    unloadJonTextures();
 }
 
 void Renderer::unloadWorld1MidBossTextures()
@@ -1856,7 +1784,6 @@ void Renderer::unloadWorld1MidBossTextures()
     destroyTexture(&m_world_1_mid_boss_part_1);
     destroyTexture(&m_world_1_mid_boss_part_2);
     destroyTexture(&m_world_1_mid_boss_part_3);
-    destroyTexture(&m_world_1_mid_boss_part_4);
     
     unloadWorld1Textures();
 }

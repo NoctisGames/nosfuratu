@@ -1060,7 +1060,6 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
 TextureRegion& Assets::get(MidBossOwl* owl)
 {
     int damage = owl->getDamage();
-    bool hasCaughtVampire = owl->hasCaughtVampire();
     
     switch (owl->getState())
     {
@@ -1085,72 +1084,81 @@ TextureRegion& Assets::get(MidBossOwl* owl)
         case MidBossOwlState_Pursuing:
         case MidBossOwlState_FlyingOverTree:
         {
-            if (damage < 2)
+            if (damage == 2)
             {
-                static Animation anim = createAnimation(0, 0, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                static Animation anim = createAnimation(0, 3072, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else if (damage == 1)
+            {
+                static Animation anim = createAnimation(0, 1536, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
             else
             {
-                static Animation anim = createAnimation(0, 2560, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                static Animation anim = createAnimation(0, 0, 512, 512, 3072, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
         }
         case MidBossOwlState_SwoopingDown:
         {
-            if (damage < 2)
+            if (damage == 2)
             {
-                static Animation anim = createAnimation(3072, 0, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+                static Animation anim = createAnimation(3072, 3072, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else if (damage == 1)
+            {
+                static Animation anim = createAnimation(3072, 1536, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
             else
             {
-                static Animation anim = createAnimation(3072, 2560, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+                static Animation anim = createAnimation(3072, 0, 512, 512, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
         }
         case MidBossOwlState_FlyingAwayAfterCatchingJon:
         {
-            if (damage < 2)
+            if (damage == 2)
             {
-                if (hasCaughtVampire)
-                {
-                    static Animation anim = createAnimation(0, 1024, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-                    
-                    return anim.getTextureRegion(owl->getStateTime());
-                }
-                else
-                {
-                    static Animation anim = createAnimation(0, 512, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-                    
-                    return anim.getTextureRegion(owl->getStateTime());
-                }
+                static Animation anim = createAnimation(0, 3584, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7, 1);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else if (damage == 1)
+            {
+                static Animation anim = createAnimation(0, 2048, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7, 1);
+                
+                return anim.getTextureRegion(owl->getStateTime());
             }
             else
             {
-                if (hasCaughtVampire)
-                {
-                    static Animation anim = createAnimation(0, 3584, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-                    
-                    return anim.getTextureRegion(owl->getStateTime());
-                }
-                else
-                {
-                    static Animation anim = createAnimation(0, 3072, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-                    
-                    return anim.getTextureRegion(owl->getStateTime());
-                }
+                static Animation anim = createAnimation(0, 512, 512, 512, 3584, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7, 1);
+                
+                return anim.getTextureRegion(owl->getStateTime());
             }
         }
         case MidBossOwlState_SlammingIntoTree:
         {
-            static Animation anim = createAnimation(0, 1536, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05, 10);
-            
-            return anim.getTextureRegion(owl->getStateTime());
+            if (damage == 2)
+            {
+                static Animation anim = createAnimation(0, 2560, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06, 8);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(0, 1024, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06, 8);
+                
+                return anim.getTextureRegion(owl->getStateTime());
+            }
         }
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
