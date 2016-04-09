@@ -423,9 +423,6 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\title_screen.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_4.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen.png">
       <Filter>Assets</Filter>
     </CustomBuild>
@@ -457,9 +454,6 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_4.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
