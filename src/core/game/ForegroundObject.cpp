@@ -97,7 +97,7 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikeWallFour(gridX, gridY);
         case ForegroundObjectType_SpikeWallEight:
             return new SpikeWallEight(gridX, gridY);
-        
+            
         case ForegroundObjectType_SpikeStar:
             return new SpikeStar(gridX, gridY);
             
@@ -179,32 +179,25 @@ void ForegroundObject::setGame(Game* game)
 
 bool ForegroundObject::isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime)
 {
-	float jonVelocityY = jon.getVelocity().getY();
-
-	if (jonVelocityY <= 0)
-	{
-		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
-		{
-			float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
-			float jonYDelta = fabsf(jonVelocityY * deltaTime);
-
-			float itemTop = bounds.getTop();
-			float padding = itemTop * .01f;
-			padding += jonYDelta;
-			float itemTopReq = itemTop - padding;
-
-			if (jonLowerLeftY >= itemTopReq)
-			{
-				jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-				jon.updateBounds();
-				jon.setGroundSoundType(getGroundSoundType());
-
-				return true;
-			}
-		}
-	}
-
-	return false;
+    float jonVelocityY = jon.getVelocity().getY();
+    
+    if (jonVelocityY <= 0
+        && jon.getPosition().getX() > getMainBounds().getLeft()
+        && (jon.getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
+    {
+        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
+        {
+            float itemTop = bounds.getTop();
+            
+            jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
+            jon.updateBounds();
+            jon.setGroundSoundType(getGroundSoundType());
+            
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float deltaTime)
@@ -240,7 +233,7 @@ bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float de
 
 bool PlatformObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-	return false;
+    return false;
 }
 
 bool PlatformObject::canObjectBePlacedOn()
@@ -367,24 +360,15 @@ void ProvideBoostObject::update(float deltaTime)
 
 bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
 {
-	float jonVelocityY = jon.getVelocity().getY();
-
-	if (jonVelocityY <= 0 && jon.getPosition().getX() > getMainBounds().getLeft())
-	{
-		if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-		{
-			float itemTop = getMainBounds().getTop();
-
-			jon.updateBounds();
-			jon.setGroundSoundType(getGroundSoundType());
-
-			jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
-
-			jon.triggerBoost(m_fBoostVelocity);
-			m_isBoosting = true;
-			m_fStateTime = 0;
-		}
-	}
+    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    {
+        float itemTop = getMainBounds().getTop();
+        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
+        
+        jon.triggerBoost(m_fBoostVelocity);
+        m_isBoosting = true;
+        m_fStateTime = 0;
+    }
     
     return false;
 }

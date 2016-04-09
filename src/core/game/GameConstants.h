@@ -87,6 +87,7 @@
 #define SOUND_WORLD_1_LOOP_INTRO 32
 #define SOUND_MID_BOSS_LOOP_INTRO 33
 #define SOUND_MID_BOSS_SWOOP_DOWN 34
+#define SOUND_MID_BOSS_TREE_SMASH 35
 
 //// Render Definitions ////
 

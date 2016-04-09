@@ -35,7 +35,10 @@ void MidBossOwl::update(float deltaTime)
     {
         case MidBossOwlState_Dying:
         {
-            // TODO
+            if (m_fStateTime > 2.2f)
+            {
+                setState(MidBossOwlState_Dead);
+            }
         }
             break;
         case MidBossOwlState_SlammingIntoTree:
@@ -62,16 +65,16 @@ void MidBossOwl::update(float deltaTime)
                     
                     m_fTimeUnderTreeTop += deltaTime;
                     
-                    if (m_fTimeUnderTreeTop > 3)
+                    if (m_fTimeUnderTreeTop > 2.9f - (m_iDamage * 0.05f))
                     {
                         Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                         
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * (1.0f + (0.15f * m_iDamage)), sinf(radians) * (1.0f + (0.15f * m_iDamage)));
+                        m_velocity->add(cosf(radians) * (1.0f - (0.05f * m_iDamage)), sinf(radians) * (1.0f - (0.05f * m_iDamage)));
                         
-                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < (9.0f - m_iDamage))
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < (9.0f - (m_iDamage * 0.50f)))
                         {
                             m_velocity->add(cosf(radians) * (3.0f + m_iDamage), sinf(radians) * (3.0f + m_iDamage));
                             
@@ -98,6 +101,16 @@ void MidBossOwl::update(float deltaTime)
                         {
                             getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
                         }
+                        
+                        if (jon.getPosition().getY() < 12)
+                        {
+                            m_velocity->set(0, 0);
+                            m_acceleration->set(0, 4);
+                            
+                            setState(MidBossOwlState_FlyingOverTree);
+                            
+                            return;
+                        }
                     }
                 }
                 else
@@ -109,9 +122,61 @@ void MidBossOwl::update(float deltaTime)
             break;
         case MidBossOwlState_SwoopingDown:
         {
+            if (m_game->getJons().size() > 0)
+            {
+                Jon& jon = m_game->getJon();
+                
+                if (jon.getVelocity().getX() > 0)
+                {
+                    m_velocity->setX(jon.getVelocity().getX());
+                }
+                
+                m_velocity->setY(0);
+                
+                Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
+                
+                float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
+                float radians = DEGREES_TO_RADIANS(angle);
+                
+                m_velocity->add(cosf(radians) * (1.0f - (0.05f * m_iDamage)), sinf(radians) * (1.0f - (0.05f * m_iDamage)));
+                m_velocity->add(cosf(radians) * (3.0f + m_iDamage), sinf(radians) * (3.0f + m_iDamage));
+            }
+            
             if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
             {
                 getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+                
+                m_velocity->set(0, 0);
+                m_acceleration->set(0, 4);
+                
+                setState(MidBossOwlState_FlyingOverTree);
+            }
+            
+            if (m_game->getJons().size() > 0)
+            {
+                Jon& jon = m_game->getJon();
+                
+                if (jon.getPosition().getY() > 15 || jon.getPosition().getY() < 9)
+                {
+                    m_velocity->set(0, 0);
+                    m_acceleration->set(0, 4);
+                    
+                    setState(MidBossOwlState_FlyingOverTree);
+                }
+                
+                if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+                {
+                    jon.consume(true);
+                    
+                    m_hasCaughtVampire = jon.isVampire();
+                    
+                    m_velocity->set(0, 0);
+                    m_acceleration->set(0, 4);
+                    
+                    setState(MidBossOwlState_FlyingAwayAfterCatchingJon);
+                    
+                    return;
+                }
             }
             
             for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
@@ -127,26 +192,21 @@ void MidBossOwl::update(float deltaTime)
                         
                         setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
                         
+                        if (m_state == MidBossOwlState_Dying)
+                        {
+                            m_fWidth = MID_BOSS_OWL_DYING_WIDTH;
+                            m_fHeight = MID_BOSS_OWL_DYING_HEIGHT;
+                            
+                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH); // TODO, replace with special DYING sound
+                        }
+                        else
+                        {
+                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
+                        }
+                        
                         GiantShakingTree* gst = (GiantShakingTree *) (*i);
                         gst->triggerHit();
                     }
-                }
-            }
-            
-            if (m_game->getJons().size() > 0)
-            {
-                Jon& jon = m_game->getJon();
-                
-                if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-                {
-                    jon.consume(true);
-                    
-                    m_hasCaughtVampire = jon.isVampire();
-                    
-                    m_velocity->set(0, 0);
-                    m_acceleration->set(0, 4);
-                    
-                    setState(MidBossOwlState_FlyingAwayAfterCatchingJon);
                 }
             }
         }
@@ -245,7 +305,7 @@ void MidBossOwl::setGame(Game* game)
     {
         if ((*i)->getType() == GroundType_GrassWithCaveLarge)
         {
-            m_fGroundTopYWithPadding = (*i)->getMainBounds().getTop() + 1;
+            m_fGroundTopYWithPadding = (*i)->getMainBounds().getTop() + 0.5f;
             break;
         }
     }

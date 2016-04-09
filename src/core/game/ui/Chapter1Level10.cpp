@@ -216,7 +216,8 @@ void Chapter1Level10::update(GameScreen* gs)
             jon.setIdle(true);
         }
     }
-    else if (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree)
+    else if (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree
+             || m_midBossOwl->getState() == MidBossOwlState_Dying)
     {
         m_iLastKnownJonNumBoosts = jon.getNumBoosts();
         m_isChaseCamActivated = jon.getPosition().getY() > 12;
@@ -230,17 +231,17 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
+        if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
+        {
+            gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
+            
+            m_hasRequestedPart2TexturesToBeLoaded = true;
+        }
+        
         if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
         {
             m_iLastKnownJonNumBoosts = jon.getNumBoosts();
             m_midBossOwl->beginPursuit();
-            
-            if (!m_hasRequestedPart2TexturesToBeLoaded && m_midBossOwl->getDamage() == 1)
-            {
-                gs->m_renderer->init(RENDERER_TYPE_WORLD_1_MID_BOSS_PART_2);
-                
-                m_hasRequestedPart2TexturesToBeLoaded = true;
-            }
         }
         
         if (jon.isIdle())
@@ -263,7 +264,16 @@ void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
         && m_game->getJons().size() > 0
         && m_game->getJon().getPosition().getY() < 12)
     {
-        return;
+        for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+        {
+            if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
+            {
+                if ((*i)->getPosition().dist(m_game->getJon().getPosition()) < 7)
+                {
+                    return;
+                }
+            }
+        }
     }
     
     if ((m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.5f)

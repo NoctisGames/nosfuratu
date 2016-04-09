@@ -94,6 +94,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("world_1_bgm_intro.wav"));
         _sounds.add(_audio.newSound("mid_boss_bgm_intro.wav"));
         _sounds.add(_audio.newSound("mid_boss_owl_swoop.wav"));
+        _sounds.add(_audio.newSound("mid_boss_owl_tree_smash.wav"));
 
         Game.init();
 

@@ -640,7 +640,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_GiantShakingTree:
         {
-            static Animation anim = createAnimation(832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 7);
+            static Animation anim = createAnimation(832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.025f, 7);
             return anim.getTextureRegion(foregroundObject->getStateTime());
         }
         case ForegroundObjectType_GiantPerchTree:
