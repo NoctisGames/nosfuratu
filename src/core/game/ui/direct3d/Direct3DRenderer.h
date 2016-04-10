@@ -41,6 +41,10 @@ protected:
     
     virtual void destroyTexture(GpuTextureWrapper& textureWrapper);
 
+	virtual void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool ignoreCamBounds = false);
+
+	virtual void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool ignoreCamBounds = false);
+
 private:
 	// Cached pointer to device resources.
 	std::shared_ptr<DX::DeviceResources> m_deviceResources;

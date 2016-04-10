@@ -1189,7 +1189,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 		ss << "World " << lsp->getWorld() << " / Level " << lsp->getLevel();
 		std::string text_string = ss.str();
 
-		// Render FPS
+		// Render World/Level Info
 
 		m_spriteBatcher->beginBatch();
 		m_font->renderText(*m_spriteBatcher, text_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
@@ -1202,7 +1202,6 @@ void Renderer::renderLoading()
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     static Animation anim = Animation(0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024, true, 0.06f, 7);
-    TextureRegion tr = anim.getTextureRegion(m_fStateTime);
     
     static float width = 1.265625f;
     static float height = 0.84375f;
@@ -1210,7 +1209,7 @@ void Renderer::renderLoading()
     static float y = CAM_HEIGHT - height / 2;
     
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(x, y, width, height, 0, tr);
+    m_spriteBatcher->drawSprite(x, y, width, height, 0, anim.getTextureRegion(m_fStateTime));
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 }
 
@@ -1357,7 +1356,7 @@ Vector2D& Renderer::getCameraPosition()
     return m_camBounds->getLowerLeft();
 }
 
-#pragma mark private
+#pragma mark protected
 
 void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool ignoreCamBounds)
 {
@@ -1378,6 +1377,8 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
         m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
     }
 }
+
+#pragma mark private
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 {

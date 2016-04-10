@@ -192,6 +192,10 @@ protected:
     virtual void bindToScreenFramebuffer() = 0;
 
     virtual void destroyTexture(GpuTextureWrapper& textureWrapper) = 0;
+
+	virtual void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool ignoreCamBounds = false);
+
+	virtual void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool ignoreCamBounds = false);
     
 private:
     std::vector<std::thread> m_threads;
@@ -244,10 +248,6 @@ private:
             }
         }
     }
-    
-    void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool ignoreCamBounds = false);
-    
-    void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool ignoreCamBounds = false);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     
