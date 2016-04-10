@@ -63,18 +63,18 @@ void MidBossOwl::update(float deltaTime)
                     m_didJonTransform = true;
                 }
                 
+                if (jon.getVelocity().getX() > 0)
+                {
+                    m_velocity->setX(jon.getVelocity().getX());
+                    
+                    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED)
+                    {
+                        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
+                    }
+                }
+                
                 if (getPosition().getY() + getHeight() / 2 < m_fTreeTopY)
                 {
-                    if (jon.getVelocity().getX() > 0)
-                    {
-                        m_velocity->setX(jon.getVelocity().getX());
-                        
-                        if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED)
-                        {
-                            m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
-                        }
-                    }
-                    
                     m_velocity->setY(0);
                     
                     m_fTimeUnderTreeTop += deltaTime;
@@ -112,10 +112,6 @@ void MidBossOwl::update(float deltaTime)
                             return;
                         }
                     }
-                }
-                else
-                {
-                    m_velocity->setX(jon.getVelocity().getX());
                 }
                 
                 for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)

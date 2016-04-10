@@ -324,7 +324,23 @@ void Level::update(GameScreen* gs)
             }
         }
         
-        if (!m_hasCompletedLevel && jon.getMainBounds().getLeft() > m_game->getFarRight())
+        if (m_hasCompletedLevel)
+        {
+            m_fStateTime += gs->m_fDeltaTime;
+            
+            if (m_fStateTime > 1.0f)
+            {
+                gs->m_renderer->stopCamera();
+            }
+            
+            if (!OverlapTester::doRectanglesOverlap(jon.getMainBounds(), gs->m_renderer->getCameraBounds()))
+            {
+                gs->m_stateMachine->revertToPreviousState();
+                
+                return;
+            }
+        }
+        else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
         {
             // Has Cleared the Level
             
@@ -332,6 +348,7 @@ void Level::update(GameScreen* gs)
             gs->m_iRequestedAction += m_game->getWorld() * 100;
             gs->m_iRequestedAction += m_game->getLevel();
             
+            m_fStateTime = 0;
             m_hasCompletedLevel = true;
         }
         

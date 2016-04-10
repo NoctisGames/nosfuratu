@@ -923,6 +923,7 @@ void Jon::Vampire::execute(Jon* jon)
 		{
 			jon->setState(ABILITY_GLIDE);
 			jon->m_fGravity = VAMP_GRAVITY / 36;
+            jon->m_acceleration->setX(VAMP_DEFAULT_ACCELERATION);
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(0);
 			jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
@@ -1021,7 +1022,6 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		{
 			jon->m_fStateTime = 0;
 
-            jon->m_velocity->setX(0);
             jon->m_acceleration->setX(0);
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(7 - jon->m_iNumJumps);
@@ -1030,6 +1030,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 			if (jon->m_iNumJumps == 0)
 			{
+                jon->m_velocity->setX(0);
+                
 				jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE * 2;
 				jon->setState(ABILITY_UPWARD_THRUST);
                 

@@ -226,7 +226,7 @@ WorldMap::WorldMap() : m_isReadyForTransition(false)
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 6.3f, 1, 7)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 6.3f, 1, 8)));
     m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 6.3f, 1, 9)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 6.3f, 1, 10)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(11.0f, 5.4f, 1, 10)));
 //    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 6.3f, 1, 11)));
 //    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 6.3f, 1, 12)));
 //    
