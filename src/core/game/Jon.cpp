@@ -156,7 +156,6 @@ void Jon::update(float deltaTime)
             {
                 m_isLanding = false;
                 m_isRollLanding = false;
-                m_velocity->setX(fminf(m_fMaxSpeed - 2, m_velocity->getX()));
             }
 		}
 
@@ -915,10 +914,6 @@ void Jon::Vampire::execute(Jon* jon)
 	{
 		m_isFallingAfterGlide = false;
 	}
-	else if (jon->m_physicalState == PHYSICAL_IN_AIR && jon->m_velocity->getY() > 0 && jon->m_iNumJumps == 1)
-	{
-		jon->m_velocity->setX(0);
-	}
 
 	if (jon->isFalling())
 	{
@@ -1026,6 +1021,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		{
 			jon->m_fStateTime = 0;
 
+            jon->m_velocity->setX(0);
+            jon->m_acceleration->setX(0);
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(7 - jon->m_iNumJumps);
 

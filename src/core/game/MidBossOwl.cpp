@@ -46,7 +46,7 @@ void MidBossOwl::update(float deltaTime)
             if (m_fStateTime > 2)
             {
                 m_velocity->set(0, 0);
-                m_acceleration->set(0, 0);
+                m_acceleration->set(0, 4);
                 
                 setState(MidBossOwlState_FlyingOverTree);
             }
@@ -86,11 +86,11 @@ void MidBossOwl::update(float deltaTime)
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * (0.65f + (0.15f * m_iDamage)), sinf(radians) * (0.65f + (0.15f * m_iDamage)));
+                        m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
                         
-                        if (!m_didJonTransform && target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < (9.0f - (m_iDamage * 0.50f)))
+                        if (!m_didJonTransform && target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 8.0f)
                         {
-                            m_velocity->add(cosf(radians) * (3.0f + m_iDamage), sinf(radians) * (7.0f + m_iDamage));
+                            m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * 11.0f);
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
@@ -162,8 +162,8 @@ void MidBossOwl::update(float deltaTime)
                 float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                 float radians = DEGREES_TO_RADIANS(angle);
                 
-                m_velocity->add(cosf(radians) * (0.65f + (0.15f * m_iDamage)), sinf(radians) * (0.65f + (0.15f * m_iDamage)));
-                m_velocity->add(cosf(radians) * (3.0f + m_iDamage), sinf(radians) * (7.0f + m_iDamage));
+                m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
+                m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * 11.0f);
                 
                 if (m_didJonTransform
                     || jon.isTransformingIntoVampire()
@@ -204,27 +204,37 @@ void MidBossOwl::update(float deltaTime)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            m_iDamage++;
-                            
-                            m_acceleration->set(1.00f, 0);
-                            m_velocity->set(-3, 0);
-                            
-                            setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
-                            
-                            if (m_state == MidBossOwlState_Dying)
+                            if (jon.getPosition().dist((*i)->getPosition()) < 5.4f)
                             {
-                                m_fWidth = MID_BOSS_OWL_DYING_WIDTH;
-                                m_fHeight = MID_BOSS_OWL_DYING_HEIGHT;
+                                m_iDamage++;
                                 
-                                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH); // TODO, replace with special DYING sound
+                                m_acceleration->set(1.00f, 0);
+                                m_velocity->set(-3, 0);
+                                
+                                setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
+                                
+                                if (m_state == MidBossOwlState_Dying)
+                                {
+                                    m_fWidth = MID_BOSS_OWL_DYING_WIDTH;
+                                    m_fHeight = MID_BOSS_OWL_DYING_HEIGHT;
+                                    
+                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH); // TODO, replace with special DYING sound
+                                }
+                                else
+                                {
+                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
+                                }
+                                
+                                GiantShakingTree* gst = (GiantShakingTree *) (*i);
+                                gst->triggerHit();
                             }
                             else
                             {
-                                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
+                                m_velocity->set(0, 0);
+                                m_acceleration->set(0, 4);
+                                
+                                setState(MidBossOwlState_FlyingOverTree);
                             }
-                            
-                            GiantShakingTree* gst = (GiantShakingTree *) (*i);
-                            gst->triggerHit();
                         }
                     }
                 }

@@ -168,6 +168,8 @@ void WorldMap::loadUserSaveData(const char* json)
         
         (*j)->setVisible(isPreviousLevelComplete);
         (*j)->setCompleted(isComplete);
+        
+        (*j)->setVisible(true);
     }
 }
 
