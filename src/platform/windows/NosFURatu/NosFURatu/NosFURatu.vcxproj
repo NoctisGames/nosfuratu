@@ -112,7 +112,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
     <AppxBundle>Never</AppxBundle>
-    <PackageCertificateThumbprint>EF21B4D4ABC6541411A582463059C88A4CE54711</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>A4AFA901F85D3318B2E9AA2C79E2BA39F5A7B607</PackageCertificateThumbprint>
     <AppxPackageDir>C:\Users\maste\OneDrive\Documents\GitHub\nosfuratu\src\platform\windows\NosFURatu\NosFURatu\AppPackages\</AppxPackageDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">

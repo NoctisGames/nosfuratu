@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
-  <Publisher>CN=713F20D9-DD35-437E-AD6D-D22B798A9E75</Publisher>
-  <PublisherDisplayName>Gowen Game Dev</PublisherDisplayName>
+  <Publisher>CN=E18CD061-BE36-4AB8-AFD1-44C2793FCDD3</Publisher>
+  <PublisherDisplayName>Noctis Games</PublisherDisplayName>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
     <Language Code="af" InMinimumRequirementSet="true" />
@@ -358,14 +358,11 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>6859TechneGames.NosFURatu</MainPackageIdentityName>
+    <MainPackageIdentityName>NoctisGames.NosFURatu</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>NosFURatu</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames>
-    <MainPackageIdentityName>6859TechneGames.BattleBombsBeta</MainPackageIdentityName>
-    <MainPackageIdentityName>6859TechneGames.InsectoidDefenseX</MainPackageIdentityName>
-  </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH6HLT0" />
+  <AccountPackageIdentityNames />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4NKCS" />
 </StoreAssociation>

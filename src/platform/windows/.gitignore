@@ -11,3 +11,4 @@ BundleArtifacts/
 AppPackages/
 *VC.opendb
 *.dds
+*VC.db
