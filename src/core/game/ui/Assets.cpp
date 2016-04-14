@@ -832,23 +832,23 @@ TextureRegion& Assets::get(Jon* jon)
 {
     if (jon->isTransformingIntoVampire())
     {
-        static Animation transformingIntoVampire = createAnimation(2048, 2048, 256, 256, 2048, 768, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 19);
-        if (!transformingIntoVampire.hasFrameTimes())
+        static Animation anim = createAnimation(2048, 2048, 256, 256, 2048, 768, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 19);
+        if (!anim.hasFrameTimes())
         {
-            transformingIntoVampire.setFrameTimes(19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
+            anim.setFrameTimes(19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
         }
         
-        return transformingIntoVampire.getTextureRegion(jon->getTransformStateTime());
+        return anim.getTextureRegion(jon->getTransformStateTime());
     }
     else if (jon->isRevertingToRabbit())
     {
-        static Animation revertingToRabbit = createAnimation(2048, 2816, 256, 256, 2048, 768, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 19);
-        if (!revertingToRabbit.hasFrameTimes())
+        static Animation anim = createAnimation(2048, 2816, 256, 256, 2048, 768, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 19);
+        if (!anim.hasFrameTimes())
         {
-            revertingToRabbit.setFrameTimes(19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
+            anim.setFrameTimes(19, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.015625f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f, 0.04f);
         }
         
-        return revertingToRabbit.getTextureRegion(jon->getTransformStateTime());
+        return anim.getTextureRegion(jon->getTransformStateTime());
     }
     
     if (jon->isVampire())
@@ -1149,13 +1149,21 @@ TextureRegion& Assets::get(MidBossOwl* owl)
         {
             if (damage == 2)
             {
-                static Animation anim = createAnimation(0, 2560, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06, 8);
+                static Animation anim = createAnimation(0, 2560, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 8);
+                if (!anim.hasFrameTimes())
+                {
+                    anim.setFrameTimes(8, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f);
+                }
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
             else
             {
-                static Animation anim = createAnimation(0, 1024, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06, 8);
+                static Animation anim = createAnimation(0, 1024, 512, 512, 4096, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 8);
+                if (!anim.hasFrameTimes())
+                {
+                    anim.setFrameTimes(8, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f);
+                }
                 
                 return anim.getTextureRegion(owl->getStateTime());
             }
@@ -1163,7 +1171,11 @@ TextureRegion& Assets::get(MidBossOwl* owl)
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
         {
-            static Animation anim = createAnimation(0, 0, 720, 800, 3600, 4000, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 22);
+            static Animation anim = createAnimation(0, 0, 720, 800, 3600, 4000, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 22);
+            if (!anim.hasFrameTimes())
+            {
+                anim.setFrameTimes(22, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
+            }
             
             return anim.getTextureRegion(owl->getStateTime());
         }

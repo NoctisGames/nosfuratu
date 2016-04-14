@@ -35,15 +35,17 @@ void MidBossOwl::update(float deltaTime)
     {
         case MidBossOwlState_Dying:
         {
-            if (m_fStateTime > 2.2f)
+            if (m_fStateTime > 1.7f)
             {
                 setState(MidBossOwlState_Dead);
+                
+                m_fStateTime = 1.7f;
             }
         }
             break;
         case MidBossOwlState_SlammingIntoTree:
         {
-            if (m_fStateTime > 2)
+            if (m_fStateTime > 0.55f)
             {
                 m_velocity->set(0, 0);
                 m_acceleration->set(0, 4);
@@ -66,15 +68,15 @@ void MidBossOwl::update(float deltaTime)
                 if (jon.getVelocity().getX() > 0)
                 {
                     m_velocity->setX(jon.getVelocity().getX());
-                    
-                    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED)
-                    {
-                        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
-                    }
                 }
                 
                 if (getPosition().getY() + getHeight() / 2 < m_fTreeTopY)
                 {
+                    if (m_velocity->getX() > RABBIT_DEFAULT_MAX_SPEED)
+                    {
+                        m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
+                    }
+                    
                     m_velocity->setY(0);
                     
                     m_fTimeUnderTreeTop += deltaTime;
@@ -88,13 +90,24 @@ void MidBossOwl::update(float deltaTime)
                         
                         m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
                         
-                        if (!m_didJonTransform && target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 8.0f)
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 8.0f)
                         {
-                            m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * 11.0f);
-                            
-                            setState(MidBossOwlState_SwoopingDown);
-                            
-                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                            for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+                            {
+                                if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
+                                {
+                                    if (jon.getPosition().dist((*i)->getPosition()) < 7.0f)
+                                    {
+                                        m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (jon.isVampire() ? 20 : 11.0f));
+                                        
+                                        setState(MidBossOwlState_SwoopingDown);
+                                        
+                                        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                                        
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         
                         if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
@@ -136,11 +149,6 @@ void MidBossOwl::update(float deltaTime)
             {
                 Jon& jon = m_game->getJon();
                 
-                if (jon.isVampire())
-                {
-                    m_didJonTransform = true;
-                }
-                
                 if (jon.getVelocity().getX() > 0)
                 {
                     m_velocity->setX(jon.getVelocity().getX());
@@ -159,12 +167,11 @@ void MidBossOwl::update(float deltaTime)
                 float radians = DEGREES_TO_RADIANS(angle);
                 
                 m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
-                m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * 11.0f);
+                m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (m_didJonTransform ? 20 : 11.0f));
                 
-                if (m_didJonTransform
-                    || jon.isTransformingIntoVampire()
-                    || jon.getPosition().getY() > 15
-                    || jon.getPosition().getY() < 9)
+                if (jon.getPosition().getY() > 15
+                    || jon.getPosition().getY() < 9
+                    || m_velocity->getX() < 0)
                 {
                     m_velocity->set(0, 0);
                     m_acceleration->set(0, 4);
@@ -174,12 +181,21 @@ void MidBossOwl::update(float deltaTime)
                 
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
                 {
-                    jon.consume(true);
+                    if (jon.isVampire())
+                    {
+                        jon.kill();
+                        
+                        setState(MidBossOwlState_FlyingOverTree);
+                    }
+                    else
+                    {
+                        jon.consume(true);
+                        
+                        setState(MidBossOwlState_FlyingAwayAfterCatchingJon);
+                    }
                     
                     m_velocity->set(0, 0);
                     m_acceleration->set(0, 4);
-                    
-                    setState(MidBossOwlState_FlyingAwayAfterCatchingJon);
                     
                     return;
                 }
@@ -200,7 +216,7 @@ void MidBossOwl::update(float deltaTime)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            if (jon.getPosition().dist((*i)->getPosition()) < 5.4f)
+                            if (jon.getPosition().dist((*i)->getPosition()) < 6.0f)
                             {
                                 m_iDamage++;
                                 
