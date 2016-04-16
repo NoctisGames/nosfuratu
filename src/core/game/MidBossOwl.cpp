@@ -38,8 +38,8 @@ void MidBossOwl::update(float deltaTime)
             if (m_fStateTime > 1.7f)
             {
                 setState(MidBossOwlState_Dead);
-                
-                m_fStateTime = 1.7f;
+
+				m_position->add(0, 1337);
             }
         }
             break;
