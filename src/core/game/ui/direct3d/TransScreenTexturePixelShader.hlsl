@@ -23,15 +23,17 @@ float4 main(float4 position : SV_POSITION, float2 texcoordIn : TEXCOORD) : SV_TA
     float prog = 1.0 - progress;
     float size = 0.15;
     float2 p = texcoordIn;
-    float r = rand(float2(0, p.y));
+	float r;
     float m = 0.0;
 
     if (isWindowsMobile == 1)
     {
+		r = rand(float2(p.x, 0));
         m = smoothstep(0.0, -size, p.y * (1.0 - size) + size * r - (prog * (1.0 + size)));
     }
     else
     {
+		r = rand(float2(0, p.y));
         m = smoothstep(0.0, -size, p.x * (1.0 - size) + size * r - (prog * (1.0 + size)));
     }
 
