@@ -218,7 +218,6 @@ void Chapter1Level10::update(GameScreen* gs)
              || m_midBossOwl->getState() == MidBossOwlState_Dying)
     {
         m_iLastKnownJonNumBoosts = jon.getNumBoosts();
-        m_isChaseCamActivated = jon.getPosition().getY() > 12;
         
         if (m_midBossOwl->getDamage() > m_iLastKnownOwlDamage)
         {
@@ -226,6 +225,8 @@ void Chapter1Level10::update(GameScreen* gs)
             
             m_exitLoop = true;
         }
+        
+        m_isChaseCamActivated = false;
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
