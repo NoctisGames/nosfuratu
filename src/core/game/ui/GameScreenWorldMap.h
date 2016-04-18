@@ -32,7 +32,7 @@ public:
 class LevelThumbnail : public PhysicalEntity
 {
 public:
-    LevelThumbnail(float x, float y, int world, int level) : PhysicalEntity(x, y, 0.59765625f, 0.5625f),
+    LevelThumbnail(float x, float y, int world, int level) : PhysicalEntity(x, y, 0.66796875f, 0.544921875f),
     m_iWorld(world),
     m_iLevel(level),
     m_isVisible(false),

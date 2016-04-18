@@ -23,7 +23,11 @@ typedef enum
     BatPanelType_None,
     BatPanelType_Jump,
     BatPanelType_DoubleJump,
-    BatPanelType_Burrow
+    BatPanelType_Burrow,
+    BatPanelType_OwlDig,
+    BatPanelType_Transform,
+    BatPanelType_UpwardStrikeGlide,
+    BatPanelType_Stomp
 } BatPanelType;
 
 class BatInstruction : public PhysicalEntity

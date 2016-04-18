@@ -979,8 +979,24 @@ void Renderer::renderHud(Game& game, BackButton* backButton, BatPanel* batPanel,
             
             m_spriteBatcher->beginBatch();
             renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
             m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
+            if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
+            {
+                if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
+                {
+                    m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
+                }
+            }
+            else
+            {
+                if (m_world_1_special.gpuTextureWrapper)
+                {
+                    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
+                }
+            }
         }
     }
 }

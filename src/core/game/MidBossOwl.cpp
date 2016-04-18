@@ -92,22 +92,13 @@ void MidBossOwl::update(float deltaTime)
                         
                         if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 8.0f)
                         {
-                            for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
-                            {
-                                if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
-                                {
-                                    if (jon.getPosition().dist((*i)->getPosition()) < 7.0f)
-                                    {
-                                        m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (jon.isVampire() ? 20 : 11.0f));
-                                        
-                                        setState(MidBossOwlState_SwoopingDown);
-                                        
-                                        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
-                                        
-                                        break;
-                                    }
-                                }
-                            }
+                            m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (jon.isVampire() ? 20 : 11.0f));
+                            
+                            setState(MidBossOwlState_SwoopingDown);
+                            
+                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                            
+                            break;
                         }
                         
                         if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
@@ -216,7 +207,7 @@ void MidBossOwl::update(float deltaTime)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            if (jon.getPosition().dist((*i)->getPosition()) < 6.0f)
+                            if (jon.getPosition().dist((*i)->getPosition()) < 8.0f)
                             {
                                 m_iDamage++;
                                 

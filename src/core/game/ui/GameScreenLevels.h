@@ -70,6 +70,8 @@ protected:
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
     
+    void openBatPanelWithType(BatPanelType batPanelType);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);
     Level(const Level&);
@@ -203,6 +205,7 @@ private:
     float m_fGameStateTime;
     float m_fIdleWaitTime;
     float m_fMusicVolume;
+    int m_iNumAttempts;
     int m_iLastKnownOwlDamage;
     int m_iLastKnownJonNumBoosts;
     bool m_isIdleWaitingForOwl;

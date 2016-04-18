@@ -31,6 +31,7 @@ void Chapter1Level10::enter(GameScreen* gs)
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 1;
     m_hasTriggeredBurrow = false;
+    m_iNumAttempts++;
     
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
     {
@@ -78,6 +79,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
+    m_iNumAttempts = 0;
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 0;
     m_hasTriggeredMidBossMusicLoopIntro = false;
@@ -181,6 +183,11 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (m_midBossOwl->getStateTime() > 0.50f && jon.isIdle())
         {
+            if (m_iNumAttempts > 1)
+            {
+                openBatPanelWithType(BatPanelType_OwlDig);
+            }
+            
             jon.setIdle(false);
         }
         
@@ -251,29 +258,6 @@ void Chapter1Level10::update(GameScreen* gs)
 
 void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
 {
-    if ((m_midBossOwl->getState() == MidBossOwlState_Pursuing
-         || m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
-        && m_game->getJons().size() > 0
-        && m_game->getJon().getPosition().getY() < 12)
-    {
-        for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
-        {
-            if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
-            {
-                if ((*i)->getPosition().dist(m_game->getJon().getPosition()) < 7)
-                {
-                    return;
-                }
-            }
-        }
-    }
-    
-    if ((m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.5f)
-        || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 1.1f))
-    {
-        return;
-    }
-    
     if (m_isChaseCamActivated)
     {
         gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true, instant);
@@ -301,6 +285,7 @@ m_fJonY(0),
 m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
+m_iNumAttempts(0),
 m_iLastKnownOwlDamage(0),
 m_iLastKnownJonNumBoosts(0),
 m_isIdleWaitingForOwl(false),

@@ -108,6 +108,8 @@ public:
     
     float getDyingStateTime();
     
+    int getNumTriggeredJumps();
+    
     int getNumJumps();
     
     int getNumBoosts();
@@ -186,6 +188,7 @@ private:
     float m_fMaxSpeed;
 	float m_fAccelerationX;
     float m_fGravity;
+    int m_iNumTriggeredJumps;
     int m_iNumJumps;
     int m_iNumBoosts;
     bool m_isLanding;

@@ -43,14 +43,27 @@ void BatInstruction::update(float deltaTime)
                 switch (m_type)
                 {
                     case BatPanelType_Jump:
-                        if (jon.getNumJumps() >= 1)
+                        if (jon.getNumTriggeredJumps() >= 1)
                         {
                             m_isShowing = false;
                             m_isRequestingClose = true;
                         }
                         break;
                     case BatPanelType_DoubleJump:
-                        if (jon.getNumJumps() >= 2)
+                        if (jon.getNumTriggeredJumps() >= 2)
+                        {
+                            m_isShowing = false;
+                            m_isRequestingClose = true;
+                        }
+                        break;
+                    case BatPanelType_Transform:
+                        if (jon.isVampire())
+                        {
+                            show(BatPanelType_UpwardStrikeGlide);
+                        }
+                        break;
+                    case BatPanelType_UpwardStrikeGlide:
+                        if (jon.getNumTriggeredJumps() >= 2)
                         {
                             m_isShowing = false;
                             m_isRequestingClose = true;
@@ -58,6 +71,20 @@ void BatInstruction::update(float deltaTime)
                         break;
                     case BatPanelType_Burrow:
                         if (jon.getAbilityState() == ABILITY_BURROW)
+                        {
+                            m_isShowing = false;
+                            m_isRequestingClose = true;
+                        }
+                        break;
+                    case BatPanelType_OwlDig:
+                        if (jon.getPosition().getY() > 12)
+                        {
+                            m_isShowing = false;
+                            m_isRequestingClose = true;
+                        }
+                        break;
+                    case BatPanelType_Stomp:
+                        if (jon.getAbilityState() == ABILITY_STOMP)
                         {
                             m_isShowing = false;
                             m_isRequestingClose = true;
@@ -83,6 +110,41 @@ void BatInstruction::show(BatPanelType type)
     m_fStateTime = 0;
     m_isShowing = true;
     m_isRequestingClose = false;
+    
+    switch (m_type)
+    {
+        case BatPanelType_Jump:
+            m_fWidth = 2.583984375f;
+            m_fHeight = 0.861328125f;
+            break;
+        case BatPanelType_DoubleJump:
+            m_fWidth = 3.05859375f;
+            m_fHeight = 1.037109375f;
+            break;
+        case BatPanelType_Burrow:
+            m_fWidth = 2.056640625f;
+            m_fHeight = 0.73828125f;
+            break;
+        case BatPanelType_OwlDig:
+            m_fWidth = 2.671875f;
+            m_fHeight = 1.001953125f;
+            break;
+        case BatPanelType_Transform:
+            m_fWidth = 1.96875f;
+            m_fHeight = 0.685546875f;
+            break;
+        case BatPanelType_UpwardStrikeGlide:
+            m_fWidth = 3.0234375f;
+            m_fHeight = 1.001953125f;
+            break;
+        case BatPanelType_Stomp:
+            m_fWidth = 2.267578125f;
+            m_fHeight = 0.826171875f;
+            break;
+        case BatPanelType_None:
+        default:
+            break;
+    }
 }
 
 bool BatInstruction::isShowing()
@@ -112,7 +174,7 @@ m_color(1, 1, 1, 1),
 m_isOpen(false),
 m_isOpening(false)
 {
-    m_batInstruction = std::unique_ptr<BatInstruction>(new BatInstruction(x, y, width, height));
+    m_batInstruction = std::unique_ptr<BatInstruction>(new BatInstruction(x - 1.23046875f / 2, y, width, height));
 }
 
 void BatPanel::update(float deltaTime)

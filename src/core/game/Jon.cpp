@@ -33,6 +33,7 @@ m_abilityState(ABILITY_NONE),
 m_groundSoundType(GROUND_SOUND_NONE),
 m_color(1, 1, 1, 1),
 m_fDeltaTime(0),
+m_iNumTriggeredJumps(0),
 m_iNumJumps(0),
 m_iNumBoosts(0),
 m_isLanding(false),
@@ -161,6 +162,7 @@ void Jon::update(float deltaTime)
 
 		m_acceleration->set(m_isAllowedToMove && !m_isIdle ? m_fAccelerationX : 0, 0);
 		m_velocity->setY(0);
+        m_iNumTriggeredJumps = 0;
 		m_iNumJumps = 0;
 		m_fMaxSpeed = m_fDefaultMaxSpeed;
 		setState(ACTION_NONE);
@@ -382,6 +384,11 @@ float Jon::getTransformStateTime()
 float Jon::getDyingStateTime()
 {
 	return m_fDyingStateTime;
+}
+
+int Jon::getNumTriggeredJumps()
+{
+    return m_iNumTriggeredJumps;
 }
 
 int Jon::getNumJumps()
@@ -707,6 +714,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 		jon->setState(jon->m_iNumJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         jon->setState(ABILITY_NONE);
 
+        jon->m_iNumTriggeredJumps++;
 		jon->m_iNumJumps++;
 
 		Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_RABBIT_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
@@ -1039,6 +1047,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 			}
 		}
 
+        jon->m_iNumTriggeredJumps++;
 		jon->m_iNumJumps++;
 
 		Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);

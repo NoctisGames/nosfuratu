@@ -539,6 +539,11 @@ bool Level::handleTouchInput(GameScreen* gs)
     return false;
 }
 
+void Level::openBatPanelWithType(BatPanelType batPanelType)
+{
+    m_batPanel->open(batPanelType);
+}
+
 BatPanelType Level::getBatPanelType()
 {
     if (m_game->getWorld() == 1 && m_game->getLevel() == 1)
@@ -549,9 +554,17 @@ BatPanelType Level::getBatPanelType()
     {
         return BatPanelType_DoubleJump;
     }
+    else if (m_game->getWorld() == 1 && m_game->getLevel() == 3)
+    {
+        return BatPanelType_Transform;
+    }
     else if (m_game->getWorld() == 1 && m_game->getLevel() == 10)
     {
         return BatPanelType_Burrow;
+    }
+    else if (m_game->getWorld() == 1 && m_game->getLevel() == 11)
+    {
+        return BatPanelType_Stomp;
     }
     
     return BatPanelType_None;
