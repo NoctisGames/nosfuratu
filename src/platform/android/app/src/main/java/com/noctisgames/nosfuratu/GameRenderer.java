@@ -95,6 +95,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("mid_boss_bgm_intro.wav"));
         _sounds.add(_audio.newSound("mid_boss_owl_swoop.wav"));
         _sounds.add(_audio.newSound("mid_boss_owl_tree_smash.wav"));
+        _sounds.add(_audio.newSound("mid_boss_owl_death.wav"));
 
         Game.init();
 
@@ -127,9 +128,9 @@ public final class GameRenderer implements Renderer
         _startTime = System.nanoTime();
 
         int requestedAction = Game.get_requested_action();
-        if (requestedAction >= 1000)
+        if (requestedAction >= 100000)
         {
-            requestedAction /= 1000;
+            requestedAction /= 100000;
         }
 
         switch (requestedAction)
@@ -268,10 +269,10 @@ public final class GameRenderer implements Renderer
                     float volume = rawMusicId / 100.0f;
                     if (volume < 0)
                     {
-						volume = 0;
+                        volume = 0;
                     }
 
-					_bgm.setVolume(volume);
+                    _bgm.setVolume(volume);
                 }
                 break;
             case MUSIC_PLAY_WORLD_1_LOOP:
@@ -377,8 +378,9 @@ public final class GameRenderer implements Renderer
     {
         int world = calcWorld(requestedAction);
         int level = calcLevel(requestedAction);
+        int goldenCarrotsFlag = calcGoldenCarrotsFlag(requestedAction);
 
-        SaveData.setLevelComplete(world, level);
+        SaveData.setLevelComplete(world, level, goldenCarrotsFlag);
 
         sendLevelCompletions();
     }
@@ -391,9 +393,9 @@ public final class GameRenderer implements Renderer
             userSaveData += "\"world_" + i + "\":[";
             for (int j = 1; j <= 21; j++)
             {
-                int isLevelCompleted = SaveData.isLevelComplete(i, j) ? 1 : 0;
+                int levelStats = SaveData.getLevelStats(i, j);
 
-                userSaveData += "" + isLevelCompleted;
+                userSaveData += "" + levelStats;
                 if (j < 21)
                 {
                     userSaveData += ",";
@@ -429,14 +431,14 @@ public final class GameRenderer implements Renderer
     {
         int world = 0;
 
-        while (requestedAction >= 1000)
+        while (requestedAction >= 100000)
         {
-            requestedAction -= 1000;
+            requestedAction -= 100000;
         }
 
-        while (requestedAction >= 100)
+        while (requestedAction >= 10000)
         {
-            requestedAction -= 100;
+            requestedAction -= 10000;
             world++;
         }
 
@@ -447,9 +449,35 @@ public final class GameRenderer implements Renderer
     {
         int level = 0;
 
-        while (requestedAction >= 1000)
+        while (requestedAction >= 100000)
         {
-            requestedAction -= 1000;
+            requestedAction -= 100000;
+        }
+
+        while (requestedAction >= 10000)
+        {
+            requestedAction -= 10000;
+        }
+
+        while (requestedAction >= 100)
+        {
+            requestedAction -= 100;
+            level++;
+        }
+
+        return level;
+    }
+
+    private int calcGoldenCarrotsFlag(int requestedAction)
+    {
+        while (requestedAction >= 100000)
+        {
+            requestedAction -= 100000;
+        }
+
+        while (requestedAction >= 10000)
+        {
+            requestedAction -= 10000;
         }
 
         while (requestedAction >= 100)
@@ -457,12 +485,6 @@ public final class GameRenderer implements Renderer
             requestedAction -= 100;
         }
 
-        while (requestedAction >= 1)
-        {
-            requestedAction--;
-            level++;
-        }
-
-        return level;
+        return requestedAction;
     }
 }

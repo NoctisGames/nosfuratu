@@ -15,7 +15,7 @@
 class WorldMapPanel : public PhysicalEntity
 {
 public:
-    WorldMapPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
+    WorldMapPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT * 1.33333333333333f / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT * 1.33333333333333f);
 };
 
 #endif /* defined(__nosfuratu__WorldMapPanel__) */

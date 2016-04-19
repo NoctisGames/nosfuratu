@@ -250,9 +250,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         
                         resetEntities(true);
                         
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
-                        gs->m_iRequestedAction += m_iWorld * 100;
-                        gs->m_iRequestedAction += m_iLevel;
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 100000;
+                        gs->m_iRequestedAction += m_iWorld * 10000;
+                        gs->m_iRequestedAction += m_iLevel * 100;
                     }
                         break;
                     case LEVEL_SELECTOR_PANEL_RC_HANDLED:
@@ -375,7 +375,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET:
                     if (m_game->getMarkers().size() < 2)
                     {
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_OFFSET_NEEDS_MARKERS_KEY;
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_OFFSET_NEEDS_MARKERS_KEY;
                     }
                     else
                     {
@@ -403,9 +403,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     if (isLevelValid(gs))
                     {
                         resetEntities(true);
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
-                        gs->m_iRequestedAction += m_iWorld * 100;
-                        gs->m_iRequestedAction += m_iLevel;
+                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 100000;
+                        gs->m_iRequestedAction += m_iWorld * 10000;
+                        gs->m_iRequestedAction += m_iLevel * 100;
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
@@ -681,31 +681,31 @@ bool GameScreenLevelEditor::isLevelValid(GameScreen *gs)
 {
     if (!m_game->hasEndSign())
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_END_SIGN_KEY;
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_NO_END_SIGN_KEY;
         return false;
     }
     
     if (m_game->getJons().size() == 0)
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_JON_KEY;
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_NO_JON_KEY;
         return false;
     }
     
     if (m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_JON_KEY;
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_INVALID_JON_KEY;
         return false;
     }
     
     if (m_game->getCountHissWithMinas().size() == 0)
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_NO_COUNT_HISS_KEY;
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_NO_COUNT_HISS_KEY;
         return false;
     }
     
     if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_COUNT_HISS_KEY;
+        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE * 100000 + MESSAGE_INVALID_COUNT_HISS_KEY;
         return false;
     }
     

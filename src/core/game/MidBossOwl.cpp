@@ -221,7 +221,7 @@ void MidBossOwl::update(float deltaTime)
                                     m_fWidth = MID_BOSS_OWL_DYING_WIDTH;
                                     m_fHeight = MID_BOSS_OWL_DYING_HEIGHT;
                                     
-                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH); // TODO, replace with special DYING sound
+                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_DEATH);
                                 }
                                 else
                                 {

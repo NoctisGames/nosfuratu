@@ -58,7 +58,7 @@ namespace NosFURatu
 		void saveLevel(int requestedAction);
 		void loadLevel(int requestedAction);
 		void markLevelAsCompleted(int requestedAction);
-		void sendLevelCompletions();
+		void sendLevelStats();
         void showMessage(int requestedAction);
 
 		Platform::String^ getLevelName(int requestedAction);
@@ -66,6 +66,8 @@ namespace NosFURatu
 		int calcWorld(int requestedAction);
 
 		int calcLevel(int requestedAction);
+        
+        int calcGoldenCarrotsFlag(int requestedAction);
 
 		void displayToast(Platform::String^ message);
 	};

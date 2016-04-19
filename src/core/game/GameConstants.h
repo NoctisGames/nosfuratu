@@ -18,13 +18,13 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
-// Save, Load, and Completed actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
+// Save, Load, and Completed actions are passed in this format: [1-3][1-5][1-21][0-15], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
 #define REQUESTED_ACTION_LEVEL_COMPLETED 3
 
-#define REQUESTED_ACTION_GET_LEVEL_COMPLETIONS 4
-#define REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE 5 // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
+#define REQUESTED_ACTION_GET_LEVEL_STATS 4
+#define REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE 5 // Passed in this format: [5][00001-9], where the first digit is the action and the rest determines the actual message (defined below)
 
 #define MESSAGE_NO_END_SIGN_KEY 1
 #define MESSAGE_NO_END_SIGN_VALUE "Cannot save or test a level that does not contain an End Sign"
@@ -88,6 +88,7 @@
 #define SOUND_MID_BOSS_LOOP_INTRO 33
 #define SOUND_MID_BOSS_SWOOP_DOWN 34
 #define SOUND_MID_BOSS_TREE_SMASH 35
+#define SOUND_MID_BOSS_DEATH 36
 
 //// Render Definitions ////
 
@@ -122,6 +123,14 @@
 #define RABBIT_DEFAULT_ACCELERATION 6.0f
 #define VAMP_DEFAULT_MAX_SPEED 11.0f
 #define VAMP_DEFAULT_ACCELERATION 8.0f
+
+//// Flag Definitions ////
+
+#define FLAG_LEVEL_COMPLETE 1
+#define FLAG_FIRST_GOLDEN_CARROT_COLLECTED 2
+#define FLAG_SECOND_GOLDEN_CARROT_COLLECTED 4
+#define FLAG_THIRD_GOLDEN_CARROT_COLLECTED 8
+#define FLAG_BONUS_GOLDEN_CARROT_COLLECTED 16
 
 //// Render Definitions ////
 

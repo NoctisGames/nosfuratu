@@ -51,7 +51,7 @@ void WorldMap::enter(GameScreen* gs)
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
     
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_LEVEL_COMPLETIONS;
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_LEVEL_STATS;
 }
 
 void WorldMap::execute(GameScreen* gs)
@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_backButton.get());
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get());
         }
         
         gs->m_renderer->renderToScreen();
@@ -86,6 +86,11 @@ void WorldMap::execute(GameScreen* gs)
         if (m_isReadyForTransition)
         {
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
+        }
+        
+        for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+        {
+            (*j)->update(gs->m_fDeltaTime);
         }
         
         gs->processTouchEvents();
@@ -113,11 +118,18 @@ void WorldMap::execute(GameScreen* gs)
                             {
                                 int worldToLoad = (*j)->getWorld();
                                 int levelToLoad = (*j)->getLevel();
+                                int goldenCarrotsFlag = (*j)->getGoldenCarrotsFlag();
                                 
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
                                 
-                                m_isReadyForTransition = true;
+                                if (m_menu->getWorld() == worldToLoad
+                                    && m_menu->getLevel() == levelToLoad)
+                                {
+                                    m_isReadyForTransition = true;
+                                }
+                                
+                                m_menu->setLevelStats(worldToLoad, levelToLoad, goldenCarrotsFlag);
                             }
                         }
                     }
@@ -135,7 +147,9 @@ void WorldMap::exit(GameScreen* gs)
 
 void WorldMap::loadUserSaveData(const char* json)
 {
-    m_worldLevelCompletions.clear();
+    m_worldLevelStats.clear();
+    
+    m_menu->setLevelStats(-1, -1, 0);
     
     rapidjson::Document d;
     d.Parse<0>(json);
@@ -151,25 +165,45 @@ void WorldMap::loadUserSaveData(const char* json)
         int worldIndex = (*j)->getWorld() - 1;
         int levelIndex = (*j)->getLevel() - 1;
         
-        bool isComplete = m_worldLevelCompletions.at(worldIndex)->m_levelCompletions.at(levelIndex);
+        int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
         
-        bool isPreviousLevelComplete = false;
+        (*j)->setLevelStats(levelStats);
+        
+        int previousLevelStats = false;
         if (worldIndex == 0 && levelIndex == 0)
         {
-            isPreviousLevelComplete = true;
+            previousLevelStats = 1;
         }
         else
         {
             int previousLevelIndex = levelIndex == 0 ? 21 : levelIndex - 1;
             int previousWorldIndex = levelIndex == 0 ? worldIndex - 1 : worldIndex;
             
-            isPreviousLevelComplete = m_worldLevelCompletions.at(previousWorldIndex)->m_levelCompletions.at(previousLevelIndex);
+            previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
         }
         
-        (*j)->setVisible(isPreviousLevelComplete);
-        (*j)->setCompleted(isComplete);
+        (*j)->setVisible(previousLevelStats > 0);
+        (*j)->setCompleted(levelStats > 0);
         
-        (*j)->setVisible(true);
+        if ((*j)->isVisible())
+        {
+            if ((*j)->isCompleted())
+            {
+                int nextLevelIndex = levelIndex == 21 ? 0 : levelIndex + 1;
+                int nextWorldIndex = levelIndex == 21 ? worldIndex + 1 : worldIndex;
+                
+                int nextLevelStats = m_worldLevelStats.at(nextWorldIndex)->m_levelStats.at(nextLevelIndex);
+                
+                if (nextLevelStats == 0)
+                {
+                    (*j)->animate(0);
+                }
+            }
+            else
+            {
+                (*j)->animate(0.60f);
+            }
+        }
     }
 }
 
@@ -183,9 +217,19 @@ WorldMapPanel* WorldMap::getWorldMapPanel()
     return m_panel.get();
 }
 
+WorldMapMenu* WorldMap::getWorldMapMenu()
+{
+    return m_menu.get();
+}
+
 BackButton* WorldMap::getBackButton()
 {
     return m_backButton.get();
+}
+
+float WorldMap::getCamPosY()
+{
+    return m_fCamPosY;
 }
 
 #pragma mark private
@@ -203,41 +247,42 @@ void WorldMap::loadUserSaveData(rapidjson::Document& d, const char * key)
         
         for (SizeType i = 0; i < v.Size(); i++)
         {
-            bool isComplete = v[i].GetInt();
-            wlc->m_levelCompletions.push_back(isComplete);
+            int levelStats = v[i].GetInt();
+            wlc->m_levelStats.push_back(levelStats);
         }
         
-        m_worldLevelCompletions.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
+        m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
     }
 }
 
-WorldMap::WorldMap() : m_isReadyForTransition(false)
+WorldMap::WorldMap() : m_fCamPosY(0), m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
+    m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());
     m_backButton = std::unique_ptr<BackButton>(new BackButton());
     
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 7.8f, 1, 1)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 7.8f, 1, 2)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 7.8f, 1, 3)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 7.8f, 1, 4)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 7.8f, 1, 5)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 7.8f, 1, 6)));
+    float pW = m_panel->getWidth();
+    float pH = m_panel->getHeight();
     
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 6.3f, 1, 7)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 6.3f, 1, 8)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 6.3f, 1, 9)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(11.0f, 5.4f, 1, 10)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 6.3f, 1, 11)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 6.3f, 1, 12)));
-//    
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(2.0f, 4.8f, 1, 13)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.5f, 4.8f, 1, 14)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(7.0f, 4.8f, 1, 15)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(9.5f, 4.8f, 1, 16)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 4.8f, 1, 17)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(14.5f, 4.8f, 1, 18)));
-//    
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(4.0f, 3.3f, 1, 19)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(8.0f, 3.3f, 1, 20)));
-//    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(12.0f, 3.3f, 1, 21)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.193359375f, pH * 0.21875f, 1, 1)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.158203125f, pH * 0.359375f, 1, 2)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.072265625f, pH * 0.4609375f, 1, 3)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.2109375f, pH * 0.52864583333333f, 1, 4)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.333984375f, pH * 0.38802083333333f, 1, 5)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.544921875f, pH * 0.33333333333333f, 1, 6)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.6171875f, pH * 0.21875f, 1, 7)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.716796875f, pH * 0.30989583333333f, 1, 8)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.87890625f, pH * 0.390625f, 1, 9)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.72265625f, pH * 0.45052083333333f, 1, 10)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.546875f, pH * 0.46614583333333f, 1, 11)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.517578125f, pH * 0.61197916666667f, 1, 12)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.3828125f, pH * 0.625f, 1, 13)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.33203125f, pH * 0.7578125f, 1, 14)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.181640625f, pH * 0.83072916666667f, 1, 15)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.322265625f, pH * 0.88020833333333f, 1, 16)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.462890625f, pH * 0.77864583333333f, 1, 17)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.556640625f, pH * 0.88020833333333f, 1, 18)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.62109375f, pH * 0.73697916666667f, 1, 19)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.7421875f, pH * 0.7578125f, 1, 20)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.896484375f, pH * 0.77864583333333f, 1, 21)));
 }

@@ -62,6 +62,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("mid_boss_bgm_intro.wav");
 	m_sounds.push_back("mid_boss_owl_swoop.wav");
 	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
+    m_sounds.push_back("mid_boss_owl_death.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -161,9 +162,9 @@ void NosFURatuMain::Update()
 	m_timer.Tick([&]()
 	{
 		int requestedAction = m_gameScreen->getRequestedAction();
-		if (requestedAction >= 1000)
+		if (requestedAction >= 100000)
 		{
-			requestedAction /= 1000;
+			requestedAction /= 100000;
 		}
 
 		switch (requestedAction)
@@ -180,8 +181,8 @@ void NosFURatuMain::Update()
 			markLevelAsCompleted(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
-		case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
-			sendLevelCompletions();
+		case REQUESTED_ACTION_GET_LEVEL_STATS:
+			sendLevelStats();
 			m_gameScreen->clearRequestedAction();
 			break;
 		case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
@@ -454,13 +455,14 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 {
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
+    int goldenCarrotsFlag = calcGoldenCarrotsFlag(requestedAction);
 
-	SaveData::setLevelComplete(world, level);
+	SaveData::setLevelComplete(world, level, goldenCarrotsFlag);
 
 	sendLevelCompletions();
 }
 
-void NosFURatuMain::sendLevelCompletions()
+void NosFURatuMain::sendLevelStats()
 {
 	std::stringstream ss;
 	ss << "{";
@@ -470,9 +472,9 @@ void NosFURatuMain::sendLevelCompletions()
 		ss << "\"world_" << i << "\":[";
 		for (int j = 1; j <= 21; j++)
 		{
-			bool isLevelCompleted = SaveData::isLevelComplete(i, j);
+			int levelStats = SaveData::getLevelStats(i, j);
 
-			ss << "" << isLevelCompleted;
+			ss << "" << levelStats;
 			if (j < 21)
 			{
 				ss << ",";
@@ -556,43 +558,63 @@ Platform::String^ NosFURatuMain::getLevelName(int requestedAction)
 
 int NosFURatuMain::calcWorld(int requestedAction)
 {
-	int world = 0;
-
-	while (requestedAction >= 1000)
-	{
-		requestedAction -= 1000;
-	}
-
-	while (requestedAction >= 100)
-	{
-		requestedAction -= 100;
-		world++;
-	}
-
-	return world;
+    int world = 0;
+    
+    while (requestedAction >= 100000)
+    {
+        requestedAction -= 100000;
+    }
+    
+    while (requestedAction >= 10000)
+    {
+        requestedAction -= 10000;
+        world++;
+    }
+    
+    return world;
 }
 
 int NosFURatuMain::calcLevel(int requestedAction)
 {
-	int level = 0;
+    int level = 0;
+    
+    while (requestedAction >= 100000)
+    {
+        requestedAction -= 100000;
+    }
+    
+    while (requestedAction >= 10000)
+    {
+        requestedAction -= 10000;
+    }
+    
+    while (requestedAction >= 100)
+    {
+        requestedAction -= 100;
+        level++;
+    }
+    
+    return level;
+}
 
-	while (requestedAction >= 1000)
-	{
-		requestedAction -= 1000;
-	}
-
-	while (requestedAction >= 100)
-	{
-		requestedAction -= 100;
-	}
-
-	while (requestedAction >= 1)
-	{
-		requestedAction--;
-		level++;
-	}
-
-	return level;
+int NosFURatuMain::calcGoldenCarrotsFlag(int requestedAction)
+{
+    while (requestedAction >= 100000)
+    {
+        requestedAction -= 100000;
+    }
+    
+    while (requestedAction >= 10000)
+    {
+        requestedAction -= 10000;
+    }
+    
+    while (requestedAction >= 100)
+    {
+        requestedAction -= 100;
+    }
+    
+    return requestedAction;
 }
 
 void NosFURatuMain::displayToast(Platform::String^ message)

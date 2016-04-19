@@ -102,7 +102,7 @@ GpuTextureDataWrapper* OpenGLESRenderer::loadTextureData(const char* textureName
     
     GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(load_png_asset(textureFileName));
     
-    delete textureFileName;
+    delete[] textureFileName;
     
     return tdw;
 }

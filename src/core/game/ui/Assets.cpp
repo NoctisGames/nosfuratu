@@ -41,7 +41,7 @@ TextureRegion& Assets::get(TitlePanel* panel)
 
 TextureRegion& Assets::get(WorldMapPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(0, 192, 1024, 576, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 0, 1024, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
@@ -49,14 +49,80 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
 {
     if (thumbnail->isCompleted())
     {
-        static TextureRegion tr = TextureRegion(608, 772, 76, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-        return tr;
+        static Animation anim = Animation(304, 772, 76, 62, 456, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
+        return anim.getTextureRegion(thumbnail->getStateTime());
     }
     else
     {
-        static TextureRegion tr = TextureRegion(152, 772, 76, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-        return tr;
+        static Animation anim = Animation(0, 772, 76, 62, 304, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 4);
+        return anim.getTextureRegion(thumbnail->getStateTime());
     }
+}
+
+TextureRegion& Assets::get(WorldMapMenu* worldMapMenu)
+{
+    static TextureRegion tr = TextureRegion(0, 900, 944, 132, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
+}
+
+TextureRegion& Assets::get(WorldMapMenuAbilitySlot* worldMapMenuAbilitySlot)
+{
+    switch (worldMapMenuAbilitySlot->getWorldMapMenuAbilitySlotType())
+    {
+        case ABILITY_SLOT_LOCKED:
+        {
+            static TextureRegion tr = TextureRegion(0, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_RABBIT_RIGHT:
+        {
+            static TextureRegion tr = TextureRegion(48, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_RABBIT_UP:
+        {
+            static TextureRegion tr = TextureRegion(96, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_RABBIT_LEFT:
+        {
+            static TextureRegion tr = TextureRegion(144, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_RABBIT_DOWN:
+        {
+            static TextureRegion tr = TextureRegion(192, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_VAMPIRE_RIGHT:
+        {
+            static TextureRegion tr = TextureRegion(240, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_VAMPIRE_UP:
+        {
+            static TextureRegion tr = TextureRegion(288, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_VAMPIRE_LEFT:
+        {
+            static TextureRegion tr = TextureRegion(336, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case ABILITY_SLOT_VAMPIRE_DOWN:
+        {
+            static TextureRegion tr = TextureRegion(384, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(WorldMapGoldenCarrot* worldMapGoldenCarrot)
+{
+    static TextureRegion tr = TextureRegion(0, 1258, 96, 80, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
 }
 
 TextureRegion& Assets::get(Background* background)

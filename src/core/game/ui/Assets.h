@@ -43,6 +43,9 @@ class ForegroundObject;
 class TitlePanel;
 class WorldMapPanel;
 class LevelThumbnail;
+class WorldMapMenu;
+class WorldMapMenuAbilitySlot;
+class WorldMapGoldenCarrot;
 class CountHissWithMina;
 class BatInstruction;
 class BatPanel;
@@ -57,6 +60,12 @@ public:
     TextureRegion& get(WorldMapPanel* panel);
     
     TextureRegion& get(LevelThumbnail* thumbnail);
+    
+    TextureRegion& get(WorldMapMenu* worldMapMenu);
+    
+    TextureRegion& get(WorldMapMenuAbilitySlot* worldMapMenuAbilitySlot);
+    
+    TextureRegion& get(WorldMapGoldenCarrot* worldMapGoldenCarrot);
     
     TextureRegion& get(Background* background);
     

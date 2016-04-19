@@ -190,18 +190,6 @@ public:
     }
     
     template<typename T>
-    static void handleCollections(PhysicalEntity& entity, std::vector<T>& items, float deltaTime)
-    {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
-            {
-                (*i)->collect();
-            }
-        }
-    }
-    
-    template<typename T>
     static bool isHittingFromBelow(Jon& jon, std::vector<T>& items, float deltaTime)
     {
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)

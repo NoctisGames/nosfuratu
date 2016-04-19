@@ -11,8 +11,8 @@
     // Empty
 }
 
-+ (BOOL)isLevelComplete:(int)world level:(int)level;
++ (int)getLevelStats:(int)world level:(int)level;
 
-+ (void)setLevelComplete:(int)world level:(int)level;
++ (void)setLevelComplete:(int)world level:(int)level goldenCarrotsFlag:(int)gcf;
 
 @end

@@ -8,6 +8,7 @@
 
 #include "CollectibleItem.h"
 #include "GameConstants.h"
+#include "Game.h"
 
 CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 {
@@ -53,4 +54,26 @@ bool CollectibleItem::isCollected()
 CollectibleItemType CollectibleItem::getType()
 {
     return m_type;
+}
+
+void GoldenCarrot::init(Game* game)
+{
+    int index = 0;
+    for (std::vector<CollectibleItem *>::iterator i = game->getCollectibleItems().begin(); i != game->getCollectibleItems().end(); i++)
+    {
+        if (dynamic_cast<GoldenCarrot *>((*i)))
+        {
+            if ((*i) == this)
+            {
+                m_iIndex = index;
+            }
+            
+            index++;
+        }
+    }
+}
+
+int GoldenCarrot::getIndex()
+{
+    return m_iIndex;
 }

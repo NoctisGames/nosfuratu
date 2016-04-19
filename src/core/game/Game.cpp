@@ -526,6 +526,15 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
     
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    {
+        if (dynamic_cast<GoldenCarrot *>((*i)))
+        {
+            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+            gc->init(this);
+        }
+    }
+    
     m_iNumTotalCarrots = getNumRemainingCarrots();
     m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     

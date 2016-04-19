@@ -162,6 +162,7 @@
 		BBC38DF51CA03E80001B178C /* c_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBC38DE81CA03E80001B178C /* c_world_1_special.png */; };
 		BBC7B87B1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */; };
 		BBC7B87F1BC32E0300140BCA /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */; };
+		BBC99DC11CC562E400F9E2EB /* mid_boss_owl_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */; };
 		BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */; };
 		BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */; };
 		BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CD1CAE0D2800E5387A /* ConfirmResetPanel.cpp */; };
@@ -512,6 +513,7 @@
 		BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sin_wave_texture_shader.fsh; sourceTree = "<group>"; };
 		BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrashCan.cpp; sourceTree = "<group>"; };
 		BBC7B87E1BC32E0300140BCA /* TrashCan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrashCan.h; sourceTree = "<group>"; };
+		BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mid_boss_owl_death.wav; sourceTree = "<group>"; };
 		BBCA207A1C90A8280081DCC3 /* GpuTextureDataWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpuTextureDataWrapper.h; sourceTree = "<group>"; };
 		BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
 		BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level21.cpp; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 				BB939C931C626E41006D945A /* landing_grass.wav */,
 				BB779B1F1CB32AC0002B29AD /* mid_boss_bgm_intro.wav */,
 				BB779B201CB32AC0002B29AD /* mid_boss_bgm.wav */,
+				BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */,
 				BB7C20D31CB81FB0003E3583 /* mid_boss_owl_swoop.wav */,
 				BB7C20D51CB92D11003E3583 /* mid_boss_owl_tree_smash.wav */,
 				BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */,
@@ -1500,6 +1503,7 @@
 				BB32DE8A1C66F43700F98904 /* world_1_background_mid.png in Resources */,
 				BB939CE71C626E41006D945A /* landing_cave.wav in Resources */,
 				BB939CE01C626E41006D945A /* footstep_right_grass.wav in Resources */,
+				BBC99DC11CC562E400F9E2EB /* mid_boss_owl_death.wav in Resources */,
 				BBC38DF11CA03E80001B178C /* c_world_1_mid_boss_part_2.png in Resources */,
 				BB939CDC1C626E41006D945A /* destroy_rock.wav in Resources */,
 				BB264FF71C8F546E0091EA96 /* world_map_screen.png in Resources */,

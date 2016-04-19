@@ -40,6 +40,7 @@ class LevelEditorButton;
 class GameScreenLevelEditor;
 class TitlePanel;
 class WorldMapPanel;
+class WorldMapMenu;
 class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
@@ -93,7 +94,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, BackButton* backButton);
+    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, BackButton* backButton);
     
     void renderWorld(Game& game);
     

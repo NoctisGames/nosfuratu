@@ -13,6 +13,9 @@
 #include "BackButton.h"
 #include "LevelEditorButton.h"
 #include "BatPanel.h"
+#include "OverlapTester.h"
+#include "CollectibleItem.h"
+#include "FlagUtil.h"
 
 #include <memory>
 
@@ -49,6 +52,7 @@ protected:
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;
     float m_fShockwaveElapsedTime;
+    int m_iGoldenCarrotsLevelCompletionFlag;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;
@@ -79,6 +83,37 @@ protected:
     
 private:
     BatPanelType getBatPanelType();
+    
+    void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
+    {
+        for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
+            {
+                (*i)->collect();
+                
+                if (dynamic_cast<GoldenCarrot *>((*i)))
+                {
+                    GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+                    
+                    switch (gc->getIndex())
+                    {
+                        case 0:
+                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED);
+                            break;
+                        case 1:
+                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED);
+                            break;
+                        case 2:
+                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
 };
 
 class Chapter1Level1 : public Level

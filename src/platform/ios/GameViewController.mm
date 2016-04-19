@@ -121,9 +121,9 @@
 - (void)update
 {
     int requestedAction = gameScreen->getRequestedAction();
-    if (requestedAction >= 1000)
+    if (requestedAction >= 100000)
     {
-        requestedAction /= 1000;
+        requestedAction /= 100000;
     }
     
     switch (requestedAction)
@@ -143,8 +143,8 @@
             [self markLevelAsCompleted:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
-            [self sendLevelCompletions];
+        case REQUESTED_ACTION_GET_LEVEL_STATS:
+            [self sendLevelStats];
             gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
@@ -313,13 +313,14 @@
 {
     int world = [self calcWorld:requestedAction];
     int level = [self calcLevel:requestedAction];
+    int goldenCarrotsFlag = [self calcGoldenCarrotsFlag:requestedAction];
     
-    [SaveData setLevelComplete:world level:level];
+    [SaveData setLevelComplete:world level:level goldenCarrotsFlag:goldenCarrotsFlag];
     
-    [self sendLevelCompletions];
+    [self sendLevelStats];
 }
 
-- (void)sendLevelCompletions
+- (void)sendLevelStats
 {
     NSString* userSaveData = @"{";
     for (int i = 1; i <= 5; i++)
@@ -327,9 +328,9 @@
         userSaveData = [userSaveData stringByAppendingFormat:@"\"world_%i\":[", i];
         for (int j = 1; j <= 21; j++)
         {
-            bool isLevelCompleted = [SaveData isLevelComplete:i level:j];
+            int levelStats = [SaveData getLevelStats:i level:j];
             
-            userSaveData = [userSaveData stringByAppendingFormat:@"%i", isLevelCompleted];
+            userSaveData = [userSaveData stringByAppendingFormat:@"%i", levelStats];
             if (j < 21)
             {
                 userSaveData = [userSaveData stringByAppendingString:@","];
@@ -409,14 +410,14 @@
 {
     int world = 0;
     
-    while (requestedAction >= 1000)
+    while (requestedAction >= 100000)
     {
-        requestedAction -= 1000;
+        requestedAction -= 100000;
     }
     
-    while (requestedAction >= 100)
+    while (requestedAction >= 10000)
     {
-        requestedAction -= 100;
+        requestedAction -= 10000;
         world++;
     }
     
@@ -427,9 +428,35 @@
 {
     int level = 0;
     
-    while (requestedAction >= 1000)
+    while (requestedAction >= 100000)
     {
-        requestedAction -= 1000;
+        requestedAction -= 100000;
+    }
+    
+    while (requestedAction >= 10000)
+    {
+        requestedAction -= 10000;
+    }
+    
+    while (requestedAction >= 100)
+    {
+        requestedAction -= 100;
+        level++;
+    }
+    
+    return level;
+}
+
+- (int)calcGoldenCarrotsFlag:(int)requestedAction
+{
+    while (requestedAction >= 100000)
+    {
+        requestedAction -= 100000;
+    }
+    
+    while (requestedAction >= 10000)
+    {
+        requestedAction -= 10000;
     }
     
     while (requestedAction >= 100)
@@ -437,13 +464,7 @@
         requestedAction -= 100;
     }
     
-    while (requestedAction >= 1)
-    {
-        requestedAction--;
-        level++;
-    }
-    
-    return level;
+    return requestedAction;
 }
 
 - (void)onResume
@@ -462,7 +483,7 @@
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
     self.soundMgr.soundEffectsVolume = 1;
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", @"world_1_bgm_intro.wav", @"mid_boss_bgm_intro.wav", @"mid_boss_owl_swoop.wav", @"mid_boss_owl_tree_smash.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", @"world_1_bgm_intro.wav", @"mid_boss_bgm_intro.wav", @"mid_boss_owl_swoop.wav", @"mid_boss_owl_tree_smash.wav", @"mid_boss_owl_death.wav", nil];
 }
 
 @end
