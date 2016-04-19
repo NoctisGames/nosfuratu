@@ -185,6 +185,13 @@ void WorldMap::loadUserSaveData(const char* json)
         (*j)->setVisible(previousLevelStats > 0);
         (*j)->setCompleted(levelStats > 0);
         
+        if (levelIndex == 9)
+        {
+            // temporary
+            
+            (*j)->setVisible(true);
+        }
+        
         if ((*j)->isVisible())
         {
             if ((*j)->isCompleted())

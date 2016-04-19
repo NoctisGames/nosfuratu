@@ -643,17 +643,17 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
             // Render FPS
             
             m_spriteBatcher->beginBatch();
-            m_font->renderText(*m_spriteBatcher, level_string, worldMapMenuX - levelInfoWidth / 3, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight, fontColor, true);
+            m_font->renderText(*m_spriteBatcher, level_string, worldMapMenuX - levelInfoWidth * 0.6f, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight, fontColor, false, false);
             m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
         }
         
         static Color normalColor = Color(1, 1, 1, 1);
-        static Color transparentColor = Color(1, 1, 1, 0.35f);
+        static Color transparentColor = Color(1, 1, 1, 0.2f);
         
-        static WorldMapGoldenCarrot uiGoldenCarrot1 = WorldMapGoldenCarrot(worldMapMenuX, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-        static WorldMapGoldenCarrot uiGoldenCarrot2 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-        static WorldMapGoldenCarrot uiGoldenCarrot3 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-        static WorldMapGoldenCarrot uiGoldenCarrot4 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 3, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
+        static WorldMapGoldenCarrot uiGoldenCarrot1 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
+        static WorldMapGoldenCarrot uiGoldenCarrot2 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 3 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
+        static WorldMapGoldenCarrot uiGoldenCarrot3 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 5 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
+        static WorldMapGoldenCarrot uiGoldenCarrot4 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 7 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
         
         int gcf = worldMapMenu->getGoldenCarrotsFlag();
         
