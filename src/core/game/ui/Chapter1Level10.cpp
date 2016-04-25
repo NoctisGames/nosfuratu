@@ -56,6 +56,7 @@ void Chapter1Level10::enter(GameScreen* gs)
             jon.getAcceleration().set(0, 0);
             jon.getVelocity().set(0, 0);
             jon.setIdle(true);
+            jon.setUserActionPrevented(true);
             
             Rectangle jonBounds = Rectangle(jon.getMainBounds().getLeft(), jon.getMainBounds().getBottom(), jon.getWidth() * 1.5f, jon.getHeight());
             
@@ -121,6 +122,12 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             Rectangle jonBounds = Rectangle(jon.getPosition().getX() - jon.getWidth() / 2, jon.getPosition().getY() - jon.getHeight() / 2, jon.getWidth(), jon.getHeight());
             
+            if (jon.getPosition().getX() < m_perchTree->getPosition().getX()
+                && m_perchTree->getPosition().dist(jon.getPosition()) < 12)
+            {
+                jon.setUserActionPrevented(true);
+            }
+                
             if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
             {
                 if (jon.isTransformingIntoVampire())
@@ -175,8 +182,10 @@ void Chapter1Level10::update(GameScreen* gs)
         if (!m_hasTriggeredBurrow)
         {
             jon.setIdle(false);
+            jon.setUserActionPrevented(false);
             jon.triggerDownAction();
             jon.setIdle(true);
+            jon.setUserActionPrevented(true);
             
             m_hasTriggeredBurrow = true;
         }
@@ -189,6 +198,7 @@ void Chapter1Level10::update(GameScreen* gs)
             }
             
             jon.setIdle(false);
+            jon.setUserActionPrevented(false);
         }
         
         if (!m_hasTriggeredMidBossMusicLoop && m_midBossOwl->getStateTime() > 4.80f)
@@ -246,6 +256,7 @@ void Chapter1Level10::update(GameScreen* gs)
         if (jon.isIdle())
         {
             jon.setIdle(false);
+            jon.setUserActionPrevented(false);
         }
         
         m_isChaseCamActivated = false;

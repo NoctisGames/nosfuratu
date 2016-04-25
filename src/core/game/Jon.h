@@ -158,6 +158,10 @@ public:
     
     bool isIdle();
     
+    void setUserActionPrevented(bool isUserActionPrevented);
+    
+    bool isUserActionPrevented();
+    
     void setGame(Game* game);
     
     void beginWarmingUp();
@@ -198,6 +202,7 @@ private:
     bool m_isConsumed;
     bool m_isFatallyConsumed;
     bool m_isIdle;
+    bool m_isUserActionPrevented;
     
     void setState(JonState state);
     

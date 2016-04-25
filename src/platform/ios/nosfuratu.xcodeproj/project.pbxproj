@@ -1457,7 +1457,7 @@
 				ORGANIZATIONNAME = "Noctis Games";
 				TargetAttributes = {
 					0ADF1873178E2185005DA99E = {
-						DevelopmentTeam = 83V22B9TY9;
+						DevelopmentTeam = 7V5EV5R3XG;
 					};
 				};
 			};
@@ -1853,7 +1853,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";

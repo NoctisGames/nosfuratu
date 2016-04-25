@@ -41,7 +41,8 @@ m_isRollLanding(false),
 m_isRightFoot(false),
 m_isAllowedToMove(false),
 m_isConsumed(false),
-m_isIdle(false)
+m_isIdle(false),
+m_isUserActionPrevented(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -234,7 +235,7 @@ void Jon::triggerCancelTransform()
 
 void Jon::triggerJump()
 {
-	if (m_state != JON_ALIVE || m_isIdle)
+	if (m_state != JON_ALIVE || m_isIdle || m_isUserActionPrevented)
 	{
 		return;
 	}
@@ -245,7 +246,7 @@ void Jon::triggerJump()
 
 void Jon::triggerLeftAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
 	}
@@ -256,7 +257,7 @@ void Jon::triggerLeftAction()
 
 void Jon::triggerRightAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
 	}
@@ -267,7 +268,7 @@ void Jon::triggerRightAction()
 
 void Jon::triggerUpAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
 	}
@@ -278,7 +279,7 @@ void Jon::triggerUpAction()
 
 void Jon::triggerDownAction()
 {
-	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
 	}
@@ -510,6 +511,16 @@ void Jon::setIdle(bool isIdle)
 bool Jon::isIdle()
 {
     return m_isIdle;
+}
+
+void Jon::setUserActionPrevented(bool isUserActionPrevented)
+{
+    m_isUserActionPrevented = isUserActionPrevented;
+}
+
+bool Jon::isUserActionPrevented()
+{
+    return m_isUserActionPrevented;
 }
 
 void Jon::setGame(Game* game)
