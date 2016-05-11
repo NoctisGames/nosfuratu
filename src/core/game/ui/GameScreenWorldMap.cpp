@@ -86,6 +86,7 @@ void WorldMap::execute(GameScreen* gs)
         if (m_isReadyForTransition)
         {
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
+			return;
         }
         
         for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
@@ -127,7 +128,18 @@ void WorldMap::execute(GameScreen* gs)
                                     && m_menu->getLevel() == levelToLoad)
                                 {
                                     m_isReadyForTransition = true;
+									return;
                                 }
+								else if (m_menu->getWorld() == 1
+									&& m_menu->getLevel() >= 11)
+								{
+									// TODO, scroll camera up
+								}
+								else if (m_menu->getWorld() == 1
+									&& m_menu->getLevel() <= 10)
+								{
+									// TODO, scroll camera down
+								}
                                 
                                 m_menu->setLevelStats(worldToLoad, levelToLoad, goldenCarrotsFlag);
                             }
@@ -184,13 +196,6 @@ void WorldMap::loadUserSaveData(const char* json)
         
         (*j)->setVisible(previousLevelStats > 0);
         (*j)->setCompleted(levelStats > 0);
-        
-        if (levelIndex == 9)
-        {
-            // temporary
-            
-            (*j)->setVisible(true);
-        }
         
         if ((*j)->isVisible())
         {
