@@ -113,7 +113,7 @@
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
     <AppxBundle>Never</AppxBundle>
     <PackageCertificateThumbprint>A4AFA901F85D3318B2E9AA2C79E2BA39F5A7B607</PackageCertificateThumbprint>
-    <AppxPackageDir>C:\Users\maste\OneDrive\Documents\GitHub\nosfuratu\src\platform\windows\NosFURatu\NosFURatu\AppPackages\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\sgowe\OneDrive\Documents\GitHub\nosfuratu\src\platform\windows\NosFURatu\NosFURatu\AppPackages\</AppxPackageDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Link>
@@ -2080,6 +2080,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </Media>
     <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm_intro.wav">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_death.wav">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>

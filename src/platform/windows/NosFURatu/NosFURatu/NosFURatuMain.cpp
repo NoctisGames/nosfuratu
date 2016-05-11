@@ -459,7 +459,7 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 
 	SaveData::setLevelComplete(world, level, goldenCarrotsFlag);
 
-	sendLevelCompletions();
+	sendLevelStats();
 }
 
 void NosFURatuMain::sendLevelStats()

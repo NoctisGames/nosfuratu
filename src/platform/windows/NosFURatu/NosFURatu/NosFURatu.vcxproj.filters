@@ -373,6 +373,9 @@
     <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_tree_smash.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">

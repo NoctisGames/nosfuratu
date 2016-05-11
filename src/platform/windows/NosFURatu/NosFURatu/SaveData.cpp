@@ -36,7 +36,7 @@ void SaveData::setLevelComplete(int world, int level, int goldenCarrotsFlag)
 
 	Platform::String^ key = getKeyForLevel(world, level);
 
-	values->Insert(key, PropertyValue::CreateInteger(goldenCarrotsFlag));
+	values->Insert(key, PropertyValue::CreateInt32(goldenCarrotsFlag));
 }
 
 Platform::String^ SaveData::getKeyForLevel(int world, int level)
