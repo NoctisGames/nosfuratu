@@ -1510,6 +1510,7 @@
     <ClInclude Include="..\..\..\..\core\framework\ui\Animation.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\CircleBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\Color.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFramebufferToScreenGpuProgramWrapper.h" />
@@ -1620,6 +1621,7 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\Animation.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFramebufferToScreenGpuProgramWrapper.cpp" />
@@ -1898,11 +1900,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">4.0_level_9_3</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0_level_9_3</ShaderModel>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex\DirectXTex_Windows10.vcxproj">
-      <Project>{fb3f52b5-bfe8-43fd-836f-363735dab738}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />

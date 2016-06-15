@@ -27,7 +27,7 @@
 #include "Circle.h"
 #include "Direct3DManager.h"
 #include "GameConstants.h"
-#include "DirectXTex.h"
+#include "DDSTextureLoader.h"
 #include "DirectXHelper.h"
 #include "Direct3DTransScreenGpuProgramWrapper.h"
 #include "Direct3DSinWaveTextureGpuProgramWrapper.h"
@@ -42,6 +42,7 @@
 #include <sstream>
 
 using namespace DirectX;
+using namespace Microsoft::WRL;
 
 Direct3DRenderer::Direct3DRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) : Renderer(), m_deviceResources(deviceResources), m_iNumTexturesLoaded(0), m_isBoundToScreen(false)
 {
@@ -109,13 +110,7 @@ GpuTextureDataWrapper* Direct3DRenderer::loadTextureData(const char* textureName
 
 	ID3D11ShaderResourceView *pShaderResourceView;
     
-    TexMetadata info = TexMetadata();
-    DX::ThrowIfFailed(GetMetadataFromDDSFile(wString, DDS_FLAGS_NONE, info));
-    
-    ScratchImage image;
-    DX::ThrowIfFailed(LoadFromDDSFile(wString, DDS_FLAGS_NONE, &info, image));
-    
-	DX::ThrowIfFailed(CreateShaderResourceView(m_deviceResources->GetD3DDevice(), image.GetImages(), image.GetImageCount(), info, &pShaderResourceView));
+    DX::ThrowIfFailed(CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), wString, nullptr, &pShaderResourceView));
 
 	GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(pShaderResourceView);
 	

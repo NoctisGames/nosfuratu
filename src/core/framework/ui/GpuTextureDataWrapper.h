@@ -15,7 +15,7 @@ extern "C"
 #include "image.h"
 }
 #elif defined GGD_DIRECT_3D
-#include "DirectXTex.h"
+#include "DDSTextureLoader.h"
 using namespace DirectX;
 #endif
 
