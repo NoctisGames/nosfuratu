@@ -1,2 +1,0 @@
-1. Download the DirectXTex-aug2015 release of the DirectXTex library here: https://directxtex.codeplex.com/releases/view/616870
-2. Extract the contents of the deepest "DirectXTex-aug2015" directory to the 3rdparty\DirectXTex-aug2015 directory (here)
