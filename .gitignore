@@ -4,9 +4,9 @@
 # Windows
 Thumbs.db
 
-# DirectXTex-aug2015
-DirectXTex-aug2015/
-!DirectXTex-aug2015/DirectXTex-aug2015_readme.txt
+# Texconv
+Texconv/
+!Texconv/Texconv_readme.txt
 
 # libpng
 libpng/
