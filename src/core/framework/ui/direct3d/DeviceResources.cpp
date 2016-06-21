@@ -8,6 +8,7 @@ using namespace DirectX;
 using namespace Microsoft::WRL;
 using namespace Windows::Foundation;
 using namespace Windows::Graphics::Display;
+using namespace Windows::System::Profile;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Platform;
@@ -350,8 +351,11 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			)
 		);
 
-	UINT renderWidth = static_cast<UINT>(m_d3dRenderTargetSize.Width * 0.5f + 0.5f);
-	UINT renderHeight = static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f);
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+
+	UINT renderWidth = isMobile ? static_cast<UINT>(m_d3dRenderTargetSize.Width * 0.5f + 0.5f) : m_d3dRenderTargetSize.Width;
+	UINT renderHeight = isMobile ? static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f) : m_d3dRenderTargetSize.Height;
 
 	// Change the region of the swap chain that will be presented to the screen.
 	DX::ThrowIfFailed(
