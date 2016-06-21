@@ -180,7 +180,6 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	ID3D11RenderTargetView* nullViews[] = { nullptr };
 	m_d3dContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
 	m_d3dRenderTargetView = nullptr;
-	m_d3dDepthStencilView = nullptr;
 	m_d3dContext->Flush();
 
 	// Calculate the necessary swap chain and render target size in pixels.
@@ -348,34 +347,6 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			backBuffer.Get(),
 			nullptr,
 			&m_d3dRenderTargetView
-			)
-		);
-
-	// Create a depth stencil view for use with 3D rendering if needed.
-	CD3D11_TEXTURE2D_DESC depthStencilDesc(
-		DXGI_FORMAT_D24_UNORM_S8_UINT,
-		lround(m_d3dRenderTargetSize.Width),
-		lround(m_d3dRenderTargetSize.Height),
-		1, // This depth stencil view has only one texture.
-		1, // Use a single mipmap level.
-		D3D11_BIND_DEPTH_STENCIL
-		);
-
-	ComPtr<ID3D11Texture2D> depthStencil;
-	DX::ThrowIfFailed(
-		m_d3dDevice->CreateTexture2D(
-			&depthStencilDesc,
-			nullptr,
-			&depthStencil
-			)
-		);
-
-	CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
-	DX::ThrowIfFailed(
-		m_d3dDevice->CreateDepthStencilView(
-			depthStencil.Get(),
-			&depthStencilViewDesc,
-			&m_d3dDepthStencilView
 			)
 		);
 
@@ -547,9 +518,6 @@ void DX::DeviceResources::Present()
 	// This is a valid operation only when the existing contents will be entirely
 	// overwritten. If dirty or scroll rects are used, this call should be removed.
 	m_d3dContext->DiscardView(m_d3dRenderTargetView.Get());
-
-	// Discard the contents of the depth stencil.
-	m_d3dContext->DiscardView(m_d3dDepthStencilView.Get());
 
 	// If the device was removed either by a disconnection or a driver upgrade, we 
 	// must recreate all device resources.
