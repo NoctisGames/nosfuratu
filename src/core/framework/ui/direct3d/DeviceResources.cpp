@@ -207,7 +207,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			lround(m_d3dRenderTargetSize.Width),
 			lround(m_d3dRenderTargetSize.Height),
 			DXGI_FORMAT_B8G8R8A8_UNORM,
-			0
+			DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT // Enable GetFrameLatencyWaitableObject().
 			);
 
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
@@ -238,7 +238,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = 2; // Use double-buffering to minimize latency.
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL; // All Windows Store apps must use this SwapEffect.
-		swapChainDesc.Flags = 0;
+		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT; // Enable GetFrameLatencyWaitableObject().
 		swapChainDesc.Scaling = DXGI_SCALING_STRETCH;
 		swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE;
 
@@ -286,7 +286,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 		// ensures that the application will only render after each VSync, minimizing power consumption.
 		DX::ThrowIfFailed(
-			dxgiDevice->SetMaximumFrameLatency(1)
+			dxgiDevice->SetMaximumFrameLatency(2)
 			);
 	}
 
@@ -350,12 +350,24 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			)
 		);
 
-	// Set the 3D rendering viewport to target the entire window.
+	UINT renderWidth = static_cast<UINT>(m_d3dRenderTargetSize.Width * 0.5f + 0.5f);
+	UINT renderHeight = static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f);
+
+	// Change the region of the swap chain that will be presented to the screen.
+	DX::ThrowIfFailed(
+		spSwapChain2->SetSourceSize(
+			renderWidth,
+			renderHeight
+		)
+	);
+
+	// In Direct3D, change the Viewport to match the region of the swap
+	// chain that will now be presented from.
 	m_screenViewport = CD3D11_VIEWPORT(
 		0.0f,
 		0.0f,
-		m_d3dRenderTargetSize.Width,
-		m_d3dRenderTargetSize.Height
+		renderWidth,
+		renderHeight
 		);
 
 	m_d3dContext->RSSetViewports(1, &m_screenViewport);

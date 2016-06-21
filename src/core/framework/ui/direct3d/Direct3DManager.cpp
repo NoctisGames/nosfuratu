@@ -50,13 +50,16 @@ void Direct3DManager::createWindowSizeDependentResources()
 	m_offscreenRenderTargetViews.clear();
 	m_offscreenShaderResourceViews.clear();
 
+	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
+
+	UINT renderWidth = static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f);
+	UINT renderHeight = static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f);
+
 	for (int i = 0; i < m_iNumFramebuffers; i++)
 	{
 		ID3D11Texture2D* m_offscreenRenderTarget;
 		ID3D11RenderTargetView* m_offscreenRenderTargetView;
 		ID3D11ShaderResourceView* m_offscreenShaderResourceView;
-
-		Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 
 		D3D11_TEXTURE2D_DESC textureDesc;
 		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
@@ -66,8 +69,8 @@ void Direct3DManager::createWindowSizeDependentResources()
 		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 		// Setup the render target texture description.
-		textureDesc.Width = renderTargetSize.Width;
-		textureDesc.Height = renderTargetSize.Height;
+		textureDesc.Width = renderWidth;
+		textureDesc.Height = renderHeight;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
