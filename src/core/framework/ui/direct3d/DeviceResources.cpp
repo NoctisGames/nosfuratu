@@ -177,6 +177,9 @@ void DX::DeviceResources::CreateDeviceResources()
 // These resources need to be recreated every time the window size is changed.
 void DX::DeviceResources::CreateWindowSizeDependentResources()
 {
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+
 	// Clear the previous window size specific context.
 	ID3D11RenderTargetView* nullViews[] = { nullptr };
 	m_d3dContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
@@ -208,7 +211,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			lround(m_d3dRenderTargetSize.Width),
 			lround(m_d3dRenderTargetSize.Height),
 			DXGI_FORMAT_B8G8R8A8_UNORM,
-			DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT // Enable GetFrameLatencyWaitableObject().
+			(isMobile ? DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT : 0) // Enable GetFrameLatencyWaitableObject() for mobile devices
 			);
 
 		if (hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
@@ -239,7 +242,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapChainDesc.BufferCount = 2; // Use double-buffering to minimize latency.
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL; // All Windows Store apps must use this SwapEffect.
-		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT; // Enable GetFrameLatencyWaitableObject().
+		swapChainDesc.Flags = isMobile ? DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT : 0; // Enable GetFrameLatencyWaitableObject() for mobile devices
 		swapChainDesc.Scaling = DXGI_SCALING_STRETCH;
 		swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_IGNORE;
 
@@ -287,7 +290,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 		// ensures that the application will only render after each VSync, minimizing power consumption.
 		DX::ThrowIfFailed(
-			dxgiDevice->SetMaximumFrameLatency(2)
+			dxgiDevice->SetMaximumFrameLatency(isMobile ? 2 : 1) // mobile devices are less likely to be able to render in under 16.7 ms
 			);
 	}
 
@@ -350,9 +353,6 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			&m_d3dRenderTargetView
 			)
 		);
-
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
 
 	UINT renderWidth = isMobile ? static_cast<UINT>(m_d3dRenderTargetSize.Width * 0.5f + 0.5f) : m_d3dRenderTargetSize.Width;
 	UINT renderHeight = isMobile ? static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f) : m_d3dRenderTargetSize.Height;
