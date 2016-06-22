@@ -22,12 +22,12 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers, bool use32BitTextureFormat)
+void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers, bool useReducedSwapChain)
 {
 	m_deviceResources = deviceResources;
 	m_iMaxBatchSize = maxBatchSize;
 	m_iNumFramebuffers = numFramebuffers;
-	m_use32BitTextureFormat = use32BitTextureFormat;
+	m_useReducedSwapChain = useReducedSwapChain;
 }
 
 void Direct3DManager::createDeviceDependentResources()
@@ -50,13 +50,16 @@ void Direct3DManager::createWindowSizeDependentResources()
 	m_offscreenRenderTargetViews.clear();
 	m_offscreenShaderResourceViews.clear();
 
+	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
+	
+	UINT renderWidth = m_useReducedSwapChain ? static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f) : renderTargetSize.Width;
+	UINT renderHeight = m_useReducedSwapChain ? static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f) : renderTargetSize.Height;
+
 	for (int i = 0; i < m_iNumFramebuffers; i++)
 	{
 		ID3D11Texture2D* m_offscreenRenderTarget;
 		ID3D11RenderTargetView* m_offscreenRenderTargetView;
 		ID3D11ShaderResourceView* m_offscreenShaderResourceView;
-
-		Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 
 		D3D11_TEXTURE2D_DESC textureDesc;
 		D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
@@ -66,8 +69,8 @@ void Direct3DManager::createWindowSizeDependentResources()
 		ZeroMemory(&textureDesc, sizeof(textureDesc));
 
 		// Setup the render target texture description.
-		textureDesc.Width = renderTargetSize.Width;
-		textureDesc.Height = renderTargetSize.Height;
+		textureDesc.Width = renderWidth;
+		textureDesc.Height = renderHeight;
 		textureDesc.MipLevels = 1;
 		textureDesc.ArraySize = 1;
 		textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;

@@ -54,7 +54,7 @@ public:
 	std::unique_ptr<Direct3DGeometryGpuProgramWrapper> m_colorProgram;
 	std::unique_ptr<Direct3DFramebufferToScreenGpuProgramWrapper> m_fbToScreenProgram;
 
-	void init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers = 1, bool use32BitTextureFormat = true);
+	void init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers = 1, bool useReducedSwapChain = false);
 	void createDeviceDependentResources();
 	void createWindowSizeDependentResources();
 	void releaseDeviceDependentResources();
@@ -73,7 +73,7 @@ private:
 
 	int m_iMaxBatchSize;
 	int m_iNumFramebuffers;
-	bool m_use32BitTextureFormat;
+	bool m_useReducedSwapChain;
 
 	void createBlendStates();
 	void createSamplerStates();
