@@ -367,7 +367,8 @@ void Toad::handleAlive(float deltaTime)
     else
     {
         float jonPredictedRight = jon.getMainBounds().getRight() + jon.getVelocity().getX() * 0.10f;
-        if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+        if (jon.getMainBounds().getBottom() > (getMainBounds().getBottom() - 1.0f)
+			&& jon.getMainBounds().getTop() < (getMainBounds().getTop() + 2.0f)
             && jonPredictedRight > getMainBounds().getLeft() - 1.2f
             && jonPredictedRight < getMainBounds().getLeft())
         {

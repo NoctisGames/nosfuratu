@@ -952,12 +952,12 @@ void Renderer::renderHud(Game& game, BackButton* backButton, BatPanel* batPanel,
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }
     
+	/// Render Num / Total Carrots
+
     std::stringstream ss;
     ss << game.getNumTotalCarrots();
     std::string totalNumGoldenCarrots = ss.str();
     int offset = 1 + (int) totalNumGoldenCarrots.size();
-    
-    /// Render Num / Total Carrots
     
     {
         std::stringstream ss;
@@ -1009,16 +1009,35 @@ void Renderer::renderHud(Game& game, BackButton* backButton, BatPanel* batPanel,
     }
 
 	{
+		// Render FPS
+
 		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
 
 		std::stringstream ss;
 		ss << fps << " FPS";
 		std::string fps_string = ss.str();
 
-		// Render FPS
-
 		m_spriteBatcher->beginBatch();
 		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+	}
+
+	if (game.getJons().size() >= 1)
+	{
+		// Render Jon's Speed
+
+		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+
+		Jon& jon = game.getJon();
+
+		float speed = jon.getVelocity().getX();
+
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(3) << speed << " m/s";
+		std::string text = ss.str();
+
+		m_spriteBatcher->beginBatch();
+		m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
     

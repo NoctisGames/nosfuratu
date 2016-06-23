@@ -138,6 +138,12 @@ void Jon::update(float deltaTime)
 		{
 			m_isLanding = true;
 			m_fStateTime = 0;
+			m_velocity->sub(1.5f, 0);
+			if (m_velocity->getX() < 0)
+			{
+				m_velocity->setX(0);
+			}
+
 			m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
 
 			m_dustClouds.push_back(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
@@ -181,7 +187,7 @@ void Jon::update(float deltaTime)
 	}
 	else if (m_game->isJonBlockedHorizontally(deltaTime))
 	{
-		m_velocity->setX((m_fMaxSpeed - 2.5f) * -1.0f);
+		m_velocity->setX(-5.0f);
         
         if (isFalling() || m_iNumJumps > 0)
         {
@@ -542,8 +548,11 @@ void Jon::consume(bool vampireDies)
 {
     // Used when Jon needs to be "transfered" i.e. grabbed by the owl or eaten by the toad
     m_isConsumed = true;
+	m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
     m_isFatallyConsumed = vampireDies;
     m_iNumJumps = 0;
+	setState(ABILITY_NONE);
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::kill()
@@ -607,6 +616,7 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_fActionStateTime = 0;
 	jon->m_fAbilityStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+	jon->m_iNumJumps = 0;
 	jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
@@ -883,6 +893,7 @@ void Jon::Vampire::enter(Jon* jon)
 	jon->m_fActionStateTime = 0;
 	jon->m_fAbilityStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+	jon->m_iNumJumps = 0;
 	jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
@@ -1024,6 +1035,14 @@ void Jon::Vampire::triggerJump(Jon* jon)
     {
         return;
     }
+
+	if (jon->m_isConsumed)
+	{
+		jon->m_iNumJumps = 0;
+		jon->m_fGravity = VAMP_GRAVITY;
+		jon->m_acceleration->setY(jon->m_fGravity);
+		m_isFallingAfterGlide = false;
+	}
     
 	if (jon->m_abilityState == ABILITY_GLIDE)
 	{
