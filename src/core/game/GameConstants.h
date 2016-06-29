@@ -89,6 +89,7 @@
 #define SOUND_MID_BOSS_SWOOP_DOWN 34
 #define SOUND_MID_BOSS_TREE_SMASH 35
 #define SOUND_MID_BOSS_DEATH 36
+#define SOUND_SCREEN_TRANSITION 37
 
 //// Render Definitions ////
 

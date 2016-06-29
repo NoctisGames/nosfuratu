@@ -29,7 +29,7 @@ TitleToWorldMap * TitleToWorldMap::getInstance()
 
 void TitleToWorldMap::enter(GameScreen* gs)
 {
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
     WorldMap::getInstance()->enter(gs);
 }
 
@@ -63,8 +63,13 @@ void TitleToWorldMap::execute(GameScreen* gs)
         {
             return;
         }
+        else if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+        }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime;
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
@@ -76,7 +81,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
 
 void TitleToWorldMap::exit(GameScreen* gs)
 {
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
 }
 
 TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
@@ -95,7 +100,7 @@ TitleToLevelEditor * TitleToLevelEditor::getInstance()
 
 void TitleToLevelEditor::enter(GameScreen* gs)
 {
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
     GameScreenLevelEditor::getInstance()->enter(gs);
 }
 
@@ -128,8 +133,13 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         {
             return;
         }
+        else if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+        }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime;
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
@@ -141,7 +151,7 @@ void TitleToLevelEditor::execute(GameScreen* gs)
 
 void TitleToLevelEditor::exit(GameScreen* gs)
 {
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
 }
 
 TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
@@ -160,7 +170,7 @@ WorldMapToLevel * WorldMapToLevel::getInstance()
 
 void WorldMapToLevel::enter(GameScreen* gs)
 {
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
     
     switch (m_iWorldToLoad)
     {
@@ -562,8 +572,13 @@ void WorldMapToLevel::execute(GameScreen* gs)
         {
             return;
         }
+        else if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+        }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime;
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
@@ -577,7 +592,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
 void WorldMapToLevel::exit(GameScreen* gs)
 {
     m_levelState = nullptr;
-    m_fTransitionStateTime = 0;
+    m_fTransitionStateTime = -1;
     m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
 }

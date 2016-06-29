@@ -72,9 +72,7 @@ void Level::exit(GameScreen* gs)
 {
     m_game->reset();
     
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    stopLoopingSounds();
     
     Assets::getInstance()->setMusicId(MUSIC_STOP);
     
@@ -202,7 +200,7 @@ void Level::update(GameScreen* gs)
         
         if (jon.isDead())
         {
-            Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+            stopLoopingSounds();
             
             // Starting death transition, when screen goes black, new game begins
             
@@ -578,6 +576,13 @@ BatPanelType Level::getBatPanelType()
     }
     
     return BatPanelType_None;
+}
+
+void Level::stopLoopingSounds()
+{
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
 }
 
 Level::Level(const char* json) :

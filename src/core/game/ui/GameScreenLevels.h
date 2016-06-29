@@ -76,6 +76,8 @@ protected:
     
     void openBatPanelWithType(BatPanelType batPanelType);
     
+    void stopLoopingSounds();
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);
     Level(const Level&);

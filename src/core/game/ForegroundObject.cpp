@@ -310,6 +310,20 @@ bool DeadlyObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
     return false;
 }
 
+bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+        jon.updateBounds();
+        jon.kill();
+    }
+    
+    return false;
+}
+
 bool LandingDeathObject::isJonLanding(Jon& jon, float deltaTime)
 {
     if (ForegroundObject::isJonLanding(jon, deltaTime))

@@ -149,6 +149,8 @@ public:
     virtual bool isJonLanding(Jon& jon, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };
 
 class LandingDeathObject : public ForegroundObject

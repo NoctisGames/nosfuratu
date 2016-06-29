@@ -565,6 +565,8 @@ void Jon::kill()
     Assets::getInstance()->addSoundIdToPlayQueue(SOUND_DEATH);
     setState(m_isConsumed ? JON_DEAD : JON_DYING);
     m_fDyingStateTime = 0;
+    m_velocity->set(0, 0);
+    m_acceleration->set(0, 0);
     m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
     
     bool isTransforming = isTransformingIntoVampire() || isRevertingToRabbit();
@@ -573,8 +575,8 @@ void Jon::kill()
         m_formStateMachine->revertToPreviousState();
     }
     
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
     setState(ABILITY_NONE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 #pragma mark private

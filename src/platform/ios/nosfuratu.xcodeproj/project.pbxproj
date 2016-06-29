@@ -223,6 +223,7 @@
 		BBEA16B31B97B9BB009B4711 /* OpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16671B97B9BB009B4711 /* OpenGLESGameScreen.cpp */; };
 		BBEA16B41B97B9BB009B4711 /* OpenGLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA16691B97B9BB009B4711 /* OpenGLESRenderer.cpp */; };
 		BBEA16B51B97B9BB009B4711 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA166B1B97B9BB009B4711 /* Renderer.cpp */; };
+		BBECA8C81D244DED000E3857 /* screen_transition.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBECA8C71D244DED000E3857 /* screen_transition.wav */; };
 		BBF39E151BBC9FC800D1A072 /* GameScreenTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF39E131BBC9FC800D1A072 /* GameScreenTransitions.cpp */; };
 		BBF519C11BE84045003C6C06 /* ExitGroundCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF519BF1BE84045003C6C06 /* ExitGroundCover.cpp */; };
 		BBF856821C7FBDE100328A0E /* jon_burrow_rocksfall.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBF856811C7FBDE100328A0E /* jon_burrow_rocksfall.wav */; };
@@ -665,6 +666,7 @@
 		BBEA166A1B97B9BB009B4711 /* OpenGLESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESRenderer.h; sourceTree = "<group>"; };
 		BBEA166B1B97B9BB009B4711 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
 		BBEA166C1B97B9BB009B4711 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		BBECA8C71D244DED000E3857 /* screen_transition.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = screen_transition.wav; sourceTree = "<group>"; };
 		BBF39E131BBC9FC800D1A072 /* GameScreenTransitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenTransitions.cpp; sourceTree = "<group>"; };
 		BBF39E141BBC9FC800D1A072 /* GameScreenTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenTransitions.h; sourceTree = "<group>"; };
 		BBF519BF1BE84045003C6C06 /* ExitGroundCover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExitGroundCover.cpp; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 				BB939C911C626E41006D945A /* jump_spring_heavy.wav */,
 				BB939C901C626E41006D945A /* jump_spring.wav */,
 				BB939C921C626E41006D945A /* landing_cave.wav */,
+				BBECA8C71D244DED000E3857 /* screen_transition.wav */,
 				BB939C931C626E41006D945A /* landing_grass.wav */,
 				BB779B1F1CB32AC0002B29AD /* mid_boss_bgm_intro.wav */,
 				BB779B201CB32AC0002B29AD /* mid_boss_bgm.wav */,
@@ -1494,6 +1497,7 @@
 				BB67E9241C83DCA3009E5F2B /* sparrow_die.wav in Resources */,
 				BB939CE61C626E41006D945A /* jump_spring_heavy.wav in Resources */,
 				BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */,
+				BBECA8C81D244DED000E3857 /* screen_transition.wav in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
 				BB939CE91C626E41006D945A /* snake_death.wav in Resources */,
 				BB32DE8D1C67113600F98904 /* world_1_ground.png in Resources */,
