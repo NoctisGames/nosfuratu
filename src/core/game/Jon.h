@@ -86,6 +86,8 @@ public:
     
     void triggerBounceBackOffEnemy(float bounceBackVelocity);
     
+    int getNumJumps();
+    
     std::vector<DustCloud *>& getDustClouds();
     
     std::vector<Jon *>& getAfterImages();
@@ -109,8 +111,6 @@ public:
     float getDyingStateTime();
     
     int getNumTriggeredJumps();
-    
-    int getNumJumps();
     
     int getNumBoosts();
     
@@ -193,7 +193,8 @@ private:
 	float m_fAccelerationX;
     float m_fGravity;
     int m_iNumTriggeredJumps;
-    int m_iNumJumps;
+    int m_iNumRabbitJumps;
+    int m_iNumVampireJumps;
     int m_iNumBoosts;
     bool m_isLanding;
     bool m_isRollLanding;
@@ -203,6 +204,8 @@ private:
     bool m_isFatallyConsumed;
     bool m_isIdle;
     bool m_isUserActionPrevented;
+    
+    void setNumJumps(int numJumps);
     
     void setState(JonState state);
     
@@ -232,6 +235,11 @@ private:
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity) = 0;
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
+        
+        virtual void onDeath(Jon* jon) = 0;
+        
+        virtual int getNumJumps(Jon* jon) = 0;
+        virtual void setNumJumps(Jon* jon, int numJumps) = 0;
         
         JonFormState() {};
         
@@ -263,6 +271,11 @@ private:
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
+        
+        virtual void onDeath(Jon* jon) {};
+        
+        virtual int getNumJumps(Jon* jon);
+        virtual void setNumJumps(Jon* jon, int numJumps);
         
     private:
         bool m_isSpinningBackFistDelivered;
@@ -296,6 +309,11 @@ private:
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
+        
+        virtual void onDeath(Jon* jon) {};
+        
+        virtual int getNumJumps(Jon* jon);
+        virtual void setNumJumps(Jon* jon, int numJumps);
         
     private:
         std::unique_ptr<Vector2D> m_lastKnownVelocity;
@@ -331,6 +349,11 @@ private:
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
+        virtual void onDeath(Jon* jon);
+        
+        virtual int getNumJumps(Jon* jon) { return 0; };
+        virtual void setNumJumps(Jon* jon, int numJumps) { };
+        
     private:
         bool m_hasCompletedSlowMotion;
         
@@ -362,6 +385,11 @@ private:
         virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
+        
+        virtual void onDeath(Jon* jon);
+        
+        virtual int getNumJumps(Jon* jon) { return 0; };
+        virtual void setNumJumps(Jon* jon, int numJumps) { };
         
     private:
         bool m_hasCompletedSlowMotion;
