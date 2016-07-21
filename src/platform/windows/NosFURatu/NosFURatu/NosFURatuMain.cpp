@@ -26,6 +26,10 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
 	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, false));
 
+	// Load Media Player
+	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+
 	// Load Sound Effects
 	m_sounds.push_back("collect_carrot.wav");
 	m_sounds.push_back("collect_golden_carrot.wav");
@@ -156,6 +160,10 @@ void NosFURatuMain::OnDeviceRestored()
 {
 	m_gameScreen->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
+
+	// Load Media Player
+	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM); 
 }
 
 void NosFURatuMain::Update()
@@ -268,8 +276,7 @@ void NosFURatuMain::handleMusic()
 	case MUSIC_STOP:
 		if (m_mediaPlayer)
 		{
-			m_mediaPlayer->Shutdown();
-			m_mediaPlayer = nullptr;
+			m_mediaPlayer->Pause();
 		}
 		break;
 	case MUSIC_RESUME:
@@ -278,7 +285,7 @@ void NosFURatuMain::handleMusic()
 	case MUSIC_SET_VOLUME:
 		if (m_mediaPlayer)
 		{
-			float volume = rawMusicId / 100.0f * 2;
+			float volume = rawMusicId / 100.0f / 2.0f; // On Win 10, volume starts off at 0.5
 			if (volume < 0)
 			{
 				volume = 0;
@@ -288,31 +295,15 @@ void NosFURatuMain::handleMusic()
 		}
 		break;
 	case MUSIC_PLAY_WORLD_1_LOOP:
-		if (m_mediaPlayer)
-		{
-			m_mediaPlayer->Shutdown();
-			m_mediaPlayer = nullptr;
-		}
-
 		m_threads.push_back(std::thread([](NosFURatuMain* nm)
 		{
-			nm->m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-			nm->m_mediaPlayer->Initialize(nm->m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
 			nm->m_mediaPlayer->SetSource("world_1_bgm.wav");
 			nm->m_mediaPlayer->Play();
 		}, this));
 		break;
 	case MUSIC_PLAY_MID_BOSS_LOOP:
-		if (m_mediaPlayer)
-		{
-			m_mediaPlayer->Shutdown();
-			m_mediaPlayer = nullptr;
-		}
-
 		m_threads.push_back(std::thread([](NosFURatuMain* nm)
 		{
-			nm->m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-			nm->m_mediaPlayer->Initialize(nm->m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
 			nm->m_mediaPlayer->SetSource("mid_boss_bgm.wav");
 			nm->m_mediaPlayer->Play();
 		}, this));
