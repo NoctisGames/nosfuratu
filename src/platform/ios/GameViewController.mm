@@ -483,7 +483,44 @@
 {
     self.soundMgr = [[CMOpenALSoundManager alloc] init];
     self.soundMgr.soundEffectsVolume = 1;
-    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:@"collect_carrot.wav", @"collect_golden_carrot.wav", @"death.wav", @"footstep_left_grass.wav", @"footstep_right_grass.wav", @"footstep_left_cave.wav", @"footstep_right_cave.wav", @"jump_spring.wav", @"landing_grass.wav", @"landing_cave.wav", @"destroy_rock.wav", @"snake_death.wav", @"trigger_transform.wav", @"cancel_transform.wav", @"complete_transform.wav", @"jump_spring_heavy.wav", @"jon_rabbit_jump.wav", @"jon_vampire_jump.wav", @"jon_rabbit_double_jump.wav", @"jon_vampire_double_jump.wav", @"vampire_glide_loop.wav", @"mushroom_bounce.wav", @"jon_burrow_rocksfall.wav", @"sparrow_fly_loop.wav", @"sparrow_die.wav", @"toad_die.wav", @"toad_eat.wav", @"saw_grind_loop.wav", @"fox_bounced_on.wav", @"fox_strike.wav", @"fox_death.wav", @"world_1_bgm_intro.wav", @"mid_boss_bgm_intro.wav", @"mid_boss_owl_swoop.wav", @"mid_boss_owl_tree_smash.wav", @"mid_boss_owl_death.wav", @"screen_transition.wav", nil];
+    self.soundMgr.soundFileNames = [NSArray arrayWithObjects:
+                                    @"collect_carrot.wav",
+                                    @"collect_golden_carrot.wav",
+                                    @"death.wav",
+                                    @"footstep_left_grass.wav",
+                                    @"footstep_right_grass.wav",
+                                    @"footstep_left_cave.wav",
+                                    @"footstep_right_cave.wav",
+                                    @"jump_spring.wav",
+                                    @"landing_grass.wav",
+                                    @"landing_cave.wav",
+                                    @"destroy_rock.wav",
+                                    @"snake_death.wav",
+                                    @"trigger_transform.wav",
+                                    @"cancel_transform.wav",
+                                    @"complete_transform.wav",
+                                    @"jump_spring_heavy.wav",
+                                    @"jon_rabbit_jump.wav",
+                                    @"jon_vampire_jump.wav",
+                                    @"jon_rabbit_double_jump.wav",
+                                    @"jon_vampire_double_jump.wav",
+                                    @"vampire_glide_loop.wav",
+                                    @"mushroom_bounce.wav",
+                                    @"jon_burrow_rocksfall.wav",
+                                    @"sparrow_fly_loop.wav",
+                                    @"sparrow_die.wav",
+                                    @"toad_die.wav",
+                                    @"toad_eat.wav",
+                                    @"saw_grind_loop.wav",
+                                    @"fox_bounced_on.wav",
+                                    @"fox_strike.wav",
+                                    @"fox_death.wav",
+                                    @"world_1_bgm_intro.wav",
+                                    @"mid_boss_bgm_intro.wav",
+                                    @"mid_boss_owl_swoop.wav",
+                                    @"mid_boss_owl_tree_smash.wav",
+                                    @"mid_boss_owl_death.wav",
+                                    @"screen_transition.wav", nil];
 }
 
 @end
