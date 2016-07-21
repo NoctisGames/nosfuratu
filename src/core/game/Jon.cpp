@@ -180,7 +180,8 @@ void Jon::update(float deltaTime)
 	{
 		m_velocity->sub(m_acceleration->getX() * deltaTime, m_acceleration->getY() * deltaTime);
 		m_acceleration->setY(m_fGravity);
-		setNumJumps(1);
+        m_iNumRabbitJumps = m_iNumRabbitJumps == 0 ? 1 : m_iNumRabbitJumps;
+        m_iNumVampireJumps = m_iNumVampireJumps == 0 ? 1 : m_iNumVampireJumps;
 	}
 
 	if (m_game->isJonBlockedVertically(deltaTime))
@@ -587,17 +588,6 @@ void Jon::kill()
 
 #pragma mark private
 
-void Jon::setNumJumps(int numJumps)
-{
-    if (m_state != JON_ALIVE)
-    {
-        return;
-    }
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
-    return jfs->setNumJumps(this, numJumps);
-}
-
 void Jon::setState(JonState state)
 {
 	m_state = state;
@@ -897,11 +887,6 @@ int Jon::Rabbit::getNumJumps(Jon* jon)
     return jon->m_iNumRabbitJumps;
 }
 
-void Jon::Rabbit::setNumJumps(Jon* jon, int numJumps)
-{
-    jon->m_iNumRabbitJumps = numJumps;
-}
-
 Jon::Rabbit::Rabbit() : JonFormState(), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false)
 {
 	// Empty
@@ -1099,12 +1084,12 @@ void Jon::Vampire::triggerJump(Jon* jon)
                 
                 jon->m_isConsumed = false;
 			}
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumVampireJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);
 		}
 
         jon->m_iNumTriggeredJumps++;
 		jon->m_iNumVampireJumps++;
-
-		Assets::getInstance()->addSoundIdToPlayQueue(jon->m_iNumVampireJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);
 	}
 }
 
@@ -1217,11 +1202,6 @@ int Jon::Vampire::getNumJumps(Jon* jon)
     return jon->m_iNumVampireJumps;
 }
 
-void Jon::Vampire::setNumJumps(Jon* jon, int numJumps)
-{
-    jon->m_iNumVampireJumps = numJumps;
-}
-
 Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false)
 {
     m_lastKnownVelocity = std::unique_ptr<Vector2D>(new Vector2D());
@@ -1256,7 +1236,8 @@ void Jon::RabbitToVampire::execute(Jon* jon)
 		jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
 	}
 
-	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f) {
+	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f)
+    {
 		m_hasCompletedSlowMotion = true;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
@@ -1279,94 +1260,64 @@ void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
 
 void Jon::RabbitToVampire::triggerJump(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerJump(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerJump(jon);
 }
 
 void Jon::RabbitToVampire::triggerLeftAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerLeftAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerLeftAction(jon);
 }
 
 void Jon::RabbitToVampire::triggerRightAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerRightAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerRightAction(jon);
 }
 
 void Jon::RabbitToVampire::triggerUpAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerUpAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerUpAction(jon);
 }
 
 void Jon::RabbitToVampire::triggerDownAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerDownAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerDownAction(jon);
 }
 
 void Jon::RabbitToVampire::triggerBoost(Jon* jon, float boostVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoost(jon, boostVelocity);
 }
 
 void Jon::RabbitToVampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoostOffEnemy(jon, boostVelocity);
 }
 
 void Jon::RabbitToVampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceDownardsOffEnemy(jon, bounceBackVelocity);
 }
 
 void Jon::RabbitToVampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceBackOffEnemy(jon, bounceBackVelocity);
 }
 
 void Jon::RabbitToVampire::onDeath(Jon* jon)
+{
+    handleTransformation(jon);
+}
+
+void Jon::RabbitToVampire::handleTransformation(Jon* jon)
 {
     if (m_hasCompletedSlowMotion)
     {
@@ -1412,7 +1363,8 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 		jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
 	}
 
-	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f) {
+	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f)
+    {
 		m_hasCompletedSlowMotion = true;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
@@ -1435,94 +1387,64 @@ void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
 
 void Jon::VampireToRabbit::triggerJump(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerJump(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState())->triggerJump(jon);
 }
 
 void Jon::VampireToRabbit::triggerLeftAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerLeftAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState())->triggerLeftAction(jon);
 }
 
 void Jon::VampireToRabbit::triggerRightAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerRightAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState())->triggerRightAction(jon);
 }
 
 void Jon::VampireToRabbit::triggerUpAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerUpAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState())->triggerUpAction(jon);
 }
 
 void Jon::VampireToRabbit::triggerDownAction(Jon* jon)
 {
-    if (!m_hasCompletedSlowMotion)
-    {
-        return;
-    }
-    
-    jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
-    
-    JonFormState* jfs = dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState());
-    jfs->triggerDownAction(jon);
+    handleTransformation(jon);
+    dynamic_cast<JonFormState*>(jon->m_formStateMachine->getCurrentState())->triggerDownAction(jon);
 }
 
 void Jon::VampireToRabbit::triggerBoost(Jon* jon, float boostVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoost(jon, boostVelocity);
 }
 
 void Jon::VampireToRabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBoostOffEnemy(jon, boostVelocity);
 }
 
 void Jon::VampireToRabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceDownardsOffEnemy(jon, bounceBackVelocity);
 }
 
 void Jon::VampireToRabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_formStateMachine->revertToPreviousState();
+    handleTransformation(jon);
     dynamic_cast<JonFormState *>(jon->m_formStateMachine->getCurrentState())->triggerBounceBackOffEnemy(jon, bounceBackVelocity);
 }
 
 void Jon::VampireToRabbit::onDeath(Jon* jon)
+{
+    handleTransformation(jon);
+}
+
+void Jon::VampireToRabbit::handleTransformation(Jon* jon)
 {
     if (m_hasCompletedSlowMotion)
     {

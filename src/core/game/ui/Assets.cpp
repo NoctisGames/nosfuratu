@@ -923,7 +923,7 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation pushedBackAnim = createAnimation(512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
         static Animation idleAnim = createAnimation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.125f, 8);
         static Animation runningAnim = createAnimation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.056f, 10);
-        static Animation jumpingAnim = createAnimation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+        static Animation upwardThrustAnim = createAnimation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
         static Animation doubleJumpingAnim = createAnimation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 6);
         static Animation glidingAnim = createAnimation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 2);
         static Animation fallingAnim = createAnimation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 3);
@@ -938,6 +938,8 @@ TextureRegion& Assets::get(Jon* jon)
         {
             case ABILITY_GLIDE:
                 return glidingAnim.getTextureRegion(jon->getAbilityStateTime());
+            case ABILITY_UPWARD_THRUST:
+                return upwardThrustAnim.getTextureRegion(jon->getActionStateTime());
             case ABILITY_NONE:
             default:
                 break;
@@ -946,7 +948,6 @@ TextureRegion& Assets::get(Jon* jon)
         switch (jon->getActionState())
         {
             case ACTION_JUMPING:
-                return jumpingAnim.getTextureRegion(jon->getActionStateTime());
             case ACTION_DOUBLE_JUMPING:
                 return doubleJumpingAnim.getTextureRegion(jon->getActionStateTime());
             case ACTION_NONE:

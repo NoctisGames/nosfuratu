@@ -205,8 +205,6 @@ private:
     bool m_isIdle;
     bool m_isUserActionPrevented;
     
-    void setNumJumps(int numJumps);
-    
     void setState(JonState state);
     
     void setState(JonPhysicalState state);
@@ -239,7 +237,6 @@ private:
         virtual void onDeath(Jon* jon) = 0;
         
         virtual int getNumJumps(Jon* jon) = 0;
-        virtual void setNumJumps(Jon* jon, int numJumps) = 0;
         
         JonFormState() {};
         
@@ -275,7 +272,6 @@ private:
         virtual void onDeath(Jon* jon) {};
         
         virtual int getNumJumps(Jon* jon);
-        virtual void setNumJumps(Jon* jon, int numJumps);
         
     private:
         bool m_isSpinningBackFistDelivered;
@@ -313,7 +309,6 @@ private:
         virtual void onDeath(Jon* jon) {};
         
         virtual int getNumJumps(Jon* jon);
-        virtual void setNumJumps(Jon* jon, int numJumps);
         
     private:
         std::unique_ptr<Vector2D> m_lastKnownVelocity;
@@ -352,10 +347,11 @@ private:
         virtual void onDeath(Jon* jon);
         
         virtual int getNumJumps(Jon* jon) { return 0; };
-        virtual void setNumJumps(Jon* jon, int numJumps) { };
         
     private:
         bool m_hasCompletedSlowMotion;
+        
+        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         RabbitToVampire();
@@ -389,10 +385,11 @@ private:
         virtual void onDeath(Jon* jon);
         
         virtual int getNumJumps(Jon* jon) { return 0; };
-        virtual void setNumJumps(Jon* jon, int numJumps) { };
         
     private:
         bool m_hasCompletedSlowMotion;
+        
+        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         VampireToRabbit();

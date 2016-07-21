@@ -60,6 +60,7 @@ public final class GameRenderer implements Renderer
         _activity = activity;
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
         _audio = new Audio(activity.getAssets());
+
         _sounds.add(_audio.newSound("collect_carrot.wav"));
         _sounds.add(_audio.newSound("collect_golden_carrot.wav"));
         _sounds.add(_audio.newSound("death.wav"));
@@ -267,7 +268,7 @@ public final class GameRenderer implements Renderer
             case MUSIC_SET_VOLUME:
                 if (_bgm != null)
                 {
-                    float volume = rawMusicId / 100.0f;
+                    float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
                     if (volume < 0)
                     {
                         volume = 0;
