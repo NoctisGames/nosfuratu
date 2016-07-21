@@ -205,6 +205,8 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
             
+            m_fMusicVolume = 0.5f;
+            
             m_hasTriggeredMidBossMusicLoop = true;
         }
         
@@ -244,6 +246,19 @@ void Chapter1Level10::update(GameScreen* gs)
         }
         
         m_isChaseCamActivated = false;
+        
+        if (m_midBossOwl->getState() == MidBossOwlState_Dying
+            && m_fMusicVolume > 0)
+        {
+            m_fMusicVolume -= gs->m_fDeltaTime;
+            if (m_fMusicVolume < 0)
+            {
+                m_fMusicVolume = 0;
+            }
+            
+            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
+            Assets::getInstance()->setMusicId(musicId);
+        }
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
