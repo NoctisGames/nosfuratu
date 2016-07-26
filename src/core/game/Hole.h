@@ -34,6 +34,8 @@ public:
     
     bool hasCover();
     
+    bool isCoverBreaking();
+    
     HoleCover& getHoleCover();
     
     HoleType getType();

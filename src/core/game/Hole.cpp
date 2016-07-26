@@ -67,6 +67,11 @@ bool Hole::hasCover()
     return m_holeCover ? true : false;
 }
 
+bool Hole::isCoverBreaking()
+{
+    return m_holeCover && m_holeCover->isBreaking() ? true : false;
+}
+
 HoleCover& Hole::getHoleCover()
 {
     return *m_holeCover;

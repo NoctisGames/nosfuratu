@@ -12,6 +12,7 @@
 #include "GameConstants.h"
 #include "OverlapTester.h"
 #include "Assets.h"
+#include "FlagUtil.h"
 
 #include <math.h>
 
@@ -37,13 +38,15 @@ m_iNumTriggeredJumps(0),
 m_iNumRabbitJumps(0),
 m_iNumVampireJumps(0),
 m_iNumBoosts(0),
+m_iAbilitySet(0),
 m_isLanding(false),
 m_isRollLanding(false),
 m_isRightFoot(false),
 m_isAllowedToMove(false),
 m_isConsumed(false),
 m_isIdle(false),
-m_isUserActionPrevented(false)
+m_isUserActionPrevented(false),
+m_isBurrowEffective(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -55,21 +58,8 @@ m_isUserActionPrevented(false)
 void Jon::update(float deltaTime)
 {
 	m_fDeltaTime = deltaTime;
-
-	for (std::vector<DustCloud *>::iterator i = getDustClouds().begin(); i != getDustClouds().end(); )
-	{
-		(*i)->update(deltaTime);
-
-		if ((*i)->isRequestingDeletion())
-		{
-            delete *i;
-			i = getDustClouds().erase(i);
-		}
-		else
-		{
-			i++;
-		}
-	}
+    
+    EntityUtils::updateAndClean(getDustClouds(), deltaTime);
     
     for (std::vector<Jon *>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
     {
@@ -158,13 +148,20 @@ void Jon::update(float deltaTime)
 				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LANDING_CAVE);
 			}
 		}
+        
+        if (m_isRollLanding)
+        {
+            if (m_fStateTime > 0.40f)
+            {
+                m_isRollLanding = false;
+            }
+        }
 
-		if (m_isLanding || m_isRollLanding)
+		if (m_isLanding)
 		{
             if (m_fStateTime > 0.20f)
             {
                 m_isLanding = false;
-                m_isRollLanding = false;
             }
 		}
 
@@ -541,6 +538,33 @@ bool Jon::isUserActionPrevented()
 void Jon::setGame(Game* game)
 {
 	m_game = game;
+    
+    int level = (game->getWorld() - 1) * 21 + game->getLevel();
+    
+    if (level > 10)
+    {
+        enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+    }
+    
+    if (level > 21)
+    {
+        enableAbility(FLAG_ABILITY_VAMPIRE_RIGHT);
+    }
+}
+
+void Jon::enableAbility(int abilityFlag)
+{
+    m_iAbilitySet = FlagUtil::setFlag(m_iAbilitySet, abilityFlag);
+}
+
+bool Jon::isAbilityEnabled(int abilityFlag)
+{
+    return FlagUtil::isFlagSet(m_iAbilitySet, abilityFlag);
+}
+
+bool Jon::isBurrowEffective()
+{
+    return m_isBurrowEffective;
 }
 
 void Jon::beginWarmingUp()
@@ -625,6 +649,7 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_fActionStateTime = 0;
 	jon->m_fAbilityStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+    jon->m_isBurrowEffective = false;
 	jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
@@ -633,7 +658,6 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_abilityState = ABILITY_NONE;
 
 	m_isSpinningBackFistDelivered = false;
-	m_isBurrowEffective = false;
 }
 
 void Jon::Rabbit::execute(Jon* jon)
@@ -657,15 +681,15 @@ void Jon::Rabbit::execute(Jon* jon)
             jon->m_velocity->setX(0);
             jon->m_acceleration->setX(0);
             
-            bool wasBurrowEffective = m_isBurrowEffective;
-            m_isBurrowEffective = jon->m_game->isBurrowEffective();
+            bool wasBurrowEffective = jon->m_isBurrowEffective;
+            jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();
             
-            if (m_isBurrowEffective && !wasBurrowEffective)
+            if (jon->m_isBurrowEffective && !wasBurrowEffective)
             {
                 Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
             }
             
-            if ((jon->m_fAbilityStateTime > 0.30f && !m_isBurrowEffective) || jon->m_physicalState != PHYSICAL_GROUNDED)
+            if (jon->m_fAbilityStateTime > 0.54f)
             {
                 jon->setState(ABILITY_NONE);
             }
@@ -679,14 +703,6 @@ void Jon::Rabbit::execute(Jon* jon)
             if (jon->m_fAbilityStateTime > 0.35f)
             {
                 jon->m_acceleration->setY(RABBIT_GRAVITY * 3.5f);
-                
-                bool wasBurrowEffective = m_isBurrowEffective;
-                m_isBurrowEffective = jon->m_game->isBurrowEffective();
-                
-                if (m_isBurrowEffective && !wasBurrowEffective)
-                {
-                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
-                }
                 
                 if (jon->m_isLanding)
                 {
@@ -752,7 +768,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 
 void Jon::Rabbit::triggerLeftAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() <= 1 && jon->m_game->getLevel() < 10)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_LEFT))
     {
         return;
     }
@@ -762,8 +778,7 @@ void Jon::Rabbit::triggerLeftAction(Jon* jon)
 
 void Jon::Rabbit::triggerRightAction(Jon* jon)
 {
-	int level = (jon->m_game->getWorld() - 1) * 21 + jon->m_game->getLevel();
-    if (level < 31)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_RIGHT))
     {
         return;
     }
@@ -780,25 +795,23 @@ void Jon::Rabbit::triggerRightAction(Jon* jon)
 
 void Jon::Rabbit::triggerUpAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() <= 1 && jon->m_game->getLevel() < 10)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_UP))
     {
         return;
     }
     
-	// TODO
+    // TODO
 }
 
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
-	int level = (jon->m_game->getWorld() - 1) * 21 + jon->m_game->getLevel();
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_DOWN))
+    {
+        return;
+    }
     
     if (jon->m_physicalState == PHYSICAL_IN_AIR)
     {
-		if (level < 11)
-		{
-			return;
-		}
-
         if (jon->m_abilityState == ABILITY_STOMP)
         {
             return;
@@ -811,11 +824,6 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
     }
     else
 	{
-		if (level < 10)
-		{
-			return;
-		}
-
         if (jon->m_abilityState == ABILITY_BURROW)
         {
             return;
@@ -823,7 +831,7 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         
         jon->setState(ABILITY_BURROW);
         
-        m_isBurrowEffective = false;
+        jon->m_isBurrowEffective = false;
 	}
     
     jon->m_velocity->setX(0);
@@ -887,7 +895,7 @@ int Jon::Rabbit::getNumJumps(Jon* jon)
     return jon->m_iNumRabbitJumps;
 }
 
-Jon::Rabbit::Rabbit() : JonFormState(), m_isSpinningBackFistDelivered(false), m_isBurrowEffective(false)
+Jon::Rabbit::Rabbit() : JonFormState(), m_isSpinningBackFistDelivered(false)
 {
 	// Empty
 }
@@ -1095,42 +1103,42 @@ void Jon::Vampire::triggerJump(Jon* jon)
 
 void Jon::Vampire::triggerLeftAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() < 2)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_LEFT))
     {
         return;
     }
     
-	// TODO
+    // TODO
 }
 
 void Jon::Vampire::triggerRightAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() < 2)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_RIGHT))
     {
         return;
     }
     
-	// TODO
+	// TODO, Dash!
 }
 
 void Jon::Vampire::triggerUpAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() < 2)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_UP))
     {
         return;
     }
     
-	// TODO
+    // TODO
 }
 
 void Jon::Vampire::triggerDownAction(Jon* jon)
 {
-    if (jon->m_game->getWorld() < 2)
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_DOWN))
     {
         return;
     }
     
-	// TODO
+    // TODO
 }
 
 void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)

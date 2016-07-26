@@ -164,6 +164,12 @@ public:
     
     void setGame(Game* game);
     
+    void enableAbility(int abilityFlag);
+    
+    bool isAbilityEnabled(int abilityFlag);
+    
+    bool isBurrowEffective();
+    
     void beginWarmingUp();
     
     float getGravity();
@@ -196,6 +202,7 @@ private:
     int m_iNumRabbitJumps;
     int m_iNumVampireJumps;
     int m_iNumBoosts;
+    int m_iAbilitySet;
     bool m_isLanding;
     bool m_isRollLanding;
     bool m_isRightFoot;
@@ -204,6 +211,7 @@ private:
     bool m_isFatallyConsumed;
     bool m_isIdle;
     bool m_isUserActionPrevented;
+    bool m_isBurrowEffective;
     
     void setState(JonState state);
     
@@ -275,7 +283,6 @@ private:
         
     private:
         bool m_isSpinningBackFistDelivered;
-        bool m_isBurrowEffective;
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         Rabbit();

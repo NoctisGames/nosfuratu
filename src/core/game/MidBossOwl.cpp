@@ -178,7 +178,7 @@ void MidBossOwl::update(float deltaTime)
                         
                         setState(MidBossOwlState_FlyingOverTree);
                     }
-                    else
+                    else if (!jon.isBurrowEffective())
                     {
                         jon.consume(true);
                         

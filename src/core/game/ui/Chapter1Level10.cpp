@@ -106,6 +106,11 @@ void Chapter1Level10::update(GameScreen* gs)
     
     if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
     {
+        if (jon.getPosition().getX() > GRID_CELL_SIZE * 120)
+        {
+            jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+        }
+        
         if (jon.getNumBoosts() >= 1)
         {
             m_fMusicVolume -= gs->m_fDeltaTime / 8;
@@ -169,6 +174,11 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
     {
+        if (jon.getPosition().getX() > GRID_CELL_SIZE * 120)
+        {
+            jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+        }
+        
         if (!m_hasTriggeredMidBossMusicLoopIntro)
         {
             m_fJonY = jon.getPosition().getY();

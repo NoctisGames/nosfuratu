@@ -31,6 +31,8 @@ public:
     
     HoleCoverType getType();
     
+    bool isBreaking();
+    
 private:
     HoleCoverType m_type;
     bool m_isBreaking;

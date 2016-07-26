@@ -1022,9 +1022,9 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation fallingAnim = createAnimation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 3);
         static Animation landingAnim = createAnimation(0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 4);
         static Animation spinningBackFistAnimation = createAnimation(2048, 0, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 7);
-        static Animation burrowAnimation = createAnimation(2048, 256, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 5, 1);
+        static Animation burrowAnimation = createAnimation(1792, 256, 256, 256, 2304, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 9);
         static Animation stompAnimation = createAnimation(2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 10, 8);
-        static Animation landingRollAnimation = createAnimation(2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04f, 5);
+        static Animation landingRollAnimation = createAnimation(2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08f, 5);
         
         if (jon->getState() != JON_ALIVE)
         {
@@ -1057,13 +1057,13 @@ TextureRegion& Assets::get(Jon* jon)
         
         if (jon->getPhysicalState() == PHYSICAL_GROUNDED)
         {
+            if (jon->isRollLanding())
+            {
+                return landingRollAnimation.getTextureRegion(jon->getStateTime());
+            }
+            
             if (jon->isLanding())
             {
-                if (jon->isRollLanding())
-                {
-                    return landingRollAnimation.getTextureRegion(jon->getStateTime());
-                }
-                
                 return landingAnim.getTextureRegion(jon->getStateTime());
             }
         }

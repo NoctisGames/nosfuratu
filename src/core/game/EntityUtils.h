@@ -99,7 +99,7 @@ public:
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (!(*i)->hasCover())
+                if ((*i)->isCoverBreaking())
                 {
                     if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                     {

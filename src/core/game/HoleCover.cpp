@@ -7,7 +7,6 @@
 //
 
 #include "HoleCover.h"
-#include "GameConstants.h"
 
 HoleCover::HoleCover(float x, float y, float width, float height, HoleCoverType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isBreaking(false)
 {
@@ -29,17 +28,15 @@ void HoleCover::update(float deltaTime)
 
 void HoleCover::triggerHit(float jonDownwardsVelocity)
 {
-    if (jonDownwardsVelocity < RABBIT_GRAVITY)
-    {
-        m_isRequestingDeletion = true;
-    }
-    else
-    {
-        m_isBreaking = true;
-    }
+    m_isBreaking = true;
 }
 
 HoleCoverType HoleCover::getType()
 {
     return m_type;
+}
+
+bool HoleCover::isBreaking()
+{
+    return m_isBreaking;
 }
