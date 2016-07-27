@@ -557,7 +557,7 @@ void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool is
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 32;
-    static float fgHeight = fgWidth * 1.140625f;
+    static float fgHeight = fgWidth * 1.171875f;
     
     /// Version
     
@@ -631,7 +631,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
         float levelInfoWidth = worldMapMenu->getWidth() * 0.27118644067797f;
         
         static float fgWidth = CAM_WIDTH / 24;
-        static float fgHeight = fgWidth * 1.140625f;
+        static float fgHeight = fgWidth * 1.171875f;
         
         {
             static Color fontColor = Color(1, 1, 1, 1);
@@ -941,7 +941,7 @@ void Renderer::renderHud(Game& game, BackButton* backButton, BatPanel* batPanel,
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;
-    static float fgHeight = fgWidth * 1.140625f;
+    static float fgHeight = fgWidth * 1.171875f;
     
     /// Render Play Time
     
@@ -1203,7 +1203,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         static Color fontColor = Color(1, 1, 1, 1);
         
         float fgWidth = lsp->getTextSize();
-        float fgHeight = fgWidth * 1.140625f;
+        float fgHeight = fgWidth * 1.171875f;
         
         m_spriteBatcher->beginBatch();
         {
@@ -1232,7 +1232,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         static Color fontColor = Color(1, 1, 1, 1);
         
         float fgWidth = osp->getTextSize();
-        float fgHeight = fgWidth * 1.140625f;
+        float fgHeight = fgWidth * 1.171875f;
         
         int offset = osp->getOffset();
         m_spriteBatcher->beginBatch();
@@ -1275,7 +1275,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 	{
 		static Color fontColor = Color(1, 1, 1, 1);
 		static float fgWidth = CAM_WIDTH / 24;
-		static float fgHeight = fgWidth * 1.140625f;
+		static float fgHeight = fgWidth * 1.171875f;
 
 		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
 

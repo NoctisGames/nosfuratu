@@ -428,7 +428,7 @@ bool Fox::isJonLanding(Jon& jon, float deltaTime)
         float jonVelocityY = jon.getVelocity().getY();
         float jonAccelY = jon.getAcceleration().getY();
         
-        if (jonAccelY < RABBIT_GRAVITY * 2)
+        if (jonAccelY < JON_GRAVITY * 2)
         {
             triggerHit();
         }
