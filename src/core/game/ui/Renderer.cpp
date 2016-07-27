@@ -69,7 +69,7 @@ m_framebufferToScreenGpuProgramWrapper(nullptr),
 m_framebufferTintGpuProgramWrapper(nullptr),
 m_framebufferRadialBlurGpuProgramWrapper(nullptr)
 {
-    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 73, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024));
+    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 75, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024));
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, 0, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
