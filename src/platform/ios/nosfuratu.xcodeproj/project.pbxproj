@@ -143,6 +143,7 @@
 		BBA1ACFE1C349F4900CDE963 /* ShockwaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */; };
 		BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */; };
 		BBA6492219B5FED100023E5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBA6492119B5FED100023E5A /* Images.xcassets */; };
+		BBA7C65D1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; };
 		BBBB6CF51C93649200DC92A7 /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBB6CF21C93649200DC92A7 /* AppPrefs.m */; };
 		BBBB6CF61C93649200DC92A7 /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BBBB6CF41C93649200DC92A7 /* SaveData.m */; };
@@ -463,6 +464,7 @@
 		BBA1ACFD1C349F4900CDE963 /* ShockwaveTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShockwaveTextureProgram.h; sourceTree = "<group>"; };
 		BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_shockwave_texture_shader.vsh; sourceTree = "<group>"; };
 		BBA6492119B5FED100023E5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_screen_circle_open_shader.fsh; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
 		BBB7A8791BBAD34400829FF6 /* DustCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DustCloud.h; sourceTree = "<group>"; };
 		BBBB6CF11C93649200DC92A7 /* AppPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPrefs.h; sourceTree = "<group>"; };
@@ -1404,6 +1406,7 @@
 				BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */,
 				BB574F361C59231500926A9B /* trans_out_death_shader.fsh */,
 				BB2DF28C1C59A7AE00DD7BE3 /* trans_screen_shader.fsh */,
+				BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */,
 				BB574F3B1C5959C400926A9B /* TransDeathProgram.cpp */,
 				BB574F3C1C5959C400926A9B /* TransDeathProgram.h */,
 				BB2DF28E1C59B3B700DD7BE3 /* TransitionProgram.cpp */,
@@ -1572,6 +1575,7 @@
 				BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */,
 				BB939D1B1C626E41006D945A /* vampire.png in Resources */,
 				BBC38DF41CA03E80001B178C /* c_world_1_objects.png in Resources */,
+				BBA7C65D1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh in Resources */,
 				BBC38DEA1CA03E80001B178C /* c_vampire.png in Resources */,
 				BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */,
 			);
