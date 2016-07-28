@@ -1255,7 +1255,7 @@ TextureRegion& Assets::get(MidBossOwl* owl)
 
 TextureRegion& Assets::get(BackButton* backButton)
 {
-    static TextureRegion tr = TextureRegion(800, 748, 190, 62, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    static TextureRegion tr = TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     return tr;
 }
 
