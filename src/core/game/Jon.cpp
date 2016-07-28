@@ -690,6 +690,11 @@ void Jon::Rabbit::execute(Jon* jon)
                 Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
             }
             
+            if (jon->isFalling())
+            {
+                jon->m_velocity->setY(fminf(-4, jon->m_velocity->getY()));
+            }
+            
             if (jon->m_fAbilityStateTime > 0.54f)
             {
                 jon->setState(ABILITY_NONE);

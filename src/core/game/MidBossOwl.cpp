@@ -88,11 +88,11 @@ void MidBossOwl::update(float deltaTime)
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
+                        m_velocity->add(cosf(radians) * 0.80f, sinf(radians) * 0.8f);
                         
-                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 8.0f)
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 7.5f)
                         {
-                            m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (jon.isVampire() ? 20 : 11.0f));
+                            m_velocity->add(cosf(radians) * 24, sinf(radians) * (jon.isVampire() ? 20 : 12));
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
@@ -157,11 +157,11 @@ void MidBossOwl::update(float deltaTime)
                 float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                 float radians = DEGREES_TO_RADIANS(angle);
                 
-                m_velocity->add(cosf(radians) * 0.75f, sinf(radians) * 0.75f);
-                m_velocity->add(cosf(radians) * 5.0f, sinf(radians) * (m_didJonTransform ? 20 : 11.0f));
+                m_velocity->add(cosf(radians) * 0.80f, sinf(radians) * 0.8f);
+                m_velocity->add(cosf(radians) * 24, sinf(radians) * (m_didJonTransform ? 20 : 12));
                 
                 if (jon.getPosition().getY() > 15
-                    || jon.getPosition().getY() < 9
+                    || jon.getPosition().getY() < 8
                     || m_velocity->getX() < 0)
                 {
                     m_velocity->set(0, 0);

@@ -15,7 +15,7 @@
 class BackButton : public PhysicalEntity
 {
 public:
-    BackButton(float x = 0.9140625f / 2, float y = CAM_HEIGHT - 0.9140625f / 2, float width = 0.9140625f, float height = 0.9140625f);
+    BackButton(float x = 1.51895680147063f / 2, float y = CAM_HEIGHT - 1.52941176470592f / 2, float width = 1.51895680147063f, float height = 1.52941176470592f);
 };
 
 #endif /* defined(__nosfuratu__BackButton__) */

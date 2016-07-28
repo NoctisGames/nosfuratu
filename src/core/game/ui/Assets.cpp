@@ -41,7 +41,7 @@ TextureRegion& Assets::get(TitlePanel* panel)
 
 TextureRegion& Assets::get(WorldMapPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(0, 0, 1024, 768, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 0, 1088, 612, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
@@ -1281,13 +1281,13 @@ TextureRegion& Assets::get(BatInstruction* batInstruction)
         }
         case BatPanelType_Burrow:
         {
-            static Animation anim = createAnimation(1280, 3500, 234, 84, 1872, 84, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+            static Animation anim = createAnimation(1600, 3400, 238, 112, 2380, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 12);
             
             return anim.getTextureRegion(batInstruction->getStateTime());
         }
         case BatPanelType_OwlDig:
         {
-            static Animation anim = createAnimation(1280, 3268, 304, 114, 2736, 114, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+            static Animation anim = createAnimation(1600, 3628, 334, 118, 2338, 236, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 10);
             
             return anim.getTextureRegion(batInstruction->getStateTime());
         }
