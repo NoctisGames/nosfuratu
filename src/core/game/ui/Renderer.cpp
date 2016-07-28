@@ -556,17 +556,30 @@ void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool is
     }
     
     static Color fontColor = Color(1, 1, 1, 1);
-    static float fgWidth = CAM_WIDTH / 32;
+    static float fgWidth = CAM_WIDTH / 60;
     static float fgHeight = fgWidth * 1.171875f;
-    
-    /// Version
     
     m_spriteBatcher->beginBatch();
     
-    std::stringstream ss;
-    ss << "v" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD;
-    std::string text = ss.str();
-    m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth / 2, fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
+    {
+        /// Version
+        std::stringstream ss;
+        ss << "v" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD;
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, fgWidth * 3 / 4, fgHeight * 3 / 4, fgWidth, fgHeight, fontColor, false, false);
+    }
+    
+    {
+        /// Company Info
+        std::stringstream ss;
+        ss << "2016 Noctis Games";
+        std::string text = ss.str();
+        
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 4, fgHeight * 3 / 4, fgWidth, fgHeight, fontColor, false, true);
+        
+        int copyrightSymbol = 169; // 169 is the ASCII value for ©
+        m_font->renderAsciiChar(*m_spriteBatcher, copyrightSymbol, CAM_WIDTH - fgWidth * 3 / 4 - text.length() * fgWidth, fgHeight * 3 / 4, fgWidth, fgHeight, fontColor);
+    }
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 }
