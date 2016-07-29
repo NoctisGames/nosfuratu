@@ -22,8 +22,7 @@
 #include "DustCloud.h"
 #include "Jon.h"
 #include "MidBossOwl.h"
-#include "BackButton.h"
-#include "LevelEditorButton.h"
+#include "GameButton.h"
 #include "TrashCan.h"
 #include "LevelSelectorPanel.h"
 #include "OffsetPanel.h"
@@ -97,13 +96,11 @@ public:
     
     TextureRegion& get(MidBossOwl* owl);
     
-    TextureRegion& get(BackButton* backButton);
+    TextureRegion& get(GameButton* backButton);
     
     TextureRegion& get(BatInstruction* batInstruction);
     
     TextureRegion& get(BatPanel* batPanel);
-    
-    TextureRegion& get(LevelEditorButton* levelEditorButton);
     
     TextureRegion& get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel);
     

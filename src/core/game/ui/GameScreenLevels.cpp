@@ -100,11 +100,6 @@ Game& Level::getGame()
     return *m_game;
 }
 
-BackButton& Level::getBackButton()
-{
-    return *m_backButton;
-}
-
 void Level::update(GameScreen* gs)
 {
     if (gs->m_renderer->isLoadingAdditionalTextures())
@@ -603,7 +598,7 @@ m_hasCompletedLevel(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
-    m_backButton = std::unique_ptr<BackButton>(new BackButton());
+    m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
     m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
 }
 

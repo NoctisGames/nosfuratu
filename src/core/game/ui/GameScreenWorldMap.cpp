@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-//            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get());
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get());
         }
         
         gs->m_renderer->renderToScreen();
@@ -104,6 +104,11 @@ void WorldMap::execute(GameScreen* gs)
                 case UP:
                     if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                     {
+                        gs->m_stateMachine->revertToPreviousState();
+                    }
+                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
+                    {
+                        // Temporary, replace with display Leaderboards
                         gs->m_stateMachine->revertToPreviousState();
                     }
                     else
@@ -225,9 +230,14 @@ WorldMapMenu* WorldMap::getWorldMapMenu()
     return m_menu.get();
 }
 
-BackButton* WorldMap::getBackButton()
+GameButton* WorldMap::getBackButton()
 {
     return m_backButton.get();
+}
+
+GameButton* WorldMap::getLeaderBoardsButton()
+{
+    return m_leaderBoardsButton.get();
 }
 
 float WorldMap::getCamPosY()
@@ -262,7 +272,8 @@ WorldMap::WorldMap() : m_fCamPosY(0), m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());
-    m_backButton = std::unique_ptr<BackButton>(new BackButton());
+    m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
+    m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();

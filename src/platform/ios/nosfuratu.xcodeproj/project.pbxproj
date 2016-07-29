@@ -170,7 +170,6 @@
 		BBCF86D31CAE0D2800E5387A /* OffsetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CF1CAE0D2800E5387A /* OffsetPanel.cpp */; };
 		BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */; };
 		BBD3869F1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */; };
-		BBDB22D61C6659BF002DDA61 /* LevelEditorButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDB22D41C6659BF002DDA61 /* LevelEditorButton.cpp */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBE1871F1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */; };
 		BBE187231C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */; };
@@ -179,7 +178,7 @@
 		BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */; };
 		BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */; };
 		BBE68ACA1BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68AC61BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp */; };
-		BBE68ACE1BBF051E00C56FEA /* BackButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */; };
+		BBE68ACE1BBF051E00C56FEA /* GameButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE68ACC1BBF051E00C56FEA /* GameButton.cpp */; };
 		BBE7EF811C908E5800CB8533 /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE7EF801C908E5800CB8533 /* misc.png */; };
 		BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C51B97B9BB009B4711 /* Entity.cpp */; };
 		BBEA166F1B97B9BB009B4711 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBEA15C71B97B9BB009B4711 /* EntityManager.cpp */; };
@@ -529,8 +528,6 @@
 		BBD3869B1C5C2910002CA862 /* pp_radial_blue_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = pp_radial_blue_texture_shader.fsh; sourceTree = "<group>"; };
 		BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBD3869E1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFramebufferRadialBlurGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BBDB22D41C6659BF002DDA61 /* LevelEditorButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelEditorButton.cpp; sourceTree = "<group>"; };
-		BBDB22D51C6659BF002DDA61 /* LevelEditorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEditorButton.h; sourceTree = "<group>"; };
 		BBE1871D1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeDeathTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBE1871E1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeDeathTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnakeDeathTextureProgram.cpp; sourceTree = "<group>"; };
@@ -545,8 +542,8 @@
 		BBE68AC51BBF016D00C56FEA /* LevelEditorActionsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEditorActionsPanel.h; sourceTree = "<group>"; };
 		BBE68AC61BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelEditorEntitiesPanel.cpp; sourceTree = "<group>"; };
 		BBE68AC71BBF016D00C56FEA /* LevelEditorEntitiesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelEditorEntitiesPanel.h; sourceTree = "<group>"; };
-		BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackButton.cpp; sourceTree = "<group>"; };
-		BBE68ACD1BBF051E00C56FEA /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
+		BBE68ACC1BBF051E00C56FEA /* GameButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameButton.cpp; sourceTree = "<group>"; };
+		BBE68ACD1BBF051E00C56FEA /* GameButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameButton.h; sourceTree = "<group>"; };
 		BBE7EF801C908E5800CB8533 /* misc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = misc.png; sourceTree = "<group>"; };
 		BBEA15C51B97B9BB009B4711 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		BBEA15C61B97B9BB009B4711 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
@@ -1273,8 +1270,6 @@
 			children = (
 				BBEA16551B97B9BB009B4711 /* Assets.cpp */,
 				BBEA16561B97B9BB009B4711 /* Assets.h */,
-				BBE68ACC1BBF051E00C56FEA /* BackButton.cpp */,
-				BBE68ACD1BBF051E00C56FEA /* BackButton.h */,
 				BB779B231CB331EC002B29AD /* BatPanel.cpp */,
 				BB779B241CB331EC002B29AD /* BatPanel.h */,
 				BB5C89271C8E49A700820366 /* Chapter1Level10.cpp */,
@@ -1286,6 +1281,8 @@
 				BBEA16571B97B9BB009B4711 /* direct3d */,
 				BB646DE71C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.cpp */,
 				BB646DE81C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.h */,
+				BBE68ACC1BBF051E00C56FEA /* GameButton.cpp */,
+				BBE68ACD1BBF051E00C56FEA /* GameButton.h */,
 				BBEA165C1B97B9BB009B4711 /* GameScreen.cpp */,
 				BBEA165D1B97B9BB009B4711 /* GameScreen.h */,
 				BB2DF2891C599A0100DD7BE3 /* GameScreenLevelEditor.cpp */,
@@ -1300,8 +1297,6 @@
 				BB27A7671C6C000500A82213 /* GameScreenWorldMap.h */,
 				BBE68AC41BBF016D00C56FEA /* LevelEditorActionsPanel.cpp */,
 				BBE68AC51BBF016D00C56FEA /* LevelEditorActionsPanel.h */,
-				BBDB22D41C6659BF002DDA61 /* LevelEditorButton.cpp */,
-				BBDB22D51C6659BF002DDA61 /* LevelEditorButton.h */,
 				BBE68AC61BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp */,
 				BBE68AC71BBF016D00C56FEA /* LevelEditorEntitiesPanel.h */,
 				BBE631761BE1194B009C06B1 /* LevelSelectorPanel.cpp */,
@@ -1604,7 +1599,7 @@
 				BBEA16761B97B9BB009B4711 /* OverlapTester.cpp in Sources */,
 				BB3D8CF81B98D387009D58DE /* Animation.cpp in Sources */,
 				BB646DEC1C69A93300313FBB /* ExitGround.cpp in Sources */,
-				BBE68ACE1BBF051E00C56FEA /* BackButton.cpp in Sources */,
+				BBE68ACE1BBF051E00C56FEA /* GameButton.cpp in Sources */,
 				0A8FBF90179E07440039BA29 /* main.m in Sources */,
 				BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */,
 				BBEA16791B97B9BB009B4711 /* Vector2D.cpp in Sources */,
@@ -1641,7 +1636,6 @@
 				BBE68ACA1BBF016D00C56FEA /* LevelEditorEntitiesPanel.cpp in Sources */,
 				BBEA169B1B97B9BB009B4711 /* OpenGLESLineBatcher.cpp in Sources */,
 				BBEA16781B97B9BB009B4711 /* Triangle.cpp in Sources */,
-				BBDB22D61C6659BF002DDA61 /* LevelEditorButton.cpp in Sources */,
 				BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */,
 				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* CollectibleItem.cpp in Sources */,

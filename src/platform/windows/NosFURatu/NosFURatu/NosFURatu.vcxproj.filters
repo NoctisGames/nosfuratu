@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Assets">
@@ -64,7 +64,7 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\BackButton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
@@ -96,7 +96,6 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
@@ -167,7 +166,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\FlagUtil.h" />
     <ClInclude Include="..\..\..\..\core\framework\util\macros.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\BackButton.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameButton.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
@@ -206,7 +205,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\Background.h" />
-    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorButton.h" />
     <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\Midground.h" />

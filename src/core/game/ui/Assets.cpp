@@ -1253,10 +1253,35 @@ TextureRegion& Assets::get(MidBossOwl* owl)
     assert(false);
 }
 
-TextureRegion& Assets::get(BackButton* backButton)
+TextureRegion& Assets::get(GameButton* gameButton)
 {
-    static TextureRegion tr = TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
-    return tr;
+    switch (gameButton->getType())
+    {
+        case GameButtonType_BackToTitle:
+        {
+            static TextureRegion tr = TextureRegion(0, 1800, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case GameButtonType_Leaderboards:
+        {
+            static TextureRegion tr = TextureRegion(984, 1800, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case GameButtonType_BackToLevelSelect:
+        {
+            static TextureRegion tr = TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+            return tr;
+        }
+        case GameButtonType_LevelEditor:
+        {
+            static TextureRegion tr = TextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        default:
+            break;
+    }
+    
+    assert(false);
 }
 
 TextureRegion& Assets::get(BatInstruction* batInstruction)
@@ -1335,12 +1360,6 @@ TextureRegion& Assets::get(BatPanel* batPanel)
         
         return anim.getTextureRegion(batPanel->getStateTime());
     }
-}
-
-TextureRegion& Assets::get(LevelEditorButton* levelEditorButton)
-{
-    static TextureRegion tr = TextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    return tr;
 }
 
 TextureRegion& Assets::get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel)

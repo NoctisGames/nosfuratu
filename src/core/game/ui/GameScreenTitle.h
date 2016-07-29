@@ -10,7 +10,7 @@
 #define __nosfuratu__GameScreenTitle__
 
 #include "State.h"
-#include "LevelEditorButton.h"
+#include "GameButton.h"
 #include "TitlePanel.h"
 
 #include <memory>
@@ -30,13 +30,13 @@ public:
     
     TitlePanel* getTitlePanel();
     
-    LevelEditorButton* getLevelEditorButton();
+    GameButton* getLevelEditorButton();
 
 	void setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton);
     
 private:
     std::unique_ptr<TitlePanel> m_panel;
-    std::unique_ptr<LevelEditorButton> m_levelEditorButton;
+    std::unique_ptr<GameButton> m_levelEditorButton;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
 	bool m_isDisplayingLevelEditorButton;

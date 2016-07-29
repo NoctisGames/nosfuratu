@@ -10,8 +10,7 @@
 #define __nosfuratu__GameScreenLevels__
 
 #include "State.h"
-#include "BackButton.h"
-#include "LevelEditorButton.h"
+#include "GameButton.h"
 #include "BatPanel.h"
 #include "OverlapTester.h"
 #include "CollectibleItem.h"
@@ -39,13 +38,11 @@ public:
     
     Game& getGame();
     
-    BackButton& getBackButton();
-    
 protected:
     const char* m_json;
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
-    std::unique_ptr<BackButton> m_backButton;
+    std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
     bool m_isReleasingShockwave;

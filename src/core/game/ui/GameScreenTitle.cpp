@@ -133,7 +133,7 @@ TitlePanel* Title::getTitlePanel()
     return m_panel.get();
 }
 
-LevelEditorButton* Title::getLevelEditorButton()
+GameButton* Title::getLevelEditorButton()
 {
     return m_levelEditorButton.get();
 }
@@ -146,5 +146,5 @@ void Title::setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton)
 Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false), m_isDisplayingLevelEditorButton(false)
 {
     m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
-    m_levelEditorButton = std::unique_ptr<LevelEditorButton>(new LevelEditorButton());
+    m_levelEditorButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_LevelEditor));
 }

@@ -10,7 +10,7 @@
 #define __nosfuratu__GameScreenWorldMap__
 
 #include "State.h"
-#include "BackButton.h"
+#include "GameButton.h"
 #include "GameScreenLevels.h"
 #include "WorldMapPanel.h"
 
@@ -204,7 +204,9 @@ public:
     
     std::vector<std::unique_ptr<LevelThumbnail>>& getLevelThumbnails();
     
-    BackButton* getBackButton();
+    GameButton* getBackButton();
+    
+    GameButton* getLeaderBoardsButton();
     
     float getCamPosY();
     
@@ -213,7 +215,8 @@ private:
     std::unique_ptr<WorldMapMenu> m_menu;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
     std::vector<std::unique_ptr<LevelThumbnail>> m_levelThumbnails;
-    std::unique_ptr<BackButton> m_backButton;
+    std::unique_ptr<GameButton> m_backButton;
+    std::unique_ptr<GameButton> m_leaderBoardsButton;
     float m_fCamPosY;
     bool m_isReadyForTransition;
     

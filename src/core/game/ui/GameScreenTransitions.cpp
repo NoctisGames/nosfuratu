@@ -13,8 +13,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "GameScreenLevelEditor.h"
-#include "BackButton.h"
-#include "LevelEditorButton.h"
+#include "GameButton.h"
 #include "GameScreenTitle.h"
 #include "GameScreenWorldMap.h"
 
@@ -44,7 +43,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->setFramebuffer(1);
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
-//        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getLevelThumbnails(), WorldMap::getInstance()->getWorldMapMenu(), WorldMap::getInstance()->getBackButton());
+        gs->m_renderer->renderWorldMapScreenUi(WorldMap::getInstance()->getLevelThumbnails(), WorldMap::getInstance()->getWorldMapMenu(), WorldMap::getInstance()->getBackButton(), WorldMap::getInstance()->getLeaderBoardsButton());
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         

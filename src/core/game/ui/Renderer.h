@@ -35,8 +35,7 @@ class ShockwaveTextureGpuProgramWrapper;
 class TransDeathGpuProgramWrapper;
 class FramebufferRadialBlurGpuProgramWrapper;
 class Vector2D;
-class BackButton;
-class LevelEditorButton;
+class GameButton;
 class GameScreenLevelEditor;
 class TitlePanel;
 class WorldMapPanel;
@@ -90,11 +89,11 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool isDisplayingLevelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton);
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, BackButton* backButton);
+    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, GameButton* backButton, GameButton* leaderBoardsButton);
     
     void renderWorld(Game& game);
     
@@ -106,7 +105,7 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
-    void renderHud(Game& game, BackButton* backButton, BatPanel* batPanel, int fps);
+    void renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int fps);
     
     void renderMarkers(Game& game);
     
