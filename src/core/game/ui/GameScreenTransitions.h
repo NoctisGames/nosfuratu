@@ -68,12 +68,16 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    void setLevelLocation(float centerX, float centerY);
+    
     void setWorldToLoad(int worldToLoad);
     
     void setLevelToLoad(int levelToLoad);
     
 private:
     Level* m_levelState;
+    float m_fCenterX;
+    float m_fCenterY;
     float m_fTransitionStateTime;
     int m_iWorldToLoad;
     int m_iLevelToLoad;

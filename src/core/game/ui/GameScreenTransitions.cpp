@@ -554,7 +554,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
@@ -596,6 +596,12 @@ void WorldMapToLevel::exit(GameScreen* gs)
     m_iLevelToLoad = 0;
 }
 
+void WorldMapToLevel::setLevelLocation(float centerX, float centerY)
+{
+    m_fCenterX = centerX;
+    m_fCenterY = centerY;
+}
+
 void WorldMapToLevel::setWorldToLoad(int worldToLoad)
 {
     m_iWorldToLoad = worldToLoad;
@@ -606,7 +612,7 @@ void WorldMapToLevel::setLevelToLoad(int levelToLoad)
     m_iLevelToLoad = levelToLoad;
 }
 
-WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fTransitionStateTime(0), m_iWorldToLoad(0), m_iLevelToLoad(0)
+WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fCenterX(0), m_fCenterY(0), m_fTransitionStateTime(0), m_iWorldToLoad(0), m_iLevelToLoad(0)
 {
     // Empty
 }

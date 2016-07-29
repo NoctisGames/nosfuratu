@@ -121,6 +121,7 @@ void WorldMap::execute(GameScreen* gs)
                                 int levelToLoad = (*j)->getLevel();
                                 int goldenCarrotsFlag = (*j)->getGoldenCarrotsFlag();
                                 
+                                WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
                                 

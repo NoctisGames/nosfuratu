@@ -29,6 +29,7 @@
 #include "ConfirmExitPanel.h"
 #include "GpuProgramWrapper.h"
 #include "TransitionGpuProgramWrapper.h"
+#include "PointTransitionGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
@@ -59,6 +60,7 @@ m_areShadersLoaded(false),
 m_stopCamera(false),
 m_hasCompletedRadialBlur(false),
 m_transScreenGpuProgramWrapper(nullptr),
+m_pointTransScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
 m_snakeDeathTextureProgram(nullptr),
@@ -274,16 +276,17 @@ bool Renderer::isLoadingAdditionalTextures()
 bool Renderer::isLoaded()
 {
     return m_misc.gpuTextureWrapper
-		&& m_transScreenGpuProgramWrapper->isLoaded()
-		&& m_sinWaveTextureProgram->isLoaded()
-		&& m_backgroundGpuTextureProgramWrapper->isLoaded()
-		&& m_snakeDeathTextureProgram->isLoaded()
-		&& m_shockwaveTextureGpuProgramWrapper->isLoaded()
-		&& m_framebufferToScreenGpuProgramWrapper->isLoaded()
-		&& m_framebufferTintGpuProgramWrapper->isLoaded()
-		&& m_framebufferRadialBlurGpuProgramWrapper->isLoaded()
-		&& m_transDeathInGpuProgramWrapper->isLoaded()
-		&& m_transDeathOutGpuProgramWrapper->isLoaded();
+    && m_transScreenGpuProgramWrapper->isLoaded()
+    && m_pointTransScreenGpuProgramWrapper->isLoaded()
+    && m_sinWaveTextureProgram->isLoaded()
+    && m_backgroundGpuTextureProgramWrapper->isLoaded()
+    && m_snakeDeathTextureProgram->isLoaded()
+    && m_shockwaveTextureGpuProgramWrapper->isLoaded()
+    && m_framebufferToScreenGpuProgramWrapper->isLoaded()
+    && m_framebufferTintGpuProgramWrapper->isLoaded()
+    && m_framebufferRadialBlurGpuProgramWrapper->isLoaded()
+    && m_transDeathInGpuProgramWrapper->isLoaded()
+    && m_transDeathOutGpuProgramWrapper->isLoaded();
 }
 
 void Renderer::beginFrame(float deltaTime)
@@ -1409,6 +1412,23 @@ void Renderer::renderToScreenTransition(float progress)
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transScreenGpuProgramWrapper);
 }
 
+void Renderer::renderToScreenPointTransition(float centerX, float centerY, float progress)
+{
+    /// Render the screen transition to the screen
+    
+    m_pointTransScreenGpuProgramWrapper->configure(&m_framebuffers.at(1), centerX, centerY, progress);
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    bindToScreenFramebuffer();
+    
+    clearFramebufferWithColor(0, 0, 0, 1);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_pointTransScreenGpuProgramWrapper);
+}
+
 void Renderer::renderToScreenWithRadialBlur()
 {
     /// Render everything to the screen with a radial blur
@@ -1453,6 +1473,7 @@ void Renderer::cleanUp()
     if (m_areShadersLoaded)
     {
         m_transScreenGpuProgramWrapper->cleanUp();
+        m_pointTransScreenGpuProgramWrapper->cleanUp();
         m_sinWaveTextureProgram->cleanUp();
         m_backgroundGpuTextureProgramWrapper->cleanUp();
         m_snakeDeathTextureProgram->cleanUp();

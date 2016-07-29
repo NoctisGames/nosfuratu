@@ -29,6 +29,7 @@ class Game;
 class Jon;
 class GpuProgramWrapper;
 class TransitionGpuProgramWrapper;
+class PointTransitionGpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
@@ -123,6 +124,8 @@ public:
     
     void renderToScreenTransition(float progress);
     
+    void renderToScreenPointTransition(float centerX, float centerY, float progress);
+    
     void renderToScreenWithRadialBlur();
     
     void renderToScreen();
@@ -163,6 +166,7 @@ protected:
     std::vector<GpuTextureWrapper> m_framebuffers;
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
+    PointTransitionGpuProgramWrapper* m_pointTransScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
 	GpuProgramWrapper* m_backgroundGpuTextureProgramWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;

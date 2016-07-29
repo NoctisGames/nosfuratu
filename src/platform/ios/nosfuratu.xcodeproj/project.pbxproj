@@ -39,6 +39,10 @@
 		BB0AE8D41C6AC5B60047EF19 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0AE8D21C6AC5B60047EF19 /* Enemy.cpp */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB1F81AA1D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1F81A81D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp */; };
+		BB1F81AD1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1F81AB1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp */; };
+		BB1F81AF1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB1F81AE1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh */; };
+		BB1F81B21D4B032D00DC636D /* PointTransitionProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1F81B01D4B032D00DC636D /* PointTransitionProgram.cpp */; };
 		BB264FF51C8F546E0091EA96 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BB264FF21C8F546E0091EA96 /* level_editor.png */; };
 		BB264FF61C8F546E0091EA96 /* title_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = BB264FF31C8F546E0091EA96 /* title_screen.png */; };
 		BB264FF71C8F546E0091EA96 /* world_map_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = BB264FF41C8F546E0091EA96 /* world_map_screen.png */; };
@@ -270,6 +274,13 @@
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		BB1F81A71D4AEF7800DC636D /* MathUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
+		BB1F81A81D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointTransitionGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB1F81A91D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointTransitionGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB1F81AB1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESPointTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB1F81AC1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESPointTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB1F81AE1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_screen_circle_open_shader.vsh; sourceTree = "<group>"; };
+		BB1F81B01D4B032D00DC636D /* PointTransitionProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointTransitionProgram.cpp; sourceTree = "<group>"; };
+		BB1F81B11D4B032D00DC636D /* PointTransitionProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointTransitionProgram.h; sourceTree = "<group>"; };
 		BB264FF21C8F546E0091EA96 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BB264FF31C8F546E0091EA96 /* title_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_screen.png; sourceTree = "<group>"; };
 		BB264FF41C8F546E0091EA96 /* world_map_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_map_screen.png; sourceTree = "<group>"; };
@@ -1306,6 +1317,8 @@
 				BBCF86CF1CAE0D2800E5387A /* OffsetPanel.cpp */,
 				BBCF86D01CAE0D2800E5387A /* OffsetPanel.h */,
 				BBEA165E1B97B9BB009B4711 /* opengles */,
+				BB1F81A81D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp */,
+				BB1F81A91D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.h */,
 				BBEA166B1B97B9BB009B4711 /* Renderer.cpp */,
 				BBEA166C1B97B9BB009B4711 /* Renderer.h */,
 				BBE68AB91BBEF85300C56FEA /* RendererType.h */,
@@ -1377,6 +1390,8 @@
 				BB4495701C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.h */,
 				BBEA16671B97B9BB009B4711 /* OpenGLESGameScreen.cpp */,
 				BBEA16681B97B9BB009B4711 /* OpenGLESGameScreen.h */,
+				BB1F81AB1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp */,
+				BB1F81AC1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.h */,
 				BBEA16691B97B9BB009B4711 /* OpenGLESRenderer.cpp */,
 				BBEA166A1B97B9BB009B4711 /* OpenGLESRenderer.h */,
 				BBA1ACF81C349ED700CDE963 /* OpenGLESShockwaveTextureGpuProgramWrapper.cpp */,
@@ -1394,6 +1409,8 @@
 				BBA1AD001C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh */,
 				BBA1ACFC1C349F4900CDE963 /* ShockwaveTextureProgram.cpp */,
 				BBA1ACFD1C349F4900CDE963 /* ShockwaveTextureProgram.h */,
+				BB1F81B01D4B032D00DC636D /* PointTransitionProgram.cpp */,
+				BB1F81B11D4B032D00DC636D /* PointTransitionProgram.h */,
 				BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */,
 				BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */,
 				BB8E5E471BC439B400520DFB /* SinWaveTextureProgram.h */,
@@ -1402,8 +1419,9 @@
 				BBE187221C3234B300AC3FAE /* SnakeDeathTextureProgram.h */,
 				BB4495691C53779A004D1950 /* trans_in_death_shader.fsh */,
 				BB574F361C59231500926A9B /* trans_out_death_shader.fsh */,
-				BB2DF28C1C59A7AE00DD7BE3 /* trans_screen_shader.fsh */,
 				BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */,
+				BB1F81AE1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh */,
+				BB2DF28C1C59A7AE00DD7BE3 /* trans_screen_shader.fsh */,
 				BB574F3B1C5959C400926A9B /* TransDeathProgram.cpp */,
 				BB574F3C1C5959C400926A9B /* TransDeathProgram.h */,
 				BB2DF28E1C59B3B700DD7BE3 /* TransitionProgram.cpp */,
@@ -1515,6 +1533,7 @@
 				BB939CE81C626E41006D945A /* landing_grass.wav in Resources */,
 				BB779B211CB32AC0002B29AD /* mid_boss_bgm_intro.wav in Resources */,
 				0ADF1886178E2185005DA99E /* InfoPlist.strings in Resources */,
+				BB1F81AF1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh in Resources */,
 				BB3652351C87CB82004B9CCD /* toad_eat.wav in Resources */,
 				BB939CDE1C626E41006D945A /* footstep_left_grass.wav in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
@@ -1605,6 +1624,7 @@
 				0A8FBF90179E07440039BA29 /* main.m in Sources */,
 				BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */,
 				BBEA16791B97B9BB009B4711 /* Vector2D.cpp in Sources */,
+				BB1F81B21D4B032D00DC636D /* PointTransitionProgram.cpp in Sources */,
 				0A8FBF7C179E07320039BA29 /* png.c in Sources */,
 				0A8FBF7D179E07320039BA29 /* pngerror.c in Sources */,
 				BB4495711C538022004D1950 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */,
@@ -1640,6 +1660,7 @@
 				BBEA16781B97B9BB009B4711 /* Triangle.cpp in Sources */,
 				BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */,
 				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
+				BB1F81AA1D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* CollectibleItem.cpp in Sources */,
 				BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */,
@@ -1702,6 +1723,7 @@
 				BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */,
 				BBBB6CF61C93649200DC92A7 /* SaveData.m in Sources */,
 				0A8FBF88179E07320039BA29 /* pngwrite.c in Sources */,
+				BB1F81AD1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */,
 				0A8FBF89179E07320039BA29 /* pngwtran.c in Sources */,
 				0A8FBF8A179E07320039BA29 /* pngwutil.c in Sources */,
 			);
