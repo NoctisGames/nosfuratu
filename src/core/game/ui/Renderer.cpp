@@ -555,7 +555,7 @@ void Renderer::renderTitleScreenUi(LevelEditorButton* levelEditorButton, bool is
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
     
-    static Color fontColor = Color(1, 1, 1, 1);
+    static Color fontColor = Color(0.7f, 0.7f, 0.7f, 1);
     static float fgWidth = CAM_WIDTH / 60;
     static float fgHeight = fgWidth * 1.171875f;
     
