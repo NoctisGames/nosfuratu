@@ -889,6 +889,11 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
             return anim.getTextureRegion(collectibleItem->getStateTime());
         }
+        case CollectibleItemType_DisplayGoldenCarrot:
+        {
+            static TextureRegion tr = createTextureRegion(1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
     }
     
     assert(false);

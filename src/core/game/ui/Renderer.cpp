@@ -42,6 +42,7 @@
 #include "BatPanel.h"
 #include "MidBossOwl.h"
 #include "FlagUtil.h"
+#include "MathUtil.h"
 
 #include <math.h>
 #include <sstream>
@@ -958,9 +959,24 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     
     /// Render Play Time
     
+    static float startingTime = 120.0f;
+    
     {
+        float secondsLeft = clamp(startingTime - game.getStateTime(), startingTime, 0);
+        int minutesLeft = 0;
+        while (secondsLeft > 60)
+        {
+            secondsLeft -= 60;
+            minutesLeft++;
+        }
+        
         std::stringstream ss;
-        ss << std::fixed << std::setprecision(2) << game.getStateTime();
+        ss << "0" << minutesLeft << ":";
+        if (secondsLeft < 10)
+        {
+            ss << "0";
+        }
+        ss << std::fixed << std::setprecision(3) << secondsLeft;
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }
@@ -1005,7 +1021,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     if (m_world_1_objects.gpuTextureWrapper)
     {
         static CollectibleItem uiCarrot = Carrot(0, 0);
-        static CollectibleItem uiGoldenCarrot = GoldenCarrot(0, 0);
+        static CollectibleItem uiGoldenCarrot = DisplayGoldenCarrot(0, 0);
         
         uiCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2);
         uiCarrot.setWidth(fgWidth);
@@ -1031,7 +1047,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
 		std::string fps_string = ss.str();
 
 		m_spriteBatcher->beginBatch();
-		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
 
@@ -1050,7 +1066,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
 		std::string text = ss.str();
 
 		m_spriteBatcher->beginBatch();
-		m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
     

@@ -9,10 +9,10 @@
 #ifndef __noctisgames__platform_gl_h
 #define __noctisgames__platform_gl_h
 
-#ifdef GGD_IOS
+#ifdef NG_IOS
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#elif defined GGD_ANDROID
+#elif defined NG_ANDROID
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #endif

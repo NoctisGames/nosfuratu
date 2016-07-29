@@ -269,6 +269,7 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB1F81A71D4AEF7800DC636D /* MathUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
 		BB264FF21C8F546E0091EA96 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BB264FF31C8F546E0091EA96 /* title_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_screen.png; sourceTree = "<group>"; };
 		BB264FF41C8F546E0091EA96 /* world_map_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_map_screen.png; sourceTree = "<group>"; };
@@ -1026,6 +1027,7 @@
 				BBEA15DE1B97B9BB009B4711 /* Triangle.h */,
 				BBEA15DF1B97B9BB009B4711 /* Vector2D.cpp */,
 				BBEA15E01B97B9BB009B4711 /* Vector2D.h */,
+				BB1F81A71D4AEF7800DC636D /* MathUtil.h */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -1821,9 +1823,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "nosfuratu-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					GGD_OPENGL_ES,
+					NG_OPENGL_ES,
 					"DEBUG=1",
-					GGD_IOS,
+					NG_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../core\"/**",
@@ -1863,8 +1865,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "nosfuratu-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					GGD_OPENGL_ES,
-					GGD_IOS,
+					NG_OPENGL_ES,
+					NG_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../core\"/**",

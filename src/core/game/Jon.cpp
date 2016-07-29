@@ -13,13 +13,9 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 #include "FlagUtil.h"
+#include "MathUtil.h"
 
 #include <math.h>
-
-float clamp(float x, float upper, float lower)
-{
-    return fminf(upper, fmaxf(x, lower));
-}
 
 Jon* Jon::create(int gridX, int gridY, int type)
 {
