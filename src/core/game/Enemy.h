@@ -159,10 +159,12 @@ class Fox : public Enemy
 {
 public:
     Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.1015625f, 0.09375f, 0.6171875f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH),
+    m_fStartingX(0),
     m_isHitting(false),
     m_isLeft(true),
     m_isBeingHit(false)
     {
+        m_fStartingX = m_position->getX();
         m_velocity->setX(-3);
     }
     
@@ -178,6 +180,7 @@ protected:
     virtual void handleDead(float deltaTime);
     
 private:
+    float m_fStartingX;
     bool m_isHitting;
     bool m_isLeft;
     bool m_isBeingHit;

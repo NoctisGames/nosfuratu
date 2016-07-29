@@ -456,6 +456,21 @@ void Fox::handleAlive(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
+    bool isTooFarLeft = false;
+    bool isTooFarRight = false;
+    if (m_position->getX() - m_fStartingX > 8)
+    {
+        // Fox has wandered too far away from its starting position
+        m_velocity->setX(0);
+        isTooFarRight = true;
+    }
+    else if (m_position->getX() - m_fStartingX < -8)
+    {
+        // Fox has wandered too far away from its starting position
+        m_velocity->setX(0);
+        isTooFarLeft = true;
+    }
+    
     if (m_isBeingHit)
     {
         if (m_fStateTime > 0.30f)
@@ -486,7 +501,7 @@ void Fox::handleAlive(float deltaTime)
             m_isHitting = true;
             m_isLeft = true;
             
-            m_velocity->setX(-7);
+            m_velocity->setX(isTooFarLeft ? 0 : -7);
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
@@ -498,7 +513,7 @@ void Fox::handleAlive(float deltaTime)
             m_isHitting = true;
             m_isLeft = false;
             
-            m_velocity->setX(7);
+            m_velocity->setX(isTooFarRight ? 0 : 7);
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
