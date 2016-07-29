@@ -218,6 +218,8 @@ private:
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     float m_fCamPosY;
+    int m_iNumCollectedGoldenCarrots;
+    int m_iNumTotalGoldenCarrots;
     bool m_isReadyForTransition;
     
     void loadUserSaveData(rapidjson::Document& d, const char * key);

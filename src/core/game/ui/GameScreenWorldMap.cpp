@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get());
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots, m_iNumTotalGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -155,16 +155,15 @@ void WorldMap::loadUserSaveData(const char* json)
 {
     m_worldLevelStats.clear();
     
+    m_iNumCollectedGoldenCarrots = 0;
+    m_iNumTotalGoldenCarrots = 0;
+    
     m_menu->setLevelStats(-1, -1, 0);
     
     rapidjson::Document d;
     d.Parse<0>(json);
     
     loadUserSaveData(d, "world_1");
-    loadUserSaveData(d, "world_2");
-    loadUserSaveData(d, "world_3");
-    loadUserSaveData(d, "world_4");
-    loadUserSaveData(d, "world_5");
     
     for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
@@ -263,13 +262,20 @@ void WorldMap::loadUserSaveData(rapidjson::Document& d, const char * key)
         {
             int levelStats = v[i].GetInt();
             wlc->m_levelStats.push_back(levelStats);
+            
+            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
+            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
+            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
+            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
+            
+            m_iNumTotalGoldenCarrots += 4;
         }
         
         m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
     }
 }
 
-WorldMap::WorldMap() : m_fCamPosY(0), m_isReadyForTransition(false)
+WorldMap::WorldMap() : m_fCamPosY(0), m_iNumCollectedGoldenCarrots(0), m_iNumTotalGoldenCarrots(0), m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());
