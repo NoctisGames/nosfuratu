@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Assets">
@@ -121,6 +121,7 @@
     <ClCompile Include="..\..\..\..\core\game\MidBossOwl.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\BatPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="..\..\..\..\core\game\MidBossOwl.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\BatPanel.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

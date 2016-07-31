@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -126,7 +126,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -141,7 +141,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -156,7 +156,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -171,7 +171,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -186,7 +186,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -201,7 +201,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GGD_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -1584,6 +1584,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\OffsetPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\RendererType.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
@@ -1684,6 +1685,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\OffsetPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
