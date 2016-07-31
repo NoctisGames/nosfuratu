@@ -1264,12 +1264,12 @@ TextureRegion& Assets::get(GameButton* gameButton)
     {
         case GameButtonType_BackToTitle:
         {
-            static TextureRegion tr = TextureRegion(0, 1800, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = TextureRegion(1000, 1000, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_Leaderboards:
         {
-            static TextureRegion tr = TextureRegion(984, 1800, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = TextureRegion(1104, 1000, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToLevelSelect:

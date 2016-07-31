@@ -27,7 +27,22 @@ public final class GameRenderer implements Renderer
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
     private static final short REQUESTED_ACTION_GET_LEVEL_COMPLETIONS = 4;
-    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE = 5; // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
+    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 5; // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
+
+    private static final short MESSAGE_NO_END_SIGN_KEY = 1;
+    private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
+    private static final short MESSAGE_NO_JON_KEY = 2;
+    private static final String MESSAGE_NO_JON_VAL = "Cannot save or test a level that does not contain a Jon";
+    private static final short MESSAGE_INVALID_JON_KEY = 3;
+    private static final String MESSAGE_INVALID_JON_VAL = "Cannot save or test a level unless Jon is placed to the left of the end sign";
+    private static final short MESSAGE_NO_COUNT_HISS_KEY = 4;
+    private static final String MESSAGE_NO_COUNT_HISS_VAL = "Cannot save or test a level that does not contain a Count Hiss";
+    private static final short MESSAGE_INVALID_COUNT_HISS_KEY = 5;
+    private static final String MESSAGE_INVALID_COUNT_HISS_VAL = "Cannot save or test a level unless Count Hiss is placed to the left of the end sign";
+    private static final short MESSAGE_OFFSET_NEEDS_MARKERS_KEY = 6;
+    private static final String MESSAGE_OFFSET_NEEDS_MARKERS_VAL = "2 markers must be placed to denote the section which you want to offset";
+    private static final short MESSAGE_FEATURE_COMING_SOON_KEY = 7;
+    private static final String MESSAGE_FEATURE_COMING_SOON_VAL = "This feature is not available yet, but is coming soon!";
 
     //// Music Definitions ////
 
@@ -159,15 +174,8 @@ public final class GameRenderer implements Renderer
                 sendLevelCompletions();
                 Game.clear_requested_action();
                 break;
-            case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
-                _activity.runOnUiThread(new Runnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        Toast.makeText(_activity, "REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE is currently not supported", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            case REQUESTED_ACTION_SHOW_MESSAGE:
+                showMessage(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
             default:
@@ -412,6 +420,57 @@ public final class GameRenderer implements Renderer
         userSaveData += "}";
 
         Game.load_user_save_data(userSaveData);
+    }
+
+    private void showMessage(int requestedAction)
+    {
+        while (requestedAction >= 1000)
+        {
+            requestedAction -= 1000;
+        }
+
+        int messageKey = requestedAction;
+
+        String toast = null;
+
+        switch (messageKey)
+        {
+            case MESSAGE_NO_END_SIGN_KEY:
+                toast = MESSAGE_NO_END_SIGN_VAL;
+                break;
+            case MESSAGE_NO_JON_KEY:
+                toast = MESSAGE_NO_JON_VAL;
+                break;
+            case MESSAGE_INVALID_JON_KEY:
+                toast = MESSAGE_INVALID_JON_VAL;
+                break;
+            case MESSAGE_NO_COUNT_HISS_KEY:
+                toast = MESSAGE_NO_COUNT_HISS_VAL;
+                break;
+            case MESSAGE_INVALID_COUNT_HISS_KEY:
+                toast = MESSAGE_INVALID_COUNT_HISS_VAL;
+                break;
+            case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
+                toast = MESSAGE_OFFSET_NEEDS_MARKERS_VAL;
+                break;
+            case MESSAGE_FEATURE_COMING_SOON_KEY:
+                toast = MESSAGE_FEATURE_COMING_SOON_VAL;
+                break;
+            default:
+                break;
+        }
+
+        if (toast != null)
+        {
+            _activity.runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Toast.makeText(_activity, "REQUESTED_ACTION_SHOW_MESSAGE is currently not supported", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private String getLevelName(int requestedAction)

@@ -601,7 +601,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots, int numTotalGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -687,18 +687,14 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     static Color fontColor = Color(0, 0, 0, 1);
-    static float fgWidth = CAM_WIDTH / 48;
+    static float fgWidth = CAM_WIDTH / 40;
     static float fgHeight = fgWidth * 1.171875f;
     
     m_spriteBatcher->beginBatch();
     
     {
         std::stringstream ss;
-        if (numCollectedGoldenCarrots < 10)
-        {
-            ss << "0";
-        }
-        ss << numCollectedGoldenCarrots << "/" << numTotalGoldenCarrots;
+        ss << numCollectedGoldenCarrots;
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT * 0.79084967320261f, fgWidth, fgHeight, fontColor, true);
     }

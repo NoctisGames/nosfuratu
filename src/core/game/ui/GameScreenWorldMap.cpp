@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots, m_iNumTotalGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -109,7 +109,8 @@ void WorldMap::execute(GameScreen* gs)
                     else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
                     {
                         // Temporary, replace with display Leaderboards
-                        gs->m_stateMachine->revertToPreviousState();
+                        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 100000 + MESSAGE_FEATURE_COMING_SOON_KEY;
+                        return;
                     }
                     else
                     {
@@ -156,7 +157,6 @@ void WorldMap::loadUserSaveData(const char* json)
     m_worldLevelStats.clear();
     
     m_iNumCollectedGoldenCarrots = 0;
-    m_iNumTotalGoldenCarrots = 0;
     
     m_menu->setLevelStats(-1, -1, 0);
     
@@ -267,15 +267,13 @@ void WorldMap::loadUserSaveData(rapidjson::Document& d, const char * key)
             m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
             m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
             m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
-            
-            m_iNumTotalGoldenCarrots += 4;
         }
         
         m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
     }
 }
 
-WorldMap::WorldMap() : m_fCamPosY(0), m_iNumCollectedGoldenCarrots(0), m_iNumTotalGoldenCarrots(0), m_isReadyForTransition(false)
+WorldMap::WorldMap() : m_fCamPosY(0), m_iNumCollectedGoldenCarrots(0), m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());
@@ -285,25 +283,25 @@ WorldMap::WorldMap() : m_fCamPosY(0), m_iNumCollectedGoldenCarrots(0), m_iNumTot
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();
     
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.19117647058824f, pH * 0.56209150326797f, 1, 1)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.30882352941176f, pH * 0.56209150326797f, 1, 2)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.42647058823529f, pH * 0.56209150326797f, 1, 3)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.54411764705882f, pH * 0.56209150326797f, 1, 4)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.66176470588235f, pH * 0.56209150326797f, 1, 5)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.77941176470588f, pH * 0.56209150326797f, 1, 6)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.89705882352941f, pH * 0.45751633986928f, 1, 7)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.77941176470588f, pH * 0.35294117647059f, 1, 8)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.66176470588235f, pH * 0.35294117647059f, 1, 9)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.54411764705882f, pH * 0.35294117647059f, 1, 10)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.42647058823529f, pH * 0.35294117647059f, 1, 11)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.30882352941176f, pH * 0.35294117647059f, 1, 12)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.19117647058824f, pH * 0.35294117647059f, 1, 13)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.07352941176471f, pH * 0.2483660130719f, 1, 14)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.19117647058824f, pH * 0.1437908496732f, 1, 15)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.30882352941176f, pH * 0.1437908496732f, 1, 16)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.42647058823529f, pH * 0.1437908496732f, 1, 17)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.54411764705882f, pH * 0.1437908496732f, 1, 18)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.66176470588235f, pH * 0.1437908496732f, 1, 19)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.77941176470588f, pH * 0.1437908496732f, 1, 20)));
-    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new LevelThumbnail(pW * 0.89705882352941f, pH * 0.1437908496732f, 1, 21)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.56209150326797f, 1, 1)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.56209150326797f, 1, 2)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.42647058823529f, pH * 0.56209150326797f, 1, 3)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.54411764705882f, pH * 0.56209150326797f, 1, 4)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.56209150326797f, 1, 5)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.56209150326797f, 1, 6)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.89705882352941f, pH * 0.45751633986928f, 1, 7)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.35294117647059f, 1, 8)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.35294117647059f, 1, 9)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new BossLevelThumbnail(pW * 0.54411764705882f, pH * 0.35294117647059f, 1, 10)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.42647058823529f, pH * 0.35294117647059f, 1, 11)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.35294117647059f, 1, 12)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.35294117647059f, 1, 13)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.07352941176471f, pH * 0.2483660130719f, 1, 14)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.1437908496732f, 1, 15)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.1437908496732f, 1, 16)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.42647058823529f, pH * 0.1437908496732f, 1, 17)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.54411764705882f, pH * 0.1437908496732f, 1, 18)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.1437908496732f, 1, 19)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.1437908496732f, 1, 20)));
+    m_levelThumbnails.push_back(std::unique_ptr<LevelThumbnail>(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.1437908496732f, 1, 21)));
 }

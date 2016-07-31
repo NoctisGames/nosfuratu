@@ -194,7 +194,7 @@ void NosFURatuMain::Update()
 			sendLevelStats();
 			m_gameScreen->clearRequestedAction();
 			break;
-		case REQUESTED_ACTION_LEVEL_EDITOR_SHOW_MESSAGE:
+		case REQUESTED_ACTION_SHOW_MESSAGE:
 			showMessage(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
@@ -486,36 +486,37 @@ void NosFURatuMain::sendLevelStats()
 
 void NosFURatuMain::showMessage(int requestedAction)
 {
-	int messageKey = 0;
-
-	while (requestedAction >= 1000)
+    while (requestedAction >= 1000)
 	{
 		requestedAction -= 1000;
 	}
 
-	messageKey = requestedAction;
+	int messageKey = requestedAction;
 
 	const char* toast = nullptr;
 
 	switch (messageKey)
 	{
 	case MESSAGE_NO_END_SIGN_KEY:
-		toast = MESSAGE_NO_END_SIGN_VALUE;
+		toast = MESSAGE_NO_END_SIGN_VAL;
 		break;
 	case MESSAGE_NO_JON_KEY:
-		toast = MESSAGE_NO_JON_VALUE;
+		toast = MESSAGE_NO_JON_VAL;
 		break;
 	case MESSAGE_INVALID_JON_KEY:
-		toast = MESSAGE_INVALID_JON_VALUE;
+		toast = MESSAGE_INVALID_JON_VAL;
 		break;
 	case MESSAGE_NO_COUNT_HISS_KEY:
-		toast = MESSAGE_NO_COUNT_HISS_VALUE;
+		toast = MESSAGE_NO_COUNT_HISS_VAL;
 		break;
 	case MESSAGE_INVALID_COUNT_HISS_KEY:
-		toast = MESSAGE_INVALID_COUNT_HISS_VALUE;
+		toast = MESSAGE_INVALID_COUNT_HISS_VAL;
 		break;
 	case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
-		toast = MESSAGE_OFFSET_NEEDS_MARKERS_VALUE;
+		toast = MESSAGE_OFFSET_NEEDS_MARKERS_VAL;
+		break;
+	case MESSAGE_FEATURE_COMING_SOON_KEY:
+		toast = MESSAGE_FEATURE_COMING_SOON_VAL;
 		break;
 	default:
 		break;

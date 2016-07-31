@@ -29,10 +29,19 @@ public:
     std::vector<int> m_levelStats;
 };
 
+typedef enum
+{
+    LevelThumbnailType_Normal,
+    LevelThumbnailType_Boss
+} LevelThumbnailType;
+
 class LevelThumbnail : public PhysicalEntity
 {
 public:
-    LevelThumbnail(float x, float y, int world, int level) : PhysicalEntity(x, y, 0.84375f, 0.84375f),
+    static LevelThumbnail* create(LevelThumbnailType type);
+    
+    LevelThumbnail(float x, float y, float width, float height, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
+    m_type(type),
     m_fAnimationDelay(0),
     m_iWorld(world),
     m_iLevel(level),
@@ -73,12 +82,25 @@ public:
     void animate(float delay) { m_fAnimationDelay = delay; m_fStateTime = 0; }
     
 private:
+    LevelThumbnailType m_type;
     float m_fAnimationDelay;
     int m_iWorld;
     int m_iLevel;
     int m_iGoldenCarrotsFlag;
     bool m_isVisible;
     bool m_isCompleted;
+};
+
+class NormalLevelThumbnail : public LevelThumbnail
+{
+public:
+    NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, 1.0546875f, 1.0546875f, world, level, LevelThumbnailType_Normal) {}
+};
+
+class BossLevelThumbnail : public LevelThumbnail
+{
+public:
+    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, 0.650390625f, 1.212890625f, world, level, LevelThumbnailType_Boss) {}
 };
 
 typedef enum
@@ -219,7 +241,6 @@ private:
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     float m_fCamPosY;
     int m_iNumCollectedGoldenCarrots;
-    int m_iNumTotalGoldenCarrots;
     bool m_isReadyForTransition;
     
     void loadUserSaveData(rapidjson::Document& d, const char * key);
