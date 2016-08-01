@@ -30,6 +30,7 @@
 #include "DDSTextureLoader.h"
 #include "DirectXHelper.h"
 #include "Direct3DTransScreenGpuProgramWrapper.h"
+#include "Direct3DPointTransScreenGpuProgramWrapper.h"
 #include "Direct3DSinWaveTextureGpuProgramWrapper.h"
 #include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
 #include "Direct3DShockwaveTextureGpuProgramWrapper.h"
@@ -68,6 +69,7 @@ void Direct3DRenderer::endFrame()
 void Direct3DRenderer::loadShaderPrograms()
 {
 	m_transScreenGpuProgramWrapper = new Direct3DTransScreenGpuProgramWrapper(m_deviceResources);
+	m_pointTransScreenGpuProgramWrapper = new Direct3DPointTransScreenGpuProgramWrapper(m_deviceResources);
 	m_sinWaveTextureProgram = new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources);
 	m_backgroundGpuTextureProgramWrapper = new Direct3DBackgroundTextureGpuProgramWrapper(m_deviceResources);
 	m_snakeDeathTextureProgram = new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources);

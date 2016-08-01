@@ -122,6 +122,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\BatPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -232,6 +233,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\BatPanel.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -265,6 +267,8 @@
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FramebufferToScreenVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransScreenTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\RadialBlurTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTextureVertexShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
