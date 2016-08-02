@@ -60,7 +60,7 @@ private:
 class BatPanel : public PhysicalEntity
 {
 public:
-    BatPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT - 1.125f / 2 - 0.8f, float width = 4.5f, float height = 1.125f);
+    BatPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT - 1.125f / 2 - 1.6f, float width = 4.5f, float height = 1.125f);
     
     virtual void update(float deltaTime);
     

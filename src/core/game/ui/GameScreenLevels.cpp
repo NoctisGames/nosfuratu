@@ -206,7 +206,7 @@ void Level::update(GameScreen* gs)
                 m_game->reset();
                 enter(gs);
                 
-                updateCamera(gs, false, true);
+                updateCamera(gs, 0, false, true);
                 
                 m_showDeathTransOut = true;
             }
