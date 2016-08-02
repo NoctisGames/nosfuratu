@@ -62,7 +62,7 @@ protected:
     
     virtual void render(GameScreen* gs);
     
-    virtual void updateCamera(GameScreen* gs, bool instant = false);
+    virtual void updateCamera(GameScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
@@ -250,7 +250,7 @@ private:
     
     virtual void update(GameScreen* gs);
     
-    virtual void updateCamera(GameScreen* gs, bool instant = false);
+    virtual void updateCamera(GameScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
     

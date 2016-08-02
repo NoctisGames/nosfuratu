@@ -321,7 +321,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     m_fStateTime = 0;
     m_hasCompletedRadialBlur = false;
     
-    updateCameraToFollowJon(game, 1337, false);
+    updateCameraToFollowJon(game, 1337);
     
     m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
     m_camBounds->getLowerLeft().setY(game.getFarRightBottom());
@@ -376,7 +376,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         
         if (isComplete)
         {
-            updateCameraToFollowJon(game, 1337, false);
+            updateCameraToFollowJon(game, 1337);
             
             if (!m_hasCompletedRadialBlur)
             {
@@ -396,14 +396,14 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
     return 0;
 }
 
-void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, bool instant)
+void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddingX, bool chase, bool ignoreY, bool instant)
 {
     Jon& jon = game.getJon();
     
-    float idealCamX = jon.getPosition().getX() - CAM_WIDTH / 6;
+    float idealCamX = jon.getPosition().getX() - CAM_WIDTH / 6 + paddingX;
     if (chase)
     {
-        idealCamX = jon.getPosition().getX() - CAM_WIDTH * 5 / 6;
+        idealCamX = jon.getPosition().getX() - CAM_WIDTH * 5 / 6 + paddingX;
     }
     
     float camVelocityX = idealCamX - m_camBounds->getLowerLeft().getX();
@@ -465,6 +465,11 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, bool chase, 
     
     float camSpeed = regionBottomY - m_camBounds->getLowerLeft().getY();
     float camVelocityY = regionBottomY > m_camBounds->getLowerLeft().getY() ? camSpeed : regionBottomY == m_camBounds->getLowerLeft().getY() ? 0 : camSpeed * 4;
+    if (ignoreY)
+    {
+        camVelocityY = 0;
+    }
+    
     m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
     
     if (camVelocityY > 0)

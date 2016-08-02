@@ -211,7 +211,7 @@ void Chapter1Level10::update(GameScreen* gs)
             jon.setUserActionPrevented(false);
         }
         
-        if (!m_hasTriggeredMidBossMusicLoop && m_midBossOwl->getStateTime() > 4.80f)
+        if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
             Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
             
@@ -269,6 +269,13 @@ void Chapter1Level10::update(GameScreen* gs)
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
             Assets::getInstance()->setMusicId(musicId);
         }
+        
+        if (jon.getPosition().getY() < 12)
+        {
+            jon.getAcceleration().setX(0);
+            jon.getVelocity().setX(0);
+            jon.setIdle(true);
+        }
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
@@ -288,19 +295,32 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
     {
+        if (jon.isIdle())
+        {
+            jon.setIdle(false);
+            jon.setUserActionPrevented(false);
+        }
+  
         m_isChaseCamActivated = false;
     }
 }
 
-void Chapter1Level10::updateCamera(GameScreen* gs, bool instant)
+void Chapter1Level10::updateCamera(GameScreen* gs, float paddingX, bool ignoreY, bool instant)
 {
+    ignoreY = m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree || m_midBossOwl->getState() == MidBossOwlState_Dying;
+    
     if (m_isChaseCamActivated)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, true, instant);
+        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {
-        Level::updateCamera(gs, instant);
+        if (ignoreY)
+        {
+            paddingX = -6;
+        }
+        
+        Level::updateCamera(gs, paddingX, ignoreY, instant);
     }
 }
 

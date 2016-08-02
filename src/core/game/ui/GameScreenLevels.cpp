@@ -206,7 +206,7 @@ void Level::update(GameScreen* gs)
                 m_game->reset();
                 enter(gs);
                 
-                updateCamera(gs, true);
+                updateCamera(gs, false, true);
                 
                 m_showDeathTransOut = true;
             }
@@ -411,9 +411,9 @@ void Level::render(GameScreen* gs)
     gs->m_renderer->endFrame();
 }
 
-void Level::updateCamera(GameScreen* gs, bool instant)
+void Level::updateCamera(GameScreen* gs, float paddingX, bool ignoreY, bool instant)
 {
-    gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, false, instant);
+    gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, paddingX, false, ignoreY, instant);
 }
 
 void Level::additionalRenderingBeforeHud(GameScreen* gs)
