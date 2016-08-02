@@ -253,6 +253,8 @@ private:
         }
     }
     
+    void renderDebugInfo(Game& game, int fps);
+    
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     
     void renderBoundsWithColor(Rectangle &r, Color& c);

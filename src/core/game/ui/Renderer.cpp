@@ -1059,39 +1059,8 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(&uiGoldenCarrot), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     }
-
-	{
-		// Render FPS
-
-		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-
-		std::stringstream ss;
-		ss << fps << " FPS";
-		std::string fps_string = ss.str();
-
-		m_spriteBatcher->beginBatch();
-		m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
-		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-	}
-
-	if (game.getJons().size() >= 1)
-	{
-		// Render Jon's Speed
-
-		updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-
-		Jon& jon = game.getJon();
-
-		float speed = jon.getVelocity().getX();
-
-		std::stringstream ss;
-		ss << std::fixed << std::setprecision(3) << speed << " m/s";
-		std::string text = ss.str();
-
-		m_spriteBatcher->beginBatch();
-		m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
-		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-	}
+    
+    // renderDebugInfo(game, fps);
     
     if (m_vampire.gpuTextureWrapper)
     {
@@ -1543,6 +1512,46 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
 }
 
 #pragma mark private
+
+void Renderer::renderDebugInfo(Game& game, int fps)
+{
+    static Color fontColor = Color(1, 1, 1, 1);
+    static float fgWidth = CAM_WIDTH / 24 / 2;
+    static float fgHeight = fgWidth * 1.171875f;
+    
+    {
+        // Render FPS
+        
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        std::stringstream ss;
+        ss << fps << " FPS";
+        std::string fps_string = ss.str();
+        
+        m_spriteBatcher->beginBatch();
+        m_font->renderText(*m_spriteBatcher, fps_string, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight, fgWidth, fgHeight, fontColor, true);
+        m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    }
+    
+    if (game.getJons().size() >= 1)
+    {
+        // Render Jon's Speed
+        
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        Jon& jon = game.getJon();
+        
+        float speed = jon.getVelocity().getX();
+        
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(3) << speed << " m/s";
+        std::string text = ss.str();
+        
+        m_spriteBatcher->beginBatch();
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight - fgHeight, fgWidth, fgHeight, fontColor, true);
+        m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    }
+}
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 {
