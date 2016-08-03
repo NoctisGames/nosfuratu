@@ -158,7 +158,7 @@ void MidBossOwl::update(float deltaTime)
                 float radians = DEGREES_TO_RADIANS(angle);
                 
                 m_velocity->add(cosf(radians) * 0.82f, sinf(radians) * 0.88f);
-                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 20 : 12));
+                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 40 : 12));
                 
                 if (jon.getPosition().getY() > 15
                     || jon.getPosition().getY() < 8

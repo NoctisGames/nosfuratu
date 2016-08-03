@@ -128,20 +128,7 @@ void Level::update(GameScreen* gs)
     }
     else if (!m_hasOpeningSequenceCompleted)
     {
-        if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance() && handleOpeningSequenceTouchInput(gs))
-        {
-            m_hasOpeningSequenceCompleted = true;
-            
-            jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-            
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-            
-            return;
-        }
-        else
-        {
-            gs->processTouchEvents();
-        }
+        gs->processTouchEvents();
         
         jon.update(gs->m_fDeltaTime);
         
@@ -215,6 +202,14 @@ void Level::update(GameScreen* gs)
         }
         else
         {
+            jon.setAllowedToMove(m_batPanel->isAcknowledged());
+            
+            if (!m_batPanel->isAcknowledged())
+            {
+                jon.update(gs->m_fDeltaTime);
+                return;
+            }
+            
             // Is Still Actively playing the Level
             
             m_game->update(gs->m_fDeltaTime);
@@ -226,7 +221,7 @@ void Level::update(GameScreen* gs)
             
             if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
             {
-                if (jon.getTransformStateTime() < 0.125f)
+                if (jon.getTransformStateTime() < 0.0625f)
                 {
                     if (!isInSlowMotionMode())
                     {
@@ -452,6 +447,7 @@ bool Level::handleTouchInput(GameScreen* gs)
     
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
+    bool isInstructionAcknowledged = m_batPanel->isAcknowledged();
     
     for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
@@ -460,7 +456,7 @@ bool Level::handleTouchInput(GameScreen* gs)
         switch ((*i)->getTouchType())
         {
             case DOWN:
-                if (isJonAlive)
+                if (isJonAlive && isInstructionAcknowledged)
                 {
                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                     gs->m_isScreenHeldDown = true;
@@ -512,6 +508,11 @@ bool Level::handleTouchInput(GameScreen* gs)
                     gs->m_stateMachine->revertToPreviousState();
                     
                     return true;
+                }
+                else if (!isInstructionAcknowledged
+                         && m_batPanel->handleTouch(*gs->m_touchPoint))
+                {
+                    return false;
                 }
                 
                 if (isJonAlive)

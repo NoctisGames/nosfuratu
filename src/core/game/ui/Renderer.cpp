@@ -987,7 +987,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     {
         float secondsLeft = clamp(startingTime - game.getStateTime(), startingTime, 0);
         int minutesLeft = 0;
-        while (secondsLeft > 60)
+        while (secondsLeft >= 60)
         {
             secondsLeft -= 60;
             minutesLeft++;

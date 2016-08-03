@@ -1242,12 +1242,12 @@ void Jon::RabbitToVampire::execute(Jon* jon)
 {
 	jon->m_fTransformStateTime += jon->m_fDeltaTime;
 
-	if (jon->m_fTransformStateTime > 0.565f)
-	{
-		jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
-	}
-
-	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f)
+    if (jon->m_fTransformStateTime > 0.5025f)
+    {
+        jon->m_formStateMachine->changeState(Jon::Vampire::getInstance());
+    }
+    
+    if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.0625f)
     {
 		m_hasCompletedSlowMotion = true;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
@@ -1369,12 +1369,12 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 {
 	jon->m_fTransformStateTime += jon->m_fDeltaTime;
 
-	if (jon->m_fTransformStateTime > 0.565f)
+	if (jon->m_fTransformStateTime > 0.5025f)
 	{
 		jon->m_formStateMachine->changeState(Jon::Rabbit::getInstance());
 	}
 
-	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.125f)
+	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.0625f)
     {
 		m_hasCompletedSlowMotion = true;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);

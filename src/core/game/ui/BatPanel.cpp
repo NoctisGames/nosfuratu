@@ -7,7 +7,9 @@
 //
 
 #include "BatPanel.h"
+
 #include "Game.h"
+#include "OverlapTester.h"
 
 BatInstruction::BatInstruction(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
 m_game(nullptr),
@@ -122,12 +124,12 @@ void BatInstruction::show(BatPanelType type)
             m_fHeight = 1.037109375f;
             break;
         case BatPanelType_Burrow:
-            m_fWidth = 2.056640625f;
-            m_fHeight = 0.73828125f;
+            m_fWidth = 2.091796875f;
+            m_fHeight = 0.984375f;
             break;
         case BatPanelType_OwlDig:
-            m_fWidth = 2.671875f;
-            m_fHeight = 1.001953125f;
+            m_fWidth = 2.935546875f;
+            m_fHeight = 1.037109375f;
             break;
         case BatPanelType_Transform:
             m_fWidth = 1.96875f;
@@ -172,7 +174,8 @@ m_batInstruction(nullptr),
 m_type(BatPanelType_None),
 m_color(1, 1, 1, 1),
 m_isOpen(false),
-m_isOpening(false)
+m_isOpening(false),
+m_isAcknowledged(true)
 {
     m_batInstruction = std::unique_ptr<BatInstruction>(new BatInstruction(x - 1.23046875f / 2, y, width, height));
 }
@@ -213,6 +216,18 @@ void BatPanel::update(float deltaTime)
     }
 }
 
+bool BatPanel::handleTouch(Vector2D& touchPoint)
+{
+    if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
+    {
+        m_isAcknowledged = true;
+        
+        return true;
+    }
+    
+    return false;
+}
+
 void BatPanel::setGame(Game* game)
 {
     m_batInstruction->setGame(game);
@@ -230,6 +245,7 @@ void BatPanel::open(BatPanelType type)
     m_fStateTime = 0;
     m_isOpening = true;
     m_isOpen = false;
+    m_isAcknowledged = m_type == BatPanelType_OwlDig;
 }
 
 bool BatPanel::isOpen()
@@ -240,6 +256,11 @@ bool BatPanel::isOpen()
 bool BatPanel::isOpening()
 {
     return m_isOpening;
+}
+
+bool BatPanel::isAcknowledged()
+{
+    return m_isAcknowledged;
 }
 
 BatInstruction& BatPanel::getBatInstruction()

@@ -64,6 +64,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    bool handleTouch(Vector2D& touchPoint);
+    
     void setGame(Game* game);
     
     void open(BatPanelType type);
@@ -71,6 +73,8 @@ public:
     bool isOpen();
     
     bool isOpening();
+    
+    bool isAcknowledged();
     
     BatInstruction& getBatInstruction();
     
@@ -82,6 +86,7 @@ private:
     Color m_color;
     bool m_isOpen;
     bool m_isOpening;
+    bool m_isAcknowledged;
 };
 
 #endif /* defined(__nosfuratu__BatPanel__) */
