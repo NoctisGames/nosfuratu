@@ -22,12 +22,13 @@ public final class GameRenderer implements Renderer
     //// Requested Action Definitions ////
 
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, and Completed actions are passed in this format: [1-3][1-5][1-21], where the first digit is the action, second is the world, third is the level
+    // Save, Load, and Completed actions are passed in this format: [1-3][1-5][01-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
-    private static final short REQUESTED_ACTION_GET_LEVEL_COMPLETIONS = 4;
-    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 5; // Passed in this format: [5][001-9], where the first digit is the action and the rest determines the actual message (defined below)
+
+    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 4;
+    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 5; // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
     private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
@@ -170,8 +171,8 @@ public final class GameRenderer implements Renderer
                 markLevelAsCompleted(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
-            case REQUESTED_ACTION_GET_LEVEL_COMPLETIONS:
-                sendLevelCompletions();
+            case REQUESTED_ACTION_GET_SAVE_DATA:
+                sendSaveData();
                 Game.clear_requested_action();
                 break;
             case REQUESTED_ACTION_SHOW_MESSAGE:
@@ -388,14 +389,13 @@ public final class GameRenderer implements Renderer
     {
         int world = calcWorld(requestedAction);
         int level = calcLevel(requestedAction);
-        int goldenCarrotsFlag = calcGoldenCarrotsFlag(requestedAction);
+        int score = Game.get_score();
+        int levelStatsFlag = Game.get_level_stats_flag();
 
-        SaveData.setLevelComplete(world, level, goldenCarrotsFlag);
-
-        sendLevelCompletions();
+        SaveData.setLevelComplete(world, level, score, levelStatsFlag);
     }
 
-    private void sendLevelCompletions()
+    private void sendSaveData()
     {
         String userSaveData = "{";
         for (int i = 1; i <= 5; i++)
@@ -403,7 +403,7 @@ public final class GameRenderer implements Renderer
             userSaveData += "\"world_" + i + "\":[";
             for (int j = 1; j <= 21; j++)
             {
-                int levelStats = SaveData.getLevelStats(i, j);
+                int levelStats = SaveData.getLevelStatsFlag(i, j);
 
                 userSaveData += "" + levelStats;
                 if (j < 21)
@@ -431,7 +431,7 @@ public final class GameRenderer implements Renderer
 
         int messageKey = requestedAction;
 
-        String toast = null;
+        final String toast;
 
         switch (messageKey)
         {
@@ -457,17 +457,18 @@ public final class GameRenderer implements Renderer
                 toast = MESSAGE_FEATURE_COMING_SOON_VAL;
                 break;
             default:
+                toast = "";
                 break;
         }
 
-        if (toast != null)
+        if (toast.length() > 0)
         {
             _activity.runOnUiThread(new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    Toast.makeText(_activity, "REQUESTED_ACTION_SHOW_MESSAGE is currently not supported", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(_activity, toast, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -492,14 +493,14 @@ public final class GameRenderer implements Renderer
     {
         int world = 0;
 
-        while (requestedAction >= 100000)
+        while (requestedAction >= 1000)
         {
-            requestedAction -= 100000;
+            requestedAction -= 1000;
         }
 
-        while (requestedAction >= 10000)
+        while (requestedAction >= 100)
         {
-            requestedAction -= 10000;
+            requestedAction -= 100;
             world++;
         }
 
@@ -510,42 +511,18 @@ public final class GameRenderer implements Renderer
     {
         int level = 0;
 
-        while (requestedAction >= 100000)
+        while (requestedAction >= 1000)
         {
-            requestedAction -= 100000;
-        }
-
-        while (requestedAction >= 10000)
-        {
-            requestedAction -= 10000;
+            requestedAction -= 1000;
         }
 
         while (requestedAction >= 100)
         {
             requestedAction -= 100;
-            level++;
         }
+
+        level = requestedAction;
 
         return level;
-    }
-
-    private int calcGoldenCarrotsFlag(int requestedAction)
-    {
-        while (requestedAction >= 100000)
-        {
-            requestedAction -= 100000;
-        }
-
-        while (requestedAction >= 10000)
-        {
-            requestedAction -= 10000;
-        }
-
-        while (requestedAction >= 100)
-        {
-            requestedAction -= 100;
-        }
-
-        return requestedAction;
     }
 }

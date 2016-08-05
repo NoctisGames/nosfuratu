@@ -41,6 +41,8 @@ public:
     
     void show(BatPanelType type);
     
+    void dismiss();
+    
     bool isShowing();
     
     bool isRequestingClose();
@@ -64,7 +66,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    bool handleTouch(Vector2D& touchPoint);
+    void handleTouch(Vector2D& touchPoint);
     
     void setGame(Game* game);
     

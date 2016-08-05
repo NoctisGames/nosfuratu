@@ -171,9 +171,9 @@ void NosFURatuMain::Update()
 	m_timer.Tick([&]()
 	{
 		int requestedAction = m_gameScreen->getRequestedAction();
-		if (requestedAction >= 100000)
+		if (requestedAction >= 1000)
 		{
-			requestedAction /= 100000;
+			requestedAction /= 1000;
 		}
 
 		switch (requestedAction)
@@ -190,8 +190,8 @@ void NosFURatuMain::Update()
 			markLevelAsCompleted(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
-		case REQUESTED_ACTION_GET_LEVEL_STATS:
-			sendLevelStats();
+		case REQUESTED_ACTION_GET_SAVE_DATA:
+			sendSaveData();
 			m_gameScreen->clearRequestedAction();
 			break;
 		case REQUESTED_ACTION_SHOW_MESSAGE:
@@ -446,14 +446,13 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 {
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
-    int goldenCarrotsFlag = calcGoldenCarrotsFlag(requestedAction);
+    int score = Level::getInstance()->getScore();
+    int levelStatsFlag = Level::getInstance()->getLevelStatsFlag();
 
-	SaveData::setLevelComplete(world, level, goldenCarrotsFlag);
-
-	sendLevelStats();
+	SaveData::setLevelComplete(world, level, score, levelStatsFlag);
 }
 
-void NosFURatuMain::sendLevelStats()
+void NosFURatuMain::sendSaveData()
 {
 	std::stringstream ss;
 	ss << "{";
@@ -552,14 +551,14 @@ int NosFURatuMain::calcWorld(int requestedAction)
 {
     int world = 0;
     
-    while (requestedAction >= 100000)
+    while (requestedAction >= 1000)
     {
-        requestedAction -= 100000;
+        requestedAction -= 1000;
     }
     
-    while (requestedAction >= 10000)
+    while (requestedAction >= 100)
     {
-        requestedAction -= 10000;
+        requestedAction -= 100;
         world++;
     }
     
@@ -570,43 +569,19 @@ int NosFURatuMain::calcLevel(int requestedAction)
 {
     int level = 0;
     
-    while (requestedAction >= 100000)
+    while (requestedAction >= 1000)
     {
-        requestedAction -= 100000;
-    }
-    
-    while (requestedAction >= 10000)
-    {
-        requestedAction -= 10000;
+        requestedAction -= 1000;
     }
     
     while (requestedAction >= 100)
     {
         requestedAction -= 100;
-        level++;
     }
+    
+    level = requestedAction;
     
     return level;
-}
-
-int NosFURatuMain::calcGoldenCarrotsFlag(int requestedAction)
-{
-    while (requestedAction >= 100000)
-    {
-        requestedAction -= 100000;
-    }
-    
-    while (requestedAction >= 10000)
-    {
-        requestedAction -= 10000;
-    }
-    
-    while (requestedAction >= 100)
-    {
-        requestedAction -= 100;
-    }
-    
-    return requestedAction;
 }
 
 void NosFURatuMain::displayToast(Platform::String^ message)

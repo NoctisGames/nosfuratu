@@ -51,7 +51,7 @@ void WorldMap::enter(GameScreen* gs)
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
     
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_LEVEL_STATS;
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }
 
 void WorldMap::execute(GameScreen* gs)
@@ -77,19 +77,11 @@ void WorldMap::execute(GameScreen* gs)
     }
     else
     {
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            gs->processTouchEvents();
-            return;
-        }
-        
         if (m_isReadyForTransition)
         {
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
 			return;
         }
-        
-        gs->processTouchEvents();
 
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
@@ -109,7 +101,7 @@ void WorldMap::execute(GameScreen* gs)
                     else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
                     {
                         // Temporary, replace with display Leaderboards
-                        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 100000 + MESSAGE_FEATURE_COMING_SOON_KEY;
+                        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
                         return;
                     }
                     else

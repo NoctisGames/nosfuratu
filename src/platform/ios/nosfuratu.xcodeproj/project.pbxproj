@@ -92,6 +92,10 @@
 		BB646DE91C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB646DE71C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.cpp */; };
 		BB646DEC1C69A93300313FBB /* ExitGround.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB646DEA1C69A93300313FBB /* ExitGround.cpp */; };
 		BB646DEE1C69AC1300313FBB /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB646DED1C69AC1300313FBB /* world_1_objects.png */; };
+		BB64C74B1D51421C0000CA51 /* GameScreenOpeningCutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB64C7491D51421C0000CA51 /* GameScreenOpeningCutscene.cpp */; };
+		BB64C74E1D5151F70000CA51 /* CutscenePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB64C74C1D5151F70000CA51 /* CutscenePanel.cpp */; };
+		BB64C7511D5155200000CA51 /* world_1_cutscene_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB64C74F1D5155200000CA51 /* world_1_cutscene_1.png */; };
+		BB64C7521D5155200000CA51 /* world_1_cutscene_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB64C7501D5155200000CA51 /* world_1_cutscene_2.png */; };
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
 		BB66EC2A1C0E5892006DE4F5 /* AppleOpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC211C0E5892006DE4F5 /* AppleOpenALSupport.c */; };
 		BB66EC2C1C0E5892006DE4F5 /* CMOpenALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB66EC241C0E5892006DE4F5 /* CMOpenALSound.m */; };
@@ -403,6 +407,12 @@
 		BB646DEA1C69A93300313FBB /* ExitGround.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExitGround.cpp; sourceTree = "<group>"; };
 		BB646DEB1C69A93300313FBB /* ExitGround.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitGround.h; sourceTree = "<group>"; };
 		BB646DED1C69AC1300313FBB /* world_1_objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects.png; sourceTree = "<group>"; };
+		BB64C7491D51421C0000CA51 /* GameScreenOpeningCutscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenOpeningCutscene.cpp; sourceTree = "<group>"; };
+		BB64C74A1D51421C0000CA51 /* GameScreenOpeningCutscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenOpeningCutscene.h; sourceTree = "<group>"; };
+		BB64C74C1D5151F70000CA51 /* CutscenePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutscenePanel.cpp; sourceTree = "<group>"; };
+		BB64C74D1D5151F70000CA51 /* CutscenePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutscenePanel.h; sourceTree = "<group>"; };
+		BB64C74F1D5155200000CA51 /* world_1_cutscene_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_cutscene_1.png; sourceTree = "<group>"; };
+		BB64C7501D5155200000CA51 /* world_1_cutscene_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_cutscene_2.png; sourceTree = "<group>"; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		BB66EC211C0E5892006DE4F5 /* AppleOpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AppleOpenALSupport.c; sourceTree = "<group>"; };
 		BB66EC221C0E5892006DE4F5 /* AppleOpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleOpenALSupport.h; sourceTree = "<group>"; };
@@ -925,6 +935,8 @@
 				BB939CC91C626E41006D945A /* vampire.png */,
 				BB32DE861C66F43700F98904 /* world_1_background_lower.png */,
 				BB32DE871C66F43700F98904 /* world_1_background_mid.png */,
+				BB64C74F1D5155200000CA51 /* world_1_cutscene_1.png */,
+				BB64C7501D5155200000CA51 /* world_1_cutscene_2.png */,
 				BB32DE881C66F43700F98904 /* world_1_background_upper.png */,
 				BB0AE8CE1C6ABF090047EF19 /* world_1_enemies.png */,
 				BB32DE8C1C67113600F98904 /* world_1_ground.png */,
@@ -1291,6 +1303,8 @@
 				BBCF86CC1CAE0D2800E5387A /* ConfirmExitPanel.h */,
 				BBCF86CD1CAE0D2800E5387A /* ConfirmResetPanel.cpp */,
 				BBCF86CE1CAE0D2800E5387A /* ConfirmResetPanel.h */,
+				BB64C74C1D5151F70000CA51 /* CutscenePanel.cpp */,
+				BB64C74D1D5151F70000CA51 /* CutscenePanel.h */,
 				BBEA16571B97B9BB009B4711 /* direct3d */,
 				BB646DE71C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.cpp */,
 				BB646DE81C697C9D00313FBB /* FramebufferRadialBlurGpuProgramWrapper.h */,
@@ -1302,6 +1316,8 @@
 				BB2DF28A1C599A0100DD7BE3 /* GameScreenLevelEditor.h */,
 				BB27A7611C6BFBCD00A82213 /* GameScreenLevels.cpp */,
 				BB27A7621C6BFBCD00A82213 /* GameScreenLevels.h */,
+				BB64C7491D51421C0000CA51 /* GameScreenOpeningCutscene.cpp */,
+				BB64C74A1D51421C0000CA51 /* GameScreenOpeningCutscene.h */,
 				BB27A7641C6C000500A82213 /* GameScreenTitle.cpp */,
 				BB27A7651C6C000500A82213 /* GameScreenTitle.h */,
 				BBF39E131BBC9FC800D1A072 /* GameScreenTransitions.cpp */,
@@ -1538,6 +1554,7 @@
 				BB939CDE1C626E41006D945A /* footstep_left_grass.wav in Resources */,
 				BBA6492219B5FED100023E5A /* Images.xcassets in Resources */,
 				BB5C891E1C8E411F00820366 /* world_1_mid_boss_part_1.png in Resources */,
+				BB64C7511D5155200000CA51 /* world_1_cutscene_1.png in Resources */,
 				BB7C20D41CB81FB0003E3583 /* mid_boss_owl_swoop.wav in Resources */,
 				BBC38DF01CA03E80001B178C /* c_world_1_mid_boss_part_1.png in Resources */,
 				BB5C89171C8DBEEB00820366 /* fox_strike.wav in Resources */,
@@ -1594,6 +1611,7 @@
 				BBA7C65D1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh in Resources */,
 				BBC38DEA1CA03E80001B178C /* c_vampire.png in Resources */,
 				BB939CD81C626E41006D945A /* collect_carrot.wav in Resources */,
+				BB64C7521D5155200000CA51 /* world_1_cutscene_2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1605,6 +1623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBEA16911B97B9BB009B4711 /* Font.cpp in Sources */,
+				BB64C74B1D51421C0000CA51 /* GameScreenOpeningCutscene.cpp in Sources */,
 				BBE1871F1C322F3800AC3FAE /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB5C89281C8E49A700820366 /* Chapter1Level10.cpp in Sources */,
 				BB2DF2961C59B70C00DD7BE3 /* OpenGLESTransScreenGpuProgramWrapper.cpp in Sources */,
@@ -1647,6 +1666,7 @@
 				0A8FBF80179E07320039BA29 /* pngpread.c in Sources */,
 				BBEA16741B97B9BB009B4711 /* Circle.cpp in Sources */,
 				BB66EC301C0E5892006DE4F5 /* DebugOutput.m in Sources */,
+				BB64C74E1D5151F70000CA51 /* CutscenePanel.cpp in Sources */,
 				BBEA166F1B97B9BB009B4711 /* EntityManager.cpp in Sources */,
 				BBE187231C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp in Sources */,
 				BBEA16AF1B97B9BB009B4711 /* GameScreen.cpp in Sources */,

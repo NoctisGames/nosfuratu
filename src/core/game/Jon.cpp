@@ -35,7 +35,7 @@ m_iNumTriggeredJumps(0),
 m_iNumRabbitJumps(0),
 m_iNumVampireJumps(0),
 m_iNumBoosts(0),
-m_iAbilitySet(0),
+m_iAbilityFlag(0),
 m_isLanding(false),
 m_isRollLanding(false),
 m_isRightFoot(false),
@@ -219,11 +219,6 @@ void Jon::triggerTransform()
 	{
 		return;
 	}
-    
-    if (m_game->getWorld() <= 1 && m_game->getLevel() < 3)
-    {
-        return;
-    }
 
 	JonFormState* jfs = dynamic_cast<JonFormState*>(m_formStateMachine->getCurrentState());
 	jfs->triggerTransform(this);
@@ -534,28 +529,21 @@ bool Jon::isUserActionPrevented()
 void Jon::setGame(Game* game)
 {
 	m_game = game;
-    
-    int level = (game->getWorld() - 1) * 21 + game->getLevel();
-    
-    if (level > 10)
-    {
-        enableAbility(FLAG_ABILITY_RABBIT_DOWN);
-    }
-    
-    if (level > 21)
-    {
-        enableAbility(FLAG_ABILITY_VAMPIRE_RIGHT);
-    }
+}
+
+void Jon::setAbilityFlag(int abilityFlag)
+{
+    m_iAbilityFlag = abilityFlag;
 }
 
 void Jon::enableAbility(int abilityFlag)
 {
-    m_iAbilitySet = FlagUtil::setFlag(m_iAbilitySet, abilityFlag);
+    m_iAbilityFlag = FlagUtil::setFlag(m_iAbilityFlag, abilityFlag);
 }
 
 bool Jon::isAbilityEnabled(int abilityFlag)
 {
-    return FlagUtil::isFlagSet(m_iAbilitySet, abilityFlag);
+    return FlagUtil::isFlagSet(m_iAbilityFlag, abilityFlag);
 }
 
 bool Jon::isBurrowEffective()

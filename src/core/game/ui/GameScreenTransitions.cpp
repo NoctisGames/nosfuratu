@@ -56,13 +56,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
     }
     else
     {
-        gs->processTouchEvents();
-        
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            return;
-        }
-        else if (m_fTransitionStateTime < 0)
+        if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
@@ -126,13 +120,7 @@ void TitleToLevelEditor::execute(GameScreen* gs)
     }
     else
     {
-        gs->processTouchEvents();
-        
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            return;
-        }
-        else if (m_fTransitionStateTime < 0)
+        if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
@@ -565,13 +553,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
     }
     else
     {
-        gs->processTouchEvents();
-        
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            return;
-        }
-        else if (m_fTransitionStateTime < 0)
+        if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);

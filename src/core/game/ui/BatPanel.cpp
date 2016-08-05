@@ -44,52 +44,16 @@ void BatInstruction::update(float deltaTime)
                 
                 switch (m_type)
                 {
-                    case BatPanelType_Jump:
-                        if (jon.getNumTriggeredJumps() >= 1)
-                        {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
-                        }
-                        break;
-                    case BatPanelType_DoubleJump:
-                        if (jon.getNumTriggeredJumps() >= 2)
-                        {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
-                        }
-                        break;
-                    case BatPanelType_Transform:
-                        if (jon.isVampire())
-                        {
-                            show(BatPanelType_UpwardStrikeGlide);
-                        }
-                        break;
-                    case BatPanelType_UpwardStrikeGlide:
-                        if (jon.getNumTriggeredJumps() >= 2)
-                        {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
-                        }
-                        break;
                     case BatPanelType_Burrow:
                         if (jon.getAbilityState() == ABILITY_BURROW)
                         {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
+                            dismiss();
                         }
                         break;
                     case BatPanelType_OwlDig:
                         if (jon.getPosition().getY() > 12)
                         {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
-                        }
-                        break;
-                    case BatPanelType_Stomp:
-                        if (jon.getAbilityState() == ABILITY_STOMP)
-                        {
-                            m_isShowing = false;
-                            m_isRequestingClose = true;
+                            dismiss();
                         }
                         break;
                     default:
@@ -103,6 +67,12 @@ void BatInstruction::update(float deltaTime)
 void BatInstruction::setGame(Game* game)
 {
     m_game = game;
+}
+
+void BatInstruction::dismiss()
+{
+    m_isShowing = false;
+    m_isRequestingClose = true;
 }
 
 void BatInstruction::show(BatPanelType type)
@@ -195,7 +165,7 @@ void BatPanel::update(float deltaTime)
             m_batInstruction->show(m_type);
         }
     }
-    else
+    else if (m_isOpen)
     {
         if (m_batInstruction->isRequestingClose())
         {
@@ -216,16 +186,19 @@ void BatPanel::update(float deltaTime)
     }
 }
 
-bool BatPanel::handleTouch(Vector2D& touchPoint)
+void BatPanel::handleTouch(Vector2D& touchPoint)
 {
-    if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
+    if (m_isAcknowledged)
     {
-        m_isAcknowledged = true;
-        
-        return true;
+        return;
     }
     
-    return false;
+    if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
+    {
+        m_batInstruction->dismiss();
+        
+        m_isAcknowledged = true;
+    }
 }
 
 void BatPanel::setGame(Game* game)
@@ -245,7 +218,7 @@ void BatPanel::open(BatPanelType type)
     m_fStateTime = 0;
     m_isOpening = true;
     m_isOpen = false;
-    m_isAcknowledged = m_type == BatPanelType_OwlDig;
+    m_isAcknowledged = m_type == BatPanelType_OwlDig || m_type == BatPanelType_Burrow;
 }
 
 bool BatPanel::isOpen()

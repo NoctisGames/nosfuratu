@@ -45,7 +45,7 @@ void GameScreen::onPause()
 {
     if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
     {
-        m_isPaused = true;
+        m_isPaused = !Level::getInstance()->hasCompletedLevel();
     }
 }
 
@@ -61,11 +61,11 @@ void GameScreen::update(float deltaTime)
 		m_iFPS = m_iFrames;
 		m_iFrames = 0;
 	}
+    
+    processTouchEvents();
 
     if (m_isPaused)
     {
-        processTouchEvents();
-        
         for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
         {
             switch ((*i)->getTouchType())
@@ -86,7 +86,7 @@ void GameScreen::update(float deltaTime)
             }
         }
     }
-    else
+    else if (!m_renderer->isLoadingAdditionalTextures())
     {
         m_stateMachine->execute();
     }
@@ -99,6 +99,8 @@ void GameScreen::render()
 	// Loading may be asynchronous, so make sure we are loaded before rendering
 	if (m_renderer->isLoaded())
 	{
+        m_isRequestingRender = true;
+        
 		m_stateMachine->execute();
 
 		m_isRequestingRender = false;

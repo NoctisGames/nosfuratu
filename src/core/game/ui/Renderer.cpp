@@ -973,8 +973,11 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     /// Render Back Button
     
     m_spriteBatcher->beginBatch();
-
-    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
+    
+    if (backButton)
+    {
+        renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
+    }
     
     static Color fontColor = Color(1, 1, 1, 1);
     static float fgWidth = CAM_WIDTH / 24;

@@ -42,4 +42,8 @@ public final class Game
     public static native boolean save_level(String json_file_path);
 
     public static native void load_user_save_data(String level_json);
+
+    public static native int get_score();
+
+    public static native int get_level_stats_flag();
 }

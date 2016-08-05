@@ -12,6 +12,7 @@
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
+#include "GameScreenLevels.h"
 #include "Game.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
@@ -54,6 +55,10 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1level(JNIEnv* e
 JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env, jclass cls);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls)
@@ -214,4 +219,20 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1dat
 	const char *nativeJson = (env)->GetStringUTFChars(json, nullptr);
 
 	WorldMap::getInstance()->loadUserSaveData(nativeJson);
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return Level::getInstance()->getScore();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return Level::getInstance()->getLevelStatsFlag();
 }

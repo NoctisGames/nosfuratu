@@ -76,12 +76,6 @@ void Title::execute(GameScreen* gs)
     }
     else
     {
-        if (gs->m_renderer->isLoadingAdditionalTextures())
-        {
-            gs->processTouchEvents();
-            return;
-        }
-        
         m_panel->update(gs->m_fDeltaTime);
         
         if (m_isRequestingNextState)
@@ -92,8 +86,6 @@ void Title::execute(GameScreen* gs)
         {
             gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
         }
-        
-        gs->processTouchEvents();
         
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {

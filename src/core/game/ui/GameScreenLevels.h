@@ -36,6 +36,16 @@ public:
     
     void setSourceGame(Game* game);
     
+    void setBestStats(int bestScore, int bestOnlineScore, int bestGoldenCarrotsLevelCompletionFlag);
+    
+    int getOnlineScore();
+    
+    int getScore();
+    
+    int getLevelStatsFlag();
+    
+    bool hasCompletedLevel();
+    
     Game& getGame();
     
 protected:
@@ -49,7 +59,9 @@ protected:
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;
     float m_fShockwaveElapsedTime;
-    int m_iGoldenCarrotsLevelCompletionFlag;
+    int m_iScore;
+    int m_iOnlineScore;
+    int m_iLevelStatsFlag;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;
@@ -57,6 +69,11 @@ protected:
     bool m_showDeathTransOut;
     bool m_exitLoop;
     bool m_hasCompletedLevel;
+    
+    // Set from app storage
+    int m_iBestScore;
+    int m_iBestOnlineScore;
+    int m_iBestGoldenCarrotsLevelCompletionFlag;
     
     virtual void update(GameScreen* gs);
     
@@ -71,10 +88,6 @@ protected:
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
     
-    void openBatPanelWithType(BatPanelType batPanelType);
-    
-    void stopLoopingSounds();
-    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);
     Level(const Level&);
@@ -82,6 +95,8 @@ protected:
     
 private:
     BatPanelType getBatPanelType();
+    
+    void stopLoopingSounds();
     
     void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
     {
@@ -98,13 +113,13 @@ private:
                     switch (gc->getIndex())
                     {
                         case 0:
-                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED);
+                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED);
                             break;
                         case 1:
-                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED);
+                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED);
                             break;
                         case 2:
-                            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED);
+                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED);
                             break;
                         default:
                             break;
@@ -247,6 +262,7 @@ private:
     bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
     bool m_hasTriggeredBurrow;
+    bool m_hasShownDrillPopup;
     
     virtual void update(GameScreen* gs);
     

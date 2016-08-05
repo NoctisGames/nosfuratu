@@ -26,7 +26,10 @@ Level * Level::getInstance()
 void Level::enter(GameScreen* gs)
 {
     m_fStateTime = 0;
-    m_iGoldenCarrotsLevelCompletionFlag = 0;
+    m_iScore = 0;
+    m_iOnlineScore = 0;
+    m_iLevelStatsFlag = m_iBestGoldenCarrotsLevelCompletionFlag;
+    m_hasCompletedLevel = false;
     m_isReleasingShockwave = false;
     gs->m_isScreenHeldDown = false;
     gs->m_fScreenHeldTime = 0;
@@ -50,6 +53,7 @@ void Level::enter(GameScreen* gs)
 	gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
     
     gs->m_renderer->beginOpeningPanningSequence(*m_game);
+    
     EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
@@ -81,18 +85,48 @@ void Level::exit(GameScreen* gs)
     m_fShockwaveElapsedTime = 0;
     m_fShockwaveCenterX = 0;
     m_fShockwaveCenterY = 0;
-    m_iGoldenCarrotsLevelCompletionFlag = 0;
+    m_iLevelStatsFlag = 0;
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
     m_hasSwiped = false;
     m_showDeathTransOut = false;
     m_hasCompletedLevel = false;
     m_exitLoop = false;
+    m_iBestScore = 0;
+    m_iBestOnlineScore = 0;
+    m_iBestGoldenCarrotsLevelCompletionFlag = 0;
 }
 
 void Level::setSourceGame(Game* game)
 {
     m_sourceGame = game;
+}
+
+void Level::setBestStats(int bestScore, int bestOnlineScore, int bestGoldenCarrotsLevelCompletionFlag)
+{
+    m_iBestScore = bestScore;
+    m_iBestOnlineScore = bestOnlineScore;
+    m_iBestGoldenCarrotsLevelCompletionFlag = bestGoldenCarrotsLevelCompletionFlag;
+}
+
+int Level::getOnlineScore()
+{
+    return m_iOnlineScore;
+}
+
+int Level::getScore()
+{
+    return m_iScore;
+}
+
+int Level::getLevelStatsFlag()
+{
+    return m_iLevelStatsFlag;
+}
+
+bool Level::hasCompletedLevel()
+{
+    return m_hasCompletedLevel;
 }
 
 Game& Level::getGame()
@@ -102,12 +136,6 @@ Game& Level::getGame()
 
 void Level::update(GameScreen* gs)
 {
-    if (gs->m_renderer->isLoadingAdditionalTextures())
-    {
-        gs->processTouchEvents();
-        return;
-    }
-    
     Jon& jon = m_game->getJon();
     jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
     
@@ -128,8 +156,6 @@ void Level::update(GameScreen* gs)
     }
     else if (!m_hasOpeningSequenceCompleted)
     {
-        gs->processTouchEvents();
-        
         jon.update(gs->m_fDeltaTime);
         
         int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
@@ -140,17 +166,17 @@ void Level::update(GameScreen* gs)
         if (m_hasOpeningSequenceCompleted)
         {
             Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-        }
-        
-        if (result == 2)
-        {
-            jon.beginWarmingUp();
             
             BatPanelType bpt = getBatPanelType();
             if (bpt != BatPanelType_None)
             {
                 m_batPanel->open(bpt);
             }
+        }
+        
+        if (result == 2)
+        {
+            jon.beginWarmingUp();
         }
         
         EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
@@ -202,11 +228,8 @@ void Level::update(GameScreen* gs)
         }
         else
         {
-            jon.setAllowedToMove(m_batPanel->isAcknowledged());
-            
             if (!m_batPanel->isAcknowledged())
             {
-                jon.update(gs->m_fDeltaTime);
                 return;
             }
             
@@ -334,17 +357,23 @@ void Level::update(GameScreen* gs)
         {
             // Has Cleared the Level
             
-            m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_LEVEL_COMPLETE);
+            m_iOnlineScore = m_iScore;
+            
+            if (m_iScore < m_iBestScore)
+            {
+                m_iScore = m_iBestScore;
+            }
+            
+            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
             
             if (m_game->getNumRemainingCarrots() == 0)
             {
-                m_iGoldenCarrotsLevelCompletionFlag = FlagUtil::setFlag(m_iGoldenCarrotsLevelCompletionFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
-            gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 100000;
-            gs->m_iRequestedAction += m_game->getWorld() * 10000;
-            gs->m_iRequestedAction += m_game->getLevel() * 100;
-            gs->m_iRequestedAction += m_iGoldenCarrotsLevelCompletionFlag;
+            gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+            gs->m_iRequestedAction += m_game->getWorld() * 100;
+            gs->m_iRequestedAction += m_game->getLevel();
             
             m_fStateTime = 0;
             m_hasCompletedLevel = true;
@@ -380,7 +409,7 @@ void Level::render(GameScreen* gs)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
+        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
     }
     
     if (jon.isDead())
@@ -423,8 +452,6 @@ bool Level::isInSlowMotionMode()
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
-    gs->processTouchEvents();
-    
     for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
         switch ((*i)->getTouchType())
@@ -443,8 +470,6 @@ bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
 
 bool Level::handleTouchInput(GameScreen* gs)
 {
-    gs->processTouchEvents();
-    
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
     bool isInstructionAcknowledged = m_batPanel->isAcknowledged();
@@ -464,7 +489,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                 }
                 continue;
             case DRAGGED:
-                if (isJonAlive && !m_hasSwiped)
+                if (isJonAlive && !m_hasSwiped && isInstructionAcknowledged)
                 {
                     if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
                     {
@@ -499,7 +524,8 @@ bool Level::handleTouchInput(GameScreen* gs)
                 }
                 continue;
             case UP:
-                if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
+                if (!m_hasCompletedLevel
+                    && OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                 {
                     m_exitLoop = true;
                     
@@ -509,9 +535,10 @@ bool Level::handleTouchInput(GameScreen* gs)
                     
                     return true;
                 }
-                else if (!isInstructionAcknowledged
-                         && m_batPanel->handleTouch(*gs->m_touchPoint))
+                else if (!isInstructionAcknowledged)
                 {
+                    m_batPanel->handleTouch(*gs->m_touchPoint);
+                    
                     return false;
                 }
                 
@@ -543,11 +570,6 @@ bool Level::handleTouchInput(GameScreen* gs)
     return false;
 }
 
-void Level::openBatPanelWithType(BatPanelType batPanelType)
-{
-    m_batPanel->open(batPanelType);
-}
-
 BatPanelType Level::getBatPanelType()
 {
     if (m_game->getWorld() == 1 && m_game->getLevel() == 1)
@@ -561,10 +583,6 @@ BatPanelType Level::getBatPanelType()
     else if (m_game->getWorld() == 1 && m_game->getLevel() == 3)
     {
         return BatPanelType_Transform;
-    }
-    else if (m_game->getWorld() == 1 && m_game->getLevel() == 10)
-    {
-        return BatPanelType_Burrow;
     }
     else if (m_game->getWorld() == 1 && m_game->getLevel() == 11)
     {
@@ -588,14 +606,19 @@ m_isReleasingShockwave(false),
 m_fShockwaveElapsedTime(0.0f),
 m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
-m_iGoldenCarrotsLevelCompletionFlag(0),
+m_iScore(0),
+m_iOnlineScore(0),
+m_iLevelStatsFlag(0),
 m_hasShownOpeningSequence(false),
 m_hasOpeningSequenceCompleted(false),
 m_activateRadialBlur(false),
 m_hasSwiped(false),
 m_showDeathTransOut(false),
 m_exitLoop(false),
-m_hasCompletedLevel(false)
+m_hasCompletedLevel(false),
+m_iBestScore(0),
+m_iBestOnlineScore(0),
+m_iBestGoldenCarrotsLevelCompletionFlag(0)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

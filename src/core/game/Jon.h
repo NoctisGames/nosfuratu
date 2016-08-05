@@ -164,6 +164,8 @@ public:
     
     void setGame(Game* game);
     
+    void setAbilityFlag(int abilityFlag);
+    
     void enableAbility(int abilityFlag);
     
     bool isAbilityEnabled(int abilityFlag);
@@ -202,7 +204,7 @@ private:
     int m_iNumRabbitJumps;
     int m_iNumVampireJumps;
     int m_iNumBoosts;
-    int m_iAbilitySet;
+    int m_iAbilityFlag;
     bool m_isLanding;
     bool m_isRollLanding;
     bool m_isRightFoot;

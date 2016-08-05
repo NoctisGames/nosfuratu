@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "StepTimer.h"
 #include "DeviceResources.h"
@@ -58,7 +58,7 @@ namespace NosFURatu
 		void saveLevel(int requestedAction);
 		void loadLevel(int requestedAction);
 		void markLevelAsCompleted(int requestedAction);
-		void sendLevelStats();
+		void sendSaveData();
         void showMessage(int requestedAction);
 
 		Platform::String^ getLevelName(int requestedAction);

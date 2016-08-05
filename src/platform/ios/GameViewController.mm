@@ -121,9 +121,9 @@
 - (void)update
 {
     int requestedAction = gameScreen->getRequestedAction();
-    if (requestedAction >= 100000)
+    if (requestedAction >= 1000)
     {
-        requestedAction /= 100000;
+        requestedAction /= 1000;
     }
     
     switch (requestedAction)
@@ -143,8 +143,8 @@
             [self markLevelAsCompleted:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_GET_LEVEL_STATS:
-            [self sendLevelStats];
+        case REQUESTED_ACTION_GET_SAVE_DATA:
+            [self sendSaveData];
             gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SHOW_MESSAGE:
@@ -313,14 +313,13 @@
 {
     int world = [self calcWorld:requestedAction];
     int level = [self calcLevel:requestedAction];
-    int goldenCarrotsFlag = [self calcGoldenCarrotsFlag:requestedAction];
+    int score = Level::getInstance()->getScore();
+    int levelStatsFlag = Level::getInstance()->getLevelStatsFlag();
     
-    [SaveData setLevelComplete:world level:level goldenCarrotsFlag:goldenCarrotsFlag];
-    
-    [self sendLevelStats];
+    [SaveData setLevelComplete:world level:level score:score levelStatsFlag:levelStatsFlag];
 }
 
-- (void)sendLevelStats
+- (void)sendSaveData
 {
     NSString* userSaveData = @"{";
     for (int i = 1; i <= 5; i++)
@@ -328,7 +327,7 @@
         userSaveData = [userSaveData stringByAppendingFormat:@"\"world_%i\":[", i];
         for (int j = 1; j <= 21; j++)
         {
-            int levelStats = [SaveData getLevelStats:i level:j];
+            int levelStats = [SaveData getLevelStatsFlag:i level:j];
             
             userSaveData = [userSaveData stringByAppendingFormat:@"%i", levelStats];
             if (j < 21)
@@ -411,14 +410,14 @@
 {
     int world = 0;
     
-    while (requestedAction >= 100000)
+    while (requestedAction >= 1000)
     {
-        requestedAction -= 100000;
+        requestedAction -= 1000;
     }
     
-    while (requestedAction >= 10000)
+    while (requestedAction >= 100)
     {
-        requestedAction -= 10000;
+        requestedAction -= 100;
         world++;
     }
     
@@ -429,43 +428,19 @@
 {
     int level = 0;
     
-    while (requestedAction >= 100000)
+    while (requestedAction >= 1000)
     {
-        requestedAction -= 100000;
-    }
-    
-    while (requestedAction >= 10000)
-    {
-        requestedAction -= 10000;
+        requestedAction -= 1000;
     }
     
     while (requestedAction >= 100)
     {
         requestedAction -= 100;
-        level++;
     }
+    
+    level = requestedAction;
     
     return level;
-}
-
-- (int)calcGoldenCarrotsFlag:(int)requestedAction
-{
-    while (requestedAction >= 100000)
-    {
-        requestedAction -= 100000;
-    }
-    
-    while (requestedAction >= 10000)
-    {
-        requestedAction -= 10000;
-    }
-    
-    while (requestedAction >= 100)
-    {
-        requestedAction -= 100;
-    }
-    
-    return requestedAction;
 }
 
 - (void)onResume

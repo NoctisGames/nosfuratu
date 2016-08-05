@@ -47,12 +47,14 @@ void Chapter1Level10::enter(GameScreen* gs)
     
     m_midBossOwl->setGame(m_game.get());
     
+    Jon& jon = m_game->getJon();
+    
+    jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+    
     if (m_hasTriggeredMidBossMusicLoopIntro)
     {
         if (m_game->getJons().size() > 0)
         {
-            Jon& jon = m_game->getJon();
-            
             jon.getAcceleration().set(0, 0);
             jon.getVelocity().set(0, 0);
             jon.setIdle(true);
@@ -87,6 +89,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
     m_hasTriggeredBurrow = false;
+    m_hasShownDrillPopup = false;
     
     Level::exit(gs);
 }
@@ -106,9 +109,13 @@ void Chapter1Level10::update(GameScreen* gs)
     
     if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
     {
-        if (jon.getPosition().getX() > GRID_CELL_SIZE * 120)
+        if (!m_hasShownDrillPopup
+            && !m_batPanel->isOpening()
+            && !m_batPanel->isOpen()
+            && jon.getPosition().getX() > GRID_CELL_SIZE * 80)
         {
-            jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+            m_batPanel->open(BatPanelType_Burrow);
+            m_hasShownDrillPopup = true;
         }
         
         if (jon.getNumBoosts() >= 1)
@@ -174,11 +181,6 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_Screeching)
     {
-        if (jon.getPosition().getX() > GRID_CELL_SIZE * 120)
-        {
-            jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
-        }
-        
         if (!m_hasTriggeredMidBossMusicLoopIntro)
         {
             m_fJonY = jon.getPosition().getY();
@@ -204,7 +206,7 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             if (m_iNumAttempts > 1)
             {
-                openBatPanelWithType(BatPanelType_OwlDig);
+                m_batPanel->open(BatPanelType_OwlDig);
             }
             
             jon.setIdle(false);
@@ -348,7 +350,8 @@ m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
 m_isChaseCamActivated(false),
-m_hasTriggeredBurrow(false)
+m_hasTriggeredBurrow(false),
+m_hasShownDrillPopup(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
 }
