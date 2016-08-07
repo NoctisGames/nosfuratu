@@ -14,7 +14,7 @@ int SaveData::getNumGoldenCarrots()
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForNumGoldenCarrots(world, level);
+    Platform::String^ key = getKeyForNumGoldenCarrots();
     
     bool hasValue = values->HasKey(key);
     
@@ -34,7 +34,7 @@ void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForNumGoldenCarrots(world, level);
+    Platform::String^ key = getKeyForNumGoldenCarrots();
     
     values->Insert(key, PropertyValue::CreateInt32(numGoldenCarrots));
 }
@@ -47,7 +47,7 @@ int SaveData::getJonUnlockedAbilitiesFlag()
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag(world, level);
+    Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
     
     bool hasValue = values->HasKey(key);
     
@@ -67,7 +67,7 @@ void SaveData::setJonUnlockedAbilitiesFlag(int jonUnlockedAbilitiesFlag)
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag(world, level);
+    Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
     
     values->Insert(key, PropertyValue::CreateInt32(jonUnlockedAbilitiesFlag));
 }
@@ -80,7 +80,7 @@ int SaveData::getJonViewedCutscenesFlag()
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForJonViewedCutscenesFlag(world, level);
+    Platform::String^ key = getKeyForJonViewedCutscenesFlag();
     
     bool hasValue = values->HasKey(key);
     
@@ -100,7 +100,7 @@ void SaveData::setJonViewedCutscenesFlag(int jonViewedCutscenesFlag)
     
     auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
     
-    Platform::String^ key = getKeyForJonViewedCutscenesFlag(world, level);
+    Platform::String^ key = getKeyForJonViewedCutscenesFlag();
     
     values->Insert(key, PropertyValue::CreateInt32(jonViewedCutscenesFlag));
 }
@@ -496,7 +496,7 @@ Platform::String^ SaveData::getKeyForLevelStats(int world, int level)
 	return WORLDS_LEVELS_STATS[worldIndex][levelIndex];
 }
 
-static Platform::String^ SaveData::getKeyForLevelOnlineScore(int world, int level)
+Platform::String^ SaveData::getKeyForLevelOnlineScore(int world, int level)
 {
     static std::vector<std::vector<Platform::String^>> WORLDS_LEVELS_SCORES_ONLINE;
     static std::vector<Platform::String^> world_1;

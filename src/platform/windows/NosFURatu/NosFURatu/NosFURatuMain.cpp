@@ -462,7 +462,7 @@ void NosFURatuMain::sendSaveData()
 		ss << "\"world_" << i << "\":[";
 		for (int j = 1; j <= 21; j++)
 		{
-			int levelStats = SaveData::getLevelStats(i, j);
+			int levelStats = SaveData::getLevelStatsFlag(i, j);
 
 			ss << "" << levelStats;
 			if (j < 21)
