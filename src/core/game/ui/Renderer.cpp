@@ -1856,7 +1856,14 @@ void Renderer::loadWorld1MidBossTextures()
 
 void Renderer::loadWorld1EndBossTextures()
 {
-    // TODO
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+
+	loadJonTextures();
 }
 
 void Renderer::loadWorld2Textures()
@@ -1967,7 +1974,7 @@ void Renderer::unloadWorld1MidBossTextures()
 
 void Renderer::unloadWorld1EndBossTextures()
 {
-    // TODO
+	unloadWorld1Textures();
 }
 
 void Renderer::unloadWorld2Textures()

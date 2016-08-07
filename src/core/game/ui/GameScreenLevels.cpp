@@ -338,16 +338,10 @@ void Level::update(GameScreen* gs)
         }
         
         if (m_hasCompletedLevel)
-        {
-            m_fStateTime += gs->m_fDeltaTime;
-            
-            if (m_fStateTime > 1.0f)
-            {
-                gs->m_renderer->stopCamera();
-            }
-            
+        {   
             if (!OverlapTester::doRectanglesOverlap(jon.getMainBounds(), gs->m_renderer->getCameraBounds()))
             {
+				// Temp, replace with score display with Leaderboard and Continue buttons underneath
                 gs->m_stateMachine->revertToPreviousState();
                 
                 return;
@@ -376,6 +370,7 @@ void Level::update(GameScreen* gs)
             gs->m_iRequestedAction += m_game->getLevel();
             
             m_fStateTime = 0;
+			gs->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
         }
         
