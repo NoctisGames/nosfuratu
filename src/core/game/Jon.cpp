@@ -529,6 +529,14 @@ bool Jon::isUserActionPrevented()
 void Jon::setGame(Game* game)
 {
 	m_game = game;
+    
+    // Temp
+    int level = (game->getWorld() - 1) * 21 + game->getLevel();
+    
+    if (level > 10)
+    {
+        enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+    }
 }
 
 void Jon::setAbilityFlag(int abilityFlag)
