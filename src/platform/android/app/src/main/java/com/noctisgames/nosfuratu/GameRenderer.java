@@ -146,9 +146,9 @@ public final class GameRenderer implements Renderer
         _startTime = System.nanoTime();
 
         int requestedAction = Game.get_requested_action();
-        if (requestedAction >= 100000)
+        if (requestedAction >= 1000)
         {
-            requestedAction /= 100000;
+            requestedAction /= 1000;
         }
 
         switch (requestedAction)
