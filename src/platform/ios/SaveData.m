@@ -13,7 +13,7 @@
 
 static NSString *NUM_GOLDEN_CARROTS = @"num_golden_carrots";
 static NSString *JON_UNLOCKED_ABILITIES_FLAG = @"jon_unlocked_abilities_flag";
-static NSString *JON_VIEWED_CUTSCENES_FLAG = @"jon_viewed_cutscenes_flag";
+static NSString *VIEWED_CUTSCENES_FLAG = @"viewed_cutscenes_flag";
 static NSArray *WORLDS_LEVELS_STATS;
 static NSArray *WORLDS_LEVELS_SCORES;
 static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
@@ -385,24 +385,19 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     [[AppPrefs getInstance] setInt:numGoldenCarrots forKey:NUM_GOLDEN_CARROTS];
 }
 
++ (int)getViewedCutscenesFlag
+{
+    return [[AppPrefs getInstance] getInt:VIEWED_CUTSCENES_FLAG];
+}
+
++ (void)setViewedCutscenesFlag:(int)viewedCutscenesFlag
+{
+    [[AppPrefs getInstance] setInt:viewedCutscenesFlag forKey:VIEWED_CUTSCENES_FLAG];
+}
+
 + (int)getJonUnlockedAbilitiesFlag
 {
     return [[AppPrefs getInstance] getInt:JON_UNLOCKED_ABILITIES_FLAG];
-}
-
-+ (void)setJonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag
-{
-    [[AppPrefs getInstance] setInt:jonUnlockedAbilitiesFlag forKey:JON_UNLOCKED_ABILITIES_FLAG];
-}
-
-+ (int)getJonViewedCutscenesFlag
-{
-    return [[AppPrefs getInstance] getInt:JON_VIEWED_CUTSCENES_FLAG];
-}
-
-+ (void)setJonViewedCutscenesFlag:(int)jonViewedCutscenesFlag
-{
-    [[AppPrefs getInstance] setInt:jonViewedCutscenesFlag forKey:JON_VIEWED_CUTSCENES_FLAG];
 }
 
 + (int)getLevelScore:(int)world level:(int)level
@@ -421,13 +416,14 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     return [[AppPrefs getInstance] getInt:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
 }
 
-+ (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag
++ (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag jonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag
 {
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
     [[AppPrefs getInstance] setInt:score forKey:WORLDS_LEVELS_SCORES[worldIndex][levelIndex]];
     [[AppPrefs getInstance] setInt:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
+    [[AppPrefs getInstance] setInt:jonUnlockedAbilitiesFlag forKey:JON_UNLOCKED_ABILITIES_FLAG];
 }
 
 + (int)getScorePushedOnline:(int)world level:(int)level

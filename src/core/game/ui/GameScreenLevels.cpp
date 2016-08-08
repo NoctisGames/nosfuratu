@@ -28,7 +28,8 @@ void Level::enter(GameScreen* gs)
     m_fStateTime = 0;
     m_iScore = 0;
     m_iOnlineScore = 0;
-    m_iLevelStatsFlag = m_iBestGoldenCarrotsLevelCompletionFlag;
+    m_iLevelStatsFlag = m_iBestLevelStatsFlag;
+    m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
     m_isReleasingShockwave = false;
     gs->m_isScreenHeldDown = false;
@@ -48,6 +49,9 @@ void Level::enter(GameScreen* gs)
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
         
         m_batPanel->setGame(m_game.get());
+        
+        Jon& jon = m_game->getJon();
+        jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
     }
 
 	gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
@@ -85,16 +89,18 @@ void Level::exit(GameScreen* gs)
     m_fShockwaveElapsedTime = 0;
     m_fShockwaveCenterX = 0;
     m_fShockwaveCenterY = 0;
-    m_iLevelStatsFlag = 0;
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
     m_hasSwiped = false;
     m_showDeathTransOut = false;
     m_hasCompletedLevel = false;
     m_exitLoop = false;
+    
     m_iBestScore = 0;
     m_iBestOnlineScore = 0;
-    m_iBestGoldenCarrotsLevelCompletionFlag = 0;
+    m_iBestLevelStatsFlag = 0;
+    m_iLastKnownNumGoldenCarrots = 0;
+    m_iLastKnownJonAbilityFlag = 0;
 }
 
 void Level::setSourceGame(Game* game)
@@ -102,16 +108,13 @@ void Level::setSourceGame(Game* game)
     m_sourceGame = game;
 }
 
-void Level::setBestStats(int bestScore, int bestOnlineScore, int bestGoldenCarrotsLevelCompletionFlag)
+void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
 {
     m_iBestScore = bestScore;
     m_iBestOnlineScore = bestOnlineScore;
-    m_iBestGoldenCarrotsLevelCompletionFlag = bestGoldenCarrotsLevelCompletionFlag;
-}
-
-int Level::getOnlineScore()
-{
-    return m_iOnlineScore;
+    m_iBestLevelStatsFlag = bestLevelStatsFlag;
+    m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
+    m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
 int Level::getScore()
@@ -119,9 +122,24 @@ int Level::getScore()
     return m_iScore;
 }
 
+int Level::getOnlineScore()
+{
+    return m_iOnlineScore;
+}
+
 int Level::getLevelStatsFlag()
 {
     return m_iLevelStatsFlag;
+}
+
+int Level::getNumGoldenCarrots()
+{
+    return m_iNumGoldenCarrots;
+}
+
+int Level::getJonAbilityFlag()
+{
+    return m_game->getJon().getAbilityFlag();
 }
 
 bool Level::hasCompletedLevel()
@@ -360,9 +378,28 @@ void Level::update(GameScreen* gs)
             
             m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
             
-            if (m_game->getNumRemainingCarrots() == 0)
+            if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
+                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
             {
-                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+                m_iNumGoldenCarrots++;
+            }
+            
+            if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
+                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED))
+            {
+                m_iNumGoldenCarrots++;
+            }
+            
+            if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)
+                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED))
+            {
+                m_iNumGoldenCarrots++;
+            }
+            
+            if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED)
+                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
+            {
+                m_iNumGoldenCarrots++;
             }
             
             gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
@@ -604,6 +641,7 @@ m_fShockwaveCenterY(0.0f),
 m_iScore(0),
 m_iOnlineScore(0),
 m_iLevelStatsFlag(0),
+m_iNumGoldenCarrots(0),
 m_hasShownOpeningSequence(false),
 m_hasOpeningSequenceCompleted(false),
 m_activateRadialBlur(false),
@@ -613,7 +651,9 @@ m_exitLoop(false),
 m_hasCompletedLevel(false),
 m_iBestScore(0),
 m_iBestOnlineScore(0),
-m_iBestGoldenCarrotsLevelCompletionFlag(0)
+m_iBestLevelStatsFlag(0),
+m_iLastKnownNumGoldenCarrots(0),
+m_iLastKnownJonAbilityFlag(0)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

@@ -143,6 +143,14 @@
             [self markLevelAsCompleted:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
+            [self submitScoreOnline:gameScreen->getRequestedAction()];
+            gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
+            [self setCutsceneViewedFlag:gameScreen->getRequestedAction()];
+            gameScreen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_GET_SAVE_DATA:
             [self sendSaveData];
             gameScreen->clearRequestedAction();
@@ -313,39 +321,83 @@
 {
     int world = [self calcWorld:requestedAction];
     int level = [self calcLevel:requestedAction];
-    int score = Level::getInstance()->getScore();
-    int levelStatsFlag = Level::getInstance()->getLevelStatsFlag();
+    int score = gameScreen->getScore();
+    int levelStatsFlag = gameScreen->getLevelStatsFlag();
+    int numGoldenCarrots = gameScreen->getNumGoldenCarrots();
+    int jonUnlockedAbilitiesFlag = gameScreen->getJonAbilityFlag();
     
-    [SaveData setLevelComplete:world level:level score:score levelStatsFlag:levelStatsFlag];
+    [SaveData setLevelComplete:world level:level score:score levelStatsFlag:levelStatsFlag jonUnlockedAbilitiesFlag:jonUnlockedAbilitiesFlag];
+    
+    [SaveData setNumGoldenCarrots:numGoldenCarrots];
+}
+
+- (void)submitScoreOnline:(int)requestedAction
+{
+    int world = [self calcWorld:requestedAction];
+    int level = [self calcLevel:requestedAction];
+    int onlineScore = gameScreen->getOnlineScore();
+    
+    // TODO, submit score using game center, on success, save the score that was pushed online
+    
+    [SaveData setScorePushedOnline:world level:level score:onlineScore];
+}
+
+- (void)setCutsceneViewedFlag:(int)requestedAction
+{
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    int cutsceneViewedFlag = requestedAction;
+    
+    [SaveData setViewedCutscenesFlag:cutsceneViewedFlag];
 }
 
 - (void)sendSaveData
 {
-    NSString* userSaveData = @"{";
+    int numGoldenCarrots = [SaveData getNumGoldenCarrots];
+    int jonUnlockedAbilitiesFlag = [SaveData getJonUnlockedAbilitiesFlag];
+    int viewedCutscenesFlag = [SaveData getViewedCutscenesFlag];
+    
+    NSString* usd = @"{";
+    usd = [usd stringByAppendingFormat:@"\"num_golden_carrots\": %i, ", numGoldenCarrots];
+    usd = [usd stringByAppendingFormat:@"\"jon_unlocked_abilities_flag\": %i, ", jonUnlockedAbilitiesFlag];
+    usd = [usd stringByAppendingFormat:@"\"viewed_cutscenes_flag\": %i, ", viewedCutscenesFlag];
+    
     for (int i = 1; i <= 5; i++)
     {
-        userSaveData = [userSaveData stringByAppendingFormat:@"\"world_%i\":[", i];
+        usd = [usd stringByAppendingFormat:@"\"world_%i\":[", i];
         for (int j = 1; j <= 21; j++)
         {
-            int levelStats = [SaveData getLevelStatsFlag:i level:j];
+            int statsFlag = [SaveData getLevelStatsFlag:i level:j];
+            int score = [SaveData getLevelScore:i level:j];
+            int scoreOnline = [SaveData getScorePushedOnline:i level:j];
             
-            userSaveData = [userSaveData stringByAppendingFormat:@"%i", levelStats];
+            usd = [usd stringByAppendingString:@"{"];
+            usd = [usd stringByAppendingFormat:@"\"stats_flag\": %i, ", statsFlag];
+            usd = [usd stringByAppendingFormat:@"\"score\": %i, ", score];
+            usd = [usd stringByAppendingFormat:@"\"score_online\": %i ", scoreOnline];
+            
+            usd = [usd stringByAppendingString:@"}"];
             if (j < 21)
             {
-                userSaveData = [userSaveData stringByAppendingString:@","];
+                usd = [usd stringByAppendingString:@","];
             }
+            
+            usd = [usd stringByAppendingString:@" "];
         }
-        userSaveData = [userSaveData stringByAppendingString:@"]"];
+        usd = [usd stringByAppendingString:@"]"];
         if (i < 5)
         {
-            userSaveData = [userSaveData stringByAppendingString:@","];
+            usd = [usd stringByAppendingString:@","];
         }
     }
-    userSaveData = [userSaveData stringByAppendingString:@"}"];
+    usd = [usd stringByAppendingString:@"}"];
     
-    const char* userSaveDataCString = [userSaveData cStringUsingEncoding:NSUTF8StringEncoding];
+    const char* usdCString = [usd cStringUsingEncoding:NSUTF8StringEncoding];
     
-    WorldMap::getInstance()->loadUserSaveData(userSaveDataCString);
+    WorldMap::getInstance()->loadUserSaveData(usdCString);
 }
 
 - (void)showMessage:(int)requestedAction
@@ -426,8 +478,6 @@
 
 - (int)calcLevel:(int)requestedAction
 {
-    int level = 0;
-    
     while (requestedAction >= 1000)
     {
         requestedAction -= 1000;
@@ -438,7 +488,7 @@
         requestedAction -= 100;
     }
     
-    level = requestedAction;
+    int level = requestedAction;
     
     return level;
 }

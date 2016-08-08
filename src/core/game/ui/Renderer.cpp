@@ -1009,10 +1009,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     
 	/// Render Num / Total Carrots
 
-    std::stringstream ss;
-    ss << game.getNumTotalCarrots();
-    std::string totalNumGoldenCarrots = ss.str();
-    int offset = 1 + (int) totalNumGoldenCarrots.size();
+    static const int offset = 1;
     
     {
         std::stringstream ss;
@@ -1020,24 +1017,12 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (offset + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }
-    {
-        std::stringstream ss;
-        ss << "/";
-        std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - offset * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
-    }
-    {
-        std::stringstream ss;
-        ss << game.getNumTotalCarrots();
-        std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - text.size() * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
-    }
     
     /// Render Num / Total Golden Carrots
     
     {
         std::stringstream ss;
-        ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots()) << "/" << game.getNumTotalGoldenCarrots();
+        ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots());
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
     }

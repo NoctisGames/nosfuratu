@@ -18,14 +18,20 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
-// Save, Load, and Completed actions are passed in this format: [1-3][1-5][01-21], where the first digit is the action, second is the world, third is the level
+// Save, Load, Completed, and Submit Score actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
 #define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
 #define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
 #define REQUESTED_ACTION_LEVEL_COMPLETED 3
+#define REQUESTED_ACTION_SUBMIT_SCORE_ONLINE 4
 
-#define REQUESTED_ACTION_GET_SAVE_DATA 4
+// Set Cutscene Viewed action is passed in this format: [5][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
+#define REQUESTED_ACTION_SET_CUTSCENE_VIEWED 5
 
-#define REQUESTED_ACTION_SHOW_MESSAGE 5 // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+#define REQUESTED_ACTION_GET_SAVE_DATA 6
+
+#define REQUESTED_ACTION_SHOW_MESSAGE 7 // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+
+//// Message Definitions ////
 
 #define MESSAGE_NO_END_SIGN_KEY 1
 #define MESSAGE_NO_END_SIGN_VAL "Cannot save or test a level that does not contain an End Sign"
@@ -145,6 +151,10 @@
 #define FLAG_ABILITY_VAMPIRE_UP 32
 #define FLAG_ABILITY_VAMPIRE_LEFT 64
 #define FLAG_ABILITY_VAMPIRE_DOWN 128
+
+//// Flag Cutscene Definitions ////
+
+#define FLAG_CUTSCENE_VIEWED_OPENING 1
 
 //// Render Definitions ////
 

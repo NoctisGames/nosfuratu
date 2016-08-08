@@ -12,16 +12,16 @@
 #include "Game.h"
 
 GameScreen::GameScreen() :
-	m_fFPSStateTime(0),
-	m_iFrames(0),
-	m_iFPS(0),
-	m_fDeltaTime(0),
-	m_fScreenHeldTime(0),
-	m_isRequestingRender(false),
-	m_iRequestedAction(REQUESTED_ACTION_UPDATE),
-	m_isPaused(false),
-	m_isScreenHeldDown(false),
-	m_iPoolIndex(0)
+m_fFPSStateTime(0),
+m_iFrames(0),
+m_iFPS(0),
+m_fDeltaTime(0),
+m_fScreenHeldTime(0),
+m_isRequestingRender(false),
+m_iRequestedAction(REQUESTED_ACTION_UPDATE),
+m_isPaused(false),
+m_isScreenHeldDown(false),
+m_iPoolIndex(0)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -45,7 +45,9 @@ void GameScreen::onPause()
 {
     if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
     {
-        m_isPaused = !Level::getInstance()->hasCompletedLevel();
+        Level* level = (Level*) m_stateMachine->getCurrentState();
+        
+        m_isPaused = !level->hasCompletedLevel();
     }
 }
 
@@ -131,6 +133,41 @@ short GameScreen::getCurrentSoundId()
     Assets::getInstance()->eraseFirstSoundId();
     
     return playThisSound;
+}
+
+int GameScreen::getScore()
+{
+    Level* level = (Level*) m_stateMachine->getCurrentState();
+    
+    return level->getScore();
+}
+
+int GameScreen::getOnlineScore()
+{
+    Level* level = (Level*) m_stateMachine->getCurrentState();
+    
+    return level->getOnlineScore();
+}
+
+int GameScreen::getLevelStatsFlag()
+{
+    Level* level = (Level*) m_stateMachine->getCurrentState();
+    
+    return level->getLevelStatsFlag();
+}
+
+int GameScreen::getNumGoldenCarrots()
+{
+    Level* level = (Level*) m_stateMachine->getCurrentState();
+    
+    return level->getNumGoldenCarrots();
+}
+
+int GameScreen::getJonAbilityFlag()
+{
+    Level* level = (Level*) m_stateMachine->getCurrentState();
+    
+    return level->getJonAbilityFlag();
 }
 
 void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)

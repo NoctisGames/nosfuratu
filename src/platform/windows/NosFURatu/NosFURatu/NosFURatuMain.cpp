@@ -190,6 +190,14 @@ void NosFURatuMain::Update()
 			markLevelAsCompleted(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
+        case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
+            submitScoreOnline(gameScreen->getRequestedAction());
+            gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
+            setCutsceneViewedFlag(gameScreen->getRequestedAction());
+            gameScreen->clearRequestedAction();
+            break;
 		case REQUESTED_ACTION_GET_SAVE_DATA:
 			sendSaveData();
 			m_gameScreen->clearRequestedAction();
@@ -446,41 +454,85 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 {
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
-    int score = Level::getInstance()->getScore();
-    int levelStatsFlag = Level::getInstance()->getLevelStatsFlag();
+    int score = gameScreen->getScore();
+    int levelStatsFlag = gameScreen->getLevelStatsFlag();
+    int numGoldenCarrots = gameScreen->getNumGoldenCarrots();
+    int jonUnlockedAbilitiesFlag = gameScreen->getJonAbilityFlag();
 
-	SaveData::setLevelComplete(world, level, score, levelStatsFlag);
+	SaveData::setLevelComplete(world, level, score, levelStatsFlag, jonUnlockedAbilitiesFlag);
+    
+    SaveData::setNumGoldenCarrots(numGoldenCarrots);
+}
+
+void NosFURatuMain::submitScoreOnline(int requestedAction)
+{
+    int world = calcWorld(requestedAction);
+    int level = calcLevel(requestedAction);
+    int onlineScore = gameScreen->getOnlineScore();
+    
+    // TODO, submit score using Xbox Live or OpenXLive, on success, save the score that was pushed online
+    
+    SaveData::setScorePushedOnline(world, level, onlineScore);
+}
+
+void NosFURatuMain::setCutsceneViewedFlag(int requestedAction)
+{
+    while (requestedAction >= 1000)
+    {
+        requestedAction -= 1000;
+    }
+    
+    int cutsceneViewedFlag = requestedAction;
+    
+    SaveData::setViewedCutscenesFlag(cutsceneViewedFlag);
 }
 
 void NosFURatuMain::sendSaveData()
 {
-	std::stringstream ss;
-	ss << "{";
-
-	for (int i = 1; i <= 5; i++)
-	{
-		ss << "\"world_" << i << "\":[";
-		for (int j = 1; j <= 21; j++)
-		{
-			int levelStats = SaveData::getLevelStatsFlag(i, j);
-
-			ss << "" << levelStats;
-			if (j < 21)
-			{
-				ss << ",";
-			}
-		}
-		ss << "]";
-		if (i < 5)
-		{
-			ss << ",";
-		}
-	}
-	ss << "}";
-
-	std::string userSaveData = ss.str();
-
-	WorldMap::getInstance()->loadUserSaveData(userSaveData.c_str());
+    int numGoldenCarrots = SaveData::getNumGoldenCarrots();
+    int jonUnlockedAbilitiesFlag = SaveData::getJonUnlockedAbilitiesFlag();
+    int viewedCutscenesFlag = SaveData::getViewedCutscenesFlag();
+    
+    std::stringstream ss;
+    ss << "{";
+    ss << "\"num_golden_carrots\": " << numGoldenCarrots << ", ";
+    ss << "\"jon_unlocked_abilities_flag\": " << jonUnlockedAbilitiesFlag << ", ";
+    ss << "\"viewed_cutscenes_flag\": " << viewedCutscenesFlag << ", ";
+    
+    for (int i = 1; i <= 5; i++)
+    {
+        ss << "\"world_" + i + "\":[";
+        
+        for (int j = 1; j <= 21; j++)
+        {
+            int statsFlag = SaveData::getLevelStatsFlag(i, j);
+            int score = SaveData::getLevelScore(i, j);
+            int scoreOnline = SaveData::getScorePushedOnline(i, j);
+            
+            ss << "{";
+            ss << "\"stats_flag\": " << statsFlag << ", ";
+            ss << "\"score\": " << score << ", ";
+            ss << "\"score_online\": " << scoreOnline << " ";
+            
+            ss << "}";
+            if (j < 21)
+            {
+                ss << ",";
+            }
+            
+            ss << " ";
+        }
+        ss << "]";
+        if (i < 5)
+        {
+            ss << ",";
+        }
+    }
+    ss << "}";
+    
+    std::string userSaveData = ss.str();
+    
+    WorldMap::getInstance()->loadUserSaveData(userSaveData.c_str());
 }
 
 void NosFURatuMain::showMessage(int requestedAction)

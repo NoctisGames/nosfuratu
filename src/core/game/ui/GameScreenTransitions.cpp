@@ -525,6 +525,8 @@ void WorldMapToLevel::enter(GameScreen* gs)
             break;
     }
     
+    m_levelState->setBestStats(m_iBestScore, m_iBestOnlineScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
+    
     m_levelState->enter(gs);
 }
 
@@ -576,6 +578,12 @@ void WorldMapToLevel::exit(GameScreen* gs)
     m_fTransitionStateTime = -1;
     m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
+    
+    m_iBestScore = 0;
+    m_iBestOnlineScore = 0;
+    m_iBestLevelStatsFlag = 0;
+    m_iLastKnownNumGoldenCarrots = 0;
+    m_iLastKnownJonAbilityFlag = 0;
 }
 
 void WorldMapToLevel::setLevelLocation(float centerX, float centerY)
@@ -594,7 +602,27 @@ void WorldMapToLevel::setLevelToLoad(int levelToLoad)
     m_iLevelToLoad = levelToLoad;
 }
 
-WorldMapToLevel::WorldMapToLevel() : m_levelState(nullptr), m_fCenterX(0), m_fCenterY(0), m_fTransitionStateTime(0), m_iWorldToLoad(0), m_iLevelToLoad(0)
+void WorldMapToLevel::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
+{
+    m_iBestScore = bestScore;
+    m_iBestOnlineScore = bestOnlineScore;
+    m_iBestLevelStatsFlag = bestLevelStatsFlag;
+    m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
+    m_iLastKnownJonAbilityFlag = jonAbilityFlag;
+}
+
+WorldMapToLevel::WorldMapToLevel() :
+m_levelState(nullptr),
+m_fCenterX(0),
+m_fCenterY(0),
+m_fTransitionStateTime(0),
+m_iWorldToLoad(0),
+m_iLevelToLoad(0),
+m_iBestScore(0),
+m_iBestOnlineScore(0),
+m_iBestLevelStatsFlag(0),
+m_iLastKnownNumGoldenCarrots(0),
+m_iLastKnownJonAbilityFlag(0)
 {
     // Empty
 }

@@ -4,7 +4,7 @@ public final class SaveData
 {
     private static final String NUM_GOLDEN_CARROTS = "num_golden_carrots";
     private static final String JON_UNLOCKED_ABILITIES_FLAG = "jon_unlocked_abilities_flag";
-    private static final String JON_VIEWED_CUTSCENES_FLAG = "jon_viewed_cutscenes_flag";
+    private static final String VIEWED_CUTSCENES_FLAG = "viewed_cutscenes_flag";
     private static final String[][] WORLDS_LEVELS_STATS;
     private static final String[][] WORLDS_LEVELS_SCORES;
     private static final String[][] WORLDS_LEVELS_SCORES_ONLINE;
@@ -391,24 +391,19 @@ public final class SaveData
         AppPrefs.getInstance().set(NUM_GOLDEN_CARROTS, numGoldenCarrots);
     }
 
+    public static int getViewedCutscenesFlag()
+    {
+        return AppPrefs.getInstance().getInt(VIEWED_CUTSCENES_FLAG, 0);
+    }
+
+    public static void setViewedCutscenesFlag(int jonViewedCutscenesFlag)
+    {
+        AppPrefs.getInstance().set(VIEWED_CUTSCENES_FLAG, jonViewedCutscenesFlag);
+    }
+
     public static int getJonUnlockedAbilitiesFlag()
     {
         return AppPrefs.getInstance().getInt(JON_UNLOCKED_ABILITIES_FLAG, 0);
-    }
-
-    public static void setJonUnlockedAbilitiesFlag(int jonUnlockedAbilitiesFlag)
-    {
-        AppPrefs.getInstance().set(JON_UNLOCKED_ABILITIES_FLAG, jonUnlockedAbilitiesFlag);
-    }
-
-    public static int getJonViewedCutscenesFlag()
-    {
-        return AppPrefs.getInstance().getInt(JON_VIEWED_CUTSCENES_FLAG, 0);
-    }
-
-    public static void setJonViewedCutscenesFlag(int jonViewedCutscenesFlag)
-    {
-        AppPrefs.getInstance().set(JON_VIEWED_CUTSCENES_FLAG, jonViewedCutscenesFlag);
     }
 
     public static int getLevelScore(int world, int level)
@@ -427,13 +422,14 @@ public final class SaveData
         return AppPrefs.getInstance().getInt(WORLDS_LEVELS_STATS[worldIndex][levelIndex], 0);
     }
 
-    public static void setLevelComplete(int world, int level, int score, int levelStatsFlag)
+    public static void setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
     {
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
         AppPrefs.getInstance().set(WORLDS_LEVELS_SCORES[worldIndex][levelIndex], score);
         AppPrefs.getInstance().set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
+        AppPrefs.getInstance().set(JON_UNLOCKED_ABILITIES_FLAG, jonUnlockedAbilitiesFlag);
     }
 
     public static int getScorePushedOnline(int world, int level)

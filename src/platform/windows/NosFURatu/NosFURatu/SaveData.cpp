@@ -39,6 +39,39 @@ void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
     values->Insert(key, PropertyValue::CreateInt32(numGoldenCarrots));
 }
 
+int SaveData::getViewedCutscenesFlag()
+{
+    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+    
+    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+    
+    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+    
+    Platform::String^ key = getKeyForViewedCutscenesFlag();
+    
+    bool hasValue = values->HasKey(key);
+    
+    if (hasValue)
+    {
+        return safe_cast<int>(values->Lookup(key));
+    }
+    
+    return 0;
+}
+
+void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
+{
+    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+    
+    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+    
+    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+    
+    Platform::String^ key = getKeyForViewedCutscenesFlag();
+    
+    values->Insert(key, PropertyValue::CreateInt32(jonViewedCutscenesFlag));
+}
+
 int SaveData::getJonUnlockedAbilitiesFlag()
 {
     ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
@@ -57,52 +90,6 @@ int SaveData::getJonUnlockedAbilitiesFlag()
     }
     
     return 0;
-}
-
-void SaveData::setJonUnlockedAbilitiesFlag(int jonUnlockedAbilitiesFlag)
-{
-    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-    
-    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-    
-    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-    
-    Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
-    
-    values->Insert(key, PropertyValue::CreateInt32(jonUnlockedAbilitiesFlag));
-}
-
-int SaveData::getJonViewedCutscenesFlag()
-{
-    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-    
-    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-    
-    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-    
-    Platform::String^ key = getKeyForJonViewedCutscenesFlag();
-    
-    bool hasValue = values->HasKey(key);
-    
-    if (hasValue)
-    {
-        return safe_cast<int>(values->Lookup(key));
-    }
-    
-    return 0;
-}
-
-void SaveData::setJonViewedCutscenesFlag(int jonViewedCutscenesFlag)
-{
-    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-    
-    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-    
-    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-    
-    Platform::String^ key = getKeyForJonViewedCutscenesFlag();
-    
-    values->Insert(key, PropertyValue::CreateInt32(jonViewedCutscenesFlag));
 }
 
 int SaveData::getLevelScore(int world, int level)
@@ -145,7 +132,7 @@ int SaveData::getLevelStatsFlag(int world, int level)
     return 0;
 }
 
-void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag)
+void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
 {
     ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
     
@@ -163,6 +150,12 @@ void SaveData::setLevelComplete(int world, int level, int score, int levelStatsF
         Platform::String^ key = getKeyForLevelStats(world, level);
         
         values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
+    }
+    
+    {
+        Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
+        
+        values->Insert(key, PropertyValue::CreateInt32(jonUnlockedAbilitiesFlag));
     }
 }
 
@@ -213,9 +206,9 @@ Platform::String^ SaveData::getKeyForJonUnlockedAbilitiesFlag()
     return key;
 }
 
-Platform::String^ SaveData::getKeyForJonViewedCutscenesFlag()
+Platform::String^ SaveData::getKeyForViewedCutscenesFlag()
 {
-    static Platform::String^ key = "jon_viewed_cutscenes_flag";
+    static Platform::String^ key = "viewed_cutscenes_flag";
     
     return key;
 }

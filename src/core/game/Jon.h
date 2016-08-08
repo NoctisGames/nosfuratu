@@ -170,6 +170,8 @@ public:
     
     bool isAbilityEnabled(int abilityFlag);
     
+    int getAbilityFlag();
+    
     bool isBurrowEffective();
     
     void beginWarmingUp();

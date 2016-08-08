@@ -112,11 +112,14 @@ void WorldMap::execute(GameScreen* gs)
                             {
                                 int worldToLoad = (*j)->getWorld();
                                 int levelToLoad = (*j)->getLevel();
-                                int goldenCarrotsFlag = (*j)->getGoldenCarrotsFlag();
+                                int levelStatsFlag = (*j)->getGoldenCarrotsFlag();
                                 
                                 WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
+                                
+                                // TODO, fill in score and online score
+                                WorldMapToLevel::getInstance()->setBestStats(0, 0, levelStatsFlag, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
                                 if (m_menu->getWorld() == worldToLoad
                                     && m_menu->getLevel() == levelToLoad)
@@ -128,7 +131,7 @@ void WorldMap::execute(GameScreen* gs)
                                 // Temp
                                 m_isReadyForTransition = true;
                                 
-                                m_menu->setLevelStats(worldToLoad, levelToLoad, goldenCarrotsFlag);
+                                m_menu->setLevelStats(worldToLoad, levelToLoad, levelStatsFlag);
                             }
                         }
                     }
@@ -148,14 +151,14 @@ void WorldMap::loadUserSaveData(const char* json)
 {
     m_worldLevelStats.clear();
     
-    m_iNumCollectedGoldenCarrots = 0;
-    
     m_menu->setLevelStats(-1, -1, 0);
     
     rapidjson::Document d;
     d.Parse<0>(json);
     
-    loadUserSaveData(d, "world_1");
+    loadGlobalUserSaveData(d);
+    
+    loadUserSaveDataForWorld(d, "world_1");
     
     for (std::vector<std::unique_ptr<LevelThumbnail>>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
@@ -239,33 +242,83 @@ float WorldMap::getCamPosY()
 
 #pragma mark private
 
-void WorldMap::loadUserSaveData(rapidjson::Document& d, const char * key)
+void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
 {
+    m_iNumCollectedGoldenCarrots = 0;
+    m_iJonAbilityFlag = 0;
+    m_iViewedCutsceneFlag = 0;
+    
+    const char * num_golden_carrots_key = "num_golden_carrots";
+    const char * jon_unlocked_abilities_flag_key = "jon_unlocked_abilities_flag";
+    const char * viewed_cutscenes_flag_key = "viewed_cutscenes_flag";
+    
+    using namespace rapidjson;
+    
+    if (d.HasMember(num_golden_carrots_key))
+    {
+        Value& v = d[num_golden_carrots_key];
+        assert(v.IsInt());
+        
+        m_iNumCollectedGoldenCarrots = v.GetInt();
+    }
+    
+    if (d.HasMember(jon_unlocked_abilities_flag_key))
+    {
+        Value& v = d[jon_unlocked_abilities_flag_key];
+        assert(v.IsInt());
+        
+        m_iJonAbilityFlag = v.GetInt();
+    }
+    
+    if (d.HasMember(viewed_cutscenes_flag_key))
+    {
+        Value& v = d[viewed_cutscenes_flag_key];
+        assert(v.IsInt());
+        
+        m_iViewedCutsceneFlag = v.GetInt();
+    }
+}
+
+void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key)
+{
+    const char * stats_flag_key = "stats_flag";
+    const char * score_key = "score";
+    const char * score_online_key = "score_online";
+    
     using namespace rapidjson;
     
     if (d.HasMember(key))
     {
-        Value& v = d[key];
-        assert(v.IsArray());
+        Value& levelArrayVal = d[key];
+        assert(levelArrayVal.IsArray());
         
         WorldLevelCompletions* wlc = new WorldLevelCompletions();
         
-        for (SizeType i = 0; i < v.Size(); i++)
+        for (SizeType i = 0; i < levelArrayVal.Size(); i++)
         {
-            int levelStats = v[i].GetInt();
-            wlc->m_levelStats.push_back(levelStats);
+            Value& levelVal = levelArrayVal[i];
             
-            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
-            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
-            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
-            m_iNumCollectedGoldenCarrots += FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED) ? 1 : 0;
+            if (levelVal.HasMember(stats_flag_key))
+            {
+                Value& levelStatsVal = levelVal[stats_flag_key];
+                assert(levelStatsVal.IsInt());
+                
+                int levelStats = levelStatsVal.GetInt();
+                
+                wlc->m_levelStats.push_back(levelStats);
+            }
         }
         
         m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
     }
 }
 
-WorldMap::WorldMap() : m_fCamPosY(0), m_iNumCollectedGoldenCarrots(0), m_isReadyForTransition(false)
+WorldMap::WorldMap() :
+m_fCamPosY(0),
+m_iNumCollectedGoldenCarrots(0),
+m_iJonAbilityFlag(0),
+m_iViewedCutsceneFlag(0),
+m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());

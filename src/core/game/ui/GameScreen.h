@@ -70,12 +70,22 @@ public:
     
     short getCurrentSoundId();
     
+    int getScore();
+    
+    int getOnlineScore();
+    
+    int getLevelStatsFlag();
+    
+    int getNumGoldenCarrots();
+    
+    int getJonAbilityFlag();
+    
     void onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y);
     
     void processTouchEvents();
     
 private:
-	int m_iPoolIndex;
+    int m_iPoolIndex;
 
     TouchEvent* newTouchEvent();
     

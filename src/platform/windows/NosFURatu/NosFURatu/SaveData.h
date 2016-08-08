@@ -8,17 +8,16 @@ namespace NosFURatu
 		static int getNumGoldenCarrots();
         static void setNumGoldenCarrots(int numGoldenCarrots);
         
-        static int getJonUnlockedAbilitiesFlag();
-        static void setJonUnlockedAbilitiesFlag(int jonUnlockedAbilitiesFlag);
+        static int getViewedCutscenesFlag();
+        static void setViewedCutscenesFlag(int viewedCutscenesFlag);
         
-        static int getJonViewedCutscenesFlag();
-        static void setJonViewedCutscenesFlag(int jonViewedCutscenesFlag);
+        static int getJonUnlockedAbilitiesFlag();
         
         static int getLevelScore(int world, int level);
 
         static int getLevelStatsFlag(int world, int level);
         
-        static void setLevelComplete(int world, int level, int score, int levelStatsFlag);
+        static void setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag);
         
         static int getScorePushedOnline(int world, int level);
         static void setScorePushedOnline(int world, int level, int score);
@@ -26,7 +25,7 @@ namespace NosFURatu
 	private:
         static Platform::String^ getKeyForNumGoldenCarrots();
         static Platform::String^ getKeyForJonUnlockedAbilitiesFlag();
-        static Platform::String^ getKeyForJonViewedCutscenesFlag();
+        static Platform::String^ getKeyForViewedCutscenesFlag();
         
 		static Platform::String^ getKeyForLevelScore(int world, int level);
         static Platform::String^ getKeyForLevelStats(int world, int level);

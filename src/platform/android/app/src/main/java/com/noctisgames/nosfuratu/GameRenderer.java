@@ -19,16 +19,22 @@ import javax.microedition.khronos.opengles.GL10;
 public final class GameRenderer implements Renderer
 {
     // Definitions from src/core/game/GameConstants.h
+
     //// Requested Action Definitions ////
 
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, and Completed actions are passed in this format: [1-3][1-5][01-21], where the first digit is the action, second is the world, third is the level
+    // Save, Load, Completed, and Submit Score actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
+    private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
 
-    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 4;
-    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 5; // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+    // Set Cutscene Viewed action is passed in this format: [5][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
+    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 5;
+
+    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 6;
+
+    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 7; // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
     private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
@@ -169,6 +175,14 @@ public final class GameRenderer implements Renderer
                 break;
             case REQUESTED_ACTION_LEVEL_COMPLETED:
                 markLevelAsCompleted(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
+                submitScoreOnline(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
+                setCutsceneViewedFlag(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
             case REQUESTED_ACTION_GET_SAVE_DATA:
@@ -391,35 +405,80 @@ public final class GameRenderer implements Renderer
         int level = calcLevel(requestedAction);
         int score = Game.get_score();
         int levelStatsFlag = Game.get_level_stats_flag();
+        int numGoldenCarrots = Game.get_num_golden_carrots();
+        int jonUnlockedAbilitiesFlag = Game.get_jon_unlocked_abilities_flag();
 
-        SaveData.setLevelComplete(world, level, score, levelStatsFlag);
+        SaveData.setLevelComplete(world, level, score, levelStatsFlag, jonUnlockedAbilitiesFlag);
+
+        SaveData.setNumGoldenCarrots(numGoldenCarrots);
+    }
+
+    private void submitScoreOnline(int requestedAction)
+    {
+        int world = calcWorld(requestedAction);
+        int level = calcLevel(requestedAction);
+        int onlineScore = Game.get_online_score();
+
+        // TODO, submit score using Google Play, on success, save the score that was pushed online
+
+        SaveData.setScorePushedOnline(world, level, onlineScore);
+    }
+
+    private void setCutsceneViewedFlag(int requestedAction)
+    {
+        while (requestedAction >= 1000)
+        {
+            requestedAction -= 1000;
+        }
+
+        int cutsceneViewedFlag = requestedAction;
+
+        SaveData.setViewedCutscenesFlag(cutsceneViewedFlag);
     }
 
     private void sendSaveData()
     {
-        String userSaveData = "{";
+        int numGoldenCarrots = SaveData.getNumGoldenCarrots();
+        int jonUnlockedAbilitiesFlag = SaveData.getJonUnlockedAbilitiesFlag();
+        int viewedCutscenesFlag = SaveData.getViewedCutscenesFlag();
+
+        String usd = "{";
+        usd += "\"num_golden_carrots\": " + numGoldenCarrots + ", ";
+        usd += "\"jon_unlocked_abilities_flag\": " + jonUnlockedAbilitiesFlag + ", ";
+        usd += "\"viewed_cutscenes_flag\": " + viewedCutscenesFlag + ", ";
+
         for (int i = 1; i <= 5; i++)
         {
-            userSaveData += "\"world_" + i + "\":[";
+            usd += "\"world_" + i + "\":[";
+
             for (int j = 1; j <= 21; j++)
             {
-                int levelStats = SaveData.getLevelStatsFlag(i, j);
+                int statsFlag = SaveData.getLevelStatsFlag(i, j);
+                int score = SaveData.getLevelScore(i, j);
+                int scoreOnline = SaveData.getScorePushedOnline(i, j);
 
-                userSaveData += "" + levelStats;
+                usd += "{";
+                usd += "\"stats_flag\": " + statsFlag + ", ";
+                usd += "\"score\": " + score + ", ";
+                usd += "\"score_online\": " + scoreOnline + " ";
+
+                usd += "}";
                 if (j < 21)
                 {
-                    userSaveData += ",";
+                    usd += ",";
                 }
+
+                usd += " ";
             }
-            userSaveData += "]";
+            usd += "]";
             if (i < 5)
             {
-                userSaveData += ",";
+                usd += ",";
             }
         }
-        userSaveData += "}";
+        usd += "}";
 
-        Game.load_user_save_data(userSaveData);
+        Game.load_user_save_data(usd);
     }
 
     private void showMessage(int requestedAction)
@@ -509,8 +568,6 @@ public final class GameRenderer implements Renderer
 
     private int calcLevel(int requestedAction)
     {
-        int level = 0;
-
         while (requestedAction >= 1000)
         {
             requestedAction -= 1000;
@@ -521,7 +578,7 @@ public final class GameRenderer implements Renderer
             requestedAction -= 100;
         }
 
-        level = requestedAction;
+        int level = requestedAction;
 
         return level;
     }

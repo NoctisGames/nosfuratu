@@ -74,6 +74,8 @@ public:
     
     void setLevelToLoad(int levelToLoad);
     
+    void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
+    
 private:
     Level* m_levelState;
     float m_fCenterX;
@@ -81,6 +83,13 @@ private:
     float m_fTransitionStateTime;
     int m_iWorldToLoad;
     int m_iLevelToLoad;
+    
+    // Set from app storage
+    int m_iBestScore;
+    int m_iBestOnlineScore;
+    int m_iBestLevelStatsFlag;
+    int m_iLastKnownNumGoldenCarrots;
+    int m_iLastKnownJonAbilityFlag;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMapToLevel();

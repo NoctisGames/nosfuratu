@@ -58,6 +58,8 @@ namespace NosFURatu
 		void saveLevel(int requestedAction);
 		void loadLevel(int requestedAction);
 		void markLevelAsCompleted(int requestedAction);
+        void submitScoreOnline(int requestedAction);
+        void setCutsceneViewedFlag(int requestedAction);
 		void sendSaveData();
         void showMessage(int requestedAction);
 

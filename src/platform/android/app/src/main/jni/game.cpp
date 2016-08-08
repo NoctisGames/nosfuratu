@@ -12,7 +12,6 @@
 #include "AndroidOpenGLESGameScreen.h"
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
-#include "GameScreenLevels.h"
 #include "Game.h"
 
 AndroidOpenGLESGameScreen *gameScreen;
@@ -58,7 +57,13 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1dat
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env, jclass cls);
 
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNIEnv* env, jclass cls);
+
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls)
@@ -226,7 +231,15 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env
 	UNUSED(env);
 	UNUSED(cls);
 
-	return Level::getInstance()->getScore();
+	return gameScreen->getScore();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return gameScreen->getOnlineScore();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls)
@@ -234,5 +247,21 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1fla
 	UNUSED(env);
 	UNUSED(cls);
 
-	return Level::getInstance()->getLevelStatsFlag();
+	return gameScreen->getLevelStatsFlag();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return gameScreen->getNumGoldenCarrots();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return gameScreen->getJonAbilityFlag();
 }

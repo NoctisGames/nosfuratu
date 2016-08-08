@@ -241,9 +241,13 @@ private:
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     float m_fCamPosY;
     int m_iNumCollectedGoldenCarrots;
+    int m_iJonAbilityFlag;
+    int m_iViewedCutsceneFlag;
     bool m_isReadyForTransition;
     
-    void loadUserSaveData(rapidjson::Document& d, const char * key);
+    void loadGlobalUserSaveData(rapidjson::Document& d);
+    
+    void loadUserSaveDataForWorld(rapidjson::Document& d, const char * key);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();

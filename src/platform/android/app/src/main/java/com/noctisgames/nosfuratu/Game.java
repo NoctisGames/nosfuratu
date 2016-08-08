@@ -45,5 +45,11 @@ public final class Game
 
     public static native int get_score();
 
+    public static native int get_online_score();
+
     public static native int get_level_stats_flag();
+
+    public static native int get_num_golden_carrots();
+
+    public static native int get_jon_unlocked_abilities_flag();
 }

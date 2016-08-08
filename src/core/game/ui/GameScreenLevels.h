@@ -36,13 +36,17 @@ public:
     
     void setSourceGame(Game* game);
     
-    void setBestStats(int bestScore, int bestOnlineScore, int bestGoldenCarrotsLevelCompletionFlag);
-    
-    int getOnlineScore();
+    void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
     int getScore();
     
+    int getOnlineScore();
+    
     int getLevelStatsFlag();
+    
+    int getNumGoldenCarrots();
+    
+    int getJonAbilityFlag();
     
     bool hasCompletedLevel();
     
@@ -62,6 +66,7 @@ protected:
     int m_iScore;
     int m_iOnlineScore;
     int m_iLevelStatsFlag;
+    int m_iNumGoldenCarrots;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;
@@ -73,7 +78,9 @@ protected:
     // Set from app storage
     int m_iBestScore;
     int m_iBestOnlineScore;
-    int m_iBestGoldenCarrotsLevelCompletionFlag;
+    int m_iBestLevelStatsFlag;
+    int m_iLastKnownNumGoldenCarrots;
+    int m_iLastKnownJonAbilityFlag;
     
     virtual void update(GameScreen* gs);
     
@@ -125,6 +132,23 @@ private:
                             break;
                     }
                 }
+            }
+        }
+        
+        if (!FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
+        {
+            int numCarrotsRemaining = 0;
+            for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
+            {
+                if ((*i)->getType() == CollectibleItemType_Carrot)
+                {
+                    numCarrotsRemaining++;
+                }
+            }
+            
+            if (numCarrotsRemaining == 0)
+            {
+                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
         }
     }

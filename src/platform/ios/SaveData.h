@@ -14,17 +14,16 @@
 + (int)getNumGoldenCarrots;
 + (void)setNumGoldenCarrots:(int)numGoldenCarrots;
 
-+ (int)getJonUnlockedAbilitiesFlag;
-+ (void)setJonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag;
++ (int)getViewedCutscenesFlag;
++ (void)setViewedCutscenesFlag:(int)viewedCutscenesFlag;
 
-+ (int)getJonViewedCutscenesFlag;
-+ (void)setJonViewedCutscenesFlag:(int)jonViewedCutscenesFlag;
++ (int)getJonUnlockedAbilitiesFlag;
 
 + (int)getLevelScore:(int)world level:(int)level;
 
 + (int)getLevelStatsFlag:(int)world level:(int)level;
 
-+ (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag;
++ (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag jonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag;
 
 + (int)getScorePushedOnline:(int)world level:(int)level;
 + (void)setScorePushedOnline:(int)world level:(int)level score:(int)score;
