@@ -1008,14 +1008,12 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     }
     
 	/// Render Num / Total Carrots
-
-    static const int offset = 1;
     
     {
         std::stringstream ss;
         ss << (game.getNumTotalCarrots() - game.getNumRemainingCarrots());
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - (offset + text.size()) * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     }
     
     /// Render Num / Total Golden Carrots
@@ -1024,7 +1022,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         std::stringstream ss;
         ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots());
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - 3 * fgWidth - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     }
 
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
