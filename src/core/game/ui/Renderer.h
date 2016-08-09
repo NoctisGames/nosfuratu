@@ -106,6 +106,8 @@ public:
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     
+    void renderBlackOverlay(float opacity);
+    
     void renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int fps);
     
     void renderMarkers(Game& game);

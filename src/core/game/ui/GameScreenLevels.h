@@ -74,6 +74,7 @@ protected:
     bool m_showDeathTransOut;
     bool m_exitLoop;
     bool m_hasCompletedLevel;
+    bool m_isDisplayingResults;
     
     // Set from app storage
     int m_iBestScore;

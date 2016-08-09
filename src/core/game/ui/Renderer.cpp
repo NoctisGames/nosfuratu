@@ -966,6 +966,20 @@ void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
     m_highlightRectangleBatcher->endBatch();
 }
 
+void Renderer::renderBlackOverlay(float opacity)
+{
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    static Rectangle rect = Rectangle(0, 0, CAM_WIDTH, CAM_HEIGHT);
+    
+    static Color blackColor = Color(0, 0, 0, 0);
+    blackColor.alpha = opacity;
+    
+    m_highlightRectangleBatcher->beginBatch();
+    m_highlightRectangleBatcher->renderRectangle(rect, blackColor);
+    m_highlightRectangleBatcher->endBatch();
+}
+
 void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int fps)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);

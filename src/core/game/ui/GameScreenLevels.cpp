@@ -31,6 +31,7 @@ void Level::enter(GameScreen* gs)
     m_iLevelStatsFlag = m_iBestLevelStatsFlag;
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
+    m_isDisplayingResults = false;
     m_isReleasingShockwave = false;
     gs->m_isScreenHeldDown = false;
     gs->m_fScreenHeldTime = 0;
@@ -94,6 +95,7 @@ void Level::exit(GameScreen* gs)
     m_hasSwiped = false;
     m_showDeathTransOut = false;
     m_hasCompletedLevel = false;
+    m_isDisplayingResults = false;
     m_exitLoop = false;
     
     m_iBestScore = 0;
@@ -204,6 +206,24 @@ void Level::update(GameScreen* gs)
     }
     else
     {
+        if (m_isDisplayingResults)
+        {
+            for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+            {
+                switch ((*i)->getTouchType())
+                {
+                    case DOWN:
+                    case DRAGGED:
+                        continue;
+                    case UP:
+                        gs->m_stateMachine->revertToPreviousState();
+                        break;
+                }
+            }
+            
+            return;
+        }
+        
         if (handleTouchInput(gs))
         {
             return;
@@ -356,14 +376,16 @@ void Level::update(GameScreen* gs)
         }
         
         if (m_hasCompletedLevel)
-        {   
-            if (!OverlapTester::doRectanglesOverlap(jon.getMainBounds(), gs->m_renderer->getCameraBounds()))
+        {
+            m_fStateTime += gs->m_fDeltaTime / 2;
+            if (m_fStateTime > 1)
             {
-				// Temp, replace with score display with Leaderboard and Continue buttons underneath
-                gs->m_stateMachine->revertToPreviousState();
-                
-                return;
+                m_fStateTime = 1;
+                m_isDisplayingResults = true;
             }
+            
+            short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime) * 100);
+            Assets::getInstance()->setMusicId(musicId);
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
         {
@@ -438,6 +460,11 @@ void Level::render(GameScreen* gs)
     gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
     
     additionalRenderingBeforeHud(gs);
+    
+    if (m_hasCompletedLevel)
+    {
+        gs->m_renderer->renderBlackOverlay(m_fStateTime);
+    }
     
     if (m_hasOpeningSequenceCompleted)
     {
@@ -649,6 +676,7 @@ m_hasSwiped(false),
 m_showDeathTransOut(false),
 m_exitLoop(false),
 m_hasCompletedLevel(false),
+m_isDisplayingResults(false),
 m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
