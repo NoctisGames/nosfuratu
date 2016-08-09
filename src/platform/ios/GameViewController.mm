@@ -546,7 +546,8 @@
                                     @"mid_boss_owl_swoop.wav",
                                     @"mid_boss_owl_tree_smash.wav",
                                     @"mid_boss_owl_death.wav",
-                                    @"screen_transition.wav", nil];
+                                    @"screen_transition.wav",
+                                    @"screen_transition_2.wav", nil];
 }
 
 @end

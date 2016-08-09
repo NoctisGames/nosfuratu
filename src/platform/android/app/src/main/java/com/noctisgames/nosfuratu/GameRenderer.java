@@ -120,6 +120,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("mid_boss_owl_tree_smash.wav"));
         _sounds.add(_audio.newSound("mid_boss_owl_death.wav"));
         _sounds.add(_audio.newSound("screen_transition.wav"));
+        _sounds.add(_audio.newSound("screen_transition_2.wav"));
 
         Game.init();
 

@@ -68,6 +68,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
     m_sounds.push_back("mid_boss_owl_death.wav");
     m_sounds.push_back("screen_transition.wav");
+    m_sounds.push_back("screen_transition_2.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
