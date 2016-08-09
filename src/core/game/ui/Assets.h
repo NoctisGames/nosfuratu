@@ -40,6 +40,7 @@ class Enemy;
 class EnemySpirit;
 class ForegroundObject;
 class TitlePanel;
+class CutscenePanel;
 class WorldMapPanel;
 class LevelThumbnail;
 class WorldMapMenu;
@@ -55,6 +56,8 @@ public:
 	static Assets * getInstance();
     
     TextureRegion& get(TitlePanel* panel);
+    
+    TextureRegion& get(CutscenePanel* panel);
     
     TextureRegion& get(WorldMapPanel* panel);
     

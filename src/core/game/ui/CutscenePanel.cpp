@@ -11,38 +11,46 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 
-#include <cstdlib>
-#include <ctime>
+#include <assert.h>
 
-CutscenePanel::CutscenePanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fTimeBetweenStrikes(1.80f), m_isLightningStriking(false)
+CutscenePanel* CutscenePanel::create(CutscenePanelType type)
 {
-    srand (static_cast <unsigned> (time(0)));
+    switch (type)
+    {
+        case CutscenePanelType_Opening_One:
+            return new CutscenePanel(type, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3);
+        case CutscenePanelType_Opening_Two:
+            return new CutscenePanel(type);
+        case CutscenePanelType_Opening_Three:
+            return new CutscenePanel(type);
+        case CutscenePanelType_Opening_Four:
+            return new CutscenePanel(type);
+        case CutscenePanelType_Opening_Five:
+            return new CutscenePanel(type);
+        case CutscenePanelType_Opening_Six:
+            return new CutscenePanel(type, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT * 4 / 3);
+        case CutscenePanelType_Opening_Seven:
+            return new CutscenePanel(type);
+        default:
+            break;
+    }
+    
+    assert(false);
+}
+
+CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_type(type)
+{
+    // Empty
 }
 
 void CutscenePanel::update(float deltaTime)
 {
     PhysicalEntity::Entity::update(deltaTime);
     
-    if (m_isLightningStriking)
-    {
-        if (m_fStateTime > 0.60f)
-        {
-            m_fStateTime -= 0.60f;
-            m_isLightningStriking = false;
-            m_fTimeBetweenStrikes = (rand() % 21) * 0.2f + 0.6f;
-        }
-    }
-    else
-    {
-        if (m_fStateTime > m_fTimeBetweenStrikes)
-        {
-            m_fStateTime -= m_fTimeBetweenStrikes;
-            m_isLightningStriking = true;
-        }
-    }
+    // TODO, zoom in, zoom out, pan, etc.
 }
 
-bool CutscenePanel::isLightningStriking()
+CutscenePanelType CutscenePanel::getType()
 {
-    return m_isLightningStriking;
+    return m_type;
 }

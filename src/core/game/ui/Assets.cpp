@@ -14,6 +14,7 @@
 #include "EnemySpirit.h"
 #include "ForegroundObject.h"
 #include "TitlePanel.h"
+#include "CutscenePanel.h"
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
@@ -37,6 +38,50 @@ TextureRegion& Assets::get(TitlePanel* panel)
         static Animation anim = Animation(0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
         return anim.getTextureRegion(panel->getStateTime());
     }
+}
+
+TextureRegion& Assets::get(CutscenePanel* panel)
+{
+    switch (panel->getType())
+    {
+        case CutscenePanelType_Opening_One:
+        {
+            static TextureRegion tr = TextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Two:
+        {
+            static TextureRegion tr = TextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Three:
+        {
+            static TextureRegion tr = TextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Four:
+        {
+            static TextureRegion tr = TextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Five:
+        {
+            static TextureRegion tr = TextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Six:
+        {
+            static TextureRegion tr = TextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case CutscenePanelType_Opening_Seven:
+        {
+            static TextureRegion tr = TextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+    }
+    
+    assert(false);
 }
 
 TextureRegion& Assets::get(WorldMapPanel* panel)

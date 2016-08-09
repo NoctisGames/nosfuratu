@@ -12,18 +12,30 @@
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
 
+typedef enum
+{
+    CutscenePanelType_Opening_One,
+    CutscenePanelType_Opening_Two,
+    CutscenePanelType_Opening_Three,
+    CutscenePanelType_Opening_Four,
+    CutscenePanelType_Opening_Five,
+    CutscenePanelType_Opening_Six,
+    CutscenePanelType_Opening_Seven
+} CutscenePanelType;
+
 class CutscenePanel : public PhysicalEntity
 {
 public:
-    CutscenePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
+    static CutscenePanel* create(CutscenePanelType type);
+    
+    CutscenePanel(CutscenePanelType type, float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
     
     virtual void update(float deltaTime);
     
-    bool isLightningStriking();
+    CutscenePanelType getType();
     
 private:
-    float m_fTimeBetweenStrikes;
-    bool m_isLightningStriking;
+    CutscenePanelType m_type;
 };
 
 #endif /* defined(__nosfuratu__CutscenePanel__) */
