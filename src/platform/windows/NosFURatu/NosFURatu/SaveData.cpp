@@ -69,7 +69,7 @@ void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
     
     Platform::String^ key = getKeyForViewedCutscenesFlag();
     
-    values->Insert(key, PropertyValue::CreateInt32(jonViewedCutscenesFlag));
+    values->Insert(key, PropertyValue::CreateInt32(viewedCutscenesFlag));
 }
 
 int SaveData::getJonUnlockedAbilitiesFlag()

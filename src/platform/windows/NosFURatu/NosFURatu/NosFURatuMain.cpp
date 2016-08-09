@@ -191,12 +191,12 @@ void NosFURatuMain::Update()
 			m_gameScreen->clearRequestedAction();
 			break;
         case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
-            submitScoreOnline(gameScreen->getRequestedAction());
-            gameScreen->clearRequestedAction();
+            submitScoreOnline(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
-            setCutsceneViewedFlag(gameScreen->getRequestedAction());
-            gameScreen->clearRequestedAction();
+            setCutsceneViewedFlag(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
             break;
 		case REQUESTED_ACTION_GET_SAVE_DATA:
 			sendSaveData();
@@ -454,10 +454,10 @@ void NosFURatuMain::markLevelAsCompleted(int requestedAction)
 {
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
-    int score = gameScreen->getScore();
-    int levelStatsFlag = gameScreen->getLevelStatsFlag();
-    int numGoldenCarrots = gameScreen->getNumGoldenCarrots();
-    int jonUnlockedAbilitiesFlag = gameScreen->getJonAbilityFlag();
+    int score = m_gameScreen->getScore();
+    int levelStatsFlag = m_gameScreen->getLevelStatsFlag();
+    int numGoldenCarrots = m_gameScreen->getNumGoldenCarrots();
+    int jonUnlockedAbilitiesFlag = m_gameScreen->getJonAbilityFlag();
 
 	SaveData::setLevelComplete(world, level, score, levelStatsFlag, jonUnlockedAbilitiesFlag);
     
@@ -468,7 +468,7 @@ void NosFURatuMain::submitScoreOnline(int requestedAction)
 {
     int world = calcWorld(requestedAction);
     int level = calcLevel(requestedAction);
-    int onlineScore = gameScreen->getOnlineScore();
+    int onlineScore = m_gameScreen->getOnlineScore();
     
     // TODO, submit score using Xbox Live or OpenXLive, on success, save the score that was pushed online
     
@@ -501,7 +501,7 @@ void NosFURatuMain::sendSaveData()
     
     for (int i = 1; i <= 5; i++)
     {
-        ss << "\"world_" + i + "\":[";
+        ss << "\"world_" << i << "\":[";
         
         for (int j = 1; j <= 21; j++)
         {
