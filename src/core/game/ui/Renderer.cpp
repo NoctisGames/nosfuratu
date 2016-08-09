@@ -980,7 +980,7 @@ void Renderer::renderBlackOverlay(float opacity)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int fps)
+void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int score, int fps)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -997,26 +997,11 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     static float fgWidth = CAM_WIDTH / 24;
     static float fgHeight = fgWidth * 1.171875f;
     
-    /// Render Play Time
-    
-    static float startingTime = 120.0f;
+    /// Render Score
     
     {
-        float secondsLeft = clamp(startingTime - game.getStateTime(), startingTime, 0);
-        int minutesLeft = 0;
-        while (secondsLeft >= 60)
-        {
-            secondsLeft -= 60;
-            minutesLeft++;
-        }
-        
         std::stringstream ss;
-        ss << "0" << minutesLeft << ":";
-        if (secondsLeft < 10)
-        {
-            ss << "0";
-        }
-        ss << std::fixed << std::setprecision(3) << secondsLeft;
+        ss << std::fixed << std::setprecision(3) << score;
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }

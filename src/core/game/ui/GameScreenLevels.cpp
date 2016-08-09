@@ -13,6 +13,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "GameScreenLevelEditor.h"
+#include "MathUtil.h"
 
 /// Level ///
 
@@ -26,6 +27,8 @@ Level * Level::getInstance()
 void Level::enter(GameScreen* gs)
 {
     m_fStateTime = 0;
+    m_iScoreFromTime = 0;
+    m_iScoreFromObjects = 0;
     m_iScore = 0;
     m_iOnlineScore = 0;
     m_iLevelStatsFlag = m_iBestLevelStatsFlag;
@@ -266,6 +269,12 @@ void Level::update(GameScreen* gs)
         }
         else
         {
+            static float startingTime = 150.0f;
+            
+            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
+            
+            m_iScoreFromTime = secondsLeft * 1000;
+            
             if (!m_batPanel->isAcknowledged())
             {
                 return;
@@ -315,6 +324,8 @@ void Level::update(GameScreen* gs)
             m_game->updateAndClean(gs->m_fDeltaTime);
             
             handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
+            
+            m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
             
             if (gs->m_isScreenHeldDown)
             {
@@ -468,7 +479,7 @@ void Level::render(GameScreen* gs)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_batPanel.get(), gs->m_iFPS);
+        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_batPanel.get(), m_iScore, gs->m_iFPS);
     }
     
     if (jon.isDead())
@@ -665,6 +676,8 @@ m_isReleasingShockwave(false),
 m_fShockwaveElapsedTime(0.0f),
 m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
+m_iScoreFromTime(0),
+m_iScoreFromObjects(0),
 m_iScore(0),
 m_iOnlineScore(0),
 m_iLevelStatsFlag(0),

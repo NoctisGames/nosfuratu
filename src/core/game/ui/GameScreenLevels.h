@@ -63,6 +63,8 @@ protected:
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;
     float m_fShockwaveElapsedTime;
+    int m_iScoreFromTime;
+    int m_iScoreFromObjects;
     int m_iScore;
     int m_iOnlineScore;
     int m_iLevelStatsFlag;
@@ -116,6 +118,8 @@ private:
                 
                 if (dynamic_cast<GoldenCarrot *>((*i)))
                 {
+                    m_iScoreFromObjects += 5000;
+                    
                     GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
                     
                     switch (gc->getIndex())
@@ -132,6 +136,10 @@ private:
                         default:
                             break;
                     }
+                }
+                else
+                {
+                    m_iScoreFromObjects += 200;
                 }
             }
         }
