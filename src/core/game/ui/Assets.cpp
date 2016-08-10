@@ -19,6 +19,7 @@
 #include "GameScreenWorldMap.h"
 #include "Game.h"
 #include "BatPanel.h"
+#include "GameScreen.h"
 
 Assets * Assets::getInstance()
 {
@@ -40,43 +41,67 @@ TextureRegion& Assets::get(TitlePanel* panel)
     }
 }
 
+TextureRegion& Assets::get(CutsceneEffect* effect)
+{
+    switch (effect->getType())
+    {
+        case CutsceneEffectType_Shadow_One:
+        {
+            static TextureRegion tr = createTextureRegion(0, 0, 966, 504, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case CutsceneEffectType_Shadow_Two:
+        {
+            static TextureRegion tr = createTextureRegion(0, 508, 1600, 760, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case CutsceneEffectType_POW:
+        {
+            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.33f, 3);
+            return anim.getTextureRegion(effect->getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
 TextureRegion& Assets::get(CutscenePanel* panel)
 {
     switch (panel->getType())
     {
         case CutscenePanelType_Opening_One:
         {
-            static TextureRegion tr = TextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Two:
         {
-            static TextureRegion tr = TextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Three:
         {
-            static TextureRegion tr = TextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Four:
         {
-            static TextureRegion tr = TextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Five:
         {
-            static TextureRegion tr = TextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Six:
         {
-            static TextureRegion tr = TextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Seven:
         {
-            static TextureRegion tr = TextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = createTextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -102,72 +127,6 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
         static Animation anim = Animation(0, 772, 76, 62, 304, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 4);
         return anim.getTextureRegion(thumbnail->getStateTime());
     }
-}
-
-TextureRegion& Assets::get(WorldMapMenu* worldMapMenu)
-{
-    static TextureRegion tr = TextureRegion(0, 900, 944, 132, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
-}
-
-TextureRegion& Assets::get(WorldMapMenuAbilitySlot* worldMapMenuAbilitySlot)
-{
-    switch (worldMapMenuAbilitySlot->getWorldMapMenuAbilitySlotType())
-    {
-        case ABILITY_SLOT_LOCKED:
-        {
-            static TextureRegion tr = TextureRegion(0, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_RABBIT_RIGHT:
-        {
-            static TextureRegion tr = TextureRegion(48, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_RABBIT_UP:
-        {
-            static TextureRegion tr = TextureRegion(96, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_RABBIT_LEFT:
-        {
-            static TextureRegion tr = TextureRegion(144, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_RABBIT_DOWN:
-        {
-            static TextureRegion tr = TextureRegion(192, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_VAMPIRE_RIGHT:
-        {
-            static TextureRegion tr = TextureRegion(240, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_VAMPIRE_UP:
-        {
-            static TextureRegion tr = TextureRegion(288, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_VAMPIRE_LEFT:
-        {
-            static TextureRegion tr = TextureRegion(336, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-        case ABILITY_SLOT_VAMPIRE_DOWN:
-        {
-            static TextureRegion tr = TextureRegion(384, 1036, 44, 44, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-            return tr;
-        }
-    }
-    
-    assert(false);
-}
-
-TextureRegion& Assets::get(WorldMapGoldenCarrot* worldMapGoldenCarrot)
-{
-    static TextureRegion tr = TextureRegion(0, 1258, 96, 80, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
 }
 
 TextureRegion& Assets::get(Background* background)
@@ -1309,12 +1268,12 @@ TextureRegion& Assets::get(GameButton* gameButton)
     {
         case GameButtonType_BackToTitle:
         {
-            static TextureRegion tr = TextureRegion(1000, 1000, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = TextureRegion(1800, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_Leaderboards:
         {
-            static TextureRegion tr = TextureRegion(1104, 1000, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = TextureRegion(1904, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToLevelSelect:
@@ -1332,6 +1291,20 @@ TextureRegion& Assets::get(GameButton* gameButton)
     }
     
     assert(false);
+}
+
+TextureRegion& Assets::get(GameHudCarrot* gameHudCarrot)
+{
+    if (gameHudCarrot->isGolden())
+    {
+        static TextureRegion tr = createTextureRegion(1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+        return tr;
+    }
+    else
+    {
+        static TextureRegion tr = createTextureRegion(884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+        return tr;
+    }
 }
 
 TextureRegion& Assets::get(BatInstruction* batInstruction)

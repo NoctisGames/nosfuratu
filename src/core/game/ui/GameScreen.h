@@ -29,6 +29,17 @@
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
 
+class GameHudCarrot : public PhysicalEntity
+{
+public:
+    GameHudCarrot(bool isGolden) : PhysicalEntity(0, 0, 1, 1), m_isGolden(isGolden) {}
+    
+    bool isGolden() { return m_isGolden; }
+    
+private:
+    bool m_isGolden;
+};
+
 class GameScreen
 {
 public:

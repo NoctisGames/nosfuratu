@@ -40,15 +40,14 @@ class Enemy;
 class EnemySpirit;
 class ForegroundObject;
 class TitlePanel;
+class CutsceneEffect;
 class CutscenePanel;
 class WorldMapPanel;
 class LevelThumbnail;
-class WorldMapMenu;
-class WorldMapMenuAbilitySlot;
-class WorldMapGoldenCarrot;
 class CountHissWithMina;
 class BatInstruction;
 class BatPanel;
+class GameHudCarrot;
 
 class Assets
 {
@@ -57,17 +56,13 @@ public:
     
     TextureRegion& get(TitlePanel* panel);
     
+    TextureRegion& get(CutsceneEffect* effect);
+    
     TextureRegion& get(CutscenePanel* panel);
     
     TextureRegion& get(WorldMapPanel* panel);
     
     TextureRegion& get(LevelThumbnail* thumbnail);
-    
-    TextureRegion& get(WorldMapMenu* worldMapMenu);
-    
-    TextureRegion& get(WorldMapMenuAbilitySlot* worldMapMenuAbilitySlot);
-    
-    TextureRegion& get(WorldMapGoldenCarrot* worldMapGoldenCarrot);
     
     TextureRegion& get(Background* background);
     
@@ -100,6 +95,8 @@ public:
     TextureRegion& get(MidBossOwl* owl);
     
     TextureRegion& get(GameButton* backButton);
+    
+    TextureRegion& get(GameHudCarrot* gameHudCarrot);
     
     TextureRegion& get(BatInstruction* batInstruction);
     

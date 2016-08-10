@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_menu.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -112,7 +112,7 @@ void WorldMap::execute(GameScreen* gs)
                             {
                                 int worldToLoad = (*j)->getWorld();
                                 int levelToLoad = (*j)->getLevel();
-                                int levelStatsFlag = (*j)->getGoldenCarrotsFlag();
+                                int levelStatsFlag = (*j)->getLevelStatsFlag();
                                 
                                 WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
@@ -121,17 +121,8 @@ void WorldMap::execute(GameScreen* gs)
                                 // TODO, fill in score and online score
                                 WorldMapToLevel::getInstance()->setBestStats(0, 0, levelStatsFlag, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
-                                if (m_menu->getWorld() == worldToLoad
-                                    && m_menu->getLevel() == levelToLoad)
-                                {
-                                    m_isReadyForTransition = true;
-									return;
-                                }
-                                
                                 // Temp
                                 m_isReadyForTransition = true;
-                                
-                                m_menu->setLevelStats(worldToLoad, levelToLoad, levelStatsFlag);
                             }
                         }
                     }
@@ -151,8 +142,6 @@ void WorldMap::loadUserSaveData(const char* json)
 {
     m_worldLevelStats.clear();
     
-    m_menu->setLevelStats(-1, -1, 0);
-    
     rapidjson::Document d;
     d.Parse<0>(json);
     
@@ -167,7 +156,7 @@ void WorldMap::loadUserSaveData(const char* json)
         
         int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
         
-        (*j)->setLevelStats(levelStats);
+        (*j)->setLevelStatsFlag(levelStats);
         
         int previousLevelStats = false;
         if (worldIndex == 0 && levelIndex == 0)
@@ -218,11 +207,6 @@ std::vector<std::unique_ptr<LevelThumbnail>>& WorldMap::getLevelThumbnails()
 WorldMapPanel* WorldMap::getWorldMapPanel()
 {
     return m_panel.get();
-}
-
-WorldMapMenu* WorldMap::getWorldMapMenu()
-{
-    return m_menu.get();
 }
 
 GameButton* WorldMap::getBackButton()
@@ -307,6 +291,26 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
                 
                 wlc->m_levelStats.push_back(levelStats);
             }
+            
+            if (levelVal.HasMember(score_key))
+            {
+                Value& scoreVal = levelVal[score_key];
+                assert(scoreVal.IsInt());
+                
+                int score = scoreVal.GetInt();
+                
+                wlc->m_scores.push_back(score);
+            }
+            
+            if (levelVal.HasMember(score_online_key))
+            {
+                Value& onlineScoreVal = levelVal[score_online_key];
+                assert(onlineScoreVal.IsInt());
+                
+                int onlineScore = onlineScoreVal.GetInt();
+                
+                wlc->m_onlineScores.push_back(onlineScore);
+            }
         }
         
         m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
@@ -321,7 +325,6 @@ m_iViewedCutsceneFlag(0),
 m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
-    m_menu = std::unique_ptr<WorldMapMenu>(new WorldMapMenu());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     

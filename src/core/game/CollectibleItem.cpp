@@ -18,8 +18,6 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
             return new Carrot(gridX, gridY);
         case CollectibleItemType_GoldenCarrot:
             return new GoldenCarrot(gridX, gridY);
-        case CollectibleItemType_DisplayGoldenCarrot:
-            return new DisplayGoldenCarrot(gridX, gridY);
     }
     
     assert(false);

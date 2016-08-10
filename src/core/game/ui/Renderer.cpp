@@ -44,6 +44,7 @@
 #include "MidBossOwl.h"
 #include "FlagUtil.h"
 #include "MathUtil.h"
+#include "GameScreen.h"
 
 #include <math.h>
 #include <sstream>
@@ -606,7 +607,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, WorldMapMenu* worldMapMenu, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -627,64 +628,6 @@ void Renderer::renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail
 //        }
 //    }
 //    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-//    
-//    m_spriteBatcher->beginBatch();
-//    renderPhysicalEntity(*worldMapMenu, Assets::getInstance()->get(worldMapMenu), true);
-//    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-//    
-//    m_spriteBatcher->beginBatch();
-//    for (std::vector<std::unique_ptr<WorldMapMenuAbilitySlot>>::iterator j = worldMapMenu->getAbilitySlots().begin(); j != worldMapMenu->getAbilitySlots().end(); j++)
-//    {
-//        WorldMapMenuAbilitySlot* pAs = (*j).get();
-//        WorldMapMenuAbilitySlot& as = *pAs;
-//        
-//        renderPhysicalEntity(as, Assets::getInstance()->get(pAs), true);
-//    }
-//    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-//    
-//    int world = worldMapMenu->getWorld();
-//    int level = worldMapMenu->getLevel();
-//    
-//    if (world > -1 && level > -1)
-//    {
-//        float worldMapMenuX = worldMapMenu->getPosition().getX();
-//        float worldMapMenuY = worldMapMenu->getPosition().getY();
-//        float levelInfoWidth = worldMapMenu->getWidth() * 0.27118644067797f;
-//        
-//        static float fgWidth = CAM_WIDTH / 24;
-//        static float fgHeight = fgWidth * 1.171875f;
-//        
-//        {
-//            static Color fontColor = Color(1, 1, 1, 1);
-//            
-//            std::stringstream ss;
-//            ss << world << "-" << level;
-//            std::string level_string = ss.str();
-//            
-//            // Render Level Number
-//            
-//            m_spriteBatcher->beginBatch();
-//            m_font->renderText(*m_spriteBatcher, level_string, worldMapMenuX - levelInfoWidth * 0.6f, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight, fontColor, false, false);
-//            m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-//        }
-//        
-//        static Color normalColor = Color(1, 1, 1, 1);
-//        static Color transparentColor = Color(1, 1, 1, 0.2f);
-//        
-//        static WorldMapGoldenCarrot uiGoldenCarrot1 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-//        static WorldMapGoldenCarrot uiGoldenCarrot2 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 3 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-//        static WorldMapGoldenCarrot uiGoldenCarrot3 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 5 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-//        static WorldMapGoldenCarrot uiGoldenCarrot4 = WorldMapGoldenCarrot(worldMapMenuX + fgWidth * 7 / 2, worldMapMenuY - fgHeight / 4, fgWidth, fgHeight);
-//        
-//        int gcf = worldMapMenu->getGoldenCarrotsFlag();
-//        
-//        m_spriteBatcher->beginBatch();
-//        renderPhysicalEntityWithColor(uiGoldenCarrot1, Assets::getInstance()->get(&uiGoldenCarrot1), FlagUtil::isFlagSet(gcf, FLAG_FIRST_GOLDEN_CARROT_COLLECTED) ? normalColor : transparentColor, true);
-//        renderPhysicalEntityWithColor(uiGoldenCarrot2, Assets::getInstance()->get(&uiGoldenCarrot1), FlagUtil::isFlagSet(gcf, FLAG_SECOND_GOLDEN_CARROT_COLLECTED) ? normalColor : transparentColor, true);
-//        renderPhysicalEntityWithColor(uiGoldenCarrot3, Assets::getInstance()->get(&uiGoldenCarrot1), FlagUtil::isFlagSet(gcf, FLAG_THIRD_GOLDEN_CARROT_COLLECTED) ? normalColor : transparentColor, true);
-//        renderPhysicalEntityWithColor(uiGoldenCarrot4, Assets::getInstance()->get(&uiGoldenCarrot1), FlagUtil::isFlagSet(gcf, FLAG_BONUS_GOLDEN_CARROT_COLLECTED) ? normalColor : transparentColor, true);
-//        m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-//    }
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
@@ -1028,8 +971,8 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     
     if (m_world_1_objects.gpuTextureWrapper)
     {
-        static CollectibleItem uiCarrot = Carrot(0, 0);
-        static CollectibleItem uiGoldenCarrot = DisplayGoldenCarrot(0, 0);
+        static GameHudCarrot uiCarrot = GameHudCarrot(false);
+        static GameHudCarrot uiGoldenCarrot = GameHudCarrot(true);
         
         uiCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2);
         uiCarrot.setWidth(fgWidth);

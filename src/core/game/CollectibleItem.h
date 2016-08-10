@@ -17,8 +17,7 @@ class Game;
 typedef enum
 {
     CollectibleItemType_Carrot,
-    CollectibleItemType_GoldenCarrot,
-    CollectibleItemType_DisplayGoldenCarrot
+    CollectibleItemType_GoldenCarrot
 } CollectibleItemType;
 
 class CollectibleItem : public GridLockedPhysicalEntity
@@ -59,12 +58,6 @@ public:
     
 private:
     int m_iIndex;
-};
-
-class DisplayGoldenCarrot : public CollectibleItem
-{
-public:
-    DisplayGoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 7, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_DisplayGoldenCarrot) {}
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */
