@@ -275,6 +275,8 @@ void Level::update(GameScreen* gs)
             
             m_iScoreFromTime = secondsLeft * 1000;
             
+            m_iScore = m_iScoreFromTime;
+            
             if (!m_batPanel->isAcknowledged())
             {
                 return;
