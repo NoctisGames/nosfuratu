@@ -112,16 +112,21 @@ void WorldMap::execute(GameScreen* gs)
                             {
                                 int worldToLoad = (*j)->getWorld();
                                 int levelToLoad = (*j)->getLevel();
-                                int levelStatsFlag = (*j)->getLevelStatsFlag();
+                                
+                                int worldIndex = worldToLoad - 1;
+                                int levelIndex = levelToLoad - 1;
+                                
+                                int levelStatsFlag = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+                                int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
+                                int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
                                 
                                 WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
                                 
-                                // TODO, fill in score and online score
-                                WorldMapToLevel::getInstance()->setBestStats(0, 0, levelStatsFlag, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
+                                WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStatsFlag, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
-                                // Temp
+                                // Temp, replace with level selected behavior
                                 m_isReadyForTransition = true;
                             }
                         }
@@ -148,29 +153,6 @@ void WorldMap::loadUserSaveData(const char* json)
     loadGlobalUserSaveData(d);
     
     loadUserSaveDataForWorld(d, "world_1");
-    
-    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
-    {
-        int worldIndex = (*j)->getWorld() - 1;
-        int levelIndex = (*j)->getLevel() - 1;
-        
-        int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
-        
-        (*j)->setLevelStatsFlag(levelStats);
-        
-        int previousLevelStats = false;
-        if (worldIndex == 0 && levelIndex == 0)
-        {
-            previousLevelStats = 1;
-        }
-        else
-        {
-            int previousLevelIndex = levelIndex == 0 ? 21 : levelIndex - 1;
-            int previousWorldIndex = levelIndex == 0 ? worldIndex - 1 : worldIndex;
-            
-            previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
-        }
-    }
 }
 
 std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()

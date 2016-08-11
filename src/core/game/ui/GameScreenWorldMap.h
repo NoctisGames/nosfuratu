@@ -47,7 +47,6 @@ public:
     m_fAnimationDelay(0),
     m_iWorld(world),
     m_iLevel(level),
-    m_iLevelStatsFlag(0),
     m_isCompleted(false)
     {
         // Prevent animation
@@ -68,11 +67,7 @@ public:
     
     int getLevel() { return m_iLevel; }
     
-    int getLevelStatsFlag() { return m_iLevelStatsFlag; }
-    
     bool isCompleted() { return m_isCompleted; }
-    
-    void setLevelStatsFlag(int goldenCarrotsFlag) { m_iLevelStatsFlag = goldenCarrotsFlag; }
     
     void setCompleted(bool isCompleted) { m_isCompleted = isCompleted; }
     
@@ -83,7 +78,6 @@ private:
     float m_fAnimationDelay;
     int m_iWorld;
     int m_iLevel;
-    int m_iLevelStatsFlag;
     bool m_isCompleted;
 };
 
