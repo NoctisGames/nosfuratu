@@ -93,7 +93,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<std::unique_ptr<LevelThumbnail>>& levelThumbnails, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
     
     void renderWorld(Game& game);
     

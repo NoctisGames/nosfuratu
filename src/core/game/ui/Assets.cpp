@@ -117,16 +117,8 @@ TextureRegion& Assets::get(WorldMapPanel* panel)
 
 TextureRegion& Assets::get(LevelThumbnail* thumbnail)
 {
-    if (thumbnail->isCompleted())
-    {
-        static Animation anim = Animation(304, 772, 76, 62, 456, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
-        return anim.getTextureRegion(thumbnail->getStateTime());
-    }
-    else
-    {
-        static Animation anim = Animation(0, 772, 76, 62, 304, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 4);
-        return anim.getTextureRegion(thumbnail->getStateTime());
-    }
+    static TextureRegion tr = TextureRegion(0, 698, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    return tr;
 }
 
 TextureRegion& Assets::get(Background* background)

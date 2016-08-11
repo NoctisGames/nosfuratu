@@ -48,7 +48,6 @@ public:
     m_iWorld(world),
     m_iLevel(level),
     m_iLevelStatsFlag(0),
-    m_isVisible(false),
     m_isCompleted(false)
     {
         // Prevent animation
@@ -71,11 +70,7 @@ public:
     
     int getLevelStatsFlag() { return m_iLevelStatsFlag; }
     
-    bool isVisible() { return m_isVisible; }
-    
     bool isCompleted() { return m_isCompleted; }
-    
-    void setVisible(bool isVisible) { m_isVisible = isVisible; }
     
     void setLevelStatsFlag(int goldenCarrotsFlag) { m_iLevelStatsFlag = goldenCarrotsFlag; }
     
@@ -89,7 +84,6 @@ private:
     int m_iWorld;
     int m_iLevel;
     int m_iLevelStatsFlag;
-    bool m_isVisible;
     bool m_isCompleted;
 };
 
@@ -120,7 +114,7 @@ public:
     
     WorldMapPanel* getWorldMapPanel();
     
-    std::vector<std::unique_ptr<LevelThumbnail>>& getLevelThumbnails();
+    std::vector<LevelThumbnail*>& getLevelThumbnails();
     
     GameButton* getBackButton();
     
@@ -131,7 +125,7 @@ public:
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
-    std::vector<std::unique_ptr<LevelThumbnail>> m_levelThumbnails;
+    std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     float m_fCamPosY;
