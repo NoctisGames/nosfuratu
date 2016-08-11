@@ -397,7 +397,7 @@ void Level::update(GameScreen* gs)
                 m_isDisplayingResults = true;
             }
             
-            short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime) * 100);
+            short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
             Assets::getInstance()->setMusicId(musicId);
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
