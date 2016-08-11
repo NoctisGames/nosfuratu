@@ -444,6 +444,8 @@ void Level::update(GameScreen* gs)
             m_fStateTime = 0;
 			gs->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
         }
         
         EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);

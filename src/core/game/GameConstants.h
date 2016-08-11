@@ -101,6 +101,7 @@
 #define SOUND_MID_BOSS_DEATH 36
 #define SOUND_SCREEN_TRANSITION 37
 #define SOUND_SCREEN_TRANSITION_2 38
+#define SOUND_LEVEL_COMPLETE 39
 
 //// Render Definitions ////
 
