@@ -228,6 +228,15 @@
             self.soundMgr.backgroundMusicVolume = volume;
         }
             break;
+        case MUSIC_PLAY_TITLE_LOOP:
+            if ([self.soundMgr isBackGroundMusicPlaying])
+            {
+                [self.soundMgr stopBackgroundMusic];
+            }
+            
+            self.soundMgr.backgroundMusicVolume = 0.5f;
+            [self.soundMgr playBackgroundMusic:@"title_bgm.wav" forcePlay:YES isLooping:YES];
+            break;
         case MUSIC_PLAY_WORLD_1_LOOP:
             if ([self.soundMgr isBackGroundMusicPlaying])
             {

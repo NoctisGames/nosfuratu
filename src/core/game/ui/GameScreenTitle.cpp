@@ -51,6 +51,8 @@ void Title::enter(GameScreen* gs)
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
     
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
+    
+    Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
 }
 
 void Title::execute(GameScreen* gs)
