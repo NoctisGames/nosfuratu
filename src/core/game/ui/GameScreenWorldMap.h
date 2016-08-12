@@ -114,7 +114,7 @@ public:
     
     GameButton* getLeaderBoardsButton();
     
-    float getCamPosY();
+    int getViewedCutsceneFlag();
     
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
@@ -122,7 +122,6 @@ private:
     std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
-    float m_fCamPosY;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
     int m_iViewedCutsceneFlag;

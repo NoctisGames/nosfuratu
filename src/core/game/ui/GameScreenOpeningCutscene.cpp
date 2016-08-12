@@ -23,6 +23,10 @@ void OpeningCutscene::enter(GameScreen* gs)
     gs->m_stateMachine->setPreviousState(Title::getInstance());
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    
+    // Temp
+    gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
+    gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
 }
 
 void OpeningCutscene::execute(GameScreen* gs)

@@ -175,9 +175,9 @@ GameButton* WorldMap::getLeaderBoardsButton()
     return m_leaderBoardsButton.get();
 }
 
-float WorldMap::getCamPosY()
+int WorldMap::getViewedCutsceneFlag()
 {
-    return m_fCamPosY;
+    return m_iViewedCutsceneFlag;
 }
 
 #pragma mark private
@@ -274,7 +274,6 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
 }
 
 WorldMap::WorldMap() :
-m_fCamPosY(0),
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
 m_iViewedCutsceneFlag(0),

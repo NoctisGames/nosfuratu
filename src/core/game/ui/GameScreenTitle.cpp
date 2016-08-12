@@ -13,6 +13,8 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "GameScreenTransitions.h"
+#include "GameScreenWorldMap.h"
+#include "GameScreenOpeningCutscene.h"
 
 /// Title Screen ///
 
@@ -53,6 +55,8 @@ void Title::enter(GameScreen* gs)
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
     
     Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
+    
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }
 
 void Title::execute(GameScreen* gs)
@@ -82,7 +86,14 @@ void Title::execute(GameScreen* gs)
         
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
+            if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
+            {
+                gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
+            }
+            else
+            {
+                gs->m_stateMachine->changeState(OpeningCutscene::getInstance());
+            }
         }
         else if (m_isRequestingLevelEditor)
         {
