@@ -70,6 +70,8 @@ void Chapter1Level10::enter(GameScreen* gs)
             m_midBossOwl->awaken();
             
             m_game->setStateTime(m_fGameStateTime);
+            m_game->setNumCarrotsCollected(m_iNumCarrotsCollectedAtCheckpoint);
+            m_game->setNumGoldenCarrotsCollected(m_iNumGoldenCarrotsCollectedAtCheckpoint);
         }
     }
 }
@@ -90,6 +92,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_isChaseCamActivated = false;
     m_hasTriggeredBurrow = false;
     m_hasShownDrillPopup = false;
+    m_hasShownHintPopup = false;
     
     Level::exit(gs);
 }
@@ -112,7 +115,7 @@ void Chapter1Level10::update(GameScreen* gs)
         if (!m_hasShownDrillPopup
             && !m_batPanel->isOpening()
             && !m_batPanel->isOpen()
-            && jon.getPosition().getX() > GRID_CELL_SIZE * 80)
+            && jon.getPosition().getX() > GRID_CELL_SIZE * 116)
         {
             m_batPanel->open(BatPanelType_Burrow);
             m_hasShownDrillPopup = true;
@@ -185,6 +188,8 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             m_fJonY = jon.getPosition().getY();
             m_fGameStateTime = m_game->getStateTime();
+            m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
+            m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
             
@@ -206,7 +211,13 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             if (m_iNumAttempts > 1)
             {
-                m_batPanel->open(BatPanelType_OwlDig);
+                if (!m_hasShownHintPopup
+                    && !m_batPanel->isOpening()
+                    && !m_batPanel->isOpen())
+                {
+                    m_batPanel->open(BatPanelType_OwlDig);
+                    m_hasShownHintPopup = true;
+                }
             }
             
             jon.setIdle(false);
@@ -287,6 +298,18 @@ void Chapter1Level10::update(GameScreen* gs)
             m_midBossOwl->beginPursuit();
         }
         
+        if (m_midBossOwl->getDamage() == 0
+            && m_midBossOwl->getStateTime() > 2)
+        {
+            if (!m_hasShownHintPopup
+                && !m_batPanel->isOpening()
+                && !m_batPanel->isOpen())
+            {
+                m_batPanel->open(BatPanelType_OwlDig);
+                m_hasShownHintPopup = true;
+            }
+        }
+        
         if (jon.isIdle())
         {
             jon.setIdle(false);
@@ -346,12 +369,15 @@ m_fMusicVolume(0.5f),
 m_iNumAttempts(0),
 m_iLastKnownOwlDamage(0),
 m_iLastKnownJonNumBoosts(0),
+m_iNumCarrotsCollectedAtCheckpoint(0),
+m_iNumGoldenCarrotsCollectedAtCheckpoint(0),
 m_isIdleWaitingForOwl(false),
 m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
 m_isChaseCamActivated(false),
 m_hasTriggeredBurrow(false),
-m_hasShownDrillPopup(false)
+m_hasShownDrillPopup(false),
+m_hasShownHintPopup(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
 }

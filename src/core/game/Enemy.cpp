@@ -88,6 +88,7 @@ bool Enemy::isJonLanding(Jon& jon, float deltaTime)
         
         float boost = fmaxf(fabsf(jon.getVelocity().getY()) / 1.5f, 6);
         
+        jon.onEnemyDestroyed();
         jon.triggerBoostOffEnemy(boost);
     }
     
@@ -108,6 +109,8 @@ bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
     {
         triggerHit();
         
+        jon.onEnemyDestroyed();
+        
         return true;
     }
     
@@ -121,6 +124,8 @@ bool Enemy::isJonHittingFromBelow(Jon& jon, float deltaTime)
     if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         triggerHit();
+        
+        jon.onEnemyDestroyed();
         
         return true;
     }
@@ -375,7 +380,7 @@ void Toad::handleAlive(float deltaTime)
             m_fStateTime = 0;
             m_isEating = true;
             
-            m_isJonVampire = jon.isVampire();
+            m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
         }
@@ -431,6 +436,8 @@ bool Fox::isJonLanding(Jon& jon, float deltaTime)
         if (jonAccelY < JON_GRAVITY * 2)
         {
             triggerHit();
+            
+            jon.onEnemyDestroyed();
         }
         
         m_fStateTime = 0;

@@ -33,8 +33,8 @@ Game::Game() :
 m_fStateTime(0.0f),
 m_fFarRight(ZOOMED_OUT_CAM_WIDTH),
 m_fFarRightBottom(GAME_HEIGHT / 2),
-m_iNumTotalCarrots(0),
-m_iNumTotalGoldenCarrots(0),
+m_iNumCarrotsCollected(0),
+m_iNumGoldenCarrotsCollected(0),
 m_iWorld(1),
 m_iLevel(1),
 m_isLoaded(false)
@@ -164,8 +164,8 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_markers);
     
     m_fStateTime = 0;
-    m_iNumTotalCarrots = 0;
-    m_iNumTotalGoldenCarrots = 0;
+    m_iNumCarrotsCollected = 0;
+    m_iNumGoldenCarrotsCollected = 0;
     m_isLoaded = false;
 }
 
@@ -420,42 +420,24 @@ float Game::getStateTime()
     return m_fStateTime;
 }
 
-int Game::getNumTotalCarrots()
+void Game::setNumCarrotsCollected(int numCarrotsCollected)
 {
-    return m_iNumTotalCarrots;
+    m_iNumCarrotsCollected = numCarrotsCollected;
 }
 
-int Game::getNumRemainingCarrots()
+int Game::getNumCarrotsCollected()
 {
-    int numRemaining = 0;
-    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
-    {
-        if ((*i)->getType() == CollectibleItemType_Carrot)
-        {
-            numRemaining++;
-        }
-    }
-    
-    return numRemaining;
+    return m_iNumCarrotsCollected;
 }
 
-int Game::getNumTotalGoldenCarrots()
+void Game::setNumGoldenCarrotsCollected(int numGoldenCarrotsCollected)
 {
-    return m_iNumTotalGoldenCarrots;
+    m_iNumGoldenCarrotsCollected = numGoldenCarrotsCollected;
 }
 
-int Game::getNumRemainingGoldenCarrots()
+int Game::getNumGoldenCarrotsCollected()
 {
-    int numRemaining = 0;
-    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
-    {
-        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
-        {
-            numRemaining++;
-        }
-    }
-    
-    return numRemaining;
+    return m_iNumGoldenCarrotsCollected;
 }
 
 int Game::getWorld()
@@ -534,9 +516,6 @@ void Game::onLoaded()
             gc->init(this);
         }
     }
-    
-    m_iNumTotalCarrots = getNumRemainingCarrots();
-    m_iNumTotalGoldenCarrots = getNumRemainingGoldenCarrots();
     
     calcFarRight();
     

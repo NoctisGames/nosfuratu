@@ -35,6 +35,7 @@ m_iNumTriggeredJumps(0),
 m_iNumRabbitJumps(0),
 m_iNumVampireJumps(0),
 m_iNumBoosts(0),
+m_iNumEnemiesDestroyed(0),
 m_iAbilityFlag(0),
 m_isLanding(false),
 m_isRollLanding(false),
@@ -43,7 +44,8 @@ m_isAllowedToMove(false),
 m_isConsumed(false),
 m_isIdle(false),
 m_isUserActionPrevented(false),
-m_isBurrowEffective(false)
+m_isBurrowEffective(false),
+m_shouldUseVampireFormForConsumeAnimation(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -410,6 +412,16 @@ void Jon::setNumBoosts(int numBoosts)
     m_iNumBoosts = numBoosts;
 }
 
+int Jon::getNumEnemiesDestroyed()
+{
+    return m_iNumEnemiesDestroyed;
+}
+
+void Jon::onEnemyDestroyed()
+{
+    m_iNumEnemiesDestroyed++;
+}
+
 bool Jon::isMoving()
 {
 	return m_velocity->getX() > 0;
@@ -599,6 +611,11 @@ void Jon::kill()
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
+bool Jon::shouldUseVampireFormForConsumeAnimation()
+{
+    return m_shouldUseVampireFormForConsumeAnimation;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)
@@ -639,6 +656,7 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_fAbilityStateTime = 0;
 	jon->m_fDyingStateTime = 0;
     jon->m_isBurrowEffective = false;
+    jon->m_shouldUseVampireFormForConsumeAnimation = false;
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fGravity = JON_GRAVITY;
@@ -909,6 +927,7 @@ void Jon::Vampire::enter(Jon* jon)
     jon->m_fActionStateTime = 0;
 	jon->m_fAbilityStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+    jon->m_shouldUseVampireFormForConsumeAnimation = true;
 	jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fGravity = JON_GRAVITY;
@@ -1243,6 +1262,7 @@ void Jon::RabbitToVampire::execute(Jon* jon)
     if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.0625f)
     {
 		m_hasCompletedSlowMotion = true;
+        jon->m_shouldUseVampireFormForConsumeAnimation = true;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
 }
@@ -1370,6 +1390,7 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 	if (!m_hasCompletedSlowMotion && jon->m_fTransformStateTime > 0.0625f)
     {
 		m_hasCompletedSlowMotion = true;
+        jon->m_shouldUseVampireFormForConsumeAnimation = false;
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
 }

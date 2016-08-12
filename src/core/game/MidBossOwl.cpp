@@ -221,6 +221,8 @@ void MidBossOwl::update(float deltaTime)
                                     m_fWidth = MID_BOSS_OWL_DYING_WIDTH;
                                     m_fHeight = MID_BOSS_OWL_DYING_HEIGHT;
                                     
+                                    jon.onEnemyDestroyed();
+                                    
                                     Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_DEATH);
                                 }
                                 else

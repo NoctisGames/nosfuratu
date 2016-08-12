@@ -52,7 +52,7 @@ void Level::enter(GameScreen* gs)
         
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
         
-        m_batPanel->setGame(m_game.get());
+        m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
         
         Jon& jon = m_game->getJon();
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
@@ -269,13 +269,7 @@ void Level::update(GameScreen* gs)
         }
         else
         {
-            static float startingTime = 150.0f;
-            
-            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
-            
-            m_iScoreFromTime = secondsLeft * 1000;
-            
-            m_iScore = m_iScoreFromTime;
+            updateScore();
             
             if (!m_batPanel->isAcknowledged())
             {
@@ -327,7 +321,7 @@ void Level::update(GameScreen* gs)
             
             handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
             
-            m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
+            updateScore();
             
             if (gs->m_isScreenHeldDown)
             {
@@ -666,11 +660,77 @@ BatPanelType Level::getBatPanelType()
     return BatPanelType_None;
 }
 
+void Level::updateScore()
+{
+    static float startingTime = 120.0f;
+    
+    float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
+    
+    m_iScoreFromTime = secondsLeft * 1000;
+    
+    m_iScoreFromObjects = m_game->getNumCarrotsCollected() * 200;
+    m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * 5000;
+    
+    if (m_game->getJons().size() > 0)
+    {
+        m_iScoreFromObjects += m_game->getJon().getNumEnemiesDestroyed() * 2000;
+    }
+    
+    m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
+}
+
 void Level::stopLoopingSounds()
 {
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+}
+
+void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
+{
+    for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
+    {
+        if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
+        {
+            (*i)->collect();
+            
+            if (dynamic_cast<GoldenCarrot *>((*i)))
+            {
+                GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+                
+                m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
+                
+                switch (gc->getIndex())
+                {
+                    case 0:
+                        m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED);
+                        break;
+                    case 1:
+                        m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED);
+                        break;
+                    case 2:
+                        m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 1);
+            }
+        }
+    }
+    
+    if (!FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
+    {
+        if (m_game->getNumCarrotsCollected() >= 100)
+        {
+            m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
+            
+            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+        }
+    }
 }
 
 Level::Level(const char* json) :

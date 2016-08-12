@@ -106,61 +106,11 @@ protected:
 private:
     BatPanelType getBatPanelType();
     
+    void updateScore();
+    
     void stopLoopingSounds();
     
-    void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
-    {
-        for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
-            {
-                (*i)->collect();
-                
-                if (dynamic_cast<GoldenCarrot *>((*i)))
-                {
-                    m_iScoreFromObjects += 5000;
-                    
-                    GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
-                    
-                    switch (gc->getIndex())
-                    {
-                        case 0:
-                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED);
-                            break;
-                        case 1:
-                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED);
-                            break;
-                        case 2:
-                            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    m_iScoreFromObjects += 200;
-                }
-            }
-        }
-        
-        if (!FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
-        {
-            int numCarrotsRemaining = 0;
-            for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
-            {
-                if ((*i)->getType() == CollectibleItemType_Carrot)
-                {
-                    numCarrotsRemaining++;
-                }
-            }
-            
-            if (numCarrotsRemaining == 0)
-            {
-                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
-            }
-        }
-    }
+    void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime);
 };
 
 class Chapter1Level1 : public Level
@@ -290,12 +240,15 @@ private:
     int m_iNumAttempts;
     int m_iLastKnownOwlDamage;
     int m_iLastKnownJonNumBoosts;
+    int m_iNumCarrotsCollectedAtCheckpoint;
+    int m_iNumGoldenCarrotsCollectedAtCheckpoint;
     bool m_isIdleWaitingForOwl;
     bool m_hasTriggeredMidBossMusicLoopIntro;
     bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
     bool m_hasTriggeredBurrow;
     bool m_hasShownDrillPopup;
+    bool m_hasShownHintPopup;
     
     virtual void update(GameScreen* gs);
     

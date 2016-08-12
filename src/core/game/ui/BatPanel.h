@@ -37,8 +37,6 @@ public:
     
     virtual void update(float deltaTime);
     
-    void setGame(Game* game);
-    
     void show(BatPanelType type);
     
     void dismiss();
@@ -52,7 +50,6 @@ public:
     Color& getColor();
     
 private:
-    Game* m_game;
     BatPanelType m_type;
     Color m_color;
     bool m_isShowing;
@@ -67,8 +64,6 @@ public:
     virtual void update(float deltaTime);
     
     void handleTouch(Vector2D& touchPoint);
-    
-    void setGame(Game* game);
     
     void open(BatPanelType type);
     

@@ -940,20 +940,20 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
     }
     
-	/// Render Num / Total Carrots
+	/// Render Num Carrots Collected
     
     {
         std::stringstream ss;
-        ss << (game.getNumTotalCarrots() - game.getNumRemainingCarrots());
+        ss << game.getNumCarrotsCollected();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     }
     
-    /// Render Num / Total Golden Carrots
+    /// Render Num Golden Carrots Collected
     
     {
         std::stringstream ss;
-        ss << (game.getNumTotalGoldenCarrots() - game.getNumRemainingGoldenCarrots());
+        ss << game.getNumGoldenCarrotsCollected();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
     }

@@ -109,13 +109,13 @@ public:
     
     float getStateTime();
     
-    int getNumTotalCarrots();
+    void setNumCarrotsCollected(int numCarrotsCollected);
     
-    int getNumRemainingCarrots();
+    int getNumCarrotsCollected();
     
-    int getNumTotalGoldenCarrots();
+    void setNumGoldenCarrotsCollected(int numGoldenCarrotsCollected);
     
-    int getNumRemainingGoldenCarrots();
+    int getNumGoldenCarrotsCollected();
     
     int getWorld();
     
@@ -152,8 +152,8 @@ private:
     float m_fStateTime;
     float m_fFarRight;
     float m_fFarRightBottom;
-    int m_iNumTotalCarrots;
-    int m_iNumTotalGoldenCarrots;
+    int m_iNumCarrotsCollected;
+    int m_iNumGoldenCarrotsCollected;
     int m_iWorld;
     int m_iLevel;
     bool m_isLoaded;

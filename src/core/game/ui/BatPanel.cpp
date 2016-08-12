@@ -12,7 +12,6 @@
 #include "OverlapTester.h"
 
 BatInstruction::BatInstruction(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
-m_game(nullptr),
 m_type(BatPanelType_None),
 m_color(1, 1, 1, 0),
 m_isShowing(false),
@@ -36,37 +35,7 @@ void BatInstruction::update(float deltaTime)
                 m_color.alpha = 1;
             }
         }
-        else
-        {
-            if (m_game && m_game->getJons().size() > 0)
-            {
-                Jon& jon = m_game->getJon();
-                
-                switch (m_type)
-                {
-                    case BatPanelType_Burrow:
-                        if (jon.getAbilityState() == ABILITY_BURROW)
-                        {
-                            dismiss();
-                        }
-                        break;
-                    case BatPanelType_OwlDig:
-                        if (jon.getPosition().getY() > 12)
-                        {
-                            dismiss();
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
     }
-}
-
-void BatInstruction::setGame(Game* game)
-{
-    m_game = game;
 }
 
 void BatInstruction::dismiss()
@@ -201,11 +170,6 @@ void BatPanel::handleTouch(Vector2D& touchPoint)
     }
 }
 
-void BatPanel::setGame(Game* game)
-{
-    m_batInstruction->setGame(game);
-}
-
 void BatPanel::open(BatPanelType type)
 {
     if (type == BatPanelType_None)
@@ -218,7 +182,7 @@ void BatPanel::open(BatPanelType type)
     m_fStateTime = 0;
     m_isOpening = true;
     m_isOpen = false;
-    m_isAcknowledged = m_type == BatPanelType_OwlDig || m_type == BatPanelType_Burrow;
+    m_isAcknowledged = false;
 }
 
 bool BatPanel::isOpen()

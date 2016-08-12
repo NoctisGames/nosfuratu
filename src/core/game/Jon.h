@@ -116,6 +116,10 @@ public:
     
     void setNumBoosts(int numBoosts);
     
+    int getNumEnemiesDestroyed();
+    
+    void onEnemyDestroyed();
+    
     bool isMoving();
     
     bool isPushedBack();
@@ -182,6 +186,8 @@ public:
     
     void kill();
     
+    bool shouldUseVampireFormForConsumeAnimation();
+    
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
     Game* m_game;
@@ -206,6 +212,7 @@ private:
     int m_iNumRabbitJumps;
     int m_iNumVampireJumps;
     int m_iNumBoosts;
+    int m_iNumEnemiesDestroyed;
     int m_iAbilityFlag;
     bool m_isLanding;
     bool m_isRollLanding;
@@ -216,6 +223,7 @@ private:
     bool m_isIdle;
     bool m_isUserActionPrevented;
     bool m_isBurrowEffective;
+    bool m_shouldUseVampireFormForConsumeAnimation;
     
     void setState(JonState state);
     
