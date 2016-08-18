@@ -97,6 +97,7 @@ public:
     
 private:
     int m_iPoolIndex;
+    bool m_wasPaused;
 
     TouchEvent* newTouchEvent();
     

@@ -21,7 +21,8 @@ m_isRequestingRender(false),
 m_iRequestedAction(REQUESTED_ACTION_UPDATE),
 m_isPaused(false),
 m_isScreenHeldDown(false),
-m_iPoolIndex(0)
+m_iPoolIndex(0),
+m_wasPaused(false)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -38,7 +39,12 @@ m_iPoolIndex(0)
 
 void GameScreen::onResume()
 {
-    // Empty
+    if (m_wasPaused && dynamic_cast<Title*>(m_stateMachine->getCurrentState()))
+    {
+        Assets::getInstance()->setMusicId(MUSIC_RESUME);
+    }
+    
+    m_wasPaused = false;
 }
 
 void GameScreen::onPause()
@@ -49,6 +55,8 @@ void GameScreen::onPause()
         
         m_isPaused = !level->hasCompletedLevel();
     }
+    
+    m_wasPaused = true;
 }
 
 void GameScreen::update(float deltaTime)
