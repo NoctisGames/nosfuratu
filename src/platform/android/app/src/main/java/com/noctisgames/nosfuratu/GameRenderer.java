@@ -123,6 +123,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("screen_transition.wav"));
         _sounds.add(_audio.newSound("screen_transition_2.wav"));
         _sounds.add(_audio.newSound("level_complete.wav"));
+        _sounds.add(_audio.newSound("title_lightning_1.wav"));
+        _sounds.add(_audio.newSound("title_lightning_2.wav"));
 
         Game.init();
 

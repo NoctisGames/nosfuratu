@@ -10,6 +10,7 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "GameConstants.h"
+#include "Assets.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -38,6 +39,9 @@ void TitlePanel::update(float deltaTime)
         {
             m_fStateTime -= m_fTimeBetweenStrikes;
             m_isLightningStriking = true;
+            
+            int rn = rand() % 2;
+            Assets::getInstance()->addSoundIdToPlayQueue(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
         }
     }
 }

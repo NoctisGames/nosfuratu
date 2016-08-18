@@ -557,7 +557,9 @@
                                     @"mid_boss_owl_death.wav",
                                     @"screen_transition.wav",
                                     @"screen_transition_2.wav",
-                                    @"level_complete.wav", nil];
+                                    @"level_complete.wav",
+                                    @"title_lightning_1.wav",
+                                    @"title_lightning_2.wav", nil];
 }
 
 @end

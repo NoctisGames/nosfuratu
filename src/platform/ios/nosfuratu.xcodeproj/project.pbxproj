@@ -155,6 +155,8 @@
 		BBA7C65D1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */; };
 		BBAE39AD1D5CBD6F003B9573 /* title_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE39AC1D5CBD6F003B9573 /* title_bgm.wav */; };
 		BBAE39AF1D5CD44D003B9573 /* level_complete.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE39AE1D5CD44D003B9573 /* level_complete.wav */; };
+		BBAFDA171D666ADA008E669B /* title_lightning_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAFDA151D666ADA008E669B /* title_lightning_1.wav */; };
+		BBAFDA181D666ADA008E669B /* title_lightning_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAFDA161D666ADA008E669B /* title_lightning_2.wav */; };
 		BBB73A241D5D655900099987 /* final_boss_bgm_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB73A221D5D655900099987 /* final_boss_bgm_intro.wav */; };
 		BBB73A251D5D655900099987 /* final_boss_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB73A231D5D655900099987 /* final_boss_bgm.wav */; };
 		BBB7A87A1BBAD34400829FF6 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */; };
@@ -496,6 +498,8 @@
 		BBA7C65C1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = trans_screen_circle_open_shader.fsh; sourceTree = "<group>"; };
 		BBAE39AC1D5CBD6F003B9573 /* title_bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = title_bgm.wav; sourceTree = "<group>"; };
 		BBAE39AE1D5CD44D003B9573 /* level_complete.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_complete.wav; sourceTree = "<group>"; };
+		BBAFDA151D666ADA008E669B /* title_lightning_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = title_lightning_1.wav; sourceTree = "<group>"; };
+		BBAFDA161D666ADA008E669B /* title_lightning_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = title_lightning_2.wav; sourceTree = "<group>"; };
 		BBB73A221D5D655900099987 /* final_boss_bgm_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = final_boss_bgm_intro.wav; sourceTree = "<group>"; };
 		BBB73A231D5D655900099987 /* final_boss_bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = final_boss_bgm.wav; sourceTree = "<group>"; };
 		BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DustCloud.cpp; sourceTree = "<group>"; };
@@ -932,6 +936,8 @@
 				BB67E9221C83DCA3009E5F2B /* sparrow_die.wav */,
 				BB67E9231C83DCA3009E5F2B /* sparrow_fly_loop.wav */,
 				BBAE39AC1D5CBD6F003B9573 /* title_bgm.wav */,
+				BBAFDA151D666ADA008E669B /* title_lightning_1.wav */,
+				BBAFDA161D666ADA008E669B /* title_lightning_2.wav */,
 				BB3652321C87CB82004B9CCD /* toad_die.wav */,
 				BB3652331C87CB82004B9CCD /* toad_eat.wav */,
 				BB939C951C626E41006D945A /* trigger_transform.wav */,
@@ -1619,6 +1625,7 @@
 				BBF856841C7FCBCD00328A0E /* world_1_special.png in Resources */,
 				BBC38DEF1CA03E80001B178C /* c_world_1_ground.png in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
+				BBAFDA171D666ADA008E669B /* title_lightning_1.wav in Resources */,
 				BBC38DF21CA03E80001B178C /* c_world_1_mid_boss_part_3.png in Resources */,
 				0ADF1895178E2185005DA99E /* MainStoryboard_iPhone.storyboard in Resources */,
 				BBEA16A41B97B9BB009B4711 /* texture_shader.vsh in Resources */,
@@ -1630,6 +1637,7 @@
 				BB3D8CEE1B989274009D58DE /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBC38DF51CA03E80001B178C /* c_world_1_special.png in Resources */,
 				BB939CE31C626E41006D945A /* jon_vampire_double_jump.wav in Resources */,
+				BBAFDA181D666ADA008E669B /* title_lightning_2.wav in Resources */,
 				BB44956A1C53779A004D1950 /* trans_in_death_shader.fsh in Resources */,
 				BBE7EF811C908E5800CB8533 /* misc.png in Resources */,
 				BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */,

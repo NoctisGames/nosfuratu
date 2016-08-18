@@ -70,6 +70,8 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("screen_transition.wav");
     m_sounds.push_back("screen_transition_2.wav");
     m_sounds.push_back("level_complete.wav");
+    m_sounds.push_back("title_lightning_1.wav");
+    m_sounds.push_back("title_lightning_2.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
