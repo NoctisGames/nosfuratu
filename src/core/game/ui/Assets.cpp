@@ -562,7 +562,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_EndSign:
         {
-            static TextureRegion tr = createTextureRegion(700, 686, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(704, 688, 112, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             

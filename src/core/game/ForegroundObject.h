@@ -266,7 +266,7 @@ public:
 class EndSign : public ForegroundObject
 {
 public:
-    EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 6, ForegroundObjectType_EndSign, GROUND_SOUND_NONE, 0, 0.04166666666667f, 1, 0.95833333333333f) {}
+    EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 7, 10, ForegroundObjectType_EndSign, GROUND_SOUND_NONE, 0, 0, 1, 1) {}
     
     virtual bool isJonLanding(Jon& jon, float deltaTime) { return false; }
     
