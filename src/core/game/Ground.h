@@ -278,13 +278,13 @@ public:
 class GrassPitSmall : public GrassPit
 {
 public:
-    GrassPitSmall(int gridX) : GrassPit(gridX, 40, GroundType_GrassPitSmall) {}
+    GrassPitSmall(int gridX) : GrassPit(gridX, 32, GroundType_GrassPitSmall) {}
 };
 
 class GrassPitMedium : public GrassPit
 {
 public:
-    GrassPitMedium(int gridX) : GrassPit(gridX, 73, GroundType_GrassPitMedium) {}
+    GrassPitMedium(int gridX) : GrassPit(gridX, 64, GroundType_GrassPitMedium) {}
 };
 
 class GrassPitLarge : public GrassPit

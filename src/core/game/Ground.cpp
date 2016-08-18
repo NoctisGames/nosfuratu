@@ -207,7 +207,7 @@ bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
         float itemTop = getMainBounds().getTop();
         float itemTopReq = itemTop * 0.99f;
         
-        float itemLeftReq = getMainBounds().getRight() - 1.125f;
+        float itemLeftReq = getMainBounds().getRight() - 0.25f;
         
         if (entityRight >= itemLeftReq && entityBottom < itemTopReq)
         {

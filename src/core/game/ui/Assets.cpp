@@ -352,12 +352,12 @@ TextureRegion& Assets::get(Ground* ground)
             
         case GroundType_GrassPitSmall:
         {
-            static TextureRegion tr = createTextureRegion(2162, 880, 640, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2208, 880, 512, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassPitMedium:
         {
-            static TextureRegion tr = createTextureRegion(2898, 880, 1168, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2954, 880, 1024, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case GroundType_GrassPitLarge:
