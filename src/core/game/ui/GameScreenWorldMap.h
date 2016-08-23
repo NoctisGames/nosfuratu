@@ -42,9 +42,10 @@ class LevelThumbnail : public PhysicalEntity
 public:
     static LevelThumbnail* create(LevelThumbnailType type);
     
-    LevelThumbnail(float x, float y, float width, float height, float selectTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
+    LevelThumbnail(float x, float y, float width, float height, float selectTime, float clearTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
     m_type(type),
     m_fSelectTime(selectTime),
+    m_fClearTime(clearTime),
     m_iWorld(world),
     m_iLevel(level),
     m_isPlayable(false),
@@ -62,7 +63,7 @@ public:
         {
             m_fStateTime += deltaTime;
             
-            if (m_fStateTime > 1.10f)
+            if (m_fStateTime > m_fClearTime)
             {
                 m_isClearing = false;
                 
@@ -131,6 +132,7 @@ public:
 private:
     LevelThumbnailType m_type;
     float m_fSelectTime;
+    float m_fClearTime;
     int m_iWorld;
     int m_iLevel;
     bool m_isPlayable;
@@ -143,13 +145,13 @@ private:
 class NormalLevelThumbnail : public LevelThumbnail
 {
 public:
-    NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, world, level, LevelThumbnailType_Normal) {}
+    NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, 1.10f, world, level, LevelThumbnailType_Normal) {}
 };
 
 class BossLevelThumbnail : public LevelThumbnail
 {
 public:
-    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, 0.4f, world, level, LevelThumbnailType_Boss) {}
+    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, 0.4f, 0.7f, world, level, LevelThumbnailType_Boss) {}
 };
 
 class GoldenCarrotsMarker : public PhysicalEntity

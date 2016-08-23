@@ -151,12 +151,12 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
             }
             else if (thumbnail->isClearing())
             {
-                static Animation anim = createAnimation(1860, 1074, 94, 138, 564, 276, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 7);
+                static Animation anim = createAnimation(1410, 1074, 94, 138, 564, 276, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 7);
                 return anim.getTextureRegion(thumbnail->getStateTime());
             }
             else if (thumbnail->isCleared())
             {
-                static TextureRegion tr = TextureRegion(0, 1198, 94, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = TextureRegion(0, 1212, 94, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
                 return tr;
             }
             else
