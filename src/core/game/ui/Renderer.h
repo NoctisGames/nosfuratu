@@ -36,6 +36,7 @@ class ShockwaveTextureGpuProgramWrapper;
 class TransDeathGpuProgramWrapper;
 class FramebufferRadialBlurGpuProgramWrapper;
 class Vector2D;
+class GoldenCarrotsMarker;
 class GameButton;
 class GameScreenLevelEditor;
 class TitlePanel;
@@ -93,7 +94,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
     
     void renderWorld(Game& game);
     

@@ -44,6 +44,7 @@ class CutsceneEffect;
 class CutscenePanel;
 class WorldMapPanel;
 class LevelThumbnail;
+class GoldenCarrotsMarker;
 class CountHissWithMina;
 class BatInstruction;
 class BatPanel;
@@ -63,6 +64,8 @@ public:
     TextureRegion& get(WorldMapPanel* panel);
     
     TextureRegion& get(LevelThumbnail* thumbnail);
+    
+    TextureRegion& get(GoldenCarrotsMarker* goldenCarrotsMarker);
     
     TextureRegion& get(Background* background);
     

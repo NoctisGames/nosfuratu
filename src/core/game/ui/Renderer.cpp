@@ -607,7 +607,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -618,6 +618,10 @@ void Renderer::renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbna
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(levelThumbnails, true);
+    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(*gcm, Assets::getInstance()->get(gcm), true);
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     m_spriteBatcher->beginBatch();

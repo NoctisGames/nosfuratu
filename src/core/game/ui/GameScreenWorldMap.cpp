@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_goldenCarrotsMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -82,6 +82,13 @@ void WorldMap::execute(GameScreen* gs)
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
 			return;
         }
+        
+        for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+        {
+            (*j)->update(gs->m_fDeltaTime);
+        }
+        
+        m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
 
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
@@ -116,7 +123,7 @@ void WorldMap::execute(GameScreen* gs)
                                 int worldIndex = worldToLoad - 1;
                                 int levelIndex = levelToLoad - 1;
                                 
-                                int levelStatsFlag = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+                                int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
                                 int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
                                 int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
                                 
@@ -124,10 +131,17 @@ void WorldMap::execute(GameScreen* gs)
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
                                 
-                                WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStatsFlag, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
+                                WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
-                                // Temp, replace with level selected behavior
-                                m_isReadyForTransition = true;
+                                if ((*j)->isSelected())
+                                {
+                                    m_isReadyForTransition = true;
+                                }
+                                else if ((*j)->isPlayable()
+                                         && !(*j)->isSelecting())
+                                {
+                                    selectLevel((*j), levelStats);
+                                }
                             }
                         }
                     }
@@ -153,6 +167,63 @@ void WorldMap::loadUserSaveData(const char* json)
     loadGlobalUserSaveData(d);
     
     loadUserSaveDataForWorld(d, "world_1");
+    
+    LevelThumbnail* levelToSelect = nullptr;
+    int levelStatsForLevelToSelect = 0;
+    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    {
+        int worldIndex = (*j)->getWorld() - 1;
+        int levelIndex = (*j)->getLevel() - 1;
+        
+        int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+        
+        int previousLevelStats = false;
+        if (worldIndex == 0 && levelIndex == 0)
+        {
+            previousLevelStats = 1;
+        }
+        else
+        {
+            int previousLevelIndex = levelIndex == 0 ? 20 : levelIndex - 1;
+            int previousWorldIndex = levelIndex == 0 ? worldIndex - 1 : worldIndex;
+            
+            previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
+        }
+        
+        bool isPlayable = previousLevelStats > 0;
+        bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
+        && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
+        && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
+        && FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)
+        && FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+        bool isClearing = isCleared && !(*j)->isCleared();
+        
+        (*j)->config(isPlayable, isClearing, isCleared);
+        
+        int nextLevelIndex = levelIndex == 20 ? 0 : levelIndex + 1;
+        int nextWorldIndex = levelIndex == 20 ? worldIndex + 1 : worldIndex;
+        
+        int nextLevelStats;
+        if (nextWorldIndex == 1)
+        {
+            nextLevelStats = 0;
+        }
+        else
+        {
+            nextLevelStats = m_worldLevelStats.at(nextWorldIndex)->m_levelStats.at(nextLevelIndex);
+        }
+        
+        if (isPlayable && nextLevelStats == 0)
+        {
+            levelToSelect = (*j);
+            levelStatsForLevelToSelect = levelStats;
+        }
+    }
+    
+    if (levelToSelect)
+    {
+        selectLevel(levelToSelect, levelStatsForLevelToSelect);
+    }
 }
 
 std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
@@ -273,6 +344,39 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
     }
 }
 
+void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
+{
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    {
+        (*j)->deselect();
+    }
+    
+    levelThumbnail->select();
+    
+    int numGoldenCarrots = 0;
+    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
+    {
+        numGoldenCarrots++;
+    }
+    
+    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED))
+    {
+        numGoldenCarrots++;
+    }
+    
+    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED))
+    {
+        numGoldenCarrots++;
+    }
+    
+    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
+    {
+        numGoldenCarrots++;
+    }
+    
+    m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.56f, numGoldenCarrots);
+}
+
 WorldMap::WorldMap() :
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
@@ -280,6 +384,7 @@ m_iViewedCutsceneFlag(0),
 m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
+    m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     

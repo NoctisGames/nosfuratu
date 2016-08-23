@@ -42,24 +42,48 @@ class LevelThumbnail : public PhysicalEntity
 public:
     static LevelThumbnail* create(LevelThumbnailType type);
     
-    LevelThumbnail(float x, float y, float width, float height, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
+    LevelThumbnail(float x, float y, float width, float height, float selectTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
     m_type(type),
-    m_fAnimationDelay(0),
+    m_fSelectTime(selectTime),
     m_iWorld(world),
     m_iLevel(level),
-    m_isCompleted(false)
+    m_isPlayable(false),
+    m_isSelecting(false),
+    m_isSelected(false),
+    m_isClearing(false),
+    m_isCleared(false)
     {
-        // Prevent animation
-        m_fStateTime = 1;
+        // Empty
     }
     
     virtual void update(float deltaTime)
     {
-        m_fAnimationDelay -= deltaTime;
-        
-        if (m_fAnimationDelay < 0)
+        if (m_isClearing)
         {
-            PhysicalEntity::update(deltaTime);
+            m_fStateTime += deltaTime;
+            
+            if (m_fStateTime > 1.10f)
+            {
+                m_isClearing = false;
+                
+                m_fStateTime = 0;
+            }
+        }
+        else if (m_isSelecting)
+        {
+            m_fStateTime += deltaTime;
+            
+            if (m_fStateTime > m_fSelectTime)
+            {
+                m_isSelected = true;
+                m_isSelecting = false;
+                
+                m_fStateTime = 0;
+            }
+        }
+        else if (m_isSelected)
+        {
+            m_fStateTime += deltaTime;
         }
     }
     
@@ -67,30 +91,93 @@ public:
     
     int getLevel() { return m_iLevel; }
     
-    bool isCompleted() { return m_isCompleted; }
+    void config(bool isPlayable, bool isClearing, bool isCleared)
+    {
+        m_isPlayable = isPlayable;
+        m_isSelecting = false;
+        m_isSelected = false;
+        m_isClearing = isClearing;
+        m_isCleared = isCleared;
+        
+        m_fStateTime = 0;
+    }
     
-    void setCompleted(bool isCompleted) { m_isCompleted = isCompleted; }
+    void select()
+    {
+        m_isSelecting = true;
+        m_isSelected = false;
+        
+        m_fStateTime = 0;
+    }
     
-    void animate(float delay) { m_fAnimationDelay = delay; m_fStateTime = 0; }
+    void deselect()
+    {
+        m_isSelecting = false;
+        m_isSelected = false;
+        
+        m_fStateTime = 0;
+    }
+    
+    bool isPlayable() { return m_isPlayable; }
+    
+    bool isSelecting() { return m_isSelecting; }
+    
+    bool isSelected() { return m_isSelected; }
+    
+    bool isClearing() { return m_isClearing; }
+    
+    bool isCleared() { return m_isCleared; }
     
 private:
     LevelThumbnailType m_type;
-    float m_fAnimationDelay;
+    float m_fSelectTime;
     int m_iWorld;
     int m_iLevel;
-    bool m_isCompleted;
+    bool m_isPlayable;
+    bool m_isSelecting;
+    bool m_isSelected;
+    bool m_isClearing;
+    bool m_isCleared;
 };
 
 class NormalLevelThumbnail : public LevelThumbnail
 {
 public:
-    NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, world, level, LevelThumbnailType_Normal) {}
+    NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, world, level, LevelThumbnailType_Normal) {}
 };
 
 class BossLevelThumbnail : public LevelThumbnail
 {
 public:
-    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, world, level, LevelThumbnailType_Boss) {}
+    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, 0.4f, world, level, LevelThumbnailType_Boss) {}
+};
+
+class GoldenCarrotsMarker : public PhysicalEntity
+{
+public:
+    GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_iNumGoldenCarrots(0)
+    {
+        // Empty
+    }
+    
+    virtual void update(float deltaTime)
+    {
+        m_fStateTime += deltaTime;
+    }
+    
+    void config(float x, float y, int numGoldenCarrots)
+    {
+        m_position->set(x, y);
+        
+        m_iNumGoldenCarrots = numGoldenCarrots;
+        
+        m_fStateTime = 0;
+    }
+    
+    int getNumGoldenCarrots() { return m_iNumGoldenCarrots; }
+    
+private:
+    int m_iNumGoldenCarrots;
 };
 
 class WorldMap : public State<GameScreen>
@@ -118,6 +205,7 @@ public:
     
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
+    std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
     std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
@@ -130,6 +218,8 @@ private:
     void loadGlobalUserSaveData(rapidjson::Document& d);
     
     void loadUserSaveDataForWorld(rapidjson::Document& d, const char * key);
+    
+    void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();

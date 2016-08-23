@@ -117,8 +117,146 @@ TextureRegion& Assets::get(WorldMapPanel* panel)
 
 TextureRegion& Assets::get(LevelThumbnail* thumbnail)
 {
-    static TextureRegion tr = TextureRegion(0, 698, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    return tr;
+    BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>(thumbnail);
+    
+    if (bossLevelThumbnail)
+    {
+        if (thumbnail->isPlayable())
+        {
+            if (thumbnail->isSelected())
+            {
+                if (thumbnail->isCleared())
+                {
+                    static Animation anim = createAnimation(376, 1212, 94, 138, 846, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 9);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(564, 1074, 94, 138, 846, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 9);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+            }
+            else if (thumbnail->isSelecting())
+            {
+                if (thumbnail->isCleared())
+                {
+                    static Animation anim = createAnimation(0, 1212, 94, 138, 376, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 4);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(188, 1074, 94, 138, 376, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 4);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+            }
+            else if (thumbnail->isClearing())
+            {
+                static Animation anim = createAnimation(1860, 1074, 94, 138, 564, 276, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 7);
+                return anim.getTextureRegion(thumbnail->getStateTime());
+            }
+            else if (thumbnail->isCleared())
+            {
+                static TextureRegion tr = TextureRegion(0, 1198, 94, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                return tr;
+            }
+            else
+            {
+                static TextureRegion tr = TextureRegion(188, 1074, 94, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                return tr;
+            }
+        }
+        else
+        {
+            static TextureRegion tr = TextureRegion(0, 1074, 94, 138, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+    }
+    else
+    {
+        if (thumbnail->isPlayable())
+        {
+            if (thumbnail->isSelected())
+            {
+                if (thumbnail->isCleared())
+                {
+                    static Animation anim = createAnimation(744, 950, 124, 124, 1240, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 10);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(868, 698, 124, 124, 1116, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 9);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+            }
+            else if (thumbnail->isSelecting())
+            {
+                if (thumbnail->isCleared())
+                {
+                    static Animation anim = createAnimation(0, 950, 124, 124, 744, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(124, 698, 124, 124, 744, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
+                    return anim.getTextureRegion(thumbnail->getStateTime());
+                }
+            }
+            else if (thumbnail->isClearing())
+            {
+                static Animation anim = createAnimation(0, 826, 124, 124, 1364, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
+                return anim.getTextureRegion(thumbnail->getStateTime());
+            }
+            else if (thumbnail->isCleared())
+            {
+                static TextureRegion tr = TextureRegion(0, 950, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                return tr;
+            }
+            else
+            {
+                static TextureRegion tr = TextureRegion(124, 698, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                return tr;
+            }
+        }
+        else
+        {
+            static TextureRegion tr = TextureRegion(0, 698, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            return tr;
+        }
+    }
+}
+
+TextureRegion& Assets::get(GoldenCarrotsMarker* goldenCarrotsMarker)
+{
+    switch (goldenCarrotsMarker->getNumGoldenCarrots())
+    {
+        case 0:
+        {
+            static Animation anim = createAnimation(0, 620, 118, 74, 826, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 7);
+            return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
+        }
+        case 1:
+        {
+            static Animation anim = createAnimation(0, 620, 118, 74, 944, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 8);
+            return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
+        }
+        case 2:
+        {
+            static Animation anim = createAnimation(0, 620, 118, 74, 1062, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 9);
+            return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
+        }
+        case 3:
+        {
+            static Animation anim = createAnimation(0, 620, 118, 74, 1180, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
+            return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
+        }
+        case 4:
+        {
+            static Animation anim = createAnimation(0, 620, 118, 74, 1298, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
+            return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
+        }
+    }
+    
+    assert(false);
 }
 
 TextureRegion& Assets::get(Background* background)
