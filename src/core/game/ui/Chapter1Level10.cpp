@@ -115,7 +115,8 @@ void Chapter1Level10::update(GameScreen* gs)
         if (!m_hasShownDrillPopup
             && !m_batPanel->isOpening()
             && !m_batPanel->isOpen()
-            && jon.getPosition().getX() > GRID_CELL_SIZE * 116)
+            && jon.getPosition().getX() > GRID_CELL_SIZE * 116
+            && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
         {
             m_batPanel->open(BatPanelType_Burrow);
             m_hasShownDrillPopup = true;
@@ -213,7 +214,8 @@ void Chapter1Level10::update(GameScreen* gs)
             {
                 if (!m_hasShownHintPopup
                     && !m_batPanel->isOpening()
-                    && !m_batPanel->isOpen())
+                    && !m_batPanel->isOpen()
+                    && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
                 {
                     m_batPanel->open(BatPanelType_OwlDig);
                     m_hasShownHintPopup = true;
@@ -303,7 +305,8 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             if (!m_hasShownHintPopup
                 && !m_batPanel->isOpening()
-                && !m_batPanel->isOpen())
+                && !m_batPanel->isOpen()
+                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
             {
                 m_batPanel->open(BatPanelType_OwlDig);
                 m_hasShownHintPopup = true;

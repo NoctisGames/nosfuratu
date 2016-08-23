@@ -353,28 +353,33 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
     
     levelThumbnail->select();
     
-    int numGoldenCarrots = 0;
-    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
+    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_LEVEL_COMPLETE))
     {
-        numGoldenCarrots++;
+        int numGoldenCarrots = 0;
+        if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
+        {
+            numGoldenCarrots++;
+        }
+        
+        if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED))
+        {
+            numGoldenCarrots++;
+        }
+        
+        if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED))
+        {
+            numGoldenCarrots++;
+        }
+        
+        if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
+        {
+            numGoldenCarrots++;
+        }
+        
+        m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.56f, numGoldenCarrots);
+        
+        // TODO, display score
     }
-    
-    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED))
-    {
-        numGoldenCarrots++;
-    }
-    
-    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED))
-    {
-        numGoldenCarrots++;
-    }
-    
-    if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
-    {
-        numGoldenCarrots++;
-    }
-    
-    m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.56f, numGoldenCarrots);
 }
 
 WorldMap::WorldMap() :

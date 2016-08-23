@@ -617,7 +617,6 @@ bool Level::handleTouchInput(GameScreen* gs)
                         jon.triggerJump();
                     }
                     
-                    
                     if (gs->m_fScreenHeldTime > 0.4f)
                     {
                         jon.triggerCancelTransform();
@@ -640,6 +639,11 @@ bool Level::handleTouchInput(GameScreen* gs)
 
 BatPanelType Level::getBatPanelType()
 {
+    if (FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
+    {
+        return BatPanelType_None;
+    }
+    
     if (m_game->getWorld() == 1 && m_game->getLevel() == 1)
     {
         return BatPanelType_Jump;
