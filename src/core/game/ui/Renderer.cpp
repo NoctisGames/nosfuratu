@@ -647,7 +647,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
         ss >> paddedScore;
         
         // Append zero chars
-        int str_length = paddedScore.length();
+        unsigned long str_length = paddedScore.length();
         for (int i = 0; i < 6 - str_length; i++)
         {
             paddedScore = "0" + paddedScore;
@@ -963,28 +963,28 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     
     m_spriteBatcher->beginBatch();
     
-    static std::string subX = "x";
+    static TextureRegion xTr = TextureRegion(256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     
     /// Render Num Golden Carrots Collected
     
     {
-        m_font->renderText(*m_spriteBatcher, subX, 3.05f, textY - fgHeight / 8, fgWidth, fgHeight, fontColor);
+        m_spriteBatcher->drawSprite(2.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
         
         std::stringstream ss;
         ss << game.getNumGoldenCarrotsCollected();
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, 3.45f, textY, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, 3.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Num Carrots Collected
     
     {
-        m_font->renderText(*m_spriteBatcher, subX, 4.65f, textY - fgHeight / 8, fgWidth, fgHeight, fontColor);
+        m_spriteBatcher->drawSprite(4.54f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
         
         std::stringstream ss;
         ss << game.getNumCarrotsCollected();
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, 5.05f, textY, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, 4.94f, textY - 0.14f, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Score
@@ -998,7 +998,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         ss >> paddedScore;
         
         // Append zero chars
-        int str_length = paddedScore.length();
+        unsigned long str_length = paddedScore.length();
         for (int i = 0; i < 6 - str_length; i++)
         {
             paddedScore = "0" + paddedScore;
