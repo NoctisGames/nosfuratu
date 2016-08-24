@@ -353,6 +353,8 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
     
     levelThumbnail->select();
     
+    m_goldenCarrotsMarker->config(1337, 1337, 0);
+    
     if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_LEVEL_COMPLETE))
     {
         int numGoldenCarrots = 0;
