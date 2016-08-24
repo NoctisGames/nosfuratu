@@ -37,10 +37,12 @@ class TransDeathGpuProgramWrapper;
 class FramebufferRadialBlurGpuProgramWrapper;
 class Vector2D;
 class GoldenCarrotsMarker;
+class ScoreMarker;
 class GameButton;
 class GameScreenLevelEditor;
 class TitlePanel;
 class WorldMapPanel;
+class AbilitySlot;
 class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
@@ -94,7 +96,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
     
     void renderWorld(Game& game);
     

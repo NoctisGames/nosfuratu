@@ -607,7 +607,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -617,29 +617,43 @@ void Renderer::renderWorldMapScreenUi(std::vector<LevelThumbnail*>& levelThumbna
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(abilitySlots, true);
     renderPhysicalEntities(levelThumbnails, true);
-    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-    
-    m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*gcm, Assets::getInstance()->get(gcm), true);
-    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
-    
-    m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
     renderPhysicalEntity(*leaderBoardsButton, Assets::getInstance()->get(leaderBoardsButton), true);
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
-    static Color fontColor = Color(0, 0, 0, 1);
     static float fgWidth = CAM_WIDTH / 40;
     static float fgHeight = fgWidth * 1.171875f;
     
     m_spriteBatcher->beginBatch();
     
     {
+        static Color fontColor = Color(0, 0, 0, 1);
+        
         std::stringstream ss;
         ss << numCollectedGoldenCarrots;
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT * 0.79084967320261f, fgWidth, fgHeight, fontColor, true);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << sm->getScore();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        int str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; i++)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        
+        m_font->renderText(*m_spriteBatcher, paddedScore, sm->getX(), sm->getY(), fgWidth, fgHeight, sm->getColor(), true);
     }
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
@@ -922,66 +936,118 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    /// Render Back Button
-    
-    m_spriteBatcher->beginBatch();
-    
-    if (backButton)
-    {
-        renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
-    }
-    
     static Color fontColor = Color(1, 1, 1, 1);
-    static float fgWidth = CAM_WIDTH / 24;
+    static float fgWidth = CAM_WIDTH / 32;
     static float fgHeight = fgWidth * 1.171875f;
     
-    /// Render Score
-    
-    {
-        std::stringstream ss;
-        ss << std::fixed << std::setprecision(3) << score;
-        std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, true);
-    }
-    
-	/// Render Num Carrots Collected
-    
-    {
-        std::stringstream ss;
-        ss << game.getNumCarrotsCollected();
-        std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
-    }
-    
-    /// Render Num Golden Carrots Collected
-    
-    {
-        std::stringstream ss;
-        ss << game.getNumGoldenCarrotsCollected();
-        std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 2, CAM_HEIGHT - fgHeight - fgHeight / 2, fgWidth, fgHeight, fontColor, false, true);
-    }
-
-    m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    float textY = CAM_HEIGHT - fgHeight;
     
     if (m_world_1_objects.gpuTextureWrapper)
     {
         static GameHudCarrot uiCarrot = GameHudCarrot(false);
         static GameHudCarrot uiGoldenCarrot = GameHudCarrot(true);
         
-        uiCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight / 2);
-        uiCarrot.setWidth(fgWidth);
-        uiCarrot.setHeight(fgHeight);
-        
-        uiGoldenCarrot.getPosition().set(CAM_WIDTH - fgWidth / 2, CAM_HEIGHT - fgHeight - fgHeight / 2);
+        uiGoldenCarrot.getPosition().set(2.7f, textY);
         uiGoldenCarrot.setWidth(fgWidth);
         uiGoldenCarrot.setHeight(fgHeight);
         
+        uiCarrot.getPosition().set(4.3f, textY);
+        uiCarrot.setWidth(fgWidth);
+        uiCarrot.setHeight(fgHeight);
+        
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(&uiCarrot), true);
         renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(&uiGoldenCarrot), true);
+        renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(&uiCarrot), true);
         m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     }
+    
+    m_spriteBatcher->beginBatch();
+    
+    static std::string subX = "x";
+    
+    /// Render Num Golden Carrots Collected
+    
+    {
+        m_font->renderText(*m_spriteBatcher, subX, 3.05f, textY - fgHeight / 8, fgWidth, fgHeight, fontColor);
+        
+        std::stringstream ss;
+        ss << game.getNumGoldenCarrotsCollected();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, 3.45f, textY, fgWidth, fgHeight, fontColor);
+    }
+    
+    /// Render Num Carrots Collected
+    
+    {
+        m_font->renderText(*m_spriteBatcher, subX, 4.65f, textY - fgHeight / 8, fgWidth, fgHeight, fontColor);
+        
+        std::stringstream ss;
+        ss << game.getNumCarrotsCollected();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, 5.05f, textY, fgWidth, fgHeight, fontColor);
+    }
+    
+    /// Render Score
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << score;
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        int str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; i++)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        
+        m_font->renderText(*m_spriteBatcher, paddedScore, CAM_WIDTH * 0.47f, textY, fgWidth, fgHeight, fontColor);
+    }
+    
+    /// Render Time
+    
+    {
+        static TextureRegion clockTr = TextureRegion(512, 0, 64, 64, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+        
+        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.1f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
+        
+        float seconds = game.getStateTime();
+        
+        if (seconds > 599.999f)
+        {
+            seconds = 599.999f;
+        }
+        
+        int minutesLeft = 0;
+        while (seconds >= 60)
+        {
+            seconds -= 60;
+            minutesLeft++;
+        }
+        
+        std::stringstream ss;
+        ss << minutesLeft << ":";
+        if (seconds < 10)
+        {
+            ss << "0";
+        }
+        ss << std::fixed << std::setprecision(3) << seconds;
+        std::string text = ss.str();
+        
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH * 0.72f + fgWidth, textY, fgWidth, fgHeight, fontColor);
+    }
+    
+    /// Render Back Button
+    
+    if (backButton)
+    {
+        renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
+    }
+
+    m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
     
     // renderDebugInfo(game, fps);
     

@@ -435,6 +435,12 @@ void Level::update(GameScreen* gs)
             gs->m_iRequestedAction += m_game->getWorld() * 100;
             gs->m_iRequestedAction += m_game->getLevel();
             
+            static float startingTime = 120.0f;
+            
+            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
+            
+            m_iScoreFromTime = secondsLeft * 1000;
+  
             m_fStateTime = 0;
 			gs->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
@@ -666,12 +672,6 @@ BatPanelType Level::getBatPanelType()
 
 void Level::updateScore()
 {
-    static float startingTime = 120.0f;
-    
-    float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
-    
-    m_iScoreFromTime = secondsLeft * 1000;
-    
     m_iScoreFromObjects = m_game->getNumCarrotsCollected() * 200;
     m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * 5000;
     

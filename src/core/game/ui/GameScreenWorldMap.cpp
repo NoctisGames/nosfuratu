@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_levelThumbnails, m_goldenCarrotsMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -83,12 +83,19 @@ void WorldMap::execute(GameScreen* gs)
 			return;
         }
         
-        for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+        for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
         {
-            (*j)->update(gs->m_fDeltaTime);
+            (*i)->update(gs->m_fDeltaTime);
+        }
+        
+        for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
+        {
+            (*i)->update(gs->m_fDeltaTime);
         }
         
         m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
+        
+        m_scoreMarker->update(gs->m_fDeltaTime);
 
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
@@ -140,7 +147,7 @@ void WorldMap::execute(GameScreen* gs)
                                 else if ((*j)->isPlayable()
                                          && !(*j)->isSelecting())
                                 {
-                                    selectLevel((*j), levelStats);
+                                    selectLevel((*j), levelStats, score);
                                 }
                             }
                         }
@@ -170,12 +177,14 @@ void WorldMap::loadUserSaveData(const char* json)
     
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
+    int scoreForLevelToSelect = 0;
     for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
         int worldIndex = (*j)->getWorld() - 1;
         int levelIndex = (*j)->getLevel() - 1;
         
         int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+        int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
         
         int previousLevelStats = false;
         if (worldIndex == 0 && levelIndex == 0)
@@ -217,12 +226,13 @@ void WorldMap::loadUserSaveData(const char* json)
         {
             levelToSelect = (*j);
             levelStatsForLevelToSelect = levelStats;
+            scoreForLevelToSelect = score;
         }
     }
     
     if (levelToSelect)
     {
-        selectLevel(levelToSelect, levelStatsForLevelToSelect);
+        selectLevel(levelToSelect, levelStatsForLevelToSelect, scoreForLevelToSelect);
     }
 }
 
@@ -256,7 +266,6 @@ int WorldMap::getViewedCutsceneFlag()
 void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
 {
     m_iNumCollectedGoldenCarrots = 0;
-    m_iJonAbilityFlag = 0;
     m_iViewedCutsceneFlag = 0;
     
     const char * num_golden_carrots_key = "num_golden_carrots";
@@ -278,7 +287,23 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
         Value& v = d[jon_unlocked_abilities_flag_key];
         assert(v.IsInt());
         
-        m_iJonAbilityFlag = v.GetInt();
+        int jonAbilityFlag = v.GetInt();
+        
+        {
+            bool isUnlocked = FlagUtil::isFlagSet(jonAbilityFlag, FLAG_ABILITY_RABBIT_DOWN);
+            bool isUnlocking = isUnlocked && !FlagUtil::isFlagSet(m_iJonAbilityFlag, FLAG_ABILITY_RABBIT_DOWN);
+            
+            configAbilitySlot(AbilitySlotType_Drill, isUnlocked, isUnlocking);
+        }
+        
+        {
+            bool isUnlocked = FlagUtil::isFlagSet(jonAbilityFlag, FLAG_ABILITY_VAMPIRE_RIGHT);
+            bool isUnlocking = isUnlocked && !FlagUtil::isFlagSet(m_iJonAbilityFlag, FLAG_ABILITY_VAMPIRE_RIGHT);
+            
+            configAbilitySlot(AbilitySlotType_Dash, isUnlocked, isUnlocking);
+        }
+        
+        m_iJonAbilityFlag = jonAbilityFlag;
     }
     
     if (d.HasMember(viewed_cutscenes_flag_key))
@@ -344,7 +369,18 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
     }
 }
 
-void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
+void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking)
+{
+    for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
+    {
+        if ((*i)->getType() == abilitySlotType)
+        {
+            (*i)->config(isUnlocked, isUnlocking);
+        }
+    }
+}
+
+void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score)
 {
     for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
@@ -354,6 +390,8 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
     levelThumbnail->select();
     
     m_goldenCarrotsMarker->config(1337, 1337, 0);
+    
+    m_scoreMarker->config(1337, 1337, 0);
     
     if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_LEVEL_COMPLETE))
     {
@@ -378,9 +416,9 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag)
             numGoldenCarrots++;
         }
         
-        m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.56f, numGoldenCarrots);
+        m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.52f, numGoldenCarrots);
         
-        // TODO, display score
+        m_scoreMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() - levelThumbnail->getHeight() * 0.52f, score);
     }
 }
 
@@ -392,11 +430,15 @@ m_isReadyForTransition(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
+    m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();
+
+    m_abilitySlots.push_back(new AbilitySlot(pW * 0.18933823529412f, pH * 0.76633986928105f, AbilitySlotType_Drill));
+    m_abilitySlots.push_back(new AbilitySlot(pW * 0.85477941176471f, pH * 0.83823529411765f, AbilitySlotType_Dash));
     
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.56862745098039f, 1, 1));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.56862745098039f, 1, 2));

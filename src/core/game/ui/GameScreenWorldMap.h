@@ -37,6 +37,12 @@ typedef enum
     LevelThumbnailType_Boss
 } LevelThumbnailType;
 
+typedef enum
+{
+    AbilitySlotType_Drill,
+    AbilitySlotType_Dash
+} AbilitySlotType;
+
 class LevelThumbnail : public PhysicalEntity
 {
 public:
@@ -154,6 +160,69 @@ public:
     BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, 0.4f, 0.7f, world, level, LevelThumbnailType_Boss) {}
 };
 
+class AbilitySlot : public PhysicalEntity
+{
+public:
+    AbilitySlot(float x, float y, AbilitySlotType type) : PhysicalEntity(x, y, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.18627450980392f),
+    m_type(type),
+    m_isUnlocked(false),
+    m_isUnlocking(false),
+    m_isRevealing(false)
+    {
+        // Empty
+    }
+    
+    virtual void update(float deltaTime)
+    {
+        if (m_isUnlocking)
+        {
+            m_fStateTime += deltaTime;
+            
+            if (m_fStateTime > 1.00f)
+            {
+                m_isUnlocking = false;
+                m_isRevealing = true;
+                
+                m_fStateTime = 0;
+            }
+        }
+        else if (m_isRevealing)
+        {
+            m_fStateTime += deltaTime;
+            
+            if (m_fStateTime > 1.10f)
+            {
+                m_isRevealing = false;
+            }
+        }
+    }
+    
+    AbilitySlotType getType() { return m_type; }
+    
+    bool isUnlocked() { return m_isUnlocked; }
+    
+    bool isUnlocking() { return m_isUnlocking; }
+    
+    void config(bool isUnlocked, bool isUnlocking)
+    {
+        m_fStateTime = 0.0f;
+        m_isUnlocked = isUnlocked;
+        m_isUnlocking = isUnlocking;
+        m_isRevealing = false;
+        
+        if (m_isUnlocked && !m_isUnlocking)
+        {
+            m_fStateTime = 1.10f;
+        }
+    }
+    
+private:
+    AbilitySlotType m_type;
+    bool m_isUnlocked;
+    bool m_isUnlocking;
+    bool m_isRevealing;
+};
+
 class GoldenCarrotsMarker : public PhysicalEntity
 {
 public:
@@ -182,6 +251,52 @@ private:
     int m_iNumGoldenCarrots;
 };
 
+class ScoreMarker
+{
+public:
+    ScoreMarker() :
+    m_color(1, 1, 1, 0),
+    m_fX(0),
+    m_fY(0),
+    m_iScore(0)
+    {
+        // Empty
+    }
+    
+    void update(float deltaTime)
+    {
+        m_color.alpha += deltaTime;
+        
+        if (m_color.alpha > 1)
+        {
+            m_color.alpha = 1;
+        }
+    }
+    
+    void config(float x, float y, int score)
+    {
+        m_fX = x;
+        m_fY = y;
+        m_iScore = score;
+        
+        m_color.alpha = 0;
+    }
+    
+    Color getColor() { return m_color; }
+    
+    float getX() { return m_fX; }
+    
+    float getY() { return m_fY; }
+    
+    int getScore() { return m_iScore; }
+    
+private:
+    Color m_color;
+    float m_fX;
+    float m_fY;
+    int m_iScore;
+};
+
 class WorldMap : public State<GameScreen>
 {
 public:
@@ -208,7 +323,9 @@ public:
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
+    std::unique_ptr<ScoreMarker> m_scoreMarker;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
+    std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
@@ -221,7 +338,9 @@ private:
     
     void loadUserSaveDataForWorld(rapidjson::Document& d, const char * key);
     
-    void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag);
+    void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
+    
+    void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();
