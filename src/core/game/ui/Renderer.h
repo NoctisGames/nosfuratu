@@ -41,6 +41,7 @@ class ScoreMarker;
 class GameButton;
 class GameScreenLevelEditor;
 class TitlePanel;
+class CutscenePanel;
 class WorldMapPanel;
 class AbilitySlot;
 class LevelThumbnail;
@@ -94,9 +95,11 @@ public:
     
     void renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton);
     
+    void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
+    
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots);
     
     void renderWorld(Game& game);
     
@@ -156,6 +159,8 @@ protected:
     TextureWrapper m_world_1_background_lower;
     TextureWrapper m_world_1_background_mid;
     TextureWrapper m_world_1_background_upper;
+    TextureWrapper m_world_1_cutscene_1;
+    TextureWrapper m_world_1_cutscene_2;
     TextureWrapper m_world_1_enemies;
     TextureWrapper m_world_1_ground;
     TextureWrapper m_world_1_mid_boss_part_1;
@@ -278,6 +283,10 @@ private:
     void loadLevelEditor();
     void loadLevelEditorTextures();
     
+    void loadWorld1Cutscene1();
+    void loadWorld1Cutscene2();
+    void loadWorld1CutsceneTextures();
+    
     void loadJon();
     void loadTransDeath();
     void loadVampire();
@@ -320,6 +329,8 @@ private:
     void unloadLevelEditorTextures();
     
     void unloadJonTextures();
+    
+    void unloadWorld1CutsceneTextures();
     
     void unloadWorld1Textures();
     void unloadWorld1MidBossTextures();

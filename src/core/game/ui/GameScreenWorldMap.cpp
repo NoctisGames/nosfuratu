@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_viewOpeningCutsceneButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -116,6 +116,11 @@ void WorldMap::execute(GameScreen* gs)
                     {
                         // Temporary, replace with display Leaderboards
                         gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
+                        return;
+                    }
+                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_viewOpeningCutsceneButton->getMainBounds()))
+                    {
+                        gs->m_stateMachine->changeState(WorldMapToOpeningCutscene::getInstance());
                         return;
                     }
                     else
@@ -433,6 +438,7 @@ m_isReadyForTransition(false)
     m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
+    m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));
     
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();

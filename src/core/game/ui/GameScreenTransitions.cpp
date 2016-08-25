@@ -16,6 +16,7 @@
 #include "GameButton.h"
 #include "GameScreenTitle.h"
 #include "GameScreenWorldMap.h"
+#include "GameScreenOpeningCutscene.h"
 
 /// Title To World Map Transition ///
 
@@ -83,6 +84,71 @@ TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
     // Empty
 }
 
+/// Title To Opening Cutscene Transition ///
+
+TitleToOpeningCutscene * TitleToOpeningCutscene::getInstance()
+{
+    static TitleToOpeningCutscene *instance = new TitleToOpeningCutscene();
+    
+    return instance;
+}
+
+void TitleToOpeningCutscene::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    OpeningCutscene::getInstance()->enter(gs);
+}
+
+void TitleToOpeningCutscene::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+            Assets::getInstance()->setMusicId(MUSIC_STOP);
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
+            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
+        }
+    }
+}
+
+void TitleToOpeningCutscene::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+TitleToOpeningCutscene::TitleToOpeningCutscene() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
 /// Title To Level Editor Transition ///
 
 TitleToLevelEditor * TitleToLevelEditor::getInstance()
@@ -144,6 +210,71 @@ void TitleToLevelEditor::exit(GameScreen* gs)
 }
 
 TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
+/// World Map to Opening Cutscene Transition ///
+
+WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
+{
+    static WorldMapToOpeningCutscene *instance = new WorldMapToOpeningCutscene();
+    
+    return instance;
+}
+
+void WorldMapToOpeningCutscene::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    OpeningCutscene::getInstance()->enter(gs);
+}
+
+void WorldMapToOpeningCutscene::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+            Assets::getInstance()->setMusicId(MUSIC_STOP);
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
+            gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+        }
+    }
+}
+
+void WorldMapToOpeningCutscene::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0)
 {
     // Empty
 }

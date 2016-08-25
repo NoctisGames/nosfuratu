@@ -15,6 +15,7 @@ typedef enum
 {
     GameButtonType_BackToTitle,
     GameButtonType_Leaderboards,
+    GameButtonType_ViewOpeningCutscene,
     GameButtonType_BackToLevelSelect,
     GameButtonType_LevelEditor
 } GameButtonType;

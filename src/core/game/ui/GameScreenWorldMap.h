@@ -329,6 +329,7 @@ private:
     std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
+    std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
     int m_iViewedCutsceneFlag;

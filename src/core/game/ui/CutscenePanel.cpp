@@ -38,7 +38,7 @@ CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, Cuts
 
 void CutsceneEffect::update(float deltaTime)
 {
-    PhysicalEntity::Entity::update(deltaTime);
+    PhysicalEntity::update(deltaTime);
     
     // TODO, zoom in, zoom out, pan, etc.
 }
@@ -80,11 +80,16 @@ CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float wid
 
 void CutscenePanel::update(float deltaTime)
 {
-    PhysicalEntity::Entity::update(deltaTime);
+    PhysicalEntity::update(deltaTime);
     
     EntityUtils::updateAndClean(getCutsceneEffects(), deltaTime);
     
     // TODO, zoom in, zoom out, pan, etc.
+    
+    if (m_fStateTime > 2)
+    {
+        m_isRequestingDeletion = true;
+    }
 }
 
 std::vector<CutsceneEffect *>& CutscenePanel::getCutsceneEffects()

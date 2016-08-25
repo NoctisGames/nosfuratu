@@ -60,6 +60,7 @@ public:
 
 typedef enum
 {
+    CutscenePanelType_Opening_None,
     CutscenePanelType_Opening_One,
     CutscenePanelType_Opening_Two,
     CutscenePanelType_Opening_Three,
@@ -91,8 +92,6 @@ class CutscenePanelOpeningOne : public CutscenePanel
 {
 public:
     CutscenePanelOpeningOne() : CutscenePanel(CutscenePanelType_Opening_One, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3) {}
-    
-	virtual void update(float deltaTime) {}
 };
 
 class CutscenePanelOpeningTwo : public CutscenePanel
@@ -105,8 +104,6 @@ class CutscenePanelOpeningSix : public CutscenePanel
 {
 public:
     CutscenePanelOpeningSix() : CutscenePanel(CutscenePanelType_Opening_Six, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT * 4 / 3) {}
-    
-    virtual void update(float deltaTime) {}
 };
 
 #endif /* defined(__nosfuratu__CutscenePanel__) */

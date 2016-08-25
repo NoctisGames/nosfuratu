@@ -10,7 +10,9 @@
 #define __nosfuratu__GameScreenOpeningCutscene__
 
 #include "State.h"
+#include "CutscenePanel.h"
 
+#include <vector>
 #include <memory>
 
 class GameScreen;
@@ -26,11 +28,16 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    std::vector<CutscenePanel*>& getCutscenePanels();
+    
 private:
-    float m_fStateTime;
+    std::vector<CutscenePanel*> m_cutscenePanels;
+    int m_currentPanelIndex;
     float m_fSkipTime;
     bool m_isRequestingNextState;
     bool m_isSkipping;
+    
+    CutscenePanelType cutscenePanelTypeForIndex(int index);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     OpeningCutscene();

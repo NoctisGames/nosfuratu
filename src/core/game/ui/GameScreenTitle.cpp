@@ -92,7 +92,7 @@ void Title::execute(GameScreen* gs)
             }
             else
             {
-                gs->m_stateMachine->changeState(OpeningCutscene::getInstance());
+                gs->m_stateMachine->changeState(TitleToOpeningCutscene::getInstance());
             }
         }
         else if (m_isRequestingLevelEditor)

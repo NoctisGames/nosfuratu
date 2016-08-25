@@ -37,6 +37,7 @@
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
 #include "CollectibleItem.h"
 #include "TitlePanel.h"
+#include "CutscenePanel.h"
 #include "WorldMapPanel.h"
 #include "GameScreenWorldMap.h"
 #include "macros.h"
@@ -90,6 +91,8 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_background_lower);
     m_textureWrappers.push_back(&m_world_1_background_mid);
     m_textureWrappers.push_back(&m_world_1_background_upper);
+    m_textureWrappers.push_back(&m_world_1_cutscene_1);
+    m_textureWrappers.push_back(&m_world_1_cutscene_2);
     m_textureWrappers.push_back(&m_world_1_enemies);
     m_textureWrappers.push_back(&m_world_1_ground);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_1);
@@ -141,6 +144,10 @@ void Renderer::load(RendererType rendererType)
             break;
         case RENDERER_TYPE_LEVEL_EDITOR:
             loadLevelEditorTextures();
+            break;
+            
+        case RENDERER_TYPE_WORLD_1_CUTSCENE:
+            loadWorld1CutsceneTextures();
             break;
             
         case RENDERER_TYPE_WORLD_1:
@@ -211,6 +218,10 @@ void Renderer::unload(RendererType rendererType)
             break;
         case RENDERER_TYPE_LEVEL_EDITOR:
             unloadLevelEditorTextures();
+            break;
+            
+        case RENDERER_TYPE_WORLD_1_CUTSCENE:
+            unloadWorld1CutsceneTextures();
             break;
             
         case RENDERER_TYPE_WORLD_1:
@@ -593,6 +604,28 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplay
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 }
 
+void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
+{
+    if (m_world_1_cutscene_1.gpuTextureWrapper == nullptr
+        || m_world_1_cutscene_2.gpuTextureWrapper == nullptr)
+    {
+        return;
+    }
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(cutscenePanels, true);
+    m_spriteBatcher->endBatch(*m_world_1_cutscene_1.gpuTextureWrapper);
+    
+    m_spriteBatcher->beginBatch();
+    for (std::vector<CutscenePanel *>::iterator i = cutscenePanels.begin(); i != cutscenePanels.end(); i++)
+    {
+        renderPhysicalEntities((*i)->getCutsceneEffects(), true);
+    }
+    m_spriteBatcher->endBatch(*m_world_1_cutscene_2.gpuTextureWrapper);
+}
+
 void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
@@ -607,7 +640,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -622,6 +655,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     renderPhysicalEntity(*gcm, Assets::getInstance()->get(gcm), true);
     renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
     renderPhysicalEntity(*leaderBoardsButton, Assets::getInstance()->get(leaderBoardsButton), true);
+    renderPhysicalEntity(*viewOpeningCutsceneButton, Assets::getInstance()->get(viewOpeningCutsceneButton), true);
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     static float fgWidth = CAM_WIDTH / 40;
@@ -1633,6 +1667,38 @@ void Renderer::loadLevelEditorTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadLevelEditor);
 }
 
+void Renderer::loadWorld1Cutscene1()
+{
+    if (m_world_1_cutscene_1.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_cutscene_1.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_cutscene_1" : "world_1_cutscene_1");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1Cutscene2()
+{
+    if (m_world_1_cutscene_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_cutscene_2.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_cutscene_2" : "world_1_cutscene_2");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1CutsceneTextures()
+{
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Cutscene1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Cutscene2);
+}
+
 void Renderer::loadJon()
 {
     if (m_jon.gpuTextureWrapper == nullptr)
@@ -1932,6 +1998,12 @@ void Renderer::unloadJonTextures()
     destroyTexture(&m_jon);
     destroyTexture(&m_trans_death_shader_helper);
     destroyTexture(&m_vampire);
+}
+
+void Renderer::unloadWorld1CutsceneTextures()
+{
+    destroyTexture(&m_world_1_cutscene_1);
+    destroyTexture(&m_world_1_cutscene_2);
 }
 
 void Renderer::unloadWorld1Textures()
