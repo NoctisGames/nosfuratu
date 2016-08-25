@@ -149,6 +149,70 @@ TitleToOpeningCutscene::TitleToOpeningCutscene() : m_fTransitionStateTime(0)
     // Empty
 }
 
+/// Title To World Map Transition ///
+
+OpeningCutsceneToWorldMap * OpeningCutsceneToWorldMap::getInstance()
+{
+    static OpeningCutsceneToWorldMap *instance = new OpeningCutsceneToWorldMap();
+    
+    return instance;
+}
+
+void OpeningCutsceneToWorldMap::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    WorldMap::getInstance()->enter(gs);
+}
+
+void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        WorldMap* wm = WorldMap::getInstance();
+        gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+        
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
+            gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+        }
+    }
+}
+
+void OpeningCutsceneToWorldMap::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+OpeningCutsceneToWorldMap::OpeningCutsceneToWorldMap() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
 /// Title To Level Editor Transition ///
 
 TitleToLevelEditor * TitleToLevelEditor::getInstance()
@@ -256,7 +320,6 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;

@@ -86,7 +86,7 @@ void CutscenePanel::update(float deltaTime)
     
     // TODO, zoom in, zoom out, pan, etc.
     
-    if (m_fStateTime > 2)
+    if (m_fStateTime > 1)
     {
         m_isRequestingDeletion = true;
     }

@@ -57,6 +57,26 @@ private:
     TitleToOpeningCutscene& operator=(const TitleToOpeningCutscene&);
 };
 
+class OpeningCutsceneToWorldMap : public State<GameScreen>
+{
+public:
+    static OpeningCutsceneToWorldMap* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+private:
+    float m_fTransitionStateTime;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    OpeningCutsceneToWorldMap();
+    OpeningCutsceneToWorldMap(const OpeningCutsceneToWorldMap&);
+    OpeningCutsceneToWorldMap& operator=(const OpeningCutsceneToWorldMap&);
+};
+
 class TitleToLevelEditor : public State<GameScreen>
 {
 public:

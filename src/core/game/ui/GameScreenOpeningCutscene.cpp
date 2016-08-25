@@ -10,7 +10,7 @@
 
 #include "GameScreen.h"
 #include "GameScreenTitle.h"
-#include "GameScreenWorldMap.h"
+#include "GameScreenTransitions.h"
 #include "CutscenePanel.h"
 #include "Game.h"
 #include "EntityUtils.h"
@@ -56,7 +56,7 @@ void OpeningCutscene::execute(GameScreen* gs)
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine->changeState(WorldMap::getInstance());
+            gs->m_stateMachine->changeState(OpeningCutsceneToWorldMap::getInstance());
             return;
         }
         
