@@ -319,7 +319,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
