@@ -640,7 +640,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, BatPanel* batPanel, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -691,6 +691,8 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     }
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+    
+    renderBatPanel(batPanel);
 }
 
 void Renderer::renderWorld(Game& game)
@@ -1085,42 +1087,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     
     // renderDebugInfo(game, fps);
     
-    if (m_vampire.gpuTextureWrapper)
-    {
-        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-        
-        if (batPanel->isOpening())
-        {
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-        }
-        else if (batPanel->isOpen())
-        {
-            BatInstruction& batInstruction = batPanel->getBatInstruction();
-            
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-            
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
-            if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
-            {
-                if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
-                {
-                    m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
-                }
-            }
-            else
-            {
-                if (m_world_1_special.gpuTextureWrapper)
-                {
-                    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
-                }
-            }
-        }
-    }
+    renderBatPanel(batPanel);
 }
 
 void Renderer::renderMarkers(Game& game)
@@ -1536,6 +1503,46 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
 
 #pragma mark private
 
+void Renderer::renderBatPanel(BatPanel *batPanel)
+{
+    if (m_vampire.gpuTextureWrapper)
+    {
+        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        
+        if (batPanel->isOpening())
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+        }
+        else if (batPanel->isOpen())
+        {
+            BatInstruction& batInstruction = batPanel->getBatInstruction();
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
+            if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
+            {
+                if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
+                {
+                    m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
+                }
+            }
+            else
+            {
+                if (m_world_1_special.gpuTextureWrapper)
+                {
+                    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
+                }
+            }
+        }
+    }
+}
+
 void Renderer::renderDebugInfo(Game& game, int fps)
 {
     static Color fontColor = Color(1, 1, 1, 1);
@@ -1647,6 +1654,9 @@ void Renderer::loadWorldMap()
 void Renderer::loadWorldMapTextures()
 {
     m_pendingLoadFunctions.push_back(&Renderer::loadWorldMap);
+    m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
 }
 
 void Renderer::loadLevelEditor()

@@ -68,7 +68,7 @@ void WorldMap::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_viewOpeningCutsceneButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_batPanel.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_viewOpeningCutsceneButton.get(), m_iNumCollectedGoldenCarrots);
         }
         
         gs->m_renderer->renderToScreen();
@@ -83,20 +83,6 @@ void WorldMap::execute(GameScreen* gs)
 			return;
         }
         
-        for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
-        {
-            (*i)->update(gs->m_fDeltaTime);
-        }
-        
-        for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
-        {
-            (*i)->update(gs->m_fDeltaTime);
-        }
-        
-        m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
-        
-        m_scoreMarker->update(gs->m_fDeltaTime);
-
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
             gs->touchToWorld(*(*i));
@@ -108,7 +94,12 @@ void WorldMap::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
+                    if (!m_batPanel->isAcknowledged())
+                    {
+                        m_batPanel->handleTouch(*gs->m_touchPoint);
+                        return;
+                    }
+                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                     {
                         gs->m_stateMachine->revertToPreviousState();
                     }
@@ -125,6 +116,31 @@ void WorldMap::execute(GameScreen* gs)
                     }
                     else
                     {
+                        for (std::vector<AbilitySlot *>::iterator j = m_abilitySlots.begin(); j != m_abilitySlots.end(); j++)
+                        {
+                            if ((*j)->isUnlocked()
+                                && OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
+                            {
+                                BatPanelType bpt = BatPanelType_None;
+                                
+                                switch ((*j)->getType())
+                                {
+                                    case AbilitySlotType_Drill:
+                                        bpt = BatPanelType_Burrow;
+                                        break;
+                                    case AbilitySlotType_Dash:
+                                        // TODO
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                
+                                m_batPanel->open(bpt);
+                                
+                                return;
+                            }
+                        }
+                        
                         for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
                         {
                             if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
@@ -161,6 +177,26 @@ void WorldMap::execute(GameScreen* gs)
                     return;
             }
         }
+        
+        m_batPanel->update(gs->m_fDeltaTime);
+        
+        if (!m_batPanel->isAcknowledged())
+        {
+            return;
+        }
+        
+        for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
+        {
+            (*i)->update(gs->m_fDeltaTime);
+        }
+        
+        for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
+        {
+            (*i)->update(gs->m_fDeltaTime);
+        }
+        
+        m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
+        m_scoreMarker->update(gs->m_fDeltaTime);
     }
 }
 
@@ -436,6 +472,7 @@ m_isReadyForTransition(false)
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
     m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
+    m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));

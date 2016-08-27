@@ -99,7 +99,7 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, BatPanel* batPanel, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots);
     
     void renderWorld(Game& game);
     
@@ -261,6 +261,8 @@ private:
             }
         }
     }
+    
+    void renderBatPanel(BatPanel* batPanel);
     
     void renderDebugInfo(Game& game, int fps);
     
