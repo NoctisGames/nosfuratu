@@ -64,7 +64,7 @@ public:
     
     Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
-    bool isJonLanding(Jon& jon, float deltaTime);
+    bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     

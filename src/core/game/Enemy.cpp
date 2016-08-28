@@ -30,6 +30,20 @@ Enemy* Enemy::create(int gridX, int gridY, int type)
             return new Toad(gridX, gridY);
         case EnemyType_Fox:
             return new Fox(gridX, gridY);
+        case EnemyType_BigMushroomGround:
+            return new BigMushroomGround(gridX, gridY);
+        case EnemyType_BigMushroomCeiling:
+            return new BigMushroomCeiling(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV1:
+            return new MovingSnakeGruntV1(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV2:
+            return new MovingSnakeGruntV2(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV3:
+            return new MovingSnakeGruntV3(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV4:
+            return new MovingSnakeGruntV4(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV5:
+            return new MovingSnakeGruntV5(gridX, gridY);
     }
     
     assert(false);
@@ -80,16 +94,20 @@ void Enemy::triggerHit()
     Assets::getInstance()->addSoundIdToPlayQueue(m_deathSoundId);
 }
 
-bool Enemy::isJonLanding(Jon& jon, float deltaTime)
+bool Enemy::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-	if (calcIsJonLanding(jon, deltaTime))
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
     {
-        triggerHit();
-        
-        float boost = fmaxf(fabsf(jon.getVelocity().getY()) / 1.5f, 6);
-        
-        jon.onEnemyDestroyed();
-        jon.triggerBoostOffEnemy(boost);
+        if (calcIsJonLanding(jon, deltaTime))
+        {
+            triggerHit();
+            
+            float boost = fmaxf(fabsf(jon->getVelocity().getY()) / 1.5f, 6);
+            
+            jon->onEnemyDestroyed();
+            jon->triggerBoostOffEnemy(boost);
+        }
     }
     
     return false;
@@ -178,7 +196,7 @@ EnemyType Enemy::getType()
 
 void Enemy::handleAlive(float deltaTime)
 {
-    Entity::update(deltaTime);
+    PhysicalEntity::update(deltaTime);
     
     Jon& jon = m_game->getJon();
     
@@ -217,15 +235,15 @@ void Enemy::handleDead(float deltaTime)
     }
 }
 
-bool Enemy::calcIsJonLanding(Jon &jon, float deltaTime)
+bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
+    float jonVelocityY = jon->getVelocity().getY();
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+        if (OverlapTester::doRectanglesOverlap(jon->getMainBounds(), getMainBounds()))
         {
-            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
+            float jonLowerLeftY = jon->getMainBounds().getLowerLeft().getY();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
             float itemTop = getMainBounds().getTop();
@@ -249,6 +267,12 @@ void Mushroom::handleAlive(float deltaTime)
 {
     Entity::update(deltaTime);
     
+    if (m_fStateTime > 0.4f && (m_isBouncingBack || m_isBeingBouncedOn))
+    {
+        m_isBouncingBack = true;
+        m_isBeingBouncedOn = true;
+    }
+    
     Jon& jon = m_game->getJon();
     
     if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
@@ -257,22 +281,28 @@ void Mushroom::handleAlive(float deltaTime)
         
         m_fStateTime = 0;
         
+        m_isBouncingBack = true;
+        
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
     }
 }
 
-bool MushroomGround::isJonLanding(Jon& jon, float deltaTime)
+bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    if (calcIsJonLanding(jon, deltaTime))
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
     {
-        float itemTop = getMainBounds().getTop();
-        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
-        jon.updateBounds();
-        jon.triggerBoostOffEnemy(18);
-        
-        m_fStateTime = 0;
-        
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        if (calcIsJonLanding(jon, deltaTime))
+        {
+            float itemTop = getMainBounds().getTop();
+            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
+            jon->updateBounds();
+            jon->triggerBoostOffEnemy(18);
+            
+            m_fStateTime = 0;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        }
     }
 
 	return false;
@@ -316,6 +346,8 @@ void Sparrow::updateBounds()
         {
             m_isOnScreen = true;
             
+            m_position->setY(m_fOriginalY);
+            
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
         }
     }
@@ -324,6 +356,27 @@ void Sparrow::updateBounds()
         m_isOnScreen = false;
         
         Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    }
+}
+
+void Sparrow::handleAlive(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_position->getY() > (m_fOriginalY + 0.05f))
+    {
+        m_acceleration->set(0, -1);
+    }
+    else if (m_position->getY() < (m_fOriginalY - 0.05f))
+    {
+        m_acceleration->set(0, 1);
+    }
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.kill();
     }
 }
 
@@ -426,34 +479,38 @@ void Toad::handleDead(float deltaTime)
     }
 }
 
-bool Fox::isJonLanding(Jon& jon, float deltaTime)
+bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    if (calcIsJonLanding(jon, deltaTime))
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
     {
-        float jonVelocityY = jon.getVelocity().getY();
-        float jonAccelY = jon.getAcceleration().getY();
-        
-        if (jonAccelY < JON_GRAVITY * 2)
+        if (calcIsJonLanding(jon, deltaTime))
         {
-            triggerHit();
+            float jonVelocityY = jon->getVelocity().getY();
+            float jonAccelY = jon->getAcceleration().getY();
             
-            jon.onEnemyDestroyed();
+            if (jonAccelY < GAME_GRAVITY * 2)
+            {
+                triggerHit();
+                
+                jon->onEnemyDestroyed();
+            }
+            
+            m_fStateTime = 0;
+            m_isBeingHit = true;
+            m_isHitting = false;
+            m_velocity->setX(0);
+            
+            float itemTop = getMainBounds().getTop();
+            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
+            jon->updateBounds();
+            
+            float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
+            
+            jon->triggerBoostOffEnemy(boost);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
         }
-        
-        m_fStateTime = 0;
-        m_isBeingHit = true;
-        m_isHitting = false;
-        m_velocity->setX(0);
-        
-        float itemTop = getMainBounds().getTop();
-        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
-        jon.updateBounds();
-        
-        float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
-        
-        jon.triggerBoostOffEnemy(boost);
-        
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
     }
     
     return false;
@@ -538,7 +595,7 @@ void Fox::handleAlive(float deltaTime)
             }
         }
     }
-        
+    
     if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
     {
         jon.kill();
@@ -563,5 +620,181 @@ void Fox::handleDead(float deltaTime)
     if (m_fStateTime > 0.50f)
     {
         m_isRequestingDeletion = true;
+    }
+}
+
+void BigMushroomGround::handleAlive(float deltaTime)
+{
+    Mushroom::update(deltaTime);
+    
+    m_fStateTime += deltaTime;
+}
+
+bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
+    {
+        if (calcIsJonLanding(jon, deltaTime))
+        {
+            float itemTop = getMainBounds().getTop();
+            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
+            jon->updateBounds();
+            jon->triggerBoostOffEnemy(18);
+            
+            m_fStateTime = 0;
+            
+            m_isBeingBouncedOn = true;
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        }
+    }
+    
+    return false;
+}
+
+void BigMushroomCeiling::handleAlive(float deltaTime)
+{
+    Mushroom::update(deltaTime);
+    
+    m_fStateTime += deltaTime;
+}
+
+bool BigMushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+        jon.updateBounds();
+        
+        jon.triggerBounceDownardsOffEnemy(-18);
+        
+        m_fStateTime = 0;
+        
+        m_isBeingBouncedOn = true;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        
+        return true;
+    }
+    
+    return false;
+}
+
+void MovingSnakeGrunt::updateBounds()
+{
+    Enemy::updateBounds();
+    
+    Rectangle& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (!m_isOnScreen)
+    {
+        if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+        {
+            m_isOnScreen = true;
+            
+            m_acceleration->set(m_fAcceleration, 0);
+        }
+    }
+}
+
+void MovingSnakeGrunt::handleAlive(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (!m_isOnScreen)
+    {
+        return;
+    }
+    
+    bool wasGrounded = m_isGrounded;
+    
+    if ((m_isGrounded = m_game->isEntityGrounded(this, deltaTime)))
+    {
+        if (!wasGrounded)
+        {
+            m_isLanding = true;
+            m_fStateTime = 0;
+        }
+        
+        if (m_isLanding)
+        {
+            if (m_fStateTime > 0.40f)
+            {
+                m_fStateTime = 0;
+                m_isLanding = false;
+            }
+        }
+        else if (m_isPausing)
+        {
+            if (m_fStateTime > 0.5f)
+            {
+                m_fStateTime = 0;
+                m_isPausing = false;
+            }
+        }
+        else if (m_isPreparingToJump)
+        {
+            if (m_fStateTime > 0.30f)
+            {
+                m_velocity->sub(2, 0);
+                m_velocity->add(0, 4);
+                m_acceleration->setY(GAME_GRAVITY);
+                
+                m_fStateTime = 0;
+                m_isPreparingToJump = false;
+            }
+        }
+        else
+        {
+            if (m_velocity->getX() < m_fTopSpeed)
+            {
+                m_velocity->setX(m_fTopSpeed);
+            }
+            
+            if (m_isAbleToJump)
+            {
+                if (m_fStateTime > 0.6f)
+                {
+                    m_fStateTime = 0;
+                    m_isPreparingToJump = true;
+                }
+            }
+            else
+            {
+                if (m_fStateTime > 0.6f)
+                {
+                    m_fStateTime = 0;
+                    m_isPausing = true;
+                    m_velocity->setX(0);
+                }
+            }
+        }
+        
+        m_acceleration->set(m_fAcceleration, 0);
+        m_velocity->setY(0);
+    }
+    else
+    {
+        m_acceleration->setY(GAME_GRAVITY);
+        
+        if (m_velocity->getX() < (m_fTopSpeed - 2))
+        {
+            m_velocity->setX(m_fTopSpeed - 2);
+        }
+    }
+    
+    Jon& jon = m_game->getJon();
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        jon.kill();
     }
 }

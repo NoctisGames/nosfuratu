@@ -7,7 +7,9 @@
 //
 
 #include "ExitGround.h"
+
 #include "EntityUtils.h"
+#include "GameConstants.h"
 
 ExitGround* ExitGround::create(int gridX, int gridY, int type)
 {
@@ -56,17 +58,17 @@ void ExitGround::update(float deltaTime)
     }
 }
 
-bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
+bool ExitGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
+    float jonVelocityY = entity->getVelocity().getY();
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
         {
-            float jonBottomY = jon.getMainBounds().getBottom();
-            float jonLeftX = jon.getMainBounds().getLeft();
-            float jonRightX = jon.getMainBounds().getRight();
+            float jonBottomY = entity->getMainBounds().getBottom();
+            float jonLeftX = entity->getMainBounds().getLeft();
+            float jonRightX = entity->getMainBounds().getRight();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
             float itemTop = getMainBounds().getTop();
@@ -84,9 +86,14 @@ bool ExitGround::isJonLanding(Jon& jon, float deltaTime)
             
             if (isLanding)
             {
-                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-                jon.updateBounds();
-                jon.setGroundSoundType(getGroundSoundType());
+                entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
+                entity->updateBounds();
+                
+                Jon *jon;
+                if ((jon = dynamic_cast<Jon *>(entity)))
+                {
+                    jon->setGroundSoundType(getGroundSoundType());
+                }
                 
                 return true;
             }
@@ -148,17 +155,17 @@ GroundSoundType ExitGround::getGroundSoundType()
     return m_groundSoundType;
 }
 
-bool CaveDeepSmallWaterfall::isJonLanding(Jon& jon, float deltaTime)
+bool CaveDeepSmallWaterfall::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
+    float jonVelocityY = entity->getVelocity().getY();
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
         {
-            float jonBottomY = jon.getMainBounds().getBottom();
-            float jonLeftX = jon.getMainBounds().getLeft();
-            float jonRightX = jon.getMainBounds().getRight();
+            float jonBottomY = entity->getMainBounds().getBottom();
+            float jonLeftX = entity->getMainBounds().getLeft();
+            float jonRightX = entity->getMainBounds().getRight();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
             float itemTop = getMainBounds().getTop();
@@ -170,15 +177,20 @@ bool CaveDeepSmallWaterfall::isJonLanding(Jon& jon, float deltaTime)
             
             if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
             {
-                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-                jon.updateBounds();
-                jon.setGroundSoundType(getGroundSoundType());
+                entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
+                entity->updateBounds();
+                
+                Jon *jon;
+                if ((jon = dynamic_cast<Jon *>(entity)))
+                {
+                    jon->setGroundSoundType(getGroundSoundType());
+                }
                 
                 return true;
             }
             else
             {
-                jon.getAcceleration().setY(jon.getGravity() * 2);
+                entity->getAcceleration().setY(GAME_GRAVITY * 2);
             }
         }
     }

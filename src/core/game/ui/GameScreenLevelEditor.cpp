@@ -689,16 +689,19 @@ bool GameScreenLevelEditor::isLevelValid(GameScreen *gs)
         return false;
     }
     
-    if (m_game->getCountHissWithMinas().size() == 0)
+    if (m_game->getLevel() < 21)
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_NO_COUNT_HISS_KEY;
-        return false;
-    }
-    
-    if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
-    {
-        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_COUNT_HISS_KEY;
-        return false;
+        if (m_game->getCountHissWithMinas().size() == 0)
+        {
+            gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_NO_COUNT_HISS_KEY;
+            return false;
+        }
+        
+        if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
+        {
+            gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_COUNT_HISS_KEY;
+            return false;
+        }
     }
     
     return true;

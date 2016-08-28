@@ -177,14 +177,18 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
         
-        m_enemies.push_back(new MushroomGround(0, 0));
+        m_enemies.push_back(new BigMushroomGround(0, 0));
         
         if (level >= 10)
         {
-            m_enemies.push_back(new MushroomCeiling(0, 0));
+            m_enemies.push_back(new BigMushroomCeiling(0, 0));
         }
         
-        m_enemies.push_back(new SnakeGrunt(0, 0));
+        m_enemies.push_back(new MovingSnakeGruntV1(0, 0));
+        m_enemies.push_back(new MovingSnakeGruntV2(0, 0));
+        m_enemies.push_back(new MovingSnakeGruntV3(0, 0));
+        m_enemies.push_back(new MovingSnakeGruntV4(0, 0));
+        m_enemies.push_back(new MovingSnakeGruntV5(0, 0));
         m_enemies.push_back(new Sparrow(0, 0));
         m_enemies.push_back(new Toad(0, 0));
         

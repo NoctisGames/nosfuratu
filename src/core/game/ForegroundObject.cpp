@@ -130,9 +130,9 @@ void ForegroundObject::updateBounds()
     GridLockedPhysicalEntity::updateBounds();
 }
 
-bool ForegroundObject::isJonLanding(Jon& jon, float deltaTime)
+bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    return isJonLanding(jon, getMainBounds(), deltaTime);
+    return isEntityLanding(entity, getMainBounds(), deltaTime);
 }
 
 bool ForegroundObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
@@ -177,21 +177,26 @@ void ForegroundObject::setGame(Game* game)
 
 #pragma mark protected
 
-bool ForegroundObject::isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime)
+bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
+    float jonVelocityY = entity->getVelocity().getY();
     
     if (jonVelocityY <= 0
-        && jon.getPosition().getX() > getMainBounds().getLeft()
-        && (jon.getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
+        && entity->getPosition().getX() > getMainBounds().getLeft()
+        && (entity->getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
+        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
         {
             float itemTop = bounds.getTop();
             
-            jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-            jon.updateBounds();
-            jon.setGroundSoundType(getGroundSoundType());
+            entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
+            entity->updateBounds();
+            
+            Jon *jon;
+            if ((jon = dynamic_cast<Jon *>(entity)))
+            {
+                jon->setGroundSoundType(getGroundSoundType());
+            }
             
             return true;
         }
@@ -286,11 +291,15 @@ bool DestructibleObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
     return false;
 }
 
-bool DeadlyObject::isJonLanding(Jon& jon, float deltaTime)
+bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
-        jon.kill();
+        Jon *jon;
+        if ((jon = dynamic_cast<Jon *>(entity)))
+        {
+            jon->kill();
+        }
         
         return true;
     }
@@ -324,11 +333,15 @@ bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
-bool LandingDeathObject::isJonLanding(Jon& jon, float deltaTime)
+bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
-        jon.kill();
+        Jon *jon;
+        if ((jon = dynamic_cast<Jon *>(entity)))
+        {
+            jon->kill();
+        }
     }
     
     return false;
@@ -372,14 +385,19 @@ void ProvideBoostObject::update(float deltaTime)
     }
 }
 
-bool ProvideBoostObject::isJonLanding(Jon& jon, float deltaTime)
+bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    if (ForegroundObject::isJonLanding(jon, deltaTime))
+    if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
         float itemTop = getMainBounds().getTop();
-        jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * 1.01f);
+        entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * 1.01f);
         
-        jon.triggerBoost(m_fBoostVelocity);
+        Jon *jon;
+        if ((jon = dynamic_cast<Jon *>(entity)))
+        {
+            jon->triggerBoost(m_fBoostVelocity);
+        }
+        
         m_isBoosting = true;
         m_fStateTime = 0;
     }
@@ -437,21 +455,29 @@ void SpikeTower::updateBounds()
     bounds.setHeight(getHeight() * 0.20089285714286f);
 }
 
-bool SpikeTower::isJonLanding(Jon& jon, float deltaTime)
+bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     bool ret = false;
     
-    jon.getMainBounds().setAngle(jon.getAbilityState() == ABILITY_GLIDE ? 90 : 0);
-    
-    if (ForegroundObject::isJonLanding(jon, deltaTime)
-        || ForegroundObject::isJonLanding(jon, getBounds().at(1), deltaTime))
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
     {
-        jon.kill();
+        jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
         
-        ret = true;
+        if (ForegroundObject::isEntityLanding(jon, deltaTime)
+            || ForegroundObject::isEntityLanding(jon, getBounds().at(1), deltaTime))
+        {
+            Jon *jon;
+            if ((jon = dynamic_cast<Jon *>(entity)))
+            {
+                jon->kill();
+            }
+            
+            ret = true;
+        }
+        
+        jon->getMainBounds().setAngle(0);
     }
-    
-    jon.getMainBounds().setAngle(0);
     
     return ret;
 }

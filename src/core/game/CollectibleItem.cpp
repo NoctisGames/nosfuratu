@@ -8,7 +8,7 @@
 
 #include "CollectibleItem.h"
 #include "GameConstants.h"
-#include "Game.h"
+#include "FlagUtil.h"
 
 CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 {
@@ -56,24 +56,24 @@ CollectibleItemType CollectibleItem::getType()
     return m_type;
 }
 
-void GoldenCarrot::init(Game* game)
+void GoldenCarrot::init(int index, int bestLevelStatsFlag)
 {
-    int index = 0;
-    for (std::vector<CollectibleItem *>::iterator i = game->getCollectibleItems().begin(); i != game->getCollectibleItems().end(); i++)
+    m_iIndex = index;
+    
+    if ((m_iIndex == 0 && FlagUtil::isFlagSet(bestLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
+        || (m_iIndex == 1 && FlagUtil::isFlagSet(bestLevelStatsFlag, FLAG_SECOND_GOLDEN_CARROT_COLLECTED))
+        || (m_iIndex == 2 && FlagUtil::isFlagSet(bestLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)))
     {
-        if (dynamic_cast<GoldenCarrot *>((*i)))
-        {
-            if ((*i) == this)
-            {
-                m_iIndex = index;
-            }
-            
-            index++;
-        }
+        m_isPreviouslyCollected = true;
     }
 }
 
 int GoldenCarrot::getIndex()
 {
     return m_iIndex;
+}
+
+bool GoldenCarrot::isPreviouslyCollected()
+{
+    return m_isPreviouslyCollected;
 }

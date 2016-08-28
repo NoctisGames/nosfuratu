@@ -50,6 +50,7 @@ void Level::enter(GameScreen* gs)
             m_game->load(m_json);
         }
         
+        m_game->setBestLevelStatsFlag(m_iBestLevelStatsFlag);
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
         
         m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());

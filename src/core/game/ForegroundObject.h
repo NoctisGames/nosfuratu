@@ -86,7 +86,7 @@ public:
     
     virtual void updateBounds();
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     
@@ -107,7 +107,7 @@ public:
 protected:
     Game* m_game;
     
-    virtual bool isJonLanding(Jon& jon, Rectangle& bounds, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, Rectangle& bounds, float deltaTime);
     
@@ -146,7 +146,7 @@ class DeadlyObject : public ForegroundObject
 public:
     DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     
@@ -158,7 +158,7 @@ class LandingDeathObject : public ForegroundObject
 public:
     LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 };
 
 class RunningIntoDeathObject : public ForegroundObject
@@ -184,7 +184,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
 private:
     float m_fBoostVelocity;
@@ -268,7 +268,7 @@ class EndSign : public ForegroundObject
 public:
     EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 7, 10, ForegroundObjectType_EndSign, GROUND_SOUND_NONE, 0, 0, 1, 1) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
 };
@@ -481,7 +481,7 @@ public:
     
     virtual void updateBounds();
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
 };

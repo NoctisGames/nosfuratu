@@ -28,7 +28,8 @@ typedef enum
     ABILITY_BURROW,
     ABILITY_STOMP,
     ABILITY_GLIDE,
-    ABILITY_UPWARD_THRUST
+    ABILITY_UPWARD_THRUST,
+    ABILITY_DASH
 } JonAbilityState;
 
 typedef enum

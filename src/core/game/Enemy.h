@@ -24,7 +24,14 @@ typedef enum
     EnemyType_SnakeGrunt,
     EnemyType_Sparrow,
     EnemyType_Toad,
-    EnemyType_Fox
+    EnemyType_Fox,
+    EnemyType_BigMushroomGround,
+    EnemyType_BigMushroomCeiling,
+    EnemyType_MovingSnakeGruntV1,
+    EnemyType_MovingSnakeGruntV2,
+    EnemyType_MovingSnakeGruntV3,
+    EnemyType_MovingSnakeGruntV4,
+    EnemyType_MovingSnakeGruntV5
 } EnemyType;
 
 class Enemy : public GridLockedPhysicalEntity
@@ -40,7 +47,7 @@ public:
     
     void triggerHit();
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -75,7 +82,7 @@ protected:
     
     virtual void handleDead(float deltaTime);
     
-    virtual bool calcIsJonLanding(Jon& jon, float deltaTime);
+    virtual bool calcIsJonLanding(Jon* jon, float deltaTime);
     
 private:
     EnemySpirit* m_enemySpirit;
@@ -91,9 +98,16 @@ private:
 class Mushroom : public Enemy
 {
 public:
-    Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND) {}
+    Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND), m_isBeingBouncedOn(false), m_isBouncingBack(false) {}
     
     virtual void handleAlive(float deltaTime);
+    
+    bool isBeingBouncedOn() { return m_isBeingBouncedOn; }
+    bool isBouncingBack() { return m_isBouncingBack; }
+    
+protected:
+    bool m_isBeingBouncedOn;
+    bool m_isBouncingBack;
 };
 
 class MushroomGround : public Mushroom
@@ -101,7 +115,7 @@ class MushroomGround : public Mushroom
 public:
     MushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 7, 8, 0, 0, 1, 0.796875f, EnemyType_MushroomGround) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 };
 
 class MushroomCeiling : public Mushroom
@@ -121,11 +135,19 @@ public:
 class Sparrow : public Enemy
 {
 public:
-    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_isOnScreen(false) {}
+    Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_fOriginalY(0), m_isOnScreen(false)
+    {
+        m_fOriginalY = m_position->getY();
+        m_acceleration->set(0, 2);
+    }
     
     virtual void updateBounds();
     
+protected:
+    virtual void handleAlive(float deltaTime);
+    
 private:
+    float m_fOriginalY;
     bool m_isOnScreen;
 };
 
@@ -168,7 +190,7 @@ public:
         m_velocity->setX(-3);
     }
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     bool isHitting() { return m_isHitting; }
     bool isLeft() { return m_isLeft; }
@@ -184,6 +206,81 @@ private:
     bool m_isHitting;
     bool m_isLeft;
     bool m_isBeingHit;
+};
+
+class BigMushroomGround : public Mushroom
+{
+public:
+    BigMushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0, 1, 1, EnemyType_BigMushroomGround) {}
+    
+    virtual void handleAlive(float deltaTime);
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+};
+
+class BigMushroomCeiling : public Mushroom
+{
+public:
+    BigMushroomCeiling(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0, 1, 1, EnemyType_BigMushroomCeiling) {}
+    
+    virtual void handleAlive(float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+};
+
+class MovingSnakeGrunt : public Enemy
+{
+public:
+    MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type) : Enemy(gridX, gridY, 16, 8, 0, 0, 1, 1, type, EnemySpiritType_Snake, SOUND_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false) {}
+    
+    virtual void updateBounds();
+    
+    bool isPreparingToJump() { return m_isPreparingToJump; }
+    bool isLanding() { return m_isLanding; }
+    bool isPausing() { return m_isPausing; }
+    
+protected:
+    virtual void handleAlive(float deltaTime);
+    
+private:
+    float m_fAcceleration;
+    float m_fTopSpeed;
+    bool m_isPausing;
+    bool m_isPreparingToJump;
+    bool m_isLanding;
+    bool m_isGrounded;
+    bool m_isAbleToJump;
+    bool m_isOnScreen;
+};
+
+class MovingSnakeGruntV1 : public MovingSnakeGrunt
+{
+public:
+    MovingSnakeGruntV1(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, false, EnemyType_MovingSnakeGruntV1) {}
+};
+
+class MovingSnakeGruntV2 : public MovingSnakeGrunt
+{
+public:
+    MovingSnakeGruntV2(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 5, 5, false, EnemyType_MovingSnakeGruntV2) {}
+};
+
+class MovingSnakeGruntV3 : public MovingSnakeGrunt
+{
+public:
+    MovingSnakeGruntV3(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 6, 6, false, EnemyType_MovingSnakeGruntV3) {}
+};
+
+class MovingSnakeGruntV4 : public MovingSnakeGrunt
+{
+public:
+    MovingSnakeGruntV4(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 5, 5, true, EnemyType_MovingSnakeGruntV4) {}
+};
+
+class MovingSnakeGruntV5 : public MovingSnakeGrunt
+{
+public:
+    MovingSnakeGruntV5(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 7, 7, true, EnemyType_MovingSnakeGruntV5) {}
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

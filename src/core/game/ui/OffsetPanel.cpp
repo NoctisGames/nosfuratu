@@ -34,7 +34,8 @@ void OffsetPanel::close()
 
 int OffsetPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 {
-    if (te.getTouchType() == Touch_Type::UP)
+    if (te.getTouchType() == Touch_Type::DOWN
+        || te.getTouchType() == Touch_Type::DRAGGED)
     {
         if (OverlapTester::isPointInRectangle(touchPoint, *m_offsetLeftButton))
         {

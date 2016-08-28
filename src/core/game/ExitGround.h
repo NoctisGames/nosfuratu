@@ -32,7 +32,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -75,7 +75,7 @@ class CaveDeepSmallWaterfall : public ExitGround
 public:
     CaveDeepSmallWaterfall(int gridX) : ExitGround(gridX, 0, 32, 28, 0.96428571428571f, false, ExitGroundType_CaveDeepSmallWaterfall, GROUND_SOUND_CAVE) {}
     
-    virtual bool isJonLanding(Jon& jon, float deltaTime);
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
 };

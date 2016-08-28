@@ -33,6 +33,7 @@ Game::Game() :
 m_fStateTime(0.0f),
 m_fFarRight(ZOOMED_OUT_CAM_WIDTH),
 m_fFarRightBottom(GAME_HEIGHT / 2),
+m_iBestLevelStatsFlag(0),
 m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
 m_iWorld(1),
@@ -226,31 +227,31 @@ int Game::calcSum()
     return sum;
 }
 
-bool Game::isJonGrounded(float deltaTime)
+bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 {
-    if (EntityUtils::isFallingThroughHole(getJon(), getHoles(), deltaTime))
+    if (EntityUtils::isFallingThroughHole(entity, getHoles(), deltaTime))
     {
         return false;
     }
 
-	if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+	if (EntityUtils::isFallingThroughPit(entity, getPits(), deltaTime))
 	{
-		return EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
-        || EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime);
+		return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime);
 	}
     
-    return EntityUtils::isLanding(getJon(), getForegroundObjects(), deltaTime)
-		|| EntityUtils::isLanding(getJon(), getExtraForegroundObjects(), deltaTime)
-		|| EntityUtils::isLanding(getJon(), getMidBossForegroundObjects(), deltaTime)
-		|| EntityUtils::isLanding(getJon(), getEnemies(), deltaTime)
-		|| EntityUtils::isLanding(getJon(), getExitGrounds(), deltaTime)
-		|| EntityUtils::isLanding(getJon(), getGrounds(), deltaTime);
+    return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
+		|| EntityUtils::isLanding(entity, getEnemies(), deltaTime)
+		|| EntityUtils::isLanding(entity, getExitGrounds(), deltaTime)
+		|| EntityUtils::isLanding(entity, getGrounds(), deltaTime);
 }
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
-    if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+    if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
     {
         return EntityUtils::isBlockedOnRight(getJon(), getPits(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
@@ -266,7 +267,7 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 
 bool Game::isJonBlockedVertically(float deltaTime)
 {
-    if (EntityUtils::isFallingThroughPit(getJon(), getPits(), deltaTime))
+    if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
     {
         return false;
     }
@@ -385,6 +386,11 @@ Jon& Game::getJon()
     return *getJons().at(0);
 }
 
+Jon* Game::getJonP()
+{
+    return getJons().at(0);
+}
+
 std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
 {
     return m_extraForegroundObjects;
@@ -393,6 +399,16 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
 std::vector<Marker *>& Game::getMarkers()
 {
     return m_markers;
+}
+
+void Game::setBestLevelStatsFlag(int bestLevelStatsFlag)
+{
+    m_iBestLevelStatsFlag = bestLevelStatsFlag;
+}
+
+int Game::getBestLevelStatsFlag()
+{
+    return m_iBestLevelStatsFlag;
 }
 
 void Game::setCameraBounds(Rectangle* cameraBounds)
@@ -508,12 +524,13 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
     
+    int index = 0;
     for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
     {
         if (dynamic_cast<GoldenCarrot *>((*i)))
         {
             GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
-            gc->init(this);
+            gc->init(index++, m_iBestLevelStatsFlag);
         }
     }
     

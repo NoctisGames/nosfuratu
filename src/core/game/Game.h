@@ -49,7 +49,7 @@ public:
     
     int calcSum();
     
-    bool isJonGrounded(float deltaTime);
+    bool isEntityGrounded(PhysicalEntity* entity, float deltaTime);
     
     bool isJonBlockedHorizontally(float deltaTime);
     
@@ -95,9 +95,15 @@ public:
     
     Jon& getJon();
     
+    Jon* getJonP();
+    
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
     std::vector<Marker *>& getMarkers();
+    
+    void setBestLevelStatsFlag(int bestLevelStatsFlag);
+    
+    int getBestLevelStatsFlag();
     
     void setCameraBounds(Rectangle* cameraBounds);
     
@@ -152,6 +158,7 @@ private:
     float m_fStateTime;
     float m_fFarRight;
     float m_fFarRightBottom;
+    int m_iBestLevelStatsFlag;
     int m_iNumCarrotsCollected;
     int m_iNumGoldenCarrotsCollected;
     int m_iWorld;

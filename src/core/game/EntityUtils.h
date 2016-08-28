@@ -74,15 +74,15 @@ public:
     }
     
     template<typename T>
-    static bool isLanding(Jon& jon, std::vector<T>& items, float deltaTime)
+    static bool isLanding(PhysicalEntity* entity, std::vector<T>& items, float deltaTime)
     {
-        float jonVelocityY = jon.getVelocity().getY();
+        float entityVelocityY = entity->getVelocity().getY();
         
-        if (jonVelocityY <= 0)
+        if (entityVelocityY <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if ((*i)->isJonLanding(jon, deltaTime))
+                if ((*i)->isEntityLanding(entity, deltaTime))
                 {
                     return true;
                 }
@@ -93,13 +93,13 @@ public:
     }
     
     template<typename T>
-    static bool isFallingThroughHole(Jon& jon, std::vector<T>& items, float deltaTime)
+    static bool isFallingThroughHole(PhysicalEntity* entity, std::vector<T>& items, float deltaTime)
     {
-        if (jon.getVelocity().getY() <= 0)
+        if (entity->getVelocity().getY() <= 0)
         {
             for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
             {
-                if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
+                if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
                 {
                     return (*i)->isCoverBreaking() || !(*i)->hasCover();
                 }
@@ -110,17 +110,17 @@ public:
     }
     
     template<typename T>
-    static bool isFallingThroughPit(Jon& jon, std::vector<T>& items, float deltaTime)
+    static bool isFallingThroughPit(PhysicalEntity* entity, std::vector<T>& items, float deltaTime)
     {
-        float entityLeft = jon.getMainBounds().getLeft();
-        float entityRight = jon.getMainBounds().getRight();
+        float entityLeft = entity->getMainBounds().getLeft();
+        float entityRight = entity->getMainBounds().getRight();
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
             float itemLowerLeftX = (*i)->getMainBounds().getLeft();
             float itemRight = (*i)->getMainBounds().getRight();
             
-            if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
+            if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
             {
                 if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
                 {

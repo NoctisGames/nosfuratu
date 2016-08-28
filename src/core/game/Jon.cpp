@@ -30,7 +30,7 @@ m_abilityState(ABILITY_NONE),
 m_groundSoundType(GROUND_SOUND_NONE),
 m_color(1, 1, 1, 1),
 m_fDeltaTime(0),
-m_fGravity(JON_GRAVITY),
+m_fGravity(GAME_GRAVITY),
 m_iNumTriggeredJumps(0),
 m_iNumRabbitJumps(0),
 m_iNumVampireJumps(0),
@@ -120,7 +120,7 @@ void Jon::update(float deltaTime)
 
 	bool wasGrounded = m_physicalState == PHYSICAL_GROUNDED;
 
-	setState(m_game->isJonGrounded(deltaTime) ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR);
+	setState(m_game->isEntityGrounded(this, deltaTime) ? PHYSICAL_GROUNDED : PHYSICAL_IN_AIR);
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
@@ -659,11 +659,11 @@ void Jon::Rabbit::enter(Jon* jon)
     jon->m_shouldUseVampireFormForConsumeAnimation = false;
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
 	jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
 	jon->m_abilityState = ABILITY_NONE;
     
-    jon->m_acceleration->setY(JON_GRAVITY);
+    jon->m_acceleration->setY(GAME_GRAVITY);
 
 	m_isSpinningBackFistDelivered = false;
 }
@@ -715,7 +715,7 @@ void Jon::Rabbit::execute(Jon* jon)
             
             if (jon->m_fAbilityStateTime > 0.35f)
             {
-                jon->m_acceleration->setY(JON_GRAVITY * 3.5f);
+                jon->m_acceleration->setY(GAME_GRAVITY * 3.5f);
                 
                 if (jon->m_isLanding)
                 {
@@ -855,7 +855,7 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
     jon->m_acceleration->setX(jon->m_fAccelerationX);
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
@@ -872,7 +872,7 @@ void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
     jon->m_acceleration->setX(jon->m_fAccelerationX);
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
@@ -930,11 +930,11 @@ void Jon::Vampire::enter(Jon* jon)
     jon->m_shouldUseVampireFormForConsumeAnimation = true;
 	jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
 	jon->m_abilityState = ABILITY_NONE;
     
-    jon->m_acceleration->setY(JON_GRAVITY);
+    jon->m_acceleration->setY(GAME_GRAVITY);
     
     m_isFallingAfterGlide = false;
 }
@@ -948,7 +948,7 @@ void Jon::Vampire::execute(Jon* jon)
 		if (jon->m_physicalState == PHYSICAL_GROUNDED)
 		{
 			jon->setState(ABILITY_NONE);
-			jon->m_fGravity = JON_GRAVITY;
+			jon->m_fGravity = GAME_GRAVITY;
 			jon->m_acceleration->setY(jon->m_fGravity);
             
             Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
@@ -984,7 +984,7 @@ void Jon::Vampire::execute(Jon* jon)
 		if (!m_isFallingAfterGlide && jon->m_iNumVampireJumps > 1 && jon->m_abilityState != ABILITY_GLIDE)
 		{
 			jon->setState(ABILITY_GLIDE);
-			jon->m_fGravity = JON_GRAVITY / 36;
+			jon->m_fGravity = GAME_GRAVITY / 36;
             jon->m_acceleration->setX(VAMP_DEFAULT_ACCELERATION);
 			jon->m_acceleration->setY(jon->m_fGravity);
 			jon->m_velocity->setY(0);
@@ -1071,7 +1071,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 	if (jon->m_isConsumed)
 	{
 		jon->m_iNumVampireJumps = 0;
-		jon->m_fGravity = JON_GRAVITY;
+		jon->m_fGravity = GAME_GRAVITY;
 		jon->m_acceleration->setY(jon->m_fGravity);
 		m_isFallingAfterGlide = false;
 	}
@@ -1079,7 +1079,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 	if (jon->m_abilityState == ABILITY_GLIDE)
 	{
 		jon->setState(ABILITY_NONE);
-		jon->m_fGravity = JON_GRAVITY;
+		jon->m_fGravity = GAME_GRAVITY;
 		jon->m_acceleration->setY(jon->m_fGravity);
 		jon->m_iNumVampireJumps = 1;
 		m_isFallingAfterGlide = true;
@@ -1160,7 +1160,7 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
     jon->m_acceleration->setX(jon->m_fAccelerationX);
-	jon->m_fGravity = JON_GRAVITY;
+	jon->m_fGravity = GAME_GRAVITY;
 	jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
@@ -1181,7 +1181,7 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 {
     jon->m_velocity->setX(jon->m_fDefaultMaxSpeed / 2);
     jon->m_acceleration->setX(jon->m_fAccelerationX);
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(boostVelocity);
     
@@ -1197,7 +1197,7 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
 
 void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setY(bounceBackVelocity);
     
@@ -1210,7 +1210,7 @@ void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloc
 
 void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
 {
-    jon->m_fGravity = JON_GRAVITY;
+    jon->m_fGravity = GAME_GRAVITY;
     jon->m_acceleration->setY(jon->m_fGravity);
     jon->m_velocity->setX(bounceBackVelocity);
     jon->m_acceleration->setX(0);

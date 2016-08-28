@@ -664,7 +664,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     m_spriteBatcher->beginBatch();
     
     {
-        static Color fontColor = Color(0, 0, 0, 1);
+        static Color fontColor = Color(1, 1, 1, 1);
         
         std::stringstream ss;
         ss << numCollectedGoldenCarrots;
@@ -1046,7 +1046,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     /// Render Time
     
     {
-        static TextureRegion clockTr = TextureRegion(512, 0, 64, 64, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+        static TextureRegion clockTr = TextureRegion(512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
         
         m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.1f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         

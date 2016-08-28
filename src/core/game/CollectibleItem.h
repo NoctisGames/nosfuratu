@@ -12,8 +12,6 @@
 #include "GridLockedPhysicalEntity.h"
 #include "Assets.h"
 
-class Game;
-
 typedef enum
 {
     CollectibleItemType_Carrot,
@@ -50,14 +48,17 @@ public:
 class GoldenCarrot : public CollectibleItem
 {
 public:
-    GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0) {}
+    GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false) {}
     
-    void init(Game* game);
+    void init(int index, int bestLevelStatsFlag);
     
     int getIndex();
     
+    bool isPreviouslyCollected();
+    
 private:
     int m_iIndex;
+    bool m_isPreviouslyCollected;
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */

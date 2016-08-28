@@ -97,27 +97,32 @@ Ground::Ground(int gridX, int gridY, int gridWidth, int gridHeight, float bounds
     updateBounds();
 }
 
-bool Ground::isJonLanding(Jon& jon, float deltaTime)
+bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    float jonVelocityY = jon.getVelocity().getY();
+    float entityVelocityY = entity->getVelocity().getY();
     
-    if (jonVelocityY <= 0)
+    if (entityVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
         {
-            float jonLowerLeftY = jon.getMainBounds().getLowerLeft().getY();
-            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            float entityLowerLeftY = entity->getMainBounds().getLowerLeft().getY();
+            float entityYDelta = fabsf(entityVelocityY * deltaTime);
             
             float itemTop = getMainBounds().getTop();
             float padding = itemTop * .01f;
-            padding += jonYDelta;
+            padding += entityYDelta;
             float itemTopReq = itemTop - padding;
             
-            if (jonLowerLeftY >= itemTopReq)
+            if (entityLowerLeftY >= itemTopReq)
             {
-                jon.getPosition().setY(itemTop + jon.getMainBounds().getHeight() / 2 * .99f);
-                jon.updateBounds();
-                jon.setGroundSoundType(getGroundSoundType());
+                entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
+                entity->updateBounds();
+                
+                Jon *jon;
+                if ((jon = dynamic_cast<Jon *>(entity)))
+                {
+                    jon->setGroundSoundType(getGroundSoundType());
+                }
                 
                 return true;
             }

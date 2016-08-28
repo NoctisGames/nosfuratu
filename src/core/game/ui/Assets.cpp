@@ -104,6 +104,9 @@ TextureRegion& Assets::get(CutscenePanel* panel)
             static TextureRegion tr = createTextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
+        case CutscenePanelType_Opening_None:
+        default:
+            assert(false);
     }
     
     assert(false);
@@ -1010,6 +1013,82 @@ TextureRegion& Assets::get(Enemy* enemy)
                 }
             }
         }
+        case EnemyType_BigMushroomGround:
+        {
+            Mushroom* mushroom = dynamic_cast<Mushroom *>(enemy);
+            if (mushroom->isBouncingBack())
+            {
+                static Animation anim = createAnimation(2560, 3298, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (mushroom->isBeingBouncedOn())
+            {
+                static Animation anim = createAnimation(1536, 3298, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(0, 3298, 256, 208, 1536, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+        }
+        case EnemyType_BigMushroomCeiling:
+        {
+            Mushroom* mushroom = dynamic_cast<Mushroom *>(enemy);
+            if (mushroom->isBouncingBack())
+            {
+                static Animation anim = createAnimation(2560, 3510, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (mushroom->isBeingBouncedOn())
+            {
+                static Animation anim = createAnimation(1536, 3510, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(0, 3510, 256, 208, 1536, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+        }
+        case EnemyType_MovingSnakeGruntV1:
+        case EnemyType_MovingSnakeGruntV2:
+        case EnemyType_MovingSnakeGruntV3:
+        case EnemyType_MovingSnakeGruntV4:
+        case EnemyType_MovingSnakeGruntV5:
+        {
+            MovingSnakeGrunt* snake = dynamic_cast<MovingSnakeGrunt *>(enemy);
+            if (snake->getVelocity().getY() > 0)
+            {
+                static Animation anim = createAnimation(768, 3850, 256, 128, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (snake->getVelocity().getY() < 0)
+            {
+                static Animation anim = createAnimation(1792, 3850, 256, 128, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (snake->isPreparingToJump())
+            {
+                static Animation anim = createAnimation(0, 3850, 256, 128, 768, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (snake->isLanding())
+            {
+                static Animation anim = createAnimation(2304, 3850, 256, 128, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else if (snake->isPausing())
+            {
+                static Animation anim = createAnimation(1536, 3722, 256, 128, 1280, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(0, 3722, 256, 128, 1536, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 6);
+                return anim.getTextureRegion(enemy->getStateTime());
+            }
+        }
     }
     
     assert(false);
@@ -1048,8 +1127,18 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
         }
         case CollectibleItemType_GoldenCarrot:
         {
-            static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
-            return anim.getTextureRegion(collectibleItem->getStateTime());
+            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>(collectibleItem);
+            
+            if (gc->isPreviouslyCollected())
+            {
+                static Animation anim = createAnimation(2924, 2028, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
         }
     }
     
@@ -1086,6 +1175,11 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation idleAnim = createAnimation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.125f, 8);
         static Animation runningAnim = createAnimation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.056f, 10);
         static Animation upwardThrustAnim = createAnimation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
+        static Animation dashAnim = createAnimation(2048, 0, 512, 256, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 14);
+        if (!dashAnim.hasFrameTimes())
+        {
+            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.1f);
+        }
         static Animation doubleJumpingAnim = createAnimation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 6);
         static Animation glidingAnim = createAnimation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 2);
         static Animation fallingAnim = createAnimation(0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 3);
@@ -1102,6 +1196,8 @@ TextureRegion& Assets::get(Jon* jon)
                 return glidingAnim.getTextureRegion(jon->getAbilityStateTime());
             case ABILITY_UPWARD_THRUST:
                 return upwardThrustAnim.getTextureRegion(jon->getActionStateTime());
+            case ABILITY_DASH:
+                return dashAnim.getTextureRegion(jon->getAbilityStateTime());
             case ABILITY_NONE:
             default:
                 break;
