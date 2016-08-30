@@ -1668,9 +1668,6 @@ void Renderer::loadWorldMap()
 void Renderer::loadWorldMapTextures()
 {
     m_pendingLoadFunctions.push_back(&Renderer::loadWorldMap);
-    m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
 }
 
 void Renderer::loadLevelEditor()
