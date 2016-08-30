@@ -313,6 +313,13 @@ void NosFURatuMain::handleMusic()
 			nm->m_mediaPlayer->Play();
 		}, this));
 		break;
+    case MUSIC_PLAY_LEVEL_SELECT_LOOP:
+        m_threads.push_back(std::thread([](NosFURatuMain* nm)
+        {
+            nm->m_mediaPlayer->SetSource("level_select_bgm.wav");
+            nm->m_mediaPlayer->Play();
+        }, this));
+            break;
 	case MUSIC_PLAY_WORLD_1_LOOP:
 		m_threads.push_back(std::thread([](NosFURatuMain* nm)
 		{

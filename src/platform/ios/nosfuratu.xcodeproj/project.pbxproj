@@ -116,6 +116,7 @@
 		BB7C20D41CB81FB0003E3583 /* mid_boss_owl_swoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB7C20D31CB81FB0003E3583 /* mid_boss_owl_swoop.wav */; };
 		BB7C20D61CB92D11003E3583 /* mid_boss_owl_tree_smash.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB7C20D51CB92D11003E3583 /* mid_boss_owl_tree_smash.wav */; };
 		BB7DCF061B9A5EE000394A73 /* CollectibleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7DCF041B9A5EE000394A73 /* CollectibleItem.cpp */; };
+		BB7F72531D74FB1B004BD9BD /* level_select_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB7F72521D74FB1B004BD9BD /* level_select_bgm.wav */; };
 		BB8CFA061C3210EB00701C15 /* EnemySpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8CFA041C3210EB00701C15 /* EnemySpirit.cpp */; };
 		BB8E5E481BC439B400520DFB /* SinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */; };
 		BB8E5E4C1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E5E4A1BC43AC700520DFB /* OpenGLESSinWaveTextureGpuProgramWrapper.cpp */; };
@@ -451,6 +452,7 @@
 		BB7C20D51CB92D11003E3583 /* mid_boss_owl_tree_smash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mid_boss_owl_tree_smash.wav; sourceTree = "<group>"; };
 		BB7DCF041B9A5EE000394A73 /* CollectibleItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CollectibleItem.cpp; sourceTree = "<group>"; };
 		BB7DCF051B9A5EE000394A73 /* CollectibleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectibleItem.h; sourceTree = "<group>"; };
+		BB7F72521D74FB1B004BD9BD /* level_select_bgm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_select_bgm.wav; sourceTree = "<group>"; };
 		BB8CFA041C3210EB00701C15 /* EnemySpirit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemySpirit.cpp; sourceTree = "<group>"; };
 		BB8CFA051C3210EB00701C15 /* EnemySpirit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemySpirit.h; sourceTree = "<group>"; };
 		BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinWaveTextureProgram.cpp; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 				BB939C921C626E41006D945A /* landing_cave.wav */,
 				BB939C931C626E41006D945A /* landing_grass.wav */,
 				BBAE39AE1D5CD44D003B9573 /* level_complete.wav */,
+				BB7F72521D74FB1B004BD9BD /* level_select_bgm.wav */,
 				BB779B1F1CB32AC0002B29AD /* mid_boss_bgm_intro.wav */,
 				BB779B201CB32AC0002B29AD /* mid_boss_bgm.wav */,
 				BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */,
@@ -1597,6 +1600,7 @@
 				BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */,
 				BB939CE11C626E41006D945A /* jon_rabbit_double_jump.wav in Resources */,
 				BB44956D1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
+				BB7F72531D74FB1B004BD9BD /* level_select_bgm.wav in Resources */,
 				BB779B221CB32AC0002B29AD /* mid_boss_bgm.wav in Resources */,
 				BB939CE51C626E41006D945A /* jump_spring.wav in Resources */,
 				BBC38DEC1CA03E80001B178C /* c_world_1_background_mid.png in Resources */,

@@ -54,8 +54,9 @@
 #define MUSIC_RESUME 2
 #define MUSIC_SET_VOLUME 3 // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
 #define MUSIC_PLAY_TITLE_LOOP 4
-#define MUSIC_PLAY_WORLD_1_LOOP 5
-#define MUSIC_PLAY_MID_BOSS_LOOP 6
+#define MUSIC_PLAY_LEVEL_SELECT_LOOP 5
+#define MUSIC_PLAY_WORLD_1_LOOP 6
+#define MUSIC_PLAY_MID_BOSS_LOOP 7
 
 //// Sound Definitions ////
 

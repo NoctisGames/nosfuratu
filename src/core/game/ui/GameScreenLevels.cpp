@@ -87,7 +87,7 @@ void Level::exit(GameScreen* gs)
     
     stopLoopingSounds();
     
-    Assets::getInstance()->setMusicId(MUSIC_STOP);
+    Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
     
     m_fStateTime = 0;
     m_isReleasingShockwave = false;

@@ -57,8 +57,9 @@ public final class GameRenderer implements Renderer
     private static final short MUSIC_RESUME = 2;
     private static final short MUSIC_SET_VOLUME = 3; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
     private static final short MUSIC_PLAY_TITLE_LOOP = 4;
-    private static final short MUSIC_PLAY_WORLD_1_LOOP = 5;
-    private static final short MUSIC_PLAY_MID_BOSS_LOOP = 6;
+    private static final short MUSIC_PLAY_LEVEL_SELECT_LOOP = 5;
+    private static final short MUSIC_PLAY_WORLD_1_LOOP = 6;
+    private static final short MUSIC_PLAY_MID_BOSS_LOOP = 7;
 
     //// Sound Definitions ////
 
@@ -313,6 +314,18 @@ public final class GameRenderer implements Renderer
                 }
 
                 _bgm = _audio.newMusic("title_bgm.wav");
+                _bgm.setLooping(true);
+                _bgm.setVolume(0.5f);
+                _bgm.play();
+                break;
+            case MUSIC_PLAY_LEVEL_SELECT_LOOP:
+                if (_bgm != null)
+                {
+                    _bgm.stop();
+                    _bgm = null;
+                }
+                
+                _bgm = _audio.newMusic("level_select_bgm.wav");
                 _bgm.setLooping(true);
                 _bgm.setVolume(0.5f);
                 _bgm.play();

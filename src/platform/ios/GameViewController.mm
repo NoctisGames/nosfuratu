@@ -229,35 +229,31 @@
         }
             break;
         case MUSIC_PLAY_TITLE_LOOP:
-            if ([self.soundMgr isBackGroundMusicPlaying])
-            {
-                [self.soundMgr stopBackgroundMusic];
-            }
-            
-            self.soundMgr.backgroundMusicVolume = 0.5f;
-            [self.soundMgr playBackgroundMusic:@"title_bgm.wav" forcePlay:YES isLooping:YES];
+            [self playMusic:@"title_bgm.wav"];
+            break;
+        case MUSIC_PLAY_LEVEL_SELECT_LOOP:
+            [self playMusic:@"level_select_bgm.wav"];
             break;
         case MUSIC_PLAY_WORLD_1_LOOP:
-            if ([self.soundMgr isBackGroundMusicPlaying])
-            {
-                [self.soundMgr stopBackgroundMusic];
-            }
-            
-            self.soundMgr.backgroundMusicVolume = 0.5f;
-            [self.soundMgr playBackgroundMusic:@"world_1_bgm.wav" forcePlay:YES isLooping:YES];
+            [self playMusic:@"world_1_bgm.wav"];
             break;
         case MUSIC_PLAY_MID_BOSS_LOOP:
-            if ([self.soundMgr isBackGroundMusicPlaying])
-            {
-                [self.soundMgr stopBackgroundMusic];
-            }
-            
-            self.soundMgr.backgroundMusicVolume = 0.5f;
-            [self.soundMgr playBackgroundMusic:@"mid_boss_bgm.wav" forcePlay:YES isLooping:YES];
+            [self playMusic:@"mid_boss_bgm.wav"];
             break;
         default:
             break;
     }
+}
+
+- (void)playMusic:(NSString *)fileName
+{
+    if ([self.soundMgr isBackGroundMusicPlaying])
+    {
+        [self.soundMgr stopBackgroundMusic];
+    }
+    
+    self.soundMgr.backgroundMusicVolume = 0.5f;
+    [self.soundMgr playBackgroundMusic:fileName forcePlay:YES isLooping:YES];
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
