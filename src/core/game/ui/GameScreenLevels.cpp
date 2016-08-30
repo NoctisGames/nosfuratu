@@ -441,6 +441,8 @@ void Level::update(GameScreen* gs)
             float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
             
             m_iScoreFromTime = secondsLeft * 1000;
+            
+            updateScore();
   
             m_fStateTime = 0;
 			gs->m_renderer->stopCamera();
