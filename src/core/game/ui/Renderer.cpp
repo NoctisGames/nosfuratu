@@ -1062,7 +1062,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     {
         static TextureRegion clockTr = TextureRegion(512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
         
-        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.1f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
+        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         
         float seconds = game.getStateTime();
         

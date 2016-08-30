@@ -269,8 +269,8 @@ void Mushroom::handleAlive(float deltaTime)
     
     if (m_fStateTime > 0.4f && (m_isBouncingBack || m_isBeingBouncedOn))
     {
-        m_isBouncingBack = true;
-        m_isBeingBouncedOn = true;
+		m_isBouncingBack = false;
+        m_isBeingBouncedOn = false;
     }
     
     Jon& jon = m_game->getJon();
@@ -557,7 +557,8 @@ void Fox::handleAlive(float deltaTime)
     }
     else
     {
-        if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
+        if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
+			&& jon.getMainBounds().getBottom() < getMainBounds().getTop()
             && jon.getMainBounds().getRight() > getMainBounds().getLeft() - 4
             && jon.getMainBounds().getRight() < getMainBounds().getLeft())
         {
@@ -569,9 +570,10 @@ void Fox::handleAlive(float deltaTime)
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
-        else if (jon.getMainBounds().getBottom() < getMainBounds().getTop()
-                 && jon.getMainBounds().getLeft() < getMainBounds().getRight() + 4
-                 && jon.getMainBounds().getLeft() > getMainBounds().getRight())
+        else if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
+			&& jon.getMainBounds().getBottom() < getMainBounds().getTop()
+			&& jon.getMainBounds().getLeft() < getMainBounds().getRight() + 4
+			&& jon.getMainBounds().getLeft() > getMainBounds().getRight())
         {
             m_fStateTime = 0;
             m_isHitting = true;
@@ -625,7 +627,7 @@ void Fox::handleDead(float deltaTime)
 
 void BigMushroomGround::handleAlive(float deltaTime)
 {
-    Mushroom::update(deltaTime);
+    Mushroom::handleAlive(deltaTime);
     
     m_fStateTime += deltaTime;
 }
@@ -655,7 +657,7 @@ bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 
 void BigMushroomCeiling::handleAlive(float deltaTime)
 {
-    Mushroom::update(deltaTime);
+    Mushroom::handleAlive(deltaTime);
     
     m_fStateTime += deltaTime;
 }
@@ -718,6 +720,9 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
     
     if ((m_isGrounded = m_game->isEntityGrounded(this, deltaTime)))
     {
+		m_acceleration->set(m_fAcceleration, 0);
+		m_velocity->setY(0);
+
         if (!wasGrounded)
         {
             m_isLanding = true;
@@ -745,7 +750,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             if (m_fStateTime > 0.30f)
             {
                 m_velocity->sub(2, 0);
-                m_velocity->add(0, 4);
+				m_velocity->setY(9);
                 m_acceleration->setY(GAME_GRAVITY);
                 
                 m_fStateTime = 0;
@@ -763,8 +768,15 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             {
                 if (m_fStateTime > 0.6f)
                 {
-                    m_fStateTime = 0;
-                    m_isPreparingToJump = true;
+					Jon& jon = m_game->getJon();
+					if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
+						&& jon.getMainBounds().getBottom() < (getMainBounds().getTop() + 7)
+						&& jon.getMainBounds().getRight() > getMainBounds().getLeft() - 5
+						&& jon.getMainBounds().getRight() < getMainBounds().getLeft())
+					{
+						m_fStateTime = 0;
+						m_isPreparingToJump = true;
+					}
                 }
             }
             else
@@ -777,9 +789,6 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
                 }
             }
         }
-        
-        m_acceleration->set(m_fAcceleration, 0);
-        m_velocity->setY(0);
     }
     else
     {

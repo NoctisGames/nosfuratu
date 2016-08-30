@@ -172,6 +172,18 @@ void Level::update(GameScreen* gs)
     
     if (!m_hasShownOpeningSequence)
     {
+		if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
+		{
+			m_hasShownOpeningSequence = true;
+			m_hasOpeningSequenceCompleted = true;
+
+			updateCamera(gs, 0, false, true);
+
+			Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+
+			return;
+		}
+
         gs->m_renderer->beginOpeningPanningSequence(*m_game);
         
         m_hasShownOpeningSequence = true;
