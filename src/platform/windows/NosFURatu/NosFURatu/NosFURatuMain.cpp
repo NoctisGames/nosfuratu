@@ -41,7 +41,6 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_sounds.push_back("jump_spring.wav");
 	m_sounds.push_back("landing_grass.wav");
 	m_sounds.push_back("landing_cave.wav");
-	m_sounds.push_back("destroy_rock.wav");
 	m_sounds.push_back("snake_death.wav");
 	m_sounds.push_back("trigger_transform.wav");
 	m_sounds.push_back("cancel_transform.wav");

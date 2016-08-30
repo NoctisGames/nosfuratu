@@ -525,7 +525,6 @@
                                     @"jump_spring.wav",
                                     @"landing_grass.wav",
                                     @"landing_cave.wav",
-                                    @"destroy_rock.wav",
                                     @"snake_death.wav",
                                     @"trigger_transform.wav",
                                     @"cancel_transform.wav",

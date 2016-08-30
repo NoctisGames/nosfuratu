@@ -127,7 +127,6 @@
 		BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C841C626E41006D945A /* collect_golden_carrot.wav */; };
 		BB939CDA1C626E41006D945A /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C851C626E41006D945A /* complete_transform.wav */; };
 		BB939CDB1C626E41006D945A /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C861C626E41006D945A /* death.wav */; };
-		BB939CDC1C626E41006D945A /* destroy_rock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C871C626E41006D945A /* destroy_rock.wav */; };
 		BB939CDD1C626E41006D945A /* footstep_left_cave.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C881C626E41006D945A /* footstep_left_cave.wav */; };
 		BB939CDE1C626E41006D945A /* footstep_left_grass.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C891C626E41006D945A /* footstep_left_grass.wav */; };
 		BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C8A1C626E41006D945A /* footstep_right_cave.wav */; };
@@ -468,7 +467,6 @@
 		BB939C841C626E41006D945A /* collect_golden_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_golden_carrot.wav; sourceTree = "<group>"; };
 		BB939C851C626E41006D945A /* complete_transform.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = complete_transform.wav; sourceTree = "<group>"; };
 		BB939C861C626E41006D945A /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
-		BB939C871C626E41006D945A /* destroy_rock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = destroy_rock.wav; sourceTree = "<group>"; };
 		BB939C881C626E41006D945A /* footstep_left_cave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footstep_left_cave.wav; sourceTree = "<group>"; };
 		BB939C891C626E41006D945A /* footstep_left_grass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footstep_left_grass.wav; sourceTree = "<group>"; };
 		BB939C8A1C626E41006D945A /* footstep_right_cave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footstep_right_cave.wav; sourceTree = "<group>"; };
@@ -905,7 +903,6 @@
 				BB939C841C626E41006D945A /* collect_golden_carrot.wav */,
 				BB939C851C626E41006D945A /* complete_transform.wav */,
 				BB939C861C626E41006D945A /* death.wav */,
-				BB939C871C626E41006D945A /* destroy_rock.wav */,
 				BBB73A221D5D655900099987 /* final_boss_bgm_intro.wav */,
 				BBB73A231D5D655900099987 /* final_boss_bgm.wav */,
 				BB939C881C626E41006D945A /* footstep_left_cave.wav */,
@@ -1576,7 +1573,6 @@
 				BB939CE01C626E41006D945A /* footstep_right_grass.wav in Resources */,
 				BBC99DC11CC562E400F9E2EB /* mid_boss_owl_death.wav in Resources */,
 				BBC38DF11CA03E80001B178C /* c_world_1_mid_boss_part_2.png in Resources */,
-				BB939CDC1C626E41006D945A /* destroy_rock.wav in Resources */,
 				BB264FF71C8F546E0091EA96 /* world_map_screen.png in Resources */,
 				BBC38DE91CA03E80001B178C /* c_jon.png in Resources */,
 				BB939CE81C626E41006D945A /* landing_grass.wav in Resources */,

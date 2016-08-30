@@ -95,7 +95,6 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("jump_spring.wav"));
         _sounds.add(_audio.newSound("landing_grass.wav"));
         _sounds.add(_audio.newSound("landing_cave.wav"));
-        _sounds.add(_audio.newSound("destroy_rock.wav"));
         _sounds.add(_audio.newSound("snake_death.wav"));
         _sounds.add(_audio.newSound("trigger_transform.wav"));
         _sounds.add(_audio.newSound("cancel_transform.wav"));
