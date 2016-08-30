@@ -45,6 +45,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         
         WorldMap* wm = WorldMap::getInstance();
         gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+        gs->m_renderer->renderWorldMapScreenUi(*wm);
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
@@ -178,6 +179,7 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
         
         WorldMap* wm = WorldMap::getInstance();
         gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+        gs->m_renderer->renderWorldMapScreenUi(*wm);
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
@@ -296,6 +298,7 @@ WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
 void WorldMapToOpeningCutscene::enter(GameScreen* gs)
 {
     m_fTransitionStateTime = -1;
+    m_fFade = 0;
     OpeningCutscene::getInstance()->enter(gs);
 }
 
@@ -305,7 +308,12 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
+        m_fFade += gs->m_fDeltaTime;
+        
+        WorldMap::getInstance()->setFade(m_fFade);
+        
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -322,6 +330,11 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
     }
     else
     {
+        if (m_fFade < 1)
+        {
+            return;
+        }
+        
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
@@ -344,7 +357,7 @@ void WorldMapToOpeningCutscene::exit(GameScreen* gs)
     m_fTransitionStateTime = -1;
 }
 
-WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0)
+WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0), m_fFade(0)
 {
     // Empty
 }
@@ -361,6 +374,7 @@ WorldMapToLevel * WorldMapToLevel::getInstance()
 void WorldMapToLevel::enter(GameScreen* gs)
 {
     m_fTransitionStateTime = -1;
+    m_fFade = 0;
     
     switch (m_iWorldToLoad)
     {
@@ -739,7 +753,12 @@ void WorldMapToLevel::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
+        m_fFade += gs->m_fDeltaTime;
+        
+        WorldMap::getInstance()->setFade(m_fFade);
+        
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -758,6 +777,11 @@ void WorldMapToLevel::execute(GameScreen* gs)
     }
     else
     {
+        if (m_fFade < 1)
+        {
+            return;
+        }
+        
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
@@ -820,6 +844,7 @@ m_levelState(nullptr),
 m_fCenterX(0),
 m_fCenterY(0),
 m_fTransitionStateTime(0),
+m_fFade(0),
 m_iWorldToLoad(0),
 m_iLevelToLoad(0),
 m_iBestScore(0),

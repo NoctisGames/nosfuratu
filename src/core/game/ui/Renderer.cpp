@@ -640,7 +640,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, BatPanel* batPanel, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots)
+void Renderer::renderWorldMapScreenUi(WorldMap& wm)
 {
     if (m_world_map_screen.gpuTextureWrapper == nullptr)
     {
@@ -650,12 +650,10 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(abilitySlots, true);
-    renderPhysicalEntities(levelThumbnails, true);
-    renderPhysicalEntity(*gcm, Assets::getInstance()->get(gcm), true);
-    renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
-    renderPhysicalEntity(*leaderBoardsButton, Assets::getInstance()->get(leaderBoardsButton), true);
-    renderPhysicalEntity(*viewOpeningCutsceneButton, Assets::getInstance()->get(viewOpeningCutsceneButton), true);
+    renderPhysicalEntitiesWithColor(wm.getAbilitySlots(), true);
+    renderPhysicalEntitiesWithColor(wm.getLevelThumbnails(), true);
+    renderPhysicalEntityWithColor(*wm.getGoldenCarrotsMarker(), Assets::getInstance()->get(wm.getGoldenCarrotsMarker()), wm.getGoldenCarrotsMarker()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
     m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
     
     static float fgWidth = CAM_WIDTH / 40;
@@ -667,7 +665,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
         static Color fontColor = Color(1, 1, 1, 1);
         
         std::stringstream ss;
-        ss << numCollectedGoldenCarrots;
+        ss << wm.getNumCollectedGoldenCarrots();
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT * 0.79084967320261f, fgWidth, fgHeight, fontColor, true);
     }
@@ -675,6 +673,7 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     {
         std::stringstream ss;
         
+        ScoreMarker* sm = wm.getScoreMarker();
         // the number is converted to string with the help of stringstream
         ss << sm->getScore();
         std::string paddedScore;
@@ -692,7 +691,22 @@ void Renderer::renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, st
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
     
-    renderBatPanel(batPanel);
+    renderBatPanel(wm.getBatPanel());
+}
+
+void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
+{
+    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    {
+        return;
+    }
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntityWithColor(*wm.getBackButton(), Assets::getInstance()->get(wm.getBackButton()), wm.getBackButton()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
+    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
 }
 
 void Renderer::renderWorld(Game& game)

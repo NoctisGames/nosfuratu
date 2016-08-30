@@ -11,6 +11,8 @@
 
 #include "PhysicalEntity.h"
 
+#include "Color.h"
+
 typedef enum
 {
     GameButtonType_BackToTitle,
@@ -29,8 +31,11 @@ public:
     
     GameButtonType getType();
     
+    Color& getColor() { return m_color; }
+    
 private:
     GameButtonType m_type;
+    Color m_color;
 };
 
 #endif /* defined(__nosfuratu__GameButton__) */

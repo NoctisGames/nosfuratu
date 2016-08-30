@@ -49,6 +49,7 @@ public:
     static LevelThumbnail* create(LevelThumbnailType type);
     
     LevelThumbnail(float x, float y, float width, float height, float selectTime, float clearTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
+    m_color(1, 1, 1, 1),
     m_type(type),
     m_fSelectTime(selectTime),
     m_fClearTime(clearTime),
@@ -94,6 +95,8 @@ public:
         }
     }
     
+    Color& getColor() { return m_color; }
+    
     int getWorld() { return m_iWorld; }
     
     int getLevel() { return m_iLevel; }
@@ -136,6 +139,7 @@ public:
     bool isCleared() { return m_isCleared; }
     
 private:
+    Color m_color;
     LevelThumbnailType m_type;
     float m_fSelectTime;
     float m_fClearTime;
@@ -164,6 +168,7 @@ class AbilitySlot : public PhysicalEntity
 {
 public:
     AbilitySlot(float x, float y, AbilitySlotType type) : PhysicalEntity(x, y, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.18627450980392f),
+    m_color(1, 1, 1, 1),
     m_type(type),
     m_isUnlocked(false),
     m_isUnlocking(false),
@@ -197,6 +202,8 @@ public:
         }
     }
     
+    Color& getColor() { return m_color; }
+    
     AbilitySlotType getType() { return m_type; }
     
     bool isUnlocked() { return m_isUnlocked; }
@@ -217,6 +224,7 @@ public:
     }
     
 private:
+    Color m_color;
     AbilitySlotType m_type;
     bool m_isUnlocked;
     bool m_isUnlocking;
@@ -226,7 +234,7 @@ private:
 class GoldenCarrotsMarker : public PhysicalEntity
 {
 public:
-    GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_iNumGoldenCarrots(0)
+    GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_color(1, 1, 1, 1), m_iNumGoldenCarrots(0)
     {
         // Empty
     }
@@ -245,9 +253,12 @@ public:
         m_fStateTime = 0;
     }
     
+    Color& getColor() { return m_color; }
+    
     int getNumGoldenCarrots() { return m_iNumGoldenCarrots; }
     
 private:
+    Color m_color;
     int m_iNumGoldenCarrots;
 };
 
@@ -282,7 +293,7 @@ public:
         m_color.alpha = 0;
     }
     
-    Color getColor() { return m_color; }
+    Color& getColor() { return m_color; }
     
     float getX() { return m_fX; }
     
@@ -310,13 +321,27 @@ public:
     
     void loadUserSaveData(const char* json);
     
+    void setFade(float fade); // 0 to 1, where 1 is complete fade
+    
     WorldMapPanel* getWorldMapPanel();
+    
+    std::vector<AbilitySlot*>& getAbilitySlots();
+    
+    GoldenCarrotsMarker* getGoldenCarrotsMarker();
+    
+    ScoreMarker* getScoreMarker();
+    
+    BatPanel* getBatPanel();
     
     std::vector<LevelThumbnail*>& getLevelThumbnails();
     
     GameButton* getBackButton();
     
     GameButton* getLeaderBoardsButton();
+    
+    GameButton* getViewOpeningCutsceneButton();
+    
+    int getNumCollectedGoldenCarrots();
     
     int getViewedCutsceneFlag();
     
@@ -336,6 +361,9 @@ private:
     int m_iViewedCutsceneFlag;
     bool m_isReadyForTransition;
     
+    LevelThumbnail* m_clickedLevel;
+    bool m_userHasClickedOpeningCutscene;
+    
     void loadGlobalUserSaveData(rapidjson::Document& d);
     
     void loadUserSaveDataForWorld(rapidjson::Document& d, const char * key);
@@ -343,6 +371,8 @@ private:
     void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
     
     void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score);
+    
+    void resetAlpha(float alpha);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();

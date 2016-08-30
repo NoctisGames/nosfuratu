@@ -14,6 +14,8 @@
 #include "RectangleBatcher.h"
 #include "TextureWrapper.h"
 
+#include "Color.h"
+
 #include <memory>
 #include <vector>
 #include <thread>
@@ -42,13 +44,12 @@ class GameButton;
 class GameScreenLevelEditor;
 class TitlePanel;
 class CutscenePanel;
+class WorldMap;
 class WorldMapPanel;
 class AbilitySlot;
 class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
-
-struct Color;
 
 class Renderer
 {
@@ -99,7 +100,9 @@ public:
     
     void renderWorldMapScreenBackground(WorldMapPanel* panel);
     
-    void renderWorldMapScreenUi(std::vector<AbilitySlot*> abilitySlots, std::vector<LevelThumbnail*>& levelThumbnails, GoldenCarrotsMarker* gcm, ScoreMarker* sm, BatPanel* batPanel, GameButton* backButton, GameButton* leaderBoardsButton, GameButton* viewOpeningCutsceneButton, int numCollectedGoldenCarrots);
+    void renderWorldMapScreenUi(WorldMap& wm);
+    
+    void renderWorldMapScreenButtons(WorldMap& wm);
     
     void renderWorld(Game& game);
     
@@ -236,13 +239,13 @@ private:
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<T*>& items)
+    void renderPhysicalEntitiesWithColor(std::vector<T*>& items, bool ignoreCamBounds = false)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(pItem), item.getColor());
+            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(pItem), item.getColor(), ignoreCamBounds);
         }
     }
     

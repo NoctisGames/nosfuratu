@@ -7,6 +7,7 @@
 //
 
 #include "GameScreenWorldMap.h"
+
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
@@ -15,6 +16,7 @@
 #include "GameScreenLevelEditor.h"
 #include "GameScreenTransitions.h"
 #include "GameScreenTitle.h"
+#include "MathUtil.h"
 
 /// World Map ///
 
@@ -52,6 +54,11 @@ void WorldMap::enter(GameScreen* gs)
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
     
     gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    
+    m_clickedLevel = nullptr;
+    m_userHasClickedOpeningCutscene = false;
+    
+    resetAlpha(1);
 }
 
 void WorldMap::execute(GameScreen* gs)
@@ -62,13 +69,15 @@ void WorldMap::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
+        gs->m_renderer->renderWorldMapScreenUi(*this);
+        
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
         else
         {
-            gs->m_renderer->renderWorldMapScreenUi(m_abilitySlots, m_levelThumbnails, m_goldenCarrotsMarker.get(), m_scoreMarker.get(), m_batPanel.get(), m_backButton.get(), m_leaderBoardsButton.get(), m_viewOpeningCutsceneButton.get(), m_iNumCollectedGoldenCarrots);
+            gs->m_renderer->renderWorldMapScreenButtons(*this);
         }
         
         gs->m_renderer->renderToScreen();
@@ -112,6 +121,8 @@ void WorldMap::execute(GameScreen* gs)
                     else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_viewOpeningCutsceneButton->getMainBounds()))
                     {
                         gs->m_stateMachine->changeState(WorldMapToOpeningCutscene::getInstance());
+                        m_userHasClickedOpeningCutscene = true;
+                        m_clickedLevel = nullptr;
                         return;
                     }
                     else
@@ -205,6 +216,21 @@ void WorldMap::exit(GameScreen* gs)
     m_isReadyForTransition = false;
 }
 
+void WorldMap::setFade(float fade)
+{
+    float alpha = 1 - fade;
+    alpha = clamp(alpha, 1, 0);
+    
+    resetAlpha(alpha);
+    
+    // Music Fade
+    
+    float musicVolume = alpha / 2;
+    
+    short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
+    Assets::getInstance()->setMusicId(musicId);
+}
+
 void WorldMap::loadUserSaveData(const char* json)
 {
     m_worldLevelStats.clear();
@@ -277,14 +303,34 @@ void WorldMap::loadUserSaveData(const char* json)
     }
 }
 
-std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
-{
-    return m_levelThumbnails;
-}
-
 WorldMapPanel* WorldMap::getWorldMapPanel()
 {
     return m_panel.get();
+}
+
+std::vector<AbilitySlot*>& WorldMap::getAbilitySlots()
+{
+    return m_abilitySlots;
+}
+
+GoldenCarrotsMarker* WorldMap::getGoldenCarrotsMarker()
+{
+    return m_goldenCarrotsMarker.get();
+}
+
+ScoreMarker* WorldMap::getScoreMarker()
+{
+    return m_scoreMarker.get();
+}
+
+BatPanel* WorldMap::getBatPanel()
+{
+    return m_batPanel.get();
+}
+
+std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
+{
+    return m_levelThumbnails;
 }
 
 GameButton* WorldMap::getBackButton()
@@ -295,6 +341,16 @@ GameButton* WorldMap::getBackButton()
 GameButton* WorldMap::getLeaderBoardsButton()
 {
     return m_leaderBoardsButton.get();
+}
+
+GameButton* WorldMap::getViewOpeningCutsceneButton()
+{
+    return m_viewOpeningCutsceneButton.get();
+}
+
+int WorldMap::getNumCollectedGoldenCarrots()
+{
+    return m_iNumCollectedGoldenCarrots;
 }
 
 int WorldMap::getViewedCutsceneFlag()
@@ -430,6 +486,8 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
     
     levelThumbnail->select();
     
+    m_clickedLevel = levelThumbnail;
+    
     m_goldenCarrotsMarker->config(1337, 1337, 0);
     
     m_scoreMarker->config(1337, 1337, 0);
@@ -463,11 +521,35 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
     }
 }
 
+void WorldMap::resetAlpha(float alpha)
+{
+    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    {
+        if ((*j) != m_clickedLevel)
+        {
+            (*j)->getColor().alpha = alpha;
+        }
+    }
+    
+    if (!m_clickedLevel)
+    {
+        m_goldenCarrotsMarker->getColor().alpha = alpha;
+        m_scoreMarker->getColor().alpha = alpha;
+    }
+    
+    if (!m_userHasClickedOpeningCutscene)
+    {
+        m_viewOpeningCutsceneButton->getColor().alpha = alpha;
+    }
+}
+
 WorldMap::WorldMap() :
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
 m_iViewedCutsceneFlag(0),
-m_isReadyForTransition(false)
+m_isReadyForTransition(false),
+m_clickedLevel(nullptr),
+m_userHasClickedOpeningCutscene(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());

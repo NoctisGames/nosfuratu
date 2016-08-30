@@ -173,6 +173,7 @@ void Chapter1Level10::update(GameScreen* gs)
             
             if (m_fIdleWaitTime > 1.0f)
             {
+                m_iLastKnownJonNumBoosts = jon.getNumBoosts();
                 m_midBossOwl->awaken();
             }
         }

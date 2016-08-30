@@ -109,6 +109,7 @@ public:
     virtual void exit(GameScreen* gs);
     
 private:
+    float m_fFade;
     float m_fTransitionStateTime;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
@@ -141,6 +142,7 @@ private:
     float m_fCenterX;
     float m_fCenterY;
     float m_fTransitionStateTime;
+    float m_fFade;
     int m_iWorldToLoad;
     int m_iLevelToLoad;
     

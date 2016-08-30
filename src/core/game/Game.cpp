@@ -404,6 +404,8 @@ std::vector<Marker *>& Game::getMarkers()
 void Game::setBestLevelStatsFlag(int bestLevelStatsFlag)
 {
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
+    
+    configureGoldenCarrots();
 }
 
 int Game::getBestLevelStatsFlag()
@@ -524,6 +526,15 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
     
+    configureGoldenCarrots();
+    
+    calcFarRight();
+    
+    m_isLoaded = true;
+}
+
+void Game::configureGoldenCarrots()
+{
     int index = 0;
     for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
     {
@@ -533,8 +544,4 @@ void Game::onLoaded()
             gc->init(index++, m_iBestLevelStatsFlag);
         }
     }
-    
-    calcFarRight();
-    
-    m_isLoaded = true;
 }

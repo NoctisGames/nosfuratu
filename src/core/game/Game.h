@@ -238,6 +238,8 @@ private:
     }
     
     void onLoaded();
+    
+    void configureGoldenCarrots();
 };
 
 #endif /* defined(__nosfuratu__Game__) */
