@@ -63,9 +63,9 @@ public final class GameRenderer implements Renderer
 
     //// Sound Definitions ////
 
-    private static final short SOUND_JON_VAMPIRE_GLIDE = 21;
-    private static final short SOUND_SPARROW_FLY = 24;
-    private static final short SOUND_SAW_GRIND = 28;
+    private static final short SOUND_JON_VAMPIRE_GLIDE = 20;
+    private static final short SOUND_SPARROW_FLY = 23;
+    private static final short SOUND_SAW_GRIND = 27;
     private static final short STOP_SOUND_JON_VAMPIRE_GLIDE = SOUND_JON_VAMPIRE_GLIDE + 1000;
     private static final short STOP_SOUND_SPARROW_FLY = SOUND_SPARROW_FLY + 1000;
     private static final short STOP_SOUND_SAW_GRIND = SOUND_SAW_GRIND + 1000;
