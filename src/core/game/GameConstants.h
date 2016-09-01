@@ -157,6 +157,8 @@
 #define FLAG_ABILITY_VAMPIRE_LEFT 64
 #define FLAG_ABILITY_VAMPIRE_DOWN 128
 
+#define FLAG_ABILITY_ALL 255
+
 //// Flag Cutscene Definitions ////
 
 #define FLAG_CUTSCENE_VIEWED_OPENING 1

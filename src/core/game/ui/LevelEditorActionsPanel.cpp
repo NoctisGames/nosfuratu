@@ -11,7 +11,7 @@
 #include "GameConstants.h"
 #include "OverlapTester.h"
 
-LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(1), m_showBounds(false), m_isOpen(false)
+LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(4), m_showBounds(true), m_isOpen(false)
 {
     m_toggleBoundsButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.09118086696562f));
     m_markerButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.09908256880734f, height * 0.76382660687593f, width * 0.68990825688073f, height * 0.09118086696562f));

@@ -1311,7 +1311,79 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 		// Render World/Level Info
 
 		m_spriteBatcher->beginBatch();
-		m_font->renderText(*m_spriteBatcher, text_string, CAM_WIDTH / 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_font->renderText(*m_spriteBatcher, text_string, CAM_WIDTH - 4, CAM_HEIGHT - fgHeight / 2, fgWidth / 2, fgHeight / 2, fontColor, true);
+		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+	}
+
+	static TextureRegion xTr = TextureRegion(256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+
+	{
+		static Color fontColor = Color(1, 1, 1, 1);
+		static float fgWidth = CAM_WIDTH / 32;
+		static float fgHeight = fgWidth * 1.171875f;
+
+		float textY = CAM_HEIGHT - fgHeight;
+
+		if (m_world_1_objects.gpuTextureWrapper)
+		{
+			static GameHudCarrot uiCarrot = GameHudCarrot(false);
+			static GameHudCarrot uiGoldenCarrot = GameHudCarrot(true);
+
+			uiGoldenCarrot.getPosition().set(2.7f, textY);
+			uiGoldenCarrot.setWidth(fgWidth);
+			uiGoldenCarrot.setHeight(fgHeight);
+
+			uiCarrot.getPosition().set(4.3f, textY);
+			uiCarrot.setWidth(fgWidth);
+			uiCarrot.setHeight(fgHeight);
+
+			m_spriteBatcher->beginBatch();
+			renderPhysicalEntity(uiGoldenCarrot, Assets::getInstance()->get(&uiGoldenCarrot), true);
+			renderPhysicalEntity(uiCarrot, Assets::getInstance()->get(&uiCarrot), true);
+			m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+		}
+
+		int numCarrots = 0;
+		int numGoldenCarrots = 0;
+		for (
+			std::vector<CollectibleItem *>::iterator i = gameScreenLevelEditor->getGame().getCollectibleItems().begin();
+			i != gameScreenLevelEditor->getGame().getCollectibleItems().end();
+			i++)
+		{
+			if ((*i)->getType() == CollectibleItemType_Carrot)
+			{
+				numCarrots++;
+			}
+			else if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
+			{
+				numGoldenCarrots++;
+			}
+		}
+
+		m_spriteBatcher->beginBatch();
+
+		/// Render Num Golden Carrots Added
+
+		{
+			m_spriteBatcher->drawSprite(2.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+
+			std::stringstream ss;
+			ss << numGoldenCarrots;
+			std::string text = ss.str();
+			m_font->renderText(*m_spriteBatcher, text, 3.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+		}
+
+		/// Render Num Carrots Added
+
+		{
+			m_spriteBatcher->drawSprite(4.54f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+
+			std::stringstream ss;
+			ss << numCarrots;
+			std::string text = ss.str();
+			m_font->renderText(*m_spriteBatcher, text, 4.94f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+		}
+
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
 }

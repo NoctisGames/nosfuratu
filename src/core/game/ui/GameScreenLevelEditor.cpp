@@ -384,6 +384,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     if (isLevelValid(gs))
                     {
                         Level::getInstance()->setSourceGame(m_game.get());
+						Level::getInstance()->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
                         gs->m_stateMachine->changeState(Level::getInstance());
 						return;
                     }

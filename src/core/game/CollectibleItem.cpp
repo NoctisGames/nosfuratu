@@ -26,6 +26,12 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_iCollectSoundId(collectSoundId), m_isCollected(false)
 {
     updateBounds();
+
+	static float stateTimeSeed = 0;
+
+	m_fStateTime = stateTimeSeed;
+
+	stateTimeSeed += 0.08f;
 }
 
 void CollectibleItem::update(float deltaTime)

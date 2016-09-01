@@ -410,7 +410,7 @@ public:
 class SpikeStar : public DeadlyObject
 {
 public:
-    SpikeStar(int gridX, int gridY) : DeadlyObject(gridX, gridY, 14, 14, ForegroundObjectType_SpikeStar, GROUND_SOUND_NONE, 0, 0, 0.65f, 0.65f) {}
+    SpikeStar(int gridX, int gridY) : DeadlyObject(gridX, gridY, 14, 14, ForegroundObjectType_SpikeStar, GROUND_SOUND_NONE, 0.18f, 0.18f, 0.64f, 0.64f) {}
 };
 
 class VerticalSaw : public DeadlyObject
