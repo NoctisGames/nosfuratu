@@ -10,7 +10,9 @@
 #define __nosfuratu__CollectibleItem__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "Assets.h"
+#include "Color.h"
 
 typedef enum
 {
@@ -27,14 +29,19 @@ public:
     
     virtual void update(float deltaTime);
     
+    virtual void onCollected() = 0;
+    
     void collect();
     
     bool isCollected();
     
     CollectibleItemType getType();
     
-private:
+    Color& getColor() { return m_color; }
+    
+protected:
     CollectibleItemType m_type;
+    Color m_color;
     int m_iCollectSoundId;
     bool m_isCollected;
 };
@@ -43,12 +50,20 @@ class Carrot : public CollectibleItem
 {
 public:
     Carrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 7, SOUND_COLLECT_CARROT, CollectibleItemType_Carrot) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual void onCollected();
 };
 
 class GoldenCarrot : public CollectibleItem
 {
 public:
     GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual void onCollected();
     
     void init(int index, int bestLevelStatsFlag);
     

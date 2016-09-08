@@ -134,6 +134,8 @@ public:
     
     bool isSelected() { return m_isSelected; }
     
+    void onConfirm() { m_fStateTime = 0; }
+    
     bool isClearing() { return m_isClearing; }
     
     bool isCleared() { return m_isCleared; }
@@ -257,6 +259,8 @@ public:
     
     int getNumGoldenCarrots() { return m_iNumGoldenCarrots; }
     
+    void onConfirm() { update(1337); }
+    
 private:
     Color m_color;
     int m_iNumGoldenCarrots;
@@ -300,6 +304,8 @@ public:
     float getY() { return m_fY; }
     
     int getScore() { return m_iScore; }
+    
+    void onConfirm() { update(1337); }
     
 private:
     Color m_color;

@@ -9,6 +9,8 @@
 #ifndef MathUtil_h
 #define MathUtil_h
 
+#include <math.h>
+
 inline float clamp(float x, float upper, float lower)
 {
     return fminf(upper, fmaxf(x, lower));

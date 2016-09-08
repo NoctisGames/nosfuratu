@@ -709,7 +709,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_RockSmall:
         {
-            static TextureRegion tr = createTextureRegion(0, 3236, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(2004, 3588, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockSmallCracked:
@@ -1122,8 +1122,16 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
     {
         case CollectibleItemType_Carrot:
         {
-            static Animation anim = createAnimation(884, 1054, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
-            return anim.getTextureRegion(collectibleItem->getStateTime());
+            if (collectibleItem->isCollected())
+            {
+                static Animation anim = createAnimation(0, 3204, 218, 224, 1744, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 8);
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
+            else
+            {
+                static Animation anim = createAnimation(884, 1054, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
         }
         case CollectibleItemType_GoldenCarrot:
         {
@@ -1136,8 +1144,16 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             }
             else
             {
-                static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
-                return anim.getTextureRegion(collectibleItem->getStateTime());
+                if (collectibleItem->isCollected())
+                {
+                    static Animation anim = createAnimation(0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
+                    return anim.getTextureRegion(collectibleItem->getStateTime());
+                }
+                else
+                {
+                    static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+                    return anim.getTextureRegion(collectibleItem->getStateTime());
+                }
             }
         }
     }
@@ -1174,11 +1190,11 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation pushedBackAnim = createAnimation(512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
         static Animation idleAnim = createAnimation(0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.125f, 8);
         static Animation runningAnim = createAnimation(0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.056f, 10);
-        static Animation upwardThrustAnim = createAnimation(768, 512, 256, 512, 1280, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 10);
-        static Animation dashAnim = createAnimation(2048, 0, 512, 256, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 14);
+        static Animation upwardThrustAnim = createAnimation(0, 3072, 256, 512, 1536, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.04545454545455f, 11);
+        static Animation dashAnim = createAnimation(768, 512, 768, 256, 3072, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 14);
         if (!dashAnim.hasFrameTimes())
         {
-            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.1f);
+            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.7f, 0.1f);
         }
         static Animation doubleJumpingAnim = createAnimation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 6);
         static Animation glidingAnim = createAnimation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 2);
@@ -1197,6 +1213,11 @@ TextureRegion& Assets::get(Jon* jon)
             case ABILITY_UPWARD_THRUST:
                 return upwardThrustAnim.getTextureRegion(jon->getActionStateTime());
             case ABILITY_DASH:
+                if (jon->getAbilityStateTime() > 0.5f && jon->isFalling())
+                {
+                    return fallingAnim.getTextureRegion(jon->getStateTime());
+                }
+                
                 return dashAnim.getTextureRegion(jon->getAbilityStateTime());
             case ABILITY_NONE:
             default:

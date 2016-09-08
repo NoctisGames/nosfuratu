@@ -61,6 +61,8 @@ public:
     
     bool isUpwardThrustEffective(float deltaTime);
     
+    bool isDashEffective(float deltaTime);
+    
     std::vector<Background *>& getBackgroundUppers();
     
     std::vector<Background *>& getBackgroundMids();

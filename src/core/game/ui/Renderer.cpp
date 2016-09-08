@@ -796,7 +796,7 @@ void Renderer::renderWorld(Game& game)
         renderPhysicalEntity(shadow, Assets::getInstance()->get(&shadow));
     }
     
-    renderPhysicalEntities(game.getCollectibleItems());
+    renderPhysicalEntitiesWithColor(game.getCollectibleItems());
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     

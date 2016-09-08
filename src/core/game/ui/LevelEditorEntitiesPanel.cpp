@@ -122,7 +122,6 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(new RockLarge(0, 0));
         m_foregroundObjects.push_back(new RockMedium(0, 0));
         m_foregroundObjects.push_back(new RockSmall(0, 0));
-        m_foregroundObjects.push_back(new RockSmallCracked(0, 0));
         
         m_foregroundObjects.push_back(new StumpBig(0, 0));
         m_foregroundObjects.push_back(new StumpSmall(0, 0));

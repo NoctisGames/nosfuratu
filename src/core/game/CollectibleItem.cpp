@@ -7,8 +7,10 @@
 //
 
 #include "CollectibleItem.h"
+
 #include "GameConstants.h"
 #include "FlagUtil.h"
+#include "MathUtil.h"
 
 CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 {
@@ -23,7 +25,7 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_iCollectSoundId(collectSoundId), m_isCollected(false)
+CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false)
 {
     updateBounds();
 
@@ -46,9 +48,9 @@ void CollectibleItem::collect()
         m_fStateTime = 0;
         m_isCollected = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(m_iCollectSoundId);
+        onCollected();
         
-        m_isRequestingDeletion = true;
+        Assets::getInstance()->addSoundIdToPlayQueue(m_iCollectSoundId);
     }
 }
 
@@ -60,6 +62,55 @@ bool CollectibleItem::isCollected()
 CollectibleItemType CollectibleItem::getType()
 {
     return m_type;
+}
+
+void Carrot::update(float deltaTime)
+{
+    CollectibleItem::update(deltaTime);
+    
+    if (m_isCollected)
+    {
+        if (m_fStateTime > 0.4f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+void Carrot::onCollected()
+{
+    m_fWidth = 1.916015625f;
+    m_fHeight = 1.96875f;
+}
+
+void GoldenCarrot::update(float deltaTime)
+{
+    CollectibleItem::update(deltaTime);
+    
+    if (m_isCollected)
+    {
+        if (m_isPreviouslyCollected)
+        {
+            m_color.alpha = 1 - (0.5f / m_fStateTime);
+            m_color.alpha = clamp(m_color.alpha, 1, 0);
+        }
+        
+        if (m_fStateTime > 0.55f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+void GoldenCarrot::onCollected()
+{
+    if (m_isPreviouslyCollected)
+    {
+        return;
+    }
+    
+    m_fWidth = 2.232421875f;
+    m_fHeight = 1.96875f;
 }
 
 void GoldenCarrot::init(int index, int bestLevelStatsFlag)

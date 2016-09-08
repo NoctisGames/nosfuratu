@@ -181,8 +181,6 @@ public:
     
     void beginWarmingUp();
     
-    float getGravity();
-    
     void consume(bool vampireDies = false);
     
     void kill();
@@ -208,7 +206,6 @@ private:
 	float m_fDefaultMaxSpeed;
     float m_fMaxSpeed;
 	float m_fAccelerationX;
-    float m_fGravity;
     int m_iNumTriggeredJumps;
     int m_iNumRabbitJumps;
     int m_iNumVampireJumps;

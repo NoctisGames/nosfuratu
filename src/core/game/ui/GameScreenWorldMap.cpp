@@ -175,6 +175,10 @@ void WorldMap::execute(GameScreen* gs)
                                 if ((*j)->isSelected())
                                 {
                                     m_isReadyForTransition = true;
+                                    
+                                    m_goldenCarrotsMarker->onConfirm();
+                                    (*j)->onConfirm();
+                                    m_scoreMarker->onConfirm();
                                 }
                                 else if ((*j)->isPlayable()
                                          && !(*j)->isSelecting())

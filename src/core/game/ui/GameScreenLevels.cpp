@@ -707,10 +707,12 @@ void Level::stopLoopingSounds()
 
 void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
 {
-    int numCarrots = 0;
     for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
     {
-        numCarrots++;
+        if ((*i)->isCollected())
+        {
+            continue;
+        }
         
         if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
         {
@@ -718,7 +720,6 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
             
             if (dynamic_cast<GoldenCarrot *>((*i)))
             {
-                numCarrots--;
                 GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
                 
                 m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
@@ -740,7 +741,6 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
             }
             else
             {
-                numCarrots--;
                 m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 1);
             }
         }
@@ -748,8 +748,7 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
     
     if (!FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
     {
-        if (m_game->getNumCarrotsCollected() >= 100
-            || numCarrots <= 0)
+        if (m_game->getNumCarrotsCollected() >= 100)
         {
             m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
             

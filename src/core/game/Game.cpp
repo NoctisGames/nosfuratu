@@ -295,10 +295,16 @@ bool Game::isBurrowEffective()
 
 bool Game::isUpwardThrustEffective(float deltaTime)
 {
-    return EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
+    return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
+    || EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getExtraForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getMidBossForegroundObjects(), deltaTime);
+}
+
+bool Game::isDashEffective(float deltaTime)
+{
+    return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime);
 }
 
 std::vector<Background *>& Game::getBackgroundUppers()
