@@ -91,13 +91,21 @@ void GoldenCarrot::update(float deltaTime)
     {
         if (m_isPreviouslyCollected)
         {
-            m_color.alpha = 1 - (0.5f / m_fStateTime);
-            m_color.alpha = clamp(m_color.alpha, 1, 0);
+            m_color.alpha = 1 - m_fStateTime * 2;
+            
+            if (m_color.alpha < 0)
+            {
+                m_color.alpha = 0;
+                
+                m_isRequestingDeletion = true;
+            }
         }
-        
-        if (m_fStateTime > 0.55f)
+        else
         {
-            m_isRequestingDeletion = true;
+            if (m_fStateTime > 0.55f)
+            {
+                m_isRequestingDeletion = true;
+            }
         }
     }
 }

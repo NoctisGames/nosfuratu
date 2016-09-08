@@ -170,12 +170,16 @@ void Jon::update(float deltaTime)
         
 		setState(ACTION_NONE);
 	}
-	else if (getNumJumps() == 0)
-	{
+    else
+    {
+        if (getNumJumps() == 0)
+        {
+            m_iNumRabbitJumps = m_iNumRabbitJumps == 0 ? 1 : m_iNumRabbitJumps;
+            m_iNumVampireJumps = m_iNumVampireJumps == 0 ? 1 : m_iNumVampireJumps;
+        }
+        
         m_acceleration->setY(GAME_GRAVITY);
-        m_iNumRabbitJumps = m_iNumRabbitJumps == 0 ? 1 : m_iNumRabbitJumps;
-        m_iNumVampireJumps = m_iNumVampireJumps == 0 ? 1 : m_iNumVampireJumps;
-	}
+    }
 
 	if (m_game->isJonBlockedVertically(deltaTime))
 	{
@@ -938,8 +942,6 @@ void Jon::Vampire::execute(Jon* jon)
     jon->m_fWidth = jon->m_iGridWidth * GRID_CELL_SIZE;
     jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
     
-    jon->m_acceleration->setY(GAME_GRAVITY);
-    
 	switch (jon->m_abilityState)
 	{
         case ABILITY_GLIDE:
@@ -1001,7 +1003,7 @@ void Jon::Vampire::execute(Jon* jon)
                 vDist = 1.5f -jon->m_fAbilityStateTime;
             }
             
-            if (jon->m_fAbilityStateTime > 1.5f)
+            if (jon->m_fAbilityStateTime > 1.6f)
             {
                 jon->setState(ABILITY_NONE);
             }
@@ -1019,6 +1021,8 @@ void Jon::Vampire::execute(Jon* jon)
         default:
             break;
 	}
+    
+    jon->updateBounds();
 
 	if (jon->m_physicalState == PHYSICAL_GROUNDED)
 	{

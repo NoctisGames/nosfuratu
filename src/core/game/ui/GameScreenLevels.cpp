@@ -380,7 +380,7 @@ void Level::update(GameScreen* gs)
                     EntityUtils::copyAndOffset(m_game->getMidBossForegroundObjects(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getCountHissWithMinas(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
-                    EntityUtils::copyAndOffset(m_game->getCollectibleItems(), beginGridX, endGridX);
+                    EntityUtils::offsetOnly(m_game->getCollectibleItems(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
                     
                     EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);

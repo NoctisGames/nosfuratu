@@ -47,6 +47,8 @@ public:
     
     float getAngle();
     
+    void log();
+    
 protected:
     std::unique_ptr<Vector2D> m_position;
     std::unique_ptr<Vector2D> m_velocity;
