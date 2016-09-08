@@ -87,6 +87,9 @@ void OpeningCutscene::execute(GameScreen* gs)
             
             if (m_fSkipTime > 2)
             {
+                gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
+                gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
+                
                 m_isRequestingNextState = true;
             }
         }

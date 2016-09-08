@@ -103,12 +103,7 @@ void WorldMap::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (!m_batPanel->isAcknowledged())
-                    {
-                        m_batPanel->handleTouch(*gs->m_touchPoint);
-                        return;
-                    }
-                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
+                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
                     {
                         gs->m_stateMachine->revertToPreviousState();
                     }
@@ -132,21 +127,17 @@ void WorldMap::execute(GameScreen* gs)
                             if ((*j)->isUnlocked()
                                 && OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
                             {
-                                BatPanelType bpt = BatPanelType_None;
-                                
                                 switch ((*j)->getType())
                                 {
                                     case AbilitySlotType_Drill:
-                                        bpt = BatPanelType_Burrow;
+                                        // TODO, show informative panel about Jon's Drill Ability
                                         break;
                                     case AbilitySlotType_Dash:
-                                        // TODO
+                                        // TODO, show informative panel about Jon's Dash Ability
                                         break;
                                     default:
                                         break;
                                 }
-                                
-                                m_batPanel->open(bpt);
                                 
                                 return;
                             }
@@ -191,13 +182,6 @@ void WorldMap::execute(GameScreen* gs)
                     
                     return;
             }
-        }
-        
-        m_batPanel->update(gs->m_fDeltaTime);
-        
-        if (!m_batPanel->isAcknowledged())
-        {
-            return;
         }
         
         for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
@@ -325,11 +309,6 @@ GoldenCarrotsMarker* WorldMap::getGoldenCarrotsMarker()
 ScoreMarker* WorldMap::getScoreMarker()
 {
     return m_scoreMarker.get();
-}
-
-BatPanel* WorldMap::getBatPanel()
-{
-    return m_batPanel.get();
 }
 
 std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
@@ -558,7 +537,6 @@ m_userHasClickedOpeningCutscene(false)
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
     m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
-    m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));

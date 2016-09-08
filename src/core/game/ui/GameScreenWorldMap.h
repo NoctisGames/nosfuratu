@@ -337,8 +337,6 @@ public:
     
     ScoreMarker* getScoreMarker();
     
-    BatPanel* getBatPanel();
-    
     std::vector<LevelThumbnail*>& getLevelThumbnails();
     
     GameButton* getBackButton();
@@ -355,7 +353,6 @@ private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
     std::unique_ptr<ScoreMarker> m_scoreMarker;
-    std::unique_ptr<BatPanel> m_batPanel;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
     std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;

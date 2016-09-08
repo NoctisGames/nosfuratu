@@ -690,8 +690,6 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
     }
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-    
-    renderBatPanel(wm.getBatPanel());
 }
 
 void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
@@ -1054,7 +1052,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
             paddedScore = "0" + paddedScore;
         }
         
-        m_font->renderText(*m_spriteBatcher, paddedScore, CAM_WIDTH * 0.47f, textY, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, paddedScore, CAM_WIDTH * 0.5f, textY, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Time
@@ -1062,13 +1060,13 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     {
         static TextureRegion clockTr = TextureRegion(512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
         
-        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
+        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.75f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         
         float seconds = game.getStateTime();
         
-        if (seconds > 599.999f)
+        if (seconds > 599.99f)
         {
-            seconds = 599.999f;
+            seconds = 599.99f;
         }
         
         int minutesLeft = 0;
@@ -1084,10 +1082,10 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
         {
             ss << "0";
         }
-        ss << std::fixed << std::setprecision(3) << seconds;
+        ss << std::fixed << std::setprecision(2) << seconds;
         std::string text = ss.str();
         
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH * 0.72f + fgWidth, textY, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH * 0.75f + fgWidth, textY, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Back Button
@@ -1591,39 +1589,46 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
 
 void Renderer::renderBatPanel(BatPanel *batPanel)
 {
-    if (m_vampire.gpuTextureWrapper)
+    if (!m_jon.gpuTextureWrapper
+        || !m_vampire.gpuTextureWrapper)
     {
-        updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+        // All Bat Bubbles require at least jon texture for the opening animation
+        // and the vampire texture for the bat poofing in animation
+        return;
+    }
+    
+    // TODO, if the instruction is Jump or Transform, require m_world_1_special
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    if (batPanel->isOpening())
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+        m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+    }
+    else if (batPanel->isOpen())
+    {
+        BatInstruction& batInstruction = batPanel->getBatInstruction();
         
-        if (batPanel->isOpening())
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
+        m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
+        if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
         {
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-        }
-        else if (batPanel->isOpen())
-        {
-            BatInstruction& batInstruction = batPanel->getBatInstruction();
-            
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-            
-            m_spriteBatcher->beginBatch();
-            renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
-            if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
+            if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
             {
-                if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
-                {
-                    m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
-                }
+                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
             }
-            else
+        }
+        else
+        {
+            if (m_world_1_special.gpuTextureWrapper)
             {
-                if (m_world_1_special.gpuTextureWrapper)
-                {
-                    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
-                }
+                m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
             }
         }
     }

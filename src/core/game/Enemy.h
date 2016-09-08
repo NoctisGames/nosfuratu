@@ -73,6 +73,7 @@ public:
 
 protected:
     Game* m_game;
+    Color m_color;
     bool m_isDying;
     bool m_isDead;
     
@@ -88,7 +89,6 @@ private:
     EnemySpirit* m_enemySpirit;
     EnemyType m_type;
     EnemySpiritType m_enemySpiritType;
-    Color m_color;
     float m_fEnemySpiritStateTime;
     float m_fXOfDeath;
     float m_fYOfDeath;
@@ -256,31 +256,61 @@ private:
 class MovingSnakeGruntV1 : public MovingSnakeGrunt
 {
 public:
-    MovingSnakeGruntV1(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, false, EnemyType_MovingSnakeGruntV1) {}
+    MovingSnakeGruntV1(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 2, 2, false, EnemyType_MovingSnakeGruntV1)
+    {
+        // Forest Green
+        m_color.red = 0.13333333333333f;
+        m_color.green = 0.54509803921569f;
+        m_color.blue = 0.13333333333333f;
+    }
 };
 
 class MovingSnakeGruntV2 : public MovingSnakeGrunt
 {
 public:
-    MovingSnakeGruntV2(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 5, 5, false, EnemyType_MovingSnakeGruntV2) {}
+    MovingSnakeGruntV2(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, false, EnemyType_MovingSnakeGruntV2)
+    {
+        // Jungle green Green
+        m_color.red = 0.16078431372549f;
+        m_color.green = 0.67058823529412f;
+        m_color.blue = 0.52941176470588f;
+    }
 };
 
 class MovingSnakeGruntV3 : public MovingSnakeGrunt
 {
 public:
-    MovingSnakeGruntV3(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 6, 6, false, EnemyType_MovingSnakeGruntV3) {}
+    MovingSnakeGruntV3(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, false, EnemyType_MovingSnakeGruntV3)
+    {
+        // Mantis Green
+        m_color.red = 0.45490196078431f;
+        m_color.green = 0.76470588235294f;
+        m_color.blue = 0.39607843137255f;
+    }
 };
 
 class MovingSnakeGruntV4 : public MovingSnakeGrunt
 {
 public:
-    MovingSnakeGruntV4(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 5, 5, true, EnemyType_MovingSnakeGruntV4) {}
+    MovingSnakeGruntV4(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, true, EnemyType_MovingSnakeGruntV4)
+    {
+        // Fire Brick Red
+        m_color.red = 0.69803921568627f;
+        m_color.green = 0.13333333333333f;
+        m_color.blue = 0.13333333333333f;
+    }
 };
 
 class MovingSnakeGruntV5 : public MovingSnakeGrunt
 {
 public:
-    MovingSnakeGruntV5(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 7, 7, true, EnemyType_MovingSnakeGruntV5) {}
+    MovingSnakeGruntV5(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, true, EnemyType_MovingSnakeGruntV5)
+    {
+        // Lust Red
+        m_color.red = 0.90196078431373f;
+        m_color.green = 0.12549019607843f;
+        m_color.blue = 0.12549019607843f;
+    }
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

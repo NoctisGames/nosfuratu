@@ -411,11 +411,24 @@ void Level::update(GameScreen* gs)
         {
             // Has Cleared the Level
             
-            m_iOnlineScore = m_iScore;
+            static float startingTime = 300.0f;
             
+            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
+            
+            m_iScoreFromTime = secondsLeft * 100;
+            
+            updateScore();
+    
             if (m_iScore < m_iBestScore)
             {
                 m_iScore = m_iBestScore;
+            }
+            
+            m_iOnlineScore = m_iScore;
+            
+            if (m_iOnlineScore > m_iBestOnlineScore)
+            {
+                // TODO, show Submit Highscore button
             }
             
             m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
@@ -447,14 +460,6 @@ void Level::update(GameScreen* gs)
             gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
             gs->m_iRequestedAction += m_game->getWorld() * 100;
             gs->m_iRequestedAction += m_game->getLevel();
-            
-            static float startingTime = 120.0f;
-            
-            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
-            
-            m_iScoreFromTime = secondsLeft * 1000;
-            
-            updateScore();
   
             m_fStateTime = 0;
 			gs->m_renderer->stopCamera();
