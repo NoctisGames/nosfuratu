@@ -143,7 +143,7 @@ void Chapter1Level10::update(GameScreen* gs)
             {
                 jon.setUserActionPrevented(true);
             }
-                
+            
             if (OverlapTester::doRectanglesOverlap(m_perchTree->getMainBounds(), jonBounds))
             {
                 if (jon.isTransformingIntoVampire())
@@ -160,7 +160,7 @@ void Chapter1Level10::update(GameScreen* gs)
                 jon.getVelocity().set(0, 0);
                 jon.setIdle(true);
                 
-                jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jonBounds.getWidth() / 2);
+                jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jon.getMainBounds().getWidth());
                 jon.updateBounds();
                 
                 m_isIdleWaitingForOwl = true;
