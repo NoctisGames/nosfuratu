@@ -29,7 +29,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual void onCollected() = 0;
+    virtual void onCollected();
     
     void collect();
     

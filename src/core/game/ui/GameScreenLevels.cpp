@@ -53,8 +53,6 @@ void Level::enter(GameScreen* gs)
         m_game->setBestLevelStatsFlag(m_iBestLevelStatsFlag);
         m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
         
-        m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
-        
         Jon& jon = m_game->getJon();
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
     }
@@ -202,12 +200,6 @@ void Level::update(GameScreen* gs)
         if (m_hasOpeningSequenceCompleted)
         {
             Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-            
-            BatPanelType bpt = getBatPanelType();
-            if (bpt != BatPanelType_None)
-            {
-                m_batPanel->open(bpt);
-            }
         }
         
         if (result == 2)
@@ -245,8 +237,6 @@ void Level::update(GameScreen* gs)
             return;
         }
         
-        m_batPanel->update(gs->m_fDeltaTime);
-        
         if (m_showDeathTransOut)
         {
             // Starting new game after death
@@ -283,11 +273,6 @@ void Level::update(GameScreen* gs)
         else
         {
             updateScore();
-            
-            if (!m_batPanel->isAcknowledged())
-            {
-                return;
-            }
             
             // Is Still Actively playing the Level
             
@@ -503,7 +488,7 @@ void Level::render(GameScreen* gs)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_batPanel.get(), m_iScore, gs->m_iFPS);
+        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_iScore, gs->m_iFPS);
     }
     
     if (jon.isDead())
@@ -566,7 +551,6 @@ bool Level::handleTouchInput(GameScreen* gs)
 {
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
-    bool isInstructionAcknowledged = m_batPanel->isAcknowledged();
     
     for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
     {
@@ -575,7 +559,7 @@ bool Level::handleTouchInput(GameScreen* gs)
         switch ((*i)->getTouchType())
         {
             case DOWN:
-                if (isJonAlive && isInstructionAcknowledged)
+                if (isJonAlive)
                 {
                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                     gs->m_isScreenHeldDown = true;
@@ -583,7 +567,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                 }
                 continue;
             case DRAGGED:
-                if (isJonAlive && !m_hasSwiped && isInstructionAcknowledged)
+                if (isJonAlive && !m_hasSwiped)
                 {
                     if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
                     {
@@ -629,12 +613,6 @@ bool Level::handleTouchInput(GameScreen* gs)
                     
                     return true;
                 }
-                else if (!isInstructionAcknowledged)
-                {
-                    m_batPanel->handleTouch(*gs->m_touchPoint);
-                    
-                    return false;
-                }
                 
                 if (isJonAlive)
                 {
@@ -661,33 +639,6 @@ bool Level::handleTouchInput(GameScreen* gs)
     }
     
     return false;
-}
-
-BatPanelType Level::getBatPanelType()
-{
-    if (FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
-    {
-        return BatPanelType_None;
-    }
-    
-    if (m_game->getWorld() == 1 && m_game->getLevel() == 1)
-    {
-        return BatPanelType_Jump;
-    }
-    else if (m_game->getWorld() == 1 && m_game->getLevel() == 2)
-    {
-        return BatPanelType_DoubleJump;
-    }
-    else if (m_game->getWorld() == 1 && m_game->getLevel() == 3)
-    {
-        return BatPanelType_Transform;
-    }
-    else if (m_game->getWorld() == 1 && m_game->getLevel() == 11)
-    {
-        return BatPanelType_Stomp;
-    }
-    
-    return BatPanelType_None;
 }
 
 void Level::updateScore()
@@ -792,7 +743,6 @@ m_iLastKnownJonAbilityFlag(0)
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
-    m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
 }
 
 /// Chapter 1 Level 1 ///

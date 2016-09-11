@@ -116,7 +116,7 @@ public:
     
     void renderBlackOverlay(float opacity);
     
-    void renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int score, int fps);
+    void renderHud(Game& game, GameButton* backButton, int score, int fps);
     
     void renderMarkers(Game& game);
     

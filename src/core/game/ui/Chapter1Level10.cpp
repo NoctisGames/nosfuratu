@@ -112,16 +112,6 @@ void Chapter1Level10::update(GameScreen* gs)
     
     if (m_midBossOwl->getState() == MidBossOwlState_Sleeping)
     {
-        if (!m_hasShownDrillPopup
-            && !m_batPanel->isOpening()
-            && !m_batPanel->isOpen()
-            && jon.getPosition().getX() > GRID_CELL_SIZE * 116
-            && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
-        {
-            m_batPanel->open(BatPanelType_Burrow);
-            m_hasShownDrillPopup = true;
-        }
-        
         if (jon.getNumBoosts() >= 1)
         {
             m_fMusicVolume -= gs->m_fDeltaTime / 8;
@@ -211,18 +201,6 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (m_midBossOwl->getStateTime() > 0.50f && jon.isIdle())
         {
-            if (m_iNumAttempts > 1)
-            {
-                if (!m_hasShownHintPopup
-                    && !m_batPanel->isOpening()
-                    && !m_batPanel->isOpen()
-                    && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
-                {
-                    m_batPanel->open(BatPanelType_OwlDig);
-                    m_hasShownHintPopup = true;
-                }
-            }
-            
             jon.setIdle(false);
             jon.setUserActionPrevented(false);
         }
@@ -299,19 +277,6 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             m_iLastKnownJonNumBoosts = jon.getNumBoosts();
             m_midBossOwl->beginPursuit();
-        }
-        
-        if (m_midBossOwl->getDamage() == 0
-            && m_midBossOwl->getStateTime() > 2)
-        {
-            if (!m_hasShownHintPopup
-                && !m_batPanel->isOpening()
-                && !m_batPanel->isOpen()
-                && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
-            {
-                m_batPanel->open(BatPanelType_OwlDig);
-                m_hasShownHintPopup = true;
-            }
         }
         
         if (jon.isIdle())

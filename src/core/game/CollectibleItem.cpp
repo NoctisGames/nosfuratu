@@ -41,6 +41,11 @@ void CollectibleItem::update(float deltaTime)
     PhysicalEntity::update(deltaTime);
 }
 
+void CollectibleItem::onCollected()
+{
+    // Override in Subclass
+}
+
 void CollectibleItem::collect()
 {
     if (!m_isCollected)

@@ -11,7 +11,6 @@
 
 #include "State.h"
 #include "GameButton.h"
-#include "BatPanel.h"
 #include "OverlapTester.h"
 #include "CollectibleItem.h"
 #include "FlagUtil.h"
@@ -57,7 +56,6 @@ protected:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<GameButton> m_backButton;
-    std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
     bool m_isReleasingShockwave;
     float m_fShockwaveCenterX;
@@ -104,8 +102,6 @@ protected:
     Level& operator=(const Level&);
     
 private:
-    BatPanelType getBatPanelType();
-    
     void updateScore();
     
     void stopLoopingSounds();

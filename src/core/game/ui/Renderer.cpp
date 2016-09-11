@@ -980,7 +980,7 @@ void Renderer::renderBlackOverlay(float opacity)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel, int score, int fps)
+void Renderer::renderHud(Game& game, GameButton* backButton, int score, int fps)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -1096,10 +1096,6 @@ void Renderer::renderHud(Game& game, GameButton* backButton, BatPanel* batPanel,
     }
 
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-    
-    // renderDebugInfo(game, fps);
-    
-    renderBatPanel(batPanel);
 }
 
 void Renderer::renderMarkers(Game& game)
