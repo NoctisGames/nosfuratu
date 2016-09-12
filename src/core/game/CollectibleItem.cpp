@@ -124,6 +124,7 @@ void GoldenCarrot::onCollected()
     
     m_fWidth = 2.232421875f;
     m_fHeight = 1.96875f;
+    m_position->sub(0, 0.32f);
 }
 
 void GoldenCarrot::init(int index, int bestLevelStatsFlag)

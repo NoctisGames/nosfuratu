@@ -8,6 +8,7 @@
 
 #include "GameScreen.h"
 #include "GameScreenTitle.h"
+#include "GameScreenWorldMap.h"
 #include "GameScreenLevels.h"
 #include "Game.h"
 
@@ -39,7 +40,9 @@ m_wasPaused(false)
 
 void GameScreen::onResume()
 {
-    if (m_wasPaused && dynamic_cast<Title*>(m_stateMachine->getCurrentState()))
+    if (m_wasPaused &&
+        (dynamic_cast<Title*>(m_stateMachine->getCurrentState())
+         || dynamic_cast<WorldMap*>(m_stateMachine->getCurrentState())))
     {
         Assets::getInstance()->setMusicId(MUSIC_RESUME);
     }

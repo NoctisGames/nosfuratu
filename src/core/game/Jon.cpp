@@ -709,19 +709,34 @@ void Jon::Rabbit::execute(Jon* jon)
         {
             jon->m_velocity->setX(0);
             jon->m_acceleration->setX(0);
+            jon->m_acceleration->setY(0);
             
             if (jon->m_fAbilityStateTime > 0.35f)
             {
                 jon->m_acceleration->setY(GAME_GRAVITY * 3.5f);
                 
-                if (jon->m_isLanding)
-                {
-                    jon->m_isRollLanding = true;
-                }
+                bool wasBurrowEffective = jon->m_isBurrowEffective;
+                jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();
                 
-                if (jon->m_physicalState == PHYSICAL_GROUNDED)
+                if (jon->m_isBurrowEffective && !wasBurrowEffective)
                 {
-                    jon->setState(ABILITY_NONE);
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
+                    jon->setState(ABILITY_BURROW);
+                    jon->m_fAbilityStateTime = 0.18f;
+                    jon->m_velocity->setY(0);
+                    jon->m_acceleration->setY(GAME_GRAVITY);
+                }
+                else
+                {
+                    if (jon->m_isLanding)
+                    {
+                        jon->m_isRollLanding = true;
+                    }
+                    
+                    if (jon->m_physicalState == PHYSICAL_GROUNDED)
+                    {
+                        jon->setState(ABILITY_NONE);
+                    }
                 }
             }
         }

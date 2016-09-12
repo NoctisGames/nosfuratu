@@ -51,9 +51,9 @@ public:
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
-    bool isJonHittingHorizontally(Jon& jon, float deltaTime);
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
     
-    bool isJonHittingFromBelow(Jon& jon, float deltaTime);
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
     
     virtual void onDeletion();
     
@@ -101,6 +101,10 @@ public:
     Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND), m_isBeingBouncedOn(false), m_isBouncingBack(false) {}
     
     virtual void handleAlive(float deltaTime);
+    
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime) { return false; };
+    
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime) { return false; };
     
     bool isBeingBouncedOn() { return m_isBeingBouncedOn; }
     bool isBouncingBack() { return m_isBouncingBack; }

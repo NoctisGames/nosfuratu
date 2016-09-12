@@ -221,9 +221,13 @@ void Enemy::handleDying(float deltaTime)
 
 void Enemy::handleDead(float deltaTime)
 {
-    m_fEnemySpiritStateTime += deltaTime;
     m_color.alpha -= deltaTime * 2;
+    if (m_color.alpha < 0)
+    {
+        m_color.alpha = 0;
+    }
     
+    m_fEnemySpiritStateTime += deltaTime;
     if (m_fEnemySpiritStateTime > 1.00f)
     {
         m_isRequestingDeletion = true;
