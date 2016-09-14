@@ -116,7 +116,9 @@ public:
     
     void renderBlackOverlay(float opacity);
     
-    void renderHud(Game& game, GameButton* backButton, int score, int fps);
+    void renderHud(Game& game, GameButton* backButton, int score);
+
+	void renderDebugInfo(Game& game, int fps);
     
     void renderMarkers(Game& game);
     
@@ -267,8 +269,6 @@ private:
     }
     
     void renderBatPanel(BatPanel* batPanel);
-    
-    void renderDebugInfo(Game& game, int fps);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     

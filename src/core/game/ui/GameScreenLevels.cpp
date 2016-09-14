@@ -488,8 +488,13 @@ void Level::render(GameScreen* gs)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_iScore, gs->m_iFPS);
+        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_iScore);
     }
+
+	if (m_isDebugMode)
+	{
+		gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
+	}
     
     if (jon.isDead())
     {
@@ -738,7 +743,8 @@ m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
-m_iLastKnownJonAbilityFlag(0)
+m_iLastKnownJonAbilityFlag(0),
+m_isDebugMode(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

@@ -385,6 +385,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     {
                         Level::getInstance()->setSourceGame(m_game.get());
 						Level::getInstance()->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
+						Level::getInstance()->setIsDebugMode(true);
                         gs->m_stateMachine->changeState(Level::getInstance());
 						return;
                     }
