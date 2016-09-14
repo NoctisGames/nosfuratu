@@ -71,6 +71,10 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("level_complete.wav");
     m_sounds.push_back("title_lightning_1.wav");
     m_sounds.push_back("title_lightning_2.wav");
+    m_sounds.push_back("ability_unlock.wav");
+    m_sounds.push_back("boss_level_clear.wav");
+    m_sounds.push_back("level_clear.wav");
+    m_sounds.push_back("level_selected.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()

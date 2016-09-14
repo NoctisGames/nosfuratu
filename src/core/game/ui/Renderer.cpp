@@ -93,6 +93,7 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_background_upper);
     m_textureWrappers.push_back(&m_world_1_cutscene_1);
     m_textureWrappers.push_back(&m_world_1_cutscene_2);
+    m_textureWrappers.push_back(&m_world_1_end_boss_part_1);
     m_textureWrappers.push_back(&m_world_1_enemies);
     m_textureWrappers.push_back(&m_world_1_ground);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_1);
@@ -825,7 +826,9 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
 {
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
-    if (m_vampire.gpuTextureWrapper && game.getJons().size() > 0)
+    if (m_jon.gpuTextureWrapper
+        && m_vampire.gpuTextureWrapper
+        && game.getJons().size() > 0)
     {
         Jon& jon = game.getJon();
         bool isTransforming = jon.isTransformingIntoVampire() || jon.isRevertingToRabbit();
@@ -861,11 +864,13 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
         }
     }
 
-	if (m_vampire.gpuTextureWrapper)
+    CountHissWithMina *chwm = game.getCountHissWithMinas().at(0);
+	if ((chwm->isMoving() && m_jon.gpuTextureWrapper)
+        || (!chwm->isMoving() && m_world_1_end_boss_part_1.gpuTextureWrapper))
 	{
 		m_spriteBatcher->beginBatch();
 		renderPhysicalEntities(game.getCountHissWithMinas());
-		m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(chwm->isMoving() ? *m_jon.gpuTextureWrapper : *m_world_1_end_boss_part_1.gpuTextureWrapper);
 	}
     
     if (m_world_1_objects.gpuTextureWrapper)
@@ -1733,7 +1738,7 @@ void Renderer::loadWorldMap()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_map_screen.gpuTextureDataWrapper = r->loadTextureData("world_map_screen");
+            r->m_world_map_screen.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_map_screen" : "world_map_screen");
         }, this));
     }
 }
@@ -2000,8 +2005,23 @@ void Renderer::loadWorld1MidBossTextures()
     loadJonTextures();
 }
 
+void Renderer::loadWorld1EndBossPart1()
+{
+    if (m_world_1_end_boss_part_1.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_end_boss_part_1.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_end_boss_part_1" : "world_1_end_boss_part_1");
+        }, this));
+    }
+}
+
 void Renderer::loadWorld1EndBossTextures()
 {
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart1);
+    
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
@@ -2126,6 +2146,8 @@ void Renderer::unloadWorld1MidBossTextures()
 
 void Renderer::unloadWorld1EndBossTextures()
 {
+    destroyTexture(&m_world_1_end_boss_part_1);
+    
 	unloadWorld1Textures();
 }
 

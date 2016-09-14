@@ -554,7 +554,11 @@
                                     @"screen_transition_2.wav",
                                     @"level_complete.wav",
                                     @"title_lightning_1.wav",
-                                    @"title_lightning_2.wav", nil];
+                                    @"title_lightning_2.wav",
+                                    @"ability_unlock.wav",
+                                    @"boss_level_clear.wav",
+                                    @"level_clear.wav",
+                                    @"level_selected.wav", nil];
 }
 
 @end

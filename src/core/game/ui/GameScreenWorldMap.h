@@ -112,7 +112,7 @@ public:
         m_fStateTime = 0;
     }
     
-    void select()
+    virtual void select()
     {
         m_isSelecting = true;
         m_isSelected = false;
@@ -120,7 +120,7 @@ public:
         m_fStateTime = 0;
     }
     
-    void deselect()
+    virtual void deselect()
     {
         m_isSelecting = false;
         m_isSelected = false;
@@ -163,7 +163,75 @@ public:
 class BossLevelThumbnail : public LevelThumbnail
 {
 public:
-    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.08639705882353f, CAM_HEIGHT * 0.22549019607843f, 0.4f, 0.7f, world, level, LevelThumbnailType_Boss) {}
+    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.18198529411765f, CAM_HEIGHT * 0.33333333333333f, 0.4f, 0.7f, world, level, LevelThumbnailType_Boss), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false) {}
+    
+    virtual void update(float deltaTime)
+    {
+        if (m_isUnlocking)
+        {
+            m_fStateTime += deltaTime;
+            
+            if (m_fStateTime > 1.30f)
+            {
+                m_isUnlocking = false;
+                
+                m_fStateTime = 0;
+            }
+        }
+        else if (m_isUnlocked)
+        {
+            LevelThumbnail::update(deltaTime);
+        }
+        else
+        {
+            m_fStateTime += deltaTime;
+        }
+    }
+    
+    virtual void select()
+    {
+        if (m_isUnlocked)
+        {
+            LevelThumbnail::select();
+        }
+        else
+        {
+            m_isJawMoving = true;
+            
+            m_fStateTime = 0.0f;
+        }
+    }
+    
+    virtual void deselect()
+    {
+        if (m_isUnlocked)
+        {
+            LevelThumbnail::select();
+        }
+        else
+        {
+            m_isJawMoving = false;
+            
+            m_fStateTime = 0.0f;
+        }
+    }
+    
+    void configLockStatus(bool isUnlocked, bool isUnlocking)
+    {
+        m_isUnlocked = isUnlocked;
+        m_isUnlocking = isUnlocking;
+    }
+    
+    bool isJawMoving() { return m_isJawMoving; }
+    
+    bool isUnlocking() { return m_isUnlocking; }
+    
+    bool isUnlocked() { return m_isUnlocked; }
+    
+private:
+    bool m_isJawMoving;
+    bool m_isUnlocking;
+    bool m_isUnlocked;
 };
 
 class AbilitySlot : public PhysicalEntity

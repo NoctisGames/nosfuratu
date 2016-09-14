@@ -76,6 +76,8 @@ public:
 		updateBounds();
     }
     
+    bool isMoving() { return m_isMoving; }
+    
     void setMoving() { m_isMoving = true; }
     
     int getType() { return m_type; };

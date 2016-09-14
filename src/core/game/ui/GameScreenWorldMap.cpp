@@ -175,6 +175,8 @@ void WorldMap::execute(GameScreen* gs)
                                          && !(*j)->isSelecting())
                                 {
                                     selectLevel((*j), levelStats, score);
+                                    
+                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
                                 }
                             }
                         }
@@ -261,6 +263,21 @@ void WorldMap::loadUserSaveData(const char* json)
         && FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
         bool isClearing = isCleared && !(*j)->isCleared();
+        
+        BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>((*j));
+        
+        if (isClearing)
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(bossLevelThumbnail ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+        }
+        
+        if (bossLevelThumbnail)
+        {
+            bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
+            bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
+    
+            bossLevelThumbnail->configLockStatus(isUnlocked, isUnlocking);
+        }
         
         (*j)->config(isPlayable, isClearing, isCleared);
         
@@ -451,6 +468,11 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
 
 void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking)
 {
+    if (isUnlocking)
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+    }
+    
     for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
     {
         if ((*i)->getType() == abilitySlotType)
@@ -471,9 +493,16 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
     
     m_clickedLevel = levelThumbnail;
     
+    BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>(levelThumbnail);
+    
     m_goldenCarrotsMarker->config(1337, 1337, 0);
     
     m_scoreMarker->config(1337, 1337, 0);
+ 
+    if (bossLevelThumbnail && !bossLevelThumbnail->isUnlocked())
+    {
+        return;
+    }
     
     if (FlagUtil::isFlagSet(levelStatsFlag, FLAG_LEVEL_COMPLETE))
     {

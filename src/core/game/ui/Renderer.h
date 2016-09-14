@@ -164,6 +164,7 @@ protected:
     TextureWrapper m_world_1_background_upper;
     TextureWrapper m_world_1_cutscene_1;
     TextureWrapper m_world_1_cutscene_2;
+    TextureWrapper m_world_1_end_boss_part_1;
     TextureWrapper m_world_1_enemies;
     TextureWrapper m_world_1_ground;
     TextureWrapper m_world_1_mid_boss_part_1;
@@ -310,6 +311,8 @@ private:
     void loadWorld1MidBossPart2();
     void loadWorld1MidBossPart3();
     void loadWorld1MidBossTextures();
+    
+    void loadWorld1EndBossPart1();
     
     void loadWorld1EndBossTextures();
     
