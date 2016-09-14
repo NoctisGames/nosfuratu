@@ -152,6 +152,12 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
     
     if (bossLevelThumbnail)
     {
+		if (!thumbnail->isPlayable())
+		{
+			static TextureRegion tr = createTextureRegion(3564, 1424, 198, 204, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+			return tr;
+		}
+
         if (bossLevelThumbnail->isUnlocking())
         {
             static Animation anim = createAnimation(990, 1424, 198, 204, 2574, 204, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 13);
