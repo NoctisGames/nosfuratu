@@ -728,7 +728,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_RockSmall:
         {
-            static TextureRegion tr = createTextureRegion(2004, 3628, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3624, 2158, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockSmallCracked:
