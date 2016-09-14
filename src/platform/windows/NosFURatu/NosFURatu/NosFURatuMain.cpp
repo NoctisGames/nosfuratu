@@ -75,6 +75,9 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("boss_level_clear.wav");
     m_sounds.push_back("level_clear.wav");
     m_sounds.push_back("level_selected.wav");
+    m_sounds.push_back("rabbit_drill.wav");
+    m_sounds.push_back("snake_jump.wav");
+    m_sounds.push_back("vampire_dash.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()

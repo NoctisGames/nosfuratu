@@ -780,6 +780,8 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
 					{
 						m_fStateTime = 0;
 						m_isPreparingToJump = true;
+                        
+                        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
 					}
                 }
             }

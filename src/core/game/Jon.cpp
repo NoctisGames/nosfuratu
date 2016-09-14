@@ -857,6 +857,8 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         
         jon->setState(ABILITY_BURROW);
         
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_RABBIT_DRILL);
+        
         jon->m_isBurrowEffective = false;
 	}
     
@@ -1211,6 +1213,8 @@ void Jon::Vampire::triggerRightAction(Jon* jon)
     jon->m_velocity->setY(0);
     
     jon->setState(ABILITY_DASH);
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_VAMPIRE_DASH);
 }
 
 void Jon::Vampire::triggerUpAction(Jon* jon)

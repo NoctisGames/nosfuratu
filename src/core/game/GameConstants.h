@@ -108,6 +108,9 @@
 #define SOUND_BOSS_LEVEL_CLEAR 42
 #define SOUND_LEVEL_CLEAR 43
 #define SOUND_LEVEL_SELECTED 44
+#define SOUND_RABBIT_DRILL 45
+#define SOUND_SNAKE_JUMP 46
+#define SOUND_VAMPIRE_DASH 47
 
 //// Render Definitions ////
 

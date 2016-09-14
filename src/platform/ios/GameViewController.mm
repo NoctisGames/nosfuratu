@@ -558,7 +558,10 @@
                                     @"ability_unlock.wav",
                                     @"boss_level_clear.wav",
                                     @"level_clear.wav",
-                                    @"level_selected.wav", nil];
+                                    @"level_selected.wav",
+                                    @"rabbit_drill.wav",
+                                    @"snake_jump.wav",
+                                    @"vampire_dash.wav", nil];
 }
 
 @end
