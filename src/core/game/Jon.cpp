@@ -1000,6 +1000,7 @@ void Jon::Vampire::execute(Jon* jon)
         {
             if (jon->m_fAbilityStateTime > 0.5f)
             {
+				jon->m_acceleration->setX(0);
                 jon->m_velocity->setX(0);
             }
             else
