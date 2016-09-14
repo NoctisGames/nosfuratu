@@ -452,6 +452,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 m_allowPlaceOn = true;
                 m_allowPlaceUnder = false;
                 
+				CollectibleItem *lastAddedCollectibleItem;
                 int index = -1;
                 if ((index = EntityUtils::isTouching(m_gameEntities, tp)) != -1)
                 {
@@ -483,6 +484,17 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 						m_allowPlaceOn = false;
                     }
                 }
+				else if (m_lastAddedEntity && (lastAddedCollectibleItem = dynamic_cast<CollectibleItem *>(m_lastAddedEntity)))
+				{
+					int gridX = tp.getX() / GRID_CELL_SIZE;
+					int gridY = tp.getY() / GRID_CELL_SIZE;
+					CollectibleItem* collectibleItem = CollectibleItem::create(gridX, gridY, lastAddedCollectibleItem->getType());
+					m_game->getCollectibleItems().push_back(collectibleItem);
+
+					m_lastAddedEntity = collectibleItem;
+
+					resetEntities(false);
+				}
                 
                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                 gs->m_touchPointDown2->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
