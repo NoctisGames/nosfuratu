@@ -864,13 +864,16 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
         }
     }
 
-    CountHissWithMina *chwm = game.getCountHissWithMinas().at(0);
-	if ((chwm->isMoving() && m_jon.gpuTextureWrapper)
-        || (!chwm->isMoving() && m_world_1_end_boss_part_1.gpuTextureWrapper))
+	if (game.getCountHissWithMinas().size() > 0)
 	{
-		m_spriteBatcher->beginBatch();
-		renderPhysicalEntities(game.getCountHissWithMinas());
-        m_spriteBatcher->endBatch(chwm->isMoving() ? *m_jon.gpuTextureWrapper : *m_world_1_end_boss_part_1.gpuTextureWrapper);
+		CountHissWithMina *chwm = game.getCountHissWithMinas().at(0);
+		if ((chwm->isMoving() && m_jon.gpuTextureWrapper)
+			|| (!chwm->isMoving() && m_world_1_end_boss_part_1.gpuTextureWrapper))
+		{
+			m_spriteBatcher->beginBatch();
+			renderPhysicalEntities(game.getCountHissWithMinas());
+			m_spriteBatcher->endBatch(chwm->isMoving() ? *m_jon.gpuTextureWrapper : *m_world_1_end_boss_part_1.gpuTextureWrapper);
+		}
 	}
     
     if (m_world_1_objects.gpuTextureWrapper)
