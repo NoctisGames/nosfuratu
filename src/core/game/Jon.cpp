@@ -1004,6 +1004,7 @@ void Jon::Vampire::execute(Jon* jon)
             {
 				jon->m_acceleration->setX(0);
                 jon->m_velocity->setX(0);
+                jon->m_acceleration->setY(GAME_GRAVITY);
             }
             else
             {
