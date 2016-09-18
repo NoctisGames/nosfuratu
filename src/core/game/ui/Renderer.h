@@ -130,7 +130,7 @@ public:
     
     void renderToSecondFramebuffer(Game& game);
     
-    void renderToSecondFramebufferWithObfuscation();
+    void renderToThirdFramebufferWithObfuscation();
     
     void renderToScreenWithTransDeathIn(float timeElapsed);
     

@@ -1479,15 +1479,13 @@ void Renderer::renderToSecondFramebuffer(Game& game)
     m_spriteBatcher->endBatch(m_framebuffers.at(0), (isVampire || jon.isRevertingToRabbit()) ? *m_framebufferTintGpuProgramWrapper : *m_framebufferToScreenGpuProgramWrapper);
 }
 
-void Renderer::renderToSecondFramebufferWithObfuscation()
+void Renderer::renderToThirdFramebufferWithObfuscation()
 {
-    /// Render everything to the screen with obfuscation
-    
-    setFramebuffer(1);
+    setFramebuffer(2);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
-    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_framebufferObfuscationGpuProgramWrapper);
+    m_spriteBatcher->endBatch(m_framebuffers.at(1), *m_framebufferObfuscationGpuProgramWrapper);
 }
 
 void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)

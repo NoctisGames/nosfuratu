@@ -176,6 +176,6 @@
 
 //// Render Definitions ////
 
-#define NUM_FRAMEBUFFERS 2
+#define NUM_FRAMEBUFFERS 3
 
 #endif /* GAME_CONSTANTS_H */
