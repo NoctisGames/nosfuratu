@@ -225,6 +225,15 @@ void Chapter1Level10::update(GameScreen* gs)
     else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing)
     {
         m_isChaseCamActivated = true;
+        
+        if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
+        {
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
+            
+            m_fMusicVolume = 0.5f;
+            
+            m_hasTriggeredMidBossMusicLoop = true;
+        }
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
     {

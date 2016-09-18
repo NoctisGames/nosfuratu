@@ -77,6 +77,21 @@ void MidBossOwl::update(float deltaTime)
                 
                 if (getPosition().getY() + getHeight() / 2 < m_fTreeTopY)
                 {
+                    if (getMainBounds().getBottom() < m_fGroundTopYWithPadding
+                        || jon.getPosition().getY() > 15
+                        || jon.getPosition().getY() < 8
+                        || m_velocity->getX() < 0)
+                    {
+                        getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+                        
+                        m_velocity->set(0, 0);
+                        m_acceleration->set(0, 4);
+                        
+                        setState(MidBossOwlState_FlyingOverTree);
+                        
+                        return;
+                    }
+                    
                     m_velocity->setY(0);
                     
                     m_fTimeUnderTreeTop += deltaTime;
@@ -100,21 +115,6 @@ void MidBossOwl::update(float deltaTime)
                             
                             break;
                         }
-                        
-                        if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
-                        {
-                            getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
-                        }
-                        
-                        if (jon.getPosition().getY() < 12)
-                        {
-                            m_velocity->set(0, 0);
-                            m_acceleration->set(0, 4);
-                            
-                            setState(MidBossOwlState_FlyingOverTree);
-                            
-                            return;
-                        }
                     }
                 }
                 
@@ -128,6 +128,8 @@ void MidBossOwl::update(float deltaTime)
                             m_acceleration->set(0, 4);
                             
                             setState(MidBossOwlState_FlyingOverTree);
+                            
+                            return;
                         }
                     }
                 }
@@ -152,6 +154,21 @@ void MidBossOwl::update(float deltaTime)
                 
                 m_velocity->setY(0);
                 
+                if (getMainBounds().getBottom() < m_fGroundTopYWithPadding
+                    || jon.getPosition().getY() > 15
+                    || jon.getPosition().getY() < 8
+                    || m_velocity->getX() < 0)
+                {
+                    getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+                    
+                    m_velocity->set(0, 0);
+                    m_acceleration->set(0, 4);
+                    
+                    setState(MidBossOwlState_FlyingOverTree);
+                    
+                    return;
+                }
+                
                 Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                 
                 float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
@@ -159,16 +176,6 @@ void MidBossOwl::update(float deltaTime)
                 
                 m_velocity->add(cosf(radians) * 0.80f, sinf(radians) * 1.25f);
                 m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 40 : 16));
-                
-                if (jon.getPosition().getY() > 15
-                    || jon.getPosition().getY() < 8
-                    || m_velocity->getX() < 0)
-                {
-                    m_velocity->set(0, 0);
-                    m_acceleration->set(0, 4);
-                    
-                    setState(MidBossOwlState_FlyingOverTree);
-                }
                 
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
                 {
@@ -191,23 +198,13 @@ void MidBossOwl::update(float deltaTime)
                     return;
                 }
                 
-                if (getMainBounds().getBottom() < m_fGroundTopYWithPadding)
-                {
-                    getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
-                    
-                    m_velocity->set(0, 0);
-                    m_acceleration->set(0, 4);
-                    
-                    setState(MidBossOwlState_FlyingOverTree);
-                }
-                
                 for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
                 {
                     if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            if (jon.getPosition().dist((*i)->getPosition()) < 8.0f)
+                            if (jon.getPosition().dist((*i)->getPosition()) < 7.0f)
                             {
                                 m_iDamage++;
                                 
@@ -239,6 +236,8 @@ void MidBossOwl::update(float deltaTime)
                                 m_acceleration->set(0, 4);
                                 
                                 setState(MidBossOwlState_FlyingOverTree);
+                                
+                                return;
                             }
                         }
                     }
