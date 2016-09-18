@@ -1006,14 +1006,12 @@
 				BB264FF21C8F546E0091EA96 /* level_editor.png */,
 				BBE7EF801C908E5800CB8533 /* misc.png */,
 				BB264FF31C8F546E0091EA96 /* title_screen.png */,
+				BBF662AF1D8DEABD00F2BC79 /* trans_death_shader_helper.png */,
 				BB939CC91C626E41006D945A /* vampire.png */,
 				BB32DE861C66F43700F98904 /* world_1_background_lower.png */,
 				BB32DE871C66F43700F98904 /* world_1_background_mid.png */,
 				BB32DE881C66F43700F98904 /* world_1_background_upper.png */,
-				BBF662AF1D8DEABD00F2BC79 /* trans_death_shader_helper.png */,
 				BB64C74F1D5155200000CA51 /* world_1_cutscene_1.png */,
-				BB4038741D8CF3DD002BBF0F /* world_map_screen_part_1.png */,
-				BB4038751D8CF3DD002BBF0F /* world_map_screen_part_2.png */,
 				BB64C7501D5155200000CA51 /* world_1_cutscene_2.png */,
 				BBFAAD7B1D88A1EB006C6311 /* world_1_end_boss_part_1.png */,
 				BB0AE8CE1C6ABF090047EF19 /* world_1_enemies.png */,
@@ -1023,6 +1021,8 @@
 				BB5C891D1C8E411F00820366 /* world_1_mid_boss_part_3.png */,
 				BB646DED1C69AC1300313FBB /* world_1_objects.png */,
 				BBF856831C7FCBCD00328A0E /* world_1_special.png */,
+				BB4038741D8CF3DD002BBF0F /* world_map_screen_part_1.png */,
+				BB4038751D8CF3DD002BBF0F /* world_map_screen_part_2.png */,
 			);
 			path = textures;
 			sourceTree = "<group>";
