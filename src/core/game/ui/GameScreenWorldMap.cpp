@@ -571,9 +571,18 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
             numGoldenCarrots++;
         }
         
-        m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() + levelThumbnail->getHeight() * 0.52f, numGoldenCarrots);
+        float levelThumbnailHeight = CAM_HEIGHT * 0.20261437908497f;
         
-        m_scoreMarker->config(levelThumbnail->getPosition().getX(), levelThumbnail->getPosition().getY() - levelThumbnail->getHeight() * 0.52f, score);
+        float levelThumbnailY = levelThumbnail->getPosition().getY();
+        
+        if (bossLevelThumbnail)
+        {
+            levelThumbnailY -= 0.006;
+        }
+        
+        m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY + levelThumbnailHeight * 0.52f, numGoldenCarrots);
+        
+        m_scoreMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY - levelThumbnailHeight * 0.52f, score);
     }
 }
 
