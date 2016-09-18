@@ -921,6 +921,12 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             static TextureRegion tr = createTextureRegion(3408, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
+            
+        case ForegroundObjectType_Boulder:
+        {
+            static TextureRegion tr = createTextureRegion(3004, 2268, 208, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
     }
     
     assert(false);

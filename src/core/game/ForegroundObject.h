@@ -74,7 +74,9 @@ typedef enum
     ForegroundObjectType_SpikeTower,
     ForegroundObjectType_SpikeTowerBg,
 
-	ForegroundObjectType_JumpSpringLightFlush
+	ForegroundObjectType_JumpSpringLightFlush,
+    
+    ForegroundObjectType_Boulder
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -490,6 +492,12 @@ class SpikeTowerBg : public ForegroundObject
 {
 public:
     SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
+};
+
+class Boulder : public DeadlyObject
+{
+public:
+    Boulder(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_Boulder) {}
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */
