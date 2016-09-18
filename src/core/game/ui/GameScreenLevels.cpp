@@ -7,6 +7,7 @@
 //
 
 #include "GameScreenLevels.h"
+
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
@@ -14,6 +15,7 @@
 #include "Game.h"
 #include "GameScreenLevelEditor.h"
 #include "MathUtil.h"
+#include "GameTracker.h"
 
 /// Level ///
 
@@ -65,6 +67,18 @@ void Level::enter(GameScreen* gs)
     EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+    
+    static float fgWidth = CAM_WIDTH / 32;
+    static float fgHeight = fgWidth * 1.171875f;
+    
+    static float textY = CAM_HEIGHT - fgHeight;
+    
+    GameTracker::getInstance()->config(CAM_WIDTH * 0.5f,
+                                       textY,
+                                       3.34f,
+                                       textY - 0.14f,
+                                       fgWidth,
+                                       fgHeight);
 }
 
 void Level::execute(GameScreen* gs)
@@ -214,6 +228,8 @@ void Level::update(GameScreen* gs)
     }
     else
     {
+        GameTracker::getInstance()->update(gs->m_fDeltaTime);
+        
         if (m_isDisplayingResults)
         {
             for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
@@ -406,6 +422,11 @@ void Level::update(GameScreen* gs)
             
             m_iScoreFromTime = secondsLeft * 100;
             
+            if (m_iScoreFromTime > 0)
+            {
+                GameTracker::getInstance()->onTimeBonusScoreEarned(m_iScoreFromTime);
+            }
+            
             updateScore();
     
             if (m_iScore < m_iBestScore)
@@ -421,6 +442,16 @@ void Level::update(GameScreen* gs)
             }
             
             m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
+            
+            if (m_game->getNumCarrotsCollected() >= 100)
+            {
+                m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
+                
+                GameTracker::getInstance()->onScored(SCORE_GOLDEN_CARROT);
+                GameTracker::getInstance()->onBonusGoldenCarrotEarned();
+                
+                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+            }
             
             if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
                 && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED))
@@ -505,6 +536,11 @@ void Level::render(GameScreen* gs)
 	{
 		gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
 	}
+    
+    if (gs->m_isPaused)
+    {
+        gs->m_renderer->renderResumeButtonOverlay();
+    }
     
     if (jon.isDead())
     {
@@ -658,12 +694,12 @@ bool Level::handleTouchInput(GameScreen* gs)
 
 void Level::updateScore()
 {
-    m_iScoreFromObjects = m_game->getNumCarrotsCollected() * 200;
-    m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * 5000;
+    m_iScoreFromObjects = m_game->getNumCarrotsCollected() * SCORE_CARROT;
+    m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * SCORE_GOLDEN_CARROT;
     
     if (m_game->getJons().size() > 0)
     {
-        m_iScoreFromObjects += m_game->getJon().getNumEnemiesDestroyed() * 2000;
+        m_iScoreFromObjects += m_game->getJon().getNumEnemiesDestroyed() * SCORE_ENEMY;
     }
     
     m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
@@ -695,6 +731,8 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
                 
                 m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
                 
+                GameTracker::getInstance()->onScored(SCORE_GOLDEN_CARROT);
+                
                 switch (gc->getIndex())
                 {
                     case 0:
@@ -713,17 +751,9 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
             else
             {
                 m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 1);
+                
+                GameTracker::getInstance()->onScored(SCORE_CARROT);
             }
-        }
-    }
-    
-    if (!FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED))
-    {
-        if (m_game->getNumCarrotsCollected() >= 100)
-        {
-            m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
-            
-            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
         }
     }
 }

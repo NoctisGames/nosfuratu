@@ -7,6 +7,7 @@
 //
 
 #include "Jon.h"
+
 #include "EntityUtils.h"
 #include "Game.h"
 #include "GameConstants.h"
@@ -14,6 +15,7 @@
 #include "Assets.h"
 #include "FlagUtil.h"
 #include "MathUtil.h"
+#include "GameTracker.h"
 
 #include <math.h>
 
@@ -423,6 +425,8 @@ int Jon::getNumEnemiesDestroyed()
 void Jon::onEnemyDestroyed()
 {
     m_iNumEnemiesDestroyed++;
+    
+    GameTracker::getInstance()->onScored(SCORE_ENEMY);
 }
 
 bool Jon::isMoving()

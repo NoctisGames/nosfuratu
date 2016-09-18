@@ -148,6 +148,10 @@
 #define VAMP_DEFAULT_MAX_SPEED 11.0f
 #define VAMP_DEFAULT_ACCELERATION 7.0f
 
+#define SCORE_ENEMY 2000
+#define SCORE_CARROT 200
+#define SCORE_GOLDEN_CARROT 5000
+
 //// Flag Level Definitions ////
 
 #define FLAG_LEVEL_COMPLETE 1

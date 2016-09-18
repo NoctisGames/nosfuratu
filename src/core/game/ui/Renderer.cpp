@@ -46,6 +46,7 @@
 #include "FlagUtil.h"
 #include "MathUtil.h"
 #include "GameScreen.h"
+#include "GameTracker.h"
 
 #include <math.h>
 #include <sstream>
@@ -1066,6 +1067,14 @@ void Renderer::renderHud(Game& game, GameButton* backButton, int score)
         m_font->renderText(*m_spriteBatcher, paddedScore, CAM_WIDTH * 0.5f, textY, fgWidth, fgHeight, fontColor);
     }
     
+    /// Render Game Tracker
+    
+    for (std::vector<DelayText *>::iterator i = GameTracker::getInstance()->getTexts().begin(); i != GameTracker::getInstance()->getTexts().end(); i++)
+    {
+        std::string value = (*i)->getText();
+        m_font->renderText(*m_spriteBatcher, value, (*i)->getPosition().getX(), (*i)->getPosition().getY(), fgWidth, fgHeight, (*i)->getColor(), false, true);
+    }
+    
     /// Render Time
     
     {
@@ -1107,6 +1116,22 @@ void Renderer::renderHud(Game& game, GameButton* backButton, int score)
     }
 
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+}
+
+void Renderer::renderResumeButtonOverlay()
+{
+    if (!m_vampire.gpuTextureWrapper)
+    {
+        return;
+    }
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    static TextureRegion resumeButtonTr = TextureRegion(2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, 3.6f, 3.6f, 0, resumeButtonTr);
+    m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
 }
 
 void Renderer::renderDebugInfo(Game& game, int fps)

@@ -117,6 +117,8 @@ public:
     void renderBlackOverlay(float opacity);
     
     void renderHud(Game& game, GameButton* backButton, int score);
+    
+    void renderResumeButtonOverlay();
 
 	void renderDebugInfo(Game& game, int fps);
     
