@@ -35,6 +35,7 @@
 #include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
 #include "Direct3DShockwaveTextureGpuProgramWrapper.h"
 #include "Direct3DFramebufferTintGpuProgramWrapper.h"
+#include "Direct3DFrameBufferObfuscationGpuProgramWrapper.h"
 #include "Direct3DTransDeathGpuProgramWrapper.h"
 #include "Direct3DFramebufferRadialBlurGpuProgramWrapper.h"
 #include "Direct3DBackgroundTextureGpuProgramWrapper.h"
@@ -76,6 +77,7 @@ void Direct3DRenderer::loadShaderPrograms()
 	m_shockwaveTextureGpuProgramWrapper = new Direct3DShockwaveTextureGpuProgramWrapper(m_deviceResources);
 	m_framebufferToScreenGpuProgramWrapper = D3DManager->m_fbToScreenProgram.get();
 	m_framebufferTintGpuProgramWrapper = new Direct3DFramebufferTintGpuProgramWrapper(m_deviceResources);
+	m_framebufferObfuscationGpuProgramWrapper = new Direct3DFrameBufferObfuscationGpuProgramWrapper(m_deviceResources);
 	m_framebufferRadialBlurGpuProgramWrapper = new Direct3DFramebufferRadialBlurGpuProgramWrapper(m_deviceResources);
 	m_transDeathInGpuProgramWrapper = new Direct3DTransDeathGpuProgramWrapper(m_deviceResources, true);
 	m_transDeathOutGpuProgramWrapper = new Direct3DTransDeathGpuProgramWrapper(m_deviceResources, false);

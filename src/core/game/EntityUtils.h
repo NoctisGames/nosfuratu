@@ -183,6 +183,7 @@ public:
             {
                 if ((*i)->getMainBounds().getTop() > entity->getMainBounds().getBottom())
                 {
+					entity->getPosition().setX((*i)->getMainBounds().getRight() + entity->getMainBounds().getWidth() / 2 * 1.02f);
                     return true;
                 }
             }

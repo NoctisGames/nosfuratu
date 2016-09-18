@@ -766,10 +766,8 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
         {
             if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime))
             {
+				m_velocity->setX(0);
                 m_fStateTime = 0;
-                m_isPreparingToJump = true;
-                
-                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
                 
                 return;
             }
