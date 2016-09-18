@@ -1837,6 +1837,7 @@
     <ClInclude Include="..\..\..\..\core\framework\ui\LineBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\RectangleBatcher.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\SpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Text.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\TextureRegion.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\TextureWrapper.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\TouchEvent.h" />
@@ -1892,6 +1893,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTransitions.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameTracker.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
@@ -1950,6 +1952,7 @@
     <ClCompile Include="..\..\..\..\core\framework\ui\LineBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\RectangleBatcher.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\SpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Text.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
@@ -1997,6 +2000,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameTracker.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />

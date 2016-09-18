@@ -126,6 +126,8 @@
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\CutscenePanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameTracker.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -240,15 +242,11 @@
     <ClInclude Include="..\..\..\..\core\game\ui\CutscenePanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameTracker.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Text.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_map_screen_part_1.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_map_screen_part_2.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -548,6 +546,12 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen_part_2.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>
