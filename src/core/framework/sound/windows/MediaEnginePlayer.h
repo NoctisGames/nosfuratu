@@ -54,7 +54,7 @@ public:
 	void OnMediaEngineEvent(DWORD meEvent);
 
 	// Media Engine Actions 
-	void Play();
+	void Play(bool isLooping = true);
 	void Pause();
 	void SetVolume(double volume);
 	void SetMuted(bool muted);

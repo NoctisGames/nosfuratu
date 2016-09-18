@@ -346,6 +346,20 @@ void NosFURatuMain::handleMusic()
 			nm->m_mediaPlayer->Play();
 		}, this));
 		break;
+    case MUSIC_PLAY_END_BOSS_LOOP:
+        m_threads.push_back(std::thread([](NosFURatuMain* nm)
+        {
+            nm->m_mediaPlayer->SetSource("final_boss_bgm.wav");
+            nm->m_mediaPlayer->Play();
+        }, this));
+        break;
+    case MUSIC_PLAY_OPENING_CUTSCENE:
+        m_threads.push_back(std::thread([](NosFURatuMain* nm)
+        {
+            nm->m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
+            nm->m_mediaPlayer->Play(false);
+        }, this));
+        break;
 	default:
 		break;
 	}

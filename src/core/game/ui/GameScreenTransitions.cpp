@@ -138,6 +138,8 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
         {
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
+            
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_OPENING_CUTSCENE);
         }
     }
 }
@@ -357,6 +359,8 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         {
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+            
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_OPENING_CUTSCENE);
         }
     }
 }
