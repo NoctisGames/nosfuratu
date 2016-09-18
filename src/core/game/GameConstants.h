@@ -116,6 +116,7 @@
 #define SOUND_VAMPIRE_DASH 47
 #define SOUND_BOSS_LEVEL_UNLOCK 48
 #define SOUND_RABBIT_STOMP 49
+#define SOUND_END_BOSS_LOOP_INTRO 50
 
 //// Render Definitions ////
 

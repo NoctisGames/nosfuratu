@@ -80,6 +80,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("vampire_dash.wav");
     m_sounds.push_back("boss_level_unlock.wav");
     m_sounds.push_back("rabbit_stomp.wav");
+    m_sounds.push_back("final_boss_bgm_intro.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()

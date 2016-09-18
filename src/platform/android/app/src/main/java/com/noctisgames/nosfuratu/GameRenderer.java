@@ -137,6 +137,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("vampire_dash.wav"));
         _sounds.add(_audio.newSound("boss_level_unlock.wav"));
         _sounds.add(_audio.newSound("rabbit_stomp.wav"));
+        _sounds.add(_audio.newSound("final_boss_bgm_intro.wav"));
 
         Game.init();
 
