@@ -18,6 +18,8 @@
 #include "GameScreenTitle.h"
 #include "MathUtil.h"
 
+static const int NUM_GC_REQ = 1;
+
 /// World Map ///
 
 WorldMap * WorldMap::getInstance()
@@ -92,6 +94,14 @@ void WorldMap::execute(GameScreen* gs)
 			return;
         }
         
+        if (m_needsRefresh)
+        {
+            gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+            m_needsRefresh = false;
+            
+            return;
+        }
+        
         for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
             gs->touchToWorld(*(*i));
@@ -122,6 +132,37 @@ void WorldMap::execute(GameScreen* gs)
                     }
                     else
                     {
+                        if (m_spendGoldenCarrotsBubble->isOpen())
+                        {
+                            int ret = m_spendGoldenCarrotsBubble->handleTouch(*gs->m_touchPoint);
+                            if (ret == 1 || ret == 0)
+                            {
+                                if (ret == 1)
+                                {
+                                    // User has just spent X amount of golden carrots to unlock a boss level
+                                    m_iNumCollectedGoldenCarrots -= NUM_GC_REQ;
+                                    
+                                    int worldToUnlock = m_spendGoldenCarrotsBubble->getWorld();
+                                    int levelToUnlock = m_spendGoldenCarrotsBubble->getLevel();
+                                    
+                                    int worldIndex = worldToUnlock - 1;
+                                    int levelIndex = levelToUnlock - 1;
+                                    
+                                    int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+                                    
+                                    m_iUnlockedLevelStatsFlag = FlagUtil::setFlag(levelStats, FLAG_LEVEL_UNLOCKED);
+                                    
+                                    gs->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_LEVEL * 1000;
+                                    gs->m_iRequestedAction += worldToUnlock * 100;
+                                    gs->m_iRequestedAction += levelToUnlock;
+                                    
+                                    m_needsRefresh = true;
+                                }
+                                
+                                return;
+                            }
+                        }
+                        
                         for (std::vector<AbilitySlot *>::iterator j = m_abilitySlots.begin(); j != m_abilitySlots.end(); j++)
                         {
                             if ((*j)->isUnlocked()
@@ -198,6 +239,7 @@ void WorldMap::execute(GameScreen* gs)
         
         m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
         m_scoreMarker->update(gs->m_fDeltaTime);
+        m_spendGoldenCarrotsBubble->update(gs->m_fDeltaTime);
     }
 }
 
@@ -256,7 +298,7 @@ void WorldMap::loadUserSaveData(const char* json)
             previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
         }
         
-        bool isPlayable = previousLevelStats > 0;
+        bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
         bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
@@ -265,11 +307,6 @@ void WorldMap::loadUserSaveData(const char* json)
         bool isClearing = isCleared && !(*j)->isCleared();
         
         BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>((*j));
-        
-        if (isClearing)
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(bossLevelThumbnail ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
-        }
         
         if (bossLevelThumbnail)
         {
@@ -328,6 +365,11 @@ ScoreMarker* WorldMap::getScoreMarker()
     return m_scoreMarker.get();
 }
 
+SpendGoldenCarrotsBubble* WorldMap::getSpendGoldenCarrotsBubble()
+{
+    return m_spendGoldenCarrotsBubble.get();
+}
+
 std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
 {
     return m_levelThumbnails;
@@ -358,6 +400,11 @@ int WorldMap::getViewedCutsceneFlag()
     return m_iViewedCutsceneFlag;
 }
 
+int WorldMap::getUnlockedLevelStatsFlag()
+{
+    return m_iUnlockedLevelStatsFlag;
+}
+
 #pragma mark private
 
 void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
@@ -377,6 +424,8 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
         assert(v.IsInt());
         
         m_iNumCollectedGoldenCarrots = v.GetInt();
+        
+        m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(m_iNumCollectedGoldenCarrots > NUM_GC_REQ);
     }
     
     if (d.HasMember(jon_unlocked_abilities_flag_key))
@@ -468,11 +517,6 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
 
 void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking)
 {
-    if (isUnlocking)
-    {
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
-    }
-    
     for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
     {
         if ((*i)->getType() == abilitySlotType)
@@ -558,14 +602,17 @@ void WorldMap::resetAlpha(float alpha)
 WorldMap::WorldMap() :
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
+m_iUnlockedLevelStatsFlag(0),
 m_iViewedCutsceneFlag(0),
 m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
-m_userHasClickedOpeningCutscene(false)
+m_userHasClickedOpeningCutscene(false),
+m_needsRefresh(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
     m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
+    m_spendGoldenCarrotsBubble = std::unique_ptr<SpendGoldenCarrotsBubble>(new SpendGoldenCarrotsBubble());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));
@@ -585,7 +632,7 @@ m_userHasClickedOpeningCutscene(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.89705882352941f, pH * 0.4640522875817f, 1, 7));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.35947712418301f, 1, 8));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.35947712418301f, 1, 9));
-    m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.54411764705882f, pH * 0.35347712418301f, 1, 10));
+    m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.54411764705882f, pH * 0.35347712418301f, 1, 10, *m_spendGoldenCarrotsBubble));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.42647058823529f, pH * 0.35947712418301f, 1, 11));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.35947712418301f, 1, 12));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.35947712418301f, 1, 13));
@@ -596,5 +643,5 @@ m_userHasClickedOpeningCutscene(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.54411764705882f, pH * 0.15032679738562f, 1, 18));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.15032679738562f, 1, 19));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.15032679738562f, 1, 20));
-    m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.14432679738562f, 1, 21));
+    m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.14432679738562f, 1, 21, *m_spendGoldenCarrotsBubble));
 }

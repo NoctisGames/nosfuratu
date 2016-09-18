@@ -204,17 +204,25 @@ GroundSoundType Ground::getGroundSoundType()
 
 bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    float entityVelocityX = jon.getVelocity().getX();
+    float entityXDelta = fabsf(entityVelocityX * deltaTime);
+    
+    Rectangle pitBounds = Rectangle(getMainBounds().getLeft(), getMainBounds().getBottom(), getMainBounds().getWidth(), getMainBounds().getHeight());
+    
+    pitBounds.setWidth(pitBounds.getWidth() + entityXDelta);
+    
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), pitBounds))
     {
         float entityBottom = jon.getMainBounds().getLowerLeft().getY();
         float entityRight = jon.getMainBounds().getRight();
         
-        float itemTop = getMainBounds().getTop();
+        float itemTop = pitBounds.getTop();
         float itemTopReq = itemTop * 0.99f;
         
         float itemLeftReq = getMainBounds().getRight() - 0.25f;
         
-        if (entityRight >= itemLeftReq && entityBottom < itemTopReq)
+        if (entityRight >= itemLeftReq
+            && entityBottom < itemTopReq)
         {
             jon.getPosition().setX(itemLeftReq - jon.getMainBounds().getWidth() / 2 * 1.01f);
             jon.updateBounds();

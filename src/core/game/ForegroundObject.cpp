@@ -179,9 +179,9 @@ void ForegroundObject::setGame(Game* game)
 
 bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
 {
-    float jonVelocityY = entity->getVelocity().getY();
+    float entityVelocityY = entity->getVelocity().getY();
     
-    if (jonVelocityY <= 0
+    if (entityVelocityY <= 0
         && entity->getPosition().getX() > getMainBounds().getLeft()
         && (entity->getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
     {
@@ -293,12 +293,19 @@ bool DestructibleObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
 
 bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
+    float entityY = entity->getPosition().getY();
+    
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
         Jon *jon;
         if ((jon = dynamic_cast<Jon *>(entity)))
         {
             jon->kill();
+            
+            if (entityY > getMainBounds().getBottom())
+            {
+                entity->getPosition().setY(entityY);
+            }
         }
         
         return true;

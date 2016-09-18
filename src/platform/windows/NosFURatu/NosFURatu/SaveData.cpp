@@ -132,6 +132,21 @@ int SaveData::getLevelStatsFlag(int world, int level)
     return 0;
 }
 
+void SaveData::setLevelStatsFlag(int world, int level, int levelStatsFlag)
+{
+    ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+    
+    ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+    
+    auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+    
+    {
+        Platform::String^ key = getKeyForLevelStats(world, level);
+        
+        values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
+    }
+}
+
 void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
 {
     ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;

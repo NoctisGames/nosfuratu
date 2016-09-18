@@ -422,6 +422,14 @@ public final class SaveData
         return AppPrefs.getInstance().getInt(WORLDS_LEVELS_STATS[worldIndex][levelIndex], 0);
     }
 
+    public static void setLevelStatsFlag(int world, int level, int levelStatsFlag)
+    {
+        int worldIndex = world - 1;
+        int levelIndex = level - 1;
+
+        AppPrefs.getInstance().set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
+    }
+
     public static void setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
     {
         int worldIndex = world - 1;

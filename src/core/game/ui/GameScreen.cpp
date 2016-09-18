@@ -23,7 +23,8 @@ m_iRequestedAction(REQUESTED_ACTION_UPDATE),
 m_isPaused(false),
 m_isScreenHeldDown(false),
 m_iPoolIndex(0),
-m_wasPaused(false)
+m_wasPaused(false),
+m_fTimeUntilResume(0)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
@@ -48,6 +49,8 @@ void GameScreen::onResume()
     }
     
     m_wasPaused = false;
+    
+    m_fTimeUntilResume = 0;
 }
 
 void GameScreen::onPause()
@@ -60,6 +63,8 @@ void GameScreen::onPause()
     }
     
     m_wasPaused = true;
+    
+    m_fTimeUntilResume = 0;
 }
 
 void GameScreen::update(float deltaTime)
@@ -77,6 +82,8 @@ void GameScreen::update(float deltaTime)
     
     processTouchEvents();
 
+    m_fTimeUntilResume -= deltaTime;
+    
     if (m_isPaused)
     {
         for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
@@ -89,6 +96,7 @@ void GameScreen::update(float deltaTime)
                     continue;
                 case UP:
                     m_isPaused = false;
+                    m_fTimeUntilResume = 0.5f;
                     if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
                     {
                         Assets::getInstance()->setMusicId(MUSIC_RESUME);
@@ -99,9 +107,12 @@ void GameScreen::update(float deltaTime)
             }
         }
     }
-    else if (!m_renderer->isLoadingAdditionalTextures())
+    else if (m_fTimeUntilResume < 0)
     {
-        m_stateMachine->execute();
+        if (!m_renderer->isLoadingAdditionalTextures())
+        {
+            m_stateMachine->execute();
+        }
     }
     
     m_isRequestingRender = m_renderer->isLoaded();
@@ -167,11 +178,25 @@ int GameScreen::getLevelStatsFlag()
     return level->getLevelStatsFlag();
 }
 
+int GameScreen::getLevelStatsFlagForUnlockedLevel()
+{
+    WorldMap *worldMap = WorldMap::getInstance();
+    
+    return worldMap->getUnlockedLevelStatsFlag();
+}
+
 int GameScreen::getNumGoldenCarrots()
 {
     Level* level = (Level*) m_stateMachine->getCurrentState();
     
     return level->getNumGoldenCarrots();
+}
+
+int GameScreen::getNumGoldenCarrotsAfterUnlockingLevel()
+{
+    WorldMap *worldMap = WorldMap::getInstance();
+    
+    return worldMap->getNumCollectedGoldenCarrots();
 }
 
 int GameScreen::getJonAbilityFlag()

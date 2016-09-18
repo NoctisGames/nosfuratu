@@ -16,6 +16,7 @@ namespace NosFURatu
         static int getLevelScore(int world, int level);
 
         static int getLevelStatsFlag(int world, int level);
+        static void setLevelStatsFlag(int world, int level, int levelStatsFlag);
         
         static void setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag);
         

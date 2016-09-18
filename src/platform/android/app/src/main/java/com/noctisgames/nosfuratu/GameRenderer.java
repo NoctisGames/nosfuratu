@@ -21,20 +21,21 @@ public final class GameRenderer implements Renderer
     // Definitions from src/core/game/GameConstants.h
 
     //// Requested Action Definitions ////
-
+    
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, Completed, and Submit Score actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
+    // Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
     private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
-
-    // Set Cutscene Viewed action is passed in this format: [5][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
-    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 5;
-
-    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 6;
-
-    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 7; // Passed in this format: [5][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+    private static final short REQUESTED_ACTION_UNLOCK_LEVEL = 5;
+    
+    // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
+    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6;
+    
+    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
+    
+    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
     private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
@@ -132,6 +133,8 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("rabbit_drill.wav"));
         _sounds.add(_audio.newSound("snake_jump.wav"));
         _sounds.add(_audio.newSound("vampire_dash.wav"));
+        _sounds.add(_audio.newSound("boss_level_unlock.wav"));
+        _sounds.add(_audio.newSound("rabbit_stomp.wav"));
 
         Game.init();
 
@@ -191,6 +194,10 @@ public final class GameRenderer implements Renderer
                 break;
             case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
                 submitScoreOnline(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_UNLOCK_LEVEL:
+                unlockLevel(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
             case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
@@ -433,6 +440,18 @@ public final class GameRenderer implements Renderer
                 }.execute();
             }
         });
+    }
+    
+    private void unlockLevel(int requestedAction)
+    {
+        int world = calcWorld(requestedAction);
+        int level = calcLevel(requestedAction);
+        int levelStatsFlag = Game.get_level_stats_flag_for_unlocked_level();
+        int numGoldenCarrots = Game.get_num_golden_carrots_after_unlocking_level();
+        
+        SaveData.setLevelStatsFlag(world, level, levelStatsFlag);
+        
+        SaveData.setNumGoldenCarrots(numGoldenCarrots);
     }
 
     private void markLevelAsCompleted(int requestedAction)

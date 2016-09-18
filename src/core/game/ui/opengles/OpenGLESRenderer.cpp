@@ -27,6 +27,7 @@
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
 #include "OpenGLESFramebufferTintGpuProgramWrapper.h"
+#include "OpenGLESFramebufferObfuscationGpuProgramWrapper.h"
 #include "OpenGLESTransDeathGpuProgramWrapper.h"
 #include "OpenGLESFramebufferRadialBlurGpuProgramWrapper.h"
 
@@ -71,6 +72,7 @@ void OpenGLESRenderer::loadShaderPrograms()
     m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
     m_framebufferToScreenGpuProgramWrapper = OGLESManager->m_fbToScreenProgram.get();
     m_framebufferTintGpuProgramWrapper = new OpenGLESFramebufferTintGpuProgramWrapper();
+    m_framebufferObfuscationGpuProgramWrapper = new OpenGLESFramebufferObfuscationGpuProgramWrapper();
     m_transDeathInGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(true);
     m_transDeathOutGpuProgramWrapper = new OpenGLESTransDeathGpuProgramWrapper(false);
     m_framebufferRadialBlurGpuProgramWrapper = new OpenGLESFramebufferRadialBlurGpuProgramWrapper();

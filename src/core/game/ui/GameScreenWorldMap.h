@@ -59,13 +59,21 @@ public:
     m_isSelecting(false),
     m_isSelected(false),
     m_isClearing(false),
-    m_isCleared(false)
+    m_isCleared(false),
+    m_needsToPlayClearSound(false)
     {
         // Empty
     }
     
     virtual void update(float deltaTime)
     {
+        if (m_needsToPlayClearSound)
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+            
+            m_needsToPlayClearSound = false;
+        }
+        
         if (m_isClearing)
         {
             m_fStateTime += deltaTime;
@@ -109,6 +117,8 @@ public:
         m_isClearing = isClearing;
         m_isCleared = isCleared;
         
+        m_needsToPlayClearSound = m_isClearing;
+        
         m_fStateTime = 0;
     }
     
@@ -140,7 +150,7 @@ public:
     
     bool isCleared() { return m_isCleared; }
     
-private:
+protected:
     Color m_color;
     LevelThumbnailType m_type;
     float m_fSelectTime;
@@ -152,6 +162,7 @@ private:
     bool m_isSelected;
     bool m_isClearing;
     bool m_isCleared;
+    bool m_needsToPlayClearSound;
 };
 
 class NormalLevelThumbnail : public LevelThumbnail
@@ -160,13 +171,113 @@ public:
     NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, 1.10f, world, level, LevelThumbnailType_Normal) {}
 };
 
-class BossLevelThumbnail : public LevelThumbnail
+class SpendGoldenCarrotsBubble : public PhysicalEntity
 {
 public:
-    BossLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.18198529411765f, CAM_HEIGHT * 0.33333333333333f, 0.4f, 0.7f, world, level, LevelThumbnailType_Boss), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false) {}
+    SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21875f, CAM_HEIGHT * 0.30718954248366f),
+    m_color(1, 1, 1, 1),
+    m_iWorld(-1),
+    m_iLevel(-1),
+    m_userHasEnoughGoldenCats(false),
+    m_isOpen(false)
+    {
+        // Empty
+    }
     
     virtual void update(float deltaTime)
     {
+        if (m_isOpen)
+        {
+            m_fStateTime += deltaTime;
+        }
+    }
+    
+    /**
+     * Return 1 if user spent golden carrots to unlock a boss level; 0 otherwise
+     * Return 2 if the user didn't even touch the bubble at all
+     */
+    int handleTouch(Vector2D& touchPoint)
+    {
+        if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
+        {
+            float middle = getMainBounds().getLowerLeft().getX() + getMainBounds().getWidth() / 2;
+            
+            if (touchPoint.getX() < middle)
+            {
+                if (m_userHasEnoughGoldenCats)
+                {
+                    return 1;
+                }
+            }
+            
+            return 0;
+        }
+        
+        return 2;
+    }
+    
+    void setUserHasEnoughGoldenCats(bool userHasEnoughGoldenCats)
+    {
+        m_userHasEnoughGoldenCats = userHasEnoughGoldenCats;
+    }
+    
+    void config(float x, float y, int world, int level)
+    {
+        m_position->set(x, y);
+        
+        m_iWorld = world;
+        m_iLevel = level;
+        
+        updateBounds();
+        
+        m_fStateTime = 0;
+        
+        m_isOpen = true;
+    }
+    
+    void close()
+    {
+        m_position->set(1337, 1337);
+        
+        updateBounds();
+        
+        m_fStateTime = 0;
+        
+        m_isOpen = false;
+    }
+    
+    Color& getColor() { return m_color; }
+    
+    int getWorld() { return m_iWorld; }
+    
+    int getLevel() { return m_iLevel; }
+ 
+    bool userHasEnoughGoldenCats() { return m_userHasEnoughGoldenCats; }
+    
+    bool isOpen() { return m_isOpen; }
+    
+private:
+    Color m_color;
+    int m_iWorld;
+    int m_iLevel;
+    bool m_userHasEnoughGoldenCats;
+    bool m_isOpen;
+};
+
+class BossLevelThumbnail : public LevelThumbnail
+{
+public:
+    BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble) : LevelThumbnail(x, y, CAM_WIDTH * 0.18198529411765f, CAM_HEIGHT * 0.33333333333333f, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false) {}
+    
+    virtual void update(float deltaTime)
+    {
+        if (m_needsToPlayUnlockSound)
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
+            
+            m_needsToPlayUnlockSound = false;
+        }
+        
         if (m_isUnlocking)
         {
             m_fStateTime += deltaTime;
@@ -176,6 +287,14 @@ public:
                 m_isUnlocking = false;
                 
                 m_fStateTime = 0;
+                
+                if (m_isSelecting)
+                {
+                    m_isSelected = true;
+                    m_isSelecting = false;
+                    
+                    m_fStateTime = 0;
+                }
             }
         }
         else if (m_isUnlocked)
@@ -198,7 +317,9 @@ public:
         {
             m_isJawMoving = true;
             
-            m_fStateTime = 0.0f;
+            m_fStateTime = 0;
+            
+            m_spendGoldenCarrotsBubble.config(m_position->getX() - m_fWidth / 2, m_position->getY() + m_fHeight / 2, getWorld(), getLevel());
         }
     }
     
@@ -206,20 +327,26 @@ public:
     {
         if (m_isUnlocked)
         {
-            LevelThumbnail::select();
+            LevelThumbnail::deselect();
         }
         else
         {
             m_isJawMoving = false;
             
-            m_fStateTime = 0.0f;
+            m_fStateTime = 0;
         }
+        
+        m_spendGoldenCarrotsBubble.close();
     }
     
     void configLockStatus(bool isUnlocked, bool isUnlocking)
     {
         m_isUnlocked = isUnlocked;
         m_isUnlocking = isUnlocking;
+        
+        m_needsToPlayUnlockSound = m_isUnlocking;
+        
+        m_fStateTime = 0;
     }
     
     bool isJawMoving() { return m_isJawMoving; }
@@ -229,9 +356,11 @@ public:
     bool isUnlocked() { return m_isUnlocked; }
     
 private:
+    SpendGoldenCarrotsBubble& m_spendGoldenCarrotsBubble;
     bool m_isJawMoving;
     bool m_isUnlocking;
     bool m_isUnlocked;
+    bool m_needsToPlayUnlockSound;
 };
 
 class AbilitySlot : public PhysicalEntity
@@ -242,13 +371,21 @@ public:
     m_type(type),
     m_isUnlocked(false),
     m_isUnlocking(false),
-    m_isRevealing(false)
+    m_isRevealing(false),
+    m_needsToPlayUnlockSound(false)
     {
         // Empty
     }
     
     virtual void update(float deltaTime)
     {
+        if (m_needsToPlayUnlockSound)
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+            
+            m_needsToPlayUnlockSound = false;
+        }
+        
         if (m_isUnlocking)
         {
             m_fStateTime += deltaTime;
@@ -287,6 +424,8 @@ public:
         m_isUnlocking = isUnlocking;
         m_isRevealing = false;
         
+        m_needsToPlayUnlockSound = m_isUnlocking;
+        
         if (m_isUnlocked && !m_isUnlocking)
         {
             m_fStateTime = 1.10f;
@@ -299,6 +438,7 @@ private:
     bool m_isUnlocked;
     bool m_isUnlocking;
     bool m_isRevealing;
+    bool m_needsToPlayUnlockSound;
 };
 
 class GoldenCarrotsMarker : public PhysicalEntity
@@ -405,6 +545,8 @@ public:
     
     ScoreMarker* getScoreMarker();
     
+    SpendGoldenCarrotsBubble* getSpendGoldenCarrotsBubble();
+    
     std::vector<LevelThumbnail*>& getLevelThumbnails();
     
     GameButton* getBackButton();
@@ -417,10 +559,13 @@ public:
     
     int getViewedCutsceneFlag();
     
+    int getUnlockedLevelStatsFlag();
+    
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
     std::unique_ptr<ScoreMarker> m_scoreMarker;
+    std::unique_ptr<SpendGoldenCarrotsBubble> m_spendGoldenCarrotsBubble;
     std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
     std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;
@@ -429,8 +574,10 @@ private:
     std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
+    int m_iUnlockedLevelStatsFlag;
     int m_iViewedCutsceneFlag;
     bool m_isReadyForTransition;
+    bool m_needsRefresh;
     
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;

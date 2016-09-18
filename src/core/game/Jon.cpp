@@ -847,6 +847,8 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         jon->m_acceleration->setY(0);
         jon->m_velocity->setY(0);
         jon->m_isRollLanding = false;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_RABBIT_STOMP);
     }
     else
 	{
@@ -857,9 +859,9 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         
         jon->setState(ABILITY_BURROW);
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_RABBIT_DRILL);
-        
         jon->m_isBurrowEffective = false;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_RABBIT_DRILL);
 	}
     
     jon->m_velocity->setX(0);

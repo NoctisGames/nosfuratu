@@ -389,8 +389,12 @@ void Level::update(GameScreen* gs)
                 m_isDisplayingResults = true;
             }
             
-            short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
-            Assets::getInstance()->setMusicId(musicId);
+            if (m_game->getLevel() != 10
+                && m_game->getLevel() != 21)
+            {
+                short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
+                Assets::getInstance()->setMusicId(musicId);
+            }
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
         {
@@ -468,7 +472,11 @@ void Level::render(GameScreen* gs)
     
     gs->m_renderer->renderWorld(*m_game);
     
-    if (m_isReleasingShockwave)
+    if (gs->m_isPaused)
+    {
+        gs->m_renderer->renderToSecondFramebufferWithObfuscation();
+    }
+    else if (m_isReleasingShockwave)
     {
         gs->m_renderer->renderToSecondFramebufferWithShockwave(m_fShockwaveCenterX, m_fShockwaveCenterY, m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
     }

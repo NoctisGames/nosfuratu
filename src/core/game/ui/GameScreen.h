@@ -52,6 +52,7 @@ public:
     std::unique_ptr<Vector2D> m_touchPointDown;
     std::unique_ptr<Vector2D> m_touchPointDown2;
 	float m_fFPSStateTime;
+    float m_fTimeUntilResume;
 	int m_iFrames;
 	int m_iFPS;
 	float m_fDeltaTime;
@@ -87,7 +88,11 @@ public:
     
     int getLevelStatsFlag();
     
+    int getLevelStatsFlagForUnlockedLevel();
+    
     int getNumGoldenCarrots();
+    
+    int getNumGoldenCarrotsAfterUnlockingLevel();
     
     int getJonAbilityFlag();
     

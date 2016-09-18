@@ -11,6 +11,7 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 #include "Jon.h"
+#include "EntityUtils.h"
 
 #include <math.h>
 
@@ -763,6 +764,16 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
         }
         else
         {
+            if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime))
+            {
+                m_fStateTime = 0;
+                m_isPreparingToJump = true;
+                
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
+                
+                return;
+            }
+            
             if (m_velocity->getX() < m_fTopSpeed)
             {
                 m_velocity->setX(m_fTopSpeed);

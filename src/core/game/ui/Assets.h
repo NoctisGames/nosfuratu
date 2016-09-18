@@ -46,6 +46,7 @@ class WorldMapPanel;
 class AbilitySlot;
 class LevelThumbnail;
 class GoldenCarrotsMarker;
+class SpendGoldenCarrotsBubble;
 class CountHissWithMina;
 class BatInstruction;
 class BatPanel;
@@ -69,6 +70,8 @@ public:
     TextureRegion& get(LevelThumbnail* thumbnail);
     
     TextureRegion& get(GoldenCarrotsMarker* goldenCarrotsMarker);
+    
+    TextureRegion& get(SpendGoldenCarrotsBubble* spendGoldenCarrotsBubble);
     
     TextureRegion& get(Background* background);
     

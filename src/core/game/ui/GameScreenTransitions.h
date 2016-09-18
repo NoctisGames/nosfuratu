@@ -152,6 +152,7 @@ private:
     int m_iBestLevelStatsFlag;
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;
+    bool m_needsToPlayTransitionSound;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMapToLevel();

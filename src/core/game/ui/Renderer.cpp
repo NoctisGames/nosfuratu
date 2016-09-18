@@ -101,7 +101,8 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_3);
     m_textureWrappers.push_back(&m_world_1_objects);
     m_textureWrappers.push_back(&m_world_1_special);
-    m_textureWrappers.push_back(&m_world_map_screen);
+    m_textureWrappers.push_back(&m_world_map_screen_part_1);
+    m_textureWrappers.push_back(&m_world_map_screen_part_2);
 }
 
 Renderer::~Renderer()
@@ -297,6 +298,7 @@ bool Renderer::isLoaded()
     && m_shockwaveTextureGpuProgramWrapper->isLoaded()
     && m_framebufferToScreenGpuProgramWrapper->isLoaded()
     && m_framebufferTintGpuProgramWrapper->isLoaded()
+    && m_framebufferObfuscationGpuProgramWrapper->isLoaded()
     && m_framebufferRadialBlurGpuProgramWrapper->isLoaded()
     && m_transDeathInGpuProgramWrapper->isLoaded()
     && m_transDeathOutGpuProgramWrapper->isLoaded();
@@ -629,7 +631,7 @@ void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
 
 void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 {
-    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
     {
         return;
     }
@@ -638,12 +640,12 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*panel, Assets::getInstance()->get(panel), true);
-    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
 
 void Renderer::renderWorldMapScreenUi(WorldMap& wm)
 {
-    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
     {
         return;
     }
@@ -654,8 +656,7 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
     renderPhysicalEntitiesWithColor(wm.getAbilitySlots(), true);
     renderPhysicalEntitiesWithColor(wm.getLevelThumbnails(), true);
     renderPhysicalEntityWithColor(*wm.getGoldenCarrotsMarker(), Assets::getInstance()->get(wm.getGoldenCarrotsMarker()), wm.getGoldenCarrotsMarker()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
-    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_map_screen_part_2.gpuTextureWrapper);
     
     static float fgWidth = CAM_WIDTH / 40;
     static float fgHeight = fgWidth * 1.171875f;
@@ -695,7 +696,7 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
 
 void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
 {
-    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
     {
         return;
     }
@@ -705,7 +706,9 @@ void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
     m_spriteBatcher->beginBatch();
     renderPhysicalEntityWithColor(*wm.getBackButton(), Assets::getInstance()->get(wm.getBackButton()), wm.getBackButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
-    m_spriteBatcher->endBatch(*m_world_map_screen.gpuTextureWrapper);
+    renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), Assets::getInstance()->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor(), true);
+    m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
 
 void Renderer::renderWorld(Game& game)
@@ -1476,6 +1479,17 @@ void Renderer::renderToSecondFramebuffer(Game& game)
     m_spriteBatcher->endBatch(m_framebuffers.at(0), (isVampire || jon.isRevertingToRabbit()) ? *m_framebufferTintGpuProgramWrapper : *m_framebufferToScreenGpuProgramWrapper);
 }
 
+void Renderer::renderToSecondFramebufferWithObfuscation()
+{
+    /// Render everything to the screen with obfuscation
+    
+    setFramebuffer(1);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_framebufferObfuscationGpuProgramWrapper);
+}
+
 void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
 {
     /// Render the death transition to the screen
@@ -1735,22 +1749,36 @@ void Renderer::loadTitleTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadTitle);
 }
 
-void Renderer::loadWorldMap()
+void Renderer::loadWorldMapPart1()
 {
-    if (m_world_map_screen.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
     {
         m_iNumAsyncLoads++;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_map_screen.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_map_screen" : "world_map_screen");
+            r->m_world_map_screen_part_1.gpuTextureDataWrapper = r->loadTextureData("world_map_screen_part_1");
+        }, this));
+    }
+}
+
+void Renderer::loadWorldMapPart2()
+{
+    if (m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_map_screen_part_2.gpuTextureDataWrapper = r->loadTextureData("world_map_screen_part_2");
         }, this));
     }
 }
 
 void Renderer::loadWorldMapTextures()
 {
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorldMap);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorldMapPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorldMapPart2);
 }
 
 void Renderer::loadLevelEditor()
@@ -2104,7 +2132,8 @@ void Renderer::unloadTitleTextures()
 
 void Renderer::unloadWorldMapTextures()
 {
-    destroyTexture(&m_world_map_screen);
+    destroyTexture(&m_world_map_screen_part_1);
+    destroyTexture(&m_world_map_screen_part_2);
 }
 
 void Renderer::unloadLevelEditorTextures()

@@ -22,6 +22,7 @@
 + (int)getLevelScore:(int)world level:(int)level;
 
 + (int)getLevelStatsFlag:(int)world level:(int)level;
++ (void)setLevelStatsFlag:(int)world level:(int)level levelStatsFlag:(int)levelStatsFlag;
 
 + (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag jonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag;
 

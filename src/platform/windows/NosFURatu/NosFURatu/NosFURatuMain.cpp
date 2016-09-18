@@ -78,6 +78,8 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("rabbit_drill.wav");
     m_sounds.push_back("snake_jump.wav");
     m_sounds.push_back("vampire_dash.wav");
+    m_sounds.push_back("boss_level_unlock.wav");
+    m_sounds.push_back("rabbit_stomp.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -203,6 +205,10 @@ void NosFURatuMain::Update()
         case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
             submitScoreOnline(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_UNLOCK_LEVEL:
+            unlockLevel(gameScreen->getRequestedAction());
+            gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
             setCutsceneViewedFlag(m_gameScreen->getRequestedAction());
@@ -472,6 +478,19 @@ void NosFURatuMain::loadLevel(int requestedAction)
 			displayToast(L"Move the nosfuratu-levels repo to your Pictures folder and try again!");
 		}
 	});
+}
+
+void NosFURatuMain::unlockLevel(int requestedAction)
+{
+    int world = calcWorld(requestedAction);
+    int level = calcLevel(requestedAction);
+    int score = m_gameScreen->getScore();
+    int levelStatsFlag = m_gameScreen->getLevelStatsFlagForUnlockedLevel();
+    int numGoldenCarrots = m_gameScreen->getNumGoldenCarrotsAfterUnlockingLevel();
+    
+    SaveData::setLevelStatsFlag(world, level, levelStatsFlag);
+    
+    SaveData::setNumGoldenCarrots(numGoldenCarrots);
 }
 
 void NosFURatuMain::markLevelAsCompleted(int requestedAction)

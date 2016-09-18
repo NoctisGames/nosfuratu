@@ -416,6 +416,14 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     return [[AppPrefs getInstance] getInt:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
 }
 
++ (void)setLevelStatsFlag:(int)world level:(int)level levelStatsFlag:(int)levelStatsFlag
+{
+    int worldIndex = world - 1;
+    int levelIndex = level - 1;
+    
+    [[AppPrefs getInstance] setInt:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
+}
+
 + (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag jonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag
 {
     int worldIndex = world - 1;

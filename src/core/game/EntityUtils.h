@@ -114,15 +114,22 @@ public:
     {
         float entityLeft = entity->getMainBounds().getLeft();
         float entityRight = entity->getMainBounds().getRight();
+        float entityBottom = entity->getMainBounds().getBottom();
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            float itemLowerLeftX = (*i)->getMainBounds().getLeft();
+            float itemLeftX = (*i)->getMainBounds().getLeft();
             float itemRight = (*i)->getMainBounds().getRight();
+            float itemTop = (*i)->getMainBounds().getTop() * 0.99f;
             
             if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
             {
-                if (entityLeft >= itemLowerLeftX && entityRight <= itemRight)
+                if (entityBottom < itemTop)
+                {
+                    return true;
+                }
+                
+                if (entityLeft >= itemLeftX && entityRight <= itemRight)
                 {
                     return true;
                 }
@@ -161,6 +168,23 @@ public:
             if ((*i)->isJonBlockedOnRight(jon, deltaTime))
             {
                 return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
+    static bool isBlockedOnLeft(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
+    {
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
+            {
+                if ((*i)->getMainBounds().getTop() > entity->getMainBounds().getBottom())
+                {
+                    return true;
+                }
             }
         }
         

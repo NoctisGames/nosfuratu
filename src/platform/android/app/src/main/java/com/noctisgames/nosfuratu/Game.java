@@ -52,4 +52,8 @@ public final class Game
     public static native int get_num_golden_carrots();
 
     public static native int get_jon_unlocked_abilities_flag();
+
+    public static native int get_level_stats_flag_for_unlocked_level();
+
+    public static native int get_num_golden_carrots_after_unlocking_level();
 }

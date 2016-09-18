@@ -64,6 +64,10 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1fla
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls);
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls);
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls)
@@ -264,4 +268,20 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1ab
 	UNUSED(cls);
 
 	return gameScreen->getJonAbilityFlag();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return gameScreen->getLevelStatsFlagForUnlockedLevel();
+}
+
+JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls)
+{
+	UNUSED(env);
+	UNUSED(cls);
+
+	return gameScreen->getNumGoldenCarrotsAfterUnlockingLevel();
 }

@@ -147,6 +147,10 @@
             [self submitScoreOnline:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_UNLOCK_LEVEL:
+            [self unlockLevel:gameScreen->getRequestedAction()];
+            gameScreen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
             [self setCutsceneViewedFlag:gameScreen->getRequestedAction()];
             gameScreen->clearRequestedAction();
@@ -320,6 +324,18 @@
     }
     
     [self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
+}
+
+- (void)unlockLevel:(int)requestedAction
+{
+    int world = [self calcWorld:requestedAction];
+    int level = [self calcLevel:requestedAction];
+    int levelStatsFlag = gameScreen->getLevelStatsFlagForUnlockedLevel();
+    int numGoldenCarrots = gameScreen->getNumGoldenCarrotsAfterUnlockingLevel();
+    
+    [SaveData setLevelStatsFlag:world level:level levelStatsFlag:levelStatsFlag];
+    
+    [SaveData setNumGoldenCarrots:numGoldenCarrots];
 }
 
 - (void)markLevelAsCompleted:(int)requestedAction
@@ -561,7 +577,9 @@
                                     @"level_selected.wav",
                                     @"rabbit_drill.wav",
                                     @"snake_jump.wav",
-                                    @"vampire_dash.wav", nil];
+                                    @"vampire_dash.wav",
+                                    @"boss_level_unlock.wav",
+                                    @"rabbit_stomp.wav", nil];
 }
 
 @end

@@ -130,6 +130,8 @@ public:
     
     void renderToSecondFramebuffer(Game& game);
     
+    void renderToSecondFramebufferWithObfuscation();
+    
     void renderToScreenWithTransDeathIn(float timeElapsed);
     
     void renderToScreenWithTransDeathOut(float timeElapsed);
@@ -174,7 +176,8 @@ protected:
     TextureWrapper m_world_1_mid_boss_part_3;
     TextureWrapper m_world_1_objects;
     TextureWrapper m_world_1_special;
-    TextureWrapper m_world_map_screen;
+    TextureWrapper m_world_map_screen_part_1;
+    TextureWrapper m_world_map_screen_part_2;
     
     std::vector<TextureWrapper *> m_textureWrappers;
     std::vector<void (Renderer::*)()> m_pendingLoadFunctions;
@@ -190,6 +193,7 @@ protected:
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
+    GpuProgramWrapper* m_framebufferObfuscationGpuProgramWrapper;
     FramebufferRadialBlurGpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
 
 	int m_iFramebufferIndex;
@@ -283,7 +287,8 @@ private:
     void loadTitle();
     void loadTitleTextures();
     
-    void loadWorldMap();
+    void loadWorldMapPart1();
+    void loadWorldMapPart2();
     void loadWorldMapTextures();
     
     void loadLevelEditor();
