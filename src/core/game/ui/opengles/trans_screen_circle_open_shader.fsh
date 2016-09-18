@@ -16,7 +16,29 @@ void main()
     vec2 p = v_TextureCoordinates;
     vec2 center = vec2(v_Center.x, v_Center.y);
     float x = u_progress;
-    float smoothness = 0.1;
-    float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.5 + smoothness));
-    gl_FragColor = mix(texture2D(u_from, p), texture2D(u_to, p), 1. - m);
+    
+    vec4 black = vec4(0, 0, 0, 1);
+    
+    if (x <= 0.49)
+    {
+        x = x * 2.04081632653061;
+        x = 1.0 - x;
+        
+        float smoothness = 0.1;
+        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.5 + smoothness));
+        gl_FragColor = mix(black, texture2D(u_from, p), 1.0 - m);
+    }
+    else if (x >= 0.51)
+    {
+        x = x - 0.51;
+        x = x * 2.04081632653061;
+        
+        float smoothness = 0.1;
+        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.5 + smoothness));
+        gl_FragColor = mix(black, texture2D(u_to, p), 1.0 - m);
+    }
+    else
+    {
+        gl_FragColor = black;
+    }
 }

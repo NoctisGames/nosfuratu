@@ -590,8 +590,6 @@ private:
     
     void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score);
     
-    void resetAlpha(float alpha);
-    
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();
     WorldMap(const WorldMap&);

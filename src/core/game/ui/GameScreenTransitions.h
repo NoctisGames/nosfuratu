@@ -108,9 +108,14 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    void setCutsceneButtonLocation(float centerX, float centerY);
+    
 private:
     float m_fFade;
+    float m_fCenterX;
+    float m_fCenterY;
     float m_fTransitionStateTime;
+    bool m_hasPlayedTransitionSound;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMapToOpeningCutscene();
@@ -145,6 +150,7 @@ private:
     float m_fFade;
     int m_iWorldToLoad;
     int m_iLevelToLoad;
+    bool m_hasPlayedTransitionSound;
     
     // Set from app storage
     int m_iBestScore;

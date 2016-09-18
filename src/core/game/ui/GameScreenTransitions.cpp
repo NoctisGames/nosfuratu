@@ -297,8 +297,9 @@ WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
 
 void WorldMapToOpeningCutscene::enter(GameScreen* gs)
 {
-    m_fTransitionStateTime = -1;
+    m_fTransitionStateTime = 0;
     m_fFade = 0;
+    m_hasPlayedTransitionSound = false;
     OpeningCutscene::getInstance()->enter(gs);
 }
 
@@ -308,7 +309,16 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
-        m_fFade += gs->m_fDeltaTime;
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
+        if (m_fTransitionStateTime > 0.5f)
+        {
+            if (!m_hasPlayedTransitionSound)
+            {
+                m_fTransitionStateTime = 0.5f;
+            }
+        }
+        
+        m_fFade = m_fTransitionStateTime * 2;
         
         WorldMap::getInstance()->setFade(m_fFade);
         
@@ -319,7 +329,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
@@ -335,14 +345,13 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
             return;
         }
         
-        if (m_fTransitionStateTime < 0)
+        if (!m_hasPlayedTransitionSound)
         {
-            m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
             Assets::getInstance()->setMusicId(MUSIC_STOP);
+            
+            m_hasPlayedTransitionSound = true;
         }
-        
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
@@ -354,10 +363,16 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
 
 void WorldMapToOpeningCutscene::exit(GameScreen* gs)
 {
-    m_fTransitionStateTime = -1;
+    m_fTransitionStateTime = 0;
 }
 
-WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0), m_fFade(0)
+void WorldMapToOpeningCutscene::setCutsceneButtonLocation(float centerX, float centerY)
+{
+    m_fCenterX = centerX;
+    m_fCenterY = centerY;
+}
+
+WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0), m_fFade(0), m_fCenterX(0), m_fCenterY(0), m_hasPlayedTransitionSound(false)
 {
     // Empty
 }
@@ -373,9 +388,6 @@ WorldMapToLevel * WorldMapToLevel::getInstance()
 
 void WorldMapToLevel::enter(GameScreen* gs)
 {
-    m_fTransitionStateTime = -1;
-    m_fFade = 0;
-    
     switch (m_iWorldToLoad)
     {
         case 1:
@@ -745,6 +757,10 @@ void WorldMapToLevel::enter(GameScreen* gs)
 	m_levelState->setBestStats(m_iBestScore, m_iBestOnlineScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
     
     m_levelState->enter(gs);
+    
+    m_fTransitionStateTime = 0;
+    m_fFade = 0;
+    m_hasPlayedTransitionSound = false;
 }
 
 void WorldMapToLevel::execute(GameScreen* gs)
@@ -753,7 +769,16 @@ void WorldMapToLevel::execute(GameScreen* gs)
     {
         gs->m_renderer->beginFrame(gs->m_fDeltaTime);
         
-        m_fFade += gs->m_fDeltaTime;
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
+        if (m_fTransitionStateTime > 0.5f)
+        {
+            if (!m_hasPlayedTransitionSound)
+            {
+                m_fTransitionStateTime = 0.5f;
+            }
+        }
+        
+        m_fFade = m_fTransitionStateTime * 2;
         
         WorldMap::getInstance()->setFade(m_fFade);
         
@@ -782,14 +807,13 @@ void WorldMapToLevel::execute(GameScreen* gs)
             return;
         }
         
-        if (m_fTransitionStateTime < 0)
+        if (!m_hasPlayedTransitionSound)
         {
-            m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
             Assets::getInstance()->setMusicId(MUSIC_STOP);
+            
+            m_hasPlayedTransitionSound = true;
         }
-        
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
@@ -803,7 +827,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
 void WorldMapToLevel::exit(GameScreen* gs)
 {
     m_levelState = nullptr;
-    m_fTransitionStateTime = -1;
+    m_fTransitionStateTime = 0;
     m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
     
@@ -851,7 +875,8 @@ m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
-m_iLastKnownJonAbilityFlag(0)
+m_iLastKnownJonAbilityFlag(0),
+m_hasPlayedTransitionSound(false)
 {
     // Empty
 }

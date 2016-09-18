@@ -59,8 +59,6 @@ void WorldMap::enter(GameScreen* gs)
     
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
-    
-    resetAlpha(1);
 }
 
 void WorldMap::execute(GameScreen* gs)
@@ -125,6 +123,7 @@ void WorldMap::execute(GameScreen* gs)
                     }
                     else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_viewOpeningCutsceneButton->getMainBounds()))
                     {
+                        WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
                         gs->m_stateMachine->changeState(WorldMapToOpeningCutscene::getInstance());
                         m_userHasClickedOpeningCutscene = true;
                         m_clickedLevel = nullptr;
@@ -252,8 +251,6 @@ void WorldMap::setFade(float fade)
 {
     float alpha = 1 - fade;
     alpha = clamp(alpha, 1, 0);
-    
-    resetAlpha(alpha);
     
     // Music Fade
     
@@ -583,28 +580,6 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
         m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY + levelThumbnailHeight * 0.52f, numGoldenCarrots);
         
         m_scoreMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY - levelThumbnailHeight * 0.52f, score);
-    }
-}
-
-void WorldMap::resetAlpha(float alpha)
-{
-    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
-    {
-        if ((*j) != m_clickedLevel)
-        {
-            (*j)->getColor().alpha = alpha;
-        }
-    }
-    
-    if (!m_clickedLevel)
-    {
-        m_goldenCarrotsMarker->getColor().alpha = alpha;
-        m_scoreMarker->getColor().alpha = alpha;
-    }
-    
-    if (!m_userHasClickedOpeningCutscene)
-    {
-        m_viewOpeningCutsceneButton->getColor().alpha = alpha;
     }
 }
 
