@@ -17,73 +17,76 @@
 #include "Color.h"
 
 class Game;
+class GameScreen;
 
 typedef enum
 {
-    BatPanelType_None,
-    BatPanelType_Jump,
-    BatPanelType_DoubleJump,
-    BatPanelType_Burrow,
-    BatPanelType_OwlDig,
-    BatPanelType_Transform,
-    BatPanelType_UpwardStrikeGlide,
-    BatPanelType_Stomp
-} BatPanelType;
+    BatInstructionType_None,
+    BatInstructionType_Tap,
+    BatInstructionType_TapHold,
+    BatInstructionType_SwipeDown,
+    BatInstructionType_SwipeRight
+} BatInstructionType;
+
+typedef enum
+{
+    BatGoalType_None,
+    BatGoalType_Jump,
+    BatGoalType_DoubleJump,
+    BatGoalType_Vampire,
+    BatGoalType_Drill,
+    BatGoalType_Stomp,
+    BatGoalType_Dash,
+} BatGoalType;
 
 class BatInstruction : public PhysicalEntity
 {
 public:
-    BatInstruction(float x, float y, float width, float height);
+    BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_color(1, 1, 1, 1) { }
     
     virtual void update(float deltaTime);
     
-    void show(BatPanelType type);
+    void open(float x, float y)
+    {
+        m_position->set(x, y);
+        
+        m_fStateTime = 0;
+    }
     
-    void dismiss();
-    
-    bool isShowing();
-    
-    bool isRequestingClose();
-    
-    BatPanelType getBatPanelType();
-    
-    Color& getColor();
+    Color& getColor() { return m_color; }
     
 private:
-    BatPanelType m_type;
     Color m_color;
-    bool m_isShowing;
-    bool m_isRequestingClose;
 };
 
-class BatPanel : public PhysicalEntity
+class Bat : public PhysicalEntity
 {
 public:
-    BatPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT - 1.125f / 2 - 1.6f, float width = 4.5f, float height = 1.125f);
+    Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f) { }
     
     virtual void update(float deltaTime);
     
-    void handleTouch(Vector2D& touchPoint);
+    void naviPoof(float x, float y)
+    {
+        m_position->set(x, y);
+        
+        m_fStateTime = 0;
+    }
+};
+
+class BatPanel
+{
+public:
+    BatPanel(Game* game, int world, int level);
     
-    void open(BatPanelType type);
-    
-    bool isOpen();
-    
-    bool isOpening();
-    
-    bool isAcknowledged();
-    
-    BatInstruction& getBatInstruction();
-    
-    Color& getColor();
+    virtual void update(GameScreen* gs);
     
 private:
+    std::unique_ptr<Bat> m_bat;
     std::unique_ptr<BatInstruction> m_batInstruction;
-    BatPanelType m_type;
-    Color m_color;
-    bool m_isOpen;
-    bool m_isOpening;
-    bool m_isAcknowledged;
+    Game* m_game;
+    BatGoalType m_type;
+    bool m_isRequestingInput;
 };
 
 #endif /* defined(__nosfuratu__BatPanel__) */
