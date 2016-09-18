@@ -146,6 +146,8 @@ public:
     }
     
     virtual void updateBounds();
+
+	void onMoved() { m_fOriginalY = m_position->getY(); }
     
 protected:
     virtual void handleAlive(float deltaTime);

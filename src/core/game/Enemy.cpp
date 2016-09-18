@@ -368,12 +368,14 @@ void Sparrow::handleAlive(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_position->getY() > (m_fOriginalY + 0.05f))
+    if (m_position->getY() > (m_fOriginalY + 0.5f))
     {
+		m_velocity->setY(1);
         m_acceleration->set(0, -1);
     }
-    else if (m_position->getY() < (m_fOriginalY - 0.05f))
+    else if (m_position->getY() < (m_fOriginalY - 0.5f))
     {
+		m_velocity->setY(-1);
         m_acceleration->set(0, 1);
     }
     

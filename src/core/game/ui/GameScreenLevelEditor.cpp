@@ -619,6 +619,12 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 						{
 							m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
 						}
+
+						if (dynamic_cast<Sparrow *>(m_draggingEntity))
+						{
+							Sparrow *sparrow = dynamic_cast<Sparrow *>(m_draggingEntity);
+							sparrow->onMoved();
+						}
                     }
                 }
                 
