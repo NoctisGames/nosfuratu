@@ -177,13 +177,15 @@ public:
     template<typename T>
     static bool isBlockedOnLeft(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
+		Rectangle tempBounds = Rectangle(entity->getMainBounds().getLeft() - 0.5f, entity->getMainBounds().getBottom(), entity->getMainBounds().getWidth(), entity->getMainBounds().getHeight());
+
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
+            if (OverlapTester::doRectanglesOverlap(tempBounds, (*i)->getMainBounds()))
             {
-                if ((*i)->getMainBounds().getTop() > entity->getMainBounds().getBottom())
+                if ((*i)->getMainBounds().getTop() > tempBounds.getBottom())
                 {
-					entity->getPosition().setX((*i)->getMainBounds().getRight() + entity->getMainBounds().getWidth() / 2 * 1.02f);
+					entity->getPosition().setX((*i)->getMainBounds().getRight() + entity->getMainBounds().getWidth() / 2 * 1.01f);
                     return true;
                 }
             }
