@@ -31,7 +31,7 @@
 
 #include <vector>
 
-#define MAX_SOUNDS_TO_PLAY_PER_FRAME 4
+#define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
 class CollectibleItem;
 class LevelEditorActionsPanel;
