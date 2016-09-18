@@ -207,8 +207,8 @@ void NosFURatuMain::Update()
 			m_gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UNLOCK_LEVEL:
-            unlockLevel(gameScreen->getRequestedAction());
-            gameScreen->clearRequestedAction();
+            unlockLevel(m_gameScreen->getRequestedAction());
+			m_gameScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
             setCutsceneViewedFlag(m_gameScreen->getRequestedAction());
