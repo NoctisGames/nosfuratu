@@ -444,6 +444,9 @@
     <Media Include="..\..\..\..\..\assets\sounds\boss_level_unlock.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\opening_cutscene_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
