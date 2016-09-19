@@ -7,6 +7,7 @@
 //
 
 #include "GameScreenTransitions.h"
+
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
@@ -17,6 +18,7 @@
 #include "GameScreenTitle.h"
 #include "GameScreenWorldMap.h"
 #include "GameScreenOpeningCutscene.h"
+#include "BatPanel.h"
 
 /// Title To World Map Transition ///
 

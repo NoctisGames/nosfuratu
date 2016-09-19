@@ -51,6 +51,8 @@ class CountHissWithMina;
 class BatInstruction;
 class BatPanel;
 class GameHudCarrot;
+class Bat;
+class BatInstruction;
 
 class Assets
 {
@@ -103,13 +105,13 @@ public:
     
     TextureRegion& get(MidBossOwl* owl);
     
-    TextureRegion& get(GameButton* backButton);
-    
-    TextureRegion& get(GameHudCarrot* gameHudCarrot);
+    TextureRegion& get(Bat* bat);
     
     TextureRegion& get(BatInstruction* batInstruction);
     
-    TextureRegion& get(BatPanel* batPanel);
+    TextureRegion& get(GameButton* backButton);
+    
+    TextureRegion& get(GameHudCarrot* gameHudCarrot);
     
     TextureRegion& get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel);
     

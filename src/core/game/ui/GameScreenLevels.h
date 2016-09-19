@@ -21,6 +21,7 @@ class GameScreen;
 class Game;
 class MidBossOwl;
 class ForegroundObject;
+class BatPanel;
 
 class Level : public State<GameScreen>
 {
@@ -58,6 +59,7 @@ protected:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<GameButton> m_backButton;
+    std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
     bool m_isReleasingShockwave;
     float m_fShockwaveCenterX;
@@ -96,6 +98,8 @@ protected:
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
     virtual bool isInSlowMotionMode();
+    
+    virtual void configBatPanel();
     
     bool handleOpeningSequenceTouchInput(GameScreen* gs);
     bool handleTouchInput(GameScreen* gs);
@@ -257,6 +261,8 @@ private:
     virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
     virtual bool isInSlowMotionMode();
+    
+    virtual void configBatPanel();
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level10(const char* json);

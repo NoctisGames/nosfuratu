@@ -930,6 +930,55 @@ void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
     }
 }
 
+void Renderer::renderBatPanel(BatPanel& batPanel)
+{
+    if (!m_jon.gpuTextureWrapper
+        || !m_vampire.gpuTextureWrapper)
+    {
+        // All Bat Bubbles require at least jon texture for the opening animation
+        // and the vampire texture for the bat poofing in animation
+        return;
+    }
+    
+    Bat* bat = batPanel.getBat();
+    BatInstruction* batInstruction = batPanel.getBatInstruction();
+    
+    if ((batInstruction->getType() == BatInstructionType_Tap
+        || batInstruction->getType() == BatInstructionType_TapHold)
+        && !m_world_1_special.gpuTextureWrapper)
+    {
+        return;
+    }
+    
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntity(*bat, Assets::getInstance()->get(bat));
+    m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+    
+    if (batInstruction->isOpening() || batInstruction->isOpen())
+    {
+        m_spriteBatcher->beginBatch();
+        
+        renderPhysicalEntity(*batInstruction, Assets::getInstance()->get(batInstruction));
+        
+        if (batInstruction->isOpening()
+            || batInstruction->getType() == BatInstructionType_SwipeDown)
+        {
+            m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
+        }
+        else if (batInstruction->getType() == BatInstructionType_SwipeRight)
+        {
+            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
+        }
+        else if (batInstruction->getType() == BatInstructionType_Tap
+                 || batInstruction->getType() == BatInstructionType_TapHold)
+        {
+            m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
+        }
+    }
+}
+
 void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 {
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getRight(), m_camBounds->getBottom(), m_camBounds->getTop());
@@ -1669,53 +1718,6 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
 }
 
 #pragma mark private
-
-void Renderer::renderBatPanel(BatPanel *batPanel)
-{
-    if (!m_jon.gpuTextureWrapper
-        || !m_vampire.gpuTextureWrapper)
-    {
-        // All Bat Bubbles require at least jon texture for the opening animation
-        // and the vampire texture for the bat poofing in animation
-        return;
-    }
-    
-    // TODO, if the instruction is Jump or Transform, require m_world_1_special
-    
-    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-    
-    if (batPanel->isOpening())
-    {
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-        m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-    }
-    else if (batPanel->isOpen())
-    {
-        BatInstruction& batInstruction = batPanel->getBatInstruction();
-        
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntityWithColor(*batPanel, Assets::getInstance()->get(batPanel), batPanel->getColor(), true);
-        m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-        
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntityWithColor(batInstruction, Assets::getInstance()->get(&batInstruction), batInstruction.getColor(), true);
-        if (batInstruction.getBatPanelType() == BatPanelType_OwlDig || batInstruction.getBatPanelType() == BatPanelType_Burrow)
-        {
-            if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
-            {
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
-            }
-        }
-        else
-        {
-            if (m_world_1_special.gpuTextureWrapper)
-            {
-                m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
-            }
-        }
-    }
-}
 
 void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 {

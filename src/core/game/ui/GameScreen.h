@@ -28,6 +28,7 @@
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
+#include "BatPanel.h"
 
 class GameHudCarrot : public PhysicalEntity
 {

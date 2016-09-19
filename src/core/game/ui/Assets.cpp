@@ -1577,6 +1577,56 @@ TextureRegion& Assets::get(MidBossOwl* owl)
     assert(false);
 }
 
+TextureRegion& Assets::get(Bat* bat)
+{
+    static Animation anim = createAnimation(2048, 0, 164, 158, 1312, 316, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 15, 8);
+    return anim.getTextureRegion(bat->getStateTime());
+}
+
+TextureRegion& Assets::get(BatInstruction* batInstruction)
+{
+    if (batInstruction->isOpening())
+    {
+        static Animation anim = createAnimation(0, 3588, 498, 394, 1494, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+        return anim.getTextureRegion(batInstruction->getStateTime());
+    }
+    else if (batInstruction->isOpen())
+    {
+        switch (batInstruction->getType())
+        {
+            case BatInstructionType_Tap:
+            {
+                static Animation anim = createAnimation(0, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
+                return anim.getTextureRegion(batInstruction->getStateTime());
+            }
+                break;
+            case BatInstructionType_TapHold:
+            {
+                static Animation anim = createAnimation(0, 0, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+                return anim.getTextureRegion(batInstruction->getStateTime());
+            }
+                break;
+            case BatInstructionType_SwipeDown:
+            {
+                static Animation anim = createAnimation(2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+                return anim.getTextureRegion(batInstruction->getStateTime());
+            }
+                break;
+            case BatInstructionType_SwipeRight:
+            {
+                static Animation anim = createAnimation(0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+                return anim.getTextureRegion(batInstruction->getStateTime());
+            }
+                break;
+            case BatInstructionType_None:
+            default:
+                break;
+        }
+    }
+    
+    assert(false);
+}
+
 TextureRegion& Assets::get(GameButton* gameButton)
 {
     switch (gameButton->getType())
@@ -1624,84 +1674,6 @@ TextureRegion& Assets::get(GameHudCarrot* gameHudCarrot)
     {
         static TextureRegion tr = createTextureRegion(884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
         return tr;
-    }
-}
-
-TextureRegion& Assets::get(BatInstruction* batInstruction)
-{
-    switch (batInstruction->getBatPanelType())
-    {
-        case BatPanelType_Jump:
-        {
-            static Animation anim = createAnimation(0, 0, 294, 98, 2058, 98, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_DoubleJump:
-        {
-            static Animation anim = createAnimation(0, 102, 348, 118, 3480, 118, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 10);
-            if (!anim.hasFrameTimes())
-            {
-                anim.setFrameTimes(10, 0.10f, 0.10f, 0.60f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.60f);
-            }
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_Burrow:
-        {
-            static Animation anim = createAnimation(1600, 3400, 238, 112, 2380, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 12);
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_OwlDig:
-        {
-            static Animation anim = createAnimation(1600, 3628, 334, 118, 2338, 236, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 10);
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_Transform:
-        {
-            static Animation anim = createAnimation(0, 224, 224, 78, 4032, 156, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 21);
-            if (!anim.hasFrameTimes())
-            {
-                anim.setFrameTimes(21, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 1.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 0.10f, 1.10f);
-            }
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_UpwardStrikeGlide:
-        {
-            static Animation anim = createAnimation(0, 384, 344, 114, 3784, 228, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 17);
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_Stomp:
-        {
-            static Animation anim = createAnimation(0, 616, 258, 94, 2064, 94, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
-            
-            return anim.getTextureRegion(batInstruction->getStateTime());
-        }
-        case BatPanelType_None:
-        default:
-            break;
-    }
-    
-    assert(false);
-}
-
-TextureRegion& Assets::get(BatPanel* batPanel)
-{
-    if (batPanel->isOpening())
-    {
-        static Animation anim = createAnimation(0, 2048, 512, 128, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
-        
-        return anim.getTextureRegion(batPanel->getStateTime());
-    }
-    else
-    {
-        static Animation anim = createAnimation(0, 2176, 512, 128, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
-        
-        return anim.getTextureRegion(batPanel->getStateTime());
     }
 }
 

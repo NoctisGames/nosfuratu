@@ -7,6 +7,7 @@
 //
 
 #include "GameScreenLevelEditor.h"
+
 #include "GameScreenLevels.h"
 #include "State.h"
 #include "GameScreen.h"
@@ -14,6 +15,7 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "GameScreenTitle.h"
+#include "BatPanel.h"
 
 #include <algorithm> // std::sort
 

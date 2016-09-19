@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "MidBossOwl.h"
 #include "Assets.h"
+#include "BatPanel.h"
 
 /// Chapter 1 Level 10 ///
 
@@ -143,7 +144,9 @@ void Chapter1Level10::update(GameScreen* gs)
                 
                 if (jon.isVampire())
                 {
+                    jon.setUserActionPrevented(false);
                     jon.triggerTransform();
+                    jon.setUserActionPrevented(true);
                 }
                 
                 jon.getAcceleration().set(0, 0);
@@ -336,6 +339,14 @@ bool Chapter1Level10::isInSlowMotionMode()
 {
     return (m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree && m_midBossOwl->getStateTime() < 0.25f)
     || (m_midBossOwl->getState() == MidBossOwlState_Dying && m_midBossOwl->getStateTime() < 0.5f);
+}
+
+void Chapter1Level10::configBatPanel()
+{
+    if (!m_hasTriggeredMidBossMusicLoopIntro)
+    {
+        Level::configBatPanel();
+    }
 }
 
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),

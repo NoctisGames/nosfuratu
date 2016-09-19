@@ -121,6 +121,8 @@ void GameTracker::config(float scoreX, float scoreY, float bonusGoldenCarrotX, f
     m_bonusGoldenCarrotY = bonusGoldenCarrotY;
     m_fontWidth = fontWidth;
     m_fontHeight = fontHeight;
+    
+    EntityUtils::cleanUpVectorOfPointers(m_texts);
 }
 
 std::vector<DelayText *>& GameTracker::getTexts()

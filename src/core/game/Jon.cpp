@@ -222,7 +222,7 @@ void Jon::onDeletion()
 
 void Jon::triggerTransform()
 {
-	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed)
+	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
 	}

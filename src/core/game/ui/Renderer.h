@@ -110,6 +110,8 @@ public:
     
     void renderMidBossOwl(MidBossOwl& midBossOwl);
     
+    void renderBatPanel(BatPanel& batPanel);
+    
     void renderBounds(Game& game, int boundsLevelRequested);
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
@@ -273,8 +275,6 @@ private:
             }
         }
     }
-    
-    void renderBatPanel(BatPanel* batPanel);
     
     void renderBoundsForPhysicalEntity(PhysicalEntity &go);
     

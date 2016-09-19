@@ -15,6 +15,9 @@
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "Color.h"
+#include "macros.h"
+
+#include <math.h>
 
 class Game;
 class GameScreen;
@@ -42,44 +45,134 @@ typedef enum
 class BatInstruction : public PhysicalEntity
 {
 public:
-    BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_color(1, 1, 1, 1) { }
+    BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_color(1, 1, 1, 1), m_isClosing(false), m_isOpening(false), m_isOpen(false) { }
     
-    virtual void update(float deltaTime);
-    
-    void open(float x, float y)
+    virtual void update(float deltaTime)
     {
+        PhysicalEntity::update(deltaTime);
+        
+        if (m_isOpening)
+        {
+            if (m_fStateTime > 0.3f)
+            {
+                m_fStateTime = 0;
+                m_isOpening = false;
+                m_isOpen = true;
+            }
+        }
+        else if (m_isClosing)
+        {
+            m_color.alpha -= deltaTime * 4;
+            
+            if (m_color.alpha < 0)
+            {
+                m_isClosing = false;
+                m_isOpen = false;
+                
+                m_position->set(1337, 1337);
+            }
+        }
+    }
+    
+    void open(BatInstructionType type, float x, float y)
+    {
+        m_type = type;
+        
         m_position->set(x, y);
         
         m_fStateTime = 0;
+        m_isOpening = true;
+        m_isOpen = false;
+        
+        m_color.alpha = 1;
     }
+    
+    void close()
+    {
+        m_fStateTime = 0;
+        m_isOpening = false;
+        m_isOpen = true;
+        m_isClosing = true;
+    }
+    
+    BatInstructionType getType() { return m_type; }
     
     Color& getColor() { return m_color; }
     
+    bool isOpening() { return m_isOpening; }
+    
+    bool isOpen() { return m_isOpen; }
+    
 private:
+    BatInstructionType m_type;
     Color m_color;
+    bool m_isClosing;
+    bool m_isOpening;
+    bool m_isOpen;
 };
 
 class Bat : public PhysicalEntity
 {
 public:
-    Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f) { }
+    Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f)
+    {
+        m_target = std::unique_ptr<Vector2D>(new Vector2D());
+        m_isInPosition = false;
+    }
     
-    virtual void update(float deltaTime);
+    virtual void update(float deltaTime)
+    {
+        PhysicalEntity::update(deltaTime);
+        
+        if (!m_isInPosition)
+        {
+            m_isInPosition = !(m_target->dist(*m_position) > 0);
+            m_velocity->set(0, 0);
+        }
+    }
     
     void naviPoof(float x, float y)
     {
         m_position->set(x, y);
+        m_target->set(x, y);
         
         m_fStateTime = 0;
+        m_isInPosition = true;
     }
+    
+    void moveTo(float x, float y)
+    {
+        m_target->set(x, y);
+        
+        float angle = m_target->cpy().sub(m_position->getX(), m_position->getY()).angle();
+        float radians = DEGREES_TO_RADIANS(angle);
+        
+        m_velocity->add(cosf(radians), sinf(radians));
+        
+        m_isInPosition = false;
+    }
+    
+    bool isInPosition() { return m_isInPosition; }
+
+private:
+    std::unique_ptr<Vector2D> m_target;
+    bool m_isInPosition;
 };
 
 class BatPanel
 {
 public:
-    BatPanel(Game* game, int world, int level);
+    BatPanel();
     
     virtual void update(GameScreen* gs);
+    
+    void config(Game* game, int world, int level);
+    
+    bool isRequestingInput() { return m_isRequestingInput; }
+    
+    Bat* getBat() { return m_bat.get(); }
+    
+    BatInstruction* getBatInstruction() { return m_batInstruction.get(); }
     
 private:
     std::unique_ptr<Bat> m_bat;
@@ -87,6 +180,24 @@ private:
     Game* m_game;
     BatGoalType m_type;
     bool m_isRequestingInput;
+    bool m_isAcknowledgedPart1;
+    bool m_isAcknowledgedPart2;
+    bool m_isAcknowledgedPart3;
+    bool m_hasSwiped;
+    
+    void updateJump(GameScreen* gs);
+    
+    void updateDoubleJump(GameScreen* gs);
+    
+    void updateVampire(GameScreen* gs);
+    
+    void updateDrill(GameScreen* gs);
+    
+    void updateStomp(GameScreen* gs);
+    
+    void updateDash(GameScreen* gs);
+    
+    void handleTouchInput(GameScreen* gs);
 };
 
 #endif /* defined(__nosfuratu__BatPanel__) */
