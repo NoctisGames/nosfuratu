@@ -164,6 +164,8 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_foregroundObjects.push_back(new VerticalSaw(0));
         
+        m_foregroundObjects.push_back(new Boulder(0, 0));
+        
         if (level == 10)
         {
             m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));

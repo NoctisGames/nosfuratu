@@ -115,6 +115,9 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikeTower(gridX);
         case ForegroundObjectType_SpikeTowerBg:
             return new SpikeTowerBg(gridX);
+            
+        case ForegroundObjectType_Boulder:
+            return new Boulder(gridX, gridY);
     }
     
     assert(false);
