@@ -61,7 +61,7 @@ public:
         return new CountHissWithMina(gridX, gridY);
     }
     
-    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false)
+    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false), m_isFacingLeft(false)
     {
         m_velocity->setX(4.0f);
     }
@@ -79,12 +79,17 @@ public:
     bool isMoving() { return m_isMoving; }
     
     void setMoving() { m_isMoving = true; }
+
+	bool isFacingLeft() { return m_isFacingLeft; }
+
+	void setFacingLeft() { m_isFacingLeft = true; }
     
     int getType() { return m_type; };
     
 private:
     int m_type;
     bool m_isMoving;
+	bool m_isFacingLeft;
 };
 
 #endif /* defined(__nosfuratu__GridLockedPhysicalEntity__) */
