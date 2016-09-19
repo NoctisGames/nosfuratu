@@ -60,6 +60,8 @@ void Level::enter(GameScreen* gs)
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
     }
     
+    m_batPanel->reset();
+    
     configBatPanel();
 
 	gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));

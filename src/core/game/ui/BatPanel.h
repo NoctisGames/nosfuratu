@@ -152,7 +152,7 @@ public:
         m_isInPosition = false;
     }
     
-    bool isInPosition() { return m_isInPosition; }
+    bool isInPosition() { return m_isInPosition && m_fStateTime > 0.80f; }
 
 private:
     std::unique_ptr<Vector2D> m_target;
@@ -167,6 +167,8 @@ public:
     virtual void update(GameScreen* gs);
     
     void config(Game* game, int world, int level);
+    
+    void reset();
     
     bool isRequestingInput() { return m_isRequestingInput; }
     

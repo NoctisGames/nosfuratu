@@ -54,8 +54,16 @@ m_hasSwiped(false)
 
 void BatPanel::config(Game *game, int world, int level)
 {
+    reset();
+    
     m_game = game;
     m_type = calcBatGoalType(world, level);
+}
+
+void BatPanel::reset()
+{
+    m_game = nullptr;
+    m_type = BatGoalType_None;
     
     m_isRequestingInput = false;
     m_isAcknowledgedPart1 = false;
