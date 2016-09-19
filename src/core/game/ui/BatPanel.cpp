@@ -116,7 +116,7 @@ void BatPanel::updateJump(GameScreen* gs)
                 jon.getPosition().setX(17.7f);
                 
                 float x = jon.getPosition().getX() + 1.6f;
-                float y = jon.getPosition().getY() + 1.6f;
+                float y = jon.getPosition().getY() + 1.2f;
                 m_bat->naviPoof(x, y);
                 
                 m_isRequestingInput = true;
@@ -163,7 +163,7 @@ void BatPanel::updateJump(GameScreen* gs)
             {
                 if (m_bat->isInPosition())
                 {
-                    m_batInstruction->open(BatInstructionType_Tap, m_bat->getPosition().getX() + 3, m_bat->getPosition().getY() + 2);
+                    m_batInstruction->open(BatInstructionType_Tap, m_bat->getPosition().getX() + 2.7f, m_bat->getPosition().getY() + 2);
                 }
             }
         }
