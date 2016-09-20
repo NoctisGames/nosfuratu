@@ -1206,7 +1206,7 @@ void Renderer::renderResumeButtonOverlay()
     static TextureRegion resumeButtonTr = TextureRegion(2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, 3.6f, 3.6f, 0, resumeButtonTr);
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, 3, 3, 0, resumeButtonTr);
     m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
 }
 

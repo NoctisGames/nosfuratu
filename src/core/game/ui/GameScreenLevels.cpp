@@ -515,7 +515,6 @@ void Level::render(GameScreen* gs)
     
     gs->m_renderer->renderWorld(*m_game);
     
-    
     if (gs->m_isReleasingShockwave)
     {
         gs->m_renderer->renderToSecondFramebufferWithShockwave(gs->m_fShockwaveCenterX, gs->m_fShockwaveCenterY, gs->m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
@@ -534,6 +533,8 @@ void Level::render(GameScreen* gs)
         gs->m_renderer->renderBlackOverlay(m_fStateTime);
     }
     
+    gs->m_renderer->renderBatPanel(*m_batPanel);
+    
     if (gs->m_isPaused)
     {
         gs->m_renderer->renderToThirdFramebufferWithObfuscation();
@@ -543,8 +544,6 @@ void Level::render(GameScreen* gs)
     {
         gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_iScore);
     }
-    
-    gs->m_renderer->renderBatPanel(*m_batPanel);
 
 	if (m_isDebugMode)
 	{
