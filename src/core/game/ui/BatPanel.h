@@ -213,6 +213,7 @@ private:
     std::unique_ptr<BatInstruction> m_batInstruction;
     Game* m_game;
     BatGoalType m_type;
+    float m_fJonX;
     bool m_isRequestingInput;
     bool m_isAcknowledgedPart1;
     bool m_isAcknowledgedPart2;

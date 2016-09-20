@@ -42,6 +42,7 @@ BatGoalType calcBatGoalType(int world, int level)
 BatPanel::BatPanel() :
 m_game(nullptr),
 m_type(BatGoalType_None),
+m_fJonX(0),
 m_isRequestingInput(false),
 m_isAcknowledgedPart1(false),
 m_isAcknowledgedPart2(false),
@@ -65,6 +66,7 @@ void BatPanel::reset()
     m_game = nullptr;
     m_type = BatGoalType_None;
     
+    m_fJonX = 0;
     m_isRequestingInput = false;
     m_isAcknowledgedPart1 = false;
     m_isAcknowledgedPart2 = false;
@@ -320,17 +322,19 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 6)
+        if (jon.getPosition().getX() > 7)
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setX(6);
+                jon.getPosition().setX(7);
                 
                 showBatNearJon(jon);
                 
                 jon.enableAbility(FLAG_ABILITY_TRANSFORM);
                 
                 m_isRequestingInput = true;
+                
+                m_fJonX = -1;
             }
         }
         
@@ -388,10 +392,18 @@ void BatPanel::updateVampire(GameScreen* gs)
                         jon.triggerTransform();
                         jon.setUserActionPrevented(true);
                         
+                        m_fJonX = jon.getPosition().getX();
+                        
                         gs->m_isScreenHeldDown = false;
                         gs->m_fShockwaveElapsedTime = 0;
                         gs->m_isReleasingShockwave = false;
                     }
+                }
+                
+                if (m_fJonX > 0)
+                {
+                    jon.update(gs->m_fDeltaTime);
+                    jon.getPosition().setX(m_fJonX);
                 }
                 
                 for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
@@ -421,6 +433,8 @@ void BatPanel::updateVampire(GameScreen* gs)
                                 
                                 gs->m_isScreenHeldDown = false;
                                 gs->m_fScreenHeldTime = 0;
+                                
+                                m_fJonX = -1;
                             }
                             break;
                     }
@@ -430,7 +444,7 @@ void BatPanel::updateVampire(GameScreen* gs)
             {
                 if (m_bat->isInPosition())
                 {
-                    showBatInstruction(BatInstructionType_Tap);
+                    showBatInstruction(BatInstructionType_TapHold);
                 }
             }
         }
