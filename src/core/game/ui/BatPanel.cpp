@@ -1183,7 +1183,7 @@ void BatPanel::updateDrill(GameScreen* gs)
         
         if (jon.getPosition().getX() > 17)
         {
-            if (!m_isRequestingInput)
+            if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
             {
                 jon.getPosition().setX(17);
                 
@@ -1279,7 +1279,7 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (!m_isRequestingInput)
+        if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
         {
             showBatNearJon(jon);
             
