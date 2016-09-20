@@ -96,6 +96,9 @@ void BatPanel::update(GameScreen* gs)
         case BatGoalType_Drill:
             updateDrill(gs);
             break;
+		case BatGoalType_DrillToDamageOwl:
+			// TODO
+			break;
         case BatGoalType_Stomp:
             updateStomp(gs);
             break;

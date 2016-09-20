@@ -39,6 +39,7 @@ typedef enum
     BatGoalType_DoubleJump,
     BatGoalType_Vampire,
     BatGoalType_Drill,
+	BatGoalType_DrillToDamageOwl,
     BatGoalType_Stomp,
     BatGoalType_Dash,
 } BatGoalType;
