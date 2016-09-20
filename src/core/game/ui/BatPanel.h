@@ -21,6 +21,7 @@
 
 class Game;
 class GameScreen;
+class Jon;
 
 typedef enum
 {
@@ -62,7 +63,7 @@ public:
         }
         else if (m_isClosing)
         {
-            m_color.alpha -= deltaTime * 4;
+            m_color.alpha -= deltaTime * 2;
             
             if (m_color.alpha < 0)
             {
@@ -93,6 +94,23 @@ public:
         m_isOpening = false;
         m_isOpen = true;
         m_isClosing = true;
+        
+        m_color.alpha = 1;
+    }
+    
+    void reset()
+    {
+        m_type = BatInstructionType_None;
+        
+        m_position->set(1337, 1337);
+        
+        m_fStateTime = 0;
+        
+        m_isClosing = false;
+        m_isOpening = false;
+        m_isOpen = false;
+        
+        m_color.alpha = 1;
     }
     
     BatInstructionType getType() { return m_type; }
@@ -126,8 +144,12 @@ public:
         
         if (!m_isInPosition)
         {
-            m_isInPosition = !(m_target->dist(*m_position) > 0);
-            m_velocity->set(0, 0);
+            m_isInPosition = !(m_target->dist(*m_position) > 0.25f);
+            
+            if (m_isInPosition)
+            {
+                m_velocity->set(0, 0);
+            }
         }
     }
     
@@ -147,8 +169,17 @@ public:
         float angle = m_target->cpy().sub(m_position->getX(), m_position->getY()).angle();
         float radians = DEGREES_TO_RADIANS(angle);
         
-        m_velocity->add(cosf(radians), sinf(radians));
+        m_velocity->set(cosf(radians) * 6, sinf(radians) * 6);
         
+        m_isInPosition = false;
+    }
+    
+    void reset()
+    {
+        m_position->set(1337, 1337);
+        m_target->set(0, 0);
+        
+        m_fStateTime = 0;
         m_isInPosition = false;
     }
     
@@ -198,6 +229,10 @@ private:
     void updateStomp(GameScreen* gs);
     
     void updateDash(GameScreen* gs);
+    
+    void showBatNearJon(Jon& jon);
+    
+    void showBatInstruction(BatInstructionType type);
     
     void handleTouchInput(GameScreen* gs);
 };

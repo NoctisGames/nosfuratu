@@ -317,7 +317,7 @@ void Chapter1Level10::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
     
     if (m_isChaseCamActivated)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
+        gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {

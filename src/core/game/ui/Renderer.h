@@ -82,7 +82,7 @@ public:
     // Return 0 to do nothing
     int updateCameraToFollowPathToJon(Game& game);
     
-    void updateCameraToFollowJon(Game& game, float deltaTime, float paddingX = 0, bool chase = false, bool ignoreY = false, bool instant = false);
+    void updateCameraToFollowJon(Game& game, BatPanel* batPanel, float deltaTime, float paddingX = 0, bool chase = false, bool ignoreY = false, bool instant = false);
     
     void moveCamera(float x);
     

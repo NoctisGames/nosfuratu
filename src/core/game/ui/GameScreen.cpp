@@ -25,6 +25,11 @@ m_isPaused(false),
 m_isScreenHeldDown(false),
 m_iPoolIndex(0),
 m_wasPaused(false),
+m_hasSwiped(false),
+m_isReleasingShockwave(false),
+m_fShockwaveElapsedTime(0.0f),
+m_fShockwaveCenterX(0.0f),
+m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());

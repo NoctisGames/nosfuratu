@@ -385,6 +385,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
                     if (isLevelValid(gs))
                     {
+                        Jon* jon = m_game->getJonP();
+                        jon->enableAbility(FLAG_ABILITY_ALL);
                         Level::getInstance()->setSourceGame(m_game.get());
 						Level::getInstance()->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
 						Level::getInstance()->setIsDebugMode(true);

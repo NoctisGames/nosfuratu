@@ -61,10 +61,6 @@ protected:
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
-    bool m_isReleasingShockwave;
-    float m_fShockwaveCenterX;
-    float m_fShockwaveCenterY;
-    float m_fShockwaveElapsedTime;
     int m_iScoreFromTime;
     int m_iScoreFromObjects;
     int m_iScore;
@@ -74,7 +70,6 @@ protected:
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;
-    bool m_hasSwiped;
     bool m_showDeathTransOut;
     bool m_exitLoop;
     bool m_hasCompletedLevel;

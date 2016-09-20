@@ -62,6 +62,11 @@ public:
     int m_iRequestedAction;
     bool m_isPaused;
     bool m_isScreenHeldDown;
+    bool m_hasSwiped;
+    bool m_isReleasingShockwave;
+    float m_fShockwaveCenterX;
+    float m_fShockwaveCenterY;
+    float m_fShockwaveElapsedTime;
     
 	GameScreen();
     

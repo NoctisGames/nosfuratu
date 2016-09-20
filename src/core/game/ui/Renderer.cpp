@@ -337,7 +337,7 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     m_fStateTime = 0;
     m_hasCompletedRadialBlur = false;
     
-    updateCameraToFollowJon(game, 1337);
+    updateCameraToFollowJon(game, nullptr, 1337);
     
     m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
     m_camBounds->getLowerLeft().setY(game.getFarRightBottom());
@@ -392,7 +392,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         
         if (isComplete)
         {
-            updateCameraToFollowJon(game, 1337);
+            updateCameraToFollowJon(game, nullptr, 1337);
             
             if (!m_hasCompletedRadialBlur)
             {
@@ -412,9 +412,27 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
     return 0;
 }
 
-void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddingX, bool chase, bool ignoreY, bool instant)
+void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float deltaTime, float paddingX, bool chase, bool ignoreY, bool instant)
 {
+    bool isFalling;
+    bool isGrounded;
+    float yFactor;
+    PhysicalEntity* entity;
     Jon& jon = game.getJon();
+    if (batPanel && batPanel->isRequestingInput())
+    {
+        isFalling = false;
+        isGrounded = false;
+        entity = batPanel->getBat();
+        yFactor = entity->getMainBounds().getBottom() + 1;
+    }
+    else
+    {
+        isFalling = jon.isFalling();
+        isGrounded = jon.getPhysicalState() == PHYSICAL_GROUNDED;
+        entity = game.getJonP();
+        yFactor = entity->getMainBounds().getBottom() - 0.5625f;
+    }
     
     float idealCamX = jon.getPosition().getX() - CAM_WIDTH / 6 + paddingX;
     if (chase)
@@ -423,7 +441,7 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddin
     }
     
     float camVelocityX = idealCamX - m_camBounds->getLowerLeft().getX();
-    camVelocityX = camVelocityX < 0 ? camVelocityX * 2 : camVelocityX * 2 + jon.getVelocity().getX();
+    camVelocityX = camVelocityX < 0 ? camVelocityX * 2 : camVelocityX * 2 + entity->getVelocity().getX();
     camVelocityX *= instant ? 1337 : deltaTime;
     m_camBounds->getLowerLeft().add(camVelocityX, 0);
     
@@ -436,21 +454,20 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddin
         m_camBounds->getLowerLeft().setX(idealCamX);
     }
     
-    float jy = jon.getMainBounds().getBottom() - 0.5625f;
-    float jonHeightPlusPadding = jon.getHeight() * 1.5f;
+    float heightPlusPadding = entity->getHeight() * 1.5f;
     
     float regionBottomY;
-    if (jon.isFalling())
+    if (isFalling)
     {
-        if (jy < 6.9979978125f)
+        if (yFactor < 6.9979978125f)
         {
             regionBottomY = 0;
         }
-        else if (jy < 12.76362286085f)
+        else if (yFactor < 12.76362286085f)
         {
             regionBottomY = 6.9979978125f;
         }
-        else if (jy < 21.76362286085f)
+        else if (yFactor < 21.76362286085f)
         {
             regionBottomY = 12.76362286085f;
         }
@@ -461,21 +478,31 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddin
     }
     else
     {
-        if (jy < (6.9979978125f - jonHeightPlusPadding))
+        if (yFactor < (6.9979978125f - heightPlusPadding))
         {
             regionBottomY = 0;
         }
-        else if (jy < (12.76362286085 - jonHeightPlusPadding))
+        else if (yFactor < (12.76362286085 - heightPlusPadding))
         {
             regionBottomY = 6.9979978125f;
         }
-        else if (jy < (21.76362286085f - jonHeightPlusPadding))
+        else if (yFactor < (21.76362286085f - heightPlusPadding))
         {
             regionBottomY = 12.76362286085f;
         }
         else
         {
             regionBottomY = 21.76362286085f;
+        }
+    }
+    
+    if (batPanel && batPanel->isRequestingInput())
+    {
+        Jon& jon = game.getJon();
+        float jy = jon.getMainBounds().getBottom() - 0.5625f;
+        if (regionBottomY > jy)
+        {
+            regionBottomY = jy;
         }
     }
     
@@ -490,9 +517,9 @@ void Renderer::updateCameraToFollowJon(Game& game, float deltaTime, float paddin
     
     if (camVelocityY > 0)
     {
-        if (jon.getPhysicalState() != PHYSICAL_GROUNDED)
+        if (!isGrounded)
         {
-            float newCamPos = jy + jonHeightPlusPadding - CAM_HEIGHT;
+            float newCamPos = yFactor + heightPlusPadding - CAM_HEIGHT;
             if (newCamPos > m_camBounds->getLowerLeft().getY())
             {
                 m_camBounds->getLowerLeft().setY(newCamPos);
@@ -960,7 +987,7 @@ void Renderer::renderBatPanel(BatPanel& batPanel)
     {
         m_spriteBatcher->beginBatch();
         
-        renderPhysicalEntity(*batInstruction, Assets::getInstance()->get(batInstruction));
+        renderPhysicalEntityWithColor(*batInstruction, Assets::getInstance()->get(batInstruction), batInstruction->getColor());
         
         if (batInstruction->isOpening()
             || batInstruction->getType() == BatInstructionType_SwipeDown)

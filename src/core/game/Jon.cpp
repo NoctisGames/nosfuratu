@@ -762,12 +762,23 @@ void Jon::Rabbit::exit(Jon* jon)
 
 void Jon::Rabbit::triggerTransform(Jon* jon)
 {
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_TRANSFORM))
+    {
+        return;
+    }
+    
 	jon->m_formStateMachine->changeState(Jon::RabbitToVampire::getInstance());
 }
 
 void Jon::Rabbit::triggerJump(Jon* jon)
 {
     if (jon->m_isConsumed)
+    {
+        return;
+    }
+    
+    if (jon->m_iNumRabbitJumps == 1
+        && !jon->isAbilityEnabled(FLAG_ABILITY_DOUBLE_JUMP))
     {
         return;
     }
@@ -835,10 +846,10 @@ void Jon::Rabbit::triggerUpAction(Jon* jon)
 
 void Jon::Rabbit::triggerDownAction(Jon* jon)
 {
-//    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_DOWN))
-//    {
-//        return;
-//    }
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_RABBIT_DOWN))
+    {
+        return;
+    }
     
     if (jon->m_physicalState == PHYSICAL_IN_AIR)
     {
@@ -1204,10 +1215,10 @@ void Jon::Vampire::triggerLeftAction(Jon* jon)
 
 void Jon::Vampire::triggerRightAction(Jon* jon)
 {
-//    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_RIGHT))
-//    {
-//        return;
-//    }
+    if (!jon->isAbilityEnabled(FLAG_ABILITY_VAMPIRE_RIGHT))
+    {
+        return;
+    }
     
     if (jon->m_abilityState == ABILITY_DASH
         || jon->m_abilityState == ABILITY_GLIDE)
