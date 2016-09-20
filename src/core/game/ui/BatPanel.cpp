@@ -1265,6 +1265,8 @@ void BatPanel::updateDrill(GameScreen* gs)
             if (jon.getAbilityState() == ABILITY_NONE)
             {
                 m_isAcknowledgedPart1 = true;
+                
+                jon.setUserActionPrevented(false);
             }
         }
     }
@@ -1354,6 +1356,8 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
             if (jon.getAbilityState() == ABILITY_NONE)
             {
                 m_isAcknowledgedPart1 = true;
+                
+                jon.setUserActionPrevented(false);
             }
         }
     }
