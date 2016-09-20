@@ -1164,7 +1164,86 @@ void BatPanel::updateVampire(GameScreen* gs)
 
 void BatPanel::updateDrill(GameScreen* gs)
 {
-    // TODO
+    if (!m_isAcknowledgedPart1)
+    {
+        Jon& jon = m_game->getJon();
+        jon.setUserActionPrevented(true);
+        
+        if (jon.getPosition().getX() > 17)
+        {
+            if (!m_isRequestingInput)
+            {
+                jon.getPosition().setX(17);
+                
+                showBatNearJon(jon);
+                
+                jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+                
+                m_isRequestingInput = true;
+            }
+        }
+        
+        if (m_isRequestingInput)
+        {
+            if (m_batInstruction->isOpen())
+            {
+                bool isJonAlive = jon.isAlive();
+                
+                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                {
+                    gs->touchToWorld(*(*i));
+                    
+                    switch ((*i)->getTouchType())
+                    {
+                        case DOWN:
+                            if (isJonAlive)
+                            {
+                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                            }
+                            continue;
+                        case DRAGGED:
+                            if (isJonAlive && !m_hasSwiped)
+                            {
+                                if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    
+                                    // Swipe Down
+                                    jon.triggerDownAction();
+                                    
+                                    m_isAcknowledgedPart1 = true;
+                                    m_isRequestingInput = false;
+                                    
+                                    m_batInstruction->close();
+                                    
+                                    gs->processTouchEvents();
+                                    
+                                    m_hasSwiped = true;
+                                    
+                                    return;
+                                }
+                            }
+                            continue;
+                        case UP:
+                            if (isJonAlive)
+                            {
+                                m_hasSwiped = false;
+                                
+                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                            }
+                            break;
+                    }
+                }
+            }
+            else if (!m_batInstruction->isOpening())
+            {
+                if (m_bat->isInPosition())
+                {
+                    showBatInstruction(BatInstructionType_SwipeDown);
+                }
+            }
+        }
+    }
 }
 
 void BatPanel::updateStomp(GameScreen* gs)

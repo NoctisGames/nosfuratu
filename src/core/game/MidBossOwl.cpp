@@ -78,7 +78,7 @@ void MidBossOwl::update(float deltaTime)
                 if (getPosition().getY() + getHeight() / 2 < m_fTreeTopY)
                 {
                     if (getMainBounds().getBottom() < m_fGroundTopYWithPadding
-                        || jon.getPosition().getY() < 8
+                        || jon.getPosition().getY() < 9
                         || m_velocity->getX() < 0)
                     {
                         getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
@@ -155,7 +155,7 @@ void MidBossOwl::update(float deltaTime)
                 
                 if (getMainBounds().getBottom() < m_fGroundTopYWithPadding
                     || jon.getPosition().getY() > 15
-                    || jon.getPosition().getY() < 8
+                    || jon.getPosition().getY() < 9
                     || m_velocity->getX() < 0)
                 {
                     getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
