@@ -167,6 +167,13 @@ public:
     {
         m_target->set(x, y);
         
+        if (m_target->dist(*m_position) > 6)
+        {
+            naviPoof(x, y);
+            
+            return;
+        }
+        
         float angle = m_target->cpy().sub(m_position->getX(), m_position->getY()).angle();
         float radians = DEGREES_TO_RADIANS(angle);
         
@@ -218,6 +225,13 @@ private:
     bool m_isAcknowledgedPart1;
     bool m_isAcknowledgedPart2;
     bool m_isAcknowledgedPart3;
+    bool m_isAcknowledgedPart4;
+    bool m_isAcknowledgedPart5;
+    bool m_isAcknowledgedPart6;
+    bool m_isAcknowledgedPart7;
+    bool m_isAcknowledgedPart8;
+    bool m_isAcknowledgedPart9;
+    bool m_isAcknowledgedPart10;
     bool m_hasSwiped;
     
     void updateJump(GameScreen* gs);
