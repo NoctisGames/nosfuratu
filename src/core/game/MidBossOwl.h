@@ -57,6 +57,8 @@ public:
     
     void setState(MidBossOwlState state);
     
+    bool didJonTransform() { return m_didJonTransform; }
+    
 private:
     Game* m_game;
     float m_fTreeTopY;

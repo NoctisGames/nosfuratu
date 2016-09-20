@@ -33,6 +33,7 @@ void Chapter1Level10::enter(GameScreen* gs)
     m_iLastKnownJonNumBoosts = 1;
     m_hasTriggeredBurrow = false;
     m_iNumAttempts++;
+    m_hasShownHintPopup = false;
     
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
     {
@@ -103,6 +104,11 @@ void Chapter1Level10::update(GameScreen* gs)
     Level::update(gs);
     
     if (m_game->getJons().size() == 0)
+    {
+        return;
+    }
+    
+    if (m_batPanel->isRequestingInput())
     {
         return;
     }
@@ -236,6 +242,21 @@ void Chapter1Level10::update(GameScreen* gs)
             m_fMusicVolume = 0.5f;
             
             m_hasTriggeredMidBossMusicLoop = true;
+        }
+        
+        if (jon.getPosition().getX() > 204
+            && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
+            && m_iNumAttempts > 1
+            && !m_hasShownHintPopup
+            && !m_midBossOwl->didJonTransform()
+            && jon.getAbilityState() == ABILITY_NONE
+            && m_midBossOwl->getDamage() == 0)
+        {
+            jon.getPosition().setX(204);
+            
+            m_batPanel->config(m_game.get(), BatGoalType_DrillToDamageOwl);
+            
+            m_hasShownHintPopup = true;
         }
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)

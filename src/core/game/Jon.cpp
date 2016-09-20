@@ -367,6 +367,11 @@ JonPhysicalState Jon::getPhysicalState()
 	return m_physicalState;
 }
 
+void Jon::setPhysicalState(JonPhysicalState state)
+{
+    m_physicalState = state;
+}
+
 JonActionState Jon::getActionState()
 {
 	return m_actionState;

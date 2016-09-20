@@ -54,6 +54,7 @@ m_isAcknowledgedPart7(false),
 m_isAcknowledgedPart8(false),
 m_isAcknowledgedPart9(false),
 m_isAcknowledgedPart10(false),
+m_hasTriggeredRequestedAction(false),
 m_hasSwiped(false)
 {
     m_bat = std::unique_ptr<Bat>(new Bat());
@@ -66,6 +67,14 @@ void BatPanel::config(Game *game, int world, int level)
     
     m_game = game;
     m_type = calcBatGoalType(world, level);
+}
+
+void BatPanel::config(Game* game, BatGoalType type)
+{
+    reset();
+    
+    m_game = game;
+    m_type = type;
 }
 
 void BatPanel::reset()
@@ -85,6 +94,7 @@ void BatPanel::reset()
     m_isAcknowledgedPart8 = false;
     m_isAcknowledgedPart9 = false;
     m_isAcknowledgedPart10 = false;
+    m_hasTriggeredRequestedAction = false;
     m_hasSwiped = false;
     
     m_bat->reset();
@@ -113,7 +123,7 @@ void BatPanel::update(GameScreen* gs)
             updateDrill(gs);
             break;
 		case BatGoalType_DrillToDamageOwl:
-			// TODO
+            updateDrillToDamageOwl(gs);
 			break;
         case BatGoalType_Stomp:
             updateStomp(gs);
@@ -136,7 +146,9 @@ void BatPanel::update(GameScreen* gs)
     
     if (m_isRequestingInput)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, this, gs->m_fDeltaTime);
+        bool isChaseCam = m_type == BatGoalType_DrillToDamageOwl;
+        float paddingX = m_type == BatGoalType_DrillToDamageOwl ? 4 : 0;
+        gs->m_renderer->updateCameraToFollowJon(*m_game, this, gs->m_fDeltaTime, paddingX, isChaseCam);
     }
 }
 
@@ -1209,12 +1221,17 @@ void BatPanel::updateDrill(GameScreen* gs)
                                     jon.setUserActionPrevented(false);
                                     
                                     // Swipe Down
+                                    jon.setPhysicalState(PHYSICAL_GROUNDED);
                                     jon.triggerDownAction();
                                     
-                                    m_isAcknowledgedPart1 = true;
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_hasTriggeredRequestedAction = true;
                                     m_isRequestingInput = false;
                                     
                                     m_batInstruction->close();
+                                    
+                                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                                     
                                     gs->processTouchEvents();
                                     
@@ -1241,6 +1258,102 @@ void BatPanel::updateDrill(GameScreen* gs)
                 {
                     showBatInstruction(BatInstructionType_SwipeDown);
                 }
+            }
+        }
+        else if (m_hasTriggeredRequestedAction)
+        {
+            if (jon.getAbilityState() == ABILITY_NONE)
+            {
+                m_isAcknowledgedPart1 = true;
+            }
+        }
+    }
+}
+
+void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
+{
+    if (!m_isAcknowledgedPart1)
+    {
+        Jon& jon = m_game->getJon();
+        jon.setUserActionPrevented(true);
+        
+        if (!m_isRequestingInput)
+        {
+            showBatNearJon(jon);
+            
+            m_isRequestingInput = true;
+        }
+        
+        if (m_isRequestingInput)
+        {
+            if (m_batInstruction->isOpen())
+            {
+                bool isJonAlive = jon.isAlive();
+                
+                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                {
+                    gs->touchToWorld(*(*i));
+                    
+                    switch ((*i)->getTouchType())
+                    {
+                        case DOWN:
+                            if (isJonAlive)
+                            {
+                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                            }
+                            continue;
+                        case DRAGGED:
+                            if (isJonAlive && !m_hasSwiped)
+                            {
+                                if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    
+                                    // Swipe Down
+                                    jon.setPhysicalState(PHYSICAL_GROUNDED);
+                                    jon.triggerDownAction();
+                                    
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_hasTriggeredRequestedAction = true;
+                                    m_isRequestingInput = false;
+                                    
+                                    m_batInstruction->close();
+                                    
+                                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                                    
+                                    gs->processTouchEvents();
+                                    
+                                    m_hasSwiped = true;
+                                    
+                                    return;
+                                }
+                            }
+                            continue;
+                        case UP:
+                            if (isJonAlive)
+                            {
+                                m_hasSwiped = false;
+                                
+                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                            }
+                            break;
+                    }
+                }
+            }
+            else if (!m_batInstruction->isOpening())
+            {
+                if (m_bat->isInPosition())
+                {
+                    showBatInstruction(BatInstructionType_SwipeDown);
+                }
+            }
+        }
+        else if (m_hasTriggeredRequestedAction)
+        {
+            if (jon.getAbilityState() == ABILITY_NONE)
+            {
+                m_isAcknowledgedPart1 = true;
             }
         }
     }

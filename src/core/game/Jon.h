@@ -97,6 +97,8 @@ public:
     
     JonPhysicalState getPhysicalState();
     
+    void setPhysicalState(JonPhysicalState state);
+    
     JonActionState getActionState();
     
     JonAbilityState getAbilityState();

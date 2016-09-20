@@ -207,6 +207,8 @@ public:
     
     void config(Game* game, int world, int level);
     
+    void config(Game* game, BatGoalType type);
+    
     void reset();
     
     bool isRequestingInput() { return m_isRequestingInput; }
@@ -232,6 +234,7 @@ private:
     bool m_isAcknowledgedPart8;
     bool m_isAcknowledgedPart9;
     bool m_isAcknowledgedPart10;
+    bool m_hasTriggeredRequestedAction;
     bool m_hasSwiped;
     
     void updateJump(GameScreen* gs);
@@ -241,6 +244,8 @@ private:
     void updateVampire(GameScreen* gs);
     
     void updateDrill(GameScreen* gs);
+    
+    void updateDrillToDamageOwl(GameScreen* gs);
     
     void updateStomp(GameScreen* gs);
     
