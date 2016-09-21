@@ -76,14 +76,14 @@ public:
 class CutsceneEffectPOW : public CutsceneEffect
 {
 public:
-    CutsceneEffectPOW() : CutsceneEffect(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH * 1.22f, CAM_HEIGHT * 1.56888888888889f, CutsceneEffectType_POW) {}
+    CutsceneEffectPOW() : CutsceneEffect(CAM_WIDTH * 0.4f, CAM_HEIGHT * 0.6f, CAM_WIDTH * 1.22f, CAM_HEIGHT * 1.56888888888889f, CutsceneEffectType_POW) {}
     
     virtual void update(float deltaTime)
     {
         PhysicalEntity::update(deltaTime);
         
-        m_fWidth += deltaTime * 2;
-        m_fHeight += deltaTime * 2;
+        m_fWidth += deltaTime * 2.4f;
+        m_fHeight += deltaTime * 2.4f;
     }
 };
 
