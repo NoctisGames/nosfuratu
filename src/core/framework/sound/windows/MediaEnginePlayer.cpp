@@ -96,7 +96,8 @@ public:
 MediaEnginePlayer::MediaEnginePlayer() : 
     m_spMediaEngine(nullptr),  
     m_spEngineEx(nullptr), 
-    m_isPlaying(false) 
+    m_isPlaying(false),
+	m_isLooping(false)
 { 
     memset(&m_bkgColor, 0, sizeof(MFARGB)); 
 } 
@@ -238,7 +239,7 @@ void MediaEnginePlayer::OnMediaEngineEvent(DWORD meEvent)
             break; 
  
         case MF_MEDIA_ENGINE_EVENT_CANPLAY:  
-            Play();              
+            Play(m_isLooping);
             break;         
  
         case MF_MEDIA_ENGINE_EVENT_PLAY:    
@@ -273,11 +274,13 @@ void MediaEnginePlayer::OnMediaEngineEvent(DWORD meEvent)
 // Play the media 
 //----------------------------------------------------------------------------- 
 void MediaEnginePlayer::Play(bool isLooping)
-{     
-    if (m_spMediaEngine) 
+{
+	if (m_spMediaEngine) 
     {
+		m_isLooping = isLooping;
+
+		DX::ThrowIfFailed(m_spMediaEngine->SetLoop(m_isLooping));
         DX::ThrowIfFailed(m_spMediaEngine->Play());
-		m_spMediaEngine->SetLoop(isLooping);
 		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(0.5));
         m_isPlaying = true;             
     } 

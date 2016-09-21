@@ -107,8 +107,6 @@ void OpeningCutscene::execute(GameScreen* gs)
                     gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
                     gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
                     
-                    Assets::getInstance()->setMusicId(MUSIC_STOP);
-                    
                     m_isRequestingNextState = true;
                 }
             }

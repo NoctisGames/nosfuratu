@@ -201,7 +201,6 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
