@@ -58,6 +58,8 @@ public:
     void setState(MidBossOwlState state);
     
     bool didJonTransform() { return m_didJonTransform; }
+
+	void givePlayerAFreeHit() { m_giveFreeHit = true; }
     
 private:
     Game* m_game;
@@ -66,6 +68,7 @@ private:
     float m_fTimeUnderTreeTop;
     int m_iDamage;
     bool m_didJonTransform;
+	bool m_giveFreeHit;
     MidBossOwlState m_state;
 };
 

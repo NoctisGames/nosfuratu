@@ -241,24 +241,24 @@ void Chapter1Level10::update(GameScreen* gs)
             
             m_hasTriggeredMidBossMusicLoop = true;
         }
-        
-        if (jon.getPosition().getX() > 204
-            && jon.getPosition().getX() < 206
-            && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
-            && m_showHintBecauseJonHasBeenCaptured
-            && !m_hasShownHintPopup
-            && !m_midBossOwl->didJonTransform()
-            && jon.getAbilityState() == ABILITY_NONE)
-        {
-            jon.getPosition().setX(204);
-            
-            m_batPanel->config(m_game.get(), BatGoalType_DrillToDamageOwl);
-            
-            m_hasShownHintPopup = true;
-        }
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
     {
+		if (jon.getPosition().getX() > 204
+			&& jon.getPosition().getX() < 207
+			&& !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
+			&& m_showHintBecauseJonHasBeenCaptured
+			&& !m_hasShownHintPopup
+			&& !m_midBossOwl->didJonTransform()
+			&& jon.getAbilityState() == ABILITY_NONE)
+		{
+			m_midBossOwl->givePlayerAFreeHit();
+
+			m_batPanel->config(m_game.get(), BatGoalType_DrillToDamageOwl);
+
+			m_hasShownHintPopup = true;
+		}
+
         m_isChaseCamActivated = true;
         
         if (jon.getPosition().getY() < 12)

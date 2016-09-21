@@ -158,12 +158,15 @@ void MidBossOwl::update(float deltaTime)
                     || jon.getPosition().getY() < 9
                     || m_velocity->getX() < 0)
                 {
-                    getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
-                    
-                    m_velocity->set(0, 0);
-                    m_acceleration->set(0, 4);
-                    
-                    setState(MidBossOwlState_FlyingOverTree);
+					if (!m_giveFreeHit)
+					{
+						getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
+
+						m_velocity->set(0, 0);
+						m_acceleration->set(0, 4);
+
+						setState(MidBossOwlState_FlyingOverTree);
+					}
                     
                     return;
                 }
@@ -203,7 +206,8 @@ void MidBossOwl::update(float deltaTime)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            if (jon.getPosition().dist((*i)->getPosition()) < 7.0f)
+                            if (m_giveFreeHit
+								|| jon.getPosition().dist((*i)->getPosition()) < 7.0f)
                             {
                                 m_iDamage++;
                                 
@@ -287,6 +291,7 @@ void MidBossOwl::goBackToSleep()
     m_iDamage = 0;
     m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
     m_fHeight = MID_BOSS_OWL_SLEEPING_HEIGHT;
+	m_giveFreeHit = false;
     
     setState(MidBossOwlState_Sleeping);
 }
@@ -298,6 +303,7 @@ void MidBossOwl::awaken()
 
 void MidBossOwl::beginPursuit()
 {
+	m_giveFreeHit = false;
     m_fWidth = MID_BOSS_OWL_NORMAL_WIDTH;
     m_fHeight = MID_BOSS_OWL_NORMAL_HEIGHT;
     
