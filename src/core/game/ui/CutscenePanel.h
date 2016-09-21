@@ -76,7 +76,7 @@ public:
 class CutsceneEffectPOW : public CutsceneEffect
 {
 public:
-    CutsceneEffectPOW() : CutsceneEffect(CAM_WIDTH * 0.4f, CAM_HEIGHT * 0.6f, CAM_WIDTH * 1.22f, CAM_HEIGHT * 1.56888888888889f, CutsceneEffectType_POW) {}
+    CutsceneEffectPOW() : CutsceneEffect(CAM_WIDTH * 0.44f, CAM_HEIGHT * 0.56f, CAM_WIDTH * 1.22f, CAM_HEIGHT * 1.56888888888889f, CutsceneEffectType_POW) {}
     
     virtual void update(float deltaTime)
     {
