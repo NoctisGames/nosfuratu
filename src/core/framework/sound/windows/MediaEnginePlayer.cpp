@@ -276,8 +276,8 @@ void MediaEnginePlayer::Play(bool isLooping)
 {     
     if (m_spMediaEngine) 
     {
-		m_spMediaEngine->SetLoop(isLooping);
         DX::ThrowIfFailed(m_spMediaEngine->Play());
+		m_spMediaEngine->SetLoop(isLooping);
 		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(0.5));
         m_isPlaying = true;             
     } 
