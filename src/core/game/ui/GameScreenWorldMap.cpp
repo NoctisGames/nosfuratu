@@ -201,6 +201,8 @@ void WorldMap::execute(GameScreen* gs)
                                 WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
                                 WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
                                 
+                                validateAbilityFlag();
+                                
                                 WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
                                 if ((*j)->isSelected())
@@ -267,9 +269,9 @@ void WorldMap::loadUserSaveData(const char* json)
     rapidjson::Document d;
     d.Parse<0>(json);
     
-    loadGlobalUserSaveData(d);
-    
     loadUserSaveDataForWorld(d, "world_1");
+    
+    loadGlobalUserSaveData(d);
     
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
@@ -456,6 +458,8 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
         
         m_iViewedCutsceneFlag = v.GetInt();
     }
+    
+    validateAbilityFlag();
 }
 
 void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key)
@@ -483,6 +487,19 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
                 assert(levelStatsVal.IsInt());
                 
                 int levelStats = levelStatsVal.GetInt();
+                
+                if (i < 9)
+                {
+                    levelStats = FLAG_LEVEL_COMPLETE;
+                }
+                else if (i == 9)
+                {
+                    levelStats = FLAG_LEVEL_UNLOCKED;
+                }
+                else
+                {
+                    levelStats = 0;
+                }
                 
                 wlc->m_levelStats.push_back(levelStats);
             }
@@ -580,6 +597,43 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
         m_goldenCarrotsMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY + levelThumbnailHeight * 0.52f, numGoldenCarrots);
         
         m_scoreMarker->config(levelThumbnail->getPosition().getX(), levelThumbnailY - levelThumbnailHeight * 0.52f, score);
+    }
+}
+
+void WorldMap::validateAbilityFlag()
+{
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    {
+        int world = (*j)->getWorld();
+        int level = (*j)->getLevel();
+        
+        int worldIndex = world - 1;
+        int levelIndex = level - 1;
+        
+        int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+        
+        if (FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE))
+        {
+            if (world == 1)
+            {
+                if (level == 3)
+                {
+                    m_iJonAbilityFlag = FlagUtil::setFlag(m_iJonAbilityFlag, FLAG_ABILITY_DOUBLE_JUMP);
+                }
+                else if (level == 5)
+                {
+                    m_iJonAbilityFlag = FlagUtil::setFlag(m_iJonAbilityFlag, FLAG_ABILITY_TRANSFORM);
+                }
+                else if (level == 10)
+                {
+                    m_iJonAbilityFlag = FlagUtil::setFlag(m_iJonAbilityFlag, FLAG_ABILITY_RABBIT_DOWN);
+                }
+                else if (level == 21)
+                {
+                    m_iJonAbilityFlag = FlagUtil::setFlag(m_iJonAbilityFlag, FLAG_ABILITY_VAMPIRE_RIGHT);
+                }
+            }
+        }
     }
 }
 
