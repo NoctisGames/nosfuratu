@@ -70,14 +70,11 @@ void WorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
         gs->m_renderer->renderWorldMapScreenUi(*this);
+        gs->m_renderer->renderWorldMapScreenButtons(*this);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
-        }
-        else
-        {
-            gs->m_renderer->renderWorldMapScreenButtons(*this);
         }
         
         gs->m_renderer->renderToScreen();

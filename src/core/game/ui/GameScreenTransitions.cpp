@@ -48,6 +48,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         WorldMap* wm = WorldMap::getInstance();
         gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(*wm);
+        gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
@@ -184,6 +185,7 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
         WorldMap* wm = WorldMap::getInstance();
         gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(*wm);
+        gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
         gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
         
@@ -328,6 +330,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
+        gs->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
         
         gs->m_renderer->setFramebuffer(1);
         
@@ -790,6 +793,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
+        gs->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
         
         gs->m_renderer->setFramebuffer(1);
         

@@ -31,16 +31,9 @@ CutsceneEffect* CutsceneEffect::create(CutsceneEffectType type)
     assert(false);
 }
 
-CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, CutsceneEffectType type) : PhysicalEntity(x, y, width, height), m_type(type)
+CutsceneEffect::CutsceneEffect(float x, float y, float width, float height, CutsceneEffectType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1)
 {
     // Empty
-}
-
-void CutsceneEffect::update(float deltaTime)
-{
-    PhysicalEntity::update(deltaTime);
-    
-    // TODO, zoom in, zoom out, pan, etc.
 }
 
 CutsceneEffectType CutsceneEffect::getType()
@@ -48,34 +41,9 @@ CutsceneEffectType CutsceneEffect::getType()
     return m_type;
 }
 
-CutscenePanel* CutscenePanel::create(CutscenePanelType type)
+CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_isReadyForNextPanel(false)
 {
-    switch (type)
-    {
-        case CutscenePanelType_Opening_One:
-            return new CutscenePanelOpeningOne();
-        case CutscenePanelType_Opening_Two:
-            return new CutscenePanelOpeningTwo();
-        case CutscenePanelType_Opening_Three:
-            return new CutscenePanel(type);
-        case CutscenePanelType_Opening_Four:
-            return new CutscenePanel(type);
-        case CutscenePanelType_Opening_Five:
-            return new CutscenePanel(type);
-        case CutscenePanelType_Opening_Six:
-            return new CutscenePanelOpeningSix();
-        case CutscenePanelType_Opening_Seven:
-            return new CutscenePanel(type);
-        default:
-            break;
-    }
-    
-    assert(false);
-}
-
-CutscenePanel::CutscenePanel(CutscenePanelType type, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_type(type)
-{
-    // Empty
+    m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, 0, CAM_WIDTH, CAM_HEIGHT));
 }
 
 void CutscenePanel::update(float deltaTime)
@@ -83,21 +51,12 @@ void CutscenePanel::update(float deltaTime)
     PhysicalEntity::update(deltaTime);
     
     EntityUtils::updateAndClean(getCutsceneEffects(), deltaTime);
-    
-    // TODO, zoom in, zoom out, pan, etc.
-    
-    if (m_fStateTime > 3.165f)
+}
+
+void CutscenePanel::onCleanUp()
+{
+    if (m_cutsceneEffects.size() > 0)
     {
-        m_isRequestingDeletion = true;
+        EntityUtils::cleanUpVectorOfPointers(m_cutsceneEffects);
     }
-}
-
-std::vector<CutsceneEffect *>& CutscenePanel::getCutsceneEffects()
-{
-    return m_cutsceneEffects;
-}
-
-CutscenePanelType CutscenePanel::getType()
-{
-    return m_type;
 }

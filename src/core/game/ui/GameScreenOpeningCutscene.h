@@ -33,9 +33,7 @@ public:
 private:
     std::vector<CutscenePanel*> m_cutscenePanels;
     int m_currentPanelIndex;
-    float m_fSkipTime;
     bool m_isRequestingNextState;
-    bool m_isSkipping;
     
     CutscenePanelType cutscenePanelTypeForIndex(int index);
     

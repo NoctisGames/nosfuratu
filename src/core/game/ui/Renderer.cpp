@@ -643,18 +643,23 @@ void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
         return;
     }
     
-    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-    
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(cutscenePanels, true);
-    m_spriteBatcher->endBatch(*m_world_1_cutscene_1.gpuTextureWrapper);
-    
-    m_spriteBatcher->beginBatch();
     for (std::vector<CutscenePanel *>::iterator i = cutscenePanels.begin(); i != cutscenePanels.end(); i++)
     {
-        renderPhysicalEntities((*i)->getCutsceneEffects(), true);
+        m_spriteBatcher->beginBatch();
+        
+        Rectangle& cb = (*i)->getCamBounds();
+        updateMatrix(cb.getLowerLeft().getX(), cb.getWidth(), cb.getLowerLeft().getY(), cb.getHeight());
+        
+        renderPhysicalEntityWithColor(*(*i), Assets::getInstance()->get((*i)), (*i)->getColor(), true);
+        
+        m_spriteBatcher->endBatch(*m_world_1_cutscene_1.gpuTextureWrapper);
+        
+        m_spriteBatcher->beginBatch();
+        
+        renderPhysicalEntitiesWithColor((*i)->getCutsceneEffects(), true);
+        
+        m_spriteBatcher->endBatch(*m_world_1_cutscene_2.gpuTextureWrapper);
     }
-    m_spriteBatcher->endBatch(*m_world_1_cutscene_2.gpuTextureWrapper);
 }
 
 void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
@@ -726,7 +731,8 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
 
 void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
 {
-    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr
+        || m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
     {
         return;
     }

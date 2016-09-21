@@ -57,7 +57,7 @@ TextureRegion& Assets::get(CutsceneEffect* effect)
         }
         case CutsceneEffectType_POW:
         {
-            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.33f, 3);
+            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.33f, 3);
             return anim.getTextureRegion(effect->getStateTime());
         }
     }
@@ -86,12 +86,12 @@ TextureRegion& Assets::get(CutscenePanel* panel)
         }
         case CutscenePanelType_Opening_Four:
         {
-            static TextureRegion tr = createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Five:
         {
-            static TextureRegion tr = createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case CutscenePanelType_Opening_Six:

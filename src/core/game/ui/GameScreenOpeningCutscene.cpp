@@ -29,9 +29,9 @@ void OpeningCutscene::enter(GameScreen* gs)
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1_CUTSCENE);
     
-    m_cutscenePanels.clear();
+    EntityUtils::cleanUpVectorOfPointers(m_cutscenePanels);
     
-    m_cutscenePanels.push_back(CutscenePanel::create(CutscenePanelType_Opening_One));
+    m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
     
     m_currentPanelIndex = 0;
 }
@@ -61,61 +61,56 @@ void OpeningCutscene::execute(GameScreen* gs)
             return;
         }
         
-        EntityUtils::updateAndClean(m_cutscenePanels, gs->m_fDeltaTime);
-        
-        bool isReadyForNextPanel = m_cutscenePanels.size() == 0;
-        if (isReadyForNextPanel)
+        if (m_cutscenePanels.size() > 0)
         {
-            m_currentPanelIndex++;
+            CutscenePanel* cPanel = m_cutscenePanels.at(m_currentPanelIndex);
+            EntityUtils::updateAndClean(m_cutscenePanels, gs->m_fDeltaTime);
             
-            CutscenePanelType cutscenePanelType = cutscenePanelTypeForIndex(m_currentPanelIndex);
-            if (cutscenePanelType == CutscenePanelType_Opening_None)
+            if (cPanel->getColor().alpha >= 1
+                && m_cutscenePanels.size() > 1)
             {
-                gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
-                gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
+                CutscenePanel* dPanel = m_cutscenePanels.at(m_currentPanelIndex == 0 ? 1 : 0);
+                dPanel->onCleanUp();
+                delete dPanel;
                 
-                Assets::getInstance()->setMusicId(MUSIC_STOP);
-                
-                m_isRequestingNextState = true;
-                
-                return;
+                if (m_currentPanelIndex == 0)
+                {
+                    m_cutscenePanels.pop_back();
+                }
+                else
+                {
+                    m_cutscenePanels.erase(m_cutscenePanels.begin());
+                    m_currentPanelIndex = 0;
+                }
             }
             
-            m_cutscenePanels.push_back(CutscenePanel::create(cutscenePanelType));
-        }
-        
-        if (m_isSkipping)
-        {
-            m_fSkipTime += gs->m_fDeltaTime;
-            
-            if (m_fSkipTime > 2)
+            if (cPanel->isReadyForNextPanel())
             {
-                gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
-                gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
-                
-                Assets::getInstance()->setMusicId(MUSIC_STOP);
-                
-                m_isRequestingNextState = true;
-            }
-        }
-        
-        for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-        {
-            gs->touchToWorld(*(*i));
-            
-            switch ((*i)->getTouchType())
-            {
-                case DOWN:
-                    m_isSkipping = true;
-                    m_fSkipTime = 0;
-                    continue;
-                case DRAGGED:
-                    continue;
-                case UP:
-                    m_isSkipping = false;
-                    m_fSkipTime = 0;
+                CutscenePanel* nPanel = cPanel->getNextPanel();
+                if (nPanel)
+                {
+                    if (nPanel->getType() == CutscenePanelType_Opening_Six)
+                    {
+                        m_currentPanelIndex = 1;
+                        m_cutscenePanels.push_back(nPanel);
+                    }
+                    else
+                    {
+                        m_currentPanelIndex = 0;
+                        m_cutscenePanels.insert(m_cutscenePanels.begin(), nPanel);
+                    }
                     
                     return;
+                }
+                else
+                {
+                    gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
+                    gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
+                    
+                    Assets::getInstance()->setMusicId(MUSIC_STOP);
+                    
+                    m_isRequestingNextState = true;
+                }
             }
         }
     }
@@ -124,9 +119,7 @@ void OpeningCutscene::execute(GameScreen* gs)
 void OpeningCutscene::exit(GameScreen* gs)
 {
     m_currentPanelIndex = 0;
-    m_fSkipTime = 0;
     m_isRequestingNextState = false;
-    m_isSkipping = false;
 }
 
 std::vector<CutscenePanel*>& OpeningCutscene::getCutscenePanels()
@@ -158,7 +151,7 @@ CutscenePanelType OpeningCutscene::cutscenePanelTypeForIndex(int index)
     }
 }
 
-OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_fSkipTime(0), m_isRequestingNextState(false), m_isSkipping(false)
+OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextState(false)
 {
     // Empty
 }
