@@ -1239,7 +1239,7 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation dashAnim = createAnimation(768, 512, 768, 256, 3072, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 14);
         if (!dashAnim.hasFrameTimes())
         {
-            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.8f, 0.1f);
+            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.4f, 0.1f);
         }
         static Animation doubleJumpingAnim = createAnimation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 6);
         static Animation glidingAnim = createAnimation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 2);
