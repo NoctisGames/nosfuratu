@@ -18,7 +18,7 @@ vec4 BlurH (sampler2D source, vec2 uv, float radius)
         vec4 A = vec4(0.0);
         vec4 C = vec4(0.0);
         
-        float width = 1.0 / 256.0;
+        float width = 1.0 / 512.0;
         
         float divisor = 0.0;
         float weight = 0.0;
@@ -49,4 +49,5 @@ void main()
 {
     // Apply horizontal blur to final output
     gl_FragColor = BlurH(u_TextureUnit, v_TextureCoordinates, 20.0);
+    gl_FragColor.a = 0.5;
 }

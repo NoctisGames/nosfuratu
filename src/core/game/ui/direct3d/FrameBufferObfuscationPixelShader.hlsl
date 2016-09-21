@@ -15,7 +15,7 @@ float4 BlurH(float2 uv, float radius)
 		float4 A = float4(0.0, 0.0, 0.0, 0.0);
 		float4 C = float4(0.0, 0.0, 0.0, 0.0);
 
-		float width = 1.0 / 256.0;
+		float width = 1.0 / 512.0;
 
 		float divisor = 0.0;
 		float weight = 0.0;
@@ -47,6 +47,7 @@ float4 main(float4 position : SV_POSITION, float2 texcoord : TEXCOORD) : SV_TARG
 {
 	// Apply horizontal blur to final output
 	float4 ret = BlurH(texcoord, 20.0);
+	ret.a = 0.5;
 
 	return ret;
 }
