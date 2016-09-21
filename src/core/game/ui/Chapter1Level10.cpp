@@ -257,6 +257,8 @@ void Chapter1Level10::update(GameScreen* gs)
 			m_batPanel->config(m_game.get(), BatGoalType_DrillToDamageOwl);
 
 			m_hasShownHintPopup = true;
+
+			m_showHintBecauseJonHasBeenCaptured = false;
 		}
 
         m_isChaseCamActivated = true;
