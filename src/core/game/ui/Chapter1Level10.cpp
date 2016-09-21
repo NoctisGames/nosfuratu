@@ -32,7 +32,6 @@ void Chapter1Level10::enter(GameScreen* gs)
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 1;
     m_hasTriggeredBurrow = false;
-    m_iNumAttempts++;
     m_hasShownHintPopup = false;
     
     for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
@@ -86,14 +85,13 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
     m_fMusicVolume = 0.5f;
-    m_iNumAttempts = 0;
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 0;
     m_hasTriggeredMidBossMusicLoopIntro = false;
     m_hasTriggeredMidBossMusicLoop = false;
     m_isChaseCamActivated = false;
     m_hasTriggeredBurrow = false;
-    m_hasShownDrillPopup = false;
+    m_showHintBecauseJonHasBeenCaptured = false;
     m_hasShownHintPopup = false;
     
     Level::exit(gs);
@@ -245,12 +243,12 @@ void Chapter1Level10::update(GameScreen* gs)
         }
         
         if (jon.getPosition().getX() > 204
+            && jon.getPosition().getX() < 206
             && !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
-            && m_iNumAttempts > 1
+            && m_showHintBecauseJonHasBeenCaptured
             && !m_hasShownHintPopup
             && !m_midBossOwl->didJonTransform()
-            && jon.getAbilityState() == ABILITY_NONE
-            && m_midBossOwl->getDamage() == 0)
+            && jon.getAbilityState() == ABILITY_NONE)
         {
             jon.getPosition().setX(204);
             
@@ -306,7 +304,8 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
-        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
+        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts
+            && jon.getPosition().getY() > 8.65f)
         {
             m_iLastKnownJonNumBoosts = jon.getNumBoosts();
             m_midBossOwl->beginPursuit();
@@ -330,13 +329,18 @@ void Chapter1Level10::update(GameScreen* gs)
   
         m_isChaseCamActivated = false;
     }
+    else if (m_midBossOwl->getState() == MidBossOwlState_FlyingAwayAfterCatchingJon)
+    {
+        m_showHintBecauseJonHasBeenCaptured = m_midBossOwl->getDamage() == 0;
+    }
 }
 
 void Chapter1Level10::updateCamera(GameScreen* gs, float paddingX, bool ignoreY, bool instant)
 {
     ignoreY = m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree || m_midBossOwl->getState() == MidBossOwlState_Dying;
     
-    if (m_isChaseCamActivated)
+    if (m_isChaseCamActivated
+        && m_game->getJon().getPosition().getY() > 9)
     {
         gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
@@ -376,7 +380,6 @@ m_fJonY(0),
 m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
 m_fMusicVolume(0.5f),
-m_iNumAttempts(0),
 m_iLastKnownOwlDamage(0),
 m_iLastKnownJonNumBoosts(0),
 m_iNumCarrotsCollectedAtCheckpoint(0),
@@ -386,7 +389,7 @@ m_hasTriggeredMidBossMusicLoopIntro(false),
 m_hasTriggeredMidBossMusicLoop(false),
 m_isChaseCamActivated(false),
 m_hasTriggeredBurrow(false),
-m_hasShownDrillPopup(false),
+m_showHintBecauseJonHasBeenCaptured(false),
 m_hasShownHintPopup(false)
 {
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));

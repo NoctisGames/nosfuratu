@@ -236,7 +236,6 @@ private:
     float m_fGameStateTime;
     float m_fIdleWaitTime;
     float m_fMusicVolume;
-    int m_iNumAttempts;
     int m_iLastKnownOwlDamage;
     int m_iLastKnownJonNumBoosts;
     int m_iNumCarrotsCollectedAtCheckpoint;
@@ -246,7 +245,7 @@ private:
     bool m_hasTriggeredMidBossMusicLoop;
     bool m_isChaseCamActivated;
     bool m_hasTriggeredBurrow;
-    bool m_hasShownDrillPopup;
+    bool m_showHintBecauseJonHasBeenCaptured;
     bool m_hasShownHintPopup;
     
     virtual void update(GameScreen* gs);
