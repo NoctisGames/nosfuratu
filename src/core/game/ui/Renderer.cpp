@@ -659,7 +659,8 @@ void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
 
 void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 {
-    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr
+        || m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
     {
         return;
     }
@@ -673,7 +674,8 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 
 void Renderer::renderWorldMapScreenUi(WorldMap& wm)
 {
-    if (m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
+    if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr
+        || m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
     {
         return;
     }
@@ -733,7 +735,7 @@ void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntityWithColor(*wm.getBackButton(), Assets::getInstance()->get(wm.getBackButton()), wm.getBackButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
+    //renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), Assets::getInstance()->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor(), true);
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);

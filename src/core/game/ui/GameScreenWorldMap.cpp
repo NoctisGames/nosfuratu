@@ -115,12 +115,12 @@ void WorldMap::execute(GameScreen* gs)
                     {
                         gs->m_stateMachine->revertToPreviousState();
                     }
-                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
-                    {
-                        // Temporary, replace with display Leaderboards
-                        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
-                        return;
-                    }
+                    //else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
+                    //{
+                    //    // Temporary, replace with display Leaderboards
+                    //    gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
+                    //    return;
+                    //}
                     else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_viewOpeningCutsceneButton->getMainBounds()))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
