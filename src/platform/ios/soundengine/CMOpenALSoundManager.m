@@ -265,7 +265,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 	}	
 	
 	self.currentBackgroundAudioFile = file;
-    [player setNumberOfLoops:looping ? -1 : 1];
+    [player setNumberOfLoops:looping ? -1 : 0];
 	player.volume = backgroundMusicVolume;
 	[player play];		
 	
