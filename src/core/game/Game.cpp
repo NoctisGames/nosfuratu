@@ -389,12 +389,12 @@ std::vector<Jon *>& Game::getJons()
 
 Jon& Game::getJon()
 {
-    return *getJons().at(0);
+    return *getJons().at(getJons().size() - 1);
 }
 
 Jon* Game::getJonP()
 {
-    return getJons().at(0);
+    return getJons().at(getJons().size() - 1);
 }
 
 std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()

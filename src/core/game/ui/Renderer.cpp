@@ -1234,7 +1234,7 @@ void Renderer::renderDebugInfo(Game& game, int fps)
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
 
-	if (game.getJons().size() >= 1)
+	if (game.getJons().size() > 0)
 	{
 		// Render Jon's Speed
 

@@ -106,7 +106,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         m_game->update(gs->m_fDeltaTime);
 
-		if (m_game->getJons().size() >= 1)
+		if (m_game->getJons().size() > 0)
 		{
 			m_game->updateAndClean(gs->m_fDeltaTime);
 		}
