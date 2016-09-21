@@ -67,7 +67,7 @@ Direct3DFrameBufferObfuscationGpuProgramWrapper::Direct3DFrameBufferObfuscationG
 
 void Direct3DFrameBufferObfuscationGpuProgramWrapper::bind()
 {
-	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_screenBlendState.Get(), 0, 0xffffffff);
+	m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(D3DManager->m_blendState.Get(), 0, 0xffffffff);
 
 	m_deviceResources->GetD3DDeviceContext()->IASetInputLayout(m_inputLayout.Get());
 
