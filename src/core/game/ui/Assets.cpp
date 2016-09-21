@@ -57,7 +57,7 @@ TextureRegion& Assets::get(CutsceneEffect* effect)
         }
         case CutsceneEffectType_POW:
         {
-            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.33f, 3);
+            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3);
             return anim.getTextureRegion(effect->getStateTime());
         }
     }
