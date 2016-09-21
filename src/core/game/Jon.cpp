@@ -150,7 +150,7 @@ void Jon::update(float deltaTime)
         
         if (m_isRollLanding)
         {
-            if (m_fStateTime > 0.40f)
+            if (m_fStateTime > 0.50f)
             {
                 m_isRollLanding = false;
             }
@@ -722,7 +722,7 @@ void Jon::Rabbit::execute(Jon* jon)
             
             if (jon->m_fAbilityStateTime > 0.35f)
             {
-                jon->m_acceleration->setY(GAME_GRAVITY * 3.5f);
+                jon->m_acceleration->setY(GAME_GRAVITY * 6);
                 
                 bool wasBurrowEffective = jon->m_isBurrowEffective;
                 jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();
@@ -739,6 +739,7 @@ void Jon::Rabbit::execute(Jon* jon)
                 {
                     if (jon->m_isLanding)
                     {
+						jon->m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1.5f);
                         jon->m_isRollLanding = true;
                     }
                     

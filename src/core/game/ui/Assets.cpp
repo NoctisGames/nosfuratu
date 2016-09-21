@@ -1348,7 +1348,7 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation spinningBackFistAnimation = createAnimation(2048, 0, 256, 256, 2048, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 7);
         static Animation burrowAnimation = createAnimation(1792, 256, 256, 256, 2304, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 9);
         static Animation stompAnimation = createAnimation(2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 11, 9);
-        static Animation landingRollAnimation = createAnimation(2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08f, 5);
+        static Animation landingRollAnimation = createAnimation(2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
         
         if (jon->getState() != JON_ALIVE)
         {
