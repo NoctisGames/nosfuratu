@@ -167,6 +167,15 @@ public:
     CutscenePanelOpeningSix() : CutscenePanel(CutscenePanelType_Opening_Six, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3)
     {
         m_color.alpha = 0;
+
+		float camL = CAM_WIDTH / 4;
+		float camB = CAM_HEIGHT / 4;
+		float camW = CAM_WIDTH / 2;
+		float camH = CAM_HEIGHT / 2;
+
+		m_camBounds->getLowerLeft().set(camL, camB);
+		m_camBounds->setWidth(camL + camW);
+		m_camBounds->setHeight(camB + camH);
     }
     
     virtual void update(float deltaTime)
@@ -229,6 +238,15 @@ public:
     CutscenePanelOpeningFive() : CutscenePanel(CutscenePanelType_Opening_Five)
     {
         m_color.alpha = 0.5f;
+
+		float camL = 0;
+		float camB = 0;
+		float camW = CAM_WIDTH;
+		float camH = CAM_HEIGHT;
+
+		m_camBounds->getLowerLeft().set(camL, camB);
+		m_camBounds->setWidth(camL + camW);
+		m_camBounds->setHeight(camB + camH);
     }
     
     virtual void update(float deltaTime)
@@ -285,7 +303,17 @@ private:
 class CutscenePanelOpeningFour : public CutscenePanel
 {
 public:
-    CutscenePanelOpeningFour() : CutscenePanel(CutscenePanelType_Opening_Four) {}
+    CutscenePanelOpeningFour() : CutscenePanel(CutscenePanelType_Opening_Four)
+	{
+		float camL = 0;
+		float camB = 0;
+		float camW = CAM_WIDTH;
+		float camH = CAM_HEIGHT;
+
+		m_camBounds->getLowerLeft().set(camL, camB);
+		m_camBounds->setWidth(camL + camW);
+		m_camBounds->setHeight(camB + camH);
+	}
     
     virtual void update(float deltaTime)
     {
@@ -397,9 +425,16 @@ class CutscenePanelOpeningOne : public CutscenePanel
 public:
     CutscenePanelOpeningOne() : CutscenePanel(CutscenePanelType_Opening_One, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3), shadowX(0), shadowY(0), shadowW(0), shadowH(0), m_hasSpawnedShadow(false)
     {
-        m_camBounds->getLowerLeft().set(0, CAM_HEIGHT / 2);
-        m_camBounds->setWidth(CAM_WIDTH / 2);
-        m_camBounds->setHeight(CAM_HEIGHT / 2);
+		float baseCamB = CAM_HEIGHT * 0.83333333333333f;
+
+		float camL = 0;
+		float camB = baseCamB;
+		float camW = CAM_WIDTH / 2;
+		float camH = CAM_HEIGHT / 2;
+
+		m_camBounds->getLowerLeft().set(camL, camB);
+		m_camBounds->setWidth(camL + camW);
+		m_camBounds->setHeight(camB + camH);
         
         m_color.alpha = 0;
     }
