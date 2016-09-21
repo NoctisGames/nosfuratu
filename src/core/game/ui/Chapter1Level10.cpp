@@ -232,6 +232,12 @@ void Chapter1Level10::update(GameScreen* gs)
     else if (m_midBossOwl->getState() == MidBossOwlState_Pursuing)
     {
         m_isChaseCamActivated = true;
+
+		if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
+		{
+			m_iLastKnownJonNumBoosts = jon.getNumBoosts();
+			m_midBossOwl->beginPursuit();
+		}
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
@@ -306,8 +312,7 @@ void Chapter1Level10::update(GameScreen* gs)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingOverTree)
     {
-        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts
-            && jon.getPosition().getY() > 8.65f)
+        if (jon.getNumBoosts() > m_iLastKnownJonNumBoosts)
         {
             m_iLastKnownJonNumBoosts = jon.getNumBoosts();
             m_midBossOwl->beginPursuit();
@@ -318,8 +323,8 @@ void Chapter1Level10::update(GameScreen* gs)
             jon.setIdle(false);
             jon.setUserActionPrevented(false);
         }
-        
-        m_isChaseCamActivated = false;
+
+		m_isChaseCamActivated = false;
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_Dead)
     {
