@@ -488,19 +488,6 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
                 
                 int levelStats = levelStatsVal.GetInt();
                 
-                if (i < 9)
-                {
-                    levelStats = FLAG_LEVEL_COMPLETE;
-                }
-                else if (i == 9)
-                {
-                    levelStats = FLAG_LEVEL_UNLOCKED;
-                }
-                else
-                {
-                    levelStats = 0;
-                }
-                
                 wlc->m_levelStats.push_back(levelStats);
             }
             
