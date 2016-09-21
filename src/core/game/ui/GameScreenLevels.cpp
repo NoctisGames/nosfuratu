@@ -428,6 +428,18 @@ void Level::update(GameScreen* gs)
         {
             // Has Cleared the Level
             
+            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
+            
+            if (m_game->getNumCarrotsCollected() >= 100)
+            {
+                m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
+                
+                GameTracker::getInstance()->onScored(SCORE_GOLDEN_CARROT);
+                GameTracker::getInstance()->onBonusGoldenCarrotEarned();
+                
+                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
+            }
+            
             static float startingTime = 300.0f;
             
             float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
@@ -440,7 +452,7 @@ void Level::update(GameScreen* gs)
             }
             
             updateScore();
-    
+            
             if (m_iScore < m_iBestScore)
             {
                 m_iScore = m_iBestScore;
@@ -451,18 +463,6 @@ void Level::update(GameScreen* gs)
             if (m_iOnlineScore > m_iBestOnlineScore)
             {
                 // TODO, show Submit Highscore button
-            }
-            
-            m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
-            
-            if (m_game->getNumCarrotsCollected() >= 100)
-            {
-                m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
-                
-                GameTracker::getInstance()->onScored(SCORE_GOLDEN_CARROT);
-                GameTracker::getInstance()->onBonusGoldenCarrotEarned();
-                
-                m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
             if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
