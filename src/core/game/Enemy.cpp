@@ -352,6 +352,7 @@ void Sparrow::updateBounds()
             m_isOnScreen = true;
             
             m_position->setY(m_fOriginalY);
+			m_acceleration->set(0, 1);
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
         }
@@ -367,17 +368,20 @@ void Sparrow::updateBounds()
 void Sparrow::handleAlive(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
-    
-    if (m_position->getY() > (m_fOriginalY + 0.5f))
-    {
-		m_velocity->setY(0);
-        m_acceleration->set(0, -1);
-    }
-    else if (m_position->getY() < (m_fOriginalY - 0.5f))
-    {
-		m_velocity->setY(0);
-        m_acceleration->set(0, 1);
-    }
+
+	if (m_isOnScreen)
+	{
+		if (m_position->getY() > (m_fOriginalY + 0.5f))
+		{
+			m_velocity->setY(0);
+			m_acceleration->set(0, -1);
+		}
+		else if (m_position->getY() < (m_fOriginalY - 0.5f))
+		{
+			m_velocity->setY(0);
+			m_acceleration->set(0, 1);
+		}
+	}
     
     Jon& jon = m_game->getJon();
     

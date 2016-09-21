@@ -142,7 +142,6 @@ public:
     Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_fOriginalY(0), m_isOnScreen(false)
     {
         m_fOriginalY = m_position->getY();
-        m_acceleration->set(0, 2);
     }
     
     virtual void updateBounds();
