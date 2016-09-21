@@ -50,10 +50,6 @@ m_isAcknowledgedPart3(false),
 m_isAcknowledgedPart4(false),
 m_isAcknowledgedPart5(false),
 m_isAcknowledgedPart6(false),
-m_isAcknowledgedPart7(false),
-m_isAcknowledgedPart8(false),
-m_isAcknowledgedPart9(false),
-m_isAcknowledgedPart10(false),
 m_hasTriggeredRequestedAction(false),
 m_hasSwiped(false)
 {
@@ -90,10 +86,6 @@ void BatPanel::reset()
     m_isAcknowledgedPart4 = false;
     m_isAcknowledgedPart5 = false;
     m_isAcknowledgedPart6 = false;
-    m_isAcknowledgedPart7 = false;
-    m_isAcknowledgedPart8 = false;
-    m_isAcknowledgedPart9 = false;
-    m_isAcknowledgedPart10 = false;
     m_hasTriggeredRequestedAction = false;
     m_hasSwiped = false;
     
@@ -137,12 +129,6 @@ void BatPanel::update(GameScreen* gs)
     
     m_bat->update(gs->m_fDeltaTime);
     m_batInstruction->update(gs->m_fDeltaTime);
-    
-    if (m_isAcknowledgedPart6)
-    {
-        // Hacky Code to guarantee that the bat window isn't truncated
-        m_bat->getMainBounds().getLowerLeft().add(0, 4);
-    }
     
     if (m_isRequestingInput)
     {
@@ -225,11 +211,11 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 14)
+        if (jon.getPosition().getX() > 18.8f)
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setX(14);
+                jon.getPosition().setX(18.8f);
                 
                 showBatNearJon(jon);
                 
@@ -289,11 +275,11 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 17.5f)
+        if (jon.getPosition().getX() > 28.5f)
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setX(17.5f);
+                jon.getPosition().setX(28.5f);
                 
                 showBatNearJon(jon);
                 
@@ -548,13 +534,11 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.isFalling() && jon.getPosition().getY() < 22.9f)
+        if (jon.isFalling())
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setY(22.9f);
-                
-                showBatNearJon(jon);
+				showBatNearJon(jon);
                 
                 m_isRequestingInput = true;
             }
@@ -610,17 +594,26 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.isFalling() && jon.getPosition().getX() > 78.6f)
-        {
-            if (!m_isRequestingInput)
-            {
-                jon.getPosition().setX(78.6f);
-                
-                showBatNearJon(jon);
-                
-                m_isRequestingInput = true;
-            }
-        }
+		if (jon.getPosition().getX() > 79)
+		{
+			if (jon.isFalling())
+			{
+				if (!m_isRequestingInput)
+				{
+					jon.getPosition().setX(79);
+
+					showBatNearJon(jon);
+
+					m_isRequestingInput = true;
+				}
+			}
+			else
+			{
+				m_isAcknowledgedPart4 = true;
+
+				return;
+			}
+		}
         
         if (m_isRequestingInput)
         {
@@ -835,322 +828,8 @@ void BatPanel::updateVampire(GameScreen* gs)
                             {
                                 jon.setUserActionPrevented(false);
                                 jon.triggerJump();
-                                jon.setUserActionPrevented(true);
                                 
                                 m_isAcknowledgedPart6 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                gs->processTouchEvents();
-                                
-                                return;
-                            }
-                            break;
-                    }
-                }
-            }
-            else if (!m_batInstruction->isOpening())
-            {
-                if (m_bat->isInPosition())
-                {
-                    showBatInstruction(BatInstructionType_Tap);
-                }
-            }
-        }
-    }
-    else if (!m_isAcknowledgedPart7)
-    {
-        Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
-        
-        if (jon.getPosition().getX() > 98.4f)
-        {
-            if (!m_isRequestingInput)
-            {
-                jon.getPosition().setX(98.4f);
-                
-                showBatNearJon(jon);
-                
-                m_isRequestingInput = true;
-            }
-        }
-        
-        if (m_isRequestingInput)
-        {
-            if (m_batInstruction->isOpen())
-            {
-                bool isJonAlive = jon.isAlive();
-                
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-                {
-                    gs->touchToWorld(*(*i));
-                    
-                    switch ((*i)->getTouchType())
-                    {
-                        case DOWN:
-                            continue;
-                        case DRAGGED:
-                            continue;
-                        case UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                jon.setUserActionPrevented(true);
-                                
-                                m_isAcknowledgedPart7 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                gs->processTouchEvents();
-                                
-                                return;
-                            }
-                            break;
-                    }
-                }
-            }
-            else if (!m_batInstruction->isOpening())
-            {
-                if (m_bat->isInPosition())
-                {
-                    showBatInstruction(BatInstructionType_Tap);
-                }
-            }
-        }
-    }
-    else if (!m_isAcknowledgedPart8)
-    {
-        Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
-        
-        if (jon.getPosition().getX() > 109)
-        {
-            if (!m_isRequestingInput)
-            {
-                jon.getPosition().setX(109);
-                
-                showBatNearJon(jon);
-                
-                m_isRequestingInput = true;
-                
-                m_fJonX = -1;
-            }
-        }
-        
-        if (m_isRequestingInput)
-        {
-            if (m_batInstruction->isOpen())
-            {
-                bool isJonAlive = jon.isAlive();
-                
-                if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
-                {
-                    if (jon.getTransformStateTime() < 0.0625f)
-                    {
-                        gs->m_fDeltaTime /= 8;
-                    }
-                    else
-                    {
-                        if (!gs->m_isReleasingShockwave)
-                        {
-                            gs->m_fShockwaveCenterX = jon.getPosition().getX();
-                            gs->m_fShockwaveCenterY = jon.getPosition().getY();
-                            gs->m_fShockwaveElapsedTime = 0.0f;
-                            gs->m_isReleasingShockwave = true;
-                            
-                            m_isAcknowledgedPart8 = true;
-                            m_isRequestingInput = false;
-                            
-                            m_batInstruction->close();
-                            
-                            gs->processTouchEvents();
-                            
-                            return;
-                        }
-                    }
-                }
-                
-                if (gs->m_isReleasingShockwave)
-                {
-                    gs->m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
-                    
-                    if (gs->m_fShockwaveElapsedTime > 2)
-                    {
-                        gs->m_fShockwaveElapsedTime = 0;
-                        gs->m_isReleasingShockwave = false;
-                    }
-                }
-                
-                if (gs->m_isScreenHeldDown)
-                {
-                    gs->m_fScreenHeldTime += gs->m_fDeltaTime;
-                    
-                    if (gs->m_fScreenHeldTime > 0.4f)
-                    {
-                        jon.setUserActionPrevented(false);
-                        jon.triggerTransform();
-                        jon.setUserActionPrevented(true);
-                        
-                        m_fJonX = jon.getPosition().getX();
-                        
-                        gs->m_isScreenHeldDown = false;
-                        gs->m_fShockwaveElapsedTime = 0;
-                        gs->m_isReleasingShockwave = false;
-                    }
-                }
-                
-                if (m_fJonX > 0)
-                {
-                    jon.update(gs->m_fDeltaTime);
-                    jon.getPosition().setX(m_fJonX);
-                }
-                
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-                {
-                    gs->touchToWorld(*(*i));
-                    
-                    switch ((*i)->getTouchType())
-                    {
-                        case DOWN:
-                            if (isJonAlive)
-                            {
-                                gs->m_isScreenHeldDown = true;
-                                gs->m_fScreenHeldTime = 0.0f;
-                            }
-                            continue;
-                        case DRAGGED:
-                            continue;
-                        case UP:
-                            if (isJonAlive)
-                            {
-                                if (gs->m_fScreenHeldTime > 0.4f)
-                                {
-                                    jon.setUserActionPrevented(false);
-                                    jon.triggerCancelTransform();
-                                    jon.setUserActionPrevented(true);
-                                }
-                                
-                                gs->m_isScreenHeldDown = false;
-                                gs->m_fScreenHeldTime = 0;
-                                
-                                m_fJonX = -1;
-                            }
-                            break;
-                    }
-                }
-            }
-            else if (!m_batInstruction->isOpening())
-            {
-                if (m_bat->isInPosition())
-                {
-                    showBatInstruction(BatInstructionType_TapHold);
-                }
-            }
-        }
-    }
-    else if (!m_isAcknowledgedPart9)
-    {
-        Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
-        
-        if (jon.getPosition().getX() > 122)
-        {
-            if (!m_isRequestingInput)
-            {
-                jon.getPosition().setX(122);
-                
-                showBatNearJon(jon);
-                
-                m_isRequestingInput = true;
-            }
-        }
-        
-        if (m_isRequestingInput)
-        {
-            if (m_batInstruction->isOpen())
-            {
-                bool isJonAlive = jon.isAlive();
-                
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-                {
-                    gs->touchToWorld(*(*i));
-                    
-                    switch ((*i)->getTouchType())
-                    {
-                        case DOWN:
-                            continue;
-                        case DRAGGED:
-                            continue;
-                        case UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                jon.setUserActionPrevented(true);
-                                
-                                m_isAcknowledgedPart9 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                gs->processTouchEvents();
-                                
-                                return;
-                            }
-                            break;
-                    }
-                }
-            }
-            else if (!m_batInstruction->isOpening())
-            {
-                if (m_bat->isInPosition())
-                {
-                    showBatInstruction(BatInstructionType_Tap);
-                }
-            }
-        }
-    }
-    else if (!m_isAcknowledgedPart10)
-    {
-        Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
-        
-        if (jon.isFalling())
-        {
-            if (!m_isRequestingInput)
-            {
-                showBatNearJon(jon);
-                
-                m_isRequestingInput = true;
-            }
-        }
-        
-        if (m_isRequestingInput)
-        {
-            if (m_batInstruction->isOpen())
-            {
-                bool isJonAlive = jon.isAlive();
-                
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-                {
-                    gs->touchToWorld(*(*i));
-                    
-                    switch ((*i)->getTouchType())
-                    {
-                        case DOWN:
-                            continue;
-                        case DRAGGED:
-                            continue;
-                        case UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                
-                                m_isAcknowledgedPart10 = true;
                                 m_isRequestingInput = false;
                                 
                                 m_batInstruction->close();

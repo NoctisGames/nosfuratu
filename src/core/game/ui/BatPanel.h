@@ -230,10 +230,6 @@ private:
     bool m_isAcknowledgedPart4;
     bool m_isAcknowledgedPart5;
     bool m_isAcknowledgedPart6;
-    bool m_isAcknowledgedPart7;
-    bool m_isAcknowledgedPart8;
-    bool m_isAcknowledgedPart9;
-    bool m_isAcknowledgedPart10;
     bool m_hasTriggeredRequestedAction;
     bool m_hasSwiped;
     
