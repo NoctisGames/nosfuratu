@@ -1381,7 +1381,7 @@ TextureRegion& Assets::get(Jon* jon)
         
         if (jon->getPhysicalState() == PHYSICAL_GROUNDED)
         {
-            if (jon->isRollLanding())
+            if (jon->isRollLanding() && !jon->isPushedBack())
             {
                 return landingRollAnimation.getTextureRegion(jon->getStateTime());
             }
