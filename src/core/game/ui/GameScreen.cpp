@@ -237,7 +237,7 @@ TouchEvent* GameScreen::newTouchEvent()
 {
 	TouchEvent* touchEvent = m_touchEventsPool.at(m_iPoolIndex++);
 
-	if (m_iPoolIndex >= 50)
+	if (m_iPoolIndex > 99)
 	{
 		m_iPoolIndex = 0;
 	}
