@@ -737,14 +737,12 @@ void Jon::Rabbit::execute(Jon* jon)
                 }
                 else
                 {
-                    if (jon->m_isLanding)
-                    {
-						jon->m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1.5f);
-                        jon->m_isRollLanding = true;
-                    }
-                    
                     if (jon->m_physicalState == PHYSICAL_GROUNDED)
                     {
+                        jon->m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1.5f);
+                        
+                        jon->m_isRollLanding = true;
+                        
                         jon->setState(ABILITY_NONE);
                     }
                 }
@@ -792,6 +790,8 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 	if (jon->m_iNumRabbitJumps < 2)
 	{
 		jon->m_fStateTime = 0;
+        jon->m_isRollLanding = false;
+        jon->m_isLanding = false;
 
 		if (jon->m_velocity->getX() < 0)
 		{
@@ -1093,7 +1093,7 @@ void Jon::Vampire::execute(Jon* jon)
     if (!createAfterImage)
     {
         vDist = jon->m_velocity->dist(*m_lastKnownVelocity);
-        createAfterImage = m_fTimeSinceLastVelocityCheck > 0.1;
+        createAfterImage = m_fTimeSinceLastVelocityCheck > 0.1 && vDist > 0;
     }
     
     if (createAfterImage)
@@ -1187,6 +1187,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		if (!m_isFallingAfterGlide)
 		{
 			jon->m_fStateTime = 0;
+            jon->m_isLanding = false;
 
             jon->m_acceleration->setX(0);
 			jon->m_acceleration->setY(GAME_GRAVITY);
