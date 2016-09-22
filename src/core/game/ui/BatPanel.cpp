@@ -49,7 +49,6 @@ m_isAcknowledgedPart2(false),
 m_isAcknowledgedPart3(false),
 m_isAcknowledgedPart4(false),
 m_isAcknowledgedPart5(false),
-m_isAcknowledgedPart6(false),
 m_hasTriggeredRequestedAction(false),
 m_hasSwiped(false)
 {
@@ -85,7 +84,6 @@ void BatPanel::reset()
     m_isAcknowledgedPart3 = false;
     m_isAcknowledgedPart4 = false;
     m_isAcknowledgedPart5 = false;
-    m_isAcknowledgedPart6 = false;
     m_hasTriggeredRequestedAction = false;
     m_hasSwiped = false;
     
@@ -594,77 +592,6 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-		if (jon.getPosition().getX() > 79)
-		{
-			if (jon.isFalling())
-			{
-				if (!m_isRequestingInput)
-				{
-					jon.getPosition().setX(79);
-
-					showBatNearJon(jon);
-
-					m_isRequestingInput = true;
-				}
-			}
-			else
-			{
-				m_isAcknowledgedPart4 = true;
-
-				return;
-			}
-		}
-        
-        if (m_isRequestingInput)
-        {
-            if (m_batInstruction->isOpen())
-            {
-                bool isJonAlive = jon.isAlive();
-                
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
-                {
-                    gs->touchToWorld(*(*i));
-                    
-                    switch ((*i)->getTouchType())
-                    {
-                        case DOWN:
-                            continue;
-                        case DRAGGED:
-                            continue;
-                        case UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                jon.setUserActionPrevented(true);
-                                
-                                m_isAcknowledgedPart4 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                gs->processTouchEvents();
-                                
-                                return;
-                            }
-                            break;
-                    }
-                }
-            }
-            else if (!m_batInstruction->isOpening())
-            {
-                if (m_bat->isInPosition())
-                {
-                    showBatInstruction(BatInstructionType_Tap);
-                }
-            }
-        }
-    }
-    else if (!m_isAcknowledgedPart5)
-    {
-        Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
-        
         if (jon.getPosition().getX() > 83)
         {
             if (!m_isRequestingInput)
@@ -700,7 +627,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                             gs->m_fShockwaveElapsedTime = 0.0f;
                             gs->m_isReleasingShockwave = true;
                             
-                            m_isAcknowledgedPart5 = true;
+							m_isAcknowledgedPart4 = true;
                             m_isRequestingInput = false;
                             
                             m_batInstruction->close();
@@ -790,7 +717,7 @@ void BatPanel::updateVampire(GameScreen* gs)
             }
         }
     }
-    else if (!m_isAcknowledgedPart6)
+    else if (!m_isAcknowledgedPart5)
     {
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
@@ -829,7 +756,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                                 jon.setUserActionPrevented(false);
                                 jon.triggerJump();
                                 
-                                m_isAcknowledgedPart6 = true;
+                                m_isAcknowledgedPart5 = true;
                                 m_isRequestingInput = false;
                                 
                                 m_batInstruction->close();
