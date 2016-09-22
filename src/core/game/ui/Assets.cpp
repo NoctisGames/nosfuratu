@@ -1728,6 +1728,11 @@ short Assets::getFirstSoundId()
 
 void Assets::addSoundIdToPlayQueue(short soundId)
 {
+    if (!m_isSoundEnabled)
+    {
+        return;
+    }
+    
     if (soundId > NO_SOUND && m_sSoundIds.size() < MAX_SOUNDS_TO_PLAY_PER_FRAME)
     {
         m_sSoundIds.push_back(soundId);
@@ -1736,6 +1741,11 @@ void Assets::addSoundIdToPlayQueue(short soundId)
 
 void Assets::forceAddSoundIdToPlayQueue(short soundId)
 {
+    if (!m_isSoundEnabled)
+    {
+        return;
+    }
+    
     if (soundId > NO_SOUND)
     {
         m_sSoundIds.push_back(soundId);
@@ -1752,6 +1762,12 @@ void Assets::eraseFirstSoundId()
 
 void Assets::setMusicId(short musicId)
 {
+    if (!m_isMusicEnabled
+        && musicId > MUSIC_STOP)
+    {
+        return;
+    }
+    
     m_sMusicId = musicId;
 }
 
@@ -1831,7 +1847,7 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 	tr.init(x, regionWidth, textureWidth);
 }
 
-Assets::Assets() : m_sMusicId(0), m_isUsingCompressedTextureSet(false)
+Assets::Assets() : m_sMusicId(0), m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
 {
     // Hide Constructor for Singleton
 }

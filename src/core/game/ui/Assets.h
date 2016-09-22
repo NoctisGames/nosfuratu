@@ -142,11 +142,26 @@ public:
     bool isUsingCompressedTextureSet();
     
     void setUsingCompressedTextureSet(bool isUsingCompressedTextureSet);
+    
+    bool isMusicEnabled() { return m_isMusicEnabled; }
+    
+    void setMusicEnabled(bool isMusicEnabled)
+    {
+        m_isMusicEnabled = isMusicEnabled;
+        
+        setMusicId(m_isMusicEnabled ? MUSIC_RESUME : MUSIC_STOP);
+    }
+    
+    bool isSoundEnabled() { return m_isSoundEnabled; }
+    
+    void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
 
 private:
     std::vector<short> m_sSoundIds;
     short m_sMusicId;
     bool m_isUsingCompressedTextureSet;
+    bool m_isMusicEnabled;
+    bool m_isSoundEnabled;
     
     Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     

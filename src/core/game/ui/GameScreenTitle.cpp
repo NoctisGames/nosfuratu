@@ -116,9 +116,15 @@ void Title::execute(GameScreen* gs)
                     {
                         m_isRequestingLevelEditor = true;
                     }
-                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 2 / 3))
+                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 0.75f)
+                             && gs->m_touchPoint->getY() > (CAM_HEIGHT * 0.25f))
                     {
                         m_isRequestingNextState = true;
+                    }
+                    else
+                    {
+                        Assets::getInstance()->setMusicEnabled(!Assets::getInstance()->isMusicEnabled());
+                        Assets::getInstance()->setSoundEnabled(!Assets::getInstance()->isSoundEnabled());
                     }
                     
                     return;
