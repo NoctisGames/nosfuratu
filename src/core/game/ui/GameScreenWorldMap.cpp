@@ -185,25 +185,26 @@ void WorldMap::execute(GameScreen* gs)
                             if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
                             {
                                 int worldToLoad = (*j)->getWorld();
-                                int levelToLoad = (*j)->getLevel();
+                                int levelToLoad = (*j)->getLevel(); 
                                 
                                 int worldIndex = worldToLoad - 1;
                                 int levelIndex = levelToLoad - 1;
                                 
                                 int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
                                 int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
-                                int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
-                                
-                                WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
-                                WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
-                                WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
-                                
-                                validateAbilityFlag();
-                                
-                                WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
                                 
                                 if ((*j)->isSelected())
                                 {
+                                    int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
+                                    
+                                    WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
+                                    WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
+                                    WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
+                                    
+                                    validateAbilityFlag();
+                                    
+                                    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
+              
                                     m_isReadyForTransition = true;
                                     
                                     m_goldenCarrotsMarker->onConfirm();
