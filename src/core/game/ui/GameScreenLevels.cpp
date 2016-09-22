@@ -205,7 +205,10 @@ void Level::update(GameScreen* gs)
         
         m_hasShownOpeningSequence = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+        if (Assets::getInstance()->isMusicEnabled())
+        {
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+        }
     }
     else if (!m_hasOpeningSequenceCompleted)
     {

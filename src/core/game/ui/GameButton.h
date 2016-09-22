@@ -15,6 +15,8 @@
 
 typedef enum
 {
+    GameButtonType_ToggleMusic,
+    GameButtonType_ToggleSound,
     GameButtonType_BackToTitle,
     GameButtonType_Leaderboards,
     GameButtonType_ViewOpeningCutscene,

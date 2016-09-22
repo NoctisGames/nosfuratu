@@ -595,14 +595,21 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton)
+void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, GameButton* toggleMusicButton, GameButton* toggleSoundButton, bool isDisplayingLevelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    if (isDisplayingLevelEditorButton && m_title_screen.gpuTextureWrapper)
+    if (m_title_screen.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
+        
+        if (isDisplayingLevelEditorButton)
+        {
+            renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
+        }
+        
+        renderPhysicalEntityWithColor(*toggleMusicButton, Assets::getInstance()->get(toggleMusicButton), toggleMusicButton->getColor(), true);
+        renderPhysicalEntityWithColor(*toggleSoundButton, Assets::getInstance()->get(toggleSoundButton), toggleSoundButton->getColor(), true);
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
     

@@ -17,6 +17,18 @@ GameButton* GameButton::create(GameButtonType type)
 {
     switch (type)
     {
+        case GameButtonType_ToggleMusic:
+            return new GameButton(3,
+                                  CAM_HEIGHT * 0.13333333333333f / 2,
+                                  CAM_WIDTH * 0.075f,
+                                  CAM_HEIGHT * 0.13333333333333f,
+                                  type);
+        case GameButtonType_ToggleSound:
+            return new GameButton(3 + CAM_WIDTH * 0.075f + 0.25f,
+                                  CAM_HEIGHT * 0.13333333333333f / 2,
+                                  CAM_WIDTH * 0.075f,
+                                  CAM_HEIGHT * 0.13333333333333f,
+                                  type);
         case GameButtonType_BackToTitle:
         case GameButtonType_BackToLevelSelect:
             return new GameButton(1.51895680147063f / 2,

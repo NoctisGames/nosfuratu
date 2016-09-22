@@ -1631,6 +1631,16 @@ TextureRegion& Assets::get(GameButton* gameButton)
 {
     switch (gameButton->getType())
     {
+        case GameButtonType_ToggleMusic:
+        {
+            static TextureRegion tr = TextureRegion(0, 3072, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case GameButtonType_ToggleSound:
+        {
+            static TextureRegion tr = TextureRegion(0, 3204, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
         case GameButtonType_BackToTitle:
         {
             static TextureRegion tr = TextureRegion(1800, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);

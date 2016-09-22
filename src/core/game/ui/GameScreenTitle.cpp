@@ -73,7 +73,7 @@ void Title::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get(), m_isDisplayingLevelEditorButton);
+            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get(), m_toggleMusic.get(), m_toggleSound.get(), m_isDisplayingLevelEditorButton);
         }
         
         gs->m_renderer->renderToScreen();
@@ -116,15 +116,20 @@ void Title::execute(GameScreen* gs)
                     {
                         m_isRequestingLevelEditor = true;
                     }
-                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 0.75f)
-                             && gs->m_touchPoint->getY() > (CAM_HEIGHT * 0.25f))
-                    {
-                        m_isRequestingNextState = true;
-                    }
-                    else
+                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_toggleMusic->getMainBounds()))
                     {
                         Assets::getInstance()->setMusicEnabled(!Assets::getInstance()->isMusicEnabled());
+                        m_toggleMusic->getColor().alpha = Assets::getInstance()->isMusicEnabled() ? 1 : 0.35f;
+                    }
+                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_toggleSound->getMainBounds()))
+                    {
                         Assets::getInstance()->setSoundEnabled(!Assets::getInstance()->isSoundEnabled());
+                        m_toggleSound->getColor().alpha = Assets::getInstance()->isSoundEnabled() ? 1 : 0.35f;
+                    }
+                    else if (gs->m_touchPoint->getY() < (CAM_HEIGHT * 0.75f)
+                          && gs->m_touchPoint->getY() > (CAM_HEIGHT * 0.25f))
+                    {
+                        m_isRequestingNextState = true;
                     }
                     
                     return;
@@ -149,6 +154,16 @@ GameButton* Title::getLevelEditorButton()
     return m_levelEditorButton.get();
 }
 
+GameButton* Title::getToggleMusicButton()
+{
+    return m_toggleMusic.get();
+}
+
+GameButton* Title::getToggleSoundButton()
+{
+    return m_toggleSound.get();
+}
+
 void Title::setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton)
 {
 	m_isDisplayingLevelEditorButton = isDisplayingLevelEditorButton;
@@ -158,4 +173,6 @@ Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false
 {
     m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
     m_levelEditorButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_LevelEditor));
+    m_toggleMusic = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleMusic));
+    m_toggleSound = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleSound));
 }
