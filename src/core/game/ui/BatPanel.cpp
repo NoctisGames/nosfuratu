@@ -141,9 +141,10 @@ void BatPanel::updateJump(GameScreen* gs)
     if (!m_isAcknowledgedPart1)
     {
         Jon& jon = m_game->getJon();
-        jon.setUserActionPrevented(true);
+		jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 17.7f)
+        if (jon.getPosition().getX() > 17.7f
+			&& jon.getPosition().getX() < 20)
         {
             if (!m_isRequestingInput)
             {
@@ -154,6 +155,10 @@ void BatPanel::updateJump(GameScreen* gs)
                 m_isRequestingInput = true;
             }
         }
+		else if (jon.getPosition().getX() > 20)
+		{
+			jon.setUserActionPrevented(false);
+		}
         
         if (m_isRequestingInput)
         {
@@ -209,7 +214,8 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 18.8f)
+        if (jon.getPosition().getX() > 18.8f
+			&& jon.getPosition().getX() < 21)
         {
             if (!m_isRequestingInput)
             {
@@ -222,6 +228,10 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
                 m_isRequestingInput = true;
             }
         }
+		else if (jon.getPosition().getX() > 21)
+		{
+			jon.setUserActionPrevented(false);
+		}
         
         if (m_isRequestingInput)
         {
@@ -273,7 +283,8 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 28.5f)
+        if (jon.getPosition().getX() > 28.5f
+			&& jon.getPosition().getX() < 32)
         {
             if (!m_isRequestingInput)
             {
@@ -338,7 +349,8 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 7)
+        if (jon.getPosition().getX() > 7
+			&& jon.getPosition().getX() < 10)
         {
             if (!m_isRequestingInput)
             {
@@ -353,6 +365,10 @@ void BatPanel::updateVampire(GameScreen* gs)
                 m_fJonX = -1;
             }
         }
+		else if (jon.getPosition().getX() > 10)
+		{
+			jon.setUserActionPrevented(false);
+		}
         
         if (m_isRequestingInput)
         {
@@ -470,7 +486,8 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 34.2f)
+        if (jon.getPosition().getX() > 34.2f
+			&& jon.getPosition().getX() < 37)
         {
             if (!m_isRequestingInput)
             {
@@ -592,7 +609,8 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 83)
+        if (jon.getPosition().getX() > 83
+			&& jon.getPosition().getX() < 86)
         {
             if (!m_isRequestingInput)
             {
@@ -722,7 +740,8 @@ void BatPanel::updateVampire(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 88)
+        if (jon.getPosition().getX() > 88
+			&& jon.getPosition().getX() < 90)
         {
             if (!m_isRequestingInput)
             {
@@ -787,7 +806,8 @@ void BatPanel::updateDrill(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 17)
+        if (jon.getPosition().getX() > 17
+			&& jon.getPosition().getX() < 20)
         {
             if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
             {
@@ -800,6 +820,10 @@ void BatPanel::updateDrill(GameScreen* gs)
                 m_isRequestingInput = true;
             }
         }
+		else if (jon.getPosition().getX() > 20)
+		{
+			jon.setUserActionPrevented(false);
+		}
         
         if (m_isRequestingInput)
         {
