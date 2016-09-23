@@ -259,7 +259,8 @@ void Chapter1Level10::update(GameScreen* gs)
 			&& m_showHintBecauseJonHasBeenCaptured
 			&& !m_hasShownHintPopup
 			&& !m_midBossOwl->didJonTransform()
-			&& jon.getAbilityState() == ABILITY_NONE)
+			&& jon.getAbilityState() == ABILITY_NONE
+            && jon.getPhysicalState() == PHYSICAL_GROUNDED)
 		{
 			m_midBossOwl->givePlayerAFreeHit();
 
