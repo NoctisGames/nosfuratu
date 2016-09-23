@@ -270,6 +270,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(CMOpenALSoundManager);
 	[player play];		
 	
 	self.backgroundAudio = player;
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                           error:NULL];
 }
 
 - (void) stopBackgroundMusic
