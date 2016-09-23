@@ -725,7 +725,7 @@ void Jon::Rabbit::execute(Jon* jon)
             
             if (jon->m_fAbilityStateTime > 0.35f)
             {
-                jon->m_acceleration->setY(GAME_GRAVITY * 6);
+                jon->m_acceleration->setY(GAME_GRAVITY * 4);
                 
                 bool wasBurrowEffective = jon->m_isBurrowEffective;
                 jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();

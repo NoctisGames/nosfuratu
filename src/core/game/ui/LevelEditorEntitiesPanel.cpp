@@ -111,13 +111,9 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(new GrassPlatformLeft(0, 0));
         m_foregroundObjects.push_back(new GrassPlatformCenter(0, 0));
         m_foregroundObjects.push_back(new GrassPlatformRight(0, 0));
-        
-        if (level >= 10)
-        {
-            m_foregroundObjects.push_back(new CavePlatformLeft(0, 0));
-            m_foregroundObjects.push_back(new CavePlatformCenter(0, 0));
-            m_foregroundObjects.push_back(new CavePlatformRight(0, 0));
-        }
+		m_foregroundObjects.push_back(new CavePlatformLeft(0, 0));
+		m_foregroundObjects.push_back(new CavePlatformCenter(0, 0));
+		m_foregroundObjects.push_back(new CavePlatformRight(0, 0));
         
         m_foregroundObjects.push_back(new RockLarge(0, 0));
         m_foregroundObjects.push_back(new RockMedium(0, 0));

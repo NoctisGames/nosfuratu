@@ -476,10 +476,14 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                     }
-                    else if (dynamic_cast<RunningIntoDeathObject *>(m_draggingEntity))
+                    else if (dynamic_cast<PlatformObject *>(m_draggingEntity))
                     {
                         m_allowPlaceOn = false;
                     }
+					else if (dynamic_cast<RunningIntoDeathObject *>(m_draggingEntity))
+					{
+						m_allowPlaceOn = false;
+					}
                     else if (dynamic_cast<CollectibleItem *>(m_draggingEntity))
                     {
                         m_allowPlaceOn = false;

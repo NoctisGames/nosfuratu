@@ -181,6 +181,11 @@ public:
 
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
+			if (dynamic_cast<PlatformObject *>((*i)))
+			{
+				continue;
+			}
+
             if (OverlapTester::doRectanglesOverlap(tempBounds, (*i)->getMainBounds()))
             {
                 if ((*i)->getMainBounds().getTop() > tempBounds.getBottom())
