@@ -471,9 +471,13 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         {
             regionBottomY = 12.76362286085f;
         }
+		else if (yFactor < 28)
+		{
+			regionBottomY = 21.76362286085f;
+		}
         else
         {
-            regionBottomY = 21.76362286085f;
+            regionBottomY = GAME_HEIGHT - CAM_HEIGHT;
         }
     }
     else
@@ -490,9 +494,13 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         {
             regionBottomY = 12.76362286085f;
         }
+		else if (yFactor < (28 - heightPlusPadding))
+		{
+			regionBottomY = 21.76362286085f;
+		}
         else
         {
-            regionBottomY = 21.76362286085f;
+            regionBottomY = GAME_HEIGHT - CAM_HEIGHT;
         }
     }
     
