@@ -178,6 +178,8 @@ void Jon::update(float deltaTime)
         {
             m_iNumRabbitJumps = m_iNumRabbitJumps == 0 ? 1 : m_iNumRabbitJumps;
             m_iNumVampireJumps = m_iNumVampireJumps == 0 ? 1 : m_iNumVampireJumps;
+
+			m_acceleration->setX(0);
         }
         
         m_acceleration->setY(GAME_GRAVITY);
