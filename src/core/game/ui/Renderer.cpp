@@ -708,6 +708,18 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
     {
         static Color fontColor = Color(1, 1, 1, 1);
         
+        fontColor.alpha = 1;
+        
+        float flicker = wm.getGoldenCarrotCountFlickerTime();
+        if (flicker < 0.5f)
+        {
+            fontColor.alpha = 1 - flicker * 2;
+        }
+        else if (flicker < 1)
+        {
+            fontColor.alpha = (flicker - 0.5f) * 2;
+        }
+        
         std::stringstream ss;
         ss << wm.getNumCollectedGoldenCarrots();
         std::string text = ss.str();

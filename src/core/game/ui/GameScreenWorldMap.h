@@ -555,6 +555,8 @@ public:
     
     GameButton* getViewOpeningCutsceneButton();
     
+    float getGoldenCarrotCountFlickerTime() { return m_fGoldenCarrotCountFlickerTime; }
+    
     int getNumCollectedGoldenCarrots();
     
     int getViewedCutsceneFlag();
@@ -572,6 +574,7 @@ private:
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
+    float m_fGoldenCarrotCountFlickerTime;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
     int m_iUnlockedLevelStatsFlag;

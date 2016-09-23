@@ -18,7 +18,7 @@
 #include "GameScreenTitle.h"
 #include "MathUtil.h"
 
-static const int NUM_GC_REQ = 1;
+static const int NUM_GC_REQ = 25;
 
 /// World Map ///
 
@@ -59,6 +59,7 @@ void WorldMap::enter(GameScreen* gs)
     
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
+    m_fGoldenCarrotCountFlickerTime = 1337;
 }
 
 void WorldMap::execute(GameScreen* gs)
@@ -239,6 +240,8 @@ void WorldMap::execute(GameScreen* gs)
         m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
         m_scoreMarker->update(gs->m_fDeltaTime);
         m_spendGoldenCarrotsBubble->update(gs->m_fDeltaTime);
+        
+        m_fGoldenCarrotCountFlickerTime += gs->m_fDeltaTime / 2;
     }
 }
 
@@ -311,6 +314,11 @@ void WorldMap::loadUserSaveData(const char* json)
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
     
             bossLevelThumbnail->configLockStatus(isUnlocked, isUnlocking);
+            
+            if (isUnlocking)
+            {
+                m_fGoldenCarrotCountFlickerTime = 0;
+            }
         }
         
         (*j)->config(isPlayable, isClearing, isCleared);
@@ -420,9 +428,17 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
         Value& v = d[num_golden_carrots_key];
         assert(v.IsInt());
         
-        m_iNumCollectedGoldenCarrots = v.GetInt();
+        int numCollectedGoldenCarrots = v.GetInt();
         
-        m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(m_iNumCollectedGoldenCarrots > NUM_GC_REQ);
+        m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(numCollectedGoldenCarrots > NUM_GC_REQ);
+        
+        if (m_iNumCollectedGoldenCarrots != numCollectedGoldenCarrots
+            && numCollectedGoldenCarrots != 0)
+        {
+            m_fGoldenCarrotCountFlickerTime = 0;
+        }
+        
+        m_iNumCollectedGoldenCarrots = numCollectedGoldenCarrots;
     }
     
     if (d.HasMember(jon_unlocked_abilities_flag_key))
@@ -623,6 +639,7 @@ void WorldMap::validateAbilityFlag()
 }
 
 WorldMap::WorldMap() :
+m_fGoldenCarrotCountFlickerTime(1337),
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
 m_iUnlockedLevelStatsFlag(0),
