@@ -15,6 +15,7 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "Jon.h"
+#include "ForegroundObject.h"
 
 #include <math.h>
 #include <vector>
