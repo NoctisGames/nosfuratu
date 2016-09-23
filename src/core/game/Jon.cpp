@@ -199,7 +199,8 @@ void Jon::update(float deltaTime)
 		m_fStateTime = 0;
 	}
 
-	if (m_velocity->getX() > m_fMaxSpeed)
+	if (m_velocity->getX() > m_fMaxSpeed
+        && !m_isRollLanding)
 	{
 		m_velocity->setX(m_fMaxSpeed);
 	}
@@ -739,7 +740,7 @@ void Jon::Rabbit::execute(Jon* jon)
                 {
                     if (jon->m_physicalState == PHYSICAL_GROUNDED)
                     {
-                        jon->m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED + 1.5f);
+                        jon->m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
                         
                         jon->m_isRollLanding = true;
                         
