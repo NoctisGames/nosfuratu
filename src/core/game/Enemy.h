@@ -48,6 +48,8 @@ public:
     void triggerHit();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 0; }
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     

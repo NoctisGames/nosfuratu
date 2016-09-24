@@ -542,17 +542,17 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     int index = -1;
                     if (m_allowPlaceOn)
                     {
-                        if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getGrounds())) != -1)
+						if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getForegroundObjects())) != -1)
+                        {
+                            m_attachToEntity = m_game->getForegroundObjects().at(index);
+                        }
+                        else if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getGrounds())) != -1)
                         {
                             m_attachToEntity = m_game->getGrounds().at(index);
                         }
                         else if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getExitGrounds())) != -1)
                         {
                             m_attachToEntity = m_game->getExitGrounds().at(index);
-                        }
-                        else if ((index = EntityUtils::indexOfOverlappingObjectThatCanBePlacedOn(m_draggingEntity, m_game->getForegroundObjects())) != -1)
-                        {
-                            m_attachToEntity = m_game->getForegroundObjects().at(index);
                         }
                     }
                     else if (m_allowPlaceUnder)

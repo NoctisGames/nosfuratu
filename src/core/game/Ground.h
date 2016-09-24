@@ -65,6 +65,8 @@ public:
     Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
     bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 0; }
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     

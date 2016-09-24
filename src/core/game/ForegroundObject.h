@@ -89,6 +89,8 @@ public:
     virtual void updateBounds();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 0; }
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     
@@ -153,6 +155,8 @@ public:
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 1; }
 };
 
 class LandingDeathObject : public ForegroundObject
@@ -161,6 +165,8 @@ public:
     LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 1; }
 };
 
 class RunningIntoDeathObject : public ForegroundObject
@@ -187,6 +193,8 @@ public:
     virtual void update(float deltaTime);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 1; }
     
 private:
     float m_fBoostVelocity;

@@ -33,6 +33,8 @@ public:
     virtual void update(float deltaTime);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+
+	virtual int getEntityLandingPriority() { return 0; }
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     

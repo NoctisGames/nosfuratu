@@ -81,13 +81,29 @@ public:
         
         if (entityVelocityY <= 0)
         {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
-            {
-                if ((*i)->isEntityLanding(entity, deltaTime))
-                {
-                    return true;
-                }
-            }
+			int highestPriority = 0;
+			for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+			{
+				int priority = (*i)->getEntityLandingPriority();
+				if (priority > highestPriority)
+				{
+					highestPriority = priority;
+				}
+			}
+
+			for (int p = highestPriority; p >= 0; p--)
+			{
+				for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+				{
+					int priority = (*i)->getEntityLandingPriority();
+
+					if (p == priority
+						&& (*i)->isEntityLanding(entity, deltaTime))
+					{
+						return true;
+					}
+				}
+			}
         }
         
         return false;
@@ -370,7 +386,6 @@ public:
     static int indexOfOverlappingObjectThatCanBePlacedOn(PhysicalEntity* pe, std::vector<T>& items)
     {
         int index = 0;
-        int ret = -1;
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
             if ((*i) == pe)
@@ -378,13 +393,14 @@ public:
                 continue;
             }
             
-            if (OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
+            if ((*i)->canObjectBePlacedOn()
+				&& OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
             {
-                ret = (*i)->canObjectBePlacedOn() ? index : -1;
+				return index;
             }
         }
         
-        return ret;
+        return -1;
     }
     
     template<typename T>
