@@ -370,6 +370,7 @@ public:
     static int indexOfOverlappingObjectThatCanBePlacedOn(PhysicalEntity* pe, std::vector<T>& items)
     {
         int index = 0;
+        int ret = -1;
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
         {
             if ((*i) == pe)
@@ -377,13 +378,13 @@ public:
                 continue;
             }
             
-            if ((*i)->canObjectBePlacedOn() && OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
+            if (OverlapTester::doRectanglesOverlap(pe->getMainBounds(), (*i)->getMainBounds()))
             {
-                return index;
+                ret = (*i)->canObjectBePlacedOn() ? index : -1;
             }
         }
         
-        return -1;
+        return ret;
     }
     
     template<typename T>
