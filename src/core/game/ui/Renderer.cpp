@@ -95,6 +95,8 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_cutscene_1);
     m_textureWrappers.push_back(&m_world_1_cutscene_2);
     m_textureWrappers.push_back(&m_world_1_end_boss_part_1);
+    m_textureWrappers.push_back(&m_world_1_end_boss_part_2);
+    m_textureWrappers.push_back(&m_world_1_end_boss_part_3);
     m_textureWrappers.push_back(&m_world_1_enemies);
     m_textureWrappers.push_back(&m_world_1_ground);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_1);
@@ -2144,9 +2146,37 @@ void Renderer::loadWorld1EndBossPart1()
     }
 }
 
+void Renderer::loadWorld1EndBossPart2()
+{
+    if (m_world_1_end_boss_part_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_end_boss_part_2.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_end_boss_part_2" : "world_1_end_boss_part_2");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1EndBossPart3()
+{
+    if (m_world_1_end_boss_part_3.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_end_boss_part_3.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_end_boss_part_3" : "world_1_end_boss_part_3");
+        }, this));
+    }
+}
+
 void Renderer::loadWorld1EndBossTextures()
 {
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart3);
     
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
@@ -2274,6 +2304,8 @@ void Renderer::unloadWorld1MidBossTextures()
 void Renderer::unloadWorld1EndBossTextures()
 {
     destroyTexture(&m_world_1_end_boss_part_1);
+    destroyTexture(&m_world_1_end_boss_part_2);
+    destroyTexture(&m_world_1_end_boss_part_3);
     
 	unloadWorld1Textures();
 }

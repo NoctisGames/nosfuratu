@@ -187,6 +187,10 @@
 		BBC99DC11CC562E400F9E2EB /* mid_boss_owl_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */; };
 		BBCD42751D97115B001A7ADB /* button_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42731D97115B001A7ADB /* button_click.wav */; };
 		BBCD42761D97115B001A7ADB /* level_confirmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42741D97115B001A7ADB /* level_confirmed.wav */; };
+		BBCD42791D97249D001A7ADB /* c_world_1_end_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42771D97249D001A7ADB /* c_world_1_end_boss_part_2.png */; };
+		BBCD427A1D97249D001A7ADB /* c_world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42781D97249D001A7ADB /* c_world_1_end_boss_part_3.png */; };
+		BBCD427D1D9724AC001A7ADB /* world_1_end_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD427B1D9724AC001A7ADB /* world_1_end_boss_part_2.png */; };
+		BBCD427E1D9724AC001A7ADB /* world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD427C1D9724AC001A7ADB /* world_1_end_boss_part_3.png */; };
 		BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */; };
 		BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */; };
 		BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CD1CAE0D2800E5387A /* ConfirmResetPanel.cpp */; };
@@ -588,6 +592,10 @@
 		BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
 		BBCD42731D97115B001A7ADB /* button_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click.wav; sourceTree = "<group>"; };
 		BBCD42741D97115B001A7ADB /* level_confirmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_confirmed.wav; sourceTree = "<group>"; };
+		BBCD42771D97249D001A7ADB /* c_world_1_end_boss_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_end_boss_part_2.png; sourceTree = "<group>"; };
+		BBCD42781D97249D001A7ADB /* c_world_1_end_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_end_boss_part_3.png; sourceTree = "<group>"; };
+		BBCD427B1D9724AC001A7ADB /* world_1_end_boss_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_end_boss_part_2.png; sourceTree = "<group>"; };
+		BBCD427C1D9724AC001A7ADB /* world_1_end_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_end_boss_part_3.png; sourceTree = "<group>"; };
 		BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level21.cpp; sourceTree = "<group>"; };
 		BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfirmExitPanel.cpp; sourceTree = "<group>"; };
 		BBCF86CC1CAE0D2800E5387A /* ConfirmExitPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmExitPanel.h; sourceTree = "<group>"; };
@@ -1020,6 +1028,8 @@
 				BB64C74F1D5155200000CA51 /* world_1_cutscene_1.png */,
 				BB64C7501D5155200000CA51 /* world_1_cutscene_2.png */,
 				BBFAAD7B1D88A1EB006C6311 /* world_1_end_boss_part_1.png */,
+				BBCD427B1D9724AC001A7ADB /* world_1_end_boss_part_2.png */,
+				BBCD427C1D9724AC001A7ADB /* world_1_end_boss_part_3.png */,
 				BB0AE8CE1C6ABF090047EF19 /* world_1_enemies.png */,
 				BB32DE8C1C67113600F98904 /* world_1_ground.png */,
 				BB5C891B1C8E411F00820366 /* world_1_mid_boss_part_1.png */,
@@ -1044,6 +1054,8 @@
 				BBDC29691D5D643200BDFD7A /* c_world_1_cutscene_1.png */,
 				BBDC296A1D5D643200BDFD7A /* c_world_1_cutscene_2.png */,
 				BBFAAD791D88A1E5006C6311 /* c_world_1_end_boss_part_1.png */,
+				BBCD42771D97249D001A7ADB /* c_world_1_end_boss_part_2.png */,
+				BBCD42781D97249D001A7ADB /* c_world_1_end_boss_part_3.png */,
 				BBC38DE11CA03E80001B178C /* c_world_1_enemies.png */,
 				BBC38DE21CA03E80001B178C /* c_world_1_ground.png */,
 				BBC38DE31CA03E80001B178C /* c_world_1_mid_boss_part_1.png */,
@@ -1621,6 +1633,7 @@
 				BBFAAD851D88BFFC006C6311 /* level_clear.wav in Resources */,
 				BBFAAD7C1D88A1EB006C6311 /* world_1_end_boss_part_1.png in Resources */,
 				BB939CEA1C626E41006D945A /* trigger_transform.wav in Resources */,
+				BBCD427E1D9724AC001A7ADB /* world_1_end_boss_part_3.png in Resources */,
 				BB939CE21C626E41006D945A /* jon_rabbit_jump.wav in Resources */,
 				BB32DE8B1C66F43700F98904 /* world_1_background_upper.png in Resources */,
 				BB5C89201C8E411F00820366 /* world_1_mid_boss_part_3.png in Resources */,
@@ -1641,6 +1654,7 @@
 				BB5C89151C8DBEEB00820366 /* fox_bounced_on.wav in Resources */,
 				BB939CD71C626E41006D945A /* cancel_transform.wav in Resources */,
 				BBAE39AF1D5CD44D003B9573 /* level_complete.wav in Resources */,
+				BBCD42791D97249D001A7ADB /* c_world_1_end_boss_part_2.png in Resources */,
 				BB32DE8A1C66F43700F98904 /* world_1_background_mid.png in Resources */,
 				BB939CE71C626E41006D945A /* landing_cave.wav in Resources */,
 				BB939CE01C626E41006D945A /* footstep_right_grass.wav in Resources */,
@@ -1670,6 +1684,7 @@
 				BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB3652341C87CB82004B9CCD /* toad_die.wav in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
+				BBCD427A1D97249D001A7ADB /* c_world_1_end_boss_part_3.png in Resources */,
 				BBC38DED1CA03E80001B178C /* c_world_1_background_upper.png in Resources */,
 				BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */,
 				BB939CE11C626E41006D945A /* jon_rabbit_double_jump.wav in Resources */,
@@ -1687,6 +1702,7 @@
 				BB74E80718C2541F007C223E /* Localizable.strings in Resources */,
 				BB264FF51C8F546E0091EA96 /* level_editor.png in Resources */,
 				BBE1872A1C3235D000AC3FAE /* snake_death_texture_shader.fsh in Resources */,
+				BBCD427D1D9724AC001A7ADB /* world_1_end_boss_part_2.png in Resources */,
 				BBF662B31D8DEABD00F2BC79 /* trans_death_shader_helper.png in Resources */,
 				BB939CEB1C626E41006D945A /* vampire_glide_loop.wav in Resources */,
 				BB264FF61C8F546E0091EA96 /* title_screen.png in Resources */,
