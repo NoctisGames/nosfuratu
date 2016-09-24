@@ -447,6 +447,12 @@
     <Media Include="..\..\..\..\..\assets\sounds\opening_cutscene_bgm.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_confirmed.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\button_click.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
