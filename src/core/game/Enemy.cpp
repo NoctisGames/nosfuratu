@@ -122,9 +122,8 @@ bool Enemy::isJonBlockedAbove(Jon& jon, float deltaTime)
 bool Enemy::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getMainBounds();
-    Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
     
-    if (OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
+    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         triggerHit();
         
@@ -246,18 +245,27 @@ bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
     
     if (jonVelocityY <= 0)
     {
-        if (OverlapTester::doRectanglesOverlap(jon->getMainBounds(), getMainBounds()))
+		float entityYDelta = fabsf(jonVelocityY * deltaTime);
+
+		Rectangle enemyBounds = Rectangle(getMainBounds().getLeft(), getMainBounds().getBottom(), getMainBounds().getWidth(), getMainBounds().getHeight());
+
+		enemyBounds.setHeight(enemyBounds.getHeight() + entityYDelta);
+
+        if (OverlapTester::doRectanglesOverlap(jon->getMainBounds(), enemyBounds))
         {
             float jonLowerLeftY = jon->getMainBounds().getLowerLeft().getY();
             float jonYDelta = fabsf(jonVelocityY * deltaTime);
             
-            float itemTop = getMainBounds().getTop();
+            float itemTop = enemyBounds.getTop();
             float padding = itemTop * .01f;
             padding += jonYDelta;
             float itemTopReq = itemTop - padding;
             
             if (jonLowerLeftY >= itemTopReq)
             {
+				jon->getPosition().setY(getMainBounds().getTop() + jon->getMainBounds().getHeight() / 2 * 1.01f);
+				jon->updateBounds();
+
                 return true;
             }
         }
@@ -299,10 +307,7 @@ bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     {
         if (calcIsJonLanding(jon, deltaTime))
         {
-            float itemTop = getMainBounds().getTop();
-            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
-            jon->updateBounds();
-            jon->triggerBoostOffEnemy(18);
+			jon->triggerBoostOffEnemy(18);
             
             m_fStateTime = 0;
             
@@ -512,10 +517,6 @@ bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             m_isHitting = false;
             m_velocity->setX(0);
             
-            float itemTop = getMainBounds().getTop();
-            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
-            jon->updateBounds();
-            
             float boost = fmaxf(fabsf(jonVelocityY) / 1.5f, 6);
             
             jon->triggerBoostOffEnemy(boost);
@@ -650,9 +651,6 @@ bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     {
         if (calcIsJonLanding(jon, deltaTime))
         {
-            float itemTop = getMainBounds().getTop();
-            jon->getPosition().setY(itemTop + jon->getMainBounds().getHeight() / 2 * 1.01f);
-            jon->updateBounds();
             jon->triggerBoostOffEnemy(18);
             
             m_fStateTime = 0;
