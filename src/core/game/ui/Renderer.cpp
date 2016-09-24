@@ -603,7 +603,7 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, GameButton* toggleMusicButton, GameButton* toggleSoundButton, bool isDisplayingLevelEditorButton)
+void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -616,8 +616,6 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, GameButton* to
             renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
         }
         
-        renderPhysicalEntityWithColor(*toggleMusicButton, Assets::getInstance()->get(toggleMusicButton), toggleMusicButton->getColor(), true);
-        renderPhysicalEntityWithColor(*toggleSoundButton, Assets::getInstance()->get(toggleSoundButton), toggleSoundButton->getColor(), true);
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
     
@@ -768,8 +766,11 @@ void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntityWithColor(*wm.getBackButton(), Assets::getInstance()->get(wm.getBackButton()), wm.getBackButton()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getToggleMusicButton(), Assets::getInstance()->get(wm.getToggleMusicButton()), wm.getToggleMusicButton()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), Assets::getInstance()->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor(), true);
     //renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getNextWorldButton(), Assets::getInstance()->get(wm.getNextWorldButton()), wm.getNextWorldButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), Assets::getInstance()->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor(), true);
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
@@ -1103,7 +1104,7 @@ void Renderer::renderBlackOverlay(float opacity)
     m_highlightRectangleBatcher->endBatch();
 }
 
-void Renderer::renderHud(Game& game, GameButton* backButton, int score)
+void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continueButton, int score)
 {
 	updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -1224,6 +1225,11 @@ void Renderer::renderHud(Game& game, GameButton* backButton, int score)
     if (backButton)
     {
         renderPhysicalEntity(*backButton, Assets::getInstance()->get(backButton), true);
+    }
+    
+    if (continueButton)
+    {
+        renderPhysicalEntityWithColor(*continueButton, Assets::getInstance()->get(continueButton), continueButton->getColor(), true);
     }
 
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);

@@ -59,6 +59,7 @@ protected:
     std::unique_ptr<Game> m_game;
     Game* m_sourceGame;
     std::unique_ptr<GameButton> m_backButton;
+    std::unique_ptr<GameButton> m_continueButton;
     std::unique_ptr<BatPanel> m_batPanel;
     float m_fStateTime;
     int m_iScoreFromTime;

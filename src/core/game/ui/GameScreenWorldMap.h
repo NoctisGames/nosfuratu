@@ -144,7 +144,12 @@ public:
     
     bool isSelected() { return m_isSelected; }
     
-    void onConfirm() { m_fStateTime = 0; }
+    void onConfirm()
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
+        
+        m_fStateTime = 0;
+    }
     
     bool isClearing() { return m_isClearing; }
     
@@ -174,7 +179,7 @@ public:
 class SpendGoldenCarrotsBubble : public PhysicalEntity
 {
 public:
-    SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21875f, CAM_HEIGHT * 0.30718954248366f),
+    SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21507352941176f, CAM_HEIGHT * 0.30065359477124f),
     m_color(1, 1, 1, 1),
     m_iWorld(-1),
     m_iLevel(-1),
@@ -200,14 +205,9 @@ public:
     {
         if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
         {
-            float middle = getMainBounds().getLowerLeft().getX() + getMainBounds().getWidth() / 2;
-            
-            if (touchPoint.getX() < middle)
+            if (m_userHasEnoughGoldenCats)
             {
-                if (m_userHasEnoughGoldenCats)
-                {
-                    return 1;
-                }
+                return 1;
             }
             
             return 0;
@@ -551,9 +551,15 @@ public:
     
     GameButton* getBackButton();
     
+    GameButton* getToggleMusicButton();
+    
+    GameButton* getToggleSoundButton();
+    
     GameButton* getLeaderBoardsButton();
     
     GameButton* getViewOpeningCutsceneButton();
+    
+    GameButton* getNextWorldButton();
     
     float getGoldenCarrotCountFlickerTime() { return m_fGoldenCarrotCountFlickerTime; }
     
@@ -572,8 +578,11 @@ private:
     std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;
     std::unique_ptr<GameButton> m_backButton;
+    std::unique_ptr<GameButton> m_toggleMusic;
+    std::unique_ptr<GameButton> m_toggleSound;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
+    std::unique_ptr<GameButton> m_nextWorldButton;
     float m_fGoldenCarrotCountFlickerTime;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
@@ -581,6 +590,7 @@ private:
     int m_iViewedCutsceneFlag;
     bool m_isReadyForTransition;
     bool m_needsRefresh;
+    bool m_isNextWorldButtonEnabled;
     
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;

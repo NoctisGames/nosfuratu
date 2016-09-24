@@ -10,6 +10,8 @@
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "GameConstants.h"
+#include "Assets.h"
+#include "OverlapTester.h"
 
 #include <assert.h>
 
@@ -18,14 +20,14 @@ GameButton* GameButton::create(GameButtonType type)
     switch (type)
     {
         case GameButtonType_ToggleMusic:
-            return new GameButton(3.4f,
-                                  CAM_HEIGHT * 0.1f / 2,
+            return new GameButton(0.2f + CAM_WIDTH * 0.05f / 2,
+                                  0.2f + CAM_HEIGHT * 0.08888888888889f / 2,
                                   CAM_WIDTH * 0.05f,
                                   CAM_HEIGHT * 0.08888888888889f,
                                   type);
         case GameButtonType_ToggleSound:
-            return new GameButton(3.4f + CAM_WIDTH * 0.05f + 0.25f,
-                                  CAM_HEIGHT * 0.1f / 2,
+            return new GameButton(0.2f + 0.4f + CAM_WIDTH * 0.05f,
+                                  0.2f + CAM_HEIGHT * 0.08888888888889f / 2,
                                   CAM_WIDTH * 0.05f,
                                   CAM_HEIGHT * 0.08888888888889f,
                                   type);
@@ -33,6 +35,13 @@ GameButton* GameButton::create(GameButtonType type)
         case GameButtonType_BackToLevelSelect:
             return new GameButton(1.51895680147063f / 2,
                                   CAM_HEIGHT - 1.52941176470592f / 2,
+                                  1.51895680147063f,
+                                  1.52941176470592f,
+                                  type);
+        case GameButtonType_ContinueToLevelSelect:
+        case GameButtonType_NextWorld:
+            return new GameButton(CAM_WIDTH - 1.51895680147063f / 2,
+                                  1.52941176470592f / 2,
                                   1.51895680147063f,
                                   1.52941176470592f,
                                   type);
@@ -67,4 +76,15 @@ GameButton::GameButton(float x, float y, float width, float height, GameButtonTy
 GameButtonType GameButton::getType()
 {
     return m_type;
+}
+
+bool GameButton::handleClick(Vector2D& touchPoint)
+{
+    if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
+    {
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+        return true;
+    }
+    
+    return false;
 }

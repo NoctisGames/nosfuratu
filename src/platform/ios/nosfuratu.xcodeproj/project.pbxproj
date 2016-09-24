@@ -185,6 +185,8 @@
 		BBC7B87B1BC30D2E00140BCA /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */; };
 		BBC7B87F1BC32E0300140BCA /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC7B87D1BC32E0300140BCA /* TrashCan.cpp */; };
 		BBC99DC11CC562E400F9E2EB /* mid_boss_owl_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */; };
+		BBCD42751D97115B001A7ADB /* button_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42731D97115B001A7ADB /* button_click.wav */; };
+		BBCD42761D97115B001A7ADB /* level_confirmed.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42741D97115B001A7ADB /* level_confirmed.wav */; };
 		BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */; };
 		BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */; };
 		BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CD1CAE0D2800E5387A /* ConfirmResetPanel.cpp */; };
@@ -584,6 +586,8 @@
 		BBC99DC01CC562E400F9E2EB /* mid_boss_owl_death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mid_boss_owl_death.wav; sourceTree = "<group>"; };
 		BBCA207A1C90A8280081DCC3 /* GpuTextureDataWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpuTextureDataWrapper.h; sourceTree = "<group>"; };
 		BBCA207B1C90B69A0081DCC3 /* TextureWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
+		BBCD42731D97115B001A7ADB /* button_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = button_click.wav; sourceTree = "<group>"; };
+		BBCD42741D97115B001A7ADB /* level_confirmed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_confirmed.wav; sourceTree = "<group>"; };
 		BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level21.cpp; sourceTree = "<group>"; };
 		BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfirmExitPanel.cpp; sourceTree = "<group>"; };
 		BBCF86CC1CAE0D2800E5387A /* ConfirmExitPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmExitPanel.h; sourceTree = "<group>"; };
@@ -941,6 +945,7 @@
 				BBFAAD7F1D88BFFC006C6311 /* ability_unlock.wav */,
 				BBFAAD801D88BFFC006C6311 /* boss_level_clear.wav */,
 				BBF662AD1D8DD7BF00F2BC79 /* boss_level_unlock.wav */,
+				BBCD42731D97115B001A7ADB /* button_click.wav */,
 				BB939C821C626E41006D945A /* cancel_transform.wav */,
 				BB939C831C626E41006D945A /* collect_carrot.wav */,
 				BB939C841C626E41006D945A /* collect_golden_carrot.wav */,
@@ -966,6 +971,7 @@
 				BB939C931C626E41006D945A /* landing_grass.wav */,
 				BBFAAD811D88BFFC006C6311 /* level_clear.wav */,
 				BBAE39AE1D5CD44D003B9573 /* level_complete.wav */,
+				BBCD42741D97115B001A7ADB /* level_confirmed.wav */,
 				BB7F72521D74FB1B004BD9BD /* level_select_bgm.wav */,
 				BBFAAD821D88BFFC006C6311 /* level_selected.wav */,
 				BB779B1F1CB32AC0002B29AD /* mid_boss_bgm_intro.wav */,
@@ -1660,6 +1666,7 @@
 				BB5C89171C8DBEEB00820366 /* fox_strike.wav in Resources */,
 				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB5C891F1C8E411F00820366 /* world_1_mid_boss_part_2.png in Resources */,
+				BBCD42761D97115B001A7ADB /* level_confirmed.wav in Resources */,
 				BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB3652341C87CB82004B9CCD /* toad_die.wav in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
@@ -1687,6 +1694,7 @@
 				BB939CDA1C626E41006D945A /* complete_transform.wav in Resources */,
 				BBB73A251D5D655900099987 /* final_boss_bgm.wav in Resources */,
 				BB7072121C89320F009A973F /* saw_grind_loop.wav in Resources */,
+				BBCD42751D97115B001A7ADB /* button_click.wav in Resources */,
 				BB2DF28D1C59A7AE00DD7BE3 /* trans_screen_shader.fsh in Resources */,
 				BB32DE891C66F43700F98904 /* world_1_background_lower.png in Resources */,
 				BB939CDB1C626E41006D945A /* death.wav in Resources */,

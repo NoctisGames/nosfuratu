@@ -586,7 +586,9 @@
                                     @"vampire_dash.wav",
                                     @"boss_level_unlock.wav",
                                     @"rabbit_stomp.wav",
-                                    @"final_boss_bgm_intro.wav", nil];
+                                    @"final_boss_bgm_intro.wav",
+                                    @"button_click.wav",
+                                    @"level_confirmed.wav", nil];
 }
 
 @end

@@ -94,7 +94,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(GameButton* levelEditorButton, GameButton* toggleMusicButton, GameButton* toggleSoundButton, bool isDisplayingLevelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton);
     
     void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
     
@@ -118,7 +118,7 @@ public:
     
     void renderBlackOverlay(float opacity);
     
-    void renderHud(Game& game, GameButton* backButton, int score);
+    void renderHud(Game& game, GameButton* backButton, GameButton* continueButton, int score);
     
     void renderResumeButtonOverlay();
 

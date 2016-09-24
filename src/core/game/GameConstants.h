@@ -117,6 +117,8 @@
 #define SOUND_BOSS_LEVEL_UNLOCK 48
 #define SOUND_RABBIT_STOMP 49
 #define SOUND_END_BOSS_LOOP_INTRO 50
+#define SOUND_BUTTON_CLICK 51
+#define SOUND_LEVEL_CONFIRMED 52
 
 //// Render Definitions ////
 

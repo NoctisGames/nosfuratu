@@ -31,18 +31,12 @@ public:
     TitlePanel* getTitlePanel();
     
     GameButton* getLevelEditorButton();
-    
-    GameButton* getToggleMusicButton();
-    
-    GameButton* getToggleSoundButton();
 
 	void setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton);
     
 private:
     std::unique_ptr<TitlePanel> m_panel;
     std::unique_ptr<GameButton> m_levelEditorButton;
-    std::unique_ptr<GameButton> m_toggleMusic;
-    std::unique_ptr<GameButton> m_toggleSound;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
 	bool m_isDisplayingLevelEditorButton;

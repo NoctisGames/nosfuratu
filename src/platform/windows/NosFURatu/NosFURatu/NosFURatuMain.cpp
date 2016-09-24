@@ -81,6 +81,8 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("boss_level_unlock.wav");
     m_sounds.push_back("rabbit_stomp.wav");
     m_sounds.push_back("final_boss_bgm_intro.wav");
+    m_sounds.push_back("button_click.wav");
+    m_sounds.push_back("level_confirmed.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()

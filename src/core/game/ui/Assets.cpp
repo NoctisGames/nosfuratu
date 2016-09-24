@@ -313,11 +313,11 @@ TextureRegion& Assets::get(SpendGoldenCarrotsBubble* spendGoldenCarrotsBubble)
 {
     if (spendGoldenCarrotsBubble->userHasEnoughGoldenCats())
     {
-        static Animation anim = Animation(0, 748, 238, 188, 1904, 376, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 14, 2);
+        static Animation anim = Animation(0, 748, 234, 184, 1872, 552, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 21, 3);
         return anim.getTextureRegion(spendGoldenCarrotsBubble->getStateTime());
     }
     
-    static Animation anim = Animation(0, 1128, 238, 188, 1904, 376, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 14, 2);
+    static Animation anim = Animation(0, 1304, 234, 184, 1872, 552, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 21, 3);
     return anim.getTextureRegion(spendGoldenCarrotsBubble->getStateTime());
 }
 
@@ -1633,12 +1633,12 @@ TextureRegion& Assets::get(GameButton* gameButton)
     {
         case GameButtonType_ToggleMusic:
         {
-            static TextureRegion tr = TextureRegion(0, 3072, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = TextureRegion(1244, 72, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_ToggleSound:
         {
-            static TextureRegion tr = TextureRegion(0, 3204, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = TextureRegion(1244, 204, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToTitle:
@@ -1659,6 +1659,16 @@ TextureRegion& Assets::get(GameButton* gameButton)
         case GameButtonType_BackToLevelSelect:
         {
             static TextureRegion tr = TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+            return tr;
+        }
+        case GameButtonType_ContinueToLevelSelect:
+        {
+            static TextureRegion tr = TextureRegion(804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+            return tr;
+        }
+        case GameButtonType_NextWorld:
+        {
+            static TextureRegion tr = TextureRegion(1604, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
             return tr;
         }
         case GameButtonType_LevelEditor:

@@ -60,6 +60,8 @@ void Level::enter(GameScreen* gs)
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
     }
     
+    m_continueButton->getColor().alpha = 0;
+    
     m_batPanel->reset();
     
     configBatPanel();
@@ -247,15 +249,28 @@ void Level::update(GameScreen* gs)
         
         if (m_isDisplayingResults)
         {
+            m_continueButton->getColor().alpha += gs->m_fDeltaTime;
+            if (m_continueButton->getColor().alpha > 1)
+            {
+                m_continueButton->getColor().alpha = 1;
+            }
+            
             for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
             {
+                gs->touchToWorld(*(*i));
+                
                 switch ((*i)->getTouchType())
                 {
                     case DOWN:
                     case DRAGGED:
                         continue;
                     case UP:
-                        gs->m_stateMachine->revertToPreviousState();
+                        if (m_continueButton->handleClick(*gs->m_touchPoint))
+                        {
+                            gs->m_stateMachine->revertToPreviousState();
+                            return;
+                        }
+                        
                         break;
                 }
             }
@@ -545,7 +560,7 @@ void Level::render(GameScreen* gs)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_iScore);
+        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
     }
 
 	if (m_isDebugMode)
@@ -678,7 +693,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                 continue;
             case UP:
                 if (!m_hasCompletedLevel
-                    && OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
+                    && m_backButton->handleClick(*gs->m_touchPoint))
                 {
                     m_exitLoop = true;
                     
@@ -808,6 +823,7 @@ m_isDebugMode(false)
     m_game = std::unique_ptr<Game>(new Game());
     m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
+    m_continueButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ContinueToLevelSelect));
 }
 
 /// Chapter 1 Level 1 ///

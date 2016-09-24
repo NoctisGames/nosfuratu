@@ -21,6 +21,8 @@ typedef enum
     GameButtonType_Leaderboards,
     GameButtonType_ViewOpeningCutscene,
     GameButtonType_BackToLevelSelect,
+    GameButtonType_ContinueToLevelSelect,
+    GameButtonType_NextWorld,
     GameButtonType_LevelEditor
 } GameButtonType;
 
@@ -34,6 +36,8 @@ public:
     GameButtonType getType();
     
     Color& getColor() { return m_color; }
+    
+    bool handleClick(Vector2D& touchPoint);
     
 private:
     GameButtonType m_type;

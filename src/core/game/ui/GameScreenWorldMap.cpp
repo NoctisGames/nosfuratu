@@ -109,9 +109,19 @@ void WorldMap::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_backButton->getMainBounds()))
+                    if (m_backButton->handleClick(*gs->m_touchPoint))
                     {
                         gs->m_stateMachine->revertToPreviousState();
+                    }
+                    else if (m_toggleMusic->handleClick(*gs->m_touchPoint))
+                    {
+                        Assets::getInstance()->setMusicEnabled(!Assets::getInstance()->isMusicEnabled());
+                        m_toggleMusic->getColor().alpha = Assets::getInstance()->isMusicEnabled() ? 1 : 0.35f;
+                    }
+                    else if (m_toggleSound->handleClick(*gs->m_touchPoint))
+                    {
+                        Assets::getInstance()->setSoundEnabled(!Assets::getInstance()->isSoundEnabled());
+                        m_toggleSound->getColor().alpha = Assets::getInstance()->isSoundEnabled() ? 1 : 0.35f;
                     }
                     //else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
                     //{
@@ -119,12 +129,18 @@ void WorldMap::execute(GameScreen* gs)
                     //    gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
                     //    return;
                     //}
-                    else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_viewOpeningCutsceneButton->getMainBounds()))
+                    else if (m_viewOpeningCutsceneButton->handleClick(*gs->m_touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
                         gs->m_stateMachine->changeState(WorldMapToOpeningCutscene::getInstance());
                         m_userHasClickedOpeningCutscene = true;
                         m_clickedLevel = nullptr;
+                        return;
+                    }
+                    else if (m_isNextWorldButtonEnabled
+                             && m_nextWorldButton->handleClick(*gs->m_touchPoint))
+                    {
+                        // TODO
                         return;
                     }
                     else
@@ -298,7 +314,7 @@ void WorldMap::loadUserSaveData(const char* json)
             previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
         }
         
-        bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
+        bool isPlayable = true;//FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
         bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
@@ -318,6 +334,19 @@ void WorldMap::loadUserSaveData(const char* json)
             if (isUnlocking)
             {
                 m_fGoldenCarrotCountFlickerTime = 0;
+            }
+            
+            if ((*j)->getWorld() == 1
+                && (*j)->getLevel() == 21
+                && FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE))
+            {
+                m_isNextWorldButtonEnabled = true;
+                m_nextWorldButton->getColor().alpha = 1;
+            }
+            else
+            {
+                m_isNextWorldButtonEnabled = false;
+                m_nextWorldButton->getColor().alpha = 0;
             }
         }
         
@@ -385,6 +414,16 @@ GameButton* WorldMap::getBackButton()
     return m_backButton.get();
 }
 
+GameButton* WorldMap::getToggleMusicButton()
+{
+    return m_toggleMusic.get();
+}
+
+GameButton* WorldMap::getToggleSoundButton()
+{
+    return m_toggleSound.get();
+}
+
 GameButton* WorldMap::getLeaderBoardsButton()
 {
     return m_leaderBoardsButton.get();
@@ -393,6 +432,11 @@ GameButton* WorldMap::getLeaderBoardsButton()
 GameButton* WorldMap::getViewOpeningCutsceneButton()
 {
     return m_viewOpeningCutsceneButton.get();
+}
+
+GameButton* WorldMap::getNextWorldButton()
+{
+    return m_nextWorldButton.get();
 }
 
 int WorldMap::getNumCollectedGoldenCarrots()
@@ -647,15 +691,19 @@ m_iViewedCutsceneFlag(0),
 m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
 m_userHasClickedOpeningCutscene(false),
-m_needsRefresh(false)
+m_needsRefresh(false),
+m_isNextWorldButtonEnabled(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
     m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
     m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
     m_spendGoldenCarrotsBubble = std::unique_ptr<SpendGoldenCarrotsBubble>(new SpendGoldenCarrotsBubble());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
+    m_toggleMusic = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleMusic));
+    m_toggleSound = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleSound));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));
+    m_nextWorldButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_NextWorld));
     
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();
