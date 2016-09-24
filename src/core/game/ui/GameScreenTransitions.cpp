@@ -353,7 +353,6 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         if (!m_hasPlayedTransitionSound)
         {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
             Assets::getInstance()->setMusicId(MUSIC_STOP);
             
             m_hasPlayedTransitionSound = true;
