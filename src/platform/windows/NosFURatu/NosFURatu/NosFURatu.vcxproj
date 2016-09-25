@@ -2026,6 +2026,7 @@
     <ClInclude Include="..\..\..\..\core\game\Background.h" />
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
+    <ClInclude Include="..\..\..\..\core\game\EndBossSnake.h" />
     <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
     <ClInclude Include="..\..\..\..\core\game\EnemySpirit.h" />
     <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
@@ -2135,6 +2136,7 @@
     <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EndBossSnake.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EnemySpirit.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
