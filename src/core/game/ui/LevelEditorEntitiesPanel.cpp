@@ -179,8 +179,6 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         {
             m_endBossForegroundObjects.push_back(new SpikedBall(0, 0));
             m_endBossForegroundObjects.push_back(new SpikedBallChain(0, 0));
-            m_endBossForegroundObjects.push_back(new SpikedBallChainRingTop(0, 0));
-            m_endBossForegroundObjects.push_back(new SpikedBallChainRingBottom(0, 0));
         }
         
         m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));

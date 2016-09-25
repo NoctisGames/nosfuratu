@@ -80,9 +80,7 @@ typedef enum
     ForegroundObjectType_BoulderRollingRight,
     
     ForegroundObjectType_SpikedBall,
-    ForegroundObjectType_SpikedBallChain,
-    ForegroundObjectType_SpikedBallChainRingTop,
-    ForegroundObjectType_SpikedBallChainRingBottom
+    ForegroundObjectType_SpikedBallChain
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -523,33 +521,13 @@ public:
 class SpikedBall : public DeadlyObject
 {
 public:
-    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall) {}
+    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0, 1, 1.2f) {}
 };
 
 class SpikedBallChain : public ForegroundObject
 {
 public:
-    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 98, 79, ForegroundObjectType_SpikedBallChain) {}
-    
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
-    
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
-};
-
-class SpikedBallChainRingTop : public ForegroundObject
-{
-public:
-    SpikedBallChainRingTop(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 3, ForegroundObjectType_SpikedBallChainRingTop) {}
-    
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
-    
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
-};
-
-class SpikedBallChainRingBottom : public ForegroundObject
-{
-public:
-    SpikedBallChainRingBottom(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 4, ForegroundObjectType_SpikedBallChainRingBottom) {}
+    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain) {}
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     

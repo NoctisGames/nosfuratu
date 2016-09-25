@@ -932,23 +932,13 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_SpikedBall:
         {
-            static TextureRegion tr = createTextureRegion(3140, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3340, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikedBallChain:
         {
-            static Animation anim = createAnimation(0, 1568, 1568, 1264, 3136, 2528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+            static Animation anim = createAnimation(0, 1472, 1616, 1312, 3232, 2624, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
             return anim.getTextureRegion(foregroundObject->getStateTime());
-        }
-        case ForegroundObjectType_SpikedBallChainRingTop:
-        {
-            static TextureRegion tr = createTextureRegion(3656, 2588, 64, 48, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
-        case ForegroundObjectType_SpikedBallChainRingBottom:
-        {
-            static TextureRegion tr = createTextureRegion(3656, 2640, 80, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
         }
     }
     

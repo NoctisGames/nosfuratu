@@ -125,10 +125,6 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikedBallChain(gridX, gridY);
         case ForegroundObjectType_SpikedBall:
             return new SpikedBall(gridX, gridY);
-        case ForegroundObjectType_SpikedBallChainRingTop:
-            return new SpikedBallChainRingTop(gridX, gridY);
-        case ForegroundObjectType_SpikedBallChainRingBottom:
-            return new SpikedBallChainRingBottom(gridX, gridY);
     }
     
     assert(false);
