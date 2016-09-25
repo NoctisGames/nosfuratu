@@ -191,6 +191,7 @@
 		BBCD427A1D97249D001A7ADB /* c_world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD42781D97249D001A7ADB /* c_world_1_end_boss_part_3.png */; };
 		BBCD427D1D9724AC001A7ADB /* world_1_end_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD427B1D9724AC001A7ADB /* world_1_end_boss_part_2.png */; };
 		BBCD427E1D9724AC001A7ADB /* world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BBCD427C1D9724AC001A7ADB /* world_1_end_boss_part_3.png */; };
+		BBCD42811D974BE0001A7ADB /* EndBossSnake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCD427F1D974BE0001A7ADB /* EndBossSnake.cpp */; };
 		BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */; };
 		BBCF86D11CAE0D2800E5387A /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */; };
 		BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCF86CD1CAE0D2800E5387A /* ConfirmResetPanel.cpp */; };
@@ -596,6 +597,8 @@
 		BBCD42781D97249D001A7ADB /* c_world_1_end_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_end_boss_part_3.png; sourceTree = "<group>"; };
 		BBCD427B1D9724AC001A7ADB /* world_1_end_boss_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_end_boss_part_2.png; sourceTree = "<group>"; };
 		BBCD427C1D9724AC001A7ADB /* world_1_end_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_end_boss_part_3.png; sourceTree = "<group>"; };
+		BBCD427F1D974BE0001A7ADB /* EndBossSnake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndBossSnake.cpp; sourceTree = "<group>"; };
+		BBCD42801D974BE0001A7ADB /* EndBossSnake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndBossSnake.h; sourceTree = "<group>"; };
 		BBCE91481C9A204C007EC5DB /* Chapter1Level21.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level21.cpp; sourceTree = "<group>"; };
 		BBCF86CB1CAE0D2800E5387A /* ConfirmExitPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfirmExitPanel.cpp; sourceTree = "<group>"; };
 		BBCF86CC1CAE0D2800E5387A /* ConfirmExitPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmExitPanel.h; sourceTree = "<group>"; };
@@ -1356,6 +1359,8 @@
 				BB7DCF051B9A5EE000394A73 /* CollectibleItem.h */,
 				BBB7A8781BBAD34400829FF6 /* DustCloud.cpp */,
 				BBB7A8791BBAD34400829FF6 /* DustCloud.h */,
+				BBCD427F1D974BE0001A7ADB /* EndBossSnake.cpp */,
+				BBCD42801D974BE0001A7ADB /* EndBossSnake.h */,
 				BB0AE8D21C6AC5B60047EF19 /* Enemy.cpp */,
 				BB0AE8D31C6AC5B60047EF19 /* Enemy.h */,
 				BB8CFA041C3210EB00701C15 /* EnemySpirit.cpp */,
@@ -1792,6 +1797,7 @@
 				BBEA16A91B97B9BB009B4711 /* TextureRegion.cpp in Sources */,
 				BB646DE21C69575D00313FBB /* Midground.cpp in Sources */,
 				BB66EC2C1C0E5892006DE4F5 /* CMOpenALSound.m in Sources */,
+				BBCD42811D974BE0001A7ADB /* EndBossSnake.cpp in Sources */,
 				BB2DF28B1C599A0100DD7BE3 /* GameScreenLevelEditor.cpp in Sources */,
 				BBEA16971B97B9BB009B4711 /* ColorProgram.cpp in Sources */,
 				BBEA16AC1B97B9BB009B4711 /* Assets.cpp in Sources */,
