@@ -16,6 +16,7 @@
 #include "Rectangle.h"
 #include "Color.h"
 #include "macros.h"
+#include "Assets.h"
 
 #include <math.h>
 
@@ -162,7 +163,7 @@ public:
         m_fStateTime = 0;
         m_isInPosition = true;
         
-        getInstance()->addSoundIdToPlayQueue(SOUND_BAT_POOF);
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BAT_POOF);
     }
     
     void moveTo(float x, float y)
