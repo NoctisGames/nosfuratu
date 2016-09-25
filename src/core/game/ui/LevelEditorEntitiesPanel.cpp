@@ -30,7 +30,9 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     EntityUtils::cleanUpVectorOfPointers(m_holes);
     EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
     EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_endBossForegroundObjects);
 	EntityUtils::cleanUpVectorOfPointers(m_countHissWithMinas);
+    EntityUtils::cleanUpVectorOfPointers(m_endBossSnakes);
     EntityUtils::cleanUpVectorOfPointers(m_enemies);
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
@@ -160,7 +162,8 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_foregroundObjects.push_back(new VerticalSaw(0));
         
-        m_foregroundObjects.push_back(new Boulder(0, 0));
+        m_foregroundObjects.push_back(new BoulderRollingLeft(0, 0));
+        m_foregroundObjects.push_back(new BoulderRollingRight(0, 0));
         
         if (level == 10)
         {
@@ -172,7 +175,17 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_foregroundObjects.push_back(new GiantTree(0, 0));
         }
         
+        if (level == 21)
+        {
+            m_endBossForegroundObjects.push_back(new SpikedBall(0, 0));
+            m_endBossForegroundObjects.push_back(new SpikedBallChain(0, 0));
+            m_endBossForegroundObjects.push_back(new SpikedBallChainRingTop(0, 0));
+            m_endBossForegroundObjects.push_back(new SpikedBallChainRingBottom(0, 0));
+        }
+        
         m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
+        
+        m_endBossSnakes.push_back(new EndBossSnake(0, 0));
         
         m_enemies.push_back(new BigMushroomGround(0, 0));
         
@@ -219,7 +232,9 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_midBossForegroundObjects, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_endBossForegroundObjects, eX, eY, eWidth, eHeight, i);
 	i = boxInAll(m_countHissWithMinas, eX, eY, eWidth, eHeight, i);
+    i = boxInAll(m_endBossSnakes, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
@@ -288,7 +303,9 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getMidBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_endBossForegroundObjects, game.getEndBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_countHissWithMinas, game.getCountHissWithMinas(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_endBossSnakes, game.getEndBossSnakes(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
@@ -353,9 +370,19 @@ std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getMidBossForegroundO
     return m_midBossForegroundObjects;
 }
 
+std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getEndBossForegroundObjects()
+{
+    return m_endBossForegroundObjects;
+}
+
 std::vector<CountHissWithMina *>& LevelEditorEntitiesPanel::getCountHissWithMinas()
 {
 	return m_countHissWithMinas;
+}
+
+std::vector<EndBossSnake *>& LevelEditorEntitiesPanel::getEndBossSnakes()
+{
+    return m_endBossSnakes;
 }
 
 std::vector<Enemy *>& LevelEditorEntitiesPanel::getEnemies()

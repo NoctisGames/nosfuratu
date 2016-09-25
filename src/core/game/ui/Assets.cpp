@@ -20,6 +20,7 @@
 #include "Game.h"
 #include "BatPanel.h"
 #include "GameScreen.h"
+#include "EndBossSnake.h"
 
 Assets * Assets::getInstance()
 {
@@ -922,9 +923,31 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
-        case ForegroundObjectType_Boulder:
+        case ForegroundObjectType_BoulderRollingLeft:
+        case ForegroundObjectType_BoulderRollingRight:
         {
             static TextureRegion tr = createTextureRegion(3004, 2268, 208, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+            
+        case ForegroundObjectType_SpikedBall:
+        {
+            static TextureRegion tr = createTextureRegion(3140, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikedBallChain:
+        {
+            static Animation anim = createAnimation(0, 1568, 1568, 1264, 3136, 2528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+            return anim.getTextureRegion(foregroundObject->getStateTime());
+        }
+        case ForegroundObjectType_SpikedBallChainRingTop:
+        {
+            static TextureRegion tr = createTextureRegion(3656, 2588, 64, 48, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case ForegroundObjectType_SpikedBallChainRingBottom:
+        {
+            static TextureRegion tr = createTextureRegion(3656, 2640, 80, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -944,6 +967,11 @@ TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
 		static Animation anim = createAnimation(2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 7);
 		return anim.getTextureRegion(countHissWithMina->getStateTime());
     }
+}
+
+TextureRegion& Assets::get(EndBossSnake* endBossSnake)
+{
+    assert(false);
 }
 
 TextureRegion& Assets::get(Enemy* enemy)

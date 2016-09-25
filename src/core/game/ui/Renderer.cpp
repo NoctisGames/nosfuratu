@@ -875,6 +875,13 @@ void Renderer::renderWorld(Game& game)
         m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
     }
     
+    if (m_world_1_end_boss_part_1.gpuTextureWrapper)
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(game.getEndBossForegroundObjects());
+        m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
+    }
+    
     m_spriteBatcher->beginBatch();
     renderPhysicalEntitiesWithColor(game.getEnemies());
     m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper, *m_snakeDeathTextureProgram);
@@ -1055,7 +1062,9 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getHoles());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getForegroundObjects());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getMidBossForegroundObjects());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEndBossForegroundObjects());
 	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCountHissWithMinas());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEndBossSnakes());
 	renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getEnemies());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCollectibleItems());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getJons());
@@ -1383,6 +1392,14 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
             m_spriteBatcher->beginBatch();
             renderPhysicalEntities(leep->getMidBossForegroundObjects(), true);
             m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
+        }
+        
+        if (m_world_1_end_boss_part_1.gpuTextureWrapper)
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntities(leep->getEndBossForegroundObjects(), true);
+            renderPhysicalEntities(leep->getEndBossSnakes(), true);
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
         }
 
 		if (m_vampire.gpuTextureWrapper)

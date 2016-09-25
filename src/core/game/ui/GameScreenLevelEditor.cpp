@@ -285,7 +285,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getHoles(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getForegroundObjects(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getMidBossForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getEndBossForegroundObjects(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getCountHissWithMinas(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getEndBossSnakes(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getEnemies(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
@@ -674,7 +676,9 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getHoles(), m_gameEntities);
     EntityUtils::addAll(m_game->getForegroundObjects(), m_gameEntities);
     EntityUtils::addAll(m_game->getMidBossForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getEndBossForegroundObjects(), m_gameEntities);
     EntityUtils::addAll(m_game->getCountHissWithMinas(), m_gameEntities);
+    EntityUtils::addAll(m_game->getEndBossSnakes(), m_gameEntities);
     EntityUtils::addAll(m_game->getEnemies(), m_gameEntities);
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);

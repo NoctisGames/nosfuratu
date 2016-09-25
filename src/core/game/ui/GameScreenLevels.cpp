@@ -182,12 +182,9 @@ void Level::update(GameScreen* gs)
     Jon& jon = m_game->getJon();
     jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
     
-    if (m_game->getCountHissWithMinas().size() > 0)
-    {
-        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-        countHissWithMina.setMoving();
-        countHissWithMina.update(gs->m_fDeltaTime);
-    }
+    CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+    countHissWithMina.beginMovement();
+    countHissWithMina.update(gs->m_fDeltaTime);
     
     if (!m_hasShownOpeningSequence)
     {
@@ -409,7 +406,9 @@ void Level::update(GameScreen* gs)
                     EntityUtils::copyAndOffset(m_game->getHoles(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getForegroundObjects(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getMidBossForegroundObjects(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getEndBossForegroundObjects(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getCountHissWithMinas(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getEndBossSnakes(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
                     EntityUtils::offsetOnly(m_game->getCollectibleItems(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
@@ -418,8 +417,10 @@ void Level::update(GameScreen* gs)
                     
                     EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getEndBossForegroundObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getEndBossSnakes(), m_game.get());
                     
                     m_game->calcFarRight();
                 }

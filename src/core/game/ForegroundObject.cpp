@@ -116,8 +116,19 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_SpikeTowerBg:
             return new SpikeTowerBg(gridX);
             
-        case ForegroundObjectType_Boulder:
-            return new Boulder(gridX, gridY);
+        case ForegroundObjectType_BoulderRollingLeft:
+            return new BoulderRollingLeft(gridX, gridY);
+        case ForegroundObjectType_BoulderRollingRight:
+            return new BoulderRollingRight(gridX, gridY);
+            
+        case ForegroundObjectType_SpikedBallChain:
+            return new SpikedBallChain(gridX, gridY);
+        case ForegroundObjectType_SpikedBall:
+            return new SpikedBall(gridX, gridY);
+        case ForegroundObjectType_SpikedBallChainRingTop:
+            return new SpikedBallChainRingTop(gridX, gridY);
+        case ForegroundObjectType_SpikedBallChainRingBottom:
+            return new SpikedBallChainRingBottom(gridX, gridY);
     }
     
     assert(false);

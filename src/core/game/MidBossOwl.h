@@ -55,8 +55,6 @@ public:
     
     int getDamage();
     
-    void setState(MidBossOwlState state);
-    
     bool didJonTransform() { return m_didJonTransform; }
 
 	void givePlayerAFreeHit() { m_giveFreeHit = true; }
@@ -70,6 +68,8 @@ private:
     bool m_didJonTransform;
 	bool m_giveFreeHit;
     MidBossOwlState m_state;
+    
+    void setState(MidBossOwlState state);
 };
 
 #endif /* defined(__nosfuratu__MidBossOwl__) */

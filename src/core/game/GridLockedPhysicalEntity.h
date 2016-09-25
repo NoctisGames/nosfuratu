@@ -61,28 +61,27 @@ public:
         return new CountHissWithMina(gridX, gridY);
     }
     
-    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false), m_isFacingLeft(false)
-    {
-        m_velocity->setX(4.0f);
-    }
+    CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f), m_type(-1), m_isMoving(false), m_isFacingLeft(false) {}
     
     virtual void update(float deltaTime)
     {
-        if (m_isMoving)
-        {
-            GridLockedPhysicalEntity::update(deltaTime);
-        }
+        GridLockedPhysicalEntity::update(deltaTime);
 
 		updateBounds();
     }
     
     bool isMoving() { return m_isMoving; }
     
-    void setMoving() { m_isMoving = true; }
+    void beginMovement()
+    {
+        m_isMoving = true;
+        
+        m_velocity->setX(m_isMoving ? 4.0f : 0);
+    }
 
 	bool isFacingLeft() { return m_isFacingLeft; }
 
-	void setFacingLeft() { m_isFacingLeft = true; }
+	void faceLeft() { m_isFacingLeft = true; }
     
     int getType() { return m_type; };
     

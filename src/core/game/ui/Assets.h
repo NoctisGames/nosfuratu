@@ -48,6 +48,7 @@ class LevelThumbnail;
 class GoldenCarrotsMarker;
 class SpendGoldenCarrotsBubble;
 class CountHissWithMina;
+class EndBossSnake;
 class BatInstruction;
 class BatPanel;
 class GameHudCarrot;
@@ -92,6 +93,8 @@ public:
     TextureRegion& get(ForegroundObject* foregroundObject);
     
     TextureRegion& get(CountHissWithMina* countHissWithMina);
+    
+    TextureRegion& get(EndBossSnake* endBossSnake);
     
     TextureRegion& get(Enemy* enemy);
     

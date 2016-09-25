@@ -20,6 +20,7 @@
 class GameScreen;
 class Game;
 class MidBossOwl;
+class EndBossSnake;
 class ForegroundObject;
 class BatPanel;
 
@@ -390,9 +391,16 @@ class Chapter1Level21 : public Level
 public:
     static Chapter1Level21* getInstance();
     
+    virtual void enter(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
 private:
+    EndBossSnake* m_endBossSnake;
+    Hole* m_hole;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Chapter1Level21(const char* json) : Level(json) {};
+    Chapter1Level21(const char* json);
     Chapter1Level21(const Chapter1Level21&);
     Chapter1Level21& operator=(const Chapter1Level21&);
 };

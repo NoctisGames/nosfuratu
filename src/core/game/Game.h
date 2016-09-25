@@ -18,6 +18,7 @@
 #include "Enemy.h"
 #include "CollectibleItem.h"
 #include "Jon.h"
+#include "EndBossSnake.h"
 
 #include <memory>
 #include <vector>
@@ -85,9 +86,15 @@ public:
     
     std::vector<ForegroundObject *>& getMidBossForegroundObjects();
     
+    std::vector<ForegroundObject *>& getEndBossForegroundObjects();
+    
     std::vector<CountHissWithMina *>& getCountHissWithMinas();
     
     CountHissWithMina& getCountHissWithMina();
+    
+    std::vector<EndBossSnake *>& getEndBossSnakes();
+    
+    EndBossSnake& getEndBossSnake();
     
     std::vector<Enemy *>& getEnemies();
     
@@ -149,7 +156,9 @@ private:
     std::vector<Hole *> m_holes;
     std::vector<ForegroundObject *> m_foregroundObjects;
     std::vector<ForegroundObject *> m_midBossForegroundObjects;
+    std::vector<ForegroundObject *> m_endBossForegroundObjects;
     std::vector<CountHissWithMina *> m_countHissWithMinas;
+    std::vector<EndBossSnake *> m_endBossSnakes;
     std::vector<Enemy *> m_enemies;
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;

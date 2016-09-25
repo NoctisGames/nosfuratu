@@ -76,7 +76,13 @@ typedef enum
 
 	ForegroundObjectType_JumpSpringLightFlush,
     
-    ForegroundObjectType_Boulder
+    ForegroundObjectType_BoulderRollingLeft,
+    ForegroundObjectType_BoulderRollingRight,
+    
+    ForegroundObjectType_SpikedBall,
+    ForegroundObjectType_SpikedBallChain,
+    ForegroundObjectType_SpikedBallChainRingTop,
+    ForegroundObjectType_SpikedBallChainRingBottom
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -502,10 +508,52 @@ public:
     SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
 };
 
-class Boulder : public DeadlyObject
+class BoulderRollingLeft : public DeadlyObject
 {
 public:
-    Boulder(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_Boulder) {}
+    BoulderRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_BoulderRollingLeft) {}
+};
+
+class BoulderRollingRight : public DeadlyObject
+{
+public:
+    BoulderRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_BoulderRollingRight) {}
+};
+
+class SpikedBall : public DeadlyObject
+{
+public:
+    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall) {}
+};
+
+class SpikedBallChain : public ForegroundObject
+{
+public:
+    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 98, 79, ForegroundObjectType_SpikedBallChain) {}
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
+};
+
+class SpikedBallChainRingTop : public ForegroundObject
+{
+public:
+    SpikedBallChainRingTop(int gridX, int gridY) : ForegroundObject(gridX, gridY, 4, 3, ForegroundObjectType_SpikedBallChainRingTop) {}
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
+};
+
+class SpikedBallChainRingBottom : public ForegroundObject
+{
+public:
+    SpikedBallChainRingBottom(int gridX, int gridY) : ForegroundObject(gridX, gridY, 5, 4, ForegroundObjectType_SpikedBallChainRingBottom) {}
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    
+    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

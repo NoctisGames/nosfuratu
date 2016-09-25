@@ -9,67 +9,85 @@
 #ifndef __nosfuratu__EndBossSnake__
 #define __nosfuratu__EndBossSnake__
 
-#include "PhysicalEntity.h"
+#include "GridLockedPhysicalEntity.h"
+
+#include "Color.h"
 
 class Game;
 
-#define MID_BOSS_OWL_SLEEPING_WIDTH 5.607421875f
-#define MID_BOSS_OWL_SLEEPING_HEIGHT 5.02734375f
-
-#define MID_BOSS_OWL_NORMAL_WIDTH 4.5f
-#define MID_BOSS_OWL_NORMAL_HEIGHT 4.5f
-
-#define MID_BOSS_OWL_DYING_WIDTH 6.328125f
-#define MID_BOSS_OWL_DYING_HEIGHT 7.03125f
+class SnakeSkin : public PhysicalEntity
+{
+public:
+    SnakeSkin(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_color(1, 1, 1, 1), m_isShowing(false)
+    {
+        // Empty
+    }
+    
+    virtual void update(float deltaTime)
+    {
+        m_fStateTime += deltaTime;
+    }
+    
+    void onDamageTaken(float x, float y)
+    {
+        m_position->set(x, y);
+        
+        m_fStateTime = 0;
+        
+        m_isShowing = true;
+    }
+    
+    Color& getColor() { return m_color; }
+    
+private:
+    Color m_color;
+    bool m_isShowing;
+};
 
 typedef enum
 {
     EndBossSnakeState_Sleeping,
     EndBossSnakeState_Awakening,
-    EndBossSnakeState_Screeching,
+    EndBossSnakeState_OpeningMouthLeft,
+    EndBossSnakeState_ChargingLeft,
     EndBossSnakeState_Pursuing,
-    EndBossSnakeState_SwoopingDown,
-    EndBossSnakeState_FlyingAwayAfterCatchingJon,
-    EndBossSnakeState_SlammingIntoTree,
-    EndBossSnakeState_FlyingOverTree,
+    EndBossSnakeState_Damaged,
+    EndBossSnakeState_OpeningMouthRight,
+    EndBossSnakeState_ChargingRight,
     EndBossSnakeState_Dying,
     EndBossSnakeState_Dead
 } EndBossSnakeState;
 
-class EndBossSnake : public PhysicalEntity
+class EndBossSnake : public GridLockedPhysicalEntity
 {
 public:
-    EndBossSnake(float x, float y, float width = MID_BOSS_OWL_SLEEPING_WIDTH, float height = MID_BOSS_OWL_SLEEPING_HEIGHT);
+    static EndBossSnake* create(int gridX, int gridY, int type)
+    {
+        return new EndBossSnake(gridX, gridY);
+    }
+    
+    EndBossSnake(int gridX, int gridY, int gridWidth = 54, int gridHeight = 34);
     
     virtual void update(float deltaTime);
     
-    EndBossSnakeState getState();
+    void setGame(Game* game) { m_game = game; }
     
-    void goBackToSleep();
+    EndBossSnakeState getState() { return m_state; }
     
-    void awaken();
+    Color getColor() { return m_color; }
     
-    void beginPursuit();
+    int getDamage() { return m_iDamage; }
     
-    void setGame(Game* game);
-    
-    int getDamage();
-    
-    void setState(EndBossSnakeState state);
-    
-    bool didJonTransform() { return m_didJonTransform; }
-
-	void givePlayerAFreeHit() { m_giveFreeHit = true; }
+    int getType() { return m_type; }
     
 private:
     Game* m_game;
-    float m_fTreeTopY;
-    float m_fGroundTopYWithPadding;
-    float m_fTimeUnderTreeTop;
-    int m_iDamage;
-    bool m_didJonTransform;
-	bool m_giveFreeHit;
     EndBossSnakeState m_state;
+    Color m_color;
+    int m_iDamage;
+    int m_type;
+    
+    void setState(EndBossSnakeState state);
 };
 
 #endif /* defined(__nosfuratu__EndBossSnake__) */

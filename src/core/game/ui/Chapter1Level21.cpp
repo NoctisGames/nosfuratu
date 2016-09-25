@@ -13,6 +13,39 @@
 #include "Vector2D.h"
 #include "Game.h"
 
+void Chapter1Level21::enter(GameScreen* gs)
+{
+    Level::enter(gs);
+    
+    for (std::vector<Hole*>::iterator i = m_game->getHoles().begin(); i != m_game->getHoles().end(); i++)
+    {
+        if ((*i)->getType() == HoleType_Grass)
+        {
+            m_hole = (*i);
+            break;
+        }
+    }
+    
+    m_game->getCountHissWithMina().faceLeft();
+    
+    Jon& jon = m_game->getJon();
+    jon.setUserActionPrevented(true);
+}
+
+void Chapter1Level21::exit(GameScreen* gs)
+{
+    m_hole = nullptr;
+    
+    Level::exit(gs);
+}
+
+Chapter1Level21::Chapter1Level21(const char* json) : Level(json),
+m_endBossSnake(nullptr),
+m_hole(nullptr)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 21 ///
 
 Chapter1Level21 * Chapter1Level21::getInstance()
