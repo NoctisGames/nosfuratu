@@ -177,61 +177,81 @@ Game& Level::getGame()
     return *m_game;
 }
 
+void Level::beginOpeningSequence(GameScreen* gs)
+{
+	CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+	countHissWithMina.beginMovement();
+
+	if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
+	{
+		m_hasShownOpeningSequence = true;
+		m_hasOpeningSequenceCompleted = true;
+
+		updateCamera(gs, 0, false, true);
+
+		Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+
+		return;
+	}
+
+	gs->m_renderer->beginOpeningPanningSequence(*m_game);
+
+	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+
+	m_hasShownOpeningSequence = true;
+
+	if (Assets::getInstance()->isMusicEnabled())
+	{
+		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+	}
+}
+
+void Level::handleOpeningSequence(GameScreen* gs)
+{
+	CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+	countHissWithMina.update(gs->m_fDeltaTime);
+
+	Jon& jon = m_game->getJon();
+	jon.update(gs->m_fDeltaTime);
+
+	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
+	m_hasOpeningSequenceCompleted = result == 3;
+	m_activateRadialBlur = result == 1;
+	jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+
+	if (m_hasOpeningSequenceCompleted)
+	{
+		countHissWithMina.getPosition.setWidth(m_game->getFarRight() + CAM_WIDTH * 2);
+
+		Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+	}
+
+	if (result == 2)
+	{
+		jon.beginWarmingUp();
+	}
+
+	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+}
+
 void Level::update(GameScreen* gs)
 {
     Jon& jon = m_game->getJon();
     jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
     
-    CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-    countHissWithMina.beginMovement();
-    countHissWithMina.update(gs->m_fDeltaTime);
-    
     if (!m_hasShownOpeningSequence)
     {
-		if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
-		{
-			m_hasShownOpeningSequence = true;
-			m_hasOpeningSequenceCompleted = true;
-
-			updateCamera(gs, 0, false, true);
-
-			Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-
-			return;
-		}
-
-        gs->m_renderer->beginOpeningPanningSequence(*m_game);
-        
-        m_hasShownOpeningSequence = true;
-        
-        if (Assets::getInstance()->isMusicEnabled())
-        {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
-        }
+		beginOpeningSequence(gs);
     }
     else if (!m_hasOpeningSequenceCompleted)
     {
-        jon.update(gs->m_fDeltaTime);
-        
-        int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
-        m_hasOpeningSequenceCompleted = result == 3;
-        m_activateRadialBlur = result == 1;
-        jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
-        
-        if (m_hasOpeningSequenceCompleted)
-        {
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
-        }
-        
-        if (result == 2)
-        {
-            jon.beginWarmingUp();
-        }
-        
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+		handleOpeningSequence(gs);
     }
     else
     {

@@ -85,6 +85,10 @@ protected:
     int m_iLastKnownJonAbilityFlag;
 
 	bool m_isDebugMode;
+
+	virtual void beginOpeningSequence(GameScreen* gs);
+
+	virtual void handleOpeningSequence(GameScreen* gs);
     
     virtual void update(GameScreen* gs);
     
