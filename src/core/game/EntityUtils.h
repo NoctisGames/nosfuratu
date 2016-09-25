@@ -178,11 +178,11 @@ public:
     }
     
     template<typename T>
-    static bool isBlockedOnRight(Jon& jon, std::vector<T*>& items, float deltaTime)
+    static bool isBlockedOnRight(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            if ((*i)->isJonBlockedOnRight(jon, deltaTime))
+            if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
                 return true;
             }

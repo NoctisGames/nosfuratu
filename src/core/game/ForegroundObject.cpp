@@ -144,9 +144,9 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return isEntityLanding(entity, getMainBounds(), deltaTime);
 }
 
-bool ForegroundObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
+bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    return isJonBlockedOnRight(jon, getMainBounds(), deltaTime);
+    return isEntityBlockedOnRight(entity, getMainBounds(), deltaTime);
 }
 
 bool ForegroundObject::isJonBlockedAbove(Jon& jon, float deltaTime)
@@ -214,13 +214,13 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
     return false;
 }
 
-bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float deltaTime)
+bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), bounds))
+    if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
     {
-        float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
-        float entityRight = jon.getMainBounds().getRight();
+        float entityVelocityX = entity->getVelocity().getX();
+        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityRight = entity->getMainBounds().getRight();
         float entityXDelta = fabsf(entityVelocityX * deltaTime);
         
         float itemTop = bounds.getTop();
@@ -233,8 +233,8 @@ bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float de
         
         if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
-            jon.updateBounds();
+            entity->getPosition().setX(itemLeft - entity->getMainBounds().getWidth() / 2 * 1.01f);
+            entity->updateBounds();
             
             return true;
         }
@@ -245,7 +245,7 @@ bool ForegroundObject::isJonBlockedOnRight(Jon &jon, Rectangle& bounds, float de
 
 #pragma mark subclasses
 
-bool PlatformObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
+bool PlatformObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return false;
 }
@@ -278,11 +278,15 @@ bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return false;
 }
 
-bool DeadlyObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
+bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime))
+    if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
-        jon.kill();
+        Jon *jon;
+        if ((jon = dynamic_cast<Jon *>(entity)))
+        {
+            jon->kill();
+        }
         
         return true;
     }
@@ -318,11 +322,15 @@ bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
     return false;
 }
 
-bool RunningIntoDeathObject::isJonBlockedOnRight(Jon& jon, float deltaTime)
+bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime))
+    if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
-        jon.kill();
+        Jon *jon;
+        if ((jon = dynamic_cast<Jon *>(entity)))
+        {
+            jon->kill();
+        }
     }
     
     return false;
@@ -376,7 +384,7 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
     return false;
 }
 
-bool JumpSpringLightFlush::isJonBlockedOnRight(Jon &jon, float deltaTime)
+bool JumpSpringLightFlush::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return false;
 }
@@ -453,28 +461,38 @@ bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return ret;
 }
 
-bool SpikeTower::isJonBlockedOnRight(Jon& jon, float deltaTime)
+bool SpikeTower::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     bool ret = false;
     
-    jon.getMainBounds().setAngle(jon.getAbilityState() == ABILITY_GLIDE ? 90 : 0);
-    
-    if (ForegroundObject::isJonBlockedOnRight(jon, deltaTime)
-        || ForegroundObject::isJonBlockedOnRight(jon, getBounds().at(1), deltaTime))
+    Jon *jon;
+    if ((jon = dynamic_cast<Jon *>(entity)))
     {
-        jon.kill();
+        jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
+    }
+    
+    if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime)
+        || ForegroundObject::isEntityBlockedOnRight(entity, getBounds().at(1), deltaTime))
+    {
+        if (jon)
+        {
+            jon->kill();
+        }
         
         ret = true;
     }
     
-    jon.getMainBounds().setAngle(0);
+    if (jon)
+    {
+        jon->getMainBounds().setAngle(0);
+    }
     
     return ret;
 }
 
 void VerticalSaw::updateBounds()
 {
-    ForegroundObject::updateBounds();
+    DeadlyObject::updateBounds();
     
     Rectangle& camBounds = *m_game->getCameraBounds();
     
@@ -497,6 +515,116 @@ void VerticalSaw::updateBounds()
         m_isOnScreen = false;
         
         Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    }
+}
+
+void SpikedBallRollingLeft::update(float deltaTime)
+{
+    DeadlyObject::update(deltaTime);
+    
+    if (m_velocity->getX() < 0)
+    {
+        m_fAngle += m_velocity->getX() * deltaTime * 15;
+        
+        if (m_velocity->getX() < -VAMP_DEFAULT_MAX_SPEED)
+        {
+            m_velocity->setX(-VAMP_DEFAULT_MAX_SPEED);
+        }
+        
+        if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime)
+            || EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime))
+        {
+            m_acceleration->setX(0);
+            m_velocity->setX(0);
+            m_fStateTime = 0;
+            
+            Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+        }
+    }
+}
+
+void SpikedBallRollingLeft::updateBounds()
+{
+    DeadlyObject::updateBounds();
+    
+    Rectangle& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+            
+            m_acceleration->setX(-4);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+        
+        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+    }
+}
+
+void SpikedBallRollingRight::update(float deltaTime)
+{
+    DeadlyObject::update(deltaTime);
+    
+    if (m_velocity->getX() > 0)
+    {
+        m_fAngle += m_velocity->getX() * deltaTime * 15;
+        
+        if (m_velocity->getX() > VAMP_DEFAULT_MAX_SPEED)
+        {
+            m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
+        }
+        
+        if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime)
+            || EntityUtils::isBlockedOnRight(this, m_game->getForegroundObjects(), deltaTime))
+        {
+            m_acceleration->setX(0);
+            m_velocity->setX(0);
+            m_fStateTime = 0;
+            
+            Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+        }
+    }
+}
+
+void SpikedBallRollingRight::updateBounds()
+{
+    DeadlyObject::updateBounds();
+    
+    Rectangle& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+            
+            m_acceleration->setX(4);
+            
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+        
+        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
     }
 }
 
@@ -570,10 +698,13 @@ bool SpikedBallChain::isJonHittingHorizontally(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getMainBounds();
     
-    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
+    if (!m_isSnapping
+        && OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         m_isSnapping = true;
         m_fStateTime = 0;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
         
         return true;
     }
@@ -585,10 +716,13 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
 {
     Rectangle& bounds = jon.getMainBounds();
     
-    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
+    if (!m_isSnapping
+        && OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
     {
         m_isSnapping = true;
         m_fStateTime = 0;
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
         
         return true;
     }

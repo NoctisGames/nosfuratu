@@ -271,18 +271,18 @@ bool Game::isJonBlockedHorizontally(float deltaTime)
 {
     if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
     {
-        return EntityUtils::isBlockedOnRight(getJon(), getPits(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJon(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJon(), getMidBossForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJon(), getEndBossForegroundObjects(), deltaTime);
+        return EntityUtils::isBlockedOnRight(getJonP(), getPits(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
     }
     
-    return EntityUtils::isBlockedOnRight(getJon(), getGrounds(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getMidBossForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJon(), getEndBossForegroundObjects(), deltaTime);
+    return EntityUtils::isBlockedOnRight(getJonP(), getGrounds(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedVertically(float deltaTime)

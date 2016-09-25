@@ -97,7 +97,7 @@ public:
 
 	virtual int getEntityLandingPriority() { return 0; }
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -118,7 +118,7 @@ protected:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
-    virtual bool isJonBlockedOnRight(Jon& jon, Rectangle& bounds, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
 private:
     ForegroundObjectType m_type;
@@ -130,7 +130,7 @@ class PlatformObject : public ForegroundObject
 public:
     PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
-	virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
     virtual bool canObjectBePlacedOn();
 };
@@ -157,7 +157,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 
@@ -179,7 +179,7 @@ class RunningIntoDeathObject : public ForegroundObject
 public:
     RunningIntoDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 };
 
 class DeathFromAboveObject : public ForegroundObject
@@ -279,7 +279,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
 };
 
 class ThornsLeft : public DeadlyObject
@@ -323,7 +323,7 @@ class JumpSpringLightFlush : public ProvideBoostObject
 public:
     JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f) {}
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 };
 
 class JumpSpringLight : public ProvideBoostObject
@@ -492,7 +492,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime);
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 };
 
 class SpikeTowerBg : public ForegroundObject
@@ -504,13 +504,27 @@ public:
 class SpikedBallRollingLeft : public DeadlyObject
 {
 public:
-    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingLeft) {}
+    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingLeft), m_isOnScreen(false) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
 };
 
 class SpikedBallRollingRight : public DeadlyObject
 {
 public:
-    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingRight) {}
+    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingRight), m_isOnScreen(false) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
 };
 
 class SpikedBall : public DeadlyObject
@@ -541,7 +555,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
-    virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
     
     Color getColor() { return m_color; }
     

@@ -45,9 +45,21 @@ void EndBossSnake::update(float deltaTime)
 
 void EndBossSnake::triggerHit()
 {
-    setState(EndBossSnakeState_Damaged);
-    
-    m_snakeSkin->onDamageTaken();
+    m_iDamage++;
+    if (m_iDamage < 3)
+    {
+        setState(EndBossSnakeState_Damaged);
+        
+        m_snakeSkin->onDamageTaken();
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DAMAGED);
+    }
+    else
+    {
+        setState(EndBossSnakeState_Dying);
+        
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
+    }
     
     m_velocity->setX(0);
     m_acceleration->setX(0);

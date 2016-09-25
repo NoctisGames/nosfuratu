@@ -132,13 +132,13 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return false;
 }
 
-bool Ground::isJonBlockedOnRight(Jon &jon, float deltaTime)
+bool Ground::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
     {
-        float entityVelocityX = jon.getVelocity().getX();
-        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
-        float entityRight = jon.getMainBounds().getRight();
+        float entityVelocityX = entity->getVelocity().getX();
+        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityRight = entity->getMainBounds().getRight();
         float entityXDelta = fabsf(entityVelocityX * deltaTime);
         
         float itemTop = getMainBounds().getTop();
@@ -151,8 +151,8 @@ bool Ground::isJonBlockedOnRight(Jon &jon, float deltaTime)
         
         if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeft - jon.getMainBounds().getWidth() / 2 * 1.01f);
-            jon.updateBounds();
+            entity->getPosition().setX(itemLeft - entity->getMainBounds().getWidth() / 2 * 1.01f);
+            entity->updateBounds();
             
             return true;
         }
@@ -202,19 +202,19 @@ GroundSoundType Ground::getGroundSoundType()
     return m_groundSoundType;
 }
 
-bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
+bool GrassPit::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    float entityVelocityX = jon.getVelocity().getX();
+    float entityVelocityX = entity->getVelocity().getX();
     float entityXDelta = fabsf(entityVelocityX * deltaTime);
     
     Rectangle pitBounds = Rectangle(getMainBounds().getLeft(), getMainBounds().getBottom(), getMainBounds().getWidth(), getMainBounds().getHeight());
     
     pitBounds.setWidth(pitBounds.getWidth() + entityXDelta);
     
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), pitBounds))
+    if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), pitBounds))
     {
-        float entityBottom = jon.getMainBounds().getLowerLeft().getY();
-        float entityRight = jon.getMainBounds().getRight();
+        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityRight = entity->getMainBounds().getRight();
         
         float itemTop = pitBounds.getTop();
         float itemTopReq = itemTop * 0.99f;
@@ -224,8 +224,8 @@ bool GrassPit::isJonBlockedOnRight(Jon &jon, float deltaTime)
         if (entityRight >= itemLeftReq
             && entityBottom < itemTopReq)
         {
-            jon.getPosition().setX(itemLeftReq - jon.getMainBounds().getWidth() / 2 * 1.01f);
-            jon.updateBounds();
+            entity->getPosition().setX(itemLeftReq - entity->getMainBounds().getWidth() / 2 * 1.01f);
+            entity->updateBounds();
             
             return true;
         }
