@@ -251,18 +251,6 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_2.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_3.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_2.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_3.png">
-      <Filter>Assets</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -467,6 +455,33 @@
     <Media Include="..\..\..\..\..\assets\sounds\button_click.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\absorb_dash_ability.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\bat_poof.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\chain_snap.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge_cue.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_damaged.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_mouth_open.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\spiked_ball_rolling_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
@@ -575,6 +590,18 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_3.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>
