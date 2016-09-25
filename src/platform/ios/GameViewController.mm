@@ -189,11 +189,13 @@
             case SOUND_JON_VAMPIRE_GLIDE:
             case SOUND_SPARROW_FLY:
             case SOUND_SAW_GRIND:
+            case SOUND_SPIKED_BALL_ROLLING:
                 [self playSound:soundId isLooping:true];
                 break;
             case STOP_SOUND_JON_VAMPIRE_GLIDE:
             case STOP_SOUND_SPARROW_FLY:
             case STOP_SOUND_SAW_GRIND:
+            case STOP_SOUND_SPIKED_BALL_ROLLING:
                 [self stopSound:soundId - 1000];
                 break;
             default:
@@ -588,7 +590,16 @@
                                     @"rabbit_stomp.wav",
                                     @"final_boss_bgm_intro.wav",
                                     @"button_click.wav",
-                                    @"level_confirmed.wav", nil];
+                                    @"level_confirmed.wav",
+                                    @"bat_poof.wav",
+                                    @"chain_snap.wav",
+                                    @"end_boss_snake_mouth_open.wav",
+                                    @"end_boss_snake_charge_cue.wav",
+                                    @"end_boss_snake_charge.wav",
+                                    @"end_boss_snake_damaged.wav",
+                                    @"end_boss_snake_death.wav",
+                                    @"spiked_ball_rolling_loop.wav",
+                                    @"absorb_dash_ability.wav", nil];
 }
 
 @end

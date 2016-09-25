@@ -68,9 +68,45 @@ GameButton* GameButton::create(GameButtonType type)
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isClicked(false)
 {
     // Empty
+}
+
+void GameButton::update(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_isClicked)
+    {
+        m_fWidth -= deltaTime;
+        m_fHeight -= deltaTime;
+        
+        if (m_fWidth < (m_fOriginalWidth * 0.84f)
+            || m_fHeight < (m_fOriginalHeight * 0.84f))
+        {
+            m_isClicked = false;
+        }
+    }
+    else
+    {
+        if (m_fWidth < m_fOriginalWidth
+            || m_fHeight < m_fOriginalHeight)
+        {
+            m_fWidth += deltaTime;
+            m_fHeight += deltaTime;
+            
+            if (m_fWidth > m_fOriginalWidth)
+            {
+                m_fWidth = m_fOriginalWidth;
+            }
+            
+            if (m_fHeight > m_fOriginalHeight)
+            {
+                m_fHeight = m_fOriginalHeight;
+            }
+        }
+    }
 }
 
 GameButtonType GameButton::getType()
@@ -82,7 +118,10 @@ bool GameButton::handleClick(Vector2D& touchPoint)
 {
     if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
     {
+        m_isClicked = true;
+        
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+        
         return true;
     }
     

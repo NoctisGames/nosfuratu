@@ -33,6 +33,8 @@ public:
     
     GameButton(float x, float y, float width, float height, GameButtonType type);
     
+    virtual void update(float deltaTime);
+    
     GameButtonType getType();
     
     Color& getColor() { return m_color; }
@@ -42,6 +44,9 @@ public:
 private:
     GameButtonType m_type;
     Color m_color;
+    float m_fOriginalWidth;
+    float m_fOriginalHeight;
+    bool m_isClicked;
 };
 
 #endif /* defined(__nosfuratu__GameButton__) */

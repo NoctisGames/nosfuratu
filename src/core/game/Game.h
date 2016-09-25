@@ -96,6 +96,8 @@ public:
     
     EndBossSnake& getEndBossSnake();
     
+    EndBossSnake* getEndBossSnakeP();
+    
     std::vector<Enemy *>& getEnemies();
     
     std::vector<CollectibleItem *>& getCollectibleItems();

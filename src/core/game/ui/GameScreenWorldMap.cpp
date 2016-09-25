@@ -258,12 +258,23 @@ void WorldMap::execute(GameScreen* gs)
         m_spendGoldenCarrotsBubble->update(gs->m_fDeltaTime);
         
         m_fGoldenCarrotCountFlickerTime += gs->m_fDeltaTime / 2;
+        
+        updateButtons(gs->m_fDeltaTime);
     }
 }
 
 void WorldMap::exit(GameScreen* gs)
 {
     m_isReadyForTransition = false;
+}
+
+void WorldMap::updateButtons(float deltaTime)
+{
+    m_backButton->update(deltaTime);
+    m_toggleMusic->update(deltaTime);
+    m_toggleSound->update(deltaTime);
+    m_leaderBoardsButton->update(deltaTime);
+    m_viewOpeningCutsceneButton->update(deltaTime);
 }
 
 void WorldMap::setFade(float fade)

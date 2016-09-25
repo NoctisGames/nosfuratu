@@ -69,9 +69,11 @@ public final class GameRenderer implements Renderer
     private static final short SOUND_JON_VAMPIRE_GLIDE = 20;
     private static final short SOUND_SPARROW_FLY = 23;
     private static final short SOUND_SAW_GRIND = 27;
+    private static final short SOUND_SPIKED_BALL_ROLLING = 60;
     private static final short STOP_SOUND_JON_VAMPIRE_GLIDE = SOUND_JON_VAMPIRE_GLIDE + 1000;
     private static final short STOP_SOUND_SPARROW_FLY = SOUND_SPARROW_FLY + 1000;
     private static final short STOP_SOUND_SAW_GRIND = SOUND_SAW_GRIND + 1000;
+    private static final short STOP_SOUND_SPIKED_BALL_ROLLING = SOUND_SPIKED_BALL_ROLLING + 1000;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -140,6 +142,15 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("final_boss_bgm_intro.wav"));
         _sounds.add(_audio.newSound("button_click.wav"));
         _sounds.add(_audio.newSound("level_confirmed.wav"));
+        _sounds.add(_audio.newSound("bat_poof.wav"));
+        _sounds.add(_audio.newSound("chain_snap.wav"));
+        _sounds.add(_audio.newSound("end_boss_snake_mouth_open.wav"));
+        _sounds.add(_audio.newSound("end_boss_snake_charge_cue.wav"));
+        _sounds.add(_audio.newSound("end_boss_snake_charge.wav"));
+        _sounds.add(_audio.newSound("end_boss_snake_damaged.wav"));
+        _sounds.add(_audio.newSound("end_boss_snake_death.wav"));
+        _sounds.add(_audio.newSound("spiked_ball_rolling_loop.wav"));
+        _sounds.add(_audio.newSound("absorb_dash_ability.wav"));
 
         Game.init();
 
@@ -276,11 +287,13 @@ public final class GameRenderer implements Renderer
                 case SOUND_JON_VAMPIRE_GLIDE:
                 case SOUND_SPARROW_FLY:
                 case SOUND_SAW_GRIND:
+                case SOUND_SPIKED_BALL_ROLLING:
                     playSound(soundId, true);
                     break;
                 case STOP_SOUND_JON_VAMPIRE_GLIDE:
                 case STOP_SOUND_SPARROW_FLY:
                 case STOP_SOUND_SAW_GRIND:
+                case STOP_SOUND_SPIKED_BALL_ROLLING:
                     stopSound(soundId - 1000);
                     break;
                 default:

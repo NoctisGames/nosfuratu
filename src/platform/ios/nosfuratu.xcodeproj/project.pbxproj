@@ -145,6 +145,15 @@
 		BB939CEB1C626E41006D945A /* vampire_glide_loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB939C961C626E41006D945A /* vampire_glide_loop.wav */; };
 		BB939D021C626E41006D945A /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CAF1C626E41006D945A /* jon.png */; };
 		BB939D1B1C626E41006D945A /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB939CC91C626E41006D945A /* vampire.png */; };
+		BB9A35F21D9851C300DB872A /* bat_poof.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F11D9851C300DB872A /* bat_poof.wav */; };
+		BB9A35F51D98535800DB872A /* chain_snap.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F31D98535800DB872A /* chain_snap.wav */; };
+		BB9A35F61D98535800DB872A /* end_boss_snake_mouth_open.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F41D98535800DB872A /* end_boss_snake_mouth_open.wav */; };
+		BB9A35FD1D9879E600DB872A /* absorb_dash_ability.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F71D9879E600DB872A /* absorb_dash_ability.wav */; };
+		BB9A35FE1D9879E600DB872A /* end_boss_snake_charge_cue.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F81D9879E600DB872A /* end_boss_snake_charge_cue.wav */; };
+		BB9A35FF1D9879E600DB872A /* end_boss_snake_charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35F91D9879E600DB872A /* end_boss_snake_charge.wav */; };
+		BB9A36001D9879E600DB872A /* end_boss_snake_damaged.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35FA1D9879E600DB872A /* end_boss_snake_damaged.wav */; };
+		BB9A36011D9879E600DB872A /* end_boss_snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35FB1D9879E600DB872A /* end_boss_snake_death.wav */; };
+		BB9A36021D9879E600DB872A /* spiked_ball_rolling_loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB9A35FC1D9879E600DB872A /* spiked_ball_rolling_loop.wav */; };
 		BBA0DEBE1C6E42EB008A5073 /* mushroom_bounce.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */; };
 		BBA1ACF31C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */; };
 		BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA1ACF51C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh */; };
@@ -500,6 +509,15 @@
 		BB939C961C626E41006D945A /* vampire_glide_loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = vampire_glide_loop.wav; sourceTree = "<group>"; };
 		BB939CAF1C626E41006D945A /* jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon.png; sourceTree = "<group>"; };
 		BB939CC91C626E41006D945A /* vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire.png; sourceTree = "<group>"; };
+		BB9A35F11D9851C300DB872A /* bat_poof.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bat_poof.wav; sourceTree = "<group>"; };
+		BB9A35F31D98535800DB872A /* chain_snap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = chain_snap.wav; sourceTree = "<group>"; };
+		BB9A35F41D98535800DB872A /* end_boss_snake_mouth_open.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_boss_snake_mouth_open.wav; sourceTree = "<group>"; };
+		BB9A35F71D9879E600DB872A /* absorb_dash_ability.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = absorb_dash_ability.wav; sourceTree = "<group>"; };
+		BB9A35F81D9879E600DB872A /* end_boss_snake_charge_cue.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_boss_snake_charge_cue.wav; sourceTree = "<group>"; };
+		BB9A35F91D9879E600DB872A /* end_boss_snake_charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_boss_snake_charge.wav; sourceTree = "<group>"; };
+		BB9A35FA1D9879E600DB872A /* end_boss_snake_damaged.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_boss_snake_damaged.wav; sourceTree = "<group>"; };
+		BB9A35FB1D9879E600DB872A /* end_boss_snake_death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = end_boss_snake_death.wav; sourceTree = "<group>"; };
+		BB9A35FC1D9879E600DB872A /* spiked_ball_rolling_loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spiked_ball_rolling_loop.wav; sourceTree = "<group>"; };
 		BBA0DEBD1C6E42EB008A5073 /* mushroom_bounce.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mushroom_bounce.wav; sourceTree = "<group>"; };
 		BBA1ACF11C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShockwaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBA1ACF21C349B8F00CDE963 /* ShockwaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShockwaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
@@ -954,14 +972,22 @@
 			isa = PBXGroup;
 			children = (
 				BBFAAD7F1D88BFFC006C6311 /* ability_unlock.wav */,
+				BB9A35F71D9879E600DB872A /* absorb_dash_ability.wav */,
+				BB9A35F11D9851C300DB872A /* bat_poof.wav */,
 				BBFAAD801D88BFFC006C6311 /* boss_level_clear.wav */,
 				BBF662AD1D8DD7BF00F2BC79 /* boss_level_unlock.wav */,
 				BBCD42731D97115B001A7ADB /* button_click.wav */,
 				BB939C821C626E41006D945A /* cancel_transform.wav */,
+				BB9A35F31D98535800DB872A /* chain_snap.wav */,
 				BB939C831C626E41006D945A /* collect_carrot.wav */,
 				BB939C841C626E41006D945A /* collect_golden_carrot.wav */,
 				BB939C851C626E41006D945A /* complete_transform.wav */,
 				BB939C861C626E41006D945A /* death.wav */,
+				BB9A35F81D9879E600DB872A /* end_boss_snake_charge_cue.wav */,
+				BB9A35F91D9879E600DB872A /* end_boss_snake_charge.wav */,
+				BB9A35FA1D9879E600DB872A /* end_boss_snake_damaged.wav */,
+				BB9A35FB1D9879E600DB872A /* end_boss_snake_death.wav */,
+				BB9A35F41D98535800DB872A /* end_boss_snake_mouth_open.wav */,
 				BBB73A221D5D655900099987 /* final_boss_bgm_intro.wav */,
 				BBB73A231D5D655900099987 /* final_boss_bgm.wav */,
 				BB939C881C626E41006D945A /* footstep_left_cave.wav */,
@@ -1001,6 +1027,7 @@
 				BBC46B101D8A059E00B863A1 /* snake_jump.wav */,
 				BB67E9221C83DCA3009E5F2B /* sparrow_die.wav */,
 				BB67E9231C83DCA3009E5F2B /* sparrow_fly_loop.wav */,
+				BB9A35FC1D9879E600DB872A /* spiked_ball_rolling_loop.wav */,
 				BBAE39AC1D5CBD6F003B9573 /* title_bgm.wav */,
 				BBAFDA151D666ADA008E669B /* title_lightning_1.wav */,
 				BBAFDA161D666ADA008E669B /* title_lightning_2.wav */,
@@ -1647,6 +1674,7 @@
 				BB67E9241C83DCA3009E5F2B /* sparrow_die.wav in Resources */,
 				BB939CE61C626E41006D945A /* jump_spring_heavy.wav in Resources */,
 				BB939CD91C626E41006D945A /* collect_golden_carrot.wav in Resources */,
+				BB9A35F21D9851C300DB872A /* bat_poof.wav in Resources */,
 				BBECA8C81D244DED000E3857 /* screen_transition.wav in Resources */,
 				BB60C9DB1D5A1B3C00A50C70 /* screen_transition_2.wav in Resources */,
 				BBEA16A31B97B9BB009B4711 /* texture_shader.fsh in Resources */,
@@ -1683,12 +1711,15 @@
 				BB7C20D41CB81FB0003E3583 /* mid_boss_owl_swoop.wav in Resources */,
 				BBC38DF01CA03E80001B178C /* c_world_1_mid_boss_part_1.png in Resources */,
 				BB5C89171C8DBEEB00820366 /* fox_strike.wav in Resources */,
+				BB9A36011D9879E600DB872A /* end_boss_snake_death.wav in Resources */,
+				BB9A35FD1D9879E600DB872A /* absorb_dash_ability.wav in Resources */,
 				BBA1AD011C34A47C00CDE963 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB5C891F1C8E411F00820366 /* world_1_mid_boss_part_2.png in Resources */,
 				BBCD42761D97115B001A7ADB /* level_confirmed.wav in Resources */,
 				BBD3869C1C5C2911002CA862 /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB3652341C87CB82004B9CCD /* toad_die.wav in Resources */,
 				BBA1ACF61C349CAD00CDE963 /* pp_shockwave_texture_shader.fsh in Resources */,
+				BB9A36021D9879E600DB872A /* spiked_ball_rolling_loop.wav in Resources */,
 				BBCD427A1D97249D001A7ADB /* c_world_1_end_boss_part_3.png in Resources */,
 				BBC38DED1CA03E80001B178C /* c_world_1_background_upper.png in Resources */,
 				BB574F371C59231500926A9B /* trans_out_death_shader.fsh in Resources */,
@@ -1715,6 +1746,7 @@
 				BB939CDA1C626E41006D945A /* complete_transform.wav in Resources */,
 				BBB73A251D5D655900099987 /* final_boss_bgm.wav in Resources */,
 				BB7072121C89320F009A973F /* saw_grind_loop.wav in Resources */,
+				BB9A35FF1D9879E600DB872A /* end_boss_snake_charge.wav in Resources */,
 				BBCD42751D97115B001A7ADB /* button_click.wav in Resources */,
 				BB2DF28D1C59A7AE00DD7BE3 /* trans_screen_shader.fsh in Resources */,
 				BB32DE891C66F43700F98904 /* world_1_background_lower.png in Resources */,
@@ -1724,6 +1756,7 @@
 				BB779B1E1CB32A08002B29AD /* world_1_bgm_intro.wav in Resources */,
 				BBDC296C1D5D643200BDFD7A /* c_world_1_cutscene_2.png in Resources */,
 				BBF856841C7FCBCD00328A0E /* world_1_special.png in Resources */,
+				BB9A35F61D98535800DB872A /* end_boss_snake_mouth_open.wav in Resources */,
 				BBFAAD841D88BFFC006C6311 /* boss_level_clear.wav in Resources */,
 				BBC38DEF1CA03E80001B178C /* c_world_1_ground.png in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
@@ -1745,8 +1778,11 @@
 				BBFAAD861D88BFFC006C6311 /* level_selected.wav in Resources */,
 				BBE7EF811C908E5800CB8533 /* misc.png in Resources */,
 				BB939CDF1C626E41006D945A /* footstep_right_cave.wav in Resources */,
+				BB9A35F51D98535800DB872A /* chain_snap.wav in Resources */,
 				BB939D1B1C626E41006D945A /* vampire.png in Resources */,
+				BB9A36001D9879E600DB872A /* end_boss_snake_damaged.wav in Resources */,
 				BBC38DF41CA03E80001B178C /* c_world_1_objects.png in Resources */,
+				BB9A35FE1D9879E600DB872A /* end_boss_snake_charge_cue.wav in Resources */,
 				BBA7C65D1D4A45BC000DF127 /* trans_screen_circle_open_shader.fsh in Resources */,
 				BBF662B81D8DFE0800F2BC79 /* pp_frame_buffer_obfuscation.fsh in Resources */,
 				BBAE39AD1D5CBD6F003B9573 /* title_bgm.wav in Resources */,

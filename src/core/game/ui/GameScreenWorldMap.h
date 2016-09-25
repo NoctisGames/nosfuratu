@@ -535,6 +535,8 @@ public:
     
     void loadUserSaveData(const char* json);
     
+    void updateButtons(float deltaTime);
+    
     void setFade(float fade); // 0 to 1, where 1 is complete fade
     
     WorldMapPanel* getWorldMapPanel();

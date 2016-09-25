@@ -7,8 +7,8 @@
 //
 
 #include "ForegroundObject.h"
+
 #include "EntityUtils.h"
-#include "GameConstants.h"
 #include "Assets.h"
 #include "Game.h"
 
@@ -35,9 +35,8 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_RockMedium:
             return new RockMedium(gridX, gridY);
         case ForegroundObjectType_RockSmall:
-            return new RockSmall(gridX, gridY);
         case ForegroundObjectType_RockSmallCracked:
-            return new RockSmallCracked(gridX, gridY);
+            return new RockSmall(gridX, gridY);
             
         case ForegroundObjectType_StumpBig:
             return new StumpBig(gridX, gridY);
@@ -116,10 +115,10 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_SpikeTowerBg:
             return new SpikeTowerBg(gridX);
             
-        case ForegroundObjectType_BoulderRollingLeft:
-            return new BoulderRollingLeft(gridX, gridY);
-        case ForegroundObjectType_BoulderRollingRight:
-            return new BoulderRollingRight(gridX, gridY);
+        case ForegroundObjectType_SpikedBallRollingLeft:
+            return new SpikedBallRollingLeft(gridX, gridY);
+        case ForegroundObjectType_SpikedBallRollingRight:
+            return new SpikedBallRollingRight(gridX, gridY);
             
         case ForegroundObjectType_SpikedBallChain:
             return new SpikedBallChain(gridX, gridY);
@@ -254,51 +253,6 @@ bool PlatformObject::isJonBlockedOnRight(Jon &jon, float deltaTime)
 bool PlatformObject::canObjectBePlacedOn()
 {
     return true;
-}
-
-void DestructibleObject::update(float deltaTime)
-{
-    if (m_isDestructing)
-    {
-        m_fStateTime += deltaTime;
-        
-        if (m_fStateTime > 0.30f)
-        {
-            m_isDestructing = false;
-            m_isRequestingDeletion = true;
-        }
-    }
-}
-
-bool DestructibleObject::isJonHittingHorizontally(Jon& jon, float deltaTime)
-{
-    Rectangle& bounds = jon.getMainBounds();
-    Rectangle hittingBounds = Rectangle(bounds.getLeft(), bounds.getLowerLeft().getY() + bounds.getHeight() / 2, bounds.getWidth() * 1.2f, bounds.getHeight());
-    
-    if (OverlapTester::doRectanglesOverlap(hittingBounds, getMainBounds()))
-    {
-        m_isDestructing = true;
-        m_fStateTime = 0;
-        
-        return true;
-    }
-    
-    return false;
-}
-
-bool DestructibleObject::isJonHittingFromBelow(Jon& jon, float deltaTime)
-{
-    Rectangle& bounds = jon.getMainBounds();
-    
-    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
-    {
-        m_isDestructing = true;
-        m_fStateTime = 0;
-        
-        return true;
-    }
-    
-    return false;
 }
 
 bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -544,4 +498,100 @@ void VerticalSaw::updateBounds()
         
         Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
     }
+}
+
+void SpikedBall::update(float deltaTime)
+{
+    if (m_isFalling)
+    {
+        DeadlyObject::update(deltaTime);
+        
+        if (m_game->isEntityGrounded(this, deltaTime))
+        {
+            m_acceleration->setY(0);
+            m_velocity->setY(0);
+            
+            EndBossSnake* snake = m_game->getEndBossSnakeP();
+            if (snake)
+            {
+                if (!m_hasTriggeredSnakeHit
+                    && OverlapTester::doRectanglesOverlap(snake->getMainBounds(), getMainBounds()))
+                {
+                    snake->triggerHit();
+                    m_hasTriggeredSnakeHit = true;
+                }
+            }
+            
+            m_color.alpha -= deltaTime;
+            if (m_color.alpha < 0)
+            {
+                m_color.alpha = 0;
+                
+                m_isRequestingDeletion = true;
+            }
+        }
+        else
+        {
+            m_acceleration->setY(GAME_GRAVITY);
+        }
+    }
+}
+
+void SpikedBallChain::update(float deltaTime)
+{
+    if (m_isSnapping)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 0.30f)
+        {
+            if (!m_hasTriggeredSpikedBall)
+            {
+                if (m_spikedBall)
+                {
+                    m_spikedBall->fall();
+                }
+                
+                m_hasTriggeredSpikedBall = true;
+            }
+            
+            m_color.alpha -= deltaTime;
+            if (m_color.alpha < 0)
+            {
+                m_color.alpha = 0;
+                
+                m_isRequestingDeletion = true;
+            }
+        }
+    }
+}
+
+bool SpikedBallChain::isJonHittingHorizontally(Jon& jon, float deltaTime)
+{
+    Rectangle& bounds = jon.getMainBounds();
+    
+    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
+    {
+        m_isSnapping = true;
+        m_fStateTime = 0;
+        
+        return true;
+    }
+    
+    return false;
+}
+
+bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
+{
+    Rectangle& bounds = jon.getMainBounds();
+    
+    if (OverlapTester::doRectanglesOverlap(bounds, getMainBounds()))
+    {
+        m_isSnapping = true;
+        m_fStateTime = 0;
+        
+        return true;
+    }
+    
+    return false;
 }

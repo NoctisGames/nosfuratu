@@ -48,6 +48,10 @@ class LevelThumbnail;
 class GoldenCarrotsMarker;
 class SpendGoldenCarrotsBubble;
 class CountHissWithMina;
+class SnakeSkin;
+class SnakeEye;
+class SnakeTonque;
+class SnakeBody;
 class EndBossSnake;
 class BatInstruction;
 class BatPanel;
@@ -93,6 +97,14 @@ public:
     TextureRegion& get(ForegroundObject* foregroundObject);
     
     TextureRegion& get(CountHissWithMina* countHissWithMina);
+    
+    TextureRegion& get(SnakeSkin* snakeSkin);
+    
+    TextureRegion& get(SnakeEye* snakeEye);
+    
+    TextureRegion& get(SnakeTonque* snakeTonque);
+    
+    TextureRegion& get(SnakeBody* snakeBody);
     
     TextureRegion& get(EndBossSnake* endBossSnake);
     

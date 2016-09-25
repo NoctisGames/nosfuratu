@@ -50,6 +50,7 @@ class AbilitySlot;
 class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
+class EndBossSnake;
 
 class Renderer
 {
@@ -109,6 +110,8 @@ public:
     void renderJonAndExtraForegroundObjects(Game& game);
     
     void renderMidBossOwl(MidBossOwl& midBossOwl);
+    
+    void renderEndBossSnake(EndBossSnake& endBossSnake);
     
     void renderBatPanel(BatPanel& batPanel);
     

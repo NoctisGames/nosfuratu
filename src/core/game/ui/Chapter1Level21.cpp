@@ -26,6 +26,11 @@ void Chapter1Level21::enter(GameScreen* gs)
         }
     }
     
+    if (m_game->getEndBossSnakes().size() > 0)
+    {
+        m_endBossSnake = m_game->getEndBossSnakeP();
+    }
+    
     m_game->getCountHissWithMina().faceLeft();
     
     Jon& jon = m_game->getJon();
@@ -39,9 +44,54 @@ void Chapter1Level21::exit(GameScreen* gs)
     Level::exit(gs);
 }
 
+void Chapter1Level21::update(GameScreen* gs)
+{
+    Level::update(gs);
+    
+    if (m_game->getJons().size() == 0
+        || !m_endBossSnake
+        || !m_hole)
+    {
+        return;
+    }
+    
+    Jon& jon = m_game->getJon();
+    
+    if (m_endBossSnake->getState() == EndBossSnakeState_Sleeping)
+    {
+        if (jon.getPosition().getX() > m_hole->getPosition().getX())
+        {
+            jon.getPosition().setX(m_hole->getPosition().getX());
+        }
+    }
+}
+
+void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY, bool instant)
+{
+    if (m_isChaseCamActivated)
+    {
+        gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
+    }
+    else
+    {
+        Level::updateCamera(gs, paddingX, ignoreY, instant);
+    }
+}
+
+void Chapter1Level21::additionalRenderingBeforeHud(GameScreen* gs)
+{
+    gs->m_renderer->renderEndBossSnake(*m_endBossSnake);
+}
+
+bool Chapter1Level21::isInSlowMotionMode()
+{
+    return false;
+}
+
 Chapter1Level21::Chapter1Level21(const char* json) : Level(json),
 m_endBossSnake(nullptr),
-m_hole(nullptr)
+m_hole(nullptr),
+m_isChaseCamActivated(false)
 {
     // Empty
 }

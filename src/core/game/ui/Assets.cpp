@@ -923,16 +923,16 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
-        case ForegroundObjectType_BoulderRollingLeft:
-        case ForegroundObjectType_BoulderRollingRight:
+        case ForegroundObjectType_SpikedBallRollingLeft:
+        case ForegroundObjectType_SpikedBallRollingRight:
         {
-            static TextureRegion tr = createTextureRegion(3004, 2268, 208, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3440, 2104, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikedBall:
         {
-            static TextureRegion tr = createTextureRegion(3340, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(3440, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikedBallChain:
@@ -959,8 +959,102 @@ TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
     }
 }
 
+TextureRegion& Assets::get(SnakeSkin* snakeSkin)
+{
+    static Animation anim = createAnimation(0, 548, 864, 544, 3456, 1088, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 7);
+    return anim.getTextureRegion(snakeSkin->getStateTime());
+}
+
+TextureRegion& Assets::get(SnakeEye* snakeEye)
+{
+    static Animation anim = createAnimation(2756, 304, 118, 118, 354, 118, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+    return anim.getTextureRegion(snakeEye->getStateTime());
+}
+
+TextureRegion& Assets::get(SnakeTonque* snakeTonque)
+{
+    EndBossSnake& endBossSnake = snakeTonque->getEndBossSnake();
+    switch (endBossSnake.getState())
+    {
+        case EndBossSnakeState_Sleeping:
+        case EndBossSnakeState_Awakening:
+        case EndBossSnakeState_OpeningMouthLeft:
+        case EndBossSnakeState_ChargingLeft:
+        {
+            static Animation anim = createAnimation(2596, 0, 554, 78, 1108, 234, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5, 3);
+            return anim.getTextureRegion(snakeTonque->getStateTime());
+        }
+        case EndBossSnakeState_Pursuing:
+        case EndBossSnakeState_Damaged:
+        case EndBossSnakeState_OpeningMouthRight:
+        case EndBossSnakeState_ChargingRight:
+        case EndBossSnakeState_Dying:
+        case EndBossSnakeState_Dead:
+        {
+            static Animation anim = createAnimation(2792, 0, 554, 78, 1108, 234, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5, 3);
+            return anim.getTextureRegion(snakeTonque->getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(SnakeBody* snakeBody)
+{
+    EndBossSnake& endBossSnake = snakeBody->getEndBossSnake();
+    switch (endBossSnake.getState())
+    {
+        case EndBossSnakeState_Sleeping:
+        case EndBossSnakeState_Awakening:
+        case EndBossSnakeState_OpeningMouthLeft:
+        case EndBossSnakeState_ChargingLeft:
+        {
+            static TextureRegion tr = createTextureRegion(0, 548, 3988, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+        case EndBossSnakeState_Pursuing:
+        case EndBossSnakeState_Damaged:
+        case EndBossSnakeState_OpeningMouthRight:
+        case EndBossSnakeState_ChargingRight:
+        case EndBossSnakeState_Dying:
+        case EndBossSnakeState_Dead:
+        {
+            static TextureRegion tr = createTextureRegion(0, 1640, 3988, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
+        }
+    }
+    
+    assert(false);
+}
+
 TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 {
+    switch (endBossSnake->getState())
+    {
+        case EndBossSnakeState_Sleeping:
+        case EndBossSnakeState_Awakening:
+        case EndBossSnakeState_OpeningMouthLeft:
+        case EndBossSnakeState_ChargingLeft:
+        {
+            static Animation anim = createAnimation(0, 0, 864, 544, 2592, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+            return anim.getTextureRegion(endBossSnake->getStateTime());
+        }
+        case EndBossSnakeState_Pursuing:
+        case EndBossSnakeState_Damaged:
+        case EndBossSnakeState_OpeningMouthRight:
+        case EndBossSnakeState_ChargingRight:
+        {
+            static Animation anim = createAnimation(0, 0, 864, 544, 2592, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+            return anim.getTextureRegion(endBossSnake->getStateTime());
+        }
+        case EndBossSnakeState_Dying:
+        case EndBossSnakeState_Dead:
+        {
+            static Animation anim = createAnimation(0, 0, 864, 544, 3456, 3264, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 24);
+            return anim.getTextureRegion(endBossSnake->getStateTime());
+        }
+    }
+    
     assert(false);
 }
 
@@ -1614,13 +1708,13 @@ TextureRegion& Assets::get(BatInstruction* batInstruction)
         {
             case BatInstructionType_Tap:
             {
-                static Animation anim = createAnimation(0, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
+                static Animation anim = createAnimation(1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
                 break;
             case BatInstructionType_TapHold:
             {
-                static Animation anim = createAnimation(0, 0, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+                static Animation anim = createAnimation(0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 11);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
                 break;

@@ -47,6 +47,7 @@
 #include "MathUtil.h"
 #include "GameScreen.h"
 #include "GameTracker.h"
+#include "EndBossSnake.h"
 
 #include <math.h>
 #include <sstream>
@@ -962,6 +963,13 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
 
 void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
 {
+    if (!m_world_1_mid_boss_part_1.gpuTextureWrapper
+        || !m_world_1_mid_boss_part_2.gpuTextureWrapper
+        || !m_world_1_mid_boss_part_3.gpuTextureWrapper)
+    {
+        return;
+    }
+    
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     switch (midBossOwl.getState())
@@ -969,33 +977,88 @@ void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
         case MidBossOwlState_Sleeping:
         case MidBossOwlState_Awakening:
         case MidBossOwlState_Screeching:
-            if (m_world_1_mid_boss_part_3.gpuTextureWrapper)
-            {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
-            }
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
+            m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
+        }
             break;
         case MidBossOwlState_Pursuing:
         case MidBossOwlState_FlyingOverTree:
         case MidBossOwlState_SwoopingDown:
         case MidBossOwlState_FlyingAwayAfterCatchingJon:
         case MidBossOwlState_SlammingIntoTree:
-            if (m_world_1_mid_boss_part_1.gpuTextureWrapper)
-            {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_1.gpuTextureWrapper);
-            }
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
+            m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_1.gpuTextureWrapper);
+        }
             break;
         case MidBossOwlState_Dying:
         case MidBossOwlState_Dead:
-            if (m_world_1_mid_boss_part_2.gpuTextureWrapper)
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
+            m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_2.gpuTextureWrapper);
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
+{
+    if (!m_world_1_end_boss_part_1.gpuTextureWrapper
+        || !m_world_1_end_boss_part_2.gpuTextureWrapper
+        || !m_world_1_end_boss_part_3.gpuTextureWrapper)
+    {
+        return;
+    }
+    
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    
+    switch (endBossSnake.getState())
+    {
+        case EndBossSnakeState_Sleeping:
+        case EndBossSnakeState_Awakening:
+        case EndBossSnakeState_OpeningMouthLeft:
+        case EndBossSnakeState_ChargingLeft:
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()));
+            if (endBossSnake.getSnakeTonque().isMouthOpen())
             {
-                m_spriteBatcher->beginBatch();
-                renderPhysicalEntity(midBossOwl, Assets::getInstance()->get(&midBossOwl));
-                m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_2.gpuTextureWrapper);
+                renderPhysicalEntity(endBossSnake.getSnakeTonque(), Assets::getInstance()->get(&endBossSnake.getSnakeTonque()));
             }
+            renderPhysicalEntity(endBossSnake, Assets::getInstance()->get(&endBossSnake));
+            renderPhysicalEntity(endBossSnake.getSnakeEye(), Assets::getInstance()->get(&endBossSnake.getSnakeEye()));
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
+        }
+            break;
+        case EndBossSnakeState_Pursuing:
+        case EndBossSnakeState_Damaged:
+        case EndBossSnakeState_OpeningMouthRight:
+        case EndBossSnakeState_ChargingRight:
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()));
+            if (endBossSnake.getSnakeTonque().isMouthOpen())
+            {
+                renderPhysicalEntity(endBossSnake.getSnakeTonque(), Assets::getInstance()->get(&endBossSnake.getSnakeTonque()));
+            }
+            renderPhysicalEntity(endBossSnake, Assets::getInstance()->get(&endBossSnake));
+            renderPhysicalEntity(endBossSnake.getSnakeSkin(), Assets::getInstance()->get(&endBossSnake.getSnakeSkin()));
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
+        }
+            break;
+        case EndBossSnakeState_Dying:
+        case EndBossSnakeState_Dead:
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(endBossSnake, Assets::getInstance()->get(&endBossSnake));
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_3.gpuTextureWrapper);
+        }
             break;
         default:
             break;

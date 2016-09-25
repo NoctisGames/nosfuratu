@@ -224,7 +224,7 @@ void Level::handleOpeningSequence(GameScreen* gs)
 
 	if (m_hasOpeningSequenceCompleted)
 	{
-		countHissWithMina.getPosition.setWidth(m_game->getFarRight() + CAM_WIDTH * 2);
+		countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
 
 		Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
 	}
@@ -263,6 +263,9 @@ void Level::update(GameScreen* gs)
         {
             return;
         }
+        
+        m_backButton->update(gs->m_fDeltaTime);
+        m_continueButton->update(gs->m_fDeltaTime);
         
         if (m_isDisplayingResults)
         {

@@ -326,6 +326,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         m_fFade = m_fTransitionStateTime * 2;
         
         WorldMap::getInstance()->setFade(m_fFade);
+        WorldMap::getInstance()->updateButtons(gs->m_fDeltaTime);
         
         gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());

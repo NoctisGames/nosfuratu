@@ -84,6 +84,8 @@ void Title::execute(GameScreen* gs)
     {
         m_panel->update(gs->m_fDeltaTime);
         
+        m_levelEditorButton->update(gs->m_fDeltaTime);
+        
         if (m_isRequestingNextState)
         {
             if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))

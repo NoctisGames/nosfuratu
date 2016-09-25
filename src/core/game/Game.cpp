@@ -253,7 +253,8 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 		return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
-        || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime);
+        || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getEnemies(), deltaTime);
 	}
     
     return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
@@ -261,6 +262,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
     || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEnemies(), deltaTime)
+    || EntityUtils::isLanding(entity, getEndBossSnakes(), deltaTime)
     || EntityUtils::isLanding(entity, getExitGrounds(), deltaTime)
     || EntityUtils::isLanding(entity, getGrounds(), deltaTime);
 }
@@ -406,6 +408,11 @@ std::vector<EndBossSnake *>& Game::getEndBossSnakes()
 EndBossSnake& Game::getEndBossSnake()
 {
     return *getEndBossSnakes().at(0);
+}
+
+EndBossSnake* Game::getEndBossSnakeP()
+{
+    return getEndBossSnakes().at(0);
 }
 
 std::vector<Enemy *>& Game::getEnemies()

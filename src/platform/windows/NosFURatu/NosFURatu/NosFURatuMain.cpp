@@ -83,6 +83,15 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("final_boss_bgm_intro.wav");
     m_sounds.push_back("button_click.wav");
     m_sounds.push_back("level_confirmed.wav");
+    m_sounds.push_back("bat_poof.wav");
+    m_sounds.push_back("chain_snap.wav");
+    m_sounds.push_back("end_boss_snake_mouth_open.wav");
+    m_sounds.push_back("end_boss_snake_charge_cue.wav");
+    m_sounds.push_back("end_boss_snake_charge.wav");
+    m_sounds.push_back("end_boss_snake_damaged.wav");
+    m_sounds.push_back("end_boss_snake_death.wav");
+    m_sounds.push_back("spiked_ball_rolling_loop.wav");
+    m_sounds.push_back("absorb_dash_ability.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -273,11 +282,13 @@ void NosFURatuMain::handleSound()
 		case SOUND_JON_VAMPIRE_GLIDE:
 		case SOUND_SPARROW_FLY:
 		case SOUND_SAW_GRIND:
+        case SOUND_SPIKED_BALL_ROLLING:
 			playSound(soundId, true);
 			break;
 		case STOP_SOUND_JON_VAMPIRE_GLIDE:
 		case STOP_SOUND_SPARROW_FLY:
 		case STOP_SOUND_SAW_GRIND:
+        case STOP_SOUND_SPIKED_BALL_ROLLING:
 			stopSound(soundId - 1000);
 			break;
 		default:

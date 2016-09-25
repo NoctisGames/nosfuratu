@@ -55,6 +55,8 @@ public:
     
     Game& getGame();
     
+    void updateButtons(float deltaTime);
+    
 protected:
     const char* m_json;
     std::unique_ptr<Game> m_game;
@@ -402,6 +404,15 @@ public:
 private:
     EndBossSnake* m_endBossSnake;
     Hole* m_hole;
+    bool m_isChaseCamActivated;
+    
+    virtual void update(GameScreen* gs);
+    
+    virtual void updateCamera(GameScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
+    
+    virtual void additionalRenderingBeforeHud(GameScreen* gs);
+    
+    virtual bool isInSlowMotionMode();
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level21(const char* json);

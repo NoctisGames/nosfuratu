@@ -12,6 +12,7 @@
 #include "GridLockedPhysicalEntity.h"
 #include "GroundSoundType.h"
 #include "Jon.h"
+#include "GameConstants.h"
 
 class Game;
 
@@ -76,8 +77,8 @@ typedef enum
 
 	ForegroundObjectType_JumpSpringLightFlush,
     
-    ForegroundObjectType_BoulderRollingLeft,
-    ForegroundObjectType_BoulderRollingRight,
+    ForegroundObjectType_SpikedBallRollingLeft,
+    ForegroundObjectType_SpikedBallRollingRight,
     
     ForegroundObjectType_SpikedBall,
     ForegroundObjectType_SpikedBallChain
@@ -257,12 +258,6 @@ class RockSmall : public ForegroundObject
 {
 public:
     RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE, 0.328125f, 0.20923913043478f, 0.328125f, 0.27717391304348f) {}
-};
-
-class RockSmallCracked : public DestructibleObject
-{
-public:
-    RockSmallCracked(int gridX, int gridY) : DestructibleObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmallCracked, GROUND_SOUND_CAVE, 0.328125f, 0.1875f, 0.328125f, 0.3179347826087f) {}
 };
 
 class StumpBig : public ForegroundObject
@@ -506,32 +501,61 @@ public:
     SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
 };
 
-class BoulderRollingLeft : public DeadlyObject
+class SpikedBallRollingLeft : public DeadlyObject
 {
 public:
-    BoulderRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_BoulderRollingLeft) {}
+    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingLeft) {}
 };
 
-class BoulderRollingRight : public DeadlyObject
+class SpikedBallRollingRight : public DeadlyObject
 {
 public:
-    BoulderRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_BoulderRollingRight) {}
+    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingRight) {}
 };
 
 class SpikedBall : public DeadlyObject
 {
 public:
-    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0, 1, 1.2f) {}
+    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0, 1, 1.2f), m_color(1, 1, 1, 1), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
+    
+    virtual void update(float deltaTime);
+    
+    void fall()
+    {
+        m_isFalling = true;
+        m_velocity->setY(GAME_GRAVITY);
+    }
+    
+    Color getColor() { return m_color; }
+    
+private:
+    Color m_color;
+    bool m_isFalling;
+    bool m_hasTriggeredSnakeHit;
 };
 
 class SpikedBallChain : public ForegroundObject
 {
 public:
-    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain) {}
+    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain, GROUND_SOUND_NONE, 0.68069306930693f, 0, 0.11386138613861f, 0.28658536585366f), m_spikedBall(nullptr), m_color(1, 1, 1, 1), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
     virtual bool isJonBlockedOnRight(Jon& jon, float deltaTime) { return false; }
+    
+    Color getColor() { return m_color; }
+    
+    virtual void update(float deltaTime);
+    
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
+    
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
+
+private:
+    SpikedBall* m_spikedBall;
+    Color m_color;
+    bool m_isSnapping;
+    bool m_hasTriggeredSpikedBall;
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

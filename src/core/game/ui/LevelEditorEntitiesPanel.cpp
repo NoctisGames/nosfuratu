@@ -162,9 +162,6 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_foregroundObjects.push_back(new VerticalSaw(0));
         
-        m_foregroundObjects.push_back(new BoulderRollingLeft(0, 0));
-        m_foregroundObjects.push_back(new BoulderRollingRight(0, 0));
-        
         if (level == 10)
         {
             m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));
@@ -179,6 +176,8 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         {
             m_endBossForegroundObjects.push_back(new SpikedBall(0, 0));
             m_endBossForegroundObjects.push_back(new SpikedBallChain(0, 0));
+            m_endBossForegroundObjects.push_back(new SpikedBallRollingLeft(0, 0));
+            m_endBossForegroundObjects.push_back(new SpikedBallRollingRight(0, 0));
         }
         
         m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
