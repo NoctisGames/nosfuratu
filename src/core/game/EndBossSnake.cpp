@@ -237,10 +237,10 @@ void EndBossSnake::triggerHit()
     m_velocity->setX(0);
     m_acceleration->setX(0);
 
-	m_color.red += 0.5f;
+	m_color.red += 0.2f;
 	m_color.green = 0;
 	m_color.blue = 0;
-	m_snakeBody->getColor().red += 0.5f;
+	m_snakeBody->getColor().red += 0.2f;
 	m_snakeBody->getColor().green = 0;
 	m_snakeBody->getColor().blue = 0;
 }
@@ -391,7 +391,7 @@ void SnakeSkin::onDamageTaken()
 
 	if (snake->getDamage() > 1)
 	{
-		m_color.red += 0.5f * (snake->getDamage() - 1);
+		m_color.red += 0.2f * (snake->getDamage() - 1);
 		m_color.green = 0;
 		m_color.blue = 0;
 	}
