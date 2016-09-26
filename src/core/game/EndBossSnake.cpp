@@ -59,6 +59,8 @@ void EndBossSnake::update(float deltaTime)
 			if (m_fStateTime > 0.3f)
 			{
 				setState(EndBossSnakeState_OpeningMouthLeft);
+
+				return;
 			}
 		}
 			break;
@@ -69,6 +71,8 @@ void EndBossSnake::update(float deltaTime)
 				m_snakeTonque->onMouthOpen();
 
 				setState(EndBossSnakeState_OpenMouthLeft);
+
+				return;
 			}
 		}
 			break;
@@ -78,7 +82,11 @@ void EndBossSnake::update(float deltaTime)
 			{
 				m_velocity->setX(-1 * (END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8));
 
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+
 				setState(EndBossSnakeState_ChargingLeft);
+
+				return;
 			}
 		}
 			break;
@@ -91,7 +99,11 @@ void EndBossSnake::update(float deltaTime)
 
 			if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 10.0f)
 			{
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+
 				setState(EndBossSnakeState_OpeningMouthRight);
+
+				return;
 			}
 
 			if (m_velocity->getX() > END_BOSS_SNAKE_DEFAULT_MAX_SPEED
@@ -114,6 +126,8 @@ void EndBossSnake::update(float deltaTime)
 				m_snakeTonque->onMouthOpen();
 
 				setState(EndBossSnakeState_OpenMouthRight);
+
+				return;
 			}
 
 			Jon& jon = m_game->getJon();
@@ -135,9 +149,13 @@ void EndBossSnake::update(float deltaTime)
 		{
 			if (m_fStateTime > 0.3f)
 			{
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+
 				m_velocity->setX(END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8);
 
 				setState(EndBossSnakeState_ChargingRight);
+
+				return;
 			}
 
 			Jon& jon = m_game->getJon();
@@ -157,11 +175,31 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_Damaged:
 		{
+			m_color.red += 0.5f * deltaTime * 2;
+
+			if (m_color.red > (1.0f + 0.5f * m_iDamage))
+			{
+				m_color.red = 1.0f + 0.5f * m_iDamage;
+			}
+
+			m_snakeBody->getColor().red = m_color.red;
+			
 			if (m_fStateTime > 4)
 			{
-				m_velocity->setX(END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8);
+				Jon& jon = m_game->getJon();
+				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
+				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 10.0f)
+				{
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+				}
+				else
+				{
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+				}
 
-				setState(EndBossSnakeState_ChargingRight);
+				setState(EndBossSnakeState_OpeningMouthRight);
+
+				return;
 			}
 		}
 			break;
@@ -174,6 +212,24 @@ void EndBossSnake::update(float deltaTime)
 			{
 				jon.kill();
 			}
+
+			Rectangle& camBounds = *m_game->getCameraBounds();
+
+			if (camBounds.getWidth() > CAM_WIDTH)
+			{
+				return;
+			}
+
+			if (getSnakeBody().getMainBounds().getLeft() > camBounds.getRight())
+			{
+				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 2);
+				
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+
+				setState(EndBossSnakeState_OpeningMouthLeft);
+
+				return;
+			}
 		}
 			break;
 		case EndBossSnakeState_Dying:
@@ -182,6 +238,8 @@ void EndBossSnake::update(float deltaTime)
 			{
 				setState(EndBossSnakeState_Dead);
 				m_fStateTime = 5;
+
+				return;
 			}
 		}
 			break;
@@ -233,16 +291,11 @@ void EndBossSnake::triggerHit()
         
         Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
     }
+
+	m_snakeTonque->onMouthClose();
     
     m_velocity->setX(0);
     m_acceleration->setX(0);
-
-	m_color.red += 0.2f;
-	m_color.green = 0.2f / m_iDamage;
-	m_color.blue = 0.2f / m_iDamage;
-	m_snakeBody->getColor().red += 0.2f;
-	m_snakeBody->getColor().green = 0.2f / m_iDamage;
-	m_snakeBody->getColor().blue = 0.2f / m_iDamage;
 }
 
 void EndBossSnake::setState(EndBossSnakeState state)
@@ -391,9 +444,7 @@ void SnakeSkin::onDamageTaken()
 
 	if (snake->getDamage() > 1)
 	{
-		m_color.red += 0.2f * (snake->getDamage() - 1);
-		m_color.green = 0.2f / snake->getDamage();
-		m_color.blue = 0.2f / snake->getDamage();
+		m_color.red += 0.5f * (snake->getDamage() - 1);
 	}
     
     m_isShowing = true;

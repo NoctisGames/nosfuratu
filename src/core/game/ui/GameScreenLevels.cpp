@@ -342,7 +342,10 @@ void Level::update(GameScreen* gs)
             
             // Is Still Actively playing the Level
             
-            m_game->update(gs->m_fDeltaTime);
+			if (!m_hasCompletedLevel)
+			{
+				m_game->update(gs->m_fDeltaTime);
+			}
             
             if (isInSlowMotionMode())
             {

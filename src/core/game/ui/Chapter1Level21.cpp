@@ -85,6 +85,36 @@ void Chapter1Level21::enter(GameScreen* gs)
 	{
 		spikedBallChain3->setSpikedBall(spikedBall3);
 	}
+
+	GiantTree* giantTree1 = nullptr;
+	GiantTree* giantTree2 = nullptr;
+	int giantTreeIndex = 0;
+	for (std::vector<ForegroundObject*>::iterator i = m_game->getForegroundObjects().begin(); i != m_game->getForegroundObjects().end(); i++)
+	{
+		if ((*i)->getType() == ForegroundObjectType_GiantTree)
+		{
+			giantTreeIndex++;
+			switch (spikedBallIndex)
+			{
+			case 1:
+				giantTree1 = dynamic_cast<GiantTree*>((*i));
+				break;
+			case 2:
+				giantTree2 = dynamic_cast<GiantTree*>((*i));
+				break;
+			}
+		}
+	}
+	
+	if (giantTree1)
+	{
+		m_fMarker1X = giantTree1->getPosition().getX();
+	}
+
+	if (giantTree2)
+	{
+		m_fMarker2X = giantTree2->getPosition().getX();
+	}
     
     if (m_game->getEndBossSnakes().size() > 0)
     {
@@ -94,7 +124,7 @@ void Chapter1Level21::enter(GameScreen* gs)
     m_game->getCountHissWithMina().faceLeft();
 
 	Jon& jon = m_game->getJon(); 
-	if (m_hasTriggeredMusicLoop)
+	if (m_hasTriggeredCheckPoint)
 	{
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
@@ -108,10 +138,6 @@ void Chapter1Level21::enter(GameScreen* gs)
 			m_endBossSnake->beginPursuit();
 		}
 	}
-	else
-	{
-		jon.setUserActionPrevented(true);
-	}
 }
 
 void Chapter1Level21::exit(GameScreen* gs)
@@ -122,10 +148,14 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fGameStateTime = 0;
 	m_fCheckPointX = 0;
 	m_fCheckPointY = 0;
+	m_fMarker1X = 0;
+	m_fMarker2X = 0;
 	m_isChaseCamActivated = false;
 	m_hasTriggeredMusicLoopIntro = false;
 	m_hasTriggeredSnakeAwaken = false;
 	m_hasTriggeredMusicLoop = false;
+	m_hasTriggeredCheckPoint = false;
+	m_hasTriggeredSnakeDeathCheckPoint = false;
     
     Level::exit(gs);
 }
@@ -133,8 +163,8 @@ void Chapter1Level21::exit(GameScreen* gs)
 void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 {
 	Jon& jon = m_game->getJon();
-	jon.setAllowedToMove(false);
-	jon.beginWarmingUp();
+	jon.setAllowedToMove(true);
+	jon.getVelocity().setX(RABBIT_DEFAULT_MAX_SPEED);
 
 	updateCamera(gs, 0, false, true);
 
@@ -148,10 +178,6 @@ void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 
 void Chapter1Level21::handleOpeningSequence(GameScreen* gs)
 {
-	Jon& jon = m_game->getJon();
-	jon.setAllowedToMove(true);
-	jon.getVelocity().setX(RABBIT_DEFAULT_MAX_SPEED);
-
 	m_hasOpeningSequenceCompleted = true;
 
 	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
@@ -173,8 +199,11 @@ void Chapter1Level21::update(GameScreen* gs)
     
     Jon& jon = m_game->getJon();
     
-    if (m_endBossSnake->getState() == EndBossSnakeState_Sleeping)
+    if (m_endBossSnake->getState() == EndBossSnakeState_Sleeping
+		&& jon.getPosition().getX() < (m_hole->getPosition().getX() + 4))
     {
+		jon.setUserActionPrevented(true);
+
         if (jon.getPosition().getX() > m_hole->getPosition().getX())
         {
 			jon.getAcceleration().set(0, 0);
@@ -219,10 +248,9 @@ void Chapter1Level21::update(GameScreen* gs)
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_ChargingLeft)
 	{
-		m_fGameStateTime += gs->m_fDeltaTime;
+		m_isChaseCamActivated = false;
 
-		if (m_hasTriggeredSnakeAwaken
-			&& !m_hasTriggeredMusicLoop)
+		if (!m_hasTriggeredMusicLoop)
 		{
 			m_fGameStateTime += gs->m_fDeltaTime;
 
@@ -234,47 +262,63 @@ void Chapter1Level21::update(GameScreen* gs)
 			}
 		}
 
-		if (jon.isVampire()
-			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
+		if (m_endBossSnake->getDamage() == 2
+			&& jon.getPosition().getX() > m_fMarker2X)
 		{
-			jon.setIdle(false);
-			jon.setUserActionPrevented(false);
-
-			m_fCheckPointX = jon.getPosition().getX();
-			m_fCheckPointY = jon.getPosition().getY();
-			m_fCheckPointStateTime = m_game->getStateTime();
-
 			m_endBossSnake->beginPursuit();
 		}
-		else if (jon.getNumJumps() == 2
-			&& jon.isFalling()
-			&& !jon.isTransformingIntoVampire()
-			&& !jon.isVampire())
+		else if (m_endBossSnake->getDamage() == 1
+			&& jon.getPosition().getX() > m_fMarker1X)
 		{
-			jon.setUserActionPrevented(false);
-			jon.triggerTransform();
-			jon.setUserActionPrevented(true);
+			m_endBossSnake->beginPursuit();
+		}
 
-			m_hole->triggerBurrow();
-		}
-		else if (jon.getNumJumps() == 1
-			&& jon.isFalling()
-			&& jon.getMainBounds().getBottom() < (m_endBossSnake->getMainBounds().getTop() + 1)
-			&& !jon.isTransformingIntoVampire()
-			&& !jon.isVampire())
+		if (!m_hasTriggeredCheckPoint)
 		{
-			jon.setUserActionPrevented(false);
-			jon.triggerJump();
-			jon.setUserActionPrevented(true);
-		}
-		else if (jon.getNumJumps() == 0
-			&& !jon.isTransformingIntoVampire()
-			&& !jon.isVampire())
-		{
-			jon.setIdle(false);
-			jon.setUserActionPrevented(false);
-			jon.triggerJump();
-			jon.setUserActionPrevented(true);
+			if (jon.isVampire()
+				&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
+			{
+				jon.setIdle(false);
+				jon.setUserActionPrevented(false);
+
+				m_fCheckPointX = jon.getPosition().getX();
+				m_fCheckPointY = jon.getPosition().getY();
+				m_fCheckPointStateTime = m_game->getStateTime();
+
+				m_hasTriggeredCheckPoint = true;
+
+				m_endBossSnake->beginPursuit();
+			}
+			else if (jon.getNumJumps() == 2
+				&& jon.isFalling()
+				&& !jon.isTransformingIntoVampire()
+				&& !jon.isVampire())
+			{
+				jon.setUserActionPrevented(false);
+				jon.triggerTransform();
+				jon.setUserActionPrevented(true);
+
+				m_hole->triggerBurrow();
+			}
+			else if (jon.getNumJumps() == 1
+				&& jon.isFalling()
+				&& jon.getMainBounds().getBottom() < (m_endBossSnake->getMainBounds().getTop() + 1)
+				&& !jon.isTransformingIntoVampire()
+				&& !jon.isVampire())
+			{
+				jon.setUserActionPrevented(false);
+				jon.triggerJump();
+				jon.setUserActionPrevented(true);
+			}
+			else if (jon.getNumJumps() == 0
+				&& !jon.isTransformingIntoVampire()
+				&& !jon.isVampire())
+			{
+				jon.setIdle(false);
+				jon.setUserActionPrevented(false);
+				jon.triggerJump();
+				jon.setUserActionPrevented(true);
+			}
 		}
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Pursuing
@@ -317,10 +361,14 @@ m_fGameStateTime(0),
 m_fCheckPointStateTime(0),
 m_fCheckPointX(0),
 m_fCheckPointY(0),
+m_fMarker1X(0),
+m_fMarker2X(0),
 m_isChaseCamActivated(false),
 m_hasTriggeredMusicLoopIntro(false),
 m_hasTriggeredSnakeAwaken(false),
-m_hasTriggeredMusicLoop(false)
+m_hasTriggeredMusicLoop(false),
+m_hasTriggeredCheckPoint(false),
+m_hasTriggeredSnakeDeathCheckPoint(false)
 {
     // Empty
 }

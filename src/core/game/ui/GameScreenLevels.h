@@ -408,10 +408,14 @@ private:
 	float m_fCheckPointStateTime;
 	float m_fCheckPointX;
 	float m_fCheckPointY;
+	float m_fMarker1X;
+	float m_fMarker2X;
     bool m_isChaseCamActivated;
 	bool m_hasTriggeredMusicLoopIntro;
 	bool m_hasTriggeredSnakeAwaken;
 	bool m_hasTriggeredMusicLoop;
+	bool m_hasTriggeredCheckPoint;
+	bool m_hasTriggeredSnakeDeathCheckPoint;
 
 	virtual void beginOpeningSequence(GameScreen* gs);
 
