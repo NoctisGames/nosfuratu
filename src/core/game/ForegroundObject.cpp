@@ -129,7 +129,7 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr)
+ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr), m_color(1, 1, 1, 1)
 {
     // Empty
 }
@@ -634,34 +634,35 @@ void SpikedBall::update(float deltaTime)
     {
         DeadlyObject::update(deltaTime);
         
-        if (m_game->isEntityGrounded(this, deltaTime))
-        {
-            m_acceleration->setY(0);
-            m_velocity->setY(0);
-            
-            EndBossSnake* snake = m_game->getEndBossSnakeP();
-            if (snake)
-            {
-                if (!m_hasTriggeredSnakeHit
-                    && OverlapTester::doRectanglesOverlap(snake->getMainBounds(), getMainBounds()))
-                {
-                    snake->triggerHit();
-                    m_hasTriggeredSnakeHit = true;
-                }
-            }
-            
-            m_color.alpha -= deltaTime;
-            if (m_color.alpha < 0)
-            {
-                m_color.alpha = 0;
-                
-                m_isRequestingDeletion = true;
-            }
-        }
-        else
-        {
-            m_acceleration->setY(GAME_GRAVITY);
-        }
+		EndBossSnake* snake = m_game->getEndBossSnakeP();
+
+		if (snake)
+		{
+			if (!m_hasTriggeredSnakeHit
+				&& OverlapTester::doRectanglesOverlap(snake->getMainBounds(), getMainBounds()))
+			{
+				snake->triggerHit();
+				m_hasTriggeredSnakeHit = true;
+			}
+		}
+
+		if (m_hasTriggeredSnakeHit)
+		{
+			m_acceleration->setY(0);
+			m_velocity->setY(0);
+
+			m_color.alpha -= deltaTime;
+			if (m_color.alpha < 0)
+			{
+				m_color.alpha = 0;
+
+				m_isRequestingDeletion = true;
+			}
+		}
+		else
+		{
+			m_acceleration->setY(GAME_GRAVITY);
+		}
     }
 }
 

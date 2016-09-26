@@ -48,6 +48,7 @@ class LevelThumbnail;
 class GoldenCarrotsMarker;
 class SpendGoldenCarrotsBubble;
 class CountHissWithMina;
+class SnakeHeadImpact; 
 class SnakeSkin;
 class SnakeEye;
 class SnakeTonque;
@@ -98,6 +99,8 @@ public:
     
     TextureRegion& get(CountHissWithMina* countHissWithMina);
     
+	TextureRegion& get(SnakeHeadImpact* snakeHeadImpact);
+
     TextureRegion& get(SnakeSkin* snakeSkin);
     
     TextureRegion& get(SnakeEye* snakeEye);

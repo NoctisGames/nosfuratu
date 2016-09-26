@@ -188,6 +188,8 @@ public:
     void kill();
     
     bool shouldUseVampireFormForConsumeAnimation();
+
+	void becomeVampire();
     
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;

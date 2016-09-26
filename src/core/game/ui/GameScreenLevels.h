@@ -405,6 +405,9 @@ private:
     EndBossSnake* m_endBossSnake;
     Hole* m_hole;
 	float m_fGameStateTime;
+	float m_fCheckPointStateTime;
+	float m_fCheckPointX;
+	float m_fCheckPointY;
     bool m_isChaseCamActivated;
 	bool m_hasTriggeredMusicLoopIntro;
 	bool m_hasTriggeredSnakeAwaken;

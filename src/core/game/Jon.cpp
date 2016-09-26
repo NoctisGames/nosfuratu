@@ -628,6 +628,12 @@ bool Jon::shouldUseVampireFormForConsumeAnimation()
     return m_shouldUseVampireFormForConsumeAnimation;
 }
 
+void Jon::becomeVampire()
+{
+	m_formStateMachine->changeState(Jon::Vampire::getInstance());
+	m_shouldUseVampireFormForConsumeAnimation = true;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)
@@ -1048,7 +1054,7 @@ void Jon::Vampire::execute(Jon* jon)
                 vDist = 1.5f -jon->m_fAbilityStateTime;
             }
             
-            if (jon->m_fAbilityStateTime > 1.2f)
+            if (jon->m_fAbilityStateTime > 1.35f)
             {
                 jon->setState(ABILITY_NONE);
             }

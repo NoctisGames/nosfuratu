@@ -113,8 +113,11 @@ public:
     
     void setGame(Game* game);
 
+	Color getColor() { return m_color; }
+
 protected:
     Game* m_game;
+	Color m_color;
     
     virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
@@ -504,7 +507,7 @@ public:
 class SpikedBallRollingLeft : public DeadlyObject
 {
 public:
-    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingLeft), m_isOnScreen(false) {}
+    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingLeft), m_isOnScreen(false) {}
     
     virtual void update(float deltaTime);
     
@@ -517,7 +520,7 @@ private:
 class SpikedBallRollingRight : public DeadlyObject
 {
 public:
-    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 13, 13, ForegroundObjectType_SpikedBallRollingRight), m_isOnScreen(false) {}
+    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingRight), m_isOnScreen(false) {}
     
     virtual void update(float deltaTime);
     
@@ -530,7 +533,7 @@ private:
 class SpikedBall : public DeadlyObject
 {
 public:
-    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0, 1, 1.2f), m_color(1, 1, 1, 1), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
+    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0, 1, 1.2f), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
     
     virtual void update(float deltaTime);
     
@@ -540,10 +543,7 @@ public:
         m_velocity->setY(GAME_GRAVITY);
     }
     
-    Color getColor() { return m_color; }
-    
 private:
-    Color m_color;
     bool m_isFalling;
     bool m_hasTriggeredSnakeHit;
 };
@@ -551,13 +551,13 @@ private:
 class SpikedBallChain : public ForegroundObject
 {
 public:
-    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain, GROUND_SOUND_NONE, 0.68069306930693f, 0, 0.11386138613861f, 0.28658536585366f), m_spikedBall(nullptr), m_color(1, 1, 1, 1), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
+    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain, GROUND_SOUND_NONE, 0.72f, 0, 0.14f, 0.25f), m_spikedBall(nullptr), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
     
-    Color getColor() { return m_color; }
+	void setSpikedBall(SpikedBall* spikedBall) { m_spikedBall = spikedBall; }
     
     virtual void update(float deltaTime);
     
@@ -567,7 +567,6 @@ public:
 
 private:
     SpikedBall* m_spikedBall;
-    Color m_color;
     bool m_isSnapping;
     bool m_hasTriggeredSpikedBall;
 };

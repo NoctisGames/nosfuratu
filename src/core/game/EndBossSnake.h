@@ -16,6 +16,28 @@
 class Game;
 class EndBossSnake;
 
+class SnakeHeadImpact : public PhysicalEntity
+{
+public:
+	SnakeHeadImpact(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 32 * GRID_CELL_SIZE, 32 * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+	{
+		// Empty
+	}
+
+	virtual void update(float deltaTime);
+
+	void onDamageTaken();
+
+	EndBossSnake& getEndBossSnake();
+
+	Color& getColor() { return m_color; }
+
+private:
+	EndBossSnake* m_endBossSnake;
+	Color m_color;
+	bool m_isShowing;
+};
+
 class SnakeSkin : public PhysicalEntity
 {
 public:
@@ -144,6 +166,7 @@ public:
     SnakeEye& getSnakeEye() { return *m_snakeEye; }
     SnakeTonque& getSnakeTonque() { return *m_snakeTonque; }
     SnakeBody& getSnakeBody() { return *m_snakeBody; }
+	SnakeHeadImpact& getSnakeHeadImpact() { return *m_snakeHeadImpact; }
     
     EndBossSnakeState getState() { return m_state; }
     
@@ -158,6 +181,7 @@ private:
     std::unique_ptr<SnakeEye> m_snakeEye;
     std::unique_ptr<SnakeTonque> m_snakeTonque;
     std::unique_ptr<SnakeBody> m_snakeBody;
+	std::unique_ptr<SnakeHeadImpact> m_snakeHeadImpact;
     Game* m_game;
     EndBossSnakeState m_state;
     Color m_color;

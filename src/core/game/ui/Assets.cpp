@@ -959,6 +959,12 @@ TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
     }
 }
 
+TextureRegion& Assets::get(SnakeHeadImpact* snakeHeadImpact)
+{
+	static Animation anim = createAnimation(0, 3584, 512, 512, 4096, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 8);
+	return anim.getTextureRegion(snakeHeadImpact->getStateTime());
+}
+
 TextureRegion& Assets::get(SnakeSkin* snakeSkin)
 {
     static Animation anim = createAnimation(0, 548, 864, 544, 3456, 1088, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 7);
@@ -1053,11 +1059,11 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 			return tr;
 		}
         case EndBossSnakeState_Pursuing:
+		case EndBossSnakeState_Damaged:
 		{
 			static TextureRegion tr = createTextureRegion(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
 			return tr;
 		}
-        case EndBossSnakeState_Damaged:
         case EndBossSnakeState_OpeningMouthRight:
 		{
 			static Animation anim = createAnimation(0, 0, 864, 544, 2592, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
@@ -1377,7 +1383,7 @@ TextureRegion& Assets::get(Jon* jon)
         static Animation dashAnim = createAnimation(768, 512, 768, 256, 3072, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 14);
         if (!dashAnim.hasFrameTimes())
         {
-            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.4f, 0.1f);
+            dashAnim.setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.55f, 0.1f);
         }
         static Animation doubleJumpingAnim = createAnimation(0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 6);
         static Animation glidingAnim = createAnimation(0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.06f, 2);

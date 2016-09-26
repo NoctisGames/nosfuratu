@@ -25,6 +25,66 @@ void Chapter1Level21::enter(GameScreen* gs)
             break;
         }
     }
+
+	SpikedBall* spikedBall1 = nullptr;
+	SpikedBall* spikedBall2 = nullptr;
+	SpikedBall* spikedBall3 = nullptr;
+	SpikedBallChain * spikedBallChain1 = nullptr;
+	SpikedBallChain* spikedBallChain2 = nullptr;
+	SpikedBallChain* spikedBallChain3 = nullptr;
+
+	int spikedBallIndex = 0;
+	int spikedBallChainIndex = 0;
+	for (std::vector<ForegroundObject*>::iterator i = m_game->getEndBossForegroundObjects().begin(); i != m_game->getEndBossForegroundObjects().end(); i++)
+	{
+		if ((*i)->getType() == ForegroundObjectType_SpikedBall)
+		{
+			spikedBallIndex++;
+			switch (spikedBallIndex)
+			{
+				case 1:
+					spikedBall1 = dynamic_cast<SpikedBall*>((*i));
+					break;
+				case 2:
+					spikedBall2 = dynamic_cast<SpikedBall*>((*i));
+					break;
+				case 3:
+					spikedBall3 = dynamic_cast<SpikedBall*>((*i));
+					break;
+			}
+		}
+		else if ((*i)->getType() == ForegroundObjectType_SpikedBallChain)
+		{
+			spikedBallChainIndex++;
+			switch (spikedBallChainIndex)
+			{
+			case 1:
+				spikedBallChain1 = dynamic_cast<SpikedBallChain*>((*i));
+				break;
+			case 2:
+				spikedBallChain2 = dynamic_cast<SpikedBallChain*>((*i));
+				break;
+			case 3:
+				spikedBallChain3 = dynamic_cast<SpikedBallChain*>((*i));
+				break;
+			}
+		}
+	}
+
+	if (spikedBallChain1 && spikedBall1)
+	{
+		spikedBallChain1->setSpikedBall(spikedBall1);
+	}
+
+	if (spikedBallChain2 && spikedBall2)
+	{
+		spikedBallChain2->setSpikedBall(spikedBall2);
+	}
+
+	if (spikedBallChain3 && spikedBall3)
+	{
+		spikedBallChain3->setSpikedBall(spikedBall3);
+	}
     
     if (m_game->getEndBossSnakes().size() > 0)
     {
@@ -32,9 +92,26 @@ void Chapter1Level21::enter(GameScreen* gs)
     }
     
     m_game->getCountHissWithMina().faceLeft();
-    
-    Jon& jon = m_game->getJon();
-    jon.setUserActionPrevented(true);
+
+	Jon& jon = m_game->getJon(); 
+	if (m_hasTriggeredMusicLoop)
+	{
+		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
+
+		m_game->setStateTime(m_fGameStateTime);
+
+		jon.setUserActionPrevented(false);
+		jon.becomeVampire();
+
+		if (m_endBossSnake)
+		{
+			m_endBossSnake->beginPursuit();
+		}
+	}
+	else
+	{
+		jon.setUserActionPrevented(true);
+	}
 }
 
 void Chapter1Level21::exit(GameScreen* gs)
@@ -43,6 +120,8 @@ void Chapter1Level21::exit(GameScreen* gs)
     m_hole = nullptr;
 
 	m_fGameStateTime = 0;
+	m_fCheckPointX = 0;
+	m_fCheckPointY = 0;
 	m_isChaseCamActivated = false;
 	m_hasTriggeredMusicLoopIntro = false;
 	m_hasTriggeredSnakeAwaken = false;
@@ -158,7 +237,12 @@ void Chapter1Level21::update(GameScreen* gs)
 		if (jon.isVampire()
 			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
 		{
+			jon.setIdle(false);
 			jon.setUserActionPrevented(false);
+
+			m_fCheckPointX = jon.getPosition().getX();
+			m_fCheckPointY = jon.getPosition().getY();
+			m_fCheckPointStateTime = m_game->getStateTime();
 
 			m_endBossSnake->beginPursuit();
 		}
@@ -206,6 +290,12 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
 {
     if (m_isChaseCamActivated)
     {
+		if (m_endBossSnake->getState() == EndBossSnakeState_Damaged
+			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
+		{
+			paddingX = 5;
+		}
+
         gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
@@ -223,6 +313,9 @@ Chapter1Level21::Chapter1Level21(const char* json) : Level(json),
 m_endBossSnake(nullptr),
 m_hole(nullptr),
 m_fGameStateTime(0),
+m_fCheckPointStateTime(0),
+m_fCheckPointX(0),
+m_fCheckPointY(0),
 m_isChaseCamActivated(false),
 m_hasTriggeredMusicLoopIntro(false),
 m_hasTriggeredSnakeAwaken(false),
