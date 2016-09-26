@@ -239,10 +239,10 @@ void EndBossSnake::triggerHit()
 
 	m_color.red += 1;
 	m_color.green -= 0.5f;
-	m_color.blue -= 0.5f;
+	//m_color.blue -= 0.5f;
 	m_snakeBody->getColor().red += 1;
 	m_snakeBody->getColor().green -= 0.5f;
-	m_snakeBody->getColor().blue -= 0.5f;
+	//m_snakeBody->getColor().blue -= 0.5f;
 }
 
 void EndBossSnake::setState(EndBossSnakeState state)
@@ -393,7 +393,7 @@ void SnakeSkin::onDamageTaken()
 	{
 		m_color.red += 1 * (snake->getDamage() - 1);
 		m_color.green -= 0.5f * (snake->getDamage() - 1);
-		m_color.blue -= 0.5f * (snake->getDamage() - 1);
+		//m_color.blue -= 0.5f * (snake->getDamage() - 1);
 	}
     
     m_isShowing = true;

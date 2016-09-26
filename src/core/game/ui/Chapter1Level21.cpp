@@ -290,7 +290,8 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
 {
     if (m_isChaseCamActivated)
     {
-		if (m_endBossSnake->getState() == EndBossSnakeState_Damaged
+		if ((m_endBossSnake->getState() == EndBossSnakeState_Damaged
+			&& m_endBossSnake->getStateTime() > 2)
 			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
 		{
 			paddingX = 5;
