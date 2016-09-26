@@ -383,8 +383,11 @@ void Chapter1Level21::update(GameScreen* gs)
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)
 	{
-		jon.setIdle(false);
-		jon.setUserActionPrevented(false);
+		if (jon.isIdle())
+		{
+			jon.setIdle(false);
+			jon.setUserActionPrevented(false);
+		}
 
 		m_isChaseCamActivated = false;
 	}
