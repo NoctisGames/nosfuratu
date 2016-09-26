@@ -1061,8 +1061,13 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         }
             break;
         case EndBossSnakeState_Dying:
+		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
+			m_spriteBatcher->beginBatch();
+			renderPhysicalEntityWithColor(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()), endBossSnake.getSnakeBody().getColor());
+			m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
+
             m_spriteBatcher->beginBatch();
 			renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
             m_spriteBatcher->endBatch(*m_world_1_end_boss_part_3.gpuTextureWrapper);

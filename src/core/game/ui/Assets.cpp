@@ -997,6 +997,7 @@ TextureRegion& Assets::get(SnakeTonque* snakeTonque)
 		case EndBossSnakeState_OpenMouthRight:
         case EndBossSnakeState_ChargingRight:
         case EndBossSnakeState_Dying:
+		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
             static Animation anim = createAnimation(2792, 0, 554, 78, 1108, 234, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5, 3);
@@ -1027,6 +1028,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
 		case EndBossSnakeState_OpenMouthRight:
         case EndBossSnakeState_ChargingRight:
         case EndBossSnakeState_Dying:
+		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
             static TextureRegion tr = createTextureRegion(0, 1640, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -1076,6 +1078,7 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 			return tr;
 		}
         case EndBossSnakeState_Dying:
+		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
             static Animation anim = createAnimation(0, 0, 864, 544, 3456, 3264, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 24);

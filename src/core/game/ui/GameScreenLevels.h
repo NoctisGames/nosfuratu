@@ -408,6 +408,8 @@ private:
 	float m_fCheckPointStateTime;
 	float m_fCheckPointX;
 	float m_fCheckPointY;
+	float m_fSnakeDeathX;
+	float m_fSnakeDeathY;
 	float m_fMarker1X;
 	float m_fMarker2X;
     bool m_isChaseCamActivated;

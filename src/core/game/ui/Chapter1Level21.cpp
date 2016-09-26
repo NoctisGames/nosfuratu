@@ -94,7 +94,7 @@ void Chapter1Level21::enter(GameScreen* gs)
 		if ((*i)->getType() == ForegroundObjectType_GiantTree)
 		{
 			giantTreeIndex++;
-			switch (spikedBallIndex)
+			switch (giantTreeIndex)
 			{
 			case 1:
 				giantTree1 = dynamic_cast<GiantTree*>((*i));
@@ -124,7 +124,21 @@ void Chapter1Level21::enter(GameScreen* gs)
     m_game->getCountHissWithMina().faceLeft();
 
 	Jon& jon = m_game->getJon(); 
-	if (m_hasTriggeredCheckPoint)
+	if (m_hasTriggeredSnakeDeathCheckPoint)
+	{
+		m_endBossSnake->getPosition().set(m_fSnakeDeathX, m_fSnakeDeathY);
+
+		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
+
+		m_game->setStateTime(m_fGameStateTime);
+
+		jon.becomeVampire();
+
+		jon.setIdle(true);
+		jon.setAllowedToMove(false);
+		jon.setUserActionPrevented(true);
+	}
+	else if (m_hasTriggeredCheckPoint)
 	{
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
@@ -148,6 +162,8 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fGameStateTime = 0;
 	m_fCheckPointX = 0;
 	m_fCheckPointY = 0;
+	m_fSnakeDeathX = 0;
+	m_fSnakeDeathY = 0;
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
 	m_isChaseCamActivated = false;
@@ -263,12 +279,14 @@ void Chapter1Level21::update(GameScreen* gs)
 		}
 
 		if (m_endBossSnake->getDamage() == 2
-			&& jon.getPosition().getX() > m_fMarker2X)
+			&& jon.getPosition().getX() > m_fMarker2X
+			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
 		{
 			m_endBossSnake->beginPursuit();
 		}
 		else if (m_endBossSnake->getDamage() == 1
-			&& jon.getPosition().getX() > m_fMarker1X)
+			&& jon.getPosition().getX() > m_fMarker1X
+			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
 		{
 			m_endBossSnake->beginPursuit();
 		}
@@ -324,9 +342,36 @@ void Chapter1Level21::update(GameScreen* gs)
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Pursuing
 		|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthRight
 		|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthRight
-		|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
+		|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight
+		|| m_endBossSnake->getState() == EndBossSnakeState_Dying
+		|| m_endBossSnake->getState() == EndBossSnakeState_DeadSpiritReleasing)
 	{
 		m_isChaseCamActivated = true;
+
+		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
+			&& !m_hasTriggeredSnakeDeathCheckPoint)
+		{
+			m_fSnakeDeathX = m_endBossSnake->getPosition().getX();
+			m_fSnakeDeathY = m_endBossSnake->getPosition().getY();
+
+			jon.setIdle(true);
+			jon.setAllowedToMove(false);
+			jon.setUserActionPrevented(true);
+
+			m_fCheckPointX = jon.getPosition().getX();
+			m_fCheckPointY = jon.getPosition().getY();
+			m_fCheckPointStateTime = m_game->getStateTime();
+
+			m_hasTriggeredSnakeDeathCheckPoint = true;
+		}
+	}
+	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)
+	{
+		jon.setIdle(false);
+		jon.setAllowedToMove(true);
+		jon.setUserActionPrevented(false);
+
+		m_isChaseCamActivated = false;
 	}
 }
 
@@ -336,9 +381,13 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
     {
 		if ((m_endBossSnake->getState() == EndBossSnakeState_Damaged
 			&& m_endBossSnake->getStateTime() > 2)
-			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
+			|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthRight
+			|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthRight
+			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight
+			|| m_endBossSnake->getState() == EndBossSnakeState_Dying
+			|| m_endBossSnake->getState() == EndBossSnakeState_DeadSpiritReleasing)
 		{
-			paddingX = 5;
+			paddingX = 4;
 		}
 
         gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
@@ -361,6 +410,8 @@ m_fGameStateTime(0),
 m_fCheckPointStateTime(0),
 m_fCheckPointX(0),
 m_fCheckPointY(0),
+m_fSnakeDeathX(0),
+m_fSnakeDeathY(0),
 m_fMarker1X(0),
 m_fMarker2X(0),
 m_isChaseCamActivated(false),

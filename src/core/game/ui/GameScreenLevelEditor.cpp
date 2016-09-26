@@ -80,7 +80,8 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
             }
         }
         
-        if (m_levelEditorActionsPanel->showBounds())
+        if (m_levelEditorActionsPanel->showBounds()
+			&& !m_levelSelectorPanel->isOpen())
         {
             gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
         }

@@ -66,6 +66,17 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_OpeningMouthLeft:
 		{
+			if (m_iDamage > 0)
+			{
+				Jon& jon = m_game->getJon();
+
+				if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds())
+					|| OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getSnakeBody().getMainBounds()))
+				{
+					jon.kill();
+				}
+			}
+
 			if (m_fStateTime > 0.3f)
 			{
 				m_snakeTonque->onMouthOpen();
@@ -78,6 +89,17 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_OpenMouthLeft:
 		{
+			if (m_iDamage > 0)
+			{
+				Jon& jon = m_game->getJon();
+
+				if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds())
+					|| OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getSnakeBody().getMainBounds()))
+				{
+					jon.kill();
+				}
+			}
+
 			if (m_fStateTime > 0.3f)
 			{
 				m_velocity->setX(-1 * (END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8));
@@ -91,6 +113,18 @@ void EndBossSnake::update(float deltaTime)
 		}
 			break;
 		case EndBossSnakeState_ChargingLeft:
+		{
+			if (m_iDamage > 0)
+			{
+				Jon& jon = m_game->getJon();
+
+				if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds())
+					|| OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getSnakeBody().getMainBounds()))
+				{
+					jon.kill();
+				}
+			}
+		}
 			break;
 		case EndBossSnakeState_Pursuing:
 		{
@@ -222,7 +256,7 @@ void EndBossSnake::update(float deltaTime)
 
 			if (getSnakeBody().getMainBounds().getLeft() > camBounds.getRight())
 			{
-				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 2);
+				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 1.2f);
 				
 				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 
@@ -242,6 +276,8 @@ void EndBossSnake::update(float deltaTime)
 				return;
 			}
 		}
+			break;
+		case EndBossSnakeState_DeadSpiritReleasing:
 			break;
 		case EndBossSnakeState_Dead:
 			break;
@@ -265,11 +301,16 @@ void EndBossSnake::beginPursuit()
 	{
 		Jon& jon = m_game->getJon();
 
-		m_velocity->setX(0);
+		m_velocity->setX(jon.getVelocity().getX());
 		m_acceleration->setX(END_BOSS_SNAKE_DEFAULT_ACCELERATION);
 
 		m_position->setX(jon.getPosition().getX() - CAM_WIDTH * 1.2f);
 		m_position->setY(2.80124998f);
+
+		if (m_iDamage > 0)
+		{
+			m_position->sub(2, 0);
+		}
 	}
 }
 
@@ -287,15 +328,20 @@ void EndBossSnake::triggerHit()
     }
     else
     {
-        setState(EndBossSnakeState_Dying);
-        
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
+		kill();
     }
 
 	m_snakeTonque->onMouthClose();
     
     m_velocity->setX(0);
     m_acceleration->setX(0);
+}
+
+void EndBossSnake::kill()
+{
+	setState(EndBossSnakeState_Dying);
+
+	Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
 }
 
 void EndBossSnake::setState(EndBossSnakeState state)
@@ -531,6 +577,20 @@ void SnakeBody::update(float deltaTime)
     }
 
 	updateBounds();
+
+	if (m_isDead)
+	{
+		m_color.alpha -= deltaTime;
+		if (m_color.alpha < 0)
+		{
+			m_color.alpha = 0;
+		}
+	}
+}
+
+void SnakeBody::onDeath()
+{
+	m_isDead = true;
 }
 
 EndBossSnake& SnakeBody::getEndBossSnake()

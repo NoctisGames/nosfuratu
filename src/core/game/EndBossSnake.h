@@ -106,12 +106,14 @@ private:
 class SnakeBody : public PhysicalEntity
 {
 public:
-    SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1)
+    SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isDead(false)
     {
 		update(0);
     }
     
     virtual void update(float deltaTime);
+
+	void onDeath();
     
     EndBossSnake& getEndBossSnake();
     
@@ -120,6 +122,7 @@ public:
 private:
     EndBossSnake* m_endBossSnake;
     Color m_color;
+	bool m_isDead;
 };
 
 typedef enum
@@ -135,6 +138,7 @@ typedef enum
 	EndBossSnakeState_OpenMouthRight,
     EndBossSnakeState_ChargingRight,
     EndBossSnakeState_Dying,
+	EndBossSnakeState_DeadSpiritReleasing,
     EndBossSnakeState_Dead
 } EndBossSnakeState;
 
@@ -155,6 +159,8 @@ public:
 	void beginPursuit();
 
     void triggerHit();
+
+	void kill();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
