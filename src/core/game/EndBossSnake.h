@@ -84,7 +84,7 @@ private:
 class SnakeBody : public PhysicalEntity
 {
 public:
-    SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 35.05078125f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1)
+    SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1)
     {
 		update(0);
     }

@@ -1012,7 +1012,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
 		case EndBossSnakeState_OpenMouthLeft:
         case EndBossSnakeState_ChargingLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 548, 3988, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 548, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case EndBossSnakeState_Pursuing:
@@ -1023,7 +1023,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
         case EndBossSnakeState_Dying:
         case EndBossSnakeState_Dead:
         {
-            static TextureRegion tr = createTextureRegion(0, 1640, 3988, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = createTextureRegion(0, 1640, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
