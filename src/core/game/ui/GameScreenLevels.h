@@ -412,6 +412,7 @@ private:
 	float m_fSnakeDeathY;
 	float m_fMarker1X;
 	float m_fMarker2X;
+	float m_fMusicVolume;
     bool m_isChaseCamActivated;
 	bool m_hasTriggeredMusicLoopIntro;
 	bool m_hasTriggeredSnakeAwaken;

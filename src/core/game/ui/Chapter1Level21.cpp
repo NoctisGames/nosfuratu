@@ -134,8 +134,9 @@ void Chapter1Level21::enter(GameScreen* gs)
 
 		jon.becomeVampire();
 
+		jon.getAcceleration().setX(0);
+		jon.getVelocity().setX(0);
 		jon.setIdle(true);
-		jon.setAllowedToMove(false);
 		jon.setUserActionPrevented(true);
 	}
 	else if (m_hasTriggeredCheckPoint)
@@ -166,6 +167,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fSnakeDeathY = 0;
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
+	m_fMusicVolume = 0;
 	m_isChaseCamActivated = false;
 	m_hasTriggeredMusicLoopIntro = false;
 	m_hasTriggeredSnakeAwaken = false;
@@ -354,21 +356,34 @@ void Chapter1Level21::update(GameScreen* gs)
 			m_fSnakeDeathX = m_endBossSnake->getPosition().getX();
 			m_fSnakeDeathY = m_endBossSnake->getPosition().getY();
 
-			jon.setIdle(true);
-			jon.setAllowedToMove(false);
-			jon.setUserActionPrevented(true);
-
 			m_fCheckPointX = jon.getPosition().getX();
 			m_fCheckPointY = jon.getPosition().getY();
 			m_fCheckPointStateTime = m_game->getStateTime();
 
+			jon.getAcceleration().setX(0);
+			jon.getVelocity().setX(0);
+			jon.setIdle(true);
+			jon.setUserActionPrevented(true);
+
 			m_hasTriggeredSnakeDeathCheckPoint = true;
+		}
+
+		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
+			&& m_fMusicVolume > 0)
+		{
+			m_fMusicVolume -= gs->m_fDeltaTime;
+			if (m_fMusicVolume < 0)
+			{
+				m_fMusicVolume = 0;
+			}
+
+			short musicId = MUSIC_SET_VOLUME * 1000 + (short)(m_fMusicVolume * 100);
+			Assets::getInstance()->setMusicId(musicId);
 		}
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)
 	{
 		jon.setIdle(false);
-		jon.setAllowedToMove(true);
 		jon.setUserActionPrevented(false);
 
 		m_isChaseCamActivated = false;
@@ -383,9 +398,7 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
 			&& m_endBossSnake->getStateTime() > 2)
 			|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthRight
 			|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthRight
-			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight
-			|| m_endBossSnake->getState() == EndBossSnakeState_Dying
-			|| m_endBossSnake->getState() == EndBossSnakeState_DeadSpiritReleasing)
+			|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
 		{
 			paddingX = 4;
 		}
@@ -414,6 +427,7 @@ m_fSnakeDeathX(0),
 m_fSnakeDeathY(0),
 m_fMarker1X(0),
 m_fMarker2X(0),
+m_fMusicVolume(0.5f),
 m_isChaseCamActivated(false),
 m_hasTriggeredMusicLoopIntro(false),
 m_hasTriggeredSnakeAwaken(false),

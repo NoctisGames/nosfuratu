@@ -341,6 +341,8 @@ void EndBossSnake::kill()
 {
 	setState(EndBossSnakeState_Dying);
 
+	m_snakeBody->onDeath();
+
 	Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
 }
 
