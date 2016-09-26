@@ -39,6 +39,7 @@
 		BB0AE8D41C6AC5B60047EF19 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0AE8D21C6AC5B60047EF19 /* Enemy.cpp */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB1B946E1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB1B946D1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh */; };
 		BB1F81AA1D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1F81A81D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp */; };
 		BB1F81AD1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB1F81AB1D4B00D800DC636D /* OpenGLESPointTransScreenGpuProgramWrapper.cpp */; };
 		BB1F81AF1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB1F81AE1D4B016C00DC636D /* trans_screen_circle_open_shader.vsh */; };
@@ -319,6 +320,8 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB1B946D1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = end_boss_snake_texture_shader.fsh; sourceTree = "<group>"; };
+		BB1B946F1D998EED002BDC71 /* EndBossSnakeTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = EndBossSnakeTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB1F81A71D4AEF7800DC636D /* MathUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
 		BB1F81A81D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointTransitionGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB1F81A91D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointTransitionGpuProgramWrapper.h; sourceTree = "<group>"; };
@@ -1515,6 +1518,7 @@
 				BB27A77B1C6C02CE00A82213 /* Direct3DTransDeathGpuProgramWrapper.h */,
 				BB27A77C1C6C02CE00A82213 /* Direct3DTransScreenGpuProgramWrapper.cpp */,
 				BB27A77D1C6C02CE00A82213 /* Direct3DTransScreenGpuProgramWrapper.h */,
+				BB1B946F1D998EED002BDC71 /* EndBossSnakeTexturePixelShader.hlsl */,
 				BBA2FF7B1D8EF4EB005877DC /* FrameBufferObfuscationPixelShader.hlsl */,
 				BBA2FF7C1D8EF4EB005877DC /* FrameBufferTintToScreenPixelShader.hlsl */,
 				BBA2FF7D1D8EF4EB005877DC /* PointTransScreenTexturePixelShader.hlsl */,
@@ -1570,6 +1574,7 @@
 				BBC7B87A1BC30D2E00140BCA /* sin_wave_texture_shader.fsh */,
 				BB8E5E461BC439B400520DFB /* SinWaveTextureProgram.cpp */,
 				BB8E5E471BC439B400520DFB /* SinWaveTextureProgram.h */,
+				BB1B946D1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh */,
 				BBE187291C3235D000AC3FAE /* snake_death_texture_shader.fsh */,
 				BBE187211C3234B300AC3FAE /* SnakeDeathTextureProgram.cpp */,
 				BBE187221C3234B300AC3FAE /* SnakeDeathTextureProgram.h */,
@@ -1758,6 +1763,7 @@
 				BBF856841C7FCBCD00328A0E /* world_1_special.png in Resources */,
 				BB9A35F61D98535800DB872A /* end_boss_snake_mouth_open.wav in Resources */,
 				BBFAAD841D88BFFC006C6311 /* boss_level_clear.wav in Resources */,
+				BB1B946E1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh in Resources */,
 				BBC38DEF1CA03E80001B178C /* c_world_1_ground.png in Resources */,
 				BBEA16961B97B9BB009B4711 /* color_shader.vsh in Resources */,
 				BBAFDA171D666ADA008E669B /* title_lightning_1.wav in Resources */,
