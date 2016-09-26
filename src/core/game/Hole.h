@@ -30,7 +30,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    bool triggerBurrow(float jonDownwardsVelocity);
+    bool triggerBurrow();
     
     bool hasCover();
     

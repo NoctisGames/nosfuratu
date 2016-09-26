@@ -404,13 +404,19 @@ public:
 private:
     EndBossSnake* m_endBossSnake;
     Hole* m_hole;
+	float m_fGameStateTime;
     bool m_isChaseCamActivated;
+	bool m_hasTriggeredMusicLoopIntro;
+	bool m_hasTriggeredSnakeAwaken;
+	bool m_hasTriggeredMusicLoop;
+
+	virtual void beginOpeningSequence(GameScreen* gs);
+
+	virtual void handleOpeningSequence(GameScreen* gs);
     
     virtual void update(GameScreen* gs);
     
     virtual void updateCamera(GameScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
-    
-    virtual void additionalRenderingBeforeHud(GameScreen* gs);
     
     virtual bool isInSlowMotionMode();
     

@@ -166,7 +166,7 @@ public:
             {
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                 {
-                    if ((*i)->triggerBurrow(jon.getAcceleration().getY()))
+                    if ((*i)->triggerBurrow())
                     {
                         ret = true;
                     }

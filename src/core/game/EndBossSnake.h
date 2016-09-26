@@ -66,13 +66,7 @@ public:
         // Empty
     }
     
-    virtual void update(float deltaTime)
-    {
-        if (m_isMouthOpen)
-        {
-            m_fStateTime += deltaTime;
-        }
-    }
+	virtual void update(float deltaTime);
     
     void onMouthOpen();
     
@@ -92,7 +86,7 @@ class SnakeBody : public PhysicalEntity
 public:
     SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 35.05078125f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1)
     {
-        // Empty
+		update(0);
     }
     
     virtual void update(float deltaTime);
@@ -111,10 +105,12 @@ typedef enum
     EndBossSnakeState_Sleeping,
     EndBossSnakeState_Awakening,
     EndBossSnakeState_OpeningMouthLeft,
+	EndBossSnakeState_OpenMouthLeft,
     EndBossSnakeState_ChargingLeft,
     EndBossSnakeState_Pursuing,
     EndBossSnakeState_Damaged,
     EndBossSnakeState_OpeningMouthRight,
+	EndBossSnakeState_OpenMouthRight,
     EndBossSnakeState_ChargingRight,
     EndBossSnakeState_Dying,
     EndBossSnakeState_Dead
@@ -132,6 +128,10 @@ public:
     
     virtual void update(float deltaTime);
     
+	void awaken();
+
+	void beginPursuit();
+
     void triggerHit();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);

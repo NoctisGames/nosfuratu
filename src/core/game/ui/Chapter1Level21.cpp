@@ -39,9 +39,46 @@ void Chapter1Level21::enter(GameScreen* gs)
 
 void Chapter1Level21::exit(GameScreen* gs)
 {
+	m_endBossSnake = nullptr;
     m_hole = nullptr;
+
+	m_fGameStateTime = 0;
+	m_isChaseCamActivated = false;
+	m_hasTriggeredMusicLoopIntro = false;
+	m_hasTriggeredSnakeAwaken = false;
+	m_hasTriggeredMusicLoop = false;
     
     Level::exit(gs);
+}
+
+void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
+{
+	Jon& jon = m_game->getJon();
+	jon.setAllowedToMove(false);
+	jon.beginWarmingUp();
+
+	updateCamera(gs, 0, false, true);
+
+	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+
+	m_hasShownOpeningSequence = true;
+}
+
+void Chapter1Level21::handleOpeningSequence(GameScreen* gs)
+{
+	Jon& jon = m_game->getJon();
+	jon.setAllowedToMove(true);
+	jon.getVelocity().setX(RABBIT_DEFAULT_MAX_SPEED);
+
+	m_hasOpeningSequenceCompleted = true;
+
+	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
+	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
 }
 
 void Chapter1Level21::update(GameScreen* gs)
@@ -61,9 +98,108 @@ void Chapter1Level21::update(GameScreen* gs)
     {
         if (jon.getPosition().getX() > m_hole->getPosition().getX())
         {
-            jon.getPosition().setX(m_hole->getPosition().getX());
+			jon.getAcceleration().set(0, 0);
+			jon.getVelocity().set(0, 0);
+			jon.setIdle(true);
+			jon.setUserActionPrevented(true);
+
+			jon.getPosition().setX(m_hole->getPosition().getX());
+			jon.updateBounds();
+
+			if (!m_hasTriggeredMusicLoopIntro)
+			{
+				if (Assets::getInstance()->isMusicEnabled())
+				{
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
+				}
+
+				m_hasTriggeredMusicLoopIntro = true;
+
+				return;
+			}
         }
+
+		if (m_hasTriggeredMusicLoopIntro
+			&& !m_hasTriggeredSnakeAwaken)
+		{
+			m_fGameStateTime += gs->m_fDeltaTime;
+
+			if (m_fGameStateTime > 4)
+			{
+				m_endBossSnake->awaken();
+
+				m_hasTriggeredSnakeAwaken = true;
+			}
+		}
     }
+	else if (m_endBossSnake->getState() == EndBossSnakeState_Awakening
+		|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthLeft
+		|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthLeft)
+	{
+		m_fGameStateTime += gs->m_fDeltaTime;
+	}
+	else if (m_endBossSnake->getState() == EndBossSnakeState_ChargingLeft)
+	{
+		m_fGameStateTime += gs->m_fDeltaTime;
+
+		if (m_hasTriggeredSnakeAwaken
+			&& !m_hasTriggeredMusicLoop)
+		{
+			m_fGameStateTime += gs->m_fDeltaTime;
+
+			if (m_fGameStateTime > 7.15f)
+			{
+				Assets::getInstance()->setMusicId(MUSIC_PLAY_END_BOSS_LOOP);
+
+				m_hasTriggeredMusicLoop = true;
+			}
+		}
+
+		if (jon.isVampire()
+			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
+		{
+			jon.setUserActionPrevented(false);
+
+			m_endBossSnake->beginPursuit();
+		}
+		else if (jon.getNumJumps() == 2
+			&& jon.isFalling()
+			&& !jon.isTransformingIntoVampire()
+			&& !jon.isVampire())
+		{
+			jon.setUserActionPrevented(false);
+			jon.triggerTransform();
+			jon.setUserActionPrevented(true);
+
+			m_hole->triggerBurrow();
+		}
+		else if (jon.getNumJumps() == 1
+			&& jon.isFalling()
+			&& jon.getMainBounds().getBottom() < (m_endBossSnake->getMainBounds().getTop() + 1)
+			&& !jon.isTransformingIntoVampire()
+			&& !jon.isVampire())
+		{
+			jon.setUserActionPrevented(false);
+			jon.triggerJump();
+			jon.setUserActionPrevented(true);
+		}
+		else if (jon.getNumJumps() == 0
+			&& !jon.isTransformingIntoVampire()
+			&& !jon.isVampire())
+		{
+			jon.setIdle(false);
+			jon.setUserActionPrevented(false);
+			jon.triggerJump();
+			jon.setUserActionPrevented(true);
+		}
+	}
+	else if (m_endBossSnake->getState() == EndBossSnakeState_Pursuing
+		|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthRight
+		|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthRight
+		|| m_endBossSnake->getState() == EndBossSnakeState_ChargingRight)
+	{
+		m_isChaseCamActivated = true;
+	}
 }
 
 void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY, bool instant)
@@ -78,11 +214,6 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
     }
 }
 
-void Chapter1Level21::additionalRenderingBeforeHud(GameScreen* gs)
-{
-    gs->m_renderer->renderEndBossSnake(*m_endBossSnake);
-}
-
 bool Chapter1Level21::isInSlowMotionMode()
 {
     return false;
@@ -91,7 +222,11 @@ bool Chapter1Level21::isInSlowMotionMode()
 Chapter1Level21::Chapter1Level21(const char* json) : Level(json),
 m_endBossSnake(nullptr),
 m_hole(nullptr),
-m_isChaseCamActivated(false)
+m_fGameStateTime(0),
+m_isChaseCamActivated(false),
+m_hasTriggeredMusicLoopIntro(false),
+m_hasTriggeredSnakeAwaken(false),
+m_hasTriggeredMusicLoop(false)
 {
     // Empty
 }

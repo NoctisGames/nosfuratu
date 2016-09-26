@@ -26,7 +26,7 @@ void HoleCover::update(float deltaTime)
     }
 }
 
-void HoleCover::triggerHit(float jonDownwardsVelocity)
+void HoleCover::triggerHit()
 {
     m_isBreaking = true;
 }

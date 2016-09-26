@@ -897,6 +897,11 @@ void Renderer::renderWorld(Game& game)
         }
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper);
+
+	for (std::vector<EndBossSnake *>::iterator i = game.getEndBossSnakes().begin(); i != game.getEndBossSnakes().end(); i++)
+	{
+		renderEndBossSnake(*(*i));
+	}
 }
 
 void Renderer::renderJonAndExtraForegroundObjects(Game& game)
@@ -1023,6 +1028,7 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         case EndBossSnakeState_Sleeping:
         case EndBossSnakeState_Awakening:
         case EndBossSnakeState_OpeningMouthLeft:
+		case EndBossSnakeState_OpenMouthLeft:
         case EndBossSnakeState_ChargingLeft:
         {
             m_spriteBatcher->beginBatch();
@@ -1039,6 +1045,7 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         case EndBossSnakeState_Pursuing:
         case EndBossSnakeState_Damaged:
         case EndBossSnakeState_OpeningMouthRight:
+		case EndBossSnakeState_OpenMouthRight:
         case EndBossSnakeState_ChargingRight:
         {
             m_spriteBatcher->beginBatch();

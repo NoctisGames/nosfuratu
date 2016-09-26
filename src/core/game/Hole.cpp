@@ -51,11 +51,11 @@ void Hole::update(float deltaTime)
     }
 }
 
-bool Hole::triggerBurrow(float jonDownwardsVelocity)
+bool Hole::triggerBurrow()
 {
     if (m_holeCover)
     {
-        m_holeCover->triggerHit(jonDownwardsVelocity);
+        m_holeCover->triggerHit();
         return true;
     }
     
