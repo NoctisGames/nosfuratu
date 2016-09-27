@@ -190,6 +190,8 @@ public:
     bool shouldUseVampireFormForConsumeAnimation();
 
 	void becomeVampire();
+
+	void flash();
     
 private:
     std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
@@ -210,6 +212,7 @@ private:
 	float m_fDefaultMaxSpeed;
     float m_fMaxSpeed;
 	float m_fAccelerationX;
+	float m_fFlashStateTime;
     int m_iNumTriggeredJumps;
     int m_iNumRabbitJumps;
     int m_iNumVampireJumps;
@@ -226,6 +229,7 @@ private:
     bool m_isUserActionPrevented;
     bool m_isBurrowEffective;
     bool m_shouldUseVampireFormForConsumeAnimation;
+	bool m_isFlashing;
     
     void setState(JonState state);
     

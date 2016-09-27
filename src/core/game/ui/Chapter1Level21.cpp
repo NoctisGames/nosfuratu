@@ -137,11 +137,7 @@ void Chapter1Level21::enter(GameScreen* gs)
 
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 		jon.becomeVampire();
-
-		if (jon.isIdle())
-		{
-			jon.setIdle(false);
-		}
+		jon.flash();
 
 		m_batPanel->config(m_game.get(), BatGoalType_Dash);
 	}
@@ -388,10 +384,7 @@ void Chapter1Level21::update(GameScreen* gs)
 			m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
 			m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
 
-			if (jon.isIdle())
-			{
-				jon.setIdle(false);
-			}
+			jon.flash();
 
 			m_batPanel->config(m_game.get(), BatGoalType_Dash);
 

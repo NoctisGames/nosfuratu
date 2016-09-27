@@ -526,41 +526,54 @@ void SpikedBallRollingLeft::update(float deltaTime)
     {
         m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
-        if (m_velocity->getX() < (VAMP_DEFAULT_MAX_SPEED * -1 - 4))
+        if (m_velocity->getX() < (-VAMP_DEFAULT_MAX_SPEED - 4))
         {
-            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * -1 - 4));
+            m_velocity->setX(-VAMP_DEFAULT_MAX_SPEED - 4);
         }
 
-		if (!m_isStopped)
+		if (m_game->isEntityGrounded(this, deltaTime))
 		{
-			if (m_game->isEntityGrounded(this, deltaTime))
+			m_velocity->setY(0);
+			m_acceleration->setY(0);
+
+			if (!m_isStopped)
 			{
-				if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
+				Jon& jon = m_game->getJon();
+				if (jon.getPosition().getX() > (getPosition().getX() - CAM_WIDTH * 1.2f))
 				{
-					m_isStopped = true;
+					m_acceleration->setX(-VAMP_DEFAULT_ACCELERATION);
 
-					m_velocity->setX(0);
-					m_acceleration->setX(0);
-
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
-				}
-				else
-				{
-					m_velocity->setY(0);
-					m_acceleration->setY(0);
-					m_acceleration->setX((VAMP_DEFAULT_ACCELERATION * -1));
+					if (m_needsToPlaySound)
+					{
+						Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					}
 				}
 			}
-			else
-			{
-				if (EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
-				{
-					m_velocity->setX(0);
-					m_acceleration->setX(0);
-				}
 
-				m_acceleration->setY(GAME_GRAVITY);
+			if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
+			{
+				m_isStopped = true;
+
+				m_velocity->setX(0);
+				m_acceleration->setX(0);
+
+				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 			}
+		}
+		else
+		{
+			if (EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime)
+				&& !m_needsToPlaySound)
+			{
+				m_velocity->setX(0);
+				m_acceleration->setX(0);
+
+				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+
+				m_needsToPlaySound = true;
+			}
+
+			m_acceleration->setY(GAME_GRAVITY);
 		}
     }
 }
@@ -581,8 +594,6 @@ void SpikedBallRollingLeft::updateBounds()
         if (!m_isOnScreen)
         {
             m_isOnScreen = true;
-
-			Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
         }
     }
     else if (m_isOnScreen)
@@ -599,43 +610,56 @@ void SpikedBallRollingRight::update(float deltaTime)
     
     if (m_isOnScreen)
     {
-        m_fAngle -= m_velocity->getX() * deltaTime * 15;
+		m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
         if (m_velocity->getX() > (VAMP_DEFAULT_MAX_SPEED * 4))
         {
             m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * 4));
         }
 
-		if (!m_isStopped)
+		if (m_game->isEntityGrounded(this, deltaTime))
 		{
-			if (m_game->isEntityGrounded(this, deltaTime))
+			m_velocity->setY(0);
+			m_acceleration->setY(0);
+
+			if (!m_isStopped)
 			{
-				if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
+				Jon& jon = m_game->getJon();
+				if (jon.getPosition().getX() > getPosition().getX())
 				{
-					m_isStopped = true;
-
-					m_velocity->setX(0);
-					m_acceleration->setX(0);
-
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
-				}
-				else
-				{
-					m_velocity->setY(0);
-					m_acceleration->setY(0);
 					m_acceleration->setX(VAMP_DEFAULT_ACCELERATION);
-				}
-			}
-			else
-			{
-				if (EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime))
-				{
-					m_velocity->setX(0);
-					m_acceleration->setX(0);
-				}
 
-				m_acceleration->setY(GAME_GRAVITY);
+					if (m_needsToPlaySound)
+					{
+						Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					}
+				}
 			}
+
+			if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
+			{
+				m_isStopped = true;
+
+				m_velocity->setX(0);
+				m_acceleration->setX(0);
+
+				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+			}
+		}
+		else
+		{
+			if (EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime)
+				&& !m_needsToPlaySound)
+			{
+				m_velocity->setX(0);
+				m_acceleration->setX(0);
+
+				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+
+				m_needsToPlaySound = true;
+			}
+
+			m_acceleration->setY(GAME_GRAVITY);
 		}
     }
 }
@@ -656,8 +680,6 @@ void SpikedBallRollingRight::updateBounds()
         if (!m_isOnScreen)
         {
             m_isOnScreen = true;
-
-			Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
         }
     }
     else if (m_isOnScreen)

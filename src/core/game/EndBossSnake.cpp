@@ -377,7 +377,7 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_DeadSpiritReleasing:
         {
-            if (m_fStateTime > 2.2f)
+            if (m_fStateTime > 1.2f)
             {
                 setState(EndBossSnakeState_Dead);
                 
@@ -543,7 +543,7 @@ void SnakeSpirit::onDeath()
     float snakeY = snake->getPosition().getY();
     
     Jon& jon = snake->getGame()->getJon();
-    Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
+    Vector2D target = Vector2D(jon.getMainBounds().getRight(), jon.getPosition().getY());
     m_fWidth = target.dist(snakeX, snakeY);
     
     m_position->set(snakeX + m_fWidth / 2, snakeY);

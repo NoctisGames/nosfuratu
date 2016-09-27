@@ -47,7 +47,9 @@ m_isConsumed(false),
 m_isIdle(false),
 m_isUserActionPrevented(false),
 m_isBurrowEffective(false),
-m_shouldUseVampireFormForConsumeAnimation(false)
+m_shouldUseVampireFormForConsumeAnimation(false),
+m_fFlashStateTime(0),
+m_isFlashing(false)
 {
 	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
 
@@ -108,6 +110,44 @@ void Jon::update(float deltaTime)
         kill();
 
 		return;
+	}
+
+	if (m_isFlashing)
+	{
+		m_acceleration->set(0, 0);
+		m_velocity->set(0, 0);
+
+		m_isIdle = true;
+
+		m_fFlashStateTime += deltaTime;
+
+		if (m_fFlashStateTime > 2)
+		{
+			m_isIdle = false;
+			m_isFlashing = false;
+
+			m_color.red = 1;
+			m_color.green = 1;
+			m_color.blue = 1;
+		}
+		else if (m_fFlashStateTime > 1)
+		{
+			float k = 2 - m_fFlashStateTime;
+			k *= 3;
+			k += 1;
+			m_color.red = k;
+			m_color.green = k;
+			m_color.blue = k;
+		}
+		else
+		{
+			float k = m_fFlashStateTime;
+			k *= 3;
+			k += 1;
+			m_color.red = k;
+			m_color.green = k;
+			m_color.blue = k;
+		}
 	}
 
 	if (m_actionState != ACTION_NONE)
@@ -632,6 +672,12 @@ void Jon::becomeVampire()
 {
 	m_formStateMachine->changeState(Jon::Vampire::getInstance());
 	m_shouldUseVampireFormForConsumeAnimation = true;
+}
+
+void Jon::flash()
+{
+	m_fFlashStateTime = 0;
+	m_isFlashing = true;
 }
 
 #pragma mark private
