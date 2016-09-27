@@ -34,6 +34,7 @@ class TransitionGpuProgramWrapper;
 class PointTransitionGpuProgramWrapper;
 class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
+class EndBossSnakeTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
 class TransDeathGpuProgramWrapper;
 class FramebufferRadialBlurGpuProgramWrapper;
@@ -197,6 +198,7 @@ protected:
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
 	GpuProgramWrapper* m_backgroundGpuTextureProgramWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
+    EndBossSnakeTextureGpuProgramWrapper* m_endBossSnakeTextureProgram;
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;

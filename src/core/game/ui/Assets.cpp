@@ -282,27 +282,27 @@ TextureRegion& Assets::get(GoldenCarrotsMarker* goldenCarrotsMarker)
     {
         case 0:
         {
-            static Animation anim = Animation(0, 0, 118, 74, 826, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 7);
+            static Animation anim = Animation(0, 0, 118, 74, 944, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 8);
             return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
         }
         case 1:
         {
-            static Animation anim = Animation(0, 0, 118, 74, 944, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 8);
+            static Animation anim = Animation(0, 0, 118, 74, 1062, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 9);
             return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
         }
         case 2:
         {
-            static Animation anim = Animation(0, 0, 118, 74, 1062, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 9);
+            static Animation anim = Animation(0, 0, 118, 74, 1180, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
             return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
         }
         case 3:
         {
-            static Animation anim = Animation(0, 0, 118, 74, 1180, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
+            static Animation anim = Animation(0, 0, 118, 74, 1298, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
             return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
         }
         case 4:
         {
-            static Animation anim = Animation(0, 0, 118, 74, 1298, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
+            static Animation anim = Animation(0, 0, 118, 74, 1416, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 12);
             return anim.getTextureRegion(goldenCarrotsMarker->getStateTime());
         }
     }
@@ -959,6 +959,12 @@ TextureRegion& Assets::get(CountHissWithMina* countHissWithMina)
     }
 }
 
+TextureRegion& Assets::get(SnakeSpirit* snakeSpirit)
+{
+    static Animation anim = createAnimation(0, 2188, 820, 360, 3280, 1080, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 12);
+    return anim.getTextureRegion(snakeSpirit->getStateTime());
+}
+
 TextureRegion& Assets::get(SnakeHeadImpact* snakeHeadImpact)
 {
 	static Animation anim = createAnimation(0, 3584, 512, 512, 4096, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 8);
@@ -1078,15 +1084,19 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 			return tr;
 		}
         case EndBossSnakeState_Dying:
-		case EndBossSnakeState_DeadSpiritReleasing:
-        case EndBossSnakeState_Dead:
         {
             static Animation anim = createAnimation(0, 0, 864, 544, 3456, 3264, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 24);
-			if (!anim.hasFrameTimes())
-			{
-				anim.setFrameTimes(24, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
-			}
+            if (!anim.hasFrameTimes())
+            {
+                anim.setFrameTimes(24, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+            }
             return anim.getTextureRegion(endBossSnake->getStateTime());
+        }
+        case EndBossSnakeState_DeadSpiritReleasing:
+        case EndBossSnakeState_Dead:
+        {
+            static TextureRegion tr = createTextureRegion(2592, 2720, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            return tr;
         }
     }
     
@@ -1811,11 +1821,6 @@ TextureRegion& Assets::get(GameButton* gameButton)
         case GameButtonType_ContinueToLevelSelect:
         {
             static TextureRegion tr = TextureRegion(804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
-            return tr;
-        }
-        case GameButtonType_NextWorld:
-        {
-            static TextureRegion tr = TextureRegion(1604, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
             return tr;
         }
         case GameButtonType_LevelEditor:

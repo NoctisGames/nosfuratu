@@ -264,9 +264,6 @@ void Level::update(GameScreen* gs)
             return;
         }
         
-        m_backButton->update(gs->m_fDeltaTime);
-        m_continueButton->update(gs->m_fDeltaTime);
-        
         if (m_isDisplayingResults)
         {
             m_continueButton->getColor().alpha += gs->m_fDeltaTime;

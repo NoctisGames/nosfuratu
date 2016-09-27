@@ -561,8 +561,6 @@ public:
     
     GameButton* getViewOpeningCutsceneButton();
     
-    GameButton* getNextWorldButton();
-    
     float getGoldenCarrotCountFlickerTime() { return m_fGoldenCarrotCountFlickerTime; }
     
     int getNumCollectedGoldenCarrots();
@@ -584,7 +582,6 @@ private:
     std::unique_ptr<GameButton> m_toggleSound;
     std::unique_ptr<GameButton> m_leaderBoardsButton;
     std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
-    std::unique_ptr<GameButton> m_nextWorldButton;
     float m_fGoldenCarrotCountFlickerTime;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;

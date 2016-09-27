@@ -22,7 +22,6 @@ typedef enum
     GameButtonType_ViewOpeningCutscene,
     GameButtonType_BackToLevelSelect,
     GameButtonType_ContinueToLevelSelect,
-    GameButtonType_NextWorld,
     GameButtonType_LevelEditor
 } GameButtonType;
 

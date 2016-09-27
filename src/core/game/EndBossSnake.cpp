@@ -13,6 +13,7 @@
 #include "Jon.h"
 #include "macros.h"
 #include "GameConstants.h"
+#include "MathUtil.h"
 
 #include <math.h>
 
@@ -23,8 +24,10 @@ EndBossSnake::EndBossSnake(int gridX, int gridY) : GridLockedPhysicalEntity(grid
 m_game(nullptr),
 m_state(EndBossSnakeState_Sleeping),
 m_color(1, 1, 1, 1),
+m_fTimeSinceLastVelocityCheck(0),
 m_iDamage(0),
-m_type(-1)
+m_type(-1),
+m_hasPlayedChargeSound(false)
 {
     float x = m_position->getX();
     float y = m_position->getY();
@@ -38,17 +41,105 @@ m_type(-1)
     m_snakeTonque = std::unique_ptr<SnakeTonque>(new SnakeTonque(x, y, this));
     m_snakeBody = std::unique_ptr<SnakeBody>(new SnakeBody(x, y, h, this));
 	m_snakeHeadImpact = std::unique_ptr<SnakeHeadImpact>(new SnakeHeadImpact(x, y, this));
+    m_snakeSpirit = std::unique_ptr<SnakeSpirit>(new SnakeSpirit(x, y, this));
 }
 
 void EndBossSnake::update(float deltaTime)
 {
     GridLockedPhysicalEntity::update(deltaTime);
     
+    for (std::vector<EndBossSnake *>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
+    {
+        (*i)->m_color.green -= deltaTime * 3;
+        (*i)->m_color.blue += deltaTime * 3;
+        (*i)->m_color.alpha -= deltaTime * 3;
+        
+        if ((*i)->m_color.alpha < 0.0)
+        {
+            delete *i;
+            i = m_afterImages.erase(i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    
     m_snakeSkin->update(deltaTime);
     m_snakeEye->update(deltaTime);
     m_snakeTonque->update(deltaTime);
     m_snakeBody->update(deltaTime);
-	m_snakeHeadImpact->update(deltaTime);
+    m_snakeHeadImpact->update(deltaTime);
+    m_snakeSpirit->update(deltaTime);
+    
+    switch (m_state)
+    {
+        case EndBossSnakeState_ChargingLeft:
+        case EndBossSnakeState_ChargingRight:
+        {
+            m_fTimeSinceLastVelocityCheck += deltaTime;
+            if (m_fTimeSinceLastVelocityCheck > 0.05f)
+            {
+                m_fTimeSinceLastVelocityCheck = 0;
+                
+                EndBossSnake* afterImage = new EndBossSnake(getGridX(), getGridY());
+                afterImage->m_velocity->set(*m_velocity);
+                afterImage->m_position->set(*m_position);
+                afterImage->m_state = m_state;
+                
+                afterImage->m_color = m_color;
+                
+                afterImage->m_fHeight = m_fHeight;
+                afterImage->m_fWidth = m_fWidth;
+                afterImage->m_fStateTime = m_fStateTime;
+                
+                afterImage->m_color.green *= 0.7f;
+                afterImage->m_color.blue *= 1.3f;
+                afterImage->m_color.alpha *= 0.35f;
+                afterImage->m_color.alpha = clamp(afterImage->m_color.alpha, 1, 0);
+                
+                // bye bye!
+                afterImage->m_snakeSkin->getPosition().setY(1337);
+                afterImage->m_snakeEye->getPosition().setY(1337);
+                afterImage->m_snakeHeadImpact->getPosition().setY(1337);
+                
+                if (m_snakeTonque->isMouthOpen())
+                {
+                    afterImage->m_snakeTonque->onMouthOpen();
+                    afterImage->m_snakeTonque->update(m_snakeTonque->getStateTime());
+                }
+                
+                afterImage->m_snakeBody->update(0);
+                afterImage->m_snakeBody->getColor().red = m_color.red;
+                afterImage->m_snakeBody->getColor().green *= 0.7f;
+                afterImage->m_snakeBody->getColor().blue *= 1.3f;
+                afterImage->m_snakeBody->getColor().alpha *= 0.35f;
+                afterImage->m_snakeBody->getColor().alpha = clamp(afterImage->m_color.alpha, 1, 0);
+                
+                m_afterImages.push_back(afterImage);
+            }
+            
+            if (!m_hasPlayedChargeSound)
+            {
+                Rectangle& camBounds = *m_game->getCameraBounds();
+                
+                if (camBounds.getWidth() > CAM_WIDTH)
+                {
+                    return;
+                }
+                
+                if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+                {
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+                    
+                    m_hasPlayedChargeSound = true;
+                }
+            }
+        }
+            break;
+        default:
+            break;
+    }
 
 	switch (m_state)
 	{
@@ -56,7 +147,7 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_Awakening:
 		{
-			if (m_fStateTime > 0.3f)
+			if (m_fStateTime > 1.3f)
 			{
 				setState(EndBossSnakeState_OpeningMouthLeft);
 
@@ -103,8 +194,8 @@ void EndBossSnake::update(float deltaTime)
 			if (m_fStateTime > 0.3f)
 			{
 				m_velocity->setX(-1 * (END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8));
-
-				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+                
+                m_hasPlayedChargeSound = false;
 
 				setState(EndBossSnakeState_ChargingLeft);
 
@@ -131,7 +222,7 @@ void EndBossSnake::update(float deltaTime)
 			Jon& jon = m_game->getJon();
 			Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
 
-			if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 10.0f)
+			if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 			{
 				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 
@@ -183,9 +274,9 @@ void EndBossSnake::update(float deltaTime)
 		{
 			if (m_fStateTime > 0.3f)
 			{
-				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
-
-				m_velocity->setX(END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8);
+                m_velocity->setX(END_BOSS_SNAKE_DEFAULT_MAX_SPEED * 8);
+                
+                m_hasPlayedChargeSound = false;
 
 				setState(EndBossSnakeState_ChargingRight);
 
@@ -209,11 +300,11 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_Damaged:
 		{
-			m_color.red += 0.5f * deltaTime * 2;
+			m_color.red += 1 * deltaTime * 2;
 
-			if (m_color.red > (1.0f + 0.5f * m_iDamage))
+			if (m_color.red > (1.0f + 1 * m_iDamage))
 			{
-				m_color.red = 1.0f + 0.5f * m_iDamage;
+				m_color.red = 1.0f + 1 * m_iDamage;
 			}
 
 			m_snakeBody->getColor().red = m_color.red;
@@ -222,7 +313,7 @@ void EndBossSnake::update(float deltaTime)
 			{
 				Jon& jon = m_game->getJon();
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
-				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 10.0f)
+				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 				{
 					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 				}
@@ -268,16 +359,31 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_Dying:
 		{
+            if (m_velocity->getX() < 0)
+            {
+                m_velocity->setX(0);
+                m_acceleration->setX(0);
+            }
+            
 			if (m_fStateTime > 4.3f)
 			{
-				setState(EndBossSnakeState_Dead);
-				m_fStateTime = 5;
+				setState(EndBossSnakeState_DeadSpiritReleasing);
+                
+                m_snakeSpirit->onDeath();
 
 				return;
 			}
 		}
 			break;
 		case EndBossSnakeState_DeadSpiritReleasing:
+        {
+            if (m_fStateTime > 2.2f)
+            {
+                setState(EndBossSnakeState_Dead);
+                
+                return;
+            }
+        }
 			break;
 		case EndBossSnakeState_Dead:
 			break;
@@ -319,6 +425,9 @@ void EndBossSnake::triggerHit()
     m_iDamage++;
     if (m_iDamage < 3)
     {
+        m_velocity->setX(0);
+        m_acceleration->setX(0);
+        
         setState(EndBossSnakeState_Damaged);
         
         m_snakeSkin->onDamageTaken();
@@ -332,13 +441,17 @@ void EndBossSnake::triggerHit()
     }
 
 	m_snakeTonque->onMouthClose();
-    
-    m_velocity->setX(0);
-    m_acceleration->setX(0);
 }
 
 void EndBossSnake::kill()
 {
+    m_velocity->setX(8);
+    m_acceleration->setX(-8);
+    
+    m_iDamage = 3;
+    m_color.red = 3.0f;
+    m_snakeBody->getColor().red = m_color.red;
+    
 	setState(EndBossSnakeState_Dying);
 
 	m_snakeBody->onDeath();
@@ -403,9 +516,44 @@ void SnakeEye::onAwaken()
     m_isWakingUp = true;
 }
 
-EndBossSnake& SnakeEye::getEndBossSnake()
+void SnakeSpirit::update(float deltaTime)
 {
-    return *m_endBossSnake;
+    if (m_isShowing)
+    {
+        EndBossSnake *snake = m_endBossSnake;
+        float snakeX = snake->getPosition().getX();
+        float snakeY = snake->getPosition().getY();
+        
+        m_position->set(snakeX + getWidth() / 2, snakeY);
+        
+        m_fStateTime += deltaTime;
+        if (m_fStateTime > 1.2f)
+        {
+            m_color.alpha -= deltaTime * 2;
+            
+            if (m_color.alpha < 0)
+            {
+                m_color.alpha = 0;
+                
+                m_isShowing = false;
+            }
+        }
+    }
+}
+
+void SnakeSpirit::onDeath()
+{
+    EndBossSnake *snake = m_endBossSnake;
+    float snakeX = snake->getPosition().getX();
+    float snakeY = snake->getPosition().getY();
+    
+    m_position->set(snakeX + getWidth() / 2, snakeY);
+    
+    m_fStateTime = 0;
+    
+    m_color.alpha = 1;
+    
+    m_isShowing = true;
 }
 
 void SnakeHeadImpact::update(float deltaTime)
@@ -439,18 +587,13 @@ void SnakeHeadImpact::onDamageTaken()
 	float snakeX = snake->getPosition().getX();
 	float snakeY = snake->getPosition().getY();
 
-	m_position->set(snakeX, snakeY + 4);
+	m_position->set(snakeX, snakeY + 1);
 
 	m_fStateTime = 0;
 
 	m_color.alpha = 1;
 
 	m_isShowing = true;
-}
-
-EndBossSnake& SnakeHeadImpact::getEndBossSnake()
-{
-	return *m_endBossSnake;
 }
 
 void SnakeSkin::update(float deltaTime)
@@ -492,15 +635,10 @@ void SnakeSkin::onDamageTaken()
 
 	if (snake->getDamage() > 1)
 	{
-		m_color.red += 0.5f * (snake->getDamage() - 1);
+		m_color.red += 1 * (snake->getDamage() - 1);
 	}
     
     m_isShowing = true;
-}
-
-EndBossSnake& SnakeSkin::getEndBossSnake()
-{
-    return *m_endBossSnake;
 }
 
 void SnakeTonque::update(float deltaTime)
@@ -543,11 +681,6 @@ void SnakeTonque::onMouthOpen()
     m_isMouthOpen = true;
 }
 
-EndBossSnake& SnakeTonque::getEndBossSnake()
-{
-    return *m_endBossSnake;
-}
-
 void SnakeBody::update(float deltaTime)
 {
     EndBossSnake *snake = m_endBossSnake;
@@ -563,6 +696,7 @@ void SnakeBody::update(float deltaTime)
 		|| snake->getState() == EndBossSnakeState_OpenMouthRight
         || snake->getState() == EndBossSnakeState_ChargingRight
         || snake->getState() == EndBossSnakeState_Dying
+        || snake->getState() == EndBossSnakeState_DeadSpiritReleasing
         || snake->getState() == EndBossSnakeState_Dead)
     {
         float snakeLeft = snakeX - snakeW / 2;
@@ -592,10 +726,6 @@ void SnakeBody::update(float deltaTime)
 
 void SnakeBody::onDeath()
 {
+    update(0);
 	m_isDead = true;
-}
-
-EndBossSnake& SnakeBody::getEndBossSnake()
-{
-    return *m_endBossSnake;
 }

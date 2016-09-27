@@ -531,14 +531,23 @@ void SpikedBallRollingLeft::update(float deltaTime)
             m_velocity->setX(-VAMP_DEFAULT_MAX_SPEED);
         }
         
-        if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime)
-            || EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime))
+        if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
         {
             m_acceleration->setX(0);
             m_velocity->setX(0);
             m_fStateTime = 0;
             
             Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+        }
+        
+        if (m_game->isEntityGrounded(this, deltaTime))
+        {
+            m_acceleration->set(-4, 0);
+            m_velocity->setY(0);
+        }
+        else
+        {
+            m_acceleration->setY(GAME_GRAVITY);
         }
     }
 }
@@ -586,14 +595,23 @@ void SpikedBallRollingRight::update(float deltaTime)
             m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
         }
         
-        if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime)
-            || EntityUtils::isBlockedOnRight(this, m_game->getForegroundObjects(), deltaTime))
+        if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
         {
             m_acceleration->setX(0);
             m_velocity->setX(0);
             m_fStateTime = 0;
             
             Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+        }
+        
+        if (m_game->isEntityGrounded(this, deltaTime))
+        {
+            m_acceleration->set(4, 0);
+            m_velocity->setY(0);
+        }
+        else
+        {
+            m_acceleration->setY(GAME_GRAVITY);
         }
     }
 }

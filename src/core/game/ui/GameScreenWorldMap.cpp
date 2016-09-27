@@ -137,12 +137,6 @@ void WorldMap::execute(GameScreen* gs)
                         m_clickedLevel = nullptr;
                         return;
                     }
-                    else if (m_isNextWorldButtonEnabled
-                             && m_nextWorldButton->handleClick(*gs->m_touchPoint))
-                    {
-                        // TODO
-                        return;
-                    }
                     else
                     {
                         if (m_spendGoldenCarrotsBubble->isOpen())
@@ -301,6 +295,8 @@ void WorldMap::loadUserSaveData(const char* json)
     
     loadGlobalUserSaveData(d);
     
+    m_isNextWorldButtonEnabled = false;
+    
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
     int scoreForLevelToSelect = 0;
@@ -325,7 +321,7 @@ void WorldMap::loadUserSaveData(const char* json)
             previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
         }
         
-        bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
+        bool isPlayable = true;//FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
         bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
@@ -337,7 +333,7 @@ void WorldMap::loadUserSaveData(const char* json)
         
         if (bossLevelThumbnail)
         {
-            bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
+            bool isUnlocked = true;//FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
     
             bossLevelThumbnail->configLockStatus(isUnlocked, isUnlocking);
@@ -352,12 +348,6 @@ void WorldMap::loadUserSaveData(const char* json)
                 && FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE))
             {
                 m_isNextWorldButtonEnabled = true;
-                m_nextWorldButton->getColor().alpha = 1;
-            }
-            else
-            {
-                m_isNextWorldButtonEnabled = false;
-                m_nextWorldButton->getColor().alpha = 0;
             }
         }
         
@@ -445,11 +435,6 @@ GameButton* WorldMap::getViewOpeningCutsceneButton()
     return m_viewOpeningCutsceneButton.get();
 }
 
-GameButton* WorldMap::getNextWorldButton()
-{
-    return m_nextWorldButton.get();
-}
-
 int WorldMap::getNumCollectedGoldenCarrots()
 {
     return m_iNumCollectedGoldenCarrots;
@@ -517,7 +502,7 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
             configAbilitySlot(AbilitySlotType_Dash, isUnlocked, isUnlocking);
         }
         
-        m_iJonAbilityFlag = jonAbilityFlag;
+        m_iJonAbilityFlag = FLAG_ABILITY_ALL;//jonAbilityFlag;
     }
     
     if (d.HasMember(viewed_cutscenes_flag_key))
@@ -714,7 +699,6 @@ m_isNextWorldButtonEnabled(false)
     m_toggleSound = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleSound));
     m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
     m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));
-    m_nextWorldButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_NextWorld));
     
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();

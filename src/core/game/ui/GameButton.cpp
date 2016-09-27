@@ -39,7 +39,6 @@ GameButton* GameButton::create(GameButtonType type)
                                   1.52941176470592f,
                                   type);
         case GameButtonType_ContinueToLevelSelect:
-        case GameButtonType_NextWorld:
             return new GameButton(CAM_WIDTH - 1.51895680147063f / 2,
                                   1.52941176470592f / 2,
                                   1.51895680147063f,

@@ -182,29 +182,24 @@ public:
     {
         CutscenePanel::update(deltaTime);
         
-        float camL = CAM_WIDTH / 4 - m_fStateTime / 3 * CAM_WIDTH / 4;
-        float camB = CAM_HEIGHT / 4 - m_fStateTime / 3 * CAM_HEIGHT / 4;
-        float camW = CAM_WIDTH / 2 + m_fStateTime / 3 * CAM_WIDTH / 2;
-        float camH = CAM_HEIGHT / 2 + m_fStateTime / 3 * CAM_HEIGHT / 2;
+        float camL = CAM_WIDTH / 4 - m_fStateTime / 3.6f * CAM_WIDTH / 4;
+        float camB = CAM_HEIGHT / 4 - m_fStateTime / 3.6f * CAM_HEIGHT / 4;
+        float camW = CAM_WIDTH / 2 + m_fStateTime / 3.6f * CAM_WIDTH / 2;
+        float camH = CAM_HEIGHT / 2 + m_fStateTime / 3.6f * CAM_HEIGHT / 2;
         
         if (m_fStateTime > 4.4f)
         {
             m_isReadyForNextPanel = true;
         }
         
-        if (m_fStateTime > 3)
+        if (m_fStateTime > 3.6f)
         {
             camL = 0;
             camB = 0;
             camW = CAM_WIDTH;
             camH = CAM_HEIGHT;
             
-            m_color.alpha = 4.4f - m_fStateTime;
-            
-            if (m_color.alpha > 1)
-            {
-                m_color.alpha = 1;
-            }
+            m_color.alpha -= deltaTime * 1.25f;
             
             if (m_color.alpha < 0)
             {
@@ -319,12 +314,12 @@ public:
     {
         CutscenePanel::update(deltaTime);
         
-        float camL = m_fStateTime / 2 * CAM_WIDTH / 16;
-        float camB = m_fStateTime / 2 * CAM_HEIGHT / 16;
-        float camW = CAM_WIDTH - m_fStateTime / 2 * CAM_WIDTH * 1 / 8;
-        float camH = CAM_HEIGHT - m_fStateTime / 2 * CAM_HEIGHT * 1 / 8;
+        float camL = m_fStateTime / 1.5f * CAM_WIDTH / 16;
+        float camB = m_fStateTime / 1.5f * CAM_HEIGHT / 16;
+        float camW = CAM_WIDTH - m_fStateTime / 1.5f * CAM_WIDTH * 1 / 8;
+        float camH = CAM_HEIGHT - m_fStateTime / 1.5f * CAM_HEIGHT * 1 / 8;
         
-        if (m_fStateTime > 2)
+        if (m_fStateTime > 1.5f)
         {
             camL = CAM_WIDTH / 16;
             camB = CAM_HEIGHT / 16;
@@ -333,14 +328,14 @@ public:
             
             m_color.alpha = 0;
         }
-        else if (m_fStateTime > 1.5f)
+        else if (m_fStateTime > 1.25f)
         {
             m_isReadyForNextPanel = true;
         }
         
-        if (m_fStateTime > 1)
+        if (m_fStateTime > 0.75f)
         {
-            m_color.alpha -= deltaTime;
+            m_color.alpha -= deltaTime * 1.33333333333333f;
             
             if (m_color.alpha < 0)
             {
@@ -457,13 +452,8 @@ public:
         float camW = CAM_WIDTH / 2 * m_fStateTime / 6 + CAM_WIDTH / 2;
         float camH = CAM_HEIGHT / 2 * m_fStateTime / 6 + CAM_HEIGHT / 2;
         
-        if (m_fStateTime > 6)
+        if (m_fStateTime > 6.5f)
         {
-            camL = 0;
-            camB = 0;
-            camW = CAM_WIDTH;
-            camH = CAM_HEIGHT;
-            
             if (m_cutsceneEffects.size() > 0)
             {
                 shadowX = m_cutsceneEffects.at(0)->getPosition().getX();
@@ -474,7 +464,15 @@ public:
             
             m_isReadyForNextPanel = true;
         }
-        else if (m_fStateTime > 4 && !m_hasSpawnedShadow)
+        
+        if (m_fStateTime > 6)
+        {
+            camL = 0;
+            camB = 0;
+            camW = CAM_WIDTH;
+            camH = CAM_HEIGHT;
+        }
+        else if (m_fStateTime > 4.5f && !m_hasSpawnedShadow)
         {
             m_cutsceneEffects.push_back(CutsceneEffect::create(CutsceneEffectType_Shadow_One));
             

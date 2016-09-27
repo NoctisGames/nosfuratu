@@ -32,6 +32,7 @@
 #include "PointTransitionGpuProgramWrapper.h"
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
+#include "EndBossSnakeTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
 #include "TransDeathGpuProgramWrapper.h"
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
@@ -68,6 +69,7 @@ m_pointTransScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
 m_snakeDeathTextureProgram(nullptr),
+m_endBossSnakeTextureProgram(nullptr),
 m_shockwaveTextureGpuProgramWrapper(nullptr),
 m_transDeathInGpuProgramWrapper(nullptr),
 m_transDeathOutGpuProgramWrapper(nullptr),
@@ -299,6 +301,7 @@ bool Renderer::isLoaded()
     && m_sinWaveTextureProgram->isLoaded()
     && m_backgroundGpuTextureProgramWrapper->isLoaded()
     && m_snakeDeathTextureProgram->isLoaded()
+    && m_endBossSnakeTextureProgram->isLoaded()
     && m_shockwaveTextureGpuProgramWrapper->isLoaded()
     && m_framebufferToScreenGpuProgramWrapper->isLoaded()
     && m_framebufferTintGpuProgramWrapper->isLoaded()
@@ -773,7 +776,6 @@ void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
     renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), Assets::getInstance()->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor(), true);
     //renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), Assets::getInstance()->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), Assets::getInstance()->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getNextWorldButton(), Assets::getInstance()->get(wm.getNextWorldButton()), wm.getNextWorldButton()->getColor(), true);
     renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), Assets::getInstance()->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor(), true);
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
@@ -1023,6 +1025,65 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
+    /// Render Jon After Images
+    
+    for (std::vector<EndBossSnake *>::iterator i = endBossSnake.getAfterImages().begin(); i != endBossSnake.getAfterImages().end(); i++)
+    {
+        EndBossSnake* pItem = *i;
+        EndBossSnake& item = *pItem;
+        
+        switch (item.getState())
+        {
+            case EndBossSnakeState_ChargingLeft:
+            {
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntityWithColor(item.getSnakeBody(), Assets::getInstance()->get(&item.getSnakeBody()), item.getSnakeBody().getColor());
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+                
+                if (item.getSnakeTonque().isMouthOpen())
+                {
+                    m_spriteBatcher->beginBatch();
+                    renderPhysicalEntity(item.getSnakeTonque(), Assets::getInstance()->get(&item.getSnakeTonque()));
+                    m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
+                }
+                
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntityWithColor(item, Assets::getInstance()->get(&item), item.getColor());
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+                
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntity(item.getSnakeEye(), Assets::getInstance()->get(&item.getSnakeEye()));
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
+            }
+                break;
+            case EndBossSnakeState_ChargingRight:
+            {
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntityWithColor(item.getSnakeBody(), Assets::getInstance()->get(&item.getSnakeBody()), item.getSnakeBody().getColor());
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+                
+                if (item.getSnakeTonque().isMouthOpen())
+                {
+                    m_spriteBatcher->beginBatch();
+                    renderPhysicalEntity(item.getSnakeTonque(), Assets::getInstance()->get(&item.getSnakeTonque()));
+                    m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
+                }
+                
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntityWithColor(item, Assets::getInstance()->get(&item), item.getColor());
+                renderPhysicalEntityWithColor(item.getSnakeSkin(), Assets::getInstance()->get(&item.getSnakeSkin()), item.getSnakeSkin().getColor());
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+                
+                m_spriteBatcher->beginBatch();
+                renderPhysicalEntityWithColor(item.getSnakeHeadImpact(), Assets::getInstance()->get(&item.getSnakeHeadImpact()), item.getSnakeHeadImpact().getColor());
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    
     switch (endBossSnake.getState())
     {
         case EndBossSnakeState_Sleeping:
@@ -1033,11 +1094,20 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         {
             m_spriteBatcher->beginBatch();
             renderPhysicalEntityWithColor(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()), endBossSnake.getSnakeBody().getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
             if (endBossSnake.getSnakeTonque().isMouthOpen())
             {
+                m_spriteBatcher->beginBatch();
                 renderPhysicalEntity(endBossSnake.getSnakeTonque(), Assets::getInstance()->get(&endBossSnake.getSnakeTonque()));
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
             }
-			renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
+            m_spriteBatcher->beginBatch();
             renderPhysicalEntity(endBossSnake.getSnakeEye(), Assets::getInstance()->get(&endBossSnake.getSnakeEye()));
             m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
         }
@@ -1050,27 +1120,46 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         {
             m_spriteBatcher->beginBatch();
 			renderPhysicalEntityWithColor(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()), endBossSnake.getSnakeBody().getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
             if (endBossSnake.getSnakeTonque().isMouthOpen())
             {
+                m_spriteBatcher->beginBatch();
                 renderPhysicalEntity(endBossSnake.getSnakeTonque(), Assets::getInstance()->get(&endBossSnake.getSnakeTonque()));
+                m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
             }
-			renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
+            
+			m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
 			renderPhysicalEntityWithColor(endBossSnake.getSnakeSkin(), Assets::getInstance()->get(&endBossSnake.getSnakeSkin()), endBossSnake.getSnakeSkin().getColor());
-			renderPhysicalEntityWithColor(endBossSnake.getSnakeHeadImpact(), Assets::getInstance()->get(&endBossSnake.getSnakeHeadImpact()), endBossSnake.getSnakeHeadImpact().getColor());
+			m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake.getSnakeHeadImpact(), Assets::getInstance()->get(&endBossSnake.getSnakeHeadImpact()), endBossSnake.getSnakeHeadImpact().getColor());
             m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
         }
             break;
         case EndBossSnakeState_Dying:
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()), endBossSnake.getSnakeBody().getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_3.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+        }
+            break;
 		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
-			m_spriteBatcher->beginBatch();
-			renderPhysicalEntityWithColor(endBossSnake.getSnakeBody(), Assets::getInstance()->get(&endBossSnake.getSnakeBody()), endBossSnake.getSnakeBody().getColor());
-			m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
-
             m_spriteBatcher->beginBatch();
 			renderPhysicalEntityWithColor(endBossSnake, Assets::getInstance()->get(&endBossSnake), endBossSnake.getColor());
-            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_3.gpuTextureWrapper);
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_3.gpuTextureWrapper, *m_endBossSnakeTextureProgram);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntityWithColor(endBossSnake.getSnakeSpirit(), Assets::getInstance()->get(&endBossSnake.getSnakeSpirit()), endBossSnake.getSnakeSpirit().getColor());
+            m_spriteBatcher->endBatch(*m_world_1_end_boss_part_2.gpuTextureWrapper);
         }
             break;
         default:
@@ -1835,6 +1924,7 @@ void Renderer::cleanUp()
         m_sinWaveTextureProgram->cleanUp();
         m_backgroundGpuTextureProgramWrapper->cleanUp();
         m_snakeDeathTextureProgram->cleanUp();
+        m_endBossSnakeTextureProgram->cleanUp();
         m_shockwaveTextureGpuProgramWrapper->cleanUp();
         m_transDeathInGpuProgramWrapper->cleanUp();
         m_transDeathOutGpuProgramWrapper->cleanUp();

@@ -16,6 +16,28 @@
 class Game;
 class EndBossSnake;
 
+class SnakeSpirit : public PhysicalEntity
+{
+public:
+    SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+    {
+        // Empty
+    }
+    
+    virtual void update(float deltaTime);
+    
+    void onDeath();
+    
+    EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
+    
+    Color& getColor() { return m_color; }
+    
+private:
+    EndBossSnake* m_endBossSnake;
+    Color m_color;
+    bool m_isShowing;
+};
+
 class SnakeHeadImpact : public PhysicalEntity
 {
 public:
@@ -28,7 +50,7 @@ public:
 
 	void onDamageTaken();
 
-	EndBossSnake& getEndBossSnake();
+	EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
 
 	Color& getColor() { return m_color; }
 
@@ -50,7 +72,7 @@ public:
     
     void onDamageTaken();
     
-    EndBossSnake& getEndBossSnake();
+    EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
     
     Color& getColor() { return m_color; }
     
@@ -72,7 +94,7 @@ public:
     
     void onAwaken();
     
-    EndBossSnake& getEndBossSnake();
+    EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
     
 private:
     EndBossSnake* m_endBossSnake;
@@ -94,7 +116,7 @@ public:
     
     void onMouthClose() { m_isMouthOpen = false; }
     
-    EndBossSnake& getEndBossSnake();
+    EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
     
     bool isMouthOpen() { return m_isMouthOpen; }
     
@@ -115,7 +137,7 @@ public:
 
 	void onDeath();
     
-    EndBossSnake& getEndBossSnake();
+    EndBossSnake& getEndBossSnake() { return *m_endBossSnake; }
     
     Color& getColor() { return m_color; }
     
@@ -168,11 +190,13 @@ public:
     
     void setGame(Game* game) { m_game = game; }
     
+    std::vector<EndBossSnake *>& getAfterImages() { return m_afterImages; }
     SnakeSkin& getSnakeSkin() { return *m_snakeSkin; }
     SnakeEye& getSnakeEye() { return *m_snakeEye; }
     SnakeTonque& getSnakeTonque() { return *m_snakeTonque; }
     SnakeBody& getSnakeBody() { return *m_snakeBody; }
 	SnakeHeadImpact& getSnakeHeadImpact() { return *m_snakeHeadImpact; }
+    SnakeSpirit& getSnakeSpirit() { return *m_snakeSpirit; }
     
     EndBossSnakeState getState() { return m_state; }
     
@@ -183,16 +207,20 @@ public:
     int getType() { return m_type; }
     
 private:
+    std::vector<EndBossSnake *> m_afterImages;
     std::unique_ptr<SnakeSkin> m_snakeSkin;
     std::unique_ptr<SnakeEye> m_snakeEye;
     std::unique_ptr<SnakeTonque> m_snakeTonque;
     std::unique_ptr<SnakeBody> m_snakeBody;
 	std::unique_ptr<SnakeHeadImpact> m_snakeHeadImpact;
+    std::unique_ptr<SnakeSpirit> m_snakeSpirit;
     Game* m_game;
     EndBossSnakeState m_state;
     Color m_color;
+    float m_fTimeSinceLastVelocityCheck;
     int m_iDamage;
     int m_type;
+    bool m_hasPlayedChargeSound;
     
     void setState(EndBossSnakeState state);
 };

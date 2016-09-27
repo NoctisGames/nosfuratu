@@ -25,6 +25,7 @@
 #include "OpenGLESPointTransScreenGpuProgramWrapper.h"
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
+#include "OpenGLESEndBossSnakeTextureGpuProgramWrapper.h"
 #include "OpenGLESShockwaveTextureGpuProgramWrapper.h"
 #include "OpenGLESFramebufferTintGpuProgramWrapper.h"
 #include "OpenGLESFramebufferObfuscationGpuProgramWrapper.h"
@@ -69,6 +70,7 @@ void OpenGLESRenderer::loadShaderPrograms()
     m_pointTransScreenGpuProgramWrapper = new OpenGLESPointTransScreenGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();
+    m_endBossSnakeTextureProgram = new OpenGLESEndBossSnakeTextureGpuProgramWrapper();
     m_shockwaveTextureGpuProgramWrapper = new OpenGLESShockwaveTextureGpuProgramWrapper();
     m_framebufferToScreenGpuProgramWrapper = OGLESManager->m_fbToScreenProgram.get();
     m_framebufferTintGpuProgramWrapper = new OpenGLESFramebufferTintGpuProgramWrapper();

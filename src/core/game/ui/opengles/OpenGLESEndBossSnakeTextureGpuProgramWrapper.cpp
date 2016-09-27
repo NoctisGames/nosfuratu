@@ -1,12 +1,12 @@
 //
-//  OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp
+//  OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 12/30/15.
+//  Created by Stephen Gowen on 9/26/16.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
+#include "OpenGLESEndBossSnakeTextureGpuProgramWrapper.h"
 #include "OpenGLESManager.h"
 #include "macros.h"
 
@@ -15,13 +15,13 @@ extern "C"
 #include "asset_utils.h"
 }
 
-OpenGLESSnakeDeathTextureGpuProgramWrapper::OpenGLESSnakeDeathTextureGpuProgramWrapper()
+OpenGLESEndBossSnakeTextureGpuProgramWrapper::OpenGLESEndBossSnakeTextureGpuProgramWrapper()
 {
-    m_program = SnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
+    m_program = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"));
     m_isLoaded = true;
 }
 
-void OpenGLESSnakeDeathTextureGpuProgramWrapper::bind()
+void OpenGLESEndBossSnakeTextureGpuProgramWrapper::bind()
 {
     glUseProgram(m_program.program);
     
@@ -41,7 +41,7 @@ void OpenGLESSnakeDeathTextureGpuProgramWrapper::bind()
     glEnableVertexAttribArray(m_program.a_texture_coordinates_location);
 }
 
-void OpenGLESSnakeDeathTextureGpuProgramWrapper::unbind()
+void OpenGLESEndBossSnakeTextureGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
@@ -50,7 +50,7 @@ void OpenGLESSnakeDeathTextureGpuProgramWrapper::unbind()
     glUseProgram(0);
 }
 
-void OpenGLESSnakeDeathTextureGpuProgramWrapper::cleanUp()
+void OpenGLESEndBossSnakeTextureGpuProgramWrapper::cleanUp()
 {
     glDeleteProgram(m_program.program);
 }
