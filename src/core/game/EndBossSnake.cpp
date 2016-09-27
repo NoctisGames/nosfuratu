@@ -437,26 +437,21 @@ void EndBossSnake::triggerHit()
     }
     else
     {
-		kill();
+		m_velocity->setX(8);
+		m_acceleration->setX(-8);
+
+		m_iDamage = 3;
+		m_color.red = 3.0f;
+		m_snakeBody->getColor().red = m_color.red;
+
+		setState(EndBossSnakeState_Dying);
+
+		m_snakeBody->onDeath();
+
+		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
     }
 
 	m_snakeTonque->onMouthClose();
-}
-
-void EndBossSnake::kill()
-{
-    m_velocity->setX(8);
-    m_acceleration->setX(-8);
-    
-    m_iDamage = 3;
-    m_color.red = 3.0f;
-    m_snakeBody->getColor().red = m_color.red;
-    
-	setState(EndBossSnakeState_Dying);
-
-	m_snakeBody->onDeath();
-
-	Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
 }
 
 void EndBossSnake::setState(EndBossSnakeState state)

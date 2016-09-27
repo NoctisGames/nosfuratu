@@ -181,8 +181,6 @@ public:
 	void beginPursuit();
 
     void triggerHit();
-
-	void kill();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     

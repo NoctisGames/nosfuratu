@@ -408,11 +408,11 @@ private:
 	float m_fCheckPointStateTime;
 	float m_fCheckPointX;
 	float m_fCheckPointY;
-	float m_fSnakeDeathX;
-	float m_fSnakeDeathY;
 	float m_fMarker1X;
 	float m_fMarker2X;
 	float m_fMusicVolume;
+	int m_iNumCarrotsCollectedAtCheckpoint;
+	int m_iNumGoldenCarrotsCollectedAtCheckpoint;
     bool m_isChaseCamActivated;
 	bool m_hasTriggeredMusicLoopIntro;
 	bool m_hasTriggeredSnakeAwaken;

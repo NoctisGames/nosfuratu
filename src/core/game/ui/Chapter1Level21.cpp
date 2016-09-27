@@ -126,19 +126,16 @@ void Chapter1Level21::enter(GameScreen* gs)
 	Jon& jon = m_game->getJon(); 
 	if (m_hasTriggeredSnakeDeathCheckPoint)
 	{
-		m_endBossSnake->getPosition().set(m_fSnakeDeathX, m_fSnakeDeathY);
-        m_endBossSnake->kill();
-
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
 		m_game->setStateTime(m_fGameStateTime);
+		m_game->setNumCarrotsCollected(m_iNumCarrotsCollectedAtCheckpoint);
+		m_game->setNumGoldenCarrotsCollected(m_iNumGoldenCarrotsCollectedAtCheckpoint);
 
 		jon.becomeVampire();
 
-		jon.getAcceleration().setX(0);
-		jon.getVelocity().setX(0);
-		jon.setIdle(true);
-		jon.setUserActionPrevented(true);
+		jon.setIdle(false);
+		jon.setUserActionPrevented(false);
 	}
 	else if (m_hasTriggeredCheckPoint)
 	{
@@ -164,11 +161,11 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fGameStateTime = 0;
 	m_fCheckPointX = 0;
 	m_fCheckPointY = 0;
-	m_fSnakeDeathX = 0;
-	m_fSnakeDeathY = 0;
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
 	m_fMusicVolume = 0;
+	m_iNumCarrotsCollectedAtCheckpoint = 0;
+	m_iNumGoldenCarrotsCollectedAtCheckpoint = 0;
 	m_isChaseCamActivated = false;
 	m_hasTriggeredMusicLoopIntro = false;
 	m_hasTriggeredSnakeAwaken = false;
@@ -352,22 +349,12 @@ void Chapter1Level21::update(GameScreen* gs)
 	{
 		m_isChaseCamActivated = true;
 
-		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
-			&& !m_hasTriggeredSnakeDeathCheckPoint)
+		if (m_endBossSnake->getState() == EndBossSnakeState_Dying)
 		{
-			m_fSnakeDeathX = m_endBossSnake->getPosition().getX();
-			m_fSnakeDeathY = m_endBossSnake->getPosition().getY();
-
-			m_fCheckPointX = jon.getPosition().getX();
-			m_fCheckPointY = jon.getPosition().getY();
-			m_fCheckPointStateTime = m_game->getStateTime();
-
 			jon.getAcceleration().setX(0);
 			jon.getVelocity().setX(0);
 			jon.setIdle(true);
 			jon.setUserActionPrevented(true);
-
-			m_hasTriggeredSnakeDeathCheckPoint = true;
 		}
 
 		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
@@ -385,10 +372,22 @@ void Chapter1Level21::update(GameScreen* gs)
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)
 	{
-		if (jon.isIdle())
+		if (!m_hasTriggeredSnakeDeathCheckPoint)
 		{
-			jon.setIdle(false);
-			jon.setUserActionPrevented(false);
+			m_fCheckPointX = jon.getPosition().getX();
+			m_fCheckPointY = jon.getPosition().getY();
+
+			m_fCheckPointStateTime = m_game->getStateTime();
+			m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
+			m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
+
+			if (jon.isIdle())
+			{
+				jon.setIdle(false);
+				jon.setUserActionPrevented(false);
+			}
+
+			m_hasTriggeredSnakeDeathCheckPoint = true;
 		}
 
 		m_isChaseCamActivated = false;
@@ -419,11 +418,11 @@ m_fGameStateTime(0),
 m_fCheckPointStateTime(0),
 m_fCheckPointX(0),
 m_fCheckPointY(0),
-m_fSnakeDeathX(0),
-m_fSnakeDeathY(0),
 m_fMarker1X(0),
 m_fMarker2X(0),
 m_fMusicVolume(0.5f),
+m_iNumCarrotsCollectedAtCheckpoint(0),
+m_iNumGoldenCarrotsCollectedAtCheckpoint(0),
 m_isChaseCamActivated(false),
 m_hasTriggeredMusicLoopIntro(false),
 m_hasTriggeredSnakeAwaken(false),
