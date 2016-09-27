@@ -188,6 +188,7 @@ public:
     
     virtual int getEntityLandingPriority() { return 0; }
     
+    Game* getGame() { return m_game; }
     void setGame(Game* game) { m_game = game; }
     
     std::vector<EndBossSnake *>& getAfterImages() { return m_afterImages; }

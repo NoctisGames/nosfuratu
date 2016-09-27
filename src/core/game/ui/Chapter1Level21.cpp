@@ -127,6 +127,7 @@ void Chapter1Level21::enter(GameScreen* gs)
 	if (m_hasTriggeredSnakeDeathCheckPoint)
 	{
 		m_endBossSnake->getPosition().set(m_fSnakeDeathX, m_fSnakeDeathY);
+        m_endBossSnake->kill();
 
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
