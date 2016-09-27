@@ -75,7 +75,7 @@ void Direct3DRenderer::loadShaderPrograms()
 	m_sinWaveTextureProgram = new Direct3DSinWaveTextureGpuProgramWrapper(m_deviceResources);
 	m_backgroundGpuTextureProgramWrapper = new Direct3DBackgroundTextureGpuProgramWrapper(m_deviceResources);
 	m_snakeDeathTextureProgram = new Direct3DSnakeDeathTextureGpuProgramWrapper(m_deviceResources);
-    m_endBossSnakeTextureProgram = new Direct3DEndBossSnakeTextureGpuProgramWrapper();
+    m_endBossSnakeTextureProgram = new Direct3DEndBossSnakeTextureGpuProgramWrapper(m_deviceResources);
 	m_shockwaveTextureGpuProgramWrapper = new Direct3DShockwaveTextureGpuProgramWrapper(m_deviceResources);
 	m_framebufferToScreenGpuProgramWrapper = D3DManager->m_fbToScreenProgram.get();
 	m_framebufferTintGpuProgramWrapper = new Direct3DFramebufferTintGpuProgramWrapper(m_deviceResources);

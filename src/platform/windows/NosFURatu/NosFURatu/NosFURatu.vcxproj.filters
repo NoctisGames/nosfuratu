@@ -129,6 +129,8 @@
     <ClCompile Include="..\..\..\..\core\game\ui\GameTracker.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\Text.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EndBossSnake.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -246,6 +248,8 @@
     <ClInclude Include="..\..\..\..\core\game\ui\GameTracker.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\Text.h" />
     <ClInclude Include="..\..\..\..\core\game\EndBossSnake.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
