@@ -455,6 +455,8 @@ void Level::update(GameScreen* gs)
             m_fStateTime += gs->m_fDeltaTime / 2;
             if (m_fStateTime > 1)
             {
+				stopLoopingSounds();
+
                 m_fStateTime = 1;
                 m_isDisplayingResults = true;
             }
@@ -772,6 +774,7 @@ void Level::stopLoopingSounds()
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
     Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
