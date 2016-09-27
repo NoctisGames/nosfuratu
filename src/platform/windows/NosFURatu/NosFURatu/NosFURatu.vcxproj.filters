@@ -286,6 +286,7 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTexturePixelShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTextureVertexShader.hlsl" />
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FrameBufferObfuscationPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\EndBossSnakeTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
