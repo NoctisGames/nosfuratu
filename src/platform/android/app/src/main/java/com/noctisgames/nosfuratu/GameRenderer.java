@@ -319,11 +319,13 @@ public final class GameRenderer implements Renderer
                 if (_bgm != null)
                 {
                     _bgm.stop();
-                    _bgm = null;
                 }
                 break;
             case MUSIC_RESUME:
-                _bgm.play();
+                if (_bgm != null)
+                {
+                    _bgm.play();
+                }
                 break;
             case MUSIC_SET_VOLUME:
                 if (_bgm != null)
