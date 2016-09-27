@@ -84,6 +84,11 @@ public:
 			int highestPriority = 0;
 			for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
 			{
+				if ((*i) == entity)
+				{
+					continue;
+				}
+
 				int priority = (*i)->getEntityLandingPriority();
 				if (priority > highestPriority)
 				{
@@ -95,6 +100,11 @@ public:
 			{
 				for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
 				{
+					if ((*i) == entity)
+					{
+						continue;
+					}
+
 					int priority = (*i)->getEntityLandingPriority();
 
 					if (p == priority
@@ -182,6 +192,11 @@ public:
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
+			if ((*i) == entity)
+			{
+				continue;
+			}
+
             if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
                 return true;
@@ -198,6 +213,11 @@ public:
 
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
+			if ((*i) == entity)
+			{
+				continue;
+			}
+
 			if (dynamic_cast<PlatformObject *>((*i)))
 			{
 				continue;

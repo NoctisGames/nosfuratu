@@ -507,7 +507,7 @@ public:
 class SpikedBallRollingLeft : public DeadlyObject
 {
 public:
-    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingLeft, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f), m_isOnScreen(false) {}
+    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingLeft, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f), m_isOnScreen(false), m_isStopped(false) {}
     
     virtual void update(float deltaTime);
     
@@ -515,12 +515,13 @@ public:
     
 private:
     bool m_isOnScreen;
+	bool m_isStopped;
 };
 
 class SpikedBallRollingRight : public DeadlyObject
 {
 public:
-    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingRight, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f), m_isOnScreen(false) {}
+    SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingRight, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f), m_isOnScreen(false), m_isStopped(false) {}
     
     virtual void update(float deltaTime);
     
@@ -528,6 +529,7 @@ public:
     
 private:
     bool m_isOnScreen;
+	bool m_isStopped;
 };
 
 class SpikedBall : public DeadlyObject

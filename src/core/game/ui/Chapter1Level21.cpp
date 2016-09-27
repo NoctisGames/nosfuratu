@@ -126,27 +126,30 @@ void Chapter1Level21::enter(GameScreen* gs)
 	Jon& jon = m_game->getJon(); 
 	if (m_hasTriggeredSnakeDeathCheckPoint)
 	{
+		m_game->setStateTime(m_fCheckPointStateTime);
+		m_game->setNumCarrotsCollected(m_iNumCarrotsCollectedAtCheckpoint);
+		m_game->setNumGoldenCarrotsCollected(m_iNumGoldenCarrotsCollectedAtCheckpoint);
+
 		if (spikedBallChain3)
 		{
 			spikedBallChain3->trigger();
 		}
 
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
-
-		m_game->setStateTime(m_fGameStateTime);
-		m_game->setNumCarrotsCollected(m_iNumCarrotsCollectedAtCheckpoint);
-		m_game->setNumGoldenCarrotsCollected(m_iNumGoldenCarrotsCollectedAtCheckpoint);
-
 		jon.becomeVampire();
 
-		jon.setIdle(false);
-		jon.setUserActionPrevented(false);
+		if (jon.isIdle())
+		{
+			jon.setIdle(false);
+		}
+
+		m_batPanel->config(m_game.get(), BatGoalType_Dash);
 	}
 	else if (m_hasTriggeredCheckPoint)
 	{
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
-		m_game->setStateTime(m_fGameStateTime);
+		m_game->setStateTime(m_fCheckPointStateTime);
 
 		jon.setUserActionPrevented(false);
 		jon.becomeVampire();
@@ -169,6 +172,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
 	m_fMusicVolume = 0;
+	m_fCheckPointStateTime = 0;
 	m_iNumCarrotsCollectedAtCheckpoint = 0;
 	m_iNumGoldenCarrotsCollectedAtCheckpoint = 0;
 	m_isChaseCamActivated = false;
@@ -230,7 +234,6 @@ void Chapter1Level21::update(GameScreen* gs)
 			jon.getAcceleration().set(0, 0);
 			jon.getVelocity().set(0, 0);
 			jon.setIdle(true);
-			jon.setUserActionPrevented(true);
 
 			jon.getPosition().setX(m_hole->getPosition().getX());
 			jon.updateBounds();
@@ -301,7 +304,6 @@ void Chapter1Level21::update(GameScreen* gs)
 			if (jon.isVampire()
 				&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
 			{
-				jon.setIdle(false);
 				jon.setUserActionPrevented(false);
 
 				m_fCheckPointX = jon.getPosition().getX();
@@ -389,8 +391,9 @@ void Chapter1Level21::update(GameScreen* gs)
 			if (jon.isIdle())
 			{
 				jon.setIdle(false);
-				jon.setUserActionPrevented(false);
 			}
+
+			m_batPanel->config(m_game.get(), BatGoalType_Dash);
 
 			m_hasTriggeredSnakeDeathCheckPoint = true;
 		}

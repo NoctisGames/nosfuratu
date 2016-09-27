@@ -30,8 +30,6 @@ BatGoalType calcBatGoalType(int world, int level)
                     return BatGoalType_Drill;
                 case 12:
                     return BatGoalType_Stomp;
-                case 21:
-                    return BatGoalType_Dash;
             }
         }
     }
@@ -995,12 +993,204 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
 
 void BatPanel::updateStomp(GameScreen* gs)
 {
-    // TODO
+	if (!m_isAcknowledgedPart1)
+	{
+		Jon& jon = m_game->getJon();
+		jon.setUserActionPrevented(true);
+
+		if (jon.getPosition().getX() > 24
+			&& jon.getPosition().getX() < 26)
+		{
+			if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
+			{
+				jon.getPosition().setX(24);
+
+				showBatNearJon(jon);
+
+				m_isRequestingInput = true;
+			}
+		}
+		else if (jon.getPosition().getX() > 26)
+		{
+			jon.setUserActionPrevented(false);
+		}
+
+		if (m_isRequestingInput)
+		{
+			if (m_batInstruction->isOpen())
+			{
+				bool isJonAlive = jon.isAlive();
+
+				for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+				{
+					gs->touchToWorld(*(*i));
+
+					switch ((*i)->getTouchType())
+					{
+					case DOWN:
+						if (isJonAlive)
+						{
+							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+						}
+						continue;
+					case DRAGGED:
+						if (isJonAlive && !m_hasSwiped)
+						{
+							if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
+							{
+								jon.setUserActionPrevented(false);
+
+								// Swipe Down
+								jon.triggerDownAction();
+
+								jon.setUserActionPrevented(true);
+
+								m_hasTriggeredRequestedAction = true;
+								m_isRequestingInput = false;
+
+								m_batInstruction->close();
+
+								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+
+								gs->processTouchEvents();
+
+								m_hasSwiped = true;
+
+								return;
+							}
+						}
+						continue;
+					case UP:
+						if (isJonAlive)
+						{
+							m_hasSwiped = false;
+
+							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+						}
+						break;
+					}
+				}
+			}
+			else if (!m_batInstruction->isOpening())
+			{
+				if (m_bat->isInPosition())
+				{
+					showBatInstruction(BatInstructionType_SwipeDown);
+				}
+			}
+		}
+		else if (m_hasTriggeredRequestedAction)
+		{
+			if (jon.getAbilityState() == ABILITY_NONE)
+			{
+				m_isAcknowledgedPart1 = true;
+
+				jon.setUserActionPrevented(false);
+			}
+		}
+	}
 }
 
 void BatPanel::updateDash(GameScreen* gs)
 {
-    // TODO
+	if (!m_isAcknowledgedPart1)
+	{
+		Jon& jon = m_game->getJon();
+		jon.setUserActionPrevented(true);
+
+		if (jon.getPosition().getX() > 300
+			&& jon.getPosition().getX() < 302)
+		{
+			if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
+			{
+				jon.getPosition().setX(300);
+
+				showBatNearJon(jon);
+
+				jon.enableAbility(FLAG_ABILITY_VAMPIRE_RIGHT);
+
+				m_isRequestingInput = true;
+			}
+		}
+		else if (jon.getPosition().getX() > 302)
+		{
+			jon.setUserActionPrevented(false);
+		}
+
+		if (m_isRequestingInput)
+		{
+			if (m_batInstruction->isOpen())
+			{
+				bool isJonAlive = jon.isAlive();
+
+				for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+				{
+					gs->touchToWorld(*(*i));
+
+					switch ((*i)->getTouchType())
+					{
+					case DOWN:
+						if (isJonAlive)
+						{
+							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+						}
+						continue;
+					case DRAGGED:
+						if (isJonAlive && !m_hasSwiped)
+						{
+							if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
+							{
+								jon.setUserActionPrevented(false);
+
+								// Swipe Right
+								jon.triggerRightAction();
+
+								jon.setUserActionPrevented(true);
+
+								m_hasTriggeredRequestedAction = true;
+								m_isRequestingInput = false;
+
+								m_batInstruction->close();
+
+								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+
+								gs->processTouchEvents();
+
+								m_hasSwiped = true;
+
+								return;
+							}
+						}
+						continue;
+					case UP:
+						if (isJonAlive)
+						{
+							m_hasSwiped = false;
+
+							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+						}
+						break;
+					}
+				}
+			}
+			else if (!m_batInstruction->isOpening())
+			{
+				if (m_bat->isInPosition())
+				{
+					showBatInstruction(BatInstructionType_SwipeRight);
+				}
+			}
+		}
+		else if (m_hasTriggeredRequestedAction)
+		{
+			if (jon.getAbilityState() == ABILITY_NONE)
+			{
+				m_isAcknowledgedPart1 = true;
+
+				jon.setUserActionPrevented(false);
+			}
+		}
+	}
 }
 
 void BatPanel::showBatNearJon(Jon& jon)

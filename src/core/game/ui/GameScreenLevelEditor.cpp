@@ -58,39 +58,44 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
     if (gs->m_isRequestingRender)
     {
         gs->m_renderer->beginFrame(gs->m_fDeltaTime);
-        
-        gs->m_renderer->renderWorld(*m_game);
-        
-        gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
-        
-        if (m_lastAddedEntity != nullptr)
-        {
-            static Color highlight = Color(1, 1, 1, 0.25f);
-            gs->m_renderer->renderEntityHighlighted(*m_lastAddedEntity, highlight);
-        }
-        
-        if (m_draggingEntity != nullptr)
-        {
-            static Color highlight = Color(1, 1, 1, 0.5f);
-            gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
-            
-            if (m_attachToEntity != nullptr)
-            {
-                gs->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
-            }
-        }
-        
-        if (m_levelEditorActionsPanel->showBounds()
-			&& m_game->isLoaded())
-        {
-            gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
-        }
-        
-        gs->m_renderer->renderMarkers(*m_game);
+
+		if (m_game->isLoaded())
+		{
+			gs->m_renderer->renderWorld(*m_game);
+
+			gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
+
+			if (m_lastAddedEntity != nullptr)
+			{
+				static Color highlight = Color(1, 1, 1, 0.25f);
+				gs->m_renderer->renderEntityHighlighted(*m_lastAddedEntity, highlight);
+			}
+
+			if (m_draggingEntity != nullptr)
+			{
+				static Color highlight = Color(1, 1, 1, 0.5f);
+				gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
+
+				if (m_attachToEntity != nullptr)
+				{
+					gs->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
+				}
+			}
+
+			if (m_levelEditorActionsPanel->showBounds())
+			{
+				gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
+			}
+
+			gs->m_renderer->renderMarkers(*m_game);
+		}
         
         gs->m_renderer->renderToScreen();
         
-        gs->m_renderer->renderLevelEditor(this);
+		if (m_game->isLoaded())
+		{
+			gs->m_renderer->renderLevelEditor(this);
+		}
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {

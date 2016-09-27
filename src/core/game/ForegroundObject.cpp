@@ -522,24 +522,45 @@ void SpikedBallRollingLeft::update(float deltaTime)
 {
     DeadlyObject::update(deltaTime);
     
-    if (m_velocity->getX() < 0)
+    if (m_isOnScreen)
     {
         m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
-        if (m_velocity->getX() < (VAMP_DEFAULT_MAX_SPEED * -1))
+        if (m_velocity->getX() < (VAMP_DEFAULT_MAX_SPEED * -1 - 4))
         {
-            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * -1));
+            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * -1 - 4));
         }
 
-		if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime)
-			|| EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
+		if (!m_isStopped)
 		{
-			m_acceleration->setY(GAME_GRAVITY);
-			m_acceleration->setX(0);
-			m_velocity->setX(0);
-			m_fStateTime = 0;
+			if (m_game->isEntityGrounded(this, deltaTime))
+			{
+				if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
+				{
+					m_isStopped = true;
 
-			Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
+
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+				}
+				else
+				{
+					m_velocity->setY(0);
+					m_acceleration->setY(0);
+					m_acceleration->setX((VAMP_DEFAULT_ACCELERATION * -1));
+				}
+			}
+			else
+			{
+				if (EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
+				{
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
+				}
+
+				m_acceleration->setY(GAME_GRAVITY);
+			}
 		}
     }
 }
@@ -560,10 +581,8 @@ void SpikedBallRollingLeft::updateBounds()
         if (!m_isOnScreen)
         {
             m_isOnScreen = true;
-            
-            m_acceleration->setX(-8);
-            
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+
+			Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
         }
     }
     else if (m_isOnScreen)
@@ -578,24 +597,45 @@ void SpikedBallRollingRight::update(float deltaTime)
 {
     DeadlyObject::update(deltaTime);
     
-    if (m_velocity->getX() > 0)
+    if (m_isOnScreen)
     {
         m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
-        if (m_velocity->getX() > VAMP_DEFAULT_MAX_SPEED)
+        if (m_velocity->getX() > (VAMP_DEFAULT_MAX_SPEED * 4))
         {
-            m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
+            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * 4));
         }
 
-		if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime)
-			|| EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime))
+		if (!m_isStopped)
 		{
-			m_acceleration->setY(GAME_GRAVITY);
-			m_acceleration->setX(0);
-			m_velocity->setX(0);
-			m_fStateTime = 0;
+			if (m_game->isEntityGrounded(this, deltaTime))
+			{
+				if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
+				{
+					m_isStopped = true;
 
-			Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
+
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+				}
+				else
+				{
+					m_velocity->setY(0);
+					m_acceleration->setY(0);
+					m_acceleration->setX(VAMP_DEFAULT_ACCELERATION);
+				}
+			}
+			else
+			{
+				if (EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime))
+				{
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
+				}
+
+				m_acceleration->setY(GAME_GRAVITY);
+			}
 		}
     }
 }
@@ -616,10 +656,8 @@ void SpikedBallRollingRight::updateBounds()
         if (!m_isOnScreen)
         {
             m_isOnScreen = true;
-            
-            m_acceleration->setX(8);
-            
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+
+			Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
         }
     }
     else if (m_isOnScreen)
