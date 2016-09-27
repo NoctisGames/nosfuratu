@@ -565,6 +565,8 @@ public:
     
     virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
 
+	void trigger();
+
 private:
     SpikedBall* m_spikedBall;
     bool m_isSnapping;

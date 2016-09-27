@@ -732,3 +732,8 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
     
     return false;
 }
+
+void SpikedBallChain::trigger()
+{
+	m_color.alpha = 0;
+}

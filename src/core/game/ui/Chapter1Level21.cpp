@@ -126,6 +126,11 @@ void Chapter1Level21::enter(GameScreen* gs)
 	Jon& jon = m_game->getJon(); 
 	if (m_hasTriggeredSnakeDeathCheckPoint)
 	{
+		if (spikedBallChain3)
+		{
+			spikedBallChain3->trigger();
+		}
+
 		jon.getPosition().set(m_fCheckPointX, m_fCheckPointY);
 
 		m_game->setStateTime(m_fGameStateTime);
