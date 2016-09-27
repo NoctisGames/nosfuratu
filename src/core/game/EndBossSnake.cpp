@@ -407,7 +407,7 @@ void EndBossSnake::beginPursuit()
 	{
 		Jon& jon = m_game->getJon();
 
-        m_velocity->setX(jon.getVelocity().getX() > 4 ? VAMP_DEFAULT_MAX_SPEED : jon.getVelocity().getX());
+        m_velocity->setX(jon.getVelocity().getX());
 		m_acceleration->setX(END_BOSS_SNAKE_DEFAULT_ACCELERATION);
 
 		m_position->setX(jon.getPosition().getX() - CAM_WIDTH * 1.2f);
