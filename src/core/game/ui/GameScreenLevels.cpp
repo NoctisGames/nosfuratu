@@ -179,10 +179,10 @@ Game& Level::getGame()
 
 void Level::beginOpeningSequence(GameScreen* gs)
 {
-	CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-	countHissWithMina.beginMovement();
-
-	if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
+    CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+    countHissWithMina.beginMovement();
+    
+    if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
 	{
 		m_hasShownOpeningSequence = true;
 		m_hasOpeningSequenceCompleted = true;
@@ -255,6 +255,9 @@ void Level::update(GameScreen* gs)
     }
     else
     {
+        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+        countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
+        
         GameTracker::getInstance()->update(gs->m_fDeltaTime);
         
         m_batPanel->update(gs);
