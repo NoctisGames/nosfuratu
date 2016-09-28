@@ -1098,12 +1098,12 @@ void BatPanel::updateDash(GameScreen* gs)
 		Jon& jon = m_game->getJon();
 		jon.setUserActionPrevented(true);
 
-		if (jon.getPosition().getX() > 484
-			&& jon.getPosition().getX() < 486)
+		if (jon.getPosition().getX() > 520
+			&& jon.getPosition().getX() < 522)
 		{
 			if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
 			{
-				jon.getPosition().setX(484);
+				jon.getPosition().setX(520);
 
 				showBatNearJon(jon);
 
@@ -1112,7 +1112,7 @@ void BatPanel::updateDash(GameScreen* gs)
 				m_isRequestingInput = true;
 			}
 		}
-		else if (jon.getPosition().getX() > 486)
+		else if (jon.getPosition().getX() > 522)
 		{
 			jon.setUserActionPrevented(false);
 		}
