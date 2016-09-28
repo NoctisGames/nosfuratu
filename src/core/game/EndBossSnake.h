@@ -176,6 +176,8 @@ public:
     
     virtual void update(float deltaTime);
     
+	void chargeLeft();
+
 	void awaken();
 
 	void beginPursuit();

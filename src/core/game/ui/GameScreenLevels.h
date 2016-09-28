@@ -410,6 +410,7 @@ private:
 	float m_fCheckPointY;
 	float m_fMarker1X;
 	float m_fMarker2X;
+	float m_fMarker3X;
 	float m_fMusicVolume;
 	int m_iNumCarrotsCollectedAtCheckpoint;
 	int m_iNumGoldenCarrotsCollectedAtCheckpoint;

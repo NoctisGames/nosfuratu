@@ -69,25 +69,26 @@ void Chapter1Level21::enter(GameScreen* gs)
 				break;
 			}
 		}
+
+		if (spikedBallIndex == 3
+			&& spikedBallChainIndex == 3)
+		{
+			break;
+		}
 	}
 
-	if (spikedBallChain1 && spikedBall1)
+	if (spikedBallChain1 && spikedBall1
+		&& spikedBallChain2 && spikedBall2
+		&& spikedBallChain3 && spikedBall3)
 	{
 		spikedBallChain1->setSpikedBall(spikedBall1);
-	}
-
-	if (spikedBallChain2 && spikedBall2)
-	{
 		spikedBallChain2->setSpikedBall(spikedBall2);
-	}
-
-	if (spikedBallChain3 && spikedBall3)
-	{
 		spikedBallChain3->setSpikedBall(spikedBall3);
 	}
 
-	GiantTree* giantTree1 = nullptr;
-	GiantTree* giantTree2 = nullptr;
+	GiantTree* gt1 = nullptr;
+	GiantTree* gt2 = nullptr;
+	GiantTree* gt3 = nullptr;
 	int giantTreeIndex = 0;
 	for (std::vector<ForegroundObject*>::iterator i = m_game->getForegroundObjects().begin(); i != m_game->getForegroundObjects().end(); i++)
 	{
@@ -97,23 +98,41 @@ void Chapter1Level21::enter(GameScreen* gs)
 			switch (giantTreeIndex)
 			{
 			case 1:
-				giantTree1 = dynamic_cast<GiantTree*>((*i));
+				gt1 = dynamic_cast<GiantTree*>((*i));
 				break;
 			case 2:
-				giantTree2 = dynamic_cast<GiantTree*>((*i));
+				gt2 = dynamic_cast<GiantTree*>((*i));
+				break;
+			case 3:
+				gt3 = dynamic_cast<GiantTree*>((*i));
 				break;
 			}
 		}
+
+		if (giantTreeIndex == 3)
+		{
+			break;
+		}
 	}
 	
-	if (giantTree1)
+	if (gt1
+		&& gt2
+		&& gt3)
 	{
-		m_fMarker1X = giantTree1->getPosition().getX();
-	}
-
-	if (giantTree2)
-	{
-		m_fMarker2X = giantTree2->getPosition().getX();
+		m_fMarker1X = fminf(gt1->getPosition().getX(), fminf(gt2->getPosition().getX(), gt3->getPosition().getX()));
+		m_fMarker3X = fmaxf(gt1->getPosition().getX(), fmaxf(gt2->getPosition().getX(), gt3->getPosition().getX()));
+		
+		m_fMarker2X = gt1->getPosition().getX();
+		if (m_fMarker2X < m_fMarker1X
+			|| m_fMarker2X > m_fMarker3X)
+		{
+			m_fMarker2X = gt2->getPosition().getX();
+			if (m_fMarker2X < m_fMarker1X
+				|| m_fMarker2X > m_fMarker3X)
+			{
+				m_fMarker2X = gt3->getPosition().getX();
+			}
+		}
 	}
     
     if (m_game->getEndBossSnakes().size() > 0)
@@ -175,10 +194,7 @@ void Chapter1Level21::enter(GameScreen* gs)
 		jon.setUserActionPrevented(false);
 		jon.becomeVampire();
 
-		if (m_endBossSnake)
-		{
-			m_endBossSnake->beginPursuit();
-		}
+		m_endBossSnake->chargeLeft();
 	}
 }
 
@@ -192,6 +208,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fCheckPointY = 0;
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
+	m_fMarker3X = 0;
 	m_fMusicVolume = 0.5f;
 	m_fCheckPointStateTime = 0;
 	m_iNumCarrotsCollectedAtCheckpoint = 0;
@@ -310,14 +327,17 @@ void Chapter1Level21::update(GameScreen* gs)
 		}
 
 		if (m_endBossSnake->getDamage() == 2
-			&& jon.getPosition().getX() > m_fMarker2X
-			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
+			&& jon.getPosition().getX() > m_fMarker3X)
 		{
 			m_endBossSnake->beginPursuit();
 		}
 		else if (m_endBossSnake->getDamage() == 1
-			&& jon.getPosition().getX() > m_fMarker1X
-			&& jon.getPhysicalState() == PHYSICAL_GROUNDED)
+			&& jon.getPosition().getX() > m_fMarker2X)
+		{
+			m_endBossSnake->beginPursuit();
+		}
+		else if (m_endBossSnake->getDamage() == 0
+			&& jon.getPosition().getX() > m_fMarker1X)
 		{
 			m_endBossSnake->beginPursuit();
 		}
@@ -334,8 +354,6 @@ void Chapter1Level21::update(GameScreen* gs)
 				m_fCheckPointStateTime = m_game->getStateTime();
 
 				m_hasTriggeredCheckPoint = true;
-
-				m_endBossSnake->beginPursuit();
 			}
 			else if (jon.getNumJumps() == 2
 				&& jon.isFalling()
@@ -461,6 +479,7 @@ m_fCheckPointX(0),
 m_fCheckPointY(0),
 m_fMarker1X(0),
 m_fMarker2X(0),
+m_fMarker3X(0),
 m_fMusicVolume(0.5f),
 m_iNumCarrotsCollectedAtCheckpoint(0),
 m_iNumGoldenCarrotsCollectedAtCheckpoint(0),
