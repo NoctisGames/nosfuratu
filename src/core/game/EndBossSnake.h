@@ -134,6 +134,18 @@ public:
     }
     
     virtual void update(float deltaTime);
+    
+    virtual void updateBounds()
+    {
+        getMainBounds().setWidth(getWidth());
+        getMainBounds().setHeight(getHeight());
+        
+        PhysicalEntity::updateBounds();
+        
+        getMainBounds().getLowerLeft().add(getWidth() * 0.15f, getHeight() * 0.0f);
+        getMainBounds().setWidth(getWidth() * 0.70f);
+        getMainBounds().setHeight(getHeight() * 0.50f);
+    }
 
 	void onDeath();
     
