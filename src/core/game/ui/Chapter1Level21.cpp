@@ -139,7 +139,32 @@ void Chapter1Level21::enter(GameScreen* gs)
 		jon.becomeVampire();
 		jon.flash();
 
-		m_batPanel->config(m_game.get(), BatGoalType_Dash);
+		if (jon.isIdle())
+		{
+			jon.setIdle(false);
+		}
+
+		if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
+		{
+			m_batPanel->config(m_game.get(), BatGoalType_Dash);
+		}
+
+		m_endBossSnake->checkPointKill();
+
+		for (std::vector<CollectibleItem*>::iterator i = m_game->getCollectibleItems().begin(); i != m_game->getCollectibleItems().end(); )
+		{
+			if ((*i)->getPosition().getX() < jon.getPosition().getX())
+			{
+				(*i)->onDeletion();
+
+				delete *i;
+				i = m_game->getCollectibleItems().erase(i);
+			}
+			else
+			{
+				i++;
+			}
+		}
 	}
 	else if (m_hasTriggeredCheckPoint)
 	{
@@ -352,6 +377,11 @@ void Chapter1Level21::update(GameScreen* gs)
 	{
 		m_isChaseCamActivated = true;
 
+		if (m_endBossSnake->getPosition().getX() > jon.getPosition().getX())
+		{
+			m_isChaseCamActivated = false;
+		}
+
 		if (m_endBossSnake->getState() == EndBossSnakeState_Dying)
 		{
 			jon.getAcceleration().setX(0);
@@ -375,6 +405,8 @@ void Chapter1Level21::update(GameScreen* gs)
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)
 	{
+		m_isChaseCamActivated = false;
+
 		if (!m_hasTriggeredSnakeDeathCheckPoint)
 		{
 			m_fCheckPointX = jon.getPosition().getX();
@@ -386,12 +418,18 @@ void Chapter1Level21::update(GameScreen* gs)
 
 			jon.flash();
 
-			m_batPanel->config(m_game.get(), BatGoalType_Dash);
+			if (jon.isIdle())
+			{
+				jon.setIdle(false);
+			}
+
+			if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
+			{
+				m_batPanel->config(m_game.get(), BatGoalType_Dash);
+			}
 
 			m_hasTriggeredSnakeDeathCheckPoint = true;
 		}
-
-		m_isChaseCamActivated = false;
 	}
 }
 
@@ -399,7 +437,7 @@ void Chapter1Level21::updateCamera(GameScreen* gs, float paddingX, bool ignoreY,
 {
     if (m_isChaseCamActivated)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
+		gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {

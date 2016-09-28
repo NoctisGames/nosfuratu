@@ -188,28 +188,42 @@ void ForegroundObject::setGame(Game* game)
 
 bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
 {
-    float entityVelocityY = entity->getVelocity().getY();
-    
-    if (entityVelocityY <= 0
-        && entity->getPosition().getX() > getMainBounds().getLeft()
-        && (entity->getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
-    {
-        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
-        {
-            float itemTop = bounds.getTop();
-            
-            entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
-            entity->updateBounds();
-            
-            Jon *jon;
-            if ((jon = dynamic_cast<Jon *>(entity)))
-            {
-                jon->setGroundSoundType(getGroundSoundType());
-            }
-            
-            return true;
-        }
-    }
+	float entityVelocityY = entity->getVelocity().getY();
+
+	if (entityVelocityY <= 0
+		&& entity->getPosition().getX() > getMainBounds().getLeft())
+	{
+		float entityYDelta = fabsf(entityVelocityY * deltaTime);
+
+		Rectangle tempBounds = Rectangle(getMainBounds().getLeft(), getMainBounds().getBottom(), getMainBounds().getWidth(), getMainBounds().getHeight());
+
+		tempBounds.setHeight(tempBounds.getHeight() + entityYDelta);
+
+		if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), tempBounds))
+		{
+			float jonLowerLeftY = entity->getMainBounds().getLowerLeft().getY();
+			float jonYDelta = fabsf(entityVelocityY * deltaTime);
+
+			float itemTop = tempBounds.getTop();
+			float padding = itemTop * .01f;
+			padding += jonYDelta;
+			float itemTopReq = itemTop - padding;
+
+			if (jonLowerLeftY >= itemTopReq)
+			{
+				entity->getPosition().setY(getMainBounds().getTop() + entity->getMainBounds().getHeight() / 2 * .99f);
+				entity->updateBounds();
+
+				Jon *jon;
+				if ((jon = dynamic_cast<Jon *>(entity)))
+				{
+					jon->setGroundSoundType(getGroundSoundType());
+				}
+
+				return true;
+			}
+		}
+	}
     
     return false;
 }
@@ -521,15 +535,34 @@ void VerticalSaw::updateBounds()
 void SpikedBallRollingLeft::update(float deltaTime)
 {
     DeadlyObject::update(deltaTime);
-    
-    if (m_isOnScreen)
+
+	if (!m_isActivated)
+	{
+		Jon& jon = m_game->getJon();
+		if (jon.getPosition().getX() > (getPosition().getX() - CAM_WIDTH * 2))
+		{
+			m_needsToPlaySound = true;
+
+			m_isActivated = true;
+		}
+	}
+
+	if (m_isActivated)
     {
         m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
-        if (m_velocity->getX() < (-VAMP_DEFAULT_MAX_SPEED - 4))
+        if (m_velocity->getX() < (-VAMP_DEFAULT_MAX_SPEED * 2))
         {
-            m_velocity->setX(-VAMP_DEFAULT_MAX_SPEED - 4);
+            m_velocity->setX(-VAMP_DEFAULT_MAX_SPEED * 2);
         }
+
+		if (!m_isStopped)
+		{
+			if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
+			{
+				stop();
+			}
+		}
 
 		if (m_game->isEntityGrounded(this, deltaTime))
 		{
@@ -538,42 +571,33 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 			if (!m_isStopped)
 			{
-				Jon& jon = m_game->getJon();
-				if (jon.getPosition().getX() > (getPosition().getX() - CAM_WIDTH * 1.2f))
+				m_acceleration->setX(-VAMP_DEFAULT_ACCELERATION);
+
+				if (m_needsToPlaySound)
 				{
-					m_acceleration->setX(-VAMP_DEFAULT_ACCELERATION);
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
-					if (m_needsToPlaySound)
-					{
-						Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
-					}
+					m_needsToPlaySound = false;
 				}
-			}
-
-			if (EntityUtils::isBlockedOnLeft(this, m_game->getEndBossForegroundObjects(), deltaTime))
-			{
-				m_isStopped = true;
-
-				m_velocity->setX(0);
-				m_acceleration->setX(0);
-
-				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 			}
 		}
 		else
 		{
-			if (EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime)
-				&& !m_needsToPlaySound)
+			if (!m_hasFallen)
 			{
-				m_velocity->setX(0);
-				m_acceleration->setX(0);
+				if (EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
+				{
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
 
-				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 
-				m_needsToPlaySound = true;
+					m_hasFallen = true;
+					m_needsToPlaySound = true;
+				}
+
+				m_acceleration->setY(GAME_GRAVITY);
 			}
-
-			m_acceleration->setY(GAME_GRAVITY);
 		}
     }
 }
@@ -599,23 +623,49 @@ void SpikedBallRollingLeft::updateBounds()
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
-        
-        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
     }
+}
+
+void SpikedBallRollingLeft::stop()
+{
+	m_isStopped = true;
+
+	m_velocity->setX(0);
+	m_acceleration->setX(0);
+
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void SpikedBallRollingRight::update(float deltaTime)
 {
     DeadlyObject::update(deltaTime);
     
-    if (m_isOnScreen)
+	if (!m_isActivated)
+	{
+		Jon& jon = m_game->getJon();
+		if (jon.getMainBounds().getLeft() > (getMainBounds().getRight() + getMainBounds().getWidth() / 2))
+		{
+			m_needsToPlaySound = true;
+			m_isActivated = true;
+		}
+	}
+
+    if (m_isActivated)
     {
 		m_fAngle -= m_velocity->getX() * deltaTime * 15;
         
-        if (m_velocity->getX() > (VAMP_DEFAULT_MAX_SPEED * 4))
+        if (m_velocity->getX() > (VAMP_DEFAULT_MAX_SPEED * 2))
         {
-            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * 4));
+            m_velocity->setX((VAMP_DEFAULT_MAX_SPEED * 2));
         }
+
+		if (!m_isStopped)
+		{
+			if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
+			{
+				stop();
+			}
+		}
 
 		if (m_game->isEntityGrounded(this, deltaTime))
 		{
@@ -624,42 +674,33 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 			if (!m_isStopped)
 			{
-				Jon& jon = m_game->getJon();
-				if (jon.getPosition().getX() > getPosition().getX())
+				m_acceleration->setX(VAMP_DEFAULT_ACCELERATION * 1.4f);
+
+				if (m_needsToPlaySound)
 				{
-					m_acceleration->setX(VAMP_DEFAULT_ACCELERATION);
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
-					if (m_needsToPlaySound)
-					{
-						Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
-					}
+					m_needsToPlaySound = false;
 				}
-			}
-
-			if (EntityUtils::isBlockedOnRight(this, m_game->getEndBossForegroundObjects(), deltaTime))
-			{
-				m_isStopped = true;
-
-				m_velocity->setX(0);
-				m_acceleration->setX(0);
-
-				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 			}
 		}
 		else
 		{
-			if (EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime)
-				&& !m_needsToPlaySound)
+			if (!m_hasFallen)
 			{
-				m_velocity->setX(0);
-				m_acceleration->setX(0);
+				if (EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime))
+				{
+					m_velocity->setX(0);
+					m_acceleration->setX(0);
 
-				Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 
-				m_needsToPlaySound = true;
+					m_hasFallen = true;
+					m_needsToPlaySound = true;
+				}
+
+				m_acceleration->setY(GAME_GRAVITY);
 			}
-
-			m_acceleration->setY(GAME_GRAVITY);
 		}
     }
 }
@@ -685,9 +726,17 @@ void SpikedBallRollingRight::updateBounds()
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
-        
-        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
     }
+}
+
+void SpikedBallRollingRight::stop()
+{
+	m_isStopped = true;
+
+	m_velocity->setX(0);
+	m_acceleration->setX(0);
+
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void SpikedBall::update(float deltaTime)

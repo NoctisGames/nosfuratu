@@ -347,7 +347,7 @@ void EndBossSnake::update(float deltaTime)
 
 			if (getSnakeBody().getMainBounds().getLeft() > camBounds.getRight())
 			{
-				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 1.2f);
+				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 1.1f);
 				
 				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 
@@ -407,15 +407,15 @@ void EndBossSnake::beginPursuit()
 	{
 		Jon& jon = m_game->getJon();
 
-        m_velocity->setX(jon.getVelocity().getX());
+        m_velocity->setX(VAMP_DEFAULT_MAX_SPEED);
 		m_acceleration->setX(END_BOSS_SNAKE_DEFAULT_ACCELERATION);
 
-		m_position->setX(jon.getPosition().getX() - CAM_WIDTH * 1.2f);
+		m_position->setX(jon.getPosition().getX() - CAM_WIDTH * 1.33f);
 		m_position->setY(2.80124998f);
 
-		if (m_iDamage > 0)
+		if (m_iDamage == 0)
 		{
-			m_position->sub(2, 0);
+			m_position->sub(8.8f, 0);
 		}
 	}
 }
@@ -452,6 +452,11 @@ void EndBossSnake::triggerHit()
     }
 
 	m_snakeTonque->onMouthClose();
+}
+
+void EndBossSnake::checkPointKill()
+{
+	setState(EndBossSnakeState_Dead);
 }
 
 void EndBossSnake::setState(EndBossSnakeState state)

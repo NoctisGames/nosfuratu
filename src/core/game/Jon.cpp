@@ -114,16 +114,10 @@ void Jon::update(float deltaTime)
 
 	if (m_isFlashing)
 	{
-		m_acceleration->set(0, 0);
-		m_velocity->set(0, 0);
-
-		m_isIdle = true;
-
 		m_fFlashStateTime += deltaTime;
 
 		if (m_fFlashStateTime > 2)
 		{
-			m_isIdle = false;
 			m_isFlashing = false;
 
 			m_color.red = 1;

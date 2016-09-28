@@ -510,17 +510,24 @@ public:
     SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingLeft, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f),
 		m_isOnScreen(false),
 		m_isStopped(false),
-		m_needsToPlaySound(false) {}
+		m_needsToPlaySound(false),
+		m_isActivated(false),
+		m_hasFallen(false) {}
     
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
+
+	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+
+	void stop();
     
 private:
     bool m_isOnScreen;
 	bool m_isStopped;
 	bool m_needsToPlaySound;
-	float m_fBottomFloorY;
+	bool m_isActivated;
+	bool m_hasFallen;
 };
 
 class SpikedBallRollingRight : public DeadlyObject
@@ -529,17 +536,24 @@ public:
 	SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingRight, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f),
 		m_isOnScreen(false),
 		m_isStopped(false),
-		m_needsToPlaySound(false) {}
+		m_needsToPlaySound(false),
+		m_isActivated(false),
+		m_hasFallen(false) {}
     
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
+
+	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+
+	void stop();
     
 private:
     bool m_isOnScreen;
 	bool m_isStopped;
 	bool m_needsToPlaySound;
-	float m_fBottomFloorY;
+	bool m_isActivated;
+	bool m_hasFallen;
 };
 
 class SpikedBall : public DeadlyObject
