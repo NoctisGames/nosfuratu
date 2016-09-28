@@ -192,7 +192,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fCheckPointY = 0;
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
-	m_fMusicVolume = 0;
+	m_fMusicVolume = 0.5f;
 	m_fCheckPointStateTime = 0;
 	m_iNumCarrotsCollectedAtCheckpoint = 0;
 	m_iNumGoldenCarrotsCollectedAtCheckpoint = 0;
@@ -302,6 +302,8 @@ void Chapter1Level21::update(GameScreen* gs)
 			if (m_fGameStateTime > 7.15f)
 			{
 				Assets::getInstance()->setMusicId(MUSIC_PLAY_END_BOSS_LOOP);
+
+				m_fMusicVolume = 0.5f;
 
 				m_hasTriggeredMusicLoop = true;
 			}
