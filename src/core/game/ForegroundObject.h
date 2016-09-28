@@ -520,6 +520,8 @@ public:
 
 	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
 
+	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
+
 	void stop();
     
 private:
@@ -545,6 +547,8 @@ public:
     virtual void updateBounds();
 
 	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+
+	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
 
 	void stop();
     

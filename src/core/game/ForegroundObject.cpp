@@ -636,6 +636,32 @@ void SpikedBallRollingLeft::stop()
 	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
+bool SpikedBallRollingLeft::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
+{
+	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
+	{
+		float entityVelocityX = entity->getVelocity().getX();
+		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityRight = entity->getMainBounds().getRight();
+		float entityXDelta = fabsf(entityVelocityX * deltaTime);
+
+		float itemTop = bounds.getTop();
+		float itemTopReq = itemTop * 0.99f;
+
+		float itemLeft = bounds.getLeft();
+		float padding = itemLeft * .01f;
+		padding += entityXDelta;
+		float itemLeftReq = itemLeft + padding;
+
+		if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void SpikedBallRollingRight::update(float deltaTime)
 {
     DeadlyObject::update(deltaTime);
@@ -737,6 +763,32 @@ void SpikedBallRollingRight::stop()
 	m_acceleration->setX(0);
 
 	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+}
+
+bool SpikedBallRollingRight::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
+{
+	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
+	{
+		float entityVelocityX = entity->getVelocity().getX();
+		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityRight = entity->getMainBounds().getRight();
+		float entityXDelta = fabsf(entityVelocityX * deltaTime);
+
+		float itemTop = bounds.getTop();
+		float itemTopReq = itemTop * 0.99f;
+
+		float itemLeft = bounds.getLeft();
+		float padding = itemLeft * .01f;
+		padding += entityXDelta;
+		float itemLeftReq = itemLeft + padding;
+
+		if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void SpikedBall::update(float deltaTime)
