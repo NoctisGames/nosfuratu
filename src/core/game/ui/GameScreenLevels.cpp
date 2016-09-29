@@ -104,6 +104,8 @@ void Level::exit(GameScreen* gs)
 {
     m_game->reset();
     
+    m_sourceGame = nullptr;
+    
     stopLoopingSounds();
     
     Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
@@ -592,10 +594,9 @@ void Level::render(GameScreen* gs)
         gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
     }
 
-	if (m_isDebugMode)
-	{
-		gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
-	}
+#if DEBUG
+	gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
+#endif
     
     if (gs->m_isPaused)
     {
@@ -846,8 +847,7 @@ m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
-m_iLastKnownJonAbilityFlag(0),
-m_isDebugMode(false)
+m_iLastKnownJonAbilityFlag(0)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

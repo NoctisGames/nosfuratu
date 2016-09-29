@@ -634,7 +634,7 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplay
     {
         /// Version
         std::stringstream ss;
-        ss << "v" << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD;
+        ss << VERSION_MAJOR << "." << VERSION_MINOR << "." << VERSION_BUILD;
         std::string text = ss.str();
         m_font->renderText(*m_spriteBatcher, text, fgWidth * 3 / 4, fgHeight * 3 / 4, fgWidth, fgHeight, fontColor, false, false);
     }

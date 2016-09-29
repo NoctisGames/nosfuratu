@@ -50,8 +50,6 @@ public:
     int getJonAbilityFlag();
     
     bool hasCompletedLevel();
-
-	void setIsDebugMode(bool isDebugMode) { m_isDebugMode = isDebugMode; }
     
     Game& getGame();
     
@@ -85,8 +83,6 @@ protected:
     int m_iBestLevelStatsFlag;
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;
-
-	bool m_isDebugMode;
 
 	virtual void beginOpeningSequence(GameScreen* gs);
 
