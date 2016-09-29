@@ -39,21 +39,19 @@ public:
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
-    int getScore();
+    int getScore() { return m_iScore; }
     
-    int getOnlineScore();
+    int getOnlineScore() { return m_iOnlineScore; }
     
-    int getLevelStatsFlag();
+    int getLevelStatsFlag() { return m_iLevelStatsFlag; }
     
-    int getNumGoldenCarrots();
+    int getNumGoldenCarrots() { return m_iNumGoldenCarrots; }
     
     int getJonAbilityFlag();
     
-    bool hasCompletedLevel();
+    bool hasCompletedLevel() { return m_hasCompletedLevel; }
     
-    Game& getGame();
-    
-    void updateButtons(float deltaTime);
+    Game& getGame() { return *m_game; }
     
 protected:
     const char* m_json;
@@ -83,6 +81,8 @@ protected:
     int m_iBestLevelStatsFlag;
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;
+    
+    virtual void onEnter(GameScreen* gs);
 
 	virtual void beginOpeningSequence(GameScreen* gs);
 
@@ -417,6 +417,8 @@ private:
 	bool m_hasTriggeredCheckPoint;
 	bool m_hasTriggeredSnakeDeathCheckPoint;
 
+    virtual void onEnter(GameScreen* gs);
+    
 	virtual void beginOpeningSequence(GameScreen* gs);
 
 	virtual void handleOpeningSequence(GameScreen* gs);

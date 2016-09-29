@@ -327,6 +327,8 @@ public:
     JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f) {}
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
 };
 
 class JumpSpringLight : public ProvideBoostObject

@@ -70,6 +70,8 @@ void Level::enter(GameScreen* gs)
     
     gs->m_renderer->beginOpeningPanningSequence(*m_game);
     
+    onEnter(gs);
+    
     EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
     EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
@@ -144,39 +146,18 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
-int Level::getScore()
-{
-    return m_iScore;
-}
-
-int Level::getOnlineScore()
-{
-    return m_iOnlineScore;
-}
-
-int Level::getLevelStatsFlag()
-{
-    return m_iLevelStatsFlag;
-}
-
-int Level::getNumGoldenCarrots()
-{
-    return m_iNumGoldenCarrots;
-}
-
 int Level::getJonAbilityFlag()
 {
     return m_game->getJon().getAbilityFlag();
 }
 
-bool Level::hasCompletedLevel()
+void Level::onEnter(GameScreen* gs)
 {
-    return m_hasCompletedLevel;
-}
-
-Game& Level::getGame()
-{
-    return *m_game;
+    if (m_hasOpeningSequenceCompleted)
+    {
+        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+        countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
+    }
 }
 
 void Level::beginOpeningSequence(GameScreen* gs)
@@ -257,9 +238,6 @@ void Level::update(GameScreen* gs)
     }
     else
     {
-        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-        countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
-        
         GameTracker::getInstance()->update(gs->m_fDeltaTime);
         
         m_batPanel->update(gs);

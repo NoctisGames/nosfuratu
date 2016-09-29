@@ -202,11 +202,10 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 		if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), tempBounds))
 		{
 			float jonLowerLeftY = entity->getMainBounds().getLowerLeft().getY();
-			float jonYDelta = fabsf(entityVelocityY * deltaTime);
 
 			float itemTop = tempBounds.getTop();
 			float padding = itemTop * .01f;
-			padding += jonYDelta;
+			padding += entityYDelta;
 			float itemTopReq = itemTop - padding;
 
 			if (jonLowerLeftY >= itemTopReq)
@@ -400,6 +399,34 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
 
 bool JumpSpringLightFlush::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
+    return false;
+}
+
+bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
+{
+    float entityVelocityY = entity->getVelocity().getY();
+    
+    if (entityVelocityY <= 0
+        && entity->getPosition().getX() > getMainBounds().getLeft()
+        && (entity->getMainBounds().getBottom() + 0.01f) > getMainBounds().getBottom())
+    {
+        if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
+        {
+            float itemTop = bounds.getTop();
+            
+            entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
+            entity->updateBounds();
+            
+            Jon *jon;
+            if ((jon = dynamic_cast<Jon *>(entity)))
+            {
+                jon->setGroundSoundType(getGroundSoundType());
+            }
+            
+            return true;
+        }
+    }
+    
     return false;
 }
 

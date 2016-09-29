@@ -223,6 +223,11 @@ void Chapter1Level21::exit(GameScreen* gs)
     Level::exit(gs);
 }
 
+void Chapter1Level21::onEnter(GameScreen* gs)
+{
+    // Empty
+}
+
 void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 {
 	Jon& jon = m_game->getJon();
