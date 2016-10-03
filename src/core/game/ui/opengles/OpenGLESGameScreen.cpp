@@ -23,10 +23,6 @@ void OpenGLESGameScreen::init(int screenWidth, int screenHeight)
     
     Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 4096 || screenWidth < 1024 || screenHeight < 1024);
     
-#if DEBUG
-    Title::getInstance()->setIsDisplayingLevelEditorButton(true);
-#endif
-    
     if (!m_renderer)
     {
         m_renderer = std::unique_ptr<OpenGLESRenderer>(new OpenGLESRenderer());
