@@ -609,7 +609,7 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
-void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton)
+void Renderer::renderTitleScreenUi(GameButton* levelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -617,10 +617,9 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplay
     {
         m_spriteBatcher->beginBatch();
         
-        if (isDisplayingLevelEditorButton)
-        {
-            renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
-        }
+#if DEBUG || _DEBUG
+		renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
+#endif
         
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }

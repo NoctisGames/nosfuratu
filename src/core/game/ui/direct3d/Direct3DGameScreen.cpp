@@ -16,8 +16,6 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 
 	Assets::getInstance()->setUsingCompressedTextureSet(useCompressedTextureSet);
 
-	Title::getInstance()->setIsDisplayingLevelEditorButton(!isMobile);
-
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 
 	CreateDeviceDependentResources();

@@ -73,7 +73,7 @@ void Title::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get(), m_isDisplayingLevelEditorButton);
+            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
         }
         
         gs->m_renderer->renderToScreen();
@@ -102,7 +102,11 @@ void Title::execute(GameScreen* gs)
             gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
         }
         
-        for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+		bool isDisplayingLevelEditorButton = false;
+#if DEBUG || _DEBUG
+		isDisplayingLevelEditorButton = true;
+#endif
+		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
             gs->touchToWorld(*(*i));
             
@@ -113,7 +117,7 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-                    if (m_isDisplayingLevelEditorButton
+					if (isDisplayingLevelEditorButton
                         && m_levelEditorButton->handleClick(*gs->m_touchPoint))
                     {
                         m_isRequestingLevelEditor = true;
@@ -145,12 +149,7 @@ GameButton* Title::getLevelEditorButton()
     return m_levelEditorButton.get();
 }
 
-void Title::setIsDisplayingLevelEditorButton(bool isDisplayingLevelEditorButton)
-{
-	m_isDisplayingLevelEditorButton = isDisplayingLevelEditorButton;
-}
-
-Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false), m_isDisplayingLevelEditorButton(false)
+Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
 {
     m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
     m_levelEditorButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_LevelEditor));

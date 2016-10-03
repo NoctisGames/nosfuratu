@@ -96,7 +96,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(GameButton* levelEditorButton, bool isDisplayingLevelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton);
     
     void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
     
