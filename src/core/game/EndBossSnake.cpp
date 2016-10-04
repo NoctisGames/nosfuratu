@@ -473,7 +473,8 @@ void EndBossSnake::triggerHit()
     }
     else
     {
-		m_velocity->setX(END_BOSS_SNAKE_DEFAULT_MAX_SPEED);
+		m_velocity->setX(8);
+		m_acceleration->setX(-10);
 
 		m_iDamage = 3;
 		m_color.red = 3.0f;
