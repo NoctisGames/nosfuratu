@@ -1112,6 +1112,7 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         }
             break;
         case EndBossSnakeState_Pursuing:
+		case EndBossSnakeState_Waiting:
         case EndBossSnakeState_Damaged:
         case EndBossSnakeState_OpeningMouthRight:
 		case EndBossSnakeState_OpenMouthRight:

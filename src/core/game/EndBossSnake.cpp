@@ -205,7 +205,7 @@ void EndBossSnake::update(float deltaTime)
 			break;
 		case EndBossSnakeState_ChargingLeft:
 		{
-			if (m_iDamage > 0)
+			if (m_position->getY() < 3) // Make sure Snake is on Cave Floor (opening sequence completed)
 			{
 				Jon& jon = m_game->getJon();
 
@@ -214,6 +214,27 @@ void EndBossSnake::update(float deltaTime)
 				{
 					jon.kill();
 				}
+			}
+		}
+			break;
+		case EndBossSnakeState_Waiting:
+		{
+			if (m_fStateTime > 3.2f)
+			{
+				Jon& jon = m_game->getJon();
+				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
+				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
+				{
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+				}
+				else
+				{
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+				}
+
+				setState(EndBossSnakeState_OpeningMouthRight);
+
+				return;
 			}
 		}
 			break;
@@ -309,7 +330,7 @@ void EndBossSnake::update(float deltaTime)
 
 			m_snakeBody->getColor().red = m_color.red;
 			
-			if (m_fStateTime > 4)
+			if (m_fStateTime > 3.2f)
 			{
 				Jon& jon = m_game->getJon();
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
@@ -347,11 +368,13 @@ void EndBossSnake::update(float deltaTime)
 
 			if (getSnakeBody().getMainBounds().getLeft() > camBounds.getRight())
 			{
-				m_position->setX(jon.getPosition().getX() + CAM_WIDTH);
+				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 1.1f);
 				
 				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 
 				setState(EndBossSnakeState_OpeningMouthLeft);
+
+				getSnakeBody().update(0);
 
 				return;
 			}
@@ -390,11 +413,22 @@ void EndBossSnake::update(float deltaTime)
 	}
 }
 
-void EndBossSnake::chargeLeft()
+void EndBossSnake::begin()
 {
-	m_hasPlayedChargeSound = true;
+	setState(EndBossSnakeState_Waiting);
 
-	setState(EndBossSnakeState_ChargingLeft);
+	m_snakeTonque->onMouthClose();
+
+	if (m_game->getJons().size() > 0)
+	{
+		Jon& jon = m_game->getJon();
+
+		m_velocity->setX(0);
+		m_acceleration->setX(0);
+
+		m_position->setX(jon.getPosition().getX() - CAM_WIDTH);
+		m_position->setY(2.80124998f);
+	}
 }
 
 void EndBossSnake::awaken()
@@ -540,6 +574,15 @@ void SnakeSpirit::update(float deltaTime)
                 m_isShowing = false;
             }
         }
+		else if (m_fStateTime > 0.6f)
+		{
+			if (!m_hasPlayedSound)
+			{
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
+
+				m_hasPlayedSound = true;
+			}
+		}
     }
 }
 
@@ -697,6 +740,7 @@ void SnakeBody::update(float deltaTime)
     float spacing = GRID_CELL_SIZE * 5;
     
     if (snake->getState() == EndBossSnakeState_Pursuing
+		|| snake->getState() == EndBossSnakeState_Waiting
         || snake->getState() == EndBossSnakeState_Damaged
         || snake->getState() == EndBossSnakeState_OpeningMouthRight
 		|| snake->getState() == EndBossSnakeState_OpenMouthRight

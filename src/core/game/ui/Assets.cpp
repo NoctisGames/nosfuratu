@@ -998,6 +998,7 @@ TextureRegion& Assets::get(SnakeTonque* snakeTonque)
             return anim.getTextureRegion(snakeTonque->getStateTime());
         }
         case EndBossSnakeState_Pursuing:
+		case EndBossSnakeState_Waiting:
         case EndBossSnakeState_Damaged:
         case EndBossSnakeState_OpeningMouthRight:
 		case EndBossSnakeState_OpenMouthRight:
@@ -1029,6 +1030,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
             return tr;
         }
         case EndBossSnakeState_Pursuing:
+		case EndBossSnakeState_Waiting:
         case EndBossSnakeState_Damaged:
         case EndBossSnakeState_OpeningMouthRight:
 		case EndBossSnakeState_OpenMouthRight:
@@ -1067,6 +1069,7 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 			return tr;
 		}
         case EndBossSnakeState_Pursuing:
+		case EndBossSnakeState_Waiting:
 		case EndBossSnakeState_Damaged:
 		{
 			static TextureRegion tr = createTextureRegion(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);

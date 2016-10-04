@@ -194,7 +194,7 @@ void Chapter1Level21::enter(GameScreen* gs)
 		jon.setUserActionPrevented(false);
 		jon.becomeVampire();
 
-		m_endBossSnake->chargeLeft();
+		m_endBossSnake->begin();
 	}
 }
 
@@ -358,6 +358,8 @@ void Chapter1Level21::update(GameScreen* gs)
 				m_fCheckPointY = jon.getPosition().getY();
 				m_fCheckPointStateTime = m_game->getStateTime();
 
+				m_endBossSnake->begin();
+
 				m_hasTriggeredCheckPoint = true;
 			}
 			else if (jon.getNumJumps() == 2
@@ -395,6 +397,7 @@ void Chapter1Level21::update(GameScreen* gs)
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Pursuing
              || m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthRight
              || m_endBossSnake->getState() == EndBossSnakeState_OpenMouthRight
+			 || m_endBossSnake->getState() == EndBossSnakeState_Waiting
              || m_endBossSnake->getState() == EndBossSnakeState_Damaged
              || m_endBossSnake->getState() == EndBossSnakeState_ChargingRight
              || m_endBossSnake->getState() == EndBossSnakeState_Dying
