@@ -237,7 +237,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 {
     if (EntityUtils::isFallingThroughHole(entity, getHoles(), deltaTime))
     {
-        return false;
+        return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime);
     }
 
 	if (EntityUtils::isFallingThroughPit(entity, getPits(), deltaTime))

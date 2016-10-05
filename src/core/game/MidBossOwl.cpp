@@ -108,7 +108,7 @@ void MidBossOwl::update(float deltaTime)
                         if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 6.0f
                             && m_fTimeUnderTreeTop > 6)
                         {
-                            m_velocity->add(cosf(radians) * 16, sinf(radians) * (jon.isVampire() ? 24 : 16));
+                            m_velocity->add(cosf(radians) * 16, sinf(radians) * (jon.isVampire() ? 28 : 16));
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
@@ -179,7 +179,7 @@ void MidBossOwl::update(float deltaTime)
                 float radians = DEGREES_TO_RADIANS(angle);
                 
                 m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
-                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 40 : 16));
+                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 44 : 16));
                 
                 if (fabsf(m_velocity->getX()) < fabs(m_fHighestSwoopSpeedX))
                 {
@@ -215,8 +215,9 @@ void MidBossOwl::update(float deltaTime)
                     {
                         if (OverlapTester::doRectanglesOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
-                            if (m_giveFreeHit
-								|| jon.getPosition().dist((*i)->getPosition()) < 7.0f)
+                            if (!m_didJonTransform
+								&& (m_giveFreeHit
+								|| jon.getPosition().dist((*i)->getPosition()) < 7.0f))
                             {
                                 m_iDamage++;
                                 
