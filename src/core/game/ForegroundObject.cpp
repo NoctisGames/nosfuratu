@@ -191,7 +191,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 	float entityVelocityY = entity->getVelocity().getY();
 
 	if (entityVelocityY <= 0
-		&& entity->getPosition().getX() > getMainBounds().getLeft())
+		&& entity->getMainBounds().getRight() > getMainBounds().getLeft())
 	{
 		float entityYDelta = fabsf(entityVelocityY * deltaTime);
 

@@ -209,7 +209,7 @@ public:
     template<typename T>
     static bool isBlockedOnLeft(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-		Rectangle tempBounds = Rectangle(entity->getMainBounds().getLeft() - 0.5f, entity->getMainBounds().getBottom(), entity->getMainBounds().getWidth(), entity->getMainBounds().getHeight());
+		Rectangle tempBounds = Rectangle(entity->getMainBounds().getLeft(), entity->getMainBounds().getBottom(), entity->getMainBounds().getWidth(), entity->getMainBounds().getHeight());
 
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {

@@ -31,12 +31,9 @@ void main()
         gl_FragColor += additive;
     }
     
-    if (gl_FragColor.r > 0.85
-        && gl_FragColor.r < 1.0
-        && gl_FragColor.g > 0.73
-        && gl_FragColor.g < 0.88
-        && gl_FragColor.b > 0.0
-        && gl_FragColor.b < 0.15)
+    if (gl_FragColor.r > 0.7
+        && gl_FragColor.g > 0.7
+        && gl_FragColor.b < 0.3)
     {
         // We are sampling the Snake's Eye, make sure it stays Vampire Yellow!
         gl_FragColor.a *= color.a;

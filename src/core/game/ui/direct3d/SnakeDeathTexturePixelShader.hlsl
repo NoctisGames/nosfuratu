@@ -28,12 +28,9 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 		ret += additive;
 	}
 
-	if (ret.r > 0.85
-		&& ret.r < 1.0
-		&& ret.g > 0.73
-		&& ret.g < 0.88
-		&& ret.b > 0.0
-		&& ret.b < 0.15)
+	if (ret.r > 0.7
+		&& ret.g > 0.7
+		&& ret.b < 0.3)
     {
 		// We are sampling the Snake's Eye, make sure it stays Vampire Yellow!
 		ret.a = ret.a * colorOut.a;
