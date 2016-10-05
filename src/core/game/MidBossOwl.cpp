@@ -181,7 +181,7 @@ void MidBossOwl::update(float deltaTime)
                 m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
                 m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 40 : 16));
                 
-                if (m_velocity->getX() < m_fHighestSwoopSpeedX)
+                if (fabsf(m_velocity->getX()) < fabs(m_fHighestSwoopSpeedX))
                 {
                     m_velocity->setX(m_fHighestSwoopSpeedX);
                 }
