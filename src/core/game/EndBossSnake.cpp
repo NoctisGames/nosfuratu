@@ -389,7 +389,7 @@ void EndBossSnake::update(float deltaTime)
             }
             
             Jon& jon = m_game->getJon();
-            if (getMainBounds().getRight() > jon.getMainBounds().getLeft() - 0.5f)
+            if (getMainBounds().getRight() > (jon.getMainBounds().getLeft() - 1))
             {
                 m_velocity->setX(0);
                 m_acceleration->setX(0);

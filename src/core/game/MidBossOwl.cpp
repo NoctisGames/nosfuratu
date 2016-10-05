@@ -20,6 +20,7 @@ m_game(nullptr),
 m_fTreeTopY(24.0f),
 m_fGroundTopYWithPadding(14),
 m_fTimeUnderTreeTop(0),
+m_fHighestSwoopSpeedX(0),
 m_iDamage(0),
 m_state(MidBossOwlState_Sleeping),
 m_didJonTransform(false)
@@ -95,16 +96,17 @@ void MidBossOwl::update(float deltaTime)
                     
                     m_fTimeUnderTreeTop += deltaTime;
                     
-                    if (m_fTimeUnderTreeTop > 1.9f)
+                    if (m_fTimeUnderTreeTop > 1.6f)
                     {
                         Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                         
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * 0.80f, sinf(radians) * 1.25f);
+                        m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
                         
-                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 6.0f)
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 6.0f
+                            && m_fTimeUnderTreeTop > 6)
                         {
                             m_velocity->add(cosf(radians) * 16, sinf(radians) * (jon.isVampire() ? 24 : 16));
                             
@@ -166,9 +168,9 @@ void MidBossOwl::update(float deltaTime)
 						m_acceleration->set(0, 4);
 
 						setState(MidBossOwlState_FlyingOverTree);
+                        
+                        return;
 					}
-                    
-                    return;
                 }
                 
                 Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
@@ -176,8 +178,15 @@ void MidBossOwl::update(float deltaTime)
                 float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                 float radians = DEGREES_TO_RADIANS(angle);
                 
-                m_velocity->add(cosf(radians) * 0.80f, sinf(radians) * 1.25f);
+                m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
                 m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 40 : 16));
+                
+                if (m_velocity->getX() < m_fHighestSwoopSpeedX)
+                {
+                    m_velocity->setX(m_fHighestSwoopSpeedX);
+                }
+                
+                m_fHighestSwoopSpeedX = m_velocity->getX();
                 
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
                 {
@@ -308,6 +317,7 @@ void MidBossOwl::beginPursuit()
     m_fHeight = MID_BOSS_OWL_NORMAL_HEIGHT;
     
     m_fTimeUnderTreeTop = 0;
+    m_fHighestSwoopSpeedX = 0;
     
     m_didJonTransform = false;
     

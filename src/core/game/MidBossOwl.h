@@ -64,6 +64,7 @@ private:
     float m_fTreeTopY;
     float m_fGroundTopYWithPadding;
     float m_fTimeUnderTreeTop;
+    float m_fHighestSwoopSpeedX;
     int m_iDamage;
     bool m_didJonTransform;
 	bool m_giveFreeHit;

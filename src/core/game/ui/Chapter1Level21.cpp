@@ -451,11 +451,14 @@ void Chapter1Level21::update(GameScreen* gs)
 			if (jon.isIdle())
 			{
 				jon.setIdle(false);
+                jon.setUserActionPrevented(false);
 			}
 
 			if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
 			{
 				m_batPanel->config(m_game.get(), BatGoalType_Dash);
+                
+                jon.setUserActionPrevented(true);
 			}
 
 			m_hasTriggeredSnakeDeathCheckPoint = true;
