@@ -388,6 +388,13 @@ void EndBossSnake::update(float deltaTime)
                 m_acceleration->setX(0);
             }
             
+            Jon& jon = m_game->getJon();
+            if (getMainBounds().getRight() > jon.getMainBounds().getLeft() - 0.5f)
+            {
+                m_velocity->setX(0);
+                m_acceleration->setX(0);
+            }
+            
 			if (m_fStateTime > 4.3f)
 			{
 				setState(EndBossSnakeState_DeadSpiritReleasing);
@@ -474,7 +481,7 @@ void EndBossSnake::triggerHit()
     else
     {
 		m_velocity->setX(8);
-		m_acceleration->setX(-10);
+		m_acceleration->setX(-8);
 
 		m_iDamage = 3;
 		m_color.red = 3.0f;
