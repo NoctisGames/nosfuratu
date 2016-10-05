@@ -95,7 +95,7 @@ void MidBossOwl::update(float deltaTime)
                     
                     m_fTimeUnderTreeTop += deltaTime;
                     
-                    if (m_fTimeUnderTreeTop > 2.4f)
+                    if (m_fTimeUnderTreeTop > 1.9f)
                     {
                         Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                         
