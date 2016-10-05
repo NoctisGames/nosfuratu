@@ -272,26 +272,24 @@ void Chapter1Level21::update(GameScreen* gs)
     {
 		jon.setUserActionPrevented(true);
 
-        if (jon.getPosition().getX() > m_hole->getPosition().getX())
+        if (jon.getPosition().getX() > m_hole->getPosition().getX()
+            && !m_hasTriggeredMusicLoopIntro)
         {
-			jon.getAcceleration().set(0, 0);
-			jon.getVelocity().set(0, 0);
-			jon.setIdle(true);
-
-			jon.getPosition().setX(m_hole->getPosition().getX());
-			jon.updateBounds();
-
-			if (!m_hasTriggeredMusicLoopIntro)
-			{
-				if (Assets::getInstance()->isMusicEnabled())
-				{
-					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
-				}
-
-				m_hasTriggeredMusicLoopIntro = true;
-
-				return;
-			}
+            jon.getAcceleration().set(0, 0);
+            jon.getVelocity().set(0, 0);
+            jon.setIdle(true);
+            
+            jon.getPosition().setX(m_hole->getPosition().getX());
+            jon.updateBounds();
+            
+            if (Assets::getInstance()->isMusicEnabled())
+            {
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
+            }
+            
+            m_hasTriggeredMusicLoopIntro = true;
+            
+            return;
         }
 
 		if (m_hasTriggeredMusicLoopIntro
@@ -414,8 +412,12 @@ void Chapter1Level21::update(GameScreen* gs)
 		{
 			jon.getAcceleration().setX(0);
 			jon.getVelocity().setX(0);
-			jon.setIdle(true);
-			jon.setUserActionPrevented(true);
+            
+            if (!jon.isIdle())
+            {
+                jon.setIdle(true);
+                jon.setUserActionPrevented(true);
+            }
 		}
 
 		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
