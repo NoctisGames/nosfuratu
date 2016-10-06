@@ -12,7 +12,7 @@
 #include "GameScreenTitle.h"
 #endif
 
-OpenGLESGameScreen::OpenGLESGameScreen() : GameScreen()
+OpenGLESGameScreen::OpenGLESGameScreen(bool isLowMemoryDevice) : GameScreen(), m_isLowMemoryDevice(isLowMemoryDevice)
 {
     // Empty
 }
@@ -21,7 +21,7 @@ void OpenGLESGameScreen::init(int screenWidth, int screenHeight)
 {
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
-    Assets::getInstance()->setUsingCompressedTextureSet(OGLESManager->m_iMaxTextureSize < 4096 || screenWidth < 1024 || screenHeight < 1024);
+    Assets::getInstance()->setUsingCompressedTextureSet(m_isLowMemoryDevice);
     
     if (!m_renderer)
     {

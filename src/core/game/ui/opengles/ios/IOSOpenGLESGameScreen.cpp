@@ -8,7 +8,7 @@
 
 #include "IOSOpenGLESGameScreen.h"
 
-IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight) : OpenGLESGameScreen()
+IOSOpenGLESGameScreen::IOSOpenGLESGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool isLowMemoryDevice) : OpenGLESGameScreen(isLowMemoryDevice)
 {
     m_iPointsWidth = pointsWidth;
     m_iPointsHeight = pointsHeight;

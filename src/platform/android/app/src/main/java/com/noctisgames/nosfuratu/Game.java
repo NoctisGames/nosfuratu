@@ -7,7 +7,7 @@ public final class Game
         System.loadLibrary("game");
     }
 
-    public static native void init();
+    public static native void init(boolean isLowMemoryDevice);
 
     public static native void on_surface_created();
 

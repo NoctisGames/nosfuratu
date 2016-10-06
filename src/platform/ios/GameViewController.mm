@@ -68,7 +68,13 @@
     
     [self initSoundEngine];
     
-    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+    unsigned long long ramSize = [NSProcessInfo processInfo].physicalMemory;
+    bool isLowMemoryDevice = ramSize < 629145600;
+    
+    NSLog(@"ramSize: %llu", ramSize);
+    NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
+    
+    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onPause)

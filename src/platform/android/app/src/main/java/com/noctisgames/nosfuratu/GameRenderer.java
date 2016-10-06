@@ -10,8 +10,13 @@ import android.widget.Toast;
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -21,7 +26,7 @@ public final class GameRenderer implements Renderer
     // Definitions from src/core/game/GameConstants.h
 
     //// Requested Action Definitions ////
-    
+
     private static final short REQUESTED_ACTION_UPDATE = 0;
     // Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
@@ -29,12 +34,12 @@ public final class GameRenderer implements Renderer
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
     private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
     private static final short REQUESTED_ACTION_UNLOCK_LEVEL = 5;
-    
+
     // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
     private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6;
-    
+
     private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
-    
+
     private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
@@ -152,7 +157,13 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("spiked_ball_rolling_loop.wav"));
         _sounds.add(_audio.newSound("absorb_dash_ability.wav"));
 
-        Game.init();
+        double ramSize = getTotalRAM();
+        boolean isLowMemoryDevice = ramSize < 629145600;
+
+        Log.d("NosFURatu", "ramSize: " + ramSize);
+        Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
+
+        Game.init(isLowMemoryDevice);
 
         PlatformAssetUtils.init_asset_manager(activity.getAssets());
     }
@@ -357,7 +368,7 @@ public final class GameRenderer implements Renderer
                     _bgm.stop();
                     _bgm = null;
                 }
-                
+
                 _bgm = _audio.newMusic("level_select_bgm.wav");
                 _bgm.setLooping(true);
                 _bgm.setVolume(0.5f);
@@ -485,16 +496,16 @@ public final class GameRenderer implements Renderer
             }
         });
     }
-    
+
     private void unlockLevel(int requestedAction)
     {
         int world = calcWorld(requestedAction);
         int level = calcLevel(requestedAction);
         int levelStatsFlag = Game.get_level_stats_flag_for_unlocked_level();
         int numGoldenCarrots = Game.get_num_golden_carrots_after_unlocking_level();
-        
+
         SaveData.setLevelStatsFlag(world, level, levelStatsFlag);
-        
+
         SaveData.setNumGoldenCarrots(numGoldenCarrots);
     }
 
@@ -680,5 +691,43 @@ public final class GameRenderer implements Renderer
         int level = requestedAction;
 
         return level;
+    }
+
+    private static double getTotalRAM()
+    {
+        RandomAccessFile reader = null;
+        double totRam = 0;
+        try
+        {
+            reader = new RandomAccessFile("/proc/meminfo", "r");
+            String load = reader.readLine();
+
+            // Get the Number value from the string
+            Pattern p = Pattern.compile("(\\d+)");
+            Matcher m = p.matcher(load);
+            String value = "";
+            while (m.find())
+            {
+                value = m.group(1);
+                // System.out.println("Ram : " + value);
+            }
+            reader.close();
+
+            totRam = Double.parseDouble(value);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            try
+            {
+                reader.close();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return totRam;
     }
 }
