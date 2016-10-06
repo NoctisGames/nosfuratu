@@ -214,6 +214,11 @@ void WorldMap::execute(GameScreen* gs)
                                     
                                     validateAbilityFlag();
                                     
+                                    if (levelToLoad == 21)
+                                    {
+                                        m_iJonAbilityFlag = FLAG_ABILITY_DOUBLE_JUMP | FLAG_ABILITY_TRANSFORM | FLAG_ABILITY_RABBIT_DOWN;
+                                    }
+                                    
                                     WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
               
                                     m_isReadyForTransition = true;
@@ -502,7 +507,7 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
             configAbilitySlot(AbilitySlotType_Dash, isUnlocked, isUnlocking);
         }
         
-        m_iJonAbilityFlag = FLAG_ABILITY_ALL;//jonAbilityFlag;
+        m_iJonAbilityFlag = jonAbilityFlag;
     }
     
     if (d.HasMember(viewed_cutscenes_flag_key))
