@@ -103,7 +103,7 @@ void Title::execute(GameScreen* gs)
         }
         
 		bool isDisplayingLevelEditorButton = false;
-#if DEBUG || _DEBUG || NDK_DEBUG
+#if DEBUG || _DEBUG
 		isDisplayingLevelEditorButton = true;
 #endif
 		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
