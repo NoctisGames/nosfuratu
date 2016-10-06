@@ -154,7 +154,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("absorb_dash_ability.wav"));
 
         double ramSize = getTotalRAM(_activity);
-        boolean isLowMemoryDevice = ramSize < 629145600;
+        boolean isLowMemoryDevice = ramSize < 838860800; // 800 MB
 
         Log.d("NosFURatu", "ramSize: " + ramSize);
         Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
