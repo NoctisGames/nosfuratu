@@ -2047,6 +2047,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\CutscenePanel.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.h" />
@@ -2066,6 +2067,7 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenComingSoon.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.h" />
@@ -2161,6 +2163,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\CutscenePanel.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.cpp" />
@@ -2176,6 +2179,7 @@
     <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameButton.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenComingSoon.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.cpp" />
@@ -2322,6 +2326,11 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0_level_9_3</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FadeScreenTexturePixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FrameBufferObfuscationPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
