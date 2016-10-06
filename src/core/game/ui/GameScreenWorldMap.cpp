@@ -214,10 +214,9 @@ void WorldMap::execute(GameScreen* gs)
                                     
                                     validateAbilityFlag();
                                     
-                                    if (levelToLoad == 21)
-                                    {
-                                        m_iJonAbilityFlag = FLAG_ABILITY_DOUBLE_JUMP | FLAG_ABILITY_TRANSFORM | FLAG_ABILITY_RABBIT_DOWN;
-                                    }
+#if DEBUG || _DEBUG
+                                    m_iJonAbilityFlag = FLAG_ABILITY_DOUBLE_JUMP | FLAG_ABILITY_TRANSFORM | FLAG_ABILITY_RABBIT_DOWN;
+#endif
                                     
                                     WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
               
@@ -326,7 +325,10 @@ void WorldMap::loadUserSaveData(const char* json)
             previousLevelStats = m_worldLevelStats.at(previousWorldIndex)->m_levelStats.at(previousLevelIndex);
         }
         
-        bool isPlayable = true;//FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
+        bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
+#if DEBUG || _DEBUG
+        isPlayable = true;
+#endif
         bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
@@ -338,7 +340,10 @@ void WorldMap::loadUserSaveData(const char* json)
         
         if (bossLevelThumbnail)
         {
-            bool isUnlocked = true;//FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
+            bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
+#if DEBUG || _DEBUG
+            isUnlocked = true;
+#endif
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
     
             bossLevelThumbnail->configLockStatus(isUnlocked, isUnlocking);
