@@ -12,6 +12,7 @@
 #include "GameScreenWorldMap.h"
 #include "GameScreenLevels.h"
 #include "GameScreenOpeningCutscene.h"
+#include "GameScreenComingSoon.h"
 #include "Game.h"
 
 GameScreen::GameScreen() :
@@ -51,7 +52,8 @@ void GameScreen::onResume()
     if (m_wasPaused &&
         (dynamic_cast<Title*>(m_stateMachine->getCurrentState())
          || dynamic_cast<WorldMap*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState())))
+         || dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState())
+         || dynamic_cast<ComingSoon*>(m_stateMachine->getCurrentState())))
     {
         Assets::getInstance()->setMusicId(MUSIC_RESUME);
     }
