@@ -155,7 +155,6 @@ void MidBossOwl::update(float deltaTime)
                 m_velocity->setY(0);
                 
                 if (getMainBounds().getBottom() < m_fGroundTopYWithPadding
-                    || jon.getPosition().getY() > 15
                     || jon.getPosition().getY() < 9
                     || m_velocity->getX() < 0)
                 {
@@ -171,6 +170,10 @@ void MidBossOwl::update(float deltaTime)
                         return;
 					}
                 }
+				else if (jon.getPosition().getY() > 15)
+				{
+					getPosition().setY(jon.getMainBounds().getTop() - 0.1f);
+				}
                 
                 Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                 
