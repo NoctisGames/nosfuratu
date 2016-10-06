@@ -215,7 +215,7 @@ void WorldMap::execute(GameScreen* gs)
                                     validateAbilityFlag();
                                     
 #if DEBUG || _DEBUG
-                                    m_iJonAbilityFlag = FLAG_ABILITY_DOUBLE_JUMP | FLAG_ABILITY_TRANSFORM | FLAG_ABILITY_RABBIT_DOWN;
+                                    m_iJonAbilityFlag = FLAG_ABILITY_ALL;
 #endif
                                     
                                     WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);

@@ -22,6 +22,7 @@
 #include "Game.h"
 #include "Jon.h"
 #include "OpenGLESTransScreenGpuProgramWrapper.h"
+#include "OpenGLESFadeScreenGpuProgramWrapper.h"
 #include "OpenGLESPointTransScreenGpuProgramWrapper.h"
 #include "OpenGLESSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLESSnakeDeathTextureGpuProgramWrapper.h"
@@ -67,6 +68,7 @@ void OpenGLESRenderer::loadShaderPrograms()
 {
     m_backgroundGpuTextureProgramWrapper = OGLESManager->m_textureProgram.get();
     m_transScreenGpuProgramWrapper = new OpenGLESTransScreenGpuProgramWrapper();
+    m_fadeScreenGpuProgramWrapper = new OpenGLESFadeScreenGpuProgramWrapper();
     m_pointTransScreenGpuProgramWrapper = new OpenGLESPointTransScreenGpuProgramWrapper();
     m_sinWaveTextureProgram = new OpenGLESSinWaveTextureGpuProgramWrapper();
     m_snakeDeathTextureProgram = new OpenGLESSnakeDeathTextureGpuProgramWrapper();

@@ -18,6 +18,7 @@
 #include "GameScreenTitle.h"
 #include "GameScreenWorldMap.h"
 #include "GameScreenOpeningCutscene.h"
+#include "GameScreenComingSoon.h"
 #include "BatPanel.h"
 
 /// Title To World Map Transition ///
@@ -522,6 +523,80 @@ m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
 m_hasPlayedTransitionSound(false)
+{
+    // Empty
+}
+
+/// Level To Coming Soon Transition ///
+
+LevelToComingSoon * LevelToComingSoon::getInstance()
+{
+    static LevelToComingSoon *instance = new LevelToComingSoon();
+    
+    return instance;
+}
+
+void LevelToComingSoon::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    ComingSoon::getInstance()->enter(gs);
+}
+
+void LevelToComingSoon::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        if (m_levelState)
+        {
+            gs->m_renderer->renderHud(m_levelState->getGame(), nullptr, m_levelState->getContinueButton(), m_levelState->getScore());
+        }
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderComingSoonScreenBackground();
+        
+        gs->m_renderer->renderToScreenFadeTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            
+            Assets::getInstance()->setMusicId(MUSIC_STOP);
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(ComingSoon::getInstance());
+            
+            Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
+        }
+    }
+}
+
+void LevelToComingSoon::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+void LevelToComingSoon::setLevelComingFrom(Level* levelState)
+{
+    m_levelState = levelState;
+}
+
+LevelToComingSoon::LevelToComingSoon() : m_levelState(nullptr), m_fTransitionStateTime(0)
 {
     // Empty
 }

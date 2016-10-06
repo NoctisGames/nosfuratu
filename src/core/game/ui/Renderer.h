@@ -128,6 +128,10 @@ public:
 
 	void renderDebugInfo(Game& game, int fps);
     
+    void renderComingSoonScreenBackground();
+    
+    void renderComingSoonScreenUi(GameButton* nextArrowButton);
+    
     void renderMarkers(Game& game);
     
     void renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor);
@@ -145,6 +149,8 @@ public:
     void renderToScreenWithTransDeathOut(float timeElapsed);
     
     void renderToScreenTransition(float progress);
+    
+    void renderToScreenFadeTransition(float progress);
     
     void renderToScreenPointTransition(float centerX, float centerY, float progress);
     
@@ -194,6 +200,7 @@ protected:
     std::vector<GpuTextureWrapper> m_framebuffers;
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
+    TransitionGpuProgramWrapper* m_fadeScreenGpuProgramWrapper;
     PointTransitionGpuProgramWrapper* m_pointTransScreenGpuProgramWrapper;
     SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
 	GpuProgramWrapper* m_backgroundGpuTextureProgramWrapper;

@@ -282,6 +282,9 @@
 		BBFAAD841D88BFFC006C6311 /* boss_level_clear.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBFAAD801D88BFFC006C6311 /* boss_level_clear.wav */; };
 		BBFAAD851D88BFFC006C6311 /* level_clear.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBFAAD811D88BFFC006C6311 /* level_clear.wav */; };
 		BBFAAD861D88BFFC006C6311 /* level_selected.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBFAAD821D88BFFC006C6311 /* level_selected.wav */; };
+		BBFF99C51DA6FA43009E93DC /* GameScreenComingSoon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBFF99C31DA6FA43009E93DC /* GameScreenComingSoon.cpp */; };
+		BBFF99C81DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBFF99C61DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.cpp */; };
+		BBFF99CA1DA708FE009E93DC /* fade_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBFF99C91DA708FE009E93DC /* fade_screen_shader.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -798,6 +801,14 @@
 		BBFAAD801D88BFFC006C6311 /* boss_level_clear.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boss_level_clear.wav; sourceTree = "<group>"; };
 		BBFAAD811D88BFFC006C6311 /* level_clear.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_clear.wav; sourceTree = "<group>"; };
 		BBFAAD821D88BFFC006C6311 /* level_selected.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = level_selected.wav; sourceTree = "<group>"; };
+		BBFF99C31DA6FA43009E93DC /* GameScreenComingSoon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenComingSoon.cpp; sourceTree = "<group>"; };
+		BBFF99C41DA6FA43009E93DC /* GameScreenComingSoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenComingSoon.h; sourceTree = "<group>"; };
+		BBFF99C61DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLESFadeScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBFF99C71DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLESFadeScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBFF99C91DA708FE009E93DC /* fade_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fade_screen_shader.fsh; sourceTree = "<group>"; };
+		BBFF99CB1DA70A0F009E93DC /* FadeScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FadeScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBFF99CC1DA70A32009E93DC /* Direct3DFadeScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFadeScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBFF99CD1DA70A32009E93DC /* Direct3DFadeScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFadeScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1460,6 +1471,8 @@
 				BBE68ACD1BBF051E00C56FEA /* GameButton.h */,
 				BBEA165C1B97B9BB009B4711 /* GameScreen.cpp */,
 				BBEA165D1B97B9BB009B4711 /* GameScreen.h */,
+				BBFF99C31DA6FA43009E93DC /* GameScreenComingSoon.cpp */,
+				BBFF99C41DA6FA43009E93DC /* GameScreenComingSoon.h */,
 				BB2DF2891C599A0100DD7BE3 /* GameScreenLevelEditor.cpp */,
 				BB2DF28A1C599A0100DD7BE3 /* GameScreenLevelEditor.h */,
 				BB27A7611C6BFBCD00A82213 /* GameScreenLevels.cpp */,
@@ -1515,6 +1528,8 @@
 				BB27A76B1C6C02CE00A82213 /* Direct3DBackgroundTextureGpuProgramWrapper.h */,
 				BB1B94761D99E8CE002BDC71 /* Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp */,
 				BB1B94771D99E8CE002BDC71 /* Direct3DEndBossSnakeTextureGpuProgramWrapper.h */,
+				BBFF99CC1DA70A32009E93DC /* Direct3DFadeScreenGpuProgramWrapper.cpp */,
+				BBFF99CD1DA70A32009E93DC /* Direct3DFadeScreenGpuProgramWrapper.h */,
 				BB27A76C1C6C02CE00A82213 /* Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp */,
 				BB27A76D1C6C02CE00A82213 /* Direct3DFramebufferRadialBlurGpuProgramWrapper.h */,
 				BB27A76E1C6C02CE00A82213 /* Direct3DFrameBufferTintGpuProgramWrapper.cpp */,
@@ -1534,6 +1549,7 @@
 				BB27A77C1C6C02CE00A82213 /* Direct3DTransScreenGpuProgramWrapper.cpp */,
 				BB27A77D1C6C02CE00A82213 /* Direct3DTransScreenGpuProgramWrapper.h */,
 				BB1B946F1D998EED002BDC71 /* EndBossSnakeTexturePixelShader.hlsl */,
+				BBFF99CB1DA70A0F009E93DC /* FadeScreenTexturePixelShader.hlsl */,
 				BBA2FF7B1D8EF4EB005877DC /* FrameBufferObfuscationPixelShader.hlsl */,
 				BBA2FF7C1D8EF4EB005877DC /* FrameBufferTintToScreenPixelShader.hlsl */,
 				BBA2FF7D1D8EF4EB005877DC /* PointTransScreenTexturePixelShader.hlsl */,
@@ -1555,10 +1571,13 @@
 			children = (
 				BBEA165F1B97B9BB009B4711 /* android */,
 				BB1B946D1D998ED3002BDC71 /* end_boss_snake_texture_shader.fsh */,
+				BBFF99C91DA708FE009E93DC /* fade_screen_shader.fsh */,
 				BB44956C1C537CC0004D1950 /* frame_buffer_to_screen_purple_highlight_shader.fsh */,
 				BBEA16621B97B9BB009B4711 /* ios */,
 				BB1B94731D99E71C002BDC71 /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp */,
 				BB1B94741D99E71C002BDC71 /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.h */,
+				BBFF99C61DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.cpp */,
+				BBFF99C71DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.h */,
 				BBF662B91D8DFF0D00F2BC79 /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp */,
 				BBF662BA1D8DFF0D00F2BC79 /* OpenGLESFramebufferObfuscationGpuProgramWrapper.h */,
 				BBD3869D1C5C3241002CA862 /* OpenGLESFramebufferRadialBlurGpuProgramWrapper.cpp */,
@@ -1775,6 +1794,7 @@
 				BB32DE891C66F43700F98904 /* world_1_background_lower.png in Resources */,
 				BB939CDB1C626E41006D945A /* death.wav in Resources */,
 				BB939CDD1C626E41006D945A /* footstep_left_cave.wav in Resources */,
+				BBFF99CA1DA708FE009E93DC /* fade_screen_shader.fsh in Resources */,
 				BBC38DEE1CA03E80001B178C /* c_world_1_enemies.png in Resources */,
 				BB779B1E1CB32A08002B29AD /* world_1_bgm_intro.wav in Resources */,
 				BBDC296C1D5D643200BDFD7A /* c_world_1_cutscene_2.png in Resources */,
@@ -1886,6 +1906,7 @@
 				BBCE91491C9A204C007EC5DB /* Chapter1Level21.cpp in Sources */,
 				BBE631781BE1194B009C06B1 /* LevelSelectorPanel.cpp in Sources */,
 				BB1F81AA1D4AFF4200DC636D /* PointTransitionGpuProgramWrapper.cpp in Sources */,
+				BBFF99C51DA6FA43009E93DC /* GameScreenComingSoon.cpp in Sources */,
 				BB7DCF061B9A5EE000394A73 /* CollectibleItem.cpp in Sources */,
 				BBE187271C32355100AC3FAE /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BBCF86D21CAE0D2800E5387A /* ConfirmResetPanel.cpp in Sources */,
@@ -1945,6 +1966,7 @@
 				BB1B94721D99E5D8002BDC71 /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB264FFA1C8F5CB60091EA96 /* TitlePanel.cpp in Sources */,
 				BBE68AC81BBF016D00C56FEA /* LevelEditorActionsPanel.cpp in Sources */,
+				BBFF99C81DA70804009E93DC /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BBEA16B31B97B9BB009B4711 /* OpenGLESGameScreen.cpp in Sources */,
 				BB574F3A1C5929F100926A9B /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBEA166E1B97B9BB009B4711 /* Entity.cpp in Sources */,

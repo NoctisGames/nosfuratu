@@ -176,6 +176,12 @@ public:
     bool isSoundEnabled() { return m_isSoundEnabled; }
     
     void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
+    
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    
+    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
 private:
     std::vector<short> m_sSoundIds;
@@ -183,12 +189,6 @@ private:
     bool m_isUsingCompressedTextureSet;
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
-    
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
-    
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
-    
-    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
 	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     

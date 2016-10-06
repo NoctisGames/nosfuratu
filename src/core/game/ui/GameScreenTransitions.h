@@ -166,4 +166,27 @@ private:
     WorldMapToLevel& operator=(const WorldMapToLevel&);
 };
 
+class LevelToComingSoon : public State<GameScreen>
+{
+public:
+    static LevelToComingSoon* getInstance();
+    
+    virtual void enter(GameScreen* gs);
+    
+    virtual void execute(GameScreen* gs);
+    
+    virtual void exit(GameScreen* gs);
+    
+    void setLevelComingFrom(Level* levelState);
+    
+private:
+    Level* m_levelState;
+    float m_fTransitionStateTime;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    LevelToComingSoon();
+    LevelToComingSoon(const LevelToComingSoon&);
+    LevelToComingSoon& operator=(const LevelToComingSoon&);
+};
+
 #endif /* defined(__nosfuratu__GameScreenTransitions__) */

@@ -17,6 +17,8 @@
 #include "MathUtil.h"
 #include "GameTracker.h"
 #include "BatPanel.h"
+#include "GameScreenWorldMap.h"
+#include "GameScreenTransitions.h"
 
 /// Level ///
 
@@ -88,6 +90,8 @@ void Level::enter(GameScreen* gs)
                                        textY - 0.14f,
                                        fgWidth,
                                        fgHeight);
+    
+    m_playLevelSelectMusicOnExit = gs->m_stateMachine->getPreviousState() == WorldMap::getInstance();
 }
 
 void Level::execute(GameScreen* gs)
@@ -110,7 +114,10 @@ void Level::exit(GameScreen* gs)
     
     stopLoopingSounds();
     
-    Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+    if (m_playLevelSelectMusicOnExit)
+    {
+        Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+    }
     
     m_fStateTime = 0;
     gs->m_isReleasingShockwave = false;
@@ -267,7 +274,18 @@ void Level::update(GameScreen* gs)
                     case UP:
                         if (m_continueButton->handleClick(*gs->m_touchPoint))
                         {
-                            gs->m_stateMachine->revertToPreviousState();
+                            if (m_game->getWorld() == 1
+                                && m_game->getLevel() == 21)
+                            {
+                                m_playLevelSelectMusicOnExit = false;
+                                LevelToComingSoon::getInstance()->setLevelComingFrom(this);
+                                gs->m_stateMachine->changeState(LevelToComingSoon::getInstance());
+                            }
+                            else
+                            {
+                                gs->m_stateMachine->revertToPreviousState();
+                            }
+                            
                             return;
                         }
                         
@@ -828,7 +846,8 @@ m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
-m_iLastKnownJonAbilityFlag(0)
+m_iLastKnownJonAbilityFlag(0),
+m_playLevelSelectMusicOnExit(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

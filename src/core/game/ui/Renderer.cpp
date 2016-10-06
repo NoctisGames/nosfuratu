@@ -65,6 +65,7 @@ m_areShadersLoaded(false),
 m_stopCamera(false),
 m_hasCompletedRadialBlur(false),
 m_transScreenGpuProgramWrapper(nullptr),
+m_fadeScreenGpuProgramWrapper(nullptr),
 m_pointTransScreenGpuProgramWrapper(nullptr),
 m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
@@ -297,6 +298,7 @@ bool Renderer::isLoaded()
 {
     return m_misc.gpuTextureWrapper
     && m_transScreenGpuProgramWrapper->isLoaded()
+    && m_fadeScreenGpuProgramWrapper->isLoaded()
     && m_pointTransScreenGpuProgramWrapper->isLoaded()
     && m_sinWaveTextureProgram->isLoaded()
     && m_backgroundGpuTextureProgramWrapper->isLoaded()
@@ -1469,6 +1471,29 @@ void Renderer::renderDebugInfo(Game& game, int fps)
 	}
 }
 
+void Renderer::renderComingSoonScreenBackground()
+{
+    if (m_world_1_background_mid.gpuTextureWrapper == nullptr)
+    {
+        return;
+    }
+    
+    updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
+    static TextureRegion tr = Assets::getInstance()->createTextureRegion(0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
+    m_spriteBatcher->endBatch(*m_world_1_background_mid.gpuTextureWrapper);
+}
+
+void Renderer::renderComingSoonScreenUi(GameButton* nextArrowButton)
+{
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntityWithColor(*nextArrowButton, Assets::getInstance()->get(nextArrowButton), nextArrowButton->getColor(), true);
+    m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
+}
+
 void Renderer::renderMarkers(Game& game)
 {
     static Color originMarkerColor = Color(0, 1, 0, 0.5f);
@@ -1859,6 +1884,21 @@ void Renderer::renderToScreenTransition(float progress)
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transScreenGpuProgramWrapper);
 }
 
+void Renderer::renderToScreenFadeTransition(float progress)
+{
+    /// Render the screen transition to the screen
+    
+    m_fadeScreenGpuProgramWrapper->configure(&m_framebuffers.at(1), progress);
+    
+    bindToScreenFramebuffer();
+    
+    clearFramebufferWithColor(0, 0, 0, 1);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_fadeScreenGpuProgramWrapper);
+}
+
 void Renderer::renderToScreenPointTransition(float centerX, float centerY, float progress)
 {
     /// Render the screen transition to the screen
@@ -1920,6 +1960,7 @@ void Renderer::cleanUp()
     if (m_areShadersLoaded)
     {
         m_transScreenGpuProgramWrapper->cleanUp();
+        m_fadeScreenGpuProgramWrapper->cleanUp();
         m_pointTransScreenGpuProgramWrapper->cleanUp();
         m_sinWaveTextureProgram->cleanUp();
         m_backgroundGpuTextureProgramWrapper->cleanUp();

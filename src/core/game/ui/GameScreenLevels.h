@@ -53,6 +53,8 @@ public:
     
     Game& getGame() { return *m_game; }
     
+    GameButton* getContinueButton() { return m_continueButton.get(); }
+    
 protected:
     const char* m_json;
     std::unique_ptr<Game> m_game;
@@ -109,6 +111,8 @@ protected:
     Level& operator=(const Level&);
     
 private:
+    bool m_playLevelSelectMusicOnExit;
+    
     void updateScore();
     
     void stopLoopingSounds();
