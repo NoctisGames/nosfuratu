@@ -1,6 +1,7 @@
 package com.noctisgames.nosfuratu;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -10,13 +11,8 @@ import android.widget.Toast;
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -157,7 +153,7 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("spiked_ball_rolling_loop.wav"));
         _sounds.add(_audio.newSound("absorb_dash_ability.wav"));
 
-        double ramSize = getTotalRAM();
+        double ramSize = getTotalRAM(_activity);
         boolean isLowMemoryDevice = ramSize < 629145600;
 
         Log.d("NosFURatu", "ramSize: " + ramSize);
@@ -693,41 +689,13 @@ public final class GameRenderer implements Renderer
         return level;
     }
 
-    private static double getTotalRAM()
+    private static double getTotalRAM(Activity activity)
     {
-        RandomAccessFile reader = null;
-        double totRam = 0;
-        try
-        {
-            reader = new RandomAccessFile("/proc/meminfo", "r");
-            String load = reader.readLine();
+        ActivityManager actManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+        actManager.getMemoryInfo(memInfo);
+        long totalMemory = memInfo.totalMem;
 
-            // Get the Number value from the string
-            Pattern p = Pattern.compile("(\\d+)");
-            Matcher m = p.matcher(load);
-            String value = "";
-            while (m.find())
-            {
-                value = m.group(1);
-                // System.out.println("Ram : " + value);
-            }
-            reader.close();
-
-            totRam = Double.parseDouble(value);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        } finally
-        {
-            try
-            {
-                reader.close();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return totRam;
+        return totalMemory;
     }
 }
