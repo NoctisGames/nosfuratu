@@ -98,6 +98,8 @@ public:
 	virtual int getEntityLandingPriority() { return 0; }
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -122,6 +124,8 @@ protected:
     virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
     
 private:
     ForegroundObjectType m_type;
@@ -134,6 +138,8 @@ public:
     PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
     
 	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
 
     virtual bool canObjectBePlacedOn();
 };
@@ -283,6 +289,8 @@ public:
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime) { return false; }
 };
 
 class ThornsLeft : public DeadlyObject
@@ -327,6 +335,8 @@ public:
     JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f) {}
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
 };

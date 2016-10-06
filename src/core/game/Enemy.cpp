@@ -495,6 +495,26 @@ void Toad::handleDead(float deltaTime)
     }
 }
 
+void Fox::updateBounds()
+{
+	Enemy::updateBounds();
+
+	Rectangle& camBounds = *m_game->getCameraBounds();
+
+	if (camBounds.getWidth() > CAM_WIDTH)
+	{
+		return;
+	}
+
+	if (!m_isOnScreen)
+	{
+		if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+		{
+			m_isOnScreen = true;
+		}
+	}
+}
+
 bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     Jon *jon;
@@ -531,21 +551,11 @@ bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 void Fox::handleAlive(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
-    
-    bool isTooFarLeft = false;
-    bool isTooFarRight = false;
-    if (m_position->getX() - m_fStartingX > 8)
-    {
-        // Fox has wandered too far away from its starting position
-        m_velocity->setX(0);
-        isTooFarRight = true;
-    }
-    else if (m_position->getX() - m_fStartingX < -8)
-    {
-        // Fox has wandered too far away from its starting position
-        m_velocity->setX(0);
-        isTooFarLeft = true;
-    }
+
+	if (!m_isOnScreen)
+	{
+		return;
+	}
     
     if (m_isBeingHit)
     {
@@ -557,6 +567,28 @@ void Fox::handleAlive(float deltaTime)
         return;
     }
     
+	bool isGrounded;
+	if ((isGrounded = m_game->isEntityGrounded(this, deltaTime)))
+	{
+		m_acceleration->setY(0);
+		m_velocity->setY(0);
+	}
+	else
+	{
+		m_acceleration->setY(GAME_GRAVITY);
+	}
+
+	if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime)
+		|| EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime)
+		|| EntityUtils::isBlockedOnRight(this, m_game->getForegroundObjects(), deltaTime)
+		|| EntityUtils::isBlockedOnRight(this, m_game->getGrounds(), deltaTime))
+	{
+		if (!isGrounded)
+		{
+			m_velocity->setX(0);
+		}
+	}
+
     Jon& jon = m_game->getJon();
     
     if (m_isHitting)
@@ -578,7 +610,7 @@ void Fox::handleAlive(float deltaTime)
             m_isHitting = true;
             m_isLeft = true;
             
-            m_velocity->setX(isTooFarLeft ? 0 : -7);
+            m_velocity->setX(-RABBIT_DEFAULT_MAX_SPEED);
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
@@ -591,7 +623,7 @@ void Fox::handleAlive(float deltaTime)
             m_isHitting = true;
             m_isLeft = false;
             
-            m_velocity->setX(isTooFarRight ? 0 : 7);
+            m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
@@ -601,7 +633,7 @@ void Fox::handleAlive(float deltaTime)
             {
                 m_fStateTime = 0;
                 m_isLeft = !m_isLeft;
-                m_velocity->setX(m_isLeft ? -4.0f : 4.0f);
+                m_velocity->setX(m_isLeft ? -3.2f : 3.2f);
             }
             else if (m_fStateTime > 0.30f)
             {
@@ -768,7 +800,8 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
         }
         else
         {
-            if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime))
+            if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime)
+				|| EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
             {
 				m_velocity->setX(0);
                 

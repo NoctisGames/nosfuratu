@@ -35,9 +35,9 @@ float4 main(float4 position : SV_POSITION, float4 color : COLOR, float2 texcoord
 		// We are sampling the Snake's Eye, make sure it stays Vampire Yellow!
 		ret.a = ret.a * colorOut.a;
     }
-    else if (ret.r > 0.94
-		&& ret.g > 0.94
-		&& ret.b > 0.94)
+    else if (ret.r > 0.9
+		&& ret.g > 0.9
+		&& ret.b > 0.9)
     {
 		// We are sampling the Snake's Fangs, make sure they stay White!
 		ret.a = ret.a * colorOut.a;

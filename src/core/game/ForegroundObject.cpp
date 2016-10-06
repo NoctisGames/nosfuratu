@@ -149,6 +149,11 @@ bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, float delt
     return isEntityBlockedOnRight(entity, getMainBounds(), deltaTime);
 }
 
+bool ForegroundObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+	return isEntityBlockedOnLeft(entity, getMainBounds(), deltaTime);
+}
+
 bool ForegroundObject::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     return false;
@@ -234,7 +239,7 @@ bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle&
         float entityVelocityX = entity->getVelocity().getX();
         float entityBottom = entity->getMainBounds().getLowerLeft().getY();
         float entityRight = entity->getMainBounds().getRight();
-        float entityXDelta = fabsf(entityVelocityX * deltaTime);
+        float entityXDelta = entityVelocityX * deltaTime;
         
         float itemTop = bounds.getTop();
         float itemTopReq = itemTop * 0.99f;
@@ -256,11 +261,45 @@ bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle&
     return false;
 }
 
+bool ForegroundObject::isEntityBlockedOnLeft(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)
+{
+	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
+	{
+		float entityVelocityX = entity->getVelocity().getX();
+		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityLeft = entity->getMainBounds().getLeft();
+		float entityXDelta = entityVelocityX * deltaTime;
+
+		float itemTop = bounds.getTop();
+		float itemTopReq = itemTop * 0.99f;
+
+		float itemRight = bounds.getRight();
+		float padding = itemRight * .01f;
+		padding -= entityXDelta;
+		float itemRightReq = itemRight - padding;
+
+		if (entityLeft >= itemRightReq && entityBottom < itemTopReq)
+		{
+			entity->getPosition().setX(itemRight + entity->getMainBounds().getWidth() / 2 * 1.01f);
+			entity->updateBounds();
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 #pragma mark subclasses
 
 bool PlatformObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return false;
+}
+
+bool PlatformObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+	return false;
 }
 
 bool PlatformObject::canObjectBePlacedOn()
@@ -400,6 +439,11 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
 bool JumpSpringLightFlush::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return false;
+}
+
+bool JumpSpringLightFlush::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+	return false;
 }
 
 bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime)

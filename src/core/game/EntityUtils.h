@@ -209,28 +209,17 @@ public:
     template<typename T>
     static bool isBlockedOnLeft(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-		Rectangle tempBounds = Rectangle(entity->getMainBounds().getLeft(), entity->getMainBounds().getBottom(), entity->getMainBounds().getWidth(), entity->getMainBounds().getHeight());
-
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
 			if ((*i) == entity)
 			{
 				continue;
 			}
 
-			if (dynamic_cast<PlatformObject *>((*i)))
+			if ((*i)->isEntityBlockedOnLeft(entity, deltaTime))
 			{
-				continue;
+				return true;
 			}
-
-            if (OverlapTester::doRectanglesOverlap(tempBounds, (*i)->getMainBounds()))
-            {
-                if ((*i)->getMainBounds().getTop() > tempBounds.getBottom())
-                {
-					entity->getPosition().setX((*i)->getMainBounds().getRight() + entity->getMainBounds().getWidth() / 2 * 1.01f);
-                    return true;
-                }
-            }
         }
         
         return false;

@@ -69,6 +69,8 @@ public:
 	virtual int getEntityLandingPriority() { return 0; }
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -271,6 +273,8 @@ public:
     GrassPit(int gridX, int gridWidth, GroundType type) : Ground(gridX, 0, gridWidth, 100, 0, 0.96f, type, GROUND_SOUND_NONE) {}
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
     

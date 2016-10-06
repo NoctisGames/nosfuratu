@@ -38,9 +38,9 @@ void main()
         // We are sampling the Snake's Eye, make sure it stays Vampire Yellow!
         gl_FragColor.a *= color.a;
     }
-    else if (gl_FragColor.r > 0.94
-             && gl_FragColor.g > 0.94
-             && gl_FragColor.b > 0.94)
+    else if (gl_FragColor.r > 0.9
+             && gl_FragColor.g > 0.9
+             && gl_FragColor.b > 0.9)
     {
         // We are sampling the Snake's Fangs, make sure they stay White!
         gl_FragColor.a *= color.a;

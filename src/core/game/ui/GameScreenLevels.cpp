@@ -578,6 +578,9 @@ void Level::render(GameScreen* gs)
     
     if (gs->m_isPaused)
     {
+		m_fStateTime = 0;
+		m_showDeathTransOut = false;
+
         gs->m_renderer->renderResumeButtonOverlay();
     }
     
