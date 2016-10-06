@@ -261,6 +261,11 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 
 bool Game::isJonBlockedHorizontally(float deltaTime)
 {
+    if (EntityUtils::isFallingThroughHole(getJonP(), getHoles(), deltaTime))
+    {
+        return EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime);
+    }
+    
     if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
     {
         return EntityUtils::isBlockedOnRight(getJonP(), getPits(), deltaTime)

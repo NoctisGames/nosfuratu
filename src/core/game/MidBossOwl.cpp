@@ -103,12 +103,11 @@ void MidBossOwl::update(float deltaTime)
                         float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                         float radians = DEGREES_TO_RADIANS(angle);
                         
-                        m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
+                        m_velocity->add(cosf(radians) * 0.92f, sinf(radians) * 1.20f);
                         
-                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 6.0f
-                            && m_fTimeUnderTreeTop > 6)
+                        if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 6.0f)
                         {
-                            m_velocity->add(cosf(radians) * 16, sinf(radians) * (jon.isVampire() ? 28 : 16));
+                            m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 44 : 14));
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
@@ -178,15 +177,20 @@ void MidBossOwl::update(float deltaTime)
                 float angle = target.cpy().sub(m_position->getX(), m_position->getY()).angle();
                 float radians = DEGREES_TO_RADIANS(angle);
                 
-                m_velocity->add(cosf(radians) * 0.96f, sinf(radians) * 1.26f);
-                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 44 : 16));
+                m_velocity->add(cosf(radians) * 0.92f, sinf(radians) * 1.20f);
+                m_velocity->add(cosf(radians) * 16, sinf(radians) * (m_didJonTransform ? 44 : 14));
                 
-                if (fabsf(m_velocity->getX()) < fabs(m_fHighestSwoopSpeedX))
+                if (m_velocity->getX() < m_fHighestSwoopSpeedX)
                 {
                     m_velocity->setX(m_fHighestSwoopSpeedX);
                 }
                 
                 m_fHighestSwoopSpeedX = m_velocity->getX();
+                
+                if (getMainBounds().getBottom() < (jon.getMainBounds().getTop() - 0.5f))
+                {
+                    m_velocity->setY(0);
+                }
                 
                 if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
                 {
