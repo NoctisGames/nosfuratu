@@ -25,7 +25,7 @@ void main()
         x = 1.0 - x;
         
         float smoothness = 0.1;
-        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.5 + smoothness));
+        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.8 + smoothness));
         gl_FragColor = mix(black, texture2D(u_from, p), 1.0 - m);
     }
     else if (x >= 0.51)
@@ -34,7 +34,7 @@ void main()
         x = x * 2.04081632653061;
         
         float smoothness = 0.1;
-        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.5 + smoothness));
+        float m = smoothstep(-smoothness, 0.0, SQRT_2 * distance(center, p) - x * (1.8 + smoothness));
         gl_FragColor = mix(black, texture2D(u_to, p), 1.0 - m);
     }
     else
