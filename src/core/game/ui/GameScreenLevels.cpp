@@ -572,7 +572,7 @@ void Level::render(GameScreen* gs)
         gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
     }
 
-#if DEBUG || _DEBUG
+#if DEBUG || _DEBUG || NDK_DEBUG
 	gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
 #endif
     

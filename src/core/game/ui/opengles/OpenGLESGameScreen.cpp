@@ -8,10 +8,6 @@
 
 #include "OpenGLESGameScreen.h"
 
-#if DEBUG
-#include "GameScreenTitle.h"
-#endif
-
 OpenGLESGameScreen::OpenGLESGameScreen(bool isLowMemoryDevice) : GameScreen(), m_isLowMemoryDevice(isLowMemoryDevice)
 {
     // Empty

@@ -613,16 +613,16 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
+#if DEBUG || _DEBUG || NDK_DEBUG
     if (m_title_screen.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();
         
-#if DEBUG || _DEBUG
-		renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
-#endif
+        renderPhysicalEntity(*levelEditorButton, Assets::getInstance()->get(levelEditorButton), true);
         
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
+#endif
     
     static Color fontColor = Color(0.7f, 0.7f, 0.7f, 1);
     static float fgWidth = CAM_WIDTH / 60;

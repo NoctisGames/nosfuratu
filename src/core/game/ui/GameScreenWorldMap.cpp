@@ -214,7 +214,7 @@ void WorldMap::execute(GameScreen* gs)
                                     
                                     validateAbilityFlag();
                                     
-#if DEBUG || _DEBUG
+#if DEBUG || _DEBUG || NDK_DEBUG
                                     m_iJonAbilityFlag = FLAG_ABILITY_DOUBLE_JUMP | FLAG_ABILITY_TRANSFORM | FLAG_ABILITY_RABBIT_DOWN;
 #endif
                                     
@@ -326,7 +326,7 @@ void WorldMap::loadUserSaveData(const char* json)
         }
         
         bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
-#if DEBUG || _DEBUG
+#if DEBUG || _DEBUG || NDK_DEBUG
         isPlayable = true;
 #endif
         bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
@@ -341,7 +341,7 @@ void WorldMap::loadUserSaveData(const char* json)
         if (bossLevelThumbnail)
         {
             bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
-#if DEBUG || _DEBUG
+#if DEBUG || _DEBUG || NDK_DEBUG
             isUnlocked = true;
 #endif
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();

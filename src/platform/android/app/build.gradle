@@ -15,7 +15,7 @@ android {
     buildToolsVersion "23.0.0"
     defaultConfig {
         applicationId "com.noctisgames.nosfuratu"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "0.9.2"
@@ -23,6 +23,7 @@ android {
     }
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -116,8 +117,9 @@ def getNdkDir() {
 
 def getNdkBuildCmd() {
     def ndkbuild = getNdkDir() + "/ndk-build"
-    if (Os.isFamily(Os.FAMILY_WINDOWS))
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
         ndkbuild += ".cmd"
+    }
 
     return ndkbuild
 }
