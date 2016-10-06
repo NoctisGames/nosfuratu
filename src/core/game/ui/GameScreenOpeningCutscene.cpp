@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "EntityUtils.h"
 #include "BatPanel.h"
+#include "GameScreenWorldMap.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {
@@ -108,6 +109,24 @@ void OpeningCutscene::execute(GameScreen* gs)
                     gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
                     
                     m_isRequestingNextState = true;
+                }
+            }
+        }
+        
+        if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
+        {
+            for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+            {
+                switch ((*i)->getTouchType())
+                {
+                    case DOWN:
+                        continue;
+                    case DRAGGED:
+                        continue;
+                    case UP:
+                        m_isRequestingNextState = true;
+                        
+                        return;
                 }
             }
         }

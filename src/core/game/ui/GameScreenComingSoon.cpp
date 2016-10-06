@@ -58,8 +58,6 @@ void ComingSoon::execute(GameScreen* gs)
         
 		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
-            gs->touchToWorld(*(*i));
-            
             switch ((*i)->getTouchType())
             {
                 case DOWN:
