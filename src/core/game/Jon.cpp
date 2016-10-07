@@ -1328,6 +1328,8 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_iNumBoosts++;
     
     Assets::getInstance()->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
@@ -1344,6 +1346,8 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumVampireJumps = 1;
+
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -1351,11 +1355,14 @@ void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloc
     jon->m_acceleration->setY(GAME_GRAVITY);
     jon->m_velocity->setY(bounceBackVelocity);
     
-    jon->setState(ACTION_DOUBLE_JUMPING);
-    
-    jon->m_iNumVampireJumps = 2;
-    
-    m_isFallingAfterGlide = false;
+	m_isFallingAfterGlide = false;
+
+	jon->setState(ACTION_DOUBLE_JUMPING);
+	jon->setState(ABILITY_NONE);
+
+	jon->m_iNumVampireJumps = 1;
+
+	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
