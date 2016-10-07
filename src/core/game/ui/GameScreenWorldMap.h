@@ -205,7 +205,7 @@ public:
     {
         if (OverlapTester::isPointInRectangle(touchPoint, getMainBounds()))
         {
-            if (m_userHasEnoughGoldenCats)
+            if (m_userHasEnoughGoldenCats && touchPoint.getY() > (getMainBounds().getBottom() + getMainBounds().getHeight() / 2))
             {
                 return 1;
             }
@@ -327,8 +327,11 @@ public:
             m_isJawMoving = true;
             
             m_fStateTime = 0;
+
+			float width = CAM_WIDTH * 0.18198529411765f;
+			float height = CAM_HEIGHT * 0.33333333333333f;
             
-            m_spendGoldenCarrotsBubble.config(m_position->getX() - m_fWidth / 2, m_position->getY() + m_fHeight / 2, getWorld(), getLevel());
+            m_spendGoldenCarrotsBubble.config(m_position->getX() - width * 0.28f, m_position->getY() + height * 0.44f, getWorld(), getLevel());
         }
     }
     

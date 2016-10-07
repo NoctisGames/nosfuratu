@@ -329,7 +329,7 @@ void WorldMap::loadUserSaveData(const char* json)
 #if DEBUG || _DEBUG
         isPlayable = true;
 #endif
-        bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
+		bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)
@@ -480,7 +480,7 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
         
         int numCollectedGoldenCarrots = v.GetInt();
         
-        m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(numCollectedGoldenCarrots > NUM_GC_REQ);
+        m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(numCollectedGoldenCarrots >= NUM_GC_REQ);
         
         if (m_iNumCollectedGoldenCarrots != numCollectedGoldenCarrots
             && numCollectedGoldenCarrots != 0)
