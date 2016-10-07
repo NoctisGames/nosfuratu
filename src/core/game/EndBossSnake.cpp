@@ -581,15 +581,6 @@ void SnakeSpirit::update(float deltaTime)
                 m_isShowing = false;
             }
         }
-		else if (m_fStateTime > 0.6f)
-		{
-			if (!m_hasPlayedSound)
-			{
-				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
-
-				m_hasPlayedSound = true;
-			}
-		}
     }
 }
 
@@ -610,6 +601,8 @@ void SnakeSpirit::onDeath()
     m_color.alpha = 1;
     
     m_isShowing = true;
+    
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
 }
 
 void SnakeHeadImpact::update(float deltaTime)

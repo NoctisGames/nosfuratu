@@ -19,7 +19,7 @@ class EndBossSnake;
 class SnakeSpirit : public PhysicalEntity
 {
 public:
-    SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false), m_hasPlayedSound(false)
+    SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
     {
         // Empty
     }
@@ -36,7 +36,6 @@ private:
     EndBossSnake* m_endBossSnake;
     Color m_color;
     bool m_isShowing;
-	bool m_hasPlayedSound;
 };
 
 class SnakeHeadImpact : public PhysicalEntity
