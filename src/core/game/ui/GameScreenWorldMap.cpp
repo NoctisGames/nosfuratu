@@ -214,11 +214,12 @@ void WorldMap::execute(GameScreen* gs)
                                     
                                     validateAbilityFlag();
                                     
+                                    int abilityFlag = m_iJonAbilityFlag;
 #if DEBUG || _DEBUG
-                                    m_iJonAbilityFlag = FLAG_ABILITY_ALL;
+                                    abilityFlag = FLAG_ABILITY_ALL;
 #endif
                                     
-                                    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, m_iJonAbilityFlag);
+                                    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, abilityFlag);
               
                                     m_isReadyForTransition = true;
                                     
