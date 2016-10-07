@@ -269,7 +269,6 @@ void WorldMap::exit(GameScreen* gs)
 
 void WorldMap::updateButtons(float deltaTime)
 {
-    m_backButton->update(deltaTime);
     m_toggleMusic->update(deltaTime);
     m_toggleSound->update(deltaTime);
     m_leaderBoardsButton->update(deltaTime);
@@ -726,7 +725,7 @@ m_isNextWorldButtonEnabled(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.89705882352941f, pH * 0.4640522875817f, 1, 7));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.35947712418301f, 1, 8));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.35947712418301f, 1, 9));
-    m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.54411764705882f, pH * 0.35347712418301f, 1, 10, *m_spendGoldenCarrotsBubble));
+    m_levelThumbnails.push_back(new MidBossLevelThumbnail(pW * 0.54411764705882f, pH * 0.35347712418301f, 1, 10, *m_spendGoldenCarrotsBubble));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.42647058823529f, pH * 0.35947712418301f, 1, 11));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.30882352941176f, pH * 0.35947712418301f, 1, 12));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.19117647058824f, pH * 0.35947712418301f, 1, 13));

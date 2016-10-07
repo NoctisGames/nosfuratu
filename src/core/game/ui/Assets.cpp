@@ -153,13 +153,7 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
     
     if (bossLevelThumbnail)
     {
-		if (!thumbnail->isPlayable())
-		{
-			static TextureRegion tr = TextureRegion(792, 1008, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-			return tr;
-		}
-
-        if (bossLevelThumbnail->isUnlocking())
+		if (bossLevelThumbnail->isUnlocking())
         {
             static Animation anim = Animation(0, 804, 198, 204, 1980, 408, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 13);
             return anim.getTextureRegion(thumbnail->getStateTime());

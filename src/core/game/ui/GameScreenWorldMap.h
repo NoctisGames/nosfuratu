@@ -109,7 +109,7 @@ public:
     
     int getLevel() { return m_iLevel; }
     
-    void config(bool isPlayable, bool isClearing, bool isCleared)
+    virtual void config(bool isPlayable, bool isClearing, bool isCleared)
     {
         m_isPlayable = isPlayable;
         m_isSelecting = false;
@@ -267,7 +267,7 @@ private:
 class BossLevelThumbnail : public LevelThumbnail
 {
 public:
-    BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble) : LevelThumbnail(x, y, CAM_WIDTH * 0.18198529411765f, CAM_HEIGHT * 0.33333333333333f, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false) {}
+    BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f, float height = CAM_HEIGHT * 0.33333333333333f) : LevelThumbnail(x, y, width, height, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false) {}
     
     virtual void update(float deltaTime)
     {
@@ -306,6 +306,15 @@ public:
             m_fStateTime += deltaTime;
         }
     }
+
+	virtual void config(bool isPlayable, bool isClearing, bool isCleared)
+	{
+		LevelThumbnail::config(isPlayable, isClearing, isCleared);
+
+		m_color.red = m_isPlayable ? 1 : 0;
+		m_color.green = m_isPlayable ? 1 : 0;
+		m_color.blue = m_isPlayable ? 1 : 0;
+	}
     
     virtual void select()
     {
@@ -361,6 +370,12 @@ private:
     bool m_isUnlocking;
     bool m_isUnlocked;
     bool m_needsToPlayUnlockSound;
+};
+
+class MidBossLevelThumbnail : public BossLevelThumbnail
+{
+public:
+	MidBossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f * 2 / 3, float height = CAM_HEIGHT * 0.33333333333333f * 2 / 3) : BossLevelThumbnail(x, y, world, level, spendGoldenCarrotsBubble, width, height) {}
 };
 
 class AbilitySlot : public PhysicalEntity
