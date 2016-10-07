@@ -39,6 +39,8 @@ public:
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
+    void stopLoopingSounds();
+    
     int getScore() { return m_iScore; }
     
     int getOnlineScore() { return m_iOnlineScore; }
@@ -114,8 +116,6 @@ private:
     bool m_playLevelSelectMusicOnExit;
     
     void updateScore();
-    
-    void stopLoopingSounds();
     
     void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime);
 };

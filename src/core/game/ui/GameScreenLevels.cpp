@@ -153,6 +153,14 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
+void Level::stopLoopingSounds()
+{
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+}
+
 int Level::getJonAbilityFlag()
 {
     return m_game->getJon().getAbilityFlag();
@@ -770,14 +778,6 @@ void Level::updateScore()
     }
     
     m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
-}
-
-void Level::stopLoopingSounds()
-{
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
-	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)

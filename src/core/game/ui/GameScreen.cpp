@@ -68,6 +68,7 @@ void GameScreen::onPause()
     if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
     {
         Level* level = (Level*) m_stateMachine->getCurrentState();
+        level->stopLoopingSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }
