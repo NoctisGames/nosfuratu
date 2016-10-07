@@ -740,7 +740,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 	if (!m_isActivated)
 	{
 		Jon& jon = m_game->getJon();
-		if (jon.getMainBounds().getLeft() > (getMainBounds().getRight() + getMainBounds().getWidth() / 2))
+		if (jon.getMainBounds().getLeft() > getMainBounds().getLeft())
 		{
 			m_needsToPlaySound = true;
 			m_isActivated = true;
