@@ -114,6 +114,7 @@ protected:
     
 private:
     bool m_playLevelSelectMusicOnExit;
+	bool m_stopMusicOnExit;
     
     void updateScore();
     

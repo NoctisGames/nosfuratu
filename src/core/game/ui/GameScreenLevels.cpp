@@ -92,6 +92,7 @@ void Level::enter(GameScreen* gs)
                                        fgHeight);
     
     m_playLevelSelectMusicOnExit = gs->m_stateMachine->getPreviousState() == WorldMap::getInstance();
+	m_stopMusicOnExit = gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance();
 }
 
 void Level::execute(GameScreen* gs)
@@ -118,6 +119,10 @@ void Level::exit(GameScreen* gs)
     {
         Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
     }
+	else if (m_stopMusicOnExit)
+	{
+		Assets::getInstance()->setMusicId(MUSIC_STOP);
+	}
     
     m_fStateTime = 0;
     gs->m_isReleasingShockwave = false;
@@ -847,7 +852,8 @@ m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
-m_playLevelSelectMusicOnExit(false)
+m_playLevelSelectMusicOnExit(false),
+m_stopMusicOnExit(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());
