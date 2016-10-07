@@ -208,6 +208,9 @@ void Jon::update(float deltaTime)
 	}
     else
     {
+		m_isRollLanding = false;
+		m_isLanding = false;
+
         if (getNumJumps() == 0)
         {
             m_iNumRabbitJumps = m_iNumRabbitJumps == 0 ? 1 : m_iNumRabbitJumps;
