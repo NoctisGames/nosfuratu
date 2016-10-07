@@ -69,7 +69,7 @@
     [self initSoundEngine];
     
     unsigned long long ramSize = [NSProcessInfo processInfo].physicalMemory;
-    bool isLowMemoryDevice = ramSize < 838860800; // 800 MB
+    bool isLowMemoryDevice = ramSize < 1610612736; // 1536 MB
     
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
