@@ -18,7 +18,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "0.9.3"
+        versionName "0.9.4"
         signingConfig signingConfigs.noctisgames
     }
     buildTypes {

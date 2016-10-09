@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 9
-#define VERSION_BUILD 3
+#define VERSION_BUILD 4
 
 //// Requested Action Definitions ////
 
