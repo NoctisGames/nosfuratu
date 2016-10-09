@@ -453,6 +453,13 @@ void Toad::handleAlive(float deltaTime)
             
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
         }
+		else
+		{
+			if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+			{
+				jon.kill();
+			}
+		}
     }
 }
 
