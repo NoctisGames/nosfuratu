@@ -182,7 +182,10 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
         
-        m_endBossSnakes.push_back(new EndBossSnake(0, 0));
+		if (level == 21)
+		{
+			m_endBossSnakes.push_back(new EndBossSnake(0, 0));
+		}
         
         m_enemies.push_back(new BigMushroomGround(0, 0));
         
