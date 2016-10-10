@@ -776,6 +776,12 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             m_isLanding = true;
             m_fStateTime = 0;
         }
+
+		if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime)
+			|| EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
+		{
+			m_velocity->setX(0);
+		}
         
         if (m_isLanding)
         {
@@ -807,15 +813,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
         }
         else
         {
-            if (EntityUtils::isBlockedOnLeft(this, m_game->getForegroundObjects(), deltaTime)
-				|| EntityUtils::isBlockedOnLeft(this, m_game->getGrounds(), deltaTime))
-            {
-				m_velocity->setX(0);
-                
-                return;
-            }
-            
-            if (m_velocity->getX() < m_fTopSpeed)
+			if (m_velocity->getX() < m_fTopSpeed)
             {
                 m_velocity->setX(m_fTopSpeed);
             }
