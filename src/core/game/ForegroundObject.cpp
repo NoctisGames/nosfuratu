@@ -215,8 +215,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
-				entity->getPosition().setY(getMainBounds().getTop() + entity->getMainBounds().getHeight() / 2 * .99f);
-				entity->updateBounds();
+				entity->placeOn(itemTop);
 
 				Jon *jon;
 				if ((jon = dynamic_cast<Jon *>(entity)))
@@ -458,8 +457,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, Rectangle& bo
         {
             float itemTop = bounds.getTop();
             
-            entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
-            entity->updateBounds();
+			entity->placeOn(itemTop);
             
             Jon *jon;
             if ((jon = dynamic_cast<Jon *>(entity)))

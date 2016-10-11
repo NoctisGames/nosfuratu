@@ -86,8 +86,7 @@ bool ExitGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             if (isLanding)
             {
-                entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
-                entity->updateBounds();
+				entity->placeOn(itemTop);
                 
                 Jon *jon;
                 if ((jon = dynamic_cast<Jon *>(entity)))
@@ -177,8 +176,7 @@ bool CaveDeepSmallWaterfall::isEntityLanding(PhysicalEntity* entity, float delta
             
             if (jonBottomY >= itemTopReq && (jonRightX < pitEntranceLeft || jonLeftX > pitEntranceRight))
             {
-                entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
-                entity->updateBounds();
+				entity->placeOn(itemTop);
                 
                 Jon *jon;
                 if ((jon = dynamic_cast<Jon *>(entity)))

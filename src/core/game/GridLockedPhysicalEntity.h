@@ -20,9 +20,11 @@ public:
     
 	virtual void updateBounds();
 
-    void snapToGrid(int gridCellSizeScalar = 1);
-    
-    int getGridX();
+	virtual void placeOn(float itemTopY);
+		
+	void snapToGrid(int gridCellSizeScalar = 1);
+
+	int getGridX();
     
     int getGridY();
     

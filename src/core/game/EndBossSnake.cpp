@@ -527,8 +527,7 @@ bool EndBossSnake::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 			{
 				float itemTop = getMainBounds().getTop();
 
-				entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * .99f);
-				entity->updateBounds();
+				entity->placeOn(itemTop);
 			}
             
             return true;

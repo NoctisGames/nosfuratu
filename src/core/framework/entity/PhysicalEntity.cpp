@@ -45,6 +45,13 @@ void PhysicalEntity::updateBounds()
     lowerLeft.set(m_position->getX() - m_bounds.at(0).getWidth() / 2, m_position->getY() - m_bounds.at(0).getHeight() / 2);
 }
 
+void PhysicalEntity::placeOn(float itemTopY)
+{
+	getPosition().setY(itemTopY + getMainBounds().getHeight() / 2 * .99f);
+
+	updateBounds();
+}
+
 Vector2D& PhysicalEntity::getPosition()
 {
     return *m_position;
