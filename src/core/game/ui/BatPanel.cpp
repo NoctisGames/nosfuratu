@@ -996,7 +996,11 @@ void BatPanel::updateStomp(GameScreen* gs)
 	if (!m_isAcknowledgedPart1)
 	{
 		Jon& jon = m_game->getJon();
-		jon.setUserActionPrevented(true);
+
+		if (jon.getPosition().getX() < 12)
+		{
+			jon.setUserActionPrevented(true);
+		}
 
 		if (jon.getPosition().getX() > 28
 			&& jon.getPosition().getX() < 30)
