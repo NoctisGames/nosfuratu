@@ -215,7 +215,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
-				entity->placeOn(itemTop);
+				entity->placeOn(getMainBounds().getTop());
 
 				Jon *jon;
 				if ((jon = dynamic_cast<Jon *>(entity)))
