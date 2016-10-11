@@ -998,19 +998,19 @@ void BatPanel::updateStomp(GameScreen* gs)
 		Jon& jon = m_game->getJon();
 		jon.setUserActionPrevented(true);
 
-		if (jon.getPosition().getX() > 24
-			&& jon.getPosition().getX() < 26)
+		if (jon.getPosition().getX() > 28
+			&& jon.getPosition().getX() < 30)
 		{
 			if (!m_isRequestingInput && !m_hasTriggeredRequestedAction)
 			{
-				jon.getPosition().setX(24);
+				jon.getPosition().setX(28);
 
 				showBatNearJon(jon);
 
 				m_isRequestingInput = true;
 			}
 		}
-		else if (jon.getPosition().getX() > 26)
+		else if (jon.getPosition().getX() > 30)
 		{
 			jon.setUserActionPrevented(false);
 		}
