@@ -1370,13 +1370,13 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     {
         static TextureRegion clockTr = TextureRegion(512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
         
-        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.75f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
+        m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         
         float seconds = game.getStateTime();
         
-        if (seconds > 599.99f)
+        if (seconds > 599.999f)
         {
-            seconds = 599.99f;
+            seconds = 599.999f;
         }
         
         int minutesLeft = 0;
@@ -1392,10 +1392,10 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
         {
             ss << "0";
         }
-        ss << std::fixed << std::setprecision(2) << seconds;
+        ss << std::fixed << std::setprecision(3) << seconds;
         std::string text = ss.str();
         
-        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH * 0.75f + fgWidth, textY, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH * 0.72f + fgWidth, textY, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Back Button

@@ -498,11 +498,11 @@ void Level::update(GameScreen* gs)
                 m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
-            static float startingTime = 300.0f;
+            static float startingTime = 120.0f;
             
             float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
             
-            m_iScoreFromTime = secondsLeft * 100;
+            m_iScoreFromTime = secondsLeft * 1000;
             
             if (m_iScoreFromTime > 0)
             {
