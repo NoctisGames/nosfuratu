@@ -216,7 +216,7 @@ private:
 class BigMushroomGround : public Mushroom
 {
 public:
-    BigMushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0, 1, 1, EnemyType_BigMushroomGround) {}
+    BigMushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0.05f, 1, 0.95f, EnemyType_BigMushroomGround) {}
     
     virtual void handleAlive(float deltaTime);
     
