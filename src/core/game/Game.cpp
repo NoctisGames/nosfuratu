@@ -307,9 +307,16 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getEndBossForegroundObjects(), deltaTime);
 }
 
-bool Game::isBurrowEffective()
+bool Game::isBurrowEffective(float deltaTime)
 {
-    return EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
+	float originalY = getJon().getPosition().getY();
+
+    bool ret = EntityUtils::isLanding(getJonP(), getGrounds(), deltaTime)
+		&& EntityUtils::isBurrowingThroughHole(getJon(), getHoles());
+
+	getJon().getPosition().setY(originalY);
+
+	return ret;
 }
 
 bool Game::isUpwardThrustEffective(float deltaTime)

@@ -748,7 +748,7 @@ void Jon::Rabbit::execute(Jon* jon)
             jon->m_acceleration->setX(0);
             
             bool wasBurrowEffective = jon->m_isBurrowEffective;
-            jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();
+            jon->m_isBurrowEffective = jon->m_game->isBurrowEffective(jon->m_fDeltaTime);
             
             if (jon->m_isBurrowEffective && !wasBurrowEffective)
             {
@@ -777,7 +777,7 @@ void Jon::Rabbit::execute(Jon* jon)
                 jon->m_acceleration->setY(GAME_GRAVITY * 4);
                 
                 bool wasBurrowEffective = jon->m_isBurrowEffective;
-                jon->m_isBurrowEffective = jon->m_game->isBurrowEffective();
+                jon->m_isBurrowEffective = jon->m_game->isBurrowEffective(jon->m_fDeltaTime);
                 
                 if (jon->m_isBurrowEffective && !wasBurrowEffective)
                 {

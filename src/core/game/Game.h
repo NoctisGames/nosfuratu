@@ -58,7 +58,7 @@ public:
     
     bool isSpinningBackFistDelivered(float deltaTime);
     
-    bool isBurrowEffective();
+    bool isBurrowEffective(float deltaTime);
     
     bool isUpwardThrustEffective(float deltaTime);
     
