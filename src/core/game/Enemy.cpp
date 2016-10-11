@@ -820,20 +820,17 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             
             if (m_isAbleToJump)
             {
-                if (m_fStateTime > 0.6f)
-                {
-					Jon& jon = m_game->getJon();
-					if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
-						&& jon.getMainBounds().getBottom() < (getMainBounds().getTop() + 7)
-						&& jon.getMainBounds().getRight() > getMainBounds().getLeft() - 5
-						&& jon.getMainBounds().getRight() < getMainBounds().getLeft())
-					{
-						m_fStateTime = 0;
-						m_isPreparingToJump = true;
-                        
-                        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
-					}
-                }
+				Jon& jon = m_game->getJon();
+				if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
+					&& jon.getMainBounds().getBottom() < (getMainBounds().getTop() + 7)
+					&& jon.getMainBounds().getRight() > getMainBounds().getLeft() - 8
+					&& jon.getMainBounds().getRight() < getMainBounds().getLeft())
+				{
+					m_fStateTime = 0;
+					m_isPreparingToJump = true;
+
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
+				}
             }
             else
             {
