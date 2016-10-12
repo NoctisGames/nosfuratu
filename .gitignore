@@ -3,16 +3,3 @@
 
 # Windows
 Thumbs.db
-
-# Texconv
-Texconv/
-!Texconv/Texconv_readme.txt
-
-# libpng
-libpng/
-!libpng/Android.mk
-!libpng/libpng_readme.txt
-
-# rapidjson
-rapidjson/
-!rapidjson/rapidjson_readme.txt
