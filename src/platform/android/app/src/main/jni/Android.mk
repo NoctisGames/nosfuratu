@@ -1,4 +1,3 @@
-NDKROOT := /Applications/adt-bundle-mac-x86_64-20140624/android-ndk-r10e
 LOCAL_PATH := $(call my-dir)
 PROJECT_ROOT_PATH := $(LOCAL_PATH)/../../../../../../
 CORE_RELATIVE_PATH := ../../../../../../core/
