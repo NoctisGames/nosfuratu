@@ -106,6 +106,9 @@ def getNdkDir() {
     if (System.env.ANDROID_NDK_ROOT != null)
         return System.env.ANDROID_NDK_ROOT
 
+    if (System.evn.ANDROID_NDK_HOME != null)
+        return System.env.ANDROID_NDK_HOME
+
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
     def ndkdir = properties.getProperty('ndk.dir', null)
