@@ -978,7 +978,7 @@ void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloci
     jon->setState(ACTION_DOUBLE_JUMPING);
     jon->setState(ABILITY_NONE);
     
-    jon->m_iNumRabbitJumps = 2;
+    jon->m_iNumRabbitJumps = 1;
 }
 
 void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
