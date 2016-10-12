@@ -7,7 +7,7 @@ android {
         noctisgames {
             keyAlias 'noctisgames'
             keyPassword 'NG_PASS'
-            storeFile file('/Users/sgowen/Dropbox/Documents/freelance/NoctisGames/github/nosfuratu/src/platform/android/keystore.jks')
+            storeFile file('../keystore.jks')
             storePassword 'NG_PASS'
         }
     }
@@ -106,7 +106,7 @@ def getNdkDir() {
     if (System.env.ANDROID_NDK_ROOT != null)
         return System.env.ANDROID_NDK_ROOT
 
-    if (System.evn.ANDROID_NDK_HOME != null)
+    if (System.env.ANDROID_NDK_HOME != null)
         return System.env.ANDROID_NDK_HOME
 
     Properties properties = new Properties()
