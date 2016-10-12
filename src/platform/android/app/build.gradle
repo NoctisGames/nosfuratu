@@ -31,9 +31,10 @@ android {
             debuggable true
         }
     }
-    sourceSets.main.jni.srcDirs 'src/main/jni'
-    // disable the automatic ndk-build call, which would ignore our Android.mk
-    sourceSets.main.jniLibs.srcDir 'src/main/libs'
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/libs'
+        jni.srcDirs = [] // disable the automatic ndk-build call, which would ignore our Android.mk
+    }
     // call regular ndk-build(.cmd) script from app directory
     task ndkBuild(type: Exec) {
         workingDir file('src/main')
