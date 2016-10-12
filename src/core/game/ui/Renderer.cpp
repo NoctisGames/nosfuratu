@@ -615,7 +615,7 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton)
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-#if DEBUG || _DEBUG
+#if NG_LEVEL_EDITOR
     if (m_title_screen.gpuTextureWrapper)
     {
         m_spriteBatcher->beginBatch();

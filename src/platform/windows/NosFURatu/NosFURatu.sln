@@ -10,6 +10,9 @@ Global
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		LevelEditor|ARM = LevelEditor|ARM
+		LevelEditor|x64 = LevelEditor|x64
+		LevelEditor|x86 = LevelEditor|x86
 		Profile|ARM = Profile|ARM
 		Profile|x64 = Profile|x64
 		Profile|x86 = Profile|x86
@@ -27,6 +30,15 @@ Global
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Debug|x86.ActiveCfg = Debug|Win32
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Debug|x86.Build.0 = Debug|Win32
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Debug|x86.Deploy.0 = Debug|Win32
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|ARM.ActiveCfg = LevelEditor|ARM
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|ARM.Build.0 = LevelEditor|ARM
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|ARM.Deploy.0 = LevelEditor|ARM
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x64.ActiveCfg = LevelEditor|x64
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x64.Build.0 = LevelEditor|x64
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x64.Deploy.0 = LevelEditor|x64
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x86.ActiveCfg = LevelEditor|Win32
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x86.Build.0 = LevelEditor|Win32
+		{59D41579-6AC0-46A6-A03F-1166421182B8}.LevelEditor|x86.Deploy.0 = LevelEditor|Win32
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Profile|ARM.ActiveCfg = Release|ARM
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Profile|ARM.Build.0 = Release|ARM
 		{59D41579-6AC0-46A6-A03F-1166421182B8}.Profile|ARM.Deploy.0 = Release|ARM
