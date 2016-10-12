@@ -212,12 +212,12 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 18.8f
+        if (jon.getPosition().getX() > 19.2f
 			&& jon.getPosition().getX() < 21)
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setX(18.8f);
+                jon.getPosition().setX(19.2f);
                 
                 showBatNearJon(jon);
                 
@@ -281,12 +281,12 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
         Jon& jon = m_game->getJon();
         jon.setUserActionPrevented(true);
         
-        if (jon.getPosition().getX() > 28.5f
+        if (jon.getPosition().getX() > 29.1f
 			&& jon.getPosition().getX() < 32)
         {
             if (!m_isRequestingInput)
             {
-                jon.getPosition().setX(28.5f);
+                jon.getPosition().setX(29.1f);
                 
                 showBatNearJon(jon);
                 
