@@ -215,7 +215,7 @@ void WorldMap::execute(GameScreen* gs)
                                     validateAbilityFlag();
                                     
                                     int abilityFlag = m_iJonAbilityFlag;
-#if DEBUG || _DEBUG
+#if NG_LEVEL_EDITOR
                                     abilityFlag = FLAG_ABILITY_ALL;
 #endif
                                     
@@ -326,7 +326,7 @@ void WorldMap::loadUserSaveData(const char* json)
         }
         
         bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
-#if DEBUG || _DEBUG
+#if NG_LEVEL_EDITOR
         isPlayable = true;
 #endif
 		bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
@@ -341,7 +341,7 @@ void WorldMap::loadUserSaveData(const char* json)
         if (bossLevelThumbnail)
         {
             bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
-#if DEBUG || _DEBUG
+#if NG_LEVEL_EDITOR
             isUnlocked = true;
 #endif
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
