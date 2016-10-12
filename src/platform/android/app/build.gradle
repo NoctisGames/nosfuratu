@@ -110,11 +110,7 @@ def getNdkDir() {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
     def ndkdir = properties.getProperty('ndk.dir', null)
     if (ndkdir == null) {
-        ndkdir = "~/android-ndk-r10e"
-    }
-
-    if (ndkdir == null) {
-        throw new GradleException("NDK location not found. Define location with ndk.dir in the local.properties file or with an ANDROID_NDK_ROOT environment variable.")
+        ndkdir = "~/android-ndk-r10e" // for buddybuild
     }
 
     return ndkdir
