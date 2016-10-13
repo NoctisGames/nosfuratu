@@ -804,7 +804,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             if (m_fStateTime > 0.30f)
             {
                 m_velocity->sub(2, 0);
-				m_velocity->setY(9);
+				m_velocity->setY(12);
                 m_acceleration->setY(GAME_GRAVITY);
                 
                 m_fStateTime = 0;
@@ -822,7 +822,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             {
 				Jon& jon = m_game->getJon();
 				if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
-					&& jon.getMainBounds().getBottom() < (getMainBounds().getTop() + 7)
+					&& jon.getMainBounds().getBottom() < (getMainBounds().getTop() + 8)
 					&& jon.getMainBounds().getRight() > getMainBounds().getLeft() - 8
 					&& jon.getMainBounds().getRight() < getMainBounds().getLeft())
 				{
