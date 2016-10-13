@@ -197,13 +197,8 @@ EnemyType Enemy::getType()
 void Enemy::handleAlive(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
-    
-    Jon& jon = m_game->getJon();
-    
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-    {
-        jon.kill();
-    }
+
+	handleJon();
 }
 
 void Enemy::handleDying(float deltaTime)
@@ -272,6 +267,18 @@ bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
     }
     
     return false;
+}
+
+void Enemy::handleJon()
+{
+	Jon& jon = m_game->getJon();
+
+	if (!jon.isConsumed()
+		&& jon.getAbilityState() != ABILITY_UPWARD_THRUST
+		&& OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+	{
+		jon.kill();
+	}
 }
 
 #pragma mark subclasses
@@ -387,13 +394,8 @@ void Sparrow::handleAlive(float deltaTime)
 			m_acceleration->set(0, 1);
 		}
 	}
-    
-    Jon& jon = m_game->getJon();
-    
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-    {
-        jon.kill();
-    }
+
+	handleJon();
 }
 
 void Toad::handleAlive(float deltaTime)
@@ -455,10 +457,7 @@ void Toad::handleAlive(float deltaTime)
         }
 		else
 		{
-			if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-			{
-				jon.kill();
-			}
+			handleJon();
 		}
     }
 }
@@ -648,11 +647,8 @@ void Fox::handleAlive(float deltaTime)
             }
         }
     }
-    
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-    {
-        jon.kill();
-    }
+
+	handleJon();
 }
 
 void Fox::handleDying(float deltaTime)
@@ -852,11 +848,6 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
             m_velocity->setX(m_fTopSpeed - 2);
         }
     }
-    
-    Jon& jon = m_game->getJon();
-    
-    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-    {
-        jon.kill();
-    }
+
+	handleJon();
 }
