@@ -417,12 +417,11 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     {
         
 #if TARGET_OS_IPHONE
-        
         _allowsBackgroundMusic = allow;
-        AVAudioSession *session = [AVAudioSession sharedInstance];
-        [session setCategory:allow? AVAudioSessionCategoryAmbient: AVAudioSessionCategorySoloAmbient error:NULL];
-#endif
         
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setCategory:allow ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient error:NULL];
+#endif
     }
 }
 
