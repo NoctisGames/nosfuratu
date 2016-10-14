@@ -130,8 +130,6 @@ public:
     
     void renderComingSoonScreenBackground();
     
-    void renderComingSoonScreenUi(GameButton* nextArrowButton);
-    
     void renderMarkers(Game& game);
     
     void renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor);
@@ -333,18 +331,22 @@ private:
     void loadWorld1Special();
     void loadWorld1Textures();
     bool ensureWorld1Textures();
+    bool ensureWorld1Objects();
+    bool ensureWorld1Special();
     
     void loadWorld1MidBossPart1();
     void loadWorld1MidBossPart2();
     void loadWorld1MidBossPart3();
     void loadWorld1MidBossTextures();
     bool ensureWorld1MidBossTextures();
+    bool ensureWorld1MidBossPart3();
     
     void loadWorld1EndBossPart1();
     void loadWorld1EndBossPart2();
     void loadWorld1EndBossPart3();
     void loadWorld1EndBossTextures();
     bool ensureWorld1EndBossTextures();
+    bool ensureWorld1EndBossPart1();
     
     void loadWorld2Textures();
     void loadWorld2MidBossTextures();
