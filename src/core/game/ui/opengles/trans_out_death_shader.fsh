@@ -1,4 +1,6 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
 
 uniform sampler2D u_TextureUnit;
 uniform sampler2D u_TextureUnitGrayMap;

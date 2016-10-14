@@ -51,7 +51,7 @@ m_shouldUseVampireFormForConsumeAnimation(false),
 m_fFlashStateTime(0),
 m_isFlashing(false)
 {
-	resetBounds(m_fWidth * 0.6f, m_fHeight * 0.8203125f);
+	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
 	m_formStateMachine = std::unique_ptr<StateMachine<Jon>>(new StateMachine<Jon>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
@@ -978,7 +978,7 @@ void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloci
     jon->setState(ACTION_DOUBLE_JUMPING);
     jon->setState(ABILITY_NONE);
     
-    jon->m_iNumRabbitJumps = 2;
+    jon->m_iNumRabbitJumps = 1;
 }
 
 void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)

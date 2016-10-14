@@ -39,15 +39,15 @@ protected:
     int m_iGridHeight;
 };
 
-class Marker : public GridLockedPhysicalEntity
+class GameMarker : public GridLockedPhysicalEntity
 {
 public:
-    static Marker* create(int gridX, int gridY, int type)
+    static GameMarker* create(int gridX, int gridY, int type)
     {
-        return new Marker(gridX, type);
+        return new GameMarker(gridX, type);
     }
     
-    Marker(int gridX, int type) : GridLockedPhysicalEntity(gridX, 0, 2, 256), m_type(type) {}
+    GameMarker(int gridX, int type) : GridLockedPhysicalEntity(gridX, 0, 2, 256), m_type(type) {}
     
     int getType() { return m_type; };
     

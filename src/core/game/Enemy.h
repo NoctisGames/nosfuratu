@@ -86,6 +86,8 @@ protected:
     virtual void handleDead(float deltaTime);
     
     virtual bool calcIsJonLanding(Jon* jon, float deltaTime);
+
+	void handleJon();
     
 private:
     EnemySpirit* m_enemySpirit;

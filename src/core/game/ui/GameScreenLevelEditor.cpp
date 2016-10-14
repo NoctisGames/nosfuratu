@@ -278,8 +278,8 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 
 						m_iLastOffset = rawOffset;
                         
-                        Marker* endLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 1);
-                        Marker* beginLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 2);
+                        GameMarker* endLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 1);
+                        GameMarker* beginLoopMarker = m_game->getMarkers().at(m_game->getMarkers().size() - 2);
                         
                         int beginGridX = beginLoopMarker->getGridX();
                         int endGridX = endLoopMarker->getGridX();
@@ -369,7 +369,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     {
                         type = 1; // end loop
                     }
-                    Marker* m = Marker::create(gridX, 0, type);
+                    GameMarker* m = GameMarker::create(gridX, 0, type);
                     m_game->getMarkers().push_back(m);
                     resetEntities(true);
                 }
@@ -477,7 +477,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         || dynamic_cast<Hole *>(m_draggingEntity)
                         || dynamic_cast<SpikeTower *>(m_draggingEntity)
                         || dynamic_cast<VerticalSaw *>(m_draggingEntity)
-						|| dynamic_cast<Marker *>(m_draggingEntity))
+						|| dynamic_cast<GameMarker *>(m_draggingEntity))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
