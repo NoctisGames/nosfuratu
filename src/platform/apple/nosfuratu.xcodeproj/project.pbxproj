@@ -412,10 +412,6 @@
 		BB44CAAD1DB03A7F003E633F /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C77B1DB03A7D003E633F /* TrashCan.cpp */; };
 		BB44CAAF1DB03A7F003E633F /* WorldMapPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C77D1DB03A7D003E633F /* WorldMapPanel.cpp */; };
 		BB44CAEE1DB04B13003E633F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CAED1DB04B13003E633F /* Cocoa.framework */; };
-		BB44CAF91DB04B37003E633F /* AppleOpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAF01DB04B37003E633F /* AppleOpenALSupport.c */; };
-		BB44CAFA1DB04B37003E633F /* CMOpenALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAF31DB04B37003E633F /* CMOpenALSound.m */; };
-		BB44CAFB1DB04B37003E633F /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAF51DB04B37003E633F /* CMOpenALSoundManager.m */; };
-		BB44CAFC1DB04B37003E633F /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAF71DB04B37003E633F /* DebugOutput.m */; };
 		BB44CAFF1DB04C4C003E633F /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
 		BB44CB011DB04C67003E633F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
 		BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */; };
@@ -824,6 +820,10 @@
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
+		BBE02D3C1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
+		BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
+		BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
+		BBE02D3F1DB1969900C3268B /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -1251,15 +1251,6 @@
 		BB44C77D1DB03A7D003E633F /* WorldMapPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldMapPanel.cpp; sourceTree = "<group>"; };
 		BB44C77E1DB03A7D003E633F /* WorldMapPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMapPanel.h; sourceTree = "<group>"; };
 		BB44CAED1DB04B13003E633F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		BB44CAF01DB04B37003E633F /* AppleOpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AppleOpenALSupport.c; sourceTree = "<group>"; };
-		BB44CAF11DB04B37003E633F /* AppleOpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleOpenALSupport.h; sourceTree = "<group>"; };
-		BB44CAF21DB04B37003E633F /* CMOpenALSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSound.h; sourceTree = "<group>"; };
-		BB44CAF31DB04B37003E633F /* CMOpenALSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSound.m; sourceTree = "<group>"; };
-		BB44CAF41DB04B37003E633F /* CMOpenALSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSoundManager.h; sourceTree = "<group>"; };
-		BB44CAF51DB04B37003E633F /* CMOpenALSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSoundManager.m; sourceTree = "<group>"; };
-		BB44CAF61DB04B37003E633F /* DebugOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOutput.h; sourceTree = "<group>"; };
-		BB44CAF71DB04B37003E633F /* DebugOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugOutput.m; sourceTree = "<group>"; };
-		BB44CAF81DB04B37003E633F /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		BB44CAFD1DB04C4C003E633F /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		BB44CAFE1DB04C4C003E633F /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		BB44CB001DB04C67003E633F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -1279,11 +1270,13 @@
 		BB44CB971DB0549D003E633F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB991DB054B8003E633F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB9D1DB054F9003E633F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
-		BB44CD051DB07165003E633F /* nosfuratu mac level editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nosfuratu mac level editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB44CD051DB07165003E633F /* nosfuratu mac level editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "nosfuratu mac level editor.app"; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BBE02D3A1DB18D4600C3268B /* GameScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenController.h; sourceTree = "<group>"; };
+		BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScreenController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1418,7 +1411,6 @@
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
-				BB44CAEF1DB04B37003E633F /* soundengine */,
 				BB44C3331DB0317E003E633F /* UIView+Toast.h */,
 				BB44C3341DB0317E003E633F /* UIView+Toast.m */,
 			);
@@ -1442,6 +1434,8 @@
 				BB44C34B1DB03267003E633F /* AppPrefs.h */,
 				BB44C34C1DB03267003E633F /* AppPrefs.m */,
 				BB44C36B1DB03276003E633F /* assets */,
+				BBE02D3A1DB18D4600C3268B /* GameScreenController.h */,
+				BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */,
 				BB44C34D1DB03267003E633F /* main.m */,
 				BB44C34E1DB03267003E633F /* platform_asset_utils.m */,
 				BB44C34F1DB03267003E633F /* SaveData.h */,
@@ -2018,22 +2012,6 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		BB44CAEF1DB04B37003E633F /* soundengine */ = {
-			isa = PBXGroup;
-			children = (
-				BB44CAF01DB04B37003E633F /* AppleOpenALSupport.c */,
-				BB44CAF11DB04B37003E633F /* AppleOpenALSupport.h */,
-				BB44CAF21DB04B37003E633F /* CMOpenALSound.h */,
-				BB44CAF31DB04B37003E633F /* CMOpenALSound.m */,
-				BB44CAF41DB04B37003E633F /* CMOpenALSoundManager.h */,
-				BB44CAF51DB04B37003E633F /* CMOpenALSoundManager.m */,
-				BB44CAF61DB04B37003E633F /* DebugOutput.h */,
-				BB44CAF71DB04B37003E633F /* DebugOutput.m */,
-				BB44CAF81DB04B37003E633F /* SynthesizeSingleton.h */,
-			);
-			path = soundengine;
-			sourceTree = "<group>";
-		};
 		BB44CB121DB04EE2003E633F /* mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -2581,7 +2559,6 @@
 				BB44C9A71DB03A7E003E633F /* OpenGLESCircleBatcher.cpp in Sources */,
 				BB44C9ED1DB03A7E003E633F /* MidBossOwl.cpp in Sources */,
 				BB44CA7B1DB03A7F003E633F /* PointTransitionProgram.cpp in Sources */,
-				BB44CAFA1DB04B37003E633F /* CMOpenALSound.m in Sources */,
 				BB44C94F1DB03A7E003E633F /* Line.cpp in Sources */,
 				BB44CA551DB03A7F003E633F /* OffsetPanel.cpp in Sources */,
 				BB44C9F11DB03A7E003E633F /* Assets.cpp in Sources */,
@@ -2590,11 +2567,11 @@
 				BB44CA4D1DB03A7F003E633F /* GameTracker.cpp in Sources */,
 				BB44C9571DB03A7E003E633F /* Vector2D.cpp in Sources */,
 				BB44CA471DB03A7F003E633F /* GameScreenTitle.cpp in Sources */,
-				BB44CAFC1DB04B37003E633F /* DebugOutput.m in Sources */,
 				BB44CA431DB03A7F003E633F /* GameScreenLevels.cpp in Sources */,
 				BB44C9F51DB03A7E003E633F /* Chapter1Level10.cpp in Sources */,
 				BB44C9BB1DB03A7E003E633F /* texture.c in Sources */,
 				BB44CA611DB03A7F003E633F /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
+				BBE02D3F1DB1969900C3268B /* SoundManager.m in Sources */,
 				BB44CA5F1DB03A7F003E633F /* IOSOpenGLESGameScreen.cpp in Sources */,
 				BB44C9A91DB03A7E003E633F /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CA8D1DB03A7F003E633F /* SnakeDeathTextureProgram.cpp in Sources */,
@@ -2619,13 +2596,13 @@
 				BB44C3611DB03267003E633F /* SaveData.m in Sources */,
 				BB44C9E11DB03A7E003E633F /* Game.cpp in Sources */,
 				BB44C9E71DB03A7E003E633F /* Hole.cpp in Sources */,
+				BBE02D3C1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44C9A31DB03A7E003E633F /* FramebufferToScreenProgram.cpp in Sources */,
 				BB44C9C91DB03A7E003E633F /* TextureRegion.cpp in Sources */,
 				BB44C98F1DB03A7E003E633F /* DummyGpuProgramWrapper.cpp in Sources */,
 				BB44CA751DB03A7F003E633F /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CAAB1DB03A7F003E633F /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB44C8871DB03A7E003E633F /* pngwtran.c in Sources */,
-				BB44CAFB1DB04B37003E633F /* CMOpenALSoundManager.m in Sources */,
 				BB44CA6B1DB03A7F003E633F /* OpenGLESGameScreen.cpp in Sources */,
 				BB44C9E91DB03A7E003E633F /* HoleCover.cpp in Sources */,
 				BB44C8811DB03A7E003E633F /* pngtrans.c in Sources */,
@@ -2674,7 +2651,6 @@
 				BB44C9951DB03A7E003E633F /* LineBatcher.cpp in Sources */,
 				BB44CA6D1DB03A7F003E633F /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */,
 				BB44C9C11DB03A7E003E633F /* TextureProgram.cpp in Sources */,
-				BB44CAF91DB04B37003E633F /* AppleOpenALSupport.c in Sources */,
 				BB44CAA91DB03A7F003E633F /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
 				BB44C99D1DB03A7E003E633F /* ColorProgram.cpp in Sources */,
@@ -2721,6 +2697,7 @@
 				BB44CB8C1DB053C0003E633F /* pngwio.c in Sources */,
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
 				BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */,
+				BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44CB8F1DB053C0003E633F /* pngwutil.c in Sources */,
 				BB44CB5E1DB0532A003E633F /* CircleBatcher.cpp in Sources */,
 				BB44CB5F1DB0532A003E633F /* DummyGpuProgramWrapper.cpp in Sources */,
@@ -2858,6 +2835,7 @@
 				BB44CC041DB07165003E633F /* pngwio.c in Sources */,
 				BB44CC051DB07165003E633F /* pngwrite.c in Sources */,
 				BB44CC061DB07165003E633F /* pngwtran.c in Sources */,
+				BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44CC071DB07165003E633F /* pngwutil.c in Sources */,
 				BB44CC081DB07165003E633F /* CircleBatcher.cpp in Sources */,
 				BB44CC091DB07165003E633F /* DummyGpuProgramWrapper.cpp in Sources */,

@@ -58,6 +58,11 @@ void GameScreen::onResume()
         Assets::getInstance()->setMusicId(MUSIC_RESUME);
     }
     
+    if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    {
+        m_isPaused = false;
+    }
+    
     m_wasPaused = false;
     
     m_fTimeUntilResume = 0;
@@ -71,6 +76,10 @@ void GameScreen::onPause()
         level->stopLoopingSounds();
         
         m_isPaused = !level->hasCompletedLevel();
+    }
+    else if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    {
+        m_isPaused = true;
     }
     
     m_wasPaused = true;

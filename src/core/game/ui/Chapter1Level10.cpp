@@ -146,7 +146,11 @@ void Chapter1Level10::update(GameScreen* gs)
                 
                 jon.getAcceleration().set(0, 0);
                 jon.getVelocity().set(0, 0);
-                jon.setIdle(true);
+                
+                if (!jon.isIdle())
+                {
+                    jon.setIdle(true);
+                }
                 
                 jon.getPosition().setX(m_perchTree->getMainBounds().getLeft() - jon.getMainBounds().getWidth());
                 jon.updateBounds();

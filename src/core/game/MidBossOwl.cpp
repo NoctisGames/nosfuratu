@@ -203,7 +203,7 @@ void MidBossOwl::update(float deltaTime)
                         
                         setState(MidBossOwlState_FlyingOverTree);
                     }
-                    else if (!jon.isBurrowEffective())
+                    else if (jon.getAbilityState() != ABILITY_BURROW)
                     {
                         jon.consume(true);
                         
