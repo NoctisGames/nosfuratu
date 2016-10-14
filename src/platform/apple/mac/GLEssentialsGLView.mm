@@ -23,16 +23,17 @@
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
 
-#define SUPPORT_RETINA_RESOLUTION 1
+#define SUPPORT_RETINA_RESOLUTION 0
 
 @interface GLEssentialsGLView ()
 {
     MacOpenGLGameScreen *_gameScreen;
     NSArray *_soundFileNames;
-    double _deltaTime;
-    double _startTime;
     NSString *_lastKnownMusicName;
     BOOL _lastKnownMusicLooping;
+    
+    float _deltaTime;
+    double _previousOutputVideoTime;
 }
 
 @end
@@ -46,7 +47,8 @@
     // It's important to create one or app can leak objects.
     @autoreleasepool
     {
-        _deltaTime = 1.0 / (outputTime->rateScalar * (double)outputTime->videoTimeScale / (double)outputTime->videoRefreshPeriod);
+        _deltaTime = (outputTime->videoTime - _previousOutputVideoTime) / (double)outputTime->videoTimeScale;
+        _previousOutputVideoTime = outputTime->videoTime;
         
         [self drawView];
     }
@@ -79,12 +81,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     NSOpenGLPixelFormatAttribute attrs[] =
 	{
 		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFADepthSize, 24,
-		// Must specify the 3.2 Core Profile to use OpenGL 3.2
-#if ESSENTIAL_GL_PRACTICES_SUPPORT_GL3 
-		NSOpenGLPFAOpenGLProfile,
-		NSOpenGLProfileVersion3_2Core,
-#endif
 		0
 	};
 	
@@ -151,6 +147,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 	// OpenGL render buffers will be destroyed.  If display link continues to
 	// fire without renderbuffers, OpenGL draw calls will set errors.
 	
+    _gameScreen->cleanUp();
+    
 	CVDisplayLinkStop(displayLink);
 }
 
@@ -732,18 +730,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [self setNeedsDisplay:YES];
-    
     _gameScreen->onResume();
-}
-
-// Timer callback method
-
-- (void)timerFired:(id)sender
-{
-    // It is good practice in a Cocoa application to allow the system to send the -drawRect:
-    // message when it needs to draw, and not to invoke it directly from the timer.
-    // All we do here is tell the display it needs a refresh
     
     [self setNeedsDisplay:YES];
 }

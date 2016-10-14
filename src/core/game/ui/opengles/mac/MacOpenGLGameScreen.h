@@ -20,9 +20,11 @@ public:
     
     void onResize(int screenWidth, int screenHeight);
     
+    void cleanUp();
+    
 protected:
-    int m_iPointsWidth;
-    int m_iPointsHeight;
+    int m_iScreenWidth;
+    int m_iScreenHeight;
 };
 
 #endif /* defined(__nosfuratu__MacOpenGLGameScreen__) */
