@@ -449,7 +449,7 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
     return m_extraForegroundObjects;
 }
 
-std::vector<Marker *>& Game::getMarkers()
+std::vector<GameMarker *>& Game::getMarkers()
 {
     return m_markers;
 }

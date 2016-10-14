@@ -1503,7 +1503,7 @@ void Renderer::renderMarkers(Game& game)
     
     m_highlightRectangleBatcher->beginBatch();
     
-    for (std::vector<Marker *>::iterator i = game.getMarkers().begin(); i != game.getMarkers().end(); i++)
+    for (std::vector<GameMarker *>::iterator i = game.getMarkers().begin(); i != game.getMarkers().end(); i++)
     {
         Rectangle& marker = (*i)->getMainBounds();
         m_highlightRectangleBatcher->renderRectangle(marker, (*i)->getType() == 0 ? originMarkerColor : endMarkerColor);

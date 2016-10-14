@@ -419,7 +419,7 @@ void Level::update(GameScreen* gs)
         
         if (m_game->getMarkers().size() > 1)
         {
-            Marker* nextEndLoopMarker = m_game->getMarkers().at(1);
+            GameMarker* nextEndLoopMarker = m_game->getMarkers().at(1);
             if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
             {
                 if (m_exitLoop)
@@ -431,7 +431,7 @@ void Level::update(GameScreen* gs)
                 }
                 else
                 {
-                    Marker* beginLoopMarker = m_game->getMarkers().at(0);
+                    GameMarker* beginLoopMarker = m_game->getMarkers().at(0);
                     
                     int beginGridX = beginLoopMarker->getGridX();
                     int endGridX = nextEndLoopMarker->getGridX();

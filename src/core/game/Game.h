@@ -110,7 +110,7 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
-    std::vector<Marker *>& getMarkers();
+    std::vector<GameMarker *>& getMarkers();
     
     void setBestLevelStatsFlag(int bestLevelStatsFlag);
     
@@ -165,7 +165,7 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
-    std::vector<Marker *> m_markers;
+    std::vector<GameMarker *> m_markers;
     Rectangle* m_cameraBounds;
     
     float m_fStateTime;

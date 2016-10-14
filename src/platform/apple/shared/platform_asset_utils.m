@@ -12,6 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef NG_MAC
+#import <Cocoa/Cocoa.h>
+#endif
+
 FileData get_asset_data(const char *relative_path)
 {
 	assert(relative_path != NULL);

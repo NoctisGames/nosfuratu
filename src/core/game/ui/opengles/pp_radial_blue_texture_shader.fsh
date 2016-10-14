@@ -1,4 +1,6 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
 
 uniform sampler2D u_TextureUnit;
 uniform float u_Direction; // 0 for left, 1 for up-left, 2 for down-left

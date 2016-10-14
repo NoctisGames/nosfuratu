@@ -6,6 +6,10 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
+#ifdef NG_MAC
+#import <Cocoa/Cocoa.h>
+#endif
+
 @interface SaveData : NSObject
 {
     // Empty
