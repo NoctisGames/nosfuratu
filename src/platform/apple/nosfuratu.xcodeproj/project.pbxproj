@@ -3322,7 +3322,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -3372,7 +3372,7 @@
 					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
 			name = Release;
