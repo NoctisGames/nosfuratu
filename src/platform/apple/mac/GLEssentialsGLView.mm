@@ -29,8 +29,6 @@
 {
     MacOpenGLGameScreen *_gameScreen;
     NSArray *_soundFileNames;
-    NSString *_lastKnownMusicName;
-    BOOL _lastKnownMusicLooping;
     
     float _deltaTime;
     double _previousOutputVideoTime;
@@ -80,7 +78,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     NSOpenGLPixelFormatAttribute attrs[] =
 	{
+        NSOpenGLPFANoRecovery,
+        NSOpenGLPFAAccelerated,
 		NSOpenGLPFADoubleBuffer,
+        NSOpenGLPFAColorSize, 24,
+        NSOpenGLPFAAlphaSize, 8,
+        NSOpenGLPFADepthSize, 16,
 		0
 	};
 	
@@ -348,7 +351,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             [[SoundManager sharedManager] stopMusic:NO];
             break;
         case MUSIC_RESUME:
-            [self playMusic:_lastKnownMusicName isLooping:_lastKnownMusicLooping];
+            [[SoundManager sharedManager] resumeMusic];
             break;
         case MUSIC_SET_VOLUME:
         {
@@ -393,9 +396,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     [SoundManager sharedManager].musicVolume = 0.5f;
     [[SoundManager sharedManager] playMusic:fileName looping:isLooping fadeIn:NO];
-    
-    _lastKnownMusicName = fileName;
-    _lastKnownMusicLooping = isLooping;
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
@@ -416,7 +416,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 {
     int soundIndex = soundId - 1;
     NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
-    [[SoundManager sharedManager] stopSound:soundName];
+    [[SoundManager sharedManager] stopSound:soundName fadeOut:NO];
 }
 
 - (void)saveLevel:(int)requestedAction
@@ -723,7 +723,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 {
     _gameScreen->onPause();
     
-    [[SoundManager sharedManager] stopMusic:NO];
+    [[SoundManager sharedManager] pauseMusic];
     
     [self setNeedsDisplay:YES];
 }

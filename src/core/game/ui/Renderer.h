@@ -302,22 +302,27 @@ private:
     
     void loadTitle();
     void loadTitleTextures();
+    bool ensureTitleTextures();
     
     void loadWorldMapPart1();
     void loadWorldMapPart2();
     void loadWorldMapTextures();
+    bool ensureWorldMapTextures();
     
     void loadLevelEditor();
     void loadLevelEditorTextures();
+    bool ensureLevelEditorTextures();
     
     void loadWorld1Cutscene1();
     void loadWorld1Cutscene2();
     void loadWorld1CutsceneTextures();
+    bool ensureWorld1CutsceneTextures();
     
     void loadJon();
     void loadTransDeath();
     void loadVampire();
     void loadJonTextures();
+    bool ensureJonTextures();
     
     void loadWorld1BackgroundLower();
     void loadWorld1BackgroundMid();
@@ -327,17 +332,19 @@ private:
     void loadWorld1Objects();
     void loadWorld1Special();
     void loadWorld1Textures();
+    bool ensureWorld1Textures();
     
     void loadWorld1MidBossPart1();
     void loadWorld1MidBossPart2();
     void loadWorld1MidBossPart3();
     void loadWorld1MidBossTextures();
+    bool ensureWorld1MidBossTextures();
     
     void loadWorld1EndBossPart1();
     void loadWorld1EndBossPart2();
     void loadWorld1EndBossPart3();
-    
     void loadWorld1EndBossTextures();
+    bool ensureWorld1EndBossTextures();
     
     void loadWorld2Textures();
     void loadWorld2MidBossTextures();

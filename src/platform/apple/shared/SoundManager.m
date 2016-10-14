@@ -275,6 +275,18 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     }
 }
 
+- (void)pause
+{
+    if (self.playing)
+    {
+        [_sound pause];
+        
+        //stop timer
+        [_timer invalidate];
+        self.timer = nil;
+    }
+}
+
 - (void)stop
 {
     if (self.playing)
@@ -478,6 +490,19 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     [self playMusic:soundOrName looping:YES fadeIn:YES];
 }
 
+- (void)resumeMusic
+{
+    if (_currentMusic && ![_currentMusic isPlaying])
+    {
+        [_currentMusic play];
+    }
+}
+
+- (void)pauseMusic
+{
+    [_currentMusic pause];
+}
+
 - (void)stopMusic:(BOOL)fadeOut
 {
     if (fadeOut)
@@ -547,7 +572,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
         soundOrName = [soundOrName stringByAppendingPathExtension:@"caf"];
     }
     
-    for (Sound *sound in [_currentSounds reverseObjectEnumerator])
+    for (Sound *sound in [_currentSounds objectEnumerator])
     {
         if ([sound.name isEqualToString:soundOrName] || [[sound.URL path] isEqualToString:soundOrName])
         {
@@ -560,6 +585,8 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
                 [sound stop];
             }
             [_currentSounds removeObject:sound];
+            
+            return;
         }
     }
 }
@@ -584,7 +611,7 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
 
 - (BOOL)isPlayingMusic
 {
-    return _currentMusic != nil;
+    return _currentMusic && [_currentMusic isPlaying];
 }
 
 - (void)setSoundVolume:(float)newVolume
