@@ -11,7 +11,7 @@
 #import "SaveData.h"
 
 // Sound Engine
-#import "CMOpenALSoundManager.h"
+#import "SoundManager.h"
 
 // C++
 #include "MacOpenGLGameScreen.h"
@@ -28,9 +28,13 @@
 @interface GLEssentialsGLView ()
 {
     MacOpenGLGameScreen *_gameScreen;
+    NSArray *_soundFileNames;
     double _deltaTime;
     double _startTime;
+    NSString *_lastKnownMusicName;
+    BOOL _lastKnownMusicLooping;
 }
+
 @end
 
 @implementation GLEssentialsGLView
@@ -43,8 +47,6 @@
     @autoreleasepool
     {
         _deltaTime = 1.0 / (outputTime->rateScalar * (double)outputTime->videoTimeScale / (double)outputTime->videoRefreshPeriod);
-//        _deltaTime = (outputTime->videoTime - _startTime) / (double)outputTime->videoTimeScale;
-//        _startTime = outputTime->videoTime;
         
         [self drawView];
     }
@@ -66,6 +68,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)awakeFromNib
 {
+    [[SoundManager sharedManager] prepareToPlay];
+    
+    [self initSoundEngine];
+    
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
     
     [mainWindow setDelegate:self];
@@ -224,6 +230,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
     [self updateGame];
     _gameScreen->render();
+    
+    [self handleSound];
+    [self handleMusic];
 
 	CGLFlushDrawable([[self openGLContext] CGLContextObj]);
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
@@ -338,10 +347,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     switch (musicId)
     {
         case MUSIC_STOP:
-            //[self.soundMgr stopBackgroundMusic];
+            [[SoundManager sharedManager] stopMusic:NO];
             break;
         case MUSIC_RESUME:
-            //[self.soundMgr resumeBackgroundMusic];
+            [self playMusic:_lastKnownMusicName isLooping:_lastKnownMusicLooping];
             break;
         case MUSIC_SET_VOLUME:
         {
@@ -351,7 +360,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
                 volume = 0;
             }
             
-            //self.soundMgr.backgroundMusicVolume = volume;
+            [SoundManager sharedManager].musicVolume = volume;
         }
             break;
         case MUSIC_PLAY_TITLE_LOOP:
@@ -379,33 +388,37 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)playMusic:(NSString *)fileName isLooping:(BOOL)isLooping
 {
-    // TODO
+    if ([SoundManager sharedManager].playingMusic)
+    {
+        [[SoundManager sharedManager] stopMusic:NO];
+    }
     
-//    if ([self.soundMgr isBackGroundMusicPlaying])
-//    {
-//        [self.soundMgr stopBackgroundMusic];
-//    }
-//    
-//    self.soundMgr.backgroundMusicVolume = 0.5f;
-//    [self.soundMgr playBackgroundMusic:fileName forcePlay:YES isLooping:isLooping];
+    [SoundManager sharedManager].musicVolume = 0.5f;
+    [[SoundManager sharedManager] playMusic:fileName looping:isLooping fadeIn:NO];
+    
+    _lastKnownMusicName = fileName;
+    _lastKnownMusicLooping = isLooping;
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
 {
-    // TODO
-    //[self.soundMgr playSoundWithID:soundId - 1 isLooping:isLooping];
+    int soundIndex = soundId - 1;
+    NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
+    [[SoundManager sharedManager] playSound:soundName looping:isLooping];
 }
 
 - (void)playSound:(int)soundId
 {
-    // TODO
-    //[self.soundMgr playSoundWithID:soundId - 1];
+    int soundIndex = soundId - 1;
+    NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
+    [[SoundManager sharedManager] playSound:soundName looping:NO];
 }
 
 - (void)stopSound:(int)soundId
 {
-    // TODO
-    //[self.soundMgr stopSoundWithID:soundId - 1];
+    int soundIndex = soundId - 1;
+    NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
+    [[SoundManager sharedManager] stopSound:soundName];
 }
 
 - (void)saveLevel:(int)requestedAction
@@ -427,8 +440,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         result = error ? false : true;
     }
     
-    // TODO
-    //[self.view makeToast:result ? @"Level saved successfully" : @"Error occurred while saving level... Please try again!"];
+    [self displayMessage:result ? @"Level saved successfully" : @"Error occurred while saving level... Please try again!"];
 }
 
 - (void)loadLevel:(int)requestedAction
@@ -455,8 +467,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         GameScreenLevelEditor::getInstance()->load(contentCString, _gameScreen);
     }
     
-    // TODO
-    //[self.view makeToast:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
+    [self displayMessage:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
 }
 
 - (void)unlockLevel:(int)requestedAction
@@ -593,8 +604,22 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     if (toast)
     {
-        // TOOD, display the toast message
+        [self displayMessage:toast];
     }
+}
+
+- (void)displayMessage:(NSString *)message
+{
+    dispatch_async(dispatch_get_main_queue(), ^
+    {
+        NSAlert* alert = [NSAlert alertWithMessageText:message
+                                         defaultButton:nil
+                                       alternateButton:nil
+                                           otherButton:nil
+                             informativeTextWithFormat:@""];
+        
+        [alert runModal];
+    });
 }
 
 - (NSString *)getLevelName:(int)requestedAction
@@ -696,15 +721,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 #pragma mark <NSWindowDelegate>
 
-static NSTimer *renderTimer = nil;
-
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-//    [renderTimer invalidate];
-    
     _gameScreen->onPause();
     
-    // TODO, pause music
+    [[SoundManager sharedManager] stopMusic:NO];
     
     [self setNeedsDisplay:YES];
 }
@@ -712,14 +733,6 @@ static NSTimer *renderTimer = nil;
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
     [self setNeedsDisplay:YES];
-    
-//    renderTimer = [NSTimer timerWithTimeInterval:0.001 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-//    
-//    [[NSRunLoop currentRunLoop] addTimer:renderTimer
-//                                 forMode:NSDefaultRunLoopMode];
-//    
-//    [[NSRunLoop currentRunLoop] addTimer:renderTimer
-//                                 forMode:NSEventTrackingRunLoopMode]; // Ensure timer fires during resize
     
     _gameScreen->onResume();
 }
@@ -733,6 +746,74 @@ static NSTimer *renderTimer = nil;
     // All we do here is tell the display it needs a refresh
     
     [self setNeedsDisplay:YES];
+}
+
+- (void)initSoundEngine
+{
+    [SoundManager sharedManager].musicVolume = 0.5f;
+    [SoundManager sharedManager].soundVolume = 1;
+    _soundFileNames = [NSArray arrayWithObjects:
+                                    @"collect_carrot.wav",
+                                    @"collect_golden_carrot.wav",
+                                    @"death.wav",
+                                    @"footstep_left_grass.wav",
+                                    @"footstep_right_grass.wav",
+                                    @"footstep_left_cave.wav",
+                                    @"footstep_right_cave.wav",
+                                    @"jump_spring.wav",
+                                    @"landing_grass.wav",
+                                    @"landing_cave.wav",
+                                    @"snake_death.wav",
+                                    @"trigger_transform.wav",
+                                    @"cancel_transform.wav",
+                                    @"complete_transform.wav",
+                                    @"jump_spring_heavy.wav",
+                                    @"jon_rabbit_jump.wav",
+                                    @"jon_vampire_jump.wav",
+                                    @"jon_rabbit_double_jump.wav",
+                                    @"jon_vampire_double_jump.wav",
+                                    @"vampire_glide_loop.wav",
+                                    @"mushroom_bounce.wav",
+                                    @"jon_burrow_rocksfall.wav",
+                                    @"sparrow_fly_loop.wav",
+                                    @"sparrow_die.wav",
+                                    @"toad_die.wav",
+                                    @"toad_eat.wav",
+                                    @"saw_grind_loop.wav",
+                                    @"fox_bounced_on.wav",
+                                    @"fox_strike.wav",
+                                    @"fox_death.wav",
+                                    @"world_1_bgm_intro.wav",
+                                    @"mid_boss_bgm_intro.wav",
+                                    @"mid_boss_owl_swoop.wav",
+                                    @"mid_boss_owl_tree_smash.wav",
+                                    @"mid_boss_owl_death.wav",
+                                    @"screen_transition.wav",
+                                    @"screen_transition_2.wav",
+                                    @"level_complete.wav",
+                                    @"title_lightning_1.wav",
+                                    @"title_lightning_2.wav",
+                                    @"ability_unlock.wav",
+                                    @"boss_level_clear.wav",
+                                    @"level_clear.wav",
+                                    @"level_selected.wav",
+                                    @"rabbit_drill.wav",
+                                    @"snake_jump.wav",
+                                    @"vampire_dash.wav",
+                                    @"boss_level_unlock.wav",
+                                    @"rabbit_stomp.wav",
+                                    @"final_boss_bgm_intro.wav",
+                                    @"button_click.wav",
+                                    @"level_confirmed.wav",
+                                    @"bat_poof.wav",
+                                    @"chain_snap.wav",
+                                    @"end_boss_snake_mouth_open.wav",
+                                    @"end_boss_snake_charge_cue.wav",
+                                    @"end_boss_snake_charge.wav",
+                                    @"end_boss_snake_damaged.wav",
+                                    @"end_boss_snake_death.wav",
+                                    @"spiked_ball_rolling_loop.wav",
+                                    @"absorb_dash_ability.wav", nil];
 }
 
 @end
