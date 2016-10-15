@@ -425,10 +425,12 @@ NSString *const SoundDidFinishPlayingNotification = @"SoundDidFinishPlayingNotif
     }
 }
 
-- (void)prepareToPlayWithSound:(id)soundOrName
+- (Sound *)prepareToPlayWithSound:(id)soundOrName
 {
     Sound *sound = [soundOrName isKindOfClass:[Sound class]]? soundOrName: [Sound soundNamed:soundOrName];
     [sound prepareToPlay];
+    
+    return sound;
 }
 
 - (void)prepareToPlay
