@@ -350,13 +350,13 @@ public:
 class JumpSpringMedium : public ProvideBoostObject
 {
 public:
-    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 1, 0.33333333333333f, 24.0f) {}
+    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 0.6f, 0.33333333333333f, 24.0f) {}
 };
 
 class JumpSpringHeavy : public ProvideBoostObject
 {
 public:
-    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 1, 0.52678571428571f, 32.0f) {}
+    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 0.6f, 0.52678571428571f, 32.0f) {}
 };
 
 class SpikeGrassSingle : public LandingDeathObject
