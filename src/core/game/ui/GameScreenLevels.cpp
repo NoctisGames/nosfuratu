@@ -109,6 +109,8 @@ void Level::execute(GameScreen* gs)
 
 void Level::exit(GameScreen* gs)
 {
+    m_iNumTimesBatPanelDisplayed = 0;
+    
     m_game->reset();
     
     m_sourceGame = nullptr;
@@ -655,9 +657,12 @@ bool Level::isInSlowMotionMode()
 
 void Level::configBatPanel()
 {
-    if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
+    if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
+        && m_iNumTimesBatPanelDisplayed < 2)
     {
         m_batPanel->config(m_game.get(), m_game->getWorld(), m_game->getLevel());
+        
+        m_iNumTimesBatPanelDisplayed++;
     }
 }
 
@@ -840,6 +845,7 @@ m_iScore(0),
 m_iOnlineScore(0),
 m_iLevelStatsFlag(0),
 m_iNumGoldenCarrots(0),
+m_iNumTimesBatPanelDisplayed(0),
 m_hasShownOpeningSequence(false),
 m_hasOpeningSequenceCompleted(false),
 m_activateRadialBlur(false),

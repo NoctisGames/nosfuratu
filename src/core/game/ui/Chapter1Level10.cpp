@@ -374,7 +374,8 @@ bool Chapter1Level10::isInSlowMotionMode()
 
 void Chapter1Level10::configBatPanel()
 {
-    if (!m_hasTriggeredMidBossMusicLoopIntro)
+    if (!m_hasTriggeredMidBossMusicLoopIntro
+        && m_iNumTimesBatPanelDisplayed < 2)
     {
         Level::configBatPanel();
     }
