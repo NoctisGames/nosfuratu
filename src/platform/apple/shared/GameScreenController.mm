@@ -16,6 +16,10 @@
     NSArray *_soundFileNames;
 }
 
+#ifdef NG_IOS
+@property (nonatomic, retain) CMOpenALSoundManager *soundMgr;
+#endif
+
 @end
 
 @implementation GameScreenController
@@ -103,7 +107,11 @@
 {
     _gameScreen->onPause();
     
+#ifdef NG_IOS
+    [self.soundMgr pauseBackgroundMusic];
+#elif defined NG_MAC
     [[SoundManager sharedManager] pauseMusic];
+#endif
 }
 
 #pragma mark Private
@@ -147,10 +155,10 @@
     switch (musicId)
     {
         case MUSIC_STOP:
-            [[SoundManager sharedManager] pauseMusic];
+            [self stopMusic];
             break;
         case MUSIC_RESUME:
-            [[SoundManager sharedManager] resumeMusic];
+            [self resumeMusic];
             break;
         case MUSIC_SET_VOLUME:
         {
@@ -160,7 +168,7 @@
                 volume = 0;
             }
             
-            [SoundManager sharedManager].musicVolume = volume;
+            [self setMusicVolume:volume];
         }
             break;
         case MUSIC_PLAY_TITLE_LOOP:
@@ -188,6 +196,15 @@
 
 - (void)playMusic:(NSString *)fileName isLooping:(BOOL)isLooping
 {
+#ifdef NG_IOS
+    if ([self.soundMgr isBackGroundMusicPlaying])
+    {
+        [self.soundMgr stopBackgroundMusic];
+    }
+    
+    self.soundMgr.backgroundMusicVolume = 0.5f;
+    [self.soundMgr playBackgroundMusic:fileName forcePlay:YES isLooping:isLooping];
+#elif defined NG_MAC
     if ([SoundManager sharedManager].playingMusic)
     {
         [[SoundManager sharedManager] stopMusic:NO];
@@ -195,27 +212,67 @@
     
     [SoundManager sharedManager].musicVolume = 0.5f;
     [[SoundManager sharedManager] playMusic:fileName looping:isLooping fadeIn:NO];
+#endif
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
 {
+#ifdef NG_IOS
+    [self.soundMgr playSoundWithID:soundId - 1 isLooping:isLooping];
+#elif defined NG_MAC
     int soundIndex = soundId - 1;
     NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
     [[SoundManager sharedManager] playSound:soundName looping:isLooping];
+#endif
 }
 
 - (void)playSound:(int)soundId
 {
+#ifdef NG_IOS
+    [self.soundMgr playSoundWithID:soundId - 1];
+#elif defined NG_MAC
     int soundIndex = soundId - 1;
     NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
     [[SoundManager sharedManager] playSound:soundName looping:NO];
+#endif
 }
 
 - (void)stopSound:(int)soundId
 {
+#ifdef NG_IOS
+    [self.soundMgr stopSoundWithID:soundId - 1];
+#elif defined NG_MAC
     int soundIndex = soundId - 1;
     NSString *soundName = [_soundFileNames objectAtIndex:soundIndex];
     [[SoundManager sharedManager] stopSound:soundName fadeOut:NO];
+#endif
+}
+
+- (void)stopMusic
+{
+#ifdef NG_IOS
+    [self.soundMgr stopBackgroundMusic];
+#elif defined NG_MAC
+    [[SoundManager sharedManager] pauseMusic];
+#endif
+}
+
+- (void)resumeMusic
+{
+#ifdef NG_IOS
+    [self.soundMgr resumeBackgroundMusic];
+#elif defined NG_MAC
+    [[SoundManager sharedManager] resumeMusic];
+#endif
+}
+
+- (void)setMusicVolume:(float)volume
+{
+#ifdef NG_IOS
+    self.soundMgr.backgroundMusicVolume = volume;
+#elif defined NG_MAC
+    [SoundManager sharedManager].musicVolume = volume;
+#endif
 }
 
 - (void)saveLevel:(int)requestedAction
@@ -464,12 +521,6 @@
 
 - (void)initSoundEngine
 {
-    [[SoundManager sharedManager] prepareToPlay];
-    [[SoundManager sharedManager] setAllowsBackgroundMusic:YES];
-    
-    [SoundManager sharedManager].musicVolume = 0.5f;
-    [SoundManager sharedManager].soundVolume = 1;
-    
     _soundFileNames = [NSArray arrayWithObjects:
                        @"collect_carrot.wav",
                        @"collect_golden_carrot.wav",
@@ -532,6 +583,17 @@
                        @"end_boss_snake_death.wav",
                        @"spiked_ball_rolling_loop.wav",
                        @"absorb_dash_ability.wav", nil];
+    
+#ifdef NG_IOS
+    self.soundMgr = [[CMOpenALSoundManager alloc] init];
+    self.soundMgr.soundEffectsVolume = 1;
+    self.soundMgr.soundFileNames = _soundFileNames;
+#elif defined NG_MAC
+    [[SoundManager sharedManager] prepareToPlay];
+    [[SoundManager sharedManager] setAllowsBackgroundMusic:YES];
+    
+    [SoundManager sharedManager].soundVolume = 1;
+#endif
 }
 
 @end

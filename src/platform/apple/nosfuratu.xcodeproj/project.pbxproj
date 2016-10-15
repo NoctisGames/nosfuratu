@@ -12,6 +12,10 @@
 		0ADF187C178E2185005DA99E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187B178E2185005DA99E /* CoreGraphics.framework */; };
 		0ADF187E178E2185005DA99E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187D178E2185005DA99E /* GLKit.framework */; };
 		0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187F178E2185005DA99E /* OpenGLES.framework */; };
+		BB04B8571DB1D89E001B9270 /* AppleOpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */; };
+		BB04B8581DB1D89E001B9270 /* CMOpenALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */; };
+		BB04B8591DB1D89E001B9270 /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */; };
+		BB04B85A1DB1D89E001B9270 /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8551DB1D89E001B9270 /* DebugOutput.m */; };
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
@@ -834,6 +838,15 @@
 		0ADF187B178E2185005DA99E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0ADF187D178E2185005DA99E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		0ADF187F178E2185005DA99E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AppleOpenALSupport.c; sourceTree = "<group>"; };
+		BB04B84F1DB1D89E001B9270 /* AppleOpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleOpenALSupport.h; sourceTree = "<group>"; };
+		BB04B8501DB1D89E001B9270 /* CMOpenALSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSound.h; sourceTree = "<group>"; };
+		BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSound.m; sourceTree = "<group>"; };
+		BB04B8521DB1D89E001B9270 /* CMOpenALSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSoundManager.h; sourceTree = "<group>"; };
+		BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSoundManager.m; sourceTree = "<group>"; };
+		BB04B8541DB1D89E001B9270 /* DebugOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOutput.h; sourceTree = "<group>"; };
+		BB04B8551DB1D89E001B9270 /* DebugOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugOutput.m; sourceTree = "<group>"; };
+		BB04B8561DB1D89E001B9270 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1380,6 +1393,22 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		BB04B84D1DB1D89E001B9270 /* soundengine */ = {
+			isa = PBXGroup;
+			children = (
+				BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */,
+				BB04B84F1DB1D89E001B9270 /* AppleOpenALSupport.h */,
+				BB04B8501DB1D89E001B9270 /* CMOpenALSound.h */,
+				BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */,
+				BB04B8521DB1D89E001B9270 /* CMOpenALSoundManager.h */,
+				BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */,
+				BB04B8541DB1D89E001B9270 /* DebugOutput.h */,
+				BB04B8551DB1D89E001B9270 /* DebugOutput.m */,
+				BB04B8561DB1D89E001B9270 /* SynthesizeSingleton.h */,
+			);
+			path = soundengine;
+			sourceTree = "<group>";
+		};
 		BB44C31E1DB030B3003E633F /* mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -1411,6 +1440,7 @@
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
+				BB04B84D1DB1D89E001B9270 /* soundengine */,
 				BB44C3331DB0317E003E633F /* UIView+Toast.h */,
 				BB44C3341DB0317E003E633F /* UIView+Toast.m */,
 			);
@@ -2566,6 +2596,7 @@
 				BB44CA531DB03A7F003E633F /* LevelSelectorPanel.cpp in Sources */,
 				BB44CA691DB03A7F003E633F /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BB44CA4D1DB03A7F003E633F /* GameTracker.cpp in Sources */,
+				BB04B8571DB1D89E001B9270 /* AppleOpenALSupport.c in Sources */,
 				BB44C9571DB03A7E003E633F /* Vector2D.cpp in Sources */,
 				BB44CA471DB03A7F003E633F /* GameScreenTitle.cpp in Sources */,
 				BB44CA431DB03A7F003E633F /* GameScreenLevels.cpp in Sources */,
@@ -2585,6 +2616,7 @@
 				BB44C9D31DB03A7E003E633F /* DustCloud.cpp in Sources */,
 				BB44C9E51DB03A7E003E633F /* Ground.cpp in Sources */,
 				BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */,
+				BB04B8591DB1D89E001B9270 /* CMOpenALSoundManager.m in Sources */,
 				BB44C9431DB03A7E003E633F /* EntityManager.cpp in Sources */,
 				BB44C9FB1DB03A7E003E633F /* ConfirmResetPanel.cpp in Sources */,
 				BB44CA391DB03A7F003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
@@ -2618,6 +2650,7 @@
 				BB44C9451DB03A7E003E633F /* PhysicalEntity.cpp in Sources */,
 				BB44C8831DB03A7E003E633F /* pngwio.c in Sources */,
 				BB44C8791DB03A7E003E633F /* pngrutil.c in Sources */,
+				BB04B85A1DB1D89E001B9270 /* DebugOutput.m in Sources */,
 				BB44CA651DB03A7F003E633F /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BB44C3361DB0317E003E633F /* GameViewController.mm in Sources */,
 				BB44CA631DB03A7F003E633F /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */,
@@ -2665,6 +2698,7 @@
 				BB44CAA31DB03A7F003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44C9411DB03A7E003E633F /* Entity.cpp in Sources */,
 				BB44C9D91DB03A7E003E633F /* EnemySpirit.cpp in Sources */,
+				BB04B8581DB1D89E001B9270 /* CMOpenALSound.m in Sources */,
 				BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 				BB44CA4B1DB03A7F003E633F /* GameScreenWorldMap.cpp in Sources */,
