@@ -22,9 +22,9 @@ BatGoalType calcBatGoalType(int world, int level)
             {
                 case 1:
                     return BatGoalType_Jump;
-                case 2:
+                case 3:
                     return BatGoalType_DoubleJump;
-                case 4:
+                case 5:
                     return BatGoalType_Vampire;
                 case 10:
                     return BatGoalType_Drill;
