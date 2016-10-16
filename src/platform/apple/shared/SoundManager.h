@@ -102,7 +102,7 @@ typedef void (^SoundCompletionHandler)(BOOL didFinish);
 
 + (instancetype)sharedManager;
 
-- (void)prepareToPlayWithSound:(id)soundOrName;
+- (Sound *)prepareToPlayWithSound:(id)soundOrName;
 - (void)prepareToPlay;
 
 - (void)playMusic:(id)soundOrName looping:(BOOL)looping fadeIn:(BOOL)fadeIn;
