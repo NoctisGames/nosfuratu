@@ -10,13 +10,6 @@
 
 #import "SaveData.h"
 
-// Sound Engine
-#ifdef NG_IOS
-#import "CMOpenALSoundManager.h"
-#elif defined NG_MAC
-#import "SoundManager.h"
-#endif
-
 // C++
 #include "MacOpenGLGameScreen.h"
 #include "GameConstants.h"
