@@ -12,10 +12,6 @@
 		0ADF187C178E2185005DA99E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187B178E2185005DA99E /* CoreGraphics.framework */; };
 		0ADF187E178E2185005DA99E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187D178E2185005DA99E /* GLKit.framework */; };
 		0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187F178E2185005DA99E /* OpenGLES.framework */; };
-		BB04B8571DB1D89E001B9270 /* AppleOpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */; };
-		BB04B8581DB1D89E001B9270 /* CMOpenALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */; };
-		BB04B8591DB1D89E001B9270 /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */; };
-		BB04B85A1DB1D89E001B9270 /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8551DB1D89E001B9270 /* DebugOutput.m */; };
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
@@ -399,13 +395,10 @@
 		BB44CAAD1DB03A7F003E633F /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C77B1DB03A7D003E633F /* TrashCan.cpp */; };
 		BB44CAAF1DB03A7F003E633F /* WorldMapPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C77D1DB03A7D003E633F /* WorldMapPanel.cpp */; };
 		BB44CAEE1DB04B13003E633F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CAED1DB04B13003E633F /* Cocoa.framework */; };
-		BB44CAFF1DB04C4C003E633F /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
-		BB44CB011DB04C67003E633F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
 		BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */; };
 		BB44CB091DB04C83003E633F /* GLEssentialsGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* GLEssentialsGLView.mm */; };
 		BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */; };
 		BB44CB0F1DB04E81003E633F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB0E1DB04E81003E633F /* OpenGL.framework */; };
-		BB44CB111DB04E9D003E633F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB101DB04E9D003E633F /* CoreVideo.framework */; };
 		BB44CB161DB051C8003E633F /* MacOpenGLGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB131DB04EE2003E633F /* MacOpenGLGameScreen.cpp */; };
 		BB44CB181DB052F5003E633F /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B21DB03A7D003E633F /* Background.cpp */; };
 		BB44CB191DB052F5003E633F /* CollectibleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B41DB03A7D003E633F /* CollectibleItem.cpp */; };
@@ -531,7 +524,6 @@
 		BB44CB921DB05468003E633F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB911DB05468003E633F /* CoreGraphics.framework */; };
 		BB44CB941DB05479003E633F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB931DB05479003E633F /* GLKit.framework */; };
 		BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
-		BB44CB981DB0549D003E633F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB971DB0549D003E633F /* CoreFoundation.framework */; };
 		BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
 		BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
 		BB44CBF21DB07165003E633F /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34C1DB03267003E633F /* AppPrefs.m */; };
@@ -591,7 +583,6 @@
 		BB44CC281DB07165003E633F /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6A11DB03A7D003E633F /* Text.cpp */; };
 		BB44CC291DB07165003E633F /* TextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6A31DB03A7D003E633F /* TextureRegion.cpp */; };
 		BB44CC2A1DB07165003E633F /* TouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6A61DB03A7D003E633F /* TouchEvent.cpp */; };
-		BB44CC2B1DB07165003E633F /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
 		BB44CC2C1DB07165003E633F /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B21DB03A7D003E633F /* Background.cpp */; };
 		BB44CC2D1DB07165003E633F /* CollectibleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B41DB03A7D003E633F /* CollectibleItem.cpp */; };
 		BB44CC2E1DB07165003E633F /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B61DB03A7D003E633F /* DustCloud.cpp */; };
@@ -666,13 +657,10 @@
 		BB44CC731DB07165003E633F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3201DB030B3003E633F /* AppDelegate.m */; };
 		BB44CC751DB07165003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
 		BB44CC761DB07165003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
-		BB44CC771DB07165003E633F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB971DB0549D003E633F /* CoreFoundation.framework */; };
 		BB44CC781DB07165003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
 		BB44CC791DB07165003E633F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB931DB05479003E633F /* GLKit.framework */; };
 		BB44CC7A1DB07165003E633F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB911DB05468003E633F /* CoreGraphics.framework */; };
-		BB44CC7B1DB07165003E633F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB101DB04E9D003E633F /* CoreVideo.framework */; };
 		BB44CC7C1DB07165003E633F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB0E1DB04E81003E633F /* OpenGL.framework */; };
-		BB44CC7D1DB07165003E633F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
 		BB44CC7E1DB07165003E633F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CAED1DB04B13003E633F /* Cocoa.framework */; };
 		BB44CC801DB07165003E633F /* mid_boss_bgm_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3961DB03276003E633F /* mid_boss_bgm_intro.wav */; };
 		BB44CC811DB07165003E633F /* toad_die.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3A91DB03276003E633F /* toad_die.wav */; };
@@ -790,10 +778,127 @@
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
+		BBCCA8391DB343AB00452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8381DB343AB00452FA1 /* Accelerate.framework */; };
+		BBCCA83A1DB343B100452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8381DB343AB00452FA1 /* Accelerate.framework */; };
+		BBCCA83D1DB3462E00452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */; };
+		BBCCA83E1DB3463400452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */; };
+		BBCCA8411DB3466A00452FA1 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8401DB3466A00452FA1 /* AudioUnit.framework */; };
+		BBCCA8421DB3467100452FA1 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8401DB3466A00452FA1 /* AudioUnit.framework */; };
+		BBCCA8441DB3468100452FA1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8431DB3468100452FA1 /* AudioToolbox.framework */; };
+		BBCCA8451DB3468800452FA1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8431DB3468100452FA1 /* AudioToolbox.framework */; };
+		BBCCA84A1DB346C100452FA1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8491DB346C100452FA1 /* CoreAudio.framework */; };
+		BBCCA84B1DB346C700452FA1 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8491DB346C100452FA1 /* CoreAudio.framework */; };
+		BBCCA8931DB363F500452FA1 /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8551DB363F500452FA1 /* OALAction.m */; };
+		BBCCA8941DB363F500452FA1 /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8551DB363F500452FA1 /* OALAction.m */; };
+		BBCCA8951DB363F500452FA1 /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8551DB363F500452FA1 /* OALAction.m */; };
+		BBCCA8961DB363F500452FA1 /* OALAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8551DB363F500452FA1 /* OALAction.m */; };
+		BBCCA8971DB363F500452FA1 /* OALActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8571DB363F500452FA1 /* OALActionManager.m */; };
+		BBCCA8981DB363F500452FA1 /* OALActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8571DB363F500452FA1 /* OALActionManager.m */; };
+		BBCCA8991DB363F500452FA1 /* OALActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8571DB363F500452FA1 /* OALActionManager.m */; };
+		BBCCA89A1DB363F500452FA1 /* OALActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8571DB363F500452FA1 /* OALActionManager.m */; };
+		BBCCA89B1DB363F500452FA1 /* OALAudioActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8591DB363F500452FA1 /* OALAudioActions.m */; };
+		BBCCA89C1DB363F500452FA1 /* OALAudioActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8591DB363F500452FA1 /* OALAudioActions.m */; };
+		BBCCA89D1DB363F500452FA1 /* OALAudioActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8591DB363F500452FA1 /* OALAudioActions.m */; };
+		BBCCA89E1DB363F500452FA1 /* OALAudioActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8591DB363F500452FA1 /* OALAudioActions.m */; };
+		BBCCA89F1DB363F500452FA1 /* OALUtilityActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */; };
+		BBCCA8A01DB363F500452FA1 /* OALUtilityActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */; };
+		BBCCA8A11DB363F500452FA1 /* OALUtilityActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */; };
+		BBCCA8A21DB363F500452FA1 /* OALUtilityActions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */; };
+		BBCCA8A31DB363F500452FA1 /* OALAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */; };
+		BBCCA8A41DB363F500452FA1 /* OALAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */; };
+		BBCCA8A51DB363F500452FA1 /* OALAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */; };
+		BBCCA8A61DB363F500452FA1 /* OALAudioTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */; };
+		BBCCA8A71DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */; };
+		BBCCA8A81DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */; };
+		BBCCA8A91DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */; };
+		BBCCA8AA1DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */; };
+		BBCCA8AB1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
+		BBCCA8AC1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
+		BBCCA8AD1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
+		BBCCA8AE1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
+		BBCCA8AF1DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
+		BBCCA8B01DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
+		BBCCA8B11DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
+		BBCCA8B21DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
+		BBCCA8B31DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
+		BBCCA8B41DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
+		BBCCA8B51DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
+		BBCCA8B61DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
+		BBCCA8B71DB363F500452FA1 /* ALBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86A1DB363F500452FA1 /* ALBuffer.m */; };
+		BBCCA8B81DB363F500452FA1 /* ALBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86A1DB363F500452FA1 /* ALBuffer.m */; };
+		BBCCA8B91DB363F500452FA1 /* ALBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86A1DB363F500452FA1 /* ALBuffer.m */; };
+		BBCCA8BA1DB363F500452FA1 /* ALBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86A1DB363F500452FA1 /* ALBuffer.m */; };
+		BBCCA8BB1DB363F500452FA1 /* ALCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */; };
+		BBCCA8BC1DB363F500452FA1 /* ALCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */; };
+		BBCCA8BD1DB363F500452FA1 /* ALCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */; };
+		BBCCA8BE1DB363F500452FA1 /* ALCaptureDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */; };
+		BBCCA8BF1DB363F500452FA1 /* ALChannelSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */; };
+		BBCCA8C01DB363F500452FA1 /* ALChannelSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */; };
+		BBCCA8C11DB363F500452FA1 /* ALChannelSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */; };
+		BBCCA8C21DB363F500452FA1 /* ALChannelSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */; };
+		BBCCA8C31DB363F500452FA1 /* ALContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8701DB363F500452FA1 /* ALContext.m */; };
+		BBCCA8C41DB363F500452FA1 /* ALContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8701DB363F500452FA1 /* ALContext.m */; };
+		BBCCA8C51DB363F500452FA1 /* ALContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8701DB363F500452FA1 /* ALContext.m */; };
+		BBCCA8C61DB363F500452FA1 /* ALContext.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8701DB363F500452FA1 /* ALContext.m */; };
+		BBCCA8C71DB363F500452FA1 /* ALDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8721DB363F500452FA1 /* ALDevice.m */; };
+		BBCCA8C81DB363F500452FA1 /* ALDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8721DB363F500452FA1 /* ALDevice.m */; };
+		BBCCA8C91DB363F500452FA1 /* ALDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8721DB363F500452FA1 /* ALDevice.m */; };
+		BBCCA8CA1DB363F500452FA1 /* ALDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8721DB363F500452FA1 /* ALDevice.m */; };
+		BBCCA8CB1DB363F500452FA1 /* ALListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8741DB363F500452FA1 /* ALListener.m */; };
+		BBCCA8CC1DB363F500452FA1 /* ALListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8741DB363F500452FA1 /* ALListener.m */; };
+		BBCCA8CD1DB363F500452FA1 /* ALListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8741DB363F500452FA1 /* ALListener.m */; };
+		BBCCA8CE1DB363F500452FA1 /* ALListener.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8741DB363F500452FA1 /* ALListener.m */; };
+		BBCCA8CF1DB363F500452FA1 /* ALSoundSourcePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */; };
+		BBCCA8D01DB363F500452FA1 /* ALSoundSourcePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */; };
+		BBCCA8D11DB363F500452FA1 /* ALSoundSourcePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */; };
+		BBCCA8D21DB363F500452FA1 /* ALSoundSourcePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */; };
+		BBCCA8D31DB363F500452FA1 /* ALSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8791DB363F500452FA1 /* ALSource.m */; };
+		BBCCA8D41DB363F500452FA1 /* ALSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8791DB363F500452FA1 /* ALSource.m */; };
+		BBCCA8D51DB363F500452FA1 /* ALSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8791DB363F500452FA1 /* ALSource.m */; };
+		BBCCA8D61DB363F500452FA1 /* ALSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8791DB363F500452FA1 /* ALSource.m */; };
+		BBCCA8D71DB363F500452FA1 /* ALWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87C1DB363F500452FA1 /* ALWrapper.m */; };
+		BBCCA8D81DB363F500452FA1 /* ALWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87C1DB363F500452FA1 /* ALWrapper.m */; };
+		BBCCA8D91DB363F500452FA1 /* ALWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87C1DB363F500452FA1 /* ALWrapper.m */; };
+		BBCCA8DA1DB363F500452FA1 /* ALWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87C1DB363F500452FA1 /* ALWrapper.m */; };
+		BBCCA8DB1DB363F500452FA1 /* OpenALManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87E1DB363F500452FA1 /* OpenALManager.m */; };
+		BBCCA8DC1DB363F500452FA1 /* OpenALManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87E1DB363F500452FA1 /* OpenALManager.m */; };
+		BBCCA8DD1DB363F500452FA1 /* OpenALManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87E1DB363F500452FA1 /* OpenALManager.m */; };
+		BBCCA8DE1DB363F500452FA1 /* OpenALManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA87E1DB363F500452FA1 /* OpenALManager.m */; };
+		BBCCA8DF1DB363F500452FA1 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8811DB363F500452FA1 /* OALAudioSession.m */; };
+		BBCCA8E01DB363F500452FA1 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8811DB363F500452FA1 /* OALAudioSession.m */; };
+		BBCCA8E11DB363F500452FA1 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8811DB363F500452FA1 /* OALAudioSession.m */; };
+		BBCCA8E21DB363F500452FA1 /* OALAudioSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8811DB363F500452FA1 /* OALAudioSession.m */; };
+		BBCCA8E31DB363F500452FA1 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */; };
+		BBCCA8E41DB363F500452FA1 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */; };
+		BBCCA8E51DB363F500452FA1 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */; };
+		BBCCA8E61DB363F500452FA1 /* OALSuspendHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */; };
+		BBCCA8E71DB363F500452FA1 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8861DB363F500452FA1 /* mach_timing.c */; };
+		BBCCA8E81DB363F500452FA1 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8861DB363F500452FA1 /* mach_timing.c */; };
+		BBCCA8E91DB363F500452FA1 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8861DB363F500452FA1 /* mach_timing.c */; };
+		BBCCA8EA1DB363F500452FA1 /* mach_timing.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8861DB363F500452FA1 /* mach_timing.c */; };
+		BBCCA8EB1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */; };
+		BBCCA8EC1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */; };
+		BBCCA8ED1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */; };
+		BBCCA8EE1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */; };
+		BBCCA8EF1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */; };
+		BBCCA8F01DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */; };
+		BBCCA8F11DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */; };
+		BBCCA8F21DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */; };
+		BBCCA8F31DB363F500452FA1 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */; };
+		BBCCA8F41DB363F500452FA1 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */; };
+		BBCCA8F51DB363F500452FA1 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */; };
+		BBCCA8F61DB363F500452FA1 /* OALAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */; };
+		BBCCA8F71DB363F500452FA1 /* OALTools.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8901DB363F500452FA1 /* OALTools.m */; };
+		BBCCA8F81DB363F500452FA1 /* OALTools.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8901DB363F500452FA1 /* OALTools.m */; };
+		BBCCA8F91DB363F500452FA1 /* OALTools.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8901DB363F500452FA1 /* OALTools.m */; };
+		BBCCA8FA1DB363F500452FA1 /* OALTools.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8901DB363F500452FA1 /* OALTools.m */; };
+		BBCCA8FD1DB36EB600452FA1 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */; };
+		BBCCA8FE1DB36EBB00452FA1 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */; };
+		BBCCA8FF1DB36ED200452FA1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
+		BBCCA9001DB36F0F00452FA1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
 		BBE02D3C1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
 		BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
 		BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */; };
-		BBE02D3F1DB1969900C3268B /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBE92CFD1DB2E671008359C2 /* ShockwaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7591DB03A7D003E633F /* ShockwaveTextureProgram.cpp */; };
 		BBE92CFE1DB2E671008359C2 /* LevelEditorEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7291DB03A7D003E633F /* LevelEditorEntitiesPanel.cpp */; };
@@ -821,14 +926,12 @@
 		BBE92D141DB2E671008359C2 /* LevelSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C72B1DB03A7D003E633F /* LevelSelectorPanel.cpp */; };
 		BBE92D151DB2E671008359C2 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7411DB03A7D003E633F /* OpenGLESFramebufferTintGpuProgramWrapper.cpp */; };
 		BBE92D161DB2E671008359C2 /* GameTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7251DB03A7D003E633F /* GameTracker.cpp */; };
-		BBE92D171DB2E671008359C2 /* AppleOpenALSupport.c in Sources */ = {isa = PBXBuildFile; fileRef = BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */; };
 		BBE92D181DB2E671008359C2 /* Vector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C62D1DB03A7D003E633F /* Vector2D.cpp */; };
 		BBE92D191DB2E671008359C2 /* GameScreenTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C71F1DB03A7D003E633F /* GameScreenTitle.cpp */; };
 		BBE92D1A1DB2E671008359C2 /* GameScreenLevels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C71B1DB03A7D003E633F /* GameScreenLevels.cpp */; };
 		BBE92D1B1DB2E671008359C2 /* Chapter1Level10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6DC1DB03A7D003E633F /* Chapter1Level10.cpp */; };
 		BBE92D1C1DB2E671008359C2 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6971DB03A7D003E633F /* texture.c */; };
 		BBE92D1D1DB2E671008359C2 /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7391DB03A7D003E633F /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp */; };
-		BBE92D1E1DB2E671008359C2 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44CAFE1DB04C4C003E633F /* SoundManager.m */; };
 		BBE92D1F1DB2E671008359C2 /* IOSOpenGLESGameScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7371DB03A7D003E633F /* IOSOpenGLESGameScreen.cpp */; };
 		BBE92D201DB2E671008359C2 /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6831DB03A7D003E633F /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp */; };
 		BBE92D211DB2E671008359C2 /* SnakeDeathTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C75F1DB03A7D003E633F /* SnakeDeathTextureProgram.cpp */; };
@@ -841,7 +944,6 @@
 		BBE92D281DB2E671008359C2 /* DustCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6B61DB03A7D003E633F /* DustCloud.cpp */; };
 		BBE92D291DB2E671008359C2 /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6CA1DB03A7D003E633F /* Ground.cpp */; };
 		BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3341DB0317E003E633F /* UIView+Toast.m */; };
-		BBE92D2B1DB2E671008359C2 /* CMOpenALSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */; };
 		BBE92D2C1DB2E671008359C2 /* EntityManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6141DB03A7D003E633F /* EntityManager.cpp */; };
 		BBE92D2D1DB2E671008359C2 /* ConfirmResetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6E01DB03A7D003E633F /* ConfirmResetPanel.cpp */; };
 		BBE92D2E1DB2E671008359C2 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7111DB03A7D003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp */; };
@@ -875,7 +977,6 @@
 		BBE92D4A1DB2E671008359C2 /* PhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6161DB03A7D003E633F /* PhysicalEntity.cpp */; };
 		BBE92D4B1DB2E671008359C2 /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5971DB03A7C003E633F /* pngwio.c */; };
 		BBE92D4C1DB2E671008359C2 /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5911DB03A7C003E633F /* pngrutil.c */; };
-		BBE92D4D1DB2E671008359C2 /* DebugOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8551DB1D89E001B9270 /* DebugOutput.m */; };
 		BBE92D4E1DB2E671008359C2 /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C73D1DB03A7D003E633F /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp */; };
 		BBE92D4F1DB2E671008359C2 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* GameViewController.mm */; };
 		BBE92D501DB2E671008359C2 /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C73B1DB03A7D003E633F /* OpenGLESFadeScreenGpuProgramWrapper.cpp */; };
@@ -923,7 +1024,6 @@
 		BBE92D7A1DB2E671008359C2 /* SinWaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7711DB03A7D003E633F /* SinWaveTextureGpuProgramWrapper.cpp */; };
 		BBE92D7B1DB2E671008359C2 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6121DB03A7D003E633F /* Entity.cpp */; };
 		BBE92D7C1DB2E671008359C2 /* EnemySpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6BC1DB03A7D003E633F /* EnemySpirit.cpp */; };
-		BBE92D7D1DB2E671008359C2 /* CMOpenALSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */; };
 		BBE92D7E1DB2E671008359C2 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BBE92D7F1DB2E671008359C2 /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58A1DB03A7C003E633F /* pngmem.c */; };
 		BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7231DB03A7D003E633F /* GameScreenWorldMap.cpp */; };
@@ -1084,15 +1184,6 @@
 		0ADF187B178E2185005DA99E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0ADF187D178E2185005DA99E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		0ADF187F178E2185005DA99E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AppleOpenALSupport.c; sourceTree = "<group>"; };
-		BB04B84F1DB1D89E001B9270 /* AppleOpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleOpenALSupport.h; sourceTree = "<group>"; };
-		BB04B8501DB1D89E001B9270 /* CMOpenALSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSound.h; sourceTree = "<group>"; };
-		BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSound.m; sourceTree = "<group>"; };
-		BB04B8521DB1D89E001B9270 /* CMOpenALSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMOpenALSoundManager.h; sourceTree = "<group>"; };
-		BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMOpenALSoundManager.m; sourceTree = "<group>"; };
-		BB04B8541DB1D89E001B9270 /* DebugOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugOutput.h; sourceTree = "<group>"; };
-		BB04B8551DB1D89E001B9270 /* DebugOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugOutput.m; sourceTree = "<group>"; };
-		BB04B8561DB1D89E001B9270 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1510,8 +1601,6 @@
 		BB44C77D1DB03A7D003E633F /* WorldMapPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorldMapPanel.cpp; sourceTree = "<group>"; };
 		BB44C77E1DB03A7D003E633F /* WorldMapPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldMapPanel.h; sourceTree = "<group>"; };
 		BB44CAED1DB04B13003E633F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		BB44CAFD1DB04C4C003E633F /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
-		BB44CAFE1DB04C4C003E633F /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		BB44CB001DB04C67003E633F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB021DB04C83003E633F /* GLEssentialsFullscreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEssentialsFullscreenWindow.h; sourceTree = "<group>"; };
 		BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLEssentialsFullscreenWindow.mm; sourceTree = "<group>"; };
@@ -1529,11 +1618,78 @@
 		BB44CB971DB0549D003E633F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB991DB054B8003E633F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB9D1DB054F9003E633F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
-		BB44CD051DB07165003E633F /* nosfuratu mac level editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "nosfuratu mac level editor.app"; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB44CD051DB07165003E633F /* NosFURatu Level Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BBCCA8381DB343AB00452FA1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		BBCCA8401DB3466A00452FA1 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = DEVELOPER_DIR; };
+		BBCCA8431DB3468100452FA1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		BBCCA8461DB3469500452FA1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		BBCCA8491DB346C100452FA1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
+		BBCCA8531DB363F500452FA1 /* OALAction+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OALAction+Private.h"; sourceTree = "<group>"; };
+		BBCCA8541DB363F500452FA1 /* OALAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAction.h; sourceTree = "<group>"; };
+		BBCCA8551DB363F500452FA1 /* OALAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAction.m; sourceTree = "<group>"; };
+		BBCCA8561DB363F500452FA1 /* OALActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALActionManager.h; sourceTree = "<group>"; };
+		BBCCA8571DB363F500452FA1 /* OALActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALActionManager.m; sourceTree = "<group>"; };
+		BBCCA8581DB363F500452FA1 /* OALAudioActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioActions.h; sourceTree = "<group>"; };
+		BBCCA8591DB363F500452FA1 /* OALAudioActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioActions.m; sourceTree = "<group>"; };
+		BBCCA85A1DB363F500452FA1 /* OALUtilityActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALUtilityActions.h; sourceTree = "<group>"; };
+		BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALUtilityActions.m; sourceTree = "<group>"; };
+		BBCCA85D1DB363F500452FA1 /* OALAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTrack.h; sourceTree = "<group>"; };
+		BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTrack.m; sourceTree = "<group>"; };
+		BBCCA85F1DB363F500452FA1 /* OALAudioTrackNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTrackNotifications.h; sourceTree = "<group>"; };
+		BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTrackNotifications.m; sourceTree = "<group>"; };
+		BBCCA8611DB363F500452FA1 /* OALAudioTracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioTracks.h; sourceTree = "<group>"; };
+		BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioTracks.m; sourceTree = "<group>"; };
+		BBCCA8631DB363F500452FA1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBCCA8641DB363F500452FA1 /* OALSimpleAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALSimpleAudio.h; sourceTree = "<group>"; };
+		BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALSimpleAudio.m; sourceTree = "<group>"; };
+		BBCCA8661DB363F500452FA1 /* ObjectAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectAL.h; sourceTree = "<group>"; };
+		BBCCA8671DB363F500452FA1 /* ObjectALConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectALConfig.h; sourceTree = "<group>"; };
+		BBCCA8691DB363F500452FA1 /* ALBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALBuffer.h; sourceTree = "<group>"; };
+		BBCCA86A1DB363F500452FA1 /* ALBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALBuffer.m; sourceTree = "<group>"; };
+		BBCCA86B1DB363F500452FA1 /* ALCaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALCaptureDevice.h; sourceTree = "<group>"; };
+		BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALCaptureDevice.m; sourceTree = "<group>"; };
+		BBCCA86D1DB363F500452FA1 /* ALChannelSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALChannelSource.h; sourceTree = "<group>"; };
+		BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALChannelSource.m; sourceTree = "<group>"; };
+		BBCCA86F1DB363F500452FA1 /* ALContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALContext.h; sourceTree = "<group>"; };
+		BBCCA8701DB363F500452FA1 /* ALContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALContext.m; sourceTree = "<group>"; };
+		BBCCA8711DB363F500452FA1 /* ALDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALDevice.h; sourceTree = "<group>"; };
+		BBCCA8721DB363F500452FA1 /* ALDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALDevice.m; sourceTree = "<group>"; };
+		BBCCA8731DB363F500452FA1 /* ALListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALListener.h; sourceTree = "<group>"; };
+		BBCCA8741DB363F500452FA1 /* ALListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALListener.m; sourceTree = "<group>"; };
+		BBCCA8751DB363F500452FA1 /* ALSoundSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSoundSource.h; sourceTree = "<group>"; };
+		BBCCA8761DB363F500452FA1 /* ALSoundSourcePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSoundSourcePool.h; sourceTree = "<group>"; };
+		BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALSoundSourcePool.m; sourceTree = "<group>"; };
+		BBCCA8781DB363F500452FA1 /* ALSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSource.h; sourceTree = "<group>"; };
+		BBCCA8791DB363F500452FA1 /* ALSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALSource.m; sourceTree = "<group>"; };
+		BBCCA87A1DB363F500452FA1 /* ALTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTypes.h; sourceTree = "<group>"; };
+		BBCCA87B1DB363F500452FA1 /* ALWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALWrapper.h; sourceTree = "<group>"; };
+		BBCCA87C1DB363F500452FA1 /* ALWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALWrapper.m; sourceTree = "<group>"; };
+		BBCCA87D1DB363F500452FA1 /* OpenALManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALManager.h; sourceTree = "<group>"; };
+		BBCCA87E1DB363F500452FA1 /* OpenALManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALManager.m; sourceTree = "<group>"; };
+		BBCCA8801DB363F500452FA1 /* OALAudioSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioSession.h; sourceTree = "<group>"; };
+		BBCCA8811DB363F500452FA1 /* OALAudioSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioSession.m; sourceTree = "<group>"; };
+		BBCCA8821DB363F500452FA1 /* OALSuspendHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALSuspendHandler.h; sourceTree = "<group>"; };
+		BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALSuspendHandler.m; sourceTree = "<group>"; };
+		BBCCA8851DB363F500452FA1 /* ARCSafe_MemMgmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCSafe_MemMgmt.h; sourceTree = "<group>"; };
+		BBCCA8861DB363F500452FA1 /* mach_timing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_timing.c; sourceTree = "<group>"; };
+		BBCCA8871DB363F500452FA1 /* mach_timing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_timing.h; sourceTree = "<group>"; };
+		BBCCA8881DB363F500452FA1 /* NSMutableArray+WeakReferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+WeakReferences.h"; sourceTree = "<group>"; };
+		BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+WeakReferences.m"; sourceTree = "<group>"; };
+		BBCCA88A1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+WeakReferences.h"; sourceTree = "<group>"; };
+		BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+WeakReferences.m"; sourceTree = "<group>"; };
+		BBCCA88C1DB363F500452FA1 /* OALAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALAudioFile.h; sourceTree = "<group>"; };
+		BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALAudioFile.m; sourceTree = "<group>"; };
+		BBCCA88E1DB363F500452FA1 /* OALNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALNotifications.h; sourceTree = "<group>"; };
+		BBCCA88F1DB363F500452FA1 /* OALTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OALTools.h; sourceTree = "<group>"; };
+		BBCCA8901DB363F500452FA1 /* OALTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OALTools.m; sourceTree = "<group>"; };
+		BBCCA8911DB363F500452FA1 /* ObjectALMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectALMacros.h; sourceTree = "<group>"; };
+		BBCCA8921DB363F500452FA1 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		BBE02D3A1DB18D4600C3268B /* GameScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenController.h; sourceTree = "<group>"; };
 		BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScreenController.mm; sourceTree = "<group>"; };
 		BBE92E1A1DB2E671008359C2 /* NosFURatu Level Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1544,6 +1700,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCCA8391DB343AB00452FA1 /* Accelerate.framework in Frameworks */,
 				BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */,
 				BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */,
 				BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */,
@@ -1564,15 +1721,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCCA9001DB36F0F00452FA1 /* AVFoundation.framework in Frameworks */,
+				BBCCA8FD1DB36EB600452FA1 /* OpenAL.framework in Frameworks */,
+				BBCCA84A1DB346C100452FA1 /* CoreAudio.framework in Frameworks */,
+				BBCCA8451DB3468800452FA1 /* AudioToolbox.framework in Frameworks */,
+				BBCCA8411DB3466A00452FA1 /* AudioUnit.framework in Frameworks */,
+				BBCCA83D1DB3462E00452FA1 /* Accelerate.framework in Frameworks */,
 				BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */,
 				BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */,
-				BB44CB981DB0549D003E633F /* CoreFoundation.framework in Frameworks */,
 				BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */,
 				BB44CB941DB05479003E633F /* GLKit.framework in Frameworks */,
 				BB44CB921DB05468003E633F /* CoreGraphics.framework in Frameworks */,
-				BB44CB111DB04E9D003E633F /* CoreVideo.framework in Frameworks */,
 				BB44CB0F1DB04E81003E633F /* OpenGL.framework in Frameworks */,
-				BB44CB011DB04C67003E633F /* AVFoundation.framework in Frameworks */,
 				BB44CAEE1DB04B13003E633F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1581,15 +1741,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCCA8FF1DB36ED200452FA1 /* AVFoundation.framework in Frameworks */,
+				BBCCA8FE1DB36EBB00452FA1 /* OpenAL.framework in Frameworks */,
+				BBCCA84B1DB346C700452FA1 /* CoreAudio.framework in Frameworks */,
+				BBCCA8441DB3468100452FA1 /* AudioToolbox.framework in Frameworks */,
+				BBCCA8421DB3467100452FA1 /* AudioUnit.framework in Frameworks */,
+				BBCCA83E1DB3463400452FA1 /* Accelerate.framework in Frameworks */,
 				BB44CC751DB07165003E633F /* libz.tbd in Frameworks */,
 				BB44CC761DB07165003E633F /* Foundation.framework in Frameworks */,
-				BB44CC771DB07165003E633F /* CoreFoundation.framework in Frameworks */,
 				BB44CC781DB07165003E633F /* QuartzCore.framework in Frameworks */,
 				BB44CC791DB07165003E633F /* GLKit.framework in Frameworks */,
 				BB44CC7A1DB07165003E633F /* CoreGraphics.framework in Frameworks */,
-				BB44CC7B1DB07165003E633F /* CoreVideo.framework in Frameworks */,
 				BB44CC7C1DB07165003E633F /* OpenGL.framework in Frameworks */,
-				BB44CC7D1DB07165003E633F /* AVFoundation.framework in Frameworks */,
 				BB44CC7E1DB07165003E633F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1598,6 +1761,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBCCA83A1DB343B100452FA1 /* Accelerate.framework in Frameworks */,
 				BBE92D841DB2E671008359C2 /* OpenAL.framework in Frameworks */,
 				BBE92D851DB2E671008359C2 /* libc++.dylib in Frameworks */,
 				BBE92D861DB2E671008359C2 /* QuartzCore.framework in Frameworks */,
@@ -1634,7 +1798,7 @@
 			children = (
 				0ADF1874178E2185005DA99E /* NosFURatu.app */,
 				BB44C30A1DB0303F003E633F /* NosFURatu.app */,
-				BB44CD051DB07165003E633F /* nosfuratu mac level editor.app */,
+				BB44CD051DB07165003E633F /* NosFURatu Level Editor.app */,
 				BBE92E1A1DB2E671008359C2 /* NosFURatu Level Editor.app */,
 			);
 			name = Products;
@@ -1643,6 +1807,7 @@
 		0ADF1876178E2185005DA99E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBCCA8381DB343AB00452FA1 /* Accelerate.framework */,
 				BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */,
 				BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */,
 				BB09703519C3A3180086B30F /* CoreFoundation.framework */,
@@ -1659,22 +1824,6 @@
 			);
 			name = Frameworks;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		BB04B84D1DB1D89E001B9270 /* soundengine */ = {
-			isa = PBXGroup;
-			children = (
-				BB04B84E1DB1D89E001B9270 /* AppleOpenALSupport.c */,
-				BB04B84F1DB1D89E001B9270 /* AppleOpenALSupport.h */,
-				BB04B8501DB1D89E001B9270 /* CMOpenALSound.h */,
-				BB04B8511DB1D89E001B9270 /* CMOpenALSound.m */,
-				BB04B8521DB1D89E001B9270 /* CMOpenALSoundManager.h */,
-				BB04B8531DB1D89E001B9270 /* CMOpenALSoundManager.m */,
-				BB04B8541DB1D89E001B9270 /* DebugOutput.h */,
-				BB04B8551DB1D89E001B9270 /* DebugOutput.m */,
-				BB04B8561DB1D89E001B9270 /* SynthesizeSingleton.h */,
-			);
-			path = soundengine;
 			sourceTree = "<group>";
 		};
 		BB44C31E1DB030B3003E633F /* mac */ = {
@@ -1708,7 +1857,6 @@
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
-				BB04B84D1DB1D89E001B9270 /* soundengine */,
 				BB44C3331DB0317E003E633F /* UIView+Toast.h */,
 				BB44C3341DB0317E003E633F /* UIView+Toast.m */,
 			);
@@ -1738,8 +1886,6 @@
 				BB44C34E1DB03267003E633F /* platform_asset_utils.m */,
 				BB44C34F1DB03267003E633F /* SaveData.h */,
 				BB44C3501DB03267003E633F /* SaveData.m */,
-				BB44CAFD1DB04C4C003E633F /* SoundManager.h */,
-				BB44CAFE1DB04C4C003E633F /* SoundManager.m */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -1886,6 +2032,7 @@
 		BB44C4F61DB03A7C003E633F /* 3rdparty */ = {
 			isa = PBXGroup;
 			children = (
+				BBCCA8511DB363F500452FA1 /* ObjectAL */,
 				BB44C4F71DB03A7C003E633F /* libpng */,
 				BB44C5FF1DB03A7D003E633F /* rapidjson */,
 			);
@@ -2295,16 +2442,22 @@
 		BB44CAEC1DB04B13003E633F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BB44CB9D1DB054F9003E633F /* libz.tbd */,
-				BB44CB991DB054B8003E633F /* Foundation.framework */,
-				BB44CB971DB0549D003E633F /* CoreFoundation.framework */,
-				BB44CB951DB05486003E633F /* QuartzCore.framework */,
-				BB44CB931DB05479003E633F /* GLKit.framework */,
-				BB44CB911DB05468003E633F /* CoreGraphics.framework */,
-				BB44CB101DB04E9D003E633F /* CoreVideo.framework */,
-				BB44CB0E1DB04E81003E633F /* OpenGL.framework */,
+				BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */,
+				BBCCA8431DB3468100452FA1 /* AudioToolbox.framework */,
+				BBCCA8401DB3466A00452FA1 /* AudioUnit.framework */,
 				BB44CB001DB04C67003E633F /* AVFoundation.framework */,
 				BB44CAED1DB04B13003E633F /* Cocoa.framework */,
+				BBCCA8491DB346C100452FA1 /* CoreAudio.framework */,
+				BB44CB971DB0549D003E633F /* CoreFoundation.framework */,
+				BB44CB911DB05468003E633F /* CoreGraphics.framework */,
+				BBCCA8461DB3469500452FA1 /* CoreMedia.framework */,
+				BB44CB101DB04E9D003E633F /* CoreVideo.framework */,
+				BB44CB991DB054B8003E633F /* Foundation.framework */,
+				BB44CB931DB05479003E633F /* GLKit.framework */,
+				BB44CB9D1DB054F9003E633F /* libz.tbd */,
+				BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */,
+				BB44CB0E1DB04E81003E633F /* OpenGL.framework */,
+				BB44CB951DB05486003E633F /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			path = ..;
@@ -2317,6 +2470,113 @@
 				BB44CB141DB04EE2003E633F /* MacOpenGLGameScreen.h */,
 			);
 			path = mac;
+			sourceTree = "<group>";
+		};
+		BBCCA8511DB363F500452FA1 /* ObjectAL */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA8521DB363F500452FA1 /* Actions */,
+				BBCCA85C1DB363F500452FA1 /* AudioTrack */,
+				BBCCA8631DB363F500452FA1 /* Info.plist */,
+				BBCCA8641DB363F500452FA1 /* OALSimpleAudio.h */,
+				BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */,
+				BBCCA8661DB363F500452FA1 /* ObjectAL.h */,
+				BBCCA8671DB363F500452FA1 /* ObjectALConfig.h */,
+				BBCCA8681DB363F500452FA1 /* OpenAL */,
+				BBCCA87F1DB363F500452FA1 /* Session */,
+				BBCCA8841DB363F500452FA1 /* Support */,
+			);
+			path = ObjectAL;
+			sourceTree = "<group>";
+		};
+		BBCCA8521DB363F500452FA1 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA8541DB363F500452FA1 /* OALAction.h */,
+				BBCCA8551DB363F500452FA1 /* OALAction.m */,
+				BBCCA8531DB363F500452FA1 /* OALAction+Private.h */,
+				BBCCA8561DB363F500452FA1 /* OALActionManager.h */,
+				BBCCA8571DB363F500452FA1 /* OALActionManager.m */,
+				BBCCA8581DB363F500452FA1 /* OALAudioActions.h */,
+				BBCCA8591DB363F500452FA1 /* OALAudioActions.m */,
+				BBCCA85A1DB363F500452FA1 /* OALUtilityActions.h */,
+				BBCCA85B1DB363F500452FA1 /* OALUtilityActions.m */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		BBCCA85C1DB363F500452FA1 /* AudioTrack */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA85D1DB363F500452FA1 /* OALAudioTrack.h */,
+				BBCCA85E1DB363F500452FA1 /* OALAudioTrack.m */,
+				BBCCA85F1DB363F500452FA1 /* OALAudioTrackNotifications.h */,
+				BBCCA8601DB363F500452FA1 /* OALAudioTrackNotifications.m */,
+				BBCCA8611DB363F500452FA1 /* OALAudioTracks.h */,
+				BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */,
+			);
+			path = AudioTrack;
+			sourceTree = "<group>";
+		};
+		BBCCA8681DB363F500452FA1 /* OpenAL */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA8691DB363F500452FA1 /* ALBuffer.h */,
+				BBCCA86A1DB363F500452FA1 /* ALBuffer.m */,
+				BBCCA86B1DB363F500452FA1 /* ALCaptureDevice.h */,
+				BBCCA86C1DB363F500452FA1 /* ALCaptureDevice.m */,
+				BBCCA86D1DB363F500452FA1 /* ALChannelSource.h */,
+				BBCCA86E1DB363F500452FA1 /* ALChannelSource.m */,
+				BBCCA86F1DB363F500452FA1 /* ALContext.h */,
+				BBCCA8701DB363F500452FA1 /* ALContext.m */,
+				BBCCA8711DB363F500452FA1 /* ALDevice.h */,
+				BBCCA8721DB363F500452FA1 /* ALDevice.m */,
+				BBCCA8731DB363F500452FA1 /* ALListener.h */,
+				BBCCA8741DB363F500452FA1 /* ALListener.m */,
+				BBCCA8751DB363F500452FA1 /* ALSoundSource.h */,
+				BBCCA8761DB363F500452FA1 /* ALSoundSourcePool.h */,
+				BBCCA8771DB363F500452FA1 /* ALSoundSourcePool.m */,
+				BBCCA8781DB363F500452FA1 /* ALSource.h */,
+				BBCCA8791DB363F500452FA1 /* ALSource.m */,
+				BBCCA87A1DB363F500452FA1 /* ALTypes.h */,
+				BBCCA87B1DB363F500452FA1 /* ALWrapper.h */,
+				BBCCA87C1DB363F500452FA1 /* ALWrapper.m */,
+				BBCCA87D1DB363F500452FA1 /* OpenALManager.h */,
+				BBCCA87E1DB363F500452FA1 /* OpenALManager.m */,
+			);
+			path = OpenAL;
+			sourceTree = "<group>";
+		};
+		BBCCA87F1DB363F500452FA1 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA8801DB363F500452FA1 /* OALAudioSession.h */,
+				BBCCA8811DB363F500452FA1 /* OALAudioSession.m */,
+				BBCCA8821DB363F500452FA1 /* OALSuspendHandler.h */,
+				BBCCA8831DB363F500452FA1 /* OALSuspendHandler.m */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		BBCCA8841DB363F500452FA1 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				BBCCA8851DB363F500452FA1 /* ARCSafe_MemMgmt.h */,
+				BBCCA8861DB363F500452FA1 /* mach_timing.c */,
+				BBCCA8871DB363F500452FA1 /* mach_timing.h */,
+				BBCCA8881DB363F500452FA1 /* NSMutableArray+WeakReferences.h */,
+				BBCCA8891DB363F500452FA1 /* NSMutableArray+WeakReferences.m */,
+				BBCCA88A1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.h */,
+				BBCCA88B1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m */,
+				BBCCA88C1DB363F500452FA1 /* OALAudioFile.h */,
+				BBCCA88D1DB363F500452FA1 /* OALAudioFile.m */,
+				BBCCA88E1DB363F500452FA1 /* OALNotifications.h */,
+				BBCCA88F1DB363F500452FA1 /* OALTools.h */,
+				BBCCA8901DB363F500452FA1 /* OALTools.m */,
+				BBCCA8911DB363F500452FA1 /* ObjectALMacros.h */,
+				BBCCA8921DB363F500452FA1 /* SynthesizeSingleton.h */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2370,7 +2630,7 @@
 			);
 			name = "nosfuratu mac level editor";
 			productName = nosfuratu;
-			productReference = BB44CD051DB07165003E633F /* nosfuratu mac level editor.app */;
+			productReference = BB44CD051DB07165003E633F /* NosFURatu Level Editor.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BBE92CFB1DB2E671008359C2 /* nosfuratu ios level editor */ = {
@@ -2464,6 +2724,7 @@
 				BB44C4941DB03277003E633F /* c_world_1_mid_boss_part_3.png in Resources */,
 				BB44CA971DB03A7F003E633F /* trans_screen_shader.fsh in Resources */,
 				BB44C4041DB03276003E633F /* collect_golden_carrot.wav in Resources */,
+				BBCCA8AF1DB363F500452FA1 /* Info.plist in Resources */,
 				BB44C43A1DB03277003E633F /* level_complete.wav in Resources */,
 				BB44C4701DB03277003E633F /* vampire_dash.wav in Resources */,
 				BB44C3481DB0323F003E633F /* Images.xcassets in Resources */,
@@ -2686,6 +2947,7 @@
 				BB44C44F1DB03277003E633F /* opening_cutscene_bgm.wav in Resources */,
 				BB44C4111DB03276003E633F /* end_boss_snake_death.wav in Resources */,
 				BB44C9A21DB03A7E003E633F /* frame_buffer_to_screen_shader.vsh in Resources */,
+				BBCCA8B11DB363F500452FA1 /* Info.plist in Resources */,
 				BB44CA841DB03A7F003E633F /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB44C4391DB03277003E633F /* level_clear.wav in Resources */,
 				BB44C93C1DB03A7E003E633F /* rapidjson_readme.txt in Resources */,
@@ -2806,6 +3068,7 @@
 				BB44CCF41DB07165003E633F /* opening_cutscene_bgm.wav in Resources */,
 				BB44CCF51DB07165003E633F /* end_boss_snake_death.wav in Resources */,
 				BB44CCF61DB07165003E633F /* frame_buffer_to_screen_shader.vsh in Resources */,
+				BBCCA8B21DB363F500452FA1 /* Info.plist in Resources */,
 				BB44CCF81DB07165003E633F /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB44CCF91DB07165003E633F /* level_clear.wav in Resources */,
 				BB44CCFA1DB07165003E633F /* rapidjson_readme.txt in Resources */,
@@ -2844,6 +3107,7 @@
 				BBE92DA51DB2E671008359C2 /* c_world_1_mid_boss_part_3.png in Resources */,
 				BBE92DA61DB2E671008359C2 /* trans_screen_shader.fsh in Resources */,
 				BBE92DA71DB2E671008359C2 /* collect_golden_carrot.wav in Resources */,
+				BBCCA8B01DB363F500452FA1 /* Info.plist in Resources */,
 				BBE92DA81DB2E671008359C2 /* level_complete.wav in Resources */,
 				BBE92DA91DB2E671008359C2 /* vampire_dash.wav in Resources */,
 				BBE92DAA1DB2E671008359C2 /* Images.xcassets in Resources */,
@@ -2991,27 +3255,32 @@
 				BB44CA531DB03A7F003E633F /* LevelSelectorPanel.cpp in Sources */,
 				BB44CA691DB03A7F003E633F /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BB44CA4D1DB03A7F003E633F /* GameTracker.cpp in Sources */,
-				BB04B8571DB1D89E001B9270 /* AppleOpenALSupport.c in Sources */,
+				BBCCA8DF1DB363F500452FA1 /* OALAudioSession.m in Sources */,
+				BBCCA8EB1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */,
+				BBCCA8CB1DB363F500452FA1 /* ALListener.m in Sources */,
 				BB44C9571DB03A7E003E633F /* Vector2D.cpp in Sources */,
 				BB44CA471DB03A7F003E633F /* GameScreenTitle.cpp in Sources */,
 				BB44CA431DB03A7F003E633F /* GameScreenLevels.cpp in Sources */,
 				BB44C9F51DB03A7E003E633F /* Chapter1Level10.cpp in Sources */,
+				BBCCA8931DB363F500452FA1 /* OALAction.m in Sources */,
 				BB44C9BB1DB03A7E003E633F /* texture.c in Sources */,
 				BB44CA611DB03A7F003E633F /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
-				BBE02D3F1DB1969900C3268B /* SoundManager.m in Sources */,
 				BB44CA5F1DB03A7F003E633F /* IOSOpenGLESGameScreen.cpp in Sources */,
 				BB44C9A91DB03A7E003E633F /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CA8D1DB03A7F003E633F /* SnakeDeathTextureProgram.cpp in Sources */,
 				BB44C9551DB03A7E003E633F /* Triangle.cpp in Sources */,
 				BB44C9AF1DB03A7E003E633F /* OpenGLESManager.cpp in Sources */,
+				BBCCA89F1DB363F500452FA1 /* OALUtilityActions.m in Sources */,
 				BB44CA771DB03A7F003E633F /* OpenGLESTransDeathGpuProgramWrapper.cpp in Sources */,
+				BBCCA8C71DB363F500452FA1 /* ALDevice.m in Sources */,
+				BBCCA8E31DB363F500452FA1 /* OALSuspendHandler.m in Sources */,
 				BB44C9D51DB03A7E003E633F /* EndBossSnake.cpp in Sources */,
+				BBCCA8AB1DB363F500452FA1 /* OALAudioTracks.m in Sources */,
 				BB44C8891DB03A7E003E633F /* pngwutil.c in Sources */,
 				BB44C9B31DB03A7E003E633F /* OpenGLESSpriteBatcher.cpp in Sources */,
 				BB44C9D31DB03A7E003E633F /* DustCloud.cpp in Sources */,
 				BB44C9E51DB03A7E003E633F /* Ground.cpp in Sources */,
 				BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */,
-				BB04B8591DB1D89E001B9270 /* CMOpenALSoundManager.m in Sources */,
 				BB44C9431DB03A7E003E633F /* EntityManager.cpp in Sources */,
 				BB44C9FB1DB03A7E003E633F /* ConfirmResetPanel.cpp in Sources */,
 				BB44CA391DB03A7F003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
@@ -3020,6 +3289,7 @@
 				BB44C94D1DB03A7E003E633F /* Circle.cpp in Sources */,
 				BB44C8711DB03A7E003E633F /* pngpread.c in Sources */,
 				BB44CA6F1DB03A7F003E633F /* OpenGLESRenderer.cpp in Sources */,
+				BBCCA8BF1DB363F500452FA1 /* ALChannelSource.m in Sources */,
 				BB44C87B1DB03A7E003E633F /* pngset.c in Sources */,
 				BB44C3611DB03267003E633F /* SaveData.m in Sources */,
 				BB44C9E11DB03A7E003E633F /* Game.cpp in Sources */,
@@ -3030,6 +3300,8 @@
 				BB44C98F1DB03A7E003E633F /* DummyGpuProgramWrapper.cpp in Sources */,
 				BB44CA751DB03A7F003E633F /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CAAB1DB03A7F003E633F /* TransitionGpuProgramWrapper.cpp in Sources */,
+				BBCCA8F31DB363F500452FA1 /* OALAudioFile.m in Sources */,
+				BBCCA8B31DB363F500452FA1 /* OALSimpleAudio.m in Sources */,
 				BB44C8871DB03A7E003E633F /* pngwtran.c in Sources */,
 				BB44CA6B1DB03A7F003E633F /* OpenGLESGameScreen.cpp in Sources */,
 				BB44C9E91DB03A7E003E633F /* HoleCover.cpp in Sources */,
@@ -3040,14 +3312,17 @@
 				BB44C8771DB03A7E003E633F /* pngrtran.c in Sources */,
 				BB44C3351DB0317E003E633F /* AppDelegate.m in Sources */,
 				BB44CA491DB03A7F003E633F /* GameScreenTransitions.cpp in Sources */,
+				BBCCA8CF1DB363F500452FA1 /* ALSoundSourcePool.m in Sources */,
+				BBCCA8A71DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */,
 				BB44C9AD1DB03A7E003E633F /* OpenGLESLineBatcher.cpp in Sources */,
 				BB44C8751DB03A7E003E633F /* pngrio.c in Sources */,
 				BB44C9451DB03A7E003E633F /* PhysicalEntity.cpp in Sources */,
 				BB44C8831DB03A7E003E633F /* pngwio.c in Sources */,
 				BB44C8791DB03A7E003E633F /* pngrutil.c in Sources */,
-				BB04B85A1DB1D89E001B9270 /* DebugOutput.m in Sources */,
 				BB44CA651DB03A7F003E633F /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BB44C3361DB0317E003E633F /* GameViewController.mm in Sources */,
+				BBCCA8D71DB363F500452FA1 /* ALWrapper.m in Sources */,
+				BBCCA8971DB363F500452FA1 /* OALActionManager.m in Sources */,
 				BB44CA631DB03A7F003E633F /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CAAF1DB03A7F003E633F /* WorldMapPanel.cpp in Sources */,
 				BB44C9D11DB03A7E003E633F /* CollectibleItem.cpp in Sources */,
@@ -3068,19 +3343,25 @@
 				BB44C8631DB03A7E003E633F /* png.c in Sources */,
 				BB44C9F31DB03A7E003E633F /* BatPanel.cpp in Sources */,
 				BB44C9B91DB03A7E003E633F /* shader.c in Sources */,
+				BBCCA8E71DB363F500452FA1 /* mach_timing.c in Sources */,
+				BBCCA8BB1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BB44C9AB1DB03A7E003E633F /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */,
 				BB44C86B1DB03A7E003E633F /* pngget.c in Sources */,
 				BB44C9A51DB03A7E003E633F /* image.c in Sources */,
+				BBCCA8C31DB363F500452FA1 /* ALContext.m in Sources */,
 				BB44C35B1DB03267003E633F /* AppPrefs.m in Sources */,
 				BB44CA9D1DB03A7F003E633F /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB44C9C71DB03A7E003E633F /* Text.cpp in Sources */,
 				BB44CA891DB03A7F003E633F /* SinWaveTextureProgram.cpp in Sources */,
 				BB44CA9B1DB03A7F003E633F /* TransitionProgram.cpp in Sources */,
 				BB44C9C31DB03A7E003E633F /* RectangleBatcher.cpp in Sources */,
+				BBCCA8EF1DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */,
 				BB44C9951DB03A7E003E633F /* LineBatcher.cpp in Sources */,
 				BB44CA6D1DB03A7F003E633F /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */,
 				BB44C9C11DB03A7E003E633F /* TextureProgram.cpp in Sources */,
+				BBCCA8DB1DB363F500452FA1 /* OpenALManager.m in Sources */,
 				BB44CAA91DB03A7F003E633F /* TransDeathGpuProgramWrapper.cpp in Sources */,
+				BBCCA8F71DB363F500452FA1 /* OALTools.m in Sources */,
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
 				BB44C99D1DB03A7E003E633F /* ColorProgram.cpp in Sources */,
 				BB44C9C51DB03A7E003E633F /* SpriteBatcher.cpp in Sources */,
@@ -3090,13 +3371,16 @@
 				BB44C9971DB03A7E003E633F /* asset_utils.c in Sources */,
 				BB44C9931DB03A7E003E633F /* GpuProgramWrapper.cpp in Sources */,
 				BB44CA3B1DB03A7F003E633F /* GameButton.cpp in Sources */,
+				BBCCA8D31DB363F500452FA1 /* ALSource.m in Sources */,
 				BB44CAA31DB03A7F003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44C9411DB03A7E003E633F /* Entity.cpp in Sources */,
 				BB44C9D91DB03A7E003E633F /* EnemySpirit.cpp in Sources */,
-				BB04B8581DB1D89E001B9270 /* CMOpenALSound.m in Sources */,
 				BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */,
+				BBCCA89B1DB363F500452FA1 /* OALAudioActions.m in Sources */,
+				BBCCA8B71DB363F500452FA1 /* ALBuffer.m in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 				BB44CA4B1DB03A7F003E633F /* GameScreenWorldMap.cpp in Sources */,
+				BBCCA8A31DB363F500452FA1 /* OALAudioTrack.m in Sources */,
 				BB44C9531DB03A7E003E633F /* Rectangle.cpp in Sources */,
 				BB44C9DB1DB03A7E003E633F /* ExitGround.cpp in Sources */,
 			);
@@ -3112,12 +3396,14 @@
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB44CB161DB051C8003E633F /* MacOpenGLGameScreen.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
+				BBCCA8991DB363F500452FA1 /* OALActionManager.m in Sources */,
 				BB44CB5D1DB0532A003E633F /* Animation.cpp in Sources */,
 				BB44CB811DB053C0003E633F /* png.c in Sources */,
 				BB44CB821DB053C0003E633F /* pngerror.c in Sources */,
 				BB44CB831DB053C0003E633F /* pngget.c in Sources */,
 				BB44CB841DB053C0003E633F /* pngmem.c in Sources */,
 				BB44CB851DB053C0003E633F /* pngpread.c in Sources */,
+				BBCCA8F51DB363F500452FA1 /* OALAudioFile.m in Sources */,
 				BB44CB861DB053C0003E633F /* pngread.c in Sources */,
 				BB44CB871DB053C0003E633F /* pngrio.c in Sources */,
 				BB44CB881DB053C0003E633F /* pngrtran.c in Sources */,
@@ -3125,32 +3411,41 @@
 				BB44CB8A1DB053C0003E633F /* pngset.c in Sources */,
 				BB44CB8B1DB053C0003E633F /* pngtrans.c in Sources */,
 				BB44CB8C1DB053C0003E633F /* pngwio.c in Sources */,
+				BBCCA8E11DB363F500452FA1 /* OALAudioSession.m in Sources */,
+				BBCCA8AD1DB363F500452FA1 /* OALAudioTracks.m in Sources */,
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
 				BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */,
 				BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44CB8F1DB053C0003E633F /* pngwutil.c in Sources */,
 				BB44CB5E1DB0532A003E633F /* CircleBatcher.cpp in Sources */,
 				BB44CB5F1DB0532A003E633F /* DummyGpuProgramWrapper.cpp in Sources */,
+				BBCCA89D1DB363F500452FA1 /* OALAudioActions.m in Sources */,
 				BB44CB601DB0532A003E633F /* Font.cpp in Sources */,
 				BB44CB611DB0532A003E633F /* GpuProgramWrapper.cpp in Sources */,
 				BB44CB7E1DB0533E003E633F /* Entity.cpp in Sources */,
+				BBCCA8C91DB363F500452FA1 /* ALDevice.m in Sources */,
 				BB44CB7F1DB0533E003E633F /* EntityManager.cpp in Sources */,
 				BB44CB801DB0533E003E633F /* PhysicalEntity.cpp in Sources */,
+				BBCCA8E91DB363F500452FA1 /* mach_timing.c in Sources */,
 				BB44CB621DB0532A003E633F /* LineBatcher.cpp in Sources */,
 				BB44CB631DB0532A003E633F /* asset_utils.c in Sources */,
 				BB44CB641DB0532A003E633F /* ColorProgram.cpp in Sources */,
 				BB44CB651DB0532A003E633F /* FramebufferToScreenProgram.cpp in Sources */,
+				BBCCA8F11DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */,
 				BB44CB781DB05336003E633F /* Circle.cpp in Sources */,
 				BB44CB791DB05336003E633F /* Line.cpp in Sources */,
 				BB44CB7A1DB05336003E633F /* OverlapTester.cpp in Sources */,
 				BB44CB7B1DB05336003E633F /* Rectangle.cpp in Sources */,
+				BBCCA8D11DB363F500452FA1 /* ALSoundSourcePool.m in Sources */,
 				BB44CB7C1DB05336003E633F /* Triangle.cpp in Sources */,
 				BB44CB7D1DB05336003E633F /* Vector2D.cpp in Sources */,
 				BB44CB661DB0532A003E633F /* image.c in Sources */,
 				BB44CB671DB0532A003E633F /* OpenGLESCircleBatcher.cpp in Sources */,
+				BBCCA8B91DB363F500452FA1 /* ALBuffer.m in Sources */,
 				BB44CB681DB0532A003E633F /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CB691DB0532A003E633F /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */,
 				BB44CB6A1DB0532A003E633F /* OpenGLESLineBatcher.cpp in Sources */,
+				BBCCA8BD1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BB44CB6B1DB0532A003E633F /* OpenGLESManager.cpp in Sources */,
 				BB44CB6C1DB0532A003E633F /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BB44CB6D1DB0532A003E633F /* OpenGLESSpriteBatcher.cpp in Sources */,
@@ -3158,20 +3453,22 @@
 				BB44CB6F1DB0532A003E633F /* platform_file_utils.c in Sources */,
 				BB44CB701DB0532A003E633F /* shader.c in Sources */,
 				BB44CB711DB0532A003E633F /* texture.c in Sources */,
+				BBCCA8CD1DB363F500452FA1 /* ALListener.m in Sources */,
 				BB44CB721DB0532A003E633F /* TextureProgram.cpp in Sources */,
 				BB44CB731DB0532A003E633F /* RectangleBatcher.cpp in Sources */,
 				BB44CB741DB0532A003E633F /* SpriteBatcher.cpp in Sources */,
 				BB44CB751DB0532A003E633F /* Text.cpp in Sources */,
 				BB44CB761DB0532A003E633F /* TextureRegion.cpp in Sources */,
 				BB44CB771DB0532A003E633F /* TouchEvent.cpp in Sources */,
-				BB44CAFF1DB04C4C003E633F /* SoundManager.m in Sources */,
 				BB44CB181DB052F5003E633F /* Background.cpp in Sources */,
 				BB44CB191DB052F5003E633F /* CollectibleItem.cpp in Sources */,
 				BB44CB1A1DB052F5003E633F /* DustCloud.cpp in Sources */,
+				BBCCA8C11DB363F500452FA1 /* ALChannelSource.m in Sources */,
 				BB44CB1B1DB052F5003E633F /* EndBossSnake.cpp in Sources */,
 				BB44CB1C1DB052F5003E633F /* Enemy.cpp in Sources */,
 				BB44CB1D1DB052F5003E633F /* EnemySpirit.cpp in Sources */,
 				BB44CB1E1DB052F5003E633F /* ExitGround.cpp in Sources */,
+				BBCCA8A11DB363F500452FA1 /* OALUtilityActions.m in Sources */,
 				BB44CB1F1DB052F5003E633F /* ExitGroundCover.cpp in Sources */,
 				BB44CB201DB052F5003E633F /* ForegroundObject.cpp in Sources */,
 				BB44CB211DB052F5003E633F /* Game.cpp in Sources */,
@@ -3184,20 +3481,27 @@
 				BB44CB281DB052F5003E633F /* Midground.cpp in Sources */,
 				BB44CB291DB052F5003E633F /* Assets.cpp in Sources */,
 				BB44CB2A1DB052F5003E633F /* BatPanel.cpp in Sources */,
+				BBCCA8D51DB363F500452FA1 /* ALSource.m in Sources */,
+				BBCCA8A51DB363F500452FA1 /* OALAudioTrack.m in Sources */,
 				BB44CB2B1DB052F5003E633F /* Chapter1Level10.cpp in Sources */,
 				BB44CB2C1DB052F5003E633F /* Chapter1Level21.cpp in Sources */,
 				BB44CB2D1DB052F5003E633F /* ConfirmExitPanel.cpp in Sources */,
 				BB44CB2E1DB052F5003E633F /* ConfirmResetPanel.cpp in Sources */,
 				BB44CB2F1DB052F5003E633F /* CutscenePanel.cpp in Sources */,
 				BB44CB301DB052F5003E633F /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
+				BBCCA8ED1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */,
 				BB44CB311DB052F5003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB44CB321DB052F5003E633F /* GameButton.cpp in Sources */,
 				BB44CB331DB052F5003E633F /* GameScreen.cpp in Sources */,
+				BBCCA8951DB363F500452FA1 /* OALAction.m in Sources */,
 				BB44CB341DB052F5003E633F /* GameScreenComingSoon.cpp in Sources */,
 				BB44CB351DB052F5003E633F /* GameScreenLevelEditor.cpp in Sources */,
 				BB44CB361DB052F5003E633F /* GameScreenLevels.cpp in Sources */,
 				BB44CB371DB052F5003E633F /* GameScreenOpeningCutscene.cpp in Sources */,
 				BB44CB381DB052F5003E633F /* GameScreenTitle.cpp in Sources */,
+				BBCCA8DD1DB363F500452FA1 /* OpenALManager.m in Sources */,
+				BBCCA8F91DB363F500452FA1 /* OALTools.m in Sources */,
+				BBCCA8B51DB363F500452FA1 /* OALSimpleAudio.m in Sources */,
 				BB44CB391DB052F5003E633F /* GameScreenTransitions.cpp in Sources */,
 				BB44CB3A1DB052F5003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB44CB3B1DB052F5003E633F /* GameTracker.cpp in Sources */,
@@ -3221,11 +3525,14 @@
 				BB44CB4D1DB052F5003E633F /* PointTransitionProgram.cpp in Sources */,
 				BB44CB4E1DB052F5003E633F /* ShockwaveTextureProgram.cpp in Sources */,
 				BB44CB4F1DB052F5003E633F /* SinWaveTextureProgram.cpp in Sources */,
+				BBCCA8E51DB363F500452FA1 /* OALSuspendHandler.m in Sources */,
 				BB44CB501DB052F5003E633F /* SnakeDeathTextureProgram.cpp in Sources */,
 				BB44CB511DB052F5003E633F /* TransDeathProgram.cpp in Sources */,
 				BB44CB521DB052F5003E633F /* TransitionProgram.cpp in Sources */,
 				BB44CB531DB052F5003E633F /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB44CB541DB052F5003E633F /* Renderer.cpp in Sources */,
+				BBCCA8A91DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */,
+				BBCCA8D91DB363F500452FA1 /* ALWrapper.m in Sources */,
 				BB44CB551DB052F5003E633F /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB561DB052F5003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB571DB052F5003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
@@ -3236,6 +3543,7 @@
 				BB44CB5C1DB052F5003E633F /* WorldMapPanel.cpp in Sources */,
 				BB44CB091DB04C83003E633F /* GLEssentialsGLView.mm in Sources */,
 				BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
+				BBCCA8C51DB363F500452FA1 /* ALContext.m in Sources */,
 				BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3250,12 +3558,14 @@
 				BB44CBF51DB07165003E633F /* SaveData.m in Sources */,
 				BB44CBF61DB07165003E633F /* MacOpenGLGameScreen.cpp in Sources */,
 				BB44CBF71DB07165003E633F /* main.m in Sources */,
+				BBCCA89A1DB363F500452FA1 /* OALActionManager.m in Sources */,
 				BB44CBF81DB07165003E633F /* Animation.cpp in Sources */,
 				BB44CBF91DB07165003E633F /* png.c in Sources */,
 				BB44CBFA1DB07165003E633F /* pngerror.c in Sources */,
 				BB44CBFB1DB07165003E633F /* pngget.c in Sources */,
 				BB44CBFC1DB07165003E633F /* pngmem.c in Sources */,
 				BB44CBFD1DB07165003E633F /* pngpread.c in Sources */,
+				BBCCA8F61DB363F500452FA1 /* OALAudioFile.m in Sources */,
 				BB44CBFE1DB07165003E633F /* pngread.c in Sources */,
 				BB44CBFF1DB07165003E633F /* pngrio.c in Sources */,
 				BB44CC001DB07165003E633F /* pngrtran.c in Sources */,
@@ -3263,32 +3573,41 @@
 				BB44CC021DB07165003E633F /* pngset.c in Sources */,
 				BB44CC031DB07165003E633F /* pngtrans.c in Sources */,
 				BB44CC041DB07165003E633F /* pngwio.c in Sources */,
+				BBCCA8E21DB363F500452FA1 /* OALAudioSession.m in Sources */,
+				BBCCA8AE1DB363F500452FA1 /* OALAudioTracks.m in Sources */,
 				BB44CC051DB07165003E633F /* pngwrite.c in Sources */,
 				BB44CC061DB07165003E633F /* pngwtran.c in Sources */,
 				BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44CC071DB07165003E633F /* pngwutil.c in Sources */,
 				BB44CC081DB07165003E633F /* CircleBatcher.cpp in Sources */,
 				BB44CC091DB07165003E633F /* DummyGpuProgramWrapper.cpp in Sources */,
+				BBCCA89E1DB363F500452FA1 /* OALAudioActions.m in Sources */,
 				BB44CC0A1DB07165003E633F /* Font.cpp in Sources */,
 				BB44CC0B1DB07165003E633F /* GpuProgramWrapper.cpp in Sources */,
 				BB44CC0C1DB07165003E633F /* Entity.cpp in Sources */,
+				BBCCA8CA1DB363F500452FA1 /* ALDevice.m in Sources */,
 				BB44CC0D1DB07165003E633F /* EntityManager.cpp in Sources */,
 				BB44CC0E1DB07165003E633F /* PhysicalEntity.cpp in Sources */,
+				BBCCA8EA1DB363F500452FA1 /* mach_timing.c in Sources */,
 				BB44CC0F1DB07165003E633F /* LineBatcher.cpp in Sources */,
 				BB44CC101DB07165003E633F /* asset_utils.c in Sources */,
 				BB44CC111DB07165003E633F /* ColorProgram.cpp in Sources */,
 				BB44CC121DB07165003E633F /* FramebufferToScreenProgram.cpp in Sources */,
+				BBCCA8F21DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */,
 				BB44CC131DB07165003E633F /* Circle.cpp in Sources */,
 				BB44CC141DB07165003E633F /* Line.cpp in Sources */,
 				BB44CC151DB07165003E633F /* OverlapTester.cpp in Sources */,
 				BB44CC161DB07165003E633F /* Rectangle.cpp in Sources */,
+				BBCCA8D21DB363F500452FA1 /* ALSoundSourcePool.m in Sources */,
 				BB44CC171DB07165003E633F /* Triangle.cpp in Sources */,
 				BB44CC181DB07165003E633F /* Vector2D.cpp in Sources */,
 				BB44CC191DB07165003E633F /* image.c in Sources */,
 				BB44CC1A1DB07165003E633F /* OpenGLESCircleBatcher.cpp in Sources */,
+				BBCCA8BA1DB363F500452FA1 /* ALBuffer.m in Sources */,
 				BB44CC1B1DB07165003E633F /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CC1C1DB07165003E633F /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */,
 				BB44CC1D1DB07165003E633F /* OpenGLESLineBatcher.cpp in Sources */,
+				BBCCA8BE1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BB44CC1E1DB07165003E633F /* OpenGLESManager.cpp in Sources */,
 				BB44CC1F1DB07165003E633F /* OpenGLESRectangleBatcher.cpp in Sources */,
 				BB44CC201DB07165003E633F /* OpenGLESSpriteBatcher.cpp in Sources */,
@@ -3296,20 +3615,22 @@
 				BB44CC221DB07165003E633F /* platform_file_utils.c in Sources */,
 				BB44CC231DB07165003E633F /* shader.c in Sources */,
 				BB44CC241DB07165003E633F /* texture.c in Sources */,
+				BBCCA8CE1DB363F500452FA1 /* ALListener.m in Sources */,
 				BB44CC251DB07165003E633F /* TextureProgram.cpp in Sources */,
 				BB44CC261DB07165003E633F /* RectangleBatcher.cpp in Sources */,
 				BB44CC271DB07165003E633F /* SpriteBatcher.cpp in Sources */,
 				BB44CC281DB07165003E633F /* Text.cpp in Sources */,
 				BB44CC291DB07165003E633F /* TextureRegion.cpp in Sources */,
 				BB44CC2A1DB07165003E633F /* TouchEvent.cpp in Sources */,
-				BB44CC2B1DB07165003E633F /* SoundManager.m in Sources */,
 				BB44CC2C1DB07165003E633F /* Background.cpp in Sources */,
 				BB44CC2D1DB07165003E633F /* CollectibleItem.cpp in Sources */,
 				BB44CC2E1DB07165003E633F /* DustCloud.cpp in Sources */,
+				BBCCA8C21DB363F500452FA1 /* ALChannelSource.m in Sources */,
 				BB44CC2F1DB07165003E633F /* EndBossSnake.cpp in Sources */,
 				BB44CC301DB07165003E633F /* Enemy.cpp in Sources */,
 				BB44CC311DB07165003E633F /* EnemySpirit.cpp in Sources */,
 				BB44CC321DB07165003E633F /* ExitGround.cpp in Sources */,
+				BBCCA8A21DB363F500452FA1 /* OALUtilityActions.m in Sources */,
 				BB44CC331DB07165003E633F /* ExitGroundCover.cpp in Sources */,
 				BB44CC341DB07165003E633F /* ForegroundObject.cpp in Sources */,
 				BB44CC351DB07165003E633F /* Game.cpp in Sources */,
@@ -3322,20 +3643,27 @@
 				BB44CC3C1DB07165003E633F /* Midground.cpp in Sources */,
 				BB44CC3D1DB07165003E633F /* Assets.cpp in Sources */,
 				BB44CC3E1DB07165003E633F /* BatPanel.cpp in Sources */,
+				BBCCA8D61DB363F500452FA1 /* ALSource.m in Sources */,
+				BBCCA8A61DB363F500452FA1 /* OALAudioTrack.m in Sources */,
 				BB44CC3F1DB07165003E633F /* Chapter1Level10.cpp in Sources */,
 				BB44CC401DB07165003E633F /* Chapter1Level21.cpp in Sources */,
 				BB44CC411DB07165003E633F /* ConfirmExitPanel.cpp in Sources */,
 				BB44CC421DB07165003E633F /* ConfirmResetPanel.cpp in Sources */,
 				BB44CC431DB07165003E633F /* CutscenePanel.cpp in Sources */,
 				BB44CC441DB07165003E633F /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
+				BBCCA8EE1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */,
 				BB44CC451DB07165003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB44CC461DB07165003E633F /* GameButton.cpp in Sources */,
 				BB44CC471DB07165003E633F /* GameScreen.cpp in Sources */,
+				BBCCA8961DB363F500452FA1 /* OALAction.m in Sources */,
 				BB44CC481DB07165003E633F /* GameScreenComingSoon.cpp in Sources */,
 				BB44CC491DB07165003E633F /* GameScreenLevelEditor.cpp in Sources */,
 				BB44CC4A1DB07165003E633F /* GameScreenLevels.cpp in Sources */,
 				BB44CC4B1DB07165003E633F /* GameScreenOpeningCutscene.cpp in Sources */,
 				BB44CC4C1DB07165003E633F /* GameScreenTitle.cpp in Sources */,
+				BBCCA8DE1DB363F500452FA1 /* OpenALManager.m in Sources */,
+				BBCCA8FA1DB363F500452FA1 /* OALTools.m in Sources */,
+				BBCCA8B61DB363F500452FA1 /* OALSimpleAudio.m in Sources */,
 				BB44CC4D1DB07165003E633F /* GameScreenTransitions.cpp in Sources */,
 				BB44CC4E1DB07165003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB44CC4F1DB07165003E633F /* GameTracker.cpp in Sources */,
@@ -3359,11 +3687,14 @@
 				BB44CC611DB07165003E633F /* PointTransitionProgram.cpp in Sources */,
 				BB44CC621DB07165003E633F /* ShockwaveTextureProgram.cpp in Sources */,
 				BB44CC631DB07165003E633F /* SinWaveTextureProgram.cpp in Sources */,
+				BBCCA8E61DB363F500452FA1 /* OALSuspendHandler.m in Sources */,
 				BB44CC641DB07165003E633F /* SnakeDeathTextureProgram.cpp in Sources */,
 				BB44CC651DB07165003E633F /* TransDeathProgram.cpp in Sources */,
 				BB44CC661DB07165003E633F /* TransitionProgram.cpp in Sources */,
 				BB44CC671DB07165003E633F /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB44CC681DB07165003E633F /* Renderer.cpp in Sources */,
+				BBCCA8AA1DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */,
+				BBCCA8DA1DB363F500452FA1 /* ALWrapper.m in Sources */,
 				BB44CC691DB07165003E633F /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC6A1DB07165003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC6B1DB07165003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
@@ -3374,6 +3705,7 @@
 				BB44CC701DB07165003E633F /* WorldMapPanel.cpp in Sources */,
 				BB44CC711DB07165003E633F /* GLEssentialsGLView.mm in Sources */,
 				BB44CC721DB07165003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
+				BBCCA8C61DB363F500452FA1 /* ALContext.m in Sources */,
 				BB44CC731DB07165003E633F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3408,27 +3740,32 @@
 				BBE92D141DB2E671008359C2 /* LevelSelectorPanel.cpp in Sources */,
 				BBE92D151DB2E671008359C2 /* OpenGLESFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BBE92D161DB2E671008359C2 /* GameTracker.cpp in Sources */,
-				BBE92D171DB2E671008359C2 /* AppleOpenALSupport.c in Sources */,
+				BBCCA8E01DB363F500452FA1 /* OALAudioSession.m in Sources */,
+				BBCCA8EC1DB363F500452FA1 /* NSMutableArray+WeakReferences.m in Sources */,
+				BBCCA8CC1DB363F500452FA1 /* ALListener.m in Sources */,
 				BBE92D181DB2E671008359C2 /* Vector2D.cpp in Sources */,
 				BBE92D191DB2E671008359C2 /* GameScreenTitle.cpp in Sources */,
 				BBE92D1A1DB2E671008359C2 /* GameScreenLevels.cpp in Sources */,
 				BBE92D1B1DB2E671008359C2 /* Chapter1Level10.cpp in Sources */,
+				BBCCA8941DB363F500452FA1 /* OALAction.m in Sources */,
 				BBE92D1C1DB2E671008359C2 /* texture.c in Sources */,
 				BBE92D1D1DB2E671008359C2 /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
-				BBE92D1E1DB2E671008359C2 /* SoundManager.m in Sources */,
 				BBE92D1F1DB2E671008359C2 /* IOSOpenGLESGameScreen.cpp in Sources */,
 				BBE92D201DB2E671008359C2 /* OpenGLESFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBE92D211DB2E671008359C2 /* SnakeDeathTextureProgram.cpp in Sources */,
 				BBE92D221DB2E671008359C2 /* Triangle.cpp in Sources */,
 				BBE92D231DB2E671008359C2 /* OpenGLESManager.cpp in Sources */,
+				BBCCA8A01DB363F500452FA1 /* OALUtilityActions.m in Sources */,
 				BBE92D241DB2E671008359C2 /* OpenGLESTransDeathGpuProgramWrapper.cpp in Sources */,
+				BBCCA8C81DB363F500452FA1 /* ALDevice.m in Sources */,
+				BBCCA8E41DB363F500452FA1 /* OALSuspendHandler.m in Sources */,
 				BBE92D251DB2E671008359C2 /* EndBossSnake.cpp in Sources */,
+				BBCCA8AC1DB363F500452FA1 /* OALAudioTracks.m in Sources */,
 				BBE92D261DB2E671008359C2 /* pngwutil.c in Sources */,
 				BBE92D271DB2E671008359C2 /* OpenGLESSpriteBatcher.cpp in Sources */,
 				BBE92D281DB2E671008359C2 /* DustCloud.cpp in Sources */,
 				BBE92D291DB2E671008359C2 /* Ground.cpp in Sources */,
 				BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */,
-				BBE92D2B1DB2E671008359C2 /* CMOpenALSoundManager.m in Sources */,
 				BBE92D2C1DB2E671008359C2 /* EntityManager.cpp in Sources */,
 				BBE92D2D1DB2E671008359C2 /* ConfirmResetPanel.cpp in Sources */,
 				BBE92D2E1DB2E671008359C2 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
@@ -3437,6 +3774,7 @@
 				BBE92D311DB2E671008359C2 /* Circle.cpp in Sources */,
 				BBE92D321DB2E671008359C2 /* pngpread.c in Sources */,
 				BBE92D331DB2E671008359C2 /* OpenGLESRenderer.cpp in Sources */,
+				BBCCA8C01DB363F500452FA1 /* ALChannelSource.m in Sources */,
 				BBE92D341DB2E671008359C2 /* pngset.c in Sources */,
 				BBE92D351DB2E671008359C2 /* SaveData.m in Sources */,
 				BBE92D361DB2E671008359C2 /* Game.cpp in Sources */,
@@ -3447,6 +3785,8 @@
 				BBE92D3B1DB2E671008359C2 /* DummyGpuProgramWrapper.cpp in Sources */,
 				BBE92D3C1DB2E671008359C2 /* OpenGLESSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BBE92D3D1DB2E671008359C2 /* TransitionGpuProgramWrapper.cpp in Sources */,
+				BBCCA8F41DB363F500452FA1 /* OALAudioFile.m in Sources */,
+				BBCCA8B41DB363F500452FA1 /* OALSimpleAudio.m in Sources */,
 				BBE92D3E1DB2E671008359C2 /* pngwtran.c in Sources */,
 				BBE92D3F1DB2E671008359C2 /* OpenGLESGameScreen.cpp in Sources */,
 				BBE92D401DB2E671008359C2 /* HoleCover.cpp in Sources */,
@@ -3457,14 +3797,17 @@
 				BBE92D451DB2E671008359C2 /* pngrtran.c in Sources */,
 				BBE92D461DB2E671008359C2 /* AppDelegate.m in Sources */,
 				BBE92D471DB2E671008359C2 /* GameScreenTransitions.cpp in Sources */,
+				BBCCA8D01DB363F500452FA1 /* ALSoundSourcePool.m in Sources */,
+				BBCCA8A81DB363F500452FA1 /* OALAudioTrackNotifications.m in Sources */,
 				BBE92D481DB2E671008359C2 /* OpenGLESLineBatcher.cpp in Sources */,
 				BBE92D491DB2E671008359C2 /* pngrio.c in Sources */,
 				BBE92D4A1DB2E671008359C2 /* PhysicalEntity.cpp in Sources */,
 				BBE92D4B1DB2E671008359C2 /* pngwio.c in Sources */,
 				BBE92D4C1DB2E671008359C2 /* pngrutil.c in Sources */,
-				BBE92D4D1DB2E671008359C2 /* DebugOutput.m in Sources */,
 				BBE92D4E1DB2E671008359C2 /* OpenGLESFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BBE92D4F1DB2E671008359C2 /* GameViewController.mm in Sources */,
+				BBCCA8D81DB363F500452FA1 /* ALWrapper.m in Sources */,
+				BBCCA8981DB363F500452FA1 /* OALActionManager.m in Sources */,
 				BBE92D501DB2E671008359C2 /* OpenGLESFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BBE92D511DB2E671008359C2 /* WorldMapPanel.cpp in Sources */,
 				BBE92D521DB2E671008359C2 /* CollectibleItem.cpp in Sources */,
@@ -3485,19 +3828,25 @@
 				BBE92D611DB2E671008359C2 /* png.c in Sources */,
 				BBE92D621DB2E671008359C2 /* BatPanel.cpp in Sources */,
 				BBE92D631DB2E671008359C2 /* shader.c in Sources */,
+				BBCCA8E81DB363F500452FA1 /* mach_timing.c in Sources */,
+				BBCCA8BC1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BBE92D641DB2E671008359C2 /* OpenGLESGeometryGpuProgramWrapper.cpp in Sources */,
 				BBE92D651DB2E671008359C2 /* pngget.c in Sources */,
 				BBE92D661DB2E671008359C2 /* image.c in Sources */,
+				BBCCA8C41DB363F500452FA1 /* ALContext.m in Sources */,
 				BBE92D671DB2E671008359C2 /* AppPrefs.m in Sources */,
 				BBE92D681DB2E671008359C2 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBE92D691DB2E671008359C2 /* Text.cpp in Sources */,
 				BBE92D6A1DB2E671008359C2 /* SinWaveTextureProgram.cpp in Sources */,
 				BBE92D6B1DB2E671008359C2 /* TransitionProgram.cpp in Sources */,
 				BBE92D6C1DB2E671008359C2 /* RectangleBatcher.cpp in Sources */,
+				BBCCA8F01DB363F500452FA1 /* NSMutableDictionary+WeakReferences.m in Sources */,
 				BBE92D6D1DB2E671008359C2 /* LineBatcher.cpp in Sources */,
 				BBE92D6E1DB2E671008359C2 /* OpenGLESPointTransScreenGpuProgramWrapper.cpp in Sources */,
 				BBE92D6F1DB2E671008359C2 /* TextureProgram.cpp in Sources */,
+				BBCCA8DC1DB363F500452FA1 /* OpenALManager.m in Sources */,
 				BBE92D701DB2E671008359C2 /* TransDeathGpuProgramWrapper.cpp in Sources */,
+				BBCCA8F81DB363F500452FA1 /* OALTools.m in Sources */,
 				BBE92D711DB2E671008359C2 /* main.m in Sources */,
 				BBE92D721DB2E671008359C2 /* ColorProgram.cpp in Sources */,
 				BBE92D731DB2E671008359C2 /* SpriteBatcher.cpp in Sources */,
@@ -3507,13 +3856,16 @@
 				BBE92D771DB2E671008359C2 /* asset_utils.c in Sources */,
 				BBE92D781DB2E671008359C2 /* GpuProgramWrapper.cpp in Sources */,
 				BBE92D791DB2E671008359C2 /* GameButton.cpp in Sources */,
+				BBCCA8D41DB363F500452FA1 /* ALSource.m in Sources */,
 				BBE92D7A1DB2E671008359C2 /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBE92D7B1DB2E671008359C2 /* Entity.cpp in Sources */,
 				BBE92D7C1DB2E671008359C2 /* EnemySpirit.cpp in Sources */,
-				BBE92D7D1DB2E671008359C2 /* CMOpenALSound.m in Sources */,
 				BBE92D7E1DB2E671008359C2 /* platform_asset_utils.m in Sources */,
+				BBCCA89C1DB363F500452FA1 /* OALAudioActions.m in Sources */,
+				BBCCA8B81DB363F500452FA1 /* ALBuffer.m in Sources */,
 				BBE92D7F1DB2E671008359C2 /* pngmem.c in Sources */,
 				BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */,
+				BBCCA8A41DB363F500452FA1 /* OALAudioTrack.m in Sources */,
 				BBE92D811DB2E671008359C2 /* Rectangle.cpp in Sources */,
 				BBE92D821DB2E671008359C2 /* ExitGround.cpp in Sources */,
 			);

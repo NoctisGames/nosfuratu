@@ -8,67 +8,17 @@
 
 #import "GameScreenController.h"
 
-#ifdef NG_MAC
-@interface SoundCollection : NSObject
-{
-    NSMutableArray *_sounds;
-    int _soundIndex;
-}
-
-- (instancetype)init;
-
-- (void)addSound:(Sound *)sound;
-
-- (Sound *)getSound;
-
-@end
-
-@implementation SoundCollection
-
-- (instancetype)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        _sounds = [[NSMutableArray alloc] init];
-        _soundIndex = 0;
-    }
-    
-    return self;
-}
-
-- (void)addSound:(Sound *)sound
-{
-    [_sounds addObject:sound];
-}
-
-- (Sound *)getSound
-{
-    Sound *sound = _sounds[_soundIndex++];
-    
-    if (_soundIndex > 6)
-    {
-        _soundIndex = 0;
-    }
-    
-    return sound;
-}
-
-@end
-#endif
+#import "ObjectAL.h"
 
 @interface GameScreenController ()
 {
     GameScreen *_gameScreen;
     DisplayMessageBlock _displayMessageBlock;
     GetLevelFilePath _getLevelFilePath;
-    NSMutableArray *_sounds;
+    NSArray *_soundFileNames;
+    NSMutableArray *_playingSounds;
+    NSMutableArray *_playingSoundsFileNames;
 }
-
-#ifdef NG_IOS
-@property (nonatomic, retain) CMOpenALSoundManager *soundMgr;
-#endif
 
 @end
 
@@ -88,6 +38,16 @@
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    // Stop all music and sound effects.
+    [[OALSimpleAudio sharedInstance] stopEverything];
+    
+    // Unload all sound effects and bg music so that it doesn't fill
+    // memory unnecessarily.
+    [[OALSimpleAudio sharedInstance] unloadAllEffects];
 }
 
 - (void)update:(float)deltaTime
@@ -157,11 +117,7 @@
 {
     _gameScreen->onPause();
     
-#ifdef NG_IOS
-    [self.soundMgr pauseBackgroundMusic];
-#elif defined NG_MAC
-    [[SoundManager sharedManager] pauseMusic];
-#endif
+    [self pauseMusic];
 }
 
 #pragma mark Private
@@ -205,7 +161,7 @@
     switch (musicId)
     {
         case MUSIC_STOP:
-            [self stopMusic];
+            [self pauseMusic];
             break;
         case MUSIC_RESUME:
             [self resumeMusic];
@@ -246,83 +202,69 @@
 
 - (void)playMusic:(NSString *)fileName isLooping:(BOOL)isLooping
 {
-#ifdef NG_IOS
-    if ([self.soundMgr isBackGroundMusicPlaying])
+    if ([[OALSimpleAudio sharedInstance] bgPlaying])
     {
-        [self.soundMgr stopBackgroundMusic];
+        [[OALSimpleAudio sharedInstance] stopBg];
     }
     
-    self.soundMgr.backgroundMusicVolume = 0.5f;
-    [self.soundMgr playBackgroundMusic:fileName forcePlay:YES isLooping:isLooping];
-#elif defined NG_MAC
-    if ([SoundManager sharedManager].playingMusic)
-    {
-        [[SoundManager sharedManager] stopMusic:NO];
-    }
-    
-    [SoundManager sharedManager].musicVolume = 0.5f;
-    [[SoundManager sharedManager] playMusic:fileName looping:isLooping fadeIn:NO];
-#endif
+    [self setMusicVolume:0.5f];
+    [[OALSimpleAudio sharedInstance] playBg:fileName loop:isLooping];
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
 {
-#ifdef NG_IOS
-    [self.soundMgr playSoundWithID:soundId - 1 isLooping:isLooping];
-#elif defined NG_MAC
     int soundIndex = soundId - 1;
-    SoundCollection *sound = [_sounds objectAtIndex:soundIndex];
-    [[SoundManager sharedManager] playSound:[sound getSound] looping:isLooping fadeIn:NO];
-#endif
+    NSString *soundFileName = [_soundFileNames objectAtIndex:soundIndex];
+    id<ALSoundSource> soundSource = [[OALSimpleAudio sharedInstance] playEffect:soundFileName loop:isLooping];
+    
+    if (isLooping)
+    {
+        [_playingSounds addObject:soundSource];
+        [_playingSoundsFileNames addObject:soundFileName];
+    }
 }
 
 - (void)playSound:(int)soundId
 {
-#ifdef NG_IOS
-    [self.soundMgr playSoundWithID:soundId - 1];
-#elif defined NG_MAC
-    int soundIndex = soundId - 1;
-    SoundCollection *sound = [_sounds objectAtIndex:soundIndex];
-    [[SoundManager sharedManager] playSound:[sound getSound] looping:NO fadeIn:NO];
-#endif
+    [self playSound:soundId isLooping:NO];
 }
 
 - (void)stopSound:(int)soundId
 {
-#ifdef NG_IOS
-    [self.soundMgr stopSoundWithID:soundId - 1];
-#elif defined NG_MAC
     int soundIndex = soundId - 1;
-    SoundCollection *sound = [_sounds objectAtIndex:soundIndex];
-    [[SoundManager sharedManager] stopSound:[sound getSound] fadeOut:NO];
-#endif
+    NSString *soundFileName = [_soundFileNames objectAtIndex:soundIndex];
+    
+    int indexToRemove = -1;
+    for (int i = 0; i < [_playingSounds count]; i++)
+    {
+        if ([_playingSoundsFileNames[i] isEqualToString:soundFileName])
+        {
+            [((id<ALSoundSource>)_playingSounds[i]) stop];
+            indexToRemove = i;
+            break;
+        }
+    }
+    
+    if (indexToRemove > -1)
+    {
+        [_playingSounds removeObjectAtIndex:indexToRemove];
+        [_playingSoundsFileNames removeObjectAtIndex:indexToRemove];
+    }
 }
 
-- (void)stopMusic
+- (void)pauseMusic
 {
-#ifdef NG_IOS
-    [self.soundMgr stopBackgroundMusic];
-#elif defined NG_MAC
-    [[SoundManager sharedManager] pauseMusic];
-#endif
+    [[OALSimpleAudio sharedInstance] setBgPaused:true];
 }
 
 - (void)resumeMusic
 {
-#ifdef NG_IOS
-    [self.soundMgr resumeBackgroundMusic];
-#elif defined NG_MAC
-    [[SoundManager sharedManager] resumeMusic];
-#endif
+    [[OALSimpleAudio sharedInstance] setBgPaused:false];
 }
 
 - (void)setMusicVolume:(float)volume
 {
-#ifdef NG_IOS
-    self.soundMgr.backgroundMusicVolume = volume;
-#elif defined NG_MAC
-    [SoundManager sharedManager].musicVolume = volume;
-#endif
+    [[OALSimpleAudio sharedInstance] setBgVolume:volume];
 }
 
 - (void)saveLevel:(int)requestedAction
@@ -571,102 +513,81 @@
 
 - (void)initSoundEngine
 {
-    NSArray *soundFileNames = [NSArray arrayWithObjects:
-                               @"collect_carrot.wav",
-                               @"collect_golden_carrot.wav",
-                               @"death.wav",
-                               @"footstep_left_grass.wav",
-                               @"footstep_right_grass.wav",
-                               @"footstep_left_cave.wav",
-                               @"footstep_right_cave.wav",
-                               @"jump_spring.wav",
-                               @"landing_grass.wav",
-                               @"landing_cave.wav",
-                               @"snake_death.wav",
-                               @"trigger_transform.wav",
-                               @"cancel_transform.wav",
-                               @"complete_transform.wav",
-                               @"jump_spring_heavy.wav",
-                               @"jon_rabbit_jump.wav",
-                               @"jon_vampire_jump.wav",
-                               @"jon_rabbit_double_jump.wav",
-                               @"jon_vampire_double_jump.wav",
-                               @"vampire_glide_loop.wav",
-                               @"mushroom_bounce.wav",
-                               @"jon_burrow_rocksfall.wav",
-                               @"sparrow_fly_loop.wav",
-                               @"sparrow_die.wav",
-                               @"toad_die.wav",
-                               @"toad_eat.wav",
-                               @"saw_grind_loop.wav",
-                               @"fox_bounced_on.wav",
-                               @"fox_strike.wav",
-                               @"fox_death.wav",
-                               @"world_1_bgm_intro.wav",
-                               @"mid_boss_bgm_intro.wav",
-                               @"mid_boss_owl_swoop.wav",
-                               @"mid_boss_owl_tree_smash.wav",
-                               @"mid_boss_owl_death.wav",
-                               @"screen_transition.wav",
-                               @"screen_transition_2.wav",
-                               @"level_complete.wav",
-                               @"title_lightning_1.wav",
-                               @"title_lightning_2.wav",
-                               @"ability_unlock.wav",
-                               @"boss_level_clear.wav",
-                               @"level_clear.wav",
-                               @"level_selected.wav",
-                               @"rabbit_drill.wav",
-                               @"snake_jump.wav",
-                               @"vampire_dash.wav",
-                               @"boss_level_unlock.wav",
-                               @"rabbit_stomp.wav",
-                               @"final_boss_bgm_intro.wav",
-                               @"button_click.wav",
-                               @"level_confirmed.wav",
-                               @"bat_poof.wav",
-                               @"chain_snap.wav",
-                               @"end_boss_snake_mouth_open.wav",
-                               @"end_boss_snake_charge_cue.wav",
-                               @"end_boss_snake_charge.wav",
-                               @"end_boss_snake_damaged.wav",
-                               @"end_boss_snake_death.wav",
-                               @"spiked_ball_rolling_loop.wav",
-                               @"absorb_dash_ability.wav", nil];
+    _soundFileNames = [NSArray arrayWithObjects:
+                       @"collect_carrot.wav",
+                       @"collect_golden_carrot.wav",
+                       @"death.wav",
+                       @"footstep_left_grass.wav",
+                       @"footstep_right_grass.wav",
+                       @"footstep_left_cave.wav",
+                       @"footstep_right_cave.wav",
+                       @"jump_spring.wav",
+                       @"landing_grass.wav",
+                       @"landing_cave.wav",
+                       @"snake_death.wav",
+                       @"trigger_transform.wav",
+                       @"cancel_transform.wav",
+                       @"complete_transform.wav",
+                       @"jump_spring_heavy.wav",
+                       @"jon_rabbit_jump.wav",
+                       @"jon_vampire_jump.wav",
+                       @"jon_rabbit_double_jump.wav",
+                       @"jon_vampire_double_jump.wav",
+                       @"vampire_glide_loop.wav",
+                       @"mushroom_bounce.wav",
+                       @"jon_burrow_rocksfall.wav",
+                       @"sparrow_fly_loop.wav",
+                       @"sparrow_die.wav",
+                       @"toad_die.wav",
+                       @"toad_eat.wav",
+                       @"saw_grind_loop.wav",
+                       @"fox_bounced_on.wav",
+                       @"fox_strike.wav",
+                       @"fox_death.wav",
+                       @"world_1_bgm_intro.wav",
+                       @"mid_boss_bgm_intro.wav",
+                       @"mid_boss_owl_swoop.wav",
+                       @"mid_boss_owl_tree_smash.wav",
+                       @"mid_boss_owl_death.wav",
+                       @"screen_transition.wav",
+                       @"screen_transition_2.wav",
+                       @"level_complete.wav",
+                       @"title_lightning_1.wav",
+                       @"title_lightning_2.wav",
+                       @"ability_unlock.wav",
+                       @"boss_level_clear.wav",
+                       @"level_clear.wav",
+                       @"level_selected.wav",
+                       @"rabbit_drill.wav",
+                       @"snake_jump.wav",
+                       @"vampire_dash.wav",
+                       @"boss_level_unlock.wav",
+                       @"rabbit_stomp.wav",
+                       @"final_boss_bgm_intro.wav",
+                       @"button_click.wav",
+                       @"level_confirmed.wav",
+                       @"bat_poof.wav",
+                       @"chain_snap.wav",
+                       @"end_boss_snake_mouth_open.wav",
+                       @"end_boss_snake_charge_cue.wav",
+                       @"end_boss_snake_charge.wav",
+                       @"end_boss_snake_damaged.wav",
+                       @"end_boss_snake_death.wav",
+                       @"spiked_ball_rolling_loop.wav",
+                       @"absorb_dash_ability.wav", nil];
     
-#ifdef NG_IOS
-    self.soundMgr = [[CMOpenALSoundManager alloc] init];
-    self.soundMgr.soundEffectsVolume = 1;
-    self.soundMgr.soundFileNames = soundFileNames;
-#elif defined NG_MAC
-    [[SoundManager sharedManager] setAllowsBackgroundMusic:YES];
+    [OALSimpleAudio sharedInstance].allowIpod = NO;
     
-    [SoundManager sharedManager].soundVolume = 1;
+    // Do NOT Mute all audio if the silent switch is turned on.
+    [OALSimpleAudio sharedInstance].honorSilentSwitch = NO;
     
-    _sounds = [[NSMutableArray alloc] initWithCapacity:[soundFileNames count]];
-    for (NSString *soundFileName in soundFileNames)
+    for (NSString *soundFileName in _soundFileNames)
     {
-        SoundCollection *soundCollection = [[SoundCollection alloc] init];
-        
-        Sound *sound1 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound2 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound3 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound4 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound5 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound6 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        Sound *sound7 = [[SoundManager sharedManager] prepareToPlayWithSound:soundFileName];
-        
-        [soundCollection addSound:sound1];
-        [soundCollection addSound:sound2];
-        [soundCollection addSound:sound3];
-        [soundCollection addSound:sound4];
-        [soundCollection addSound:sound5];
-        [soundCollection addSound:sound6];
-        [soundCollection addSound:sound7];
-        
-        [_sounds addObject:soundCollection];
+        [[OALSimpleAudio sharedInstance] preloadEffect:soundFileName];
     }
-#endif
+    
+    _playingSounds = [[NSMutableArray alloc] init];
+    _playingSoundsFileNames = [[NSMutableArray alloc] init];
 }
 
 @end
