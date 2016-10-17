@@ -165,7 +165,16 @@ void Chapter1Level21::enter(GameScreen* gs)
 
 		if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
 		{
-			m_batPanel->config(m_game.get(), BatGoalType_Dash);
+            if (m_iNumTimesBatPanelDisplayed < 2)
+            {
+                m_batPanel->config(m_game.get(), BatGoalType_Dash);
+            }
+            else
+            {
+                m_batPanel->configWithoutUi(m_game.get(), BatGoalType_Dash);
+            }
+            
+            m_iNumTimesBatPanelDisplayed++;
 		}
 
 		m_endBossSnake->checkPointKill();
@@ -456,9 +465,16 @@ void Chapter1Level21::update(GameScreen* gs)
 
 			if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
 			{
-				m_batPanel->config(m_game.get(), BatGoalType_Dash);
+                if (m_iNumTimesBatPanelDisplayed < 2)
+                {
+                    m_batPanel->config(m_game.get(), BatGoalType_Dash);
+                }
+                else
+                {
+                    m_batPanel->configWithoutUi(m_game.get(), BatGoalType_Dash);
+                }
                 
-                jon.setUserActionPrevented(true);
+                m_iNumTimesBatPanelDisplayed++;
 			}
 
 			m_hasTriggeredSnakeDeathCheckPoint = true;

@@ -210,7 +210,11 @@ public:
     
     void config(Game* game, int world, int level);
     
+    void configWithoutUi(Game* game, int world, int level);
+    
     void config(Game* game, BatGoalType type);
+    
+    void configWithoutUi(Game* game, BatGoalType type);
     
     void reset();
     
@@ -234,6 +238,8 @@ private:
     bool m_isAcknowledgedPart5;
     bool m_hasTriggeredRequestedAction;
     bool m_hasSwiped;
+    
+    void enableAbilityAndReset();
     
     void updateJump(GameScreen* gs);
     
