@@ -1807,7 +1807,7 @@ TextureRegion& Assets::get(GameButton* gameButton)
         }
         case GameButtonType_ViewOpeningCutscene:
         {
-            static TextureRegion tr = TextureRegion(1152, 0, 74, 74, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = TextureRegion(1152, 0, 96, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToLevelSelect:

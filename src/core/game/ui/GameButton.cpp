@@ -51,10 +51,10 @@ GameButton* GameButton::create(GameButtonType type)
                                   1.52941176470592f,
                                   type);
         case GameButtonType_ViewOpeningCutscene:
-            return new GameButton(CAM_WIDTH * 0.08639705882353f,
-                                  CAM_HEIGHT * 0.56209150326797f,
-                                  1.08079618566172f,
-                                  1.08823529411766f,
+            return new GameButton(CAM_WIDTH * 0.07552941176471f,
+                                  CAM_HEIGHT * 0.56862745098039f,
+                                  CAM_WIDTH * 0.08823529411765f,
+                                  CAM_HEIGHT * 0.10457516339869f,
                                   type);
         case GameButtonType_LevelEditor:
             return new GameButton(CAM_WIDTH - 1,
