@@ -2896,6 +2896,75 @@
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_jon.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_vampire.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
+    </CustomBuild>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
