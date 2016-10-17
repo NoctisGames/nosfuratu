@@ -62,12 +62,32 @@ void BatPanel::config(Game *game, int world, int level)
     m_type = calcBatGoalType(world, level);
 }
 
+void BatPanel::configWithoutUi(Game* game, int world, int level)
+{
+    reset();
+    
+    m_game = game;
+    m_type = calcBatGoalType(world, level);
+    
+    enableAbilityAndReset();
+}
+
 void BatPanel::config(Game* game, BatGoalType type)
 {
     reset();
     
     m_game = game;
     m_type = type;
+}
+
+void BatPanel::configWithoutUi(Game* game, BatGoalType type)
+{
+    reset();
+    
+    m_game = game;
+    m_type = type;
+    
+    enableAbilityAndReset();
 }
 
 void BatPanel::reset()
@@ -132,6 +152,34 @@ void BatPanel::update(GameScreen* gs)
         float paddingX = m_type == BatGoalType_DrillToDamageOwl ? 4 : 0;
         gs->m_renderer->updateCameraToFollowJon(*m_game, this, gs->m_fDeltaTime, paddingX, isChaseCam);
     }
+}
+
+void BatPanel::enableAbilityAndReset()
+{
+    if (m_type != BatGoalType_None)
+    {
+        Jon& jon = m_game->getJon();
+        
+        switch (m_type)
+        {
+            case BatGoalType_DoubleJump:
+                jon.enableAbility(FLAG_ABILITY_DOUBLE_JUMP);
+                break;
+            case BatGoalType_Vampire:
+                jon.enableAbility(FLAG_ABILITY_TRANSFORM);
+                break;
+            case BatGoalType_Drill:
+                jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);
+                break;
+            case BatGoalType_Dash:
+                jon.enableAbility(FLAG_ABILITY_VAMPIRE_RIGHT);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    reset();
 }
 
 void BatPanel::updateJump(GameScreen* gs)

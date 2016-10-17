@@ -657,10 +657,16 @@ bool Level::isInSlowMotionMode()
 
 void Level::configBatPanel()
 {
-    if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
-        && m_iNumTimesBatPanelDisplayed < 2)
+    if (!FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE))
     {
-        m_batPanel->config(m_game.get(), m_game->getWorld(), m_game->getLevel());
+        if (m_iNumTimesBatPanelDisplayed < 2)
+        {
+            m_batPanel->config(m_game.get(), m_game->getWorld(), m_game->getLevel());
+        }
+        else
+        {
+            m_batPanel->configWithoutUi(m_game.get(), m_game->getWorld(), m_game->getLevel());
+        }
         
         m_iNumTimesBatPanelDisplayed++;
     }
