@@ -1940,20 +1940,7 @@ void Assets::setMusicId(short musicId)
     m_sMusicId = musicId;
 }
 
-short Assets::getMusicId()
-{
-    return m_sMusicId;
-}
 
-bool Assets::isUsingCompressedTextureSet()
-{
-    return m_isUsingCompressedTextureSet;
-}
-
-void Assets::setUsingCompressedTextureSet(bool isUsingCompressedTextureSet)
-{
-    m_isUsingCompressedTextureSet = isUsingCompressedTextureSet;
-}
 
 Animation Assets::createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames)
 {

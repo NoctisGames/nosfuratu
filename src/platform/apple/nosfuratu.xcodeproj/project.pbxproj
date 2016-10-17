@@ -186,7 +186,6 @@
 		BB44C4961DB03277003E633F /* c_world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C11DB03276003E633F /* c_world_1_objects.png */; };
 		BB44C4981DB03277003E633F /* c_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C21DB03276003E633F /* c_world_1_special.png */; };
 		BB44C49A1DB03277003E633F /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
-		BB44C49B1DB03277003E633F /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
 		BB44C49C1DB03277003E633F /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C41DB03276003E633F /* level_editor.png */; };
 		BB44C49D1DB03277003E633F /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C41DB03276003E633F /* level_editor.png */; };
 		BB44C49E1DB03277003E633F /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C51DB03276003E633F /* misc.png */; };
@@ -196,7 +195,6 @@
 		BB44C4D01DB03277003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44C4D11DB03277003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44C4D21DB03277003E633F /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E01DB03276003E633F /* vampire.png */; };
-		BB44C4D31DB03277003E633F /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E01DB03276003E633F /* vampire.png */; };
 		BB44C4D41DB03277003E633F /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
 		BB44C4D51DB03277003E633F /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
 		BB44C4D61DB03277003E633F /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E21DB03276003E633F /* world_1_background_mid.png */; };
@@ -226,7 +224,6 @@
 		BB44C4EE1DB03277003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
 		BB44C4EF1DB03277003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
 		BB44C4F01DB03277003E633F /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
-		BB44C4F11DB03277003E633F /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BB44C4F21DB03277003E633F /* world_map_screen_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */; };
 		BB44C4F31DB03277003E633F /* world_map_screen_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */; };
 		BB44C4F41DB03277003E633F /* world_map_screen_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F11DB03276003E633F /* world_map_screen_part_2.png */; };
@@ -687,7 +684,6 @@
 		BB44CC981DB07165003E633F /* title_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DE1DB03276003E633F /* title_screen.png */; };
 		BB44CC991DB07165003E633F /* jon_burrow_rocksfall.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3871DB03276003E633F /* jon_burrow_rocksfall.wav */; };
 		BB44CC9A1DB07165003E633F /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7571DB03A7D003E633F /* pp_shockwave_texture_shader.fsh */; };
-		BB44CC9B1DB07165003E633F /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
 		BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */; };
 		BB44CC9D1DB07165003E633F /* world_1_cutscene_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */; };
 		BB44CC9E1DB07165003E633F /* cancel_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3731DB03276003E633F /* cancel_transform.wav */; };
@@ -699,7 +695,6 @@
 		BB44CCA41DB07165003E633F /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7611DB03A7D003E633F /* trans_in_death_shader.fsh */; };
 		BB44CCA51DB07165003E633F /* landing_cave.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C38E1DB03276003E633F /* landing_cave.wav */; };
 		BB44CCA61DB07165003E633F /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3771DB03276003E633F /* complete_transform.wav */; };
-		BB44CCA71DB07165003E633F /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BB44CCA81DB07165003E633F /* world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */; };
 		BB44CCA91DB07165003E633F /* snake_death_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C75E1DB03A7D003E633F /* snake_death_texture_shader.fsh */; };
 		BB44CCAA1DB07165003E633F /* absorb_dash_ability.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C36E1DB03276003E633F /* absorb_dash_ability.wav */; };
@@ -717,7 +712,6 @@
 		BB44CCBB1DB07165003E633F /* button_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3721DB03276003E633F /* button_click.wav */; };
 		BB44CCBC1DB07165003E633F /* world_1_end_boss_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E61DB03276003E633F /* world_1_end_boss_part_1.png */; };
 		BB44CCBD1DB07165003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
-		BB44CCBE1DB07165003E633F /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E01DB03276003E633F /* vampire.png */; };
 		BB44CCBF1DB07165003E633F /* final_boss_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C37E1DB03276003E633F /* final_boss_bgm.wav */; };
 		BB44CCC01DB07165003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44CCC11DB07165003E633F /* collect_golden_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3761DB03276003E633F /* collect_golden_carrot.wav */; };
@@ -1175,6 +1169,12 @@
 		BBE92E141DB2E671008359C2 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C6771DB03A7D003E633F /* color_shader.vsh */; };
 		BBE92E151DB2E671008359C2 /* end_boss_snake_damaged.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C37B1DB03276003E633F /* end_boss_snake_damaged.wav */; };
 		BBE92E161DB2E671008359C2 /* fox_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3851DB03276003E633F /* fox_death.wav */; };
+		BBEFC3741DB554B90011BD9B /* d_jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3711DB554B90011BD9B /* d_jon.png */; };
+		BBEFC3751DB554B90011BD9B /* d_jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3711DB554B90011BD9B /* d_jon.png */; };
+		BBEFC3761DB554B90011BD9B /* d_vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3721DB554B90011BD9B /* d_vampire.png */; };
+		BBEFC3771DB554B90011BD9B /* d_vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3721DB554B90011BD9B /* d_vampire.png */; };
+		BBEFC3781DB554B90011BD9B /* d_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3731DB554B90011BD9B /* d_world_1_special.png */; };
+		BBEFC3791DB554B90011BD9B /* d_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3731DB554B90011BD9B /* d_world_1_special.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1693,6 +1693,107 @@
 		BBE02D3A1DB18D4600C3268B /* GameScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenController.h; sourceTree = "<group>"; };
 		BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScreenController.mm; sourceTree = "<group>"; };
 		BBE92E1A1DB2E671008359C2 /* NosFURatu Level Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBEFC3041DB551800011BD9B /* AndroidOpenGLESGameScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidOpenGLESGameScreen.cpp; sourceTree = "<group>"; };
+		BBEFC3051DB551800011BD9B /* AndroidOpenGLESGameScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidOpenGLESGameScreen.h; sourceTree = "<group>"; };
+		BBEFC3071DB551A60011BD9B /* Direct3DBackgroundTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DBackgroundTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3081DB551A60011BD9B /* Direct3DBackgroundTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DBackgroundTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3091DB551A60011BD9B /* Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC30A1DB551A60011BD9B /* Direct3DEndBossSnakeTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DEndBossSnakeTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC30B1DB551A60011BD9B /* Direct3DFadeScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFadeScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC30C1DB551A60011BD9B /* Direct3DFadeScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFadeScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC30D1DB551A60011BD9B /* Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC30E1DB551A60011BD9B /* Direct3DFrameBufferObfuscationGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFrameBufferObfuscationGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC30F1DB551A60011BD9B /* Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3101DB551A60011BD9B /* Direct3DFramebufferRadialBlurGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFramebufferRadialBlurGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3111DB551A60011BD9B /* Direct3DFrameBufferTintGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFrameBufferTintGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3121DB551A60011BD9B /* Direct3DFrameBufferTintGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFrameBufferTintGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3131DB551A60011BD9B /* Direct3DGameScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DGameScreen.cpp; sourceTree = "<group>"; };
+		BBEFC3141DB551A60011BD9B /* Direct3DGameScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DGameScreen.h; sourceTree = "<group>"; };
+		BBEFC3151DB551A60011BD9B /* Direct3DPointTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DPointTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3161DB551A60011BD9B /* Direct3DPointTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DPointTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3171DB551A60011BD9B /* Direct3DRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DRenderer.cpp; sourceTree = "<group>"; };
+		BBEFC3181DB551A60011BD9B /* Direct3DRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DRenderer.h; sourceTree = "<group>"; };
+		BBEFC3191DB551A60011BD9B /* Direct3DShockwaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DShockwaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC31A1DB551A60011BD9B /* Direct3DShockwaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DShockwaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC31B1DB551A60011BD9B /* Direct3DSinWaveTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSinWaveTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC31C1DB551A60011BD9B /* Direct3DSinWaveTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSinWaveTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC31D1DB551A60011BD9B /* Direct3DSnakeDeathTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSnakeDeathTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC31E1DB551A60011BD9B /* Direct3DSnakeDeathTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSnakeDeathTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC31F1DB551A60011BD9B /* Direct3DTransDeathGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DTransDeathGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3201DB551A60011BD9B /* Direct3DTransDeathGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DTransDeathGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3211DB551A60011BD9B /* Direct3DTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC3221DB551A60011BD9B /* Direct3DTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3231DB551A60011BD9B /* EndBossSnakeTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = EndBossSnakeTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3241DB551A60011BD9B /* FadeScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FadeScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3251DB551A60011BD9B /* FrameBufferObfuscationPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferObfuscationPixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3261DB551A60011BD9B /* FrameBufferTintToScreenPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferTintToScreenPixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3271DB551A60011BD9B /* PointTransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3281DB551A60011BD9B /* PointTransScreenTextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTextureVertexShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3291DB551A60011BD9B /* RadialBlurTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = RadialBlurTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32A1DB551A60011BD9B /* ShockwaveTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ShockwaveTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32B1DB551A60011BD9B /* ShockwaveTextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ShockwaveTextureVertexShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32C1DB551A60011BD9B /* SinWaveTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SinWaveTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32D1DB551A60011BD9B /* SnakeDeathTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SnakeDeathTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32E1DB551A60011BD9B /* TransDeathInTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransDeathInTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC32F1DB551A60011BD9B /* TransDeathOutTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransDeathOutTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3301DB551A60011BD9B /* TransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3331DB551E50011BD9B /* filesystem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = filesystem.c; sourceTree = "<group>"; };
+		BBEFC3341DB551E50011BD9B /* filesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filesystem.h; sourceTree = "<group>"; };
+		BBEFC3361DB551E50011BD9B /* RandomAccessReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RandomAccessReader.cpp; sourceTree = "<group>"; };
+		BBEFC3371DB551E50011BD9B /* RandomAccessReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RandomAccessReader.h; sourceTree = "<group>"; };
+		BBEFC3381DB551E50011BD9B /* SoundFileReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SoundFileReader.cpp; sourceTree = "<group>"; };
+		BBEFC3391DB551E50011BD9B /* SoundFileReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundFileReader.h; sourceTree = "<group>"; };
+		BBEFC33C1DB551F30011BD9B /* sfx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sfx.c; sourceTree = "<group>"; };
+		BBEFC33D1DB551F30011BD9B /* sfx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sfx.h; sourceTree = "<group>"; };
+		BBEFC33F1DB551F30011BD9B /* GameSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameSound.cpp; sourceTree = "<group>"; };
+		BBEFC3401DB551F30011BD9B /* GameSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSound.h; sourceTree = "<group>"; };
+		BBEFC3411DB551F30011BD9B /* MediaEnginePlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MediaEnginePlayer.cpp; sourceTree = "<group>"; };
+		BBEFC3421DB551F30011BD9B /* MediaEnginePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaEnginePlayer.h; sourceTree = "<group>"; };
+		BBEFC3431DB551F30011BD9B /* XAudio2SoundPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = XAudio2SoundPlayer.cpp; sourceTree = "<group>"; };
+		BBEFC3441DB551F30011BD9B /* XAudio2SoundPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XAudio2SoundPlayer.h; sourceTree = "<group>"; };
+		BBEFC3461DB552000011BD9B /* DirectXHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectXHelper.h; sourceTree = "<group>"; };
+		BBEFC3471DB552000011BD9B /* pch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pch.cpp; sourceTree = "<group>"; };
+		BBEFC3481DB552000011BD9B /* pch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
+		BBEFC3491DB552000011BD9B /* StepTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepTimer.h; sourceTree = "<group>"; };
+		BBEFC34B1DB5520C0011BD9B /* DSCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSCircleBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC34C1DB5520C0011BD9B /* DSCircleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSCircleBatcher.h; sourceTree = "<group>"; };
+		BBEFC34D1DB5520C0011BD9B /* DSLineBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSLineBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC34E1DB5520C0011BD9B /* DSLineBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSLineBatcher.h; sourceTree = "<group>"; };
+		BBEFC34F1DB5520C0011BD9B /* DSRectangleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSRectangleBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC3501DB5520C0011BD9B /* DSRectangleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSRectangleBatcher.h; sourceTree = "<group>"; };
+		BBEFC3511DB5520C0011BD9B /* DSSpriteBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSSpriteBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC3521DB5520C0011BD9B /* DSSpriteBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSSpriteBatcher.h; sourceTree = "<group>"; };
+		BBEFC3541DB5520C0011BD9B /* ColorPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorPixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3551DB5520C0011BD9B /* ColorVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = ColorVertexShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3561DB5520C0011BD9B /* DDSTextureLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DDSTextureLoader.cpp; sourceTree = "<group>"; };
+		BBEFC3571DB5520C0011BD9B /* DDSTextureLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDSTextureLoader.h; sourceTree = "<group>"; };
+		BBEFC3581DB5520C0011BD9B /* DeviceResources.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceResources.cpp; sourceTree = "<group>"; };
+		BBEFC3591DB5520C0011BD9B /* DeviceResources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceResources.h; sourceTree = "<group>"; };
+		BBEFC35A1DB5520C0011BD9B /* Direct3DCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DCircleBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC35B1DB5520C0011BD9B /* Direct3DCircleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DCircleBatcher.h; sourceTree = "<group>"; };
+		BBEFC35C1DB5520D0011BD9B /* Direct3DFrameBufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFrameBufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC35D1DB5520D0011BD9B /* Direct3DFrameBufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFrameBufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC35E1DB5520D0011BD9B /* Direct3DGeometryGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DGeometryGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC35F1DB5520D0011BD9B /* Direct3DGeometryGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DGeometryGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC3601DB5520D0011BD9B /* Direct3DLineBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DLineBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC3611DB5520D0011BD9B /* Direct3DLineBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DLineBatcher.h; sourceTree = "<group>"; };
+		BBEFC3621DB5520D0011BD9B /* Direct3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DManager.cpp; sourceTree = "<group>"; };
+		BBEFC3631DB5520D0011BD9B /* Direct3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DManager.h; sourceTree = "<group>"; };
+		BBEFC3641DB5520D0011BD9B /* Direct3DProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DProgram.cpp; sourceTree = "<group>"; };
+		BBEFC3651DB5520D0011BD9B /* Direct3DProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgram.h; sourceTree = "<group>"; };
+		BBEFC3661DB5520D0011BD9B /* Direct3DRectangleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DRectangleBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC3671DB5520D0011BD9B /* Direct3DRectangleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DRectangleBatcher.h; sourceTree = "<group>"; };
+		BBEFC3681DB5520D0011BD9B /* Direct3DSpriteBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DSpriteBatcher.cpp; sourceTree = "<group>"; };
+		BBEFC3691DB5520D0011BD9B /* Direct3DSpriteBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DSpriteBatcher.h; sourceTree = "<group>"; };
+		BBEFC36A1DB5520D0011BD9B /* Direct3DTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BBEFC36B1DB5520D0011BD9B /* Direct3DTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BBEFC36C1DB5520D0011BD9B /* FrameBufferToScreenPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferToScreenPixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC36D1DB5520D0011BD9B /* FrameBufferToScreenVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferToScreenVertexShader.hlsl; sourceTree = "<group>"; };
+		BBEFC36E1DB5520D0011BD9B /* TexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BBEFC36F1DB5520D0011BD9B /* TextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureVertexShader.hlsl; sourceTree = "<group>"; };
+		BBEFC3711DB554B90011BD9B /* d_jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_jon.png; sourceTree = "<group>"; };
+		BBEFC3721DB554B90011BD9B /* d_vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_vampire.png; sourceTree = "<group>"; };
+		BBEFC3731DB554B90011BD9B /* d_world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_world_1_special.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1978,6 +2079,7 @@
 			isa = PBXGroup;
 			children = (
 				BB44C3B11DB03276003E633F /* compressed */,
+				BBEFC3701DB554B90011BD9B /* desktop */,
 				BB44C3C31DB03276003E633F /* jon.png */,
 				BB44C3C41DB03276003E633F /* level_editor.png */,
 				BB44C3C51DB03276003E633F /* misc.png */,
@@ -2109,7 +2211,9 @@
 			isa = PBXGroup;
 			children = (
 				BB44C6111DB03A7D003E633F /* entity */,
+				BBEFC3311DB551E50011BD9B /* file */,
 				BB44C6211DB03A7D003E633F /* math */,
+				BBEFC33A1DB551F30011BD9B /* sound */,
 				BB44C63A1DB03A7D003E633F /* state */,
 				BB44C63D1DB03A7D003E633F /* ui */,
 				BB44C6A91DB03A7D003E633F /* util */,
@@ -2162,11 +2266,13 @@
 		BB44C63D1DB03A7D003E633F /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				BBEFC34A1DB5520C0011BD9B /* 3ds */,
 				BB44C6471DB03A7D003E633F /* Animation.cpp */,
 				BB44C6481DB03A7D003E633F /* Animation.h */,
 				BB44C6491DB03A7D003E633F /* CircleBatcher.cpp */,
 				BB44C64A1DB03A7D003E633F /* CircleBatcher.h */,
 				BB44C64B1DB03A7D003E633F /* Color.h */,
+				BBEFC3531DB5520C0011BD9B /* direct3d */,
 				BB44C6691DB03A7D003E633F /* DummyGpuProgramWrapper.cpp */,
 				BB44C66A1DB03A7D003E633F /* DummyGpuProgramWrapper.h */,
 				BB44C66B1DB03A7D003E633F /* Font.cpp */,
@@ -2232,10 +2338,10 @@
 				BB44C6941DB03A7D003E633F /* platform_gl.h */,
 				BB44C6951DB03A7D003E633F /* shader.c */,
 				BB44C6961DB03A7D003E633F /* shader.h */,
-				BB44C6971DB03A7D003E633F /* texture.c */,
-				BB44C6981DB03A7D003E633F /* texture.h */,
 				BB44C6991DB03A7D003E633F /* texture_shader.fsh */,
 				BB44C69A1DB03A7D003E633F /* texture_shader.vsh */,
+				BB44C6971DB03A7D003E633F /* texture.c */,
+				BB44C6981DB03A7D003E633F /* texture.h */,
 				BB44C69B1DB03A7D003E633F /* TextureProgram.cpp */,
 				BB44C69C1DB03A7D003E633F /* TextureProgram.h */,
 			);
@@ -2245,6 +2351,7 @@
 		BB44C6A91DB03A7D003E633F /* util */ = {
 			isa = PBXGroup;
 			children = (
+				BBEFC3451DB552000011BD9B /* windows */,
 				BB44C6AA1DB03A7D003E633F /* FlagUtil.h */,
 				BB44C6AB1DB03A7D003E633F /* macros.h */,
 			);
@@ -2311,6 +2418,7 @@
 				BB44C6E11DB03A7D003E633F /* ConfirmResetPanel.h */,
 				BB44C6E21DB03A7D003E633F /* CutscenePanel.cpp */,
 				BB44C6E31DB03A7D003E633F /* CutscenePanel.h */,
+				BBEFC3061DB551A60011BD9B /* direct3d */,
 				BB44C70F1DB03A7D003E633F /* EndBossSnakeTextureGpuProgramWrapper.cpp */,
 				BB44C7101DB03A7D003E633F /* EndBossSnakeTextureGpuProgramWrapper.h */,
 				BB44C7111DB03A7D003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp */,
@@ -2372,11 +2480,12 @@
 		BB44C72F1DB03A7D003E633F /* opengles */ = {
 			isa = PBXGroup;
 			children = (
-				BB44CB121DB04EE2003E633F /* mac */,
+				BBEFC3031DB551800011BD9B /* android */,
 				BB44C7331DB03A7D003E633F /* end_boss_snake_texture_shader.fsh */,
 				BB44C7341DB03A7D003E633F /* fade_screen_shader.fsh */,
 				BB44C7351DB03A7D003E633F /* frame_buffer_to_screen_purple_highlight_shader.fsh */,
 				BB44C7361DB03A7D003E633F /* ios */,
+				BB44CB121DB04EE2003E633F /* mac */,
 				BB44C7391DB03A7D003E633F /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.cpp */,
 				BB44C73A1DB03A7D003E633F /* OpenGLESEndBossSnakeTextureGpuProgramWrapper.h */,
 				BB44C73B1DB03A7D003E633F /* OpenGLESFadeScreenGpuProgramWrapper.cpp */,
@@ -2577,6 +2686,195 @@
 				BBCCA8921DB363F500452FA1 /* SynthesizeSingleton.h */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		BBEFC3031DB551800011BD9B /* android */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3041DB551800011BD9B /* AndroidOpenGLESGameScreen.cpp */,
+				BBEFC3051DB551800011BD9B /* AndroidOpenGLESGameScreen.h */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		BBEFC3061DB551A60011BD9B /* direct3d */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3071DB551A60011BD9B /* Direct3DBackgroundTextureGpuProgramWrapper.cpp */,
+				BBEFC3081DB551A60011BD9B /* Direct3DBackgroundTextureGpuProgramWrapper.h */,
+				BBEFC3091DB551A60011BD9B /* Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp */,
+				BBEFC30A1DB551A60011BD9B /* Direct3DEndBossSnakeTextureGpuProgramWrapper.h */,
+				BBEFC30B1DB551A60011BD9B /* Direct3DFadeScreenGpuProgramWrapper.cpp */,
+				BBEFC30C1DB551A60011BD9B /* Direct3DFadeScreenGpuProgramWrapper.h */,
+				BBEFC30D1DB551A60011BD9B /* Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp */,
+				BBEFC30E1DB551A60011BD9B /* Direct3DFrameBufferObfuscationGpuProgramWrapper.h */,
+				BBEFC30F1DB551A60011BD9B /* Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp */,
+				BBEFC3101DB551A60011BD9B /* Direct3DFramebufferRadialBlurGpuProgramWrapper.h */,
+				BBEFC3111DB551A60011BD9B /* Direct3DFrameBufferTintGpuProgramWrapper.cpp */,
+				BBEFC3121DB551A60011BD9B /* Direct3DFrameBufferTintGpuProgramWrapper.h */,
+				BBEFC3131DB551A60011BD9B /* Direct3DGameScreen.cpp */,
+				BBEFC3141DB551A60011BD9B /* Direct3DGameScreen.h */,
+				BBEFC3151DB551A60011BD9B /* Direct3DPointTransScreenGpuProgramWrapper.cpp */,
+				BBEFC3161DB551A60011BD9B /* Direct3DPointTransScreenGpuProgramWrapper.h */,
+				BBEFC3171DB551A60011BD9B /* Direct3DRenderer.cpp */,
+				BBEFC3181DB551A60011BD9B /* Direct3DRenderer.h */,
+				BBEFC3191DB551A60011BD9B /* Direct3DShockwaveTextureGpuProgramWrapper.cpp */,
+				BBEFC31A1DB551A60011BD9B /* Direct3DShockwaveTextureGpuProgramWrapper.h */,
+				BBEFC31B1DB551A60011BD9B /* Direct3DSinWaveTextureGpuProgramWrapper.cpp */,
+				BBEFC31C1DB551A60011BD9B /* Direct3DSinWaveTextureGpuProgramWrapper.h */,
+				BBEFC31D1DB551A60011BD9B /* Direct3DSnakeDeathTextureGpuProgramWrapper.cpp */,
+				BBEFC31E1DB551A60011BD9B /* Direct3DSnakeDeathTextureGpuProgramWrapper.h */,
+				BBEFC31F1DB551A60011BD9B /* Direct3DTransDeathGpuProgramWrapper.cpp */,
+				BBEFC3201DB551A60011BD9B /* Direct3DTransDeathGpuProgramWrapper.h */,
+				BBEFC3211DB551A60011BD9B /* Direct3DTransScreenGpuProgramWrapper.cpp */,
+				BBEFC3221DB551A60011BD9B /* Direct3DTransScreenGpuProgramWrapper.h */,
+				BBEFC3231DB551A60011BD9B /* EndBossSnakeTexturePixelShader.hlsl */,
+				BBEFC3241DB551A60011BD9B /* FadeScreenTexturePixelShader.hlsl */,
+				BBEFC3251DB551A60011BD9B /* FrameBufferObfuscationPixelShader.hlsl */,
+				BBEFC3261DB551A60011BD9B /* FrameBufferTintToScreenPixelShader.hlsl */,
+				BBEFC3271DB551A60011BD9B /* PointTransScreenTexturePixelShader.hlsl */,
+				BBEFC3281DB551A60011BD9B /* PointTransScreenTextureVertexShader.hlsl */,
+				BBEFC3291DB551A60011BD9B /* RadialBlurTexturePixelShader.hlsl */,
+				BBEFC32A1DB551A60011BD9B /* ShockwaveTexturePixelShader.hlsl */,
+				BBEFC32B1DB551A60011BD9B /* ShockwaveTextureVertexShader.hlsl */,
+				BBEFC32C1DB551A60011BD9B /* SinWaveTexturePixelShader.hlsl */,
+				BBEFC32D1DB551A60011BD9B /* SnakeDeathTexturePixelShader.hlsl */,
+				BBEFC32E1DB551A60011BD9B /* TransDeathInTexturePixelShader.hlsl */,
+				BBEFC32F1DB551A60011BD9B /* TransDeathOutTexturePixelShader.hlsl */,
+				BBEFC3301DB551A60011BD9B /* TransScreenTexturePixelShader.hlsl */,
+			);
+			path = direct3d;
+			sourceTree = "<group>";
+		};
+		BBEFC3311DB551E50011BD9B /* file */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3321DB551E50011BD9B /* 3ds */,
+				BBEFC3351DB551E50011BD9B /* windows */,
+			);
+			path = file;
+			sourceTree = "<group>";
+		};
+		BBEFC3321DB551E50011BD9B /* 3ds */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3331DB551E50011BD9B /* filesystem.c */,
+				BBEFC3341DB551E50011BD9B /* filesystem.h */,
+			);
+			path = 3ds;
+			sourceTree = "<group>";
+		};
+		BBEFC3351DB551E50011BD9B /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3361DB551E50011BD9B /* RandomAccessReader.cpp */,
+				BBEFC3371DB551E50011BD9B /* RandomAccessReader.h */,
+				BBEFC3381DB551E50011BD9B /* SoundFileReader.cpp */,
+				BBEFC3391DB551E50011BD9B /* SoundFileReader.h */,
+			);
+			path = windows;
+			sourceTree = "<group>";
+		};
+		BBEFC33A1DB551F30011BD9B /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC33B1DB551F30011BD9B /* 3ds */,
+				BBEFC33E1DB551F30011BD9B /* windows */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
+		BBEFC33B1DB551F30011BD9B /* 3ds */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC33C1DB551F30011BD9B /* sfx.c */,
+				BBEFC33D1DB551F30011BD9B /* sfx.h */,
+			);
+			path = 3ds;
+			sourceTree = "<group>";
+		};
+		BBEFC33E1DB551F30011BD9B /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC33F1DB551F30011BD9B /* GameSound.cpp */,
+				BBEFC3401DB551F30011BD9B /* GameSound.h */,
+				BBEFC3411DB551F30011BD9B /* MediaEnginePlayer.cpp */,
+				BBEFC3421DB551F30011BD9B /* MediaEnginePlayer.h */,
+				BBEFC3431DB551F30011BD9B /* XAudio2SoundPlayer.cpp */,
+				BBEFC3441DB551F30011BD9B /* XAudio2SoundPlayer.h */,
+			);
+			path = windows;
+			sourceTree = "<group>";
+		};
+		BBEFC3451DB552000011BD9B /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3461DB552000011BD9B /* DirectXHelper.h */,
+				BBEFC3471DB552000011BD9B /* pch.cpp */,
+				BBEFC3481DB552000011BD9B /* pch.h */,
+				BBEFC3491DB552000011BD9B /* StepTimer.h */,
+			);
+			path = windows;
+			sourceTree = "<group>";
+		};
+		BBEFC34A1DB5520C0011BD9B /* 3ds */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC34B1DB5520C0011BD9B /* DSCircleBatcher.cpp */,
+				BBEFC34C1DB5520C0011BD9B /* DSCircleBatcher.h */,
+				BBEFC34D1DB5520C0011BD9B /* DSLineBatcher.cpp */,
+				BBEFC34E1DB5520C0011BD9B /* DSLineBatcher.h */,
+				BBEFC34F1DB5520C0011BD9B /* DSRectangleBatcher.cpp */,
+				BBEFC3501DB5520C0011BD9B /* DSRectangleBatcher.h */,
+				BBEFC3511DB5520C0011BD9B /* DSSpriteBatcher.cpp */,
+				BBEFC3521DB5520C0011BD9B /* DSSpriteBatcher.h */,
+			);
+			path = 3ds;
+			sourceTree = "<group>";
+		};
+		BBEFC3531DB5520C0011BD9B /* direct3d */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3541DB5520C0011BD9B /* ColorPixelShader.hlsl */,
+				BBEFC3551DB5520C0011BD9B /* ColorVertexShader.hlsl */,
+				BBEFC3561DB5520C0011BD9B /* DDSTextureLoader.cpp */,
+				BBEFC3571DB5520C0011BD9B /* DDSTextureLoader.h */,
+				BBEFC3581DB5520C0011BD9B /* DeviceResources.cpp */,
+				BBEFC3591DB5520C0011BD9B /* DeviceResources.h */,
+				BBEFC35A1DB5520C0011BD9B /* Direct3DCircleBatcher.cpp */,
+				BBEFC35B1DB5520C0011BD9B /* Direct3DCircleBatcher.h */,
+				BBEFC35C1DB5520D0011BD9B /* Direct3DFrameBufferToScreenGpuProgramWrapper.cpp */,
+				BBEFC35D1DB5520D0011BD9B /* Direct3DFrameBufferToScreenGpuProgramWrapper.h */,
+				BBEFC35E1DB5520D0011BD9B /* Direct3DGeometryGpuProgramWrapper.cpp */,
+				BBEFC35F1DB5520D0011BD9B /* Direct3DGeometryGpuProgramWrapper.h */,
+				BBEFC3601DB5520D0011BD9B /* Direct3DLineBatcher.cpp */,
+				BBEFC3611DB5520D0011BD9B /* Direct3DLineBatcher.h */,
+				BBEFC3621DB5520D0011BD9B /* Direct3DManager.cpp */,
+				BBEFC3631DB5520D0011BD9B /* Direct3DManager.h */,
+				BBEFC3641DB5520D0011BD9B /* Direct3DProgram.cpp */,
+				BBEFC3651DB5520D0011BD9B /* Direct3DProgram.h */,
+				BBEFC3661DB5520D0011BD9B /* Direct3DRectangleBatcher.cpp */,
+				BBEFC3671DB5520D0011BD9B /* Direct3DRectangleBatcher.h */,
+				BBEFC3681DB5520D0011BD9B /* Direct3DSpriteBatcher.cpp */,
+				BBEFC3691DB5520D0011BD9B /* Direct3DSpriteBatcher.h */,
+				BBEFC36A1DB5520D0011BD9B /* Direct3DTextureGpuProgramWrapper.cpp */,
+				BBEFC36B1DB5520D0011BD9B /* Direct3DTextureGpuProgramWrapper.h */,
+				BBEFC36C1DB5520D0011BD9B /* FrameBufferToScreenPixelShader.hlsl */,
+				BBEFC36D1DB5520D0011BD9B /* FrameBufferToScreenVertexShader.hlsl */,
+				BBEFC36E1DB5520D0011BD9B /* TexturePixelShader.hlsl */,
+				BBEFC36F1DB5520D0011BD9B /* TextureVertexShader.hlsl */,
+			);
+			path = direct3d;
+			sourceTree = "<group>";
+		};
+		BBEFC3701DB554B90011BD9B /* desktop */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFC3711DB554B90011BD9B /* d_jon.png */,
+				BBEFC3721DB554B90011BD9B /* d_vampire.png */,
+				BBEFC3731DB554B90011BD9B /* d_world_1_special.png */,
+			);
+			path = desktop;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2850,8 +3148,10 @@
 				BB44C4431DB03277003E633F /* mid_boss_bgm.wav in Resources */,
 				BB44C4E91DB03277003E633F /* world_1_mid_boss_part_1.png in Resources */,
 				BB44C41B1DB03277003E633F /* footstep_left_grass.wav in Resources */,
+				BBEFC3741DB554B90011BD9B /* d_jon.png in Resources */,
 				BB44C42F1DB03277003E633F /* jon_vampire_jump.wav in Resources */,
 				BB44C43F1DB03277003E633F /* level_select_bgm.wav in Resources */,
+				BBEFC3781DB554B90011BD9B /* d_world_1_special.png in Resources */,
 				BB44C4191DB03277003E633F /* footstep_left_cave.wav in Resources */,
 				BB44C40F1DB03276003E633F /* end_boss_snake_damaged.wav in Resources */,
 				BB44C49F1DB03277003E633F /* misc.png in Resources */,
@@ -2868,7 +3168,6 @@
 				BB44C4CF1DB03277003E633F /* title_screen.png in Resources */,
 				BB44C4271DB03277003E633F /* jon_burrow_rocksfall.wav in Resources */,
 				BB44CA821DB03A7F003E633F /* pp_shockwave_texture_shader.fsh in Resources */,
-				BB44C49B1DB03277003E633F /* jon.png in Resources */,
 				BB44C4EB1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB44C4DB1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
 				BB44C3FF1DB03276003E633F /* cancel_transform.wav in Resources */,
@@ -2880,7 +3179,6 @@
 				BB44CA901DB03A7F003E633F /* trans_in_death_shader.fsh in Resources */,
 				BB44C4351DB03277003E633F /* landing_cave.wav in Resources */,
 				BB44C4071DB03276003E633F /* complete_transform.wav in Resources */,
-				BB44C4F11DB03277003E633F /* world_1_special.png in Resources */,
 				BB44C4ED1DB03277003E633F /* world_1_mid_boss_part_3.png in Resources */,
 				BB44CA8C1DB03A7F003E633F /* snake_death_texture_shader.fsh in Resources */,
 				BB44C3F51DB03276003E633F /* absorb_dash_ability.wav in Resources */,
@@ -2889,6 +3187,7 @@
 				BB44C4DD1DB03277003E633F /* world_1_cutscene_2.png in Resources */,
 				BB44C43B1DB03277003E633F /* level_complete.wav in Resources */,
 				BB44C4291DB03277003E633F /* jon_rabbit_double_jump.wav in Resources */,
+				BBEFC3761DB554B90011BD9B /* d_vampire.png in Resources */,
 				BB44C3FB1DB03276003E633F /* boss_level_unlock.wav in Resources */,
 				BB44C4611DB03277003E633F /* sparrow_fly_loop.wav in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
@@ -2898,7 +3197,6 @@
 				BB44C3FD1DB03276003E633F /* button_click.wav in Resources */,
 				BB44C4DF1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB44C4EF1DB03277003E633F /* world_1_objects.png in Resources */,
-				BB44C4D31DB03277003E633F /* vampire.png in Resources */,
 				BB44C4151DB03276003E633F /* final_boss_bgm.wav in Resources */,
 				BB44C4D11DB03277003E633F /* trans_death_shader_helper.png in Resources */,
 				BB44C4051DB03276003E633F /* collect_golden_carrot.wav in Resources */,
@@ -2971,8 +3269,10 @@
 				BB44CC841DB07165003E633F /* mid_boss_bgm.wav in Resources */,
 				BB44CC851DB07165003E633F /* world_1_mid_boss_part_1.png in Resources */,
 				BB44CC861DB07165003E633F /* footstep_left_grass.wav in Resources */,
+				BBEFC3751DB554B90011BD9B /* d_jon.png in Resources */,
 				BB44CC871DB07165003E633F /* jon_vampire_jump.wav in Resources */,
 				BB44CC881DB07165003E633F /* level_select_bgm.wav in Resources */,
+				BBEFC3791DB554B90011BD9B /* d_world_1_special.png in Resources */,
 				BB44CC8A1DB07165003E633F /* footstep_left_cave.wav in Resources */,
 				BB44CC8B1DB07165003E633F /* end_boss_snake_damaged.wav in Resources */,
 				BB44CC8D1DB07165003E633F /* misc.png in Resources */,
@@ -2989,7 +3289,6 @@
 				BB44CC981DB07165003E633F /* title_screen.png in Resources */,
 				BB44CC991DB07165003E633F /* jon_burrow_rocksfall.wav in Resources */,
 				BB44CC9A1DB07165003E633F /* pp_shockwave_texture_shader.fsh in Resources */,
-				BB44CC9B1DB07165003E633F /* jon.png in Resources */,
 				BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB44CC9D1DB07165003E633F /* world_1_cutscene_1.png in Resources */,
 				BB44CC9E1DB07165003E633F /* cancel_transform.wav in Resources */,
@@ -3001,7 +3300,6 @@
 				BB44CCA41DB07165003E633F /* trans_in_death_shader.fsh in Resources */,
 				BB44CCA51DB07165003E633F /* landing_cave.wav in Resources */,
 				BB44CCA61DB07165003E633F /* complete_transform.wav in Resources */,
-				BB44CCA71DB07165003E633F /* world_1_special.png in Resources */,
 				BB44CCA81DB07165003E633F /* world_1_mid_boss_part_3.png in Resources */,
 				BB44CCA91DB07165003E633F /* snake_death_texture_shader.fsh in Resources */,
 				BB44CCAA1DB07165003E633F /* absorb_dash_ability.wav in Resources */,
@@ -3010,6 +3308,7 @@
 				BB44CCAE1DB07165003E633F /* world_1_cutscene_2.png in Resources */,
 				BB44CCAF1DB07165003E633F /* level_complete.wav in Resources */,
 				BB44CCB01DB07165003E633F /* jon_rabbit_double_jump.wav in Resources */,
+				BBEFC3771DB554B90011BD9B /* d_vampire.png in Resources */,
 				BB44CCB11DB07165003E633F /* boss_level_unlock.wav in Resources */,
 				BB44CCB31DB07165003E633F /* sparrow_fly_loop.wav in Resources */,
 				BB44CCB41DB07165003E633F /* Main.storyboard in Resources */,
@@ -3019,7 +3318,6 @@
 				BB44CCBB1DB07165003E633F /* button_click.wav in Resources */,
 				BB44CCBC1DB07165003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB44CCBD1DB07165003E633F /* world_1_objects.png in Resources */,
-				BB44CCBE1DB07165003E633F /* vampire.png in Resources */,
 				BB44CCBF1DB07165003E633F /* final_boss_bgm.wav in Resources */,
 				BB44CCC01DB07165003E633F /* trans_death_shader_helper.png in Resources */,
 				BB44CCC11DB07165003E633F /* collect_golden_carrot.wav in Resources */,

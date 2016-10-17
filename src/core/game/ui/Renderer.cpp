@@ -61,6 +61,7 @@ m_iFramebufferIndex(0),
 m_iNumAsyncLoads(0),
 m_fRadialBlurDirection(0.5f),
 m_compressed(Assets::getInstance()->isUsingCompressedTextureSet()),
+m_desktop(Assets::getInstance()->isUsingDesktopTextureSet()),
 m_areShadersLoaded(false),
 m_stopCamera(false),
 m_hasCompletedRadialBlur(false),
@@ -2218,7 +2219,7 @@ void Renderer::loadJon()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_jon.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_jon" : "jon");
+            r->m_jon.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_jon" : r->m_compressed ? "c_jon" : "jon");
         }, this));
     }
 }
@@ -2244,7 +2245,7 @@ void Renderer::loadVampire()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_vampire.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_vampire" : "vampire");
+            r->m_vampire.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_vampire" : r->m_compressed ? "c_vampire" : "vampire");
         }, this));
     }
 }
@@ -2377,7 +2378,7 @@ void Renderer::loadWorld1Special()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_special.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_special" : "world_1_special");
+            r->m_world_1_special.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_world_1_special" : r->m_compressed ? "c_world_1_special" : "world_1_special");
         }, this));
     }
 }

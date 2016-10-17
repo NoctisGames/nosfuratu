@@ -8,7 +8,7 @@
 
 #include "MacOpenGLGameScreen.h"
 
-MacOpenGLGameScreen::MacOpenGLGameScreen(int screenWidth, int screenHeight) : OpenGLESGameScreen(false)
+MacOpenGLGameScreen::MacOpenGLGameScreen(int screenWidth, int screenHeight) : OpenGLESGameScreen(false, true)
 {
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;

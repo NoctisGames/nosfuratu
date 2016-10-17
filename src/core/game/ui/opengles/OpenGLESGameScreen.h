@@ -17,13 +17,14 @@
 class OpenGLESGameScreen : public GameScreen
 {
 public:
-    OpenGLESGameScreen(bool isLowMemoryDevice);
+    OpenGLESGameScreen(bool isLowMemoryDevice, bool isUsingDesktopTextureSet = false);
     
 protected:
     void init(int screenWidth, int screenHeight);
     
 private:
     bool m_isLowMemoryDevice;
+    bool m_isUsingDesktopTextureSet;
 };
 
 #endif /* defined(__nosfuratu__OpenGLESGameScreen__) */
