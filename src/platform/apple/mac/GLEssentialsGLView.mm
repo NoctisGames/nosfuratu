@@ -243,20 +243,147 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
+    if (!_gameScreen)
+    {
+        return;
+    }
+    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     _gameScreen->onTouch(DOWN, pos.x, pos.y);
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
+    if (!_gameScreen)
+    {
+        return;
+    }
+    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     _gameScreen->onTouch(DRAGGED, pos.x, pos.y);
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
+    if (!_gameScreen)
+    {
+        return;
+    }
+    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     _gameScreen->onTouch(UP, pos.x, pos.y);
+}
+
+- (void)keyDown:(NSEvent *)event
+{
+    if (!_gameScreen)
+    {
+        return;
+    }
+    
+    if ([event modifierFlags] & NSNumericPadKeyMask)
+    {
+        // arrow keys have this mask
+        NSString *theArrow = [event charactersIgnoringModifiers];
+        
+        unichar keyChar = 0;
+        
+        if ([theArrow length] == 0)
+        {
+            return; // reject dead keys
+        }
+        
+        if ([theArrow length] == 1)
+        {
+            keyChar = [theArrow characterAtIndex:0];
+            
+            if (keyChar == NSLeftArrowFunctionKey)
+            {
+                _gameScreen->onTouch(DOWN, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 0, 500);
+                _gameScreen->onTouch(UP, 0, 500);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSUpArrowFunctionKey)
+            {
+                _gameScreen->onTouch(DOWN, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 900);
+                _gameScreen->onTouch(UP, 500, 900);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSRightArrowFunctionKey)
+            {
+                _gameScreen->onTouch(DOWN, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 900, 500);
+                _gameScreen->onTouch(UP, 900, 500);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSDownArrowFunctionKey)
+            {
+                _gameScreen->onTouch(DOWN, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 500);
+                _gameScreen->onTouch(DRAGGED, 500, 0);
+                _gameScreen->onTouch(UP, 500, 0);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+        }
+    }
+    else
+    {
+        NSString *characters = [event characters];
+        
+        if ([characters length] == 0)
+        {
+            return; // reject dead keys
+        }
+        
+        unichar keyChar = 0;
+        
+        if ([characters length] == 1)
+        {
+            keyChar = [characters characterAtIndex:0];
+            
+            switch (keyChar)
+            {
+                case 'w':
+                {
+                    _gameScreen->onTouch(DOWN, 300, 300);
+                    _gameScreen->onTouch(UP, 300, 300);
+                }
+                    return;
+                case 's':
+                {
+                    _gameScreen->onTouch(DOWN, 300, 300);
+                }
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+- (void)keyUp:(NSEvent *)event
+{
+    
 }
 
 - (void)dealloc

@@ -183,6 +183,9 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	if (e->VirtualKey == Windows::System::VirtualKey::W
 		|| e->VirtualKey == Windows::System::VirtualKey::GamepadA)
 	{
+        m_main->onTouchDown(300, 300);
+        m_isPointerPressed = true;
+        
 		m_main->onTouchUp(300, 300);
 		m_isPointerPressed = false;
 	}
@@ -196,6 +199,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
+        
 		m_main->onTouchDragged(500, 500);
 		m_main->onTouchDragged(0, 500);
 		m_main->onTouchUp(0, 500);
@@ -205,6 +209,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
+        
 		m_main->onTouchDragged(500, 500);
 		m_main->onTouchDragged(500, 0);
 		m_main->onTouchUp(500, 0);
@@ -214,6 +219,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
+        
 		m_main->onTouchDragged(500, 500);
 		m_main->onTouchDragged(900, 500);
 		m_main->onTouchUp(900, 500);
@@ -223,6 +229,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
+        
 		m_main->onTouchDragged(500, 500);
 		m_main->onTouchDragged(500, 900);
 		m_main->onTouchUp(500, 900);
