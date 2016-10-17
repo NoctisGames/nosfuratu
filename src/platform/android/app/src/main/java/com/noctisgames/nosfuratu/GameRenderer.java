@@ -2,10 +2,12 @@ package com.noctisgames.nosfuratu;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Display;
 import android.widget.Toast;
 
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
@@ -153,8 +155,10 @@ public final class GameRenderer implements Renderer
         _sounds.add(_audio.newSound("spiked_ball_rolling_loop.wav"));
         _sounds.add(_audio.newSound("absorb_dash_ability.wav"));
 
+        int[] screenDimensions = getScreenDimensions(activity);
+
         double ramSize = getTotalRAM(_activity);
-        boolean isLowMemoryDevice = ramSize < 1610612736; // 1536 MB
+        boolean isLowMemoryDevice = screenDimensions[0] < 1024 || screenDimensions[1] < 1024 || ramSize < 1610612736; // 1536 MB
 
         Log.d("NosFURatu", "ramSize: " + ramSize);
         Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
@@ -689,13 +693,23 @@ public final class GameRenderer implements Renderer
         return level;
     }
 
+    private static int[] getScreenDimensions(Activity activity)
+    {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        return new int[]{width, height};
+    }
+
     private static double getTotalRAM(Activity activity)
     {
         ActivityManager actManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
         actManager.getMemoryInfo(memInfo);
-        long totalMemory = memInfo.totalMem;
 
-        return totalMemory;
+        return memInfo.totalMem;
     }
 }
