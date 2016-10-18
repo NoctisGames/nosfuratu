@@ -7,7 +7,8 @@
 //
 
 #import "SaveData.h"
-#import "AppPrefs.h"
+
+#import "NSUserDefaults+SecureAdditions.h"
 
 @implementation SaveData
 
@@ -20,6 +21,8 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
 
 + (void)initialize
 {
+    [[NSUserDefaults standardUserDefaults] setSecret:@"noctis_games_nosfuratu"];
+    
     WORLDS_LEVELS_STATS = [[NSArray alloc] initWithObjects:
                            [[NSArray alloc] initWithObjects:
                             @"v0_9_9_world_1_level_1_stats",
@@ -377,27 +380,27 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
 
 + (int)getNumGoldenCarrots
 {
-    return [[AppPrefs getInstance] getInt:NUM_GOLDEN_CARROTS];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:NUM_GOLDEN_CARROTS];
 }
 
 + (void)setNumGoldenCarrots:(int)numGoldenCarrots
 {
-    [[AppPrefs getInstance] setInt:numGoldenCarrots forKey:NUM_GOLDEN_CARROTS];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:numGoldenCarrots forKey:NUM_GOLDEN_CARROTS];
 }
 
 + (int)getViewedCutscenesFlag
 {
-    return [[AppPrefs getInstance] getInt:VIEWED_CUTSCENES_FLAG];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:VIEWED_CUTSCENES_FLAG];
 }
 
 + (void)setViewedCutscenesFlag:(int)viewedCutscenesFlag
 {
-    [[AppPrefs getInstance] setInt:viewedCutscenesFlag forKey:VIEWED_CUTSCENES_FLAG];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:viewedCutscenesFlag forKey:VIEWED_CUTSCENES_FLAG];
 }
 
 + (int)getJonUnlockedAbilitiesFlag
 {
-    return [[AppPrefs getInstance] getInt:JON_UNLOCKED_ABILITIES_FLAG];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:JON_UNLOCKED_ABILITIES_FLAG];
 }
 
 + (int)getLevelScore:(int)world level:(int)level
@@ -405,7 +408,7 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    return [[AppPrefs getInstance] getInt:WORLDS_LEVELS_SCORES[worldIndex][levelIndex]];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:WORLDS_LEVELS_SCORES[worldIndex][levelIndex]];
 }
 
 + (int)getLevelStatsFlag:(int)world level:(int)level
@@ -413,7 +416,7 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    return [[AppPrefs getInstance] getInt:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
 }
 
 + (void)setLevelStatsFlag:(int)world level:(int)level levelStatsFlag:(int)levelStatsFlag
@@ -421,7 +424,7 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    [[AppPrefs getInstance] setInt:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
 }
 
 + (void)setLevelComplete:(int)world level:(int)level score:(int)score levelStatsFlag:(int)levelStatsFlag jonUnlockedAbilitiesFlag:(int)jonUnlockedAbilitiesFlag
@@ -429,9 +432,9 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    [[AppPrefs getInstance] setInt:score forKey:WORLDS_LEVELS_SCORES[worldIndex][levelIndex]];
-    [[AppPrefs getInstance] setInt:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
-    [[AppPrefs getInstance] setInt:jonUnlockedAbilitiesFlag forKey:JON_UNLOCKED_ABILITIES_FLAG];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:score forKey:WORLDS_LEVELS_SCORES[worldIndex][levelIndex]];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:levelStatsFlag forKey:WORLDS_LEVELS_STATS[worldIndex][levelIndex]];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:jonUnlockedAbilitiesFlag forKey:JON_UNLOCKED_ABILITIES_FLAG];
 }
 
 + (int)getScorePushedOnline:(int)world level:(int)level
@@ -439,7 +442,7 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    return [[AppPrefs getInstance] getInt:WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex]];
+    return (int) [[NSUserDefaults standardUserDefaults] secretIntegerForKey:WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex]];
 }
 
 + (void)setScorePushedOnline:(int)world level:(int)level score:(int)score
@@ -447,7 +450,7 @@ static NSArray *WORLDS_LEVELS_SCORES_ONLINE;
     int worldIndex = world - 1;
     int levelIndex = level - 1;
     
-    [[AppPrefs getInstance] setInt:score forKey:WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex]];
+    [[NSUserDefaults standardUserDefaults] setSecretInteger:score forKey:WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex]];
 }
 
 @end

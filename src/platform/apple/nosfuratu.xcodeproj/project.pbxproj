@@ -27,8 +27,6 @@
 		BB44C3461DB0323F003E633F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33D1DB0323F003E633F /* MainStoryboard_iPad.storyboard */; };
 		BB44C3471DB0323F003E633F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33F1DB0323F003E633F /* MainStoryboard_iPhone.storyboard */; };
 		BB44C3481DB0323F003E633F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3411DB0323F003E633F /* Images.xcassets */; };
-		BB44C35B1DB03267003E633F /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34C1DB03267003E633F /* AppPrefs.m */; };
-		BB44C35C1DB03267003E633F /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34C1DB03267003E633F /* AppPrefs.m */; };
 		BB44C35D1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
 		BB44C35E1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
 		BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
@@ -479,7 +477,6 @@
 		BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
 		BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
 		BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
-		BB44CBF21DB07165003E633F /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34C1DB03267003E633F /* AppPrefs.m */; };
 		BB44CBF31DB07165003E633F /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BB44CBF41DB07165003E633F /* GLEssentialsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */; };
 		BB44CBF51DB07165003E633F /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3501DB03267003E633F /* SaveData.m */; };
@@ -794,6 +791,18 @@
 		BBCB71C41DB69D21006430B6 /* TextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCB716D1DB69D21006430B6 /* TextureProgram.cpp */; };
 		BBCB71C51DB69D21006430B6 /* TextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCB716D1DB69D21006430B6 /* TextureProgram.cpp */; };
 		BBCB71C61DB69D21006430B6 /* TextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBCB716D1DB69D21006430B6 /* TextureProgram.cpp */; };
+		BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
+		BBCB71D11DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
+		BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
+		BBCB71D31DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
+		BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
+		BBCB71D51DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
+		BBCB71D61DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
+		BBCB71D71DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
+		BBCB71DB1DB6B0AF006430B6 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71DA1DB6B0AF006430B6 /* Base64.m */; };
+		BBCB71DC1DB6B0AF006430B6 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71DA1DB6B0AF006430B6 /* Base64.m */; };
+		BBCB71DD1DB6B0AF006430B6 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71DA1DB6B0AF006430B6 /* Base64.m */; };
+		BBCB71DE1DB6B0AF006430B6 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71DA1DB6B0AF006430B6 /* Base64.m */; };
 		BBCCA8391DB343AB00452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8381DB343AB00452FA1 /* Accelerate.framework */; };
 		BBCCA83A1DB343B100452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8381DB343AB00452FA1 /* Accelerate.framework */; };
 		BBCCA83D1DB3462E00452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */; };
@@ -1005,7 +1014,6 @@
 		BBE92D611DB2E671008359C2 /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5801DB03A7C003E633F /* png.c */; };
 		BBE92D621DB2E671008359C2 /* BatPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6DA1DB03A7D003E633F /* BatPanel.cpp */; };
 		BBE92D651DB2E671008359C2 /* pngget.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5871DB03A7C003E633F /* pngget.c */; };
-		BBE92D671DB2E671008359C2 /* AppPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34C1DB03267003E633F /* AppPrefs.m */; };
 		BBE92D681DB2E671008359C2 /* PointTransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C76A1DB03A7D003E633F /* PointTransitionGpuProgramWrapper.cpp */; };
 		BBE92D691DB2E671008359C2 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6A11DB03A7D003E633F /* Text.cpp */; };
 		BBE92D6A1DB2E671008359C2 /* SinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C75C1DB03A7D003E633F /* SinWaveTextureProgram.cpp */; };
@@ -1207,8 +1215,6 @@
 		BB44C3411DB0323F003E633F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BB44C3421DB0323F003E633F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "nosfuratu-Prefix.pch"; sourceTree = "<group>"; };
-		BB44C34B1DB03267003E633F /* AppPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPrefs.h; sourceTree = "<group>"; };
-		BB44C34C1DB03267003E633F /* AppPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppPrefs.m; sourceTree = "<group>"; };
 		BB44C34D1DB03267003E633F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB44C34E1DB03267003E633F /* platform_asset_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_asset_utils.m; sourceTree = "<group>"; };
 		BB44C34F1DB03267003E633F /* SaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveData.h; sourceTree = "<group>"; };
@@ -1625,6 +1631,12 @@
 		BBCB716E1DB69D21006430B6 /* TextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureProgram.h; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
 		BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Texconv_readme.txt; sourceTree = "<group>"; };
+		BBCB71CB1DB6AF4B006430B6 /* CocoaSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaSecurity.h; sourceTree = "<group>"; };
+		BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CocoaSecurity.m; sourceTree = "<group>"; };
+		BBCB71CE1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+SecureAdditions.h"; sourceTree = "<group>"; };
+		BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+SecureAdditions.m"; sourceTree = "<group>"; };
+		BBCB71D91DB6B0AF006430B6 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		BBCB71DA1DB6B0AF006430B6 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		BBCCA8381DB343AB00452FA1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		BBCCA83C1DB3462E00452FA1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		BBCCA8401DB3466A00452FA1 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1980,15 +1992,16 @@
 		BB44C34A1DB03267003E633F /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				BB44C34B1DB03267003E633F /* AppPrefs.h */,
-				BB44C34C1DB03267003E633F /* AppPrefs.m */,
 				BB44C36B1DB03276003E633F /* assets */,
+				BBCB71D81DB6B0AF006430B6 /* Base64 */,
+				BBCB71CA1DB6AF4B006430B6 /* CocoaSecurity */,
 				BBE02D3A1DB18D4600C3268B /* GameScreenController.h */,
 				BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */,
 				BB44C34D1DB03267003E633F /* main.m */,
 				BB44C34E1DB03267003E633F /* platform_asset_utils.m */,
 				BB44C34F1DB03267003E633F /* SaveData.h */,
 				BB44C3501DB03267003E633F /* SaveData.m */,
+				BBCB71CD1DB6AF4B006430B6 /* SecureNSUserDefaults */,
 			);
 			path = shared;
 			sourceTree = "<group>";
@@ -2591,6 +2604,33 @@
 				BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */,
 			);
 			path = Texconv;
+			sourceTree = "<group>";
+		};
+		BBCB71CA1DB6AF4B006430B6 /* CocoaSecurity */ = {
+			isa = PBXGroup;
+			children = (
+				BBCB71CB1DB6AF4B006430B6 /* CocoaSecurity.h */,
+				BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */,
+			);
+			path = CocoaSecurity;
+			sourceTree = "<group>";
+		};
+		BBCB71CD1DB6AF4B006430B6 /* SecureNSUserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				BBCB71CE1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.h */,
+				BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */,
+			);
+			path = SecureNSUserDefaults;
+			sourceTree = "<group>";
+		};
+		BBCB71D81DB6B0AF006430B6 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				BBCB71D91DB6B0AF006430B6 /* Base64.h */,
+				BBCB71DA1DB6B0AF006430B6 /* Base64.m */,
+			);
+			path = Base64;
 			sourceTree = "<group>";
 		};
 		BBCCA8511DB363F500452FA1 /* ObjectAL */ = {
@@ -3547,6 +3587,7 @@
 				BB44C9D71DB03A7E003E633F /* Enemy.cpp in Sources */,
 				BB44CA711DB03A7F003E633F /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CAAD1DB03A7F003E633F /* TrashCan.cpp in Sources */,
+				BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BB44CA411DB03A7F003E633F /* GameScreenLevelEditor.cpp in Sources */,
 				BB44C9EF1DB03A7E003E633F /* Midground.cpp in Sources */,
 				BB44C8691DB03A7E003E633F /* pngerror.c in Sources */,
@@ -3590,6 +3631,7 @@
 				BB44C9E51DB03A7E003E633F /* Ground.cpp in Sources */,
 				BBCB71871DB69D21006430B6 /* FramebufferToScreenProgram.cpp in Sources */,
 				BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */,
+				BBCB71DB1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB44C9431DB03A7E003E633F /* EntityManager.cpp in Sources */,
 				BBCB719B1DB69D21006430B6 /* OpenGLLineBatcher.cpp in Sources */,
 				BBCB71AF1DB69D21006430B6 /* platform_file_utils.c in Sources */,
@@ -3658,7 +3700,6 @@
 				BBCCA8BB1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BB44C86B1DB03A7E003E633F /* pngget.c in Sources */,
 				BBCCA8C31DB363F500452FA1 /* ALContext.m in Sources */,
-				BB44C35B1DB03267003E633F /* AppPrefs.m in Sources */,
 				BB44CA9D1DB03A7F003E633F /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBCB71B31DB69D21006430B6 /* shader.c in Sources */,
 				BB44C9C71DB03A7E003E633F /* Text.cpp in Sources */,
@@ -3673,6 +3714,7 @@
 				BB44CAA91DB03A7F003E633F /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBCCA8F71DB363F500452FA1 /* OALTools.m in Sources */,
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
+				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BBCB71AB1DB69D21006430B6 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BB44C9C51DB03A7E003E633F /* SpriteBatcher.cpp in Sources */,
 				BB44CA371DB03A7F003E633F /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
@@ -3700,9 +3742,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB44C35C1DB03267003E633F /* AppPrefs.m in Sources */,
 				BB44CB901DB05426003E633F /* platform_asset_utils.m in Sources */,
 				BBCB71911DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
+				BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB44CB161DB051C8003E633F /* MacOpenGLGameScreen.cpp in Sources */,
@@ -3784,6 +3826,7 @@
 				BB44CB281DB052F5003E633F /* Midground.cpp in Sources */,
 				BBCB718D1DB69D21006430B6 /* image.c in Sources */,
 				BB44CB291DB052F5003E633F /* Assets.cpp in Sources */,
+				BBCB71D61DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BB44CB2A1DB052F5003E633F /* BatPanel.cpp in Sources */,
 				BBCCA8D51DB363F500452FA1 /* ALSource.m in Sources */,
 				BBCCA8A51DB363F500452FA1 /* OALAudioTrack.m in Sources */,
@@ -3813,6 +3856,7 @@
 				BB44CB3B1DB052F5003E633F /* GameTracker.cpp in Sources */,
 				BB44CB3C1DB052F5003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB44CB3D1DB052F5003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
+				BBCB71DD1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB44CB3E1DB052F5003E633F /* LevelSelectorPanel.cpp in Sources */,
 				BB44CB3F1DB052F5003E633F /* OffsetPanel.cpp in Sources */,
 				BB44CB401DB052F5003E633F /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
@@ -3862,9 +3906,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB44CBF21DB07165003E633F /* AppPrefs.m in Sources */,
 				BB44CBF31DB07165003E633F /* platform_asset_utils.m in Sources */,
 				BBCB71921DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
+				BBCB71D31DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB44CBF41DB07165003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44CBF51DB07165003E633F /* SaveData.m in Sources */,
 				BB44CBF61DB07165003E633F /* MacOpenGLGameScreen.cpp in Sources */,
@@ -3946,6 +3990,7 @@
 				BB44CC3C1DB07165003E633F /* Midground.cpp in Sources */,
 				BBCB718E1DB69D21006430B6 /* image.c in Sources */,
 				BB44CC3D1DB07165003E633F /* Assets.cpp in Sources */,
+				BBCB71D71DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BB44CC3E1DB07165003E633F /* BatPanel.cpp in Sources */,
 				BBCCA8D61DB363F500452FA1 /* ALSource.m in Sources */,
 				BBCCA8A61DB363F500452FA1 /* OALAudioTrack.m in Sources */,
@@ -3975,6 +4020,7 @@
 				BB44CC4F1DB07165003E633F /* GameTracker.cpp in Sources */,
 				BB44CC501DB07165003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB44CC511DB07165003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
+				BBCB71DE1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB44CC521DB07165003E633F /* LevelSelectorPanel.cpp in Sources */,
 				BB44CC531DB07165003E633F /* OffsetPanel.cpp in Sources */,
 				BB44CC541DB07165003E633F /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
@@ -4032,6 +4078,7 @@
 				BBE92D011DB2E671008359C2 /* Enemy.cpp in Sources */,
 				BBE92D021DB2E671008359C2 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBE92D031DB2E671008359C2 /* TrashCan.cpp in Sources */,
+				BBCB71D51DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BBE92D041DB2E671008359C2 /* GameScreenLevelEditor.cpp in Sources */,
 				BBE92D051DB2E671008359C2 /* Midground.cpp in Sources */,
 				BBE92D061DB2E671008359C2 /* pngerror.c in Sources */,
@@ -4075,6 +4122,7 @@
 				BBE92D291DB2E671008359C2 /* Ground.cpp in Sources */,
 				BBCB71881DB69D21006430B6 /* FramebufferToScreenProgram.cpp in Sources */,
 				BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */,
+				BBCB71DC1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BBE92D2C1DB2E671008359C2 /* EntityManager.cpp in Sources */,
 				BBCB719C1DB69D21006430B6 /* OpenGLLineBatcher.cpp in Sources */,
 				BBCB71B01DB69D21006430B6 /* platform_file_utils.c in Sources */,
@@ -4143,7 +4191,6 @@
 				BBCCA8BC1DB363F500452FA1 /* ALCaptureDevice.m in Sources */,
 				BBE92D651DB2E671008359C2 /* pngget.c in Sources */,
 				BBCCA8C41DB363F500452FA1 /* ALContext.m in Sources */,
-				BBE92D671DB2E671008359C2 /* AppPrefs.m in Sources */,
 				BBE92D681DB2E671008359C2 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBCB71B41DB69D21006430B6 /* shader.c in Sources */,
 				BBE92D691DB2E671008359C2 /* Text.cpp in Sources */,
@@ -4158,6 +4205,7 @@
 				BBE92D701DB2E671008359C2 /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBCCA8F81DB363F500452FA1 /* OALTools.m in Sources */,
 				BBE92D711DB2E671008359C2 /* main.m in Sources */,
+				BBCB71D11DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BBCB71AC1DB69D21006430B6 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BBE92D731DB2E671008359C2 /* SpriteBatcher.cpp in Sources */,
 				BBE92D741DB2E671008359C2 /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
