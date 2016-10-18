@@ -9,12 +9,12 @@
 #include <jni.h>
 #include <stdio.h>
 #include "macros.h"
-#include "AndroidOpenGLESGameScreen.h"
+#include "AndroidOpenGLGameScreen.h"
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
 
-AndroidOpenGLESGameScreen *gameScreen;
+AndroidOpenGLGameScreen *gameScreen;
 
 /* These functions are called from Java. */
 extern "C"
@@ -75,7 +75,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jcl
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen = new AndroidOpenGLESGameScreen(isLowMemoryDevice);
+	gameScreen = new AndroidOpenGLGameScreen(isLowMemoryDevice);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls)

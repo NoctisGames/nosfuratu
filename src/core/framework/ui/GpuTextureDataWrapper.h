@@ -9,7 +9,7 @@
 #ifndef __noctisgames__GpuTextureDataWrapper__
 #define __noctisgames__GpuTextureDataWrapper__
 
-#ifdef NG_OPENGL_ES
+#ifdef NG_OPENGL
 extern "C"
 {
 #include "image.h"
@@ -21,7 +21,7 @@ using namespace DirectX;
 
 struct GpuTextureDataWrapper
 {
-#ifdef NG_OPENGL_ES
+#ifdef NG_OPENGL
     RawImageData raw_image_data;
     
     GpuTextureDataWrapper(RawImageData raw_image_data_in) : raw_image_data(raw_image_data_in)

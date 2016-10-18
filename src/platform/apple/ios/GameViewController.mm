@@ -12,11 +12,11 @@
 #import "GameScreenController.h"
 
 // C++
-#include "IOSOpenGLESGameScreen.h"
+#include "IOSOpenGLGameScreen.h"
 
 @interface GameViewController ()
 {
-    IOSOpenGLESGameScreen *gameScreen;
+    IOSOpenGLGameScreen *gameScreen;
     GameScreenController *_gameScreenController;
 }
 
@@ -66,7 +66,7 @@
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
     
-    gameScreen = new IOSOpenGLESGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
+    gameScreen = new IOSOpenGLGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
     
     _gameScreenController = [[GameScreenController alloc] initWithGameScreen:gameScreen getLevelFilePath:^NSString *(NSString *levelFileName)
     {
