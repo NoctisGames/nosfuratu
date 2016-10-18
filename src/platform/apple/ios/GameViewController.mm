@@ -63,6 +63,17 @@
     unsigned long long ramSize = [NSProcessInfo processInfo].physicalMemory;
     bool isLowMemoryDevice = ramSize < 1610612736; // 1536 MB
     
+    if (isLowMemoryDevice
+        && size.width > 1024
+        && size.height > 1024)
+    {
+        /* For devices like iPad Air, Apple iPad 3, and iPad mini 2
+         * that have only 1 GB of memory but have large enough screens
+         * that the compressed textures look bad
+         */
+        isLowMemoryDevice = false;
+    }
+    
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
     
