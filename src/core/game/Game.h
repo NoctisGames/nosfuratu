@@ -52,7 +52,9 @@ public:
     
     bool isEntityGrounded(PhysicalEntity* entity, float deltaTime);
     
-    bool isJonBlockedHorizontally(float deltaTime);
+    bool isJonBlockedOnRight(float deltaTime);
+
+	bool isJonBlockedOnLeft(float deltaTime);
     
     bool isJonBlockedVertically(float deltaTime);
     

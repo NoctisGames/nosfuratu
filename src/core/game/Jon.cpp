@@ -226,7 +226,7 @@ void Jon::update(float deltaTime)
 	{
 		m_velocity->sub(0, 2);
 	}
-	else if (m_game->isJonBlockedHorizontally(deltaTime))
+	else if (m_game->isJonBlockedOnRight(deltaTime))
 	{
 		m_velocity->setX(-5.0f);
         
@@ -234,6 +234,17 @@ void Jon::update(float deltaTime)
         {
             m_velocity->setX(0);
         }
+
+		m_fStateTime = 0;
+	}
+	else if (m_game->isJonBlockedOnLeft(deltaTime))
+	{
+		m_velocity->setX(5);
+
+		if (isFalling() || getNumJumps() > 0)
+		{
+			m_velocity->setX(0);
+		}
 
 		m_fStateTime = 0;
 	}
