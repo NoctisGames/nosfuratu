@@ -417,7 +417,7 @@ void Level::update(GameScreen* gs)
             }
         }
 
-        updateCamera(gs, jon.getVelocity().getX() < 0 ? jon.getVelocity().getX() : 0);
+        updateCamera(gs, (jon.isAlive() && jon.getVelocity().getX() < 0) ? jon.getVelocity().getX() : 0);
         
         if (m_game->getMarkers().size() > 1)
         {
