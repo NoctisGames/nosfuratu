@@ -1,5 +1,8 @@
 package com.noctisgames.nosfuratu;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+
 public final class SaveData
 {
     private static final String NUM_GOLDEN_CARROTS = "v0_9_9_num_golden_carrots";
@@ -8,6 +11,13 @@ public final class SaveData
     private static final String[][] WORLDS_LEVELS_STATS;
     private static final String[][] WORLDS_LEVELS_SCORES;
     private static final String[][] WORLDS_LEVELS_SCORES_ONLINE;
+
+    private static SharedPreferences _securePrefs;
+
+    public static void init(Activity activity)
+    {
+        _securePrefs = new SecurePreferences(activity);
+    }
 
     static
     {
@@ -383,27 +393,27 @@ public final class SaveData
 
     public static int getNumGoldenCarrots()
     {
-        return AppPrefs.getInstance().getInt(NUM_GOLDEN_CARROTS, 0);
+        return _securePrefs.getInt(NUM_GOLDEN_CARROTS, 0);
     }
 
     public static void setNumGoldenCarrots(int numGoldenCarrots)
     {
-        AppPrefs.getInstance().set(NUM_GOLDEN_CARROTS, numGoldenCarrots);
+        set(NUM_GOLDEN_CARROTS, numGoldenCarrots);
     }
 
     public static int getViewedCutscenesFlag()
     {
-        return AppPrefs.getInstance().getInt(VIEWED_CUTSCENES_FLAG, 0);
+        return _securePrefs.getInt(VIEWED_CUTSCENES_FLAG, 0);
     }
 
     public static void setViewedCutscenesFlag(int jonViewedCutscenesFlag)
     {
-        AppPrefs.getInstance().set(VIEWED_CUTSCENES_FLAG, jonViewedCutscenesFlag);
+        set(VIEWED_CUTSCENES_FLAG, jonViewedCutscenesFlag);
     }
 
     public static int getJonUnlockedAbilitiesFlag()
     {
-        return AppPrefs.getInstance().getInt(JON_UNLOCKED_ABILITIES_FLAG, 0);
+        return _securePrefs.getInt(JON_UNLOCKED_ABILITIES_FLAG, 0);
     }
 
     public static int getLevelScore(int world, int level)
@@ -411,7 +421,7 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        return AppPrefs.getInstance().getInt(WORLDS_LEVELS_SCORES[worldIndex][levelIndex], 0);
+        return _securePrefs.getInt(WORLDS_LEVELS_SCORES[worldIndex][levelIndex], 0);
     }
 
     public static int getLevelStatsFlag(int world, int level)
@@ -419,7 +429,7 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        return AppPrefs.getInstance().getInt(WORLDS_LEVELS_STATS[worldIndex][levelIndex], 0);
+        return _securePrefs.getInt(WORLDS_LEVELS_STATS[worldIndex][levelIndex], 0);
     }
 
     public static void setLevelStatsFlag(int world, int level, int levelStatsFlag)
@@ -427,7 +437,7 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        AppPrefs.getInstance().set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
+        set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
     }
 
     public static void setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
@@ -435,9 +445,9 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        AppPrefs.getInstance().set(WORLDS_LEVELS_SCORES[worldIndex][levelIndex], score);
-        AppPrefs.getInstance().set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
-        AppPrefs.getInstance().set(JON_UNLOCKED_ABILITIES_FLAG, jonUnlockedAbilitiesFlag);
+        set(WORLDS_LEVELS_SCORES[worldIndex][levelIndex], score);
+        set(WORLDS_LEVELS_STATS[worldIndex][levelIndex], levelStatsFlag);
+        set(JON_UNLOCKED_ABILITIES_FLAG, jonUnlockedAbilitiesFlag);
     }
 
     public static int getScorePushedOnline(int world, int level)
@@ -445,7 +455,7 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        return AppPrefs.getInstance().getInt(WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex], 0);
+        return _securePrefs.getInt(WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex], 0);
     }
 
     public static void setScorePushedOnline(int world, int level, int score)
@@ -453,6 +463,36 @@ public final class SaveData
         int worldIndex = world - 1;
         int levelIndex = level - 1;
 
-        AppPrefs.getInstance().set(WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex], score);
+        set(WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex], score);
+    }
+
+    private static boolean set(String key, String value)
+    {
+        if (value == null)
+        {
+            return _securePrefs.edit().remove(key).commit();
+        }
+
+        return _securePrefs.edit().putString(key, value).commit();
+    }
+
+    private static boolean set(String key, float value)
+    {
+        return _securePrefs.edit().putFloat(key, value).commit();
+    }
+
+    private static boolean set(String key, long value)
+    {
+        return _securePrefs.edit().putLong(key, value).commit();
+    }
+
+    private static boolean set(String key, int value)
+    {
+        return _securePrefs.edit().putInt(key, value).commit();
+    }
+
+    private static boolean set(String key, boolean value)
+    {
+        return _securePrefs.edit().putBoolean(key, value).commit();
     }
 }

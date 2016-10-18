@@ -93,6 +93,8 @@ public final class GameRenderer implements Renderer
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
         _audio = new Audio(activity.getAssets());
 
+        SaveData.init(activity);
+
         _sounds.add(_audio.newSound("collect_carrot.wav"));
         _sounds.add(_audio.newSound("collect_golden_carrot.wav"));
         _sounds.add(_audio.newSound("death.wav"));
