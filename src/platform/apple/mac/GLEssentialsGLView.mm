@@ -25,8 +25,9 @@
     
     float _deltaTime;
     double _previousOutputVideoTime;
-    bool _hasGoneFullScreen;
-    bool _needsRefreshTimer;
+    
+    bool _updateCameFromRefreshTimer;
+    bool _updateWasAutomatic;
 }
 
 @end
@@ -40,6 +41,20 @@
     // It's important to create one or app can leak objects.
     @autoreleasepool
     {
+        if (_updateCameFromRefreshTimer)
+        {
+            _updateCameFromRefreshTimer = false;
+        }
+        else
+        {
+            _updateWasAutomatic = true;
+        }
+        
+        if (_updateWasAutomatic)
+        {
+            [self deinitRefreshTimer];
+        }
+        
         _deltaTime = (outputTime->videoTime - _previousOutputVideoTime) / (double)outputTime->videoTimeScale;
         _previousOutputVideoTime = outputTime->videoTime;
         
@@ -207,14 +222,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 	
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
     
-    bool isFullScreen = [self isWindowFullScreen];
-    
-    if (_hasGoneFullScreen && !isFullScreen)
-    {
-        [self initRefreshTimer];
-    }
-    
-    _hasGoneFullScreen = isFullScreen;
+    [self initRefreshTimer];
 }
 
 - (void)renewGState
@@ -449,10 +457,7 @@ static NSTimer *renderTimer = nil;
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    if (renderTimer)
-    {
-        [renderTimer invalidate];
-    }
+    [self deinitRefreshTimer];
     
     [_gameScreenController pause];
     
@@ -461,11 +466,8 @@ static NSTimer *renderTimer = nil;
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    if (_needsRefreshTimer)
-    {
-        [self initRefreshTimer];
-    }
-
+    [self initRefreshTimer];
+    
     [_gameScreenController resume];
     
     [self setNeedsDisplay:YES];
@@ -473,7 +475,7 @@ static NSTimer *renderTimer = nil;
 
 - (void)initRefreshTimer
 {
-    _needsRefreshTimer = true;
+    [self deinitRefreshTimer];
     
     renderTimer = [NSTimer timerWithTimeInterval:0.01666666666667 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
     
@@ -486,8 +488,6 @@ static NSTimer *renderTimer = nil;
 
 - (void)deinitRefreshTimer
 {
-    _needsRefreshTimer = false;
-    
     if (renderTimer)
     {
         [renderTimer invalidate];
@@ -502,14 +502,8 @@ static NSTimer *renderTimer = nil;
     // message when it needs to draw, and not to invoke it directly from the timer.
     // All we do here is tell the display it needs a refresh
     
+    _updateCameFromRefreshTimer = true;
     [self setNeedsDisplay:YES];
-}
-
-- (BOOL)isWindowFullScreen
-{
-    NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
-    
-    return (([mainWindow styleMask] & NSFullScreenWindowMask) == NSFullScreenWindowMask);
 }
 
 @end
