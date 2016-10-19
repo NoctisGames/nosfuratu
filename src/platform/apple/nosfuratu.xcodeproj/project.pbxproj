@@ -1943,18 +1943,17 @@
 		0ADF1876178E2185005DA99E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */,
-				05945F36F017190884FC7FB9 /* AssetsLibrary.framework */,
-				7422774349EFDC9E550FC8B5 /* CoreText.framework */,
-				6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */,
-				FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */,
-				66A3F204C83EB088382D59C5 /* CoreMedia.framework */,
-				917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */,
 				BBCCA8381DB343AB00452FA1 /* Accelerate.framework */,
+				05945F36F017190884FC7FB9 /* AssetsLibrary.framework */,
 				BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */,
 				BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */,
+				84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */,
 				BB09703519C3A3180086B30F /* CoreFoundation.framework */,
 				0ADF187B178E2185005DA99E /* CoreGraphics.framework */,
+				66A3F204C83EB088382D59C5 /* CoreMedia.framework */,
+				6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */,
+				7422774349EFDC9E550FC8B5 /* CoreText.framework */,
+				917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */,
 				0ADF1879178E2185005DA99E /* Foundation.framework */,
 				0ADF187D178E2185005DA99E /* GLKit.framework */,
 				BB12EDD71A1CF6F1006D385B /* libc++.dylib */,
@@ -1963,6 +1962,7 @@
 				BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */,
 				0ADF187F178E2185005DA99E /* OpenGLES.framework */,
 				BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */,
+				FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */,
 				0ADF1877178E2185005DA99E /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -4516,7 +4516,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
 				PRODUCT_NAME = NosFURatu;
 				SDKROOT = macosx;
 			};
@@ -4565,7 +4565,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
 				PRODUCT_NAME = NosFURatu;
 				SDKROOT = macosx;
 			};
@@ -4614,7 +4614,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
@@ -4664,7 +4664,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
