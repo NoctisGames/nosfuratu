@@ -154,6 +154,8 @@ public:
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
 	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 

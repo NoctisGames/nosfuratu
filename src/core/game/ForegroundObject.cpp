@@ -371,6 +371,22 @@ bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bou
 	return false;
 }
 
+bool DeadlyObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+	if (ForegroundObject::isEntityBlockedOnLeft(entity, deltaTime))
+	{
+		Jon *jon;
+		if ((jon = dynamic_cast<Jon *>(entity)))
+		{
+			jon->kill();
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
 bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
