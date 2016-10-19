@@ -20,7 +20,7 @@ public:
     OpenGLGameScreen(bool isLowMemoryDevice, bool isUsingDesktopTextureSet = false);
     
 protected:
-    void init(int screenWidth, int screenHeight);
+    void init(int screenWidth, int screenHeight, bool onResize = false);
     
 private:
     bool m_isLowMemoryDevice;

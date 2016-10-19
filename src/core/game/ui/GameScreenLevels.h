@@ -9,7 +9,8 @@
 #ifndef __nosfuratu__GameScreenLevels__
 #define __nosfuratu__GameScreenLevels__
 
-#include "State.h"
+#include "GameScreen.h"
+
 #include "GameButton.h"
 #include "OverlapTester.h"
 #include "CollectibleItem.h"
@@ -17,14 +18,13 @@
 
 #include <memory>
 
-class GameScreen;
 class Game;
 class MidBossOwl;
 class EndBossSnake;
 class ForegroundObject;
 class BatPanel;
 
-class Level : public State<GameScreen>
+class Level : public GameScreenState
 {
 public:
     static Level* getInstance();
@@ -34,6 +34,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs);
     
     void setSourceGame(Game* game);
     

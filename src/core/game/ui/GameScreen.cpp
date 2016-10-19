@@ -29,6 +29,7 @@ m_iPoolIndex(0),
 m_wasPaused(false),
 m_hasSwiped(false),
 m_isReleasingShockwave(false),
+m_needsToResumeMusicAfterTexLoad(false),
 m_fShockwaveElapsedTime(0.0f),
 m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
@@ -55,7 +56,14 @@ void GameScreen::onResume()
          || dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState())
          || dynamic_cast<ComingSoon*>(m_stateMachine->getCurrentState())))
     {
-        Assets::getInstance()->setMusicId(MUSIC_RESUME);
+        if (m_renderer->isLoadingAdditionalTextures())
+        {
+            m_needsToResumeMusicAfterTexLoad = true;
+        }
+        else
+        {
+            Assets::getInstance()->setMusicId(MUSIC_RESUME);
+        }
     }
     
     if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
@@ -131,6 +139,13 @@ void GameScreen::update(float deltaTime)
     {
         if (!m_renderer->isLoadingAdditionalTextures())
         {
+            if (m_needsToResumeMusicAfterTexLoad)
+            {
+                Assets::getInstance()->setMusicId(MUSIC_RESUME);
+                
+                m_needsToResumeMusicAfterTexLoad = false;
+            }
+            
             m_stateMachine->execute();
         }
     }

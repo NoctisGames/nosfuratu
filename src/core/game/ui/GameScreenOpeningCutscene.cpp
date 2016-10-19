@@ -28,13 +28,21 @@ void OpeningCutscene::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(Title::getInstance());
     
+    initRenderer(gs);
+    
+    if (m_needsReset)
+    {
+        EntityUtils::cleanUpVectorOfPointers(m_cutscenePanels);
+        
+        m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
+        
+        m_currentPanelIndex = 0;
+    }
+}
+
+void OpeningCutscene::initRenderer(GameScreen* gs)
+{
     gs->m_renderer->init(RENDERER_TYPE_WORLD_1_CUTSCENE);
-    
-    EntityUtils::cleanUpVectorOfPointers(m_cutscenePanels);
-    
-    m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
-    
-    m_currentPanelIndex = 0;
 }
 
 void OpeningCutscene::execute(GameScreen* gs)
@@ -137,6 +145,7 @@ void OpeningCutscene::exit(GameScreen* gs)
 {
     m_currentPanelIndex = 0;
     m_isRequestingNextState = false;
+    m_needsReset = true;
 }
 
 std::vector<CutscenePanel*>& OpeningCutscene::getCutscenePanels()
@@ -168,7 +177,7 @@ CutscenePanelType OpeningCutscene::cutscenePanelTypeForIndex(int index)
     }
 }
 
-OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextState(false)
+OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextState(false), m_needsReset(false)
 {
-    // Empty
+    m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
 }

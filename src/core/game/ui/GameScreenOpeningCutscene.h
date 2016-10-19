@@ -9,15 +9,14 @@
 #ifndef __nosfuratu__GameScreenOpeningCutscene__
 #define __nosfuratu__GameScreenOpeningCutscene__
 
-#include "State.h"
+#include "GameScreen.h"
+
 #include "CutscenePanel.h"
 
 #include <vector>
 #include <memory>
 
-class GameScreen;
-
-class OpeningCutscene : public State<GameScreen>
+class OpeningCutscene : public GameScreenState
 {
 public:
     static OpeningCutscene* getInstance();
@@ -28,12 +27,15 @@ public:
     
     virtual void exit(GameScreen* gs);
     
+    virtual void initRenderer(GameScreen* gs);
+    
     std::vector<CutscenePanel*>& getCutscenePanels();
     
 private:
     std::vector<CutscenePanel*> m_cutscenePanels;
     int m_currentPanelIndex;
     bool m_isRequestingNextState;
+    bool m_needsReset;
     
     CutscenePanelType cutscenePanelTypeForIndex(int index);
     

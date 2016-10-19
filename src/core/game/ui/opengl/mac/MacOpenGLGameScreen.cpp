@@ -14,6 +14,8 @@ MacOpenGLGameScreen::MacOpenGLGameScreen(int screenWidth, int screenHeight) : Op
     m_iScreenHeight = screenHeight;
     
     init(screenWidth, screenHeight);
+    
+    m_stateMachine->getCurrentState()->enter(this);
 }
 
 void MacOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
@@ -26,13 +28,15 @@ void MacOpenGLGameScreen::onResize(int screenWidth, int screenHeight)
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
     
-    if (m_renderer)
-    {
-        m_renderer->cleanUp();
-        OGLESManager->cleanUp();
-    }
+    cleanUp();
     
-    init(screenWidth, screenHeight);
+    init(screenWidth, screenHeight, true);
+    
+    if (dynamic_cast<GameScreenState*>(m_stateMachine->getCurrentState()))
+    {
+        GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
+        gameScreenState->initRenderer(this);
+    }
 }
 
 void MacOpenGLGameScreen::cleanUp()

@@ -68,7 +68,7 @@ void Level::enter(GameScreen* gs)
     
     configBatPanel();
 
-	gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
+    initRenderer(gs);
     
     gs->m_renderer->beginOpeningPanningSequence(*m_game);
     
@@ -93,6 +93,11 @@ void Level::enter(GameScreen* gs)
     
     m_playLevelSelectMusicOnExit = gs->m_stateMachine->getPreviousState() == WorldMap::getInstance();
 	m_stopMusicOnExit = gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance();
+}
+
+void Level::initRenderer(GameScreen* gs)
+{
+    gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
 }
 
 void Level::execute(GameScreen* gs)

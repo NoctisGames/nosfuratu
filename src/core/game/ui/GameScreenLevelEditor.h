@@ -9,7 +9,8 @@
 #ifndef __nosfuratu__GameScreenLevelEditor__
 #define __nosfuratu__GameScreenLevelEditor__
 
-#include "State.h"
+#include "GameScreen.h"
+
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
 #include "TrashCan.h"
@@ -21,9 +22,7 @@
 
 #include <memory>
 
-class GameScreen;
-
-class GameScreenLevelEditor : public State<GameScreen>
+class GameScreenLevelEditor : public GameScreenState
 {
 public:
     static GameScreenLevelEditor* getInstance();
@@ -33,6 +32,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs);
     
     const char* save();
     

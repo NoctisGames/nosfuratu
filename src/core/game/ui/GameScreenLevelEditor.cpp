@@ -9,7 +9,6 @@
 #include "GameScreenLevelEditor.h"
 
 #include "GameScreenLevels.h"
-#include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
@@ -44,13 +43,19 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
     
     loadIfNecessary(gs);
     
-    gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
+    initRenderer(gs);
+    
     gs->m_renderer->zoomOut();
     
     if (m_iWorld == 0)
     {
         m_levelSelectorPanel->open();
     }
+}
+
+void GameScreenLevelEditor::initRenderer(GameScreen* gs)
+{
+    gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
 }
 
 void GameScreenLevelEditor::execute(GameScreen* gs)

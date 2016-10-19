@@ -25,6 +25,9 @@
     
     float _deltaTime;
     double _previousOutputVideoTime;
+    
+    bool _updateCameFromRefreshTimer;
+    bool _updateWasAutomatic;
 }
 
 @end
@@ -38,6 +41,20 @@
     // It's important to create one or app can leak objects.
     @autoreleasepool
     {
+        if (_updateCameFromRefreshTimer)
+        {
+            _updateCameFromRefreshTimer = false;
+        }
+        else
+        {
+            _updateWasAutomatic = true;
+        }
+        
+        if (_updateWasAutomatic)
+        {
+            [self deinitRefreshTimer];
+        }
+        
         _deltaTime = (outputTime->videoTime - _previousOutputVideoTime) / (double)outputTime->videoTimeScale;
         _previousOutputVideoTime = outputTime->videoTime;
         
@@ -196,10 +213,16 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 	NSRect viewRectPixels = [self getScreenBounds];
     
+    [_gameScreenController pause];
+    
     // Set the new dimensions in our renderer
 	_gameScreen->onResize(viewRectPixels.size.width, viewRectPixels.size.height);
+    
+    [_gameScreenController resume];
 	
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
+    
+    [self initRefreshTimer];
 }
 
 - (void)renewGState
@@ -381,11 +404,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     }
 }
 
-- (void)keyUp:(NSEvent *)event
-{
-    
-}
-
 - (void)dealloc
 {
 	// Stop the display link BEFORE releasing anything in the view
@@ -435,8 +453,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 #pragma mark <NSWindowDelegate>
 
+static NSTimer *renderTimer = nil;
+
 - (void)windowDidResignMain:(NSNotification *)notification
 {
+    [self deinitRefreshTimer];
+    
     [_gameScreenController pause];
     
     [self setNeedsDisplay:YES];
@@ -444,8 +466,43 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
+    [self initRefreshTimer];
+    
     [_gameScreenController resume];
     
+    [self setNeedsDisplay:YES];
+}
+
+- (void)initRefreshTimer
+{
+    [self deinitRefreshTimer];
+    
+    renderTimer = [NSTimer timerWithTimeInterval:0.01666666666667 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:renderTimer
+                                 forMode:NSDefaultRunLoopMode];
+    
+    [[NSRunLoop currentRunLoop] addTimer:renderTimer
+                                 forMode:NSEventTrackingRunLoopMode]; // Ensure timer fires during resize
+}
+
+- (void)deinitRefreshTimer
+{
+    if (renderTimer)
+    {
+        [renderTimer invalidate];
+    }
+}
+
+// Timer callback method
+
+- (void)timerFired:(id)sender
+{
+    // It is good practice in a Cocoa application to allow the system to send the -drawRect:
+    // message when it needs to draw, and not to invoke it directly from the timer.
+    // All we do here is tell the display it needs a refresh
+    
+    _updateCameFromRefreshTimer = true;
     [self setNeedsDisplay:YES];
 }
 
