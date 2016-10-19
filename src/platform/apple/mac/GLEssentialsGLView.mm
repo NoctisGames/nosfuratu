@@ -381,11 +381,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     }
 }
 
-- (void)keyUp:(NSEvent *)event
-{
-    
-}
-
 - (void)dealloc
 {
 	// Stop the display link BEFORE releasing anything in the view

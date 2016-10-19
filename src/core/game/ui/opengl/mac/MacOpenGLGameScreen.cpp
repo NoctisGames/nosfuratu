@@ -26,11 +26,7 @@ void MacOpenGLGameScreen::onResize(int screenWidth, int screenHeight)
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
     
-    if (m_renderer)
-    {
-        m_renderer->cleanUp();
-        OGLESManager->cleanUp();
-    }
+    cleanUp();
     
     init(screenWidth, screenHeight);
 }
