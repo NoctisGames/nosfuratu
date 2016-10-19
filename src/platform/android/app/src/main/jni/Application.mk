@@ -1,4 +1,4 @@
-APP_PLATFORM := android-14
+APP_PLATFORM := android-16
 APP_ABI := all
 APP_CPPFLAGS := -std=c++11
 APP_CPPFLAGS += -frtti
