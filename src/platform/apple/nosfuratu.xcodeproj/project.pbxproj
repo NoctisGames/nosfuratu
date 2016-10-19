@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014E2AEB6E549DA81C48EA14 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */; };
 		0ADF1878178E2185005DA99E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF1877178E2185005DA99E /* UIKit.framework */; };
 		0ADF187A178E2185005DA99E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF1879178E2185005DA99E /* Foundation.framework */; };
 		0ADF187C178E2185005DA99E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187B178E2185005DA99E /* CoreGraphics.framework */; };
 		0ADF187E178E2185005DA99E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187D178E2185005DA99E /* GLKit.framework */; };
 		0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187F178E2185005DA99E /* OpenGLES.framework */; };
+		2BC3849E400A7786FEE2E90A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A3F204C83EB088382D59C5 /* CoreMedia.framework */; };
+		63EFADF23EC6B2FE4BDAB762 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A711FF7E6A5621C4D8004A5 /* QuartzCore.framework */; };
+		A7565B493F560224C45CBF68 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FDDCA317040927405B0FF67 /* AVFoundation.framework */; };
+		B23AAA45087CD1F1D15E94C6 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */; };
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
@@ -1183,15 +1188,27 @@
 		BBEFC3771DB554B90011BD9B /* d_vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3721DB554B90011BD9B /* d_vampire.png */; };
 		BBEFC3781DB554B90011BD9B /* d_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3731DB554B90011BD9B /* d_world_1_special.png */; };
 		BBEFC3791DB554B90011BD9B /* d_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEFC3731DB554B90011BD9B /* d_world_1_special.png */; };
+		BEDBEB10667F7565A72E937B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05945F36F017190884FC7FB9 /* AssetsLibrary.framework */; };
+		C2FAA41A7EE7DD75E14DA2A1 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */; };
+		EF21A84F90D23B88CD7E3542 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */; };
+		FE1ACF4F5D764720ED51C8A8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7422774349EFDC9E550FC8B5 /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05945F36F017190884FC7FB9 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0ADF1874178E2185005DA99E /* NosFURatu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NosFURatu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADF1877178E2185005DA99E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0ADF1879178E2185005DA99E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0ADF187B178E2185005DA99E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		0ADF187D178E2185005DA99E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		0ADF187F178E2185005DA99E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		2A711FF7E6A5621C4D8004A5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2FDDCA317040927405B0FF67 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		66A3F204C83EB088382D59C5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		7422774349EFDC9E550FC8B5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddyBuildSDK.framework; sourceTree = "<group>"; };
+		917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1808,6 +1825,7 @@
 		BBEFC3711DB554B90011BD9B /* d_jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_jon.png; sourceTree = "<group>"; };
 		BBEFC3721DB554B90011BD9B /* d_vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_vampire.png; sourceTree = "<group>"; };
 		BBEFC3731DB554B90011BD9B /* d_world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_world_1_special.png; sourceTree = "<group>"; };
+		FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1829,6 +1847,15 @@
 				0ADF187C178E2185005DA99E /* CoreGraphics.framework in Frameworks */,
 				0ADF187E178E2185005DA99E /* GLKit.framework in Frameworks */,
 				0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */,
+				C2FAA41A7EE7DD75E14DA2A1 /* BuddyBuildSDK.framework in Frameworks */,
+				BEDBEB10667F7565A72E937B /* AssetsLibrary.framework in Frameworks */,
+				FE1ACF4F5D764720ED51C8A8 /* CoreText.framework in Frameworks */,
+				014E2AEB6E549DA81C48EA14 /* CoreTelephony.framework in Frameworks */,
+				EF21A84F90D23B88CD7E3542 /* SystemConfiguration.framework in Frameworks */,
+				63EFADF23EC6B2FE4BDAB762 /* QuartzCore.framework in Frameworks */,
+				A7565B493F560224C45CBF68 /* AVFoundation.framework in Frameworks */,
+				2BC3849E400A7786FEE2E90A /* CoreMedia.framework in Frameworks */,
+				B23AAA45087CD1F1D15E94C6 /* CoreVideo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1905,6 +1932,7 @@
 				BB44C31E1DB030B3003E633F /* mac */,
 				0ADF1875178E2185005DA99E /* Products */,
 				BB44C34A1DB03267003E633F /* shared */,
+				82B3EA12710D205B2D9955BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1939,6 +1967,22 @@
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		82B3EA12710D205B2D9955BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */,
+				05945F36F017190884FC7FB9 /* AssetsLibrary.framework */,
+				7422774349EFDC9E550FC8B5 /* CoreText.framework */,
+				6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */,
+				FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */,
+				2A711FF7E6A5621C4D8004A5 /* QuartzCore.framework */,
+				2FDDCA317040927405B0FF67 /* AVFoundation.framework */,
+				66A3F204C83EB088382D59C5 /* CoreMedia.framework */,
+				917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BB44C31E1DB030B3003E633F /* mac */ = {
@@ -4367,7 +4411,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7V5EV5R3XG;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdparty\"/**",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/nosfuratu-Prefix.pch";
@@ -4410,7 +4457,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7V5EV5R3XG;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdparty\"/**",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/nosfuratu-Prefix.pch";

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <BuddyBuildSDK/BuddyBuildSDK.h>
 
 @implementation AppDelegate
 
@@ -14,6 +15,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [BuddyBuildSDK setup];
+    
     // Override point for customization after application launch.
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
