@@ -844,10 +844,6 @@
 		BBCCA8AC1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
 		BBCCA8AD1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
 		BBCCA8AE1DB363F500452FA1 /* OALAudioTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8621DB363F500452FA1 /* OALAudioTracks.m */; };
-		BBCCA8AF1DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
-		BBCCA8B01DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
-		BBCCA8B11DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
-		BBCCA8B21DB363F500452FA1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBCCA8631DB363F500452FA1 /* Info.plist */; };
 		BBCCA8B31DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
 		BBCCA8B41DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
 		BBCCA8B51DB363F500452FA1 /* OALSimpleAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCCA8651DB363F500452FA1 /* OALSimpleAudio.m */; };
@@ -1209,6 +1205,7 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NosFURatu.entitlements; sourceTree = "<group>"; };
 		BB44C30A1DB0303F003E633F /* NosFURatu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NosFURatu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB44C31F1DB030B3003E633F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB44C3201DB030B3003E633F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1972,6 +1969,7 @@
 		BB44C31E1DB030B3003E633F /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 				BB44C31F1DB030B3003E633F /* AppDelegate.h */,
 				BB44C3201DB030B3003E633F /* AppDelegate.m */,
 				BB44C3211DB030B3003E633F /* Assets.xcassets */,
@@ -3044,6 +3042,11 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7V5EV5R3XG;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					BB44CBF01DB07165003E633F = {
 						DevelopmentTeam = 7V5EV5R3XG;
@@ -3102,7 +3105,6 @@
 				BB44C4941DB03277003E633F /* c_world_1_mid_boss_part_3.png in Resources */,
 				BB44CA971DB03A7F003E633F /* trans_screen_shader.fsh in Resources */,
 				BB44C4041DB03276003E633F /* collect_golden_carrot.wav in Resources */,
-				BBCCA8AF1DB363F500452FA1 /* Info.plist in Resources */,
 				BB44C43A1DB03277003E633F /* level_complete.wav in Resources */,
 				BBCB71771DB69D21006430B6 /* color_shader.vsh in Resources */,
 				BB44C4701DB03277003E633F /* vampire_dash.wav in Resources */,
@@ -3325,7 +3327,6 @@
 				BB44C4011DB03276003E633F /* chain_snap.wav in Resources */,
 				BB44C44F1DB03277003E633F /* opening_cutscene_bgm.wav in Resources */,
 				BB44C4111DB03276003E633F /* end_boss_snake_death.wav in Resources */,
-				BBCCA8B11DB363F500452FA1 /* Info.plist in Resources */,
 				BB44CA841DB03A7F003E633F /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB44C4391DB03277003E633F /* level_clear.wav in Resources */,
 				BB44C93C1DB03A7E003E633F /* rapidjson_readme.txt in Resources */,
@@ -3446,7 +3447,6 @@
 				BB44CCF21DB07165003E633F /* chain_snap.wav in Resources */,
 				BB44CCF41DB07165003E633F /* opening_cutscene_bgm.wav in Resources */,
 				BB44CCF51DB07165003E633F /* end_boss_snake_death.wav in Resources */,
-				BBCCA8B21DB363F500452FA1 /* Info.plist in Resources */,
 				BB44CCF81DB07165003E633F /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB44CCF91DB07165003E633F /* level_clear.wav in Resources */,
 				BB44CCFA1DB07165003E633F /* rapidjson_readme.txt in Resources */,
@@ -3485,7 +3485,6 @@
 				BBE92DA51DB2E671008359C2 /* c_world_1_mid_boss_part_3.png in Resources */,
 				BBE92DA61DB2E671008359C2 /* trans_screen_shader.fsh in Resources */,
 				BBE92DA71DB2E671008359C2 /* collect_golden_carrot.wav in Resources */,
-				BBCCA8B01DB363F500452FA1 /* Info.plist in Resources */,
 				BBE92DA81DB2E671008359C2 /* level_complete.wav in Resources */,
 				BBCB71781DB69D21006430B6 /* color_shader.vsh in Resources */,
 				BBE92DA91DB2E671008359C2 /* vampire_dash.wav in Resources */,
@@ -4487,6 +4486,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = mac/NosFURatu.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -4535,6 +4535,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_ENTITLEMENTS = mac/NosFURatu.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
