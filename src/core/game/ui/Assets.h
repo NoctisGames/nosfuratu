@@ -158,11 +158,30 @@ public:
     
     void setMusicId(short musicId);
     
-    short getMusicId();
+    short getMusicId()
+    {
+        return m_sMusicId;
+    }
     
-    bool isUsingCompressedTextureSet();
+    bool isUsingCompressedTextureSet()
+    {
+        return m_isUsingCompressedTextureSet;
+    }
     
-    void setUsingCompressedTextureSet(bool isUsingCompressedTextureSet);
+    void setUsingCompressedTextureSet(bool isUsingCompressedTextureSet)
+    {
+        m_isUsingCompressedTextureSet = isUsingCompressedTextureSet;
+    }
+    
+    bool isUsingDesktopTextureSet()
+    {
+        return m_isUsingDesktopTextureSet;
+    }
+    
+    void setUsingDesktopTextureSet(bool isUsingDesktopTextureSet)
+    {
+        m_isUsingDesktopTextureSet = isUsingDesktopTextureSet;
+    }
     
     bool isMusicEnabled() { return m_isMusicEnabled; }
     
@@ -187,6 +206,7 @@ private:
     std::vector<short> m_sSoundIds;
     short m_sMusicId;
     bool m_isUsingCompressedTextureSet;
+    bool m_isUsingDesktopTextureSet;
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
 

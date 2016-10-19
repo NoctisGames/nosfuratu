@@ -144,21 +144,6 @@ public:
     virtual bool canObjectBePlacedOn();
 };
 
-class DestructibleObject : public ForegroundObject
-{
-public:
-    DestructibleObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isDestructing(false) {}
-    
-    virtual void update(float deltaTime);
-    
-    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
-    
-    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
-    
-private:
-    bool m_isDestructing;
-};
-
 class DeadlyObject : public ForegroundObject
 {
 public:
@@ -167,6 +152,10 @@ public:
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+
+	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 
@@ -532,8 +521,6 @@ public:
 
 	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
 
-	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
-
 	void stop();
     
 private:
@@ -559,8 +546,6 @@ public:
     virtual void updateBounds();
 
 	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
-
-	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
 
 	void stop();
     

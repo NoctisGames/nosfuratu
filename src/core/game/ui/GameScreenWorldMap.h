@@ -378,7 +378,7 @@ private:
 class MidBossLevelThumbnail : public BossLevelThumbnail
 {
 public:
-	MidBossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f * 2 / 3, float height = CAM_HEIGHT * 0.33333333333333f * 2 / 3) : BossLevelThumbnail(x, y, world, level, spendGoldenCarrotsBubble, width, height) {}
+	MidBossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f * 4 / 5, float height = CAM_HEIGHT * 0.33333333333333f * 4 / 5) : BossLevelThumbnail(x, y, world, level, spendGoldenCarrotsBubble, width, height) {}
 };
 
 class AbilitySlot : public PhysicalEntity

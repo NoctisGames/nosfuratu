@@ -9,7 +9,7 @@
 #ifndef __noctisgames__GpuTextureWrapper__
 #define __noctisgames__GpuTextureWrapper__
 
-#ifdef NG_OPENGL_ES
+#ifdef NG_OPENGL
 extern "C"
 {
 #include "platform_gl.h"
@@ -22,7 +22,7 @@ extern "C"
 
 struct GpuTextureWrapper
 {
-#ifdef NG_OPENGL_ES
+#ifdef NG_OPENGL
     GLuint texture;
     
     GpuTextureWrapper(GLuint textureIn) : texture(textureIn)

@@ -259,6 +259,15 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\assets\textures\desktop\d_jon.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\desktop\d_vampire.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

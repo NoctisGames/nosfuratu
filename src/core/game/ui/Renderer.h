@@ -246,6 +246,7 @@ private:
     int m_iNumAsyncLoads;
     float m_fRadialBlurDirection;
     bool m_compressed;
+    bool m_desktop;
     bool m_areShadersLoaded;
     bool m_stopCamera;
     bool m_hasCompletedRadialBlur;

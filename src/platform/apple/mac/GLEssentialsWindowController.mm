@@ -127,7 +127,7 @@
 	}
 
 	// Allow other character to be handled (or not and beep)
-	[super keyDown:event];
+	[self.window.contentView keyDown:event];
 }
 
 @end
