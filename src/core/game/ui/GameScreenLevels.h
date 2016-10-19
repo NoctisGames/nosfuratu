@@ -434,6 +434,8 @@ private:
     virtual void updateCamera(GameScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
     virtual bool isInSlowMotionMode();
+
+	virtual void configBatPanel() {} // Prevent
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level21(const char* json);
