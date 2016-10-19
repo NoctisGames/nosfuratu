@@ -16,7 +16,7 @@
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
 
-#define SUPPORT_RETINA_RESOLUTION 0
+#define SUPPORT_RETINA_RESOLUTION 1
 
 @interface GLEssentialsGLView ()
 {
