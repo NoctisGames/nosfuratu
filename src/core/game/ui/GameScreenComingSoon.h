@@ -9,11 +9,9 @@
 #ifndef __nosfuratu__GameScreenComingSoon__
 #define __nosfuratu__GameScreenComingSoon__
 
-#include "State.h"
+#include "GameScreen.h"
 
-class GameScreen;
-
-class ComingSoon : public State<GameScreen>
+class ComingSoon : public GameScreenState
 {
 public:
     static ComingSoon* getInstance();
@@ -23,6 +21,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs);
     
 private:
     bool m_isRequestingNextState;

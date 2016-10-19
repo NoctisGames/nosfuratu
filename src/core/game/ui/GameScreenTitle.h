@@ -9,15 +9,14 @@
 #ifndef __nosfuratu__GameScreenTitle__
 #define __nosfuratu__GameScreenTitle__
 
-#include "State.h"
+#include "GameScreen.h"
+
 #include "GameButton.h"
 #include "TitlePanel.h"
 
 #include <memory>
 
-class GameScreen;
-
-class Title : public State<GameScreen>
+class Title : public GameScreenState
 {
 public:
     static Title* getInstance();
@@ -27,6 +26,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs);
     
     TitlePanel* getTitlePanel();
     

@@ -30,6 +30,11 @@ void ComingSoon::enter(GameScreen* gs)
     gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
 }
 
+void ComingSoon::initRenderer(GameScreen* gs)
+{
+    // Empty
+}
+
 void ComingSoon::execute(GameScreen* gs)
 {
     if (gs->m_isRequestingRender)

@@ -9,7 +9,8 @@
 #ifndef __nosfuratu__GameScreenWorldMap__
 #define __nosfuratu__GameScreenWorldMap__
 
-#include "State.h"
+#include "GameScreen.h"
+
 #include "GameButton.h"
 #include "GameScreenLevels.h"
 #include "WorldMapPanel.h"
@@ -18,8 +19,6 @@
 
 #include <memory>
 #include <vector>
-
-class GameScreen;
 
 class WorldLevelCompletions
 {
@@ -540,7 +539,7 @@ private:
     int m_iScore;
 };
 
-class WorldMap : public State<GameScreen>
+class WorldMap : public GameScreenState
 {
 public:
     static WorldMap* getInstance();
@@ -550,6 +549,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs);
     
     void loadUserSaveData(const char* json);
     

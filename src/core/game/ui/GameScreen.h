@@ -41,6 +41,33 @@ private:
     bool m_isGolden;
 };
 
+#include "State.h"
+#include "GameButton.h"
+#include "TitlePanel.h"
+
+#include <memory>
+
+class GameScreen;
+
+class GameScreenState : public State<GameScreen>
+{
+public:
+    virtual void enter(GameScreen* gs) = 0;
+    
+    virtual void execute(GameScreen* gs) = 0;
+    
+    virtual void exit(GameScreen* gs) = 0;
+    
+    virtual void initRenderer(GameScreen* gs) = 0;
+    
+    GameScreenState() {}
+    
+private:
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    GameScreenState(const GameScreenState&);
+    GameScreenState& operator=(const GameScreenState&);
+};
+
 class GameScreen
 {
 public:
@@ -64,6 +91,7 @@ public:
     bool m_isScreenHeldDown;
     bool m_hasSwiped;
     bool m_isReleasingShockwave;
+    bool m_needsToResumeMusicAfterTexLoad;
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;
     float m_fShockwaveElapsedTime;

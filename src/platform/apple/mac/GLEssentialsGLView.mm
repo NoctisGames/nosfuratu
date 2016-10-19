@@ -196,8 +196,12 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 	NSRect viewRectPixels = [self getScreenBounds];
     
+    [_gameScreenController pause];
+    
     // Set the new dimensions in our renderer
 	_gameScreen->onResize(viewRectPixels.size.width, viewRectPixels.size.height);
+    
+    [_gameScreenController resume];
 	
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
 }

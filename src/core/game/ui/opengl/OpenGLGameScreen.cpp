@@ -13,7 +13,7 @@ OpenGLGameScreen::OpenGLGameScreen(bool isLowMemoryDevice, bool isUsingDesktopTe
     // Empty
 }
 
-void OpenGLGameScreen::init(int screenWidth, int screenHeight)
+void OpenGLGameScreen::init(int screenWidth, int screenHeight, bool onResize)
 {
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
@@ -25,5 +25,8 @@ void OpenGLGameScreen::init(int screenWidth, int screenHeight)
         m_renderer = std::unique_ptr<OpenGLRenderer>(new OpenGLRenderer());
     }
     
-    m_stateMachine->getCurrentState()->enter(this);
+    if (!onResize)
+    {
+        m_stateMachine->getCurrentState()->enter(this);
+    }
 }

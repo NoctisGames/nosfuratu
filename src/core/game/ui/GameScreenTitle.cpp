@@ -29,6 +29,15 @@ void Title::enter(GameScreen* gs)
 {
     gs->m_stateMachine->setPreviousState(nullptr);
     
+    initRenderer(gs);
+    
+    Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
+    
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+}
+
+void Title::initRenderer(GameScreen* gs)
+{
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
     gs->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
     
@@ -53,10 +62,6 @@ void Title::enter(GameScreen* gs)
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
     
     gs->m_renderer->init(RENDERER_TYPE_TITLE);
-    
-    Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
-    
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }
 
 void Title::execute(GameScreen* gs)

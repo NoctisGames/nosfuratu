@@ -33,6 +33,17 @@ void WorldMap::enter(GameScreen* gs)
 {
 	gs->m_stateMachine->setPreviousState(Title::getInstance());
     
+    initRenderer(gs);
+    
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    
+    m_clickedLevel = nullptr;
+    m_userHasClickedOpeningCutscene = false;
+    m_fGoldenCarrotCountFlickerTime = 1337;
+}
+
+void WorldMap::initRenderer(GameScreen* gs)
+{
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
@@ -54,12 +65,6 @@ void WorldMap::enter(GameScreen* gs)
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
     
     gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
-    
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
-    
-    m_clickedLevel = nullptr;
-    m_userHasClickedOpeningCutscene = false;
-    m_fGoldenCarrotCountFlickerTime = 1337;
 }
 
 void WorldMap::execute(GameScreen* gs)
