@@ -25,6 +25,8 @@
     
     float _deltaTime;
     double _previousOutputVideoTime;
+    bool _hasGoneFullScreen;
+    bool _needsRefreshTimer;
 }
 
 @end
@@ -204,6 +206,15 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     [_gameScreenController resume];
 	
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
+    
+    bool isFullScreen = [self isWindowFullScreen];
+    
+    if (_hasGoneFullScreen && !isFullScreen)
+    {
+        [self initRefreshTimer];
+    }
+    
+    _hasGoneFullScreen = isFullScreen;
 }
 
 - (void)renewGState
@@ -434,8 +445,15 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 #pragma mark <NSWindowDelegate>
 
+static NSTimer *renderTimer = nil;
+
 - (void)windowDidResignMain:(NSNotification *)notification
 {
+    if (renderTimer)
+    {
+        [renderTimer invalidate];
+    }
+    
     [_gameScreenController pause];
     
     [self setNeedsDisplay:YES];
@@ -443,9 +461,55 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
+    if (_needsRefreshTimer)
+    {
+        [self initRefreshTimer];
+    }
+
     [_gameScreenController resume];
     
     [self setNeedsDisplay:YES];
+}
+
+- (void)initRefreshTimer
+{
+    _needsRefreshTimer = true;
+    
+    renderTimer = [NSTimer timerWithTimeInterval:0.01666666666667 target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop currentRunLoop] addTimer:renderTimer
+                                 forMode:NSDefaultRunLoopMode];
+    
+    [[NSRunLoop currentRunLoop] addTimer:renderTimer
+                                 forMode:NSEventTrackingRunLoopMode]; // Ensure timer fires during resize
+}
+
+- (void)deinitRefreshTimer
+{
+    _needsRefreshTimer = false;
+    
+    if (renderTimer)
+    {
+        [renderTimer invalidate];
+    }
+}
+
+// Timer callback method
+
+- (void)timerFired:(id)sender
+{
+    // It is good practice in a Cocoa application to allow the system to send the -drawRect:
+    // message when it needs to draw, and not to invoke it directly from the timer.
+    // All we do here is tell the display it needs a refresh
+    
+    [self setNeedsDisplay:YES];
+}
+
+- (BOOL)isWindowFullScreen
+{
+    NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
+    
+    return (([mainWindow styleMask] & NSFullScreenWindowMask) == NSFullScreenWindowMask);
 }
 
 @end
