@@ -1,6 +1,7 @@
 package com.noctisgames.nosfuratu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 public final class SaveData
@@ -16,7 +17,7 @@ public final class SaveData
 
     public static void init(Activity activity)
     {
-        _securePrefs = new SecurePreferences(activity);
+        _securePrefs = new ObscuredSharedPreferences(activity, activity.getSharedPreferences("Noctis_Games_NosFURatu", Context.MODE_PRIVATE));
     }
 
     static
