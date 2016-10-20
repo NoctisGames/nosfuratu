@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>45e25c69-9a29-44ff-ac50-4dab5126edbb</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="NosFURatuMain.cpp" />
+    <ClCompile Include="DirectXPage.xaml.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\EntityManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\file\windows\SoundFileReader.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Circle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Line.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\OverlapTester.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Rectangle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Triangle.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\math\Vector2D.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\GameSound.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Animation.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Font.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\GpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\LineBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\RectangleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\SpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\TextureRegion.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\TouchEvent.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Assets.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameButton.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreen.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TrashCan.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFramebufferToScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ExitGround.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EnemySpirit.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level10.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\TitlePanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\WorldMapPanel.cpp" />
+    <ClCompile Include="SaveData.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\Chapter1Level21.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ConfirmResetPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\OffsetPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\ConfirmExitPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\MidBossOwl.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\BatPanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\CutscenePanel.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameTracker.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\Text.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\EndBossSnake.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\ui\GameScreenComingSoon.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="NosFURatuMain.h" />
+    <ClInclude Include="DirectXPage.xaml.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\EntityManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\PhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
+    <ClInclude Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.h" />
+    <ClInclude Include="..\..\..\..\core\framework\file\windows\SoundFileReader.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Circle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Line.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\OverlapTester.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Rectangle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Triangle.h" />
+    <ClInclude Include="..\..\..\..\core\framework\math\Vector2D.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\GameSound.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.h" />
+    <ClInclude Include="..\..\..\..\core\framework\state\State.h" />
+    <ClInclude Include="..\..\..\..\core\framework\state\StateMachine.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Animation.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\CircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Color.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Font.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\GpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\LineBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\RectangleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\SpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TextureRegion.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TextureWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TouchEvent.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\TouchType.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\FlagUtil.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\macros.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\Assets.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameButton.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreen.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\Renderer.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\RendererType.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TrashCan.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityAnchor.h" />
+    <ClInclude Include="..\..\..\..\core\game\EntityUtils.h" />
+    <ClInclude Include="..\..\..\..\core\game\Game.h" />
+    <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
+    <ClInclude Include="..\..\..\..\core\game\Ground.h" />
+    <ClInclude Include="..\..\..\..\core\game\Hole.h" />
+    <ClInclude Include="..\..\..\..\core\game\HoleCover.h" />
+    <ClInclude Include="..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
+    <ClInclude Include="..\..\..\..\core\framework\util\windows\pch.h" />
+    <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferTintGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\Direct3DFramebufferToScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\Background.h" />
+    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\Midground.h" />
+    <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
+    <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
+    <ClInclude Include="..\..\..\..\core\game\ExitGround.h" />
+    <ClInclude Include="..\..\..\..\core\game\ExitGroundCover.h" />
+    <ClInclude Include="..\..\..\..\core\game\ForegroundObject.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTransitions.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenLevels.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenTitle.h" />
+    <ClInclude Include="..\..\..\..\core\game\EnemySpirit.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\GpuTextureDataWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\GpuTextureWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\TitlePanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\WorldMapPanel.h" />
+    <ClInclude Include="SaveData.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ConfirmExitPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\ConfirmResetPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\OffsetPanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\MidBossOwl.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\BatPanel.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\CutscenePanel.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenOpeningCutscene.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameTracker.h" />
+    <ClInclude Include="..\..\..\..\core\framework\ui\Text.h" />
+    <ClInclude Include="..\..\..\..\core\game\EndBossSnake.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.h" />
+    <ClInclude Include="..\..\..\..\core\game\ui\GameScreenComingSoon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NosFURatu_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="NosFURatu_StoreKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DirectXPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\ColorVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\SnakeDeathTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\ShockwaveTextureVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathInTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransDeathOutTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FramebufferTintToScreenPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FramebufferToScreenPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\FramebufferToScreenVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\TransScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\RadialBlurTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\PointTransScreenTextureVertexShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FrameBufferObfuscationPixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\EndBossSnakeTexturePixelShader.hlsl" />
+    <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FadeScreenTexturePixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_vampire_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jump_spring.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jump_spring_heavy.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\trigger_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\vampire_glide_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mushroom_bounce.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\sparrow_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\jon_burrow_rocksfall.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\fox_bounced_on.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\fox_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\fox_strike.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\saw_grind_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\sparrow_fly_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\toad_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\toad_eat.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_swoop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_tree_smash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\screen_transition.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\title_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\screen_transition_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_complete.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\title_lightning_1.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\title_lightning_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_select_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\final_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\final_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\ability_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\boss_level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_selected.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\rabbit_drill.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\snake_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\vampire_dash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\rabbit_stomp.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\boss_level_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\opening_cutscene_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\level_confirmed.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\button_click.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\absorb_dash_ability.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\bat_poof.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\chain_snap.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge_cue.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_damaged.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_mouth_open.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\spiked_ball_rolling_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\trans_death_shader_helper.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_lower.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_mid.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_background_upper.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_ground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\misc.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_special.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\title_screen.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_cutscene_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_cutscene_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cutscene_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_cutscene_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen_part_1.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_map_screen_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_end_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_jon.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_vampire.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
