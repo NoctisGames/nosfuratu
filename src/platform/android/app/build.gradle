@@ -51,8 +51,8 @@ android {
 
     task copyFrameworkShaders(type: Copy)
     copyFrameworkShaders {
-        description = 'Copies shaders from src/core/framework/ui/opengles into project assets'
-        from '../../../../src/core/framework/ui/opengles'
+        description = 'Copies shaders from src/core/framework/ui/opengl into project assets'
+        from '../../../../src/core/framework/ui/opengl'
         into 'src/main/assets'
         include('*.vsh')
         include('*.fsh')
@@ -60,8 +60,8 @@ android {
 
     task copyGameShaders(type: Copy)
     copyGameShaders {
-        description = 'Copies shaders from src/core/game/ui/opengles into project assets'
-        from '../../../../src/core/game/ui/opengles'
+        description = 'Copies shaders from src/core/game/ui/opengl into project assets'
+        from '../../../../src/core/game/ui/opengl'
         into 'src/main/assets'
         include('*.vsh')
         include('*.fsh')
