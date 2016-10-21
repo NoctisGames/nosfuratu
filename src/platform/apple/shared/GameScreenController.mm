@@ -178,22 +178,22 @@
         }
             break;
         case MUSIC_PLAY_TITLE_LOOP:
-            [self playMusic:@"title_bgm.wav" isLooping:YES];
+            [self playMusic:@"title_bgm.mp3" isLooping:YES];
             break;
         case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-            [self playMusic:@"level_select_bgm.wav" isLooping:YES];
+            [self playMusic:@"level_select_bgm.mp3" isLooping:YES];
             break;
         case MUSIC_PLAY_WORLD_1_LOOP:
-            [self playMusic:@"world_1_bgm.wav" isLooping:YES];
+            [self playMusic:@"world_1_bgm.mp3" isLooping:YES];
             break;
         case MUSIC_PLAY_MID_BOSS_LOOP:
-            [self playMusic:@"mid_boss_bgm.wav" isLooping:YES];
+            [self playMusic:@"mid_boss_bgm.mp3" isLooping:YES];
             break;
         case MUSIC_PLAY_END_BOSS_LOOP:
-            [self playMusic:@"final_boss_bgm.wav" isLooping:YES];
+            [self playMusic:@"final_boss_bgm.mp3" isLooping:YES];
             break;
         case MUSIC_PLAY_OPENING_CUTSCENE:
-            [self playMusic:@"opening_cutscene_bgm.wav" isLooping:NO];
+            [self playMusic:@"opening_cutscene_bgm.mp3" isLooping:NO];
             break;
         default:
             break;
@@ -514,67 +514,67 @@
 - (void)initSoundEngine
 {
     _soundFileNames = [NSArray arrayWithObjects:
-                       @"collect_carrot.wav",
-                       @"collect_golden_carrot.wav",
-                       @"death.wav",
-                       @"footstep_left_grass.wav",
-                       @"footstep_right_grass.wav",
-                       @"footstep_left_cave.wav",
-                       @"footstep_right_cave.wav",
-                       @"jump_spring.wav",
-                       @"landing_grass.wav",
-                       @"landing_cave.wav",
-                       @"snake_death.wav",
-                       @"trigger_transform.wav",
-                       @"cancel_transform.wav",
-                       @"complete_transform.wav",
-                       @"jump_spring_heavy.wav",
-                       @"jon_rabbit_jump.wav",
-                       @"jon_vampire_jump.wav",
-                       @"jon_rabbit_double_jump.wav",
-                       @"jon_vampire_double_jump.wav",
-                       @"vampire_glide_loop.wav",
-                       @"mushroom_bounce.wav",
-                       @"jon_burrow_rocksfall.wav",
-                       @"sparrow_fly_loop.wav",
-                       @"sparrow_die.wav",
-                       @"toad_die.wav",
-                       @"toad_eat.wav",
-                       @"saw_grind_loop.wav",
-                       @"fox_bounced_on.wav",
-                       @"fox_strike.wav",
-                       @"fox_death.wav",
-                       @"world_1_bgm_intro.wav",
-                       @"mid_boss_bgm_intro.wav",
-                       @"mid_boss_owl_swoop.wav",
-                       @"mid_boss_owl_tree_smash.wav",
-                       @"mid_boss_owl_death.wav",
-                       @"screen_transition.wav",
-                       @"screen_transition_2.wav",
-                       @"level_complete.wav",
-                       @"title_lightning_1.wav",
-                       @"title_lightning_2.wav",
-                       @"ability_unlock.wav",
-                       @"boss_level_clear.wav",
-                       @"level_clear.wav",
-                       @"level_selected.wav",
-                       @"rabbit_drill.wav",
-                       @"snake_jump.wav",
-                       @"vampire_dash.wav",
-                       @"boss_level_unlock.wav",
-                       @"rabbit_stomp.wav",
-                       @"final_boss_bgm_intro.wav",
-                       @"button_click.wav",
-                       @"level_confirmed.wav",
-                       @"bat_poof.wav",
-                       @"chain_snap.wav",
-                       @"end_boss_snake_mouth_open.wav",
-                       @"end_boss_snake_charge_cue.wav",
-                       @"end_boss_snake_charge.wav",
-                       @"end_boss_snake_damaged.wav",
-                       @"end_boss_snake_death.wav",
-                       @"spiked_ball_rolling_loop.wav",
-                       @"absorb_dash_ability.wav", nil];
+                       @"collect_carrot.mp3",
+                       @"collect_golden_carrot.mp3",
+                       @"death.mp3",
+                       @"footstep_left_grass.mp3",
+                       @"footstep_right_grass.mp3",
+                       @"footstep_left_cave.mp3",
+                       @"footstep_right_cave.mp3",
+                       @"jump_spring.mp3",
+                       @"landing_grass.mp3",
+                       @"landing_cave.mp3",
+                       @"snake_death.mp3",
+                       @"trigger_transform.mp3",
+                       @"cancel_transform.mp3",
+                       @"complete_transform.mp3",
+                       @"jump_spring_heavy.mp3",
+                       @"jon_rabbit_jump.mp3",
+                       @"jon_vampire_jump.mp3",
+                       @"jon_rabbit_double_jump.mp3",
+                       @"jon_vampire_double_jump.mp3",
+                       @"vampire_glide_loop.mp3",
+                       @"mushroom_bounce.mp3",
+                       @"jon_burrow_rocksfall.mp3",
+                       @"sparrow_fly_loop.mp3",
+                       @"sparrow_die.mp3",
+                       @"toad_die.mp3",
+                       @"toad_eat.mp3",
+                       @"saw_grind_loop.mp3",
+                       @"fox_bounced_on.mp3",
+                       @"fox_strike.mp3",
+                       @"fox_death.mp3",
+                       @"world_1_bgm_intro.mp3",
+                       @"mid_boss_bgm_intro.mp3",
+                       @"mid_boss_owl_swoop.mp3",
+                       @"mid_boss_owl_tree_smash.mp3",
+                       @"mid_boss_owl_death.mp3",
+                       @"screen_transition.mp3",
+                       @"screen_transition_2.mp3",
+                       @"level_complete.mp3",
+                       @"title_lightning_1.mp3",
+                       @"title_lightning_2.mp3",
+                       @"ability_unlock.mp3",
+                       @"boss_level_clear.mp3",
+                       @"level_clear.mp3",
+                       @"level_selected.mp3",
+                       @"rabbit_drill.mp3",
+                       @"snake_jump.mp3",
+                       @"vampire_dash.mp3",
+                       @"boss_level_unlock.mp3",
+                       @"rabbit_stomp.mp3",
+                       @"final_boss_bgm_intro.mp3",
+                       @"button_click.mp3",
+                       @"level_confirmed.mp3",
+                       @"bat_poof.mp3",
+                       @"chain_snap.mp3",
+                       @"end_boss_snake_mouth_open.mp3",
+                       @"end_boss_snake_charge_cue.mp3",
+                       @"end_boss_snake_charge.mp3",
+                       @"end_boss_snake_damaged.mp3",
+                       @"end_boss_snake_death.mp3",
+                       @"spiked_ball_rolling_loop.mp3",
+                       @"absorb_dash_ability.mp3", nil];
     
     [OALSimpleAudio sharedInstance].allowIpod = NO;
     

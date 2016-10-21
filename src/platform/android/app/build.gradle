@@ -86,9 +86,8 @@ android {
     task copySounds(type: Copy)
     copySounds {
         description = 'Copies sounds from root assets into project assets'
-        from '../../../../assets/sounds'
+        from '../../../../assets/sounds/mp3'
         into 'src/main/res/raw'
-        include('*.wav')
         include('*.mp3')
     }
 
