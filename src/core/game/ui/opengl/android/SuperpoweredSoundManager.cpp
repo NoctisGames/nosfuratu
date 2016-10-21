@@ -186,6 +186,7 @@ void SuperpoweredSoundManager::playMusic(int rawResourceId, float volume, bool i
     if (m_music)
     {
         m_music->play(isLooping);
+        m_music->setVolume(volume);
     }
 }
 
