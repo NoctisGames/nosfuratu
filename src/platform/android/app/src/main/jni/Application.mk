@@ -1,5 +1,5 @@
 APP_PLATFORM := android-16
-APP_ABI := all
+APP_ABI := arm64-v8a armeabi-v7a x86 x86_64
 APP_CPPFLAGS := -std=c++11
 APP_CPPFLAGS += -frtti
 APP_CFLAGS := -Wno-error=format-security

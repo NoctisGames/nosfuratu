@@ -234,7 +234,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 
 void Chapter1Level21::onEnter(GameScreen* gs)
 {
-    // Empty
+    updateCamera(gs, 0, false, true);
 }
 
 void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
