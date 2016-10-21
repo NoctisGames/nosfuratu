@@ -14,7 +14,7 @@
 class SuperpoweredSound
 {
 public:
-    SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength);
+    SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength, float volume = 1.0f);
 	~SuperpoweredSound();
 
     void play(bool isLooping = false);

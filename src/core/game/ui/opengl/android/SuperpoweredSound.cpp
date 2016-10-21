@@ -38,9 +38,9 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     }
 }
 
-SuperpoweredSound::SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength) :
+SuperpoweredSound::SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength, float volume) :
 m_apkPath(apkPath),
-m_fVolume(1.0f * headroom),
+m_fVolume(volume * headroom),
 m_iRawResourceId(-1),
 m_isLooping(false)
 {

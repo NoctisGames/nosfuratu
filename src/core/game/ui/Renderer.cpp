@@ -416,7 +416,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         }
         
 #ifdef NG_ANDROID
-        return m_fStateTime >= 4.1f ? 3 : 0;
+        return m_fStateTime >= 4.14f ? 3 : 0;
 #else
         return m_fStateTime >= 4.0f ? 3 : 0;
 #endif

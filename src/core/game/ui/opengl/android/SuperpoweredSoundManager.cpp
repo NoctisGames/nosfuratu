@@ -178,7 +178,7 @@ void SuperpoweredSoundManager::loadMusic(int rawResourceId, int fileOffset, int 
         delete m_music;
     }
     
-    m_music = new SuperpoweredSound(m_apkPath, m_iSampleRate, m_iBufferSize, rawResourceId, fileOffset, fileLength);
+    m_music = new SuperpoweredSound(m_apkPath, m_iSampleRate, m_iBufferSize, rawResourceId, fileOffset, fileLength, 0.5f);
 }
 
 void SuperpoweredSoundManager::playMusic(int rawResourceId, float volume, bool isLooping)
@@ -216,13 +216,7 @@ void SuperpoweredSoundManager::pauseMusic()
 
 bool SuperpoweredSoundManager::processMusic(short int *output, unsigned int numberOfSamples)
 {
-    if (m_music
-        && m_music->process(output, m_stereoBuffers[0], numberOfSamples))
-    {
-        return true;
-    }
-    
-    return false;
+    return m_music && m_music->process(output, m_stereoBuffers[0], numberOfSamples);
 }
 
 bool SuperpoweredSoundManager::processSound1(short int *output, unsigned int numberOfSamples)
