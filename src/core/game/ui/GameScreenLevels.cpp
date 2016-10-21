@@ -184,6 +184,8 @@ void Level::onEnter(GameScreen* gs)
     {
         CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
         countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
+        
+        updateCamera(gs, 0, false, true);
     }
 }
 
