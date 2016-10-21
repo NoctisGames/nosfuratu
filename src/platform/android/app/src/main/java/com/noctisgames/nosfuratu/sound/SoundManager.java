@@ -15,9 +15,15 @@ public final class SoundManager
 {
     public static native void init_sound_manager(String apk_path, int sample_rate, int buffer_size);
 
-    public static native void load_and_play_sound(int rawResourceId, int fileOffset, int fileLength, float volume, boolean isLooping);
+    public static native void load_sound(int rawResourceId, int fileOffset, int fileLength);
+
+    public static native void play_sound(int rawResourceId, float volume, boolean isLooping);
 
     public static native void stop_sound(int rawResourceId);
+
+    public static native void load_music(int rawResourceId, int fileOffset, int fileLength);
+
+    public static native void play_music(int rawResourceId, float volume, boolean isLooping);
 
     public static native void set_music_volume(float volume);
 
@@ -25,7 +31,6 @@ public final class SoundManager
 
     public static native void pause_music();
 
-    private final List<Sound> _musics = new ArrayList<>();
     private final List<Sound> _sounds = new ArrayList<>();
 
     public SoundManager(Activity activity)
@@ -58,27 +63,19 @@ public final class SoundManager
         SoundManager.init_sound_manager(packageResourcePath, sampleRate, bufferSize);
     }
 
-    public void loadMusic(Activity activity, int rawResourceId)
+    public void loadAndPlayMusic(Activity activity, int rawResourceId, float volume, boolean isLooping)
     {
-        _musics.add(load(activity, rawResourceId));
+        Sound sound = load(activity, rawResourceId);
+        SoundManager.load_music(sound._rawResourceId, sound._fileOffset, sound._fileLength);
+        SoundManager.play_music(sound._rawResourceId, volume, isLooping);
     }
 
     public void loadSound(Activity activity, int rawResourceId)
     {
-        _sounds.add(load(activity, rawResourceId));
-    }
+        Sound sound = load(activity, rawResourceId);
+        SoundManager.load_sound(sound._rawResourceId, sound._fileOffset, sound._fileLength);
 
-    public void playMusic(int rawResourceId, float volume, boolean isLooping)
-    {
-        for (Sound s : _musics)
-        {
-            if (s._rawResourceId == rawResourceId)
-            {
-                SoundManager.load_and_play_sound(s._rawResourceId, s._fileOffset, s._fileLength, volume, isLooping);
-
-                return;
-            }
-        }
+        _sounds.add(sound);
     }
 
     public void pauseMusic()
@@ -99,7 +96,7 @@ public final class SoundManager
     public void playSound(int soundIndex, float volume, boolean isLooping)
     {
         Sound sound = _sounds.get(soundIndex);
-        SoundManager.load_and_play_sound(sound._rawResourceId, sound._fileOffset, sound._fileLength, volume, isLooping);
+        SoundManager.play_sound(sound._rawResourceId, volume, isLooping);
     }
 
     public void stopSound(int soundIndex)

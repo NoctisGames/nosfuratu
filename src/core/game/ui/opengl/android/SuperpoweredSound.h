@@ -10,22 +10,20 @@
 #define __nosfuratu__SuperpoweredSound__
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
-#include "SuperpoweredAndroidAudioIO.h"
 
 class SuperpoweredSound
 {
 public:
-    SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize);
+    SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength);
 	~SuperpoweredSound();
 
-    void loadAndPlaySound(int rawResourceId, int fileOffset, int fileLength, bool isLooping);
-    
-	void play();
+    void play(bool isLooping = false);
+    void resume();
     void pause();
     void stop();
     void setVolume(float volume);
     
-    bool process(short int *output, unsigned int numberOfSamples);
+    bool process(short int *output, float *stereoBuffer, unsigned int numberOfSamples);
     
     SuperpoweredAdvancedAudioPlayer* getPlayer() { return m_player; }
     int getRawResourceId() { return m_iRawResourceId; }
@@ -34,8 +32,6 @@ public:
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
-    SuperpoweredAndroidAudioIO *m_audioSystem;
-    float *m_stereoBuffer;
     const char *m_apkPath;
     float m_fVolume;
     int m_iRawResourceId;

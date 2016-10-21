@@ -38,45 +38,34 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     }
 }
 
-static bool audioProcessing(void *clientData, short int *audioIO, int numberOfSamples, int __unused samplerate)
-{
-	return ((SuperpoweredSound *)clientData)->process(audioIO, (unsigned int)numberOfSamples);
-}
-
-SuperpoweredSound::SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize) :
+SuperpoweredSound::SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength) :
 m_apkPath(apkPath),
 m_fVolume(1.0f * headroom),
 m_iRawResourceId(-1),
 m_isLooping(false)
 {
-    m_stereoBuffer = (float *)memalign(16, (bufferSize + 16) * sizeof(float) * 2);
-
+    m_iRawResourceId = rawResourceId;
+    
     m_player = new SuperpoweredAdvancedAudioPlayer(this, playerEventCallback, sampleRate, 0);
-
-    m_audioSystem = new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessing, this, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2);
+    
+    m_player->open(m_apkPath, fileOffset, fileLength);
 }
 
 SuperpoweredSound::~SuperpoweredSound()
 {
-    delete m_audioSystem;
     delete m_player;
-    
-    free(m_stereoBuffer);
 }
 
-void SuperpoweredSound::loadAndPlaySound(int rawResourceId, int fileOffset, int fileLength, bool isLooping)
+void SuperpoweredSound::play(bool isLooping)
 {
-    m_iRawResourceId = rawResourceId;
     m_isLooping = isLooping;
+ 
+    m_player->seek(0);
     
-    pause();
-    
-    m_player->open(m_apkPath, fileOffset, fileLength);
-    
-    play();
+    m_player->play(false);
 }
 
-void SuperpoweredSound::play()
+void SuperpoweredSound::resume()
 {
     m_player->play(false);
 }
@@ -98,15 +87,15 @@ void SuperpoweredSound::setVolume(float volume)
     m_fVolume = volume * headroom;
 }
 
-bool SuperpoweredSound::process(short int *output, unsigned int numberOfSamples)
+bool SuperpoweredSound::process(short int *output, float *stereoBuffer, unsigned int numberOfSamples)
 {
-    bool silence = !m_player->process(m_stereoBuffer, false, numberOfSamples, m_fVolume, m_player->currentBpm, m_player->msElapsedSinceLastBeat);
+    bool ret = m_player->process(stereoBuffer, false, numberOfSamples, m_fVolume, m_player->currentBpm, m_player->msElapsedSinceLastBeat);
     
-    // The m_stereoBuffer is ready now, let's put the finished audio into the requested buffers.
-    if (!silence)
+    // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
+    if (ret)
     {
-        SuperpoweredFloatToShortInt(m_stereoBuffer, output, numberOfSamples);
+        SuperpoweredFloatToShortInt(stereoBuffer, output, numberOfSamples);
     }
     
-    return !silence;
+    return ret;
 }

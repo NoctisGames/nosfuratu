@@ -279,22 +279,22 @@ public final class GameRenderer implements Renderer
             }
             break;
             case MUSIC_PLAY_TITLE_LOOP:
-                _soundManager.playMusic(R.raw.title_bgm, 0.5f, true);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.title_bgm, 0.5f, true);
                 break;
             case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-                _soundManager.playMusic(R.raw.level_select_bgm, 0.5f, true);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.level_select_bgm, 0.5f, true);
                 break;
             case MUSIC_PLAY_WORLD_1_LOOP:
-                _soundManager.playMusic(R.raw.world_1_bgm, 0.5f, true);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.world_1_bgm, 0.5f, true);
                 break;
             case MUSIC_PLAY_MID_BOSS_LOOP:
-                _soundManager.playMusic(R.raw.mid_boss_bgm, 0.5f, true);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.mid_boss_bgm, 0.5f, true);
                 break;
             case MUSIC_PLAY_END_BOSS_LOOP:
-                _soundManager.playMusic(R.raw.final_boss_bgm, 0.5f, true);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.final_boss_bgm, 0.5f, true);
                 break;
             case MUSIC_PLAY_OPENING_CUTSCENE:
-                _soundManager.playMusic(R.raw.opening_cutscene_bgm, 0.5f, false);
+                _soundManager.loadAndPlayMusic(_activity, R.raw.opening_cutscene_bgm, 0.5f, false);
                 break;
             default:
                 break;
@@ -570,13 +570,6 @@ public final class GameRenderer implements Renderer
     private void initSoundEngine(Activity activity)
     {
         _soundManager = new SoundManager(activity);
-
-        _soundManager.loadMusic(activity, R.raw.title_bgm);
-        _soundManager.loadMusic(activity, R.raw.level_select_bgm);
-        _soundManager.loadMusic(activity, R.raw.world_1_bgm);
-        _soundManager.loadMusic(activity, R.raw.mid_boss_bgm);
-        _soundManager.loadMusic(activity, R.raw.final_boss_bgm);
-        _soundManager.loadMusic(activity, R.raw.opening_cutscene_bgm);
 
         _soundManager.loadSound(activity, R.raw.collect_carrot);
         _soundManager.loadSound(activity, R.raw.collect_golden_carrot);
