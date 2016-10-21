@@ -126,6 +126,7 @@ void SuperpoweredSoundManager::playSound(int rawResourceId, float volume, bool i
         if ((*i)->getRawResourceId() == rawResourceId)
         {
             SuperpoweredSound* sound = (*i)->getSound();
+            
             sound->play(isLooping);
             
             for (int j = 0; j < (MAX_NUM_SOUND_PLAYERS - 1); j++)
@@ -136,10 +137,30 @@ void SuperpoweredSoundManager::playSound(int rawResourceId, float volume, bool i
                 }
             }
             
-            m_activeSounds[m_iSoundIndex++] = sound;
-            if (m_iSoundIndex > (MAX_NUM_SOUND_PLAYERS - 3))
+            int count = 0;
+            bool isGoodToBreak = false;
+            while (true)
             {
-                m_iSoundIndex = 0;
+                if (!m_activeSounds[m_iSoundIndex]
+                    || !m_activeSounds[m_iSoundIndex]->isPlaying())
+                {
+                    m_activeSounds[m_iSoundIndex] = sound;
+                    
+                    isGoodToBreak = true;
+                }
+                
+                m_iSoundIndex++;
+                if (m_iSoundIndex > (MAX_NUM_SOUND_PLAYERS - 3))
+                {
+                    m_iSoundIndex = 0;
+                }
+                
+                count++;
+                if (isGoodToBreak
+                    || count > (MAX_NUM_SOUND_PLAYERS - 1))
+                {
+                    break;
+                }
             }
             
             return;
@@ -153,7 +174,7 @@ void SuperpoweredSoundManager::stopSound(int rawResourceId)
     {
         if ((*i)->getRawResourceId() == rawResourceId)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < MAX_NUM_SOUNDS_PER_COLLECTION; j++)
             {
                 SuperpoweredSound* sound = (*i)->getSound();
                 if (sound->isPlaying())

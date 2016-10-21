@@ -1388,6 +1388,8 @@ void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
+    
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
 int Jon::Vampire::getNumJumps(Jon* jon)

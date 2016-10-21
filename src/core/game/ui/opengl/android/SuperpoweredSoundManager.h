@@ -18,6 +18,7 @@
 #include <vector>
 
 #define MAX_NUM_SOUND_PLAYERS 12
+#define MAX_NUM_SOUNDS_PER_COLLECTION 4
 
 class SuperpoweredSoundCollection
 {
@@ -28,7 +29,7 @@ public:
     
     SuperpoweredSoundCollection(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength) : m_iSoundIndex(0), m_iRawResourceId(rawResourceId)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < MAX_NUM_SOUNDS_PER_COLLECTION; i++)
         {
             m_sounds.push_back(new SuperpoweredSound(apkPath, sampleRate, bufferSize, rawResourceId, fileOffset, fileLength));
         }
@@ -42,7 +43,7 @@ public:
     SuperpoweredSound* getSound()
     {
         SuperpoweredSound* ret = m_sounds[m_iSoundIndex++];
-        if (m_iSoundIndex >= 4)
+        if (m_iSoundIndex >= MAX_NUM_SOUNDS_PER_COLLECTION)
         {
             m_iSoundIndex = 0;
         }

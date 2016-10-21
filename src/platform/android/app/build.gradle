@@ -89,6 +89,7 @@ android {
         from '../../../../assets/sounds'
         into 'src/main/res/raw'
         include('*.wav')
+        include('*.mp3')
     }
 
     preBuild.dependsOn(copyFrameworkShaders)
