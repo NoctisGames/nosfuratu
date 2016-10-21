@@ -18,7 +18,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
         signingConfig signingConfigs.noctisgames
     }
     buildTypes {
@@ -87,7 +87,7 @@ android {
     copySounds {
         description = 'Copies sounds from root assets into project assets'
         from '../../../../assets/sounds'
-        into 'src/main/assets'
+        into 'src/main/res/raw'
         include('*.wav')
     }
 
