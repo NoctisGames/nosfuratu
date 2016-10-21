@@ -201,6 +201,12 @@ public final class GameRenderer implements Renderer
         Game.on_pause();
 
         _soundManager.pauseMusic();
+
+        stopSound(SOUND_JON_VAMPIRE_GLIDE);
+        stopSound(SOUND_SPARROW_FLY);
+        stopSound(SOUND_SAW_GRIND);
+        stopSound(SOUND_SPIKED_BALL_ROLLING);
+
     }
 
     public void handleTouchDown(float rawX, float rawY)
