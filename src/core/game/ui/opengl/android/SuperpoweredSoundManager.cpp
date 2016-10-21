@@ -126,6 +126,7 @@ void SuperpoweredSoundManager::playSound(int rawResourceId, float volume, bool i
         if ((*i)->getRawResourceId() == rawResourceId)
         {
             SuperpoweredSound* sound = (*i)->getSound();
+            
             sound->play(isLooping);
             
             for (int j = 0; j < (MAX_NUM_SOUND_PLAYERS - 1); j++)
@@ -136,10 +137,30 @@ void SuperpoweredSoundManager::playSound(int rawResourceId, float volume, bool i
                 }
             }
             
-            m_activeSounds[m_iSoundIndex++] = sound;
-            if (m_iSoundIndex > (MAX_NUM_SOUND_PLAYERS - 3))
+            int count = 0;
+            bool isGoodToBreak = false;
+            while (true)
             {
-                m_iSoundIndex = 0;
+                if (!m_activeSounds[m_iSoundIndex]
+                    || !m_activeSounds[m_iSoundIndex]->isPlaying())
+                {
+                    m_activeSounds[m_iSoundIndex] = sound;
+                    
+                    isGoodToBreak = true;
+                }
+                
+                m_iSoundIndex++;
+                if (m_iSoundIndex > (MAX_NUM_SOUND_PLAYERS - 3))
+                {
+                    m_iSoundIndex = 0;
+                }
+                
+                count++;
+                if (isGoodToBreak
+                    || count > (MAX_NUM_SOUND_PLAYERS - 1))
+                {
+                    break;
+                }
             }
             
             return;
@@ -153,7 +174,7 @@ void SuperpoweredSoundManager::stopSound(int rawResourceId)
     {
         if ((*i)->getRawResourceId() == rawResourceId)
         {
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < MAX_NUM_SOUNDS_PER_COLLECTION; j++)
             {
                 SuperpoweredSound* sound = (*i)->getSound();
                 if (sound->isPlaying())
@@ -178,7 +199,7 @@ void SuperpoweredSoundManager::loadMusic(int rawResourceId, int fileOffset, int 
         delete m_music;
     }
     
-    m_music = new SuperpoweredSound(m_apkPath, m_iSampleRate, m_iBufferSize, rawResourceId, fileOffset, fileLength);
+    m_music = new SuperpoweredSound(m_apkPath, m_iSampleRate, m_iBufferSize, rawResourceId, fileOffset, fileLength, 0.5f);
 }
 
 void SuperpoweredSoundManager::playMusic(int rawResourceId, float volume, bool isLooping)
@@ -216,13 +237,7 @@ void SuperpoweredSoundManager::pauseMusic()
 
 bool SuperpoweredSoundManager::processMusic(short int *output, unsigned int numberOfSamples)
 {
-    if (m_music
-        && m_music->process(output, m_stereoBuffers[0], numberOfSamples))
-    {
-        return true;
-    }
-    
-    return false;
+    return m_music && m_music->process(output, m_stereoBuffers[0], numberOfSamples);
 }
 
 bool SuperpoweredSoundManager::processSound1(short int *output, unsigned int numberOfSamples)
