@@ -4834,7 +4834,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu.leveleditor;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4877,7 +4877,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.nosfuratu.leveleditor;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
