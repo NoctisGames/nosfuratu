@@ -294,206 +294,6 @@
     <FxCompile Include="..\..\..\..\core\game\ui\direct3d\FadeScreenTexturePixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_left_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\footstep_right_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_double_jump.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jon_rabbit_jump.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jon_vampire_jump.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jump_spring.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jump_spring_heavy.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\landing_cave.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\landing_grass.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\snake_death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\trigger_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\vampire_glide_loop.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\cancel_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\collect_golden_carrot.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\complete_transform.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mushroom_bounce.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\sparrow_die.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\jon_burrow_rocksfall.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\fox_bounced_on.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\fox_death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\fox_strike.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\saw_grind_loop.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\sparrow_fly_loop.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\toad_die.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\toad_eat.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_bgm_intro.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\world_1_bgm_intro.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_swoop.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_tree_smash.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\mid_boss_owl_death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\screen_transition.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\title_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\screen_transition_2.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\level_complete.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\title_lightning_1.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\title_lightning_2.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\level_select_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\final_boss_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\final_boss_bgm_intro.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\ability_unlock.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\boss_level_clear.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\level_clear.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\level_selected.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\rabbit_drill.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\snake_jump.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\vampire_dash.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\rabbit_stomp.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\boss_level_unlock.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\opening_cutscene_bgm.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\level_confirmed.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\button_click.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\absorb_dash_ability.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\bat_poof.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\chain_snap.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_charge_cue.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_damaged.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_death.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\end_boss_snake_mouth_open.wav">
-      <Filter>Assets</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\assets\sounds\spiked_ball_rolling_loop.wav">
-      <Filter>Assets</Filter>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="..\..\..\..\..\assets\textures\jon.png">
       <Filter>Assets</Filter>
     </CustomBuild>
@@ -623,5 +423,208 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
       <Filter>Assets</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\bat_poof.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\boss_level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\boss_level_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\button_click.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\cancel_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\chain_snap.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\complete_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\end_boss_snake_charge.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\end_boss_snake_charge_cue.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\end_boss_snake_damaged.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\end_boss_snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\end_boss_snake_mouth_open.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\final_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\final_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\footstep_left_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\footstep_left_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\footstep_right_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\footstep_right_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\fox_bounced_on.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\fox_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\fox_strike.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jon_burrow_rocksfall.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jon_rabbit_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jon_rabbit_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jon_vampire_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jon_vampire_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jump_spring.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\jump_spring_heavy.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\landing_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\landing_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\level_complete.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\level_confirmed.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\level_select_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\level_selected.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mid_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mid_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mid_boss_owl_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mid_boss_owl_swoop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mid_boss_owl_tree_smash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\mushroom_bounce.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\opening_cutscene_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\rabbit_drill.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\rabbit_stomp.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\saw_grind_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\screen_transition.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\screen_transition_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\snake_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\sparrow_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\sparrow_fly_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\spiked_ball_rolling_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\title_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\title_lightning_1.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\title_lightning_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\toad_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\toad_eat.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\trigger_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\vampire_dash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\vampire_glide_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\world_1_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\world_1_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\ability_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\assets\sounds\wav\absorb_dash_ability.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
 </Project>
