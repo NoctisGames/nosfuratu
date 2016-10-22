@@ -2158,7 +2158,6 @@
 		BB44C31E1DB030B3003E633F /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 				BB44C31F1DB030B3003E633F /* AppDelegate.h */,
 				BB44C3201DB030B3003E633F /* AppDelegate.m */,
 				BB44C3211DB030B3003E633F /* Assets.xcassets */,
@@ -2171,6 +2170,7 @@
 				BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */,
 				BB44C3241DB030B3003E633F /* Info.plist */,
 				BB44C3221DB030B3003E633F /* Main.storyboard */,
+				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 			);
 			path = mac;
 			sourceTree = "<group>";
