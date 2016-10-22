@@ -4743,7 +4743,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu.leveleditor;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
@@ -4793,7 +4793,7 @@
 					"-lstdc++",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noctisgames.mac.nosfuratu.leveleditor;
 				PRODUCT_NAME = "NosFURatu Level Editor";
 				SDKROOT = macosx;
 			};
