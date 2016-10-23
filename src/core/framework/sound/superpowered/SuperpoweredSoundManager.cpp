@@ -41,9 +41,9 @@ SuperpoweredSoundManager::~SuperpoweredSoundManager()
     }
 }
 
-void SuperpoweredSoundManager::loadSound(int rawResourceId, const char *path, int fileOffset, int fileLength)
+void SuperpoweredSoundManager::loadSound(int rawResourceId, const char *path, int numCopies, int fileOffset, int fileLength)
 {
-    m_sounds.push_back(new SuperpoweredSoundCollection(path, m_iSampleRate, rawResourceId, fileOffset, fileLength));
+    m_sounds.push_back(new SuperpoweredSoundCollection(path, m_iSampleRate, rawResourceId, numCopies, fileOffset, fileLength));
 }
 
 void SuperpoweredSoundManager::playSound(int rawResourceId, float volume, bool isLooping)
@@ -101,7 +101,7 @@ void SuperpoweredSoundManager::stopSound(int rawResourceId)
     {
         if ((*i)->getRawResourceId() == rawResourceId)
         {
-            for (int j = 0; j < MAX_NUM_SOUNDS_PER_COLLECTION; j++)
+            for (int j = 0; j < (*i)->getNumCopies(); j++)
             {
                 SuperpoweredSound* sound = (*i)->getSound();
                 if (sound->isPlaying())
@@ -162,67 +162,67 @@ void SuperpoweredSoundManager::pauseMusic()
     }
 }
 
-bool SuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return m_music && m_music->process(m_stereoBuffers[0], output, numberOfSamples);
+    return m_music && m_music->process(m_stereoBuffers[0], output, numberOfSamples, sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound1(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[0], m_stereoBuffers[1]);
+    return processSound(output, numberOfSamples, m_activeSounds[0], m_stereoBuffers[1], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound2(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[1], m_stereoBuffers[2]);
+    return processSound(output, numberOfSamples, m_activeSounds[1], m_stereoBuffers[2], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound3(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[2], m_stereoBuffers[3]);
+    return processSound(output, numberOfSamples, m_activeSounds[2], m_stereoBuffers[3], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound4(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound4(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[3], m_stereoBuffers[4]);
+    return processSound(output, numberOfSamples, m_activeSounds[3], m_stereoBuffers[4], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound5(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound5(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[4], m_stereoBuffers[5]);
+    return processSound(output, numberOfSamples, m_activeSounds[4], m_stereoBuffers[5], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound6(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound6(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[5], m_stereoBuffers[6]);
+    return processSound(output, numberOfSamples, m_activeSounds[5], m_stereoBuffers[6], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound7(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound7(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[6], m_stereoBuffers[7]);
+    return processSound(output, numberOfSamples, m_activeSounds[6], m_stereoBuffers[7], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound8(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[7], m_stereoBuffers[8]);
+    return processSound(output, numberOfSamples, m_activeSounds[7], m_stereoBuffers[8], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound9(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[8], m_stereoBuffers[9]);
+    return processSound(output, numberOfSamples, m_activeSounds[8], m_stereoBuffers[9], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound10(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[9], m_stereoBuffers[10]);
+    return processSound(output, numberOfSamples, m_activeSounds[9], m_stereoBuffers[10], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound11(void *output, unsigned int numberOfSamples)
+bool SuperpoweredSoundManager::processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return processSound(output, numberOfSamples, m_activeSounds[10], m_stereoBuffers[11]);
+    return processSound(output, numberOfSamples, m_activeSounds[10], m_stereoBuffers[11], sampleRate);
 }
 
-bool SuperpoweredSoundManager::processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer)
+bool SuperpoweredSoundManager::processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate)
 {
-    return sound && sound->process(stereoBuffer, output, numberOfSamples);
+    return sound && sound->process(stereoBuffer, output, numberOfSamples, sampleRate);
 }

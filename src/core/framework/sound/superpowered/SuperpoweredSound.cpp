@@ -35,6 +35,7 @@ SuperpoweredSound::SuperpoweredSound(const char *path, unsigned int sampleRate, 
 m_path(path),
 m_fVolume(volume * headroom),
 m_iRawResourceId(-1),
+m_iLastSamplerate(sampleRate),
 m_isLooping(false)
 {
     m_iRawResourceId = rawResourceId;
@@ -87,8 +88,16 @@ void SuperpoweredSound::setVolume(float volume)
     m_fVolume = volume * headroom;
 }
 
-bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples)
+bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
+    if (sampleRate != -1
+        && sampleRate != m_iLastSamplerate)
+    {
+        // Has samplerate changed?
+        m_iLastSamplerate = sampleRate;
+        m_player->setSamplerate(sampleRate);
+    }
+    
     bool ret = m_player->process(stereoBuffer, false, numberOfSamples, m_fVolume, m_player->currentBpm, m_player->msElapsedSinceLastBeat);
     
     // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.

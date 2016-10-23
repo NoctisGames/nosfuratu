@@ -10,7 +10,7 @@
 
 @interface AppleSoundManager : NSObject
 
-- (void)loadSound:(NSString *)path;
+- (void)loadSound:(NSString *)path withNumCopies:(int)numCopies;
 
 - (void)playSound:(int)rawResourceId volume:(float)volume isLooping:(bool)isLooping;
 

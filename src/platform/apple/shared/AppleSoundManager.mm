@@ -28,64 +28,124 @@
 @implementation AppleSoundManager
 
 #ifdef NG_IOS
-static bool audioProcessingMusic(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingMusic(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processMusic(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processMusic(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound1(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound1(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound1(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound1(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound2(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound2(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound2(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound2(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound3(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound3(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound3(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound3(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound4(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound4(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound4(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound4(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound5(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound5(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound5(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound5(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound6(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound6(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound6(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound6(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound7(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound7(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound7(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound7(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound8(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound8(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound8(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound8(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound9(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound9(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound9(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound9(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound10(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound10(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound10(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound10(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
 
-static bool audioProcessingSound11(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int samplerate, uint64_t hostTime)
+static bool audioProcessingSound11(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
-    return ((SuperpoweredSoundManager *)clientData)->processSound11(buffers, (unsigned int)numberOfSamples);
+    return ((SuperpoweredSoundManager *)clientData)->processSound11(buffers, (unsigned int)numberOfSamples, sampleRate);
+}
+#elif defined NG_MAC
+static bool audioProcessingMusic(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processMusic(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound1(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound1(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound2(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound2(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound3(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound3(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound4(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound4(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound5(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound5(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound6(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound6(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound7(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound7(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound8(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound8(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound9(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound9(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound10(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound10(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
+}
+
+static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
+{
+    return ((SuperpoweredSoundManager *)clientData)->processSound11(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
 }
 #endif
 
@@ -120,7 +180,33 @@ static bool audioProcessingSound11(void *clientData, float **buffers, unsigned i
             [audioSystem start];
         }
 #elif defined NG_MAC
-        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:(id<SuperpoweredOSXAudioIODelegate>)self preferredBufferSizeMs:12 numberOfChannels:2 enableInput:true enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
+        
+        [[_audioSystems objectAtIndex:0] setProcessingCallback_C:audioProcessingMusic clientdata:_superpoweredSoundManager];
+        
+        [[_audioSystems objectAtIndex:1] setProcessingCallback_C:audioProcessingSound1 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:2] setProcessingCallback_C:audioProcessingSound2 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:3] setProcessingCallback_C:audioProcessingSound3 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:4] setProcessingCallback_C:audioProcessingSound4 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:5] setProcessingCallback_C:audioProcessingSound5 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:6] setProcessingCallback_C:audioProcessingSound6 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:7] setProcessingCallback_C:audioProcessingSound7 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:8] setProcessingCallback_C:audioProcessingSound8 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:9] setProcessingCallback_C:audioProcessingSound9 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:10] setProcessingCallback_C:audioProcessingSound10 clientdata:_superpoweredSoundManager];
+        [[_audioSystems objectAtIndex:11] setProcessingCallback_C:audioProcessingSound11 clientdata:_superpoweredSoundManager];
         
         for (SuperpoweredOSXAudioIO *audioSystem in _audioSystems)
         {
@@ -134,11 +220,11 @@ static bool audioProcessingSound11(void *clientData, float **buffers, unsigned i
     return self;
 }
 
-- (void)loadSound:(NSString *)path
+- (void)loadSound:(NSString *)path withNumCopies:(int)numCopies
 {
     const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"mp3"] fileSystemRepresentation];
     
-    _superpoweredSoundManager->loadSound(_soundIndexCounter++, bundlePath);
+    _superpoweredSoundManager->loadSound(_soundIndexCounter++, bundlePath, numCopies);
 }
 
 - (void)playSound:(int)rawResourceId volume:(float)volume isLooping:(bool)isLooping
@@ -176,14 +262,8 @@ static bool audioProcessingSound11(void *clientData, float **buffers, unsigned i
 
 #ifdef NG_IOS
 - (void)interruptionStarted {}
-- (void)interruptionEnded {}
 - (void)recordPermissionRefused {}
 - (void)mapChannels:(multiOutputChannelMap *)outputMap inputMap:(multiInputChannelMap *)inputMap externalAudioDeviceName:(NSString *)externalAudioDeviceName outputsAndInputs:(NSString *)outputsAndInputs {}
-#elif defined NG_MAC
-- (bool)audioProcessingCallback:(float **)inputBuffers inputChannels:(unsigned int)inputChannels outputBuffers:(float **)outputBuffers outputChannels:(unsigned int)outputChannels numberOfSamples:(unsigned int)numberOfSamples samplerate:(unsigned int)samplerate hostTime:(UInt64)hostTime
-{
-    return _superpoweredSoundManager->processMusic(inputBuffers, (unsigned int)numberOfSamples);
-}
 #endif
 
 @end

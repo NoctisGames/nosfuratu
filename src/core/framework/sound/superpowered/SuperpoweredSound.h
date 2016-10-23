@@ -24,7 +24,7 @@ public:
     void setVolume(float volume);
     
     // output is float **buffers for iOS and Mac OS X and short int * for Android
-    bool process(float *stereoBuffer, void *output, unsigned int numberOfSamples);
+    bool process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     
     SuperpoweredAdvancedAudioPlayer* getPlayer() { return m_player; }
     int getRawResourceId() { return m_iRawResourceId; }
@@ -36,6 +36,7 @@ private:
     const char *m_path;
     float m_fVolume;
     int m_iRawResourceId;
+    unsigned int m_iLastSamplerate;
     bool m_isLooping;
 };
 
