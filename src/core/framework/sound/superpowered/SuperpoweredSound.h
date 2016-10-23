@@ -14,8 +14,8 @@
 class SuperpoweredSound
 {
 public:
-    SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength, float volume = 1.0f);
-	~SuperpoweredSound();
+    SuperpoweredSound(const char *path, unsigned int sampleRate, int rawResourceId, int fileOffset = -1, int fileLength = -1, float volume = 1.0f);
+    ~SuperpoweredSound();
 
     void play(bool isLooping = false);
     void resume();
@@ -23,7 +23,8 @@ public:
     void stop();
     void setVolume(float volume);
     
-    bool process(short int *output, float *stereoBuffer, unsigned int numberOfSamples);
+    // output is float **buffers for iOS and Mac OS X and short int * for Android
+    bool process(float *stereoBuffer, void *output, unsigned int numberOfSamples);
     
     SuperpoweredAdvancedAudioPlayer* getPlayer() { return m_player; }
     int getRawResourceId() { return m_iRawResourceId; }
@@ -32,7 +33,7 @@ public:
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
-    const char *m_apkPath;
+    const char *m_path;
     float m_fVolume;
     int m_iRawResourceId;
     bool m_isLooping;

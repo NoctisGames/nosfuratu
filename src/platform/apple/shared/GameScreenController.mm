@@ -8,16 +8,14 @@
 
 #import "GameScreenController.h"
 
-#import "ObjectAL.h"
+#import "AppleSoundManager.h"
 
 @interface GameScreenController ()
 {
     GameScreen *_gameScreen;
     DisplayMessageBlock _displayMessageBlock;
     GetLevelFilePath _getLevelFilePath;
-    NSArray *_soundFileNames;
-    NSMutableArray *_playingSounds;
-    NSMutableArray *_playingSoundsFileNames;
+    AppleSoundManager *_appleSoundManager;
 }
 
 @end
@@ -38,16 +36,6 @@
     }
     
     return self;
-}
-
-- (void)dealloc
-{
-    // Stop all music and sound effects.
-    [[OALSimpleAudio sharedInstance] stopEverything];
-    
-    // Unload all sound effects and bg music so that it doesn't fill
-    // memory unnecessarily.
-    [[OALSimpleAudio sharedInstance] unloadAllEffects];
 }
 
 - (void)update:(float)deltaTime
@@ -178,22 +166,22 @@
         }
             break;
         case MUSIC_PLAY_TITLE_LOOP:
-            [self playMusic:@"title_bgm.mp3" isLooping:YES];
+            [self playMusic:@"title_bgm" isLooping:YES];
             break;
         case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-            [self playMusic:@"level_select_bgm.mp3" isLooping:YES];
+            [self playMusic:@"level_select_bgm" isLooping:YES];
             break;
         case MUSIC_PLAY_WORLD_1_LOOP:
-            [self playMusic:@"world_1_bgm.mp3" isLooping:YES];
+            [self playMusic:@"world_1_bgm" isLooping:YES];
             break;
         case MUSIC_PLAY_MID_BOSS_LOOP:
-            [self playMusic:@"mid_boss_bgm.mp3" isLooping:YES];
+            [self playMusic:@"mid_boss_bgm" isLooping:YES];
             break;
         case MUSIC_PLAY_END_BOSS_LOOP:
-            [self playMusic:@"final_boss_bgm.mp3" isLooping:YES];
+            [self playMusic:@"final_boss_bgm" isLooping:YES];
             break;
         case MUSIC_PLAY_OPENING_CUTSCENE:
-            [self playMusic:@"opening_cutscene_bgm.mp3" isLooping:NO];
+            [self playMusic:@"opening_cutscene_bgm" isLooping:NO];
             break;
         default:
             break;
@@ -202,26 +190,13 @@
 
 - (void)playMusic:(NSString *)fileName isLooping:(BOOL)isLooping
 {
-    if ([[OALSimpleAudio sharedInstance] bgPlaying])
-    {
-        [[OALSimpleAudio sharedInstance] stopBg];
-    }
-    
-    [self setMusicVolume:0.5f];
-    [[OALSimpleAudio sharedInstance] playBg:fileName loop:isLooping];
+    [_appleSoundManager loadAndPlayMusic:fileName volume:0.5f isLooping:isLooping];
 }
 
 - (void)playSound:(int)soundId isLooping:(bool)isLooping
 {
     int soundIndex = soundId - 1;
-    NSString *soundFileName = [_soundFileNames objectAtIndex:soundIndex];
-    id<ALSoundSource> soundSource = [[OALSimpleAudio sharedInstance] playEffect:soundFileName loop:isLooping];
-    
-    if (isLooping)
-    {
-        [_playingSounds addObject:soundSource];
-        [_playingSoundsFileNames addObject:soundFileName];
-    }
+    [_appleSoundManager playSound:soundIndex volume:1.0f isLooping:isLooping];
 }
 
 - (void)playSound:(int)soundId
@@ -232,39 +207,22 @@
 - (void)stopSound:(int)soundId
 {
     int soundIndex = soundId - 1;
-    NSString *soundFileName = [_soundFileNames objectAtIndex:soundIndex];
-    
-    int indexToRemove = -1;
-    for (int i = 0; i < [_playingSounds count]; i++)
-    {
-        if ([_playingSoundsFileNames[i] isEqualToString:soundFileName])
-        {
-            [((id<ALSoundSource>)_playingSounds[i]) stop];
-            indexToRemove = i;
-            break;
-        }
-    }
-    
-    if (indexToRemove > -1)
-    {
-        [_playingSounds removeObjectAtIndex:indexToRemove];
-        [_playingSoundsFileNames removeObjectAtIndex:indexToRemove];
-    }
+    [_appleSoundManager stopSound:soundIndex];
 }
 
 - (void)pauseMusic
 {
-    [[OALSimpleAudio sharedInstance] setBgPaused:true];
+    [_appleSoundManager pauseMusic];
 }
 
 - (void)resumeMusic
 {
-    [[OALSimpleAudio sharedInstance] setBgPaused:false];
+    [_appleSoundManager resumeMusic];
 }
 
 - (void)setMusicVolume:(float)volume
 {
-    [[OALSimpleAudio sharedInstance] setBgVolume:volume];
+    [_appleSoundManager setMusicVolume:volume];
 }
 
 - (void)saveLevel:(int)requestedAction
@@ -513,81 +471,69 @@
 
 - (void)initSoundEngine
 {
-    _soundFileNames = [NSArray arrayWithObjects:
-                       @"collect_carrot.mp3",
-                       @"collect_golden_carrot.mp3",
-                       @"death.mp3",
-                       @"footstep_left_grass.mp3",
-                       @"footstep_right_grass.mp3",
-                       @"footstep_left_cave.mp3",
-                       @"footstep_right_cave.mp3",
-                       @"jump_spring.mp3",
-                       @"landing_grass.mp3",
-                       @"landing_cave.mp3",
-                       @"snake_death.mp3",
-                       @"trigger_transform.mp3",
-                       @"cancel_transform.mp3",
-                       @"complete_transform.mp3",
-                       @"jump_spring_heavy.mp3",
-                       @"jon_rabbit_jump.mp3",
-                       @"jon_vampire_jump.mp3",
-                       @"jon_rabbit_double_jump.mp3",
-                       @"jon_vampire_double_jump.mp3",
-                       @"vampire_glide_loop.mp3",
-                       @"mushroom_bounce.mp3",
-                       @"jon_burrow_rocksfall.mp3",
-                       @"sparrow_fly_loop.mp3",
-                       @"sparrow_die.mp3",
-                       @"toad_die.mp3",
-                       @"toad_eat.mp3",
-                       @"saw_grind_loop.mp3",
-                       @"fox_bounced_on.mp3",
-                       @"fox_strike.mp3",
-                       @"fox_death.mp3",
-                       @"world_1_bgm_intro.mp3",
-                       @"mid_boss_bgm_intro.mp3",
-                       @"mid_boss_owl_swoop.mp3",
-                       @"mid_boss_owl_tree_smash.mp3",
-                       @"mid_boss_owl_death.mp3",
-                       @"screen_transition.mp3",
-                       @"screen_transition_2.mp3",
-                       @"level_complete.mp3",
-                       @"title_lightning_1.mp3",
-                       @"title_lightning_2.mp3",
-                       @"ability_unlock.mp3",
-                       @"boss_level_clear.mp3",
-                       @"level_clear.mp3",
-                       @"level_selected.mp3",
-                       @"rabbit_drill.mp3",
-                       @"snake_jump.mp3",
-                       @"vampire_dash.mp3",
-                       @"boss_level_unlock.mp3",
-                       @"rabbit_stomp.mp3",
-                       @"final_boss_bgm_intro.mp3",
-                       @"button_click.mp3",
-                       @"level_confirmed.mp3",
-                       @"bat_poof.mp3",
-                       @"chain_snap.mp3",
-                       @"end_boss_snake_mouth_open.mp3",
-                       @"end_boss_snake_charge_cue.mp3",
-                       @"end_boss_snake_charge.mp3",
-                       @"end_boss_snake_damaged.mp3",
-                       @"end_boss_snake_death.mp3",
-                       @"spiked_ball_rolling_loop.mp3",
-                       @"absorb_dash_ability.mp3", nil];
+    _appleSoundManager = [[AppleSoundManager alloc] init];
     
-    [OALSimpleAudio sharedInstance].allowIpod = NO;
-    
-    // Do NOT Mute all audio if the silent switch is turned on.
-    [OALSimpleAudio sharedInstance].honorSilentSwitch = NO;
-    
-    for (NSString *soundFileName in _soundFileNames)
-    {
-        [[OALSimpleAudio sharedInstance] preloadEffect:soundFileName];
-    }
-    
-    _playingSounds = [[NSMutableArray alloc] init];
-    _playingSoundsFileNames = [[NSMutableArray alloc] init];
+    [_appleSoundManager loadSound:@"collect_carrot"];
+    [_appleSoundManager loadSound:@"collect_golden_carrot"];
+    [_appleSoundManager loadSound:@"death"];
+    [_appleSoundManager loadSound:@"footstep_left_grass"];
+    [_appleSoundManager loadSound:@"footstep_right_grass"];
+    [_appleSoundManager loadSound:@"footstep_left_cave"];
+    [_appleSoundManager loadSound:@"footstep_right_cave"];
+    [_appleSoundManager loadSound:@"jump_spring"];
+    [_appleSoundManager loadSound:@"landing_grass"];
+    [_appleSoundManager loadSound:@"landing_cave"];
+    [_appleSoundManager loadSound:@"snake_death"];
+    [_appleSoundManager loadSound:@"trigger_transform"];
+    [_appleSoundManager loadSound:@"cancel_transform"];
+    [_appleSoundManager loadSound:@"complete_transform"];
+    [_appleSoundManager loadSound:@"jump_spring_heavy"];
+    [_appleSoundManager loadSound:@"jon_rabbit_jump"];
+    [_appleSoundManager loadSound:@"jon_vampire_jump"];
+    [_appleSoundManager loadSound:@"jon_rabbit_double_jump"];
+    [_appleSoundManager loadSound:@"jon_vampire_double_jump"];
+    [_appleSoundManager loadSound:@"vampire_glide_loop"];
+    [_appleSoundManager loadSound:@"mushroom_bounce"];
+    [_appleSoundManager loadSound:@"jon_burrow_rocksfall"];
+    [_appleSoundManager loadSound:@"sparrow_fly_loop"];
+    [_appleSoundManager loadSound:@"sparrow_die"];
+    [_appleSoundManager loadSound:@"toad_die"];
+    [_appleSoundManager loadSound:@"toad_eat"];
+    [_appleSoundManager loadSound:@"saw_grind_loop"];
+    [_appleSoundManager loadSound:@"fox_bounced_on"];
+    [_appleSoundManager loadSound:@"fox_strike"];
+    [_appleSoundManager loadSound:@"fox_death"];
+    [_appleSoundManager loadSound:@"world_1_bgm_intro"];
+    [_appleSoundManager loadSound:@"mid_boss_bgm_intro"];
+    [_appleSoundManager loadSound:@"mid_boss_owl_swoop"];
+    [_appleSoundManager loadSound:@"mid_boss_owl_tree_smash"];
+    [_appleSoundManager loadSound:@"mid_boss_owl_death"];
+    [_appleSoundManager loadSound:@"screen_transition"];
+    [_appleSoundManager loadSound:@"screen_transition_2"];
+    [_appleSoundManager loadSound:@"level_complete"];
+    [_appleSoundManager loadSound:@"title_lightning_1"];
+    [_appleSoundManager loadSound:@"title_lightning_2"];
+    [_appleSoundManager loadSound:@"ability_unlock"];
+    [_appleSoundManager loadSound:@"boss_level_clear"];
+    [_appleSoundManager loadSound:@"level_clear"];
+    [_appleSoundManager loadSound:@"level_selected"];
+    [_appleSoundManager loadSound:@"rabbit_drill"];
+    [_appleSoundManager loadSound:@"snake_jump"];
+    [_appleSoundManager loadSound:@"vampire_dash"];
+    [_appleSoundManager loadSound:@"boss_level_unlock"];
+    [_appleSoundManager loadSound:@"rabbit_stomp"];
+    [_appleSoundManager loadSound:@"final_boss_bgm_intro"];
+    [_appleSoundManager loadSound:@"button_click"];
+    [_appleSoundManager loadSound:@"level_confirmed"];
+    [_appleSoundManager loadSound:@"bat_poof"];
+    [_appleSoundManager loadSound:@"chain_snap"];
+    [_appleSoundManager loadSound:@"end_boss_snake_mouth_open"];
+    [_appleSoundManager loadSound:@"end_boss_snake_charge_cue"];
+    [_appleSoundManager loadSound:@"end_boss_snake_charge"];
+    [_appleSoundManager loadSound:@"end_boss_snake_damaged"];
+    [_appleSoundManager loadSound:@"end_boss_snake_death"];
+    [_appleSoundManager loadSound:@"spiked_ball_rolling_loop"];
+    [_appleSoundManager loadSound:@"absorb_dash_ability"];
 }
 
 @end

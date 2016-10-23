@@ -8,16 +8,9 @@
 
 #include "SuperpoweredSound.h"
 
-#include <jni.h>
-#include <stdio.h>
-#include <vector>
-#include <malloc.h>
 #include <math.h>
 
 #include <SuperpoweredSimple.h>
-
-#include <SLES/OpenSLES.h>
-#include <SLES/OpenSLES_AndroidConfiguration.h>
 
 #define HEADROOM_DECIBEL 3.0f
 static const float headroom = powf(10.0f, -HEADROOM_DECIBEL * 0.025f);
@@ -38,8 +31,8 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     }
 }
 
-SuperpoweredSound::SuperpoweredSound(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength, float volume) :
-m_apkPath(apkPath),
+SuperpoweredSound::SuperpoweredSound(const char *path, unsigned int sampleRate, int rawResourceId, int fileOffset, int fileLength, float volume) :
+m_path(path),
 m_fVolume(volume * headroom),
 m_iRawResourceId(-1),
 m_isLooping(false)
@@ -48,7 +41,14 @@ m_isLooping(false)
     
     m_player = new SuperpoweredAdvancedAudioPlayer(this, playerEventCallback, sampleRate, 0);
     
-    m_player->open(m_apkPath, fileOffset, fileLength);
+    if (fileOffset > -1 && fileLength > -1)
+    {
+        m_player->open(m_path, fileOffset, fileLength);
+    }
+    else
+    {
+        m_player->open(m_path);
+    }
 }
 
 SuperpoweredSound::~SuperpoweredSound()
@@ -87,14 +87,20 @@ void SuperpoweredSound::setVolume(float volume)
     m_fVolume = volume * headroom;
 }
 
-bool SuperpoweredSound::process(short int *output, float *stereoBuffer, unsigned int numberOfSamples)
+bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples)
 {
     bool ret = m_player->process(stereoBuffer, false, numberOfSamples, m_fVolume, m_player->currentBpm, m_player->msElapsedSinceLastBeat);
     
     // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
     if (ret)
     {
-        SuperpoweredFloatToShortInt(stereoBuffer, output, numberOfSamples);
+#if defined NG_IOS || defined NG_MAC
+        float **buffers = (float **)output;
+        SuperpoweredDeInterleave(stereoBuffer, buffers[0], buffers[1], numberOfSamples); // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
+#elif defined NG_ANDROID
+        short int *realOutput = (short int *)output;
+        SuperpoweredFloatToShortInt(stereoBuffer, realOutput, numberOfSamples);
+#endif
     }
     
     return ret;

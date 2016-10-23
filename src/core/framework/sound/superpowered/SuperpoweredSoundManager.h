@@ -13,8 +13,6 @@
 
 #include "EntityUtils.h"
 
-#include "SuperpoweredAndroidAudioIO.h"
-
 #include <vector>
 
 #define MAX_NUM_SOUND_PLAYERS 12
@@ -27,11 +25,11 @@ public:
     int m_iSoundIndex;
     int m_iRawResourceId;
     
-    SuperpoweredSoundCollection(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize, int rawResourceId, int fileOffset, int fileLength) : m_iSoundIndex(0), m_iRawResourceId(rawResourceId)
+    SuperpoweredSoundCollection(const char *path, unsigned int sampleRate, int rawResourceId, int fileOffset = -1, int fileLength = -1) : m_iSoundIndex(0), m_iRawResourceId(rawResourceId)
     {
         for (int i = 0; i < MAX_NUM_SOUNDS_PER_COLLECTION; i++)
         {
-            m_sounds.push_back(new SuperpoweredSound(apkPath, sampleRate, bufferSize, rawResourceId, fileOffset, fileLength));
+            m_sounds.push_back(new SuperpoweredSound(path, sampleRate, rawResourceId, fileOffset, fileLength));
         }
     }
     
@@ -57,16 +55,16 @@ public:
 class SuperpoweredSoundManager
 {
 public:
-    SuperpoweredSoundManager(const char *apkPath, unsigned int sampleRate, unsigned int bufferSize);
+    SuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize = 0);
 	~SuperpoweredSoundManager();
     
-    void loadSound(int rawResourceId, int fileOffset, int fileLength);
+    void loadSound(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
     
     void playSound(int rawResourceId, float volume, bool isLooping);
     
     void stopSound(int rawResourceId);
     
-    void loadMusic(int rawResourceId, int fileOffset, int fileLength);
+    void loadMusic(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
     
     void playMusic(int rawResourceId, float volume, bool isLooping);
     
@@ -76,31 +74,28 @@ public:
     
     void pauseMusic();
     
-    bool processMusic(short int *output, unsigned int numberOfSamples);
+    bool processMusic(void *output, unsigned int numberOfSamples);
     
-    bool processSound1(short int *output, unsigned int numberOfSamples);
-    bool processSound2(short int *output, unsigned int numberOfSamples);
-    bool processSound3(short int *output, unsigned int numberOfSamples);
-    bool processSound4(short int *output, unsigned int numberOfSamples);
-    bool processSound5(short int *output, unsigned int numberOfSamples);
-    bool processSound6(short int *output, unsigned int numberOfSamples);
-    bool processSound7(short int *output, unsigned int numberOfSamples);
-    bool processSound8(short int *output, unsigned int numberOfSamples);
-    bool processSound9(short int *output, unsigned int numberOfSamples);
-    bool processSound10(short int *output, unsigned int numberOfSamples);
-    bool processSound11(short int *output, unsigned int numberOfSamples);
+    bool processSound1(void *output, unsigned int numberOfSamples);
+    bool processSound2(void *output, unsigned int numberOfSamples);
+    bool processSound3(void *output, unsigned int numberOfSamples);
+    bool processSound4(void *output, unsigned int numberOfSamples);
+    bool processSound5(void *output, unsigned int numberOfSamples);
+    bool processSound6(void *output, unsigned int numberOfSamples);
+    bool processSound7(void *output, unsigned int numberOfSamples);
+    bool processSound8(void *output, unsigned int numberOfSamples);
+    bool processSound9(void *output, unsigned int numberOfSamples);
+    bool processSound10(void *output, unsigned int numberOfSamples);
+    bool processSound11(void *output, unsigned int numberOfSamples);
     
-    bool processSound(short int *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer);
+    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer);
 
 private:
     SuperpoweredSound* m_music;
     std::vector<SuperpoweredSoundCollection*> m_sounds;
-    std::vector<SuperpoweredAndroidAudioIO*> m_audioSystems;
     std::vector<float*> m_stereoBuffers;
     SuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS - 1];
-    const char *m_apkPath;
     int m_iSampleRate;
-    int m_iBufferSize;
     int m_iSoundIndex;
 };
 
