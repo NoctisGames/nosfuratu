@@ -7,7 +7,6 @@
 //
 
 #include "Background.h"
-#include "Assets.h"
 
 Background::Background(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type) : PhysicalEntity(x, y, width, height), m_fTextureRegionX(0), m_iXScrollSpeed(xScrollSpeed), m_type(type)
 {
@@ -19,11 +18,6 @@ Background::Background(float x, float y, float width, float height, int xScrollS
     }
     
     m_fXOffset = i * PIXEL_WIDTH_FOR_BACKGROUND;
-    
-    if (Assets::getInstance()->isUsingCompressedTextureSet())
-    {
-        m_iXScrollSpeed /= 2;
-    }
 }
 
 void Background::update(Vector2D& cameraPosition, float deltaTime)
