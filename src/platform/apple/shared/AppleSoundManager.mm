@@ -174,11 +174,6 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound9 clientdata:_superpoweredSoundManager]];
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound10 clientdata:_superpoweredSoundManager]];
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound11 clientdata:_superpoweredSoundManager]];
-        
-        for (SuperpoweredIOSAudioIO *audioSystem in _audioSystems)
-        {
-            [audioSystem start];
-        }
 #elif defined NG_MAC
         [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
         
@@ -207,12 +202,12 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
         [[_audioSystems objectAtIndex:9] setProcessingCallback_C:audioProcessingSound9 clientdata:_superpoweredSoundManager];
         [[_audioSystems objectAtIndex:10] setProcessingCallback_C:audioProcessingSound10 clientdata:_superpoweredSoundManager];
         [[_audioSystems objectAtIndex:11] setProcessingCallback_C:audioProcessingSound11 clientdata:_superpoweredSoundManager];
-        
-        for (SuperpoweredOSXAudioIO *audioSystem in _audioSystems)
-        {
-            [audioSystem start];
-        }
 #endif
+        
+        for (NSObject *audioSystem in _audioSystems)
+        {
+            [audioSystem performSelector:@selector(start) withObject:nil];
+        }
         
         _soundIndexCounter = 0;
     }
