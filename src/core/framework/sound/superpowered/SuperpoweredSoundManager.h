@@ -93,8 +93,6 @@ public:
     bool processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
-    
-    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
 
 private:
     SuperpoweredSound* m_music;
@@ -103,6 +101,8 @@ private:
     SuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS - 1];
     int m_iSampleRate;
     int m_iSoundIndex;
+    
+    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
 };
 
 #endif /* defined(__nosfuratu__SuperpoweredSound__) */
