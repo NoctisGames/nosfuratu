@@ -259,6 +259,9 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\..\..\..\..\assets\textures\level_editor\level_editor.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -334,9 +337,6 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\title_screen.png">
