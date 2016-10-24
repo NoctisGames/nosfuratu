@@ -262,6 +262,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
 
 #ifdef NG_IOS
 - (void)interruptionStarted {}
+- (void)interruptionEnded {}
 - (void)recordPermissionRefused {}
 - (void)mapChannels:(multiOutputChannelMap *)outputMap inputMap:(multiInputChannelMap *)inputMap externalAudioDeviceName:(NSString *)externalAudioDeviceName outputsAndInputs:(NSString *)outputsAndInputs {}
 #endif
