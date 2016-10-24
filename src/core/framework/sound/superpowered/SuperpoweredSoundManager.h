@@ -80,21 +80,21 @@ public:
     
     void pauseMusic();
     
-    bool processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
+    bool processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     
-    bool processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound4(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound5(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound6(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound7(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
-    bool processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate);
+    bool processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound4(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound5(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound6(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound7(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
+    bool processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     
-    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate);
+    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
 
 private:
     SuperpoweredSound* m_music;
