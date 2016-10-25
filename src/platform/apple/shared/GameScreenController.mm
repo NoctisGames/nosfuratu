@@ -138,59 +138,62 @@
 
 - (void)handleMusic
 {
-    short rawMusicId = _gameScreen->getCurrentMusicId();
-    short musicId = rawMusicId;
-    if (musicId >= 1000)
+    short rawMusicId;
+    while ((rawMusicId = _gameScreen->getCurrentMusicId()) > 0)
     {
-        musicId /= 1000;
-        rawMusicId -= musicId * 1000;
-    }
-    
-    switch (musicId)
-    {
-        case MUSIC_STOP:
-            [self pauseMusic];
-            break;
-        case MUSIC_RESUME:
-            [self resumeMusic];
-            break;
-        case MUSIC_PLAY:
-            [self playMusic:NO];
-            break;
-        case MUSIC_PLAY_LOOP:
-            [self playMusic:YES];
-            break;
-        case MUSIC_SET_VOLUME:
+        short musicId = rawMusicId;
+        if (musicId >= 1000)
         {
-            float volume = rawMusicId / 100.0f / 2.0f; // On iOS, volume starts off at 0.5
-            if (volume < 0)
-            {
-                volume = 0;
-            }
-            
-            [self setMusicVolume:volume];
+            musicId /= 1000;
+            rawMusicId -= musicId * 1000;
         }
-            break;
-        case MUSIC_LOAD_OPENING_CUTSCENE:
-            [self loadMusic:@"opening_cutscene_bgm"];
-            break;
-        case MUSIC_LOAD_TITLE_LOOP:
-            [self loadMusic:@"title_bgm"];
-            break;
-        case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-            [self loadMusic:@"level_select_bgm"];
-            break;
-        case MUSIC_LOAD_WORLD_1_LOOP:
-            [self loadMusic:@"world_1_bgm"];
-            break;
-        case MUSIC_LOAD_MID_BOSS_LOOP:
-            [self loadMusic:@"mid_boss_bgm"];
-            break;
-        case MUSIC_LOAD_END_BOSS_LOOP:
-            [self loadMusic:@"final_boss_bgm"];
-            break;
-        default:
-            break;
+        
+        switch (musicId)
+        {
+            case MUSIC_STOP:
+                [self pauseMusic];
+                break;
+            case MUSIC_RESUME:
+                [self resumeMusic];
+                break;
+            case MUSIC_PLAY:
+                [self playMusic:NO];
+                break;
+            case MUSIC_PLAY_LOOP:
+                [self playMusic:YES];
+                break;
+            case MUSIC_SET_VOLUME:
+            {
+                float volume = rawMusicId / 100.0f / 2.0f; // On iOS, volume starts off at 0.5
+                if (volume < 0)
+                {
+                    volume = 0;
+                }
+                
+                [self setMusicVolume:volume];
+            }
+                break;
+            case MUSIC_LOAD_OPENING_CUTSCENE:
+                [self loadMusic:@"opening_cutscene_bgm"];
+                break;
+            case MUSIC_LOAD_TITLE_LOOP:
+                [self loadMusic:@"title_bgm"];
+                break;
+            case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+                [self loadMusic:@"level_select_bgm"];
+                break;
+            case MUSIC_LOAD_WORLD_1_LOOP:
+                [self loadMusic:@"world_1_bgm"];
+                break;
+            case MUSIC_LOAD_MID_BOSS_LOOP:
+                [self loadMusic:@"mid_boss_bgm"];
+                break;
+            case MUSIC_LOAD_END_BOSS_LOOP:
+                [self loadMusic:@"final_boss_bgm"];
+                break;
+            default:
+                break;
+        }
     }
 }
 

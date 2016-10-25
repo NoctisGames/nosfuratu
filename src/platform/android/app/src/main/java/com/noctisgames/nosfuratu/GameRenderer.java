@@ -259,59 +259,62 @@ public final class GameRenderer implements Renderer
 
     private void handleMusic()
     {
-        short rawMusicId = Game.get_current_music_id();
-        short musicId = rawMusicId;
-        if (musicId >= 1000)
+        short rawMusicId;
+        while ((rawMusicId = Game.get_current_music_id()) > 0)
         {
-            musicId /= 1000;
-            rawMusicId -= musicId * 1000;
-        }
-
-        switch (musicId)
-        {
-            case MUSIC_STOP:
-                _soundManager.pauseMusic();
-                break;
-            case MUSIC_RESUME:
-                _soundManager.resumeMusic();
-                break;
-            case MUSIC_PLAY:
-                _soundManager.playMusic(0.5f, false);
-                break;
-            case MUSIC_PLAY_LOOP:
-                _soundManager.playMusic(0.5f, true);
-                break;
-            case MUSIC_SET_VOLUME:
+            short musicId = rawMusicId;
+            if (musicId >= 1000)
             {
-                float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
-
-                _soundManager.setMusicVolume(volume);
+                musicId /= 1000;
+                rawMusicId -= musicId * 1000;
             }
-            break;
-            case MUSIC_LOAD_TITLE_LOOP:
-                _soundManager.loadMusic(_activity, R.raw.title_bgm);
+
+            switch (musicId)
+            {
+                case MUSIC_STOP:
+                    _soundManager.pauseMusic();
+                    break;
+                case MUSIC_RESUME:
+                    _soundManager.resumeMusic();
+                    break;
+                case MUSIC_PLAY:
+                    _soundManager.playMusic(0.5f, false);
+                    break;
+                case MUSIC_PLAY_LOOP:
+                    _soundManager.playMusic(0.5f, true);
+                    break;
+                case MUSIC_SET_VOLUME:
+                {
+                    float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
+                    if (volume < 0)
+                    {
+                        volume = 0;
+                    }
+
+                    _soundManager.setMusicVolume(volume);
+                }
                 break;
-            case MUSIC_LOAD_OPENING_CUTSCENE:
-                _soundManager.loadMusic(_activity, R.raw.opening_cutscene_bgm);
-                break;
-            case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-                _soundManager.loadMusic(_activity, R.raw.level_select_bgm);
-                break;
-            case MUSIC_LOAD_WORLD_1_LOOP:
-                _soundManager.loadMusic(_activity, R.raw.world_1_bgm);
-                break;
-            case MUSIC_LOAD_MID_BOSS_LOOP:
-                _soundManager.loadMusic(_activity, R.raw.mid_boss_bgm);
-                break;
-            case MUSIC_LOAD_END_BOSS_LOOP:
-                _soundManager.loadMusic(_activity, R.raw.final_boss_bgm);
-                break;
-            default:
-                break;
+                case MUSIC_LOAD_TITLE_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.title_bgm);
+                    break;
+                case MUSIC_LOAD_OPENING_CUTSCENE:
+                    _soundManager.loadMusic(_activity, R.raw.opening_cutscene_bgm);
+                    break;
+                case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.level_select_bgm);
+                    break;
+                case MUSIC_LOAD_WORLD_1_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.world_1_bgm);
+                    break;
+                case MUSIC_LOAD_MID_BOSS_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.mid_boss_bgm);
+                    break;
+                case MUSIC_LOAD_END_BOSS_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.final_boss_bgm);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
