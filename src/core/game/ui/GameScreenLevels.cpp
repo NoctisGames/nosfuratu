@@ -124,11 +124,12 @@ void Level::exit(GameScreen* gs)
     
     if (m_playLevelSelectMusicOnExit)
     {
-        Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
     }
 	else if (m_stopMusicOnExit)
 	{
-		Assets::getInstance()->setMusicId(MUSIC_STOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
 	}
     
     m_fStateTime = 0;
@@ -201,7 +202,8 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 		updateCamera(gs, 0, false, true);
 
-		Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 
 		return;
 	}
@@ -218,6 +220,7 @@ void Level::beginOpeningSequence(GameScreen* gs)
 	if (Assets::getInstance()->isMusicEnabled())
 	{
 		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
 	}
 }
 
@@ -238,7 +241,7 @@ void Level::handleOpeningSequence(GameScreen* gs)
 	{
 		countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
 
-		Assets::getInstance()->setMusicId(MUSIC_PLAY_WORLD_1_LOOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 	}
 
 	if (result == 2)
@@ -488,7 +491,7 @@ void Level::update(GameScreen* gs)
                 && m_game->getLevel() != 21)
             {
                 short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
-                Assets::getInstance()->setMusicId(musicId);
+                Assets::getInstance()->addMusicIdToPlayQueue(musicId);
             }
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())

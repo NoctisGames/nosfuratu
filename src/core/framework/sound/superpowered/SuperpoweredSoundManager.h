@@ -72,7 +72,7 @@ public:
     
     void loadMusic(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
     
-    void playMusic(int rawResourceId, float volume, bool isLooping);
+    void playMusic(float volume, bool isLooping);
     
     void setMusicVolume(float volume);
     

@@ -232,12 +232,16 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
     _superpoweredSoundManager->stopSound(rawResourceId);
 }
 
-- (void)loadAndPlayMusic:(NSString *)path volume:(float)volume isLooping:(bool)isLooping
+- (void)loadMusic:(NSString *)path
 {
     const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"mp3"] fileSystemRepresentation];
     
     _superpoweredSoundManager->loadMusic(1337, bundlePath);
-    _superpoweredSoundManager->playMusic(1337, volume, isLooping);
+}
+
+- (void)playMusic:(float)volume isLooping:(bool)isLooping
+{
+    _superpoweredSoundManager->playMusic(volume, isLooping);
 }
 
 - (void)setMusicVolume:(float)volume

@@ -23,7 +23,7 @@ public final class SoundManager
 
     public static native void load_music(int rawResourceId, String apk_path, int fileOffset, int fileLength);
 
-    public static native void play_music(int rawResourceId, float volume, boolean isLooping);
+    public static native void play_music(float volume, boolean isLooping);
 
     public static native void set_music_volume(float volume);
 
@@ -64,11 +64,15 @@ public final class SoundManager
         SoundManager.init_sound_manager(sampleRate, bufferSize);
     }
 
-    public void loadAndPlayMusic(Activity activity, int rawResourceId, float volume, boolean isLooping)
+    public void loadMusic(Activity activity, int rawResourceId)
     {
         Sound sound = load(activity, rawResourceId);
         SoundManager.load_music(sound._rawResourceId, _packageResourcePath, sound._fileOffset, sound._fileLength);
-        SoundManager.play_music(sound._rawResourceId, volume, isLooping);
+    }
+
+    public void playMusic(float volume, boolean isLooping)
+    {
+        SoundManager.play_music(volume, isLooping);
     }
 
     public void loadSound(Activity activity, int rawResourceId, int numCopies)

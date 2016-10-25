@@ -1929,7 +1929,12 @@ void Assets::eraseFirstSoundId()
     }
 }
 
-void Assets::setMusicId(short musicId)
+short Assets::getFirstMusicId()
+{
+    return m_sMusicIds.size() > 0 ? m_sMusicIds.front() : 0;
+}
+
+void Assets::addMusicIdToPlayQueue(short musicId)
 {
     if (!m_isMusicEnabled
         && musicId > MUSIC_STOP)
@@ -1937,10 +1942,16 @@ void Assets::setMusicId(short musicId)
         return;
     }
     
-    m_sMusicId = musicId;
+    m_sMusicIds.push_back(musicId);
 }
 
-
+void Assets::eraseFirstMusicId()
+{
+    if (m_sMusicIds.size() > 0)
+    {
+        m_sMusicIds.erase(m_sMusicIds.begin());
+    }
+}
 
 Animation Assets::createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames)
 {
@@ -2003,7 +2014,7 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 	tr.init(x, regionWidth, textureWidth);
 }
 
-Assets::Assets() : m_sMusicId(0), m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
+Assets::Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
 {
     // Hide Constructor for Singleton
 }

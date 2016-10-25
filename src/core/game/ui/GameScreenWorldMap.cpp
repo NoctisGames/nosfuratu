@@ -290,7 +290,7 @@ void WorldMap::setFade(float fade)
     float musicVolume = alpha / 2;
     
     short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
-    Assets::getInstance()->setMusicId(musicId);
+    Assets::getInstance()->addMusicIdToPlayQueue(musicId);
 }
 
 void WorldMap::loadUserSaveData(const char* json)

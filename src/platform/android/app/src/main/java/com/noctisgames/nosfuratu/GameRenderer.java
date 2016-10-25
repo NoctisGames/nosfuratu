@@ -58,13 +58,15 @@ public final class GameRenderer implements Renderer
 
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_RESUME = 2;
-    private static final short MUSIC_SET_VOLUME = 3; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
-    private static final short MUSIC_PLAY_TITLE_LOOP = 4;
-    private static final short MUSIC_PLAY_LEVEL_SELECT_LOOP = 5;
-    private static final short MUSIC_PLAY_WORLD_1_LOOP = 6;
-    private static final short MUSIC_PLAY_MID_BOSS_LOOP = 7;
-    private static final short MUSIC_PLAY_END_BOSS_LOOP = 8;
-    private static final short MUSIC_PLAY_OPENING_CUTSCENE = 9;
+    private static final short MUSIC_PLAY = 3; // Assuming music is loaded
+    private static final short MUSIC_PLAY_LOOP = 4; // Assuming music is loaded
+    private static final short MUSIC_SET_VOLUME = 5; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
+    private static final short MUSIC_LOAD_TITLE_LOOP = 6;
+    private static final short MUSIC_LOAD_OPENING_CUTSCENE = 7;
+    private static final short MUSIC_LOAD_LEVEL_SELECT_LOOP = 8;
+    private static final short MUSIC_LOAD_WORLD_1_LOOP = 9;
+    private static final short MUSIC_LOAD_MID_BOSS_LOOP = 10;
+    private static final short MUSIC_LOAD_END_BOSS_LOOP = 11;
 
     //// Sound Definitions ////
 
@@ -273,6 +275,12 @@ public final class GameRenderer implements Renderer
             case MUSIC_RESUME:
                 _soundManager.resumeMusic();
                 break;
+            case MUSIC_PLAY:
+                _soundManager.playMusic(0.5f, false);
+                break;
+            case MUSIC_PLAY_LOOP:
+                _soundManager.playMusic(0.5f, true);
+                break;
             case MUSIC_SET_VOLUME:
             {
                 float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
@@ -284,23 +292,23 @@ public final class GameRenderer implements Renderer
                 _soundManager.setMusicVolume(volume);
             }
             break;
-            case MUSIC_PLAY_TITLE_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.title_bgm, 0.5f, true);
+            case MUSIC_LOAD_TITLE_LOOP:
+                _soundManager.loadMusic(_activity, R.raw.title_bgm);
                 break;
-            case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.level_select_bgm, 0.5f, true);
+            case MUSIC_LOAD_OPENING_CUTSCENE:
+                _soundManager.loadMusic(_activity, R.raw.opening_cutscene_bgm);
                 break;
-            case MUSIC_PLAY_WORLD_1_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.world_1_bgm, 0.5f, true);
+            case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+                _soundManager.loadMusic(_activity, R.raw.level_select_bgm);
                 break;
-            case MUSIC_PLAY_MID_BOSS_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.mid_boss_bgm, 0.5f, true);
+            case MUSIC_LOAD_WORLD_1_LOOP:
+                _soundManager.loadMusic(_activity, R.raw.world_1_bgm);
                 break;
-            case MUSIC_PLAY_END_BOSS_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.final_boss_bgm, 0.5f, true);
+            case MUSIC_LOAD_MID_BOSS_LOOP:
+                _soundManager.loadMusic(_activity, R.raw.mid_boss_bgm);
                 break;
-            case MUSIC_PLAY_OPENING_CUTSCENE:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.opening_cutscene_bgm, 0.5f, false);
+            case MUSIC_LOAD_END_BOSS_LOOP:
+                _soundManager.loadMusic(_activity, R.raw.final_boss_bgm);
                 break;
             default:
                 break;
@@ -576,7 +584,7 @@ public final class GameRenderer implements Renderer
     private void initSoundEngine(Activity activity)
     {
         _soundManager = new SoundManager(activity);
-        
+
         _soundManager.loadSound(activity, R.raw.collect_carrot, 6);
         _soundManager.loadSound(activity, R.raw.collect_golden_carrot, 1);
         _soundManager.loadSound(activity, R.raw.death, 1);

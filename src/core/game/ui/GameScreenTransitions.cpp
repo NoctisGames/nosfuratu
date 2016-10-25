@@ -66,7 +66,7 @@ void TitleToWorldMap::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -76,7 +76,8 @@ void TitleToWorldMap::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }
@@ -133,7 +134,7 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -143,7 +144,8 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_OPENING_CUTSCENE);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY);
         }
     }
 }
@@ -212,7 +214,8 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }
@@ -269,7 +272,7 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -355,7 +358,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         if (!m_hasPlayedTransitionSound)
         {
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
             
             m_hasPlayedTransitionSound = true;
         }
@@ -365,7 +368,8 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_OPENING_CUTSCENE);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY);
         }
     }
 }
@@ -456,7 +460,7 @@ void WorldMapToLevel::execute(GameScreen* gs)
         if (!m_hasPlayedTransitionSound)
         {
             Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
             
             m_hasPlayedTransitionSound = true;
         }
@@ -572,7 +576,7 @@ void LevelToComingSoon::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             
-            Assets::getInstance()->setMusicId(MUSIC_STOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -581,7 +585,8 @@ void LevelToComingSoon::execute(GameScreen* gs)
         {
             gs->m_stateMachine->setCurrentState(ComingSoon::getInstance());
             
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_TITLE_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }

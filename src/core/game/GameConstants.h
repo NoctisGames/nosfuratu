@@ -53,13 +53,15 @@
 
 #define MUSIC_STOP 1
 #define MUSIC_RESUME 2
-#define MUSIC_SET_VOLUME 3 // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
-#define MUSIC_PLAY_TITLE_LOOP 4
-#define MUSIC_PLAY_LEVEL_SELECT_LOOP 5
-#define MUSIC_PLAY_WORLD_1_LOOP 6
-#define MUSIC_PLAY_MID_BOSS_LOOP 7
-#define MUSIC_PLAY_END_BOSS_LOOP 8
-#define MUSIC_PLAY_OPENING_CUTSCENE 9
+#define MUSIC_PLAY 3 // Assuming music is loaded
+#define MUSIC_PLAY_LOOP 4 // Assuming music is loaded
+#define MUSIC_SET_VOLUME 5 // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
+#define MUSIC_LOAD_TITLE_LOOP 6
+#define MUSIC_LOAD_OPENING_CUTSCENE 7
+#define MUSIC_LOAD_LEVEL_SELECT_LOOP 8
+#define MUSIC_LOAD_WORLD_1_LOOP 9
+#define MUSIC_LOAD_MID_BOSS_LOOP 10
+#define MUSIC_LOAD_END_BOSS_LOOP 11
 
 //// Sound Definitions ////
 

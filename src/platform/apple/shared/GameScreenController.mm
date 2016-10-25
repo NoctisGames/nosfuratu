@@ -121,7 +121,7 @@
             case SOUND_SPARROW_FLY:
             case SOUND_SAW_GRIND:
             case SOUND_SPIKED_BALL_ROLLING:
-                [self playSound:soundId isLooping:true];
+                [self playSound:soundId isLooping:YES];
                 break;
             case STOP_SOUND_JON_VAMPIRE_GLIDE:
             case STOP_SOUND_SPARROW_FLY:
@@ -154,6 +154,12 @@
         case MUSIC_RESUME:
             [self resumeMusic];
             break;
+        case MUSIC_PLAY:
+            [self playMusic:NO];
+            break;
+        case MUSIC_PLAY_LOOP:
+            [self playMusic:YES];
+            break;
         case MUSIC_SET_VOLUME:
         {
             float volume = rawMusicId / 100.0f / 2.0f; // On iOS, volume starts off at 0.5
@@ -165,35 +171,40 @@
             [self setMusicVolume:volume];
         }
             break;
-        case MUSIC_PLAY_TITLE_LOOP:
-            [self playMusic:@"title_bgm" isLooping:YES];
+        case MUSIC_LOAD_OPENING_CUTSCENE:
+            [self loadMusic:@"opening_cutscene_bgm"];
             break;
-        case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-            [self playMusic:@"level_select_bgm" isLooping:YES];
+        case MUSIC_LOAD_TITLE_LOOP:
+            [self loadMusic:@"title_bgm"];
             break;
-        case MUSIC_PLAY_WORLD_1_LOOP:
-            [self playMusic:@"world_1_bgm" isLooping:YES];
+        case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+            [self loadMusic:@"level_select_bgm"];
             break;
-        case MUSIC_PLAY_MID_BOSS_LOOP:
-            [self playMusic:@"mid_boss_bgm" isLooping:YES];
+        case MUSIC_LOAD_WORLD_1_LOOP:
+            [self loadMusic:@"world_1_bgm"];
             break;
-        case MUSIC_PLAY_END_BOSS_LOOP:
-            [self playMusic:@"final_boss_bgm" isLooping:YES];
+        case MUSIC_LOAD_MID_BOSS_LOOP:
+            [self loadMusic:@"mid_boss_bgm"];
             break;
-        case MUSIC_PLAY_OPENING_CUTSCENE:
-            [self playMusic:@"opening_cutscene_bgm" isLooping:NO];
+        case MUSIC_LOAD_END_BOSS_LOOP:
+            [self loadMusic:@"final_boss_bgm"];
             break;
         default:
             break;
     }
 }
 
-- (void)playMusic:(NSString *)fileName isLooping:(BOOL)isLooping
+- (void)loadMusic:(NSString *)fileName
 {
-    [_appleSoundManager loadAndPlayMusic:fileName volume:0.5f isLooping:isLooping];
+    [_appleSoundManager loadMusic:fileName];
 }
 
-- (void)playSound:(int)soundId isLooping:(bool)isLooping
+- (void)playMusic:(BOOL)isLooping
+{
+    [_appleSoundManager playMusic:0.5f isLooping:isLooping];
+}
+
+- (void)playSound:(int)soundId isLooping:(BOOL)isLooping
 {
     int soundIndex = soundId - 1;
     [_appleSoundManager playSound:soundIndex volume:1.0f isLooping:isLooping];
