@@ -15,10 +15,10 @@ android {
     buildToolsVersion "23.0.0"
     defaultConfig {
         applicationId "com.noctisgames.nosfuratu"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.0.3"
         signingConfig signingConfigs.noctisgames
     }
     buildTypes {

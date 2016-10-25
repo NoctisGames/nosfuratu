@@ -294,6 +294,7 @@ void Chapter1Level21::update(GameScreen* gs)
             if (Assets::getInstance()->isMusicEnabled())
             {
                 Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
+                Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_END_BOSS_LOOP);
             }
             
             m_hasTriggeredMusicLoopIntro = true;
@@ -330,7 +331,7 @@ void Chapter1Level21::update(GameScreen* gs)
 
 			if (m_fGameStateTime > 7.15f)
 			{
-				Assets::getInstance()->setMusicId(MUSIC_PLAY_END_BOSS_LOOP);
+                Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 
 				m_fMusicVolume = 0.5f;
 
@@ -439,7 +440,7 @@ void Chapter1Level21::update(GameScreen* gs)
 			}
 
 			short musicId = MUSIC_SET_VOLUME * 1000 + (short)(m_fMusicVolume * 100);
-			Assets::getInstance()->setMusicId(musicId);
+			Assets::getInstance()->addMusicIdToPlayQueue(musicId);
 		}
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)

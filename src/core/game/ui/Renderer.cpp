@@ -369,10 +369,10 @@ void Renderer::beginOpeningPanningSequence(Game& game)
 
 int Renderer::updateCameraToFollowPathToJon(Game& game)
 {
-    if (m_fStateTime >= 1.75f)
+    if (m_fStateTime >= 1.93f)
     {
         bool isComplete = false;
-        float progress = (m_fStateTime - 1.75f) / 0.2f;
+        float progress = (m_fStateTime - 1.93f) / 0.2f;
         if (progress > 1)
         {
             progress = 1;
@@ -415,7 +415,7 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
             return 1;
         }
         
-        return m_fStateTime >= 4.0f ? 3 : 0;
+        return m_fStateTime >= 4.18f ? 3 : 0;
     }
     
     return 0;
@@ -1468,7 +1468,7 @@ void Renderer::renderComingSoonScreenBackground()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion tr = Assets::getInstance()->createTextureRegion(0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion(0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
@@ -2300,7 +2300,7 @@ void Renderer::loadWorld1BackgroundLower()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_lower.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_background_lower" : "world_1_background_lower");
+            r->m_world_1_background_lower.gpuTextureDataWrapper = r->loadTextureData("world_1_background_lower");
         }, this));
     }
 }
@@ -2313,7 +2313,7 @@ void Renderer::loadWorld1BackgroundMid()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_mid.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_background_mid" : "world_1_background_mid");
+            r->m_world_1_background_mid.gpuTextureDataWrapper = r->loadTextureData("world_1_background_mid");
         }, this));
     }
 }
@@ -2326,7 +2326,7 @@ void Renderer::loadWorld1BackgroundUpper()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_upper.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_background_upper" : "world_1_background_upper");
+            r->m_world_1_background_upper.gpuTextureDataWrapper = r->loadTextureData("world_1_background_upper");
         }, this));
     }
 }

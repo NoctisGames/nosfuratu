@@ -22,7 +22,7 @@ public:
 
 	virtual void placeOn(float itemTopY);
 		
-	void snapToGrid(int gridCellSizeScalar = 1);
+	virtual void snapToGrid(int gridCellSizeScalar = 1);
 
 	int getGridX();
     

@@ -58,13 +58,15 @@ public final class GameRenderer implements Renderer
 
     private static final short MUSIC_STOP = 1;
     private static final short MUSIC_RESUME = 2;
-    private static final short MUSIC_SET_VOLUME = 3; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
-    private static final short MUSIC_PLAY_TITLE_LOOP = 4;
-    private static final short MUSIC_PLAY_LEVEL_SELECT_LOOP = 5;
-    private static final short MUSIC_PLAY_WORLD_1_LOOP = 6;
-    private static final short MUSIC_PLAY_MID_BOSS_LOOP = 7;
-    private static final short MUSIC_PLAY_END_BOSS_LOOP = 8;
-    private static final short MUSIC_PLAY_OPENING_CUTSCENE = 9;
+    private static final short MUSIC_PLAY = 3; // Assuming music is loaded
+    private static final short MUSIC_PLAY_LOOP = 4; // Assuming music is loaded
+    private static final short MUSIC_SET_VOLUME = 5; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
+    private static final short MUSIC_LOAD_TITLE_LOOP = 6;
+    private static final short MUSIC_LOAD_OPENING_CUTSCENE = 7;
+    private static final short MUSIC_LOAD_LEVEL_SELECT_LOOP = 8;
+    private static final short MUSIC_LOAD_WORLD_1_LOOP = 9;
+    private static final short MUSIC_LOAD_MID_BOSS_LOOP = 10;
+    private static final short MUSIC_LOAD_END_BOSS_LOOP = 11;
 
     //// Sound Definitions ////
 
@@ -257,53 +259,62 @@ public final class GameRenderer implements Renderer
 
     private void handleMusic()
     {
-        short rawMusicId = Game.get_current_music_id();
-        short musicId = rawMusicId;
-        if (musicId >= 1000)
+        short rawMusicId;
+        while ((rawMusicId = Game.get_current_music_id()) > 0)
         {
-            musicId /= 1000;
-            rawMusicId -= musicId * 1000;
-        }
-
-        switch (musicId)
-        {
-            case MUSIC_STOP:
-                _soundManager.pauseMusic();
-                break;
-            case MUSIC_RESUME:
-                _soundManager.resumeMusic();
-                break;
-            case MUSIC_SET_VOLUME:
+            short musicId = rawMusicId;
+            if (musicId >= 1000)
             {
-                float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
-
-                _soundManager.setMusicVolume(volume);
+                musicId /= 1000;
+                rawMusicId -= musicId * 1000;
             }
-            break;
-            case MUSIC_PLAY_TITLE_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.title_bgm, 0.5f, true);
+
+            switch (musicId)
+            {
+                case MUSIC_STOP:
+                    _soundManager.pauseMusic();
+                    break;
+                case MUSIC_RESUME:
+                    _soundManager.resumeMusic();
+                    break;
+                case MUSIC_PLAY:
+                    _soundManager.playMusic(0.5f, false);
+                    break;
+                case MUSIC_PLAY_LOOP:
+                    _soundManager.playMusic(0.5f, true);
+                    break;
+                case MUSIC_SET_VOLUME:
+                {
+                    float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
+                    if (volume < 0)
+                    {
+                        volume = 0;
+                    }
+
+                    _soundManager.setMusicVolume(volume);
+                }
                 break;
-            case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.level_select_bgm, 0.5f, true);
-                break;
-            case MUSIC_PLAY_WORLD_1_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.world_1_bgm, 0.5f, true);
-                break;
-            case MUSIC_PLAY_MID_BOSS_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.mid_boss_bgm, 0.5f, true);
-                break;
-            case MUSIC_PLAY_END_BOSS_LOOP:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.final_boss_bgm, 0.5f, true);
-                break;
-            case MUSIC_PLAY_OPENING_CUTSCENE:
-                _soundManager.loadAndPlayMusic(_activity, R.raw.opening_cutscene_bgm, 0.5f, false);
-                break;
-            default:
-                break;
+                case MUSIC_LOAD_TITLE_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.title_bgm);
+                    break;
+                case MUSIC_LOAD_OPENING_CUTSCENE:
+                    _soundManager.loadMusic(_activity, R.raw.opening_cutscene_bgm);
+                    break;
+                case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.level_select_bgm);
+                    break;
+                case MUSIC_LOAD_WORLD_1_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.world_1_bgm);
+                    break;
+                case MUSIC_LOAD_MID_BOSS_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.mid_boss_bgm);
+                    break;
+                case MUSIC_LOAD_END_BOSS_LOOP:
+                    _soundManager.loadMusic(_activity, R.raw.final_boss_bgm);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -577,67 +588,67 @@ public final class GameRenderer implements Renderer
     {
         _soundManager = new SoundManager(activity);
 
-        _soundManager.loadSound(activity, R.raw.collect_carrot);
-        _soundManager.loadSound(activity, R.raw.collect_golden_carrot);
-        _soundManager.loadSound(activity, R.raw.death);
-        _soundManager.loadSound(activity, R.raw.footstep_left_grass);
-        _soundManager.loadSound(activity, R.raw.footstep_right_grass);
-        _soundManager.loadSound(activity, R.raw.footstep_left_cave);
-        _soundManager.loadSound(activity, R.raw.footstep_right_cave);
-        _soundManager.loadSound(activity, R.raw.jump_spring);
-        _soundManager.loadSound(activity, R.raw.landing_grass);
-        _soundManager.loadSound(activity, R.raw.landing_cave);
-        _soundManager.loadSound(activity, R.raw.snake_death);
-        _soundManager.loadSound(activity, R.raw.trigger_transform);
-        _soundManager.loadSound(activity, R.raw.cancel_transform);
-        _soundManager.loadSound(activity, R.raw.complete_transform);
-        _soundManager.loadSound(activity, R.raw.jump_spring_heavy);
-        _soundManager.loadSound(activity, R.raw.jon_rabbit_jump);
-        _soundManager.loadSound(activity, R.raw.jon_vampire_jump);
-        _soundManager.loadSound(activity, R.raw.jon_rabbit_double_jump);
-        _soundManager.loadSound(activity, R.raw.jon_vampire_double_jump);
-        _soundManager.loadSound(activity, R.raw.vampire_glide_loop);
-        _soundManager.loadSound(activity, R.raw.mushroom_bounce);
-        _soundManager.loadSound(activity, R.raw.jon_burrow_rocksfall);
-        _soundManager.loadSound(activity, R.raw.sparrow_fly_loop);
-        _soundManager.loadSound(activity, R.raw.sparrow_die);
-        _soundManager.loadSound(activity, R.raw.toad_die);
-        _soundManager.loadSound(activity, R.raw.toad_eat);
-        _soundManager.loadSound(activity, R.raw.saw_grind_loop);
-        _soundManager.loadSound(activity, R.raw.fox_bounced_on);
-        _soundManager.loadSound(activity, R.raw.fox_strike);
-        _soundManager.loadSound(activity, R.raw.fox_death);
-        _soundManager.loadSound(activity, R.raw.world_1_bgm_intro);
-        _soundManager.loadSound(activity, R.raw.mid_boss_bgm_intro);
-        _soundManager.loadSound(activity, R.raw.mid_boss_owl_swoop);
-        _soundManager.loadSound(activity, R.raw.mid_boss_owl_tree_smash);
-        _soundManager.loadSound(activity, R.raw.mid_boss_owl_death);
-        _soundManager.loadSound(activity, R.raw.screen_transition);
-        _soundManager.loadSound(activity, R.raw.screen_transition_2);
-        _soundManager.loadSound(activity, R.raw.level_complete);
-        _soundManager.loadSound(activity, R.raw.title_lightning_1);
-        _soundManager.loadSound(activity, R.raw.title_lightning_2);
-        _soundManager.loadSound(activity, R.raw.ability_unlock);
-        _soundManager.loadSound(activity, R.raw.boss_level_clear);
-        _soundManager.loadSound(activity, R.raw.level_clear);
-        _soundManager.loadSound(activity, R.raw.level_selected);
-        _soundManager.loadSound(activity, R.raw.rabbit_drill);
-        _soundManager.loadSound(activity, R.raw.snake_jump);
-        _soundManager.loadSound(activity, R.raw.vampire_dash);
-        _soundManager.loadSound(activity, R.raw.boss_level_unlock);
-        _soundManager.loadSound(activity, R.raw.rabbit_stomp);
-        _soundManager.loadSound(activity, R.raw.final_boss_bgm_intro);
-        _soundManager.loadSound(activity, R.raw.button_click);
-        _soundManager.loadSound(activity, R.raw.level_confirmed);
-        _soundManager.loadSound(activity, R.raw.bat_poof);
-        _soundManager.loadSound(activity, R.raw.chain_snap);
-        _soundManager.loadSound(activity, R.raw.end_boss_snake_mouth_open);
-        _soundManager.loadSound(activity, R.raw.end_boss_snake_charge_cue);
-        _soundManager.loadSound(activity, R.raw.end_boss_snake_charge);
-        _soundManager.loadSound(activity, R.raw.end_boss_snake_damaged);
-        _soundManager.loadSound(activity, R.raw.end_boss_snake_death);
-        _soundManager.loadSound(activity, R.raw.spiked_ball_rolling_loop);
-        _soundManager.loadSound(activity, R.raw.absorb_dash_ability);
+        _soundManager.loadSound(activity, R.raw.collect_carrot, 6);
+        _soundManager.loadSound(activity, R.raw.collect_golden_carrot, 1);
+        _soundManager.loadSound(activity, R.raw.death, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_left_grass, 2);
+        _soundManager.loadSound(activity, R.raw.footstep_right_grass, 2);
+        _soundManager.loadSound(activity, R.raw.footstep_left_cave, 2);
+        _soundManager.loadSound(activity, R.raw.footstep_right_cave, 2);
+        _soundManager.loadSound(activity, R.raw.jump_spring, 1);
+        _soundManager.loadSound(activity, R.raw.landing_grass, 1);
+        _soundManager.loadSound(activity, R.raw.landing_cave, 1);
+        _soundManager.loadSound(activity, R.raw.snake_death, 3);
+        _soundManager.loadSound(activity, R.raw.trigger_transform, 2);
+        _soundManager.loadSound(activity, R.raw.cancel_transform, 2);
+        _soundManager.loadSound(activity, R.raw.complete_transform, 1);
+        _soundManager.loadSound(activity, R.raw.jump_spring_heavy, 1);
+        _soundManager.loadSound(activity, R.raw.jon_rabbit_jump, 1);
+        _soundManager.loadSound(activity, R.raw.jon_vampire_jump, 1);
+        _soundManager.loadSound(activity, R.raw.jon_rabbit_double_jump, 2);
+        _soundManager.loadSound(activity, R.raw.jon_vampire_double_jump, 2);
+        _soundManager.loadSound(activity, R.raw.vampire_glide_loop, 1);
+        _soundManager.loadSound(activity, R.raw.mushroom_bounce, 3);
+        _soundManager.loadSound(activity, R.raw.jon_burrow_rocksfall, 1);
+        _soundManager.loadSound(activity, R.raw.sparrow_fly_loop, 3);
+        _soundManager.loadSound(activity, R.raw.sparrow_die, 3);
+        _soundManager.loadSound(activity, R.raw.toad_die, 1);
+        _soundManager.loadSound(activity, R.raw.toad_eat, 1);
+        _soundManager.loadSound(activity, R.raw.saw_grind_loop, 3);
+        _soundManager.loadSound(activity, R.raw.fox_bounced_on, 1);
+        _soundManager.loadSound(activity, R.raw.fox_strike, 3);
+        _soundManager.loadSound(activity, R.raw.fox_death, 3);
+        _soundManager.loadSound(activity, R.raw.world_1_bgm_intro, 1);
+        _soundManager.loadSound(activity, R.raw.mid_boss_bgm_intro, 1);
+        _soundManager.loadSound(activity, R.raw.mid_boss_owl_swoop, 1);
+        _soundManager.loadSound(activity, R.raw.mid_boss_owl_tree_smash, 1);
+        _soundManager.loadSound(activity, R.raw.mid_boss_owl_death, 1);
+        _soundManager.loadSound(activity, R.raw.screen_transition, 1);
+        _soundManager.loadSound(activity, R.raw.screen_transition_2, 1);
+        _soundManager.loadSound(activity, R.raw.level_complete, 1);
+        _soundManager.loadSound(activity, R.raw.title_lightning_1, 2);
+        _soundManager.loadSound(activity, R.raw.title_lightning_2, 2);
+        _soundManager.loadSound(activity, R.raw.ability_unlock, 1);
+        _soundManager.loadSound(activity, R.raw.boss_level_clear, 1);
+        _soundManager.loadSound(activity, R.raw.level_clear, 1);
+        _soundManager.loadSound(activity, R.raw.level_selected, 3);
+        _soundManager.loadSound(activity, R.raw.rabbit_drill, 2);
+        _soundManager.loadSound(activity, R.raw.snake_jump, 3);
+        _soundManager.loadSound(activity, R.raw.vampire_dash, 3);
+        _soundManager.loadSound(activity, R.raw.boss_level_unlock, 1);
+        _soundManager.loadSound(activity, R.raw.rabbit_stomp, 3);
+        _soundManager.loadSound(activity, R.raw.final_boss_bgm_intro, 1);
+        _soundManager.loadSound(activity, R.raw.button_click, 3);
+        _soundManager.loadSound(activity, R.raw.level_confirmed, 1);
+        _soundManager.loadSound(activity, R.raw.bat_poof, 1);
+        _soundManager.loadSound(activity, R.raw.chain_snap, 1);
+        _soundManager.loadSound(activity, R.raw.end_boss_snake_mouth_open, 1);
+        _soundManager.loadSound(activity, R.raw.end_boss_snake_charge_cue, 1);
+        _soundManager.loadSound(activity, R.raw.end_boss_snake_charge, 1);
+        _soundManager.loadSound(activity, R.raw.end_boss_snake_damaged, 1);
+        _soundManager.loadSound(activity, R.raw.end_boss_snake_death, 1);
+        _soundManager.loadSound(activity, R.raw.spiked_ball_rolling_loop, 2);
+        _soundManager.loadSound(activity, R.raw.absorb_dash_ability, 1);
     }
 
     private static int[] getScreenDimensions(Activity activity)

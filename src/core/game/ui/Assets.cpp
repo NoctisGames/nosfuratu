@@ -318,11 +318,11 @@ TextureRegion& Assets::get(SpendGoldenCarrotsBubble* spendGoldenCarrotsBubble)
 
 TextureRegion& Assets::get(Background* background)
 {
-	static TextureRegion upper = createTextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 2048, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-	static TextureRegion mid = createTextureRegion(0, 1024, PIXEL_WIDTH_FOR_BACKGROUND, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-	static TextureRegion lower = createTextureRegion(0, 320, PIXEL_WIDTH_FOR_BACKGROUND, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion waterBack = createTextureRegion(0, 168, PIXEL_WIDTH_FOR_BACKGROUND, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion waterFront = createTextureRegion(0, 248, PIXEL_WIDTH_FOR_BACKGROUND, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+	static TextureRegion upper = TextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 2048, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+	static TextureRegion mid = TextureRegion(0, 1024, PIXEL_WIDTH_FOR_BACKGROUND, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+	static TextureRegion lower = TextureRegion(0, 320, PIXEL_WIDTH_FOR_BACKGROUND, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion waterBack = TextureRegion(0, 168, PIXEL_WIDTH_FOR_BACKGROUND, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion waterFront = TextureRegion(0, 248, PIXEL_WIDTH_FOR_BACKGROUND, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
 
     switch (background->getType())
     {
@@ -1328,8 +1328,8 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             }
             else
             {
-                static Animation anim = createAnimation(884, 1054, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
-                return anim.getTextureRegion(collectibleItem->getStateTime());
+                static TextureRegion tr = createTextureRegion(0, 3204, 218, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
             }
         }
         case CollectibleItemType_GoldenCarrot:
@@ -1338,21 +1338,18 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             
             if (gc->isPreviouslyCollected())
             {
-                static Animation anim = createAnimation(2924, 2028, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+                static TextureRegion tr = createTextureRegion(2286, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
+            }
+            else if (collectibleItem->isCollected())
+            {
+                static Animation anim = createAnimation(0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
                 return anim.getTextureRegion(collectibleItem->getStateTime());
             }
             else
             {
-                if (collectibleItem->isCollected())
-                {
-                    static Animation anim = createAnimation(0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
-                    return anim.getTextureRegion(collectibleItem->getStateTime());
-                }
-                else
-                {
-                    static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
-                    return anim.getTextureRegion(collectibleItem->getStateTime());
-                }
+                static TextureRegion tr = createTextureRegion(2032, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
             }
         }
     }
@@ -1929,7 +1926,12 @@ void Assets::eraseFirstSoundId()
     }
 }
 
-void Assets::setMusicId(short musicId)
+short Assets::getFirstMusicId()
+{
+    return m_sMusicIds.size() > 0 ? m_sMusicIds.front() : 0;
+}
+
+void Assets::addMusicIdToPlayQueue(short musicId)
 {
     if (!m_isMusicEnabled
         && musicId > MUSIC_STOP)
@@ -1937,10 +1939,16 @@ void Assets::setMusicId(short musicId)
         return;
     }
     
-    m_sMusicId = musicId;
+    m_sMusicIds.push_back(musicId);
 }
 
-
+void Assets::eraseFirstMusicId()
+{
+    if (m_sMusicIds.size() > 0)
+    {
+        m_sMusicIds.erase(m_sMusicIds.begin());
+    }
+}
 
 Animation Assets::createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames)
 {
@@ -2003,7 +2011,7 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 	tr.init(x, regionWidth, textureWidth);
 }
 
-Assets::Assets() : m_sMusicId(0), m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
+Assets::Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
 {
     // Hide Constructor for Singleton
 }

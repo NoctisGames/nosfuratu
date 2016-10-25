@@ -117,7 +117,7 @@ void Chapter1Level10::update(GameScreen* gs)
             }
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            Assets::getInstance()->setMusicId(musicId);
+            Assets::getInstance()->addMusicIdToPlayQueue(musicId);
         }
         
         if (m_perchTree)
@@ -188,6 +188,7 @@ void Chapter1Level10::update(GameScreen* gs)
             if (Assets::getInstance()->isMusicEnabled())
             {
                 Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
+                Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_MID_BOSS_LOOP);
             }
             
             m_hasTriggeredMidBossMusicLoopIntro = true;
@@ -212,7 +213,7 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
             m_fMusicVolume = 0.5f;
             
@@ -239,7 +240,7 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            Assets::getInstance()->setMusicId(MUSIC_PLAY_MID_BOSS_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
             m_fMusicVolume = 0.5f;
             
@@ -299,7 +300,7 @@ void Chapter1Level10::update(GameScreen* gs)
             }
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            Assets::getInstance()->setMusicId(musicId);
+            Assets::getInstance()->addMusicIdToPlayQueue(musicId);
         }
         
         if (jon.getPosition().getY() < 12)

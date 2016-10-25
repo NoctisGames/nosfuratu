@@ -273,10 +273,8 @@ bool NosFURatuMain::Render()
 void NosFURatuMain::handleSound()
 {
 	short soundId;
-	while ((soundId = Assets::getInstance()->getFirstSoundId()) > 0)
+	while ((soundId = m_gameScreen->getCurrentSoundId()) > 0)
 	{
-		Assets::getInstance()->eraseFirstSoundId();
-
 		switch (soundId)
 		{
 		case SOUND_JON_VAMPIRE_GLIDE:
@@ -300,82 +298,65 @@ void NosFURatuMain::handleSound()
 
 void NosFURatuMain::handleMusic()
 {
-	short rawMusicId = Assets::getInstance()->getMusicId();
-	Assets::getInstance()->setMusicId(0);
-	short musicId = rawMusicId;
-	if (musicId >= 1000)
+	short rawMusicId;
+	while ((rawMusicId = m_gameScreen->getCurrentMusicId()) > 0)
 	{
-		musicId /= 1000;
-		rawMusicId -= musicId * 1000;
-	}
-
-	switch (musicId)
-	{
-	case MUSIC_STOP:
-		if (m_mediaPlayer)
+		short musicId = rawMusicId;
+		if (musicId >= 1000)
 		{
-			m_mediaPlayer->Pause();
+			musicId /= 1000;
+			rawMusicId -= musicId * 1000;
 		}
-		break;
-	case MUSIC_RESUME:
-		m_mediaPlayer->Play();
-		break;
-	case MUSIC_SET_VOLUME:
+
 		if (m_mediaPlayer)
 		{
-			float volume = rawMusicId / 100.0f / 2.0f; // On Win 10, volume starts off at 0.5
-			if (volume < 0)
+			switch (musicId)
 			{
-				volume = 0;
-			}
+			case MUSIC_STOP:
+				m_mediaPlayer->Pause();
+				break;
+			case MUSIC_RESUME:
+				m_mediaPlayer->Play();
+				break;
+			case MUSIC_PLAY:
+				m_mediaPlayer->Play(false);
+				break;
+			case MUSIC_PLAY_LOOP:
+				m_mediaPlayer->Play();
+				break;
+			case MUSIC_SET_VOLUME:
+			{
+				float volume = rawMusicId / 100.0f / 2.0f; // On Win 10, volume starts off at 0.5
+				if (volume < 0)
+				{
+					volume = 0;
+				}
 
-			m_mediaPlayer->SetVolume(volume);
+				m_mediaPlayer->SetVolume(volume);
+			}
+			break;
+			case MUSIC_LOAD_TITLE_LOOP:
+				m_mediaPlayer->SetSource("title_bgm.wav");
+				break;
+			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+				m_mediaPlayer->SetSource("level_select_bgm.wav");
+				break;
+			case MUSIC_LOAD_WORLD_1_LOOP:
+				m_mediaPlayer->SetSource("world_1_bgm.wav");
+				break;
+			case MUSIC_LOAD_MID_BOSS_LOOP:
+				m_mediaPlayer->SetSource("mid_boss_bgm.wav");
+				break;
+			case MUSIC_LOAD_END_BOSS_LOOP:
+				m_mediaPlayer->SetSource("final_boss_bgm.wav");
+				break;
+			case MUSIC_LOAD_OPENING_CUTSCENE:
+				m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
+				break;
+			default:
+				break;
+			}
 		}
-		break;
-	case MUSIC_PLAY_TITLE_LOOP:
-		m_threads.push_back(std::thread([](NosFURatuMain* nm)
-		{
-			nm->m_mediaPlayer->SetSource("title_bgm.wav");
-			nm->m_mediaPlayer->Play();
-		}, this));
-		break;
-    case MUSIC_PLAY_LEVEL_SELECT_LOOP:
-        m_threads.push_back(std::thread([](NosFURatuMain* nm)
-        {
-            nm->m_mediaPlayer->SetSource("level_select_bgm.wav");
-            nm->m_mediaPlayer->Play();
-        }, this));
-            break;
-	case MUSIC_PLAY_WORLD_1_LOOP:
-		m_threads.push_back(std::thread([](NosFURatuMain* nm)
-		{
-			nm->m_mediaPlayer->SetSource("world_1_bgm.wav");
-			nm->m_mediaPlayer->Play();
-		}, this));
-		break; 
-	case MUSIC_PLAY_MID_BOSS_LOOP:
-		m_threads.push_back(std::thread([](NosFURatuMain* nm)
-		{
-			nm->m_mediaPlayer->SetSource("mid_boss_bgm.wav");
-			nm->m_mediaPlayer->Play();
-		}, this));
-		break;
-    case MUSIC_PLAY_END_BOSS_LOOP:
-        m_threads.push_back(std::thread([](NosFURatuMain* nm)
-        {
-            nm->m_mediaPlayer->SetSource("final_boss_bgm.wav");
-            nm->m_mediaPlayer->Play();
-        }, this));
-        break;
-    case MUSIC_PLAY_OPENING_CUTSCENE:
-        m_threads.push_back(std::thread([](NosFURatuMain* nm)
-        {
-            nm->m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
-            nm->m_mediaPlayer->Play(false);
-        }, this));
-        break;
-	default:
-		break;
 	}
 }
 

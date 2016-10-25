@@ -82,7 +82,8 @@ void ComingSoon::exit(GameScreen* gs)
 {
     m_isRequestingNextState = false;
     
-    Assets::getInstance()->setMusicId(MUSIC_PLAY_LEVEL_SELECT_LOOP);
+    Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+    Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 }
 
 ComingSoon::ComingSoon() : m_isRequestingNextState(false)

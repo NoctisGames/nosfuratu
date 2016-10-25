@@ -238,8 +238,12 @@ void MediaEnginePlayer::OnMediaEngineEvent(DWORD meEvent)
         case MF_MEDIA_ENGINE_EVENT_LOADEDMETADATA: 
             break; 
  
-        case MF_MEDIA_ENGINE_EVENT_CANPLAY:  
-            Play(m_isLooping);
+        case MF_MEDIA_ENGINE_EVENT_CANPLAY:
+			if (m_isPlaying)
+			{
+				Play(m_isLooping);
+			}
+
             break;         
  
         case MF_MEDIA_ENGINE_EVENT_PLAY:    
