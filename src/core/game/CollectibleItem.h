@@ -20,6 +20,8 @@ typedef enum
     CollectibleItemType_GoldenCarrot
 } CollectibleItemType;
 
+class Game;
+
 class CollectibleItem : public GridLockedPhysicalEntity
 {
 public:
@@ -29,7 +31,9 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual void onCollected();
+    virtual void updateBounds();
+    
+    virtual void resize();
     
     void collect();
     
@@ -39,11 +43,16 @@ public:
     
     Color& getColor() { return m_color; }
     
+    void setGame(Game* game) { m_game = game; }
+    
 protected:
+    Game* m_game;
     CollectibleItemType m_type;
     Color m_color;
+    float m_fOriginalY;
     int m_iCollectSoundId;
     bool m_isCollected;
+    bool m_isOnScreen;
 };
 
 class Carrot : public CollectibleItem
@@ -53,7 +62,9 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual void onCollected();
+    virtual void updateBounds();
+    
+    virtual void resize();
 };
 
 class GoldenCarrot : public CollectibleItem
@@ -63,7 +74,9 @@ public:
     
     virtual void update(float deltaTime);
     
-    virtual void onCollected();
+    virtual void updateBounds();
+    
+    virtual void resize();
     
     void init(int index, int bestLevelStatsFlag);
     

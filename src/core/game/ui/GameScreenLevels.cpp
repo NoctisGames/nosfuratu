@@ -467,6 +467,7 @@ void Level::update(GameScreen* gs)
                     EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEndBossForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getCollectibleItems(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEndBossSnakes(), m_game.get());

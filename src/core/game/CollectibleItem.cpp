@@ -11,6 +11,8 @@
 #include "GameConstants.h"
 #include "FlagUtil.h"
 #include "MathUtil.h"
+#include "Game.h"
+#include "OverlapTester.h"
 
 CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 {
@@ -25,23 +27,70 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false)
+CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false), m_isOnScreen(false), m_game(nullptr)
 {
     updateBounds();
+    
+    m_fOriginalY = m_position->getY();
 
 	static float stateTimeSeed = 0;
 
 	m_fStateTime = stateTimeSeed;
 
 	stateTimeSeed += 0.08f;
+    
+    resize();
 }
 
 void CollectibleItem::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
+    
+    if (m_isCollected || !m_isOnScreen)
+    {
+        return;
+    }
+    
+    float baseTime = fmodf(m_fStateTime, 0.80f);
+    if (baseTime < 0.40f)
+    {
+        m_position->setY(m_fOriginalY + (baseTime / 3));
+    }
+    else
+    {
+        baseTime -= 0.40f;
+        m_position->setY(m_fOriginalY + (0.40f / 3) - (baseTime / 3));
+    }
 }
 
-void CollectibleItem::onCollected()
+void CollectibleItem::updateBounds()
+{
+    if (m_isOnScreen || !m_game)
+    {
+        return;
+    }
+    
+    Rectangle& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+    }
+}
+
+void CollectibleItem::resize()
 {
     // Override in Subclass
 }
@@ -52,8 +101,6 @@ void CollectibleItem::collect()
     {
         m_fStateTime = 0;
         m_isCollected = true;
-        
-        onCollected();
         
         Assets::getInstance()->addSoundIdToPlayQueue(m_iCollectSoundId);
     }
@@ -82,7 +129,19 @@ void Carrot::update(float deltaTime)
     }
 }
 
-void Carrot::onCollected()
+void Carrot::updateBounds()
+{
+    CollectibleItem::updateBounds();
+    
+    m_fWidth = 6 * GRID_CELL_SIZE;
+    m_fHeight = 7 * GRID_CELL_SIZE;
+    
+    GridLockedPhysicalEntity::updateBounds();
+    
+    resize();
+}
+
+void Carrot::resize()
 {
     m_fWidth = 1.916015625f;
     m_fHeight = 1.96875f;
@@ -119,16 +178,27 @@ void GoldenCarrot::update(float deltaTime)
     }
 }
 
-void GoldenCarrot::onCollected()
+void GoldenCarrot::updateBounds()
 {
-    if (m_isPreviouslyCollected)
+    CollectibleItem::updateBounds();
+    
+    if (m_isCollected)
     {
         return;
     }
     
+    m_fWidth = 6 * GRID_CELL_SIZE;
+    m_fHeight = 8 * GRID_CELL_SIZE;
+    
+    GridLockedPhysicalEntity::updateBounds();
+    
+    resize();
+}
+
+void GoldenCarrot::resize()
+{
     m_fWidth = 2.232421875f;
     m_fHeight = 1.96875f;
-    m_position->sub(0, 0.32f);
 }
 
 void GoldenCarrot::init(int index, int bestLevelStatsFlag)

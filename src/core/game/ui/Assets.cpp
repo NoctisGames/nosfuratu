@@ -1328,8 +1328,8 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             }
             else
             {
-                static Animation anim = createAnimation(884, 1054, 96, 112, 960, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 10);
-                return anim.getTextureRegion(collectibleItem->getStateTime());
+                static TextureRegion tr = createTextureRegion(0, 3204, 218, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
             }
         }
         case CollectibleItemType_GoldenCarrot:
@@ -1338,21 +1338,18 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             
             if (gc->isPreviouslyCollected())
             {
-                static Animation anim = createAnimation(2924, 2028, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
+                static TextureRegion tr = createTextureRegion(2286, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
+            }
+            else if (collectibleItem->isCollected())
+            {
+                static Animation anim = createAnimation(0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
                 return anim.getTextureRegion(collectibleItem->getStateTime());
             }
             else
             {
-                if (collectibleItem->isCollected())
-                {
-                    static Animation anim = createAnimation(0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 11);
-                    return anim.getTextureRegion(collectibleItem->getStateTime());
-                }
-                else
-                {
-                    static Animation anim = createAnimation(1904, 1216, 96, 128, 864, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 9);
-                    return anim.getTextureRegion(collectibleItem->getStateTime());
-                }
+                static TextureRegion tr = createTextureRegion(2032, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                return tr;
             }
         }
     }
