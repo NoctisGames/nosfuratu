@@ -449,6 +449,12 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     fo->setGame(m_game.get());
                 }
+                else if (dynamic_cast<CollectibleItem *>(m_lastAddedEntity))
+                {
+                    CollectibleItem* ci = dynamic_cast<CollectibleItem *>(m_lastAddedEntity);
+                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+                    ci->setGame(m_game.get());
+                }
             }
             
             resetEntities(false);

@@ -602,6 +602,7 @@ void Game::onLoaded()
     }
     
     EntityUtils::setGameToEntities(m_jons, this);
+    EntityUtils::setGameToEntities(m_collectibleItems, this);
     EntityUtils::setGameToEntities(m_enemies, this);
     EntityUtils::setGameToEntities(m_foregroundObjects, this);
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);

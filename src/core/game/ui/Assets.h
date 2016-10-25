@@ -156,12 +156,11 @@ public:
     
     void eraseFirstSoundId();
     
-    void setMusicId(short musicId);
+    short getFirstMusicId();
     
-    short getMusicId()
-    {
-        return m_sMusicId;
-    }
+    void addMusicIdToPlayQueue(short musicId);
+    
+    void eraseFirstMusicId();
     
     bool isUsingCompressedTextureSet()
     {
@@ -189,7 +188,7 @@ public:
     {
         m_isMusicEnabled = isMusicEnabled;
         
-        setMusicId(m_isMusicEnabled ? MUSIC_RESUME : MUSIC_STOP);
+        addMusicIdToPlayQueue(m_isMusicEnabled ? MUSIC_RESUME : MUSIC_STOP);
     }
     
     bool isSoundEnabled() { return m_isSoundEnabled; }
@@ -204,7 +203,7 @@ public:
 
 private:
     std::vector<short> m_sSoundIds;
-    short m_sMusicId;
+    std::vector<short> m_sMusicIds;
     bool m_isUsingCompressedTextureSet;
     bool m_isUsingDesktopTextureSet;
     bool m_isMusicEnabled;

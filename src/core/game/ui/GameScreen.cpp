@@ -62,7 +62,7 @@ void GameScreen::onResume()
         }
         else
         {
-            Assets::getInstance()->setMusicId(MUSIC_RESUME);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
         }
     }
     
@@ -127,7 +127,7 @@ void GameScreen::update(float deltaTime)
                     m_fTimeUntilResume = 0.5f;
                     if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
                     {
-                        Assets::getInstance()->setMusicId(MUSIC_RESUME);
+                        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
                     }
                     break;
                 default:
@@ -141,7 +141,7 @@ void GameScreen::update(float deltaTime)
         {
             if (m_needsToResumeMusicAfterTexLoad)
             {
-                Assets::getInstance()->setMusicId(MUSIC_RESUME);
+                Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
                 
                 m_needsToResumeMusicAfterTexLoad = false;
             }
@@ -178,8 +178,8 @@ void GameScreen::clearRequestedAction()
 
 short GameScreen::getCurrentMusicId()
 {
-    short musicId = Assets::getInstance()->getMusicId();
-    Assets::getInstance()->setMusicId(0);
+    short musicId = Assets::getInstance()->getFirstMusicId();
+    Assets::getInstance()->eraseFirstMusicId();
     
     return musicId;
 }

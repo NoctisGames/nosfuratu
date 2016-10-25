@@ -9,7 +9,7 @@
 #include "LevelSelectorPanel.h"
 #include "OverlapTester.h"
 
-LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iWorld(1), m_iLevel(21), m_isOpen(false)
+LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iWorld(1), m_iLevel(1), m_isOpen(false)
 {
     float l = x - width / 2;
     float b = y - height / 2;

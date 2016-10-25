@@ -13,17 +13,17 @@ import java.util.List;
 
 public final class SoundManager
 {
-    public static native void init_sound_manager(String apk_path, int sample_rate, int buffer_size);
+    public static native void init_sound_manager(int sample_rate, int buffer_size);
 
-    public static native void load_sound(int rawResourceId, int fileOffset, int fileLength);
+    public static native void load_sound(int rawResourceId, String apk_path, int numCopies, int fileOffset, int fileLength);
 
     public static native void play_sound(int rawResourceId, float volume, boolean isLooping);
 
     public static native void stop_sound(int rawResourceId);
 
-    public static native void load_music(int rawResourceId, int fileOffset, int fileLength);
+    public static native void load_music(int rawResourceId, String apk_path, int fileOffset, int fileLength);
 
-    public static native void play_music(int rawResourceId, float volume, boolean isLooping);
+    public static native void play_music(float volume, boolean isLooping);
 
     public static native void set_music_volume(float volume);
 
@@ -31,6 +31,7 @@ public final class SoundManager
 
     public static native void pause_music();
 
+    private final String _packageResourcePath;
     private final List<Sound> _sounds = new ArrayList<>();
 
     public SoundManager(Activity activity)
@@ -56,24 +57,28 @@ public final class SoundManager
             bufferSizeString = "512";
         }
 
-        String packageResourcePath = activity.getPackageResourcePath();
+        _packageResourcePath = activity.getPackageResourcePath();
         int sampleRate = Integer.parseInt(sampleRateString);
         int bufferSize = Integer.parseInt(bufferSizeString);
 
-        SoundManager.init_sound_manager(packageResourcePath, sampleRate, bufferSize);
+        SoundManager.init_sound_manager(sampleRate, bufferSize);
     }
 
-    public void loadAndPlayMusic(Activity activity, int rawResourceId, float volume, boolean isLooping)
+    public void loadMusic(Activity activity, int rawResourceId)
     {
         Sound sound = load(activity, rawResourceId);
-        SoundManager.load_music(sound._rawResourceId, sound._fileOffset, sound._fileLength);
-        SoundManager.play_music(sound._rawResourceId, volume, isLooping);
+        SoundManager.load_music(sound._rawResourceId, _packageResourcePath, sound._fileOffset, sound._fileLength);
     }
 
-    public void loadSound(Activity activity, int rawResourceId)
+    public void playMusic(float volume, boolean isLooping)
+    {
+        SoundManager.play_music(volume, isLooping);
+    }
+
+    public void loadSound(Activity activity, int rawResourceId, int numCopies)
     {
         Sound sound = load(activity, rawResourceId);
-        SoundManager.load_sound(sound._rawResourceId, sound._fileOffset, sound._fileLength);
+        SoundManager.load_sound(sound._rawResourceId, _packageResourcePath, numCopies, sound._fileOffset, sound._fileLength);
 
         _sounds.add(sound);
     }
@@ -119,5 +124,19 @@ public final class SoundManager
         }
 
         return new Sound(rawResourceId, fileOffset, fileLength);
+    }
+
+    private static final class Sound
+    {
+        final int _rawResourceId;
+        final int _fileOffset;
+        final int _fileLength;
+
+        Sound(int rawResourceId, int fileOffset, int fileLength)
+        {
+            _rawResourceId = rawResourceId;
+            _fileOffset = fileOffset;
+            _fileLength = fileLength;
+        }
     }
 }
