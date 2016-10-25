@@ -141,6 +141,16 @@ void Carrot::updateBounds()
     resize();
 }
 
+void Carrot::snapToGrid(int gridCellSizeScalar)
+{
+    m_fWidth = 6 * GRID_CELL_SIZE;
+    m_fHeight = 7 * GRID_CELL_SIZE;
+    
+    GridLockedPhysicalEntity::snapToGrid(gridCellSizeScalar);
+    
+    resize();
+}
+
 void Carrot::resize()
 {
     m_fWidth = 1.916015625f;
@@ -191,6 +201,16 @@ void GoldenCarrot::updateBounds()
     m_fHeight = 8 * GRID_CELL_SIZE;
     
     GridLockedPhysicalEntity::updateBounds();
+    
+    resize();
+}
+
+void GoldenCarrot::snapToGrid(int gridCellSizeScalar)
+{
+    m_fWidth = 6 * GRID_CELL_SIZE;
+    m_fHeight = 8 * GRID_CELL_SIZE;
+    
+    GridLockedPhysicalEntity::snapToGrid(gridCellSizeScalar);
     
     resize();
 }

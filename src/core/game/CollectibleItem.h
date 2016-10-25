@@ -64,6 +64,8 @@ public:
     
     virtual void updateBounds();
     
+    virtual void snapToGrid(int gridCellSizeScalar = 1);
+    
     virtual void resize();
 };
 
@@ -75,6 +77,8 @@ public:
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
+    
+    virtual void snapToGrid(int gridCellSizeScalar = 1);
     
     virtual void resize();
     
