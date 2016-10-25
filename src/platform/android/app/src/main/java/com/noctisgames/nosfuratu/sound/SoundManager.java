@@ -125,4 +125,18 @@ public final class SoundManager
 
         return new Sound(rawResourceId, fileOffset, fileLength);
     }
+
+    private static final class Sound
+    {
+        final int _rawResourceId;
+        final int _fileOffset;
+        final int _fileLength;
+
+        Sound(int rawResourceId, int fileOffset, int fileLength)
+        {
+            _rawResourceId = rawResourceId;
+            _fileOffset = fileOffset;
+            _fileLength = fileLength;
+        }
+    }
 }
