@@ -349,15 +349,6 @@
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
       <Filter>Assets</Filter>
     </CustomBuild>
