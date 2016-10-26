@@ -11,6 +11,8 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "GameConstants.h"
+
 #include "Color.h"
 
 class Game;

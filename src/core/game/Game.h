@@ -19,6 +19,8 @@
 #include "CollectibleItem.h"
 #include "Jon.h"
 #include "EndBossSnake.h"
+#include "CountHissWithMina.h"
+#include "GameMarker.h"
 
 #include <memory>
 #include <vector>

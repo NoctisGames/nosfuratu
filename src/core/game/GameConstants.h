@@ -155,6 +155,8 @@
 
 //// World Definitions ////
 
+#define GRID_CELL_SIZE 0.140625f
+
 #define ZOOMED_OUT_CAM_WIDTH 63.5625f
 #define GAME_HEIGHT 36.0f
 
