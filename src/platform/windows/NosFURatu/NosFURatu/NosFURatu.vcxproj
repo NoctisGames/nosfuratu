@@ -3072,6 +3072,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\EntityManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\PhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.h" />
     <ClInclude Include="..\..\..\..\core\framework\file\windows\SoundFileReader.h" />
@@ -3120,6 +3121,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
     <ClInclude Include="..\..\..\..\core\game\Background.h" />
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
+    <ClInclude Include="..\..\..\..\core\game\CountHissWithMina.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\EndBossSnake.h" />
     <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
@@ -3131,7 +3133,7 @@
     <ClInclude Include="..\..\..\..\core\game\ForegroundObject.h" />
     <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
-    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\GameMarker.h" />
     <ClInclude Include="..\..\..\..\core\game\Ground.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
     <ClInclude Include="..\..\..\..\core\game\Hole.h" />
@@ -3197,6 +3199,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\EntityManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\SoundFileReader.cpp" />
@@ -3234,6 +3237,7 @@
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CountHissWithMina.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EndBossSnake.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
@@ -3242,7 +3246,7 @@
     <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GameMarker.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />

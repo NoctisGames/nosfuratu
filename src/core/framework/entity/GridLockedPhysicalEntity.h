@@ -12,17 +12,6 @@
 #define GRID_MANAGER (GridManager::getInstance())
 #define GM_GRID_CELL_SIZE (GRID_MANAGER->getGridCellSize())
 
-extern "C"
-{
-#include "platform_gl.h"
-#include "linmath.h"
-}
-
-#include <memory>
-#include <vector>
-
-class GpuProgramWrapper;
-
 class GridManager
 {
 public:

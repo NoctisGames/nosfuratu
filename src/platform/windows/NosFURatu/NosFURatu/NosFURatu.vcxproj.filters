@@ -96,7 +96,6 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Midground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
@@ -133,6 +132,9 @@
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ui\GameScreenComingSoon.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GameMarker.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CountHissWithMina.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
@@ -217,7 +219,6 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\Background.h" />
-    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\Midground.h" />
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
@@ -254,12 +255,12 @@
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.h" />
     <ClInclude Include="..\..\..\..\core\game\ui\GameScreenComingSoon.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\CountHissWithMina.h" />
+    <ClInclude Include="..\..\..\..\core\game\GameMarker.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="..\..\..\..\..\assets\textures\level_editor\level_editor.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
@@ -421,6 +422,9 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
+      <Filter>Assets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\..\..\assets\textures\level_editor\level_editor.png">
       <Filter>Assets</Filter>
     </CustomBuild>
   </ItemGroup>
