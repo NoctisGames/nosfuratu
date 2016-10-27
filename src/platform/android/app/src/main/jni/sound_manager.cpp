@@ -107,7 +107,10 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_init_1s
     int sampleRate = sample_rate;
     int bufferSize = buffer_size;
 	
-    superpoweredSoundManager = new SuperpoweredSoundManager(sampleRate, bufferSize);
+    if (!superpoweredSoundManager)
+    {
+        superpoweredSoundManager = new SuperpoweredSoundManager(sampleRate, bufferSize);
+    }
     
     static std::vector<SuperpoweredAndroidAudioIO*> audioSystems;
     if (audioSystems.size() == 0)
