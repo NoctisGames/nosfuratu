@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
@@ -664,10 +665,17 @@ public final class GameRenderer implements Renderer
 
     private static double getTotalRAM(Activity activity)
     {
-        ActivityManager actManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
-        ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
-        actManager.getMemoryInfo(memInfo);
+        if (Build.VERSION.SDK_INT >= 16)
+        {
+            ActivityManager actManager = (ActivityManager) activity.getSystemService(Activity.ACTIVITY_SERVICE);
+            ActivityManager.MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+            actManager.getMemoryInfo(memInfo);
 
-        return memInfo.totalMem;
+            return memInfo.totalMem;
+        }
+        else
+        {
+            return 536870912; // 512 MB, which will result in compressed textures being used
+        }
     }
 }
