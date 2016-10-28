@@ -202,6 +202,26 @@ bool SuperpoweredSoundManager::processSound7(void *output, unsigned int numberOf
     return processSound(output, numberOfSamples, m_activeSounds[6], m_stereoBuffers[7], sampleRate);
 }
 
+bool SuperpoweredSoundManager::processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+{
+    return processSound(output, numberOfSamples, m_activeSounds[7], m_stereoBuffers[8], sampleRate);
+}
+
+bool SuperpoweredSoundManager::processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+{
+    return processSound(output, numberOfSamples, m_activeSounds[8], m_stereoBuffers[9], sampleRate);
+}
+
+bool SuperpoweredSoundManager::processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+{
+    return processSound(output, numberOfSamples, m_activeSounds[9], m_stereoBuffers[10], sampleRate);
+}
+
+bool SuperpoweredSoundManager::processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+{
+    return processSound(output, numberOfSamples, m_activeSounds[10], m_stereoBuffers[11], sampleRate);
+}
+
 bool SuperpoweredSoundManager::processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate)
 {
     return sound && sound->process(stereoBuffer, output, numberOfSamples, sampleRate);

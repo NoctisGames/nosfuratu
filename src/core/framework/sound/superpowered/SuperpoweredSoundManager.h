@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#define MAX_NUM_SOUND_PLAYERS 8
+#define MAX_NUM_SOUND_PLAYERS 12
 
 class SuperpoweredSoundCollection
 {
