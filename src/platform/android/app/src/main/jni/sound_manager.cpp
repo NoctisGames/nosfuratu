@@ -17,6 +17,7 @@
 #include <SLES/OpenSLES_AndroidConfiguration.h>
 
 SuperpoweredSoundManager *superpoweredSoundManager;
+std::vector<SuperpoweredAndroidAudioIO*> m_audioSystems;
 
 static bool audioProcessingMusic(void *clientData, short int *audioIO, int numberOfSamples, int __unused samplerate)
 {
@@ -109,23 +110,19 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_init_1s
 	
     superpoweredSoundManager = new SuperpoweredSoundManager(sampleRate, bufferSize);
     
-    static std::vector<SuperpoweredAndroidAudioIO*> audioSystems;
-    if (audioSystems.size() == 0)
-    {
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingMusic, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound1, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound2, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound3, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound4, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound5, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound6, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound7, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound8, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound9, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound10, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-        audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound11, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
-    }
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingMusic, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound1, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound2, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound3, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound4, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound5, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound6, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound7, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound8, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound9, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound10, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    m_audioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound11, superpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_load_1sound(JNIEnv* env, jclass cls, jint rawResourceId, jstring apk_path, jint num_copies, jint fileOffset, jint fileLength)
