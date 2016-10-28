@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 0
-#define VERSION_BUILD 3
+#define VERSION_BUILD 4
 
 //// Requested Action Definitions ////
 
@@ -154,6 +154,8 @@
 #define SWIPE_HEIGHT CAM_HEIGHT / 18
 
 //// World Definitions ////
+
+#define GRID_CELL_SIZE 0.140625f
 
 #define ZOOMED_OUT_CAM_WIDTH 63.5625f
 #define GAME_HEIGHT 36.0f

@@ -1357,6 +1357,12 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
     assert(false);
 }
 
+TextureRegion& Assets::get(GoldenCarrotTwinkle* goldenCarrotTwinkle)
+{
+    static Animation anim = createAnimation(3004, 2004, 74, 78, 518, 78, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+    return anim.getTextureRegion(goldenCarrotTwinkle->getStateTime());
+}
+
 TextureRegion& Assets::get(Jon* jon)
 {
     if (jon->isTransformingIntoVampire())
@@ -1750,25 +1756,21 @@ TextureRegion& Assets::get(BatInstruction* batInstruction)
                 static Animation anim = createAnimation(1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
-                break;
             case BatInstructionType_TapHold:
             {
                 static Animation anim = createAnimation(0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 11);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
-                break;
             case BatInstructionType_SwipeDown:
             {
                 static Animation anim = createAnimation(2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
-                break;
             case BatInstructionType_SwipeRight:
             {
                 static Animation anim = createAnimation(0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
                 return anim.getTextureRegion(batInstruction->getStateTime());
             }
-                break;
             case BatInstructionType_None:
             default:
                 break;

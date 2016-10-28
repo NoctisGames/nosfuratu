@@ -42,7 +42,7 @@ m_iWorld(1),
 m_iLevel(1),
 m_isLoaded(false)
 {
-    // Empty
+    GRID_MANAGER->setGridCellSize(GRID_CELL_SIZE);
 }
 
 void Game::copy(Game* game)

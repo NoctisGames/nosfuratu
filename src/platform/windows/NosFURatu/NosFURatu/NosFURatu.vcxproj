@@ -168,7 +168,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -183,7 +183,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -198,7 +198,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_LEVEL_EDITOR;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -213,7 +213,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -228,7 +228,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -243,7 +243,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_LEVEL_EDITOR;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -258,7 +258,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -273,7 +273,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -288,7 +288,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;..\..\..\..\3rdparty\DirectXTex-aug2015\DirectXTex;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\core\framework;..\..\..\..\core\framework\entity;..\..\..\..\core\framework\file\windows;..\..\..\..\core\framework\math;..\..\..\..\core\framework\sound\windows;..\..\..\..\core\framework\state;..\..\..\..\core\framework\ui;..\..\..\..\core\framework\ui\direct3d;..\..\..\..\core\framework\util;..\..\..\..\core\framework\util\windows;..\..\..\..\core\game;..\..\..\..\core\game\ui;..\..\..\..\core\game\ui\direct3d;..\..\..\..\3rdparty;..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_LEVEL_EDITOR;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -1337,201 +1337,6 @@
       <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
     </CustomBuild>
     <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_vampire.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_lower.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_mid.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">false</DeploymentContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</TreatOutputAsContent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Converting to DDS %(Identity)</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">Converting to DDS %(Identity)</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).dds</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">%(Filename).dds</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</TreatOutputAsContent>
-      <TreatOutputAsContent Condition="'$(Configuration)|$(Platform)'=='LevelEditor|x64'">true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\assets\textures\compressed\c_world_1_background_upper.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -3072,6 +2877,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\core\framework\entity\Entity.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\EntityManager.h" />
+    <ClInclude Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\framework\entity\PhysicalEntity.h" />
     <ClInclude Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.h" />
     <ClInclude Include="..\..\..\..\core\framework\file\windows\SoundFileReader.h" />
@@ -3120,6 +2926,7 @@
     <ClInclude Include="..\..\..\..\core\framework\util\windows\StepTimer.h" />
     <ClInclude Include="..\..\..\..\core\game\Background.h" />
     <ClInclude Include="..\..\..\..\core\game\CollectibleItem.h" />
+    <ClInclude Include="..\..\..\..\core\game\CountHissWithMina.h" />
     <ClInclude Include="..\..\..\..\core\game\DustCloud.h" />
     <ClInclude Include="..\..\..\..\core\game\EndBossSnake.h" />
     <ClInclude Include="..\..\..\..\core\game\Enemy.h" />
@@ -3131,7 +2938,7 @@
     <ClInclude Include="..\..\..\..\core\game\ForegroundObject.h" />
     <ClInclude Include="..\..\..\..\core\game\Game.h" />
     <ClInclude Include="..\..\..\..\core\game\GameConstants.h" />
-    <ClInclude Include="..\..\..\..\core\game\GridLockedPhysicalEntity.h" />
+    <ClInclude Include="..\..\..\..\core\game\GameMarker.h" />
     <ClInclude Include="..\..\..\..\core\game\Ground.h" />
     <ClInclude Include="..\..\..\..\core\game\GroundSoundType.h" />
     <ClInclude Include="..\..\..\..\core\game\Hole.h" />
@@ -3197,6 +3004,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\core\framework\entity\Entity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\EntityManager.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\RandomAccessReader.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\SoundFileReader.cpp" />
@@ -3234,6 +3042,7 @@
     <ClCompile Include="..\..\..\..\core\framework\util\windows\pch.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Background.cpp" />
     <ClCompile Include="..\..\..\..\core\game\CollectibleItem.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\CountHissWithMina.cpp" />
     <ClCompile Include="..\..\..\..\core\game\DustCloud.cpp" />
     <ClCompile Include="..\..\..\..\core\game\EndBossSnake.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Enemy.cpp" />
@@ -3242,7 +3051,7 @@
     <ClCompile Include="..\..\..\..\core\game\ExitGroundCover.cpp" />
     <ClCompile Include="..\..\..\..\core\game\ForegroundObject.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Game.cpp" />
-    <ClCompile Include="..\..\..\..\core\game\GridLockedPhysicalEntity.cpp" />
+    <ClCompile Include="..\..\..\..\core\game\GameMarker.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Ground.cpp" />
     <ClCompile Include="..\..\..\..\core\game\Hole.cpp" />
     <ClCompile Include="..\..\..\..\core\game\HoleCover.cpp" />
