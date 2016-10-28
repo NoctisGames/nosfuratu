@@ -54,12 +54,12 @@ void CollectibleItem::update(float deltaTime)
     float baseTime = fmodf(m_fStateTime, 0.80f);
     if (baseTime < 0.40f)
     {
-        m_position->setY(m_fOriginalY + (baseTime / 3));
+        m_position->setY(m_fOriginalY + (baseTime / 2));
     }
     else
     {
         baseTime -= 0.40f;
-        m_position->setY(m_fOriginalY + (0.40f / 3) - (baseTime / 3));
+        m_position->setY(m_fOriginalY + (0.40f / 2) - (baseTime / 2));
     }
 }
 
@@ -161,8 +161,23 @@ void GoldenCarrot::update(float deltaTime)
 {
     CollectibleItem::update(deltaTime);
     
+    if (!m_isPreviouslyCollected)
+    {
+        float x = m_position->getX();
+        float y = m_position->getY();
+        float w = m_fWidth;
+        float h = m_fHeight;
+        float l = x - w / 2;
+        float b = y - (h / 2);
+        
+        m_goldenCarrotTwinkle->update(deltaTime);
+        m_goldenCarrotTwinkle->getPosition().set(0.53543307086614f * w + l, 0.60714285714286f * h + b);
+    }
+    
     if (m_isCollected)
     {
+        m_goldenCarrotTwinkle->getPosition().set(1337, 1337); // Goodbye twinkle!
+        
         if (m_isPreviouslyCollected)
         {
             m_fWidth -= m_fStateTime / 3;
@@ -230,6 +245,7 @@ void GoldenCarrot::init(int index, int bestLevelStatsFlag)
         || (m_iIndex == 2 && FlagUtil::isFlagSet(bestLevelStatsFlag, FLAG_THIRD_GOLDEN_CARROT_COLLECTED)))
     {
         m_isPreviouslyCollected = true;
+        m_goldenCarrotTwinkle->getPosition().set(1337, 1337); // Goodbye twinkle!
     }
 }
 

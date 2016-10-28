@@ -1357,6 +1357,12 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
     assert(false);
 }
 
+TextureRegion& Assets::get(GoldenCarrotTwinkle* goldenCarrotTwinkle)
+{
+    static Animation anim = createAnimation(3004, 2004, 74, 78, 518, 78, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 7);
+    return anim.getTextureRegion(goldenCarrotTwinkle->getStateTime());
+}
+
 TextureRegion& Assets::get(Jon* jon)
 {
     if (jon->isTransformingIntoVampire())
