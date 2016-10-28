@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NosFURatuMain.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SaveData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Background.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\CollectibleItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\CountHissWithMina.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\DustCloud.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\EndBossSnake.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Enemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\EnemySpirit.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\EntityUtils.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ExitGround.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ExitGroundCover.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ForegroundObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Game.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\GameConstants.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\GameMarker.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Ground.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\GroundSoundType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Hole.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\HoleCover.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\MidBossOwl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Midground.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Assets.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\BatPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ConfirmExitPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ConfirmResetPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\CutscenePanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameButton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenComingSoon.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevels.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenOpeningCutscene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTitle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTransitions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenWorldMap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameTracker.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelEditorActionsPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelSelectorPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\OffsetPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Renderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\RendererType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TitlePanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TrashCan.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\WorldMapPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferTintGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\FlagUtil.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\macros.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\StepTimer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Animation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\CircleBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Color.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Font.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\GpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\GpuTextureDataWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\GpuTextureWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\LineBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\RectangleBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\SpriteBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Text.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TextureRegion.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TextureWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TouchEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TouchType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\DeviceResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\StateMachine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\State.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\GameSound.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Line.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\MathUtil.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\OverlapTester.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Rectangle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Triangle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Vector2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Circle.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\RandomAccessReader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\SoundFileReader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\EntityManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\PhysicalEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\Entity.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NosFURatuMain.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SaveData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\pch.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Background.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\CollectibleItem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\CountHissWithMina.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\DustCloud.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\EndBossSnake.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Enemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\EnemySpirit.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ExitGround.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ExitGroundCover.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ForegroundObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Game.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\GameMarker.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Ground.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Hole.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\HoleCover.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\MidBossOwl.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Midground.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Assets.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\BatPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Chapter1Level10.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Chapter1Level21.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ConfirmExitPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ConfirmResetPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\CutscenePanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\EndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\FramebufferRadialBlurGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameButton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenComingSoon.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenOpeningCutscene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameTracker.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelEditorActionsPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelEditorEntitiesPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\LevelSelectorPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\OffsetPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\PointTransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Renderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\ShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TitlePanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TransitionGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TrashCan.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\WorldMapPanel.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DBackgroundTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DEndBossSnakeTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFadeScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferObfuscationGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFramebufferRadialBlurGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DFrameBufferTintGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DGameScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DPointTransScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DShockwaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DSinWaveTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DSnakeDeathTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DTransDeathGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\Direct3DTransScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\CircleBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\DummyGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Font.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\GpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\LineBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\RectangleBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\SpriteBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Text.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TextureRegion.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TouchEvent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Animation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\DDSTextureLoader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\DeviceResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DCircleBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DFrameBufferToScreenGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DGeometryGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DLineBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DProgram.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DRectangleBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DSpriteBatcher.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\Direct3DTextureGpuProgramWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\XAudio2SoundPlayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\GameSound.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Line.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\OverlapTester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Rectangle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Triangle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Vector2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\Circle.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\SoundFileReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\RandomAccessReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\EntityManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\GridLockedPhysicalEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\Entity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\EndBossSnakeTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\FadeScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\FrameBufferObfuscationPixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\FrameBufferTintToScreenPixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\PointTransScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\PointTransScreenTextureVertexShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\RadialBlurTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\ShockwaveTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\ShockwaveTextureVertexShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\SinWaveTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\SnakeDeathTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\TransDeathInTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\TransDeathOutTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\TransScreenTexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\ColorVertexShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenPixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\FrameBufferToScreenVertexShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\TexturePixelShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\TextureVertexShader.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\direct3d\ColorPixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{2b5e9a0b-d84a-4e9a-924d-64a176adbe36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\vampire.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_cutscene_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_cutscene_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_end_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_end_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_ground.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_map_screen_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_map_screen_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\jon.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\misc.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\title_screen.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\trans_death_shader_helper.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_jon.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_vampire.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_cutscene_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_cutscene_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_end_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_enemies.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_ground.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_jon.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_vampire.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\level_editor.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\ability_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\absorb_dash_ability.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\bat_poof.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\boss_level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\boss_level_unlock.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\button_click.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\cancel_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\chain_snap.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\collect_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\collect_golden_carrot.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\complete_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\end_boss_snake_charge.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\end_boss_snake_charge_cue.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\end_boss_snake_damaged.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\end_boss_snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\end_boss_snake_mouth_open.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\final_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\final_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_bounced_on.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_strike.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jon_burrow_rocksfall.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jon_rabbit_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jon_rabbit_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jon_vampire_double_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jon_vampire_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jump_spring.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jump_spring_heavy.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_cave.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_grass.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_clear.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_complete.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_confirmed.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_select_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_selected.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mid_boss_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mid_boss_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mid_boss_owl_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mid_boss_owl_swoop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mid_boss_owl_tree_smash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\mushroom_bounce.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\opening_cutscene_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\rabbit_drill.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\rabbit_stomp.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\saw_grind_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\screen_transition.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\screen_transition_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\snake_death.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\snake_jump.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\sparrow_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\sparrow_fly_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\spiked_ball_rolling_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\title_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\title_lightning_1.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\title_lightning_2.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\toad_die.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\toad_eat.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\trigger_transform.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\vampire_dash.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\vampire_glide_loop.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\world_1_bgm.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\world_1_bgm_intro.wav">
+      <Filter>Assets</Filter>
+    </Media>
+  </ItemGroup>
+</Project>
