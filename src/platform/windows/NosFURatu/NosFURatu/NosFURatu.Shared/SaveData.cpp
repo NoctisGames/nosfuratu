@@ -1,6 +1,6 @@
 #include "SaveData.h"
 
-#ifdef NG_WP10
+#ifdef NG_WIN_10
 #include <vector>
 
 using namespace Windows::Foundation;

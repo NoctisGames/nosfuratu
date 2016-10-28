@@ -7,7 +7,7 @@
 
 #include "DirectXPage.g.h"
 
-#include "Common\DeviceResources.h"
+#include "DeviceResources.h"
 #include "NosFURatuMain.h"
 
 namespace NosFURatu
