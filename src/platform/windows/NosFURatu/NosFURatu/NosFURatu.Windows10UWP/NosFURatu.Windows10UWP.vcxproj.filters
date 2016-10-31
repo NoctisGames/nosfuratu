@@ -25,14 +25,9 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="DirectXPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.xaml.h" />
     <ClInclude Include="DirectXPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="DirectXPage.xaml" />
+    <Page Include="App.xaml" />
   </ItemGroup>
 </Project>

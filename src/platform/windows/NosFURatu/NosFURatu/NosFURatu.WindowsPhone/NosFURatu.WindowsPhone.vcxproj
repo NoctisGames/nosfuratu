@@ -81,6 +81,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_WIN_PHONE_8;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,6 +106,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_WIN_PHONE_8;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <ForcedUsingFiles>
+      </ForcedUsingFiles>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -126,33 +132,9 @@
     <Image Include="Assets\WideLogo.scale-240.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.xaml.h">
-      <DependentUpon>App.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="DirectXPage.xaml.h">
-      <DependentUpon>DirectXPage.xaml</DependentUpon>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="App.xaml.cpp">
-      <DependentUpon>App.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="DirectXPage.xaml.cpp">
-      <DependentUpon>DirectXPage.xaml</DependentUpon>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="DirectXPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />

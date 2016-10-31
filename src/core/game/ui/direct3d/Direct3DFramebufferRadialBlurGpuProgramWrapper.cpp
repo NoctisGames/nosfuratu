@@ -15,13 +15,15 @@ using namespace Windows::System::Profile;
 
 Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : FramebufferRadialBlurGpuProgramWrapper(), m_iNumShadersLoaded(0), m_isWindowsMobile(false), m_deviceResources(deviceResources)
 {
+	bool isMobile;
+#if defined NG_WIN_10
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-
-	m_isWindowsMobile = false;
-	if (api->DeviceFamily->Equals("Windows.Mobile"))
-	{
-		m_isWindowsMobile = true;
-	}
+	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#elif defined NG_WIN_8
+	isMobile = false;
+#elif defined NG_WIN_PHONE_8
+	isMobile = true;
+#endif
     
     createConstantBuffers();
 

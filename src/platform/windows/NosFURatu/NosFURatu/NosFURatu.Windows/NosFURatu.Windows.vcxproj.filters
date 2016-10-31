@@ -19,9 +19,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="DirectXPage.xaml.cpp" />
   </ItemGroup>
@@ -36,8 +33,5 @@
     <None Include="NosFURatu.Windows_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="NosFURatu.Windows_StoreKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="DirectXPage.xaml" />
   </ItemGroup>
 </Project>
