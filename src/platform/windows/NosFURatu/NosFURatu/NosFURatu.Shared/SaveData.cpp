@@ -3,9 +3,6 @@
 #include <vector>
 
 using namespace NosFURatu;
-
-#ifdef NG_WIN_10
-
 using namespace Windows::Foundation;
 using namespace Windows::Storage;
 
@@ -209,74 +206,6 @@ void SaveData::setScorePushedOnline(int world, int level, int score)
 
 	values->Insert(key, PropertyValue::CreateInt32(score));
 }
-#elif defined NG_WIN_8 || defined NG_WIN_PHONE_8
-int SaveData::getNumGoldenCarrots()
-{
-	// TODO
-
-	return 0;
-}
-
-void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
-{
-	// TODO
-}
-
-int SaveData::getViewedCutscenesFlag()
-{
-	// TODO
-
-	return 0;
-}
-
-void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
-{
-	// TODO
-}
-
-int SaveData::getJonUnlockedAbilitiesFlag()
-{
-	// TODO
-
-	return 0;
-}
-
-int SaveData::getLevelScore(int world, int level)
-{
-	// TODO
-
-	return 0;
-}
-
-int SaveData::getLevelStatsFlag(int world, int level)
-{
-	// TODO
-
-	return 0;
-}
-
-void SaveData::setLevelStatsFlag(int world, int level, int levelStatsFlag)
-{
-	// TODO
-}
-
-void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
-{
-	// TODO
-}
-
-int SaveData::getScorePushedOnline(int world, int level)
-{
-	// TODO
-
-	return 0;
-}
-
-void SaveData::setScorePushedOnline(int world, int level, int score)
-{
-	// TODO
-}
-#endif
 
 Platform::String^ SaveData::getKeyForNumGoldenCarrots()
 {
