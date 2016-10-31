@@ -26,9 +26,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXPage.xaml.cpp" />
+    <ClCompile Include="App.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXPage.xaml.h" />
+    <ClInclude Include="App.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -44,7 +46,7 @@
     <None Include="NosFURatu.Windows10UWP_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DirectXPage.xaml" />
-    <Page Include="App.xaml" />
+    <Page Include="..\NosFURatu.Shared\App.xaml" />
+    <Page Include="..\NosFURatu.Shared\DirectXPage.xaml" />
   </ItemGroup>
 </Project>
