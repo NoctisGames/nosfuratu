@@ -23,6 +23,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	m_deviceResources->RegisterDeviceNotify(this);
 
 	bool isMobile;
+	bool isCompressed = false;
 #if defined NG_WIN_10
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
 	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
@@ -30,9 +31,10 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	isMobile = false;
 #elif defined NG_WIN_PHONE_8
 	isMobile = true;
+	isCompressed = true;
 #endif
 
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, false));
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isCompressed));
 
 	// Load Media Player
 	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
