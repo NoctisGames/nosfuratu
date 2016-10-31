@@ -35,7 +35,7 @@ public:
     
     Vector2D& getAcceleration();
 
-    std::vector<Rectangle>& getBounds();
+    std::vector<std::unique_ptr<Rectangle>>& getBounds();
     
     Rectangle& getMainBounds();
     
@@ -55,7 +55,7 @@ protected:
     std::unique_ptr<Vector2D> m_position;
     std::unique_ptr<Vector2D> m_velocity;
     std::unique_ptr<Vector2D> m_acceleration;
-    std::vector<Rectangle> m_bounds;
+	std::vector<std::unique_ptr<Rectangle>> m_bounds;
     float m_fWidth;
     float m_fHeight;
     float m_fAngle;

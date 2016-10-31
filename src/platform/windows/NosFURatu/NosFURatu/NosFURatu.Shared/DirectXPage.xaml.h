@@ -47,8 +47,14 @@ namespace NosFURatu
 		void OnCompositionScaleChanged(Windows::UI::Xaml::Controls::SwapChainPanel^ sender, Object^ args);
 		void OnSwapChainPanelSizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
 
+#if defined NG_WIN_10
 		// Back Button Handling (only for Windows Phone)
 		void OnBackPressed(Platform::Object^ sender, Windows::Phone::UI::Input::BackPressedEventArgs^ args);
+#elif defined NG_WIN_8
+		// TODO
+#elif defined NG_WIN_PHONE_8
+		// TODO
+#endif
 
 		// Independent input handling functions.
 		void OnPointerPressed(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);

@@ -17,6 +17,8 @@ class Rectangle
 {
 public:
     Rectangle(float x, float y, float width, float height, float angle = 0);
+
+	Rectangle(const Rectangle &) {}
     
     Vector2D& getLowerLeft();
     

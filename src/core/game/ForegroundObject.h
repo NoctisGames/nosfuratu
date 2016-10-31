@@ -488,7 +488,8 @@ class SpikeTower : public ExtraForegroundObject
 public:
     SpikeTower(int gridX) : ExtraForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTower, ForegroundObjectType_SpikeTowerBg, GROUND_SOUND_NONE, 0, 0, 1, 0.54017857142857f)
     {
-        m_bounds.push_back(Rectangle(0, 0, 1, 1));
+		m_bounds.push_back(std::unique_ptr<Rectangle>(new Rectangle(0, 0, 1, 1)));
+
         updateBounds();
     }
     

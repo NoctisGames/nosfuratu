@@ -177,9 +177,16 @@ void DX::DeviceResources::CreateDeviceResources()
 // These resources need to be recreated every time the window size is changed.
 void DX::DeviceResources::CreateWindowSizeDependentResources()
 {
+	bool isMobile;
+#if defined NG_WIN_10
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-
+	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#elif defined NG_WIN_8
+	isMobile = false;
+#elif defined NG_WIN_PHONE_8
+	isMobile = true;
+#endif
+	
 	// Clear the previous window size specific context.
 	ID3D11RenderTargetView* nullViews[] = { nullptr };
 	m_d3dContext->OMSetRenderTargets(ARRAYSIZE(nullViews), nullViews, nullptr);
