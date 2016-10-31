@@ -13,3 +13,4 @@ AppPackages/
 *VC.opendb
 *.dds
 *VC.db
+.vs/

@@ -22,9 +22,19 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
+	bool isMobile;
+	bool isCompressed = false;
+#if defined NG_WIN_10
 	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, false));
+	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#elif defined NG_WIN_8
+	isMobile = false;
+#elif defined NG_WIN_PHONE_8
+	isMobile = true;
+	isCompressed = true;
+#endif
+
+	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isCompressed));
 
 	// Load Media Player
 	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
