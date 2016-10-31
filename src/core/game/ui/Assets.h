@@ -34,6 +34,7 @@
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
 class CollectibleItem;
+class GoldenCarrotTwinkle;
 class LevelEditorActionsPanel;
 class LevelEditorEntitiesPanel;
 class Enemy;
@@ -119,6 +120,8 @@ public:
     TextureRegion& get(EnemySpirit* spirit);
     
     TextureRegion& get(CollectibleItem* collectibleItem);
+    
+    TextureRegion& get(GoldenCarrotTwinkle* goldenCarrotTwinkle);
     
     TextureRegion& get(Jon* jon);
     

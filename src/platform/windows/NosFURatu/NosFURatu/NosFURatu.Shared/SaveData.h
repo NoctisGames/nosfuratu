@@ -32,7 +32,7 @@ namespace NosFURatu
         static Platform::String^ getKeyForLevelStats(int world, int level);
         static Platform::String^ getKeyForLevelOnlineScore(int world, int level);
 
-		SaveData();
-		~SaveData();
+		SaveData() {}
+		~SaveData() {}
 	};
 }

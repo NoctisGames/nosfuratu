@@ -280,10 +280,10 @@ private:
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            for (typename std::vector<Rectangle>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
+            for (typename std::vector<std::unique_ptr<Rectangle>>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
             {
                 rectangleBatcher.beginBatch();
-                renderBoundsWithColor((*j), red);
+                renderBoundsWithColor(*(*j), red);
                 rectangleBatcher.endBatch();
             }
         }

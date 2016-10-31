@@ -12,7 +12,13 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
+#if defined NG_WIN_10
 using namespace Windows::Phone::UI::Input;
+#elif defined NG_WIN_8
+// TODO
+#elif defined NG_WIN_PHONE_8
+// TODO
+#endif
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Input;
@@ -33,8 +39,14 @@ DirectXPage::DirectXPage():
 {
 	InitializeComponent();
 
+#if defined NG_WIN_10
 	ApplicationView^ view = ApplicationView::GetForCurrentView();
 	view->TryEnterFullScreenMode();
+#elif defined NG_WIN_8
+	// TODO
+#elif defined NG_WIN_PHONE_8
+	// TODO
+#endif
 
 	// Register event handlers for page lifecycle.
 	CoreWindow^ window = Window::Current->CoreWindow;
@@ -55,10 +67,16 @@ DirectXPage::DirectXPage():
 
 	swapChainPanel->SizeChanged += ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
 
+#if defined NG_WIN_10
 	if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 	{
 		HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
 	}
+#elif defined NG_WIN_8
+	// TODO
+#elif defined NG_WIN_PHONE_8
+	// TODO
+#endif
 
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
@@ -180,8 +198,27 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 {
 	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
 
-	if (e->VirtualKey == Windows::System::VirtualKey::W
-		|| e->VirtualKey == Windows::System::VirtualKey::GamepadA)
+	bool jump = e->VirtualKey == Windows::System::VirtualKey::W;
+	bool transform = e->VirtualKey == Windows::System::VirtualKey::S;
+	bool left = e->VirtualKey == Windows::System::VirtualKey::Left;
+	bool up = e->VirtualKey == Windows::System::VirtualKey::Up;
+	bool right = e->VirtualKey == Windows::System::VirtualKey::Right;
+	bool down = e->VirtualKey == Windows::System::VirtualKey::Down;
+
+#if defined NG_WIN_10
+	if (!jump) jump = e->VirtualKey == Windows::System::VirtualKey::GamepadA;
+	if (!transform) transform = e->VirtualKey == Windows::System::VirtualKey::GamepadX;
+	if (!left) left = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft;
+	if (!up) up = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp;
+	if (!right) right = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight;
+	if (!down) down = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown;
+#elif defined NG_WIN_8
+	// TODO
+#elif defined NG_WIN_PHONE_8
+	// TODO
+#endif
+
+	if (jump)
 	{
         m_main->onTouchDown(300, 300);
         m_isPointerPressed = true;
@@ -189,13 +226,12 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 		m_main->onTouchUp(300, 300);
 		m_isPointerPressed = false;
 	}
-	else if (e->VirtualKey == Windows::System::VirtualKey::S
-		|| e->VirtualKey == Windows::System::VirtualKey::GamepadX)
+	else if (transform)
 	{
 		m_main->onTouchDown(300, 300);
 		m_isPointerPressed = true;
 	}
-	else if (e->VirtualKey == Windows::System::VirtualKey::Left || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
+	else if (left)
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
@@ -205,7 +241,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 		m_main->onTouchUp(0, 500);
 		m_isPointerPressed = false;
 	}
-	else if (e->VirtualKey == Windows::System::VirtualKey::Up || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
+	else if (up)
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
@@ -215,7 +251,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 		m_main->onTouchUp(500, 0);
 		m_isPointerPressed = false;
 	}
-	else if (e->VirtualKey == Windows::System::VirtualKey::Right || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
+	else if (right)
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
@@ -225,7 +261,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 		m_main->onTouchUp(900, 500);
 		m_isPointerPressed = false;
 	}
-	else if (e->VirtualKey == Windows::System::VirtualKey::Down || e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
+	else if (down)
 	{
 		m_main->onTouchDown(500, 500);
 		m_isPointerPressed = true;
@@ -251,7 +287,13 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 	m_main->CreateWindowSizeDependentResources();
 }
 
+#if defined NG_WIN_10
 void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
 {
 	args->Handled = m_main->handleOnBackPressed();
 }
+#elif defined NG_WIN_8
+// TODO
+#elif defined NG_WIN_PHONE_8
+// TODO
+#endif

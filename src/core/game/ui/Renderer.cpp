@@ -863,6 +863,18 @@ void Renderer::renderWorld(Game& game)
     }
     
     renderPhysicalEntitiesWithColor(game.getCollectibleItems());
+    
+    for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
+    {
+        if (dynamic_cast<GoldenCarrot *>((*i)))
+        {
+            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+            
+            GoldenCarrotTwinkle& twinkle = gc->getGoldenCarrotTwinkle();
+            renderPhysicalEntity(twinkle, Assets::getInstance()->get(&twinkle));
+        }
+    }
+    
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
     

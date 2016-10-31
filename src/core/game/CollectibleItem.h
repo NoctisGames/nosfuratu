@@ -69,10 +69,29 @@ public:
     virtual void resize();
 };
 
+class GoldenCarrotTwinkle : public PhysicalEntity
+{
+public:
+    GoldenCarrotTwinkle(float x, float y, float seedStateTime) : PhysicalEntity(x, y, 0.65039062500001f, 0.68554687500001f)
+    {
+        m_fStateTime = seedStateTime;
+    }
+};
+
 class GoldenCarrot : public CollectibleItem
 {
 public:
-    GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false) {}
+    GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false)
+    {
+        float x = m_position->getX();
+        float y = m_position->getY();
+        float w = m_fWidth;
+        float h = m_fHeight;
+        float l = x - w / 2;
+        float b = y - (h / 2);
+        
+        m_goldenCarrotTwinkle = std::unique_ptr<GoldenCarrotTwinkle>(new GoldenCarrotTwinkle(0.53543307086614f * w + l, 0.60714285714286f * h + b, m_fStateTime));
+    }
     
     virtual void update(float deltaTime);
     
@@ -84,11 +103,14 @@ public:
     
     void init(int index, int bestLevelStatsFlag);
     
+    GoldenCarrotTwinkle& getGoldenCarrotTwinkle() { return *m_goldenCarrotTwinkle; }
+    
     int getIndex();
     
     bool isPreviouslyCollected();
     
 private:
+    std::unique_ptr<GoldenCarrotTwinkle> m_goldenCarrotTwinkle;
     int m_iIndex;
     bool m_isPreviouslyCollected;
 };
