@@ -12,12 +12,8 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
-#if defined NG_WIN_10
+#if defined NG_WIN_10 || defined NG_WIN_PHONE_8
 using namespace Windows::Phone::UI::Input;
-#elif defined NG_WIN_8
-// TODO
-#elif defined NG_WIN_PHONE_8
-// TODO
 #endif
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
@@ -42,10 +38,6 @@ DirectXPage::DirectXPage():
 #if defined NG_WIN_10
 	ApplicationView^ view = ApplicationView::GetForCurrentView();
 	view->TryEnterFullScreenMode();
-#elif defined NG_WIN_8
-	// TODO
-#elif defined NG_WIN_PHONE_8
-	// TODO
 #endif
 
 	// Register event handlers for page lifecycle.
@@ -72,10 +64,8 @@ DirectXPage::DirectXPage():
 	{
 		HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
 	}
-#elif defined NG_WIN_8
-	// TODO
 #elif defined NG_WIN_PHONE_8
-	// TODO
+	HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
 #endif
 
 	// At this point we have access to the device. 
@@ -212,10 +202,6 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	if (!up) up = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp;
 	if (!right) right = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight;
 	if (!down) down = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown;
-#elif defined NG_WIN_8
-	// TODO
-#elif defined NG_WIN_PHONE_8
-	// TODO
 #endif
 
 	if (jump)
@@ -287,13 +273,9 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 	m_main->CreateWindowSizeDependentResources();
 }
 
-#if defined NG_WIN_10
+#if defined NG_WIN_10 || defined NG_WIN_PHONE_8
 void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
 {
 	args->Handled = m_main->handleOnBackPressed();
 }
-#elif defined NG_WIN_8
-// TODO
-#elif defined NG_WIN_PHONE_8
-// TODO
 #endif
