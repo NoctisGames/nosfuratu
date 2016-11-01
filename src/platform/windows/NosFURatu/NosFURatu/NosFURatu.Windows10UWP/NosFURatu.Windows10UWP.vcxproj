@@ -113,7 +113,7 @@
     <PackageCertificateKeyFile>NosFURatu.Windows10UWP_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>68CFFBBA85332C241B7F4B849720EF7D0961BA9F</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
