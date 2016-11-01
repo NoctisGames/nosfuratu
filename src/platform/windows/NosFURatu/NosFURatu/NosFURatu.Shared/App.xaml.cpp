@@ -14,6 +14,9 @@ using namespace Windows::ApplicationModel::Activation;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
+#if defined NG_WIN_8 || defined NG_WIN_PHONE_8
+using namespace Windows::UI::ViewManagement;
+#endif
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Controls::Primitives;
@@ -62,6 +65,10 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 	// Place the page in the current window and ensure that it is active.
 	Window::Current->Content = m_directXPage;
 	Window::Current->Activate();
+#if defined NG_WIN_8 || defined NG_WIN_PHONE_8
+	StatusBar^ status = StatusBar::GetForCurrentView();
+	status->HideAsync();
+#endif
 }
 
 /// <summary>
