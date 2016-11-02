@@ -35,9 +35,12 @@ DirectXPage::DirectXPage():
 {
 	InitializeComponent();
 
-#if defined NG_WIN_10
 	ApplicationView^ view = ApplicationView::GetForCurrentView();
+
+#if defined NG_WIN_10
 	view->TryEnterFullScreenMode();
+#elif defined NG_WIN_PHONE_8
+	view->SetDesiredBoundsMode(ApplicationViewBoundsMode::UseCoreWindow);
 #endif
 
 	// Register event handlers for page lifecycle.
