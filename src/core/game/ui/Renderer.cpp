@@ -369,11 +369,15 @@ void Renderer::beginOpeningPanningSequence(Game& game)
 
 int Renderer::updateCameraToFollowPathToJon(Game& game)
 {
-    if (m_fStateTime >= 1.93f)
+    if (m_fStateTime >= 4.10f)
+    {
+        return 3;
+    }
+    else if (m_fStateTime >= 1.90f)
     {
         bool isComplete = false;
-        float progress = (m_fStateTime - 1.93f) / 0.2f;
-        if (progress > 1)
+        float progress = (m_fStateTime - 1.90f) / 0.2f;
+        if (progress >= 1)
         {
             progress = 1;
             isComplete = true;
@@ -410,12 +414,10 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
                 return 2;
             }
         }
-        else if (m_fStateTime < 2)
+        else
         {
             return 1;
         }
-        
-        return m_fStateTime >= 4.18f ? 3 : 0;
     }
     
     return 0;
