@@ -5,9 +5,9 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := Superpowered
 ifeq ($(TARGET_ARCH_ABI),armeabi-v7a)
-	LOCAL_SRC_FILES := $(3RD_PARTY_SUPERPOWERED_RELATIVE_PATH)/libSuperpoweredAndroidARM.a
+	LOCAL_SRC_FILES := $(3RD_PARTY_SUPERPOWERED_RELATIVE_PATH)/libSuperpoweredAndroidarmeabi-v7a.a
 else ifeq ($(TARGET_ARCH_ABI),arm64-v8a)
-	LOCAL_SRC_FILES := $(3RD_PARTY_SUPERPOWERED_RELATIVE_PATH)/libSuperpoweredAndroidARM64.a
+	LOCAL_SRC_FILES := $(3RD_PARTY_SUPERPOWERED_RELATIVE_PATH)/libSuperpoweredAndroidarm64-v8a.a
 else ifeq ($(TARGET_ARCH_ABI),x86)
 	LOCAL_SRC_FILES := $(3RD_PARTY_SUPERPOWERED_RELATIVE_PATH)/libSuperpoweredAndroidX86.a
 else ifeq ($(TARGET_ARCH_ABI),x86_64)
