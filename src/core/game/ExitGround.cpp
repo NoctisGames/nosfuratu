@@ -89,7 +89,7 @@ bool ExitGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 				entity->placeOn(itemTop);
                 
                 Jon *jon = nullptr;
-                if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+                if (entity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     jon = reinterpret_cast<Jon *>(entity);
                     jon->setGroundSoundType(getGroundSoundType());
@@ -180,7 +180,7 @@ bool CaveDeepSmallWaterfall::isEntityLanding(PhysicalEntity* entity, float delta
 				entity->placeOn(itemTop);
                 
                 Jon *jon = nullptr;
-                if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+                if (entity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     jon = reinterpret_cast<Jon *>(entity);
                     jon->setGroundSoundType(getGroundSoundType());
@@ -202,3 +202,9 @@ bool CaveDeepSmallWaterfall::canObjectBePlacedOn()
 {
     return false;
 }
+
+RTTI_IMPL(ExitGround, GridLockedPhysicalEntity);
+RTTI_IMPL(GrassWithCaveSmallExitMid, ExitGround);
+RTTI_IMPL(GrassWithCaveSmallExitEnd, ExitGround);
+RTTI_IMPL(CaveSmallExit, ExitGround);
+RTTI_IMPL(CaveDeepSmallWaterfall, ExitGround);

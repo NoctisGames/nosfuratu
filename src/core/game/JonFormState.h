@@ -10,11 +10,14 @@
 #define JonFormState_h
 
 #include "State.h"
+#include "RTTI.h"
 
 class Jon;
 
 class JonFormState : public State<Jon>
 {
+    RTTI_DECL;
+    
 public:
     virtual void enter(Jon* jon) = 0;
     virtual void execute(Jon* jon) = 0;

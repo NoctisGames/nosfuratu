@@ -10,6 +10,7 @@
 #define __nosfuratu__MidBossOwl__
 
 #include "PhysicalEntity.h"
+#include "RTTI.h"
 
 class Game;
 
@@ -38,6 +39,8 @@ typedef enum
 
 class MidBossOwl : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     MidBossOwl(float x, float y, float width = MID_BOSS_OWL_SLEEPING_WIDTH, float height = MID_BOSS_OWL_SLEEPING_HEIGHT);
     

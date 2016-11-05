@@ -766,3 +766,11 @@ void SnakeBody::onDeath()
     update(0);
 	m_isDead = true;
 }
+
+RTTI_IMPL(SnakeSpirit, PhysicalEntity);
+RTTI_IMPL(SnakeHeadImpact, PhysicalEntity);
+RTTI_IMPL(SnakeSkin, PhysicalEntity);
+RTTI_IMPL(SnakeEye, PhysicalEntity);
+RTTI_IMPL(SnakeTonque, PhysicalEntity);
+RTTI_IMPL(SnakeBody, PhysicalEntity);
+RTTI_IMPL(EndBossSnake, GridLockedPhysicalEntity);

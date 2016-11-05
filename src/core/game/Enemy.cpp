@@ -98,7 +98,7 @@ void Enemy::triggerHit()
 bool Enemy::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
@@ -311,7 +311,7 @@ void Mushroom::handleAlive(float deltaTime)
 bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
@@ -526,7 +526,7 @@ void Fox::updateBounds()
 bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
@@ -685,7 +685,7 @@ void BigMushroomGround::handleAlive(float deltaTime)
 bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
@@ -855,3 +855,20 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
 
 	handleJon();
 }
+
+RTTI_IMPL(Enemy, GridLockedPhysicalEntity);
+RTTI_IMPL(Mushroom, Enemy);
+RTTI_IMPL(MushroomGround, Mushroom);
+RTTI_IMPL(MushroomCeiling, Mushroom);
+RTTI_IMPL(SnakeGrunt, Enemy);
+RTTI_IMPL(Sparrow, Enemy);
+RTTI_IMPL(Toad, Enemy);
+RTTI_IMPL(Fox, Enemy);
+RTTI_IMPL(BigMushroomGround, Mushroom);
+RTTI_IMPL(BigMushroomCeiling, Mushroom);
+RTTI_IMPL(MovingSnakeGrunt, Enemy);
+RTTI_IMPL(MovingSnakeGruntV1, MovingSnakeGrunt);
+RTTI_IMPL(MovingSnakeGruntV2, MovingSnakeGrunt);
+RTTI_IMPL(MovingSnakeGruntV3, MovingSnakeGrunt);
+RTTI_IMPL(MovingSnakeGruntV4, MovingSnakeGrunt);
+RTTI_IMPL(MovingSnakeGruntV5, MovingSnakeGrunt);

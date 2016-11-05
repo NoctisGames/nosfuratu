@@ -17,17 +17,17 @@ public:
     RTTI(const std::string & className) : m_className(className), m_pBaseRTTI(nullptr) {}
     RTTI(const std::string & className, const RTTI & baseRTTI) : m_className(className), m_pBaseRTTI(&baseRTTI) {}
 
-    const std::string & GetClassName() const
+    const std::string & getClassName() const
     {
         return m_className;
     }
     
-    bool IsExactly(const RTTI & rtti) const
+    bool isExactly(const RTTI & rtti) const
     {
         return (this == &rtti);
     }
     
-    bool DerivesFrom(const RTTI & rtti) const;
+    bool derivesFrom(const RTTI & rtti) const;
 
 private:
     // Prevent copying
@@ -40,7 +40,7 @@ private:
 
 #define RTTI_DECL \
     public: \
-        virtual const RTTI & GetRTTI() { return rtti; } \
+        virtual const RTTI & getRTTI() { return rtti; } \
         static const RTTI rtti;
 
 #define RTTI_IMPL_NOPARENT(name) \

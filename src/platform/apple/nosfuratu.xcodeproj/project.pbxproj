@@ -823,6 +823,14 @@
 		BB74508F1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
 		BB7450901DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
 		BB7450911DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
+		BB7B51941DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
+		BB7B51951DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
+		BB7B51961DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
+		BB7B51971DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
+		BB7B519E1DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
+		BB7B519F1DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
+		BB7B51A01DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
+		BB7B51A11DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
 		BBCB716F1DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
 		BBCB71701DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
 		BBCB71711DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
@@ -1582,6 +1590,10 @@
 		BB7450871DC15440001568B2 /* CountHissWithMina.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountHissWithMina.h; sourceTree = "<group>"; };
 		BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridLockedPhysicalEntity.cpp; sourceTree = "<group>"; };
 		BB74508D1DC158FA001568B2 /* GridLockedPhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLockedPhysicalEntity.h; sourceTree = "<group>"; };
+		BB7B51911DCDA53900FFF99B /* GameScreenStateMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScreenStateMachine.h; sourceTree = "<group>"; };
+		BB7B51921DCDA5AD00FFF99B /* GameScreenState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScreenState.h; sourceTree = "<group>"; };
+		BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenState.cpp; sourceTree = "<group>"; };
+		BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JonFormState.cpp; sourceTree = "<group>"; };
 		BBCB71461DB69D21006430B6 /* asset_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asset_utils.c; sourceTree = "<group>"; };
 		BBCB71471DB69D21006430B6 /* asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_utils.h; sourceTree = "<group>"; };
 		BBCB71481DB69D21006430B6 /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.fsh; sourceTree = "<group>"; };
@@ -2406,13 +2418,14 @@
 				BB44C6D01DB03A7D003E633F /* HoleCover.h */,
 				BB44C6D11DB03A7D003E633F /* Jon.cpp */,
 				BB44C6D21DB03A7D003E633F /* Jon.h */,
+				BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */,
+				BB5C0ECD1DCD4FFB000C5C07 /* JonFormState.h */,
 				BB5C0ECC1DCD4F4B000C5C07 /* JonFormStateMachine.h */,
 				BB44C6D31DB03A7D003E633F /* MidBossOwl.cpp */,
 				BB44C6D41DB03A7D003E633F /* MidBossOwl.h */,
 				BB44C6D51DB03A7D003E633F /* Midground.cpp */,
 				BB44C6D61DB03A7D003E633F /* Midground.h */,
 				BB44C6D71DB03A7D003E633F /* ui */,
-				BB5C0ECD1DCD4FFB000C5C07 /* JonFormState.h */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -2449,6 +2462,9 @@
 				BB44C71C1DB03A7D003E633F /* GameScreenLevels.h */,
 				BB44C71D1DB03A7D003E633F /* GameScreenOpeningCutscene.cpp */,
 				BB44C71E1DB03A7D003E633F /* GameScreenOpeningCutscene.h */,
+				BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */,
+				BB7B51921DCDA5AD00FFF99B /* GameScreenState.h */,
+				BB7B51911DCDA53900FFF99B /* GameScreenStateMachine.h */,
 				BB44C71F1DB03A7D003E633F /* GameScreenTitle.cpp */,
 				BB44C7201DB03A7D003E633F /* GameScreenTitle.h */,
 				BB44C7211DB03A7D003E633F /* GameScreenTransitions.cpp */,
@@ -3657,6 +3673,8 @@
 				BB44CA4B1DB03A7F003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BBCB718F1DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
 				BB44C9531DB03A7E003E633F /* Rectangle.cpp in Sources */,
+				BB7B519E1DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
+				BB7B51941DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,
 				BB44C9DB1DB03A7E003E633F /* ExitGround.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3758,6 +3776,7 @@
 				BB44CB381DB052F5003E633F /* GameScreenTitle.cpp in Sources */,
 				BB09CE301DBD3805006A3E49 /* SuperpoweredSound.cpp in Sources */,
 				BB44CB391DB052F5003E633F /* GameScreenTransitions.cpp in Sources */,
+				BB7B51A01DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
 				BB44CB3A1DB052F5003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB09CE3C1DBD4701006A3E49 /* AppleSoundManager.mm in Sources */,
 				BBCB71B11DB69D21006430B6 /* platform_file_utils.c in Sources */,
@@ -3792,6 +3811,7 @@
 				BBCB71A11DB69D21006430B6 /* OpenGLManager.cpp in Sources */,
 				BB7450841DC1542C001568B2 /* GameMarker.cpp in Sources */,
 				BB44CB551DB052F5003E633F /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB7B51961DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,
 				BB44CB561DB052F5003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB571DB052F5003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB581DB052F5003E633F /* TitlePanel.cpp in Sources */,
@@ -3904,6 +3924,7 @@
 				BB44CC4C1DB07165003E633F /* GameScreenTitle.cpp in Sources */,
 				BB09CE311DBD3805006A3E49 /* SuperpoweredSound.cpp in Sources */,
 				BB44CC4D1DB07165003E633F /* GameScreenTransitions.cpp in Sources */,
+				BB7B51A11DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
 				BB44CC4E1DB07165003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB09CE3D1DBD4701006A3E49 /* AppleSoundManager.mm in Sources */,
 				BBCB71B21DB69D21006430B6 /* platform_file_utils.c in Sources */,
@@ -3938,6 +3959,7 @@
 				BBCB71A21DB69D21006430B6 /* OpenGLManager.cpp in Sources */,
 				BB7450851DC1542C001568B2 /* GameMarker.cpp in Sources */,
 				BB44CC691DB07165003E633F /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB7B51971DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,
 				BB44CC6A1DB07165003E633F /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC6B1DB07165003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC6C1DB07165003E633F /* TitlePanel.cpp in Sources */,
@@ -4094,6 +4116,8 @@
 				BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */,
 				BBCB71901DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
 				BBE92D811DB2E671008359C2 /* Rectangle.cpp in Sources */,
+				BB7B519F1DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
+				BB7B51951DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,
 				BBE92D821DB2E671008359C2 /* ExitGround.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

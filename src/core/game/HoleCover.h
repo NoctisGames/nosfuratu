@@ -10,6 +10,7 @@
 #define __nosfuratu__HoleCover__
 
 #include "PhysicalEntity.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -22,6 +23,8 @@ typedef enum
 
 class HoleCover : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     HoleCover(float x, float y, float width, float height, HoleCoverType type);
     

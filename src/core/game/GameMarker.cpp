@@ -23,3 +23,5 @@ int GameMarker::getType()
 {
     return m_type;
 }
+
+RTTI_IMPL(GameMarker, GridLockedPhysicalEntity);

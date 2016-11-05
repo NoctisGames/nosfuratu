@@ -43,3 +43,7 @@ EnemySpiritType EnemySpirit::getType()
 {
     return m_type;
 }
+
+RTTI_IMPL(EnemySpirit, PhysicalEntity);
+RTTI_IMPL(EnemySpiritSnake, EnemySpirit);
+RTTI_IMPL(EnemySpiritSparrow, EnemySpirit);

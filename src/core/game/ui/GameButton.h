@@ -12,6 +12,7 @@
 #include "PhysicalEntity.h"
 
 #include "Color.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -27,6 +28,8 @@ typedef enum
 
 class GameButton : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static GameButton* create(GameButtonType type);
     

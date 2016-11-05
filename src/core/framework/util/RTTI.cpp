@@ -8,7 +8,7 @@
 
 #include "RTTI.h"
 
-bool RTTI::DerivesFrom(const RTTI & rtti) const
+bool RTTI::derivesFrom(const RTTI & rtti) const
 {
     const RTTI * pCompare = this;
     

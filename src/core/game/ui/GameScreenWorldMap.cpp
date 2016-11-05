@@ -747,3 +747,14 @@ m_isNextWorldButtonEnabled(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.15032679738562f, 1, 20));
     m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.14432679738562f, 1, 21, *m_spendGoldenCarrotsBubble));
 }
+
+RTTI_IMPL_NOPARENT(WorldLevelCompletions);
+RTTI_IMPL(LevelThumbnail, PhysicalEntity);
+RTTI_IMPL(NormalLevelThumbnail, LevelThumbnail);
+RTTI_IMPL(SpendGoldenCarrotsBubble, PhysicalEntity);
+RTTI_IMPL(BossLevelThumbnail, LevelThumbnail);
+RTTI_IMPL(MidBossLevelThumbnail, BossLevelThumbnail);
+RTTI_IMPL(AbilitySlot, PhysicalEntity);
+RTTI_IMPL(GoldenCarrotsMarker, PhysicalEntity);
+RTTI_IMPL_NOPARENT(ScoreMarker);
+RTTI_IMPL(WorldMap, GameScreenState);

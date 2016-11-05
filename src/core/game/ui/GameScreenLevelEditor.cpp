@@ -431,25 +431,25 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
-                if (m_lastAddedEntity->GetRTTI().DerivesFrom(Jon::rtti))
+                if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     jon->setGame(m_game.get());
                 }
-                else if (m_lastAddedEntity->GetRTTI().DerivesFrom(Enemy::rtti))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(Enemy::rtti))
                 {
                     Enemy* e = reinterpret_cast<Enemy *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     e->setGame(m_game.get());
                 }
-                else if (m_lastAddedEntity->GetRTTI().DerivesFrom(ForegroundObject::rtti))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(ForegroundObject::rtti))
                 {
                     ForegroundObject* fo = reinterpret_cast<ForegroundObject *>(m_lastAddedEntity);
                     m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     fo->setGame(m_game.get());
                 }
-                else if (m_lastAddedEntity->GetRTTI().DerivesFrom(CollectibleItem::rtti))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                 {
                     CollectibleItem* ci = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
                     m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
@@ -482,40 +482,40 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (m_draggingEntity->GetRTTI().DerivesFrom(Midground::rtti)
-                        || m_draggingEntity->GetRTTI().DerivesFrom(Ground::rtti)
-                        || m_draggingEntity->GetRTTI().DerivesFrom(ExitGround::rtti)
-                        || m_draggingEntity->GetRTTI().DerivesFrom(Hole::rtti)
-                        || m_draggingEntity->GetRTTI().DerivesFrom(SpikeTower::rtti)
-                        || m_draggingEntity->GetRTTI().DerivesFrom(VerticalSaw::rtti)
-						|| m_draggingEntity->GetRTTI().DerivesFrom(GameMarker::rtti))
+                    if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(SpikeTower::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(VerticalSaw::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(GameMarker::rtti))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                     }
-                    else if (m_draggingEntity->GetRTTI().DerivesFrom(PlatformObject::rtti))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti))
                     {
                         m_allowPlaceOn = false;
                     }
-					else if (m_draggingEntity->GetRTTI().DerivesFrom(RunningIntoDeathObject::rtti))
+					else if (m_draggingEntity->getRTTI().derivesFrom(RunningIntoDeathObject::rtti))
 					{
 						m_allowPlaceOn = false;
 					}
-                    else if (m_draggingEntity->GetRTTI().DerivesFrom(CollectibleItem::rtti))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                     {
                         m_allowPlaceOn = false;
                     }
-                    else if (m_draggingEntity->GetRTTI().DerivesFrom(MushroomCeiling::rtti)
-						|| m_draggingEntity->GetRTTI().DerivesFrom(DeathFromAboveObject::rtti)
-						|| m_draggingEntity->GetRTTI().DerivesFrom(SpikedBall::rtti)
-						|| m_draggingEntity->GetRTTI().DerivesFrom(BigMushroomCeiling::rtti))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(MushroomCeiling::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(DeathFromAboveObject::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(SpikedBall::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(BigMushroomCeiling::rtti))
                     {
                         m_allowPlaceUnder = true;
 						m_allowPlaceOn = false;
                     }
                 }
-                else if (m_lastAddedEntity && m_lastAddedEntity->GetRTTI().DerivesFrom(CollectibleItem::rtti))
+                else if (m_lastAddedEntity && m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
 				{
                     lastAddedCollectibleItem = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
 					int gridX = tp.getX() / GRID_CELL_SIZE;
@@ -613,7 +613,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     if (OverlapTester::doRectanglesOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()))
                     {
                         bool safeToDelete = true;
-                        if (m_draggingEntity->GetRTTI().DerivesFrom(Jon::rtti) && m_game->getJons().size() == 1)
+                        if (m_draggingEntity->getRTTI().derivesFrom(Jon::rtti) && m_game->getJons().size() == 1)
                         {
                             safeToDelete = false;
                         }
@@ -651,7 +651,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 							m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
 						}
 
-						if (m_draggingEntity->GetRTTI().DerivesFrom(Sparrow::rtti))
+						if (m_draggingEntity->getRTTI().derivesFrom(Sparrow::rtti))
 						{
 							Sparrow *sparrow = reinterpret_cast<Sparrow *>(m_draggingEntity);
 							sparrow->onMoved();
@@ -781,3 +781,5 @@ GameScreenLevelEditor::GameScreenLevelEditor() :
     m_confirmResetPanel = std::unique_ptr<ConfirmResetPanel>(new ConfirmResetPanel());
     m_confirmExitPanel = std::unique_ptr<ConfirmExitPanel>(new ConfirmExitPanel());
 }
+
+RTTI_IMPL(GameScreenLevelEditor, GameScreenState);

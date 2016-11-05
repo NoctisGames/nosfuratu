@@ -86,3 +86,5 @@ bool OffsetPanel::isOpen()
 {
     return m_isOpen;
 }
+
+RTTI_IMPL(OffsetPanel, PhysicalEntity);

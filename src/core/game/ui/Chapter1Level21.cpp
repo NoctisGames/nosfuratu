@@ -523,6 +523,8 @@ m_hasTriggeredSnakeDeathCheckPoint(false)
     // Empty
 }
 
+RTTI_IMPL(Chapter1Level21, Level);
+
 #include <sstream>
 
 /// Chapter 1 Level 21 ///

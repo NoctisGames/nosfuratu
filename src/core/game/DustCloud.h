@@ -11,9 +11,12 @@
 
 #include "PhysicalEntity.h"
 #include "Color.h"
+#include "RTTI.h"
 
 class DustCloud : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     DustCloud(float x, float y, float scale);
     

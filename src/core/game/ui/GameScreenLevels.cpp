@@ -885,6 +885,28 @@ m_stopMusicOnExit(false)
     m_continueButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ContinueToLevelSelect));
 }
 
+RTTI_IMPL(Level, GameScreenState);
+RTTI_IMPL(Chapter1Level1, Level);
+RTTI_IMPL(Chapter1Level2, Level);
+RTTI_IMPL(Chapter1Level3, Level);
+RTTI_IMPL(Chapter1Level4, Level);
+RTTI_IMPL(Chapter1Level5, Level);
+RTTI_IMPL(Chapter1Level6, Level);
+RTTI_IMPL(Chapter1Level7, Level);
+RTTI_IMPL(Chapter1Level8, Level);
+RTTI_IMPL(Chapter1Level9, Level);
+RTTI_IMPL(Chapter1Level11, Level);
+RTTI_IMPL(Chapter1Level12, Level);
+RTTI_IMPL(Chapter1Level13, Level);
+RTTI_IMPL(Chapter1Level14, Level);
+RTTI_IMPL(Chapter1Level15, Level);
+RTTI_IMPL(Chapter1Level16, Level);
+RTTI_IMPL(Chapter1Level17, Level);
+RTTI_IMPL(Chapter1Level18, Level);
+RTTI_IMPL(Chapter1Level19, Level);
+RTTI_IMPL(Chapter1Level20, Level);
+RTTI_IMPL_NOPARENT(LevelUtil);
+
 #include <sstream>
 
 /// Chapter 1 Level 1 ///

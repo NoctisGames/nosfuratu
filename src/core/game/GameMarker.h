@@ -10,9 +10,12 @@
 #define __nosfuratu__GameMarker__
 
 #include "GridLockedPhysicalEntity.h"
+#include "RTTI.h"
 
 class GameMarker : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static GameMarker* create(int gridX, int gridY, int type);
     

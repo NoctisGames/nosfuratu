@@ -12,14 +12,16 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "GameConstants.h"
-
 #include "Color.h"
+#include "RTTI.h"
 
 class Game;
 class EndBossSnake;
 
 class SnakeSpirit : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
     {
@@ -42,6 +44,8 @@ private:
 
 class SnakeHeadImpact : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
 	SnakeHeadImpact(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 32 * GRID_CELL_SIZE, 32 * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
 	{
@@ -64,6 +68,8 @@ private:
 
 class SnakeSkin : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SnakeSkin(float x, float y, float width, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, width, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
     {
@@ -86,6 +92,8 @@ private:
 
 class SnakeEye : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SnakeEye(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 1.037109375f, 1.037109375f), m_endBossSnake(endBossSnake), m_isWakingUp(false), m_isShowing(true)
     {
@@ -106,6 +114,8 @@ private:
 
 class SnakeTonque : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SnakeTonque(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 4.869140625f, 0.685546875f), m_endBossSnake(endBossSnake), m_isMouthOpen(false)
     {
@@ -129,6 +139,8 @@ private:
 
 class SnakeBody : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isDead(false)
     {
@@ -181,6 +193,8 @@ typedef enum
 
 class EndBossSnake : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static EndBossSnake* create(int gridX, int gridY, int type)
     {

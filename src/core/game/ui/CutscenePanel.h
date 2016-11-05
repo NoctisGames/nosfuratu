@@ -12,6 +12,7 @@
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
 #include "Color.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -22,6 +23,8 @@ typedef enum
 
 class CutsceneEffect : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static CutsceneEffect* create(CutsceneEffectType type);
     
@@ -38,6 +41,8 @@ private:
 
 class CutsceneEffectShadowOne : public CutsceneEffect
 {
+    RTTI_DECL;
+    
 public:
     CutsceneEffectShadowOne() : CutsceneEffect(CAM_WIDTH, 0, CAM_WIDTH * 0.60375f, CAM_HEIGHT * 0.56f, CutsceneEffectType_Shadow_One)
     {
@@ -58,6 +63,8 @@ public:
 
 class CutsceneEffectShadowTwo : public CutsceneEffect
 {
+    RTTI_DECL;
+    
 public:
     CutsceneEffectShadowTwo() : CutsceneEffect(CAM_WIDTH / 2, 0, CAM_WIDTH, CAM_HEIGHT * 0.84444444444444f, CutsceneEffectType_Shadow_Two)
     {
@@ -75,6 +82,8 @@ public:
 
 class CutsceneEffectPOW : public CutsceneEffect
 {
+    RTTI_DECL;
+    
 public:
     CutsceneEffectPOW() : CutsceneEffect(CAM_WIDTH * 0.44f, CAM_HEIGHT * 0.56f, CAM_WIDTH * 1.22f, CAM_HEIGHT * 1.56888888888889f, CutsceneEffectType_POW) {}
     
@@ -101,6 +110,8 @@ typedef enum
 
 class CutscenePanel : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanel(CutscenePanelType type, float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
     
@@ -130,6 +141,8 @@ protected:
 
 class CutscenePanelOpeningSeven : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningSeven() : CutscenePanel(CutscenePanelType_Opening_Seven)
     {
@@ -163,6 +176,8 @@ public:
 
 class CutscenePanelOpeningSix : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningSix() : CutscenePanel(CutscenePanelType_Opening_Six, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3)
     {
@@ -229,6 +244,8 @@ public:
 
 class CutscenePanelOpeningFive : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningFive() : CutscenePanel(CutscenePanelType_Opening_Five)
     {
@@ -297,6 +314,8 @@ private:
 
 class CutscenePanelOpeningFour : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningFour() : CutscenePanel(CutscenePanelType_Opening_Four)
 	{
@@ -356,6 +375,8 @@ public:
 
 class CutscenePanelOpeningThree : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningThree() : CutscenePanel(CutscenePanelType_Opening_Three), m_hasSpawnedPow(false)
     {
@@ -389,6 +410,8 @@ private:
 
 class CutscenePanelOpeningTwo : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningTwo(float shadowX, float shadowY, float shadowWidth, float shadowHeight) : CutscenePanel(CutscenePanelType_Opening_Two)
     {
@@ -417,6 +440,8 @@ public:
 
 class CutscenePanelOpeningOne : public CutscenePanel
 {
+    RTTI_DECL;
+    
 public:
     CutscenePanelOpeningOne() : CutscenePanel(CutscenePanelType_Opening_One, CAM_WIDTH / 2, CAM_HEIGHT * 2 / 3, CAM_WIDTH, CAM_HEIGHT * 4 / 3), shadowX(0), shadowY(0), shadowW(0), shadowH(0), m_hasSpawnedShadow(false)
     {

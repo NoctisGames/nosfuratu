@@ -118,7 +118,7 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
                 entity->placeOn(itemTop);
                 
                 Jon *jon = nullptr;
-                if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+                if (entity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     jon = reinterpret_cast<Jon *>(entity);
                     jon->setGroundSoundType(getGroundSoundType());
@@ -304,3 +304,40 @@ bool GrassPit::canObjectBePlacedUnder()
 {
     return false;
 }
+
+RTTI_IMPL(Ground, GridLockedPhysicalEntity);
+RTTI_IMPL(CaveExtraDeepEndLeft, Ground);
+RTTI_IMPL(CaveExtraDeepSmall, Ground);
+RTTI_IMPL(CaveExtraDeepMedium, Ground);
+RTTI_IMPL(CaveExtraDeepLarge, Ground);
+RTTI_IMPL(CaveExtraDeepEndRight, Ground);
+RTTI_IMPL(CaveDeepEndLeft, Ground);
+RTTI_IMPL(CaveDeepSmall, Ground);
+RTTI_IMPL(CaveDeepMedium, Ground);
+RTTI_IMPL(CaveDeepLarge, Ground);
+RTTI_IMPL(CaveDeepEndRight, Ground);
+RTTI_IMPL(CaveEndLeft, Ground);
+RTTI_IMPL(CaveSmall, Ground);
+RTTI_IMPL(CaveMedium, Ground);
+RTTI_IMPL(CaveLarge, Ground);
+RTTI_IMPL(CaveEndRight, Ground);
+RTTI_IMPL(CaveRaisedEndLeft, Ground);
+RTTI_IMPL(CaveRaisedSmall, Ground);
+RTTI_IMPL(CaveRaisedMedium, Ground);
+RTTI_IMPL(CaveRaisedLarge, Ground);
+RTTI_IMPL(CaveRaisedEndRight, Ground);
+RTTI_IMPL(GrassWithCaveEndLeft, Ground);
+RTTI_IMPL(GrassWithCaveSmall, Ground);
+RTTI_IMPL(GrassWithCaveMedium, Ground);
+RTTI_IMPL(GrassWithCaveLarge, Ground);
+RTTI_IMPL(GrassWithCaveEndRight, Ground);
+RTTI_IMPL(GrassWithoutCaveEndLeft, Ground);
+RTTI_IMPL(GrassWithoutCaveSmall, Ground);
+RTTI_IMPL(GrassWithoutCaveMedium, Ground);
+RTTI_IMPL(GrassWithoutCaveLarge, Ground);
+RTTI_IMPL(GrassWithoutCaveEndRight, Ground);
+RTTI_IMPL(GrassPit, Ground);
+RTTI_IMPL(GrassPitSmall, GrassPit);
+RTTI_IMPL(GrassPitMedium, GrassPit);
+RTTI_IMPL(GrassPitLarge, GrassPit);
+RTTI_IMPL(GrassPitExtraLarge, GrassPit);

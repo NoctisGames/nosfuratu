@@ -10,9 +10,12 @@
 #define __nosfuratu__CountHissWithMina__
 
 #include "GridLockedPhysicalEntity.h"
+#include "RTTI.h"
 
 class CountHissWithMina : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static CountHissWithMina* create(int gridX, int gridY, int type);
     

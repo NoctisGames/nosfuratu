@@ -15,3 +15,5 @@ WorldMapPanel::WorldMapPanel(float x, float y, float width, float height) : Phys
 {
     // Empty
 }
+
+RTTI_IMPL(WorldMapPanel, PhysicalEntity);

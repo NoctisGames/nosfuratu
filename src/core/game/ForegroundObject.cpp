@@ -218,7 +218,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 				entity->placeOn(getMainBounds().getTop());
 
                 Jon *jon = nullptr;
-                if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+                if (entity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     jon = reinterpret_cast<Jon *>(entity);
 					jon->setGroundSoundType(getGroundSoundType());
@@ -314,7 +314,7 @@ bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
@@ -336,7 +336,7 @@ bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTim
     if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
@@ -379,7 +379,7 @@ bool DeadlyObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime
 	if (ForegroundObject::isEntityBlockedOnLeft(entity, deltaTime))
 	{
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
 			jon->kill();
@@ -410,7 +410,7 @@ bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
@@ -425,7 +425,7 @@ bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, floa
     if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
@@ -471,7 +471,7 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
         entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * 1.01f);
         
         Jon *jon = nullptr;
-        if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
             jon = reinterpret_cast<Jon *>(entity);
             jon->triggerBoost(m_fBoostVelocity);
@@ -509,7 +509,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, Rectangle& bo
 			entity->placeOn(itemTop);
             
             Jon *jon = nullptr;
-            if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+            if (entity->getRTTI().derivesFrom(Jon::rtti))
             {
                 jon = reinterpret_cast<Jon *>(entity);
                 jon->setGroundSoundType(getGroundSoundType());
@@ -572,7 +572,7 @@ bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     bool ret = false;
     
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
@@ -599,7 +599,7 @@ bool SpikeTower::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
     bool ret = false;
     
     Jon *jon = nullptr;
-    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
         jon = reinterpret_cast<Jon *>(entity);
         jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);

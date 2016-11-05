@@ -39,3 +39,11 @@ MidgroundType Midground::getType()
 {
     return m_type;
 }
+
+RTTI_IMPL(Midground, GridLockedPhysicalEntity);
+RTTI_IMPL(TreeOne, Midground);
+RTTI_IMPL(TreeTwo, Midground);
+RTTI_IMPL(TreeThree, Midground);
+RTTI_IMPL(DeepCaveColumnSmall, Midground);
+RTTI_IMPL(DeepCaveColumnMedium, Midground);
+RTTI_IMPL(DeepCaveColumnBig, Midground);

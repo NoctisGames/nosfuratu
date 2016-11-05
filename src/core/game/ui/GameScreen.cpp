@@ -44,7 +44,7 @@ m_fTimeUntilResume(0)
 		m_touchEventsPool.push_back(new TouchEvent(0, 0, Touch_Type::DOWN));
     }
     
-    m_stateMachine = std::unique_ptr<StateMachine<GameScreen>>(new StateMachine<GameScreen>(this));
+    m_stateMachine = std::unique_ptr<GameScreenStateMachine>(new GameScreenStateMachine(this));
     m_stateMachine->setCurrentState(Title::getInstance());
 }
 
@@ -78,8 +78,7 @@ void GameScreen::onResume()
 
 void GameScreen::onPause()
 {
-    // TODO dynamic_cast
-    if (m_stateMachine->getCurrentState() == Level::getInstance())
+    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
         Level* level = (Level*) m_stateMachine->getCurrentState();
         level->stopLoopingSounds();
@@ -126,8 +125,8 @@ void GameScreen::update(float deltaTime)
                 case UP:
                     m_isPaused = false;
                     m_fTimeUntilResume = 0.5f;
-                    // TODO dynamic_cast
-                    if (m_stateMachine->getCurrentState() == Level::getInstance())
+                    
+                    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
                     {
                         Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
                     }
@@ -283,3 +282,6 @@ void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)
 
 	m_touchEventsBuffer.push_back(touchEvent);
 }
+
+RTTI_IMPL(GameHudCarrot, PhysicalEntity);
+RTTI_IMPL_NOPARENT(GameScreen);

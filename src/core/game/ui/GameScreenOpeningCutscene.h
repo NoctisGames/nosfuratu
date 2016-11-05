@@ -12,12 +12,15 @@
 #include "GameScreen.h"
 
 #include "CutscenePanel.h"
+#include "RTTI.h"
 
 #include <vector>
 #include <memory>
 
 class OpeningCutscene : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static OpeningCutscene* getInstance();
     
