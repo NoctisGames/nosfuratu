@@ -53,3 +53,5 @@ bool ConfirmExitPanel::isOpen()
 {
     return m_isOpen;
 }
+
+RTTI_IMPL(ConfirmExitPanel, PhysicalEntity);

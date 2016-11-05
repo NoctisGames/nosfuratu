@@ -43,13 +43,13 @@ void Chapter1Level21::enter(GameScreen* gs)
 			switch (spikedBallIndex)
 			{
 				case 1:
-					spikedBall1 = dynamic_cast<SpikedBall*>((*i));
+					spikedBall1 = reinterpret_cast<SpikedBall*>((*i));
 					break;
 				case 2:
-					spikedBall2 = dynamic_cast<SpikedBall*>((*i));
+					spikedBall2 = reinterpret_cast<SpikedBall*>((*i));
 					break;
 				case 3:
-					spikedBall3 = dynamic_cast<SpikedBall*>((*i));
+					spikedBall3 = reinterpret_cast<SpikedBall*>((*i));
 					break;
 			}
 		}
@@ -59,13 +59,13 @@ void Chapter1Level21::enter(GameScreen* gs)
 			switch (spikedBallChainIndex)
 			{
 			case 1:
-				spikedBallChain1 = dynamic_cast<SpikedBallChain*>((*i));
+				spikedBallChain1 = reinterpret_cast<SpikedBallChain*>((*i));
 				break;
 			case 2:
-				spikedBallChain2 = dynamic_cast<SpikedBallChain*>((*i));
+				spikedBallChain2 = reinterpret_cast<SpikedBallChain*>((*i));
 				break;
 			case 3:
-				spikedBallChain3 = dynamic_cast<SpikedBallChain*>((*i));
+				spikedBallChain3 = reinterpret_cast<SpikedBallChain*>((*i));
 				break;
 			}
 		}
@@ -98,13 +98,13 @@ void Chapter1Level21::enter(GameScreen* gs)
 			switch (giantTreeIndex)
 			{
 			case 1:
-				gt1 = dynamic_cast<GiantTree*>((*i));
+				gt1 = reinterpret_cast<GiantTree*>((*i));
 				break;
 			case 2:
-				gt2 = dynamic_cast<GiantTree*>((*i));
+				gt2 = reinterpret_cast<GiantTree*>((*i));
 				break;
 			case 3:
-				gt3 = dynamic_cast<GiantTree*>((*i));
+				gt3 = reinterpret_cast<GiantTree*>((*i));
 				break;
 			}
 		}
@@ -522,6 +522,8 @@ m_hasTriggeredSnakeDeathCheckPoint(false)
 {
     // Empty
 }
+
+RTTI_IMPL(Chapter1Level21, Level);
 
 #include <sstream>
 

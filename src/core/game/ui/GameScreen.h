@@ -29,9 +29,13 @@
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
 #include "BatPanel.h"
+#include "GameScreenStateMachine.h"
+#include "RTTI.h"
 
 class GameHudCarrot : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     GameHudCarrot(bool isGolden) : PhysicalEntity(0, 0, 1, 1), m_isGolden(isGolden) {}
     
@@ -47,31 +51,12 @@ private:
 
 #include <memory>
 
-class GameScreen;
-
-class GameScreenState : public State<GameScreen>
-{
-public:
-    virtual void enter(GameScreen* gs) = 0;
-    
-    virtual void execute(GameScreen* gs) = 0;
-    
-    virtual void exit(GameScreen* gs) = 0;
-    
-    virtual void initRenderer(GameScreen* gs) = 0;
-    
-    GameScreenState() {}
-    
-private:
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    GameScreenState(const GameScreenState&);
-    GameScreenState& operator=(const GameScreenState&);
-};
-
 class GameScreen
 {
+    RTTI_DECL;
+    
 public:
-    std::unique_ptr<StateMachine<GameScreen>> m_stateMachine;
+    std::unique_ptr<GameScreenStateMachine> m_stateMachine;
     std::vector<TouchEvent *> m_touchEvents;
     std::vector<TouchEvent *> m_touchEventsPool;
     std::vector<TouchEvent *> m_touchEventsBuffer;

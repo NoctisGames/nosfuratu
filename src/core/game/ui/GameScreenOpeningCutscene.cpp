@@ -181,3 +181,5 @@ OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextS
 {
     m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
 }
+
+RTTI_IMPL(OpeningCutscene, GameScreenState);

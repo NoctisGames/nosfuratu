@@ -13,11 +13,15 @@
 
 #include "GameButton.h"
 #include "TitlePanel.h"
+#include "GameScreenState.h"
+#include "RTTI.h"
 
 #include <memory>
 
 class Title : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static Title* getInstance();
     

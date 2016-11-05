@@ -74,9 +74,9 @@ public:
         changeState(m_previousState);
     }
     
-    bool isInState(const State<entity_type>& st)const
+    bool isInState(const State<entity_type>* st)const
     {
-        return typeid (*m_currentState) == typeid (st);
+        return m_currentState == st;
     }
     
     State<entity_type>* getCurrentState() const

@@ -13,8 +13,9 @@
 #include "Color.h"
 #include "DustCloud.h"
 #include "GroundSoundType.h"
-#include "StateMachine.h"
-#include "State.h"
+#include "JonFormStateMachine.h"
+#include "JonFormState.h"
+#include "RTTI.h"
 
 #include <memory>
 #include <vector>
@@ -54,6 +55,8 @@ typedef enum
 
 class Jon : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static Jon* create(int gridX, int gridY, int type);
     
@@ -194,7 +197,7 @@ public:
 	void flash();
     
 private:
-    std::unique_ptr<StateMachine<Jon>> m_formStateMachine;
+    std::unique_ptr<JonFormStateMachine> m_formStateMachine;
     Game* m_game;
     std::vector<DustCloud *> m_dustClouds;
     std::vector<Jon *> m_afterImages;
@@ -238,39 +241,6 @@ private:
     void setState(JonActionState state);
     
     void setState(JonAbilityState state);
-    
-    class JonFormState : public State<Jon>
-    {
-    public:
-        virtual void enter(Jon* jon) = 0;
-        virtual void execute(Jon* jon) = 0;
-        virtual void exit(Jon* jon) = 0;
-        
-        virtual void triggerTransform(Jon* jon) = 0;
-        virtual void triggerCancelTransform(Jon* jon) = 0;
-        
-        virtual void triggerJump(Jon* jon) = 0;
-        virtual void triggerLeftAction(Jon* jon) = 0;
-        virtual void triggerRightAction(Jon* jon) = 0;
-        virtual void triggerUpAction(Jon* jon) = 0;
-        virtual void triggerDownAction(Jon* jon) = 0;
-        
-        virtual void triggerBoost(Jon* jon, float boostVelocity) = 0;
-        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity) = 0;
-        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
-        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity) = 0;
-        
-        virtual void onDeath(Jon* jon) = 0;
-        
-        virtual int getNumJumps(Jon* jon) = 0;
-        
-        JonFormState() {};
-        
-    private:
-        // ctor, copy ctor, and assignment should be private in a Singleton
-        JonFormState(const JonFormState&);
-        JonFormState& operator=(const JonFormState&);
-    };
     
     class Rabbit : public JonFormState
     {

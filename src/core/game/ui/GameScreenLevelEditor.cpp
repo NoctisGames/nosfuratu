@@ -431,27 +431,27 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
-                if (dynamic_cast<Jon*>(m_lastAddedEntity))
+                if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
-                    Jon* jon = dynamic_cast<Jon *>(m_lastAddedEntity);
+                    Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     jon->setGame(m_game.get());
                 }
-                else if (dynamic_cast<Enemy *>(m_lastAddedEntity))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(Enemy::rtti))
                 {
-                    Enemy* e = dynamic_cast<Enemy *>(m_lastAddedEntity);
+                    Enemy* e = reinterpret_cast<Enemy *>(m_lastAddedEntity);
 					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     e->setGame(m_game.get());
                 }
-                else if (dynamic_cast<ForegroundObject *>(m_lastAddedEntity))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(ForegroundObject::rtti))
                 {
-                    ForegroundObject* fo = dynamic_cast<ForegroundObject *>(m_lastAddedEntity);
+                    ForegroundObject* fo = reinterpret_cast<ForegroundObject *>(m_lastAddedEntity);
                     m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     fo->setGame(m_game.get());
                 }
-                else if (dynamic_cast<CollectibleItem *>(m_lastAddedEntity))
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                 {
-                    CollectibleItem* ci = dynamic_cast<CollectibleItem *>(m_lastAddedEntity);
+                    CollectibleItem* ci = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
                     m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     ci->setGame(m_game.get());
                 }
@@ -482,41 +482,42 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (dynamic_cast<Midground *>(m_draggingEntity)
-                        || dynamic_cast<Ground *>(m_draggingEntity)
-                        || dynamic_cast<ExitGround *>(m_draggingEntity)
-                        || dynamic_cast<Hole *>(m_draggingEntity)
-                        || dynamic_cast<SpikeTower *>(m_draggingEntity)
-                        || dynamic_cast<VerticalSaw *>(m_draggingEntity)
-						|| dynamic_cast<GameMarker *>(m_draggingEntity))
+                    if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(SpikeTower::rtti)
+                        || m_draggingEntity->getRTTI().derivesFrom(VerticalSaw::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(GameMarker::rtti))
                     {
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                     }
-                    else if (dynamic_cast<PlatformObject *>(m_draggingEntity))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti))
                     {
                         m_allowPlaceOn = false;
                     }
-					else if (dynamic_cast<RunningIntoDeathObject *>(m_draggingEntity))
+					else if (m_draggingEntity->getRTTI().derivesFrom(RunningIntoDeathObject::rtti))
 					{
 						m_allowPlaceOn = false;
 					}
-                    else if (dynamic_cast<CollectibleItem *>(m_draggingEntity))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                     {
                         m_allowPlaceOn = false;
                     }
-                    else if (dynamic_cast<MushroomCeiling *>(m_draggingEntity)
-						|| dynamic_cast<DeathFromAboveObject *>(m_draggingEntity)
-						|| dynamic_cast<SpikedBall *>(m_draggingEntity)
-						|| dynamic_cast<BigMushroomCeiling *>(m_draggingEntity))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(MushroomCeiling::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(DeathFromAboveObject::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(SpikedBall::rtti)
+						|| m_draggingEntity->getRTTI().derivesFrom(BigMushroomCeiling::rtti))
                     {
                         m_allowPlaceUnder = true;
 						m_allowPlaceOn = false;
                     }
                 }
-				else if (m_lastAddedEntity && (lastAddedCollectibleItem = dynamic_cast<CollectibleItem *>(m_lastAddedEntity)))
+                else if (m_lastAddedEntity && m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
 				{
+                    lastAddedCollectibleItem = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
 					int gridX = tp.getX() / GRID_CELL_SIZE;
 					int gridY = tp.getY() / GRID_CELL_SIZE;
 					CollectibleItem* collectibleItem = CollectibleItem::create(gridX, gridY, lastAddedCollectibleItem->getType());
@@ -612,7 +613,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     if (OverlapTester::doRectanglesOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()))
                     {
                         bool safeToDelete = true;
-                        if (dynamic_cast<Jon*>(m_draggingEntity) && m_game->getJons().size() == 1)
+                        if (m_draggingEntity->getRTTI().derivesFrom(Jon::rtti) && m_game->getJons().size() == 1)
                         {
                             safeToDelete = false;
                         }
@@ -650,9 +651,9 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 							m_draggingEntity->snapToGrid(m_levelEditorActionsPanel->boundsLevelRequested());
 						}
 
-						if (dynamic_cast<Sparrow *>(m_draggingEntity))
+						if (m_draggingEntity->getRTTI().derivesFrom(Sparrow::rtti))
 						{
-							Sparrow *sparrow = dynamic_cast<Sparrow *>(m_draggingEntity);
+							Sparrow *sparrow = reinterpret_cast<Sparrow *>(m_draggingEntity);
 							sparrow->onMoved();
 						}
                     }
@@ -780,3 +781,5 @@ GameScreenLevelEditor::GameScreenLevelEditor() :
     m_confirmResetPanel = std::unique_ptr<ConfirmResetPanel>(new ConfirmResetPanel());
     m_confirmExitPanel = std::unique_ptr<ConfirmExitPanel>(new ConfirmExitPanel());
 }
+
+RTTI_IMPL(GameScreenLevelEditor, GameScreenState);

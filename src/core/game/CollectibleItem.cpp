@@ -258,3 +258,8 @@ bool GoldenCarrot::isPreviouslyCollected()
 {
     return m_isPreviouslyCollected;
 }
+
+RTTI_IMPL(CollectibleItem, GridLockedPhysicalEntity);
+RTTI_IMPL(Carrot, CollectibleItem);
+RTTI_IMPL(GoldenCarrotTwinkle, PhysicalEntity);
+RTTI_IMPL(GoldenCarrot, CollectibleItem);

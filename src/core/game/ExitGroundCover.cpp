@@ -46,3 +46,5 @@ Color ExitGroundCover::getColor()
 {
     return m_color;
 }
+
+RTTI_IMPL(ExitGroundCover, PhysicalEntity);

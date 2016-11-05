@@ -32,11 +32,8 @@ void MacOpenGLGameScreen::onResize(int screenWidth, int screenHeight)
     
     init(screenWidth, screenHeight, true);
     
-    if (dynamic_cast<GameScreenState*>(m_stateMachine->getCurrentState()))
-    {
-        GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
-        gameScreenState->initRenderer(this);
-    }
+    GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
+    gameScreenState->initRenderer(this);
 }
 
 void MacOpenGLGameScreen::cleanUp()

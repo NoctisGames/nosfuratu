@@ -605,3 +605,11 @@ LevelToComingSoon::LevelToComingSoon() : m_levelState(nullptr), m_fTransitionSta
 {
     // Empty
 }
+
+RTTI_IMPL(TitleToWorldMap, GameScreenState);
+RTTI_IMPL(TitleToOpeningCutscene, GameScreenState);
+RTTI_IMPL(OpeningCutsceneToWorldMap, GameScreenState);
+RTTI_IMPL(TitleToLevelEditor, GameScreenState);
+RTTI_IMPL(WorldMapToOpeningCutscene, GameScreenState);
+RTTI_IMPL(WorldMapToLevel, GameScreenState);
+RTTI_IMPL(LevelToComingSoon, GameScreenState);

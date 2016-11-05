@@ -60,3 +60,16 @@ void CutscenePanel::onCleanUp()
         EntityUtils::cleanUpVectorOfPointers(m_cutsceneEffects);
     }
 }
+
+RTTI_IMPL(CutsceneEffect, PhysicalEntity);
+RTTI_IMPL(CutsceneEffectShadowOne, CutsceneEffect);
+RTTI_IMPL(CutsceneEffectShadowTwo, CutsceneEffect);
+RTTI_IMPL(CutsceneEffectPOW, CutsceneEffect);
+RTTI_IMPL(CutscenePanel, PhysicalEntity);
+RTTI_IMPL(CutscenePanelOpeningSeven, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningSix, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningFive, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningFour, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningThree, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningTwo, CutscenePanel);
+RTTI_IMPL(CutscenePanelOpeningOne, CutscenePanel);
