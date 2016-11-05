@@ -140,3 +140,6 @@ m_fontHeight(0)
 {
     // Hide Constructor for Singleton
 }
+
+RTTI_IMPL(DelayText, Text);
+RTTI_IMPL_NOPARENT(GameTracker);

@@ -398,6 +398,8 @@ private:
     void cleanUpTextures();
     
     void destroyTexture(TextureWrapper* textureWrapper);
+
+	bool isQueueEmpty();
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

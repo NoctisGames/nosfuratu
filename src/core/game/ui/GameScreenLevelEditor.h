@@ -19,11 +19,15 @@
 #include "ConfirmResetPanel.h"
 #include "ConfirmExitPanel.h"
 #include "RendererType.h"
+#include "GameScreenState.h"
+#include "RTTI.h"
 
 #include <memory>
 
 class GameScreenLevelEditor : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static GameScreenLevelEditor* getInstance();
     

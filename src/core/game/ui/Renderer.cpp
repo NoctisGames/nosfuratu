@@ -369,11 +369,15 @@ void Renderer::beginOpeningPanningSequence(Game& game)
 
 int Renderer::updateCameraToFollowPathToJon(Game& game)
 {
-    if (m_fStateTime >= 1.93f)
+    if (m_fStateTime >= 4.10f)
+    {
+        return 3;
+    }
+    else if (m_fStateTime >= 1.90f)
     {
         bool isComplete = false;
-        float progress = (m_fStateTime - 1.93f) / 0.2f;
-        if (progress > 1)
+        float progress = (m_fStateTime - 1.90f) / 0.2f;
+        if (progress >= 1)
         {
             progress = 1;
             isComplete = true;
@@ -410,12 +414,10 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
                 return 2;
             }
         }
-        else if (m_fStateTime < 2)
+        else
         {
             return 1;
         }
-        
-        return m_fStateTime >= 4.18f ? 3 : 0;
     }
     
     return 0;
@@ -866,9 +868,9 @@ void Renderer::renderWorld(Game& game)
     
     for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
     {
-        if (dynamic_cast<GoldenCarrot *>((*i)))
+        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
         {
-            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+            GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
             
             GoldenCarrotTwinkle& twinkle = gc->getGoldenCarrotTwinkle();
             renderPhysicalEntity(twinkle, Assets::getInstance()->get(&twinkle));
@@ -2065,7 +2067,7 @@ bool Renderer::ensureTitleTextures()
 {
     if (m_title_screen.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadTitle);
         }
@@ -2112,7 +2114,7 @@ bool Renderer::ensureWorldMapTextures()
 {
     if (m_world_map_screen_part_1.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorldMapPart1);
         }
@@ -2122,7 +2124,7 @@ bool Renderer::ensureWorldMapTextures()
     
     if (m_world_map_screen_part_2.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorldMapPart2);
         }
@@ -2155,7 +2157,7 @@ bool Renderer::ensureLevelEditorTextures()
 {
     if (m_level_editor.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadLevelEditor);
         }
@@ -2202,7 +2204,7 @@ bool Renderer::ensureWorld1CutsceneTextures()
 {
     if (m_world_1_cutscene_1.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Cutscene1);
         }
@@ -2212,7 +2214,7 @@ bool Renderer::ensureWorld1CutsceneTextures()
     
     if (m_world_1_cutscene_2.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Cutscene2);
         }
@@ -2273,7 +2275,7 @@ bool Renderer::ensureJonTextures()
 {
     if (m_jon.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadJon);
         }
@@ -2283,7 +2285,7 @@ bool Renderer::ensureJonTextures()
     
     if (m_trans_death_shader_helper.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadTransDeath);
         }
@@ -2293,7 +2295,7 @@ bool Renderer::ensureJonTextures()
     
     if (m_vampire.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
         }
@@ -2414,7 +2416,7 @@ bool Renderer::ensureWorld1Textures()
 {
     if (m_world_1_background_lower.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
         }
@@ -2424,7 +2426,7 @@ bool Renderer::ensureWorld1Textures()
     
     if (m_world_1_background_mid.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
         }
@@ -2434,7 +2436,7 @@ bool Renderer::ensureWorld1Textures()
     
     if (m_world_1_background_upper.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
         }
@@ -2444,7 +2446,7 @@ bool Renderer::ensureWorld1Textures()
     
     if (m_world_1_enemies.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
         }
@@ -2454,7 +2456,7 @@ bool Renderer::ensureWorld1Textures()
     
     if (m_world_1_ground.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
         }
@@ -2479,7 +2481,7 @@ bool Renderer::ensureWorld1Objects()
 {
     if (m_world_1_objects.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
         }
@@ -2494,7 +2496,7 @@ bool Renderer::ensureWorld1Special()
 {
     if (m_world_1_special.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
         }
@@ -2564,7 +2566,7 @@ bool Renderer::ensureWorld1MidBossTextures()
 {
     if (m_world_1_mid_boss_part_1.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart1);
         }
@@ -2574,7 +2576,7 @@ bool Renderer::ensureWorld1MidBossTextures()
     
     if (m_world_1_mid_boss_part_2.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart2);
         }
@@ -2584,7 +2586,7 @@ bool Renderer::ensureWorld1MidBossTextures()
     
     if (m_world_1_mid_boss_part_3.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
         }
@@ -2599,7 +2601,7 @@ bool Renderer::ensureWorld1MidBossPart3()
 {
     if (m_world_1_mid_boss_part_3.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
         }
@@ -2669,7 +2671,7 @@ bool Renderer::ensureWorld1EndBossTextures()
 {
     if (m_world_1_end_boss_part_1.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart1);
         }
@@ -2679,7 +2681,7 @@ bool Renderer::ensureWorld1EndBossTextures()
     
     if (m_world_1_end_boss_part_2.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart2);
         }
@@ -2689,7 +2691,7 @@ bool Renderer::ensureWorld1EndBossTextures()
     
     if (m_world_1_end_boss_part_3.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart3);
         }
@@ -2704,7 +2706,7 @@ bool Renderer::ensureWorld1EndBossPart1()
 {
     if (m_world_1_end_boss_part_1.gpuTextureWrapper == nullptr)
     {
-        if (m_pendingLoadFunctions.size() == 0)
+        if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart1);
         }
@@ -2936,4 +2938,9 @@ void Renderer::destroyTexture(TextureWrapper* textureWrapper)
         delete textureWrapper->gpuTextureDataWrapper;
         textureWrapper->gpuTextureDataWrapper = nullptr;
     }
+}
+
+bool Renderer::isQueueEmpty()
+{
+	return m_pendingLoadFunctions.size() == 0 && m_iNumAsyncLoads <= 0;
 }

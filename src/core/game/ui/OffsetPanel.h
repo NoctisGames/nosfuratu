@@ -14,6 +14,7 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
+#include "RTTI.h"
 
 #define OFFSET_PANEL_RC_UNHANDLED -1
 #define OFFSET_PANEL_RC_HANDLED 0
@@ -21,6 +22,8 @@
 
 class OffsetPanel : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     OffsetPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
     

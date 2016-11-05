@@ -40,3 +40,5 @@ bool HoleCover::isBreaking()
 {
     return m_isBreaking;
 }
+
+RTTI_IMPL(HoleCover, PhysicalEntity);

@@ -135,3 +135,5 @@ void PhysicalEntity::log()
     << ")"
     << endl;
 }
+
+RTTI_IMPL(PhysicalEntity, Entity);

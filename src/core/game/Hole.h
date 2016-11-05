@@ -11,6 +11,7 @@
 
 #include "GridLockedPhysicalEntity.h"
 #include "HoleCover.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -23,6 +24,8 @@ typedef enum
 
 class Hole : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static Hole* create(int gridX, int gridY, int type);
     
@@ -47,30 +50,40 @@ private:
 
 class HoleGrassTileLeft : public Hole
 {
+    RTTI_DECL;
+    
 public:
     HoleGrassTileLeft(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileLeft, HoleCoverType_GrassTileLeft) {}
 };
 
 class HoleGrassTileCenter : public Hole
 {
+    RTTI_DECL;
+    
 public:
     HoleGrassTileCenter(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileCenter, HoleCoverType_GrassTileCenter) {}
 };
 
 class HoleGrassTileRight : public Hole
 {
+    RTTI_DECL;
+    
 public:
     HoleGrassTileRight(int gridX) : Hole(gridX, 73, 16, 23, HoleType_GrassTileRight, HoleCoverType_GrassTileRight) {}
 };
 
 class HoleGrass : public Hole
 {
+    RTTI_DECL;
+    
 public:
     HoleGrass(int gridX) : Hole(gridX, 80, 16, 16, HoleType_Grass, HoleCoverType_Grass) {}
 };
 
 class HoleCave : public Hole
 {
+    RTTI_DECL;
+    
 public:
     HoleCave(int gridX) : Hole(gridX, 32, 17, 24, HoleType_Cave, HoleCoverType_Cave) {}
 };

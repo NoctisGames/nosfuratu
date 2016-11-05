@@ -414,3 +414,5 @@ bool LevelEditorEntitiesPanel::isOpen()
 {
     return m_isOpen;
 }
+
+RTTI_IMPL(LevelEditorEntitiesPanel, PhysicalEntity);

@@ -11,6 +11,7 @@
 
 #include "PhysicalEntity.h"
 #include "Color.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -20,6 +21,8 @@ typedef enum
 
 class ExitGroundCover : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     ExitGroundCover(float x, float y, float width, float height, ExitGroundCoverType type);
     

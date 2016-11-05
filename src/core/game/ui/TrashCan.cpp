@@ -28,3 +28,5 @@ bool TrashCan::isHighlighted()
 {
     return m_isHighlighted;
 }
+
+RTTI_IMPL(TrashCan, PhysicalEntity);

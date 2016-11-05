@@ -10,11 +10,14 @@
 #define __nosfuratu__GameTracker__
 
 #include "Text.h"
+#include "RTTI.h"
 
 #include <vector>
 
 class DelayText : public Text
 {
+    RTTI_DECL;
+    
 public:
     DelayText(float delay, std::string text, float x, float y, float width, float height) : Text(text, x, y, width, height, 1, 1, 1, 1), m_fDelay(delay) { }
     
@@ -34,6 +37,8 @@ private:
 
 class GameTracker
 {
+    RTTI_DECL;
+    
 public:
 	static GameTracker * getInstance();
     

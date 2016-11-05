@@ -149,10 +149,10 @@ TextureRegion& Assets::get(AbilitySlot* abilitySlot)
 
 TextureRegion& Assets::get(LevelThumbnail* thumbnail)
 {
-    BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>(thumbnail);
-    
-    if (bossLevelThumbnail)
+    if (thumbnail->isBoss())
     {
+        BossLevelThumbnail *bossLevelThumbnail = reinterpret_cast<BossLevelThumbnail *>(thumbnail);
+        
 		if (bossLevelThumbnail->isUnlocking())
         {
             static Animation anim = Animation(0, 804, 198, 204, 1980, 408, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 13);
@@ -1126,7 +1126,7 @@ TextureRegion& Assets::get(Enemy* enemy)
         }
         case EnemyType_Toad:
         {
-            Toad* toad = dynamic_cast<Toad *>(enemy);
+            Toad* toad = reinterpret_cast<Toad *>(enemy);
             
             if (toad->isDead())
             {
@@ -1173,7 +1173,7 @@ TextureRegion& Assets::get(Enemy* enemy)
         }
         case EnemyType_Fox:
         {
-            Fox* fox = dynamic_cast<Fox *>(enemy);
+            Fox* fox = reinterpret_cast<Fox *>(enemy);
             
             if (fox->isDead())
             {
@@ -1214,7 +1214,7 @@ TextureRegion& Assets::get(Enemy* enemy)
         }
         case EnemyType_BigMushroomGround:
         {
-            Mushroom* mushroom = dynamic_cast<Mushroom *>(enemy);
+            Mushroom* mushroom = reinterpret_cast<Mushroom *>(enemy);
             if (mushroom->isBouncingBack())
             {
                 static Animation anim = createAnimation(2560, 3298, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
@@ -1233,7 +1233,7 @@ TextureRegion& Assets::get(Enemy* enemy)
         }
         case EnemyType_BigMushroomCeiling:
         {
-            Mushroom* mushroom = dynamic_cast<Mushroom *>(enemy);
+            Mushroom* mushroom = reinterpret_cast<Mushroom *>(enemy);
             if (mushroom->isBouncingBack())
             {
                 static Animation anim = createAnimation(2560, 3510, 256, 208, 1024, 208, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
@@ -1256,7 +1256,7 @@ TextureRegion& Assets::get(Enemy* enemy)
         case EnemyType_MovingSnakeGruntV4:
         case EnemyType_MovingSnakeGruntV5:
         {
-            MovingSnakeGrunt* snake = dynamic_cast<MovingSnakeGrunt *>(enemy);
+            MovingSnakeGrunt* snake = reinterpret_cast<MovingSnakeGrunt *>(enemy);
             if (snake->getVelocity().getY() > 0)
             {
                 static Animation anim = createAnimation(768, 3850, 256, 128, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 4);
@@ -1334,7 +1334,7 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
         }
         case CollectibleItemType_GoldenCarrot:
         {
-            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>(collectibleItem);
+            GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>(collectibleItem);
             
             if (gc->isPreviouslyCollected())
             {

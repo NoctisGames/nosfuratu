@@ -217,9 +217,10 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 			{
 				entity->placeOn(getMainBounds().getTop());
 
-				Jon *jon;
-				if ((jon = dynamic_cast<Jon *>(entity)))
-				{
+                Jon *jon = nullptr;
+                if (entity->getRTTI().derivesFrom(Jon::rtti))
+                {
+                    jon = reinterpret_cast<Jon *>(entity);
 					jon->setGroundSoundType(getGroundSoundType());
 				}
 
@@ -312,9 +313,10 @@ bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
-        Jon *jon;
-        if ((jon = dynamic_cast<Jon *>(entity)))
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
+            jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
             
             if (entityY > getMainBounds().getBottom())
@@ -333,9 +335,10 @@ bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTim
 {
     if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
-        Jon *jon;
-        if ((jon = dynamic_cast<Jon *>(entity)))
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
+            jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
         }
         
@@ -375,9 +378,10 @@ bool DeadlyObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime
 {
 	if (ForegroundObject::isEntityBlockedOnLeft(entity, deltaTime))
 	{
-		Jon *jon;
-		if ((jon = dynamic_cast<Jon *>(entity)))
-		{
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
+        {
+            jon = reinterpret_cast<Jon *>(entity);
 			jon->kill();
 		}
 
@@ -405,9 +409,10 @@ bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
 {
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
     {
-        Jon *jon;
-        if ((jon = dynamic_cast<Jon *>(entity)))
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
+            jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
         }
     }
@@ -419,9 +424,10 @@ bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, floa
 {
     if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
     {
-        Jon *jon;
-        if ((jon = dynamic_cast<Jon *>(entity)))
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
+            jon = reinterpret_cast<Jon *>(entity);
             jon->kill();
         }
     }
@@ -464,9 +470,10 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
         float itemTop = getMainBounds().getTop();
         entity->getPosition().setY(itemTop + entity->getMainBounds().getHeight() / 2 * 1.01f);
         
-        Jon *jon;
-        if ((jon = dynamic_cast<Jon *>(entity)))
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
         {
+            jon = reinterpret_cast<Jon *>(entity);
             jon->triggerBoost(m_fBoostVelocity);
         }
         
@@ -501,9 +508,10 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, Rectangle& bo
             
 			entity->placeOn(itemTop);
             
-            Jon *jon;
-            if ((jon = dynamic_cast<Jon *>(entity)))
+            Jon *jon = nullptr;
+            if (entity->getRTTI().derivesFrom(Jon::rtti))
             {
+                jon = reinterpret_cast<Jon *>(entity);
                 jon->setGroundSoundType(getGroundSoundType());
             }
             
@@ -563,16 +571,16 @@ bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     bool ret = false;
     
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
         
         if (ForegroundObject::isEntityLanding(jon, deltaTime)
             || ForegroundObject::isEntityLanding(jon, *getBounds().at(1), deltaTime))
         {
-            Jon *jon;
-            if ((jon = dynamic_cast<Jon *>(entity)))
+            if (jon)
             {
                 jon->kill();
             }
@@ -590,9 +598,10 @@ bool SpikeTower::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     bool ret = false;
     
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->getRTTI().derivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
     }
     
@@ -957,3 +966,57 @@ void SpikedBallChain::trigger()
 {
 	m_color.alpha = 0;
 }
+
+RTTI_IMPL(ForegroundObject, GridLockedPhysicalEntity);
+RTTI_IMPL(PlatformObject, ForegroundObject);
+RTTI_IMPL(DeadlyObject, ForegroundObject);
+RTTI_IMPL(LandingDeathObject, ForegroundObject);
+RTTI_IMPL(RunningIntoDeathObject, ForegroundObject);
+RTTI_IMPL(DeathFromAboveObject, ForegroundObject);
+RTTI_IMPL(ProvideBoostObject, ForegroundObject);
+RTTI_IMPL(GrassPlatformLeft, PlatformObject);
+RTTI_IMPL(GrassPlatformCenter, PlatformObject);
+RTTI_IMPL(GrassPlatformRight, PlatformObject);
+RTTI_IMPL(CavePlatformLeft, PlatformObject);
+RTTI_IMPL(CavePlatformCenter, PlatformObject);
+RTTI_IMPL(CavePlatformRight, PlatformObject);
+RTTI_IMPL(RockLarge, ForegroundObject);
+RTTI_IMPL(RockMedium, ForegroundObject);
+RTTI_IMPL(RockSmall, ForegroundObject);
+RTTI_IMPL(StumpBig, ForegroundObject);
+RTTI_IMPL(StumpSmall, ForegroundObject);
+RTTI_IMPL(EndSign, ForegroundObject);
+RTTI_IMPL(ThornsLeft, DeadlyObject);
+RTTI_IMPL(ThornsCenterSmall, DeadlyObject);
+RTTI_IMPL(ThornsCenterBig, DeadlyObject);
+RTTI_IMPL(ThornsRight, DeadlyObject);
+RTTI_IMPL(LogVerticalTall, ForegroundObject);
+RTTI_IMPL(LogVerticalShort, ForegroundObject);
+RTTI_IMPL(JumpSpringLightFlush, ProvideBoostObject);
+RTTI_IMPL(JumpSpringLight, ProvideBoostObject);
+RTTI_IMPL(JumpSpringMedium, ProvideBoostObject);
+RTTI_IMPL(JumpSpringHeavy, ProvideBoostObject);
+RTTI_IMPL(SpikeGrassSingle, LandingDeathObject);
+RTTI_IMPL(SpikeGrassFour, LandingDeathObject);
+RTTI_IMPL(SpikeGrassEight, LandingDeathObject);
+RTTI_IMPL(SpikeCaveSingle, LandingDeathObject);
+RTTI_IMPL(SpikeCaveFour, LandingDeathObject);
+RTTI_IMPL(SpikeCaveEight, LandingDeathObject);
+RTTI_IMPL(SpikeCaveCeilingSingle, DeathFromAboveObject);
+RTTI_IMPL(SpikeCaveCeilingFour, DeathFromAboveObject);
+RTTI_IMPL(SpikeCaveCeilingEight, DeathFromAboveObject);
+RTTI_IMPL(SpikeWallSingle, RunningIntoDeathObject);
+RTTI_IMPL(SpikeWallFour, RunningIntoDeathObject);
+RTTI_IMPL(SpikeWallEight, RunningIntoDeathObject);
+RTTI_IMPL(SpikeStar, DeadlyObject);
+RTTI_IMPL(VerticalSaw, DeadlyObject);
+RTTI_IMPL(GiantTree, ForegroundObject);
+RTTI_IMPL(GiantShakingTree, ForegroundObject);
+RTTI_IMPL(GiantPerchTree, ForegroundObject);
+RTTI_IMPL(ExtraForegroundObject, ForegroundObject);
+RTTI_IMPL(SpikeTower, ExtraForegroundObject);
+RTTI_IMPL(SpikeTowerBg, ForegroundObject);
+RTTI_IMPL(SpikedBallRollingLeft, DeadlyObject);
+RTTI_IMPL(SpikedBallRollingRight, DeadlyObject);
+RTTI_IMPL(SpikedBall, DeadlyObject);
+RTTI_IMPL(SpikedBallChain, ForegroundObject);

@@ -10,9 +10,12 @@
 #define __nosfuratu__GameScreenComingSoon__
 
 #include "GameScreen.h"
+#include "RTTI.h"
 
 class ComingSoon : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static ComingSoon* getInstance();
     

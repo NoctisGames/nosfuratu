@@ -9,8 +9,12 @@
 #ifndef __noctisgames__Entity__
 #define __noctisgames__Entity__
 
+#include "RTTI.h"
+
 class Entity
 {
+    RTTI_DECL;
+    
 public:
     Entity();
     

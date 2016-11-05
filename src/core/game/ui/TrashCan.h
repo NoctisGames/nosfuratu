@@ -14,9 +14,12 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
+#include "RTTI.h"
 
 class TrashCan : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     TrashCan(float x = ZOOMED_OUT_CAM_WIDTH / 2, float y = GAME_HEIGHT - 1.4974003466204506f / 2, float width = 1.4970760233918128f, float height = 1.4974003466204506f);
     

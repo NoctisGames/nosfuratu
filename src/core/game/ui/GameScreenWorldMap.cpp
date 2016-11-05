@@ -341,10 +341,10 @@ void WorldMap::loadUserSaveData(const char* json)
         && FlagUtil::isFlagSet(levelStats, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
         bool isClearing = isCleared && !(*j)->isCleared();
         
-        BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>((*j));
-        
-        if (bossLevelThumbnail)
+        if ((*j)->isBoss())
         {
+            BossLevelThumbnail *bossLevelThumbnail = reinterpret_cast<BossLevelThumbnail *>((*j));
+            
             bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
 #if NG_LEVEL_EDITOR
             isUnlocked = true;
@@ -607,7 +607,11 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
     
     m_clickedLevel = levelThumbnail;
     
-    BossLevelThumbnail *bossLevelThumbnail = dynamic_cast<BossLevelThumbnail *>(levelThumbnail);
+    BossLevelThumbnail *bossLevelThumbnail = nullptr;
+    if (levelThumbnail->isBoss())
+    {
+        bossLevelThumbnail = reinterpret_cast<BossLevelThumbnail *>(levelThumbnail);
+    }
     
     m_goldenCarrotsMarker->config(1337, 1337, 0);
     
@@ -743,3 +747,14 @@ m_isNextWorldButtonEnabled(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.15032679738562f, 1, 20));
     m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.14432679738562f, 1, 21, *m_spendGoldenCarrotsBubble));
 }
+
+RTTI_IMPL_NOPARENT(WorldLevelCompletions);
+RTTI_IMPL(LevelThumbnail, PhysicalEntity);
+RTTI_IMPL(NormalLevelThumbnail, LevelThumbnail);
+RTTI_IMPL(SpendGoldenCarrotsBubble, PhysicalEntity);
+RTTI_IMPL(BossLevelThumbnail, LevelThumbnail);
+RTTI_IMPL(MidBossLevelThumbnail, BossLevelThumbnail);
+RTTI_IMPL(AbilitySlot, PhysicalEntity);
+RTTI_IMPL(GoldenCarrotsMarker, PhysicalEntity);
+RTTI_IMPL_NOPARENT(ScoreMarker);
+RTTI_IMPL(WorldMap, GameScreenState);

@@ -168,3 +168,5 @@ bool LevelEditorActionsPanel::showBounds()
 {
     return m_showBounds;
 }
+
+RTTI_IMPL(LevelEditorActionsPanel, PhysicalEntity);

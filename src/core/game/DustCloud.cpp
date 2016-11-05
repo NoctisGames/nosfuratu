@@ -35,3 +35,5 @@ Color DustCloud::getColor()
 {
     return m_color;
 }
+
+RTTI_IMPL(DustCloud, PhysicalEntity);
