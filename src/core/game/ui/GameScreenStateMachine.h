@@ -1,44 +1,43 @@
 //
-//  StateMachine.h
-//  noctisgames-framework
+//  GameScreenStateMachine.h
+//  nosfuratu
 //
-//  Created by Stephen Gowen on 8/28/15.
+//  Created by Stephen Gowen on 11/4/16.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__StateMachine__
-#define __noctisgames__StateMachine__
+#ifndef __noctisgames__GameScreenStateMachine__
+#define __noctisgames__GameScreenStateMachine__
 
 #include <cassert>
 
-#include "State.h"
+#include "GameScreenState.h"
 
-template <class entity_type>
-class StateMachine
+class GameScreenStateMachine
 {
 public:
     
-    StateMachine(entity_type* owner) : m_owner(owner), m_currentState(nullptr), m_previousState(nullptr), m_globalState(nullptr)
+    GameScreenStateMachine(GameScreen* owner) : m_owner(owner), m_currentState(nullptr), m_previousState(nullptr), m_globalState(nullptr)
     {
         // Empty
     }
     
-    virtual ~StateMachine()
+    virtual ~GameScreenStateMachine()
     {
         // Empty
     }
     
-    void setCurrentState(State<entity_type>* state)
+    void setCurrentState(GameScreenState* state)
     {
         m_currentState = state;
     }
     
-    void setGlobalState(State<entity_type>* state)
+    void setGlobalState(GameScreenState* state)
     {
         m_globalState = state;
     }
     
-    void setPreviousState(State<entity_type>* state)
+    void setPreviousState(GameScreenState* state)
     {
         m_previousState = state;
     }
@@ -56,9 +55,9 @@ public:
         }
     }
     
-    void changeState(State<entity_type>* newState)
+    void changeState(GameScreenState* newState)
     {
-        assert(newState && "<StateMachine::ChangeState>:trying to assign null state to current");
+        assert(newState && "<GameScreenStateMachine::ChangeState>:trying to assign null state to current");
         
         m_previousState = m_currentState;
         
@@ -74,32 +73,32 @@ public:
         changeState(m_previousState);
     }
     
-    bool isInState(const State<entity_type>* st)const
+    bool isInState(const GameScreenState* st)const
     {
         return m_currentState == st;
     }
     
-    State<entity_type>* getCurrentState() const
+    GameScreenState* getCurrentState() const
     {
         return m_currentState;
     }
     
-    State<entity_type>* getGlobalState() const
+    GameScreenState* getGlobalState() const
     {
         return m_globalState;
     }
     
-    State<entity_type>* getPreviousState() const
+    GameScreenState* getPreviousState() const
     {
         return m_previousState;
     }
     
 private:
-    entity_type* m_owner;
+    GameScreen* m_owner;
     
-    State<entity_type>* m_currentState;
-    State<entity_type>* m_previousState;
-    State<entity_type>* m_globalState;
+    GameScreenState* m_currentState;
+    GameScreenState* m_previousState;
+    GameScreenState* m_globalState;
 };
 
-#endif /* defined(__noctisgames__StateMachine__) */
+#endif /* defined(__noctisgames__GameScreenStateMachine__) */

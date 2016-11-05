@@ -11,9 +11,12 @@
 
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
+#include "RTTI.h"
 
 class TitlePanel : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     TitlePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
     

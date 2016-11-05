@@ -13,6 +13,7 @@
 #include "GroundSoundType.h"
 #include "Jon.h"
 #include "ExitGroundCover.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -25,6 +26,8 @@ typedef enum
 
 class ExitGround : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static ExitGround* create(int gridX, int gridY, int type);
     
@@ -56,24 +59,32 @@ private:
 
 class GrassWithCaveSmallExitMid : public ExitGround
 {
+    RTTI_DECL;
+    
 public:
     GrassWithCaveSmallExitMid(int gridX) : ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, ExitGroundType_GrassWithCaveSmallExitMid, GROUND_SOUND_GRASS) {}
 };
 
 class GrassWithCaveSmallExitEnd : public ExitGround
 {
+    RTTI_DECL;
+    
 public:
     GrassWithCaveSmallExitEnd(int gridX) : ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, ExitGroundType_GrassWithCaveSmallExitEnd, GROUND_SOUND_GRASS) {}
 };
 
 class CaveSmallExit : public ExitGround
 {
+    RTTI_DECL;
+    
 public:
     CaveSmallExit(int gridX) : ExitGround(gridX, 48, 32, 24, 0.29166666666667f, true, ExitGroundType_CaveSmallExit, GROUND_SOUND_CAVE) {}
 };
 
 class CaveDeepSmallWaterfall : public ExitGround
 {
+    RTTI_DECL;
+    
 public:
     CaveDeepSmallWaterfall(int gridX) : ExitGround(gridX, 0, 32, 28, 0.96428571428571f, false, ExitGroundType_CaveDeepSmallWaterfall, GROUND_SOUND_CAVE) {}
     

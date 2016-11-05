@@ -558,7 +558,7 @@ bool Game::hasEndSign()
 {
 	for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
 	{
-		if (dynamic_cast<EndSign *>((*i)))
+		if ((*i)->getType() == ForegroundObjectType_EndSign)
 		{
 			return true;
 		}
@@ -571,7 +571,7 @@ void Game::calcFarRight()
 {
     for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
     {
-        if (dynamic_cast<EndSign *>((*i)))
+        if ((*i)->getType() == ForegroundObjectType_EndSign)
         {
             m_fFarRight = (*i)->getMainBounds().getLeft();
             m_fFarRightBottom = (*i)->getMainBounds().getBottom() - 0.5625f;
@@ -622,9 +622,9 @@ void Game::configureGoldenCarrots()
     int index = 0;
     for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
     {
-        if (dynamic_cast<GoldenCarrot *>((*i)))
+        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
         {
-            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+            GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
             gc->init(index++, m_iBestLevelStatsFlag);
         }
     }

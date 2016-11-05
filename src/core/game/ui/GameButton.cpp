@@ -126,3 +126,5 @@ bool GameButton::handleClick(Vector2D& touchPoint)
     
     return false;
 }
+
+RTTI_IMPL(GameButton, PhysicalEntity);

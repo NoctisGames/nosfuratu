@@ -13,6 +13,7 @@
 
 #include "Assets.h"
 #include "Color.h"
+#include "RTTI.h"
 
 typedef enum
 {
@@ -24,6 +25,8 @@ class Game;
 
 class CollectibleItem : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static CollectibleItem* create(int gridX, int gridY, int type);
     
@@ -57,6 +60,8 @@ protected:
 
 class Carrot : public CollectibleItem
 {
+    RTTI_DECL;
+    
 public:
     Carrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 7, SOUND_COLLECT_CARROT, CollectibleItemType_Carrot) {}
     
@@ -71,6 +76,8 @@ public:
 
 class GoldenCarrotTwinkle : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     GoldenCarrotTwinkle(float x, float y, float seedStateTime) : PhysicalEntity(x, y, 0.65039062500001f, 0.68554687500001f)
     {
@@ -80,6 +87,8 @@ public:
 
 class GoldenCarrot : public CollectibleItem
 {
+    RTTI_DECL;
+    
 public:
     GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false)
     {

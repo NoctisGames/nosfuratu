@@ -44,17 +44,17 @@ m_fTimeUntilResume(0)
 		m_touchEventsPool.push_back(new TouchEvent(0, 0, Touch_Type::DOWN));
     }
     
-    m_stateMachine = std::unique_ptr<StateMachine<GameScreen>>(new StateMachine<GameScreen>(this));
+    m_stateMachine = std::unique_ptr<GameScreenStateMachine>(new GameScreenStateMachine(this));
     m_stateMachine->setCurrentState(Title::getInstance());
 }
 
 void GameScreen::onResume()
 {
     if (m_wasPaused &&
-        (dynamic_cast<Title*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<WorldMap*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<ComingSoon*>(m_stateMachine->getCurrentState())))
+        (m_stateMachine->getCurrentState() == Title::getInstance()
+         || m_stateMachine->getCurrentState() == WorldMap::getInstance()
+         || m_stateMachine->getCurrentState() == OpeningCutscene::getInstance()
+         || m_stateMachine->getCurrentState() == ComingSoon::getInstance()))
     {
         if (m_renderer->isLoadingAdditionalTextures())
         {
@@ -66,7 +66,7 @@ void GameScreen::onResume()
         }
     }
     
-    if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = false;
     }
@@ -78,14 +78,14 @@ void GameScreen::onResume()
 
 void GameScreen::onPause()
 {
-    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
+    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
         Level* level = (Level*) m_stateMachine->getCurrentState();
         level->stopLoopingSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }
-    else if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    else if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = true;
     }
@@ -125,7 +125,8 @@ void GameScreen::update(float deltaTime)
                 case UP:
                     m_isPaused = false;
                     m_fTimeUntilResume = 0.5f;
-                    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
+                    
+                    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
                     {
                         Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
                     }
@@ -281,3 +282,6 @@ void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)
 
 	m_touchEventsBuffer.push_back(touchEvent);
 }
+
+RTTI_IMPL(GameHudCarrot, PhysicalEntity);
+RTTI_IMPL_NOPARENT(GameScreen);

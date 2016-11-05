@@ -54,3 +54,5 @@ int CountHissWithMina::getType()
 {
     return m_type;
 }
+
+RTTI_IMPL(CountHissWithMina, GridLockedPhysicalEntity);

@@ -15,6 +15,7 @@
 #include "OverlapTester.h"
 #include "CollectibleItem.h"
 #include "FlagUtil.h"
+#include "RTTI.h"
 
 #include <memory>
 
@@ -26,6 +27,8 @@ class BatPanel;
 
 class Level : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static Level* getInstance();
     
@@ -126,6 +129,8 @@ private:
 
 class Chapter1Level1 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level1* getInstance();
     
@@ -138,6 +143,8 @@ private:
 
 class Chapter1Level2 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level2* getInstance();
     
@@ -150,6 +157,8 @@ private:
 
 class Chapter1Level3 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level3* getInstance();
     
@@ -162,6 +171,8 @@ private:
 
 class Chapter1Level4 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level4* getInstance();
     
@@ -174,6 +185,8 @@ private:
 
 class Chapter1Level5 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level5* getInstance();
     
@@ -186,6 +199,8 @@ private:
 
 class Chapter1Level6 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level6* getInstance();
     
@@ -198,6 +213,8 @@ private:
 
 class Chapter1Level7 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level7* getInstance();
     
@@ -210,6 +227,8 @@ private:
 
 class Chapter1Level8 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level8* getInstance();
     
@@ -222,6 +241,8 @@ private:
 
 class Chapter1Level9 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level9* getInstance();
     
@@ -234,6 +255,8 @@ private:
 
 class Chapter1Level10 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level10* getInstance();
     
@@ -278,6 +301,8 @@ private:
 
 class Chapter1Level11 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level11* getInstance();
     
@@ -290,6 +315,8 @@ private:
 
 class Chapter1Level12 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level12* getInstance();
     
@@ -302,6 +329,8 @@ private:
 
 class Chapter1Level13 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level13* getInstance();
     
@@ -314,6 +343,8 @@ private:
 
 class Chapter1Level14 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level14* getInstance();
     
@@ -326,6 +357,8 @@ private:
 
 class Chapter1Level15 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level15* getInstance();
     
@@ -338,6 +371,8 @@ private:
 
 class Chapter1Level16 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level16* getInstance();
     
@@ -350,6 +385,8 @@ private:
 
 class Chapter1Level17 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level17* getInstance();
     
@@ -362,6 +399,8 @@ private:
 
 class Chapter1Level18 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level18* getInstance();
     
@@ -374,6 +413,8 @@ private:
 
 class Chapter1Level19 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level19* getInstance();
     
@@ -386,6 +427,8 @@ private:
 
 class Chapter1Level20 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level20* getInstance();
     
@@ -398,6 +441,8 @@ private:
 
 class Chapter1Level21 : public Level
 {
+    RTTI_DECL;
+    
 public:
     static Chapter1Level21* getInstance();
     
@@ -447,6 +492,8 @@ private:
 
 class LevelUtil
 {
+    RTTI_DECL;
+    
 public:
     static Level* getInstanceForWorldAndLevel(int world, int level)
     {

@@ -24,6 +24,7 @@
 #include "CollectibleItem.h"
 #include "Jon.h"
 #include "EndBossSnake.h"
+#include "RTTI.h"
 
 #include <vector>
 #include <math.h>
@@ -36,6 +37,8 @@ class Game;
 
 class LevelEditorEntitiesPanel : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     LevelEditorEntitiesPanel(float x = CAM_WIDTH + (3.76608187134503f - 1.89473684210526) / 2, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
     

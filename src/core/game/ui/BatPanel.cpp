@@ -1149,3 +1149,7 @@ void BatPanel::handleTouchInput(GameScreen* gs)
         }
     }
 }
+
+RTTI_IMPL(BatInstruction, PhysicalEntity);
+RTTI_IMPL(Bat, PhysicalEntity);
+RTTI_IMPL_NOPARENT(BatPanel);

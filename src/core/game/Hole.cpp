@@ -81,3 +81,10 @@ HoleType Hole::getType()
 {
     return m_type;
 }
+
+RTTI_IMPL(Hole, GridLockedPhysicalEntity);
+RTTI_IMPL(HoleGrassTileLeft, Hole);
+RTTI_IMPL(HoleGrassTileCenter, Hole);
+RTTI_IMPL(HoleGrassTileRight, Hole);
+RTTI_IMPL(HoleGrass, Hole);
+RTTI_IMPL(HoleCave, Hole);

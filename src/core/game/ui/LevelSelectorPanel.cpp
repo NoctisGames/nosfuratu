@@ -95,3 +95,5 @@ bool LevelSelectorPanel::isOpen()
 {
     return m_isOpen;
 }
+
+RTTI_IMPL(LevelSelectorPanel, PhysicalEntity);

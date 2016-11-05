@@ -403,6 +403,8 @@ m_hasShownHintPopup(false)
     m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
 }
 
+RTTI_IMPL(Chapter1Level10, Level);
+
 #include <sstream>
 
 /// Chapter 1 Level 10 ///

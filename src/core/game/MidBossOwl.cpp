@@ -379,3 +379,5 @@ void MidBossOwl::setState(MidBossOwlState state)
     m_state = state;
     m_fStateTime = 0.0f;
 }
+
+RTTI_IMPL(MidBossOwl, PhysicalEntity);

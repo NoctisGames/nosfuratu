@@ -14,6 +14,7 @@
 #include "TouchEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
+#include "RTTI.h"
 
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED -1
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED 0
@@ -27,6 +28,8 @@
 
 class LevelEditorActionsPanel : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     LevelEditorActionsPanel(float x = -3.76608187134503f / 2 + 0.94736842105263f, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
     

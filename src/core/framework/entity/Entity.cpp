@@ -49,3 +49,5 @@ int Entity::getUniqueEntityID()
     
     return entityID++;
 }
+
+RTTI_IMPL_NOPARENT(Entity);

@@ -17,6 +17,7 @@
 #include "Color.h"
 #include "macros.h"
 #include "Assets.h"
+#include "RTTI.h"
 
 #include <math.h>
 
@@ -47,6 +48,8 @@ typedef enum
 
 class BatInstruction : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_color(1, 1, 1, 1), m_isClosing(false), m_isOpening(false), m_isOpen(false) { }
     
@@ -133,6 +136,8 @@ private:
 
 class Bat : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f)
     {
@@ -203,6 +208,8 @@ private:
 
 class BatPanel
 {
+    RTTI_DECL;
+    
 public:
     BatPanel();
     

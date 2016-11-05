@@ -76,3 +76,5 @@ int GridLockedPhysicalEntity::getGridY()
 {
     return m_iGridY;
 }
+
+RTTI_IMPL(GridLockedPhysicalEntity, PhysicalEntity);

@@ -14,6 +14,7 @@
 #include "GameButton.h"
 #include "GameScreenLevels.h"
 #include "WorldMapPanel.h"
+#include "RTTI.h"
 
 #include "rapidjson/document.h"
 
@@ -22,6 +23,8 @@
 
 class WorldLevelCompletions
 {
+    RTTI_DECL;
+    
 public:
     WorldLevelCompletions() { };
     
@@ -44,6 +47,8 @@ typedef enum
 
 class LevelThumbnail : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static LevelThumbnail* create(LevelThumbnailType type);
     
@@ -154,6 +159,8 @@ public:
     
     bool isCleared() { return m_isCleared; }
     
+    virtual bool isBoss() = 0;
+    
 protected:
     Color m_color;
     LevelThumbnailType m_type;
@@ -171,12 +178,18 @@ protected:
 
 class NormalLevelThumbnail : public LevelThumbnail
 {
+    RTTI_DECL;
+    
 public:
     NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, 1.10f, world, level, LevelThumbnailType_Normal) {}
+    
+    virtual bool isBoss() { return false; }
 };
 
 class SpendGoldenCarrotsBubble : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21507352941176f, CAM_HEIGHT * 0.30065359477124f),
     m_color(1, 1, 1, 1),
@@ -265,8 +278,12 @@ private:
 
 class BossLevelThumbnail : public LevelThumbnail
 {
+    RTTI_DECL;
+    
 public:
     BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f, float height = CAM_HEIGHT * 0.33333333333333f) : LevelThumbnail(x, y, width, height, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false) {}
+    
+    virtual bool isBoss() { return true; }
     
     virtual void update(float deltaTime)
     {
@@ -376,12 +393,16 @@ private:
 
 class MidBossLevelThumbnail : public BossLevelThumbnail
 {
+    RTTI_DECL;
+    
 public:
 	MidBossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f * 4 / 5, float height = CAM_HEIGHT * 0.33333333333333f * 4 / 5) : BossLevelThumbnail(x, y, world, level, spendGoldenCarrotsBubble, width, height) {}
 };
 
 class AbilitySlot : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     AbilitySlot(float x, float y, AbilitySlotType type) : PhysicalEntity(x, y, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.18627450980392f),
     m_color(1, 1, 1, 1),
@@ -460,6 +481,8 @@ private:
 
 class GoldenCarrotsMarker : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_color(1, 1, 1, 1), m_iNumGoldenCarrots(0)
     {
@@ -493,6 +516,8 @@ private:
 
 class ScoreMarker
 {
+    RTTI_DECL;
+    
 public:
     ScoreMarker() :
     m_color(1, 1, 1, 0),
@@ -541,6 +566,8 @@ private:
 
 class WorldMap : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static WorldMap* getInstance();
     

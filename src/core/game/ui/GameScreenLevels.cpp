@@ -820,9 +820,9 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
         {
             (*i)->collect();
             
-            if (dynamic_cast<GoldenCarrot *>((*i)))
+            if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
             {
-                GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+                GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
                 
                 m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
                 
@@ -884,6 +884,28 @@ m_stopMusicOnExit(false)
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
     m_continueButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ContinueToLevelSelect));
 }
+
+RTTI_IMPL(Level, GameScreenState);
+RTTI_IMPL(Chapter1Level1, Level);
+RTTI_IMPL(Chapter1Level2, Level);
+RTTI_IMPL(Chapter1Level3, Level);
+RTTI_IMPL(Chapter1Level4, Level);
+RTTI_IMPL(Chapter1Level5, Level);
+RTTI_IMPL(Chapter1Level6, Level);
+RTTI_IMPL(Chapter1Level7, Level);
+RTTI_IMPL(Chapter1Level8, Level);
+RTTI_IMPL(Chapter1Level9, Level);
+RTTI_IMPL(Chapter1Level11, Level);
+RTTI_IMPL(Chapter1Level12, Level);
+RTTI_IMPL(Chapter1Level13, Level);
+RTTI_IMPL(Chapter1Level14, Level);
+RTTI_IMPL(Chapter1Level15, Level);
+RTTI_IMPL(Chapter1Level16, Level);
+RTTI_IMPL(Chapter1Level17, Level);
+RTTI_IMPL(Chapter1Level18, Level);
+RTTI_IMPL(Chapter1Level19, Level);
+RTTI_IMPL(Chapter1Level20, Level);
+RTTI_IMPL_NOPARENT(LevelUtil);
 
 #include <sstream>
 

@@ -53,3 +53,5 @@ bool ConfirmResetPanel::isOpen()
 {
     return m_isOpen;
 }
+
+RTTI_IMPL(ConfirmResetPanel, PhysicalEntity);

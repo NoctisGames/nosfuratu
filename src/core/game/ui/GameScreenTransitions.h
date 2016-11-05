@@ -11,14 +11,18 @@
 
 #include "State.h"
 #include "GameScreenLevels.h"
+#include "GameScreenState.h"
+#include "RTTI.h"
 
 #include <memory>
 
 class GameScreen;
 class Game;
 
-class TitleToWorldMap : public State<GameScreen>
+class TitleToWorldMap : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static TitleToWorldMap* getInstance();
     
@@ -27,6 +31,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
 private:
     float m_fTransitionStateTime;
@@ -37,8 +43,10 @@ private:
     TitleToWorldMap& operator=(const TitleToWorldMap&);
 };
 
-class TitleToOpeningCutscene : public State<GameScreen>
+class TitleToOpeningCutscene : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static TitleToOpeningCutscene* getInstance();
     
@@ -47,6 +55,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
 private:
     float m_fTransitionStateTime;
@@ -57,8 +67,10 @@ private:
     TitleToOpeningCutscene& operator=(const TitleToOpeningCutscene&);
 };
 
-class OpeningCutsceneToWorldMap : public State<GameScreen>
+class OpeningCutsceneToWorldMap : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static OpeningCutsceneToWorldMap* getInstance();
     
@@ -67,6 +79,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
 private:
     float m_fTransitionStateTime;
@@ -77,8 +91,10 @@ private:
     OpeningCutsceneToWorldMap& operator=(const OpeningCutsceneToWorldMap&);
 };
 
-class TitleToLevelEditor : public State<GameScreen>
+class TitleToLevelEditor : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static TitleToLevelEditor* getInstance();
     
@@ -87,6 +103,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
 private:
     float m_fTransitionStateTime;
@@ -97,8 +115,10 @@ private:
     TitleToLevelEditor& operator=(const TitleToLevelEditor&);
 };
 
-class WorldMapToOpeningCutscene : public State<GameScreen>
+class WorldMapToOpeningCutscene : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static WorldMapToOpeningCutscene* getInstance();
     
@@ -107,6 +127,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
     void setCutsceneButtonLocation(float centerX, float centerY);
     
@@ -123,8 +145,10 @@ private:
     WorldMapToOpeningCutscene& operator=(const WorldMapToOpeningCutscene&);
 };
 
-class WorldMapToLevel : public State<GameScreen>
+class WorldMapToLevel : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static WorldMapToLevel* getInstance();
     
@@ -133,6 +157,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
     void setLevelLocation(float centerX, float centerY);
     
@@ -166,8 +192,10 @@ private:
     WorldMapToLevel& operator=(const WorldMapToLevel&);
 };
 
-class LevelToComingSoon : public State<GameScreen>
+class LevelToComingSoon : public GameScreenState
 {
+    RTTI_DECL;
+    
 public:
     static LevelToComingSoon* getInstance();
     
@@ -176,6 +204,8 @@ public:
     virtual void execute(GameScreen* gs);
     
     virtual void exit(GameScreen* gs);
+    
+    virtual void initRenderer(GameScreen* gs) {}
     
     void setLevelComingFrom(Level* levelState);
     

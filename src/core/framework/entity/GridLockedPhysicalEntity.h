@@ -9,6 +9,8 @@
 #ifndef __nosfuratu__GridLockedPhysicalEntity__
 #define __nosfuratu__GridLockedPhysicalEntity__
 
+#include "RTTI.h"
+
 #define GRID_MANAGER (GridManager::getInstance())
 #define GM_GRID_CELL_SIZE (GRID_MANAGER->getGridCellSize())
 
@@ -39,6 +41,8 @@ private:
 
 class GridLockedPhysicalEntity : public PhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     

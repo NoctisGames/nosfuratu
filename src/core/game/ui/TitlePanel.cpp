@@ -53,3 +53,5 @@ bool TitlePanel::isLightningStriking()
 {
     return m_isLightningStriking;
 }
+
+RTTI_IMPL(TitlePanel, PhysicalEntity);

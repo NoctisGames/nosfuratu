@@ -51,3 +51,11 @@ void Water::update(Vector2D& cameraPosition, float deltaTime)
         m_fTextureRegionX -= TEXTURE_SIZE_2048;
     }
 }
+
+RTTI_IMPL(Background, PhysicalEntity);
+RTTI_IMPL(Upper, Background);
+RTTI_IMPL(Mid, Background);
+RTTI_IMPL(Lower, Background);
+RTTI_IMPL(Water, Background);
+RTTI_IMPL(WaterBack, Water);
+RTTI_IMPL(WaterFront, Water);

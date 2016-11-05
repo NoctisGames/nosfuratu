@@ -13,6 +13,7 @@
 #include "Color.h"
 #include "EnemySpirit.h"
 #include "GameConstants.h"
+#include "RTTI.h"
 
 class Game;
 class Jon;
@@ -36,6 +37,8 @@ typedef enum
 
 class Enemy : public GridLockedPhysicalEntity
 {
+    RTTI_DECL;
+    
 public:
     static Enemy* create(int gridX, int gridY, int type);
     
@@ -101,6 +104,8 @@ private:
 
 class Mushroom : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND), m_isBeingBouncedOn(false), m_isBouncingBack(false) {}
     
@@ -120,6 +125,8 @@ protected:
 
 class MushroomGround : public Mushroom
 {
+    RTTI_DECL;
+    
 public:
     MushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 7, 8, 0, 0, 1, 0.796875f, EnemyType_MushroomGround) {}
     
@@ -128,6 +135,8 @@ public:
 
 class MushroomCeiling : public Mushroom
 {
+    RTTI_DECL;
+    
 public:
     MushroomCeiling(int gridX, int gridY) : Mushroom(gridX, gridY, 7, 8, 0, 0.203125f, 1, 0.796875f, EnemyType_MushroomCeiling) {}
     
@@ -136,12 +145,16 @@ public:
 
 class SnakeGrunt : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, 0, 0, 1, 0.79166666666667f, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_SNAKE_DEATH) {}
 };
 
 class Sparrow : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_fOriginalY(0), m_isOnScreen(false)
     {
@@ -162,6 +175,8 @@ private:
 
 class Toad : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.109375f, 0.33984375f, 0.3359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH),
     m_isDeadPart1(false),
@@ -188,6 +203,8 @@ private:
 
 class Fox : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.25f, 0.09375f, 0.50f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH),
 		m_isHitting(false),
@@ -217,6 +234,8 @@ private:
 
 class BigMushroomGround : public Mushroom
 {
+    RTTI_DECL;
+    
 public:
     BigMushroomGround(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0.05f, 1, 0.95f, EnemyType_BigMushroomGround) {}
     
@@ -227,6 +246,8 @@ public:
 
 class BigMushroomCeiling : public Mushroom
 {
+    RTTI_DECL;
+    
 public:
     BigMushroomCeiling(int gridX, int gridY) : Mushroom(gridX, gridY, 16, 13, 0, 0, 1, 1, EnemyType_BigMushroomCeiling) {}
     
@@ -237,6 +258,8 @@ public:
 
 class MovingSnakeGrunt : public Enemy
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type) : Enemy(gridX, gridY, 16, 8, 0.1f, 0, 0.8f, 1, type, EnemySpiritType_Snake, SOUND_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false) {}
     
@@ -262,6 +285,8 @@ private:
 
 class MovingSnakeGruntV1 : public MovingSnakeGrunt
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGruntV1(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 2, 2, false, EnemyType_MovingSnakeGruntV1)
     {
@@ -274,6 +299,8 @@ public:
 
 class MovingSnakeGruntV2 : public MovingSnakeGrunt
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGruntV2(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, false, EnemyType_MovingSnakeGruntV2)
     {
@@ -286,6 +313,8 @@ public:
 
 class MovingSnakeGruntV3 : public MovingSnakeGrunt
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGruntV3(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, false, EnemyType_MovingSnakeGruntV3)
     {
@@ -298,6 +327,8 @@ public:
 
 class MovingSnakeGruntV4 : public MovingSnakeGrunt
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGruntV4(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, true, EnemyType_MovingSnakeGruntV4)
     {
@@ -310,6 +341,8 @@ public:
 
 class MovingSnakeGruntV5 : public MovingSnakeGrunt
 {
+    RTTI_DECL;
+    
 public:
     MovingSnakeGruntV5(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, true, EnemyType_MovingSnakeGruntV5)
     {

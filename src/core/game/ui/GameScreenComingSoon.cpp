@@ -90,3 +90,5 @@ ComingSoon::ComingSoon() : m_isRequestingNextState(false)
 {
     // Empty
 }
+
+RTTI_IMPL(ComingSoon, GameScreenState);
