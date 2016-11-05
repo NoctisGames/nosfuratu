@@ -51,6 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\Text.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TextureRegion.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TouchEvent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\RTTI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\pch.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Background.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\CollectibleItem.cpp" />
@@ -68,6 +69,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Hole.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\HoleCover.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Jon.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\MidBossOwl.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Midground.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Assets.cpp" />
@@ -99,6 +101,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevelEditor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevels.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenOpeningCutscene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenState.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTitle.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTransitions.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenWorldMap.cpp" />
@@ -165,6 +168,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\TouchType.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\FlagUtil.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\macros.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\RTTI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\DirectXHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\StepTimer.h" />
@@ -187,6 +191,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Hole.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\HoleCover.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Jon.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormStateMachine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\MidBossOwl.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\Midground.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\Assets.h" />
@@ -216,6 +222,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevelEditor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenLevels.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenOpeningCutscene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenStateMachine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTitle.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenTransitions.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenWorldMap.h" />

@@ -120,6 +120,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\PhysicalEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\Entity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\RTTI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormStateMachine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenState.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenStateMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NosFURatuMain.cpp" />
@@ -227,6 +232,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\PhysicalEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\Entity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\MediaEnginePlayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\RTTI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\JonFormState.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\EndBossSnakeTexturePixelShader.hlsl" />
