@@ -12,7 +12,7 @@ using namespace Windows::Foundation;
 
 Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isMobile, bool useCompressedTextureSet) : GameScreen(), m_deviceResources(deviceResources)
 {
-	D3DManager->init(m_deviceResources, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS, isMobile);
+	D3DManager->init(m_deviceResources, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
 
 	Assets::getInstance()->setUsingCompressedTextureSet(useCompressedTextureSet);
     Assets::getInstance()->setUsingDesktopTextureSet(!isMobile);
