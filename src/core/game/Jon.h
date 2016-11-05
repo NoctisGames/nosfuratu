@@ -13,7 +13,7 @@
 #include "Color.h"
 #include "DustCloud.h"
 #include "GroundSoundType.h"
-#include "JonFormStateMachine.h"
+#include "StateMachine.h"
 #include "JonFormState.h"
 #include "RTTI.h"
 
@@ -197,7 +197,7 @@ public:
 	void flash();
     
 private:
-    std::unique_ptr<JonFormStateMachine> m_formStateMachine;
+    std::unique_ptr<StateMachine<Jon, JonFormState>> m_formStateMachine;
     Game* m_game;
     std::vector<DustCloud *> m_dustClouds;
     std::vector<Jon *> m_afterImages;

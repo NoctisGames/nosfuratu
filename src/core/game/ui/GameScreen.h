@@ -29,7 +29,8 @@
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
 #include "BatPanel.h"
-#include "GameScreenStateMachine.h"
+#include "StateMachine.h"
+#include "GameScreenState.h"
 #include "RTTI.h"
 
 class GameHudCarrot : public PhysicalEntity
@@ -56,7 +57,7 @@ class GameScreen
     RTTI_DECL;
     
 public:
-    std::unique_ptr<GameScreenStateMachine> m_stateMachine;
+    std::unique_ptr<StateMachine<GameScreen, GameScreenState>> m_stateMachine;
     std::vector<TouchEvent *> m_touchEvents;
     std::vector<TouchEvent *> m_touchEventsPool;
     std::vector<TouchEvent *> m_touchEventsBuffer;
