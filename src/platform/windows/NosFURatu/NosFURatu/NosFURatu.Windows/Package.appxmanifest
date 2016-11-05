@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="NoctisGames.NosFURatu" Publisher="CN=E18CD061-BE36-4AB8-AFD1-44C2793FCDD3" Version="1.0.10.0" />
+  <Identity Name="NoctisGames.NosFURatu" Publisher="CN=E18CD061-BE36-4AB8-AFD1-44C2793FCDD3" Version="1.1.0.0" />
   <Properties>
     <DisplayName>NosFURatu</DisplayName>
     <PublisherDisplayName>Noctis Games</PublisherDisplayName>
