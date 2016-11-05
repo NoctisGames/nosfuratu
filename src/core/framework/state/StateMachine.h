@@ -13,7 +13,7 @@
 
 #include "State.h"
 
-template <class entity_type>
+template <class entity_type, class state_type>
 class StateMachine
 {
 public:
@@ -28,17 +28,17 @@ public:
         // Empty
     }
     
-    void setCurrentState(State<entity_type>* state)
+    void setCurrentState(state_type* state)
     {
         m_currentState = state;
     }
     
-    void setGlobalState(State<entity_type>* state)
+    void setGlobalState(state_type* state)
     {
         m_globalState = state;
     }
     
-    void setPreviousState(State<entity_type>* state)
+    void setPreviousState(state_type* state)
     {
         m_previousState = state;
     }
@@ -56,7 +56,7 @@ public:
         }
     }
     
-    void changeState(State<entity_type>* newState)
+    void changeState(state_type* newState)
     {
         assert(newState && "<StateMachine::ChangeState>:trying to assign null state to current");
         
@@ -74,22 +74,22 @@ public:
         changeState(m_previousState);
     }
     
-    bool isInState(const State<entity_type>* st)const
+    bool isInState(const state_type* st)const
     {
         return m_currentState == st;
     }
     
-    State<entity_type>* getCurrentState() const
+    state_type* getCurrentState() const
     {
         return m_currentState;
     }
     
-    State<entity_type>* getGlobalState() const
+    state_type* getGlobalState() const
     {
         return m_globalState;
     }
     
-    State<entity_type>* getPreviousState() const
+    state_type* getPreviousState() const
     {
         return m_previousState;
     }
@@ -97,9 +97,9 @@ public:
 private:
     entity_type* m_owner;
     
-    State<entity_type>* m_currentState;
-    State<entity_type>* m_previousState;
-    State<entity_type>* m_globalState;
+    state_type* m_currentState;
+    state_type* m_previousState;
+    state_type* m_globalState;
 };
 
 #endif /* defined(__noctisgames__StateMachine__) */

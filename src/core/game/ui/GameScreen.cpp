@@ -44,7 +44,7 @@ m_fTimeUntilResume(0)
 		m_touchEventsPool.push_back(new TouchEvent(0, 0, Touch_Type::DOWN));
     }
     
-    m_stateMachine = std::unique_ptr<GameScreenStateMachine>(new GameScreenStateMachine(this));
+    m_stateMachine = std::unique_ptr<StateMachine<GameScreen, GameScreenState>>(new StateMachine<GameScreen, GameScreenState>(this));
     m_stateMachine->setCurrentState(Title::getInstance());
 }
 
