@@ -22,14 +22,23 @@ void AndroidOpenGLGameScreen::onSurfaceChanged(int screenWidth, int screenHeight
 {
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
-
+    
+    bool onResize = false;
     if (m_renderer)
     {
         m_renderer->cleanUp();
         OGLESManager->cleanUp();
+        
+        onResize = true;
     }
     
-    init(screenWidth, screenHeight);
+    init(screenWidth, screenHeight, onResize);
+    
+    if (onResize)
+    {
+        GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
+        gameScreenState->initRenderer(this);
+    }
 }
 
 void AndroidOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
