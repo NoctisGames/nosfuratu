@@ -9,13 +9,9 @@
 #ifndef __noctisgames__State__
 #define __noctisgames__State__
 
-#include "RTTI.h"
-
 template <class entity_type>
 class State
 {
-    RTTI_DECL;
-    
 public:
     virtual ~State()
     {
