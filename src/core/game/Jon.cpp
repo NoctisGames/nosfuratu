@@ -53,7 +53,7 @@ m_isFlashing(false)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
-	m_formStateMachine = std::unique_ptr<JonFormStateMachine>(new JonFormStateMachine(this));
+	m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
 	m_formStateMachine->getCurrentState()->enter(this);
 }
@@ -1167,7 +1167,7 @@ void Jon::Vampire::execute(Jon* jon)
         m_fTimeSinceLastVelocityCheck = 0;
         
         Jon* afterImage = new Jon(jon->getGridX(), jon->getGridY());
-        afterImage->m_formStateMachine = std::unique_ptr<JonFormStateMachine>(new JonFormStateMachine(afterImage));
+        afterImage->m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(afterImage));
         afterImage->m_formStateMachine->setCurrentState(jon->m_formStateMachine->getCurrentState());
         afterImage->m_velocity->set(*jon->m_velocity);
         afterImage->m_position->set(*jon->m_position);
