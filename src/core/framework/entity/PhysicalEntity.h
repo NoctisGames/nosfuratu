@@ -12,12 +12,15 @@
 #include "Entity.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
+#include "RTTI.h"
 
 #include <memory>
 #include <vector>
 
 class PhysicalEntity : public Entity
 {
+    RTTI_DECL;
+    
 public:
     PhysicalEntity(float x, float y, float width, float height);
     

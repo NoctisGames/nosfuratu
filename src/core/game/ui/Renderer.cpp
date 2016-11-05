@@ -868,9 +868,9 @@ void Renderer::renderWorld(Game& game)
     
     for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
     {
-        if (dynamic_cast<GoldenCarrot *>((*i)))
+        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
         {
-            GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+            GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
             
             GoldenCarrotTwinkle& twinkle = gc->getGoldenCarrotTwinkle();
             renderPhysicalEntity(twinkle, Assets::getInstance()->get(&twinkle));

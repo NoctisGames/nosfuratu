@@ -518,18 +518,6 @@ bool EndBossSnake::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     {
         if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
         {
-			Jon *jon;
-			if ((jon = dynamic_cast<Jon *>(entity)))
-			{
-				// Do Nothing
-			}
-			else
-			{
-				float itemTop = getMainBounds().getTop();
-
-				entity->placeOn(itemTop);
-			}
-            
             return true;
         }
     }

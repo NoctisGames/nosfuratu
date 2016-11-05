@@ -820,9 +820,9 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
         {
             (*i)->collect();
             
-            if (dynamic_cast<GoldenCarrot *>((*i)))
+            if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
             {
-                GoldenCarrot* gc = dynamic_cast<GoldenCarrot *>((*i));
+                GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
                 
                 m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
                 

@@ -51,10 +51,10 @@ m_fTimeUntilResume(0)
 void GameScreen::onResume()
 {
     if (m_wasPaused &&
-        (dynamic_cast<Title*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<WorldMap*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState())
-         || dynamic_cast<ComingSoon*>(m_stateMachine->getCurrentState())))
+        (m_stateMachine->getCurrentState() == Title::getInstance()
+         || m_stateMachine->getCurrentState() == WorldMap::getInstance()
+         || m_stateMachine->getCurrentState() == OpeningCutscene::getInstance()
+         || m_stateMachine->getCurrentState() == ComingSoon::getInstance()))
     {
         if (m_renderer->isLoadingAdditionalTextures())
         {
@@ -66,7 +66,7 @@ void GameScreen::onResume()
         }
     }
     
-    if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = false;
     }
@@ -78,14 +78,15 @@ void GameScreen::onResume()
 
 void GameScreen::onPause()
 {
-    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
+    // TODO dynamic_cast
+    if (m_stateMachine->getCurrentState() == Level::getInstance())
     {
         Level* level = (Level*) m_stateMachine->getCurrentState();
         level->stopLoopingSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }
-    else if (dynamic_cast<OpeningCutscene*>(m_stateMachine->getCurrentState()))
+    else if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = true;
     }
@@ -125,7 +126,8 @@ void GameScreen::update(float deltaTime)
                 case UP:
                     m_isPaused = false;
                     m_fTimeUntilResume = 0.5f;
-                    if (dynamic_cast<Level*>(m_stateMachine->getCurrentState()))
+                    // TODO dynamic_cast
+                    if (m_stateMachine->getCurrentState() == Level::getInstance())
                     {
                         Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_RESUME);
                     }

@@ -117,9 +117,10 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             {
                 entity->placeOn(itemTop);
                 
-                Jon *jon;
-                if ((jon = dynamic_cast<Jon *>(entity)))
+                Jon *jon = nullptr;
+                if (entity->GetRTTI().DerivesFrom(Jon::rtti))
                 {
+                    jon = reinterpret_cast<Jon *>(entity);
                     jon->setGroundSoundType(getGroundSoundType());
                 }
                 

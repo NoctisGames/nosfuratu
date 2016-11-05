@@ -1,44 +1,43 @@
 //
-//  StateMachine.h
-//  noctisgames-framework
+//  JonFormStateMachine.h
+//  nosfuratu
 //
-//  Created by Stephen Gowen on 8/28/15.
+//  Created by Stephen Gowen on 11/4/16.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__StateMachine__
-#define __noctisgames__StateMachine__
+#ifndef __noctisgames__JonFormStateMachine__
+#define __noctisgames__JonFormStateMachine__
 
 #include <cassert>
 
-#include "State.h"
+#include "JonFormState.h"
 
-template <class entity_type>
-class StateMachine
+class JonFormStateMachine
 {
 public:
     
-    StateMachine(entity_type* owner) : m_owner(owner), m_currentState(nullptr), m_previousState(nullptr), m_globalState(nullptr)
+    JonFormStateMachine(Jon* owner) : m_owner(owner), m_currentState(nullptr), m_previousState(nullptr), m_globalState(nullptr)
     {
         // Empty
     }
     
-    virtual ~StateMachine()
+    virtual ~JonFormStateMachine()
     {
         // Empty
     }
     
-    void setCurrentState(State<entity_type>* state)
+    void setCurrentState(JonFormState* state)
     {
         m_currentState = state;
     }
     
-    void setGlobalState(State<entity_type>* state)
+    void setGlobalState(JonFormState* state)
     {
         m_globalState = state;
     }
     
-    void setPreviousState(State<entity_type>* state)
+    void setPreviousState(JonFormState* state)
     {
         m_previousState = state;
     }
@@ -56,9 +55,9 @@ public:
         }
     }
     
-    void changeState(State<entity_type>* newState)
+    void changeState(JonFormState* newState)
     {
-        assert(newState && "<StateMachine::ChangeState>:trying to assign null state to current");
+        assert(newState && "<JonFormStateMachine::ChangeState>:trying to assign null state to current");
         
         m_previousState = m_currentState;
         
@@ -74,32 +73,32 @@ public:
         changeState(m_previousState);
     }
     
-    bool isInState(const State<entity_type>* st)const
+    bool isInState(const JonFormState* st)const
     {
         return m_currentState == st;
     }
     
-    State<entity_type>* getCurrentState() const
+    JonFormState* getCurrentState() const
     {
         return m_currentState;
     }
     
-    State<entity_type>* getGlobalState() const
+    JonFormState* getGlobalState() const
     {
         return m_globalState;
     }
     
-    State<entity_type>* getPreviousState() const
+    JonFormState* getPreviousState() const
     {
         return m_previousState;
     }
     
 private:
-    entity_type* m_owner;
+    Jon* m_owner;
     
-    State<entity_type>* m_currentState;
-    State<entity_type>* m_previousState;
-    State<entity_type>* m_globalState;
+    JonFormState* m_currentState;
+    JonFormState* m_previousState;
+    JonFormState* m_globalState;
 };
 
-#endif /* defined(__noctisgames__StateMachine__) */
+#endif /* defined(__noctisgames__JonFormStateMachine__) */

@@ -154,6 +154,8 @@ public:
     
     bool isCleared() { return m_isCleared; }
     
+    virtual bool isBoss() = 0;
+    
 protected:
     Color m_color;
     LevelThumbnailType m_type;
@@ -173,6 +175,8 @@ class NormalLevelThumbnail : public LevelThumbnail
 {
 public:
     NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, 1.10f, world, level, LevelThumbnailType_Normal) {}
+    
+    virtual bool isBoss() { return false; }
 };
 
 class SpendGoldenCarrotsBubble : public PhysicalEntity
@@ -267,6 +271,8 @@ class BossLevelThumbnail : public LevelThumbnail
 {
 public:
     BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width = CAM_WIDTH * 0.18198529411765f, float height = CAM_HEIGHT * 0.33333333333333f) : LevelThumbnail(x, y, width, height, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false) {}
+    
+    virtual bool isBoss() { return true; }
     
     virtual void update(float deltaTime)
     {

@@ -97,9 +97,10 @@ void Enemy::triggerHit()
 
 bool Enemy::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
         {
             triggerHit();
@@ -309,9 +310,10 @@ void Mushroom::handleAlive(float deltaTime)
 
 bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
         {
 			jon->triggerBoostOffEnemy(18);
@@ -523,9 +525,10 @@ void Fox::updateBounds()
 
 bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
         {
             float jonVelocityY = jon->getVelocity().getY();
@@ -681,9 +684,10 @@ void BigMushroomGround::handleAlive(float deltaTime)
 
 bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
-    Jon *jon;
-    if ((jon = dynamic_cast<Jon *>(entity)))
+    Jon *jon = nullptr;
+    if (entity->GetRTTI().DerivesFrom(Jon::rtti))
     {
+        jon = reinterpret_cast<Jon *>(entity);
         if (calcIsJonLanding(jon, deltaTime))
         {
             jon->triggerBoostOffEnemy(18);
