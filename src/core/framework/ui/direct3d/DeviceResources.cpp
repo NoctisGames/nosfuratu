@@ -361,8 +361,9 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 			)
 		);
 
-	UINT renderWidth = m_d3dRenderTargetSize.Width;
-	UINT renderHeight = m_d3dRenderTargetSize.Height;
+	bool isLargeEnoughForReduction = m_d3dRenderTargetSize.Width > 2048 || m_d3dRenderTargetSize.Height > 2048;
+	UINT renderWidth = isMobile && isLargeEnoughForReduction ? static_cast<UINT>(m_d3dRenderTargetSize.Width * 0.5f + 0.5f) : m_d3dRenderTargetSize.Width;
+	UINT renderHeight = isMobile && isLargeEnoughForReduction ? static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f) : m_d3dRenderTargetSize.Height;
 
 	// Change the region of the swap chain that will be presented to the screen.
 	DX::ThrowIfFailed(

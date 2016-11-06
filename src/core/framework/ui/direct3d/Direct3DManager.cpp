@@ -22,11 +22,12 @@ Direct3DManager * Direct3DManager::getInstance()
 	return instance;
 }
 
-void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers)
+void Direct3DManager::init(const std::shared_ptr<DX::DeviceResources>& deviceResources, int maxBatchSize, int numFramebuffers, bool useReducedSwapChain)
 {
 	m_deviceResources = deviceResources;
 	m_iMaxBatchSize = maxBatchSize;
 	m_iNumFramebuffers = numFramebuffers;
+	m_useReducedSwapChain = useReducedSwapChain;
 }
 
 void Direct3DManager::createDeviceDependentResources()
@@ -51,8 +52,9 @@ void Direct3DManager::createWindowSizeDependentResources()
 
 	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 	
-	UINT renderWidth = renderTargetSize.Width;
-	UINT renderHeight = renderTargetSize.Height;
+	bool isLargeEnoughForReduction = renderTargetSize.Width > 2048 || renderTargetSize.Height > 2048;
+	UINT renderWidth = m_useReducedSwapChain && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f) : renderTargetSize.Width;
+	UINT renderHeight = m_useReducedSwapChain && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f) : renderTargetSize.Height;
 
 	for (int i = 0; i < m_iNumFramebuffers; i++)
 	{
