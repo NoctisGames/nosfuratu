@@ -52,8 +52,9 @@ void Direct3DManager::createWindowSizeDependentResources()
 
 	Windows::Foundation::Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 	
-	UINT renderWidth = m_useReducedSwapChain ? static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f) : renderTargetSize.Width;
-	UINT renderHeight = m_useReducedSwapChain ? static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f) : renderTargetSize.Height;
+	bool isLargeEnoughForReduction = renderTargetSize.Width > 2048 || renderTargetSize.Height > 2048;
+	UINT renderWidth = m_useReducedSwapChain && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f) : renderTargetSize.Width;
+	UINT renderHeight = m_useReducedSwapChain && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f) : renderTargetSize.Height;
 
 	for (int i = 0; i < m_iNumFramebuffers; i++)
 	{
