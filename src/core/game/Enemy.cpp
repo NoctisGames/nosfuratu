@@ -92,7 +92,7 @@ void Enemy::triggerHit()
     m_fXOfDeath = getMainBounds().getLeft() + getMainBounds().getWidth() / 2;
     m_fYOfDeath = getMainBounds().getLowerLeft().getY() + getMainBounds().getHeight() / 2;
     
-    Assets::getInstance()->addSoundIdToPlayQueue(m_deathSoundId);
+    ASSETS->addSoundIdToPlayQueue(m_deathSoundId);
 }
 
 bool Enemy::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -304,7 +304,7 @@ void Mushroom::handleAlive(float deltaTime)
         
         m_isBouncingBack = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        ASSETS->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
     }
 }
 
@@ -320,7 +320,7 @@ bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_fStateTime = 0;
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+            ASSETS->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
         }
     }
 
@@ -340,7 +340,7 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 		m_fStateTime = 0;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        ASSETS->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -368,14 +368,14 @@ void Sparrow::updateBounds()
             m_position->setY(m_fOriginalY);
 			m_acceleration->set(0, 1);
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+        ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
     }
 }
 
@@ -455,7 +455,7 @@ void Toad::handleAlive(float deltaTime)
             
             m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+            ASSETS->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
         }
 		else
 		{
@@ -550,7 +550,7 @@ bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             jon->triggerBoostOffEnemy(boost);
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
+            ASSETS->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
         }
     }
     
@@ -621,7 +621,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity->setX(-RABBIT_DEFAULT_MAX_SPEED);
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+            ASSETS->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
         else if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
 			&& jon.getMainBounds().getBottom() < getMainBounds().getTop()
@@ -634,7 +634,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity->setX(RABBIT_DEFAULT_MAX_SPEED);
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+            ASSETS->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
         }
         else
         {
@@ -696,7 +696,7 @@ bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_isBeingBouncedOn = true;
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+            ASSETS->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
         }
     }
     
@@ -725,7 +725,7 @@ bool BigMushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
         
         m_isBeingBouncedOn = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        ASSETS->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -829,7 +829,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
 					m_fStateTime = 0;
 					m_isPreparingToJump = true;
 
-					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
+					ASSETS->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
 				}
             }
             else

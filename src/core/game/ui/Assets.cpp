@@ -1474,11 +1474,11 @@ TextureRegion& Assets::get(Jon* jon)
                 
                 if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
                 {
-                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
+                    ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
                 {
-                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                    ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
                 }
             }
             
@@ -1579,11 +1579,11 @@ TextureRegion& Assets::get(Jon* jon)
                 
                 if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
                 {
-                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
+                    ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_GRASS);
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
                 {
-                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                    ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
                 }
             }
             

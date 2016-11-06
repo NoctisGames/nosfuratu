@@ -31,8 +31,8 @@ void Title::enter(GameScreen* gs)
     
     initRenderer(gs);
     
-    Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
-    Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+    ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
+    ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
     
     gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }

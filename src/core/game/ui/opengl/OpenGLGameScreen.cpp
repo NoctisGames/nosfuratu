@@ -17,8 +17,8 @@ void OpenGLGameScreen::init(int screenWidth, int screenHeight, bool onResize)
 {
     OGLESManager->init(screenWidth, screenHeight, MAX_BATCH_SIZE, NUM_FRAMEBUFFERS);
     
-    Assets::getInstance()->setUsingCompressedTextureSet(m_isLowMemoryDevice);
-    Assets::getInstance()->setUsingDesktopTextureSet(m_isUsingDesktopTextureSet);
+    ASSETS->setUsingCompressedTextureSet(m_isLowMemoryDevice);
+    ASSETS->setUsingDesktopTextureSet(m_isUsingDesktopTextureSet);
     
     if (!m_renderer)
     {

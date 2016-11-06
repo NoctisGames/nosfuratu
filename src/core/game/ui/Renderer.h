@@ -258,7 +258,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::getInstance()->get(pItem), ignoreCamBounds);
+            renderPhysicalEntity(item, ASSETS->get(pItem), ignoreCamBounds);
         }
     }
     
@@ -269,7 +269,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(pItem), item.getColor(), ignoreCamBounds);
+            renderPhysicalEntityWithColor(item, ASSETS->get(pItem), item.getColor(), ignoreCamBounds);
         }
     }
     

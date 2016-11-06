@@ -31,6 +31,7 @@
 
 #include <vector>
 
+#define ASSETS (Assets::getInstance())
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
 class CollectibleItem;

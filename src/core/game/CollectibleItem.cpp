@@ -102,7 +102,7 @@ void CollectibleItem::collect()
         m_fStateTime = 0;
         m_isCollected = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(m_iCollectSoundId);
+        ASSETS->addSoundIdToPlayQueue(m_iCollectSoundId);
     }
 }
 

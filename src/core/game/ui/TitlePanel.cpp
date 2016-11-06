@@ -40,10 +40,10 @@ void TitlePanel::update(float deltaTime)
             m_fStateTime -= m_fTimeBetweenStrikes;
             m_isLightningStriking = true;
             
-            if (Assets::getInstance()->isMusicEnabled())
+            if (ASSETS->isMusicEnabled())
             {
                 int rn = rand() % 2;
-                Assets::getInstance()->addSoundIdToPlayQueue(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
+                ASSETS->addSoundIdToPlayQueue(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
             }
         }
     }

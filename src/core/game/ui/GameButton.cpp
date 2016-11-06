@@ -119,7 +119,7 @@ bool GameButton::handleClick(Vector2D& touchPoint)
     {
         m_isClicked = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+        ASSETS->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
         
         return true;
     }
