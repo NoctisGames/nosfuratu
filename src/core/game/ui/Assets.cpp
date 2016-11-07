@@ -32,13 +32,11 @@ TextureRegion& Assets::get(TitlePanel* panel)
 {
     if (panel->isLightningStriking())
     {
-        static Animation anim = Animation(0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8);
-        return anim.getTextureRegion(panel->getStateTime());
+        return m_animations.at(0).getTextureRegion(panel->getStateTime());
     }
     else
     {
-        static Animation anim = Animation(0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
-        return anim.getTextureRegion(panel->getStateTime());
+        return m_animations.at(1).getTextureRegion(panel->getStateTime());
     }
 }
 
@@ -47,20 +45,11 @@ TextureRegion& Assets::get(CutsceneEffect* effect)
     switch (effect->getType())
     {
         case CutsceneEffectType_Shadow_One:
-        {
-            static TextureRegion tr = createTextureRegion(0, 0, 966, 504, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(0);
         case CutsceneEffectType_Shadow_Two:
-        {
-            static TextureRegion tr = createTextureRegion(0, 508, 1600, 760, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(1);
         case CutsceneEffectType_POW:
-        {
-            static Animation anim = createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3);
-            return anim.getTextureRegion(effect->getStateTime());
-        }
+            return m_animations.at(2).getTextureRegion(effect->getStateTime());
     }
     
     assert(false);
@@ -71,40 +60,19 @@ TextureRegion& Assets::get(CutscenePanel* panel)
     switch (panel->getType())
     {
         case CutscenePanelType_Opening_One:
-        {
-            static TextureRegion tr = createTextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(2);
         case CutscenePanelType_Opening_Two:
-        {
-            static TextureRegion tr = createTextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(3);
         case CutscenePanelType_Opening_Three:
-        {
-            static TextureRegion tr = createTextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(4);
         case CutscenePanelType_Opening_Four:
-        {
-            static TextureRegion tr = createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(5);
         case CutscenePanelType_Opening_Five:
-        {
-            static TextureRegion tr = createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(6);
         case CutscenePanelType_Opening_Six:
-        {
-            static TextureRegion tr = createTextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(7);
         case CutscenePanelType_Opening_Seven:
-        {
-            static TextureRegion tr = createTextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-            return tr;
-        }
+            return m_textureRegions.at(8);
         case CutscenePanelType_Opening_None:
         default:
             assert(false);
@@ -2015,5 +1983,19 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 
 Assets::Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
 {
-    // Hide Constructor for Singleton
+    /// Texture Regions
+    m_textureRegions.push_back(createTextureRegion(0, 0, 966, 504, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutsceneEffectType_Shadow_One
+    m_textureRegions.push_back(createTextureRegion(0, 508, 1600, 760, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutsceneEffectType_Shadow_Two
+    m_textureRegions.push_back(createTextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_One
+    m_textureRegions.push_back(createTextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Two
+    m_textureRegions.push_back(createTextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Three
+    m_textureRegions.push_back(createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Four
+    m_textureRegions.push_back(createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Five
+    m_textureRegions.push_back(createTextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Six
+    m_textureRegions.push_back(createTextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Seven
+    
+    /// Animations
+    m_animations.push_back(Animation(0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8)); // TitlePanel lightning is striking
+    m_animations.push_back(Animation(0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2)); // TitlePanel lightning is not striking
+    m_animations.push_back(createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3)); // CutsceneEffectType_POW
 }

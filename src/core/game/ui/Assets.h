@@ -206,6 +206,8 @@ public:
     TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
 private:
+    std::vector<TextureRegion> m_textureRegions;
+    std::vector<Animation> m_animations;
     std::vector<short> m_sSoundIds;
     std::vector<short> m_sMusicIds;
     bool m_isUsingCompressedTextureSet;
