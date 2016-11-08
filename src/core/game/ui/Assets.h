@@ -69,6 +69,8 @@ class Assets
 public:
 	static Assets * getInstance();
     
+    void initializeAssets();
+    
     TextureRegion& get(TitlePanel* panel);
     
     TextureRegion& get(CutsceneEffect* effect);
@@ -212,7 +214,7 @@ private:
     
     Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
     
     TextureRegion* createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
@@ -223,7 +225,7 @@ private:
 	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Assets();
+    Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true) {}
     Assets(const Assets&);
     Assets& operator=(const Assets&);
 };

@@ -19,6 +19,7 @@ void OpenGLGameScreen::init(int screenWidth, int screenHeight, bool onResize)
     
     ASSETS->setUsingCompressedTextureSet(m_isLowMemoryDevice);
     ASSETS->setUsingDesktopTextureSet(m_isUsingDesktopTextureSet);
+    ASSETS->initializeAssets();
     
     if (!m_renderer)
     {
