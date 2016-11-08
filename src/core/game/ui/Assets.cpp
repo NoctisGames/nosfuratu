@@ -32,11 +32,13 @@ TextureRegion& Assets::get(TitlePanel* panel)
 {
     if (panel->isLightningStriking())
     {
-        return m_animations.at(0).getTextureRegion(panel->getStateTime());
+        static Animation anim = findAnimation("TitlePanel_Lightning_Striking");
+        return anim.getTextureRegion(panel->getStateTime());
     }
     else
     {
-        return m_animations.at(1).getTextureRegion(panel->getStateTime());
+        static Animation anim = findAnimation("TitlePanel_Lightning_Not_Striking");
+        return anim.getTextureRegion(panel->getStateTime());
     }
 }
 
@@ -45,11 +47,20 @@ TextureRegion& Assets::get(CutsceneEffect* effect)
     switch (effect->getType())
     {
         case CutsceneEffectType_Shadow_One:
-            return m_textureRegions.at(0);
+        {
+            static TextureRegion tr = findTextureRegion("CutsceneEffectType_Shadow_One");
+            return tr;
+        }
         case CutsceneEffectType_Shadow_Two:
-            return m_textureRegions.at(1);
+        {
+            static TextureRegion tr = findTextureRegion("CutsceneEffectType_Shadow_Two");
+            return tr;
+        }
         case CutsceneEffectType_POW:
-            return m_animations.at(2).getTextureRegion(effect->getStateTime());
+        {
+            static Animation anim = findAnimation("CutsceneEffectType_POW");
+            return anim.getTextureRegion(effect->getStateTime());
+        }
     }
     
     assert(false);
@@ -60,19 +71,40 @@ TextureRegion& Assets::get(CutscenePanel* panel)
     switch (panel->getType())
     {
         case CutscenePanelType_Opening_One:
-            return m_textureRegions.at(2);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_One");
+            return tr;
+        }
         case CutscenePanelType_Opening_Two:
-            return m_textureRegions.at(3);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Two");
+            return tr;
+        }
         case CutscenePanelType_Opening_Three:
-            return m_textureRegions.at(4);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Three");
+            return tr;
+        }
         case CutscenePanelType_Opening_Four:
-            return m_textureRegions.at(5);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Four");
+            return tr;
+        }
         case CutscenePanelType_Opening_Five:
-            return m_textureRegions.at(6);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Five");
+            return tr;
+        }
         case CutscenePanelType_Opening_Six:
-            return m_textureRegions.at(7);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Six");
+            return tr;
+        }
         case CutscenePanelType_Opening_Seven:
-            return m_textureRegions.at(8);
+        {
+            static TextureRegion tr = findTextureRegion("CutscenePanelType_Opening_Seven");
+            return tr;
+        }
         case CutscenePanelType_Opening_None:
         default:
             assert(false);
@@ -83,7 +115,7 @@ TextureRegion& Assets::get(CutscenePanel* panel)
 
 TextureRegion& Assets::get(WorldMapPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(0, 0, 1088, 612, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("WorldMapPanel");
     return tr;
 }
 
@@ -111,7 +143,7 @@ TextureRegion& Assets::get(AbilitySlot* abilitySlot)
         }
     }
     
-    static TextureRegion tr = TextureRegion(0, 458, 118, 114, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("AbilitySlot_Locked");
     return tr;
 }
 
@@ -161,12 +193,12 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
             }
             else if (thumbnail->isCleared())
             {
-                static TextureRegion tr = TextureRegion(0, 1832, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = findTextureRegion("BossLevelThumbnail_Cleared");
                 return tr;
             }
             else
             {
-                static TextureRegion tr = TextureRegion(198, 1420, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = findTextureRegion("BossLevelThumbnail_Unlocked");
                 return tr;
             }
         }
@@ -179,7 +211,7 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
             }
             else
             {
-                static TextureRegion tr = TextureRegion(990, 1008, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = findTextureRegion("BossLevelThumbnail_Locked");
                 return tr;
             }
         }
@@ -221,18 +253,18 @@ TextureRegion& Assets::get(LevelThumbnail* thumbnail)
             }
             else if (thumbnail->isCleared())
             {
-                static TextureRegion tr = TextureRegion(0, 330, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = findTextureRegion("NormalLevelThumbnail_Cleared");
                 return tr;
             }
             else
             {
-                static TextureRegion tr = TextureRegion(124, 78, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+                static TextureRegion tr = findTextureRegion("NormalLevelThumbnail_Playable");
                 return tr;
             }
         }
         else
         {
-            static TextureRegion tr = TextureRegion(0, 78, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("NormalLevelThumbnail_Unplayable");
             return tr;
         }
     }
@@ -286,29 +318,38 @@ TextureRegion& Assets::get(SpendGoldenCarrotsBubble* spendGoldenCarrotsBubble)
 
 TextureRegion& Assets::get(Background* background)
 {
-	static TextureRegion upper = TextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 2048, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-	static TextureRegion mid = TextureRegion(0, 1024, PIXEL_WIDTH_FOR_BACKGROUND, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-	static TextureRegion lower = TextureRegion(0, 320, PIXEL_WIDTH_FOR_BACKGROUND, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion waterBack = TextureRegion(0, 168, PIXEL_WIDTH_FOR_BACKGROUND, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion waterFront = TextureRegion(0, 248, PIXEL_WIDTH_FOR_BACKGROUND, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-
     switch (background->getType())
     {
         case BackgroundType_Upper:
-            initTextureRegion(upper, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
-            return upper;
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Upper");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return tr;
+        }
         case BackgroundType_Mid:
-            initTextureRegion(mid, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
-            return mid;
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Mid");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return tr;
+        }
         case BackgroundType_Lower:
-            initTextureRegion(lower, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
-            return lower;
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Lower");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return tr;
+        }
         case BackgroundType_WaterBack:
-            initTextureRegion(waterBack, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
-            return waterBack;
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_WaterBack");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return tr;
+        }
         case BackgroundType_WaterFront:
-            initTextureRegion(waterFront, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
-            return waterFront;
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_WaterFront");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            return tr;
+        }
     }
     
     assert(false);
@@ -320,32 +361,32 @@ TextureRegion& Assets::get(Midground* midground)
     {
         case MidgroundType_TreeOne:
         {
-            static TextureRegion tr = createTextureRegion(1940, 224, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_TreeOne");
             return tr;
         }
         case MidgroundType_TreeTwo:
         {
-            static TextureRegion tr = createTextureRegion(2468, 96, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_TreeTwo");
             return tr;
         }
         case MidgroundType_TreeThree:
         {
-            static TextureRegion tr = createTextureRegion(3156, 48, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_TreeThree");
             return tr;
         }
         case MidgroundType_DeepCaveColumnSmall:
         {
-            static TextureRegion tr = createTextureRegion(3052, 1444, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_DeepCaveColumnSmall");
             return tr;
         }
         case MidgroundType_DeepCaveColumnMedium:
         {
-            static TextureRegion tr = createTextureRegion(3884, 900, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_DeepCaveColumnMedium");
             return tr;
         }
         case MidgroundType_DeepCaveColumnBig:
         {
-            static TextureRegion tr = createTextureRegion(3310, 900, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("MidgroundType_DeepCaveColumnBig");
             return tr;
         }
     }
@@ -359,178 +400,178 @@ TextureRegion& Assets::get(Ground* ground)
     {
         case GroundType_CaveExtraDeepEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("GroundType_CaveExtraDeepEndLeft");
             return tr;
         }
         case GroundType_CaveExtraDeepSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveExtraDeepMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveExtraDeepLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1132, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveExtraDeepEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_CaveDeepEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveDeepSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1264, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveDeepMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1264, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveDeepLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1264, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveDeepEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_CaveEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1912, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1912, 1024, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1912, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_CaveRaisedEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveRaisedSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 1396, 512, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveRaisedMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 1396, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveRaisedLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 1396, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_CaveRaisedEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_GrassWithCaveEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithCaveSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 2300, 512, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithCaveMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 2300, 1024, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithCaveLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 2300, 2048, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithCaveEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_GrassWithoutCaveEndLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithoutCaveSmall:
         {
-            static TextureRegion tr = createTextureRegion(128, 2496, 512, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithoutCaveMedium:
         {
-            static TextureRegion tr = createTextureRegion(640, 2496, 1024, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithoutCaveLarge:
         {
-            static TextureRegion tr = createTextureRegion(1664, 2496, 2048, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassWithoutCaveEndRight:
         {
-            static TextureRegion tr = createTextureRegion(3712, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
             
         case GroundType_GrassPitSmall:
         {
-            static TextureRegion tr = createTextureRegion(2208, 880, 512, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassPitMedium:
         {
-            static TextureRegion tr = createTextureRegion(2954, 880, 1024, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassPitLarge:
         {
-            static TextureRegion tr = createTextureRegion(0, 880, 2048, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
         case GroundType_GrassPitExtraLarge:
         {
-            static TextureRegion tr = createTextureRegion(0, 2496, 4096, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");
             return tr;
         }
     }
@@ -544,17 +585,17 @@ TextureRegion& Assets::get(ExitGround* exitGround)
     {
         case ExitGroundType_GrassWithCaveSmallExitMid:
         {
-            static TextureRegion tr = createTextureRegion(0, 0, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 0, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ExitGroundType_GrassWithCaveSmallExitEnd:
         {
-            static TextureRegion tr = createTextureRegion(3500, 228, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3500, 228, 512, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ExitGroundType_CaveSmallExit:
         {
-            static TextureRegion tr = createTextureRegion(0, 228, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 228, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -593,27 +634,27 @@ TextureRegion& Assets::get(Hole* hole)
     {
         case HoleType_GrassTileLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 1400, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 1400, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case HoleType_GrassTileCenter:
         {
-            static TextureRegion tr = createTextureRegion(0, 1772, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 1772, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case HoleType_GrassTileRight:
         {
-            static TextureRegion tr = createTextureRegion(0, 2144, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 2144, 256, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case HoleType_Grass:
         {
-            static TextureRegion tr = createTextureRegion(0, 2528, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 2528, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case HoleType_Cave:
         {
-            static TextureRegion tr = createTextureRegion(0, 2788, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 2788, 272, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -661,49 +702,49 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
     {
         case ForegroundObjectType_GrassPlatformLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_GrassPlatformCenter:
         {
-            static TextureRegion tr = createTextureRegion(64, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(64, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_GrassPlatformRight:
         {
-            static TextureRegion tr = createTextureRegion(288, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(288, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_CavePlatformLeft:
         {
-            static TextureRegion tr = createTextureRegion(378, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(378, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_CavePlatformCenter:
         {
-            static TextureRegion tr = createTextureRegion(442, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(442, 0, 224, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_CavePlatformRight:
         {
-            static TextureRegion tr = createTextureRegion(666, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(666, 0, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_RockLarge:
         {
-            static TextureRegion tr = createTextureRegion(0, 130, 704, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 130, 704, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockMedium:
         {
-            static TextureRegion tr = createTextureRegion(0, 686, 384, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 686, 384, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockSmall:
         {
-            static TextureRegion tr = createTextureRegion(3624, 2158, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3624, 2158, 384, 368, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_RockSmallCracked:
@@ -714,50 +755,50 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_StumpBig:
         {
-            static TextureRegion tr = createTextureRegion(388, 696, 256, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(388, 696, 256, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_StumpSmall:
         {
-            static TextureRegion tr = createTextureRegion(0, 1080, 320, 272, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 1080, 320, 272, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_EndSign:
         {
-            static TextureRegion tr = createTextureRegion(704, 688, 112, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(704, 688, 112, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_ThornsLeft:
         {
-            static TextureRegion tr = createTextureRegion(1156, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1156, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_ThornsCenterSmall:
         {
-            static TextureRegion tr = createTextureRegion(1588, 1196, 176, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1588, 1196, 176, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_ThornsCenterBig:
         {
-            static TextureRegion tr = createTextureRegion(1236, 1196, 352, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1236, 1196, 352, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_ThornsRight:
         {
-            static TextureRegion tr = createTextureRegion(1764, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1764, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_LogVerticalTall:
         {
-            static TextureRegion tr = createTextureRegion(452, 1004, 128, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(452, 1004, 128, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_LogVerticalShort:
         {
-            static TextureRegion tr = createTextureRegion(452, 1190, 128, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(452, 1190, 128, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -784,71 +825,71 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_SpikeGrassSingle:
         {
-            static TextureRegion tr = createTextureRegion(1904, 900, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1904, 900, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassFour:
         {
-            static TextureRegion tr = createTextureRegion(2000, 900, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2000, 900, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeGrassEight:
         {
-            static TextureRegion tr = createTextureRegion(2288, 900, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2288, 900, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveSingle:
         {
-            static TextureRegion tr = createTextureRegion(1904, 1108, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1904, 1108, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveFour:
         {
-            static TextureRegion tr = createTextureRegion(2000, 1108, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2000, 1108, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveEight:
         {
-            static TextureRegion tr = createTextureRegion(2288, 1108, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2288, 1108, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeCaveCeilingSingle:
         {
-            static TextureRegion tr = createTextureRegion(1904, 1004, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1904, 1004, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingFour:
         {
-            static TextureRegion tr = createTextureRegion(2000, 1004, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2000, 1004, 288, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeCaveCeilingEight:
         {
-            static TextureRegion tr = createTextureRegion(2288, 1004, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2288, 1004, 544, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeWallSingle:
         {
-            static TextureRegion tr = createTextureRegion(4000, 3140, 96, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(4000, 3140, 96, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeWallFour:
         {
-            static TextureRegion tr = createTextureRegion(4000, 3824, 96, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(4000, 3824, 96, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeWallEight:
         {
-            static TextureRegion tr = createTextureRegion(4000, 3248, 96, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(4000, 3248, 96, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeStar:
         {
-            static TextureRegion tr = createTextureRegion(890, 1162, 224, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(890, 1162, 224, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
@@ -860,7 +901,7 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             
         case ForegroundObjectType_GiantTree:
         {
-            static TextureRegion tr = createTextureRegion(832, 0, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(832, 0, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_GiantShakingTree:
@@ -870,31 +911,31 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         }
         case ForegroundObjectType_GiantPerchTree:
         {
-            static TextureRegion tr = createTextureRegion(3008, 2080, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3008, 2080, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikeTower:
         {
-            static TextureRegion tr = createTextureRegion(2892, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2892, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikeTowerBg:
         {
-            static TextureRegion tr = createTextureRegion(3408, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3408, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikedBallRollingLeft:
         case ForegroundObjectType_SpikedBallRollingRight:
         {
-            static TextureRegion tr = createTextureRegion(3440, 2104, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3440, 2104, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
             
         case ForegroundObjectType_SpikedBall:
         {
-            static TextureRegion tr = createTextureRegion(3440, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(3440, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case ForegroundObjectType_SpikedBallChain:
@@ -988,7 +1029,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
 		case EndBossSnakeState_OpenMouthLeft:
         case EndBossSnakeState_ChargingLeft:
         {
-            static TextureRegion tr = createTextureRegion(0, 548, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 548, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         case EndBossSnakeState_Pursuing:
@@ -1001,7 +1042,7 @@ TextureRegion& Assets::get(SnakeBody* snakeBody)
 		case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
-            static TextureRegion tr = createTextureRegion(0, 1640, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 1640, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -1016,7 +1057,7 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
         case EndBossSnakeState_Sleeping:
         case EndBossSnakeState_Awakening:
 		{
-			static TextureRegion tr = createTextureRegion(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+			static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
 			return tr;
 		}
 		case EndBossSnakeState_OpeningMouthLeft:
@@ -1027,14 +1068,14 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 		case EndBossSnakeState_OpenMouthLeft:
         case EndBossSnakeState_ChargingLeft:
 		{
-			static TextureRegion tr = createTextureRegion(1728, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+			static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1728, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
 			return tr;
 		}
         case EndBossSnakeState_Pursuing:
 		case EndBossSnakeState_Waiting:
 		case EndBossSnakeState_Damaged:
 		{
-			static TextureRegion tr = createTextureRegion(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+			static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
 			return tr;
 		}
         case EndBossSnakeState_OpeningMouthRight:
@@ -1045,7 +1086,7 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
 		case EndBossSnakeState_OpenMouthRight:
         case EndBossSnakeState_ChargingRight:
 		{
-			static TextureRegion tr = createTextureRegion(1728, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+			static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1728, 0, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
 			return tr;
 		}
         case EndBossSnakeState_Dying:
@@ -1060,7 +1101,7 @@ TextureRegion& Assets::get(EndBossSnake* endBossSnake)
         case EndBossSnakeState_DeadSpiritReleasing:
         case EndBossSnakeState_Dead:
         {
-            static TextureRegion tr = createTextureRegion(2592, 2720, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2592, 2720, 864, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
     }
@@ -1296,7 +1337,7 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             }
             else
             {
-                static TextureRegion tr = createTextureRegion(0, 3204, 218, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(0, 3204, 218, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
                 return tr;
             }
         }
@@ -1306,7 +1347,7 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             
             if (gc->isPreviouslyCollected())
             {
-                static TextureRegion tr = createTextureRegion(2286, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2286, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
                 return tr;
             }
             else if (collectibleItem->isCollected())
@@ -1316,7 +1357,7 @@ TextureRegion& Assets::get(CollectibleItem* collectibleItem)
             }
             else
             {
-                static TextureRegion tr = createTextureRegion(2032, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+                static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(2032, 3204, 254, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
                 return tr;
             }
         }
@@ -1754,42 +1795,42 @@ TextureRegion& Assets::get(GameButton* gameButton)
     {
         case GameButtonType_ToggleMusic:
         {
-            static TextureRegion tr = TextureRegion(1244, 72, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1244, 72, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_ToggleSound:
         {
-            static TextureRegion tr = TextureRegion(1244, 204, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1244, 204, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToTitle:
         {
-            static TextureRegion tr = TextureRegion(1800, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1800, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_Leaderboards:
         {
-            static TextureRegion tr = TextureRegion(1904, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1904, 0, 104, 104, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_ViewOpeningCutscene:
         {
-            static TextureRegion tr = TextureRegion(1152, 0, 96, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1152, 0, 96, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
             return tr;
         }
         case GameButtonType_BackToLevelSelect:
         {
-            static TextureRegion tr = TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
             return tr;
         }
         case GameButtonType_ContinueToLevelSelect:
         {
-            static TextureRegion tr = TextureRegion(804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
             return tr;
         }
         case GameButtonType_LevelEditor:
         {
-            static TextureRegion tr = TextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+            static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
             return tr;
         }
         default:
@@ -1803,57 +1844,63 @@ TextureRegion& Assets::get(GameHudCarrot* gameHudCarrot)
 {
     if (gameHudCarrot->isGolden())
     {
-        static TextureRegion tr = createTextureRegion(1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+        static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
         return tr;
     }
     else
     {
-        static TextureRegion tr = createTextureRegion(884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+        static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//createTextureRegionP(884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
         return tr;
     }
 }
 
 TextureRegion& Assets::get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel)
 {
-    static TextureRegion tr = TextureRegion(0, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(0, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(LevelEditorActionsPanel* levelEditorActionsPanel)
 {
-    static TextureRegion tr = TextureRegion(840, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(840, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(TrashCan* trashCan)
 {
-    static TextureRegion trashCanTr = TextureRegion(0, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    static TextureRegion trashCanHighlightedTr = TextureRegion(128, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    
-    return trashCan->isHighlighted() ? trashCanHighlightedTr : trashCanTr;
+    if (trashCan->isHighlighted())
+    {
+        static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(128, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        return tr;
+    }
+    else
+    {
+        static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(0, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+        return tr;
+    }
 }
 
 TextureRegion& Assets::get(LevelSelectorPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(1538, 12, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1538, 12, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(OffsetPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(1538, 542, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1538, 542, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(ConfirmResetPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(938, 1484, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(938, 1484, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
 TextureRegion& Assets::get(ConfirmExitPanel* panel)
 {
-    static TextureRegion tr = TextureRegion(1538, 1072, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = findTextureRegion("XXXXXXXXXX");//TextureRegion(1538, 1072, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     return tr;
 }
 
@@ -1969,6 +2016,77 @@ TextureRegion Assets::createTextureRegion(int x, int y, int regionWidth, int reg
     return TextureRegion(x, y, regionWidth, regionHeight, textureWidth, textureHeight);
 }
 
+Animation* Assets::createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames)
+{
+    if (m_isUsingCompressedTextureSet)
+    {
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        animationWidth /= 2.0;
+        animationHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
+    }
+    
+    return new Animation(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, looping, numFrames);
+}
+
+Animation* Assets::createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame)
+{
+    if (m_isUsingCompressedTextureSet)
+    {
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        animationWidth /= 2.0;
+        animationHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
+    }
+    
+    return new Animation(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, looping, frameTime, numFrames, firstLoopingFrame);
+}
+
+TextureRegion* Assets::createTextureRegionP(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight)
+{
+    if (m_isUsingCompressedTextureSet)
+    {
+        x /= 2.0;
+        y /= 2.0;
+        regionWidth /= 2.0;
+        regionHeight /= 2.0;
+        textureWidth /= 2.0;
+        textureHeight /= 2.0;
+    }
+    
+    return new TextureRegion(x, y, regionWidth, regionHeight, textureWidth, textureHeight);
+}
+
+TextureRegion& Assets::findTextureRegion(std::string key)
+{
+    auto q = m_textureRegions.find(key);
+    
+    assert(q != m_textureRegions.end());
+    
+    TextureRegion* tr = q->second;
+    
+    return *tr;
+}
+
+Animation& Assets::findAnimation(std::string key)
+{
+    auto q = m_animations.find(key);
+    
+    assert(q != m_animations.end());
+    
+    Animation* anim = q->second;
+    
+    return *anim;
+}
+
 void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth)
 {
 	if (m_isUsingCompressedTextureSet)
@@ -1984,18 +2102,275 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 Assets::Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true)
 {
     /// Texture Regions
-    m_textureRegions.push_back(createTextureRegion(0, 0, 966, 504, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutsceneEffectType_Shadow_One
-    m_textureRegions.push_back(createTextureRegion(0, 508, 1600, 760, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutsceneEffectType_Shadow_Two
-    m_textureRegions.push_back(createTextureRegion(0, 0, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_One
-    m_textureRegions.push_back(createTextureRegion(0, 1204, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Two
-    m_textureRegions.push_back(createTextureRegion(0, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Three
-    m_textureRegions.push_back(createTextureRegion(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Four
-    m_textureRegions.push_back(createTextureRegion(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Five
-    m_textureRegions.push_back(createTextureRegion(1604, 904, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Six
-    m_textureRegions.push_back(createTextureRegion(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096)); // CutscenePanelType_Opening_Seven
+    m_textureRegions["CutsceneEffectType_Shadow_One"] = createTextureRegionP(0, 0, 966, 504, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutsceneEffectType_Shadow_Two"] = createTextureRegionP(0, 508, 1600, 760, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_One"] = createTextureRegionP(0, 0, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Two"] = createTextureRegionP(0, 1204, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Three"] = createTextureRegionP(0, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Four"] = createTextureRegionP(1604, 0, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Five"] = createTextureRegionP(0, 3012, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Six"] = createTextureRegionP(1604, 904, 1600, 1200, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["CutscenePanelType_Opening_Seven"] = createTextureRegionP(1604, 2108, 1600, 900, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    
+    m_textureRegions["WorldMapPanel"] = new TextureRegion(0, 0, 1088, 612, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["AbilitySlot_Locked"] = new TextureRegion(0, 458, 118, 114, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BossLevelThumbnail_Cleared"] = new TextureRegion(0, 1832, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BossLevelThumbnail_Unlocked"] = new TextureRegion(198, 1420, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BossLevelThumbnail_Locked"] = new TextureRegion(990, 1008, 198, 204, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["NormalLevelThumbnail_Cleared"] = new TextureRegion(0, 330, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["NormalLevelThumbnail_Playable"] = new TextureRegion(124, 78, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["NormalLevelThumbnail_Unplayable"] = new TextureRegion(0, 78, 124, 124, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_Upper"] = new TextureRegion(0, 0, PIXEL_WIDTH_FOR_BACKGROUND, 2048, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_Mid"] = new TextureRegion(0, 1024, PIXEL_WIDTH_FOR_BACKGROUND, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_Lower"] = new TextureRegion(0, 320, PIXEL_WIDTH_FOR_BACKGROUND, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_WaterBack"] = new TextureRegion(0, 168, PIXEL_WIDTH_FOR_BACKGROUND, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_WaterFront"] = new TextureRegion(0, 248, PIXEL_WIDTH_FOR_BACKGROUND, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["MidgroundType_TreeOne"] = createTextureRegionP(1940, 224, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_TreeTwo"] = createTextureRegionP(2468, 96, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_TreeThree"] = createTextureRegionP(3156, 48, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnSmall"] = createTextureRegionP(3052, 1444, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnMedium"] = createTextureRegionP(3884, 900, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnBig"] = createTextureRegionP(3310, 900, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["GroundType_CaveExtraDeepEndLeft"] = createTextureRegionP(0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 1132, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 1264, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 1264, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 1264, 2048, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 1264, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 1912, 512, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 1912, 1024, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 1912, 2048, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 1912, 128, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 1396, 512, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 1396, 1024, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 1396, 2048, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 1396, 128, 512, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 2300, 512, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 2300, 1024, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 2300, 2048, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 2300, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(128, 2496, 512, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(640, 2496, 1024, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(1664, 2496, 2048, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(3712, 2496, 128, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(2208, 880, 512, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(2954, 880, 1024, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 880, 2048, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = createTextureRegionP(0, 2496, 4096, 1600, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
+    m_textureRegions["XXXXXXXXXXXXXXX"] = nullptr;
     
     /// Animations
-    m_animations.push_back(Animation(0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8)); // TitlePanel lightning is striking
-    m_animations.push_back(Animation(0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2)); // TitlePanel lightning is not striking
-    m_animations.push_back(createAnimation(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3)); // CutsceneEffectType_POW
+    m_animations["TitlePanel_Lightning_Striking"] = new Animation(0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8);
+    m_animations["TitlePanel_Lightning_Not_Striking"] = new Animation(0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+    m_animations["CutsceneEffectType_POW"] = createAnimationP(0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3);
+    
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
+    m_animations["XXXXXXXXXXXXXXX"] = nullptr;
 }

@@ -29,6 +29,7 @@
 #include "ConfirmResetPanel.h"
 #include "ConfirmExitPanel.h"
 
+#include <map>
 #include <vector>
 
 #define ASSETS (Assets::getInstance())
@@ -198,16 +199,10 @@ public:
     bool isSoundEnabled() { return m_isSoundEnabled; }
     
     void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
-    
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
-    
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
-    
-    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
 
 private:
-    std::vector<TextureRegion> m_textureRegions;
-    std::vector<Animation> m_animations;
+    std::map<std::string, TextureRegion*> m_textureRegions;
+    std::map<std::string, Animation*> m_animations;
     std::vector<short> m_sSoundIds;
     std::vector<short> m_sMusicIds;
     bool m_isUsingCompressedTextureSet;
@@ -215,6 +210,22 @@ private:
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
 
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    
+    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    
+    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    
+    Animation* createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    
+    Animation* createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    
+    TextureRegion* createTextureRegionP(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    
+    TextureRegion& findTextureRegion(std::string key);
+    
+    Animation& findAnimation(std::string key);
+    
 	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
