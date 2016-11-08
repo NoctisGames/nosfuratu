@@ -21,6 +21,10 @@
 #include "BatPanel.h"
 #include "GameScreen.h"
 #include "EndBossSnake.h"
+#include "UnknownEntity.h"
+#include "SpriteTesterEntitiesPanel.h"
+#include "SpriteTesterActionsPanel.h"
+#include "TextureSelectorPanel.h"
 
 Assets * Assets::getInstance()
 {
@@ -156,13 +160,14 @@ void Assets::initializeAssets()
     m_textureRegions["GameButtonType_BackToLevelSelect"] = createTextureRegion(0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["GameButtonType_ContinueToLevelSelect"] = createTextureRegion(804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["GameButtonType_LevelEditor"] = createTextureRegion(2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["GameButtonType_SpriteTester"] = createTextureRegion(3048, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GameHudCarrot_Golden"] = createTextureRegion(1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GameHudCarrot_Normal"] = createTextureRegion(884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["LevelEditorEntitiesPanel"] = createTextureRegion(0, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    m_textureRegions["LevelEditorActionsPanel"] = createTextureRegion(840, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["EditorEntitiesPanel"] = createTextureRegion(0, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["EditorActionsPanel"] = createTextureRegion(840, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["TrashCan_Highlighted"] = createTextureRegion(128, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["TrashCan_Normal"] = createTextureRegion(0, 1454, 128, 128, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    m_textureRegions["LevelSelectorPanel"] = createTextureRegion(1538, 12, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["SelectorPanel"] = createTextureRegion(1538, 12, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["OffsetPanel"] = createTextureRegion(1538, 542, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["ConfirmResetPanel"] = createTextureRegion(938, 1484, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["ConfirmExitPanel"] = createTextureRegion(1538, 1072, 510, 510, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -2107,6 +2112,11 @@ TextureRegion& Assets::get(GameButton* gameButton)
             static TextureRegion tr = findTextureRegion("GameButtonType_LevelEditor");
             return tr;
         }
+        case GameButtonType_SpriteTester:
+        {
+            static TextureRegion tr = findTextureRegion("GameButtonType_SpriteTester");
+            return tr;
+        }
         default:
             break;
     }
@@ -2130,13 +2140,25 @@ TextureRegion& Assets::get(GameHudCarrot* gameHudCarrot)
 
 TextureRegion& Assets::get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel)
 {
-    static TextureRegion tr = findTextureRegion("LevelEditorEntitiesPanel");
+    static TextureRegion tr = findTextureRegion("EditorEntitiesPanel");
     return tr;
 }
 
 TextureRegion& Assets::get(LevelEditorActionsPanel* levelEditorActionsPanel)
 {
-    static TextureRegion tr = findTextureRegion("LevelEditorActionsPanel");
+    static TextureRegion tr = findTextureRegion("EditorActionsPanel");
+    return tr;
+}
+
+TextureRegion& Assets::get(SpriteTesterEntitiesPanel* spriteTesterEntitiesPanel)
+{
+    static TextureRegion tr = findTextureRegion("EditorEntitiesPanel");
+    return tr;
+}
+
+TextureRegion& Assets::get(SpriteTesterActionsPanel* spriteTesterActionsPanel)
+{
+    static TextureRegion tr = findTextureRegion("EditorActionsPanel");
     return tr;
 }
 
@@ -2156,7 +2178,13 @@ TextureRegion& Assets::get(TrashCan* trashCan)
 
 TextureRegion& Assets::get(LevelSelectorPanel* panel)
 {
-    static TextureRegion tr = findTextureRegion("LevelSelectorPanel");
+    static TextureRegion tr = findTextureRegion("SelectorPanel");
+    return tr;
+}
+
+TextureRegion& Assets::get(TextureSelectorPanel* panel)
+{
+    static TextureRegion tr = findTextureRegion("SelectorPanel");
     return tr;
 }
 
@@ -2175,6 +2203,13 @@ TextureRegion& Assets::get(ConfirmResetPanel* panel)
 TextureRegion& Assets::get(ConfirmExitPanel* panel)
 {
     static TextureRegion tr = findTextureRegion("ConfirmExitPanel");
+    return tr;
+}
+
+TextureRegion& Assets::get(UnknownEntity* entity)
+{
+    TextureRegion& tr = findTextureRegion(entity->getAssetId(), entity->getStateTime());
+    
     return tr;
 }
 
@@ -2317,6 +2352,28 @@ Animation& Assets::findAnimation(std::string key)
     Animation* anim = q->second;
     
     return *anim;
+}
+
+TextureRegion& Assets::findTextureRegion(std::string key, float stateTime)
+{
+    auto q = m_textureRegions.find(key);
+    
+    if (q != m_textureRegions.end())
+    {
+        TextureRegion* tr = q->second;
+        
+        return *tr;
+    }
+    else
+    {
+        auto q2 = m_animations.find(key);
+        
+        assert(q2 != m_animations.end());
+        
+        Animation* anim = q2->second;
+        
+        return anim->getTextureRegion(stateTime);
+    }
 }
 
 void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth)

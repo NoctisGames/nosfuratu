@@ -63,6 +63,10 @@ class BatPanel;
 class GameHudCarrot;
 class Bat;
 class BatInstruction;
+class UnknownEntity;
+class SpriteTesterEntitiesPanel;
+class SpriteTesterActionsPanel;
+class TextureSelectorPanel;
 
 class Assets
 {
@@ -145,15 +149,23 @@ public:
     
     TextureRegion& get(LevelEditorActionsPanel* levelEditorActionsPanel);
     
+    TextureRegion& get(SpriteTesterEntitiesPanel* spriteTesterEntitiesPanel);
+    
+    TextureRegion& get(SpriteTesterActionsPanel* spriteTesterActionsPanel);
+    
     TextureRegion& get(TrashCan* trashCan);
     
     TextureRegion& get(LevelSelectorPanel* panel);
+    
+    TextureRegion& get(TextureSelectorPanel* panel);
     
     TextureRegion& get(OffsetPanel* panel);
     
     TextureRegion& get(ConfirmResetPanel* panel);
     
     TextureRegion& get(ConfirmExitPanel* panel);
+    
+    TextureRegion& get(UnknownEntity* entity);
     
     short getFirstSoundId();
     
@@ -201,6 +213,11 @@ public:
     bool isSoundEnabled() { return m_isSoundEnabled; }
     
     void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
+    
+    TextureRegion& findTextureRegion(std::string key, float stateTime);
+    
+    std::map<std::string, TextureRegion*>& getTextureRegionMap() { return m_textureRegions; }
+    std::map<std::string, Animation*>& getAnimationsMap() { return m_animations; }
 
 private:
     std::map<std::string, TextureRegion*> m_textureRegions;

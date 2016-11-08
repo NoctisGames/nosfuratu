@@ -61,6 +61,28 @@
 		BB0B3EE91DBAA4F400597FE9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF1877178E2185005DA99E /* UIKit.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB21A45A1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */; };
+		BB21A45B1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */; };
+		BB21A45C1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */; };
+		BB21A45D1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */; };
+		BB21A45F1DD2615500D72C8B /* sprite_tester.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A45E1DD2615500D72C8B /* sprite_tester.png */; };
+		BB21A4601DD2615500D72C8B /* sprite_tester.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A45E1DD2615500D72C8B /* sprite_tester.png */; };
+		BB21A4651DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */; };
+		BB21A4661DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */; };
+		BB21A4671DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */; };
+		BB21A4681DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */; };
+		BB21A4691DD271E700D72C8B /* SpriteTesterActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */; };
+		BB21A46B1DD271E700D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */; };
+		BB21A46D1DD2721000D72C8B /* SpriteTesterActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */; };
+		BB21A46E1DD2721000D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */; };
+		BB21A4711DD2771800D72C8B /* UnknownEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */; };
+		BB21A4721DD2771800D72C8B /* UnknownEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */; };
+		BB21A4731DD2771800D72C8B /* UnknownEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */; };
+		BB21A4741DD2771800D72C8B /* UnknownEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */; };
+		BB21A4771DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
+		BB21A4781DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
+		BB21A4791DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
+		BB21A47A1DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB4255AC1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
 		BB4255AD1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
@@ -1193,6 +1215,17 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenSpriteTester.cpp; sourceTree = "<group>"; };
+		BB21A4591DD24C4100D72C8B /* GameScreenSpriteTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenSpriteTester.h; sourceTree = "<group>"; };
+		BB21A45E1DD2615500D72C8B /* sprite_tester.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sprite_tester.png; sourceTree = "<group>"; };
+		BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteTesterActionsPanel.cpp; sourceTree = "<group>"; };
+		BB21A4621DD271B400D72C8B /* SpriteTesterActionsPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteTesterActionsPanel.h; sourceTree = "<group>"; };
+		BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteTesterEntitiesPanel.cpp; sourceTree = "<group>"; };
+		BB21A4641DD271B400D72C8B /* SpriteTesterEntitiesPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteTesterEntitiesPanel.h; sourceTree = "<group>"; };
+		BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnknownEntity.cpp; sourceTree = "<group>"; };
+		BB21A4701DD2771800D72C8B /* UnknownEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownEntity.h; sourceTree = "<group>"; };
+		BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureSelectorPanel.cpp; sourceTree = "<group>"; };
+		BB21A4761DD2830200D72C8B /* TextureSelectorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureSelectorPanel.h; sourceTree = "<group>"; };
 		BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NosFURatu.entitlements; sourceTree = "<group>"; };
 		BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ability_unlock.mp3; sourceTree = "<group>"; };
 		BB42556A1DBA8484001E6B97 /* absorb_dash_ability.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = absorb_dash_ability.mp3; sourceTree = "<group>"; };
@@ -2423,6 +2456,8 @@
 				BB44C6D51DB03A7D003E633F /* Midground.cpp */,
 				BB44C6D61DB03A7D003E633F /* Midground.h */,
 				BB44C6D71DB03A7D003E633F /* ui */,
+				BB21A46F1DD2771800D72C8B /* UnknownEntity.cpp */,
+				BB21A4701DD2771800D72C8B /* UnknownEntity.h */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -2459,6 +2494,8 @@
 				BB44C71C1DB03A7D003E633F /* GameScreenLevels.h */,
 				BB44C71D1DB03A7D003E633F /* GameScreenOpeningCutscene.cpp */,
 				BB44C71E1DB03A7D003E633F /* GameScreenOpeningCutscene.h */,
+				BB21A4581DD24C4100D72C8B /* GameScreenSpriteTester.cpp */,
+				BB21A4591DD24C4100D72C8B /* GameScreenSpriteTester.h */,
 				BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */,
 				BB7B51921DCDA5AD00FFF99B /* GameScreenState.h */,
 				BB44C71F1DB03A7D003E633F /* GameScreenTitle.cpp */,
@@ -2489,6 +2526,12 @@
 				BB44C7721DB03A7D003E633F /* SinWaveTextureGpuProgramWrapper.h */,
 				BB44C7731DB03A7D003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp */,
 				BB44C7741DB03A7D003E633F /* SnakeDeathTextureGpuProgramWrapper.h */,
+				BB21A4611DD271B400D72C8B /* SpriteTesterActionsPanel.cpp */,
+				BB21A4621DD271B400D72C8B /* SpriteTesterActionsPanel.h */,
+				BB21A4631DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp */,
+				BB21A4641DD271B400D72C8B /* SpriteTesterEntitiesPanel.h */,
+				BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */,
+				BB21A4761DD2830200D72C8B /* TextureSelectorPanel.h */,
 				BB44C7751DB03A7D003E633F /* TitlePanel.cpp */,
 				BB44C7761DB03A7D003E633F /* TitlePanel.h */,
 				BB44C7771DB03A7D003E633F /* TransDeathGpuProgramWrapper.cpp */,
@@ -2694,6 +2737,7 @@
 		BBE9D4041DBE8F4E002D2120 /* level_editor */ = {
 			isa = PBXGroup;
 			children = (
+				BB21A45E1DD2615500D72C8B /* sprite_tester.png */,
 				BBE9D4051DBE8F4E002D2120 /* level_editor.png */,
 			);
 			path = level_editor;
@@ -3357,6 +3401,7 @@
 				BB42565B1DBA8485001E6B97 /* mid_boss_owl_swoop.mp3 in Resources */,
 				BB44CCE21DB07165003E633F /* world_1_background_upper.png in Resources */,
 				BB42565F1DBA8485001E6B97 /* mid_boss_owl_tree_smash.mp3 in Resources */,
+				BB21A4601DD2615500D72C8B /* sprite_tester.png in Resources */,
 				BB4255F71DBA8485001E6B97 /* final_boss_bgm_intro.mp3 in Resources */,
 				BB42564F1DBA8485001E6B97 /* mid_boss_bgm.mp3 in Resources */,
 				BB4255EF1DBA8485001E6B97 /* end_boss_snake_mouth_open.mp3 in Resources */,
@@ -3482,6 +3527,7 @@
 				BB4255B91DBA8484001E6B97 /* boss_level_clear.mp3 in Resources */,
 				BBE92DE91DB2E671008359C2 /* vampire.png in Resources */,
 				BBE92DEA1DB2E671008359C2 /* c_world_1_special.png in Resources */,
+				BB21A45F1DD2615500D72C8B /* sprite_tester.png in Resources */,
 				BBE92DEB1DB2E671008359C2 /* c_world_1_cutscene_2.png in Resources */,
 				BBE92DED1DB2E671008359C2 /* trans_screen_circle_open_shader.fsh in Resources */,
 				BBE92DEF1DB2E671008359C2 /* world_map_screen_part_2.png in Resources */,
@@ -3534,6 +3580,9 @@
 			files = (
 				BB44CA851DB03A7F003E633F /* ShockwaveTextureProgram.cpp in Sources */,
 				BB44CA511DB03A7F003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
+				BB21A4691DD271E700D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
+				BB21A46B1DD271E700D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
+				BB21A4771DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */,
 				BB44C9EB1DB03A7E003E633F /* Jon.cpp in Sources */,
 				BBCB718B1DB69D21006430B6 /* image.c in Sources */,
 				BB44C9FD1DB03A7E003E633F /* CutscenePanel.cpp in Sources */,
@@ -3609,6 +3658,7 @@
 				BB44C9E91DB03A7E003E633F /* HoleCover.cpp in Sources */,
 				BB44C8811DB03A7E003E633F /* pngtrans.c in Sources */,
 				BB44CA4F1DB03A7F003E633F /* LevelEditorActionsPanel.cpp in Sources */,
+				BB21A4711DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BB44CA991DB03A7F003E633F /* TransDeathProgram.cpp in Sources */,
 				BB44C9691DB03A7E003E633F /* Animation.cpp in Sources */,
 				BB44C8771DB03A7E003E633F /* pngrtran.c in Sources */,
@@ -3668,6 +3718,7 @@
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 				BB44CA4B1DB03A7F003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BBCB718F1DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
+				BB21A45A1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB44C9531DB03A7E003E633F /* Rectangle.cpp in Sources */,
 				BB7B519E1DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
 				BB7B51941DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,
@@ -3681,6 +3732,8 @@
 			files = (
 				BB44CB901DB05426003E633F /* platform_asset_utils.m in Sources */,
 				BBCB71911DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
+				BB21A46D1DD2721000D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
+				BB21A46E1DD2721000D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
@@ -3706,6 +3759,7 @@
 				BB44CB8C1DB053C0003E633F /* pngwio.c in Sources */,
 				BB74508A1DC15440001568B2 /* CountHissWithMina.cpp in Sources */,
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
+				BB21A4731DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BBCB71C51DB69D21006430B6 /* TextureProgram.cpp in Sources */,
 				BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */,
 				BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */,
@@ -3757,6 +3811,7 @@
 				BB44CB2A1DB052F5003E633F /* BatPanel.cpp in Sources */,
 				BB44CB2B1DB052F5003E633F /* Chapter1Level10.cpp in Sources */,
 				BB44CB2C1DB052F5003E633F /* Chapter1Level21.cpp in Sources */,
+				BB21A4791DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */,
 				BB44CB2D1DB052F5003E633F /* ConfirmExitPanel.cpp in Sources */,
 				BB44CB2E1DB052F5003E633F /* ConfirmResetPanel.cpp in Sources */,
 				BB44CB2F1DB052F5003E633F /* CutscenePanel.cpp in Sources */,
@@ -3776,6 +3831,7 @@
 				BB44CB3A1DB052F5003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB09CE3C1DBD4701006A3E49 /* AppleSoundManager.mm in Sources */,
 				BBCB71B11DB69D21006430B6 /* platform_file_utils.c in Sources */,
+				BB21A45C1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB44CB3B1DB052F5003E633F /* GameTracker.cpp in Sources */,
 				BB44CB3C1DB052F5003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB44CB3D1DB052F5003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
@@ -3856,6 +3912,7 @@
 				BB44CC051DB07165003E633F /* pngwrite.c in Sources */,
 				BBCB71C61DB69D21006430B6 /* TextureProgram.cpp in Sources */,
 				BB44CC061DB07165003E633F /* pngwtran.c in Sources */,
+				BB21A4741DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB44CC071DB07165003E633F /* pngwutil.c in Sources */,
 				BB44CC081DB07165003E633F /* CircleBatcher.cpp in Sources */,
@@ -3907,6 +3964,7 @@
 				BB44CC401DB07165003E633F /* Chapter1Level21.cpp in Sources */,
 				BB44CC411DB07165003E633F /* ConfirmExitPanel.cpp in Sources */,
 				BB44CC421DB07165003E633F /* ConfirmResetPanel.cpp in Sources */,
+				BB21A47A1DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */,
 				BB44CC431DB07165003E633F /* CutscenePanel.cpp in Sources */,
 				BB44CC441DB07165003E633F /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC451DB07165003E633F /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
@@ -3924,6 +3982,7 @@
 				BB44CC4E1DB07165003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB09CE3D1DBD4701006A3E49 /* AppleSoundManager.mm in Sources */,
 				BBCB71B21DB69D21006430B6 /* platform_file_utils.c in Sources */,
+				BB21A45D1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB44CC4F1DB07165003E633F /* GameTracker.cpp in Sources */,
 				BB44CC501DB07165003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB44CC511DB07165003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
@@ -3933,6 +3992,7 @@
 				BB44CC541DB07165003E633F /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CC551DB07165003E633F /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CC561DB07165003E633F /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
+				BB21A4661DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
 				BB44CC571DB07165003E633F /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB44CC581DB07165003E633F /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BB44CC591DB07165003E633F /* OpenGLGameScreen.cpp in Sources */,
@@ -3966,6 +4026,7 @@
 				BB44CC6F1DB07165003E633F /* TrashCan.cpp in Sources */,
 				BB44CC701DB07165003E633F /* WorldMapPanel.cpp in Sources */,
 				BB44CC711DB07165003E633F /* GLEssentialsGLView.mm in Sources */,
+				BB21A4681DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BB44CC721DB07165003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
 				BB44CC731DB07165003E633F /* AppDelegate.m in Sources */,
 			);
@@ -3979,6 +4040,7 @@
 				BBE92CFE1DB2E671008359C2 /* LevelEditorEntitiesPanel.cpp in Sources */,
 				BBE92CFF1DB2E671008359C2 /* Jon.cpp in Sources */,
 				BBCB718C1DB69D21006430B6 /* image.c in Sources */,
+				BB21A4781DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */,
 				BBE92D001DB2E671008359C2 /* CutscenePanel.cpp in Sources */,
 				BBE92D011DB2E671008359C2 /* Enemy.cpp in Sources */,
 				BBE92D021DB2E671008359C2 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
@@ -3992,6 +4054,7 @@
 				BBCB71701DB69D21006430B6 /* asset_utils.c in Sources */,
 				BBE92D091DB2E671008359C2 /* Chapter1Level21.cpp in Sources */,
 				BBE92D0C1DB2E671008359C2 /* Font.cpp in Sources */,
+				BB21A4671DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BBE92D0D1DB2E671008359C2 /* ForegroundObject.cpp in Sources */,
 				BBE92D0F1DB2E671008359C2 /* MidBossOwl.cpp in Sources */,
 				BBE92D101DB2E671008359C2 /* PointTransitionProgram.cpp in Sources */,
@@ -4053,6 +4116,7 @@
 				BBE92D411DB2E671008359C2 /* pngtrans.c in Sources */,
 				BBE92D421DB2E671008359C2 /* LevelEditorActionsPanel.cpp in Sources */,
 				BBE92D431DB2E671008359C2 /* TransDeathProgram.cpp in Sources */,
+				BB21A4721DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BBE92D441DB2E671008359C2 /* Animation.cpp in Sources */,
 				BBE92D451DB2E671008359C2 /* pngrtran.c in Sources */,
 				BBE92D461DB2E671008359C2 /* AppDelegate.m in Sources */,
@@ -4069,6 +4133,7 @@
 				BBE92D521DB2E671008359C2 /* CollectibleItem.cpp in Sources */,
 				BBE92D531DB2E671008359C2 /* pngwrite.c in Sources */,
 				BBCB71A81DB69D21006430B6 /* OpenGLSpriteBatcher.cpp in Sources */,
+				BB21A4651DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
 				BBE92D551DB2E671008359C2 /* ConfirmExitPanel.cpp in Sources */,
 				BBE92D561DB2E671008359C2 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
 				BBE92D571DB2E671008359C2 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
@@ -4111,6 +4176,7 @@
 				BBE92D7F1DB2E671008359C2 /* pngmem.c in Sources */,
 				BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */,
 				BBCB71901DB69D21006430B6 /* OpenGLCircleBatcher.cpp in Sources */,
+				BB21A45B1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BBE92D811DB2E671008359C2 /* Rectangle.cpp in Sources */,
 				BB7B519F1DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
 				BB7B51951DCDA63C00FFF99B /* GameScreenState.cpp in Sources */,

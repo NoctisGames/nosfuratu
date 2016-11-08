@@ -20,6 +20,7 @@
 #include "GameScreenOpeningCutscene.h"
 #include "GameScreenComingSoon.h"
 #include "BatPanel.h"
+#include "GameScreenSpriteTester.h"
 
 /// Title To World Map Transition ///
 
@@ -291,6 +292,70 @@ void TitleToLevelEditor::exit(GameScreen* gs)
 }
 
 TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
+/// Title To Sprite Tester Transition ///
+
+TitleToSpriteTester * TitleToSpriteTester::getInstance()
+{
+    static TitleToSpriteTester *instance = new TitleToSpriteTester();
+    
+    return instance;
+}
+
+void TitleToSpriteTester::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    GameScreenSpriteTester::getInstance()->enter(gs);
+}
+
+void TitleToSpriteTester::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderSpriteTester(GameScreenSpriteTester::getInstance());
+        
+        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(GameScreenSpriteTester::getInstance());
+        }
+    }
+}
+
+void TitleToSpriteTester::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+TitleToSpriteTester::TitleToSpriteTester() : m_fTransitionStateTime(0)
 {
     // Empty
 }
@@ -610,6 +675,7 @@ RTTI_IMPL(TitleToWorldMap, GameScreenState);
 RTTI_IMPL(TitleToOpeningCutscene, GameScreenState);
 RTTI_IMPL(OpeningCutsceneToWorldMap, GameScreenState);
 RTTI_IMPL(TitleToLevelEditor, GameScreenState);
+RTTI_IMPL(TitleToSpriteTester, GameScreenState);
 RTTI_IMPL(WorldMapToOpeningCutscene, GameScreenState);
 RTTI_IMPL(WorldMapToLevel, GameScreenState);
 RTTI_IMPL(LevelToComingSoon, GameScreenState);

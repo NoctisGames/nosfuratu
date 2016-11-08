@@ -134,7 +134,7 @@
 
 //// Render Definitions ////
 
-#define MAX_BATCH_SIZE 4096
+#define MAX_BATCH_SIZE 16384
 
 //// Texture Definitions ////
 
