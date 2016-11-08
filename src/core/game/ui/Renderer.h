@@ -52,6 +52,7 @@ class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
 class EndBossSnake;
+class GameScreenSpriteTester;
 
 class Renderer
 {
@@ -96,7 +97,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(GameButton* levelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton, GameButton* spriteTesterButton);
     
     void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
     
@@ -134,6 +135,8 @@ public:
     
     void renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor);
     
+    void renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester);
+    
     void renderLoading();
     
     void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
@@ -157,6 +160,8 @@ public:
     void renderToScreen();
 
     void cleanUp();
+    
+    std::vector<TextureWrapper *>& getTextureWrappers();
     
     Rectangle& getCameraBounds();
     
@@ -192,6 +197,7 @@ protected:
     TextureWrapper m_world_1_special;
     TextureWrapper m_world_map_screen_part_1;
     TextureWrapper m_world_map_screen_part_2;
+    TextureWrapper m_sprite_tester;
     
     std::vector<TextureWrapper *> m_textureWrappers;
     std::vector<void (Renderer::*)()> m_pendingLoadFunctions;
@@ -312,6 +318,10 @@ private:
     void loadLevelEditorTextures();
     bool ensureLevelEditorTextures();
     
+    void loadSpriteTester();
+    void loadSpriteTesterTextures();
+    bool ensureSpriteTesterTextures();
+    
     void loadWorld1Cutscene1();
     void loadWorld1Cutscene2();
     void loadWorld1CutsceneTextures();
@@ -368,6 +378,7 @@ private:
     void unloadTitleTextures();
     void unloadWorldMapTextures();
     void unloadLevelEditorTextures();
+    void unloadSpriteTesterTextures();
     
     void unloadJonTextures();
     

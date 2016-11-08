@@ -29,6 +29,7 @@
 #include "ConfirmResetPanel.h"
 #include "ConfirmExitPanel.h"
 
+#include <map>
 #include <vector>
 
 #define ASSETS (Assets::getInstance())
@@ -62,11 +63,17 @@ class BatPanel;
 class GameHudCarrot;
 class Bat;
 class BatInstruction;
+class UnknownEntity;
+class SpriteTesterEntitiesPanel;
+class SpriteTesterActionsPanel;
+class TextureSelectorPanel;
 
 class Assets
 {
 public:
 	static Assets * getInstance();
+    
+    void initializeAssets();
     
     TextureRegion& get(TitlePanel* panel);
     
@@ -142,15 +149,23 @@ public:
     
     TextureRegion& get(LevelEditorActionsPanel* levelEditorActionsPanel);
     
+    TextureRegion& get(SpriteTesterEntitiesPanel* spriteTesterEntitiesPanel);
+    
+    TextureRegion& get(SpriteTesterActionsPanel* spriteTesterActionsPanel);
+    
     TextureRegion& get(TrashCan* trashCan);
     
     TextureRegion& get(LevelSelectorPanel* panel);
+    
+    TextureRegion& get(TextureSelectorPanel* panel);
     
     TextureRegion& get(OffsetPanel* panel);
     
     TextureRegion& get(ConfirmResetPanel* panel);
     
     TextureRegion& get(ConfirmExitPanel* panel);
+    
+    TextureRegion& get(UnknownEntity* entity);
     
     short getFirstSoundId();
     
@@ -199,24 +214,35 @@ public:
     
     void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
     
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    TextureRegion& findTextureRegion(std::string key, float stateTime);
     
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
-    
-    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    std::map<std::string, TextureRegion*>& getTextureRegionMap() { return m_textureRegions; }
+    std::map<std::string, Animation*>& getAnimationsMap() { return m_animations; }
 
 private:
+    std::map<std::string, TextureRegion*> m_textureRegions;
+    std::map<std::string, Animation*> m_animations;
     std::vector<short> m_sSoundIds;
     std::vector<short> m_sMusicIds;
     bool m_isUsingCompressedTextureSet;
     bool m_isUsingDesktopTextureSet;
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
-
+    
+    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    
+    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
+    
+    TextureRegion* createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    
+    TextureRegion& findTextureRegion(std::string key);
+    
+    Animation& findAnimation(std::string key);
+    
 	void initTextureRegion(TextureRegion& tr, int x, int regionWidth, int textureWidth);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    Assets();
+    Assets() : m_isUsingCompressedTextureSet(false), m_isMusicEnabled(true), m_isSoundEnabled(true) {}
     Assets(const Assets&);
     Assets& operator=(const Assets&);
 };

@@ -19,6 +19,7 @@ public:
     void init(int x, int regionWidth, int textureWidth);
     
 	float u1, v1, u2, v2;
+    float m_fRegionWidth, m_fRegionHeight;
 };
 
 #endif /* defined(__noctisgames__TextureRegion__) */

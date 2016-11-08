@@ -62,6 +62,12 @@ GameButton* GameButton::create(GameButtonType type)
                                   2,
                                   0.6456424857638f,
                                   type);
+        case GameButtonType_SpriteTester:
+            return new GameButton(CAM_WIDTH - 3,
+                                  CAM_HEIGHT - 0.6456424857638f / 2,
+                                  2,
+                                  0.6456424857638f,
+                                  type);
     }
     
     assert(false);

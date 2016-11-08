@@ -41,6 +41,7 @@ void Title::initRenderer(GameScreen* gs)
 {
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
     gs->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    gs->m_renderer->unload(RENDERER_TYPE_SPRITE_TESTER);
     
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
@@ -79,7 +80,7 @@ void Title::execute(GameScreen* gs)
         }
         else
         {
-            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get(), m_spriteTesterButton.get());
         }
         
         gs->m_renderer->renderToScreen();
@@ -105,10 +106,14 @@ void Title::execute(GameScreen* gs)
         {
             gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
         }
+        else if (m_isRequestingSpriteTester)
+        {
+            gs->m_stateMachine->changeState(TitleToSpriteTester::getInstance());
+        }
         
-		bool isDisplayingLevelEditorButton = false;
+		bool isDisplayingLevelEditorButtons = false;
 #if NG_LEVEL_EDITOR
-		isDisplayingLevelEditorButton = true;
+		isDisplayingLevelEditorButtons = true;
 #endif
 		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
         {
@@ -121,10 +126,15 @@ void Title::execute(GameScreen* gs)
                 case DRAGGED:
                     continue;
                 case UP:
-					if (isDisplayingLevelEditorButton
+					if (isDisplayingLevelEditorButtons
                         && m_levelEditorButton->handleClick(*gs->m_touchPoint))
                     {
                         m_isRequestingLevelEditor = true;
+                    }
+                    else if (isDisplayingLevelEditorButtons
+                             && m_spriteTesterButton->handleClick(*gs->m_touchPoint))
+                    {
+                        m_isRequestingSpriteTester = true;
                     }
                     else
                     {
@@ -141,6 +151,7 @@ void Title::exit(GameScreen* gs)
 {
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
+    m_isRequestingSpriteTester = false;
 }
 
 TitlePanel* Title::getTitlePanel()
@@ -153,10 +164,11 @@ GameButton* Title::getLevelEditorButton()
     return m_levelEditorButton.get();
 }
 
-Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
+Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false), m_isRequestingSpriteTester(false)
 {
     m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
     m_levelEditorButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_LevelEditor));
+    m_spriteTesterButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_SpriteTester));
 }
 
 RTTI_IMPL(Title, GameScreenState);

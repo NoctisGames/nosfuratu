@@ -14,11 +14,12 @@
 
 struct TextureWrapper
 {
+    std::string name;
     GpuTextureDataWrapper* gpuTextureDataWrapper;
     GpuTextureWrapper* gpuTextureWrapper;
     int repeat_s;
     
-    TextureWrapper() : gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeat_s(0)
+    TextureWrapper(std::string inName) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeat_s(0)
     {
         // Empty
     }
