@@ -209,18 +209,12 @@ private:
     bool m_isUsingDesktopTextureSet;
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
-
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    Animation createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
+    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    TextureRegion createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
     
-    Animation* createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
-    
-    Animation* createAnimationP(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0);
-    
-    TextureRegion* createTextureRegionP(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    TextureRegion* createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
     TextureRegion& findTextureRegion(std::string key);
     
