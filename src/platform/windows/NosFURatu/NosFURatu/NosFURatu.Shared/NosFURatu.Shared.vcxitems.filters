@@ -576,15 +576,6 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_cutscene_1.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\vampire.png">
       <Filter>Assets</Filter>
     </CustomBuild>
@@ -597,9 +588,25 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
       <Filter>Assets</Filter>
     </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\sprite_tester.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\sprite_tester.png">
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_2.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

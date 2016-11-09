@@ -626,33 +626,6 @@
       <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_cutscene_1.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
@@ -851,6 +824,62 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\sprite_tester.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_1.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_2.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_1.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_2.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_1.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_2.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
