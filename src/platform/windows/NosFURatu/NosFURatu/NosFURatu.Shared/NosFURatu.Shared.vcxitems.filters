@@ -130,6 +130,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SpriteTesterActionsPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SpriteTesterEntitiesPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TextureSelectorPanel.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\AssetsMapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NosFURatuMain.cpp" />
@@ -245,6 +246,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\SpriteTesterEntitiesPanel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\TextureSelectorPanel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\GameScreenSpriteTester.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\AssetsMapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\direct3d\EndBossSnakeTexturePixelShader.hlsl" />
