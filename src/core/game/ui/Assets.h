@@ -71,9 +71,7 @@ class TextureSelectorPanel;
 class Assets
 {
 public:
-	static Assets * getInstance();
-    
-    void initializeAssets();
+	static Assets* getInstance();
     
     TextureRegion& get(TitlePanel* panel);
     
@@ -215,25 +213,14 @@ public:
     void setSoundEnabled(bool isSoundEnabled) { m_isSoundEnabled = isSoundEnabled; }
     
     TextureRegion& findTextureRegion(std::string key, float stateTime);
-    
-    std::map<std::string, TextureRegion*>& getTextureRegionMap() { return m_textureRegions; }
-    std::map<std::string, Animation*>& getAnimationsMap() { return m_animations; }
 
 private:
-    std::map<std::string, TextureRegion*> m_textureRegions;
-    std::map<std::string, Animation*> m_animations;
     std::vector<short> m_sSoundIds;
     std::vector<short> m_sMusicIds;
     bool m_isUsingCompressedTextureSet;
     bool m_isUsingDesktopTextureSet;
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
-    
-    Animation* createAnimation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
-    
-    Animation* createAnimation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
-    
-    TextureRegion* createTextureRegion(std::string textureName, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
     TextureRegion& findTextureRegion(std::string key);
     

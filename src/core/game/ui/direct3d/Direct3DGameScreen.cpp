@@ -16,7 +16,7 @@ Direct3DGameScreen::Direct3DGameScreen(const std::shared_ptr<DX::DeviceResources
 
 	ASSETS->setUsingCompressedTextureSet(useCompressedTextureSet);
     ASSETS->setUsingDesktopTextureSet(!isMobile);
-    ASSETS->initializeAssets();
+    ASSETS_MAPPER->initializeAssetsMapper();
 
 	m_renderer = std::unique_ptr<Direct3DRenderer>(new Direct3DRenderer(m_deviceResources));
 

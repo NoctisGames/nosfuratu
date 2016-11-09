@@ -14,6 +14,7 @@
 #include "Game.h"
 #include "EntityUtils.h"
 #include "UnknownEntity.h"
+#include "AssetsMapper.h"
 
 SpriteTesterEntitiesPanel::SpriteTesterEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_fEntitiesCameraPos(0), m_fEntitiesHeight(0)
 {
@@ -27,7 +28,7 @@ void SpriteTesterEntitiesPanel::initForTextureName(std::string textureName)
 {
     EntityUtils::cleanUpVectorOfPointers(m_entities);
     
-    std::map<std::string, TextureRegion*>& trMap = ASSETS->getTextureRegionMap();
+    std::map<std::string, TextureRegion*>& trMap = ASSETS_MAPPER->getTextureRegionMap();
     
     for (std::map<std::string, TextureRegion*>::iterator i = trMap.begin(); i != trMap.end(); i++)
     {
@@ -37,7 +38,7 @@ void SpriteTesterEntitiesPanel::initForTextureName(std::string textureName)
         }
     }
     
-    std::map<std::string, Animation*>& animMap = ASSETS->getAnimationsMap();
+    std::map<std::string, Animation*>& animMap = ASSETS_MAPPER->getAnimationsMap();
     
     for (std::map<std::string, Animation*>::iterator i = animMap.begin(); i != animMap.end(); i++)
     {

@@ -876,6 +876,10 @@
 		BB7B519F1DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
 		BB7B51A01DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
 		BB7B51A11DCDAA0300FFF99B /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */; };
+		BBC6EFD41DD3D6570045CF65 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */; };
+		BBC6EFD51DD3D6570045CF65 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */; };
+		BBC6EFD61DD3D6570045CF65 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */; };
+		BBC6EFD71DD3D6570045CF65 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */; };
 		BBCB716F1DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
 		BBCB71701DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
 		BBCB71711DB69D21006430B6 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71461DB69D21006430B6 /* asset_utils.c */; };
@@ -1650,6 +1654,8 @@
 		BB7B51921DCDA5AD00FFF99B /* GameScreenState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScreenState.h; sourceTree = "<group>"; };
 		BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenState.cpp; sourceTree = "<group>"; };
 		BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JonFormState.cpp; sourceTree = "<group>"; };
+		BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsMapper.cpp; sourceTree = "<group>"; };
+		BBC6EFD31DD3D6570045CF65 /* AssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsMapper.h; sourceTree = "<group>"; };
 		BBCB71461DB69D21006430B6 /* asset_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asset_utils.c; sourceTree = "<group>"; };
 		BBCB71471DB69D21006430B6 /* asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_utils.h; sourceTree = "<group>"; };
 		BBCB71481DB69D21006430B6 /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.fsh; sourceTree = "<group>"; };
@@ -2497,6 +2503,8 @@
 			children = (
 				BB44C6D81DB03A7D003E633F /* Assets.cpp */,
 				BB44C6D91DB03A7D003E633F /* Assets.h */,
+				BBC6EFD21DD3D6570045CF65 /* AssetsMapper.cpp */,
+				BBC6EFD31DD3D6570045CF65 /* AssetsMapper.h */,
 				BB44C6DA1DB03A7D003E633F /* BatPanel.cpp */,
 				BB44C6DB1DB03A7D003E633F /* BatPanel.h */,
 				BB44C6DC1DB03A7D003E633F /* Chapter1Level10.cpp */,
@@ -3743,6 +3751,7 @@
 				BB44CA9D1DB03A7F003E633F /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBCB71B31DB69D21006430B6 /* shader.c in Sources */,
 				BB44C9C71DB03A7E003E633F /* Text.cpp in Sources */,
+				BBC6EFD41DD3D6570045CF65 /* AssetsMapper.cpp in Sources */,
 				BB44CA891DB03A7F003E633F /* SinWaveTextureProgram.cpp in Sources */,
 				BB44CA9B1DB03A7F003E633F /* TransitionProgram.cpp in Sources */,
 				BB44C9C31DB03A7E003E633F /* RectangleBatcher.cpp in Sources */,
@@ -3819,6 +3828,7 @@
 				BB44CB601DB0532A003E633F /* Font.cpp in Sources */,
 				BB44CB611DB0532A003E633F /* GpuProgramWrapper.cpp in Sources */,
 				BB44CB7E1DB0533E003E633F /* Entity.cpp in Sources */,
+				BBC6EFD61DD3D6570045CF65 /* AssetsMapper.cpp in Sources */,
 				BB44CB7F1DB0533E003E633F /* EntityManager.cpp in Sources */,
 				BB44CB801DB0533E003E633F /* PhysicalEntity.cpp in Sources */,
 				BB44CB621DB0532A003E633F /* LineBatcher.cpp in Sources */,
@@ -3972,6 +3982,7 @@
 				BB44CC0C1DB07165003E633F /* Entity.cpp in Sources */,
 				BB44CC0D1DB07165003E633F /* EntityManager.cpp in Sources */,
 				BB44CC0E1DB07165003E633F /* PhysicalEntity.cpp in Sources */,
+				BBC6EFD71DD3D6570045CF65 /* AssetsMapper.cpp in Sources */,
 				BB44CC0F1DB07165003E633F /* LineBatcher.cpp in Sources */,
 				BB7450911DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BBCB71961DB69D21006430B6 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
@@ -4201,6 +4212,7 @@
 				BBE92D681DB2E671008359C2 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBCB71B41DB69D21006430B6 /* shader.c in Sources */,
 				BBE92D691DB2E671008359C2 /* Text.cpp in Sources */,
+				BBC6EFD51DD3D6570045CF65 /* AssetsMapper.cpp in Sources */,
 				BBE92D6A1DB2E671008359C2 /* SinWaveTextureProgram.cpp in Sources */,
 				BBE92D6B1DB2E671008359C2 /* TransitionProgram.cpp in Sources */,
 				BBE92D6C1DB2E671008359C2 /* RectangleBatcher.cpp in Sources */,
