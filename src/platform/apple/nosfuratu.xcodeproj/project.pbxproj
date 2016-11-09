@@ -2775,8 +2775,8 @@
 		BBE9D4041DBE8F4E002D2120 /* level_editor */ = {
 			isa = PBXGroup;
 			children = (
-				BB21A45E1DD2615500D72C8B /* sprite_tester.png */,
 				BBE9D4051DBE8F4E002D2120 /* level_editor.png */,
+				BB21A45E1DD2615500D72C8B /* sprite_tester.png */,
 			);
 			path = level_editor;
 			sourceTree = "<group>";
