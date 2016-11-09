@@ -83,6 +83,30 @@
 		BB21A4781DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
 		BB21A4791DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
 		BB21A47A1DD2830200D72C8B /* TextureSelectorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */; };
+		BB21A4811DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
+		BB21A4821DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
+		BB21A4831DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
+		BB21A4841DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
+		BB21A4851DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */; };
+		BB21A4861DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */; };
+		BB21A4871DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */; };
+		BB21A4881DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */; };
+		BB21A4891DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */; };
+		BB21A48A1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */; };
+		BB21A48B1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */; };
+		BB21A48C1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */; };
+		BB21A48D1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */; };
+		BB21A48E1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */; };
+		BB21A48F1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */; };
+		BB21A4901DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */; };
+		BB21A4911DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */; };
+		BB21A4921DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */; };
+		BB21A4931DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */; };
+		BB21A4941DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */; };
+		BB21A4951DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */; };
+		BB21A4961DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */; };
+		BB21A4971DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */; };
+		BB21A4981DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB4255AC1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
 		BB4255AD1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
@@ -390,12 +414,6 @@
 		BB44C4D01DB03277003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44C4D11DB03277003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44C4D21DB03277003E633F /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E01DB03276003E633F /* vampire.png */; };
-		BB44C4D41DB03277003E633F /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
-		BB44C4D51DB03277003E633F /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
-		BB44C4D61DB03277003E633F /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E21DB03276003E633F /* world_1_background_mid.png */; };
-		BB44C4D71DB03277003E633F /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E21DB03276003E633F /* world_1_background_mid.png */; };
-		BB44C4D81DB03277003E633F /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E31DB03276003E633F /* world_1_background_upper.png */; };
-		BB44C4D91DB03277003E633F /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E31DB03276003E633F /* world_1_background_upper.png */; };
 		BB44C4DA1DB03277003E633F /* world_1_cutscene_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */; };
 		BB44C4DB1DB03277003E633F /* world_1_cutscene_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */; };
 		BB44C4DC1DB03277003E633F /* world_1_cutscene_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E51DB03276003E633F /* world_1_cutscene_2.png */; };
@@ -800,9 +818,7 @@
 		BB44CC9A1DB07165003E633F /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7571DB03A7D003E633F /* pp_shockwave_texture_shader.fsh */; };
 		BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */; };
 		BB44CC9D1DB07165003E633F /* world_1_cutscene_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */; };
-		BB44CC9F1DB07165003E633F /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E21DB03276003E633F /* world_1_background_mid.png */; };
 		BB44CCA21DB07165003E633F /* trans_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7651DB03A7D003E633F /* trans_screen_shader.fsh */; };
-		BB44CCA31DB07165003E633F /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
 		BB44CCA41DB07165003E633F /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7611DB03A7D003E633F /* trans_in_death_shader.fsh */; };
 		BB44CCA81DB07165003E633F /* world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */; };
 		BB44CCA91DB07165003E633F /* snake_death_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C75E1DB03A7D003E633F /* snake_death_texture_shader.fsh */; };
@@ -820,7 +836,6 @@
 		BB44CCDC1DB07165003E633F /* end_boss_snake_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7331DB03A7D003E633F /* end_boss_snake_texture_shader.fsh */; };
 		BB44CCE01DB07165003E633F /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7621DB03A7D003E633F /* trans_out_death_shader.fsh */; };
 		BB44CCE11DB07165003E633F /* trans_screen_circle_open_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7641DB03A7D003E633F /* trans_screen_circle_open_shader.vsh */; };
-		BB44CCE21DB07165003E633F /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E31DB03276003E633F /* world_1_background_upper.png */; };
 		BB44CCE41DB07165003E633F /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7351DB03A7D003E633F /* frame_buffer_to_screen_purple_highlight_shader.fsh */; };
 		BB44CCE91DB07165003E633F /* world_map_screen_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */; };
 		BB44CCF11DB07165003E633F /* world_map_screen_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F11DB03276003E633F /* world_map_screen_part_2.png */; };
@@ -1081,14 +1096,12 @@
 		BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C7231DB03A7D003E633F /* GameScreenWorldMap.cpp */; };
 		BBE92D811DB2E671008359C2 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6291DB03A7D003E633F /* Rectangle.cpp */; };
 		BBE92D821DB2E671008359C2 /* ExitGround.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB44C6BF1DB03A7D003E633F /* ExitGround.cpp */; };
-		BBE92D931DB2E671008359C2 /* world_1_background_lower.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E11DB03276003E633F /* world_1_background_lower.png */; };
 		BBE92D951DB2E671008359C2 /* world_1_mid_boss_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EB1DB03276003E633F /* world_1_mid_boss_part_1.png */; };
 		BBE92D981DB2E671008359C2 /* c_world_1_end_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3BA1DB03276003E633F /* c_world_1_end_boss_part_2.png */; };
 		BBE92D9A1DB2E671008359C2 /* world_1_enemies.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E91DB03276003E633F /* world_1_enemies.png */; };
 		BBE92D9B1DB2E671008359C2 /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7621DB03A7D003E633F /* trans_out_death_shader.fsh */; };
 		BBE92D9C1DB2E671008359C2 /* c_world_1_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3BD1DB03276003E633F /* c_world_1_ground.png */; };
 		BBE92DA01DB2E671008359C2 /* title_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DE1DB03276003E633F /* title_screen.png */; };
-		BBE92DA11DB2E671008359C2 /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E21DB03276003E633F /* world_1_background_mid.png */; };
 		BBE92DA51DB2E671008359C2 /* c_world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C01DB03276003E633F /* c_world_1_mid_boss_part_3.png */; };
 		BBE92DA61DB2E671008359C2 /* trans_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7651DB03A7D003E633F /* trans_screen_shader.fsh */; };
 		BBE92DAA1DB2E671008359C2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3411DB0323F003E633F /* Images.xcassets */; };
@@ -1131,7 +1144,6 @@
 		BBE92DF81DB2E671008359C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33B1DB0323F003E633F /* Localizable.strings */; };
 		BBE92DF91DB2E671008359C2 /* world_1_end_boss_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E61DB03276003E633F /* world_1_end_boss_part_1.png */; };
 		BBE92DFB1DB2E671008359C2 /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
-		BBE92DFC1DB2E671008359C2 /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E31DB03276003E633F /* world_1_background_upper.png */; };
 		BBE92E011DB2E671008359C2 /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
 		BBE92E041DB2E671008359C2 /* world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */; };
 		BBE92E0A1DB2E671008359C2 /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
@@ -1226,6 +1238,12 @@
 		BB21A4701DD2771800D72C8B /* UnknownEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownEntity.h; sourceTree = "<group>"; };
 		BB21A4751DD2830200D72C8B /* TextureSelectorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureSelectorPanel.cpp; sourceTree = "<group>"; };
 		BB21A4761DD2830200D72C8B /* TextureSelectorPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureSelectorPanel.h; sourceTree = "<group>"; };
+		BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower_part_1.png; sourceTree = "<group>"; };
+		BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower_part_2.png; sourceTree = "<group>"; };
+		BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_mid_part_1.png; sourceTree = "<group>"; };
+		BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_mid_part_2.png; sourceTree = "<group>"; };
+		BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_upper_part_1.png; sourceTree = "<group>"; };
+		BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_upper_part_2.png; sourceTree = "<group>"; };
 		BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NosFURatu.entitlements; sourceTree = "<group>"; };
 		BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ability_unlock.mp3; sourceTree = "<group>"; };
 		BB42556A1DBA8484001E6B97 /* absorb_dash_ability.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = absorb_dash_ability.mp3; sourceTree = "<group>"; };
@@ -1336,9 +1354,6 @@
 		BB44C3DE1DB03276003E633F /* title_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_screen.png; sourceTree = "<group>"; };
 		BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trans_death_shader_helper.png; sourceTree = "<group>"; };
 		BB44C3E01DB03276003E633F /* vampire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vampire.png; sourceTree = "<group>"; };
-		BB44C3E11DB03276003E633F /* world_1_background_lower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower.png; sourceTree = "<group>"; };
-		BB44C3E21DB03276003E633F /* world_1_background_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_mid.png; sourceTree = "<group>"; };
-		BB44C3E31DB03276003E633F /* world_1_background_upper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_upper.png; sourceTree = "<group>"; };
 		BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_cutscene_1.png; sourceTree = "<group>"; };
 		BB44C3E51DB03276003E633F /* world_1_cutscene_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_cutscene_2.png; sourceTree = "<group>"; };
 		BB44C3E61DB03276003E633F /* world_1_end_boss_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_end_boss_part_1.png; sourceTree = "<group>"; };
@@ -2185,9 +2200,12 @@
 				BB44C3DE1DB03276003E633F /* title_screen.png */,
 				BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */,
 				BB44C3E01DB03276003E633F /* vampire.png */,
-				BB44C3E11DB03276003E633F /* world_1_background_lower.png */,
-				BB44C3E21DB03276003E633F /* world_1_background_mid.png */,
-				BB44C3E31DB03276003E633F /* world_1_background_upper.png */,
+				BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */,
+				BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */,
+				BB21A47D1DD2F51100D72C8B /* world_1_background_mid_part_1.png */,
+				BB21A47E1DD2F51100D72C8B /* world_1_background_mid_part_2.png */,
+				BB21A47F1DD2F51100D72C8B /* world_1_background_upper_part_1.png */,
+				BB21A4801DD2F51100D72C8B /* world_1_background_upper_part_2.png */,
 				BB44C3E41DB03276003E633F /* world_1_cutscene_1.png */,
 				BB44C3E51DB03276003E633F /* world_1_cutscene_2.png */,
 				BB44C3E61DB03276003E633F /* world_1_end_boss_part_1.png */,
@@ -3063,7 +3081,6 @@
 			files = (
 				BB4256641DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB4256981DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
-				BB44C4D41DB03277003E633F /* world_1_background_lower.png in Resources */,
 				BB44C4E81DB03277003E633F /* world_1_mid_boss_part_1.png in Resources */,
 				BB44C4881DB03277003E633F /* c_world_1_end_boss_part_2.png in Resources */,
 				BB4255F81DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
@@ -3073,7 +3090,6 @@
 				BB4256801DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
 				BB4256A01DBA8485001E6B97 /* toad_eat.mp3 in Resources */,
 				BB44C4CE1DB03277003E633F /* title_screen.png in Resources */,
-				BB44C4D61DB03277003E633F /* world_1_background_mid.png in Resources */,
 				BB42566C1DBA8485001E6B97 /* rabbit_stomp.mp3 in Resources */,
 				BB42567C1DBA8485001E6B97 /* snake_death.mp3 in Resources */,
 				BB44C4941DB03277003E633F /* c_world_1_mid_boss_part_3.png in Resources */,
@@ -3098,6 +3114,7 @@
 				BB4256741DBA8485001E6B97 /* screen_transition.mp3 in Resources */,
 				BB4256341DBA8485001E6B97 /* landing_grass.mp3 in Resources */,
 				BB4255C81DBA8485001E6B97 /* chain_snap.mp3 in Resources */,
+				BB21A4951DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */,
 				BB44CA8F1DB03A7F003E633F /* trans_in_death_shader.fsh in Resources */,
 				BB4256A81DBA8485001E6B97 /* vampire_dash.mp3 in Resources */,
 				BB4255E41DBA8485001E6B97 /* end_boss_snake_damaged.mp3 in Resources */,
@@ -3106,11 +3123,13 @@
 				BB4256401DBA8485001E6B97 /* level_confirmed.mp3 in Resources */,
 				BB44C4861DB03277003E633F /* c_world_1_end_boss_part_1.png in Resources */,
 				BB44C4DC1DB03277003E633F /* world_1_cutscene_2.png in Resources */,
+				BB21A48D1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
 				BB44C4901DB03277003E633F /* c_world_1_mid_boss_part_1.png in Resources */,
 				BB4255F01DBA8485001E6B97 /* final_boss_bgm.mp3 in Resources */,
 				BB4255D01DBA8485001E6B97 /* collect_golden_carrot.mp3 in Resources */,
 				BBCB71BF1DB69D21006430B6 /* texture_shader.vsh in Resources */,
 				BB4255DC1DBA8485001E6B97 /* end_boss_snake_charge.mp3 in Resources */,
+				BB21A4811DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB44C4DA1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
 				BB44CA871DB03A7F003E633F /* sin_wave_texture_shader.fsh in Resources */,
 				BB4256881DBA8485001E6B97 /* sparrow_fly_loop.mp3 in Resources */,
@@ -3154,6 +3173,7 @@
 				BB44CA931DB03A7F003E633F /* trans_screen_circle_open_shader.fsh in Resources */,
 				BB44C4F41DB03277003E633F /* world_map_screen_part_2.png in Resources */,
 				BB4256441DBA8485001E6B97 /* level_select_bgm.mp3 in Resources */,
+				BB21A4851DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
 				BB44C4821DB03277003E633F /* c_world_1_cutscene_1.png in Resources */,
 				BB42562C1DBA8485001E6B97 /* jump_spring_heavy.mp3 in Resources */,
 				BB44CA8B1DB03A7F003E633F /* snake_death_texture_shader.fsh in Resources */,
@@ -3172,9 +3192,9 @@
 				BB4256001DBA8485001E6B97 /* footstep_right_cave.mp3 in Resources */,
 				BB4255D81DBA8485001E6B97 /* death.mp3 in Resources */,
 				BB42563C1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
+				BB21A4891DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */,
 				BB44C4DE1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB44C4F01DB03277003E633F /* world_1_special.png in Resources */,
-				BB44C4D81DB03277003E633F /* world_1_background_upper.png in Resources */,
 				BB4256781DBA8485001E6B97 /* screen_transition_2.mp3 in Resources */,
 				BB44C49A1DB03277003E633F /* jon.png in Resources */,
 				BB44C4EA1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
@@ -3184,6 +3204,7 @@
 				BB44C4EE1DB03277003E633F /* world_1_objects.png in Resources */,
 				BB4256101DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
 				BB4256541DBA8485001E6B97 /* mid_boss_owl_death.mp3 in Resources */,
+				BB21A4911DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */,
 				BB4256301DBA8485001E6B97 /* landing_cave.mp3 in Resources */,
 				BB4256381DBA8485001E6B97 /* level_clear.mp3 in Resources */,
 				BB44CA7D1DB03A7F003E633F /* pp_frame_buffer_obfuscation.fsh in Resources */,
@@ -3231,10 +3252,8 @@
 				BB44C4EB1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB4255CE1DBA8485001E6B97 /* collect_carrot.mp3 in Resources */,
 				BB44C4DB1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
-				BB44C4D71DB03277003E633F /* world_1_background_mid.png in Resources */,
 				BB4256621DBA8485001E6B97 /* mushroom_bounce.mp3 in Resources */,
 				BB44CA981DB03A7F003E633F /* trans_screen_shader.fsh in Resources */,
-				BB44C4D51DB03277003E633F /* world_1_background_lower.png in Resources */,
 				BBCB71751DB69D21006430B6 /* color_shader.fsh in Resources */,
 				BB44CA901DB03A7F003E633F /* trans_in_death_shader.fsh in Resources */,
 				BB42568A1DBA8485001E6B97 /* sparrow_fly_loop.mp3 in Resources */,
@@ -3244,12 +3263,14 @@
 				BB44CA8C1DB03A7F003E633F /* snake_death_texture_shader.fsh in Resources */,
 				BB4256061DBA8485001E6B97 /* footstep_right_grass.mp3 in Resources */,
 				BB44C4E71DB03277003E633F /* world_1_ground.png in Resources */,
+				BB21A4871DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
 				BB42560A1DBA8485001E6B97 /* fox_bounced_on.mp3 in Resources */,
 				BB44C4DD1DB03277003E633F /* world_1_cutscene_2.png in Resources */,
 				BB4256021DBA8485001E6B97 /* footstep_right_cave.mp3 in Resources */,
 				BB4255EA1DBA8485001E6B97 /* end_boss_snake_death.mp3 in Resources */,
 				BB4256761DBA8485001E6B97 /* screen_transition.mp3 in Resources */,
 				BB42567A1DBA8485001E6B97 /* screen_transition_2.mp3 in Resources */,
+				BB21A4971DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */,
 				BB4255BA1DBA8484001E6B97 /* boss_level_clear.mp3 in Resources */,
 				BBEFC3761DB554B90011BD9B /* d_vampire.png in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
@@ -3272,6 +3293,7 @@
 				BB4256961DBA8485001E6B97 /* title_lightning_1.mp3 in Resources */,
 				BB44CA5A1DB03A7F003E633F /* end_boss_snake_texture_shader.fsh in Resources */,
 				BB44CA921DB03A7F003E633F /* trans_out_death_shader.fsh in Resources */,
+				BB21A48F1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
 				BB4256321DBA8485001E6B97 /* landing_cave.mp3 in Resources */,
 				BB4256361DBA8485001E6B97 /* landing_grass.mp3 in Resources */,
 				BB4256521DBA8485001E6B97 /* mid_boss_bgm_intro.mp3 in Resources */,
@@ -3279,7 +3301,6 @@
 				BB4256A61DBA8485001E6B97 /* trigger_transform.mp3 in Resources */,
 				BB4255E21DBA8485001E6B97 /* end_boss_snake_charge_cue.mp3 in Resources */,
 				BB42565A1DBA8485001E6B97 /* mid_boss_owl_swoop.mp3 in Resources */,
-				BB44C4D91DB03277003E633F /* world_1_background_upper.png in Resources */,
 				BB42565E1DBA8485001E6B97 /* mid_boss_owl_tree_smash.mp3 in Resources */,
 				BB4255F61DBA8485001E6B97 /* final_boss_bgm_intro.mp3 in Resources */,
 				BB42564E1DBA8485001E6B97 /* mid_boss_bgm.mp3 in Resources */,
@@ -3296,7 +3317,9 @@
 				BB44C4F51DB03277003E633F /* world_map_screen_part_2.png in Resources */,
 				BB4256121DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
 				BB4256821DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
+				BB21A4931DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */,
 				BB42569E1DBA8485001E6B97 /* toad_die.mp3 in Resources */,
+				BB21A4831DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB4256661DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB42563E1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
 				BB42561E1DBA8485001E6B97 /* jon_rabbit_jump.mp3 in Resources */,
@@ -3308,6 +3331,7 @@
 				BB4256221DBA8485001E6B97 /* jon_vampire_double_jump.mp3 in Resources */,
 				BB4255DE1DBA8485001E6B97 /* end_boss_snake_charge.mp3 in Resources */,
 				BB44C93C1DB03A7E003E633F /* rapidjson_readme.txt in Resources */,
+				BB21A48B1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */,
 				BB4255DA1DBA8485001E6B97 /* death.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3323,6 +3347,7 @@
 				BB4255B71DBA8484001E6B97 /* bat_poof.mp3 in Resources */,
 				BB42561B1DBA8485001E6B97 /* jon_rabbit_double_jump.mp3 in Resources */,
 				BB4255C31DBA8484001E6B97 /* button_click.mp3 in Resources */,
+				BB21A4881DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
 				BB4255D71DBA8485001E6B97 /* complete_transform.mp3 in Resources */,
 				BB4256731DBA8485001E6B97 /* saw_grind_loop.mp3 in Resources */,
 				BB4255F31DBA8485001E6B97 /* final_boss_bgm.mp3 in Resources */,
@@ -3338,7 +3363,9 @@
 				BB4256AB1DBA8485001E6B97 /* vampire_dash.mp3 in Resources */,
 				BB44CC941DB07165003E633F /* pp_frame_buffer_obfuscation.fsh in Resources */,
 				BB44CC951DB07165003E633F /* Assets.xcassets in Resources */,
+				BB21A4981DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */,
 				BB44CC961DB07165003E633F /* world_1_end_boss_part_3.png in Resources */,
+				BB21A48C1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */,
 				BB4255FF1DBA8485001E6B97 /* footstep_left_grass.mp3 in Resources */,
 				BB42560F1DBA8485001E6B97 /* fox_death.mp3 in Resources */,
 				BB4255B31DBA8484001E6B97 /* absorb_dash_ability.mp3 in Resources */,
@@ -3350,10 +3377,9 @@
 				BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB4255CF1DBA8485001E6B97 /* collect_carrot.mp3 in Resources */,
 				BB44CC9D1DB07165003E633F /* world_1_cutscene_1.png in Resources */,
-				BB44CC9F1DB07165003E633F /* world_1_background_mid.png in Resources */,
 				BB4256631DBA8485001E6B97 /* mushroom_bounce.mp3 in Resources */,
 				BB44CCA21DB07165003E633F /* trans_screen_shader.fsh in Resources */,
-				BB44CCA31DB07165003E633F /* world_1_background_lower.png in Resources */,
+				BB21A4901DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
 				BBE9D4071DBE8F4E002D2120 /* level_editor.png in Resources */,
 				BBCB71761DB69D21006430B6 /* color_shader.fsh in Resources */,
 				BB44CCA41DB07165003E633F /* trans_in_death_shader.fsh in Resources */,
@@ -3399,13 +3425,13 @@
 				BB4256A71DBA8485001E6B97 /* trigger_transform.mp3 in Resources */,
 				BB4255E31DBA8485001E6B97 /* end_boss_snake_charge_cue.mp3 in Resources */,
 				BB42565B1DBA8485001E6B97 /* mid_boss_owl_swoop.mp3 in Resources */,
-				BB44CCE21DB07165003E633F /* world_1_background_upper.png in Resources */,
 				BB42565F1DBA8485001E6B97 /* mid_boss_owl_tree_smash.mp3 in Resources */,
 				BB21A4601DD2615500D72C8B /* sprite_tester.png in Resources */,
 				BB4255F71DBA8485001E6B97 /* final_boss_bgm_intro.mp3 in Resources */,
 				BB42564F1DBA8485001E6B97 /* mid_boss_bgm.mp3 in Resources */,
 				BB4255EF1DBA8485001E6B97 /* end_boss_snake_mouth_open.mp3 in Resources */,
 				BBCB71C21DB69D21006430B6 /* texture_shader.vsh in Resources */,
+				BB21A4941DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */,
 				BB4255AF1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */,
 				BB4255BF1DBA8484001E6B97 /* boss_level_unlock.mp3 in Resources */,
 				BB44CCE41DB07165003E633F /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
@@ -3418,6 +3444,7 @@
 				BB4256131DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
 				BB4256831DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
 				BB42569F1DBA8485001E6B97 /* toad_die.mp3 in Resources */,
+				BB21A4841DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB4256671DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB42563F1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
 				BB42561F1DBA8485001E6B97 /* jon_rabbit_jump.mp3 in Resources */,
@@ -3439,7 +3466,6 @@
 			files = (
 				BB4256651DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB4256991DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
-				BBE92D931DB2E671008359C2 /* world_1_background_lower.png in Resources */,
 				BBE92D951DB2E671008359C2 /* world_1_mid_boss_part_1.png in Resources */,
 				BBE92D981DB2E671008359C2 /* c_world_1_end_boss_part_2.png in Resources */,
 				BB4255F91DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
@@ -3447,10 +3473,11 @@
 				BBE92D9B1DB2E671008359C2 /* trans_out_death_shader.fsh in Resources */,
 				BBE9D4061DBE8F4E002D2120 /* level_editor.png in Resources */,
 				BBE92D9C1DB2E671008359C2 /* c_world_1_ground.png in Resources */,
+				BB21A48E1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
 				BB4256811DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
+				BB21A4961DD2F51100D72C8B /* world_1_background_upper_part_2.png in Resources */,
 				BB4256A11DBA8485001E6B97 /* toad_eat.mp3 in Resources */,
 				BBE92DA01DB2E671008359C2 /* title_screen.png in Resources */,
-				BBE92DA11DB2E671008359C2 /* world_1_background_mid.png in Resources */,
 				BB42566D1DBA8485001E6B97 /* rabbit_stomp.mp3 in Resources */,
 				BB42567D1DBA8485001E6B97 /* snake_death.mp3 in Resources */,
 				BBE92DA51DB2E671008359C2 /* c_world_1_mid_boss_part_3.png in Resources */,
@@ -3465,6 +3492,7 @@
 				BB4256951DBA8485001E6B97 /* title_lightning_1.mp3 in Resources */,
 				BBE92DAB1DB2E671008359C2 /* InfoPlist.strings in Resources */,
 				BBE92DAC1DB2E671008359C2 /* c_world_1_mid_boss_part_2.png in Resources */,
+				BB21A4861DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
 				BB4255B51DBA8484001E6B97 /* bat_poof.mp3 in Resources */,
 				BB4256291DBA8485001E6B97 /* jump_spring.mp3 in Resources */,
 				BBE92DAF1DB2E671008359C2 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
@@ -3495,6 +3523,7 @@
 				BB4256211DBA8485001E6B97 /* jon_vampire_double_jump.mp3 in Resources */,
 				BBE92DC21DB2E671008359C2 /* MainStoryboard_iPhone.storyboard in Resources */,
 				BBCB71741DB69D21006430B6 /* color_shader.fsh in Resources */,
+				BB21A48A1DD2F51100D72C8B /* world_1_background_mid_part_1.png in Resources */,
 				BBE92DC41DB2E671008359C2 /* c_vampire.png in Resources */,
 				BBE92DC51DB2E671008359C2 /* misc.png in Resources */,
 				BB4256B51DBA8485001E6B97 /* world_1_bgm_intro.mp3 in Resources */,
@@ -3526,6 +3555,7 @@
 				BBE92DE51DB2E671008359C2 /* world_1_end_boss_part_2.png in Resources */,
 				BB4255B91DBA8484001E6B97 /* boss_level_clear.mp3 in Resources */,
 				BBE92DE91DB2E671008359C2 /* vampire.png in Resources */,
+				BB21A4821DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BBE92DEA1DB2E671008359C2 /* c_world_1_special.png in Resources */,
 				BB21A45F1DD2615500D72C8B /* sprite_tester.png in Resources */,
 				BBE92DEB1DB2E671008359C2 /* c_world_1_cutscene_2.png in Resources */,
@@ -3552,7 +3582,7 @@
 				BB42563D1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
 				BBE92DF91DB2E671008359C2 /* world_1_end_boss_part_1.png in Resources */,
 				BBE92DFB1DB2E671008359C2 /* world_1_special.png in Resources */,
-				BBE92DFC1DB2E671008359C2 /* world_1_background_upper.png in Resources */,
+				BB21A4921DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */,
 				BB4256791DBA8485001E6B97 /* screen_transition_2.mp3 in Resources */,
 				BBE92E011DB2E671008359C2 /* jon.png in Resources */,
 				BBE92E041DB2E671008359C2 /* world_1_mid_boss_part_2.png in Resources */,

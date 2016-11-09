@@ -74,9 +74,12 @@ m_misc("misc"),
 m_title_screen("title_screen"),
 m_trans_death_shader_helper("trans_death_shader_helper"),
 m_vampire("vampire"),
-m_world_1_background_lower("world_1_background_lower"),
-m_world_1_background_mid("world_1_background_mid"),
-m_world_1_background_upper("world_1_background_upper"),
+m_world_1_background_lower_part_1("world_1_background_lower_part_1"),
+m_world_1_background_lower_part_2("world_1_background_lower_part_2"),
+m_world_1_background_mid_part_1("world_1_background_mid_part_1"),
+m_world_1_background_mid_part_2("world_1_background_mid_part_2"),
+m_world_1_background_upper_part_1("world_1_background_upper_part_1"),
+m_world_1_background_upper_part_2("world_1_background_upper_part_2"),
 m_world_1_cutscene_1("world_1_cutscene_1"),
 m_world_1_cutscene_2("world_1_cutscene_2"),
 m_world_1_end_boss_part_1("world_1_end_boss_part_1"),
@@ -111,9 +114,12 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     
-    m_world_1_background_lower.repeat_s = 1;
-    m_world_1_background_mid.repeat_s = 1;
-    m_world_1_background_upper.repeat_s = 1;
+    m_world_1_background_lower_part_1.repeat_s = 1;
+    m_world_1_background_lower_part_2.repeat_s = 1;
+    m_world_1_background_mid_part_1.repeat_s = 1;
+    m_world_1_background_mid_part_2.repeat_s = 1;
+    m_world_1_background_upper_part_1.repeat_s = 1;
+    m_world_1_background_upper_part_2.repeat_s = 1;
     
     m_textureWrappers.push_back(&m_jon);
     m_textureWrappers.push_back(&m_level_editor);
@@ -122,9 +128,12 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_title_screen);
     m_textureWrappers.push_back(&m_trans_death_shader_helper);
     m_textureWrappers.push_back(&m_vampire);
-    m_textureWrappers.push_back(&m_world_1_background_lower);
-    m_textureWrappers.push_back(&m_world_1_background_mid);
-    m_textureWrappers.push_back(&m_world_1_background_upper);
+    m_textureWrappers.push_back(&m_world_1_background_lower_part_1);
+    m_textureWrappers.push_back(&m_world_1_background_lower_part_2);
+    m_textureWrappers.push_back(&m_world_1_background_mid_part_1);
+    m_textureWrappers.push_back(&m_world_1_background_mid_part_2);
+    m_textureWrappers.push_back(&m_world_1_background_upper_part_1);
+    m_textureWrappers.push_back(&m_world_1_background_upper_part_2);
     m_textureWrappers.push_back(&m_world_1_cutscene_1);
     m_textureWrappers.push_back(&m_world_1_cutscene_2);
     m_textureWrappers.push_back(&m_world_1_end_boss_part_1);
@@ -828,15 +837,15 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundUppers(), true);
-    m_spriteBatcher->endBatch(*m_world_1_background_upper.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_upper_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundMids(), true);
-    m_spriteBatcher->endBatch(*m_world_1_background_mid.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_mid_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundLowers(), true);
-    m_spriteBatcher->endBatch(*m_world_1_background_lower.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_lower_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     /// Render Midground
     
@@ -868,7 +877,7 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundMidgroundCovers());
-    m_spriteBatcher->endBatch(*m_world_1_background_lower.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_lower_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     /// Render World
     
@@ -1521,7 +1530,7 @@ void Renderer::renderComingSoonScreenBackground()
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
-    m_spriteBatcher->endBatch(*m_world_1_background_mid.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_mid_part_1.gpuTextureWrapper);
 }
 
 void Renderer::renderMarkers(Game& game)
@@ -2369,9 +2378,12 @@ void Renderer::loadSpriteTesterTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadTransDeath);
     m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
     
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
@@ -2539,41 +2551,80 @@ bool Renderer::ensureJonTextures()
     return true;
 }
 
-void Renderer::loadWorld1BackgroundLower()
+void Renderer::loadWorld1BackgroundLowerPart1()
 {
-    if (m_world_1_background_lower.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_lower_part_1.gpuTextureWrapper == nullptr)
     {
         m_iNumAsyncLoads++;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_lower.gpuTextureDataWrapper = r->loadTextureData("world_1_background_lower");
+            r->m_world_1_background_lower_part_1.gpuTextureDataWrapper = r->loadTextureData("world_1_background_lower_part_1");
         }, this));
     }
 }
 
-void Renderer::loadWorld1BackgroundMid()
+void Renderer::loadWorld1BackgroundLowerPart2()
 {
-    if (m_world_1_background_mid.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_lower_part_2.gpuTextureWrapper == nullptr)
     {
         m_iNumAsyncLoads++;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_mid.gpuTextureDataWrapper = r->loadTextureData("world_1_background_mid");
+            r->m_world_1_background_lower_part_2.gpuTextureDataWrapper = r->loadTextureData("world_1_background_lower_part_2");
         }, this));
     }
 }
 
-void Renderer::loadWorld1BackgroundUpper()
+void Renderer::loadWorld1BackgroundMidPart1()
 {
-    if (m_world_1_background_upper.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_mid_part_1.gpuTextureWrapper == nullptr)
     {
         m_iNumAsyncLoads++;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_background_upper.gpuTextureDataWrapper = r->loadTextureData("world_1_background_upper");
+            r->m_world_1_background_mid_part_1.gpuTextureDataWrapper = r->loadTextureData("world_1_background_mid_part_1");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1BackgroundMidPart2()
+{
+    if (m_world_1_background_mid_part_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_background_mid_part_2.gpuTextureDataWrapper = r->loadTextureData("world_1_background_mid_part_2");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1BackgroundUpperPart1()
+{
+    if (m_world_1_background_upper_part_1.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_background_upper_part_1.gpuTextureDataWrapper = r->loadTextureData("world_1_background_upper_part_1");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1BackgroundUpperPart2()
+{
+    if (m_world_1_background_upper_part_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_background_upper_part_2.gpuTextureDataWrapper = r->loadTextureData("world_1_background_upper_part_2");
         }, this));
     }
 }
@@ -2632,9 +2683,12 @@ void Renderer::loadWorld1Special()
 
 void Renderer::loadWorld1Textures()
 {
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
@@ -2647,31 +2701,61 @@ void Renderer::loadWorld1Textures()
 
 bool Renderer::ensureWorld1Textures()
 {
-    if (m_world_1_background_lower.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_lower_part_1.gpuTextureWrapper == nullptr)
     {
         if (isQueueEmpty())
         {
-            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
         }
         
         return false;
     }
     
-    if (m_world_1_background_mid.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_lower_part_2.gpuTextureWrapper == nullptr)
     {
         if (isQueueEmpty())
         {
-            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
         }
         
         return false;
     }
     
-    if (m_world_1_background_upper.gpuTextureWrapper == nullptr)
+    if (m_world_1_background_mid_part_1.gpuTextureWrapper == nullptr)
     {
         if (isQueueEmpty())
         {
-            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart1);
+        }
+        
+        return false;
+    }
+    
+    if (m_world_1_background_mid_part_2.gpuTextureWrapper == nullptr)
+    {
+        if (isQueueEmpty())
+        {
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart2);
+        }
+        
+        return false;
+    }
+    
+    if (m_world_1_background_upper_part_1.gpuTextureWrapper == nullptr)
+    {
+        if (isQueueEmpty())
+        {
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart1);
+        }
+        
+        return false;
+    }
+    
+    if (m_world_1_background_upper_part_2.gpuTextureWrapper == nullptr)
+    {
+        if (isQueueEmpty())
+        {
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
         }
         
         return false;
@@ -2785,9 +2869,12 @@ void Renderer::loadWorld1MidBossTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart3);
     
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart2);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
@@ -2890,9 +2977,12 @@ void Renderer::loadWorld1EndBossTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1EndBossPart3);
     
-	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLower);
-	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
-	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpper);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMidPart2);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
 
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
@@ -3044,9 +3134,12 @@ void Renderer::unloadSpriteTesterTextures()
     destroyTexture(&m_trans_death_shader_helper);
     destroyTexture(&m_vampire);
     
-    destroyTexture(&m_world_1_background_lower);
-    destroyTexture(&m_world_1_background_mid);
-    destroyTexture(&m_world_1_background_upper);
+    destroyTexture(&m_world_1_background_lower_part_1);
+    destroyTexture(&m_world_1_background_lower_part_2);
+    destroyTexture(&m_world_1_background_mid_part_1);
+    destroyTexture(&m_world_1_background_mid_part_2);
+    destroyTexture(&m_world_1_background_upper_part_1);
+    destroyTexture(&m_world_1_background_upper_part_2);
     destroyTexture(&m_world_1_enemies);
     destroyTexture(&m_world_1_ground);
     destroyTexture(&m_world_1_objects);
@@ -3076,9 +3169,12 @@ void Renderer::unloadWorld1CutsceneTextures()
 
 void Renderer::unloadWorld1Textures()
 {
-    destroyTexture(&m_world_1_background_lower);
-    destroyTexture(&m_world_1_background_mid);
-    destroyTexture(&m_world_1_background_upper);
+    destroyTexture(&m_world_1_background_lower_part_1);
+    destroyTexture(&m_world_1_background_lower_part_2);
+    destroyTexture(&m_world_1_background_mid_part_1);
+    destroyTexture(&m_world_1_background_mid_part_2);
+    destroyTexture(&m_world_1_background_upper_part_1);
+    destroyTexture(&m_world_1_background_upper_part_2);
     
     destroyTexture(&m_world_1_enemies);
     destroyTexture(&m_world_1_ground);

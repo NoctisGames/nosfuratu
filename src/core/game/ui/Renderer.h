@@ -180,9 +180,12 @@ protected:
     TextureWrapper m_title_screen;
     TextureWrapper m_trans_death_shader_helper;
     TextureWrapper m_vampire;
-    TextureWrapper m_world_1_background_lower;
-    TextureWrapper m_world_1_background_mid;
-    TextureWrapper m_world_1_background_upper;
+    TextureWrapper m_world_1_background_lower_part_1;
+    TextureWrapper m_world_1_background_lower_part_2;
+    TextureWrapper m_world_1_background_mid_part_1;
+    TextureWrapper m_world_1_background_mid_part_2;
+    TextureWrapper m_world_1_background_upper_part_1;
+    TextureWrapper m_world_1_background_upper_part_2;
     TextureWrapper m_world_1_cutscene_1;
     TextureWrapper m_world_1_cutscene_2;
     TextureWrapper m_world_1_end_boss_part_1;
@@ -333,9 +336,12 @@ private:
     void loadJonTextures();
     bool ensureJonTextures();
     
-    void loadWorld1BackgroundLower();
-    void loadWorld1BackgroundMid();
-    void loadWorld1BackgroundUpper();
+    void loadWorld1BackgroundLowerPart1();
+    void loadWorld1BackgroundLowerPart2();
+    void loadWorld1BackgroundMidPart1();
+    void loadWorld1BackgroundMidPart2();
+    void loadWorld1BackgroundUpperPart1();
+    void loadWorld1BackgroundUpperPart2();
     void loadWorld1Enemies();
     void loadWorld1Ground();
     void loadWorld1Objects();
