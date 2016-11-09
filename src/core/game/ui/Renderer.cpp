@@ -1908,11 +1908,6 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
             m_font->renderText(*m_spriteBatcher, (*i)->getAssetId(), (*i)->getPosition().getX() - (*i)->getWidth() / 3, (*i)->getPosition().getY(), fgWidth, fgHeight, textColor, false, true);
         }
         m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-        /*
-         m_spriteBatcher->beginBatch();
-        m_font->renderText(*m_spriteBatcher, eep->getEntities().at(0)->getAssetId(), eep->getEntities().at(0)->getPosition().getX(), eep->getEntities().at(0)->getPosition().getY(), fgWidth, fgHeight, textColor, true);
-        m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
-         */
     }
     
     if (tsp->isOpen())
