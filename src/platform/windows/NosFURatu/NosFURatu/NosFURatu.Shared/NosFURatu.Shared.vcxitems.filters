@@ -516,9 +516,6 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_mid_boss_part_3.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\jon.png">
       <Filter>Assets</Filter>
     </CustomBuild>
@@ -541,9 +538,6 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_special.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects.png">
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_mid_boss_part_3.png">
@@ -607,6 +601,18 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_2.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
