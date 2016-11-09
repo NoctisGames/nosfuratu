@@ -21,19 +21,30 @@ SpriteTesterEntitiesPanel::SpriteTesterEntitiesPanel(float x, float y, float wid
     m_closeButton = std::unique_ptr<Rectangle>(new Rectangle(CAM_WIDTH - width, height * 0.49081920903955f, 1, 1));
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
+}
+
+void SpriteTesterEntitiesPanel::initForTextureName(std::string textureName)
+{
+    EntityUtils::cleanUpVectorOfPointers(m_entities);
     
     std::map<std::string, TextureRegion*>& trMap = ASSETS->getTextureRegionMap();
     
     for (std::map<std::string, TextureRegion*>::iterator i = trMap.begin(); i != trMap.end(); i++)
     {
-        m_entities.push_back(UnknownEntity::create(i->first));
+        if (textureName.compare(i->second->getTextureName()) == 0)
+        {
+            m_entities.push_back(UnknownEntity::create(i->first, i->second->getTextureName()));
+        }
     }
     
     std::map<std::string, Animation*>& animMap = ASSETS->getAnimationsMap();
     
     for (std::map<std::string, Animation*>::iterator i = animMap.begin(); i != animMap.end(); i++)
     {
-        m_entities.push_back(UnknownEntity::create(i->first));
+        if (textureName.compare(i->second->getTextureName()) == 0)
+        {
+            m_entities.push_back(UnknownEntity::create(i->first, i->second->getTextureName()));
+        }
     }
     
     float eWidth = m_fWidth * 0.6f;
@@ -147,7 +158,7 @@ bool SpriteTesterEntitiesPanel::isTouchingEntityForPlacement(std::vector<Unknown
     
     if (retVal != -1)
     {
-        UnknownEntity* pT = UnknownEntity::create(items.at(index)->getAssetId(), x, y);
+        UnknownEntity* pT = UnknownEntity::create(items.at(index)->getAssetId(), items.at(index)->getTextureName(), x, y);
         gameItems.push_back(pT);
         
         *lastAddedEntity = pT;

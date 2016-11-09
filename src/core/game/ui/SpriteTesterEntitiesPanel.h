@@ -19,6 +19,7 @@
 #include "RTTI.h"
 
 #include <vector>
+#include <string>
 #include <math.h>
 
 class UnknownEntity;
@@ -33,6 +34,8 @@ class SpriteTesterEntitiesPanel : public PhysicalEntity
     
 public:
     SpriteTesterEntitiesPanel(float x = CAM_WIDTH + (3.76608187134503f - 1.89473684210526) / 2, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
+    
+    void initForTextureName(std::string textureName);
     
     int handleTouch(TouchEvent& te, Vector2D& touchPoint, Vector2D& camPos, std::vector<UnknownEntity*>& gameItems, UnknownEntity** lastAddedEntity);
     

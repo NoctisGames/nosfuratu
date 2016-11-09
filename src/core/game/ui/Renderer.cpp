@@ -110,7 +110,7 @@ m_framebufferToScreenGpuProgramWrapper(nullptr),
 m_framebufferTintGpuProgramWrapper(nullptr),
 m_framebufferRadialBlurGpuProgramWrapper(nullptr)
 {
-    m_font = std::unique_ptr<Font>(new Font(0, 0, 16, 64, 75, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024));
+    m_font = std::unique_ptr<Font>(new Font("misc", 0, 0, 16, 64, 75, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024));
     m_camBounds = std::unique_ptr<Rectangle>(new Rectangle(0, 0, CAM_WIDTH, CAM_HEIGHT));
     m_camPosAcceleration = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
     m_camPosVelocity = std::unique_ptr<Vector2D>(new Vector2D(0, 0));
@@ -1361,7 +1361,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     
     m_spriteBatcher->beginBatch();
     
-    static TextureRegion xTr = TextureRegion(256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    static TextureRegion xTr = TextureRegion("misc", 256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     
     /// Render Num Golden Carrots Collected
     
@@ -1416,7 +1416,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     /// Render Time
     
     {
-        static TextureRegion clockTr = TextureRegion(512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+        static TextureRegion clockTr = TextureRegion("misc", 512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
         
         m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         
@@ -1470,7 +1470,7 @@ void Renderer::renderResumeButtonOverlay()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion resumeButtonTr = TextureRegion(2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    static TextureRegion resumeButtonTr = TextureRegion("vampire", 2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, 2, 2, 0, resumeButtonTr);
@@ -1528,7 +1528,7 @@ void Renderer::renderComingSoonScreenBackground()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion tr = TextureRegion(0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion("world_1_background_mid_part_1", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
@@ -1754,7 +1754,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
 
-	static TextureRegion xTr = TextureRegion(256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+	static TextureRegion xTr = TextureRegion("misc", 256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
 
 	{
 		static Color fontColor = Color(1, 1, 1, 1);
@@ -1858,11 +1858,16 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
-    if (tw && tw->gpuTextureWrapper)
+    for (std::vector<UnknownEntity *>::iterator i = gameEntities.begin(); i != gameEntities.end(); i++)
     {
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(gameEntities);
-        m_spriteBatcher->endBatch(*tw->gpuTextureWrapper);
+        TextureWrapper* etw = getTextureWrapperWithName((*i)->getTextureName());
+        if (etw && etw->gpuTextureWrapper)
+        {
+            m_spriteBatcher->beginBatch();
+            UnknownEntity& ue = *(*i);
+            renderPhysicalEntity(ue, ASSETS->get((*i)));
+            m_spriteBatcher->endBatch(*etw->gpuTextureWrapper);
+        }
     }
     
     if (lastAddedEntity != nullptr)
@@ -1961,7 +1966,7 @@ void Renderer::renderLoading()
 {
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static Animation anim = Animation(0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024, true, 0.06f, 7);
+    static Animation anim = Animation("misc", 0, 900, 144, 96, 1296, 96, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024, true, 0.06f, 7);
     
     static float width = 1.265625f;
     static float height = 0.84375f;
@@ -1984,8 +1989,10 @@ void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float cente
     float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
     float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(x, y, m_camBounds->getWidth(), m_camBounds->getHeight(), 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(x, y, m_camBounds->getWidth(), m_camBounds->getHeight(), 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_shockwaveTextureGpuProgramWrapper);
 }
 
@@ -1993,8 +2000,10 @@ void Renderer::renderToSecondFramebuffer(Game& game)
 {
     setFramebuffer(1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     
     Jon& jon = game.getJon();
     bool isVampire = jon.isVampire();
@@ -2005,8 +2014,10 @@ void Renderer::renderToThirdFramebufferWithObfuscation()
 {
     setFramebuffer(2);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(1), *m_framebufferObfuscationGpuProgramWrapper);
 }
 
@@ -2020,8 +2031,10 @@ void Renderer::renderToScreenWithTransDeathIn(float timeElapsed)
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathInGpuProgramWrapper);
 }
 
@@ -2035,8 +2048,10 @@ void Renderer::renderToScreenWithTransDeathOut(float timeElapsed)
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_transDeathOutGpuProgramWrapper);
 }
 
@@ -2050,8 +2065,10 @@ void Renderer::renderToScreenTransition(float progress)
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_transScreenGpuProgramWrapper);
 }
 
@@ -2065,8 +2082,10 @@ void Renderer::renderToScreenFadeTransition(float progress)
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_fadeScreenGpuProgramWrapper);
 }
 
@@ -2082,8 +2101,10 @@ void Renderer::renderToScreenPointTransition(float centerX, float centerY, float
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(0), *m_pointTransScreenGpuProgramWrapper);
 }
 
@@ -2097,8 +2118,10 @@ void Renderer::renderToScreenWithRadialBlur()
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_framebufferRadialBlurGpuProgramWrapper);
 }
 
@@ -2110,8 +2133,10 @@ void Renderer::renderToScreen()
     
     clearFramebufferWithColor(0, 0, 0, 1);
     
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
     m_spriteBatcher->beginBatch();
-    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, TextureRegion(0, 0, 1, 1, 1, 1));
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(m_framebuffers.at(m_iFramebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
 }
 
@@ -3338,4 +3363,17 @@ void Renderer::destroyTexture(TextureWrapper* textureWrapper)
 bool Renderer::isQueueEmpty()
 {
 	return m_pendingLoadFunctions.size() == 0 && m_iNumAsyncLoads <= 0;
+}
+
+TextureWrapper* Renderer::getTextureWrapperWithName(std::string textureName)
+{
+    for (std::vector<TextureWrapper *>::iterator i = m_textureWrappers.begin(); i != m_textureWrappers.end(); i++)
+    {
+        if ((*i)->name.compare(textureName) == 0)
+        {
+            return (*i);
+        }
+    }
+    
+    return nullptr;
 }

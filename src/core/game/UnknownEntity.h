@@ -19,16 +19,18 @@ class UnknownEntity : public PhysicalEntity
     RTTI_DECL;
     
 public:
-    static UnknownEntity* create(std::string assetId, float x = 0, float y = 0);
+    static UnknownEntity* create(std::string assetId, std::string textureName, float x = 0, float y = 0);
     
-    UnknownEntity(std::string assetId, float x, float y, float width, float height);
+    UnknownEntity(std::string assetId, std::string textureName, float x, float y, float width, float height);
     
     void reset() { m_fStateTime = 0; }
     
     std::string& getAssetId() { return m_assetId; }
+    std::string& getTextureName() { return m_textureName; }
     
 private:
     std::string m_assetId;
+    std::string m_textureName;
 };
 
 #endif /* defined(__nosfuratu__UnknownEntity__) */

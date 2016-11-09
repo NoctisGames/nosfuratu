@@ -8,7 +8,7 @@
 
 #include "TextureRegion.h"
 
-TextureRegion::TextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight)
+TextureRegion::TextureRegion(std::string textureName, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight) : m_textureName(textureName)
 {
     init(x, y, regionWidth, regionHeight, textureWidth, textureHeight);
 }

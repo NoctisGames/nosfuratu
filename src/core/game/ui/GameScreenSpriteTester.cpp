@@ -138,7 +138,10 @@ void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
                 switch (rc)
                 {
                     case TEXTURE_SELECTOR_PANEL_RC_CONFIRM:
-                        // New texture has been selected, nothing to do here
+                        if (m_textureSelectorPanel->getSelectedTexture())
+                        {
+                            m_spriteTesterEntitiesPanel->initForTextureName(m_textureSelectorPanel->getSelectedTexture()->name);
+                        }
                         break;
                     case TEXTURE_SELECTOR_PANEL_RC_HANDLED:
                     default:

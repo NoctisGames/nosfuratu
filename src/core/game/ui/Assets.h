@@ -229,11 +229,11 @@ private:
     bool m_isMusicEnabled;
     bool m_isSoundEnabled;
     
-    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    Animation* createAnimation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    Animation* createAnimation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
+    Animation* createAnimation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
     
-    TextureRegion* createTextureRegion(int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
+    TextureRegion* createTextureRegion(std::string textureName, int x, int y, int regionWidth, int regionHeight, int textureWidth, int textureHeight);
     
     TextureRegion& findTextureRegion(std::string key);
     

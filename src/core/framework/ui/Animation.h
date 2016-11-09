@@ -10,15 +10,18 @@
 #define __noctisgames__Animation__
 
 #include <vector>
+#include <string>
 
 class TextureRegion;
 
 class Animation
 {
 public:
-    Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
+    Animation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames);
     
-    Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
+    Animation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame = 0, int yPadding = 0);
+    
+    ~Animation();
     
     void setFrameTimes(int numFrames, ...);
     
@@ -30,11 +33,12 @@ public:
     
     bool hasFrameTimes();
     
-    ~Animation();
+    std::string& getTextureName() { return m_textureName; }
     
 private:
     std::vector<TextureRegion> m_textureRegions;
     std::vector<float> m_frameTimes;
+    std::string m_textureName;
     float m_fCycleTime;
     int m_iFirstLoopingFrame;
     bool m_looping;

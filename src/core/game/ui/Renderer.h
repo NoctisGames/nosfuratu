@@ -419,6 +419,8 @@ private:
     void destroyTexture(TextureWrapper* textureWrapper);
 
 	bool isQueueEmpty();
+    
+    TextureWrapper* getTextureWrapperWithName(std::string textureName);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

@@ -9,7 +9,7 @@
 #include "TextureSelectorPanel.h"
 #include "OverlapTester.h"
 
-TextureSelectorPanel::TextureSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_selectedTextureWrapper(nullptr), m_iSelectedTextureWrapperIndex(0)
+TextureSelectorPanel::TextureSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_selectedTextureWrapper(nullptr), m_iSelectedTextureWrapperIndex(-1)
 {
     float l = x - width / 2;
     float b = y - height / 2;

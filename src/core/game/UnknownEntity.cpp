@@ -12,7 +12,7 @@
 #define PIXEL_WIDTH_FOR_GAME 1808.0f
 #define PIXEL_HEIGHT_FOR_GAME 4096.0f
 
-UnknownEntity* UnknownEntity::create(std::string assetId, float x, float y)
+UnknownEntity* UnknownEntity::create(std::string assetId, std::string textureName, float x, float y)
 {
     TextureRegion& tr = ASSETS->findTextureRegion(assetId, 0);
     
@@ -22,10 +22,10 @@ UnknownEntity* UnknownEntity::create(std::string assetId, float x, float y)
     double width = pixelWidth / PIXEL_WIDTH_FOR_GAME * CAM_WIDTH;
     double height = pixelHeight / PIXEL_HEIGHT_FOR_GAME * GAME_HEIGHT;
     
-    return new UnknownEntity(assetId, x, y, width, height);
+    return new UnknownEntity(assetId, textureName, x, y, width, height);
 }
 
-UnknownEntity::UnknownEntity(std::string assetId, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+UnknownEntity::UnknownEntity(std::string assetId, std::string textureName, float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_textureName(textureName)
 {
     m_assetId = assetId;
 }
