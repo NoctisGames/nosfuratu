@@ -15,6 +15,14 @@
 		0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187F178E2185005DA99E /* OpenGLES.framework */; };
 		2BC3849E400A7786FEE2E90A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A3F204C83EB088382D59C5 /* CoreMedia.framework */; };
 		B23AAA45087CD1F1D15E94C6 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */; };
+		BB036B6E1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
+		BB036B6F1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
+		BB036B701DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
+		BB036B711DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
+		BB036B731DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */; };
+		BB036B741DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */; };
+		BB036B751DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */; };
+		BB036B761DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */; };
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB09CE111DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09CDDB1DBD3779006A3E49 /* libSuperpoweredAudioIOS.a */; };
 		BB09CE121DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09CDDB1DBD3779006A3E49 /* libSuperpoweredAudioIOS.a */; };
@@ -404,7 +412,7 @@
 		BB44C4901DB03277003E633F /* c_world_1_mid_boss_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3BE1DB03276003E633F /* c_world_1_mid_boss_part_1.png */; };
 		BB44C4921DB03277003E633F /* c_world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3BF1DB03276003E633F /* c_world_1_mid_boss_part_2.png */; };
 		BB44C4941DB03277003E633F /* c_world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C01DB03276003E633F /* c_world_1_mid_boss_part_3.png */; };
-		BB44C4961DB03277003E633F /* c_world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C11DB03276003E633F /* c_world_1_objects.png */; };
+		BB44C4961DB03277003E633F /* c_world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C11DB03276003E633F /* c_world_1_objects_part_1.png */; };
 		BB44C4981DB03277003E633F /* c_world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C21DB03276003E633F /* c_world_1_special.png */; };
 		BB44C49A1DB03277003E633F /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
 		BB44C49E1DB03277003E633F /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C51DB03276003E633F /* misc.png */; };
@@ -434,8 +442,8 @@
 		BB44C4EB1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */; };
 		BB44C4EC1DB03277003E633F /* world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */; };
 		BB44C4ED1DB03277003E633F /* world_1_mid_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */; };
-		BB44C4EE1DB03277003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
-		BB44C4EF1DB03277003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
+		BB44C4EE1DB03277003E633F /* world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */; };
+		BB44C4EF1DB03277003E633F /* world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */; };
 		BB44C4F01DB03277003E633F /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BB44C4F21DB03277003E633F /* world_map_screen_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */; };
 		BB44C4F31DB03277003E633F /* world_map_screen_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */; };
@@ -827,7 +835,7 @@
 		BB44CCB41DB07165003E633F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3221DB030B3003E633F /* Main.storyboard */; };
 		BB44CCB51DB07165003E633F /* pp_radial_blue_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7561DB03A7D003E633F /* pp_radial_blue_texture_shader.fsh */; };
 		BB44CCBC1DB07165003E633F /* world_1_end_boss_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E61DB03276003E633F /* world_1_end_boss_part_1.png */; };
-		BB44CCBD1DB07165003E633F /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
+		BB44CCBD1DB07165003E633F /* world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */; };
 		BB44CCC01DB07165003E633F /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
 		BB44CCC61DB07165003E633F /* sin_wave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C75B1DB03A7D003E633F /* sin_wave_texture_shader.fsh */; };
 		BB44CCC81DB07165003E633F /* trans_screen_circle_open_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7631DB03A7D003E633F /* trans_screen_circle_open_shader.fsh */; };
@@ -1123,7 +1131,7 @@
 		BBE92DC51DB2E671008359C2 /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C51DB03276003E633F /* misc.png */; };
 		BBE92DC71DB2E671008359C2 /* rapidjson_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB44C6081DB03A7D003E633F /* rapidjson_readme.txt */; };
 		BBE92DD11DB2E671008359C2 /* c_world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3BB1DB03276003E633F /* c_world_1_end_boss_part_3.png */; };
-		BBE92DD31DB2E671008359C2 /* c_world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C11DB03276003E633F /* c_world_1_objects.png */; };
+		BBE92DD31DB2E671008359C2 /* c_world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C11DB03276003E633F /* c_world_1_objects_part_1.png */; };
 		BBE92DD51DB2E671008359C2 /* fade_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7341DB03A7D003E633F /* fade_screen_shader.fsh */; };
 		BBE92DD61DB2E671008359C2 /* pp_shockwave_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7581DB03A7D003E633F /* pp_shockwave_texture_shader.vsh */; };
 		BBE92DD81DB2E671008359C2 /* pp_shockwave_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7571DB03A7D003E633F /* pp_shockwave_texture_shader.fsh */; };
@@ -1147,7 +1155,7 @@
 		BBE92E011DB2E671008359C2 /* jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C31DB03276003E633F /* jon.png */; };
 		BBE92E041DB2E671008359C2 /* world_1_mid_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */; };
 		BBE92E0A1DB2E671008359C2 /* trans_death_shader_helper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */; };
-		BBE92E0E1DB2E671008359C2 /* world_1_objects.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects.png */; };
+		BBE92E0E1DB2E671008359C2 /* world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */; };
 		BBE92E121DB2E671008359C2 /* pp_frame_buffer_obfuscation.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB44C7551DB03A7D003E633F /* pp_frame_buffer_obfuscation.fsh */; };
 		BBE9D4061DBE8F4E002D2120 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
 		BBE9D4071DBE8F4E002D2120 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
@@ -1176,6 +1184,8 @@
 		7422774349EFDC9E550FC8B5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddyBuildSDK.framework; path = ../../3rdparty/BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects_part_2.png; sourceTree = "<group>"; };
+		BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects_part_2.png; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB09CDD41DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperpoweredAndroidAudioIO.cpp; sourceTree = "<group>"; };
 		BB09CDD51DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredAndroidAudioIO.h; sourceTree = "<group>"; };
@@ -1347,7 +1357,7 @@
 		BB44C3BE1DB03276003E633F /* c_world_1_mid_boss_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_mid_boss_part_1.png; sourceTree = "<group>"; };
 		BB44C3BF1DB03276003E633F /* c_world_1_mid_boss_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_mid_boss_part_2.png; sourceTree = "<group>"; };
 		BB44C3C01DB03276003E633F /* c_world_1_mid_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_mid_boss_part_3.png; sourceTree = "<group>"; };
-		BB44C3C11DB03276003E633F /* c_world_1_objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects.png; sourceTree = "<group>"; };
+		BB44C3C11DB03276003E633F /* c_world_1_objects_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects_part_1.png; sourceTree = "<group>"; };
 		BB44C3C21DB03276003E633F /* c_world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_special.png; sourceTree = "<group>"; };
 		BB44C3C31DB03276003E633F /* jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jon.png; sourceTree = "<group>"; };
 		BB44C3C51DB03276003E633F /* misc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = misc.png; sourceTree = "<group>"; };
@@ -1364,7 +1374,7 @@
 		BB44C3EB1DB03276003E633F /* world_1_mid_boss_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_mid_boss_part_1.png; sourceTree = "<group>"; };
 		BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_mid_boss_part_2.png; sourceTree = "<group>"; };
 		BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_mid_boss_part_3.png; sourceTree = "<group>"; };
-		BB44C3EE1DB03276003E633F /* world_1_objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects.png; sourceTree = "<group>"; };
+		BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects_part_1.png; sourceTree = "<group>"; };
 		BB44C3EF1DB03276003E633F /* world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_special.png; sourceTree = "<group>"; };
 		BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_map_screen_part_1.png; sourceTree = "<group>"; };
 		BB44C3F11DB03276003E633F /* world_map_screen_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_map_screen_part_2.png; sourceTree = "<group>"; };
@@ -2216,7 +2226,8 @@
 				BB44C3EB1DB03276003E633F /* world_1_mid_boss_part_1.png */,
 				BB44C3EC1DB03276003E633F /* world_1_mid_boss_part_2.png */,
 				BB44C3ED1DB03276003E633F /* world_1_mid_boss_part_3.png */,
-				BB44C3EE1DB03276003E633F /* world_1_objects.png */,
+				BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */,
+				BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */,
 				BB44C3EF1DB03276003E633F /* world_1_special.png */,
 				BB44C3F01DB03276003E633F /* world_map_screen_part_1.png */,
 				BB44C3F11DB03276003E633F /* world_map_screen_part_2.png */,
@@ -2239,7 +2250,8 @@
 				BB44C3BE1DB03276003E633F /* c_world_1_mid_boss_part_1.png */,
 				BB44C3BF1DB03276003E633F /* c_world_1_mid_boss_part_2.png */,
 				BB44C3C01DB03276003E633F /* c_world_1_mid_boss_part_3.png */,
-				BB44C3C11DB03276003E633F /* c_world_1_objects.png */,
+				BB44C3C11DB03276003E633F /* c_world_1_objects_part_1.png */,
+				BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */,
 				BB44C3C21DB03276003E633F /* c_world_1_special.png */,
 			);
 			path = compressed;
@@ -3082,6 +3094,7 @@
 				BB4256641DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB4256981DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
 				BB44C4E81DB03277003E633F /* world_1_mid_boss_part_1.png in Resources */,
+				BB036B731DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
 				BB44C4881DB03277003E633F /* c_world_1_end_boss_part_2.png in Resources */,
 				BB4255F81DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
 				BB44C4E41DB03277003E633F /* world_1_enemies.png in Resources */,
@@ -3146,7 +3159,7 @@
 				BB42565C1DBA8485001E6B97 /* mid_boss_owl_tree_smash.mp3 in Resources */,
 				BB44C48A1DB03277003E633F /* c_world_1_end_boss_part_3.png in Resources */,
 				BB4256601DBA8485001E6B97 /* mushroom_bounce.mp3 in Resources */,
-				BB44C4961DB03277003E633F /* c_world_1_objects.png in Resources */,
+				BB44C4961DB03277003E633F /* c_world_1_objects_part_1.png in Resources */,
 				BB44CA5B1DB03A7F003E633F /* fade_screen_shader.fsh in Resources */,
 				BB42569C1DBA8485001E6B97 /* toad_die.mp3 in Resources */,
 				BB4255C01DBA8484001E6B97 /* button_click.mp3 in Resources */,
@@ -3197,11 +3210,12 @@
 				BB44C4F01DB03277003E633F /* world_1_special.png in Resources */,
 				BB4256781DBA8485001E6B97 /* screen_transition_2.mp3 in Resources */,
 				BB44C49A1DB03277003E633F /* jon.png in Resources */,
+				BB036B6E1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */,
 				BB44C4EA1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB4256AC1DBA8485001E6B97 /* vampire_glide_loop.mp3 in Resources */,
 				BB44C4D01DB03277003E633F /* trans_death_shader_helper.png in Resources */,
 				BB4255CC1DBA8485001E6B97 /* collect_carrot.mp3 in Resources */,
-				BB44C4EE1DB03277003E633F /* world_1_objects.png in Resources */,
+				BB44C4EE1DB03277003E633F /* world_1_objects_part_1.png in Resources */,
 				BB4256101DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
 				BB4256541DBA8485001E6B97 /* mid_boss_owl_death.mp3 in Resources */,
 				BB21A4911DD2F51100D72C8B /* world_1_background_upper_part_1.png in Resources */,
@@ -3247,6 +3261,7 @@
 				BB44C4CF1DB03277003E633F /* title_screen.png in Resources */,
 				BB44CA821DB03A7F003E633F /* pp_shockwave_texture_shader.fsh in Resources */,
 				BBCB71791DB69D21006430B6 /* color_shader.vsh in Resources */,
+				BB036B751DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
 				BB4255FA1DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
 				BB42566E1DBA8485001E6B97 /* rabbit_stomp.mp3 in Resources */,
 				BB44C4EB1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
@@ -3278,7 +3293,7 @@
 				BB44CA801DB03A7F003E633F /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB44C4DF1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB42569A1DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
-				BB44C4EF1DB03277003E633F /* world_1_objects.png in Resources */,
+				BB44C4EF1DB03277003E633F /* world_1_objects_part_1.png in Resources */,
 				BB4256921DBA8485001E6B97 /* title_bgm.mp3 in Resources */,
 				BB44C4D11DB03277003E633F /* trans_death_shader_helper.png in Resources */,
 				BB4256AE1DBA8485001E6B97 /* vampire_glide_loop.mp3 in Resources */,
@@ -3295,6 +3310,7 @@
 				BB44CA921DB03A7F003E633F /* trans_out_death_shader.fsh in Resources */,
 				BB21A48F1DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
 				BB4256321DBA8485001E6B97 /* landing_cave.mp3 in Resources */,
+				BB036B701DD390D000BB47EE /* world_1_objects_part_2.png in Resources */,
 				BB4256361DBA8485001E6B97 /* landing_grass.mp3 in Resources */,
 				BB4256521DBA8485001E6B97 /* mid_boss_bgm_intro.mp3 in Resources */,
 				BB44CA961DB03A7F003E633F /* trans_screen_circle_open_shader.vsh in Resources */,
@@ -3377,6 +3393,7 @@
 				BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB4255CF1DBA8485001E6B97 /* collect_carrot.mp3 in Resources */,
 				BB44CC9D1DB07165003E633F /* world_1_cutscene_1.png in Resources */,
+				BB036B761DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
 				BB4256631DBA8485001E6B97 /* mushroom_bounce.mp3 in Resources */,
 				BB44CCA21DB07165003E633F /* trans_screen_shader.fsh in Resources */,
 				BB21A4901DD2F51100D72C8B /* world_1_background_mid_part_2.png in Resources */,
@@ -3403,7 +3420,7 @@
 				BB44CCB51DB07165003E633F /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB44CCBC1DB07165003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB42569B1DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
-				BB44CCBD1DB07165003E633F /* world_1_objects.png in Resources */,
+				BB44CCBD1DB07165003E633F /* world_1_objects_part_1.png in Resources */,
 				BB4256931DBA8485001E6B97 /* title_bgm.mp3 in Resources */,
 				BB44CCC01DB07165003E633F /* trans_death_shader_helper.png in Resources */,
 				BB4256AF1DBA8485001E6B97 /* vampire_glide_loop.mp3 in Resources */,
@@ -3445,6 +3462,7 @@
 				BB4256831DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
 				BB42569F1DBA8485001E6B97 /* toad_die.mp3 in Resources */,
 				BB21A4841DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
+				BB036B711DD390D000BB47EE /* world_1_objects_part_2.png in Resources */,
 				BB4256671DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
 				BB42563F1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
 				BB42561F1DBA8485001E6B97 /* jon_rabbit_jump.mp3 in Resources */,
@@ -3533,7 +3551,7 @@
 				BB42565D1DBA8485001E6B97 /* mid_boss_owl_tree_smash.mp3 in Resources */,
 				BBE92DD11DB2E671008359C2 /* c_world_1_end_boss_part_3.png in Resources */,
 				BB4256611DBA8485001E6B97 /* mushroom_bounce.mp3 in Resources */,
-				BBE92DD31DB2E671008359C2 /* c_world_1_objects.png in Resources */,
+				BBE92DD31DB2E671008359C2 /* c_world_1_objects_part_1.png in Resources */,
 				BBE92DD51DB2E671008359C2 /* fade_screen_shader.fsh in Resources */,
 				BB42569D1DBA8485001E6B97 /* toad_die.mp3 in Resources */,
 				BB4255C11DBA8484001E6B97 /* button_click.mp3 in Resources */,
@@ -3552,6 +3570,7 @@
 				BB4256491DBA8485001E6B97 /* level_selected.mp3 in Resources */,
 				BB4255B11DBA8484001E6B97 /* absorb_dash_ability.mp3 in Resources */,
 				BBE92DE41DB2E671008359C2 /* MainStoryboard_iPad.storyboard in Resources */,
+				BB036B6F1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */,
 				BBE92DE51DB2E671008359C2 /* world_1_end_boss_part_2.png in Resources */,
 				BB4255B91DBA8484001E6B97 /* boss_level_clear.mp3 in Resources */,
 				BBE92DE91DB2E671008359C2 /* vampire.png in Resources */,
@@ -3568,6 +3587,7 @@
 				BBE92DF21DB2E671008359C2 /* trans_screen_circle_open_shader.vsh in Resources */,
 				BB4256511DBA8485001E6B97 /* mid_boss_bgm_intro.mp3 in Resources */,
 				BB42560D1DBA8485001E6B97 /* fox_death.mp3 in Resources */,
+				BB036B741DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
 				BBE92DF31DB2E671008359C2 /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BBCB71801DB69D21006430B6 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBE92DF41DB2E671008359C2 /* c_jon.png in Resources */,
@@ -3589,7 +3609,7 @@
 				BB4256AD1DBA8485001E6B97 /* vampire_glide_loop.mp3 in Resources */,
 				BBE92E0A1DB2E671008359C2 /* trans_death_shader_helper.png in Resources */,
 				BB4255CD1DBA8485001E6B97 /* collect_carrot.mp3 in Resources */,
-				BBE92E0E1DB2E671008359C2 /* world_1_objects.png in Resources */,
+				BBE92E0E1DB2E671008359C2 /* world_1_objects_part_1.png in Resources */,
 				BB4256111DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
 				BB4256551DBA8485001E6B97 /* mid_boss_owl_death.mp3 in Resources */,
 				BB4256311DBA8485001E6B97 /* landing_cave.mp3 in Resources */,

@@ -90,7 +90,8 @@ m_world_1_ground("world_1_ground"),
 m_world_1_mid_boss_part_1("world_1_mid_boss_part_1"),
 m_world_1_mid_boss_part_2("world_1_mid_boss_part_2"),
 m_world_1_mid_boss_part_3("world_1_mid_boss_part_3"),
-m_world_1_objects("world_1_objects"),
+m_world_1_objects_part_1("world_1_objects_part_1"),
+m_world_1_objects_part_2("world_1_objects_part_2"),
 m_world_1_special("world_1_special"),
 m_world_map_screen_part_1("world_map_screen_part_1"),
 m_world_map_screen_part_2("world_map_screen_part_2"),
@@ -123,8 +124,8 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     
     m_textureWrappers.push_back(&m_jon);
     m_textureWrappers.push_back(&m_level_editor);
-    m_textureWrappers.push_back(&m_sprite_tester);
     m_textureWrappers.push_back(&m_misc);
+    m_textureWrappers.push_back(&m_sprite_tester);
     m_textureWrappers.push_back(&m_title_screen);
     m_textureWrappers.push_back(&m_trans_death_shader_helper);
     m_textureWrappers.push_back(&m_vampire);
@@ -144,7 +145,8 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_1);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_2);
     m_textureWrappers.push_back(&m_world_1_mid_boss_part_3);
-    m_textureWrappers.push_back(&m_world_1_objects);
+    m_textureWrappers.push_back(&m_world_1_objects_part_1);
+    m_textureWrappers.push_back(&m_world_1_objects_part_2);
     m_textureWrappers.push_back(&m_world_1_special);
     m_textureWrappers.push_back(&m_world_map_screen_part_1);
     m_textureWrappers.push_back(&m_world_map_screen_part_2);
@@ -853,7 +855,7 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getMidgrounds());
-    m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     
     /// Render Exit Ground
     
@@ -922,7 +924,7 @@ void Renderer::renderWorld(Game& game)
     }
     
     renderPhysicalEntities(game.getForegroundObjects());
-    m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     
     if (ensureWorld1MidBossPart3())
     {
@@ -1016,7 +1018,7 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getExtraForegroundObjects());
-        m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     }
 }
 
@@ -1354,7 +1356,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
         m_spriteBatcher->beginBatch();
         renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot), true);
         renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot), true);
-        m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     }
     
     m_spriteBatcher->beginBatch();
@@ -1590,13 +1592,13 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
     renderPhysicalEntity(*tc, ASSETS->get(tc), true);
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
-    if (leep->isOpen() && m_world_1_objects.gpuTextureWrapper)
+    if (leep->isOpen() && m_world_1_objects_part_1.gpuTextureWrapper)
     {
         updateMatrix(0, CAM_WIDTH, leep->getEntitiesCameraPos(), leep->getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getMidgrounds(), true);
-        m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getGrounds(), true);
@@ -1614,7 +1616,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         renderPhysicalEntities(leep->getHoles(), true);
         renderPhysicalEntities(leep->getCollectibleItems(), true);
         renderPhysicalEntities(leep->getForegroundObjects(), true);
-        m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
         
         if (ensureWorld1MidBossPart3())
         {
@@ -1651,7 +1653,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getExtraForegroundObjects(), true);
-        m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     }
     
     if (lsp->isOpen())
@@ -1777,7 +1779,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 			m_spriteBatcher->beginBatch();
 			renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot), true);
 			renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot), true);
-			m_spriteBatcher->endBatch(*m_world_1_objects.gpuTextureWrapper);
+			m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
 		}
 
 		int numCarrots = 0;
@@ -2386,7 +2388,8 @@ void Renderer::loadSpriteTesterTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1MidBossPart1);
@@ -2655,15 +2658,28 @@ void Renderer::loadWorld1Ground()
     }
 }
 
-void Renderer::loadWorld1Objects()
+void Renderer::loadWorld1ObjectsPart1()
 {
-    if (m_world_1_objects.gpuTextureWrapper == nullptr)
+    if (m_world_1_objects_part_1.gpuTextureWrapper == nullptr)
     {
         m_iNumAsyncLoads++;
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_objects.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_objects" : "world_1_objects");
+            r->m_world_1_objects_part_1.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_objects_part_1" : "world_1_objects_part_1");
+        }, this));
+    }
+}
+
+void Renderer::loadWorld1ObjectsPart2()
+{
+    if (m_world_1_objects_part_2.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_world_1_objects_part_2.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_objects_part_2" : "world_1_objects_part_2");
         }, this));
     }
 }
@@ -2692,7 +2708,8 @@ void Renderer::loadWorld1Textures()
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Enemies);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart2);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
     
@@ -2796,11 +2813,21 @@ bool Renderer::ensureWorld1Textures()
 
 bool Renderer::ensureWorld1Objects()
 {
-    if (m_world_1_objects.gpuTextureWrapper == nullptr)
+    if (m_world_1_objects_part_1.gpuTextureWrapper == nullptr)
     {
         if (isQueueEmpty())
         {
-            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart1);
+        }
+        
+        return false;
+    }
+    
+    if (m_world_1_objects_part_2.gpuTextureWrapper == nullptr)
+    {
+        if (isQueueEmpty())
+        {
+            m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart2);
         }
         
         return false;
@@ -2877,7 +2904,8 @@ void Renderer::loadWorld1MidBossTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
     
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
-    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart2);
     
     loadJonTextures();
 }
@@ -2985,7 +3013,8 @@ void Renderer::loadWorld1EndBossTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundUpperPart2);
 
 	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Ground);
-	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Objects);
+	m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart1);
+    m_pendingLoadFunctions.push_back(&Renderer::loadWorld1ObjectsPart2);
 
 	loadJonTextures();
 }
@@ -3142,7 +3171,8 @@ void Renderer::unloadSpriteTesterTextures()
     destroyTexture(&m_world_1_background_upper_part_2);
     destroyTexture(&m_world_1_enemies);
     destroyTexture(&m_world_1_ground);
-    destroyTexture(&m_world_1_objects);
+    destroyTexture(&m_world_1_objects_part_1);
+    destroyTexture(&m_world_1_objects_part_2);
     destroyTexture(&m_world_1_special);
     
     destroyTexture(&m_world_1_mid_boss_part_1);
@@ -3178,7 +3208,8 @@ void Renderer::unloadWorld1Textures()
     
     destroyTexture(&m_world_1_enemies);
     destroyTexture(&m_world_1_ground);
-    destroyTexture(&m_world_1_objects);
+    destroyTexture(&m_world_1_objects_part_1);
+    destroyTexture(&m_world_1_objects_part_2);
     
     destroyTexture(&m_world_1_special);
     
