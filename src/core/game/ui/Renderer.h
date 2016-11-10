@@ -52,6 +52,7 @@ class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
 class EndBossSnake;
+class GameScreenSpriteTester;
 
 class Renderer
 {
@@ -96,7 +97,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(GameButton* levelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton, GameButton* spriteTesterButton);
     
     void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
     
@@ -134,6 +135,8 @@ public:
     
     void renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor);
     
+    void renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester);
+    
     void renderLoading();
     
     void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
@@ -158,6 +161,8 @@ public:
 
     void cleanUp();
     
+    std::vector<TextureWrapper *>& getTextureWrappers();
+    
     Rectangle& getCameraBounds();
     
     Vector2D& getCameraPosition();
@@ -175,9 +180,12 @@ protected:
     TextureWrapper m_title_screen;
     TextureWrapper m_trans_death_shader_helper;
     TextureWrapper m_vampire;
-    TextureWrapper m_world_1_background_lower;
-    TextureWrapper m_world_1_background_mid;
-    TextureWrapper m_world_1_background_upper;
+    TextureWrapper m_world_1_background_lower_part_1;
+    TextureWrapper m_world_1_background_lower_part_2;
+    TextureWrapper m_world_1_background_mid_part_1;
+    TextureWrapper m_world_1_background_mid_part_2;
+    TextureWrapper m_world_1_background_upper_part_1;
+    TextureWrapper m_world_1_background_upper_part_2;
     TextureWrapper m_world_1_cutscene_1;
     TextureWrapper m_world_1_cutscene_2;
     TextureWrapper m_world_1_end_boss_part_1;
@@ -188,10 +196,12 @@ protected:
     TextureWrapper m_world_1_mid_boss_part_1;
     TextureWrapper m_world_1_mid_boss_part_2;
     TextureWrapper m_world_1_mid_boss_part_3;
-    TextureWrapper m_world_1_objects;
+    TextureWrapper m_world_1_objects_part_1;
+    TextureWrapper m_world_1_objects_part_2;
     TextureWrapper m_world_1_special;
     TextureWrapper m_world_map_screen_part_1;
     TextureWrapper m_world_map_screen_part_2;
+    TextureWrapper m_sprite_tester;
     
     std::vector<TextureWrapper *> m_textureWrappers;
     std::vector<void (Renderer::*)()> m_pendingLoadFunctions;
@@ -258,7 +268,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntity(item, Assets::getInstance()->get(pItem), ignoreCamBounds);
+            renderPhysicalEntity(item, ASSETS->get(pItem), ignoreCamBounds);
         }
     }
     
@@ -269,7 +279,7 @@ private:
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, Assets::getInstance()->get(pItem), item.getColor(), ignoreCamBounds);
+            renderPhysicalEntityWithColor(item, ASSETS->get(pItem), item.getColor(), ignoreCamBounds);
         }
     }
     
@@ -312,6 +322,10 @@ private:
     void loadLevelEditorTextures();
     bool ensureLevelEditorTextures();
     
+    void loadSpriteTester();
+    void loadSpriteTesterTextures();
+    bool ensureSpriteTesterTextures();
+    
     void loadWorld1Cutscene1();
     void loadWorld1Cutscene2();
     void loadWorld1CutsceneTextures();
@@ -323,12 +337,16 @@ private:
     void loadJonTextures();
     bool ensureJonTextures();
     
-    void loadWorld1BackgroundLower();
-    void loadWorld1BackgroundMid();
-    void loadWorld1BackgroundUpper();
+    void loadWorld1BackgroundLowerPart1();
+    void loadWorld1BackgroundLowerPart2();
+    void loadWorld1BackgroundMidPart1();
+    void loadWorld1BackgroundMidPart2();
+    void loadWorld1BackgroundUpperPart1();
+    void loadWorld1BackgroundUpperPart2();
     void loadWorld1Enemies();
     void loadWorld1Ground();
-    void loadWorld1Objects();
+    void loadWorld1ObjectsPart1();
+    void loadWorld1ObjectsPart2();
     void loadWorld1Special();
     void loadWorld1Textures();
     bool ensureWorld1Textures();
@@ -368,6 +386,7 @@ private:
     void unloadTitleTextures();
     void unloadWorldMapTextures();
     void unloadLevelEditorTextures();
+    void unloadSpriteTesterTextures();
     
     void unloadJonTextures();
     
@@ -400,6 +419,8 @@ private:
     void destroyTexture(TextureWrapper* textureWrapper);
 
 	bool isQueueEmpty();
+    
+    TextureWrapper* getTextureWrapperWithName(std::string textureName);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */

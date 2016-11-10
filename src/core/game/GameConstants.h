@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 0
-#define VERSION_BUILD 11
+#define VERSION_BUILD 12
 
 //// Requested Action Definitions ////
 
@@ -134,14 +134,15 @@
 
 //// Render Definitions ////
 
-#define MAX_BATCH_SIZE 4096
+#define MAX_BATCH_SIZE 16384
 
 //// Texture Definitions ////
 
 #define TEXTURE_SIZE_1024 1024
 #define TEXTURE_SIZE_2048 2048
 #define TEXTURE_SIZE_4096 4096
-#define PIXEL_WIDTH_FOR_BACKGROUND 1808
+#define PIXEL_WIDTH_FOR_GAME 1808
+#define PIXEL_HEIGHT_FOR_GAME 4096
 
 //// Matrix Definitions ////
 

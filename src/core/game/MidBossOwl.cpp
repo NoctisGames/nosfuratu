@@ -111,7 +111,7 @@ void MidBossOwl::update(float deltaTime)
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
-                            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                            ASSETS->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
                             
                             break;
                         }
@@ -240,11 +240,11 @@ void MidBossOwl::update(float deltaTime)
                                     
                                     jon.onEnemyDestroyed();
                                     
-                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_DEATH);
+                                    ASSETS->addSoundIdToPlayQueue(SOUND_MID_BOSS_DEATH);
                                 }
                                 else
                                 {
-                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
+                                    ASSETS->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
                                 }
                                 
                                 GiantShakingTree* gst = (GiantShakingTree *) (*i);

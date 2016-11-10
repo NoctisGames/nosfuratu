@@ -168,7 +168,7 @@ public:
         m_fStateTime = 0;
         m_isInPosition = true;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BAT_POOF);
+        ASSETS->addSoundIdToPlayQueue(SOUND_BAT_POOF);
     }
     
     void moveTo(float x, float y)

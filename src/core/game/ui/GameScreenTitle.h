@@ -40,8 +40,10 @@ public:
 private:
     std::unique_ptr<TitlePanel> m_panel;
     std::unique_ptr<GameButton> m_levelEditorButton;
+    std::unique_ptr<GameButton> m_spriteTesterButton;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
+    bool m_isRequestingSpriteTester;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();
