@@ -73,7 +73,7 @@ public:
     {
         if (m_needsToPlayClearSound)
         {
-            ASSETS->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+            Assets::getInstance()->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
             
             m_needsToPlayClearSound = false;
         }
@@ -150,7 +150,7 @@ public:
     
     void onConfirm()
     {
-        ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
         
         m_fStateTime = 0;
     }
@@ -289,7 +289,7 @@ public:
     {
         if (m_needsToPlayUnlockSound)
         {
-            ASSETS->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
             
             m_needsToPlayUnlockSound = false;
         }
@@ -419,7 +419,7 @@ public:
     {
         if (m_needsToPlayUnlockSound)
         {
-            ASSETS->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
             
             m_needsToPlayUnlockSound = false;
         }

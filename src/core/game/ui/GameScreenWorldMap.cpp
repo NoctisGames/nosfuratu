@@ -120,13 +120,13 @@ void WorldMap::execute(GameScreen* gs)
                     }
                     else if (m_toggleMusic->handleClick(*gs->m_touchPoint))
                     {
-                        ASSETS->setMusicEnabled(!ASSETS->isMusicEnabled());
-                        m_toggleMusic->getColor().alpha = ASSETS->isMusicEnabled() ? 1 : 0.35f;
+                        Assets::getInstance()->setMusicEnabled(!Assets::getInstance()->isMusicEnabled());
+                        m_toggleMusic->getColor().alpha = Assets::getInstance()->isMusicEnabled() ? 1 : 0.35f;
                     }
                     else if (m_toggleSound->handleClick(*gs->m_touchPoint))
                     {
-                        ASSETS->setSoundEnabled(!ASSETS->isSoundEnabled());
-                        m_toggleSound->getColor().alpha = ASSETS->isSoundEnabled() ? 1 : 0.35f;
+                        Assets::getInstance()->setSoundEnabled(!Assets::getInstance()->isSoundEnabled());
+                        m_toggleSound->getColor().alpha = Assets::getInstance()->isSoundEnabled() ? 1 : 0.35f;
                     }
                     //else if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
                     //{
@@ -237,7 +237,7 @@ void WorldMap::execute(GameScreen* gs)
                                 {
                                     selectLevel((*j), levelStats, score);
                                     
-                                    ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+                                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
                                 }
                             }
                         }
@@ -290,7 +290,7 @@ void WorldMap::setFade(float fade)
     float musicVolume = alpha / 2;
     
     short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
-    ASSETS->addMusicIdToPlayQueue(musicId);
+    Assets::getInstance()->addMusicIdToPlayQueue(musicId);
 }
 
 void WorldMap::loadUserSaveData(const char* json)
