@@ -117,7 +117,7 @@ void Chapter1Level10::update(GameScreen* gs)
             }
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            ASSETS->addMusicIdToPlayQueue(musicId);
+            Assets::getInstance()->addMusicIdToPlayQueue(musicId);
         }
         
         if (m_perchTree)
@@ -185,10 +185,10 @@ void Chapter1Level10::update(GameScreen* gs)
             m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
             m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
             
-            if (ASSETS->isMusicEnabled())
+            if (Assets::getInstance()->isMusicEnabled())
             {
-                ASSETS->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
-                ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_MID_BOSS_LOOP);
+                Assets::getInstance()->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
+                Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_MID_BOSS_LOOP);
             }
             
             m_hasTriggeredMidBossMusicLoopIntro = true;
@@ -213,7 +213,7 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
             m_fMusicVolume = 0.5f;
             
@@ -240,7 +240,7 @@ void Chapter1Level10::update(GameScreen* gs)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
             m_fMusicVolume = 0.5f;
             
@@ -300,7 +300,7 @@ void Chapter1Level10::update(GameScreen* gs)
             }
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            ASSETS->addMusicIdToPlayQueue(musicId);
+            Assets::getInstance()->addMusicIdToPlayQueue(musicId);
         }
         
         if (jon.getPosition().getY() < 12)

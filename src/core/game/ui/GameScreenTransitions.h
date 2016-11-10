@@ -115,30 +115,6 @@ private:
     TitleToLevelEditor& operator=(const TitleToLevelEditor&);
 };
 
-class TitleToSpriteTester : public GameScreenState
-{
-    RTTI_DECL;
-    
-public:
-    static TitleToSpriteTester* getInstance();
-    
-    virtual void enter(GameScreen* gs);
-    
-    virtual void execute(GameScreen* gs);
-    
-    virtual void exit(GameScreen* gs);
-    
-    virtual void initRenderer(GameScreen* gs) {}
-    
-private:
-    float m_fTransitionStateTime;
-    
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    TitleToSpriteTester();
-    TitleToSpriteTester(const TitleToSpriteTester&);
-    TitleToSpriteTester& operator=(const TitleToSpriteTester&);
-};
-
 class WorldMapToOpeningCutscene : public GameScreenState
 {
     RTTI_DECL;

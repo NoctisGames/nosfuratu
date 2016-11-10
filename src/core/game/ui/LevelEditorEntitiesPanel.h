@@ -10,7 +10,6 @@
 #define __nosfuratu__LevelEditorEntitiesPanel__
 
 #include "PhysicalEntity.h"
-
 #include "GameConstants.h"
 #include "TouchEvent.h"
 #include "Vector2D.h"
@@ -110,6 +109,36 @@ private:
         }
         
         return retVal != -1;
+    }
+    
+    template<typename T>
+    static int boxInAll(std::vector<T*>& items, float eX, float eY, float eWidth, float eHeight, int index)
+    {
+        float size = fminf(eWidth, eHeight);
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            T* item = *i;
+            
+            item->getPosition().set(eX, eY + (index++ * eHeight));
+            item->setWidth(eWidth);
+            item->setHeight(eHeight);
+            
+            if (item->getWidth() > item->getHeight())
+            {
+                item->setHeight(item->getHeight() / item->getWidth());
+                item->setHeight(item->getHeight() * size);
+                item->setWidth(size);
+            }
+            else
+            {
+                item->setWidth(item->getWidth() / item->getHeight());
+                item->setWidth(item->getWidth() * size);
+                item->setHeight(size);
+            }
+        }
+        
+        return index;
     }
     
     std::vector<Midground *> m_midgrounds;

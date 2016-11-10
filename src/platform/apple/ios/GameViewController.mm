@@ -48,8 +48,9 @@
     
     [EAGLContext setCurrentContext:self.context];
     
-    CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-    CGSize screenSize = CGSizeMake(screenBounds.size.width, screenBounds.size.height);
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    CGSize screenSize = CGSizeMake(screenBounds.size.width * screenScale, screenBounds.size.height * screenScale);
     
     CGSize size = CGSizeMake(screenSize.width, screenSize.height);
     size.width = roundf(size.width);

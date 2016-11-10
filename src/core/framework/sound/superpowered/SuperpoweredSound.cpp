@@ -98,7 +98,7 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
         m_player->setSamplerate(sampleRate);
     }
     
-    bool ret = m_player->process(stereoBuffer, false, numberOfSamples, m_fVolume);
+    bool ret = m_player->process(stereoBuffer, false, numberOfSamples, m_fVolume, m_player->currentBpm, m_player->msElapsedSinceLastBeat);
     
     // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
     if (ret)

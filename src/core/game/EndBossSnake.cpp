@@ -130,7 +130,7 @@ void EndBossSnake::update(float deltaTime)
                 
                 if (OverlapTester::doRectanglesOverlap(camBounds, getMainBounds()))
                 {
-                    ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+                    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
                     
                     m_hasPlayedChargeSound = true;
                 }
@@ -225,11 +225,11 @@ void EndBossSnake::update(float deltaTime)
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
 				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 				{
-					ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 				}
 				else
 				{
-					ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 				}
 
 				setState(EndBossSnakeState_OpeningMouthRight);
@@ -245,7 +245,7 @@ void EndBossSnake::update(float deltaTime)
 
 			if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 			{
-				ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 
 				setState(EndBossSnakeState_OpeningMouthRight);
 
@@ -336,11 +336,11 @@ void EndBossSnake::update(float deltaTime)
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
 				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 				{
-					ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 				}
 				else
 				{
-					ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+					Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 				}
 
 				setState(EndBossSnakeState_OpeningMouthRight);
@@ -370,7 +370,7 @@ void EndBossSnake::update(float deltaTime)
 			{
 				m_position->setX(jon.getPosition().getX() + CAM_WIDTH * 1.1f);
 				
-				ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+				Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 
 				setState(EndBossSnakeState_OpeningMouthLeft);
 
@@ -476,7 +476,7 @@ void EndBossSnake::triggerHit()
         m_snakeSkin->onDamageTaken();
 		m_snakeHeadImpact->onDamageTaken();
         
-        ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DAMAGED);
+        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DAMAGED);
     }
     else
     {
@@ -491,7 +491,7 @@ void EndBossSnake::triggerHit()
 
 		m_snakeBody->onDeath();
 
-		ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
+		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
     }
 
 	m_snakeTonque->onMouthClose();
@@ -589,7 +589,7 @@ void SnakeSpirit::onDeath()
     
     m_isShowing = true;
     
-    ASSETS->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
+    Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
 }
 
 void SnakeHeadImpact::update(float deltaTime)

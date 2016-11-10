@@ -10,14 +10,14 @@
 #include "TextureRegion.h"
 #include "SpriteBatcher.h"
 
-Font::Font(std::string textureName, int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight)
+Font::Font(int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight)
 {
 	int x = offsetX;
 	int y = offsetY;
 
 	for (int i = 0; i < 176; i++)
 	{
-		m_glyphs.push_back(std::unique_ptr<TextureRegion>(new TextureRegion(textureName, x, y, glyphWidth, glyphHeight, textureWidth, textureHeight)));
+		m_glyphs.push_back(std::unique_ptr<TextureRegion>(new TextureRegion(x, y, glyphWidth, glyphHeight, textureWidth, textureHeight)));
 
 		x += glyphWidth;
 

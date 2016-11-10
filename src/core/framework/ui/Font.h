@@ -14,7 +14,6 @@
 #include "Color.h"
 
 #include <vector>
-#include <string>
 #include <memory>
 
 class SpriteBatcher;
@@ -22,7 +21,7 @@ class SpriteBatcher;
 class Font
 {
 public:
-	Font(std::string textureName, int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight);
+	Font(int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight);
 	   
 	void renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, float y, float width, float height, Color color, bool isCentered = false, bool isRightJustified = false, int charOffset = 0);
     

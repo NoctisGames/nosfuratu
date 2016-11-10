@@ -124,12 +124,12 @@ void Level::exit(GameScreen* gs)
     
     if (m_playLevelSelectMusicOnExit)
     {
-        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
-        ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
     }
 	else if (m_stopMusicOnExit)
 	{
-		ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
 	}
     
     m_fStateTime = 0;
@@ -168,10 +168,10 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
 
 void Level::stopLoopingSounds()
 {
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 int Level::getJonAbilityFlag()
@@ -202,8 +202,8 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 		updateCamera(gs, 0, false, true);
 
-        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
-		ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 
 		return;
 	}
@@ -217,10 +217,10 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 	m_hasShownOpeningSequence = true;
 
-	if (ASSETS->isMusicEnabled())
+	if (Assets::getInstance()->isMusicEnabled())
 	{
-		ASSETS->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
-        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+		Assets::getInstance()->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+        Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
 	}
 }
 
@@ -241,7 +241,7 @@ void Level::handleOpeningSequence(GameScreen* gs)
 	{
 		countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
 
-		ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+		Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 	}
 
 	if (result == 2)
@@ -492,7 +492,7 @@ void Level::update(GameScreen* gs)
                 && m_game->getLevel() != 21)
             {
                 short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
-                ASSETS->addMusicIdToPlayQueue(musicId);
+                Assets::getInstance()->addMusicIdToPlayQueue(musicId);
             }
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
@@ -568,7 +568,7 @@ void Level::update(GameScreen* gs)
 			gs->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
-            ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
+            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
         }
         
         EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);

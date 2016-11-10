@@ -21,7 +21,6 @@
 #include "Renderer.h"
 #include "Circle.h"
 #include "Assets.h"
-#include "AssetsMapper.h"
 #include "GameConstants.h"
 #include "Jon.h"
 #include "StateMachine.h"
