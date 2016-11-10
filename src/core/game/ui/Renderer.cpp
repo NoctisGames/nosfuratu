@@ -1528,11 +1528,11 @@ void Renderer::renderComingSoonScreenBackground()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion tr = TextureRegion("world_1_background_mid_part_1", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = TextureRegion("world_1_background_mid_part_2", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
-    m_spriteBatcher->endBatch(*m_world_1_background_mid_part_1.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_background_mid_part_2.gpuTextureWrapper);
 }
 
 void Renderer::renderMarkers(Game& game)
