@@ -18,8 +18,8 @@ LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float heig
     m_toggleLevelButton = std::unique_ptr<Rectangle>(new Rectangle(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
     m_confirmButton = std::unique_ptr<Rectangle>(new Rectangle(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f));
     
-    m_worldTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleWorldButton->getLowerLeft().getX() + m_toggleWorldButton->getWidth() - m_toggleWorldButton->getWidth() / 3, m_toggleWorldButton->getLowerLeft().getY() + m_toggleWorldButton->getHeight() / 2));
-    m_levelTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleLevelButton->getLowerLeft().getX() + m_toggleLevelButton->getWidth() - m_toggleLevelButton->getWidth() / 3, m_toggleLevelButton->getLowerLeft().getY() + m_toggleLevelButton->getHeight() / 2));
+    m_worldTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleWorldButton->getLeft() + m_toggleWorldButton->getWidth() - m_toggleWorldButton->getWidth() / 3, m_toggleWorldButton->getBottom() + m_toggleWorldButton->getHeight() / 2));
+    m_levelTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleLevelButton->getLeft() + m_toggleLevelButton->getWidth() - m_toggleLevelButton->getWidth() / 3, m_toggleLevelButton->getBottom() + m_toggleLevelButton->getHeight() / 2));
 }
 
 void LevelSelectorPanel::open()

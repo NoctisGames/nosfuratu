@@ -641,14 +641,14 @@ void VerticalSaw::updateBounds()
         {
             m_isOnScreen = true;
             
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+        ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
     }
 }
 
@@ -695,7 +695,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					ASSETS->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}
@@ -710,7 +710,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 					m_velocity->setX(0);
 					m_acceleration->setX(0);
 
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -753,7 +753,7 @@ void SpikedBallRollingLeft::stop()
 	m_velocity->setX(0);
 	m_acceleration->setX(0);
 
-	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+	ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void SpikedBallRollingRight::update(float deltaTime)
@@ -798,7 +798,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					ASSETS->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}
@@ -813,7 +813,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 					m_velocity->setX(0);
 					m_acceleration->setX(0);
 
-					Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -856,7 +856,7 @@ void SpikedBallRollingRight::stop()
 	m_velocity->setX(0);
 	m_acceleration->setX(0);
 
-	Assets::getInstance()->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+	ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
 }
 
 void SpikedBall::update(float deltaTime)
@@ -936,7 +936,7 @@ bool SpikedBallChain::isJonHittingHorizontally(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
+        ASSETS->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
         
         return true;
     }
@@ -954,7 +954,7 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
+        ASSETS->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
         
         return true;
     }

@@ -7,6 +7,7 @@
 //
 
 #include "LevelEditorEntitiesPanel.h"
+
 #include "Rectangle.h"
 #include "Vector2D.h"
 #include "GameConstants.h"
@@ -225,20 +226,20 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     float eX = CAM_WIDTH - m_fWidth / 2 + 0.4f;
     float eY = eHeight / 2;
     
-    int i = boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
-    i = boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_pits, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_midBossForegroundObjects, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_endBossForegroundObjects, eX, eY, eWidth, eHeight, i);
-	i = boxInAll(m_countHissWithMinas, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_endBossSnakes, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
-    i = boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
+    int i = EntityUtils::boxInAll(m_midgrounds, eX, eY, eWidth, eHeight, 0);
+    i = EntityUtils::boxInAll(m_grounds, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_pits, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_exitGrounds, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_holes, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_foregroundObjects, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_midBossForegroundObjects, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_endBossForegroundObjects, eX, eY, eWidth, eHeight, i);
+	i = EntityUtils::boxInAll(m_countHissWithMinas, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_endBossSnakes, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_enemies, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), m_fHeight);
     

@@ -10,12 +10,12 @@
 #include "TextureRegion.h"
 #include <stdarg.h>
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames) : m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)
+Animation::Animation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames) : m_textureName(textureName), m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames);
 }
 
-Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame, int yPadding) : m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
+Animation::Animation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, float frameTime, int numFrames, int firstLoopingFrame, int yPadding) : m_textureName(textureName), m_fCycleTime(0), m_iFirstLoopingFrame(firstLoopingFrame), m_looping(looping)
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames, yPadding);
 
@@ -24,6 +24,12 @@ Animation::Animation(int x, int y, int regionWidth, int regionHeight, int animat
 		m_frameTimes.push_back(frameTime);
 		m_fCycleTime += frameTime;
 	}
+}
+
+Animation::~Animation()
+{
+    m_textureRegions.clear();
+    m_frameTimes.clear();
 }
 
 void Animation::setFrameTimes(int numFrames, ...)
@@ -99,12 +105,6 @@ bool Animation::hasFrameTimes()
     return m_frameTimes.size() > 0;
 }
 
-Animation::~Animation()
-{
-	m_textureRegions.clear();
-	m_frameTimes.clear();
-}
-
 void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, int numFrames, int yPadding)
 {
 	int right = x + animationWidth;
@@ -114,7 +114,7 @@ void Animation::loadTextureRegions(int x, int y, int regionWidth, int regionHeig
 	{
 		for (int i = x; i < right; i += regionWidth)
 		{
-			TextureRegion tr = TextureRegion(i, j, regionWidth, regionHeight, textureWidth, textureHeight);
+			TextureRegion tr = TextureRegion(m_textureName, i, j, regionWidth, regionHeight, textureWidth, textureHeight);
 			m_textureRegions.push_back(tr);
 			numTextureRegionsAdded++;
 
