@@ -33,6 +33,10 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["BackgroundType_Lower"] = createTextureRegion("world_1_background_lower_part_1", 0, 320, PIXEL_WIDTH_FOR_GAME, 1728, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["BackgroundType_WaterBack"] = createTextureRegion("world_1_background_lower_part_1", 0, 168, PIXEL_WIDTH_FOR_GAME, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["BackgroundType_WaterFront"] = createTextureRegion("world_1_background_lower_part_1", 0, 248, PIXEL_WIDTH_FOR_GAME, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
+    m_textureRegions["BackgroundType_Lower_Inner"] = createTextureRegion("world_1_background_lower_part_2", 0, 0, PIXEL_WIDTH_FOR_GAME, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["BackgroundType_Lower_Innermost"] = createTextureRegion("world_1_background_lower_part_2", 0, 1024, PIXEL_WIDTH_FOR_GAME, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    
     m_textureRegions["MidgroundType_TreeOne"] = createTextureRegion("world_1_objects_part_1", 1940, 224, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeTwo"] = createTextureRegion("world_1_objects_part_1", 2468, 96, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeThree"] = createTextureRegion("world_1_objects_part_1", 3156, 48, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
