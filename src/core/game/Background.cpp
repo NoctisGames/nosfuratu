@@ -17,7 +17,7 @@ Background::Background(float x, float y, float width, float height, int xScrollS
         i++;
     }
     
-    m_fXOffset = i * PIXEL_WIDTH_FOR_BACKGROUND;
+    m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;
 }
 
 void Background::update(Vector2D& cameraPosition, float deltaTime)

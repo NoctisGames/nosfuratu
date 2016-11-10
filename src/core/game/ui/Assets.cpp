@@ -328,31 +328,31 @@ TextureRegion& Assets::get(Background* background)
         case BackgroundType_Upper:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_Upper");
-            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
         case BackgroundType_Mid:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_Mid");
-            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
         case BackgroundType_Lower:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_Lower");
-            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
         case BackgroundType_WaterBack:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_WaterBack");
-            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
         case BackgroundType_WaterFront:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_WaterFront");
-            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_BACKGROUND, TEXTURE_SIZE_2048);
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
     }

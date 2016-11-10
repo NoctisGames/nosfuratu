@@ -8,9 +8,7 @@
 
 #include "UnknownEntity.h"
 #include "Assets.h"
-
-#define PIXEL_WIDTH_FOR_GAME 1808.0f
-#define PIXEL_HEIGHT_FOR_GAME 4096.0f
+#include "GameConstants.h"
 
 UnknownEntity* UnknownEntity::create(std::string assetId, std::string textureName, float x, float y)
 {
