@@ -18,8 +18,9 @@ struct TextureWrapper
     GpuTextureDataWrapper* gpuTextureDataWrapper;
     GpuTextureWrapper* gpuTextureWrapper;
     int repeat_s;
+    bool isLoading;
     
-    TextureWrapper(std::string inName) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeat_s(0)
+    TextureWrapper(std::string inName) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeat_s(0), isLoading(false)
     {
         // Empty
     }

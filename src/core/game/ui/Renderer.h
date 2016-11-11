@@ -421,6 +421,8 @@ private:
 	bool isQueueEmpty();
     
     TextureWrapper* getTextureWrapperWithName(std::string textureName);
+    
+    bool doesTextureNeedToBeLoaded(TextureWrapper& tw);
 };
 
 #endif /* defined(__nosfuratu__Renderer__) */
