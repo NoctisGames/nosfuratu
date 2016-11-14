@@ -1361,7 +1361,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     
     m_spriteBatcher->beginBatch();
     
-    static TextureRegion xTr = TextureRegion("misc", 256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    static TextureRegion xTr = ASSETS_MAPPER->findTextureRegion("CarrotCountMarker");
     
     /// Render Num Golden Carrots Collected
     
@@ -1416,7 +1416,7 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     /// Render Time
     
     {
-        static TextureRegion clockTr = TextureRegion("misc", 512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+        static TextureRegion clockTr = ASSETS_MAPPER->findTextureRegion("ClockIcon");
         
         m_spriteBatcher->drawSprite(CAM_WIDTH * 0.72f, textY + fgHeight * 0.08f, fgWidth * 2 / 3, fgHeight * 2 / 3, 0, clockTr);
         
@@ -1470,7 +1470,7 @@ void Renderer::renderResumeButtonOverlay()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion resumeButtonTr = TextureRegion("vampire", 2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    static TextureRegion resumeButtonTr = ASSETS_MAPPER->findTextureRegion("ResumeButton");
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, 2, 2, 0, resumeButtonTr);
@@ -1528,7 +1528,7 @@ void Renderer::renderComingSoonScreenBackground()
     
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    static TextureRegion tr = TextureRegion("world_1_background_mid_part_2", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    static TextureRegion tr = ASSETS_MAPPER->findTextureRegion("ComingSoonScreen");
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
@@ -1754,7 +1754,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 		m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
 	}
 
-	static TextureRegion xTr = TextureRegion("misc", 256, 0, 32, 32, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+	static TextureRegion xTr = ASSETS_MAPPER->findTextureRegion("CarrotCountMarker");
 
 	{
 		static Color fontColor = Color(1, 1, 1, 1);

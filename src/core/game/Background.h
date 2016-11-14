@@ -17,7 +17,12 @@
 typedef enum
 {
     BackgroundType_Upper,
+    BackgroundType_Mid_Hills,
+    BackgroundType_Lower_Innermost,
     BackgroundType_Mid,
+    BackgroundType_Lower_Inner,
+    BackgroundType_Mid_Trees,
+    BackgroundType_Mid_Hills_Shrubs,
     BackgroundType_Lower,
     BackgroundType_WaterBack,
     BackgroundType_WaterFront
@@ -48,7 +53,7 @@ class Upper : public Background
     RTTI_DECL;
     
 public:
-    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 12, BackgroundType_Upper) {}
+    Upper(float x) : Background(x, 29.25f, CAM_WIDTH, 13.5f, 12, BackgroundType_Upper) {}
 };
 
 class Mid : public Background
@@ -56,7 +61,7 @@ class Mid : public Background
     RTTI_DECL;
     
 public:
-    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 24, BackgroundType_Mid) {}
+    Mid(float x) : Background(x, 16.9541015625f, CAM_WIDTH, 8.033203125f, 24, BackgroundType_Mid) {}
 };
 
 class Lower : public Background
