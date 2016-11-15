@@ -93,7 +93,7 @@ class LowerInner : public Background
     RTTI_DECL;
     
 public:
-    LowerInner(float x) : Background(x, 6.609375f, CAM_WIDTH, 9.0f, 40, BackgroundType_Lower_Inner) {}
+    LowerInner(float x) : Background(x, 6.609375f, CAM_WIDTH, 9.0f, 32, BackgroundType_Lower_Inner) {}
 };
 
 class MidHillsShrubs : public Background

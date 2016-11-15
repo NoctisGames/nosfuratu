@@ -91,7 +91,8 @@ void SuperpoweredSound::setVolume(float volume)
 bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     if (sampleRate != -1
-        && sampleRate != m_iLastSamplerate)
+        && sampleRate != m_iLastSamplerate
+        && isPlaying())
     {
         // Has samplerate changed?
         m_iLastSamplerate = sampleRate;
