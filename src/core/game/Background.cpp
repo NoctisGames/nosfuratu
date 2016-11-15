@@ -54,7 +54,12 @@ void Water::update(Vector2D& cameraPosition, float deltaTime)
 
 RTTI_IMPL(Background, PhysicalEntity);
 RTTI_IMPL(Upper, Background);
+RTTI_IMPL(MidHills, Background);
+RTTI_IMPL(LowerInnermost, Background);
 RTTI_IMPL(Mid, Background);
+RTTI_IMPL(MidTrees, Background);
+RTTI_IMPL(LowerInner, Background);
+RTTI_IMPL(MidHillsShrubs, Background);
 RTTI_IMPL(Lower, Background);
 RTTI_IMPL(Water, Background);
 RTTI_IMPL(WaterBack, Water);

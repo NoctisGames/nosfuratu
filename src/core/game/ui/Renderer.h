@@ -241,10 +241,10 @@ protected:
     virtual void bindToScreenFramebuffer() = 0;
 
     virtual void destroyTexture(GpuTextureWrapper& textureWrapper) = 0;
+    
+	virtual void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr);
 
-	virtual void renderPhysicalEntity(PhysicalEntity &go, TextureRegion& tr, bool ignoreCamBounds = false);
-
-	virtual void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c, bool ignoreCamBounds = false);
+	virtual void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
     
 private:
     std::vector<std::thread> m_threads;
@@ -262,24 +262,24 @@ private:
     bool m_hasCompletedRadialBlur;
     
     template<typename T>
-    void renderPhysicalEntities(std::vector<T*>& items, bool ignoreCamBounds = false)
+    void renderPhysicalEntities(std::vector<T*>& items)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntity(item, ASSETS->get(pItem), ignoreCamBounds);
+            renderPhysicalEntity(item, ASSETS->get(pItem));
         }
     }
     
     template<typename T>
-    void renderPhysicalEntitiesWithColor(std::vector<T*>& items, bool ignoreCamBounds = false)
+    void renderPhysicalEntitiesWithColor(std::vector<T*>& items)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             T* pItem = *i;
             T& item = *pItem;
-            renderPhysicalEntityWithColor(item, ASSETS->get(pItem), item.getColor(), ignoreCamBounds);
+            renderPhysicalEntityWithColor(item, ASSETS->get(pItem), item.getColor());
         }
     }
     

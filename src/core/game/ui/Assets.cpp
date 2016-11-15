@@ -331,9 +331,39 @@ TextureRegion& Assets::get(Background* background)
             initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }
+        case BackgroundType_Mid_Hills:
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Mid_Hills");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case BackgroundType_Lower_Innermost:
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Lower_Innermost");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            return tr;
+        }
         case BackgroundType_Mid:
         {
             static TextureRegion tr = findTextureRegion("BackgroundType_Mid");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case BackgroundType_Mid_Trees:
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Mid_Trees");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case BackgroundType_Lower_Inner:
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Lower_Inner");
+            initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            return tr;
+        }
+        case BackgroundType_Mid_Hills_Shrubs:
+        {
+            static TextureRegion tr = findTextureRegion("BackgroundType_Mid_Hills_Shrubs");
             initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
             return tr;
         }

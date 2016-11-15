@@ -209,6 +209,16 @@ void Game::updateAndClean(float deltaTime)
 	}
 }
 
+void Game::updateBackgrounds(Vector2D& cameraPosition, float deltaTime)
+{
+    EntityUtils::updateBackgrounds(getBackgroundUppers(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundMids(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundMidFronts(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundLowerBacks(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundLowers(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundMidgroundCovers(), cameraPosition, deltaTime);
+}
+
 int Game::calcSum()
 {
     int sum = 0;
@@ -370,6 +380,16 @@ std::vector<Background *>& Game::getBackgroundUppers()
 std::vector<Background *>& Game::getBackgroundMids()
 {
     return m_backgroundMids;
+}
+
+std::vector<Background *>& Game::getBackgroundMidFronts()
+{
+    return m_backgroundMidFronts;
+}
+
+std::vector<Background *>& Game::getBackgroundLowerBacks()
+{
+    return m_backgroundLowerBacks;
 }
 
 std::vector<Background *>& Game::getBackgroundLowers()
@@ -594,9 +614,19 @@ void Game::onLoaded()
         for (int i = 0; i < 4; i++)
         {
             m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
+            
+            m_backgroundMids.push_back(new MidHills(i * CAM_WIDTH + CAM_WIDTH / 2));
             m_backgroundMids.push_back(new Mid(i * CAM_WIDTH + CAM_WIDTH / 2));
+            
+            m_backgroundMidFronts.push_back(new MidTrees(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundMidFronts.push_back(new MidHillsShrubs(i * CAM_WIDTH + CAM_WIDTH / 2));
+            
+            m_backgroundLowerBacks.push_back(new LowerInnermost(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundLowerBacks.push_back(new LowerInner(i * CAM_WIDTH + CAM_WIDTH / 2));
+            
             m_backgroundLowers.push_back(new Lower(i * CAM_WIDTH + CAM_WIDTH / 2));
             m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
+            
             m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
         }
     }

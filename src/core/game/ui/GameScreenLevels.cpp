@@ -74,10 +74,7 @@ void Level::enter(GameScreen* gs)
     
     onEnter(gs);
     
-    EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-    EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-    EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-    EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     
     static float fgWidth = CAM_WIDTH / 32;
     static float fgHeight = fgWidth * 1.171875f;
@@ -210,10 +207,7 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 	gs->m_renderer->beginOpeningPanningSequence(*m_game);
 
-	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
 
 	m_hasShownOpeningSequence = true;
 
@@ -249,10 +243,7 @@ void Level::handleOpeningSequence(GameScreen* gs)
 		jon.beginWarmingUp();
 	}
 
-	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
 }
 
 void Level::update(GameScreen* gs)
@@ -571,10 +562,7 @@ void Level::update(GameScreen* gs)
             ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
         }
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 

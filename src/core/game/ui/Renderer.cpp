@@ -655,7 +655,7 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*panel, ASSETS->get(panel), true);
+    renderPhysicalEntity(*panel, ASSETS->get(panel));
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 
@@ -668,8 +668,8 @@ void Renderer::renderTitleScreenUi(GameButton* levelEditorButton, GameButton* sp
     {
         m_spriteBatcher->beginBatch();
         
-        renderPhysicalEntity(*levelEditorButton, ASSETS->get(levelEditorButton), true);
-        renderPhysicalEntity(*spriteTesterButton, ASSETS->get(spriteTesterButton), true);
+        renderPhysicalEntity(*levelEditorButton, ASSETS->get(levelEditorButton));
+        renderPhysicalEntity(*spriteTesterButton, ASSETS->get(spriteTesterButton));
         
         m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
     }
@@ -718,13 +718,13 @@ void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
         Rectangle& cb = (*i)->getCamBounds();
         updateMatrix(cb.getLowerLeft().getX(), cb.getWidth(), cb.getLowerLeft().getY(), cb.getHeight());
         
-        renderPhysicalEntityWithColor(*(*i), ASSETS->get((*i)), (*i)->getColor(), true);
+        renderPhysicalEntityWithColor(*(*i), ASSETS->get((*i)), (*i)->getColor());
         
         m_spriteBatcher->endBatch(*m_world_1_cutscene_1.gpuTextureWrapper);
         
         m_spriteBatcher->beginBatch();
         
-        renderPhysicalEntitiesWithColor((*i)->getCutsceneEffects(), true);
+        renderPhysicalEntitiesWithColor((*i)->getCutsceneEffects());
         
         m_spriteBatcher->endBatch(*m_world_1_cutscene_2.gpuTextureWrapper);
     }
@@ -740,7 +740,7 @@ void Renderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*panel, ASSETS->get(panel), true);
+    renderPhysicalEntity(*panel, ASSETS->get(panel));
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
 
@@ -754,9 +754,9 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntitiesWithColor(wm.getAbilitySlots(), true);
-    renderPhysicalEntitiesWithColor(wm.getLevelThumbnails(), true);
-    renderPhysicalEntityWithColor(*wm.getGoldenCarrotsMarker(), ASSETS->get(wm.getGoldenCarrotsMarker()), wm.getGoldenCarrotsMarker()->getColor(), true);
+    renderPhysicalEntitiesWithColor(wm.getAbilitySlots());
+    renderPhysicalEntitiesWithColor(wm.getLevelThumbnails());
+    renderPhysicalEntityWithColor(*wm.getGoldenCarrotsMarker(), ASSETS->get(wm.getGoldenCarrotsMarker()), wm.getGoldenCarrotsMarker()->getColor());
     m_spriteBatcher->endBatch(*m_world_map_screen_part_2.gpuTextureWrapper);
     
     static float fgWidth = CAM_WIDTH / 40;
@@ -817,12 +817,12 @@ void Renderer::renderWorldMapScreenButtons(WorldMap& wm)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntityWithColor(*wm.getBackButton(), ASSETS->get(wm.getBackButton()), wm.getBackButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getToggleMusicButton(), ASSETS->get(wm.getToggleMusicButton()), wm.getToggleMusicButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), ASSETS->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor(), true);
-    //renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), ASSETS->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), ASSETS->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor(), true);
-    renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), ASSETS->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor(), true);
+    renderPhysicalEntityWithColor(*wm.getBackButton(), ASSETS->get(wm.getBackButton()), wm.getBackButton()->getColor());
+    renderPhysicalEntityWithColor(*wm.getToggleMusicButton(), ASSETS->get(wm.getToggleMusicButton()), wm.getToggleMusicButton()->getColor());
+    renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), ASSETS->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor());
+    //renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), ASSETS->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor());
+    renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), ASSETS->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor());
+    renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), ASSETS->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor());
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1.gpuTextureWrapper);
 }
 
@@ -838,15 +838,23 @@ void Renderer::renderWorld(Game& game)
     updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundUppers(), true);
+    renderPhysicalEntities(game.getBackgroundUppers());
     m_spriteBatcher->endBatch(*m_world_1_background_upper_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundMids(), true);
+    renderPhysicalEntities(game.getBackgroundMids());
     m_spriteBatcher->endBatch(*m_world_1_background_mid_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundLowers(), true);
+    renderPhysicalEntities(game.getBackgroundMidFronts());
+    m_spriteBatcher->endBatch(*m_world_1_background_mid_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getBackgroundLowerBacks());
+    m_spriteBatcher->endBatch(*m_world_1_background_lower_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    
+    m_spriteBatcher->beginBatch();
+    renderPhysicalEntities(game.getBackgroundLowers());
     m_spriteBatcher->endBatch(*m_world_1_background_lower_part_1.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
     /// Render Midground
@@ -1354,8 +1362,8 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
         uiCarrot.setHeight(fgHeight);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot), true);
-        renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot), true);
+        renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot));
+        renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot));
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     }
     
@@ -1450,12 +1458,12 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     
     if (backButton)
     {
-        renderPhysicalEntity(*backButton, ASSETS->get(backButton), true);
+        renderPhysicalEntity(*backButton, ASSETS->get(backButton));
     }
     
     if (continueButton)
     {
-        renderPhysicalEntityWithColor(*continueButton, ASSETS->get(continueButton), continueButton->getColor(), true);
+        renderPhysicalEntityWithColor(*continueButton, ASSETS->get(continueButton), continueButton->getColor());
     }
 
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
@@ -1582,14 +1590,14 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
     /// Render Level Editor
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*leap, ASSETS->get(leap), true);
-    renderPhysicalEntity(*leep, ASSETS->get(leep), true);
+    renderPhysicalEntity(*leap, ASSETS->get(leap));
+    renderPhysicalEntity(*leep, ASSETS->get(leep));
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*tc, ASSETS->get(tc), true);
+    renderPhysicalEntity(*tc, ASSETS->get(tc));
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
     if (leep->isOpen() && m_world_1_objects_part_1.gpuTextureWrapper)
@@ -1597,62 +1605,62 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, leep->getEntitiesCameraPos(), leep->getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getMidgrounds(), true);
+        renderPhysicalEntities(leep->getMidgrounds());
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getGrounds(), true);
-        renderPhysicalEntities(leep->getExitGrounds(), true);
+        renderPhysicalEntities(leep->getGrounds());
+        renderPhysicalEntities(leep->getExitGrounds());
         m_spriteBatcher->endBatch(*m_world_1_ground.gpuTextureWrapper);
         
         if (ensureWorld1Special())
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getPits(), true);
+            renderPhysicalEntities(leep->getPits());
             m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
         }
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getHoles(), true);
-        renderPhysicalEntities(leep->getCollectibleItems(), true);
-        renderPhysicalEntities(leep->getForegroundObjects(), true);
+        renderPhysicalEntities(leep->getHoles());
+        renderPhysicalEntities(leep->getCollectibleItems());
+        renderPhysicalEntities(leep->getForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
         
         if (ensureWorld1MidBossPart3())
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getMidBossForegroundObjects(), true);
+            renderPhysicalEntities(leep->getMidBossForegroundObjects());
             m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
         }
         
         if (ensureWorld1EndBossPart1())
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getEndBossForegroundObjects(), true);
-            renderPhysicalEntities(leep->getEndBossSnakes(), true);
+            renderPhysicalEntities(leep->getEndBossForegroundObjects());
+            renderPhysicalEntities(leep->getEndBossSnakes());
             m_spriteBatcher->endBatch(*m_world_1_end_boss_part_1.gpuTextureWrapper);
         }
 
 		if (ensureJonTextures())
 		{
 			m_spriteBatcher->beginBatch();
-			renderPhysicalEntities(leep->getCountHissWithMinas(), true);
+			renderPhysicalEntities(leep->getCountHissWithMinas());
 			m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
 		}
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getEnemies(), true);
+        renderPhysicalEntities(leep->getEnemies());
         m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper);
         
         if (ensureJonTextures())
         {
             m_spriteBatcher->beginBatch();
-            renderPhysicalEntities(leep->getJons(), true);
+            renderPhysicalEntities(leep->getJons());
             m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
         }
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(leep->getExtraForegroundObjects(), true);
+        renderPhysicalEntities(leep->getExtraForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     }
     
@@ -1661,7 +1669,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*lsp, ASSETS->get(lsp), true);
+        renderPhysicalEntity(*lsp, ASSETS->get(lsp));
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
         
         static Color fontColor = Color(1, 1, 1, 1);
@@ -1690,7 +1698,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*osp, ASSETS->get(osp), true);
+        renderPhysicalEntity(*osp, ASSETS->get(osp));
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
         
         static Color fontColor = Color(1, 1, 1, 1);
@@ -1723,7 +1731,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*crp, ASSETS->get(crp), true);
+        renderPhysicalEntity(*crp, ASSETS->get(crp));
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     }
     
@@ -1732,7 +1740,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*cep, ASSETS->get(cep), true);
+        renderPhysicalEntity(*cep, ASSETS->get(cep));
         m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     }
 
@@ -1777,8 +1785,8 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 			uiCarrot.setHeight(fgHeight);
 
 			m_spriteBatcher->beginBatch();
-			renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot), true);
-			renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot), true);
+			renderPhysicalEntity(uiGoldenCarrot, ASSETS->get(&uiGoldenCarrot));
+			renderPhysicalEntity(uiCarrot, ASSETS->get(&uiCarrot));
 			m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
 		}
 
@@ -1896,14 +1904,14 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
     /// Render Sprite Tester
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*eap, ASSETS->get(eap), true);
-    renderPhysicalEntity(*eep, ASSETS->get(eep), true);
+    renderPhysicalEntity(*eap, ASSETS->get(eap));
+    renderPhysicalEntity(*eep, ASSETS->get(eep));
     m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
     
     updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntity(*tc, ASSETS->get(tc), true);
+    renderPhysicalEntity(*tc, ASSETS->get(tc));
     m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
     
     if (eep->isOpen() && tw && tw->gpuTextureWrapper)
@@ -1911,7 +1919,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
         updateMatrix(0, CAM_WIDTH, eep->getEntitiesCameraPos(), eep->getEntitiesCameraPos() + CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(eep->getEntities(), true);
+        renderPhysicalEntities(eep->getEntities());
         m_spriteBatcher->endBatch(*tw->gpuTextureWrapper);
         
         static float fgWidth = CAM_WIDTH / 100;
@@ -1931,7 +1939,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*tsp, ASSETS->get(tsp), true);
+        renderPhysicalEntity(*tsp, ASSETS->get(tsp));
         m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
         
         Text& text = tsp->getText();
@@ -1948,7 +1956,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*crp, ASSETS->get(crp), true);
+        renderPhysicalEntity(*crp, ASSETS->get(crp));
         m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
     }
     
@@ -1957,7 +1965,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
         updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
         
         m_spriteBatcher->beginBatch();
-        renderPhysicalEntity(*cep, ASSETS->get(cep), true);
+        renderPhysicalEntity(*cep, ASSETS->get(cep));
         m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
     }
 }
@@ -2192,24 +2200,14 @@ Vector2D& Renderer::getCameraPosition()
 
 #pragma mark protected
 
-void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool ignoreCamBounds)
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
 {
-    Rectangle bounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-    
-    if (ignoreCamBounds || OverlapTester::doRectanglesOverlap(*m_camBounds, bounds))
-    {
-        m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
-    }
+    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
 }
 
-void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool ignoreCamBounds)
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
 {
-    Rectangle bounds = Rectangle(pe.getPosition().getX() - pe.getWidth() / 2, pe.getPosition().getY() - pe.getHeight() / 2, pe.getWidth(), pe.getHeight());
-    
-    if (ignoreCamBounds || OverlapTester::doRectanglesOverlap(*m_camBounds, bounds))
-    {
-        m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
-    }
+    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
 }
 
 #pragma mark private

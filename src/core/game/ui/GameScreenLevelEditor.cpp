@@ -149,10 +149,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         m_trashCan->update(gs->m_renderer->getCameraPosition());
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 

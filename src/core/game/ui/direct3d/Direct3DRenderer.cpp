@@ -179,13 +179,3 @@ void Direct3DRenderer::destroyTexture(GpuTextureWrapper& textureWrapper)
 		textureWrapper.texture->Release();
 	}
 }
-
-void Direct3DRenderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr, bool ignoreCamBounds)
-{
-	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
-}
-
-void Direct3DRenderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c, bool ignoreCamBounds)
-{
-	m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
-}

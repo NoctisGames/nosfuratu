@@ -244,11 +244,8 @@ void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 	jon.getVelocity().setX(RABBIT_DEFAULT_MAX_SPEED);
 
 	updateCamera(gs, 0, false, true);
-
-	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+    
+    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
 
 	m_hasShownOpeningSequence = true;
 }
@@ -257,10 +254,7 @@ void Chapter1Level21::handleOpeningSequence(GameScreen* gs)
 {
 	m_hasOpeningSequenceCompleted = true;
 
-	EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), 0);
-	EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), 0);
+	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
 }
 
 void Chapter1Level21::update(GameScreen* gs)
