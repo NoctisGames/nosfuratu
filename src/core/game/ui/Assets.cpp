@@ -35,16 +35,8 @@ Assets* Assets::getInstance()
 
 TextureRegion& Assets::get(TitlePanel* panel)
 {
-    if (panel->isLightningStriking())
-    {
-        static Animation anim = findAnimation("TitlePanel_Lightning_Striking");
-        return anim.getTextureRegion(panel->getStateTime());
-    }
-    else
-    {
-        static Animation anim = findAnimation("TitlePanel_Lightning_Not_Striking");
-        return anim.getTextureRegion(panel->getStateTime());
-    }
+    static TextureRegion tr = findTextureRegion("TitlePanel_Background");
+    return tr;
 }
 
 TextureRegion& Assets::get(CutsceneEffect* effect)

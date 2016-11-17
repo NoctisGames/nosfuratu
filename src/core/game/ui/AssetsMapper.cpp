@@ -38,7 +38,6 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["BackgroundType_WaterFront"] = createTextureRegion("world_1_background_lower_part_1", 0, 248, PIXEL_WIDTH_FOR_GAME, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["BackgroundType_Lower_Inner"] = createTextureRegion("world_1_background_lower_part_2", 0, 0, PIXEL_WIDTH_FOR_GAME, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["BackgroundType_Lower_Innermost"] = createTextureRegion("world_1_background_lower_part_2", 0, 1024, PIXEL_WIDTH_FOR_GAME, 1024, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
-    
     m_textureRegions["MidgroundType_TreeOne"] = createTextureRegion("world_1_objects_part_1", 1940, 224, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeTwo"] = createTextureRegion("world_1_objects_part_1", 2468, 96, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeThree"] = createTextureRegion("world_1_objects_part_1", 3156, 48, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -141,8 +140,8 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["GameButtonType_ViewOpeningCutscene"] = createTextureRegion("world_map_screen_part_1", 1152, 0, 96, 64, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["GameButtonType_BackToLevelSelect"] = createTextureRegion("misc", 0, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["GameButtonType_ContinueToLevelSelect"] = createTextureRegion("misc", 804, 0, 104, 104, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
-    m_textureRegions["GameButtonType_LevelEditor"] = createTextureRegion("title_screen", 2848, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["GameButtonType_SpriteTester"] = createTextureRegion("title_screen", 3048, 2644, 190, 62, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["GameButtonType_LevelEditor"] = createTextureRegion("title_screen", 800, 780, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["GameButtonType_SpriteTester"] = createTextureRegion("title_screen", 1000, 780, 190, 62, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["GameHudCarrot_Golden"] = createTextureRegion("world_1_objects_part_1", 1904, 1254, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GameHudCarrot_Normal"] = createTextureRegion("world_1_objects_part_1", 884, 1054, 96, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["EditorEntitiesPanel"] = createTextureRegion("sprite_tester", 0, 46, 592, 1338, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
@@ -159,10 +158,9 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ComingSoonScreen"] = createTextureRegion("world_1_background_mid_part_2", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["SpeedBarFrame"] = createTextureRegion("misc", 8, 654, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["SpeedBar"] = createTextureRegion("misc", 8, 678, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    m_textureRegions["TitlePanel_Background"] = createTextureRegion("title_screen", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     
     /// Animations
-    m_animations["TitlePanel_Lightning_Striking"] = createAnimation("title_screen", 0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8);
-    m_animations["TitlePanel_Lightning_Not_Striking"] = createAnimation("title_screen", 0, 1456, 1280, 720, 2560, 720, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
     m_animations["CutsceneEffectType_POW"] = createAnimation("world_1_cutscene_2", 0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3);
     m_animations["AbilitySlot_Unlocking"] = createAnimation("world_map_screen_part_2", 0, 458, 118, 114, 1180, 114, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 10);
     m_animations["AbilitySlotType_Drill"] = createAnimation("world_map_screen_part_2", 0, 572, 118, 114, 1298, 114, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 11);
