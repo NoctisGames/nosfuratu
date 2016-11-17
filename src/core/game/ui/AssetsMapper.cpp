@@ -41,9 +41,9 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["MidgroundType_TreeOne"] = createTextureRegion("world_1_objects_part_1", 1940, 224, 512, 672, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeTwo"] = createTextureRegion("world_1_objects_part_1", 2468, 96, 656, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeThree"] = createTextureRegion("world_1_objects_part_1", 3156, 48, 928, 848, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["MidgroundType_DeepCaveColumnSmall"] = createTextureRegion("world_1_objects_part_1", 3052, 1444, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["MidgroundType_DeepCaveColumnMedium"] = createTextureRegion("world_1_objects_part_1", 3884, 900, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["MidgroundType_DeepCaveColumnBig"] = createTextureRegion("world_1_objects_part_1", 3310, 900, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnSmall"] = createTextureRegion("world_1_objects_part_2", 3136, 1824, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnMedium"] = createTextureRegion("world_1_objects_part_2", 3968, 1280, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_DeepCaveColumnBig"] = createTextureRegion("world_1_objects_part_2", 3394, 1280, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepEndLeft"] = createTextureRegion("world_1_ground", 0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepSmall"] = createTextureRegion("world_1_ground", 128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepMedium"] = createTextureRegion("world_1_ground", 640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -119,8 +119,8 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ForegroundObjectType_SpikeStar"] = createTextureRegion("world_1_objects_part_1", 890, 1162, 224, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_GiantTree"] = createTextureRegion("world_1_objects_part_1", 832, 0, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_GiantPerchTree"] = createTextureRegion("world_1_mid_boss_part_3", 3008, 2080, 1088, 1040, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_SpikeTower"] = createTextureRegion("world_1_objects_part_1", 2892, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_SpikeTowerBg"] = createTextureRegion("world_1_objects_part_1", 3408, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_SpikeTower"] = createTextureRegion("world_1_objects_part_2", 2892, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_SpikeTowerBg"] = createTextureRegion("world_1_objects_part_2", 3408, 3200, 512, 896, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_SpikedBallRolling"] = createTextureRegion("world_1_end_boss_part_1", 3440, 2104, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_SpikedBall"] = createTextureRegion("world_1_end_boss_part_1", 3440, 2588, 512, 480, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["SnakeBody_Left"] = createTextureRegion("world_1_end_boss_part_1", 0, 548, 3488, 544, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -197,7 +197,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_animations["ForegroundObjectType_JumpSpringLight"] = createAnimation("world_1_objects_part_1", 2126, 3960, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);
     m_animations["ForegroundObjectType_JumpSpringMedium"] = createAnimation("world_1_objects_part_1", 0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05142857142857, 7);
     m_animations["ForegroundObjectType_JumpSpringHeavy"] = createAnimation("world_1_objects_part_1", 272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
-    m_animations["ForegroundObjectType_VerticalSaw"] = createAnimation("world_1_objects_part_1", 3590, 2556, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
+    m_animations["ForegroundObjectType_VerticalSaw"] = createAnimation("world_1_objects_part_2", 3590, 2556, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
     m_animations["ForegroundObjectType_GiantShakingTree"] = createAnimation("world_1_objects_part_1", 832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.025f, 7);
     m_animations["ForegroundObjectType_SpikedBallChain"] = createAnimation("world_1_end_boss_part_1", 0, 1472, 1616, 1312, 3232, 2624, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
     m_animations["CountHissWithMina_Left"] = createAnimation("world_1_end_boss_part_1", 2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 6);
