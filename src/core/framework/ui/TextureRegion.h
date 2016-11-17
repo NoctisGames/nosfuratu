@@ -23,7 +23,7 @@ public:
     std::string& getTextureName() { return m_textureName; }
     
 	float u1, v1, u2, v2;
-    float m_fRegionWidth, m_fRegionHeight;
+    float m_fX, m_fY, m_fRegionWidth, m_fRegionHeight, m_fTextureWidth, m_fTextureHeight;
     
 private:
     std::string m_textureName;

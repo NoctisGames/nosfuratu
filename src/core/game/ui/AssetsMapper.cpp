@@ -157,6 +157,8 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ClockIcon"] = createTextureRegion("misc", 512, 0, 72, 72, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["ResumeButton"] = createTextureRegion("vampire", 2048, 1792, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ComingSoonScreen"] = createTextureRegion("world_1_background_mid_part_2", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["SpeedBarFrame"] = createTextureRegion("misc", 8, 654, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
+    m_textureRegions["SpeedBar"] = createTextureRegion("misc", 8, 678, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     
     /// Animations
     m_animations["TitlePanel_Lightning_Striking"] = createAnimation("title_screen", 0, 0, 1280, 720, 3840, 1448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 6, 0, 8);

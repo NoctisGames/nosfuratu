@@ -1459,6 +1459,24 @@ void Renderer::renderHud(Game& game, GameButton* backButton, GameButton* continu
     if (backButton)
     {
         renderPhysicalEntity(*backButton, ASSETS->get(backButton));
+        
+        static TextureRegion speedBarTr = ASSETS_MAPPER->findTextureRegion("SpeedBar");
+        static TextureRegion speedBarFrameTr = ASSETS_MAPPER->findTextureRegion("SpeedBarFrame");
+        
+        float jonSpeed = game.getJon().getVelocity().getX();
+        jonSpeed = clamp(jonSpeed, VAMP_DEFAULT_MAX_SPEED, 0);
+        
+        float jonSpeedRatioToMaxSpeed = jonSpeed / VAMP_DEFAULT_MAX_SPEED;
+        
+        float speedBarRegionWidth = speedBarTr.m_fRegionWidth;
+        float speedBarRegionWidthToRender = speedBarRegionWidth * jonSpeedRatioToMaxSpeed;
+        
+        speedBarTr.init(speedBarTr.m_fX, speedBarRegionWidthToRender, speedBarTr.m_fTextureWidth);
+        
+        m_spriteBatcher->drawSprite(0.2f + 2 * jonSpeedRatioToMaxSpeed, 0.27751937984496, 4 * jonSpeedRatioToMaxSpeed, 0.15503875968992f, 0, speedBarTr);
+        m_spriteBatcher->drawSprite(2.2f, 0.27751937984496, 4, 0.15503875968992f, 0, speedBarFrameTr);
+        
+        speedBarTr.init(speedBarTr.m_fX, speedBarRegionWidth, speedBarTr.m_fTextureWidth);
     }
     
     if (continueButton)
