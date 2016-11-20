@@ -74,8 +74,6 @@ public:
     
     std::vector<Background *>& getBackgroundMids();
     
-    std::vector<Background *>& getBackgroundMidFronts();
-    
     std::vector<Background *>& getBackgroundLowerBacks();
     
     std::vector<Background *>& getBackgroundLowers();
@@ -159,7 +157,6 @@ public:
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
-    std::vector<Background *> m_backgroundMidFronts;
     std::vector<Background *> m_backgroundLowerBacks;
     std::vector<Background *> m_backgroundLowers;
     std::vector<Midground *> m_midgrounds;

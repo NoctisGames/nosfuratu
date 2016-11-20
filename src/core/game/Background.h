@@ -19,11 +19,10 @@ typedef enum
     BackgroundType_Upper,
     BackgroundType_Mid_Hills,
     BackgroundType_Lower_Innermost,
-    BackgroundType_Mid,
     BackgroundType_Mid_Trees,
     BackgroundType_Lower_Inner,
-    BackgroundType_Mid_Hills_Shrubs,
-    BackgroundType_Lower,
+    BackgroundType_Lower_Top,
+    BackgroundType_Lower_Bottom,
     BackgroundType_WaterBack,
     BackgroundType_WaterFront
 } BackgroundType;
@@ -53,7 +52,7 @@ class Upper : public Background
     RTTI_DECL;
     
 public:
-    Upper(float x) : Background(x, 29.25f, CAM_WIDTH, 13.5f, 16, BackgroundType_Upper) {}
+    Upper(float x) : Background(x, 29.25f, CAM_WIDTH, 13.5f, 12, BackgroundType_Upper) {}
 };
 
 class MidHills : public Background
@@ -61,7 +60,7 @@ class MidHills : public Background
     RTTI_DECL;
     
 public:
-    MidHills(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 16, BackgroundType_Mid_Hills) {}
+    MidHills(float x) : Background(x, 18.966796875f, CAM_WIDTH, 7.06640625f, 12, BackgroundType_Mid_Hills) {}
 };
 
 class LowerInnermost : public Background
@@ -69,15 +68,7 @@ class LowerInnermost : public Background
     RTTI_DECL;
     
 public:
-    LowerInnermost(float x) : Background(x, 6.609375f, CAM_WIDTH, 9.0f, 16, BackgroundType_Lower_Innermost) {}
-};
-
-class Mid : public Background
-{
-    RTTI_DECL;
-    
-public:
-    Mid(float x) : Background(x, 17.5166015625f, CAM_WIDTH, 8.033203125f, 24, BackgroundType_Mid) {}
+    LowerInnermost(float x) : Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 12, BackgroundType_Lower_Innermost) {}
 };
 
 class MidTrees : public Background
@@ -85,7 +76,7 @@ class MidTrees : public Background
     RTTI_DECL;
     
 public:
-    MidTrees(float x) : Background(x, 17.2265625f, CAM_WIDTH, 7.453125f, 32, BackgroundType_Mid_Trees) {}
+    MidTrees(float x) : Background(x, 16.734375f, CAM_WIDTH, 6.46875f, 24, BackgroundType_Mid_Trees) {}
 };
 
 class LowerInner : public Background
@@ -93,23 +84,23 @@ class LowerInner : public Background
     RTTI_DECL;
     
 public:
-    LowerInner(float x) : Background(x, 6.609375f, CAM_WIDTH, 9.0f, 32, BackgroundType_Lower_Inner) {}
+    LowerInner(float x) : Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 24, BackgroundType_Lower_Inner) {}
 };
 
-class MidHillsShrubs : public Background
+class LowerTop : public Background
 {
     RTTI_DECL;
     
 public:
-    MidHillsShrubs(float x) : Background(x, 15.521484375f, CAM_WIDTH, 4.04296875f, 40, BackgroundType_Mid_Hills_Shrubs) {}
+    LowerTop(float x) : Background(x, 12.849609375f, CAM_WIDTH, 8.61328125f, 48, BackgroundType_Lower_Top) {}
 };
 
-class Lower : public Background
+class LowerBottom : public Background
 {
     RTTI_DECL;
     
 public:
-    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 48, BackgroundType_Lower) {}
+    LowerBottom(float x) : Background(x, 2.302734375f, CAM_WIDTH, 4.60546875f, 48, BackgroundType_Lower_Bottom) {}
 };
 
 class Water : public Background
