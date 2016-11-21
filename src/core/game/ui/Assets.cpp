@@ -793,13 +793,9 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             return tr;
         }
         case ForegroundObjectType_ThornsCenterSmall:
-        {
-            static TextureRegion tr = findTextureRegion("ForegroundObjectType_ThornsCenterSmall");
-            return tr;
-        }
         case ForegroundObjectType_ThornsCenterBig:
         {
-            static TextureRegion tr = findTextureRegion("ForegroundObjectType_ThornsCenterBig");
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_ThornsCenter");
             return tr;
         }
         case ForegroundObjectType_ThornsRight:

@@ -1620,7 +1620,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getMidgrounds());
-        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getGrounds());

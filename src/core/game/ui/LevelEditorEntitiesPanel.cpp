@@ -38,6 +38,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
     EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     if (world == 1)
     {
@@ -127,12 +128,8 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_EndSign));
         
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsLeft));
-        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsCenterSmall));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsCenterBig));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsRight));
-        
-        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_LogVerticalTall));
-        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_LogVerticalShort));
         
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLightFlush));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLight));
@@ -239,6 +236,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     i = EntityUtils::boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = EntityUtils::boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
     i = EntityUtils::boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_foregroundCoverObjects, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), m_fHeight);
     
