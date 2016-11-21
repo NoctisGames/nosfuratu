@@ -853,7 +853,7 @@ void Renderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getMidgrounds());
-    m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     
     /// Render Exit Ground
     
@@ -901,13 +901,17 @@ void Renderer::renderWorld(Game& game)
             renderPhysicalEntity(hc, ASSETS->get(&hc));
         }
     }
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     
+    m_spriteBatcher->beginBatch();
     for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
     {
         ForegroundObject& shadow = (*i)->getShadow();
         renderPhysicalEntity(shadow, ASSETS->get(&shadow));
     }
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     
+    m_spriteBatcher->beginBatch();
     renderPhysicalEntitiesWithColor(game.getCollectibleItems());
     
     for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
@@ -1016,7 +1020,7 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getExtraForegroundObjects());
-        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     }
 }
 

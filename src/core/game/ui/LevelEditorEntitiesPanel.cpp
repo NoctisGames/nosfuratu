@@ -43,7 +43,6 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     {
         m_midgrounds.push_back(new TreeOne(0));
         m_midgrounds.push_back(new TreeTwo(0));
-        m_midgrounds.push_back(new TreeThree(0));
         
         if (level >= 10)
         {

@@ -42,7 +42,7 @@ class TreeOne : public Midground
     RTTI_DECL;
     
 public:
-    TreeOne(int gridX) : Midground(gridX, 96, 32, 42, MidgroundType_TreeOne) {}
+    TreeOne(int gridX) : Midground(gridX, 96, 62, 54, MidgroundType_TreeOne) {}
 };
 
 class TreeTwo : public Midground
@@ -50,15 +50,7 @@ class TreeTwo : public Midground
     RTTI_DECL;
     
 public:
-    TreeTwo(int gridX) : Midground(gridX, 96, 41, 50, MidgroundType_TreeTwo) {}
-};
-
-class TreeThree : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeThree(int gridX) : Midground(gridX, 96, 58, 53, MidgroundType_TreeThree) {}
+    TreeTwo(int gridX) : Midground(gridX, 96, 70, 50, MidgroundType_TreeTwo) {}
 };
 
 class DeepCaveColumnSmall : public Midground
