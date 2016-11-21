@@ -11,82 +11,83 @@
 
 Ground* Ground::create(int gridX, int gridY, int type)
 {
-    switch ((GroundType)type)
+    GroundType gt = (GroundType)type;
+    switch (gt)
     {
         case GroundType_CaveExtraDeepEndLeft:
-            return new CaveExtraDeepEndLeft(gridX);
+            return new Ground(gridX, 0, 8, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveExtraDeepSmall:
-            return new CaveExtraDeepSmall(gridX);
+            return new Ground(gridX, 0, 32, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveExtraDeepMedium:
-            return new CaveExtraDeepMedium(gridX);
+            return new Ground(gridX, 0, 64, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveExtraDeepLarge:
-            return new CaveExtraDeepLarge(gridX);
+            return new Ground(gridX, 0, 128, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveExtraDeepEndRight:
-            return new CaveExtraDeepEndRight(gridX);
+            return new Ground(gridX, 0, 8, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
             
         case GroundType_CaveDeepEndLeft:
-            return new CaveDeepEndLeft(gridX);
+            return new Ground(gridX, 20, 8, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveDeepSmall:
-            return new CaveDeepSmall(gridX);
+            return new Ground(gridX, 20, 32, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveDeepMedium:
-            return new CaveDeepMedium(gridX);
+            return new Ground(gridX, 20, 64, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveDeepLarge:
-            return new CaveDeepLarge(gridX);
+            return new Ground(gridX, 20, 128, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveDeepEndRight:
-            return new CaveDeepEndRight(gridX);
+            return new Ground(gridX, 20, 8, 8, 0, 0.875f, gt, GROUND_SOUND_CAVE);
             
         case GroundType_CaveEndLeft:
-            return new CaveEndLeft(gridX);
+            return new Ground(gridX, 50, 8, 24, 0.08333333333333f, 0.20833333333334f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveSmall:
-            return new CaveSmall(gridX);
+            return new Ground(gridX, 50, 32, 24, 0.08333333333333f, 0.20833333333334f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveMedium:
-            return new CaveMedium(gridX);
+            return new Ground(gridX, 50, 64, 24, 0.08333333333333f, 0.20833333333334f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveLarge:
-            return new CaveLarge(gridX);
+            return new Ground(gridX, 50, 128, 24, 0.08333333333333f, 0.20833333333334f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveEndRight:
-            return new CaveEndRight(gridX);
+            return new Ground(gridX, 50, 8, 24, 0.08333333333333f, 0.20833333333334f, gt, GROUND_SOUND_CAVE);
             
         case GroundType_CaveRaisedEndLeft:
-            return new CaveRaisedEndLeft(gridX);
+            return new Ground(gridX, 48, 8, 32, 0, 0.84375f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveRaisedSmall:
-            return new CaveRaisedSmall(gridX);
+            return new Ground(gridX, 48, 32, 32, 0, 0.84375f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveRaisedMedium:
-            return new CaveRaisedMedium(gridX);
+            return new Ground(gridX, 48, 64, 32, 0, 0.84375f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveRaisedLarge:
-            return new CaveRaisedLarge(gridX);
+            return new Ground(gridX, 48, 128, 32, 0, 0.84375f, gt, GROUND_SOUND_CAVE);
         case GroundType_CaveRaisedEndRight:
-            return new CaveRaisedEndRight(gridX);
+            return new Ground(gridX, 48, 8, 32, 0, 0.84375f, gt, GROUND_SOUND_CAVE);
             
         case GroundType_GrassWithCaveEndLeft:
-            return new GrassWithCaveEndLeft(gridX);
+            return new Ground(gridX, 90, 8, 12, 0.16666666666667f, 0.5f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithCaveSmall:
-            return new GrassWithCaveSmall(gridX);
+            return new Ground(gridX, 90, 32, 12, 0.16666666666667f, 0.5f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithCaveMedium:
-            return new GrassWithCaveMedium(gridX);
+            return new Ground(gridX, 90, 64, 12, 0.16666666666667f, 0.5f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithCaveLarge:
-            return new GrassWithCaveLarge(gridX);
+            return new Ground(gridX, 90, 128, 12, 0.16666666666667f, 0.5f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithCaveEndRight:
-            return new GrassWithCaveEndRight(gridX);
+            return new Ground(gridX, 90, 8, 12, 0.16666666666667f, 0.5f, gt, GROUND_SOUND_GRASS);
             
         case GroundType_GrassWithoutCaveEndLeft:
-            return new GrassWithoutCaveEndLeft(gridX);
+            return new Ground(gridX, 0, 8, 100, 0, 0.96f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithoutCaveSmall:
-            return new GrassWithoutCaveSmall(gridX);
+            return new Ground(gridX, 0, 32, 100, 0, 0.96f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithoutCaveMedium:
-            return new GrassWithoutCaveMedium(gridX);
+            return new Ground(gridX, 0, 64, 100, 0, 0.96f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithoutCaveLarge:
-            return new GrassWithoutCaveLarge(gridX);
+            return new Ground(gridX, 0, 128, 100, 0, 0.96f, gt, GROUND_SOUND_GRASS);
         case GroundType_GrassWithoutCaveEndRight:
-            return new GrassWithoutCaveEndRight(gridX);
+            return new Ground(gridX, 0, 8, 100, 0, 0.96f, gt, GROUND_SOUND_GRASS);
             
         case GroundType_GrassPitSmall:
-            return new GrassPitSmall(gridX);
+            return new GrassPit(gridX, 0, 32, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
         case GroundType_GrassPitMedium:
-            return new GrassPitMedium(gridX);
+            return new GrassPit(gridX, 0, 64, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
         case GroundType_GrassPitLarge:
-            return new GrassPitLarge(gridX);
+            return new GrassPit(gridX, 0, 128, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
         case GroundType_GrassPitExtraLarge:
-            return new GrassPitExtraLarge(gridX);
+            return new GrassPit(gridX, 0, 256, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
     }
     
     assert(false);
@@ -306,38 +307,4 @@ bool GrassPit::canObjectBePlacedUnder()
 }
 
 RTTI_IMPL(Ground, GridLockedPhysicalEntity);
-RTTI_IMPL(CaveExtraDeepEndLeft, Ground);
-RTTI_IMPL(CaveExtraDeepSmall, Ground);
-RTTI_IMPL(CaveExtraDeepMedium, Ground);
-RTTI_IMPL(CaveExtraDeepLarge, Ground);
-RTTI_IMPL(CaveExtraDeepEndRight, Ground);
-RTTI_IMPL(CaveDeepEndLeft, Ground);
-RTTI_IMPL(CaveDeepSmall, Ground);
-RTTI_IMPL(CaveDeepMedium, Ground);
-RTTI_IMPL(CaveDeepLarge, Ground);
-RTTI_IMPL(CaveDeepEndRight, Ground);
-RTTI_IMPL(CaveEndLeft, Ground);
-RTTI_IMPL(CaveSmall, Ground);
-RTTI_IMPL(CaveMedium, Ground);
-RTTI_IMPL(CaveLarge, Ground);
-RTTI_IMPL(CaveEndRight, Ground);
-RTTI_IMPL(CaveRaisedEndLeft, Ground);
-RTTI_IMPL(CaveRaisedSmall, Ground);
-RTTI_IMPL(CaveRaisedMedium, Ground);
-RTTI_IMPL(CaveRaisedLarge, Ground);
-RTTI_IMPL(CaveRaisedEndRight, Ground);
-RTTI_IMPL(GrassWithCaveEndLeft, Ground);
-RTTI_IMPL(GrassWithCaveSmall, Ground);
-RTTI_IMPL(GrassWithCaveMedium, Ground);
-RTTI_IMPL(GrassWithCaveLarge, Ground);
-RTTI_IMPL(GrassWithCaveEndRight, Ground);
-RTTI_IMPL(GrassWithoutCaveEndLeft, Ground);
-RTTI_IMPL(GrassWithoutCaveSmall, Ground);
-RTTI_IMPL(GrassWithoutCaveMedium, Ground);
-RTTI_IMPL(GrassWithoutCaveLarge, Ground);
-RTTI_IMPL(GrassWithoutCaveEndRight, Ground);
 RTTI_IMPL(GrassPit, Ground);
-RTTI_IMPL(GrassPitSmall, GrassPit);
-RTTI_IMPL(GrassPitMedium, GrassPit);
-RTTI_IMPL(GrassPitLarge, GrassPit);
-RTTI_IMPL(GrassPitExtraLarge, GrassPit);

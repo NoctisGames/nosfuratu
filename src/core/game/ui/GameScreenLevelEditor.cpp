@@ -299,6 +299,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getEnemies(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getForegroundCoverObjects(), beginGridX, endGridX, offset);
                         
                         EntityUtils::offsetAllInRangeClosedEnd(m_game->getMarkers(), beginGridX, endGridX, offset);
                     }
@@ -700,6 +701,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     EntityUtils::addAll(m_game->getExtraForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getForegroundCoverObjects(), m_gameEntities);
     EntityUtils::addAll(m_game->getMarkers(), m_gameEntities);
     
     std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);

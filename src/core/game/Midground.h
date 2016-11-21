@@ -37,44 +37,4 @@ private:
     MidgroundType m_type;
 };
 
-class TreeOne : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeOne(int gridX) : Midground(gridX, 96, 62, 54, MidgroundType_TreeOne) {}
-};
-
-class TreeTwo : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeTwo(int gridX) : Midground(gridX, 96, 70, 50, MidgroundType_TreeTwo) {}
-};
-
-class DeepCaveColumnSmall : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnSmall(int gridX) : Midground(gridX, 0, 6, 18, MidgroundType_DeepCaveColumnSmall) {}
-};
-
-class DeepCaveColumnMedium : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnMedium(int gridX) : Midground(gridX, 0, 8, 52, MidgroundType_DeepCaveColumnMedium) {}
-};
-
-class DeepCaveColumnBig : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnBig(int gridX) : Midground(gridX, 0, 16, 52, MidgroundType_DeepCaveColumnBig) {}
-};
-
 #endif /* defined(__nosfuratu__Midground__) */

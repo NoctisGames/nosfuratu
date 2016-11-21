@@ -1020,6 +1020,7 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getExtraForegroundObjects());
+        renderPhysicalEntities(game.getForegroundCoverObjects());
         m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     }
 }
@@ -1286,6 +1287,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getCollectibleItems());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getJons());
     renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getExtraForegroundObjects());
+    renderBoundsForPhysicalEntities(*m_boundsRectangleBatcher, game.getForegroundCoverObjects());
     
     static Color gridColor = Color(1, 1, 1, 0.4f);
     
@@ -1673,7 +1675,8 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getExtraForegroundObjects());
-        m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
+        renderPhysicalEntities(leep->getForegroundCoverObjects());
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     }
     
     if (lsp->isOpen())

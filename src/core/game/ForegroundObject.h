@@ -219,342 +219,6 @@ private:
     bool m_isBoosting;
 };
 
-class GrassPlatformLeft : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    GrassPlatformLeft(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformLeft, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class GrassPlatformCenter : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    GrassPlatformCenter(int gridX, int gridY) : PlatformObject(gridX, gridY, 14, 6, ForegroundObjectType_GrassPlatformCenter, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class GrassPlatformRight : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    GrassPlatformRight(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_GrassPlatformRight, GROUND_SOUND_GRASS, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class CavePlatformLeft : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    CavePlatformLeft(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformLeft, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class CavePlatformCenter : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    CavePlatformCenter(int gridX, int gridY) : PlatformObject(gridX, gridY, 14, 6, ForegroundObjectType_CavePlatformCenter, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class CavePlatformRight : public PlatformObject
-{
-    RTTI_DECL;
-    
-public:
-    CavePlatformRight(int gridX, int gridY) : PlatformObject(gridX, gridY, 4, 6, ForegroundObjectType_CavePlatformRight, GROUND_SOUND_CAVE, 0, 0, 1, 0.83333333333333f) {}
-};
-
-class RockLarge : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    RockLarge(int gridX, int gridY) : ForegroundObject(gridX, gridY, 44, 32, ForegroundObjectType_RockLarge, GROUND_SOUND_CAVE, 0.03551136363636f, 0.0078125f, 0.77840909090909f, 0.96875f) {}
-};
-
-class RockMedium : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    RockMedium(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 24, ForegroundObjectType_RockMedium, GROUND_SOUND_CAVE, 0.0625f, 0.015625f, 0.7734375f, 0.73958333333333f) {}
-};
-
-class RockSmall : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    RockSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 24, 23, ForegroundObjectType_RockSmall, GROUND_SOUND_CAVE, 0.328125f, 0.20923913043478f, 0.328125f, 0.27717391304348f) {}
-};
-
-class StumpBig : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    StumpBig(int gridX, int gridY) : ForegroundObject(gridX, gridY, 16, 18, ForegroundObjectType_StumpBig, GROUND_SOUND_GRASS, 0.19140625f, 0.03125f, 0.5f, 0.94444444444444f) {}
-};
-
-class StumpSmall : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    StumpSmall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 20, 17, ForegroundObjectType_StumpSmall, GROUND_SOUND_GRASS, 0.215625f, 0.07352941176471f, 0.375f, 0.73897058823529f) {}
-};
-
-class EndSign : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    EndSign(int gridX, int gridY) : ForegroundObject(gridX, gridY, 7, 10, ForegroundObjectType_EndSign, GROUND_SOUND_NONE, 0, 0, 1, 1) {}
-    
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
-    
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
-
-	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime) { return false; }
-};
-
-class ThornsLeft : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    ThornsLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsLeft) {}
-};
-
-class ThornsCenterSmall : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    ThornsCenterSmall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 11, 7, ForegroundObjectType_ThornsCenterSmall) {}
-};
-
-class ThornsCenterBig : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    ThornsCenterBig(int gridX, int gridY) : DeadlyObject(gridX, gridY, 22, 7, ForegroundObjectType_ThornsCenterBig) {}
-};
-
-class ThornsRight : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    ThornsRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 5, 7, ForegroundObjectType_ThornsRight) {}
-};
-
-class LogVerticalTall : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    LogVerticalTall(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 11, ForegroundObjectType_LogVerticalTall, GROUND_SOUND_GRASS, 0.1484375f, 0.02840909090909f, 0.5f, 0.92613636363636f) {}
-};
-
-class LogVerticalShort : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    LogVerticalShort(int gridX, int gridY) : ForegroundObject(gridX, gridY, 8, 6, ForegroundObjectType_LogVerticalShort, GROUND_SOUND_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f) {}
-};
-
-class JumpSpringLightFlush : public ProvideBoostObject
-{
-    RTTI_DECL;
-    
-public:
-    JumpSpringLightFlush(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 10, 7, ForegroundObjectType_JumpSpringLightFlush, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f) {}
-    
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
-
-	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
-    
-    virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
-};
-
-class JumpSpringLight : public ProvideBoostObject
-{
-    RTTI_DECL;
-    
-public:
-    JumpSpringLight(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 6, 5, ForegroundObjectType_JumpSpringLight, GROUND_SOUND_NONE, 0, 0, 1, 0.525f, 18.0f) {}
-};
-
-class JumpSpringMedium : public ProvideBoostObject
-{
-    RTTI_DECL;
-    
-public:
-    JumpSpringMedium(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 9, ForegroundObjectType_JumpSpringMedium, GROUND_SOUND_NONE, 0, 0.20138888888889f, 0.6f, 0.33333333333333f, 24.0f) {}
-};
-
-class JumpSpringHeavy : public ProvideBoostObject
-{
-    RTTI_DECL;
-    
-public:
-    JumpSpringHeavy(int gridX, int gridY) : ProvideBoostObject(gridX, gridY, 17, 14, ForegroundObjectType_JumpSpringHeavy, GROUND_SOUND_NONE, 0, 0, 0.6f, 0.52678571428571f, 32.0f) {}
-};
-
-class SpikeGrassSingle : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeGrassSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeGrassSingle, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeGrassFour : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeGrassFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeGrassFour, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeGrassEight : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeGrassEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeGrassEight, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeCaveSingle : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveSingle(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveSingle, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeCaveFour : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveFour(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveFour, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeCaveEight : public LandingDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveEight(int gridX, int gridY) : LandingDeathObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveEight, 0.1f, 0.04166666666667f, 0.8f, 0.85833333333333f) {}
-};
-
-class SpikeCaveCeilingSingle : public DeathFromAboveObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveCeilingSingle(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 6, 6, ForegroundObjectType_SpikeCaveCeilingSingle, 0.1f, 0.0f, 0.8f, 0.9f) {}
-};
-
-class SpikeCaveCeilingFour : public DeathFromAboveObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveCeilingFour(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 18, 6, ForegroundObjectType_SpikeCaveCeilingFour, 0.1f, 0.0f, 0.8f, 0.9f) {}
-};
-
-class SpikeCaveCeilingEight : public DeathFromAboveObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeCaveCeilingEight(int gridX, int gridY) : DeathFromAboveObject(gridX, gridY, 34, 6, ForegroundObjectType_SpikeCaveCeilingEight, 0.1f, 0.0f, 0.8f, 0.9f) {}
-};
-
-class SpikeWallSingle : public RunningIntoDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeWallSingle(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 4, ForegroundObjectType_SpikeWallSingle) {}
-};
-
-class SpikeWallFour : public RunningIntoDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeWallFour(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 16, ForegroundObjectType_SpikeWallFour) {}
-};
-
-class SpikeWallEight : public RunningIntoDeathObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeWallEight(int gridX, int gridY) : RunningIntoDeathObject(gridX, gridY, 6, 34, ForegroundObjectType_SpikeWallEight) {}
-};
-
-class SpikeStar : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeStar(int gridX, int gridY) : DeadlyObject(gridX, gridY, 14, 14, ForegroundObjectType_SpikeStar, GROUND_SOUND_NONE, 0.18f, 0.18f, 0.64f, 0.64f) {}
-};
-
-class VerticalSaw : public DeadlyObject
-{
-    RTTI_DECL;
-    
-public:
-    VerticalSaw(int gridX) : DeadlyObject(gridX, 95, 15, 33, ForegroundObjectType_VerticalSaw, GROUND_SOUND_NONE, 0.3f, 0.33333333333333f, 0.3f, 0.66666666666667f), m_isOnScreen(false) {}
-    
-    virtual void updateBounds();
-    
-private:
-    bool m_isOnScreen;
-};
-
-class GiantTree : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    GiantTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantTree, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f) {}
-};
-
-class GiantShakingTree : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    GiantShakingTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantShakingTree, GROUND_SOUND_NONE, 0.47265625f, 0.009765625f, 0.15625f, 0.990234375f), m_isShaking(false) {}
-    
-    virtual void update(float deltaTime);
-    
-    void triggerHit();
-    
-private:
-    bool m_isShaking;
-};
-
-class GiantPerchTree : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    GiantPerchTree(int gridX, int gridY) : ForegroundObject(gridX, gridY, 68, 65, ForegroundObjectType_GiantPerchTree, GROUND_SOUND_NONE, 0, 0.009765625f, 1, 0.990234375f) {}
-};
-
 class ExtraForegroundObject : public ForegroundObject
 {
     RTTI_DECL;
@@ -578,12 +242,68 @@ protected:
     std::unique_ptr<ForegroundObject> m_shadow;
 };
 
+class EndSign : public ForegroundObject
+{
+    RTTI_DECL;
+    
+public:
+    EndSign(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
+
+	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime) { return false; }
+};
+
+class JumpSpringLightFlush : public ProvideBoostObject
+{
+    RTTI_DECL;
+    
+public:
+    JumpSpringLightFlush(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ProvideBoostObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight, boostVelocity) {}
+    
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, Rectangle& bounds, float deltaTime);
+};
+
+class VerticalSaw : public DeadlyObject
+{
+    RTTI_DECL;
+    
+public:
+    VerticalSaw(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isOnScreen(false) {}
+    
+    virtual void updateBounds();
+    
+private:
+    bool m_isOnScreen;
+};
+
+class GiantShakingTree : public ForegroundObject
+{
+    RTTI_DECL;
+    
+public:
+    GiantShakingTree(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isShaking(false) {}
+    
+    virtual void update(float deltaTime);
+    
+    void triggerHit();
+    
+private:
+    bool m_isShaking;
+};
+
 class SpikeTower : public ExtraForegroundObject
 {
     RTTI_DECL;
     
 public:
-    SpikeTower(int gridX) : ExtraForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTower, ForegroundObjectType_SpikeTowerBg, GROUND_SOUND_NONE, 0, 0, 1, 0.54017857142857f)
+    SpikeTower(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ExtraForegroundObject(gridX, gridY, gridWidth, gridHeight, type, shadowType, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
     {
 		m_bounds.push_back(std::unique_ptr<Rectangle>(new Rectangle(0, 0, 1, 1)));
 
@@ -597,20 +317,12 @@ public:
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 };
 
-class SpikeTowerBg : public ForegroundObject
-{
-    RTTI_DECL;
-    
-public:
-    SpikeTowerBg(int gridX) : ForegroundObject(gridX, 95, 32, 56, ForegroundObjectType_SpikeTowerBg) {}
-};
-
 class SpikedBallRollingLeft : public DeadlyObject
 {
     RTTI_DECL;
     
 public:
-    SpikedBallRollingLeft(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingLeft, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f),
+    SpikedBallRollingLeft(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
 		m_isOnScreen(false),
 		m_isStopped(false),
 		m_needsToPlaySound(false),
@@ -638,7 +350,7 @@ class SpikedBallRollingRight : public DeadlyObject
     RTTI_DECL;
     
 public:
-	SpikedBallRollingRight(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBallRollingRight, GROUND_SOUND_NONE, 0.1f, 0.1f, 0.8f, 0.8f),
+	SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
 		m_isOnScreen(false),
 		m_isStopped(false),
 		m_needsToPlaySound(false),
@@ -666,7 +378,7 @@ class SpikedBall : public DeadlyObject
     RTTI_DECL;
     
 public:
-    SpikedBall(int gridX, int gridY) : DeadlyObject(gridX, gridY, 32, 30, ForegroundObjectType_SpikedBall, GROUND_SOUND_NONE, 0, 0.4f, 1, 0.8f), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
+    SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
     
     virtual void update(float deltaTime);
     
@@ -686,7 +398,7 @@ class SpikedBallChain : public ForegroundObject
     RTTI_DECL;
     
 public:
-    SpikedBallChain(int gridX, int gridY) : ForegroundObject(gridX, gridY, 101, 82, ForegroundObjectType_SpikedBallChain, GROUND_SOUND_NONE, 0.72f, 0, 0.14f, 0.25f), m_spikedBall(nullptr), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
+    SpikedBallChain(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_spikedBall(nullptr), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
     

@@ -86,9 +86,9 @@ void Chapter1Level21::enter(GameScreen* gs)
 		spikedBallChain3->setSpikedBall(spikedBall3);
 	}
 
-	GiantTree* gt1 = nullptr;
-	GiantTree* gt2 = nullptr;
-	GiantTree* gt3 = nullptr;
+	ForegroundObject* gt1 = nullptr;
+	ForegroundObject* gt2 = nullptr;
+	ForegroundObject* gt3 = nullptr;
 	int giantTreeIndex = 0;
 	for (std::vector<ForegroundObject*>::iterator i = m_game->getForegroundObjects().begin(); i != m_game->getForegroundObjects().end(); i++)
 	{
@@ -98,13 +98,13 @@ void Chapter1Level21::enter(GameScreen* gs)
 			switch (giantTreeIndex)
 			{
 			case 1:
-				gt1 = reinterpret_cast<GiantTree*>((*i));
+				gt1 = (*i);
 				break;
 			case 2:
-				gt2 = reinterpret_cast<GiantTree*>((*i));
+				gt2 = (*i);
 				break;
 			case 3:
-				gt3 = reinterpret_cast<GiantTree*>((*i));
+				gt3 = (*i);
 				break;
 			}
 		}

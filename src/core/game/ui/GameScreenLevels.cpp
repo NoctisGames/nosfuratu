@@ -452,6 +452,7 @@ void Level::update(GameScreen* gs)
                     EntityUtils::copyAndOffset(m_game->getEnemies(), beginGridX, endGridX);
                     EntityUtils::offsetOnly(m_game->getCollectibleItems(), beginGridX, endGridX);
                     EntityUtils::copyAndOffset(m_game->getExtraForegroundObjects(), beginGridX, endGridX);
+                    EntityUtils::copyAndOffset(m_game->getForegroundCoverObjects(), beginGridX, endGridX);
                     
                     EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
                     
@@ -461,6 +462,7 @@ void Level::update(GameScreen* gs)
                     EntityUtils::setGameToEntities(m_game->getCollectibleItems(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getForegroundCoverObjects(), m_game.get());
                     EntityUtils::setGameToEntities(m_game->getEndBossSnakes(), m_game.get());
                     
                     m_game->calcFarRight();

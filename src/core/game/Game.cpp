@@ -29,6 +29,7 @@
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
 #define extraForegroundObjectsKey "extraForegroundObjects"
+#define foregroundCoverObjectsKey "foregroundCoverObjects"
 #define markersKey "markers"
 
 Game::Game() :
@@ -66,6 +67,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
     copyPhysicalEntities(game->getExtraForegroundObjects(), m_extraForegroundObjects);
+    copyPhysicalEntities(game->getForegroundCoverObjects(), m_foregroundCoverObjects);
     
     copyPhysicalEntities(game->getMarkers(), m_markers);
     
@@ -104,6 +106,7 @@ void Game::load(const char* json)
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     loadArray(m_extraForegroundObjects, d, extraForegroundObjectsKey);
+    loadArray(m_foregroundCoverObjects, d, foregroundCoverObjectsKey);
     
     loadArray(m_markers, d, markersKey);
     
@@ -141,6 +144,7 @@ const char* Game::save()
     saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
     saveArray(m_extraForegroundObjects, w, extraForegroundObjectsKey);
+    saveArray(m_foregroundCoverObjects, w, foregroundCoverObjectsKey);
     
     saveArray(m_markers, w, markersKey);
     
@@ -171,6 +175,7 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
     EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     EntityUtils::cleanUpVectorOfPointers(m_markers);
     
@@ -200,6 +205,7 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getEnemies(), deltaTime);
     EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     EntityUtils::updateAndClean(getExtraForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getForegroundCoverObjects(), deltaTime);
     
     EntityUtils::updateAndClean(getMarkers(), deltaTime);
     
@@ -236,6 +242,7 @@ int Game::calcSum()
     sum += m_collectibleItems.size();
     sum += m_jons.size();
     sum += m_extraForegroundObjects.size();
+    sum += m_foregroundCoverObjects.size();
     
     sum += m_markers.size();
     
@@ -253,6 +260,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 	{
 		return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEnemies(), deltaTime);
@@ -260,6 +268,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
     
     return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEnemies(), deltaTime)
@@ -280,6 +289,7 @@ bool Game::isJonBlockedOnRight(float deltaTime)
         return EntityUtils::isBlockedOnRight(getJonP(), getPits(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
     }
@@ -287,6 +297,7 @@ bool Game::isJonBlockedOnRight(float deltaTime)
     return EntityUtils::isBlockedOnRight(getJonP(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -305,6 +316,7 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
             return EntityUtils::isBlockedOnLeft(getJonP(), getPits(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
+            || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
         }
@@ -312,6 +324,7 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
         return EntityUtils::isBlockedOnLeft(getJonP(), getGrounds(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
 	}
@@ -330,6 +343,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEndBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
@@ -340,6 +354,7 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
     return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isHorizontallyHitting(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -362,6 +377,7 @@ bool Game::isUpwardThrustEffective(float deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getExtraForegroundObjects(), deltaTime)
+    || EntityUtils::isHittingFromBelow(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -491,6 +507,11 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
     return m_extraForegroundObjects;
 }
 
+std::vector<ForegroundObject *>& Game::getForegroundCoverObjects()
+{
+    return m_foregroundCoverObjects;
+}
+
 std::vector<GameMarker *>& Game::getMarkers()
 {
     return m_markers;
@@ -607,19 +628,19 @@ void Game::onLoaded()
     {
         for (int i = 0; i < 4; i++)
         {
-            m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundUppers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Upper));
             
-            m_backgroundMids.push_back(new MidHills(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundMids.push_back(new MidTrees(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundMids.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Mid_Hills));
+            m_backgroundMids.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Mid_Trees));
             
-            m_backgroundLowerBacks.push_back(new LowerInnermost(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundLowerBacks.push_back(new LowerInner(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundLowerBacks.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Innermost));
+            m_backgroundLowerBacks.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Inner));
             
-            m_backgroundLowers.push_back(new LowerTop(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundLowers.push_back(new LowerBottom(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Top));
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Bottom));
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_WaterBack));
             
-            m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundMidgroundCovers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_WaterFront));
         }
     }
     
@@ -630,6 +651,7 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_endBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
+    EntityUtils::setGameToEntities(m_foregroundCoverObjects, this);
     EntityUtils::setGameToEntities(m_endBossSnakes, this);
     
     configureGoldenCarrots();

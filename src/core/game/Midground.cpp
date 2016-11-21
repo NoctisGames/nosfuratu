@@ -11,19 +11,20 @@
 
 Midground* Midground::create(int gridX, int gridY, int type)
 {
-    switch ((MidgroundType)type)
+    MidgroundType mt = (MidgroundType)type;
+    switch (mt)
     {
         case MidgroundType_TreeOne:
-            return new TreeOne(gridX);
+            return new Midground(gridX, 96, 62, 54, mt);
         case MidgroundType_TreeTwo:
         case MidgroundType_TreeThree:
-            return new TreeTwo(gridX);
+            return new Midground(gridX, 96, 70, 50, mt);
         case MidgroundType_DeepCaveColumnSmall:
-            return new DeepCaveColumnSmall(gridX);
+            return new Midground(gridX, 0, 6, 18, mt);
         case MidgroundType_DeepCaveColumnMedium:
-            return new DeepCaveColumnMedium(gridX);
+            return new Midground(gridX, 0, 8, 52, mt);
         case MidgroundType_DeepCaveColumnBig:
-            return new DeepCaveColumnBig(gridX);
+            return new Midground(gridX, 0, 16, 52, mt);
     }
     
     assert(false);
@@ -40,8 +41,3 @@ MidgroundType Midground::getType()
 }
 
 RTTI_IMPL(Midground, GridLockedPhysicalEntity);
-RTTI_IMPL(TreeOne, Midground);
-RTTI_IMPL(TreeTwo, Midground);
-RTTI_IMPL(DeepCaveColumnSmall, Midground);
-RTTI_IMPL(DeepCaveColumnMedium, Midground);
-RTTI_IMPL(DeepCaveColumnBig, Midground);

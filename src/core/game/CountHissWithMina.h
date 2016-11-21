@@ -19,7 +19,7 @@ class CountHissWithMina : public GridLockedPhysicalEntity
 public:
     static CountHissWithMina* create(int gridX, int gridY, int type);
     
-    CountHissWithMina(int gridX, int gridY);
+    CountHissWithMina(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight);
     
     virtual void update(float deltaTime);
     
