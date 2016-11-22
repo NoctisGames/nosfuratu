@@ -24,10 +24,10 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     	sps->getPlayer()->setFirstBeatMs(0);
         sps->getPlayer()->setPosition(sps->getPlayer()->firstBeatMs, false, false);
     }
-    else if (event == SuperpoweredAdvancedAudioPlayerEvent_EOF
-             && !sps->isLooping())
+    else if (event == SuperpoweredAdvancedAudioPlayerEvent_EOF)
     {
-        sps->getPlayer()->pause();
+        bool *pBoolValue = (bool *)value;
+        *pBoolValue = !sps->isLooping();
     }
 }
 
