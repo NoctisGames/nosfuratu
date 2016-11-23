@@ -44,6 +44,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     {
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeOne));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeTwo));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeThree));
         
         if (level >= 10)
         {
