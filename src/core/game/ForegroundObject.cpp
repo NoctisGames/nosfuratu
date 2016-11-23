@@ -48,12 +48,13 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new EndSign(gridX, gridY, 7, 10, fot);
             
         case ForegroundObjectType_ThornsLeft:
-            return new DeadlyObject(gridX, gridY, 12, 12, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsCenterSmall:
+            return new DeadlyObject(gridX, gridY, 11, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsCenterBig:
-            return new DeadlyObject(gridX, gridY, 24, 12, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 22, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
         case ForegroundObjectType_ThornsRight:
-            return new DeadlyObject(gridX, gridY, 12, 12, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            return new DeadlyObject(gridX, gridY, 5, 7, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
             
         case ForegroundObjectType_LogVerticalTall:
             return new ForegroundObject(gridX, gridY, 8, 11, fot, GROUND_SOUND_GRASS, 0.1484375f, 0.02840909090909f, 0.5f, 0.92613636363636f);

@@ -97,9 +97,10 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ForegroundObjectType_StumpBig"] = createTextureRegion("world_1_objects_part_1", 388, 696, 256, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_StumpSmall"] = createTextureRegion("world_1_objects_part_1", 0, 1080, 320, 272, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_EndSign"] = createTextureRegion("world_1_objects_part_1", 704, 688, 112, 160, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_ThornsLeft"] = createTextureRegion("world_1_objects_part_1", 1924, 0, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_ThornsCenter"] = createTextureRegion("world_1_objects_part_1", 2116, 0, 384, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_ThornsRight"] = createTextureRegion("world_1_objects_part_1", 2500, 0, 192, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_ThornsLeft"] = createTextureRegion("world_1_objects_part_1", 1156, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_ThornsCenterSmall"] = createTextureRegion("world_1_objects_part_1", 1588, 1196, 176, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_ThornsCenterBig"] = createTextureRegion("world_1_objects_part_1", 1236, 1196, 352, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_ThornsRight"] = createTextureRegion("world_1_objects_part_1", 1764, 1196, 80, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_LogVerticalTall"] = createTextureRegion("world_1_objects_part_1", 452, 1004, 128, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_LogVerticalShort"] = createTextureRegion("world_1_objects_part_1", 452, 1190, 128, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_SpikeGrassSingle"] = createTextureRegion("world_1_objects_part_1", 1904, 900, 96, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
