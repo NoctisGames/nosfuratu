@@ -23,6 +23,8 @@ OpenGLFadeScreenGpuProgramWrapper::OpenGLFadeScreenGpuProgramWrapper() : Transit
 
 void OpenGLFadeScreenGpuProgramWrapper::bind()
 {
+    OGLESManager->useScreenBlending();
+    
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_to->texture);
     

@@ -23,6 +23,8 @@ OpenGLShockwaveTextureGpuProgramWrapper::OpenGLShockwaveTextureGpuProgramWrapper
 
 void OpenGLShockwaveTextureGpuProgramWrapper::bind()
 {
+    OGLESManager->useScreenBlending();
+    
     glUseProgram(m_program.program);
     
     glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLESManager->m_viewProjectionMatrix);

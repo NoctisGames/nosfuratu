@@ -106,6 +106,18 @@ void OpenGLManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat
     m_colorVertices.push_back(a);
 }
 
+void OpenGLManager::useNormalBlending()
+{
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+}
+
+void OpenGLManager::useScreenBlending()
+{
+    glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ZERO);
+    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+}
+
 bool OpenGLManager::isLoaded()
 {
     return m_textureProgram->isLoaded()

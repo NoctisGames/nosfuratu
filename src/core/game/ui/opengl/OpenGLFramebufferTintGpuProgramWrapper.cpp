@@ -23,6 +23,8 @@ OpenGLFramebufferTintGpuProgramWrapper::OpenGLFramebufferTintGpuProgramWrapper()
 
 void OpenGLFramebufferTintGpuProgramWrapper::bind()
 {
+    OGLESManager->useScreenBlending();
+    
     glUseProgram(m_program.program);
     
     glUniform1i(m_program.u_texture_unit_location, 0);
