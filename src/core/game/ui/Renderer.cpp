@@ -649,7 +649,25 @@ void Renderer::renderTitleScreenBackground(TitlePanel* panel)
     updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
     m_spriteBatcher->beginBatch();
+    
     renderPhysicalEntity(*panel, ASSETS->get(panel));
+    renderPhysicalEntity(*panel->getCastle(), ASSETS->get(panel->getCastle()));
+    renderPhysicalEntity(*panel->getBigCloud(), ASSETS->get(panel->getBigCloud()));
+    renderPhysicalEntity(*panel->getSmallCloud(), ASSETS->get(panel->getSmallCloud()));
+    
+    if (panel->isLightningStriking())
+    {
+        renderPhysicalEntity(*panel->getLightning(), ASSETS->get(panel->getLightning()));
+    }
+    
+    renderPhysicalEntity(*panel->getNosfuratuLogo(), ASSETS->get(panel->getNosfuratuLogo()));
+    
+    if (panel->isLightningStriking())
+    {
+        renderPhysicalEntity(*panel->getNosfuratuLogoLightEffect(), ASSETS->get(panel->getNosfuratuLogoLightEffect()));
+        renderPhysicalEntity(*panel->getCastleLightEffect(), ASSETS->get(panel->getCastleLightEffect()));
+    }
+    
     m_spriteBatcher->endBatch(*m_title_screen.gpuTextureWrapper);
 }
 

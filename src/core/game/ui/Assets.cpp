@@ -39,6 +39,48 @@ TextureRegion& Assets::get(TitlePanel* panel)
     return tr;
 }
 
+TextureRegion& Assets::get(BigCloud* bigCloud)
+{
+    static TextureRegion tr = findTextureRegion("TitlePanel_Big_Cloud");
+    return tr;
+}
+
+TextureRegion& Assets::get(SmallCloud* smallCloud)
+{
+    static TextureRegion tr = findTextureRegion("TitlePanel_Small_Cloud");
+    return tr;
+}
+
+TextureRegion& Assets::get(Lightning* lightning)
+{
+    static Animation anim = findAnimation("TitlePanel_Lightning");
+    return anim.getTextureRegion(lightning->getStateTime());
+}
+
+TextureRegion& Assets::get(NosfuratuLogoLightEffect* nosfuratuLogoLightEffect)
+{
+    static Animation anim = findAnimation("TitlePanel_Logo_Light_Effect");
+    return anim.getTextureRegion(nosfuratuLogoLightEffect->getStateTime());
+}
+
+TextureRegion& Assets::get(NosfuratuLogo* nosfuratuLogo)
+{
+    static TextureRegion tr = findTextureRegion("TitlePanel_Logo");
+    return tr;
+}
+
+TextureRegion& Assets::get(CastleLightEffect* castleLightEffect)
+{
+    static Animation anim = findAnimation("TitlePanel_Castle_Light_Effect");
+    return anim.getTextureRegion(castleLightEffect->getStateTime());
+}
+
+TextureRegion& Assets::get(Castle* castle)
+{
+    static Animation anim = findAnimation("TitlePanel_Castle");
+    return anim.getTextureRegion(castle->getStateTime());
+}
+
 TextureRegion& Assets::get(CutsceneEffect* effect)
 {
     switch (effect->getType())
