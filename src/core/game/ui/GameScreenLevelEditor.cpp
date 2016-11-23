@@ -494,7 +494,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                     }
                     else if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti))
                     {
-                        Midground* midground = reinterpret_cast<Midground *>(m_lastAddedEntity);
+                        Midground* midground = reinterpret_cast<Midground *>(m_draggingEntity);
                         if (midground->getType() != MidgroundType_Metal_Tower_Section
                             && midground->getType() != MidgroundType_Billboard_Count_Hiss
                             && midground->getType() != MidgroundType_Billboard_Slag_Town
