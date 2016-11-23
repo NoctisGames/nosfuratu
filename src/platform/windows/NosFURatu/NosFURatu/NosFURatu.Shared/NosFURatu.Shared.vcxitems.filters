@@ -593,22 +593,16 @@
     <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_2.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_1.png">
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid_part_2.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_1.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper_part_2.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_1.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_1.png">

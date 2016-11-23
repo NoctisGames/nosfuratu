@@ -388,13 +388,13 @@ void NosFURatuMain::stopSound(int soundId)
 
 void NosFURatuMain::stopAllSounds(bool stopOnlyLoopingSounds)
 {
-    for (std::vector<GameSound *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<GameSound>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         if (!stopOnlyLoopingSounds
             || (stopOnlyLoopingSounds
-                && (*i)->isLooping()))
+                && (*i).isLooping()))
         {
-            (*i)->stop();
+            (*i).stop();
         }
     }
 }
