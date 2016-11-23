@@ -81,7 +81,7 @@ void GameScreen::onPause()
     if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
         Level* level = (Level*) m_stateMachine->getCurrentState();
-        level->stopLoopingSounds();
+        level->stopAllSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }

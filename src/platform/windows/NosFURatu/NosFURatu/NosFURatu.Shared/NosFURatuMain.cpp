@@ -299,6 +299,12 @@ void NosFURatuMain::handleSound()
         case STOP_SOUND_SPIKED_BALL_ROLLING:
 			stopSound(soundId - 1000);
 			break;
+        case STOP_ALL_SOUNDS:
+            stopAllSounds();
+            break;
+        case STOP_ALL_LOOPING_SOUNDS:
+            stopAllLoopingSounds();
+            break;
 		default:
 			playSound(soundId);
 			break;
@@ -378,6 +384,24 @@ void NosFURatuMain::playSound(int soundId, bool isLoop)
 void NosFURatuMain::stopSound(int soundId)
 {
 	m_sounds.at(soundId - 1).stop();
+}
+
+void NosFURatuMain::stopAllSounds(bool stopOnlyLoopingSounds)
+{
+    for (std::vector<GameSound *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    {
+        if (!stopOnlyLoopingSounds
+            || (stopOnlyLoopingSounds
+                && (*i)->isLooping()))
+        {
+            (*i)->stop();
+        }
+    }
+}
+
+void NosFURatuMain::stopAllLoopingSounds()
+{
+    stopAllSounds(true);
 }
 
 void NosFURatuMain::saveLevel(int requestedAction)

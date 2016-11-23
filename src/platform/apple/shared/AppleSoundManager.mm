@@ -232,6 +232,16 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
     _superpoweredSoundManager->stopSound(rawResourceId);
 }
 
+- (void)stopAllSounds
+{
+    _superpoweredSoundManager->stopAllSounds();
+}
+
+- (void)stopAllLoopingSounds
+{
+    _superpoweredSoundManager->stopAllLoopingSounds();
+}
+
 - (void)loadMusic:(NSString *)path
 {
     const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"mp3"] fileSystemRepresentation];

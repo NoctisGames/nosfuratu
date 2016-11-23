@@ -21,6 +21,10 @@ public final class SoundManager
 
     public static native void stop_sound(int rawResourceId);
 
+    public static native void stop_all_sounds();
+
+    public static native void stop_all_looping_sounds();
+
     public static native void load_music(int rawResourceId, String apk_path, int fileOffset, int fileLength);
 
     public static native void play_music(float volume, boolean isLooping);

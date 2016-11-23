@@ -79,6 +79,8 @@ public final class GameRenderer implements Renderer
     private static final short STOP_SOUND_SPARROW_FLY = SOUND_SPARROW_FLY + 1000;
     private static final short STOP_SOUND_SAW_GRIND = SOUND_SAW_GRIND + 1000;
     private static final short STOP_SOUND_SPIKED_BALL_ROLLING = SOUND_SPIKED_BALL_ROLLING + 1000;
+    private static final short STOP_ALL_SOUNDS = 9998;
+    private static final short STOP_ALL_LOOPING_SOUNDS = 9999;
 
     private final Activity _activity;
     private final FileHandler _fileHandler;
@@ -251,6 +253,12 @@ public final class GameRenderer implements Renderer
                 case STOP_SOUND_SPIKED_BALL_ROLLING:
                     stopSound(soundId - 1000);
                     break;
+                case STOP_ALL_SOUNDS:
+                    stopAllSounds();
+                    break;
+                case STOP_ALL_LOOPING_SOUNDS:
+                    stopAllLoopingSounds();
+                    break;
                 default:
                     playSound(soundId);
                     break;
@@ -332,6 +340,16 @@ public final class GameRenderer implements Renderer
     private void stopSound(int soundId)
     {
         _soundManager.stopSound(soundId - 1);
+    }
+
+    private void stopAllSounds()
+    {
+        SoundManager.stop_all_sounds();
+    }
+
+    private void stopAllLoopingSounds()
+    {
+        SoundManager.stop_all_looping_sounds();
     }
 
     private void saveLevel(final int requestedAction)

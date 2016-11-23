@@ -54,6 +54,8 @@ namespace NosFURatu
 
 		void playSound(int soundId, bool isLoop = false);
 		void stopSound(int soundId);
+        void stopAllSounds(bool stopOnlyLoopingSounds = false);
+        void stopAllLoopingSounds();
 
 		void saveLevel(int requestedAction);
 		void loadLevel(int requestedAction);

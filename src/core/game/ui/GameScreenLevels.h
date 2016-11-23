@@ -44,7 +44,9 @@ public:
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
-    void stopLoopingSounds();
+    void stopAllSounds();
+    
+    void stopAllLoopingSounds();
     
     int getScore() { return m_iScore; }
     
@@ -121,6 +123,7 @@ protected:
 private:
     bool m_playLevelSelectMusicOnExit;
 	bool m_stopMusicOnExit;
+    bool m_hasStoppedAllLoopingSoundsAfterJonDeath;
     
     void updateScore();
     

@@ -129,6 +129,12 @@
             case STOP_SOUND_SPIKED_BALL_ROLLING:
                 [self stopSound:soundId - 1000];
                 break;
+            case STOP_ALL_SOUNDS:
+                [self stopAllSounds];
+                break;
+            case STOP_ALL_LOOPING_SOUNDS:
+                [self stopAllLoopingSounds];
+                break;
             default:
                 [self playSound:soundId];
                 break;
@@ -222,6 +228,16 @@
 {
     int soundIndex = soundId - 1;
     [_appleSoundManager stopSound:soundIndex];
+}
+
+- (void)stopAllSounds
+{
+    [_appleSoundManager stopAllSounds];
+}
+
+- (void)stopAllLoopingSounds
+{
+    [_appleSoundManager stopAllLoopingSounds];
 }
 
 - (void)pauseMusic

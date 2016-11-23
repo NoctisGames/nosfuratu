@@ -117,6 +117,31 @@ void SuperpoweredSoundManager::stopSound(int rawResourceId)
     }
 }
 
+void SuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
+{
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    {
+        for (int j = 0; j < (*i)->getNumCopies(); j++)
+        {
+            SuperpoweredSound* sound = (*i)->getSound();
+            if (sound->isPlaying())
+            {
+                if (!stopOnlyLoopingSounds
+                    || (stopOnlyLoopingSounds
+                    && sound->isLooping()))
+                {
+                    sound->stop();
+                }
+            }
+        }
+    }
+}
+
+void SuperpoweredSoundManager::stopAllLoopingSounds()
+{
+    stopAllSounds(true);
+}
+
 void SuperpoweredSoundManager::loadMusic(int rawResourceId, const char *path, int fileOffset, int fileLength)
 {
     if (m_music)

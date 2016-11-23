@@ -16,6 +16,10 @@
 
 - (void)stopSound:(int)rawResourceId;
 
+- (void)stopAllSounds;
+
+- (void)stopAllLoopingSounds;
+
 - (void)loadMusic:(NSString *)path;
 
 - (void)playMusic:(float)volume isLooping:(bool)isLooping;

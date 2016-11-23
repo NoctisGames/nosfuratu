@@ -40,6 +40,7 @@ void Level::enter(GameScreen* gs)
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
+    m_hasStoppedAllLoopingSoundsAfterJonDeath = false;
     gs->m_isReleasingShockwave = false;
     gs->m_isScreenHeldDown = false;
     gs->m_fScreenHeldTime = 0;
@@ -117,7 +118,7 @@ void Level::exit(GameScreen* gs)
     
     m_sourceGame = nullptr;
     
-    stopLoopingSounds();
+    stopAllSounds();
     
     if (m_playLevelSelectMusicOnExit)
     {
@@ -163,12 +164,14 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
-void Level::stopLoopingSounds()
+void Level::stopAllSounds()
 {
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
-    ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+    ASSETS->forceAddSoundIdToPlayQueue(STOP_ALL_SOUNDS);
+}
+
+void Level::stopAllLoopingSounds()
+{
+    ASSETS->forceAddSoundIdToPlayQueue(STOP_ALL_LOOPING_SOUNDS);
 }
 
 int Level::getJonAbilityFlag()
@@ -332,9 +335,14 @@ void Level::update(GameScreen* gs)
         
         if (jon.isDead())
         {
-            stopLoopingSounds();
-            
             // Starting death transition, when screen goes black, new game begins
+            
+            if (!m_hasStoppedAllLoopingSoundsAfterJonDeath)
+            {
+                stopAllLoopingSounds();
+                
+                m_hasStoppedAllLoopingSoundsAfterJonDeath = true;
+            }
             
             m_fStateTime += gs->m_fDeltaTime * 2;
             
@@ -475,7 +483,7 @@ void Level::update(GameScreen* gs)
             m_fStateTime += gs->m_fDeltaTime / 2;
             if (m_fStateTime > 1)
             {
-				stopLoopingSounds();
+				stopAllLoopingSounds();
 
                 m_fStateTime = 1;
                 m_isDisplayingResults = true;
@@ -866,7 +874,8 @@ m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
 m_playLevelSelectMusicOnExit(false),
-m_stopMusicOnExit(false)
+m_stopMusicOnExit(false),
+m_hasStoppedAllLoopingSoundsAfterJonDeath(false)
 {
     m_json = json;
     m_game = std::unique_ptr<Game>(new Game());

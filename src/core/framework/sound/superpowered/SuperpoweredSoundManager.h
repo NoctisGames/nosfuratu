@@ -70,6 +70,10 @@ public:
     
     void stopSound(int rawResourceId);
     
+    void stopAllSounds(bool stopOnlyLoopingSounds = false);
+    
+    void stopAllLoopingSounds();
+    
     void loadMusic(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
     
     void playMusic(float volume, bool isLooping);
