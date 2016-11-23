@@ -156,6 +156,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeWallEight));
         
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeStar));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_VerticalSaw));
         
         if (level == 10)
         {
@@ -210,7 +211,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_collectibleItems.push_back(new Carrot(0, 0));
         m_collectibleItems.push_back(new GoldenCarrot(0, 0));
         
-        m_foregroundCoverObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_VerticalSaw));
+//        m_foregroundCoverObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_VerticalSaw));
         
         m_extraForegroundObjects.push_back(ExtraForegroundObject::create(0, 0, ForegroundObjectType_SpikeTower));
     }

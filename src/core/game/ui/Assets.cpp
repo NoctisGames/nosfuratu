@@ -386,9 +386,13 @@ TextureRegion& Assets::get(Midground* midground)
             return tr;
         }
         case MidgroundType_TreeTwo:
-        case MidgroundType_TreeThree:
         {
             static TextureRegion tr = findTextureRegion("MidgroundType_TreeTwo");
+            return tr;
+        }
+        case MidgroundType_TreeThree:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_TreeThree");
             return tr;
         }
         case MidgroundType_DeepCaveColumnSmall:

@@ -39,6 +39,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["BackgroundType_WaterFront"] = createTextureRegion("world_1_background_lower_part_2", 0, 98, PIXEL_WIDTH_FOR_GAME, 48, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["MidgroundType_TreeOne"] = createTextureRegion("world_1_objects_part_2", 1664, 0, 992, 864, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_TreeTwo"] = createTextureRegion("world_1_objects_part_2", 2694, 0, 1120, 800, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_TreeThree"] = createTextureRegion("world_1_objects_part_2", 1404, 904, 288, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_DeepCaveColumnSmall"] = createTextureRegion("world_1_objects_part_2", 3136, 1824, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_DeepCaveColumnMedium"] = createTextureRegion("world_1_objects_part_2", 3968, 1280, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_DeepCaveColumnBig"] = createTextureRegion("world_1_objects_part_2", 3394, 1280, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -198,7 +199,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_animations["ForegroundObjectType_JumpSpringLight"] = createAnimation("world_1_objects_part_1", 2126, 3960, 96, 80, 480, 80, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.09f, 4);
     m_animations["ForegroundObjectType_JumpSpringMedium"] = createAnimation("world_1_objects_part_1", 0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05142857142857, 7);
     m_animations["ForegroundObjectType_JumpSpringHeavy"] = createAnimation("world_1_objects_part_1", 272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06f, 6);
-    m_animations["ForegroundObjectType_VerticalSaw"] = createAnimation("world_1_objects_part_2", 3590, 2556, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
+    m_animations["ForegroundObjectType_VerticalSaw"] = createAnimation("world_1_objects_part_1", 3590, 2556, 240, 528, 480, 528, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.05f, 2);
     m_animations["ForegroundObjectType_GiantShakingTree"] = createAnimation("world_1_objects_part_1", 832, 0, 1088, 1040, 3264, 3120, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.025f, 7);
     m_animations["ForegroundObjectType_SpikedBallChain"] = createAnimation("world_1_end_boss_part_1", 0, 1472, 1616, 1312, 3232, 2624, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
     m_animations["CountHissWithMina_Left"] = createAnimation("world_1_end_boss_part_1", 2048, 3072, 512, 512, 2048, 1024, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.08f, 6);

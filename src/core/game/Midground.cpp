@@ -17,8 +17,9 @@ Midground* Midground::create(int gridX, int gridY, int type)
         case MidgroundType_TreeOne:
             return new Midground(gridX, 96, 62, 54, mt);
         case MidgroundType_TreeTwo:
-        case MidgroundType_TreeThree:
             return new Midground(gridX, 96, 70, 50, mt);
+        case MidgroundType_TreeThree:
+            return new Midground(gridX, 96, 18, 16, mt);
         case MidgroundType_DeepCaveColumnSmall:
             return new Midground(gridX, 0, 6, 18, mt);
         case MidgroundType_DeepCaveColumnMedium:
