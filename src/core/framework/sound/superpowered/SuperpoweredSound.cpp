@@ -90,7 +90,7 @@ void SuperpoweredSound::setVolume(float volume)
 
 bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    if (!isPlaying() || m_fVolume == 0)
+    if (m_fVolume <= 0)
     {
         return false;
     }
