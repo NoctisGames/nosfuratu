@@ -196,6 +196,8 @@ public:
 
 	void flash();
     
+    bool isReleasingShockwave() { return m_isReleasingShockwave; }
+    
 private:
     std::unique_ptr<StateMachine<Jon, JonFormState>> m_formStateMachine;
     Game* m_game;
@@ -233,6 +235,7 @@ private:
     bool m_isBurrowEffective;
     bool m_shouldUseVampireFormForConsumeAnimation;
 	bool m_isFlashing;
+    bool m_isReleasingShockwave;
     
     void setState(JonState state);
     
@@ -343,10 +346,10 @@ private:
         
         virtual int getNumJumps(Jon* jon) { return 0; };
         
+        void handleTransformation(Jon* jon);
+        
     private:
         bool m_hasCompletedSlowMotion;
-        
-        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         RabbitToVampire();
@@ -381,10 +384,10 @@ private:
         
         virtual int getNumJumps(Jon* jon) { return 0; };
         
+        void handleTransformation(Jon* jon);
+        
     private:
         bool m_hasCompletedSlowMotion;
-        
-        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         VampireToRabbit();

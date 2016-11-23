@@ -41,6 +41,7 @@ BatPanel::BatPanel() :
 m_game(nullptr),
 m_type(BatGoalType_None),
 m_fJonX(0),
+m_fJonVelocityX(0),
 m_isRequestingInput(false),
 m_isAcknowledgedPart1(false),
 m_isAcknowledgedPart2(false),
@@ -96,6 +97,7 @@ void BatPanel::reset()
     m_type = BatGoalType_None;
     
     m_fJonX = 0;
+    m_fJonVelocityX = 0;
     m_isRequestingInput = false;
     m_isAcknowledgedPart1 = false;
     m_isAcknowledgedPart2 = false;
@@ -409,6 +411,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                 m_isRequestingInput = true;
                 
                 m_fJonX = -1;
+                m_fJonVelocityX = jon.getVelocity().getX();
             }
         }
 		else if (jon.getPosition().getX() > 10)
@@ -424,11 +427,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                 
                 if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
                 {
-                    if (jon.getTransformStateTime() < 0.0625f)
-                    {
-                        gs->m_fDeltaTime /= 8;
-                    }
-                    else
+                    if (jon.isReleasingShockwave())
                     {
                         if (!gs->m_isReleasingShockwave)
                         {
@@ -446,6 +445,10 @@ void BatPanel::updateVampire(GameScreen* gs)
                             
                             return;
                         }
+                    }
+                    else
+                    {
+                        gs->m_fDeltaTime /= 8;
                     }
                 }
                 
@@ -482,6 +485,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                 {
                     jon.update(gs->m_fDeltaTime);
                     jon.getPosition().setX(m_fJonX);
+                    jon.getVelocity().setX(m_fJonVelocityX);
                 }
                 
                 for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)

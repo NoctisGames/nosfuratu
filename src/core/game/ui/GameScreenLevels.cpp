@@ -376,14 +376,7 @@ void Level::update(GameScreen* gs)
             
             if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
             {
-                if (jon.getTransformStateTime() < 0.0625f)
-                {
-                    if (!isInSlowMotionMode())
-                    {
-                        gs->m_fDeltaTime /= 8;
-                    }
-                }
-                else
+                if (jon.isReleasingShockwave())
                 {
                     if (!gs->m_isReleasingShockwave)
                     {
@@ -391,6 +384,13 @@ void Level::update(GameScreen* gs)
                         gs->m_fShockwaveCenterY = jon.getPosition().getY();
                         gs->m_fShockwaveElapsedTime = 0.0f;
                         gs->m_isReleasingShockwave = true;
+                    }
+                }
+                else
+                {
+                    if (!isInSlowMotionMode())
+                    {
+                        gs->m_fDeltaTime /= 8;
                     }
                 }
             }

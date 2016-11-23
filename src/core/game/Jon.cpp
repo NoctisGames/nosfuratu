@@ -49,7 +49,8 @@ m_isUserActionPrevented(false),
 m_isBurrowEffective(false),
 m_shouldUseVampireFormForConsumeAnimation(false),
 m_fFlashStateTime(0),
-m_isFlashing(false)
+m_isFlashing(false),
+m_isReleasingShockwave(false)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
@@ -645,7 +646,21 @@ void Jon::consume(bool vampireDies)
     m_isFatallyConsumed = vampireDies;
     m_iNumRabbitJumps = 0;
     m_iNumVampireJumps = 0;
-	setState(ABILITY_NONE);
+    
+    m_velocity->set(0, 0);
+    m_acceleration->set(0, 0);
+	
+    setState(ABILITY_NONE);
+    
+    if (isTransformingIntoVampire())
+    {
+        Jon::RabbitToVampire::getInstance()->handleTransformation(this);
+    }
+    else if (isRevertingToRabbit())
+    {
+        Jon::VampireToRabbit::getInstance()->handleTransformation(this);
+    }
+    
 	ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
@@ -733,6 +748,7 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
+    jon->m_isReleasingShockwave = false;
     
     jon->m_acceleration->setY(GAME_GRAVITY);
 
@@ -1031,6 +1047,7 @@ void Jon::Vampire::enter(Jon* jon)
 	jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
+    jon->m_isReleasingShockwave = false;
     
     jon->m_acceleration->setY(GAME_GRAVITY);
     
@@ -1438,6 +1455,8 @@ void Jon::RabbitToVampire::execute(Jon* jon)
         jon->m_shouldUseVampireFormForConsumeAnimation = true;
         jon->setState(ABILITY_NONE);
         
+        jon->m_isReleasingShockwave = true;
+        
 		ASSETS->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
 }
@@ -1566,6 +1585,8 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 		m_hasCompletedSlowMotion = true;
         jon->m_shouldUseVampireFormForConsumeAnimation = false;
         jon->setState(ABILITY_NONE);
+        
+        jon->m_isReleasingShockwave = true;
         
 		ASSETS->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}

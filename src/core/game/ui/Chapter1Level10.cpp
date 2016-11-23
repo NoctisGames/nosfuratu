@@ -339,6 +339,8 @@ void Chapter1Level10::update(GameScreen* gs)
     else if (m_midBossOwl->getState() == MidBossOwlState_FlyingAwayAfterCatchingJon)
     {
         m_showHintBecauseJonHasBeenCaptured = m_midBossOwl->getDamage() == 0;
+        
+        m_isChaseCamActivated = true;
     }
 }
 

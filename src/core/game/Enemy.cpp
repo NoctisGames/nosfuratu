@@ -434,7 +434,10 @@ void Toad::handleAlive(float deltaTime)
                     && jon.getMainBounds().getRight() > getMainBounds().getLeft() - 1.2f
                     && jon.getMainBounds().getRight() < getMainBounds().getLeft())
                 {
-                    jon.consume();
+                    if (!jon.isConsumed())
+                    {
+                        jon.consume();
+                    }
                 }
                 else
                 {
@@ -450,7 +453,8 @@ void Toad::handleAlive(float deltaTime)
         if (jon.getMainBounds().getBottom() > (getMainBounds().getBottom() - 1.0f)
 			&& jon.getMainBounds().getTop() < (getMainBounds().getTop() + 2.0f)
             && jonPredictedRight > getMainBounds().getLeft() - 1.2f
-            && jonPredictedRight < getMainBounds().getLeft())
+            && jonPredictedRight < getMainBounds().getLeft()
+            && !jon.isConsumed())
         {
             m_fStateTime = 0;
             m_isEating = true;
