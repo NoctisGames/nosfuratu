@@ -26,6 +26,7 @@
 #include "Jon.h"
 #include "EndBossSnake.h"
 #include "RTTI.h"
+#include "ForegroundCoverObject.h"
 
 #include <vector>
 #include <math.h>
@@ -75,7 +76,7 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
-    std::vector<ForegroundObject *>& getForegroundCoverObjects();
+    std::vector<ForegroundCoverObject *>& getForegroundCoverObjects();
     
     float getEntitiesCameraPos();
     
@@ -128,7 +129,7 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
-    std::vector<ForegroundObject *> m_foregroundCoverObjects;
+    std::vector<ForegroundCoverObject *> m_foregroundCoverObjects;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

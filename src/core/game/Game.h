@@ -21,6 +21,7 @@
 #include "EndBossSnake.h"
 #include "CountHissWithMina.h"
 #include "GameMarker.h"
+#include "ForegroundCoverObject.h"
 
 #include <memory>
 #include <vector>
@@ -118,7 +119,7 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
-    std::vector<ForegroundObject *>& getForegroundCoverObjects();
+    std::vector<ForegroundCoverObject *>& getForegroundCoverObjects();
     
     std::vector<GameMarker *>& getMarkers();
     
@@ -176,7 +177,7 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
-    std::vector<ForegroundObject *> m_foregroundCoverObjects;
+    std::vector<ForegroundCoverObject *> m_foregroundCoverObjects;
     std::vector<GameMarker *> m_markers;
     Rectangle* m_cameraBounds;
     

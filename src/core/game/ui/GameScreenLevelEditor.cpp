@@ -480,7 +480,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti)
+                    if (m_draggingEntity->getRTTI().derivesFrom(ForegroundCoverObject::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
@@ -491,6 +491,19 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+                    }
+                    else if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti))
+                    {
+                        Midground* midground = reinterpret_cast<Midground *>(m_lastAddedEntity);
+                        if (midground->getType() != MidgroundType_Metal_Tower_Section
+                            && midground->getType() != MidgroundType_Billboard_Count_Hiss
+                            && midground->getType() != MidgroundType_Billboard_Slag_Town
+                            && midground->getType() != MidgroundType_Billboard_Jon_Wanted)
+                        {
+                            m_isVerticalChangeAllowed = false;
+                            m_allowPlaceOn = false;
+                            m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+                        }
                     }
                     else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti))
                     {

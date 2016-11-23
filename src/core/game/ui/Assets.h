@@ -74,6 +74,7 @@ class NosfuratuLogoLightEffect;
 class NosfuratuLogo;
 class CastleLightEffect;
 class Castle;
+class ForegroundCoverObject;
 
 class Assets
 {
@@ -125,6 +126,8 @@ public:
     TextureRegion& get(HoleCover* holeCover);
     
     TextureRegion& get(ForegroundObject* foregroundObject);
+    
+    TextureRegion& get(ForegroundCoverObject* foregroundCoverObject);
     
     TextureRegion& get(CountHissWithMina* countHissWithMina);
     

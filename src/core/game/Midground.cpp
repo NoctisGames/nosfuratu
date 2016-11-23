@@ -26,6 +26,16 @@ Midground* Midground::create(int gridX, int gridY, int type)
             return new Midground(gridX, 0, 8, 52, mt);
         case MidgroundType_DeepCaveColumnBig:
             return new Midground(gridX, 0, 16, 52, mt);
+        case MidgroundType_Plant:
+            return new Midground(gridX, 96, 19, 20, mt);
+        case MidgroundType_Metal_Tower_Section:
+            return new Midground(gridX, gridY, 8, 12, mt);
+        case MidgroundType_Billboard_Count_Hiss:
+            return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Billboard_Slag_Town:
+            return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Billboard_Jon_Wanted:
+            return new Midground(gridX, gridY, 48, 28, mt);
     }
     
     assert(false);

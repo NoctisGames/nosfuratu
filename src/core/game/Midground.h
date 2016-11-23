@@ -19,7 +19,12 @@ typedef enum
     MidgroundType_TreeThree,
     MidgroundType_DeepCaveColumnSmall,
     MidgroundType_DeepCaveColumnMedium,
-    MidgroundType_DeepCaveColumnBig
+    MidgroundType_DeepCaveColumnBig,
+    MidgroundType_Plant,
+    MidgroundType_Metal_Tower_Section,
+    MidgroundType_Billboard_Count_Hiss,
+    MidgroundType_Billboard_Slag_Town,
+    MidgroundType_Billboard_Jon_Wanted
 } MidgroundType;
 
 class Midground : public GridLockedPhysicalEntity

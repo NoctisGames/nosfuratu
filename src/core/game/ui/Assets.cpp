@@ -26,6 +26,7 @@
 #include "SpriteTesterActionsPanel.h"
 #include "TextureSelectorPanel.h"
 #include "AssetsMapper.h"
+#include "ForegroundCoverObject.h"
 
 Assets* Assets::getInstance()
 {
@@ -450,6 +451,31 @@ TextureRegion& Assets::get(Midground* midground)
         case MidgroundType_DeepCaveColumnBig:
         {
             static TextureRegion tr = findTextureRegion("MidgroundType_DeepCaveColumnBig");
+            return tr;
+        }
+        case MidgroundType_Plant:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Plant");
+            return tr;
+        }
+        case MidgroundType_Metal_Tower_Section:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Metal_Tower_Section");
+            return tr;
+        }
+        case MidgroundType_Billboard_Count_Hiss:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Billboard_Count_Hiss");
+            return tr;
+        }
+        case MidgroundType_Billboard_Slag_Town:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Billboard_Slag_Town");
+            return tr;
+        }
+        case MidgroundType_Billboard_Jon_Wanted:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Billboard_Jon_Wanted");
             return tr;
         }
     }
@@ -1005,6 +1031,35 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
         {
             static Animation anim = findAnimation("ForegroundObjectType_SpikedBallChain");
             return anim.getTextureRegion(foregroundObject->getStateTime());
+        }
+    }
+    
+    assert(false);
+}
+
+TextureRegion& Assets::get(ForegroundCoverObject* foregroundCoverObject)
+{
+    switch (foregroundCoverObject->getType())
+    {
+        case ForegroundCoverObjectType_Tree:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Tree");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Plant:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Plant");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Bush:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Bush");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Ferns:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Ferns");
+            return tr;
         }
     }
     

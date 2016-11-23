@@ -83,6 +83,12 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveEndRight));
         }
         
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Plant));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Metal_Tower_Section));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Count_Hiss));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Slag_Town));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Jon_Wanted));
+        
         m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveEndLeft));
         m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveSmall));
         m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveMedium));
@@ -212,7 +218,10 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_collectibleItems.push_back(new Carrot(0, 0));
         m_collectibleItems.push_back(new GoldenCarrot(0, 0));
         
-//        m_foregroundCoverObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_VerticalSaw));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Tree));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Plant));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Bush));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Ferns));
         
         m_extraForegroundObjects.push_back(ExtraForegroundObject::create(0, 0, ForegroundObjectType_SpikeTower));
     }
@@ -406,7 +415,7 @@ std::vector<ExtraForegroundObject *>& LevelEditorEntitiesPanel::getExtraForegrou
     return m_extraForegroundObjects;
 }
 
-std::vector<ForegroundObject *>& LevelEditorEntitiesPanel::getForegroundCoverObjects()
+std::vector<ForegroundCoverObject *>& LevelEditorEntitiesPanel::getForegroundCoverObjects()
 {
     return m_foregroundCoverObjects;
 }

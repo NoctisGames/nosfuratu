@@ -260,7 +260,6 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 	{
 		return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEnemies(), deltaTime);
@@ -268,7 +267,6 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
     
     return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEnemies(), deltaTime)
@@ -289,7 +287,6 @@ bool Game::isJonBlockedOnRight(float deltaTime)
         return EntityUtils::isBlockedOnRight(getJonP(), getPits(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
     }
@@ -297,7 +294,6 @@ bool Game::isJonBlockedOnRight(float deltaTime)
     return EntityUtils::isBlockedOnRight(getJonP(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -316,7 +312,6 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
             return EntityUtils::isBlockedOnLeft(getJonP(), getPits(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
-            || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
         }
@@ -324,7 +319,6 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
         return EntityUtils::isBlockedOnLeft(getJonP(), getGrounds(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
 	}
@@ -343,7 +337,6 @@ bool Game::isJonBlockedVertically(float deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExitGrounds(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedAbove(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEndBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
@@ -354,7 +347,6 @@ bool Game::isSpinningBackFistDelivered(float deltaTime)
     return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isHorizontallyHitting(getJon(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -377,7 +369,6 @@ bool Game::isUpwardThrustEffective(float deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getEnemies(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isHittingFromBelow(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isHittingFromBelow(getJon(), getEndBossForegroundObjects(), deltaTime);
 }
@@ -507,7 +498,7 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
     return m_extraForegroundObjects;
 }
 
-std::vector<ForegroundObject *>& Game::getForegroundCoverObjects()
+std::vector<ForegroundCoverObject *>& Game::getForegroundCoverObjects()
 {
     return m_foregroundCoverObjects;
 }
@@ -651,7 +642,6 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_midBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_endBossForegroundObjects, this);
     EntityUtils::setGameToEntities(m_extraForegroundObjects, this);
-    EntityUtils::setGameToEntities(m_foregroundCoverObjects, this);
     EntityUtils::setGameToEntities(m_endBossSnakes, this);
     
     configureGoldenCarrots();

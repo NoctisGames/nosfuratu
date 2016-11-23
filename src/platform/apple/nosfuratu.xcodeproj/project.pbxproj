@@ -107,6 +107,10 @@
 		BB21A4921DD2F51100D72C8B /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper.png */; };
 		BB21A4931DD2F51100D72C8B /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper.png */; };
 		BB21A4941DD2F51100D72C8B /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper.png */; };
+		BB221FF51DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
+		BB221FF61DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
+		BB221FF71DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
+		BB221FF81DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB4255AC1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
 		BB4255AD1DBA8484001E6B97 /* ability_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */; };
@@ -1248,6 +1252,8 @@
 		BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower_part_2.png; sourceTree = "<group>"; };
 		BB21A47D1DD2F51100D72C8B /* world_1_background_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_mid.png; sourceTree = "<group>"; };
 		BB21A47F1DD2F51100D72C8B /* world_1_background_upper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_upper.png; sourceTree = "<group>"; };
+		BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ForegroundCoverObject.cpp; sourceTree = "<group>"; };
+		BB221FF41DE6495400D0D361 /* ForegroundCoverObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForegroundCoverObject.h; sourceTree = "<group>"; };
 		BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NosFURatu.entitlements; sourceTree = "<group>"; };
 		BB4255691DBA8484001E6B97 /* ability_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ability_unlock.mp3; sourceTree = "<group>"; };
 		BB42556A1DBA8484001E6B97 /* absorb_dash_ability.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = absorb_dash_ability.mp3; sourceTree = "<group>"; };
@@ -2457,6 +2463,8 @@
 				BB44C6C01DB03A7D003E633F /* ExitGround.h */,
 				BB44C6C11DB03A7D003E633F /* ExitGroundCover.cpp */,
 				BB44C6C21DB03A7D003E633F /* ExitGroundCover.h */,
+				BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */,
+				BB221FF41DE6495400D0D361 /* ForegroundCoverObject.h */,
 				BB44C6C31DB03A7D003E633F /* ForegroundObject.cpp */,
 				BB44C6C41DB03A7D003E633F /* ForegroundObject.h */,
 				BB44C6C51DB03A7D003E633F /* Game.cpp */,
@@ -3741,6 +3749,7 @@
 				BBCB71C31DB69D21006430B6 /* TextureProgram.cpp in Sources */,
 				BB44CAA91DB03A7F003E633F /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
+				BB221FF51DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */,
 				BB5C0EC81DCD46E1000C5C07 /* RTTI.cpp in Sources */,
 				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BBCB71AB1DB69D21006430B6 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
@@ -3864,6 +3873,7 @@
 				BB44CB361DB052F5003E633F /* GameScreenLevels.cpp in Sources */,
 				BBCB71891DB69D21006430B6 /* FramebufferToScreenProgram.cpp in Sources */,
 				BB44CB371DB052F5003E633F /* GameScreenOpeningCutscene.cpp in Sources */,
+				BB221FF71DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */,
 				BB44CB381DB052F5003E633F /* GameScreenTitle.cpp in Sources */,
 				BB09CE301DBD3805006A3E49 /* SuperpoweredSound.cpp in Sources */,
 				BB44CB391DB052F5003E633F /* GameScreenTransitions.cpp in Sources */,
@@ -4018,6 +4028,7 @@
 				BB44CC4B1DB07165003E633F /* GameScreenOpeningCutscene.cpp in Sources */,
 				BB44CC4C1DB07165003E633F /* GameScreenTitle.cpp in Sources */,
 				BB09CE311DBD3805006A3E49 /* SuperpoweredSound.cpp in Sources */,
+				BB221FF81DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */,
 				BB44CC4D1DB07165003E633F /* GameScreenTransitions.cpp in Sources */,
 				BB7B51A11DCDAA0300FFF99B /* JonFormState.cpp in Sources */,
 				BB44CC4E1DB07165003E633F /* GameScreenWorldMap.cpp in Sources */,
@@ -4202,6 +4213,7 @@
 				BBCB71C41DB69D21006430B6 /* TextureProgram.cpp in Sources */,
 				BBE92D701DB2E671008359C2 /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBE92D711DB2E671008359C2 /* main.m in Sources */,
+				BB221FF61DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */,
 				BB5C0EC91DCD46E1000C5C07 /* RTTI.cpp in Sources */,
 				BBCB71D11DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BBCB71AC1DB69D21006430B6 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,

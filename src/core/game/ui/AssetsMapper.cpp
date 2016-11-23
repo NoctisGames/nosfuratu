@@ -43,6 +43,11 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["MidgroundType_DeepCaveColumnSmall"] = createTextureRegion("world_1_objects_part_2", 3136, 1824, 96, 288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_DeepCaveColumnMedium"] = createTextureRegion("world_1_objects_part_2", 3968, 1280, 128, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_DeepCaveColumnBig"] = createTextureRegion("world_1_objects_part_2", 3394, 1280, 256, 832, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Plant"] = createTextureRegion("world_1_objects_part_2", 1714, 914, 304, 320, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Metal_Tower_Section"] = createTextureRegion("world_1_objects_part_2", 0, 1108, 128, 192, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Billboard_Count_Hiss"] = createTextureRegion("world_1_objects_part_2", 0, 0, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Billboard_Slag_Town"] = createTextureRegion("world_1_objects_part_2", 0, 448, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Billboard_Jon_Wanted"] = createTextureRegion("world_1_objects_part_2", 768, 448, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepEndLeft"] = createTextureRegion("world_1_ground", 0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepSmall"] = createTextureRegion("world_1_ground", 128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepMedium"] = createTextureRegion("world_1_ground", 640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -157,11 +162,14 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ComingSoonScreen"] = createTextureRegion("world_1_objects_part_2", 0, 2048, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["SpeedBarFrame"] = createTextureRegion("misc", 8, 654, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
     m_textureRegions["SpeedBar"] = createTextureRegion("misc", 8, 678, 516, 20, TEXTURE_SIZE_1024, TEXTURE_SIZE_1024);
-    
     m_textureRegions["TitlePanel_Background"] = createTextureRegion("title_screen", 0, 0, 1280, 720, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["TitlePanel_Logo"] = createTextureRegion("title_screen", 1024, 1070, 874, 434, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["TitlePanel_Small_Cloud"] = createTextureRegion("title_screen", 0, 1940, 634, 94, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
     m_textureRegions["TitlePanel_Big_Cloud"] = createTextureRegion("title_screen", 964, 1940, 1084, 108, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048);
+    m_textureRegions["ForegroundCoverObjectType_Tree"] = createTextureRegion("world_1_objects_part_2", 0, 2774, 448, 816, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundCoverObjectType_Plant"] = createTextureRegion("world_1_objects_part_2", 0, 3608, 336, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundCoverObjectType_Bush"] = createTextureRegion("world_1_objects_part_2", 0, 1484, 400, 240, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundCoverObjectType_Ferns"] = createTextureRegion("world_1_objects_part_2", 0, 1308, 528, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     
     /// Animations
     m_animations["CutsceneEffectType_POW"] = createAnimation("world_1_cutscene_2", 0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.20f, 3);
@@ -322,7 +330,6 @@ void AssetsMapper::initializeAssetsMapper()
     m_animations["BatInstructionType_TapHold"] = createAnimation("world_1_special", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 11);
     m_animations["BatInstructionType_SwipeDown"] = createAnimation("jon", 2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
     m_animations["BatInstructionType_SwipeRight"] = createAnimation("vampire", 0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
-    
     m_animations["TitlePanel_Lightning"] = createAnimation("title_screen", 1284, 0, 354, 356, 708, 1068, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
     m_animations["TitlePanel_Castle"] = createAnimation("title_screen", 0, 724, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
     m_animations["TitlePanel_Castle_Light_Effect"] = createAnimation("title_screen", 0, 1098, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
