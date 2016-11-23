@@ -16,19 +16,19 @@ Background* Background::create(float x, int type)
     switch (bt)
     {
         case BackgroundType_Upper:
-            return new Background(x, 29.25f, CAM_WIDTH, 13.5f, 12, bt);
+            return new Background(x, 29.25f, CAM_WIDTH, 13.5f, 8, bt);
         case BackgroundType_Mid_Hills:
-            return new Background(x, 18.966796875f, CAM_WIDTH, 7.06640625f, 12, bt);
+            return new Background(x, 18.966796875f, CAM_WIDTH, 7.06640625f, 8, bt);
         case BackgroundType_Lower_Innermost:
-            return new Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 12, bt);
+            return new Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 8, bt);
         case BackgroundType_Mid_Trees:
-            return new Background(x, 16.734375f, CAM_WIDTH, 6.46875f, 24, bt);
+            return new Background(x, 16.734375f, CAM_WIDTH, 6.46875f, 16, bt);
         case BackgroundType_Lower_Inner:
-            return new Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 24, bt);
+            return new Background(x, 6.5830078125f, CAM_WIDTH, 8.296875f, 16, bt);
         case BackgroundType_Lower_Top:
-            return new Background(x, 12.849609375f, CAM_WIDTH, 8.61328125f, 48, bt);
+            return new Background(x, 12.849609375f, CAM_WIDTH, 8.61328125f, 32, bt);
         case BackgroundType_Lower_Bottom:
-            return new Background(x, 2.302734375f, CAM_WIDTH, 4.60546875f, 48, bt);
+            return new Background(x, 2.302734375f, CAM_WIDTH, 4.60546875f, 32, bt);
         case BackgroundType_WaterBack:
             return new Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 256, bt);
         case BackgroundType_WaterFront:
