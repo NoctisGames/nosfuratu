@@ -587,31 +587,29 @@
       <Filter>Assets</Filter>
     </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\sprite_tester.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_1.png">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_1.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_2.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_2.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_1.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_1.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_upper.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_mid.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_1.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_2.png">
       <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_objects_part_2.png">
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_1.png">
       <Filter>Assets</Filter>
-    </Image>
+    </CustomBuild>
   </ItemGroup>
 </Project>
