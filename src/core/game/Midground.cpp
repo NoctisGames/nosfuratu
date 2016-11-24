@@ -36,6 +36,8 @@ Midground* Midground::create(int gridX, int gridY, int type)
             return new Midground(gridX, gridY, 48, 28, mt);
         case MidgroundType_Billboard_Jon_Wanted:
             return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Hill:
+            return new Midground(gridX, 96, 86, 11, mt);
     }
     
     assert(false);

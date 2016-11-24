@@ -24,7 +24,8 @@ typedef enum
     MidgroundType_Metal_Tower_Section,
     MidgroundType_Billboard_Count_Hiss,
     MidgroundType_Billboard_Slag_Town,
-    MidgroundType_Billboard_Jon_Wanted
+    MidgroundType_Billboard_Jon_Wanted,
+    MidgroundType_Hill
 } MidgroundType;
 
 class Midground : public GridLockedPhysicalEntity

@@ -48,6 +48,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["MidgroundType_Billboard_Count_Hiss"] = createTextureRegion("world_1_objects_part_2", 0, 0, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_Billboard_Slag_Town"] = createTextureRegion("world_1_objects_part_2", 0, 448, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["MidgroundType_Billboard_Jon_Wanted"] = createTextureRegion("world_1_objects_part_2", 768, 448, 768, 448, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["MidgroundType_Hill"] = createTextureRegion("world_1_objects_part_2", 0, 928, 1376, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepEndLeft"] = createTextureRegion("world_1_ground", 0, 1132, 128, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepSmall"] = createTextureRegion("world_1_ground", 128, 1132, 512, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["GroundType_CaveExtraDeepMedium"] = createTextureRegion("world_1_ground", 640, 1132, 1024, 128, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);

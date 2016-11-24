@@ -88,6 +88,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Count_Hiss));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Slag_Town));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Jon_Wanted));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Hill));
         
         m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveEndLeft));
         m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveSmall));

@@ -478,6 +478,11 @@ TextureRegion& Assets::get(Midground* midground)
             static TextureRegion tr = findTextureRegion("MidgroundType_Billboard_Jon_Wanted");
             return tr;
         }
+        case MidgroundType_Hill:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Hill");
+            return tr;
+        }
     }
     
     assert(false);
