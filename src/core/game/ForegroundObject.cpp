@@ -127,20 +127,20 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikedBall(gridX, gridY, 32, 30, fot, GROUND_SOUND_NONE, 0, 0.4f, 1, 0.8f);
             
         case ForegroundObjectType_MetalGrassPlatform:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.8125f);
+            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
         case ForegroundObjectType_MetalGrassPlatformLeft:
-            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.8125f);
+            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
         case ForegroundObjectType_MetalGrassPlatformCenter:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.8125f);
+            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
         case ForegroundObjectType_MetalGrassPlatformRight:
-            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.8125f);
+            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
             
         case ForegroundObjectType_WoodPlatform:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.8125f);
+            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f);
         case ForegroundObjectType_WoodBoxTop:
-            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.953125f);
+            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.96875f);
         case ForegroundObjectType_WoodBox:
-            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD, 0, 0, 1, 1);
+            return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD);
     }
     
     assert(false);
