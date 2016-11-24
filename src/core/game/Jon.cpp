@@ -181,6 +181,10 @@ void Jon::update(float deltaTime)
 			{
 				ASSETS->addSoundIdToPlayQueue(SOUND_LANDING_CAVE);
 			}
+            else if (m_groundSoundType == GROUND_SOUND_WOOD)
+            {
+                // TODO
+            }
 		}
         
         if (m_isRollLanding)

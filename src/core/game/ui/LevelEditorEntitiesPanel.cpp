@@ -176,6 +176,14 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GiantTree));
         }
         
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformCenter));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformRight));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodPlatform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBoxTop));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBox));
+        
         if (level == 21)
         {
             m_endBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikedBall));

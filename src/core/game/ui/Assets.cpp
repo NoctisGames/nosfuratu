@@ -1037,6 +1037,43 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             static Animation anim = findAnimation("ForegroundObjectType_SpikedBallChain");
             return anim.getTextureRegion(foregroundObject->getStateTime());
         }
+            
+        case ForegroundObjectType_MetalGrassPlatform:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_MetalGrassPlatform");
+            return tr;
+        }
+        case ForegroundObjectType_MetalGrassPlatformLeft:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_MetalGrassPlatformLeft");
+            return tr;
+        }
+        case ForegroundObjectType_MetalGrassPlatformCenter:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_MetalGrassPlatformCenter");
+            return tr;
+        }
+        case ForegroundObjectType_MetalGrassPlatformRight:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_MetalGrassPlatformRight");
+            return tr;
+        }
+            
+        case ForegroundObjectType_WoodPlatform:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_WoodPlatform");
+            return tr;
+        }
+        case ForegroundObjectType_WoodBoxTop:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_WoodBoxTop");
+            return tr;
+        }
+        case ForegroundObjectType_WoodBox:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_WoodBox");
+            return tr;
+        }
     }
     
     assert(false);
@@ -1583,6 +1620,10 @@ TextureRegion& Assets::get(Jon* jon)
                 {
                     getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
                 }
+                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                {
+                    // TODO, right foot
+                }
             }
             else if (keyFrameNumber == 6 && jon->isRightFoot())
             {
@@ -1595,6 +1636,10 @@ TextureRegion& Assets::get(Jon* jon)
                 else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
                 {
                     ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                {
+                    // TODO, left foot
                 }
             }
             
@@ -1688,6 +1733,10 @@ TextureRegion& Assets::get(Jon* jon)
                 {
                     getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
                 }
+                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                {
+                    // TODO, right foot
+                }
             }
             else if (keyFrameNumber == 6 && jon->isRightFoot())
             {
@@ -1700,6 +1749,10 @@ TextureRegion& Assets::get(Jon* jon)
                 else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
                 {
                     ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                {
+                    // TODO, left foot
                 }
             }
             

@@ -82,7 +82,16 @@ typedef enum
     ForegroundObjectType_SpikedBallRollingRight,
     
     ForegroundObjectType_SpikedBall,
-    ForegroundObjectType_SpikedBallChain
+    ForegroundObjectType_SpikedBallChain,
+    
+    ForegroundObjectType_MetalGrassPlatform,
+    ForegroundObjectType_MetalGrassPlatformLeft,
+    ForegroundObjectType_MetalGrassPlatformCenter,
+    ForegroundObjectType_MetalGrassPlatformRight,
+    
+    ForegroundObjectType_WoodPlatform,
+    ForegroundObjectType_WoodBoxTop,
+    ForegroundObjectType_WoodBox
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
