@@ -252,6 +252,8 @@ private:
     float m_fStateTime;
 	float m_fCamPosX;
     float m_fGroundedCamY;
+    float m_fLowestGroundedCamY;
+    float m_fLastKnownCamY;
     int m_iNumAsyncLoads;
     float m_fRadialBlurDirection;
     bool m_compressed;

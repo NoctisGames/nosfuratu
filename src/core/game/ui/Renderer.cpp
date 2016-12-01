@@ -61,6 +61,8 @@ Renderer::Renderer() :
 m_fStateTime(0),
 m_fCamPosX(0),
 m_fGroundedCamY(0),
+m_fLowestGroundedCamY(1337),
+m_fLastKnownCamY(0),
 m_iFramebufferIndex(0),
 m_iNumAsyncLoads(0),
 m_fRadialBlurDirection(0.5f),
@@ -394,6 +396,8 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 6;
 	m_fGroundedCamY = jon.getMainBounds().getBottom() - 0.8f;
+    m_fLowestGroundedCamY = fminf(m_fGroundedCamY, m_fLowestGroundedCamY);
+    m_fLastKnownCamY = m_fGroundedCamY;
     
     float changeInX = farLeft - getCamPosFarRight(game);
     float changeInY = m_fGroundedCamY - game.getFarRightBottom();
@@ -426,6 +430,8 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         Jon& jon = game.getJon();
         float farLeft = jon.getPosition().getX() - CAM_WIDTH / 6;
         m_fGroundedCamY = jon.getMainBounds().getBottom() - 0.8f;
+        m_fLowestGroundedCamY = fminf(m_fGroundedCamY, m_fLowestGroundedCamY);
+        m_fLastKnownCamY = m_fGroundedCamY;
         
         float changeInX = farLeft - getCamPosFarRight(game);
         float changeInY = m_fGroundedCamY - game.getFarRightBottom();
@@ -498,39 +504,42 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
     float camBottom = jon.getMainBounds().getBottom() - 0.8f;
     float camTop = jon.getMainBounds().getTop() + 0.8f;
     bool isGrounded = jon.getPhysicalState() == PHYSICAL_GROUNDED;
-    float camY = m_fGroundedCamY;
     if (isGrounded)
     {
-        if (camTop > m_camBounds->getTop()
+        if (camTop > (m_camBounds->getTop() - 1)
             || camBottom < m_camBounds->getBottom())
         {
             m_fGroundedCamY = camBottom;
-            camY = m_fGroundedCamY;
+            m_fLastKnownCamY = m_fGroundedCamY;
+            
+            m_fLowestGroundedCamY = fminf(m_fGroundedCamY, m_fLowestGroundedCamY);
         }
     }
     else if (jon.isFalling())
     {
         if (camBottom < m_fGroundedCamY)
         {
-            camY = camTop - CAM_HEIGHT;
+            m_fLastKnownCamY = camTop - CAM_HEIGHT;
+            m_fLastKnownCamY = fmaxf(m_fLastKnownCamY, m_fLowestGroundedCamY);
         }
         else if (respectBat)
         {
-            camY = camTop + 4 - CAM_HEIGHT;
+            m_fLastKnownCamY = camTop + 4 - CAM_HEIGHT;
         }
         else if (camTop > (m_fGroundedCamY + CAM_HEIGHT))
         {
-            camY = camTop - CAM_HEIGHT;
-            camY = fmaxf(camY, m_fGroundedCamY);
+            m_fLastKnownCamY = camTop - CAM_HEIGHT;
+            m_fLastKnownCamY = fmaxf(m_fLastKnownCamY, m_fLowestGroundedCamY);
         }
     }
     else if (camTop > m_camBounds->getTop())
     {
-        camY = camTop - CAM_HEIGHT;
+        m_fLastKnownCamY = camTop - CAM_HEIGHT;
+        m_fLastKnownCamY = fmaxf(m_fLastKnownCamY, m_fLowestGroundedCamY);
     }
     
-    float camSpeed = camY - m_camBounds->getBottom();
-    float camVelocityY = camY > m_camBounds->getBottom() ? camSpeed : camY == m_camBounds->getBottom() ? 0 : camSpeed * 6;
+    float camSpeed = m_fLastKnownCamY - m_camBounds->getBottom();
+    float camVelocityY = m_fLastKnownCamY > m_camBounds->getBottom() ? camSpeed * 4 : m_fLastKnownCamY == m_camBounds->getBottom() ? 0 : camSpeed * 6;
     if (ignoreY)
     {
         camVelocityY = 0;
@@ -538,10 +547,10 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
     
     m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
     
-    if ((camVelocityY > 0 && m_camBounds->getBottom() > camY)
-        || (camVelocityY < 0 && m_camBounds->getBottom() < camY))
+    if ((camVelocityY > 0 && m_camBounds->getBottom() > m_fLastKnownCamY)
+        || (camVelocityY < 0 && m_camBounds->getBottom() < m_fLastKnownCamY))
     {
-        m_camBounds->getLowerLeft().setY(camY);
+        m_camBounds->getLowerLeft().setY(m_fLastKnownCamY);
     }
     
     if (m_camBounds->getBottom() < 0)
