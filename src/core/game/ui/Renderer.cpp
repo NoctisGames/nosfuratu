@@ -506,7 +506,7 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
     bool isGrounded = jon.getPhysicalState() == PHYSICAL_GROUNDED;
     if (isGrounded)
     {
-        if (camTop > (m_camBounds->getTop() - 1)
+        if (camTop > m_camBounds->getTop()
             || camBottom < m_camBounds->getBottom())
         {
             m_fGroundedCamY = camBottom;
@@ -517,7 +517,11 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
     }
     else if (jon.isFalling())
     {
-        if (camBottom < m_fGroundedCamY)
+        if (camBottom < m_fLowestGroundedCamY)
+        {
+            m_fLastKnownCamY = camTop - CAM_HEIGHT;
+        }
+        else if (camBottom < m_fGroundedCamY)
         {
             m_fLastKnownCamY = camTop - CAM_HEIGHT;
             m_fLastKnownCamY = fmaxf(m_fLastKnownCamY, m_fLowestGroundedCamY);
@@ -538,8 +542,9 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         m_fLastKnownCamY = fmaxf(m_fLastKnownCamY, m_fLowestGroundedCamY);
     }
     
+    float absJonSpeedY = fabsf(jon.getVelocity().getY());
     float camSpeed = m_fLastKnownCamY - m_camBounds->getBottom();
-    float camVelocityY = m_fLastKnownCamY > m_camBounds->getBottom() ? camSpeed * 4 : m_fLastKnownCamY == m_camBounds->getBottom() ? 0 : camSpeed * 6;
+    float camVelocityY = m_fLastKnownCamY > m_camBounds->getBottom() ? camSpeed * absJonSpeedY : m_fLastKnownCamY < m_camBounds->getBottom() ? camSpeed * absJonSpeedY : 0;
     if (ignoreY)
     {
         camVelocityY = 0;
