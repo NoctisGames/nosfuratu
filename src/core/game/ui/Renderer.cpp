@@ -506,7 +506,7 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
     bool isGrounded = jon.getPhysicalState() == PHYSICAL_GROUNDED;
     if (isGrounded)
     {
-        if (camTop > m_camBounds->getTop()
+        if ((m_camBounds->getTop() - CAM_HEIGHT) > m_fGroundedCamY
             || camBottom < m_camBounds->getBottom())
         {
             m_fGroundedCamY = camBottom;
