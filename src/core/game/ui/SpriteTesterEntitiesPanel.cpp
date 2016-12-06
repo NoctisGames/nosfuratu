@@ -71,7 +71,7 @@ int SpriteTesterEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint,
         {
             case DOWN:
             {
-                if(touchPoint.getX() > m_closeButton->getLowerLeft().getX() + m_closeButton->getWidth())
+                if(touchPoint.getX() > m_closeButton->getLeft() + m_closeButton->getWidth())
                 {
                     m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                     m_touchPointDown2->set(touchPoint.getX(), touchPoint.getY());

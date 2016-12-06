@@ -18,8 +18,8 @@ OffsetPanel::OffsetPanel(float x, float y, float width, float height) : Physical
     m_offsetRightButton = std::unique_ptr<Rectangle>(new Rectangle(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
     m_confirmButton = std::unique_ptr<Rectangle>(new Rectangle(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f));
     
-    m_leftTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetLeftButton->getLowerLeft().getX() + m_offsetLeftButton->getWidth() - m_offsetLeftButton->getWidth() / 3, m_offsetLeftButton->getBottom() + m_offsetLeftButton->getHeight() / 2));
-    m_rightTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetRightButton->getLowerLeft().getX() + m_offsetRightButton->getWidth() - m_offsetRightButton->getWidth() / 3, m_offsetRightButton->getBottom() + m_offsetRightButton->getHeight() / 2));
+    m_leftTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetLeftButton->getLeft() + m_offsetLeftButton->getWidth() - m_offsetLeftButton->getWidth() / 3, m_offsetLeftButton->getBottom() + m_offsetLeftButton->getHeight() / 2));
+    m_rightTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetRightButton->getLeft() + m_offsetRightButton->getWidth() - m_offsetRightButton->getWidth() / 3, m_offsetRightButton->getBottom() + m_offsetRightButton->getHeight() / 2));
 }
 
 void OffsetPanel::open()
