@@ -119,7 +119,7 @@ void PhysicalEntity::log()
     << ", "
     << "bounds: ("
     << bounds.getLowerLeft().getX() << ", "
-    << bounds.getLowerLeft().getY() << ", "
+    << bounds.getBottom() << ", "
     << bounds.getWidth() << ", "
     << bounds.getHeight()
     << ")"

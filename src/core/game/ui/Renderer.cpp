@@ -443,8 +443,8 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
             m_camBounds->getLowerLeft().setX(farLeft);
         }
         
-        if ((m_camPosVelocity->getY() < 0 && m_camBounds->getLowerLeft().getY() < m_fGroundedCamY)
-            || (m_camPosVelocity->getY() > 0 && m_camBounds->getLowerLeft().getY() > m_fGroundedCamY))
+        if ((m_camPosVelocity->getY() < 0 && m_camBounds->getBottom() < m_fGroundedCamY)
+            || (m_camPosVelocity->getY() > 0 && m_camBounds->getBottom() > m_fGroundedCamY))
         {
             m_camBounds->getLowerLeft().setY(m_fGroundedCamY);
         }
@@ -688,7 +688,7 @@ void Renderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
         m_spriteBatcher->beginBatch();
         
         Rectangle& cb = (*i)->getCamBounds();
-        updateMatrix(cb.getLowerLeft().getX(), cb.getWidth(), cb.getLowerLeft().getY(), cb.getHeight());
+        updateMatrix(cb.getLowerLeft().getX(), cb.getWidth(), cb.getBottom(), cb.getHeight());
         
         renderPhysicalEntityWithColor(*(*i), ASSETS->get((*i)), (*i)->getColor());
         
@@ -807,7 +807,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render Background
     
-    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundUppers());
@@ -827,7 +827,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render Midground
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getMidgrounds());
@@ -835,7 +835,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render Exit Ground
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     for (std::vector<ExitGround *>::iterator i = game.getExitGrounds().begin(); i != game.getExitGrounds().end(); i++)
@@ -851,7 +851,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render Background Midground Cover
     
-    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundMidgroundCovers());
@@ -859,7 +859,7 @@ void Renderer::renderWorld(Game& game)
     
     /// Render World
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getGrounds());
@@ -943,7 +943,7 @@ void Renderer::renderWorld(Game& game)
 
 void Renderer::renderJonAndExtraForegroundObjects(Game& game)
 {
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     if (ensureJonTextures()
         && game.getJons().size() > 0)
@@ -1010,7 +1010,7 @@ void Renderer::renderMidBossOwl(MidBossOwl& midBossOwl)
         return;
     }
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     switch (midBossOwl.getState())
     {
@@ -1054,7 +1054,7 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
         return;
     }
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     /// Render Jon After Images
     
@@ -1218,7 +1218,7 @@ void Renderer::renderBatPanel(BatPanel& batPanel)
         return;
     }
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*bat, ASSETS->get(bat));
@@ -1291,7 +1291,7 @@ void Renderer::renderBounds(Game& game, int boundsLevelRequested)
 
 void Renderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
 {
-	updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+	updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     renderHighlightForPhysicalEntity(entity, c);
@@ -1540,7 +1540,7 @@ void Renderer::renderMarkers(Game& game)
     static Color originMarkerColor = Color(0, 1, 0, 0.5f);
     static Color endMarkerColor = Color(1, 0, 0, 0.5f);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     
@@ -1571,7 +1571,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
 	static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
     static Color originMarkerColor = Color(0, 0, 0, 0.7f);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     m_highlightRectangleBatcher->renderRectangle(originMarker, originMarkerColor);
@@ -1586,7 +1586,7 @@ void Renderer::renderLevelEditor(GameScreenLevelEditor* gameScreenLevelEditor)
     renderPhysicalEntity(*leep, ASSETS->get(leep));
     m_spriteBatcher->endBatch(*m_level_editor.gpuTextureWrapper);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*tc, ASSETS->get(tc));
@@ -1857,7 +1857,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
     m_highlightRectangleBatcher->renderRectangle(blueRect, blueRectColor);
     m_highlightRectangleBatcher->endBatch();
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     for (std::vector<UnknownEntity *>::iterator i = gameEntities.begin(); i != gameEntities.end(); i++)
     {
@@ -1886,7 +1886,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
     static Rectangle originMarker = Rectangle(0, 0, 0.1f, GAME_HEIGHT);
     static Color originMarkerColor = Color(0, 0, 0, 0.7f);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_highlightRectangleBatcher->beginBatch();
     m_highlightRectangleBatcher->renderRectangle(originMarker, originMarkerColor);
@@ -1901,7 +1901,7 @@ void Renderer::renderSpriteTester(GameScreenSpriteTester* gameScreenSpriteTester
     renderPhysicalEntity(*eep, ASSETS->get(eep));
     m_spriteBatcher->endBatch(*m_sprite_tester.gpuTextureWrapper);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*tc, ASSETS->get(tc));
@@ -1988,12 +1988,12 @@ void Renderer::renderToSecondFramebufferWithShockwave(float centerX, float cente
 {
     m_shockwaveTextureGpuProgramWrapper->configure(centerX, centerY, timeElapsed + 0.1f, isTransforming);
     
-    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getLowerLeft().getY(), m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight());
+    updateMatrix(m_camBounds->getLowerLeft().getX(), m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     setFramebuffer(1);
     
     float x = m_camBounds->getLowerLeft().getX() + m_camBounds->getWidth() / 2;
-    float y = m_camBounds->getLowerLeft().getY() + m_camBounds->getHeight() / 2;
+    float y = m_camBounds->getBottom() + m_camBounds->getHeight() / 2;
     
     static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
     

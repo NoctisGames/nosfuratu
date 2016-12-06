@@ -45,7 +45,7 @@ void Direct3DRectangleBatcher::endBatch()
 void Direct3DRectangleBatcher::renderRectangle(Rectangle &rectangle, Color &color)
 {
 	float x1 = rectangle.getLeft();
-	float y1 = rectangle.getLowerLeft().getY();
+	float y1 = rectangle.getBottom();
 	float x2 = x1 + rectangle.getWidth();
 	float y2 = y1 + rectangle.getHeight();
 

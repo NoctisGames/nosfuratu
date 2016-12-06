@@ -106,7 +106,7 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     {
         if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
         {
-            float entityLowerLeftY = entity->getMainBounds().getLowerLeft().getY();
+            float entityLowerLeftY = entity->getMainBounds().getBottom();
             float entityYDelta = fabsf(entityVelocityY * deltaTime);
             
             float itemTop = getMainBounds().getTop();
@@ -138,7 +138,7 @@ bool Ground::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
     if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
     {
         float entityVelocityX = entity->getVelocity().getX();
-        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityBottom = entity->getMainBounds().getBottom();
         float entityRight = entity->getMainBounds().getRight();
         float entityXDelta = entityVelocityX * deltaTime;
         
@@ -167,7 +167,7 @@ bool Ground::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
 	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), getMainBounds()))
 	{
 		float entityVelocityX = entity->getVelocity().getX();
-		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityBottom = entity->getMainBounds().getBottom();
 		float entityLeft = entity->getMainBounds().getLeft();
 		float entityXDelta = entityVelocityX * deltaTime;
 
@@ -243,7 +243,7 @@ bool GrassPit::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
     
     if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), pitBounds))
     {
-        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityBottom = entity->getMainBounds().getBottom();
         float entityRight = entity->getMainBounds().getRight();
         
         float itemTop = pitBounds.getTop();
@@ -275,7 +275,7 @@ bool GrassPit::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
 
 	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), pitBounds))
 	{
-		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityBottom = entity->getMainBounds().getBottom();
 		float entityLeft = entity->getMainBounds().getLeft();
 
 		float itemTop = pitBounds.getTop();

@@ -299,7 +299,7 @@ public:
             float width = entity.getMainBounds().getWidth();
             float height = entity.getMainBounds().getHeight();
             float x = entity.getMainBounds().getLeft();
-            float y = entity.getMainBounds().getLowerLeft().getY();
+            float y = entity.getMainBounds().getBottom();
             
             Rectangle tempBounds = Rectangle(x, y, width, height);
             
@@ -310,7 +310,7 @@ public:
             {
                 if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
                 {
-                    if (tempBounds.getLowerLeft().getY() > (*i)->getMainBounds().getTop())
+                    if (tempBounds.getBottom() > (*i)->getMainBounds().getTop())
                     {
                         return true;
                     }

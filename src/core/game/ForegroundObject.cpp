@@ -223,7 +223,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 
 		if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), tempBounds))
 		{
-			float jonLowerLeftY = entity->getMainBounds().getLowerLeft().getY();
+			float jonLowerLeftY = entity->getMainBounds().getBottom();
 
 			float itemTop = tempBounds.getTop();
 			float padding = itemTop * .01f;
@@ -254,7 +254,7 @@ bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle&
     if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
     {
         float entityVelocityX = entity->getVelocity().getX();
-        float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+        float entityBottom = entity->getMainBounds().getBottom();
         float entityRight = entity->getMainBounds().getRight();
         float entityXDelta = entityVelocityX * deltaTime;
         
@@ -283,7 +283,7 @@ bool ForegroundObject::isEntityBlockedOnLeft(PhysicalEntity* entity, Rectangle& 
 	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
 	{
 		float entityVelocityX = entity->getVelocity().getX();
-		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityBottom = entity->getMainBounds().getBottom();
 		float entityLeft = entity->getMainBounds().getLeft();
 		float entityXDelta = entityVelocityX * deltaTime;
 
@@ -370,7 +370,7 @@ bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, Rectangle& bou
 	if (OverlapTester::doRectanglesOverlap(entity->getMainBounds(), bounds))
 	{
 		float entityVelocityX = entity->getVelocity().getX();
-		float entityBottom = entity->getMainBounds().getLowerLeft().getY();
+		float entityBottom = entity->getMainBounds().getBottom();
 		float entityRight = entity->getMainBounds().getRight();
 		float entityXDelta = fabsf(entityVelocityX * deltaTime);
 

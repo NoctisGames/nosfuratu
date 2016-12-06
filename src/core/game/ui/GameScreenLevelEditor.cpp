@@ -561,7 +561,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_draggingEntity->updateBounds();
                     }
                     
-                    if (m_draggingEntity->getMainBounds().getLowerLeft().getY() < 0 && yDelta < 0)
+                    if (m_draggingEntity->getMainBounds().getBottom() < 0 && yDelta < 0)
                     {
                         m_draggingEntity->getPosition().sub(0, yDelta);
                         m_draggingEntity->updateBounds();
