@@ -92,7 +92,7 @@ void Enemy::triggerHit()
     m_isDying = true;
     
     m_fXOfDeath = getMainBounds().getLeft() + getMainBounds().getWidth() / 2;
-    m_fYOfDeath = getMainBounds().getLowerLeft().getY() + getMainBounds().getHeight() / 2;
+    m_fYOfDeath = getMainBounds().getBottom() + getMainBounds().getHeight() / 2;
     
     ASSETS->addSoundIdToPlayQueue(m_deathSoundId);
 }
@@ -251,15 +251,13 @@ bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
 
         if (OverlapTester::doRectanglesOverlap(jon->getMainBounds(), enemyBounds))
         {
-            float jonLowerLeftY = jon->getMainBounds().getLowerLeft().getY();
-            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            float jonBottom = jon->getMainBounds().getBottom();
             
-            float itemTop = enemyBounds.getTop();
-            float padding = itemTop * .01f;
-            padding += jonYDelta;
-            float itemTopReq = itemTop - padding;
+            float itemBottom = enemyBounds.getBottom();
+            float padding = enemyBounds.getHeight() * 0.05f;
+            float itemBottomReq = itemBottom + padding;
             
-            if (jonLowerLeftY >= itemTopReq)
+            if (jonBottom > itemBottomReq)
             {
 				jon->getPosition().setY(getMainBounds().getTop() + jon->getMainBounds().getHeight() / 2 * 1.01f);
 				jon->updateBounds();
@@ -276,12 +274,22 @@ void Enemy::handleJon()
 {
 	Jon& jon = m_game->getJon();
 
-	if (!jon.isConsumed()
-		&& jon.getAbilityState() != ABILITY_UPWARD_THRUST
-		&& OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-	{
-		jon.kill();
-	}
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        if (jon.isConsumed()
+            || jon.getAbilityState() == ABILITY_UPWARD_THRUST)
+        {
+            return;
+        }
+        
+        if (jon.getAbilityState() == ABILITY_DASH
+            && jon.getAbilityStateTime() < 0.5f)
+        {
+            return;
+        }
+        
+        jon.kill();
+    }
 }
 
 #pragma mark subclasses
