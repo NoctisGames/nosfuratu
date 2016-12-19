@@ -145,17 +145,17 @@ public:
     
     void renderToThirdFramebufferWithObfuscation();
     
-    void renderToScreenWithTransDeathIn(float timeElapsed);
+    void renderToThirdFramebufferWithTransDeathIn(float timeElapsed);
     
-    void renderToScreenWithTransDeathOut(float timeElapsed);
+    void renderToThirdFramebufferWithTransDeathOut(float timeElapsed);
     
-    void renderToScreenTransition(float progress);
+    void renderToThirdFramebufferTransition(float progress);
     
-    void renderToScreenFadeTransition(float progress);
+    void renderToThirdFramebufferFadeTransition(float progress);
     
-    void renderToScreenPointTransition(float centerX, float centerY, float progress);
+    void renderToThirdFramebufferPointTransition(float centerX, float centerY, float progress);
     
-    void renderToScreenWithRadialBlur();
+    void renderToThirdFramebufferWithRadialBlur();
     
     void renderToScreen();
 

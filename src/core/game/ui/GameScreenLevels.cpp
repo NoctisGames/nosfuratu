@@ -627,23 +627,18 @@ void Level::render(GameScreen* gs)
     
     if (jon.isDead())
     {
-        gs->m_renderer->renderToScreenWithTransDeathIn(m_fStateTime);
+        gs->m_renderer->renderToThirdFramebufferWithTransDeathIn(m_fStateTime);
     }
     else if (m_showDeathTransOut)
     {
-        gs->m_renderer->renderToScreenWithTransDeathOut(m_fStateTime);
+        gs->m_renderer->renderToThirdFramebufferWithTransDeathOut(m_fStateTime);
     }
-    else
+    else if (m_activateRadialBlur)
     {
-        if (m_activateRadialBlur)
-        {
-            gs->m_renderer->renderToScreenWithRadialBlur();
-        }
-        else
-        {
-            gs->m_renderer->renderToScreen();
-        }
+        gs->m_renderer->renderToThirdFramebufferWithRadialBlur();
     }
+    
+    gs->m_renderer->renderToScreen();
     
     gs->m_renderer->endFrame();
 }
