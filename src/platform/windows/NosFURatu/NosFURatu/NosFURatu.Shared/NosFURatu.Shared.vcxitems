@@ -540,33 +540,6 @@
       <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_jon.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_vampire.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_world_1_special.png">
-      <ExcludedFromBuild>false</ExcludedFromBuild>
-      <DeploymentContent>false</DeploymentContent>
-      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
-      <Message>Converting to DDS %(Identity)</Message>
-      <Outputs>%(Filename).dds</Outputs>
-      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
-      <TreatOutputAsContent>true</TreatOutputAsContent>
-    </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\jon.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
@@ -884,6 +857,35 @@
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_objects_part_2.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_tutorial.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_tutorial.png">
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+      <DeploymentContent>false</DeploymentContent>
+      <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
+      <Message>Converting to DDS %(Identity)</Message>
+      <Outputs>%(Filename).dds</Outputs>
+      <AdditionalInputs>..\..\..\..\..\3rdparty\Texconv\texconv.exe</AdditionalInputs>
+      <TreatOutputAsContent>true</TreatOutputAsContent>
+    </CustomBuild>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\tutorial.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
