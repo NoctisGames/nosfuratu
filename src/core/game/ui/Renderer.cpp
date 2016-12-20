@@ -76,6 +76,7 @@ m_level_editor("level_editor"),
 m_misc("misc"),
 m_title_screen("title_screen"),
 m_trans_death_shader_helper("trans_death_shader_helper"),
+m_tutorial("tutorial"),
 m_vampire("vampire"),
 m_world_1_background_lower_part_1("world_1_background_lower_part_1"),
 m_world_1_background_lower_part_2("world_1_background_lower_part_2"),
@@ -128,6 +129,7 @@ m_framebufferRadialBlurGpuProgramWrapper(nullptr)
     m_textureWrappers.push_back(&m_title_screen);
     m_textureWrappers.push_back(&m_trans_death_shader_helper);
     m_textureWrappers.push_back(&m_vampire);
+    m_textureWrappers.push_back(&m_tutorial);
     m_textureWrappers.push_back(&m_world_1_background_lower_part_1);
     m_textureWrappers.push_back(&m_world_1_background_lower_part_2);
     m_textureWrappers.push_back(&m_world_1_background_mid);
@@ -1353,50 +1355,25 @@ void Renderer::renderEndBossSnake(EndBossSnake& endBossSnake)
 
 void Renderer::renderBatPanel(BatPanel& batPanel)
 {
-    if (!ensureJonTextures())
+    if (!ensureTutorialTextures())
     {
-        // All Bat Bubbles require at least jon texture for the opening animation
-        // and the vampire texture for the bat poofing in animation
         return;
     }
     
     Bat* bat = batPanel.getBat();
     BatInstruction* batInstruction = batPanel.getBatInstruction();
     
-    if ((batInstruction->getType() == BatInstructionType_Tap
-        || batInstruction->getType() == BatInstructionType_TapHold)
-        && !m_world_1_special.gpuTextureWrapper)
-    {
-        return;
-    }
-    
     updateMatrix(m_camBounds->getLeft(), m_camBounds->getLeft() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*bat, ASSETS->get(bat));
-    m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
     
     if (batInstruction->isOpening() || batInstruction->isOpen())
     {
-        m_spriteBatcher->beginBatch();
-        
         renderPhysicalEntityWithColor(*batInstruction, ASSETS->get(batInstruction), batInstruction->getColor());
-        
-        if (batInstruction->isOpening()
-            || batInstruction->getType() == BatInstructionType_SwipeDown)
-        {
-            m_spriteBatcher->endBatch(*m_jon.gpuTextureWrapper);
-        }
-        else if (batInstruction->getType() == BatInstructionType_SwipeRight)
-        {
-            m_spriteBatcher->endBatch(*m_vampire.gpuTextureWrapper);
-        }
-        else if (batInstruction->getType() == BatInstructionType_Tap
-                 || batInstruction->getType() == BatInstructionType_TapHold)
-        {
-            m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
-        }
     }
+    
+    m_spriteBatcher->endBatch(*m_tutorial.gpuTextureWrapper);
 }
 
 void Renderer::renderBounds(Game& game, int boundsLevelRequested)
@@ -2556,6 +2533,8 @@ void Renderer::loadSpriteTesterTextures()
     m_pendingLoadFunctions.push_back(&Renderer::loadTransDeath);
     m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
     
+    m_pendingLoadFunctions.push_back(&Renderer::loadTutorial);
+    
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart1);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundLowerPart2);
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1BackgroundMid);
@@ -2655,7 +2634,7 @@ void Renderer::loadJon()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_jon.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_jon" : r->m_compressed ? "c_jon" : "jon");
+            r->m_jon.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_jon" : "jon");
         }, this));
     }
 }
@@ -2681,7 +2660,7 @@ void Renderer::loadVampire()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_vampire.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_vampire" : r->m_compressed ? "c_vampire" : "vampire");
+            r->m_vampire.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_vampire" : "vampire");
         }, this));
     }
 }
@@ -2720,6 +2699,39 @@ bool Renderer::ensureJonTextures()
         if (isQueueEmpty())
         {
             m_pendingLoadFunctions.push_back(&Renderer::loadVampire);
+        }
+        
+        return false;
+    }
+    
+    return true;
+}
+
+void Renderer::loadTutorial()
+{
+    if (m_tutorial.gpuTextureWrapper == nullptr)
+    {
+        m_iNumAsyncLoads++;
+        
+        m_threads.push_back(std::thread([](Renderer* r)
+        {
+            r->m_tutorial.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_tutorial" : r->m_compressed ? "c_tutorial" : "tutorial");
+        }, this));
+    }
+}
+
+void Renderer::loadTutorialTextures()
+{
+    m_pendingLoadFunctions.push_back(&Renderer::loadTutorial);
+}
+
+bool Renderer::ensureTutorialTextures()
+{
+    if (m_tutorial.gpuTextureWrapper == nullptr)
+    {
+        if (isQueueEmpty())
+        {
+            m_pendingLoadFunctions.push_back(&Renderer::loadTutorial);
         }
         
         return false;
@@ -2840,7 +2852,7 @@ void Renderer::loadWorld1Special()
         
         m_threads.push_back(std::thread([](Renderer* r)
         {
-            r->m_world_1_special.gpuTextureDataWrapper = r->loadTextureData(r->m_desktop ? "d_world_1_special" : r->m_compressed ? "c_world_1_special" : "world_1_special");
+            r->m_world_1_special.gpuTextureDataWrapper = r->loadTextureData(r->m_compressed ? "c_world_1_special" : "world_1_special");
         }, this));
     }
 }
@@ -2860,6 +2872,8 @@ void Renderer::loadWorld1Textures()
     m_pendingLoadFunctions.push_back(&Renderer::loadWorld1Special);
     
     loadJonTextures();
+    
+    loadTutorialTextures();
 }
 
 bool Renderer::ensureWorld1Textures()
@@ -3285,6 +3299,8 @@ void Renderer::unloadSpriteTesterTextures()
     destroyTexture(&m_trans_death_shader_helper);
     destroyTexture(&m_vampire);
     
+    destroyTexture(&m_tutorial);
+    
     destroyTexture(&m_world_1_background_lower_part_1);
     destroyTexture(&m_world_1_background_lower_part_2);
     destroyTexture(&m_world_1_background_mid);
@@ -3311,6 +3327,11 @@ void Renderer::unloadJonTextures()
     destroyTexture(&m_vampire);
 }
 
+void Renderer::unloadTutorialTextures()
+{
+    destroyTexture(&m_tutorial);
+}
+
 void Renderer::unloadWorld1CutsceneTextures()
 {
     destroyTexture(&m_world_1_cutscene_1);
@@ -3332,6 +3353,8 @@ void Renderer::unloadWorld1Textures()
     destroyTexture(&m_world_1_special);
     
     unloadJonTextures();
+    
+    unloadTutorialTextures();
 }
 
 void Renderer::unloadWorld1MidBossTextures()

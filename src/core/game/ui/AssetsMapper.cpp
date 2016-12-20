@@ -332,12 +332,12 @@ void AssetsMapper::initializeAssetsMapper()
         anim->setFrameTimes(22, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
         m_animations["MidBossOwlState_Dying_Dead"] = anim;
     }
-    m_animations["Bat"] = createAnimation("vampire", 2048, 0, 164, 158, 1312, 316, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 15, 8);
-    m_animations["BatInstruction_Opening"] = createAnimation("jon", 0, 3588, 498, 394, 1494, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
-    m_animations["BatInstructionType_Tap"] = createAnimation("world_1_special", 1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
-    m_animations["BatInstructionType_TapHold"] = createAnimation("world_1_special", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 11);
-    m_animations["BatInstructionType_SwipeDown"] = createAnimation("jon", 2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
-    m_animations["BatInstructionType_SwipeRight"] = createAnimation("vampire", 0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+    m_animations["Bat"] = createAnimation("tutorial", 2048, 898, 164, 158, 1312, 316, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 15, 8);
+    m_animations["BatInstruction_Opening"] = createAnimation("tutorial", 0, 3588, 498, 394, 1494, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 3);
+    m_animations["BatInstructionType_Tap"] = createAnimation("tutorial", 1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 5);
+    m_animations["BatInstructionType_TapHold"] = createAnimation("tutorial", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 11, 9);
+    m_animations["BatInstructionType_SwipeDown"] = createAnimation("tutorial", 2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
+    m_animations["BatInstructionType_SwipeRight"] = createAnimation("tutorial", 0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 8);
     m_animations["TitlePanel_Lightning"] = createAnimation("title_screen", 1284, 0, 354, 356, 708, 1068, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, false, 0.10f, 6);
     m_animations["TitlePanel_Castle"] = createAnimation("title_screen", 0, 724, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
     m_animations["TitlePanel_Castle_Light_Effect"] = createAnimation("title_screen", 0, 1098, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);

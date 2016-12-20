@@ -179,6 +179,7 @@ protected:
     TextureWrapper m_misc;
     TextureWrapper m_title_screen;
     TextureWrapper m_trans_death_shader_helper;
+    TextureWrapper m_tutorial;
     TextureWrapper m_vampire;
     TextureWrapper m_world_1_background_lower_part_1;
     TextureWrapper m_world_1_background_lower_part_2;
@@ -338,6 +339,10 @@ private:
     void loadJonTextures();
     bool ensureJonTextures();
     
+    void loadTutorial();
+    void loadTutorialTextures();
+    bool ensureTutorialTextures();
+    
     void loadWorld1BackgroundLowerPart1();
     void loadWorld1BackgroundLowerPart2();
     void loadWorld1BackgroundMid();
@@ -388,6 +393,8 @@ private:
     void unloadSpriteTesterTextures();
     
     void unloadJonTextures();
+    
+    void unloadTutorialTextures();
     
     void unloadWorld1CutsceneTextures();
     
