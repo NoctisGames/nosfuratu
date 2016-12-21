@@ -494,7 +494,7 @@ void Level::update(GameScreen* gs)
             if (m_game->getLevel() != 10
                 && m_game->getLevel() != 21)
             {
-                float musicVolume = 1 - m_fStateTime / 2;
+                float musicVolume = 1 - m_fStateTime;
                 musicVolume = clamp(musicVolume, 1, 0);
                 short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
                 ASSETS->addMusicIdToPlayQueue(musicId);
@@ -516,7 +516,7 @@ void Level::update(GameScreen* gs)
                 m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
-            static float startingTime = 120.0f;
+            static float startingTime = 150.0f;
             
             float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
             

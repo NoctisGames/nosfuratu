@@ -613,7 +613,7 @@ void Game::calcFarRight()
     {
         // End Boss Level
         CountHissWithMina* countHissWithMina = m_countHissWithMinas.at(0);
-        m_fCamFarRight = countHissWithMina->getMainBounds().getRight() - CAM_WIDTH / 2;
+        m_fCamFarRight = countHissWithMina->getMainBounds().getRight() - CAM_WIDTH;
         m_fCamFarRightBottom = countHissWithMina->getMainBounds().getBottom() - 0.5625f;
     }
     
