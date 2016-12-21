@@ -63,6 +63,7 @@ m_fCamPosX(0),
 m_fGroundedCamY(0),
 m_fLowestGroundedCamY(1337),
 m_fLastKnownCamY(0),
+m_loadedRendererType(RENDERER_TYPE_NONE),
 m_iFramebufferIndex(0),
 m_iNumAsyncLoads(0),
 m_fRadialBlurDirection(0.5f),
@@ -163,7 +164,12 @@ void Renderer::init(RendererType rendererType)
     
     loadMiscTextures();
     
-    load(rendererType);
+    if (m_loadedRendererType != rendererType)
+    {
+        load(rendererType);
+    }
+    
+    m_loadedRendererType = rendererType;
     
     if (!m_areShadersLoaded)
     {
@@ -259,6 +265,8 @@ void Renderer::load(RendererType rendererType)
 
 void Renderer::unload(RendererType rendererType)
 {
+    m_loadedRendererType = RENDERER_TYPE_NONE;
+    
     switch (rendererType)
     {
         case RENDERER_TYPE_TITLE:
@@ -392,8 +400,8 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     
     updateCameraToFollowJon(game, nullptr, 1337);
     
-    m_camBounds->getLowerLeft().setX(getCamPosFarRight(game));
-    m_camBounds->getLowerLeft().setY(game.getFarRightBottom());
+    m_camBounds->getLowerLeft().setX(game.getCamFarRight());
+    m_camBounds->getLowerLeft().setY(game.getCamFarRightBottom());
     
     Jon& jon = game.getJon();
     float farLeft = jon.getPosition().getX() - CAM_WIDTH / 6;
@@ -401,8 +409,8 @@ void Renderer::beginOpeningPanningSequence(Game& game)
     m_fLowestGroundedCamY = fminf(m_fGroundedCamY, m_fLowestGroundedCamY);
     m_fLastKnownCamY = m_fGroundedCamY;
     
-    float changeInX = farLeft - getCamPosFarRight(game);
-    float changeInY = m_fGroundedCamY - game.getFarRightBottom();
+    float changeInX = farLeft - game.getCamFarRight();
+    float changeInY = m_fGroundedCamY - game.getCamFarRightBottom();
     
     m_camPosVelocity->set(changeInX, changeInY);
     
@@ -435,10 +443,10 @@ int Renderer::updateCameraToFollowPathToJon(Game& game)
         m_fLowestGroundedCamY = fminf(m_fGroundedCamY, m_fLowestGroundedCamY);
         m_fLastKnownCamY = m_fGroundedCamY;
         
-        float changeInX = farLeft - getCamPosFarRight(game);
-        float changeInY = m_fGroundedCamY - game.getFarRightBottom();
+        float changeInX = farLeft - game.getCamFarRight();
+        float changeInY = m_fGroundedCamY - game.getCamFarRightBottom();
         
-        m_camBounds->getLowerLeft().set(getCamPosFarRight(game) + changeInX * progress, game.getFarRightBottom() + changeInY * progress);
+        m_camBounds->getLowerLeft().set(game.getCamFarRight() + changeInX * progress, game.getCamFarRightBottom() + changeInY * progress);
 
         if (m_camBounds->getLeft() < farLeft)
         {
@@ -2280,6 +2288,8 @@ void Renderer::renderToScreen()
 
 void Renderer::cleanUp()
 {
+    m_loadedRendererType = RENDERER_TYPE_NONE;
+    
     cleanUpTextures();
     
     for (std::vector<std::thread>::iterator i = m_threads.begin(); i != m_threads.end(); i++)
@@ -2357,14 +2367,6 @@ void Renderer::renderBoundsWithColor(Rectangle &r, Color& c)
 void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 {
     m_highlightRectangleBatcher->renderRectangle(pe.getMainBounds(), c);
-}
-
-float Renderer::getCamPosFarRight(Game &game)
-{
-    float farRight = game.getFarRight();
-	float farCamPos = farRight;
-    
-    return farCamPos;
 }
 
 void Renderer::loadMiscTextures()

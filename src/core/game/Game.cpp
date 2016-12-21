@@ -36,6 +36,8 @@ Game::Game() :
 m_fStateTime(0.0f),
 m_fFarRight(ZOOMED_OUT_CAM_WIDTH),
 m_fFarRightBottom(GAME_HEIGHT / 2),
+m_fCamFarRight(ZOOMED_OUT_CAM_WIDTH),
+m_fCamFarRightBottom(GAME_HEIGHT / 2),
 m_iBestLevelStatsFlag(0),
 m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
@@ -540,6 +542,16 @@ float Game::getFarRightBottom()
     return m_fFarRightBottom;
 }
 
+float Game::getCamFarRight()
+{
+    return m_fCamFarRight;
+}
+
+float Game::getCamFarRightBottom()
+{
+    return m_fCamFarRightBottom;
+}
+
 float Game::getStateTime()
 {
     return m_fStateTime;
@@ -595,12 +607,29 @@ bool Game::hasEndSign()
 
 void Game::calcFarRight()
 {
+    bool isUsingEndBossCam = m_iLevel == 21;
+    
+    if (isUsingEndBossCam)
+    {
+        // End Boss Level
+        CountHissWithMina* countHissWithMina = m_countHissWithMinas.at(0);
+        m_fCamFarRight = countHissWithMina->getMainBounds().getRight() - CAM_WIDTH / 2;
+        m_fCamFarRightBottom = countHissWithMina->getMainBounds().getBottom() - 0.5625f;
+    }
+    
     for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
     {
         if ((*i)->getType() == ForegroundObjectType_EndSign)
         {
             m_fFarRight = (*i)->getMainBounds().getLeft();
             m_fFarRightBottom = (*i)->getMainBounds().getBottom() - 0.5625f;
+            
+            if (!isUsingEndBossCam)
+            {
+                m_fCamFarRight = m_fFarRight;
+                m_fCamFarRightBottom = m_fFarRightBottom;
+            }
+            
             return;
         }
     }

@@ -464,6 +464,7 @@ private:
 	float m_fMarker2X;
 	float m_fMarker3X;
 	float m_fMusicVolume;
+    float m_fInitialDistanceToHole;
 	int m_iNumCarrotsCollectedAtCheckpoint;
 	int m_iNumGoldenCarrotsCollectedAtCheckpoint;
     bool m_isChaseCamActivated;

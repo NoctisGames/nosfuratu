@@ -202,8 +202,11 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 		updateCamera(gs, 0, false, true);
 
-        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
-		ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        if (ASSETS->isMusicEnabled())
+        {
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        }
 
 		return;
 	}
@@ -491,7 +494,9 @@ void Level::update(GameScreen* gs)
             if (m_game->getLevel() != 10
                 && m_game->getLevel() != 21)
             {
-                short musicId = MUSIC_SET_VOLUME * 1000 + (short) ((0.5f - m_fStateTime / 2) * 100);
+                float musicVolume = 1 - m_fStateTime / 2;
+                musicVolume = clamp(musicVolume, 1, 0);
+                short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
                 ASSETS->addMusicIdToPlayQueue(musicId);
             }
         }

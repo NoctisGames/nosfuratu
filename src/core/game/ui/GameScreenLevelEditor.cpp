@@ -47,6 +47,8 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
     
     gs->m_renderer->zoomOut();
     
+    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+    
     if (m_iWorld == 0)
     {
         m_levelSelectorPanel->open();
@@ -432,25 +434,21 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
-					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     jon->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(Enemy::rtti))
                 {
                     Enemy* e = reinterpret_cast<Enemy *>(m_lastAddedEntity);
-					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     e->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(ForegroundObject::rtti))
                 {
                     ForegroundObject* fo = reinterpret_cast<ForegroundObject *>(m_lastAddedEntity);
-                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     fo->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                 {
                     CollectibleItem* ci = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
-                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     ci->setGame(m_game.get());
                 }
             }

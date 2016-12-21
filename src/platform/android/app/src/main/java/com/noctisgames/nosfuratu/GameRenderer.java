@@ -295,10 +295,6 @@ public final class GameRenderer implements Renderer
                 case MUSIC_SET_VOLUME:
                 {
                     float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
-                    if (volume < 0)
-                    {
-                        volume = 0;
-                    }
 
                     _soundManager.setMusicVolume(volume);
                 }

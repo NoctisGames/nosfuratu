@@ -135,6 +135,10 @@ public:
     
     float getFarRightBottom();
     
+    float getCamFarRight();
+    
+    float getCamFarRightBottom();
+    
     float getStateTime();
     
     void setNumCarrotsCollected(int numCarrotsCollected);
@@ -184,6 +188,8 @@ private:
     float m_fStateTime;
     float m_fFarRight;
     float m_fFarRightBottom;
+    float m_fCamFarRight;
+    float m_fCamFarRightBottom;
     int m_iBestLevelStatsFlag;
     int m_iNumCarrotsCollected;
     int m_iNumGoldenCarrotsCollected;

@@ -7,11 +7,14 @@
 //
 
 #include "GameScreenLevels.h"
+
 #include "State.h"
 #include "GameScreen.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
 #include "Game.h"
+#include "GameScreenLevelEditor.h"
+#include "MathUtil.h"
 
 void Chapter1Level21::enter(GameScreen* gs)
 {
@@ -142,7 +145,10 @@ void Chapter1Level21::enter(GameScreen* gs)
     
     m_game->getCountHissWithMina().faceLeft();
 
-	Jon& jon = m_game->getJon(); 
+	Jon& jon = m_game->getJon();
+    
+    m_fInitialDistanceToHole = m_hole->getPosition().getX() - jon.getPosition().getX();
+    
 	if (m_hasTriggeredSnakeDeathCheckPoint)
 	{
 		m_game->setStateTime(m_fCheckPointStateTime);
@@ -218,7 +224,7 @@ void Chapter1Level21::exit(GameScreen* gs)
 	m_fMarker1X = 0;
 	m_fMarker2X = 0;
 	m_fMarker3X = 0;
-	m_fMusicVolume = 0.5f;
+	m_fMusicVolume = 1;
 	m_fCheckPointStateTime = 0;
 	m_iNumCarrotsCollectedAtCheckpoint = 0;
 	m_iNumGoldenCarrotsCollectedAtCheckpoint = 0;
@@ -234,27 +240,64 @@ void Chapter1Level21::exit(GameScreen* gs)
 
 void Chapter1Level21::onEnter(GameScreen* gs)
 {
-    updateCamera(gs, 0, false, true);
+    if (m_hasOpeningSequenceCompleted)
+    {
+        updateCamera(gs, 0, false, true);
+    }
 }
 
 void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 {
-	Jon& jon = m_game->getJon();
-	jon.setAllowedToMove(true);
-	jon.getVelocity().setX(RABBIT_DEFAULT_MAX_SPEED);
-
-	updateCamera(gs, 0, false, true);
+    if (gs->m_stateMachine->getPreviousState() == GameScreenLevelEditor::getInstance())
+    {
+        m_hasShownOpeningSequence = true;
+        m_hasOpeningSequenceCompleted = true;
+        
+        updateCamera(gs, 0, false, true);
+        
+        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+        ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        
+        return;
+    }
+    
+    gs->m_renderer->beginOpeningPanningSequence(*m_game);
     
     m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-
-	m_hasShownOpeningSequence = true;
+    
+    m_hasShownOpeningSequence = true;
+    
+    if (ASSETS->isMusicEnabled())
+    {
+        ASSETS->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
+        ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+    }
 }
 
 void Chapter1Level21::handleOpeningSequence(GameScreen* gs)
 {
-	m_hasOpeningSequenceCompleted = true;
-
-	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+    CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
+    countHissWithMina.update(gs->m_fDeltaTime);
+    
+    Jon& jon = m_game->getJon();
+    jon.update(gs->m_fDeltaTime);
+    
+    int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
+    m_hasOpeningSequenceCompleted = result == 3;
+    m_activateRadialBlur = result == 1;
+    jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+    
+    if (m_hasOpeningSequenceCompleted)
+    {
+        ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+    }
+    
+    if (result == 2)
+    {
+        jon.beginWarmingUp();
+    }
+    
+    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
 }
 
 void Chapter1Level21::update(GameScreen* gs)
@@ -295,6 +338,16 @@ void Chapter1Level21::update(GameScreen* gs)
             
             return;
         }
+        else
+        {
+            float distanceToHole = m_hole->getPosition().getX() - jon.getPosition().getX();
+            float percentageToHole = distanceToHole / m_fInitialDistanceToHole;
+            m_fMusicVolume = percentageToHole;
+            m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
+            
+            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
+            ASSETS->addMusicIdToPlayQueue(musicId);
+        }
 
 		if (m_hasTriggeredMusicLoopIntro
 			&& !m_hasTriggeredSnakeAwaken)
@@ -327,7 +380,7 @@ void Chapter1Level21::update(GameScreen* gs)
 			{
                 ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
 
-				m_fMusicVolume = 0.5f;
+				m_fMusicVolume = 1;
 
 				m_hasTriggeredMusicLoop = true;
 			}
@@ -428,10 +481,7 @@ void Chapter1Level21::update(GameScreen* gs)
 			&& m_fMusicVolume > 0)
 		{
 			m_fMusicVolume -= gs->m_fDeltaTime;
-			if (m_fMusicVolume < 0)
-			{
-				m_fMusicVolume = 0;
-			}
+            m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
 
 			short musicId = MUSIC_SET_VOLUME * 1000 + (short)(m_fMusicVolume * 100);
 			ASSETS->addMusicIdToPlayQueue(musicId);
@@ -504,7 +554,8 @@ m_fCheckPointY(0),
 m_fMarker1X(0),
 m_fMarker2X(0),
 m_fMarker3X(0),
-m_fMusicVolume(0.5f),
+m_fMusicVolume(1),
+m_fInitialDistanceToHole(0),
 m_iNumCarrotsCollectedAtCheckpoint(0),
 m_iNumGoldenCarrotsCollectedAtCheckpoint(0),
 m_isChaseCamActivated(false),

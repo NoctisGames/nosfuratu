@@ -288,6 +288,7 @@ void WorldMap::setFade(float fade)
     // Music Fade
     
     float musicVolume = alpha / 2;
+    musicVolume = clamp(musicVolume, 1, 0);
     
     short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
     ASSETS->addMusicIdToPlayQueue(musicId);

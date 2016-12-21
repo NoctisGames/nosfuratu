@@ -221,6 +221,7 @@ protected:
     GpuProgramWrapper* m_framebufferObfuscationGpuProgramWrapper;
     FramebufferRadialBlurGpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
 
+    RendererType m_loadedRendererType;
 	int m_iFramebufferIndex;
     
     virtual void loadShaderPrograms() = 0;
@@ -306,8 +307,6 @@ private:
     void renderBoundsWithColor(Rectangle &r, Color& c);
     
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
-    
-    float getCamPosFarRight(Game& game);
     
     void loadMiscTextures();
     

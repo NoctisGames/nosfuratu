@@ -15,6 +15,7 @@
 #include "MidBossOwl.h"
 #include "Assets.h"
 #include "BatPanel.h"
+#include "MathUtil.h"
 
 void Chapter1Level10::enter(GameScreen* gs)
 {
@@ -75,7 +76,7 @@ void Chapter1Level10::exit(GameScreen* gs)
     m_fGameStateTime = 0.0f;
     m_fIdleWaitTime = 0.0f;
     m_perchTree = nullptr;
-    m_fMusicVolume = 0.5f;
+    m_fMusicVolume = 1;
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 0;
     m_hasTriggeredMidBossMusicLoopIntro = false;
@@ -111,10 +112,7 @@ void Chapter1Level10::update(GameScreen* gs)
         if (jon.getNumBoosts() >= 1)
         {
             m_fMusicVolume -= gs->m_fDeltaTime / 8;
-            if (m_fMusicVolume < 0)
-            {
-                m_fMusicVolume = 0;
-            }
+            m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
             ASSETS->addMusicIdToPlayQueue(musicId);
@@ -215,7 +213,7 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
-            m_fMusicVolume = 0.5f;
+            m_fMusicVolume = 1;
             
             m_hasTriggeredMidBossMusicLoop = true;
         }
@@ -242,7 +240,7 @@ void Chapter1Level10::update(GameScreen* gs)
         {
             ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
             
-            m_fMusicVolume = 0.5f;
+            m_fMusicVolume = 1;
             
             m_hasTriggeredMidBossMusicLoop = true;
         }
@@ -294,10 +292,7 @@ void Chapter1Level10::update(GameScreen* gs)
             && m_fMusicVolume > 0)
         {
             m_fMusicVolume -= gs->m_fDeltaTime;
-            if (m_fMusicVolume < 0)
-            {
-                m_fMusicVolume = 0;
-            }
+            m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
             ASSETS->addMusicIdToPlayQueue(musicId);
@@ -389,7 +384,7 @@ m_perchTree(nullptr),
 m_fJonY(0),
 m_fGameStateTime(0.0f),
 m_fIdleWaitTime(0.0f),
-m_fMusicVolume(0.5f),
+m_fMusicVolume(1),
 m_iLastKnownOwlDamage(0),
 m_iLastKnownJonNumBoosts(0),
 m_iNumCarrotsCollectedAtCheckpoint(0),
