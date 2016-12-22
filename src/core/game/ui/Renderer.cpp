@@ -569,6 +569,11 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         {
             regionBottomY = GAME_HEIGHT - CAM_HEIGHT;
         }
+        
+        if (regionBottomY > yFactor)
+        {
+            regionBottomY = yFactor;
+        }
     }
     
     if (batPanel && batPanel->isRequestingInput())
