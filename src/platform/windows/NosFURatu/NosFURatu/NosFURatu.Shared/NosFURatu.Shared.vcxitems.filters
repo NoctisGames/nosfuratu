@@ -479,6 +479,15 @@
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\world_1_bgm_intro.wav">
       <Filter>Assets</Filter>
     </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_wood.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_wood.wav">
+      <Filter>Assets</Filter>
+    </Media>
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_wood.wav">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_world_1_special.png">
@@ -602,16 +611,8 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\world_1_background_lower_part_1.png">
       <Filter>Assets</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_tutorial.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_tutorial.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\tutorial.png">
-      <Filter>Assets</Filter>
-    </Image>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\compressed\c_tutorial.png" />
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\d_tutorial.png" />
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\tutorial.png" />
   </ItemGroup>
 </Project>

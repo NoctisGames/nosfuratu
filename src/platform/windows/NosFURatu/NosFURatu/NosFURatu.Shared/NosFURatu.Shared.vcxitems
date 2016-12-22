@@ -734,8 +734,10 @@
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\final_boss_bgm_intro.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_cave.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_grass.wav" />
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_left_wood.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_cave.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_grass.wav" />
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\footstep_right_wood.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_bounced_on.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_death.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\fox_strike.wav" />
@@ -748,6 +750,7 @@
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\jump_spring_heavy.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_cave.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_grass.wav" />
+    <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\landing_wood.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_clear.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_complete.wav" />
     <Media Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\wav\level_confirmed.wav" />
