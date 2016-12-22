@@ -38,6 +38,24 @@ Midground* Midground::create(int gridX, int gridY, int type)
             return new Midground(gridX, gridY, 48, 28, mt);
         case MidgroundType_Hill:
             return new Midground(gridX, 96, 86, 11, mt);
+        case MidgroundType_Train_Car:
+            return new Midground(gridX, 96, 98, 24, mt);
+        case MidgroundType_Short_Stump:
+            return new Midground(gridX, 96, 12, 8, mt);
+        case MidgroundType_Tall_Stump:
+            return new Midground(gridX, 96, 8, 12, mt);
+        case MidgroundType_Thin_Tall_Tree:
+            return new Midground(gridX, 96, 12, 32, mt);
+        case MidgroundType_Thin_Short_Tree:
+            return new Midground(gridX, 96, 16, 20, mt);
+        case MidgroundType_Stone_Square:
+            return new Midground(gridX, gridY, 24, 24, mt);
+        case MidgroundType_Stone_Diamond:
+            return new Midground(gridX, gridY, 24, 24, mt);
+        case MidgroundType_Wall:
+            return new Midground(gridX, gridY, 16, 16, mt);
+        case MidgroundType_Roof:
+            return new Midground(gridX, gridY, 16, 4, mt);
     }
     
     assert(false);

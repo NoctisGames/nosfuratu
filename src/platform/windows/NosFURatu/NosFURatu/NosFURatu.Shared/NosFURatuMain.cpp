@@ -102,6 +102,9 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
     m_sounds.push_back("end_boss_snake_death.wav");
     m_sounds.push_back("spiked_ball_rolling_loop.wav");
     m_sounds.push_back("absorb_dash_ability.wav");
+    m_sounds.push_back("footstep_left_wood.wav");
+    m_sounds.push_back("footstep_right_wood.wav");
+    m_sounds.push_back("landing_wood.wav");
 }
 
 NosFURatuMain::~NosFURatuMain()

@@ -606,10 +606,10 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.collect_carrot, 6);
         _soundManager.loadSound(activity, R.raw.collect_golden_carrot, 1);
         _soundManager.loadSound(activity, R.raw.death, 1);
-        _soundManager.loadSound(activity, R.raw.footstep_left_grass, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_right_grass, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_left_cave, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_right_cave, 2);
+        _soundManager.loadSound(activity, R.raw.footstep_left_grass, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_grass, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_left_cave, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_cave, 1);
         _soundManager.loadSound(activity, R.raw.jump_spring, 1);
         _soundManager.loadSound(activity, R.raw.landing_grass, 1);
         _soundManager.loadSound(activity, R.raw.landing_cave, 1);
@@ -664,6 +664,9 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.end_boss_snake_death, 1);
         _soundManager.loadSound(activity, R.raw.spiked_ball_rolling_loop, 2);
         _soundManager.loadSound(activity, R.raw.absorb_dash_ability, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_left_wood, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_wood, 1);
+        _soundManager.loadSound(activity, R.raw.landing_wood, 1);
     }
 
     private static int[] getScreenDimensions(Activity activity)

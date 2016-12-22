@@ -183,7 +183,7 @@ void Jon::update(float deltaTime)
 			}
             else if (m_groundSoundType == GROUND_SOUND_WOOD)
             {
-                // TODO
+                ASSETS->addSoundIdToPlayQueue(SOUND_LANDING_WOOD);
             }
 		}
         

@@ -10,6 +10,7 @@
 #define __nosfuratu__ForegroundObject__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "GroundSoundType.h"
 #include "Jon.h"
 #include "GameConstants.h"
@@ -91,7 +92,21 @@ typedef enum
     
     ForegroundObjectType_WoodPlatform,
     ForegroundObjectType_WoodBoxTop,
-    ForegroundObjectType_WoodBox
+    ForegroundObjectType_WoodBox,
+    
+    ForegroundObjectType_GreenThornsLeft,
+    ForegroundObjectType_GreenThornsCenterSmall,
+    ForegroundObjectType_GreenThornsCenterBig,
+    ForegroundObjectType_GreenThornsRight,
+    
+    ForegroundObjectType_Logs,
+    
+    ForegroundObjectType_Stone_Bottom,
+    ForegroundObjectType_Stone_Middle,
+    ForegroundObjectType_Stone_Top,
+    ForegroundObjectType_Stone_Platform,
+    
+    ForegroundObjectType_Floating_Platform
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -102,8 +117,6 @@ public:
     static ForegroundObject* create(int gridX, int gridY, int type);
     
     ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
-    
-    virtual void updateBounds();
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 

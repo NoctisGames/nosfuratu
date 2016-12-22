@@ -167,6 +167,16 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodPlatform));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBoxTop));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBox));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsCenterSmall));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsCenterBig));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsRight));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Logs));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Bottom));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Middle));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Top));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Platform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Floating_Platform));
         
         if (level == 21)
         {
@@ -228,11 +238,28 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Slag_Town));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Jon_Wanted));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Hill));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Train_Car));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Short_Stump));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Tall_Stump));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Thin_Tall_Tree));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Thin_Short_Tree));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Stone_Square));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Stone_Diamond));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Wall));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Roof));
         
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Tree));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Plant));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Bush));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Ferns));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Bottom));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window_Bottom));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Side_Left));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Side_Right));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Plain));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Chimney));
         
         m_extraForegroundObjects.push_back(ExtraForegroundObject::create(0, 0, ForegroundObjectType_SpikeTower));
     }

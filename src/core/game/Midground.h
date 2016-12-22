@@ -25,7 +25,16 @@ typedef enum
     MidgroundType_Billboard_Count_Hiss,
     MidgroundType_Billboard_Slag_Town,
     MidgroundType_Billboard_Jon_Wanted,
-    MidgroundType_Hill
+    MidgroundType_Hill,
+    MidgroundType_Train_Car,
+    MidgroundType_Short_Stump,
+    MidgroundType_Tall_Stump,
+    MidgroundType_Thin_Tall_Tree,
+    MidgroundType_Thin_Short_Tree,
+    MidgroundType_Stone_Square,
+    MidgroundType_Stone_Diamond,
+    MidgroundType_Wall,
+    MidgroundType_Roof
 } MidgroundType;
 
 class Midground : public GridLockedPhysicalEntity

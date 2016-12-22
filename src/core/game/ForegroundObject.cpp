@@ -141,6 +141,30 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.96875f);
         case ForegroundObjectType_WoodBox:
             return new ForegroundObject(gridX, gridY, 16, 16, fot, GROUND_SOUND_WOOD);
+            
+        case ForegroundObjectType_GreenThornsLeft:
+            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+        case ForegroundObjectType_GreenThornsCenterSmall:
+            return new DeadlyObject(gridX, gridY, 12, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+        case ForegroundObjectType_GreenThornsCenterBig:
+            return new DeadlyObject(gridX, gridY, 24, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+        case ForegroundObjectType_GreenThornsRight:
+            return new DeadlyObject(gridX, gridY, 8, 8, fot, GROUND_SOUND_NONE, 0, 0, 1, 0.8f);
+            
+        case ForegroundObjectType_Logs:
+            return new ForegroundObject(gridX, gridY, 37, 10, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.9375f);
+            
+        case ForegroundObjectType_Stone_Bottom:
+            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+        case ForegroundObjectType_Stone_Middle:
+            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+        case ForegroundObjectType_Stone_Top:
+            return new ForegroundObject(gridX, gridY, 28, 24, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.95833333333333f);
+        case ForegroundObjectType_Stone_Platform:
+            return new ForegroundObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.85714285714286f);
+            
+        case ForegroundObjectType_Floating_Platform:
+            return new PlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
     }
     
     assert(false);
@@ -149,11 +173,6 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
 ForegroundObject::ForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_groundSoundType(groundSoundType), m_game(nullptr), m_color(1, 1, 1, 1)
 {
     // Empty
-}
-
-void ForegroundObject::updateBounds()
-{
-    GridLockedPhysicalEntity::updateBounds();
 }
 
 bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -213,11 +232,11 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 	float entityVelocityY = entity->getVelocity().getY();
 
 	if (entityVelocityY <= 0
-		&& entity->getMainBounds().getRight() > getMainBounds().getLeft())
+		&& entity->getMainBounds().getRight() > bounds.getLeft())
 	{
 		float entityYDelta = fabsf(entityVelocityY * deltaTime);
 
-		Rectangle tempBounds = Rectangle(getMainBounds().getLeft(), getMainBounds().getBottom(), getMainBounds().getWidth(), getMainBounds().getHeight());
+		Rectangle tempBounds = Rectangle(bounds.getLeft(), bounds.getBottom(), bounds.getWidth(), bounds.getHeight());
 
 		tempBounds.setHeight(tempBounds.getHeight() + entityYDelta);
 
@@ -232,7 +251,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, Rectangle& bounds
 
 			if (jonLowerLeftY >= itemTopReq)
 			{
-				entity->placeOn(getMainBounds().getTop());
+				entity->placeOn(bounds.getTop());
 
                 Jon *jon = nullptr;
                 if (entity->getRTTI().derivesFrom(Jon::rtti))

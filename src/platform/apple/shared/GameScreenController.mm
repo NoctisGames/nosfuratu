@@ -502,10 +502,10 @@
     [_appleSoundManager loadSound:@"collect_carrot" withNumCopies:6];
     [_appleSoundManager loadSound:@"collect_golden_carrot" withNumCopies:1];
     [_appleSoundManager loadSound:@"death" withNumCopies:1];
-    [_appleSoundManager loadSound:@"footstep_left_grass" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_right_grass" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_left_cave" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_right_cave" withNumCopies:2];
+    [_appleSoundManager loadSound:@"footstep_left_grass" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_grass" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_left_cave" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_cave" withNumCopies:1];
     [_appleSoundManager loadSound:@"jump_spring" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_grass" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_cave" withNumCopies:1];
@@ -560,6 +560,9 @@
     [_appleSoundManager loadSound:@"end_boss_snake_death" withNumCopies:1];
     [_appleSoundManager loadSound:@"spiked_ball_rolling_loop" withNumCopies:2];
     [_appleSoundManager loadSound:@"absorb_dash_ability" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_left_wood" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_wood" withNumCopies:1];
+    [_appleSoundManager loadSound:@"landing_wood" withNumCopies:1];
 }
 
 @end

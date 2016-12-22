@@ -862,6 +862,18 @@
 		BB5C2A6D1E09EAF1009577BD /* vampire.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E01DB03276003E633F /* vampire.png */; };
 		BB5C2A6E1E09EAF4009577BD /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
+		BB6A879A1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */; };
+		BB6A879B1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */; };
+		BB6A879C1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */; };
+		BB6A879D1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */; };
+		BB6A879E1E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */; };
+		BB6A879F1E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */; };
+		BB6A87A01E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */; };
+		BB6A87A11E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */; };
+		BB6A87A21E0C8AF600190C81 /* landing_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */; };
+		BB6A87A31E0C8AF600190C81 /* landing_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */; };
+		BB6A87A41E0C8AF600190C81 /* landing_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */; };
+		BB6A87A51E0C8AF600190C81 /* landing_wood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */; };
 		BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */; };
 		BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */; };
 		BB7450821DC1542C001568B2 /* GameMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7450801DC1542C001568B2 /* GameMarker.cpp */; };
@@ -1648,6 +1660,9 @@
 		BB5C2A631E09E07E009577BD /* c_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A661E09E088009577BD /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = footstep_left_wood.mp3; sourceTree = "<group>"; };
+		BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = footstep_right_wood.mp3; sourceTree = "<group>"; };
+		BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = landing_wood.mp3; sourceTree = "<group>"; };
 		BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BB7450801DC1542C001568B2 /* GameMarker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMarker.cpp; sourceTree = "<group>"; };
@@ -2062,17 +2077,19 @@
 				BB4255721DBA8484001E6B97 /* collect_golden_carrot.mp3 */,
 				BB4255731DBA8484001E6B97 /* complete_transform.mp3 */,
 				BB4255741DBA8484001E6B97 /* death.mp3 */,
-				BB4255751DBA8484001E6B97 /* end_boss_snake_charge.mp3 */,
 				BB4255761DBA8484001E6B97 /* end_boss_snake_charge_cue.mp3 */,
+				BB4255751DBA8484001E6B97 /* end_boss_snake_charge.mp3 */,
 				BB4255771DBA8484001E6B97 /* end_boss_snake_damaged.mp3 */,
 				BB4255781DBA8484001E6B97 /* end_boss_snake_death.mp3 */,
 				BB4255791DBA8484001E6B97 /* end_boss_snake_mouth_open.mp3 */,
-				BB42557A1DBA8484001E6B97 /* final_boss_bgm.mp3 */,
 				BB42557B1DBA8484001E6B97 /* final_boss_bgm_intro.mp3 */,
+				BB42557A1DBA8484001E6B97 /* final_boss_bgm.mp3 */,
 				BB42557C1DBA8484001E6B97 /* footstep_left_cave.mp3 */,
 				BB42557D1DBA8484001E6B97 /* footstep_left_grass.mp3 */,
+				BB6A87971E0C8AF600190C81 /* footstep_left_wood.mp3 */,
 				BB42557E1DBA8484001E6B97 /* footstep_right_cave.mp3 */,
 				BB42557F1DBA8484001E6B97 /* footstep_right_grass.mp3 */,
+				BB6A87981E0C8AF600190C81 /* footstep_right_wood.mp3 */,
 				BB4255801DBA8484001E6B97 /* fox_bounced_on.mp3 */,
 				BB4255811DBA8484001E6B97 /* fox_death.mp3 */,
 				BB4255821DBA8484001E6B97 /* fox_strike.mp3 */,
@@ -2081,17 +2098,18 @@
 				BB4255851DBA8484001E6B97 /* jon_rabbit_jump.mp3 */,
 				BB4255861DBA8484001E6B97 /* jon_vampire_double_jump.mp3 */,
 				BB4255871DBA8484001E6B97 /* jon_vampire_jump.mp3 */,
-				BB4255881DBA8484001E6B97 /* jump_spring.mp3 */,
 				BB4255891DBA8484001E6B97 /* jump_spring_heavy.mp3 */,
+				BB4255881DBA8484001E6B97 /* jump_spring.mp3 */,
 				BB42558A1DBA8484001E6B97 /* landing_cave.mp3 */,
 				BB42558B1DBA8484001E6B97 /* landing_grass.mp3 */,
+				BB6A87991E0C8AF600190C81 /* landing_wood.mp3 */,
 				BB42558C1DBA8484001E6B97 /* level_clear.mp3 */,
 				BB42558D1DBA8484001E6B97 /* level_complete.mp3 */,
 				BB42558E1DBA8484001E6B97 /* level_confirmed.mp3 */,
 				BB42558F1DBA8484001E6B97 /* level_select_bgm.mp3 */,
 				BB4255901DBA8484001E6B97 /* level_selected.mp3 */,
-				BB4255911DBA8484001E6B97 /* mid_boss_bgm.mp3 */,
 				BB4255921DBA8484001E6B97 /* mid_boss_bgm_intro.mp3 */,
+				BB4255911DBA8484001E6B97 /* mid_boss_bgm.mp3 */,
 				BB4255931DBA8484001E6B97 /* mid_boss_owl_death.mp3 */,
 				BB4255941DBA8484001E6B97 /* mid_boss_owl_swoop.mp3 */,
 				BB4255951DBA8484001E6B97 /* mid_boss_owl_tree_smash.mp3 */,
@@ -2100,8 +2118,8 @@
 				BB4255981DBA8484001E6B97 /* rabbit_drill.mp3 */,
 				BB4255991DBA8484001E6B97 /* rabbit_stomp.mp3 */,
 				BB42559A1DBA8484001E6B97 /* saw_grind_loop.mp3 */,
-				BB42559B1DBA8484001E6B97 /* screen_transition.mp3 */,
 				BB42559C1DBA8484001E6B97 /* screen_transition_2.mp3 */,
+				BB42559B1DBA8484001E6B97 /* screen_transition.mp3 */,
 				BB42559D1DBA8484001E6B97 /* snake_death.mp3 */,
 				BB42559E1DBA8484001E6B97 /* snake_jump.mp3 */,
 				BB42559F1DBA8484001E6B97 /* sparrow_die.mp3 */,
@@ -2115,8 +2133,8 @@
 				BB4255A71DBA8484001E6B97 /* trigger_transform.mp3 */,
 				BB4255A81DBA8484001E6B97 /* vampire_dash.mp3 */,
 				BB4255A91DBA8484001E6B97 /* vampire_glide_loop.mp3 */,
-				BB4255AA1DBA8484001E6B97 /* world_1_bgm.mp3 */,
 				BB4255AB1DBA8484001E6B97 /* world_1_bgm_intro.mp3 */,
+				BB4255AA1DBA8484001E6B97 /* world_1_bgm.mp3 */,
 			);
 			path = mp3;
 			sourceTree = "<group>";
@@ -3115,7 +3133,9 @@
 				BB44C4CE1DB03277003E633F /* title_screen.png in Resources */,
 				BB42566C1DBA8485001E6B97 /* rabbit_stomp.mp3 in Resources */,
 				BB42567C1DBA8485001E6B97 /* snake_death.mp3 in Resources */,
+				BB6A879E1E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */,
 				BB5C2A641E09E07E009577BD /* c_tutorial.png in Resources */,
+				BB6A879A1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */,
 				BB44C4941DB03277003E633F /* c_world_1_mid_boss_part_3.png in Resources */,
 				BB44CA971DB03A7F003E633F /* trans_screen_shader.fsh in Resources */,
 				BB4255D41DBA8485001E6B97 /* complete_transform.mp3 in Resources */,
@@ -3132,6 +3152,7 @@
 				BB4256281DBA8485001E6B97 /* jump_spring.mp3 in Resources */,
 				BB44CA5D1DB03A7F003E633F /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
 				BB44C48C1DB03277003E633F /* c_world_1_enemies.png in Resources */,
+				BB6A87A21E0C8AF600190C81 /* landing_wood.mp3 in Resources */,
 				BB44C4E61DB03277003E633F /* world_1_ground.png in Resources */,
 				BB4256141DBA8485001E6B97 /* jon_burrow_rocksfall.mp3 in Resources */,
 				BB4256041DBA8485001E6B97 /* footstep_right_grass.mp3 in Resources */,
@@ -3250,6 +3271,7 @@
 				BB4255C21DBA8484001E6B97 /* button_click.mp3 in Resources */,
 				BB4255D61DBA8485001E6B97 /* complete_transform.mp3 in Resources */,
 				BB4256721DBA8485001E6B97 /* saw_grind_loop.mp3 in Resources */,
+				BB6A87A41E0C8AF600190C81 /* landing_wood.mp3 in Resources */,
 				BB4255F21DBA8485001E6B97 /* final_boss_bgm.mp3 in Resources */,
 				BB44C49F1DB03277003E633F /* misc.png in Resources */,
 				BB42562A1DBA8485001E6B97 /* jump_spring.mp3 in Resources */,
@@ -3298,6 +3320,7 @@
 				BB42567A1DBA8485001E6B97 /* screen_transition_2.mp3 in Resources */,
 				BB4255BA1DBA8484001E6B97 /* boss_level_clear.mp3 in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
+				BB6A87A01E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */,
 				BB4255D21DBA8485001E6B97 /* collect_golden_carrot.mp3 in Resources */,
 				BB44CA801DB03A7F003E633F /* pp_radial_blue_texture_shader.fsh in Resources */,
 				BB44C4DF1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
@@ -3338,6 +3361,7 @@
 				BB42564A1DBA8485001E6B97 /* level_selected.mp3 in Resources */,
 				BB4255C61DBA8484001E6B97 /* cancel_transform.mp3 in Resources */,
 				BB4256421DBA8485001E6B97 /* level_confirmed.mp3 in Resources */,
+				BB6A879C1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */,
 				BB42562E1DBA8485001E6B97 /* jump_spring_heavy.mp3 in Resources */,
 				BB44C4F51DB03277003E633F /* world_map_screen_part_2.png in Resources */,
 				BB4256121DBA8485001E6B97 /* fox_strike.mp3 in Resources */,
@@ -3395,6 +3419,7 @@
 				BB44CC981DB07165003E633F /* title_screen.png in Resources */,
 				BB44CC9A1DB07165003E633F /* pp_shockwave_texture_shader.fsh in Resources */,
 				BBCB717A1DB69D21006430B6 /* color_shader.vsh in Resources */,
+				BB6A87A11E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */,
 				BB4255FB1DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
 				BB42566F1DBA8485001E6B97 /* rabbit_stomp.mp3 in Resources */,
 				BB44CC9C1DB07165003E633F /* world_1_mid_boss_part_2.png in Resources */,
@@ -3434,6 +3459,7 @@
 				BB4255CB1DBA8485001E6B97 /* chain_snap.mp3 in Resources */,
 				BB44CCC61DB07165003E633F /* sin_wave_texture_shader.fsh in Resources */,
 				BB44CCC81DB07165003E633F /* trans_screen_circle_open_shader.fsh in Resources */,
+				BB6A879D1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */,
 				BB4256B71DBA8485001E6B97 /* world_1_bgm_intro.mp3 in Resources */,
 				BBCB71861DB69D21006430B6 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB42567F1DBA8485001E6B97 /* snake_death.mp3 in Resources */,
@@ -3471,6 +3497,7 @@
 				BB21A4841DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB036B711DD390D000BB47EE /* world_1_objects_part_2.png in Resources */,
 				BB4256671DBA8485001E6B97 /* opening_cutscene_bgm.mp3 in Resources */,
+				BB6A87A51E0C8AF600190C81 /* landing_wood.mp3 in Resources */,
 				BB42563F1DBA8485001E6B97 /* level_complete.mp3 in Resources */,
 				BB42561F1DBA8485001E6B97 /* jon_rabbit_jump.mp3 in Resources */,
 				BB42563B1DBA8485001E6B97 /* level_clear.mp3 in Resources */,
@@ -3567,6 +3594,7 @@
 				BB4256091DBA8485001E6B97 /* fox_bounced_on.mp3 in Resources */,
 				BBE92DD61DB2E671008359C2 /* pp_shockwave_texture_shader.vsh in Resources */,
 				BB42568D1DBA8485001E6B97 /* spiked_ball_rolling_loop.mp3 in Resources */,
+				BB6A87A31E0C8AF600190C81 /* landing_wood.mp3 in Resources */,
 				BB4255E91DBA8485001E6B97 /* end_boss_snake_death.mp3 in Resources */,
 				BBE92DD81DB2E671008359C2 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BBE92DDC1DB2E671008359C2 /* world_1_end_boss_part_3.png in Resources */,
@@ -3600,9 +3628,11 @@
 				BBCB71801DB69D21006430B6 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBE92DF41DB2E671008359C2 /* c_jon.png in Resources */,
 				BB4255FD1DBA8485001E6B97 /* footstep_left_grass.mp3 in Resources */,
+				BB6A879B1E0C8AF600190C81 /* footstep_left_wood.mp3 in Resources */,
 				BBE92DF61DB2E671008359C2 /* world_1_mid_boss_part_3.png in Resources */,
 				BB4256191DBA8485001E6B97 /* jon_rabbit_double_jump.mp3 in Resources */,
 				BBE92DF81DB2E671008359C2 /* Localizable.strings in Resources */,
+				BB6A879F1E0C8AF600190C81 /* footstep_right_wood.mp3 in Resources */,
 				BB4256691DBA8485001E6B97 /* rabbit_drill.mp3 in Resources */,
 				BB4256251DBA8485001E6B97 /* jon_vampire_jump.mp3 in Resources */,
 				BB4256011DBA8485001E6B97 /* footstep_right_cave.mp3 in Resources */,

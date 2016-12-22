@@ -483,6 +483,51 @@ TextureRegion& Assets::get(Midground* midground)
             static TextureRegion tr = findTextureRegion("MidgroundType_Hill");
             return tr;
         }
+        case MidgroundType_Train_Car:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Train_Car");
+            return tr;
+        }
+        case MidgroundType_Short_Stump:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Short_Stump");
+            return tr;
+        }
+        case MidgroundType_Tall_Stump:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Tall_Stump");
+            return tr;
+        }
+        case MidgroundType_Thin_Tall_Tree:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Thin_Tall_Tree");
+            return tr;
+        }
+        case MidgroundType_Thin_Short_Tree:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Thin_Short_Tree");
+            return tr;
+        }
+        case MidgroundType_Stone_Square:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Stone_Square");
+            return tr;
+        }
+        case MidgroundType_Stone_Diamond:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Stone_Diamond");
+            return tr;
+        }
+        case MidgroundType_Wall:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Wall");
+            return tr;
+        }
+        case MidgroundType_Roof:
+        {
+            static TextureRegion tr = findTextureRegion("MidgroundType_Roof");
+            return tr;
+        }
     }
     
     assert(false);
@@ -1074,6 +1119,60 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             static TextureRegion tr = findTextureRegion("ForegroundObjectType_WoodBox");
             return tr;
         }
+            
+        case ForegroundObjectType_GreenThornsLeft:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_GreenThornsLeft");
+            return tr;
+        }
+        case ForegroundObjectType_GreenThornsCenterSmall:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_GreenThornsCenterSmall");
+            return tr;
+        }
+        case ForegroundObjectType_GreenThornsCenterBig:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_GreenThornsCenterBig");
+            return tr;
+        }
+        case ForegroundObjectType_GreenThornsRight:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_GreenThornsRight");
+            return tr;
+        }
+            
+        case ForegroundObjectType_Logs:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Logs");
+            return tr;
+        }
+            
+        case ForegroundObjectType_Stone_Bottom:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Stone_Bottom");
+            return tr;
+        }
+        case ForegroundObjectType_Stone_Middle:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Stone_Middle");
+            return tr;
+        }
+        case ForegroundObjectType_Stone_Top:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Stone_Top");
+            return tr;
+        }
+        case ForegroundObjectType_Stone_Platform:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Stone_Platform");
+            return tr;
+        }
+            
+        case ForegroundObjectType_Floating_Platform:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Floating_Platform");
+            return tr;
+        }
     }
     
     assert(false);
@@ -1101,6 +1200,46 @@ TextureRegion& Assets::get(ForegroundCoverObject* foregroundCoverObject)
         case ForegroundCoverObjectType_Ferns:
         {
             static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Ferns");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Wall");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Bottom:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Wall_Bottom");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Window:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Wall_Window");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Window_Bottom:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Wall_Window_Bottom");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Roof_Side_Left:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Roof_Side_Left");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Roof_Side_Right:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Roof_Side_Right");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Roof_Plain:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Roof_Plain");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Roof_Chimney:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundCoverObjectType_Roof_Chimney");
             return tr;
         }
     }
@@ -1622,10 +1761,10 @@ TextureRegion& Assets::get(Jon* jon)
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    // TODO, right foot
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_WOOD);
                 }
             }
-            else if (keyFrameNumber == 6 && jon->isRightFoot())
+            else if (keyFrameNumber == 7 && jon->isRightFoot())
             {
                 jon->setRightFoot(false);
                 
@@ -1639,7 +1778,7 @@ TextureRegion& Assets::get(Jon* jon)
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    // TODO, left foot
+                    ASSETS->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_WOOD);
                 }
             }
             
@@ -1735,7 +1874,7 @@ TextureRegion& Assets::get(Jon* jon)
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    // TODO, right foot
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_WOOD);
                 }
             }
             else if (keyFrameNumber == 6 && jon->isRightFoot())
@@ -1752,7 +1891,7 @@ TextureRegion& Assets::get(Jon* jon)
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    // TODO, left foot
+                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_WOOD);
                 }
             }
             
