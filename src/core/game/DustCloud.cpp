@@ -8,9 +8,19 @@
 
 #include "DustCloud.h"
 
-#define DUST_CLOUD_HEIGHT 1.4038128249566724f
+DustCloud* DustCloud::create(float x, float y, DustCloudType type, float scale)
+{
+    switch (type) {
+        case DustCloudType_Landing:
+            return new DustCloud(x, y + 1.4038128249566724f / 2 * scale, 2.690058479532164f * scale, 1.4038128249566724f * scale, type);
+        case DustCloudType_Kick_Up:
+            return new DustCloud(x, y, 0.84375f, 0.28125f, type);
+        default:
+            break;
+    }
+}
 
-DustCloud::DustCloud(float x, float y, float scale) : PhysicalEntity(x, y + DUST_CLOUD_HEIGHT / 2 * scale, 2.690058479532164f * scale, DUST_CLOUD_HEIGHT * scale), m_color(1, 1, 1, 1)
+DustCloud::DustCloud(float x, float y, float width, float height, DustCloudType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1)
 {
     // Empty
 }

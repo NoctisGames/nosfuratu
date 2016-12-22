@@ -171,7 +171,7 @@ void Jon::update(float deltaTime)
 				m_velocity->setX(0);
 			}
 
-			m_dustClouds.push_back(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
+            m_dustClouds.push_back(DustCloud::create(getPosition().getX(), getPosition().getY() - getHeight() / 2, DustCloudType_Landing, fabsf(m_velocity->getY() / 12.6674061f)));
 
 			if (m_groundSoundType == GROUND_SOUND_GRASS)
 			{
@@ -887,6 +887,8 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 		jon->m_acceleration->setY(GAME_GRAVITY);
         
 		jon->m_velocity->setY(13 - jon->m_iNumRabbitJumps * 3);
+        
+        jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
 
 		jon->setState(jon->m_iNumRabbitJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         jon->setState(ABILITY_NONE);
@@ -1278,6 +1280,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
             jon->m_acceleration->setX(0);
 			jon->m_acceleration->setY(GAME_GRAVITY);
 			jon->m_velocity->setY(7 - jon->m_iNumVampireJumps);
+            
+            jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
 
 			jon->setState(jon->m_iNumVampireJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
 

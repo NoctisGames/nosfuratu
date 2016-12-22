@@ -1908,9 +1908,25 @@ TextureRegion& Assets::get(Jon* jon)
 
 TextureRegion& Assets::get(DustCloud* dustCloud)
 {
-    static Animation anim = findAnimation("DustCloud");
+    switch (dustCloud->getType())
+    {
+        case DustCloudType_Landing:
+        {
+            static Animation anim = findAnimation("DustCloudType_Landing");
+            
+            return anim.getTextureRegion(dustCloud->getStateTime());
+        }
+        case DustCloudType_Kick_Up:
+        {
+            static Animation anim = findAnimation("DustCloudType_Kick_Up");
+            
+            return anim.getTextureRegion(dustCloud->getStateTime());
+        }
+        default:
+            break;
+    }
     
-    return anim.getTextureRegion(dustCloud->getStateTime());
+    assert(false);
 }
 
 TextureRegion& Assets::get(MidBossOwl* owl)
