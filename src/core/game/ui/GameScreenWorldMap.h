@@ -615,6 +615,8 @@ public:
     
     int getUnlockedLevelStatsFlag();
     
+    LevelThumbnail* getSelectedLevelThumbnail() { return m_clickedLevel; }
+    
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;

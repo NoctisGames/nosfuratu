@@ -534,13 +534,13 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         {
             regionBottomY = 6.9979978125f;
         }
-        else if (yFactor < 21.76362286085f)
+        else if (yFactor < 18.265625f)
         {
             regionBottomY = 12.76362286085f;
         }
         else if (yFactor < 28)
         {
-            regionBottomY = 21.76362286085f;
+            regionBottomY = 18.265625f;
         }
         else
         {
@@ -557,13 +557,13 @@ void Renderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float del
         {
             regionBottomY = 6.9979978125f;
         }
-        else if (yFactor < (21.76362286085f - heightPlusPadding))
+        else if (yFactor < (18.265625f - heightPlusPadding))
         {
             regionBottomY = 12.76362286085f;
         }
         else if (yFactor < (28 - heightPlusPadding))
         {
-            regionBottomY = 21.76362286085f;
+            regionBottomY = 18.265625f;
         }
         else
         {
@@ -831,6 +831,18 @@ void Renderer::renderWorldMapScreenUi(WorldMap& wm)
         }
         
         m_font->renderText(*m_spriteBatcher, paddedScore, sm->getX(), sm->getY(), fgWidth, fgHeight, sm->getColor(), true);
+    }
+    
+    LevelThumbnail* lt;
+    if ((lt = wm.getSelectedLevelThumbnail()))
+    {
+        static Color fontColor = Color(1, 1, 1, 1);
+        
+        std::stringstream ss;
+        ss << lt->getWorld() << " - " << lt->getLevel();
+        std::string text = ss.str();
+        
+        m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT * .92f, fgWidth, fgHeight, fontColor, true);
     }
     
     m_spriteBatcher->endBatch(*m_misc.gpuTextureWrapper);
