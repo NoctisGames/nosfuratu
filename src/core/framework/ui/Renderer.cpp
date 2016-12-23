@@ -1589,7 +1589,7 @@ void Renderer::renderComingSoonScreenBackground()
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
-    m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
 }
 
 void Renderer::renderMarkers(Game& game)
