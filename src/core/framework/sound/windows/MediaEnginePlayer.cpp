@@ -325,10 +325,16 @@ void MediaEnginePlayer::SetMuted(bool muted)
     if (m_spMediaEngine) 
     { 
         DX::ThrowIfFailed(m_spMediaEngine->SetMuted(muted)); 
-    } 
-    return; 
+    }
 } 
- 
+
+void MediaEnginePlayer::SetCurrentTime(double seekTime)
+{
+	if (m_spMediaEngine)
+	{
+		DX::ThrowIfFailed(m_spMediaEngine->SetCurrentTime(seekTime));
+	}
+}
  
 //----------------------------------------------------------------------------- 
 // GetNativeVideoSize 
