@@ -99,6 +99,8 @@ void Jon::update(float deltaTime)
 
 	if (m_state == JON_DYING)
 	{
+        m_jonShadow->makeInvisible();
+        
         m_fDyingStateTime += deltaTime;
 		if (m_fDyingStateTime > 1)
 		{
@@ -661,6 +663,8 @@ void Jon::consume(bool vampireDies)
     
     m_velocity->set(0, 0);
     m_acceleration->set(0, 0);
+    
+    m_jonShadow->makeInvisible();
 	
     setState(ABILITY_NONE);
     

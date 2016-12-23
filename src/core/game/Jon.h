@@ -61,6 +61,12 @@ public:
         }
     }
     
+    void makeInvisible()
+    {
+        m_state = JonShadowState_Invisible;
+        m_fStateTime = 0;
+    }
+    
     JonShadowState getState() { return m_state; }
     
 private:
