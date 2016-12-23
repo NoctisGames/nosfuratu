@@ -1033,6 +1033,14 @@ void Renderer::renderJonAndExtraForegroundObjects(Game& game)
         {
             renderPhysicalEntitiesWithColor((*i)->getDustClouds());
         }
+        
+        if (jon.getJonShadow()->getState() != JonShadowState_Invisible)
+        {
+            JonShadow* pItem = jon.getJonShadow();
+            JonShadow& item = *pItem;
+            renderPhysicalEntity(item, ASSETS->get(pItem));
+        }
+        
         m_spriteBatcher->endBatch((isVampire || jon.isRevertingToRabbit()) ? *m_vampire.gpuTextureWrapper : *m_jon.gpuTextureWrapper);
         
         /// Render Jon After Images

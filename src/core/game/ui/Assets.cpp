@@ -1929,6 +1929,29 @@ TextureRegion& Assets::get(DustCloud* dustCloud)
     assert(false);
 }
 
+TextureRegion& Assets::get(JonShadow* jonShadow)
+{
+    switch (jonShadow->getState())
+    {
+        case JonShadowState_Grounded:
+        {
+            static Animation anim = findAnimation("JonShadowState_Grounded");
+            
+            return anim.getTextureRegion(jonShadow->getStateTime());
+        }
+        case JonShadowState_Jumping:
+        {
+            static Animation anim = findAnimation("JonShadowState_Jumping");
+            
+            return anim.getTextureRegion(jonShadow->getStateTime());
+        }
+        default:
+            break;
+    }
+    
+    assert(false);
+}
+
 TextureRegion& Assets::get(MidBossOwl* owl)
 {
     int damage = owl->getDamage();

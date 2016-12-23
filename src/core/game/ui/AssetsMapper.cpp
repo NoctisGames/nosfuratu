@@ -333,7 +333,8 @@ void AssetsMapper::initializeAssetsMapper()
     m_animations["Jon_Rabbit_LandingRoll"] = createAnimation("jon", 2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 5);
     m_animations["DustCloudType_Landing"] = createAnimation("jon", 1100, 1644, 116, 60, 580, 60, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.08f, 5);
     m_animations["DustCloudType_Kick_Up"] = createAnimation("jon", 2048, 1648, 96, 32, 576, 32, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.06666666666667f, 6);
-    m_animations["Shadow_Beneath_Jon"] = createAnimation("jon", 2048, 1684, 154, 18, 308, 18, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+    m_animations["JonShadowState_Grounded"] = createAnimation("jon", 2048, 1684, 154, 18, 308, 18, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);
+    m_animations["JonShadowState_Jumping"] = createAnimation("jon", 2356, 1684, 154, 18, 616, 18, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.05f, 4);
     m_animations["MidBossOwlState_Sleeping"] = createAnimation("world_1_mid_boss_part_3", 0, 0, 638, 572, 638, 2288, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.15f, 4);
     m_animations["MidBossOwlState_Awakening"] = createAnimation("world_1_mid_boss_part_3", 0, 2288, 638, 572, 638, 1144, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, false, 0.10f, 2);
     m_animations["MidBossOwlState_Screeching"] = createAnimation("world_1_mid_boss_part_3", 0, 3432, 638, 572, 1276, 572, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 2);

@@ -157,6 +157,8 @@ public:
     
     TextureRegion& get(DustCloud* dustCloud);
     
+    TextureRegion& get(JonShadow* jonShadow);
+    
     TextureRegion& get(MidBossOwl* owl);
     
     TextureRegion& get(Bat* bat);

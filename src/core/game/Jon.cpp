@@ -57,6 +57,8 @@ m_isReleasingShockwave(false)
 	m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
 	m_formStateMachine->getCurrentState()->enter(this);
+    
+    m_jonShadow = std::unique_ptr<JonShadow>(new JonShadow());
 }
 
 void Jon::update(float deltaTime)
@@ -64,6 +66,8 @@ void Jon::update(float deltaTime)
 	m_fDeltaTime = deltaTime;
     
     EntityUtils::updateAndClean(getDustClouds(), deltaTime);
+    
+    m_jonShadow->update(deltaTime);
     
     for (std::vector<Jon *>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
     {
@@ -161,6 +165,8 @@ void Jon::update(float deltaTime)
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
+        m_jonShadow->onGrounded(getPosition().getX(), getMainBounds().getBottom());
+        
 		if (!wasGrounded && m_state == JON_ALIVE)
 		{
 			m_isLanding = true;
@@ -225,6 +231,8 @@ void Jon::update(float deltaTime)
         }
         
         m_acceleration->setY(GAME_GRAVITY);
+        
+        m_jonShadow->onAir();
     }
 
 	if (m_game->isJonBlockedVertically(deltaTime))
@@ -732,8 +740,6 @@ void Jon::setState(JonAbilityState state)
 	m_fAbilityStateTime = 0;
 }
 
-RTTI_IMPL(Jon, GridLockedPhysicalEntity);
-
 /// Rabbit Form ///
 
 Jon::Rabbit * Jon::Rabbit::getInstance()
@@ -889,6 +895,8 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 		jon->m_velocity->setY(13 - jon->m_iNumRabbitJumps * 3);
         
         jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
+        
+        jon->m_jonShadow->onJump();
 
 		jon->setState(jon->m_iNumRabbitJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         jon->setState(ABILITY_NONE);
@@ -1282,6 +1290,8 @@ void Jon::Vampire::triggerJump(Jon* jon)
 			jon->m_velocity->setY(7 - jon->m_iNumVampireJumps);
             
             jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
+            
+            jon->m_jonShadow->onJump();
 
 			jon->setState(jon->m_iNumVampireJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
 
@@ -1690,3 +1700,10 @@ Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMoti
 {
 	// Empty
 }
+
+RTTI_IMPL(JonShadow, PhysicalEntity);
+RTTI_IMPL(Jon, GridLockedPhysicalEntity);
+RTTI_IMPL(Jon::Rabbit, JonFormState);
+RTTI_IMPL(Jon::Vampire, JonFormState);
+RTTI_IMPL(Jon::RabbitToVampire, JonFormState);
+RTTI_IMPL(Jon::VampireToRabbit, JonFormState);
