@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __nosfuratu__SuperpoweredSound__
-#define __nosfuratu__SuperpoweredSound__
+#ifndef __noctisgames__SuperpoweredSound__
+#define __noctisgames__SuperpoweredSound__
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
 
@@ -40,4 +40,4 @@ private:
     bool m_isLooping;
 };
 
-#endif /* defined(__nosfuratu__SuperpoweredSound__) */
+#endif /* defined(__noctisgames__SuperpoweredSound__) */

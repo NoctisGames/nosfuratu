@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __nosfuratu__GridLockedPhysicalEntity__
-#define __nosfuratu__GridLockedPhysicalEntity__
+#ifndef __noctisgames__GridLockedPhysicalEntity__
+#define __noctisgames__GridLockedPhysicalEntity__
 
 #include "RTTI.h"
 
@@ -67,4 +67,4 @@ protected:
     int m_iGridHeight;
 };
 
-#endif /* defined(__nosfuratu__GridLockedPhysicalEntity__) */
+#endif /* defined(__noctisgames__GridLockedPhysicalEntity__) */
