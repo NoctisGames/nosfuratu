@@ -478,8 +478,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (m_draggingEntity->getRTTI().derivesFrom(ForegroundCoverObject::rtti)
-                        || m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
+                    if (m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(SpikeTower::rtti)
@@ -490,13 +489,32 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                     }
+					else if (m_draggingEntity->getRTTI().derivesFrom(ForegroundCoverObject::rtti))
+					{
+						ForegroundCoverObject* fco = reinterpret_cast<ForegroundCoverObject *>(m_draggingEntity);
+						if (fco->getType() != ForegroundCoverObjectType_Wall
+							&& fco->getType() != ForegroundCoverObjectType_Wall_Window
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Left
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Right
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Plain
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Chimney)
+						{
+							m_isVerticalChangeAllowed = false;
+							m_allowPlaceOn = false;
+							m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+						}
+					}
                     else if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti))
                     {
                         Midground* midground = reinterpret_cast<Midground *>(m_draggingEntity);
                         if (midground->getType() != MidgroundType_Metal_Tower_Section
                             && midground->getType() != MidgroundType_Billboard_Count_Hiss
                             && midground->getType() != MidgroundType_Billboard_Slag_Town
-                            && midground->getType() != MidgroundType_Billboard_Jon_Wanted)
+                            && midground->getType() != MidgroundType_Billboard_Jon_Wanted
+							&& midground->getType() != MidgroundType_Stone_Square
+							&& midground->getType() != MidgroundType_Stone_Diamond
+							&& midground->getType() != MidgroundType_Wall
+							&& midground->getType() != MidgroundType_Roof)
                         {
                             m_isVerticalChangeAllowed = false;
                             m_allowPlaceOn = false;
