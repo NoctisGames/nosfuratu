@@ -352,21 +352,27 @@ void NosFURatuMain::handleMusic()
 			break;
 			case MUSIC_LOAD_TITLE_LOOP:
 				m_mediaPlayer->SetSource("title_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
 				m_mediaPlayer->SetSource("level_select_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_WORLD_1_LOOP:
 				m_mediaPlayer->SetSource("world_1_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_MID_BOSS_LOOP:
 				m_mediaPlayer->SetSource("mid_boss_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_END_BOSS_LOOP:
 				m_mediaPlayer->SetSource("final_boss_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_OPENING_CUTSCENE:
 				m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			default:
 				break;

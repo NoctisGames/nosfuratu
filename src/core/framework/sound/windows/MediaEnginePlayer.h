@@ -59,6 +59,8 @@ public:
 	void SetVolume(double volume);
 	void SetMuted(bool muted);
 
+	void SetCurrentTime(double seekTime);
+
 	// Media Source 
 	void SetSource(Platform::String^ fileName);
 	void SetBytestream(IRandomAccessStream^ streamHandle, Platform::String^ szURL);

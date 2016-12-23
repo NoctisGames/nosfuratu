@@ -331,7 +331,8 @@ void Chapter1Level21::update(GameScreen* gs)
             if (ASSETS->isMusicEnabled())
             {
                 ASSETS->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
-                ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_END_BOSS_LOOP);
+				ASSETS->addMusicIdToPlayQueue(MUSIC_STOP); 
+				ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_END_BOSS_LOOP);
             }
             
             m_hasTriggeredMusicLoopIntro = true;
