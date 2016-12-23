@@ -1322,8 +1322,6 @@
 		BB03C7241E0DA01700F745E3 /* Direct3DLineBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DLineBatcher.h; sourceTree = "<group>"; };
 		BB03C7251E0DA01700F745E3 /* Direct3DManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DManager.cpp; sourceTree = "<group>"; };
 		BB03C7261E0DA01700F745E3 /* Direct3DManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DManager.h; sourceTree = "<group>"; };
-		BB03C7271E0DA01700F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DPointTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB03C7281E0DA01700F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DPointTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB03C7291E0DA01700F745E3 /* Direct3DProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DProgram.cpp; sourceTree = "<group>"; };
 		BB03C72A1E0DA01700F745E3 /* Direct3DProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgram.h; sourceTree = "<group>"; };
 		BB03C72B1E0DA01700F745E3 /* Direct3DRectangleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DRectangleBatcher.cpp; sourceTree = "<group>"; };
@@ -1339,8 +1337,6 @@
 		BB03C7351E0DA01700F745E3 /* FrameBufferObfuscationPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferObfuscationPixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C7361E0DA01700F745E3 /* FrameBufferToScreenPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferToScreenPixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C7371E0DA01700F745E3 /* FrameBufferToScreenVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferToScreenVertexShader.hlsl; sourceTree = "<group>"; };
-		BB03C7381E0DA01700F745E3 /* PointTransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
-		BB03C7391E0DA01700F745E3 /* PointTransScreenTextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTextureVertexShader.hlsl; sourceTree = "<group>"; };
 		BB03C73A1E0DA01700F745E3 /* SinWaveTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SinWaveTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C73B1E0DA01700F745E3 /* TexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C73C1E0DA01700F745E3 /* TextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TextureVertexShader.hlsl; sourceTree = "<group>"; };
@@ -1374,6 +1370,10 @@
 		BB03C7581E0DA03000F745E3 /* TransDeathInTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransDeathInTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C7591E0DA03000F745E3 /* TransDeathOutTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransDeathOutTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB03C75A1E0DA03000F745E3 /* TransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BB03C75B1E0DA80200F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DPointTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB03C75C1E0DA80200F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DPointTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB03C75D1E0DA80200F745E3 /* PointTransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
+		BB03C75E1E0DA80200F745E3 /* PointTransScreenTextureVertexShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointTransScreenTextureVertexShader.hlsl; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB09CDD41DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperpoweredAndroidAudioIO.cpp; sourceTree = "<group>"; };
 		BB09CDD51DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredAndroidAudioIO.h; sourceTree = "<group>"; };
@@ -2095,8 +2095,6 @@
 				BB03C7241E0DA01700F745E3 /* Direct3DLineBatcher.h */,
 				BB03C7251E0DA01700F745E3 /* Direct3DManager.cpp */,
 				BB03C7261E0DA01700F745E3 /* Direct3DManager.h */,
-				BB03C7271E0DA01700F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */,
-				BB03C7281E0DA01700F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.h */,
 				BB03C7291E0DA01700F745E3 /* Direct3DProgram.cpp */,
 				BB03C72A1E0DA01700F745E3 /* Direct3DProgram.h */,
 				BB03C72B1E0DA01700F745E3 /* Direct3DRectangleBatcher.cpp */,
@@ -2112,8 +2110,6 @@
 				BB03C7351E0DA01700F745E3 /* FrameBufferObfuscationPixelShader.hlsl */,
 				BB03C7361E0DA01700F745E3 /* FrameBufferToScreenPixelShader.hlsl */,
 				BB03C7371E0DA01700F745E3 /* FrameBufferToScreenVertexShader.hlsl */,
-				BB03C7381E0DA01700F745E3 /* PointTransScreenTexturePixelShader.hlsl */,
-				BB03C7391E0DA01700F745E3 /* PointTransScreenTextureVertexShader.hlsl */,
 				BB03C73A1E0DA01700F745E3 /* SinWaveTexturePixelShader.hlsl */,
 				BB03C73B1E0DA01700F745E3 /* TexturePixelShader.hlsl */,
 				BB03C73C1E0DA01700F745E3 /* TextureVertexShader.hlsl */,
@@ -2889,6 +2885,8 @@
 				BB03C7461E0DA03000F745E3 /* Direct3DFrameBufferTintGpuProgramWrapper.h */,
 				BB03C7471E0DA03000F745E3 /* Direct3DGameScreen.cpp */,
 				BB03C7481E0DA03000F745E3 /* Direct3DGameScreen.h */,
+				BB03C75B1E0DA80200F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */,
+				BB03C75C1E0DA80200F745E3 /* Direct3DPointTransScreenGpuProgramWrapper.h */,
 				BB03C7491E0DA03000F745E3 /* Direct3DShockwaveTextureGpuProgramWrapper.cpp */,
 				BB03C74A1E0DA03000F745E3 /* Direct3DShockwaveTextureGpuProgramWrapper.h */,
 				BB03C74B1E0DA03000F745E3 /* Direct3DSnakeDeathTextureGpuProgramWrapper.cpp */,
@@ -2900,6 +2898,8 @@
 				BB03C7511E0DA03000F745E3 /* EndBossSnakeTexturePixelShader.hlsl */,
 				BB03C7521E0DA03000F745E3 /* FadeScreenTexturePixelShader.hlsl */,
 				BB03C7531E0DA03000F745E3 /* FrameBufferTintToScreenPixelShader.hlsl */,
+				BB03C75D1E0DA80200F745E3 /* PointTransScreenTexturePixelShader.hlsl */,
+				BB03C75E1E0DA80200F745E3 /* PointTransScreenTextureVertexShader.hlsl */,
 				BB03C7541E0DA03000F745E3 /* RadialBlurTexturePixelShader.hlsl */,
 				BB03C7551E0DA03000F745E3 /* ShockwaveTexturePixelShader.hlsl */,
 				BB03C7561E0DA03000F745E3 /* ShockwaveTextureVertexShader.hlsl */,
