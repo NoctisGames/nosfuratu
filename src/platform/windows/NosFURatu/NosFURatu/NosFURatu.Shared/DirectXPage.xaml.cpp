@@ -189,6 +189,28 @@ void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 
 void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
 {
+	if (e->VirtualKey == Windows::System::VirtualKey::Escape)
+	{
+		ApplicationView^ view = ApplicationView::GetForCurrentView();
+		if (view->IsFullScreenMode)
+		{
+			view->ExitFullScreenMode();
+		}
+
+		return;
+	}
+
+	if (e->VirtualKey == Windows::System::VirtualKey::F)
+	{
+		ApplicationView^ view = ApplicationView::GetForCurrentView();
+		if (!view->IsFullScreenMode)
+		{
+			view->TryEnterFullScreenMode();
+		}
+
+		return;
+	}
+
 	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
 
 	bool jump = e->VirtualKey == Windows::System::VirtualKey::W;
