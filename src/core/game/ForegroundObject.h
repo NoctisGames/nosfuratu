@@ -106,7 +106,9 @@ typedef enum
     ForegroundObjectType_Stone_Top,
     ForegroundObjectType_Stone_Platform,
     
-    ForegroundObjectType_Floating_Platform
+    ForegroundObjectType_Floating_Platform,
+    
+    ForegroundObjectType_Stone_Square
 } ForegroundObjectType;
 
 class ForegroundObject : public GridLockedPhysicalEntity
@@ -440,6 +442,16 @@ private:
     SpikedBall* m_spikedBall;
     bool m_isSnapping;
     bool m_hasTriggeredSpikedBall;
+};
+
+class BlockingObject : public ForegroundObject
+{
+    RTTI_DECL;
+    
+public:
+    BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

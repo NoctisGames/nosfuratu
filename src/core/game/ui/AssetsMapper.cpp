@@ -188,10 +188,10 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ForegroundCoverObjectType_Roof_Side_Right"] = createTextureRegion("world_1_objects_part_2", 2394, 3914, 256, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundCoverObjectType_Roof_Plain"] = createTextureRegion("world_1_objects_part_2", 2138, 3986, 256, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundCoverObjectType_Roof_Chimney"] = createTextureRegion("world_1_objects_part_2", 2394, 3986, 256, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_MetalGrassPlatform"] = createTextureRegion("world_1_objects_part_1", 1988, 424, 256, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_MetalGrassPlatformLeft"] = createTextureRegion("world_1_objects_part_1", 1988, 498, 64, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_MetalGrassPlatformCenter"] = createTextureRegion("world_1_objects_part_1", 2052, 498, 256, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
-    m_textureRegions["ForegroundObjectType_MetalGrassPlatformRight"] = createTextureRegion("world_1_objects_part_1", 2308, 498, 64, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_MetalGrassPlatform"] = createTextureRegion("world_1_objects_part_1", 2048, 474, 256, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_MetalGrassPlatformLeft"] = createTextureRegion("world_1_objects_part_1", 1984, 368, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_MetalGrassPlatformCenter"] = createTextureRegion("world_1_objects_part_1", 2048, 368, 256, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_MetalGrassPlatformRight"] = createTextureRegion("world_1_objects_part_1", 2304, 368, 64, 96, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_WoodPlatform"] = createTextureRegion("world_1_objects_part_1", 2384, 498, 256, 64, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_WoodBoxTop"] = createTextureRegion("world_1_objects_part_1", 2758, 344, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_WoodBox"] = createTextureRegion("world_1_objects_part_1", 2758, 604, 256, 256, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
@@ -204,6 +204,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_textureRegions["ForegroundObjectType_Stone_Middle"] = createTextureRegion("world_1_objects_part_1", 3484, 3298, 384, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_Stone_Top"] = createTextureRegion("world_1_objects_part_1", 3484, 3698, 448, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_Stone_Platform"] = createTextureRegion("world_1_objects_part_1", 3484, 3128, 448, 112, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
+    m_textureRegions["ForegroundObjectType_Stone_Square"] = createTextureRegion("world_1_objects_part_1", 3084, 3284, 384, 384, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     m_textureRegions["ForegroundObjectType_Floating_Platform"] = createTextureRegion("world_1_objects_part_1", 2384, 284, 320, 176, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096);
     
     /// Animations

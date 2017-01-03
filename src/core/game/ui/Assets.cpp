@@ -1173,6 +1173,12 @@ TextureRegion& Assets::get(ForegroundObject* foregroundObject)
             static TextureRegion tr = findTextureRegion("ForegroundObjectType_Floating_Platform");
             return tr;
         }
+            
+        case ForegroundObjectType_Stone_Square:
+        {
+            static TextureRegion tr = findTextureRegion("ForegroundObjectType_Stone_Square");
+            return tr;
+        }
     }
     
     assert(false);

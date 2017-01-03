@@ -127,13 +127,13 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new SpikedBall(gridX, gridY, 32, 30, fot, GROUND_SOUND_NONE, 0, 0.4f, 1, 0.8f);
             
         case ForegroundObjectType_MetalGrassPlatform:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
+            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformLeft:
-            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformCenter:
-            return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
+            return new PlatformObject(gridX, gridY, 16, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
         case ForegroundObjectType_MetalGrassPlatformRight:
-            return new PlatformObject(gridX, gridY, 4, 4, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.875f);
+            return new PlatformObject(gridX, gridY, 4, 6, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.89583333333333f);
             
         case ForegroundObjectType_WoodPlatform:
             return new PlatformObject(gridX, gridY, 16, 4, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f);
@@ -155,16 +155,19 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new ForegroundObject(gridX, gridY, 37, 10, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.9375f);
             
         case ForegroundObjectType_Stone_Bottom:
-            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
         case ForegroundObjectType_Stone_Middle:
-            return new ForegroundObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
         case ForegroundObjectType_Stone_Top:
-            return new ForegroundObject(gridX, gridY, 28, 24, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.95833333333333f);
+            return new BlockingObject(gridX, gridY, 28, 24, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.95833333333333f);
         case ForegroundObjectType_Stone_Platform:
-            return new ForegroundObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.85714285714286f);
+            return new BlockingObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.85714285714286f);
             
         case ForegroundObjectType_Floating_Platform:
             return new PlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
+            
+        case ForegroundObjectType_Stone_Square:
+            return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
     }
     
     assert(false);
@@ -1003,6 +1006,27 @@ void SpikedBallChain::trigger()
 	m_color.alpha = 0;
 }
 
+bool BlockingObject::isJonBlockedAbove(Jon &jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        float entityLeft = jon.getMainBounds().getLeft();
+        float itemLeft = getMainBounds().getLeft();
+        
+        if (itemLeft < entityLeft)
+        {
+            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 RTTI_IMPL(ForegroundObject, GridLockedPhysicalEntity);
 RTTI_IMPL(PlatformObject, ForegroundObject);
 RTTI_IMPL(DeadlyObject, ForegroundObject);
@@ -1020,3 +1044,4 @@ RTTI_IMPL(SpikedBallRollingLeft, DeadlyObject);
 RTTI_IMPL(SpikedBallRollingRight, DeadlyObject);
 RTTI_IMPL(SpikedBall, DeadlyObject);
 RTTI_IMPL(SpikedBallChain, ForegroundObject);
+RTTI_IMPL(BlockingObject, ForegroundObject);

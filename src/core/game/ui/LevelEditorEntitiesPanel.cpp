@@ -176,6 +176,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Middle));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Top));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Platform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Square));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Floating_Platform));
         
         if (level == 21)
