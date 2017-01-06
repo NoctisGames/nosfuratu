@@ -189,6 +189,7 @@ void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 
 void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
 {
+#if defined NG_WIN_10
 	if (e->VirtualKey == Windows::System::VirtualKey::Escape)
 	{
 		ApplicationView^ view = ApplicationView::GetForCurrentView();
@@ -210,6 +211,7 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 
 		return;
 	}
+#endif
 
 	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
 

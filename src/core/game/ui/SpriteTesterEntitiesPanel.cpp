@@ -141,7 +141,7 @@ bool SpriteTesterEntitiesPanel::isTouchingEntityForPlacement(std::vector<Unknown
 {
     int retVal = -1;
     int index = 0;
-    for (typename std::vector<UnknownEntity*>::iterator i = items.begin(); i != items.end(); i++, index++)
+    for (std::vector<UnknownEntity*>::iterator i = items.begin(); i != items.end(); i++, index++)
     {
         UnknownEntity* item = *i;
         float width = item->getWidth();
