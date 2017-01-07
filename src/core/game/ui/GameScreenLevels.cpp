@@ -113,6 +113,7 @@ void Level::execute(GameScreen* gs)
 void Level::exit(GameScreen* gs)
 {
     m_iNumTimesBatPanelDisplayed = 0;
+    m_iNumAttemptsSinceLastAdBreak = 0;
     
     m_game->reset();
     
@@ -355,6 +356,13 @@ void Level::update(GameScreen* gs)
                 enter(gs);
                 
                 updateCamera(gs, 0, false, true);
+                
+                m_iNumAttemptsSinceLastAdBreak++;
+                if (m_iNumAttemptsSinceLastAdBreak >= 7)
+                {
+                    gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+                    m_iNumAttemptsSinceLastAdBreak = 0;
+                }
                 
                 m_showDeathTransOut = true;
             }
@@ -860,6 +868,7 @@ m_iOnlineScore(0),
 m_iLevelStatsFlag(0),
 m_iNumGoldenCarrots(0),
 m_iNumTimesBatPanelDisplayed(0),
+m_iNumAttemptsSinceLastAdBreak(0),
 m_hasShownOpeningSequence(false),
 m_hasOpeningSequenceCompleted(false),
 m_activateRadialBlur(false),

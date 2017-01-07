@@ -637,6 +637,7 @@ private:
     int m_iViewedCutsceneFlag;
     bool m_isReadyForTransition;
     bool m_needsRefresh;
+    bool m_needsToDisplayAd;
     bool m_isNextWorldButtonEnabled;
     
     LevelThumbnail* m_clickedLevel;

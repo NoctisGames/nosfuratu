@@ -40,6 +40,8 @@ void WorldMap::enter(GameScreen* gs)
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
     m_fGoldenCarrotCountFlickerTime = 1337;
+    
+    m_needsToDisplayAd = true;
 }
 
 void WorldMap::initRenderer(GameScreen* gs)
@@ -89,6 +91,14 @@ void WorldMap::execute(GameScreen* gs)
     }
     else
     {
+        if (m_needsToDisplayAd)
+        {
+            gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+            m_needsToDisplayAd = false;
+            
+            return;
+        }
+        
         if (m_isReadyForTransition)
         {
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
@@ -708,6 +718,7 @@ m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
 m_userHasClickedOpeningCutscene(false),
 m_needsRefresh(false),
+m_needsToDisplayAd(false),
 m_isNextWorldButtonEnabled(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());

@@ -30,7 +30,9 @@
 
 #define REQUESTED_ACTION_GET_SAVE_DATA 7
 
-#define REQUESTED_ACTION_SHOW_MESSAGE 8 // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+#define REQUESTED_ACTION_SHOW_MESSAGE 8 // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below under //// Message Definitions ////)
+
+#define REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD 9
 
 //// Message Definitions ////
 

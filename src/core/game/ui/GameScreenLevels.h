@@ -79,6 +79,7 @@ protected:
     int m_iLevelStatsFlag;
     int m_iNumGoldenCarrots;
     int m_iNumTimesBatPanelDisplayed;
+    int m_iNumAttemptsSinceLastAdBreak;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;

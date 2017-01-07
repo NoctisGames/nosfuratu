@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 import com.noctisgames.nosfuratu.sound.SoundManager;
 
@@ -39,6 +42,8 @@ public final class GameRenderer implements Renderer
     private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
 
     private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+
+    private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 9;
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
     private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
@@ -83,6 +88,7 @@ public final class GameRenderer implements Renderer
     private static final short STOP_ALL_LOOPING_SOUNDS = 9999;
 
     private final Activity _activity;
+    private final InterstitialAd mInterstitialAd;
     private final FileHandler _fileHandler;
     private SoundManager _soundManager;
 
@@ -92,6 +98,19 @@ public final class GameRenderer implements Renderer
     public GameRenderer(Activity activity)
     {
         _activity = activity;
+        mInterstitialAd = new InterstitialAd(_activity);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); // ca-app-pub-6017554042572989/7036617356
+
+        mInterstitialAd.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdClosed()
+            {
+                requestNewInterstitial();
+            }
+        });
+
+        requestNewInterstitial();
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
 
         SaveData.init(activity);
@@ -180,6 +199,10 @@ public final class GameRenderer implements Renderer
                 break;
             case REQUESTED_ACTION_SHOW_MESSAGE:
                 showMessage(Game.get_requested_action());
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+                displayInterstitialAdIfLoaded();
                 Game.clear_requested_action();
                 break;
             default:
@@ -667,6 +690,30 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.footstep_left_wood, 1);
         _soundManager.loadSound(activity, R.raw.footstep_right_wood, 1);
         _soundManager.loadSound(activity, R.raw.landing_wood, 1);
+    }
+
+    private void displayInterstitialAdIfLoaded()
+    {
+        _activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (mInterstitialAd.isLoaded())
+                {
+                    mInterstitialAd.show();
+                }
+            }
+        });
+    }
+
+    private void requestNewInterstitial()
+    {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     private static int[] getScreenDimensions(Activity activity)
