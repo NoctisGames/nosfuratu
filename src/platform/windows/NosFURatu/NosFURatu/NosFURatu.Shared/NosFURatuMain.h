@@ -12,7 +12,7 @@ namespace NosFURatu
 	class NosFURatuMain : public DX::IDeviceNotify
 	{
 	public:
-		NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources);
 		~NosFURatuMain();
 		void CreateWindowSizeDependentResources();
 		void StartRenderLoop();
@@ -28,6 +28,8 @@ namespace NosFURatu
 		virtual void OnDeviceRestored();
 
 	private:
+		DirectXPage^ m_directXPage;
+
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
@@ -41,8 +43,6 @@ namespace NosFURatu
 
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
-
-		std::vector<std::thread> m_threads;
 
 		int m_iRequestedAction;
 
@@ -71,9 +71,9 @@ namespace NosFURatu
 		int calcWorld(int requestedAction);
 
 		int calcLevel(int requestedAction);
-        
-        int calcGoldenCarrotsFlag(int requestedAction);
 
 		void displayToast(Platform::String^ message);
+
+		void initSoundEngine();
 	};
 }

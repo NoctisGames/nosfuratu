@@ -24,6 +24,8 @@ namespace NosFURatu
 		void SaveInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 		void LoadInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 
+		void DisplayInterstitialAdIfAvailable();
+
 	private:
 		// Track our independent input on a background worker thread.
 		Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
@@ -58,6 +60,16 @@ namespace NosFURatu
 		void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 
 		void onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e);
+
+		// Monetization
+		Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;
+
+		void RequestInterstitialAd();
+
+		void OnAdReady(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdCancelled(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args);
 	};
 }
 

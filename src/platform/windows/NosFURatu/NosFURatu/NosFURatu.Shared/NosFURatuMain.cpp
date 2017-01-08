@@ -1,5 +1,7 @@
 #include "pch.h"
+
 #include "NosFURatuMain.h"
+
 #include "DirectXHelper.h"
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
@@ -17,7 +19,7 @@ using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
+NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -36,75 +38,7 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 
 	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isCompressed));
 
-	// Load Media Player
-	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-
-	// Load Sound Effects
-	m_sounds.push_back("collect_carrot.wav");
-	m_sounds.push_back("collect_golden_carrot.wav");
-	m_sounds.push_back("death.wav");
-	m_sounds.push_back("footstep_left_grass.wav");
-	m_sounds.push_back("footstep_right_grass.wav");
-	m_sounds.push_back("footstep_left_cave.wav");
-	m_sounds.push_back("footstep_right_cave.wav");
-	m_sounds.push_back("jump_spring.wav");
-	m_sounds.push_back("landing_grass.wav");
-	m_sounds.push_back("landing_cave.wav");
-	m_sounds.push_back("snake_death.wav");
-	m_sounds.push_back("trigger_transform.wav");
-	m_sounds.push_back("cancel_transform.wav");
-	m_sounds.push_back("complete_transform.wav");
-	m_sounds.push_back("jump_spring_heavy.wav");
-	m_sounds.push_back("jon_rabbit_jump.wav");
-	m_sounds.push_back("jon_vampire_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("vampire_glide_loop.wav");
-	m_sounds.push_back("mushroom_bounce.wav");
-	m_sounds.push_back("jon_burrow_rocksfall.wav");
-	m_sounds.push_back("sparrow_fly_loop.wav");
-	m_sounds.push_back("sparrow_die.wav");
-	m_sounds.push_back("toad_die.wav");
-	m_sounds.push_back("toad_eat.wav");
-	m_sounds.push_back("saw_grind_loop.wav");
-	m_sounds.push_back("fox_bounced_on.wav");
-	m_sounds.push_back("fox_strike.wav");
-	m_sounds.push_back("fox_death.wav");
-	m_sounds.push_back("world_1_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_owl_swoop.wav");
-	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
-    m_sounds.push_back("mid_boss_owl_death.wav");
-    m_sounds.push_back("screen_transition.wav");
-    m_sounds.push_back("screen_transition_2.wav");
-    m_sounds.push_back("level_complete.wav");
-    m_sounds.push_back("title_lightning_1.wav");
-    m_sounds.push_back("title_lightning_2.wav");
-    m_sounds.push_back("ability_unlock.wav");
-    m_sounds.push_back("boss_level_clear.wav");
-    m_sounds.push_back("level_clear.wav");
-    m_sounds.push_back("level_selected.wav");
-    m_sounds.push_back("rabbit_drill.wav");
-    m_sounds.push_back("snake_jump.wav");
-    m_sounds.push_back("vampire_dash.wav");
-    m_sounds.push_back("boss_level_unlock.wav");
-    m_sounds.push_back("rabbit_stomp.wav");
-    m_sounds.push_back("final_boss_bgm_intro.wav");
-    m_sounds.push_back("button_click.wav");
-    m_sounds.push_back("level_confirmed.wav");
-    m_sounds.push_back("bat_poof.wav");
-    m_sounds.push_back("chain_snap.wav");
-    m_sounds.push_back("end_boss_snake_mouth_open.wav");
-    m_sounds.push_back("end_boss_snake_charge_cue.wav");
-    m_sounds.push_back("end_boss_snake_charge.wav");
-    m_sounds.push_back("end_boss_snake_damaged.wav");
-    m_sounds.push_back("end_boss_snake_death.wav");
-    m_sounds.push_back("spiked_ball_rolling_loop.wav");
-    m_sounds.push_back("absorb_dash_ability.wav");
-    m_sounds.push_back("footstep_left_wood.wav");
-    m_sounds.push_back("footstep_right_wood.wav");
-    m_sounds.push_back("landing_wood.wav");
+	initSoundEngine();
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -246,6 +180,10 @@ void NosFURatuMain::Update()
 		case REQUESTED_ACTION_SHOW_MESSAGE:
 			showMessage(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
+			break;
+		case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+			m_gameScreen->clearRequestedAction();
+			m_directXPage->DisplayInterstitialAdIfAvailable();
 			break;
 		case REQUESTED_ACTION_UPDATE:
 		default:
@@ -746,4 +684,77 @@ void NosFURatuMain::displayToast(Platform::String^ message)
 
 	Windows::UI::Notifications::ToastNotifier^ toastNotifier = Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier();
 	toastNotifier->Show(toastNotification);
+}
+
+void NosFURatuMain::initSoundEngine()
+{
+	// Load Media Player
+	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+
+	// Load Sound Effects
+	m_sounds.push_back("collect_carrot.wav");
+	m_sounds.push_back("collect_golden_carrot.wav");
+	m_sounds.push_back("death.wav");
+	m_sounds.push_back("footstep_left_grass.wav");
+	m_sounds.push_back("footstep_right_grass.wav");
+	m_sounds.push_back("footstep_left_cave.wav");
+	m_sounds.push_back("footstep_right_cave.wav");
+	m_sounds.push_back("jump_spring.wav");
+	m_sounds.push_back("landing_grass.wav");
+	m_sounds.push_back("landing_cave.wav");
+	m_sounds.push_back("snake_death.wav");
+	m_sounds.push_back("trigger_transform.wav");
+	m_sounds.push_back("cancel_transform.wav");
+	m_sounds.push_back("complete_transform.wav");
+	m_sounds.push_back("jump_spring_heavy.wav");
+	m_sounds.push_back("jon_rabbit_jump.wav");
+	m_sounds.push_back("jon_vampire_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("vampire_glide_loop.wav");
+	m_sounds.push_back("mushroom_bounce.wav");
+	m_sounds.push_back("jon_burrow_rocksfall.wav");
+	m_sounds.push_back("sparrow_fly_loop.wav");
+	m_sounds.push_back("sparrow_die.wav");
+	m_sounds.push_back("toad_die.wav");
+	m_sounds.push_back("toad_eat.wav");
+	m_sounds.push_back("saw_grind_loop.wav");
+	m_sounds.push_back("fox_bounced_on.wav");
+	m_sounds.push_back("fox_strike.wav");
+	m_sounds.push_back("fox_death.wav");
+	m_sounds.push_back("world_1_bgm_intro.wav");
+	m_sounds.push_back("mid_boss_bgm_intro.wav");
+	m_sounds.push_back("mid_boss_owl_swoop.wav");
+	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
+	m_sounds.push_back("mid_boss_owl_death.wav");
+	m_sounds.push_back("screen_transition.wav");
+	m_sounds.push_back("screen_transition_2.wav");
+	m_sounds.push_back("level_complete.wav");
+	m_sounds.push_back("title_lightning_1.wav");
+	m_sounds.push_back("title_lightning_2.wav");
+	m_sounds.push_back("ability_unlock.wav");
+	m_sounds.push_back("boss_level_clear.wav");
+	m_sounds.push_back("level_clear.wav");
+	m_sounds.push_back("level_selected.wav");
+	m_sounds.push_back("rabbit_drill.wav");
+	m_sounds.push_back("snake_jump.wav");
+	m_sounds.push_back("vampire_dash.wav");
+	m_sounds.push_back("boss_level_unlock.wav");
+	m_sounds.push_back("rabbit_stomp.wav");
+	m_sounds.push_back("final_boss_bgm_intro.wav");
+	m_sounds.push_back("button_click.wav");
+	m_sounds.push_back("level_confirmed.wav");
+	m_sounds.push_back("bat_poof.wav");
+	m_sounds.push_back("chain_snap.wav");
+	m_sounds.push_back("end_boss_snake_mouth_open.wav");
+	m_sounds.push_back("end_boss_snake_charge_cue.wav");
+	m_sounds.push_back("end_boss_snake_charge.wav");
+	m_sounds.push_back("end_boss_snake_damaged.wav");
+	m_sounds.push_back("end_boss_snake_death.wav");
+	m_sounds.push_back("spiked_ball_rolling_loop.wav");
+	m_sounds.push_back("absorb_dash_ability.wav");
+	m_sounds.push_back("footstep_left_wood.wav");
+	m_sounds.push_back("footstep_right_wood.wav");
+	m_sounds.push_back("landing_wood.wav");
 }

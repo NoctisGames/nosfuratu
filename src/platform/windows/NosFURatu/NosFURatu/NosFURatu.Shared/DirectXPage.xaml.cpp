@@ -27,6 +27,8 @@ using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace concurrency;
+using namespace Microsoft::Advertising::WinRT::UI;
+using namespace Windows::System::Profile;
 
 DirectXPage::DirectXPage():
 	m_windowVisible(true),
@@ -98,8 +100,16 @@ DirectXPage::DirectXPage():
 	// Run task on a dedicated high priority background thread.
 	m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(m_deviceResources));
+	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(this, m_deviceResources));
 	m_main->StartRenderLoop();
+
+	m_interstitialAd = ref new InterstitialAd();
+	m_interstitialAd->AdReady += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdReady);
+	m_interstitialAd->Completed += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCompleted);
+	m_interstitialAd->Cancelled += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCancelled);
+	m_interstitialAd->ErrorOccurred += ref new Windows::Foundation::EventHandler<Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^>(this, &NosFURatu::DirectXPage::OnAdError);
+
+	RequestInterstitialAd();
 }
 
 DirectXPage::~DirectXPage()
@@ -128,6 +138,22 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 
 	// Start rendering when the app is resumed.
 	m_main->StartRenderLoop();
+}
+
+void DirectXPage::DisplayInterstitialAdIfAvailable()
+{
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	{
+		if (InterstitialAdState::Ready == m_interstitialAd->State)
+		{
+			m_main->StopRenderLoop();
+			m_interstitialAd->Show();
+		}
+		else
+		{
+			RequestInterstitialAd();
+		}
+	}));
 }
 
 // Window event handlers.
@@ -306,3 +332,62 @@ void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ 
 	args->Handled = m_main->handleOnBackPressed();
 }
 #endif
+
+void DirectXPage::RequestInterstitialAd()
+{
+	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	{
+		Platform::String^ myAppId;
+		Platform::String^ myAdUnitId;
+
+#if defined(_DEBUG)
+		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
+		myAdUnitId = L"11389925";
+#else
+		bool isMobile;
+#if defined NG_WIN_10
+		AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+		isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#elif defined NG_WIN_8
+		isMobile = false;
+#elif defined NG_WIN_PHONE_8
+		isMobile = true;
+#endif
+		if (isMobile)
+		{
+			myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
+			myAdUnitId = L"11666621";
+		}
+		else
+		{
+			myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
+			myAdUnitId = L"11666622";
+		}
+#endif
+
+		m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
+	}));
+}
+
+void DirectXPage::OnAdReady(Platform::Object^ sender, Platform::Object^ args)
+{
+	// Empty
+}
+
+void DirectXPage::OnAdCompleted(Platform::Object^ sender, Platform::Object^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}
+
+void DirectXPage::OnAdCancelled(Platform::Object^ sender, Platform::Object^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}
+
+void DirectXPage::OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}
