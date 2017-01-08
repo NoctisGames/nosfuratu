@@ -164,7 +164,12 @@
 
 - (void)createAndLoadInterstitial
 {
-    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"]; // ca-app-pub-6017554042572989/7161041758
+#if DEBUG
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+#else
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-6017554042572989/7161041758"];
+#endif
+    
     self.interstitial.delegate = self;
     [self.interstitial loadRequest:[GADRequest request]];
 }

@@ -99,7 +99,15 @@ public final class GameRenderer implements Renderer
     {
         _activity = activity;
         mInterstitialAd = new InterstitialAd(_activity);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); // ca-app-pub-6017554042572989/7036617356
+
+        if (BuildConfig.DEBUG)
+        {
+            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        }
+        else
+        {
+            mInterstitialAd.setAdUnitId("ca-app-pub-6017554042572989/7036617356");
+        }
 
         mInterstitialAd.setAdListener(new AdListener()
         {
