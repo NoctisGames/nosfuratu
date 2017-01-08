@@ -24,6 +24,8 @@ namespace NosFURatu
 		void SaveInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 		void LoadInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 
+		void RequestInterstitialAd();
+
 		void DisplayInterstitialAdIfAvailable();
 
 	private:
@@ -63,8 +65,6 @@ namespace NosFURatu
 
 		// Monetization
 		Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;
-
-		void RequestInterstitialAd();
 
 		void OnAdReady(Platform::Object^ sender, Platform::Object^ args);
 		void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args);

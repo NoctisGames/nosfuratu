@@ -140,18 +140,50 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 	m_main->StartRenderLoop();
 }
 
+void DirectXPage::RequestInterstitialAd()
+{
+	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	{
+		Platform::String^ myAppId;
+		Platform::String^ myAdUnitId;
+
+#if defined(_DEBUG)
+		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
+		myAdUnitId = L"11389925";
+#else
+		bool isMobile;
+#if defined NG_WIN_10
+		AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+		isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#elif defined NG_WIN_8
+		isMobile = false;
+#elif defined NG_WIN_PHONE_8
+		isMobile = true;
+#endif
+		if (isMobile)
+		{
+			myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
+			myAdUnitId = L"11666621";
+		}
+		else
+		{
+			myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
+			myAdUnitId = L"11666622";
+		}
+#endif
+
+		m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
+	}));
+}
+
 void DirectXPage::DisplayInterstitialAdIfAvailable()
 {
-	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
 	{
 		if (InterstitialAdState::Ready == m_interstitialAd->State)
 		{
 			m_main->StopRenderLoop();
 			m_interstitialAd->Show();
-		}
-		else
-		{
-			RequestInterstitialAd();
 		}
 	}));
 }
@@ -332,42 +364,6 @@ void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ 
 	args->Handled = m_main->handleOnBackPressed();
 }
 #endif
-
-void DirectXPage::RequestInterstitialAd()
-{
-	this->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
-	{
-		Platform::String^ myAppId;
-		Platform::String^ myAdUnitId;
-
-#if defined(_DEBUG)
-		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
-		myAdUnitId = L"11389925";
-#else
-		bool isMobile;
-#if defined NG_WIN_10
-		AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-		isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-#elif defined NG_WIN_8
-		isMobile = false;
-#elif defined NG_WIN_PHONE_8
-		isMobile = true;
-#endif
-		if (isMobile)
-		{
-			myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
-			myAdUnitId = L"11666621";
-		}
-		else
-		{
-			myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
-			myAdUnitId = L"11666622";
-		}
-#endif
-
-		m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
-	}));
-}
 
 void DirectXPage::OnAdReady(Platform::Object^ sender, Platform::Object^ args)
 {
