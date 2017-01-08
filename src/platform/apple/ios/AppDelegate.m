@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "Firebase.h"
+
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
 
 @implementation AppDelegate
@@ -17,6 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // Use Firebase library to configure APIs
+    [FIRApp configure];
     
     [BuddyBuildSDK setup];
     

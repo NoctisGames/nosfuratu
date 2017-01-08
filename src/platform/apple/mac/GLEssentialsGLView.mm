@@ -187,7 +187,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
         filePath = [filePath stringByAppendingPathComponent:levelFileName];
         return filePath;
-    } andDisplayMessageBlock:^(NSString *message)
+    } displayMessageBlock:^(NSString *message)
     {
         NSAlert* alert = [NSAlert alertWithMessageText:message
                                          defaultButton:nil
@@ -196,6 +196,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
                              informativeTextWithFormat:@""];
         
         [alert runModal];
+    } andHandleInterstitialAd:^{
+        // Empty
     }];
     
     _gameScreen->onResume();

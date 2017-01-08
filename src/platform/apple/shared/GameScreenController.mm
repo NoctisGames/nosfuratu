@@ -13,8 +13,9 @@
 @interface GameScreenController ()
 {
     GameScreen *_gameScreen;
-    DisplayMessageBlock _displayMessageBlock;
     GetLevelFilePath _getLevelFilePath;
+    DisplayMessageBlock _displayMessageBlock;
+    HandleInterstitialAd _handleInterstitialAd;
     AppleSoundManager *_appleSoundManager;
 }
 
@@ -22,15 +23,16 @@
 
 @implementation GameScreenController
 
-- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath andDisplayMessageBlock:(DisplayMessageBlock)displayMessageBlock
+- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath displayMessageBlock:(DisplayMessageBlock)displayMessageBlock andHandleInterstitialAd:(HandleInterstitialAd)handleInterstitialAd
 {
     self = [super init];
     
     if (self)
     {
         _gameScreen = gameScreen;
-        _displayMessageBlock = displayMessageBlock;
         _getLevelFilePath = getLevelFilePath;
+        _displayMessageBlock = displayMessageBlock;
+        _handleInterstitialAd = handleInterstitialAd;
         
         [self initSoundEngine];
     }
@@ -81,6 +83,10 @@
             break;
         case REQUESTED_ACTION_SHOW_MESSAGE:
             [self showMessage:_gameScreen->getRequestedAction()];
+            _gameScreen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+            _handleInterstitialAd();
             _gameScreen->clearRequestedAction();
             break;
         default:

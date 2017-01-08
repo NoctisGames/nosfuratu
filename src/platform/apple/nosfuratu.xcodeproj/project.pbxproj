@@ -1001,6 +1001,32 @@
 		BB74508F1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
 		BB7450901DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
 		BB7450911DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */; };
+		BB7639321E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392C1E21B0A700534DAB /* FirebaseAnalytics.framework */; };
+		BB7639331E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392C1E21B0A700534DAB /* FirebaseAnalytics.framework */; };
+		BB7639341E21B0A700534DAB /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392D1E21B0A700534DAB /* FirebaseCore.framework */; };
+		BB7639351E21B0A700534DAB /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392D1E21B0A700534DAB /* FirebaseCore.framework */; };
+		BB7639361E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392E1E21B0A700534DAB /* FirebaseInstanceID.framework */; };
+		BB7639371E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392E1E21B0A700534DAB /* FirebaseInstanceID.framework */; };
+		BB7639381E21B0A700534DAB /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392F1E21B0A700534DAB /* GoogleInterchangeUtilities.framework */; };
+		BB7639391E21B0A700534DAB /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76392F1E21B0A700534DAB /* GoogleInterchangeUtilities.framework */; };
+		BB76393A1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639301E21B0A700534DAB /* GoogleMobileAds.framework */; };
+		BB76393B1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639301E21B0A700534DAB /* GoogleMobileAds.framework */; };
+		BB76393C1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639311E21B0A700534DAB /* GoogleSymbolUtilities.framework */; };
+		BB76393D1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639311E21B0A700534DAB /* GoogleSymbolUtilities.framework */; };
+		BB7639431E21B4B800534DAB /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639421E21B4B800534DAB /* libicucore.tbd */; };
+		BB7639451E21B4C400534DAB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639441E21B4C400534DAB /* CFNetwork.framework */; };
+		BB7639471E21B4CD00534DAB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639461E21B4CD00534DAB /* Security.framework */; };
+		BB7639491E21B4DD00534DAB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639481E21B4DD00534DAB /* libc++.tbd */; };
+		BB76394B1E21B4E700534DAB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394A1E21B4E700534DAB /* libsqlite3.tbd */; };
+		BB76394E1E21B53000534DAB /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394D1E21B53000534DAB /* CoreMotion.framework */; };
+		BB7639501E21B57200534DAB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394F1E21B57200534DAB /* MessageUI.framework */; };
+		BB7639521E21B5A200534DAB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639511E21B5A200534DAB /* MobileCoreServices.framework */; };
+		BB7639531E21B65000534DAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB76393E1E21B17800534DAB /* GoogleService-Info.plist */; };
+		BB7639541E21B65500534DAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB76393E1E21B17800534DAB /* GoogleService-Info.plist */; };
+		BB7639571E21B6DC00534DAB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639561E21B6DC00534DAB /* libz.tbd */; };
+		BB7639591E21B6E000534DAB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639581E21B6E000534DAB /* AddressBook.framework */; };
+		BB76395B1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */; };
+		BB76395C1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */; };
 		BB7B51941DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
 		BB7B51951DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
 		BB7B51961DCDA63C00FFF99B /* GameScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */; };
@@ -1790,6 +1816,24 @@
 		BB7450871DC15440001568B2 /* CountHissWithMina.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountHissWithMina.h; sourceTree = "<group>"; };
 		BB74508C1DC158FA001568B2 /* GridLockedPhysicalEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GridLockedPhysicalEntity.cpp; sourceTree = "<group>"; };
 		BB74508D1DC158FA001568B2 /* GridLockedPhysicalEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridLockedPhysicalEntity.h; sourceTree = "<group>"; };
+		BB76392C1E21B0A700534DAB /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = ../../3rdparty/Firebase/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		BB76392D1E21B0A700534DAB /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = ../../3rdparty/Firebase/FirebaseCore.framework; sourceTree = "<group>"; };
+		BB76392E1E21B0A700534DAB /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = ../../3rdparty/Firebase/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		BB76392F1E21B0A700534DAB /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = ../../3rdparty/Firebase/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		BB7639301E21B0A700534DAB /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = ../../3rdparty/Firebase/GoogleMobileAds.framework; sourceTree = "<group>"; };
+		BB7639311E21B0A700534DAB /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = ../../3rdparty/Firebase/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		BB76393E1E21B17800534DAB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BB7639421E21B4B800534DAB /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		BB7639441E21B4C400534DAB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		BB7639461E21B4CD00534DAB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BB7639481E21B4DD00534DAB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		BB76394A1E21B4E700534DAB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		BB76394D1E21B53000534DAB /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		BB76394F1E21B57200534DAB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		BB7639511E21B5A200534DAB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		BB7639561E21B6DC00534DAB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		BB7639581E21B6E000534DAB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../../3rdparty/Firebase/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		BB7B51921DCDA5AD00FFF99B /* GameScreenState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScreenState.h; sourceTree = "<group>"; };
 		BB7B51931DCDA63C00FFF99B /* GameScreenState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScreenState.cpp; sourceTree = "<group>"; };
 		BB7B519D1DCDAA0300FFF99B /* JonFormState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JonFormState.cpp; sourceTree = "<group>"; };
@@ -1842,6 +1886,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB76395B1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */,
+				BB7639591E21B6E000534DAB /* AddressBook.framework in Frameworks */,
+				BB7639571E21B6DC00534DAB /* libz.tbd in Frameworks */,
+				BB7639521E21B5A200534DAB /* MobileCoreServices.framework in Frameworks */,
+				BB7639501E21B57200534DAB /* MessageUI.framework in Frameworks */,
+				BB76394E1E21B53000534DAB /* CoreMotion.framework in Frameworks */,
+				BB76394B1E21B4E700534DAB /* libsqlite3.tbd in Frameworks */,
+				BB7639491E21B4DD00534DAB /* libc++.tbd in Frameworks */,
+				BB7639471E21B4CD00534DAB /* Security.framework in Frameworks */,
+				BB7639451E21B4C400534DAB /* CFNetwork.framework in Frameworks */,
+				BB7639431E21B4B800534DAB /* libicucore.tbd in Frameworks */,
+				BB76393A1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */,
 				BBCCA8391DB343AB00452FA1 /* Accelerate.framework in Frameworks */,
 				BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */,
 				BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */,
@@ -1851,17 +1907,22 @@
 				BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */,
 				BB7305E4189C6C06009F6DF4 /* AVFoundation.framework in Frameworks */,
 				BB7305E2189C6BFA009F6DF4 /* AudioToolbox.framework in Frameworks */,
+				BB76393C1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */,
 				0ADF1878178E2185005DA99E /* UIKit.framework in Frameworks */,
 				0ADF187A178E2185005DA99E /* Foundation.framework in Frameworks */,
 				BB09CE111DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */,
 				0ADF187C178E2185005DA99E /* CoreGraphics.framework in Frameworks */,
 				0ADF187E178E2185005DA99E /* GLKit.framework in Frameworks */,
 				0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */,
+				BB7639381E21B0A700534DAB /* GoogleInterchangeUtilities.framework in Frameworks */,
+				BB7639321E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */,
 				C2FAA41A7EE7DD75E14DA2A1 /* BuddyBuildSDK.framework in Frameworks */,
 				BEDBEB10667F7565A72E937B /* AssetsLibrary.framework in Frameworks */,
 				FE1ACF4F5D764720ED51C8A8 /* CoreText.framework in Frameworks */,
 				014E2AEB6E549DA81C48EA14 /* CoreTelephony.framework in Frameworks */,
+				BB7639341E21B0A700534DAB /* FirebaseCore.framework in Frameworks */,
 				EF21A84F90D23B88CD7E3542 /* SystemConfiguration.framework in Frameworks */,
+				BB7639361E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */,
 				2BC3849E400A7786FEE2E90A /* CoreMedia.framework in Frameworks */,
 				B23AAA45087CD1F1D15E94C6 /* CoreVideo.framework in Frameworks */,
 			);
@@ -1915,6 +1976,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB76393B1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */,
 				BB0B3ED51DBAA4F400597FE9 /* Accelerate.framework in Frameworks */,
 				BB0B3ED61DBAA4F400597FE9 /* AssetsLibrary.framework in Frameworks */,
 				BB0B3ED71DBAA4F400597FE9 /* AudioToolbox.framework in Frameworks */,
@@ -1924,17 +1986,23 @@
 				BB0B3EDB1DBAA4F400597FE9 /* CoreGraphics.framework in Frameworks */,
 				BB0B3EDC1DBAA4F400597FE9 /* CoreMedia.framework in Frameworks */,
 				BB0B3EDD1DBAA4F400597FE9 /* CoreTelephony.framework in Frameworks */,
+				BB76393D1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */,
 				BB0B3EDE1DBAA4F400597FE9 /* CoreText.framework in Frameworks */,
 				BB0B3EDF1DBAA4F400597FE9 /* CoreVideo.framework in Frameworks */,
 				BB09CE121DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */,
 				BB0B3EE01DBAA4F400597FE9 /* Foundation.framework in Frameworks */,
 				BB0B3EE11DBAA4F400597FE9 /* GLKit.framework in Frameworks */,
 				BB0B3EE21DBAA4F400597FE9 /* libc++.dylib in Frameworks */,
+				BB7639391E21B0A700534DAB /* GoogleInterchangeUtilities.framework in Frameworks */,
+				BB7639331E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */,
 				BB0B3EE31DBAA4F400597FE9 /* libz.dylib in Frameworks */,
 				BB0B3EE41DBAA4F400597FE9 /* MediaPlayer.framework in Frameworks */,
+				BB76395C1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */,
 				BB0B3EE51DBAA4F400597FE9 /* OpenAL.framework in Frameworks */,
 				BB0B3EE61DBAA4F400597FE9 /* OpenGLES.framework in Frameworks */,
+				BB7639351E21B0A700534DAB /* FirebaseCore.framework in Frameworks */,
 				BB0B3EE71DBAA4F400597FE9 /* QuartzCore.framework in Frameworks */,
+				BB7639371E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */,
 				BB0B3EE81DBAA4F400597FE9 /* SystemConfiguration.framework in Frameworks */,
 				BB0B3EE91DBAA4F400597FE9 /* UIKit.framework in Frameworks */,
 			);
@@ -1952,6 +2020,7 @@
 				BB44C31E1DB030B3003E633F /* mac */,
 				0ADF1875178E2185005DA99E /* Products */,
 				BB44C34A1DB03267003E633F /* shared */,
+				BB7639551E21B6DC00534DAB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1969,25 +2038,40 @@
 		0ADF1876178E2185005DA99E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */,
 				BBCCA8381DB343AB00452FA1 /* Accelerate.framework */,
 				05945F36F017190884FC7FB9 /* AssetsLibrary.framework */,
 				BB7305E1189C6BFA009F6DF4 /* AudioToolbox.framework */,
 				BB7305E3189C6C06009F6DF4 /* AVFoundation.framework */,
 				84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */,
+				BB7639441E21B4C400534DAB /* CFNetwork.framework */,
 				BB09703519C3A3180086B30F /* CoreFoundation.framework */,
 				0ADF187B178E2185005DA99E /* CoreGraphics.framework */,
 				66A3F204C83EB088382D59C5 /* CoreMedia.framework */,
+				BB76394D1E21B53000534DAB /* CoreMotion.framework */,
 				6BB340D6B4A6FDD2AB902A29 /* CoreTelephony.framework */,
 				7422774349EFDC9E550FC8B5 /* CoreText.framework */,
 				917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */,
+				BB76392C1E21B0A700534DAB /* FirebaseAnalytics.framework */,
+				BB76392D1E21B0A700534DAB /* FirebaseCore.framework */,
+				BB76392E1E21B0A700534DAB /* FirebaseInstanceID.framework */,
 				0ADF1879178E2185005DA99E /* Foundation.framework */,
 				0ADF187D178E2185005DA99E /* GLKit.framework */,
+				BB76392F1E21B0A700534DAB /* GoogleInterchangeUtilities.framework */,
+				BB7639301E21B0A700534DAB /* GoogleMobileAds.framework */,
+				BB7639311E21B0A700534DAB /* GoogleSymbolUtilities.framework */,
 				BB12EDD71A1CF6F1006D385B /* libc++.dylib */,
+				BB7639481E21B4DD00534DAB /* libc++.tbd */,
+				BB7639421E21B4B800534DAB /* libicucore.tbd */,
+				BB76394A1E21B4E700534DAB /* libsqlite3.tbd */,
 				BB451A3618C30E810093E559 /* libz.dylib */,
 				BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */,
+				BB76394F1E21B57200534DAB /* MessageUI.framework */,
+				BB7639511E21B5A200534DAB /* MobileCoreServices.framework */,
 				BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */,
 				0ADF187F178E2185005DA99E /* OpenGLES.framework */,
 				BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */,
+				BB7639461E21B4CD00534DAB /* Security.framework */,
 				FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */,
 				0ADF1877178E2185005DA99E /* UIKit.framework */,
 			);
@@ -2282,6 +2366,7 @@
 				0ADF1876178E2185005DA99E /* Frameworks */,
 				BB44C3311DB0317E003E633F /* GameViewController.h */,
 				BB44C3321DB0317E003E633F /* GameViewController.mm */,
+				BB76393E1E21B17800534DAB /* GoogleService-Info.plist */,
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
@@ -2814,6 +2899,15 @@
 			path = mac;
 			sourceTree = "<group>";
 		};
+		BB7639551E21B6DC00534DAB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BB7639581E21B6E000534DAB /* AddressBook.framework */,
+				BB7639561E21B6DC00534DAB /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BBCB71C71DB6A217006430B6 /* Texconv */ = {
 			isa = PBXGroup;
 			children = (
@@ -3123,6 +3217,7 @@
 				BB4256981DBA8485001E6B97 /* title_lightning_2.mp3 in Resources */,
 				BB44C4E81DB03277003E633F /* world_1_mid_boss_part_1.png in Resources */,
 				BB036B731DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
+				BB7639531E21B65000534DAB /* GoogleService-Info.plist in Resources */,
 				BB44C4881DB03277003E633F /* c_world_1_end_boss_part_2.png in Resources */,
 				BB4255F81DBA8485001E6B97 /* footstep_left_cave.mp3 in Resources */,
 				BB44C4E41DB03277003E633F /* world_1_enemies.png in Resources */,
@@ -3527,6 +3622,7 @@
 				BBE92D9B1DB2E671008359C2 /* trans_out_death_shader.fsh in Resources */,
 				BBE9D4061DBE8F4E002D2120 /* level_editor.png in Resources */,
 				BBE92D9C1DB2E671008359C2 /* c_world_1_ground.png in Resources */,
+				BB7639541E21B65500534DAB /* GoogleService-Info.plist in Resources */,
 				BB4256811DBA8485001E6B97 /* snake_jump.mp3 in Resources */,
 				BB4256A11DBA8485001E6B97 /* toad_eat.mp3 in Resources */,
 				BBE92DA01DB2E671008359C2 /* title_screen.png in Resources */,

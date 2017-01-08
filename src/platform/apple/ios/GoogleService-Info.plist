@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>251190947198-f71d66rqtkm3tn12gtitl7q41nkjvl9d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.251190947198-f71d66rqtkm3tn12gtitl7q41nkjvl9d</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>251190947198-hpim7723kipbo3jr43tbfb4sn9c9t8fr.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5VPJO5LWRhrfp3q7rL-seobN1sHHLZqg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>251190947198</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.noctisgames.nosfuratu</string>
+	<key>PROJECT_ID</key>
+	<string>nosfuratu-77f45</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nosfuratu-77f45.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:251190947198:ios:e47917480a842c14</string>
+	<key>DATABASE_URL</key>
+	<string>https://nosfuratu-77f45.firebaseio.com</string>
+</dict>
+</plist>
