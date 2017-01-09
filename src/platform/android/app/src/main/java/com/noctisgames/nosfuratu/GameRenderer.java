@@ -126,7 +126,7 @@ public final class GameRenderer implements Renderer
         int[] screenDimensions = getScreenDimensions(activity);
 
         double ramSize = getTotalRAM(activity);
-        boolean isLowMemoryDevice = screenDimensions[0] < 2048 || screenDimensions[1] < 2048 || ramSize < 1610612736; // 1536 MB
+        boolean isLowMemoryDevice = screenDimensions[0] < 2048 || screenDimensions[1] < 2048 || ramSize < 2147483648.0; // 2048 MB
 
         Log.d("NosFURatu", "ramSize: " + ramSize);
         Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
