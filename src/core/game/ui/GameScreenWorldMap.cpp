@@ -41,7 +41,7 @@ void WorldMap::enter(GameScreen* gs)
     m_userHasClickedOpeningCutscene = false;
     m_fGoldenCarrotCountFlickerTime = 1337;
     
-    m_needsToDisplayAd = true;
+    m_iNumTimesVisitedSinceLastAdBreak++;
 }
 
 void WorldMap::initRenderer(GameScreen* gs)
@@ -91,10 +91,10 @@ void WorldMap::execute(GameScreen* gs)
     }
     else
     {
-        if (m_needsToDisplayAd)
+        if (m_iNumTimesVisitedSinceLastAdBreak >= 3)
         {
             gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
-            m_needsToDisplayAd = false;
+            m_iNumTimesVisitedSinceLastAdBreak = 0;
             
             return;
         }
@@ -714,11 +714,11 @@ m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
 m_iUnlockedLevelStatsFlag(0),
 m_iViewedCutsceneFlag(0),
+m_iNumTimesVisitedSinceLastAdBreak(0),
 m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
 m_userHasClickedOpeningCutscene(false),
 m_needsRefresh(false),
-m_needsToDisplayAd(false),
 m_isNextWorldButtonEnabled(false)
 {
     m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());

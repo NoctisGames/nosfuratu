@@ -358,7 +358,7 @@ void Level::update(GameScreen* gs)
                 updateCamera(gs, 0, false, true);
                 
                 m_iNumAttemptsSinceLastAdBreak++;
-                if (m_iNumAttemptsSinceLastAdBreak >= 7)
+                if (m_iNumAttemptsSinceLastAdBreak >= 9)
                 {
                     gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
                     m_iNumAttemptsSinceLastAdBreak = 0;

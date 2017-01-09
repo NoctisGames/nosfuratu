@@ -635,9 +635,9 @@ private:
     int m_iJonAbilityFlag;
     int m_iUnlockedLevelStatsFlag;
     int m_iViewedCutsceneFlag;
+    int m_iNumTimesVisitedSinceLastAdBreak;
     bool m_isReadyForTransition;
     bool m_needsRefresh;
-    bool m_needsToDisplayAd;
     bool m_isNextWorldButtonEnabled;
     
     LevelThumbnail* m_clickedLevel;
