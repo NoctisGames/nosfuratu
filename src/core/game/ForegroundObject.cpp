@@ -164,7 +164,7 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
             return new BlockingObject(gridX, gridY, 28, 7, fot, GROUND_SOUND_GRASS, 0, 0, 1, 0.85714285714286f);
             
         case ForegroundObjectType_Floating_Platform:
-            return new PlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
+            return new FloatingPlatformObject(gridX, gridY, 20, 11, fot, GROUND_SOUND_WOOD, 0, 0, 1, 0.875f); // Really should be a metallic sound
             
         case ForegroundObjectType_Stone_Square:
             return new BlockingObject(gridX, gridY, 24, 24, fot, GROUND_SOUND_NONE);
@@ -1029,6 +1029,7 @@ bool BlockingObject::isJonBlockedAbove(Jon &jon, float deltaTime)
 
 RTTI_IMPL(ForegroundObject, GridLockedPhysicalEntity);
 RTTI_IMPL(PlatformObject, ForegroundObject);
+RTTI_IMPL(FloatingPlatformObject, PlatformObject);
 RTTI_IMPL(DeadlyObject, ForegroundObject);
 RTTI_IMPL(LandingDeathObject, ForegroundObject);
 RTTI_IMPL(RunningIntoDeathObject, ForegroundObject);

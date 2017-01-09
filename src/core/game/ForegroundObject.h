@@ -173,6 +173,95 @@ public:
     virtual bool canObjectBePlacedOn();
 };
 
+class FloatingPlatformObject : public PlatformObject
+{
+    RTTI_DECL;
+    
+public:
+    FloatingPlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : PlatformObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fOriginalY(0), m_isIdle(true), m_isWeighted(false)
+    {
+        float x = m_position->getX();
+        float y = m_position->getY() - m_fHeight / 2 + 0.1f;
+        m_idlePoof = std::unique_ptr<PhysicalEntity>(new PhysicalEntity(x, y - 0.31640625f / 2, 0.4921875f, 0.31640625f));
+        m_addedWeightPoof = std::unique_ptr<PhysicalEntity>(new PhysicalEntity(x, y - 1.51171875f / 2, 1.40625f, 1.51171875f));
+        
+        onMoved();
+    }
+    
+    virtual void update(float deltaTime)
+    {
+        m_position->add(m_velocity->getX() * deltaTime, m_velocity->getY() * deltaTime);
+        
+        float x = m_position->getX();
+        float y = m_position->getY() - m_fHeight / 2 + 0.1f;
+        m_idlePoof->getPosition().set(x, y - 0.31640625f / 2);
+        m_addedWeightPoof->getPosition().set(x, y - 1.51171875f / 2);
+        
+        m_idlePoof->update(deltaTime);
+        m_addedWeightPoof->update(deltaTime);
+        
+        if (m_isIdle)
+        {
+            if (m_position->getY() > (m_fOriginalY + 0.1f))
+            {
+                m_velocity->setY(-0.2f);
+            }
+            else if (m_position->getY() < (m_fOriginalY - 0.1f))
+            {
+                m_velocity->setY(0.2f);
+            }
+        }
+    }
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime)
+    {
+        if (PlatformObject::isEntityLanding(entity, deltaTime))
+        {
+            m_isIdle = false;
+            m_isWeighted = true;
+            
+            m_position->setY(m_fOriginalY - 0.2f);
+            m_velocity->setY(0);
+            
+            return true;
+        }
+        
+        m_isIdle = true;
+        m_isWeighted = false;
+        
+        return false;
+    }
+    
+    void onMoved()
+    {
+        m_fOriginalY = m_position->getY();
+        
+        // One time
+        getMainBounds().setWidth(getWidth());
+        getMainBounds().setHeight(getHeight());
+        
+        PhysicalEntity::updateBounds();
+        
+        getMainBounds().getLowerLeft().add(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+        getMainBounds().setWidth(getWidth() * m_fBoundsWidth);
+        getMainBounds().setHeight(getHeight() * m_fBoundsHeight);
+        
+        m_velocity->setY(-0.25f);
+    }
+    
+    PhysicalEntity& getIdlePoof() { return *m_idlePoof; }
+    PhysicalEntity& getAddedWeightPoof() { return *m_addedWeightPoof; }
+    bool isIdle() { return m_isIdle; }
+    bool isWeighted() { return m_isWeighted; }
+    
+private:
+    std::unique_ptr<PhysicalEntity> m_idlePoof;
+    std::unique_ptr<PhysicalEntity> m_addedWeightPoof;
+    float m_fOriginalY;
+    bool m_isIdle;
+    bool m_isWeighted;
+};
+
 class DeadlyObject : public ForegroundObject
 {
     RTTI_DECL;

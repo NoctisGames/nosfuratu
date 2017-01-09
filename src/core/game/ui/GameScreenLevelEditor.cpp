@@ -683,6 +683,11 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 							Sparrow *sparrow = reinterpret_cast<Sparrow *>(m_draggingEntity);
 							sparrow->onMoved();
 						}
+                        else if (m_draggingEntity->getRTTI().derivesFrom(FloatingPlatformObject::rtti))
+                        {
+                            FloatingPlatformObject *fpo = reinterpret_cast<FloatingPlatformObject *>(m_draggingEntity);
+                            fpo->onMoved();
+                        }
                     }
                 }
                 

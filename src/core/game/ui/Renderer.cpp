@@ -977,6 +977,29 @@ void Renderer::renderWorld(Game& game)
         }
     }
     
+    for (std::vector<ForegroundObject *>::iterator i = game.getForegroundObjects().begin(); i != game.getForegroundObjects().end(); i++)
+    {
+        if ((*i)->getType() == ForegroundObjectType_Floating_Platform)
+        {
+            FloatingPlatformObject* fpo = reinterpret_cast<FloatingPlatformObject *>((*i));
+            
+            if (fpo->isIdle())
+            {
+                PhysicalEntity& pe = fpo->getIdlePoof();
+                static Animation anim = ASSETS_MAPPER->findAnimation("FloatingPlatformIdlePoof");
+                TextureRegion tr = anim.getTextureRegion(pe.getStateTime());
+                m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), 0, tr);
+            }
+            else if (fpo->isWeighted())
+            {
+                PhysicalEntity& pe = fpo->getAddedWeightPoof();
+                static Animation anim = ASSETS_MAPPER->findAnimation("FloatingPlatformWeightedPoof");
+                TextureRegion tr = anim.getTextureRegion(pe.getStateTime());
+                m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), 0, tr);
+            }
+        }
+    }
+    
     renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     

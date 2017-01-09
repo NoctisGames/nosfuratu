@@ -382,4 +382,7 @@ void AssetsMapper::initializeAssetsMapper()
     m_animations["TitlePanel_Castle"] = createAnimation("title_screen", 0, 724, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
     m_animations["TitlePanel_Castle_Light_Effect"] = createAnimation("title_screen", 0, 1098, 368, 374, 736, 374, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
     m_animations["TitlePanel_Logo_Light_Effect"] = createAnimation("title_screen", 0, 1504, 874, 434, 1748, 434, TEXTURE_SIZE_2048, TEXTURE_SIZE_2048, true, 0.10f, 2);
+    
+    m_animations["FloatingPlatformIdlePoof"] = createAnimation("world_1_objects_part_1", 2864, 0, 56, 36, 168, 36, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 3);
+    m_animations["FloatingPlatformWeightedPoof"] = createAnimation("world_1_objects_part_1", 2816, 44, 160, 172, 640, 172, TEXTURE_SIZE_4096, TEXTURE_SIZE_4096, true, 0.10f, 4);
 }
