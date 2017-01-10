@@ -8,9 +8,13 @@
 
 #import "AppleSoundManager.h"
 
-#ifdef NG_IOS
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if TARGET_OS_IPHONE
 #import "SuperpoweredIOSAudioIO.h"
-#elif defined NG_MAC
+#elif TARGET_OS_OSX
 #import "SuperpoweredOSXAudioIO.h"
 #endif
 
@@ -27,7 +31,7 @@
 
 @implementation AppleSoundManager
 
-#ifdef NG_IOS
+#if TARGET_OS_IPHONE
 static bool audioProcessingMusic(void *clientData, float **buffers, unsigned int inputChannels, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
     return ((SuperpoweredSoundManager *)clientData)->processMusic(buffers, (unsigned int)numberOfSamples, sampleRate);
@@ -87,7 +91,7 @@ static bool audioProcessingSound11(void *clientData, float **buffers, unsigned i
 {
     return ((SuperpoweredSoundManager *)clientData)->processSound11(buffers, (unsigned int)numberOfSamples, sampleRate);
 }
-#elif defined NG_MAC
+#elif TARGET_OS_OSX
 static bool audioProcessingMusic(void *clientData, float **inputBuffers, unsigned int inputChannels, float **outputBuffers, unsigned int outputChannels, unsigned int numberOfSamples, unsigned int sampleRate, uint64_t hostTime)
 {
     return ((SuperpoweredSoundManager *)clientData)->processMusic(outputBuffers, (unsigned int)numberOfSamples, sampleRate);
@@ -160,7 +164,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
         
         _audioSystems = [[NSMutableArray alloc] init];
         
-#ifdef NG_IOS
+#if TARGET_OS_IPHONE
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingMusic clientdata:_superpoweredSoundManager]];
          
          [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound1 clientdata:_superpoweredSoundManager]];
@@ -174,7 +178,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound9 clientdata:_superpoweredSoundManager]];
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound10 clientdata:_superpoweredSoundManager]];
         [_audioSystems addObject:[[SuperpoweredIOSAudioIO alloc] initWithDelegate:(id<SuperpoweredIOSAudioIODelegate>)self preferredBufferSize:12 preferredMinimumSamplerate:sampleRate audioSessionCategory:AVAudioSessionCategoryPlayback channels:2 audioProcessingCallback:audioProcessingSound11 clientdata:_superpoweredSoundManager]];
-#elif defined NG_MAC
+#elif TARGET_OS_OSX
         [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
         
         [_audioSystems addObject:[[SuperpoweredOSXAudioIO alloc] initWithDelegate:nil preferredBufferSizeMs:12 numberOfChannels:2 enableInput:false enableOutput:true]];
@@ -269,7 +273,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
     _superpoweredSoundManager->pauseMusic();
 }
 
-#ifdef NG_IOS
+#if TARGET_OS_IPHONE
 - (void)interruptionStarted {}
 - (void)interruptionEnded {}
 - (void)recordPermissionRefused {}
