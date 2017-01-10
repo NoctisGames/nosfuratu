@@ -15,15 +15,22 @@ using namespace Windows::System::Profile;
 
 Direct3DTransScreenGpuProgramWrapper::Direct3DTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_iNumShadersLoaded(0), m_isWindowsMobile(false), m_deviceResources(deviceResources)
 {
-#if defined NG_WIN_10
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
-#elif defined NG_WIN_8
-	m_isWindowsMobile = false;
-#elif defined NG_WIN_PHONE_8
-	m_isWindowsMobile = true;
+	bool isMobile;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		isMobile = true;
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+		#else
+			isMobile = false;
+		#endif
+	#endif
 #endif
     
+	m_isWindowsMobile = isMobile;
+	
 	createConstantBuffers();
 
 	// Load shaders asynchronously.
