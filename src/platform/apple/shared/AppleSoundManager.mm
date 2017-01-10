@@ -217,7 +217,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
 
 - (void)loadSound:(NSString *)path withNumCopies:(int)numCopies
 {
-    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"mp3"] fileSystemRepresentation];
+    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"wav"] fileSystemRepresentation];
     
     _superpoweredSoundManager->loadSound(_soundIndexCounter++, bundlePath, numCopies);
 }
@@ -244,7 +244,7 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
 
 - (void)loadMusic:(NSString *)path
 {
-    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"mp3"] fileSystemRepresentation];
+    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"wav"] fileSystemRepresentation];
     
     _superpoweredSoundManager->loadMusic(1337, bundlePath);
 }

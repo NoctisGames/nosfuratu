@@ -86,9 +86,9 @@ android {
     task copySounds(type: Copy)
     copySounds {
         description = 'Copies sounds from root assets into project assets'
-        from '../../../../assets/sounds/mp3'
+        from '../../../../assets/sounds'
         into 'src/main/res/raw'
-        include('*.mp3')
+        include('*.wav')
     }
 
     preBuild.dependsOn(copyFrameworkShaders)
