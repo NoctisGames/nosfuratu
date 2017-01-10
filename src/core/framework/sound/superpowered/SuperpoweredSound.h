@@ -11,6 +11,8 @@
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
 
+#include <string>
+
 class SuperpoweredSound
 {
 public:
@@ -33,7 +35,7 @@ public:
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
-    const char *m_path;
+    std::string m_path;
     float m_fVolume;
     int m_iRawResourceId;
     unsigned int m_iLastSamplerate;

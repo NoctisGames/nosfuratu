@@ -48,11 +48,11 @@ m_isLooping(false)
     
     if (fileOffset > -1 && fileLength > -1)
     {
-        m_player->open(m_path, fileOffset, fileLength);
+        m_player->open(m_path.c_str(), fileOffset, fileLength);
     }
     else
     {
-        m_player->open(m_path);
+        m_player->open(m_path.c_str());
     }
 }
 
