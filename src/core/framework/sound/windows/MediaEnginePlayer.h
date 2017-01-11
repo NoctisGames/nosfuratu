@@ -71,5 +71,5 @@ public:
 private:
 	bool m_isPlaying;
 	bool m_isLooping;
-	bool m_isPlayRequested;
+	bool m_hasCalledPlay;
 };

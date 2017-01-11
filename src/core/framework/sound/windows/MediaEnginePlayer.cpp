@@ -97,7 +97,8 @@ MediaEnginePlayer::MediaEnginePlayer() :
     m_spMediaEngine(nullptr),  
     m_spEngineEx(nullptr), 
     m_isPlaying(false),
-	m_isLooping(false)
+	m_isLooping(false),
+	m_hasCalledPlay(false)
 { 
     memset(&m_bkgColor, 0, sizeof(MFARGB)); 
 } 
@@ -286,7 +287,9 @@ void MediaEnginePlayer::Play(bool isLooping)
 		DX::ThrowIfFailed(m_spMediaEngine->SetLoop(m_isLooping));
         DX::ThrowIfFailed(m_spMediaEngine->Play());
 		DX::ThrowIfFailed(m_spMediaEngine->SetVolume(0.5));
-        m_isPlaying = true;             
+        m_isPlaying = true;     
+
+		m_hasCalledPlay = true;
     } 
     return; 
 } 
@@ -330,6 +333,11 @@ void MediaEnginePlayer::SetMuted(bool muted)
 
 void MediaEnginePlayer::SetCurrentTime(double seekTime)
 {
+	if (!m_hasCalledPlay)
+	{
+		return;
+	}
+
 	if (m_spMediaEngine)
 	{
 		DX::ThrowIfFailed(m_spMediaEngine->SetCurrentTime(seekTime));
