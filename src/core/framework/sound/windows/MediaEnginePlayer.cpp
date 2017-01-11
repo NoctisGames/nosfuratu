@@ -185,7 +185,10 @@ void MediaEnginePlayer::SetSource(Platform::String^ fileName)
  
     StringCchCopyW(bstrURL, cchAllocationSize, fullPath->Data()); 
  
-    m_spMediaEngine->SetSource(bstrURL); 
+    m_spMediaEngine->SetSource(bstrURL);
+
+	m_hasCalledPlay = false;
+
     return; 
 } 
  
