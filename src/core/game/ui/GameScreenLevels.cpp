@@ -227,19 +227,18 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 void Level::handleOpeningSequence(GameScreen* gs)
 {
-	CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
-	countHissWithMina.update(gs->m_fDeltaTime);
-
-	Jon& jon = m_game->getJon();
-	jon.update(gs->m_fDeltaTime);
+    m_game->updateAndClean(gs->m_fDeltaTime);
 
 	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
 	m_hasOpeningSequenceCompleted = result == 3;
 	m_activateRadialBlur = result == 1;
-	jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
+	
+    Jon& jon = m_game->getJon();
+    jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
 
 	if (m_hasOpeningSequenceCompleted)
 	{
+        CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
 		countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
 
 		ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);

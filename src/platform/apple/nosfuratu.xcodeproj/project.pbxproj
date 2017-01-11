@@ -299,6 +299,16 @@
 		BB221FF61DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
 		BB221FF71DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
 		BB221FF81DE6495400D0D361 /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB221FF31DE6495400D0D361 /* ForegroundCoverObject.cpp */; };
+		BB37D5071E26FA2C005C4131 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639441E21B4C400534DAB /* CFNetwork.framework */; };
+		BB37D5081E26FA2C005C4131 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394D1E21B53000534DAB /* CoreMotion.framework */; };
+		BB37D5091E26FA2C005C4131 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639481E21B4DD00534DAB /* libc++.tbd */; };
+		BB37D50A1E26FA2C005C4131 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639421E21B4B800534DAB /* libicucore.tbd */; };
+		BB37D50B1E26FA2C005C4131 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394A1E21B4E700534DAB /* libsqlite3.tbd */; };
+		BB37D50C1E26FA2C005C4131 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB76394F1E21B57200534DAB /* MessageUI.framework */; };
+		BB37D50D1E26FA2C005C4131 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639511E21B5A200534DAB /* MobileCoreServices.framework */; };
+		BB37D50E1E26FA2C005C4131 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639461E21B4CD00534DAB /* Security.framework */; };
+		BB37D50F1E26FA4F005C4131 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639581E21B6E000534DAB /* AddressBook.framework */; };
+		BB37D5101E26FA4F005C4131 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639561E21B6DC00534DAB /* libz.tbd */; };
 		BB40F60E1A1F9A9F004C7562 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD71A1CF6F1006D385B /* libc++.dylib */; };
 		BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3201DB030B3003E633F /* AppDelegate.m */; };
 		BB44C3291DB030B3003E633F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3211DB030B3003E633F /* Assets.xcassets */; };
@@ -1976,35 +1986,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB76393B1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */,
+				BB76395C1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */,
 				BB0B3ED51DBAA4F400597FE9 /* Accelerate.framework in Frameworks */,
+				BB37D50F1E26FA4F005C4131 /* AddressBook.framework in Frameworks */,
+				BB37D5101E26FA4F005C4131 /* libz.tbd in Frameworks */,
 				BB0B3ED61DBAA4F400597FE9 /* AssetsLibrary.framework in Frameworks */,
 				BB0B3ED71DBAA4F400597FE9 /* AudioToolbox.framework in Frameworks */,
 				BB0B3ED81DBAA4F400597FE9 /* AVFoundation.framework in Frameworks */,
 				BB0B3ED91DBAA4F400597FE9 /* BuddyBuildSDK.framework in Frameworks */,
+				BB37D5071E26FA2C005C4131 /* CFNetwork.framework in Frameworks */,
 				BB0B3EDA1DBAA4F400597FE9 /* CoreFoundation.framework in Frameworks */,
 				BB0B3EDB1DBAA4F400597FE9 /* CoreGraphics.framework in Frameworks */,
 				BB0B3EDC1DBAA4F400597FE9 /* CoreMedia.framework in Frameworks */,
+				BB37D5081E26FA2C005C4131 /* CoreMotion.framework in Frameworks */,
 				BB0B3EDD1DBAA4F400597FE9 /* CoreTelephony.framework in Frameworks */,
-				BB76393D1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */,
 				BB0B3EDE1DBAA4F400597FE9 /* CoreText.framework in Frameworks */,
 				BB0B3EDF1DBAA4F400597FE9 /* CoreVideo.framework in Frameworks */,
-				BB09CE121DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */,
+				BB7639331E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */,
+				BB7639351E21B0A700534DAB /* FirebaseCore.framework in Frameworks */,
+				BB7639371E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */,
 				BB0B3EE01DBAA4F400597FE9 /* Foundation.framework in Frameworks */,
 				BB0B3EE11DBAA4F400597FE9 /* GLKit.framework in Frameworks */,
-				BB0B3EE21DBAA4F400597FE9 /* libc++.dylib in Frameworks */,
 				BB7639391E21B0A700534DAB /* GoogleInterchangeUtilities.framework in Frameworks */,
-				BB7639331E21B0A700534DAB /* FirebaseAnalytics.framework in Frameworks */,
+				BB76393B1E21B0A700534DAB /* GoogleMobileAds.framework in Frameworks */,
+				BB76393D1E21B0A700534DAB /* GoogleSymbolUtilities.framework in Frameworks */,
+				BB0B3EE21DBAA4F400597FE9 /* libc++.dylib in Frameworks */,
+				BB37D5091E26FA2C005C4131 /* libc++.tbd in Frameworks */,
+				BB37D50A1E26FA2C005C4131 /* libicucore.tbd in Frameworks */,
+				BB37D50B1E26FA2C005C4131 /* libsqlite3.tbd in Frameworks */,
 				BB0B3EE31DBAA4F400597FE9 /* libz.dylib in Frameworks */,
 				BB0B3EE41DBAA4F400597FE9 /* MediaPlayer.framework in Frameworks */,
-				BB76395C1E21B71A00534DAB /* GoogleToolboxForMac.framework in Frameworks */,
+				BB37D50C1E26FA2C005C4131 /* MessageUI.framework in Frameworks */,
+				BB37D50D1E26FA2C005C4131 /* MobileCoreServices.framework in Frameworks */,
 				BB0B3EE51DBAA4F400597FE9 /* OpenAL.framework in Frameworks */,
 				BB0B3EE61DBAA4F400597FE9 /* OpenGLES.framework in Frameworks */,
-				BB7639351E21B0A700534DAB /* FirebaseCore.framework in Frameworks */,
 				BB0B3EE71DBAA4F400597FE9 /* QuartzCore.framework in Frameworks */,
-				BB7639371E21B0A700534DAB /* FirebaseInstanceID.framework in Frameworks */,
+				BB37D50E1E26FA2C005C4131 /* Security.framework in Frameworks */,
 				BB0B3EE81DBAA4F400597FE9 /* SystemConfiguration.framework in Frameworks */,
 				BB0B3EE91DBAA4F400597FE9 /* UIKit.framework in Frameworks */,
+				BB09CE121DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2020,7 +2040,6 @@
 				BB44C31E1DB030B3003E633F /* mac */,
 				0ADF1875178E2185005DA99E /* Products */,
 				BB44C34A1DB03267003E633F /* shared */,
-				BB7639551E21B6DC00534DAB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2038,6 +2057,8 @@
 		0ADF1876178E2185005DA99E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB7639581E21B6E000534DAB /* AddressBook.framework */,
+				BB7639561E21B6DC00534DAB /* libz.tbd */,
 				BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */,
 				BBCCA8381DB343AB00452FA1 /* Accelerate.framework */,
 				05945F36F017190884FC7FB9 /* AssetsLibrary.framework */,
@@ -2889,15 +2910,6 @@
 				BB44CB141DB04EE2003E633F /* MacOpenGLGameScreen.h */,
 			);
 			path = mac;
-			sourceTree = "<group>";
-		};
-		BB7639551E21B6DC00534DAB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BB7639581E21B6E000534DAB /* AddressBook.framework */,
-				BB7639561E21B6DC00534DAB /* libz.tbd */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BBCB71C71DB6A217006430B6 /* Texconv */ = {
