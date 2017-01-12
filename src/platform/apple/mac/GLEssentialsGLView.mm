@@ -82,6 +82,13 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     [mainWindow setDelegate:self];
     
+    int width = [[NSScreen mainScreen] frame].size.width;
+    int height = [[NSScreen mainScreen] frame].size.height;
+    
+    [mainWindow setFrame:NSMakeRect(0, 0, width, height) display:YES];
+    
+    [mainWindow toggleFullScreen:self];
+    
     NSOpenGLPixelFormatAttribute attrs[] =
 	{
         NSOpenGLPFANoRecovery,
