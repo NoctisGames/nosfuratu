@@ -806,6 +806,7 @@ GameScreenLevelEditor::GameScreenLevelEditor() :
 	m_allowPlaceUnder(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
+    m_game->setIsLevelEditor(true);
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());

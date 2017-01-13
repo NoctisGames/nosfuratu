@@ -43,7 +43,8 @@ m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
 m_iWorld(1),
 m_iLevel(1),
-m_isLoaded(false)
+m_isLoaded(false),
+m_isLevelEditor(false)
 {
     GRID_MANAGER->setGridCellSize(GRID_CELL_SIZE);
 }
@@ -54,6 +55,7 @@ void Game::copy(Game* game)
     
     m_iWorld = game->getWorld();
     m_iLevel = game->getLevel();
+    m_isLevelEditor = game->isLevelEditor();
     
     copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
@@ -656,7 +658,8 @@ void Game::onLoaded()
 {
     if (m_iWorld == 1)
     {
-        for (int i = 0; i < 4; i++)
+        int numBgs = m_isLevelEditor ? 4 : 1;
+        for (int i = 0; i < numBgs; i++)
         {
             m_backgroundUppers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Upper));
             

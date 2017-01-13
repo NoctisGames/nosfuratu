@@ -161,6 +161,10 @@ public:
     
     void setStateTime(float stateTime);
     
+    void setIsLevelEditor(bool isLevelEditor) { m_isLevelEditor = isLevelEditor; }
+    
+    bool isLevelEditor() { return m_isLevelEditor; }
+    
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
@@ -196,6 +200,7 @@ private:
     int m_iWorld;
     int m_iLevel;
     bool m_isLoaded;
+    bool m_isLevelEditor;
     
     template<typename T>
     void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)

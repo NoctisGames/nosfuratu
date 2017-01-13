@@ -891,9 +891,12 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getBackgroundMids());
     m_spriteBatcher->endBatch(*m_world_1_background_mid.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
     
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundLowerBacks());
-    m_spriteBatcher->endBatch(*m_world_1_background_lower_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    if (game.getLevel() >= 10)
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(game.getBackgroundLowerBacks());
+        m_spriteBatcher->endBatch(*m_world_1_background_lower_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    }
     
     m_spriteBatcher->beginBatch();
     renderPhysicalEntities(game.getBackgroundLowers());
@@ -923,13 +926,16 @@ void Renderer::renderWorld(Game& game)
     }
     m_spriteBatcher->endBatch(*m_world_1_ground.gpuTextureWrapper);
     
-    /// Render Background Midground Cover
-    
-    updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
-    
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getBackgroundMidgroundCovers());
-    m_spriteBatcher->endBatch(*m_world_1_background_lower_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    if (game.getLevel() >= 10)
+    {
+        /// Render Background Midground Cover
+        
+        updateMatrix(0, m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
+        
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(game.getBackgroundMidgroundCovers());
+        m_spriteBatcher->endBatch(*m_world_1_background_lower_part_2.gpuTextureWrapper, *m_backgroundGpuTextureProgramWrapper);
+    }
     
     /// Render World
     
@@ -939,9 +945,12 @@ void Renderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getGrounds());
     m_spriteBatcher->endBatch(*m_world_1_ground.gpuTextureWrapper);
     
-    m_spriteBatcher->beginBatch();
-    renderPhysicalEntities(game.getPits());
-    m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
+    if (game.getLevel() < 10)
+    {
+        m_spriteBatcher->beginBatch();
+        renderPhysicalEntities(game.getPits());
+        m_spriteBatcher->endBatch(*m_world_1_special.gpuTextureWrapper);
+    }
     
     m_spriteBatcher->beginBatch();
     for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
@@ -964,11 +973,14 @@ void Renderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_objects_part_2.gpuTextureWrapper);
     
     m_spriteBatcher->beginBatch();
-    renderPhysicalEntitiesWithColor(game.getCollectibleItems());
     
     for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
     {
-        if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
+        CollectibleItem* pItem = *i;
+        CollectibleItem& item = *pItem;
+        renderPhysicalEntityWithColor(item, ASSETS->get(pItem), item.getColor());
+        
+        if (item.getType() == CollectibleItemType_GoldenCarrot)
         {
             GoldenCarrot* gc = reinterpret_cast<GoldenCarrot *>((*i));
             
@@ -998,19 +1010,24 @@ void Renderer::renderWorld(Game& game)
                 m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), 0, tr);
             }
         }
+        
+        ForegroundObject* pItem = *i;
+        ForegroundObject& item = *pItem;
+        renderPhysicalEntity(item, ASSETS->get(pItem));
     }
     
-    renderPhysicalEntities(game.getForegroundObjects());
     m_spriteBatcher->endBatch(*m_world_1_objects_part_1.gpuTextureWrapper);
     
-    if (ensureWorld1MidBossPart3())
+    if (game.getLevel() == 10
+        && ensureWorld1MidBossPart3())
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getMidBossForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_mid_boss_part_3.gpuTextureWrapper);
     }
     
-    if (ensureWorld1EndBossPart1())
+    if (game.getLevel() == 21
+        && ensureWorld1EndBossPart1())
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntitiesWithColor(game.getEndBossForegroundObjects());
@@ -1032,10 +1049,13 @@ void Renderer::renderWorld(Game& game)
     }
     m_spriteBatcher->endBatch(*m_world_1_enemies.gpuTextureWrapper);
 
-	for (std::vector<EndBossSnake *>::iterator i = game.getEndBossSnakes().begin(); i != game.getEndBossSnakes().end(); i++)
-	{
-		renderEndBossSnake(*(*i));
-	}
+    if (game.getLevel() == 21)
+    {
+        for (std::vector<EndBossSnake *>::iterator i = game.getEndBossSnakes().begin(); i != game.getEndBossSnakes().end(); i++)
+        {
+            renderEndBossSnake(*(*i));
+        }
+    }
 }
 
 void Renderer::renderJonAndExtraForegroundObjects(Game& game)
