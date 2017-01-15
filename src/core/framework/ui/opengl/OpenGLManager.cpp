@@ -34,6 +34,7 @@ void OpenGLManager::init(int width, int height, int maxBatchSize, int numFramebu
     
     glViewport(0, 0, width, height);
     glScissor(0, 0, width, height);
+    glEnable(GL_SCISSOR_TEST);
     
     buildShaderPrograms();
     generateIndices(maxBatchSize);
