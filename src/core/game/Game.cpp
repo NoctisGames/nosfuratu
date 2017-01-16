@@ -194,8 +194,20 @@ void Game::update(float deltaTime)
 	m_fStateTime += deltaTime;
 }
 
-void Game::updateAndClean(float deltaTime)
+void Game::updateAndClean(float deltaTime, bool onlyJonAndCollectibles)
 {
+    if (onlyJonAndCollectibles)
+    {
+        EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
+        
+        if (getJons().size() > 0)
+        {
+            getJon().update(deltaTime);
+        }
+        
+        return;
+    }
+    
     EntityUtils::updateAndClean(getMidgrounds(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getPits(), deltaTime);

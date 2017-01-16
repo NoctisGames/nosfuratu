@@ -276,7 +276,7 @@ void Chapter1Level21::beginOpeningSequence(GameScreen* gs)
 
 void Chapter1Level21::handleOpeningSequence(GameScreen* gs)
 {
-    m_game->updateAndClean(gs->m_fDeltaTime);
+    m_game->updateAndClean(gs->m_fDeltaTime, true);
     
     int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
     m_hasOpeningSequenceCompleted = result == 3;

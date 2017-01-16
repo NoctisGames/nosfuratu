@@ -49,7 +49,7 @@ public:
     
     void update(float deltaTime);
     
-    void updateAndClean(float deltaTime);
+    void updateAndClean(float deltaTime, bool onlyJonAndCollectibles = false);
     
     void updateBackgrounds(Vector2D& cameraPosition, float deltaTime);
     

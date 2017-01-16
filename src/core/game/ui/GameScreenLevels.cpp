@@ -227,7 +227,7 @@ void Level::beginOpeningSequence(GameScreen* gs)
 
 void Level::handleOpeningSequence(GameScreen* gs)
 {
-    m_game->updateAndClean(gs->m_fDeltaTime);
+    m_game->updateAndClean(gs->m_fDeltaTime, true);
 
 	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
 	m_hasOpeningSequenceCompleted = result == 3;

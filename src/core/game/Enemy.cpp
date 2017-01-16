@@ -288,6 +288,11 @@ void Enemy::handleJon()
             return;
         }
         
+        if (jon.getPosition().getY() > (getPosition().getY() + getHeight() / 2))
+        {
+            return;
+        }
+        
         jon.kill();
     }
 }
