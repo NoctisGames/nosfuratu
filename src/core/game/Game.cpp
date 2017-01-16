@@ -633,7 +633,8 @@ void Game::calcFarRight()
 {
     bool isUsingEndBossCam = m_iLevel == 21;
     
-    if (isUsingEndBossCam)
+    if (isUsingEndBossCam
+        && m_countHissWithMinas.size() > 0)
     {
         // End Boss Level
         CountHissWithMina* countHissWithMina = m_countHissWithMinas.at(0);
