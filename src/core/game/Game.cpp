@@ -194,10 +194,11 @@ void Game::update(float deltaTime)
 	m_fStateTime += deltaTime;
 }
 
-void Game::updateAndClean(float deltaTime, bool onlyJonAndCollectibles)
+void Game::updateAndClean(float deltaTime, bool onlyJonCollectiblesAndCountHiss)
 {
-    if (onlyJonAndCollectibles)
+    if (onlyJonCollectiblesAndCountHiss)
     {
+        EntityUtils::updateAndClean(getCountHissWithMinas(), deltaTime);
         EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
         
         if (getJons().size() > 0)
