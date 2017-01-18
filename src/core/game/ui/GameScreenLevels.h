@@ -44,7 +44,9 @@ public:
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
-    void stopLoopingSounds();
+    void stopAllSounds();
+    
+    void stopAllLoopingSounds();
     
     int getScore() { return m_iScore; }
     
@@ -77,6 +79,7 @@ protected:
     int m_iLevelStatsFlag;
     int m_iNumGoldenCarrots;
     int m_iNumTimesBatPanelDisplayed;
+    int m_iNumAttemptsSinceLastAdBreak;
     bool m_hasShownOpeningSequence;
     bool m_hasOpeningSequenceCompleted;
     bool m_activateRadialBlur;
@@ -121,6 +124,7 @@ protected:
 private:
     bool m_playLevelSelectMusicOnExit;
 	bool m_stopMusicOnExit;
+    bool m_hasStoppedAllLoopingSoundsAfterJonDeath;
     
     void updateScore();
     
@@ -461,6 +465,7 @@ private:
 	float m_fMarker2X;
 	float m_fMarker3X;
 	float m_fMusicVolume;
+    float m_fInitialDistanceToHole;
 	int m_iNumCarrotsCollectedAtCheckpoint;
 	int m_iNumGoldenCarrotsCollectedAtCheckpoint;
     bool m_isChaseCamActivated;

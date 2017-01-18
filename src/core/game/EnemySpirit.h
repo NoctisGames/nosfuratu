@@ -36,20 +36,4 @@ private:
     EnemySpiritType m_type;
 };
 
-class EnemySpiritSnake : public EnemySpirit
-{
-    RTTI_DECL;
-    
-public:
-    EnemySpiritSnake(float x, float y) : EnemySpirit(x, y, 1.828125f, 2.25f, EnemySpiritType_Snake) {}
-};
-
-class EnemySpiritSparrow : public EnemySpirit
-{
-    RTTI_DECL;
-    
-public:
-    EnemySpiritSparrow(float x, float y) : EnemySpirit(x, y + 1.546875f, 2.25f, 4.5f, EnemySpiritType_Sparrow) {}
-};
-
 #endif /* defined(__nosfuratu__EnemySpirit__) */

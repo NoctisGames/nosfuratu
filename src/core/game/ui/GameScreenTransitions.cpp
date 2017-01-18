@@ -20,6 +20,7 @@
 #include "GameScreenOpeningCutscene.h"
 #include "GameScreenComingSoon.h"
 #include "BatPanel.h"
+#include "GameScreenSpriteTester.h"
 
 /// Title To World Map Transition ///
 
@@ -51,12 +52,14 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenUi(*wm);
         gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -65,8 +68,8 @@ void TitleToWorldMap::execute(GameScreen* gs)
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -76,8 +79,8 @@ void TitleToWorldMap::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }
@@ -119,12 +122,14 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -133,8 +138,8 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -144,8 +149,8 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY);
         }
     }
 }
@@ -190,12 +195,14 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenUi(*wm);
         gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -214,8 +221,8 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }
@@ -257,12 +264,14 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderLevelEditor(GameScreenLevelEditor::getInstance());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -271,8 +280,8 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         if (m_fTransitionStateTime < 0)
         {
             m_fTransitionStateTime = 0;
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -291,6 +300,72 @@ void TitleToLevelEditor::exit(GameScreen* gs)
 }
 
 TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
+{
+    // Empty
+}
+
+/// Title To Sprite Tester Transition ///
+
+TitleToSpriteTester * TitleToSpriteTester::getInstance()
+{
+    static TitleToSpriteTester *instance = new TitleToSpriteTester();
+    
+    return instance;
+}
+
+void TitleToSpriteTester::enter(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+    GameScreenSpriteTester::getInstance()->enter(gs);
+}
+
+void TitleToSpriteTester::execute(GameScreen* gs)
+{
+    if (gs->m_isRequestingRender)
+    {
+        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        
+        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        
+        gs->m_renderer->setFramebuffer(1);
+        
+        gs->m_renderer->renderSpriteTester(GameScreenSpriteTester::getInstance());
+        
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
+        
+        if (gs->m_renderer->isLoadingAdditionalTextures())
+        {
+            gs->m_renderer->renderLoading();
+        }
+        
+        gs->m_renderer->renderToScreen();
+        
+        gs->m_renderer->endFrame();
+    }
+    else
+    {
+        if (m_fTransitionStateTime < 0)
+        {
+            m_fTransitionStateTime = 0;
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
+        }
+        
+        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            gs->m_stateMachine->setCurrentState(GameScreenSpriteTester::getInstance());
+        }
+    }
+}
+
+void TitleToSpriteTester::exit(GameScreen* gs)
+{
+    m_fTransitionStateTime = -1;
+}
+
+TitleToSpriteTester::TitleToSpriteTester() : m_fTransitionStateTime(0)
 {
     // Empty
 }
@@ -340,12 +415,14 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -358,7 +435,7 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         if (!m_hasPlayedTransitionSound)
         {
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
             
             m_hasPlayedTransitionSound = true;
         }
@@ -368,8 +445,8 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
             gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY);
         }
     }
 }
@@ -441,12 +518,14 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
         
-        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -459,8 +538,8 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         if (!m_hasPlayedTransitionSound)
         {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addSoundIdToPlayQueue(SOUND_SCREEN_TRANSITION_2);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
             
             m_hasPlayedTransitionSound = true;
         }
@@ -561,12 +640,14 @@ void LevelToComingSoon::execute(GameScreen* gs)
         
         gs->m_renderer->renderComingSoonScreenBackground();
         
-        gs->m_renderer->renderToScreenFadeTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -576,7 +657,7 @@ void LevelToComingSoon::execute(GameScreen* gs)
         {
             m_fTransitionStateTime = 0;
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_STOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
@@ -585,8 +666,8 @@ void LevelToComingSoon::execute(GameScreen* gs)
         {
             gs->m_stateMachine->setCurrentState(ComingSoon::getInstance());
             
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
-            Assets::getInstance()->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
+            ASSETS->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
         }
     }
 }
@@ -610,6 +691,7 @@ RTTI_IMPL(TitleToWorldMap, GameScreenState);
 RTTI_IMPL(TitleToOpeningCutscene, GameScreenState);
 RTTI_IMPL(OpeningCutsceneToWorldMap, GameScreenState);
 RTTI_IMPL(TitleToLevelEditor, GameScreenState);
+RTTI_IMPL(TitleToSpriteTester, GameScreenState);
 RTTI_IMPL(WorldMapToOpeningCutscene, GameScreenState);
 RTTI_IMPL(WorldMapToLevel, GameScreenState);
 RTTI_IMPL(LevelToComingSoon, GameScreenState);

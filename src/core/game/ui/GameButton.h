@@ -23,7 +23,8 @@ typedef enum
     GameButtonType_ViewOpeningCutscene,
     GameButtonType_BackToLevelSelect,
     GameButtonType_ContinueToLevelSelect,
-    GameButtonType_LevelEditor
+    GameButtonType_LevelEditor,
+    GameButtonType_SpriteTester
 } GameButtonType;
 
 class GameButton : public PhysicalEntity

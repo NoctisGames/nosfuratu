@@ -14,7 +14,7 @@
 class MacOpenGLGameScreen : public OpenGLGameScreen
 {
 public:
-    MacOpenGLGameScreen(int screenWidth, int screenHeight);
+    MacOpenGLGameScreen();
     
     virtual void touchToWorld(TouchEvent &touchEvent);
     
@@ -22,7 +22,7 @@ public:
     
     void cleanUp();
     
-protected:
+private:
     int m_iScreenWidth;
     int m_iScreenHeight;
 };

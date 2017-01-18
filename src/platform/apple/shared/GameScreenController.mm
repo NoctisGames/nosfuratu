@@ -13,8 +13,9 @@
 @interface GameScreenController ()
 {
     GameScreen *_gameScreen;
-    DisplayMessageBlock _displayMessageBlock;
     GetLevelFilePath _getLevelFilePath;
+    DisplayMessageBlock _displayMessageBlock;
+    HandleInterstitialAd _handleInterstitialAd;
     AppleSoundManager *_appleSoundManager;
 }
 
@@ -22,15 +23,16 @@
 
 @implementation GameScreenController
 
-- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath andDisplayMessageBlock:(DisplayMessageBlock)displayMessageBlock
+- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath displayMessageBlock:(DisplayMessageBlock)displayMessageBlock andHandleInterstitialAd:(HandleInterstitialAd)handleInterstitialAd
 {
     self = [super init];
     
     if (self)
     {
         _gameScreen = gameScreen;
-        _displayMessageBlock = displayMessageBlock;
         _getLevelFilePath = getLevelFilePath;
+        _displayMessageBlock = displayMessageBlock;
+        _handleInterstitialAd = handleInterstitialAd;
         
         [self initSoundEngine];
     }
@@ -83,6 +85,10 @@
             [self showMessage:_gameScreen->getRequestedAction()];
             _gameScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+            _handleInterstitialAd();
+            _gameScreen->clearRequestedAction();
+            break;
         default:
             break;
     }
@@ -129,6 +135,12 @@
             case STOP_SOUND_SPIKED_BALL_ROLLING:
                 [self stopSound:soundId - 1000];
                 break;
+            case STOP_ALL_SOUNDS:
+                [self stopAllSounds];
+                break;
+            case STOP_ALL_LOOPING_SOUNDS:
+                [self stopAllLoopingSounds];
+                break;
             default:
                 [self playSound:soundId];
                 break;
@@ -165,10 +177,6 @@
             case MUSIC_SET_VOLUME:
             {
                 float volume = rawMusicId / 100.0f / 2.0f; // On iOS, volume starts off at 0.5
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
                 
                 [self setMusicVolume:volume];
             }
@@ -222,6 +230,16 @@
 {
     int soundIndex = soundId - 1;
     [_appleSoundManager stopSound:soundIndex];
+}
+
+- (void)stopAllSounds
+{
+    [_appleSoundManager stopAllSounds];
+}
+
+- (void)stopAllLoopingSounds
+{
+    [_appleSoundManager stopAllLoopingSounds];
 }
 
 - (void)pauseMusic
@@ -490,10 +508,10 @@
     [_appleSoundManager loadSound:@"collect_carrot" withNumCopies:6];
     [_appleSoundManager loadSound:@"collect_golden_carrot" withNumCopies:1];
     [_appleSoundManager loadSound:@"death" withNumCopies:1];
-    [_appleSoundManager loadSound:@"footstep_left_grass" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_right_grass" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_left_cave" withNumCopies:2];
-    [_appleSoundManager loadSound:@"footstep_right_cave" withNumCopies:2];
+    [_appleSoundManager loadSound:@"footstep_left_grass" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_grass" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_left_cave" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_cave" withNumCopies:1];
     [_appleSoundManager loadSound:@"jump_spring" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_grass" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_cave" withNumCopies:1];
@@ -548,6 +566,9 @@
     [_appleSoundManager loadSound:@"end_boss_snake_death" withNumCopies:1];
     [_appleSoundManager loadSound:@"spiked_ball_rolling_loop" withNumCopies:2];
     [_appleSoundManager loadSound:@"absorb_dash_ability" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_left_wood" withNumCopies:1];
+    [_appleSoundManager loadSound:@"footstep_right_wood" withNumCopies:1];
+    [_appleSoundManager loadSound:@"landing_wood" withNumCopies:1];
 }
 
 @end

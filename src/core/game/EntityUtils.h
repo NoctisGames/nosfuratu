@@ -299,7 +299,7 @@ public:
             float width = entity.getMainBounds().getWidth();
             float height = entity.getMainBounds().getHeight();
             float x = entity.getMainBounds().getLeft();
-            float y = entity.getMainBounds().getLowerLeft().getY();
+            float y = entity.getMainBounds().getBottom();
             
             Rectangle tempBounds = Rectangle(x, y, width, height);
             
@@ -310,7 +310,7 @@ public:
             {
                 if (OverlapTester::doRectanglesOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
                 {
-                    if (tempBounds.getLowerLeft().getY() > (*i)->getMainBounds().getTop())
+                    if (tempBounds.getBottom() > (*i)->getMainBounds().getTop())
                     {
                         return true;
                     }
@@ -542,6 +542,36 @@ public:
 			}
 		}
 	}
+    
+    template<typename T>
+    static int boxInAll(std::vector<T*>& items, float eX, float eY, float eWidth, float eHeight, int index)
+    {
+        float size = fminf(eWidth, eHeight);
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            T* item = *i;
+            
+            item->getPosition().set(eX, eY + (index++ * eHeight));
+            item->setWidth(eWidth);
+            item->setHeight(eHeight);
+            
+            if (item->getWidth() > item->getHeight())
+            {
+                item->setHeight(item->getHeight() / item->getWidth());
+                item->setHeight(item->getHeight() * size);
+                item->setWidth(size);
+            }
+            else
+            {
+                item->setWidth(item->getWidth() / item->getHeight());
+                item->setWidth(item->getWidth() * size);
+                item->setHeight(size);
+            }
+        }
+        
+        return index;
+    }
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

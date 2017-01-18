@@ -19,7 +19,22 @@ typedef enum
     MidgroundType_TreeThree,
     MidgroundType_DeepCaveColumnSmall,
     MidgroundType_DeepCaveColumnMedium,
-    MidgroundType_DeepCaveColumnBig
+    MidgroundType_DeepCaveColumnBig,
+    MidgroundType_Plant,
+    MidgroundType_Metal_Tower_Section,
+    MidgroundType_Billboard_Count_Hiss,
+    MidgroundType_Billboard_Slag_Town,
+    MidgroundType_Billboard_Jon_Wanted,
+    MidgroundType_Hill,
+    MidgroundType_Train_Car,
+    MidgroundType_Short_Stump,
+    MidgroundType_Tall_Stump,
+    MidgroundType_Thin_Tall_Tree,
+    MidgroundType_Thin_Short_Tree,
+    MidgroundType_Stone_Square,
+    MidgroundType_Stone_Diamond,
+    MidgroundType_Wall,
+    MidgroundType_Roof
 } MidgroundType;
 
 class Midground : public GridLockedPhysicalEntity
@@ -35,54 +50,6 @@ public:
     
 private:
     MidgroundType m_type;
-};
-
-class TreeOne : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeOne(int gridX) : Midground(gridX, 96, 32, 42, MidgroundType_TreeOne) {}
-};
-
-class TreeTwo : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeTwo(int gridX) : Midground(gridX, 96, 41, 50, MidgroundType_TreeTwo) {}
-};
-
-class TreeThree : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    TreeThree(int gridX) : Midground(gridX, 96, 58, 53, MidgroundType_TreeThree) {}
-};
-
-class DeepCaveColumnSmall : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnSmall(int gridX) : Midground(gridX, 0, 6, 18, MidgroundType_DeepCaveColumnSmall) {}
-};
-
-class DeepCaveColumnMedium : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnMedium(int gridX) : Midground(gridX, 0, 8, 52, MidgroundType_DeepCaveColumnMedium) {}
-};
-
-class DeepCaveColumnBig : public Midground
-{
-    RTTI_DECL;
-    
-public:
-    DeepCaveColumnBig(int gridX) : Midground(gridX, 0, 16, 52, MidgroundType_DeepCaveColumnBig) {}
 };
 
 #endif /* defined(__nosfuratu__Midground__) */

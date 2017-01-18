@@ -12,7 +12,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef NG_MAC
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if TARGET_OS_IPHONE
+// Empty
+#elif TARGET_OS_OSX
 #import <Cocoa/Cocoa.h>
 #endif
 

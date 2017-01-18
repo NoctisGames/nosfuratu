@@ -73,7 +73,7 @@ public:
     {
         if (m_needsToPlayClearSound)
         {
-            Assets::getInstance()->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+            ASSETS->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
             
             m_needsToPlayClearSound = false;
         }
@@ -150,7 +150,7 @@ public:
     
     void onConfirm()
     {
-        Assets::getInstance()->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
+        ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
         
         m_fStateTime = 0;
     }
@@ -289,7 +289,7 @@ public:
     {
         if (m_needsToPlayUnlockSound)
         {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
+            ASSETS->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
             
             m_needsToPlayUnlockSound = false;
         }
@@ -419,7 +419,7 @@ public:
     {
         if (m_needsToPlayUnlockSound)
         {
-            Assets::getInstance()->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+            ASSETS->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
             
             m_needsToPlayUnlockSound = false;
         }
@@ -615,6 +615,8 @@ public:
     
     int getUnlockedLevelStatsFlag();
     
+    LevelThumbnail* getSelectedLevelThumbnail() { return m_clickedLevel; }
+    
 private:
     std::unique_ptr<WorldMapPanel> m_panel;
     std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
@@ -633,6 +635,7 @@ private:
     int m_iJonAbilityFlag;
     int m_iUnlockedLevelStatsFlag;
     int m_iViewedCutsceneFlag;
+    int m_iNumTimesVisitedSinceLastAdBreak;
     bool m_isReadyForTransition;
     bool m_needsRefresh;
     bool m_isNextWorldButtonEnabled;

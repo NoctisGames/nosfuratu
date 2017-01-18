@@ -17,8 +17,12 @@
 typedef enum
 {
     BackgroundType_Upper,
-    BackgroundType_Mid,
-    BackgroundType_Lower,
+    BackgroundType_Mid_Hills,
+    BackgroundType_Lower_Innermost,
+    BackgroundType_Mid_Trees,
+    BackgroundType_Lower_Inner,
+    BackgroundType_Lower_Top,
+    BackgroundType_Lower_Bottom,
     BackgroundType_WaterBack,
     BackgroundType_WaterFront
 } BackgroundType;
@@ -28,6 +32,8 @@ class Background : public PhysicalEntity
     RTTI_DECL;
     
 public:
+    static Background* create(float x, int type);
+    
     Background(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type);
     
     virtual void update(Vector2D& cameraPosition, float deltaTime);
@@ -43,30 +49,6 @@ protected:
     BackgroundType m_type;
 };
 
-class Upper : public Background
-{
-    RTTI_DECL;
-    
-public:
-    Upper(float x) : Background(x, 27.0f, CAM_WIDTH, 18.0f, 12, BackgroundType_Upper) {}
-};
-
-class Mid : public Background
-{
-    RTTI_DECL;
-    
-public:
-    Mid(float x) : Background(x, 18.0f, CAM_WIDTH, 9.0f, 24, BackgroundType_Mid) {}
-};
-
-class Lower : public Background
-{
-    RTTI_DECL;
-    
-public:
-    Lower(float x) : Background(x, 7.59375f, CAM_WIDTH, 15.1875f, 36, BackgroundType_Lower) {}
-};
-
 class Water : public Background
 {
     RTTI_DECL;
@@ -75,22 +57,6 @@ public:
     Water(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type) : Background(x, y, width, height, xScrollSpeed, type) {}
     
     virtual void update(Vector2D& cameraPosition, float deltaTime);
-};
-
-class WaterBack : public Water
-{
-    RTTI_DECL;
-    
-public:
-    WaterBack(float x) : Water(x, 0.28125f, CAM_WIDTH, 0.5625f, 256, BackgroundType_WaterBack) {}
-};
-
-class WaterFront : public Water
-{
-    RTTI_DECL;
-    
-public:
-    WaterFront(float x) : Water(x, 0.2109375f, CAM_WIDTH, 0.421875f, 320, BackgroundType_WaterFront) {}
 };
 
 #endif /* defined(__nosfuratu__Background__) */

@@ -24,6 +24,57 @@ class Game;
 
 typedef enum
 {
+    JonShadowState_Invisible,
+    JonShadowState_Grounded,
+    JonShadowState_Jumping
+} JonShadowState;
+
+class JonShadow : public PhysicalEntity
+{
+    RTTI_DECL;
+    
+public:
+    JonShadow() : PhysicalEntity(0, 0, 1.353515625f, 0.158203125f), m_state(JonShadowState_Invisible) {}
+    
+    void onGrounded(float x, float y)
+    {
+        m_position->set(x, y);
+        
+        m_state = JonShadowState_Grounded;
+    }
+    
+    void onJump()
+    {
+        if (m_state == JonShadowState_Grounded)
+        {
+            m_state = JonShadowState_Jumping;
+            m_fStateTime = 0;
+        }
+    }
+    
+    void onAir()
+    {
+        if (m_state == JonShadowState_Grounded)
+        {
+            m_state = JonShadowState_Invisible;
+            m_fStateTime = 0;
+        }
+    }
+    
+    void makeInvisible()
+    {
+        m_state = JonShadowState_Invisible;
+        m_fStateTime = 0;
+    }
+    
+    JonShadowState getState() { return m_state; }
+    
+private:
+    JonShadowState m_state;
+};
+
+typedef enum
+{
     ABILITY_NONE,
     ABILITY_SPINNING_BACK_FIST,
     ABILITY_BURROW,
@@ -93,6 +144,8 @@ public:
     int getNumJumps();
     
     std::vector<DustCloud *>& getDustClouds();
+    
+    JonShadow* getJonShadow() { return m_jonShadow.get(); }
     
     std::vector<Jon *>& getAfterImages();
     
@@ -196,10 +249,13 @@ public:
 
 	void flash();
     
+    bool isReleasingShockwave() { return m_isReleasingShockwave; }
+    
 private:
     std::unique_ptr<StateMachine<Jon, JonFormState>> m_formStateMachine;
     Game* m_game;
     std::vector<DustCloud *> m_dustClouds;
+    std::unique_ptr<JonShadow> m_jonShadow;
     std::vector<Jon *> m_afterImages;
     JonState m_state;
     JonPhysicalState m_physicalState;
@@ -233,6 +289,7 @@ private:
     bool m_isBurrowEffective;
     bool m_shouldUseVampireFormForConsumeAnimation;
 	bool m_isFlashing;
+    bool m_isReleasingShockwave;
     
     void setState(JonState state);
     
@@ -244,6 +301,8 @@ private:
     
     class Rabbit : public JonFormState
     {
+        RTTI_DECL;
+        
     public:
         static Rabbit* getInstance();
         
@@ -280,6 +339,8 @@ private:
     
     class Vampire : public JonFormState
     {
+        RTTI_DECL;
+        
     public:
         static Vampire* getInstance();
         
@@ -318,6 +379,8 @@ private:
     
     class RabbitToVampire : public JonFormState
     {
+        RTTI_DECL;
+        
     public:
         static RabbitToVampire* getInstance();
         
@@ -343,10 +406,10 @@ private:
         
         virtual int getNumJumps(Jon* jon) { return 0; };
         
+        void handleTransformation(Jon* jon);
+        
     private:
         bool m_hasCompletedSlowMotion;
-        
-        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         RabbitToVampire();
@@ -356,6 +419,8 @@ private:
     
     class VampireToRabbit : public JonFormState
     {
+        RTTI_DECL;
+        
     public:
         static VampireToRabbit* getInstance();
         
@@ -381,10 +446,10 @@ private:
         
         virtual int getNumJumps(Jon* jon) { return 0; };
         
+        void handleTransformation(Jon* jon);
+        
     private:
         bool m_hasCompletedSlowMotion;
-        
-        void handleTransformation(Jon* jon);
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         VampireToRabbit();

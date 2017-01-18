@@ -11,20 +11,51 @@
 
 Midground* Midground::create(int gridX, int gridY, int type)
 {
-    switch ((MidgroundType)type)
+    MidgroundType mt = (MidgroundType)type;
+    switch (mt)
     {
         case MidgroundType_TreeOne:
-            return new TreeOne(gridX);
+            return new Midground(gridX, 96, 62, 54, mt);
         case MidgroundType_TreeTwo:
-            return new TreeTwo(gridX);
+            return new Midground(gridX, 96, 70, 50, mt);
         case MidgroundType_TreeThree:
-            return new TreeThree(gridX);
+            return new Midground(gridX, 96, 18, 16, mt);
         case MidgroundType_DeepCaveColumnSmall:
-            return new DeepCaveColumnSmall(gridX);
+            return new Midground(gridX, 0, 6, 18, mt);
         case MidgroundType_DeepCaveColumnMedium:
-            return new DeepCaveColumnMedium(gridX);
+            return new Midground(gridX, 0, 8, 52, mt);
         case MidgroundType_DeepCaveColumnBig:
-            return new DeepCaveColumnBig(gridX);
+            return new Midground(gridX, 0, 16, 52, mt);
+        case MidgroundType_Plant:
+            return new Midground(gridX, 96, 19, 20, mt);
+        case MidgroundType_Metal_Tower_Section:
+            return new Midground(gridX, gridY, 8, 12, mt);
+        case MidgroundType_Billboard_Count_Hiss:
+            return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Billboard_Slag_Town:
+            return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Billboard_Jon_Wanted:
+            return new Midground(gridX, gridY, 48, 28, mt);
+        case MidgroundType_Hill:
+            return new Midground(gridX, 96, 86, 11, mt);
+        case MidgroundType_Train_Car:
+            return new Midground(gridX, 96, 98, 24, mt);
+        case MidgroundType_Short_Stump:
+            return new Midground(gridX, 96, 12, 8, mt);
+        case MidgroundType_Tall_Stump:
+            return new Midground(gridX, 96, 8, 12, mt);
+        case MidgroundType_Thin_Tall_Tree:
+            return new Midground(gridX, 96, 12, 32, mt);
+        case MidgroundType_Thin_Short_Tree:
+            return new Midground(gridX, 96, 16, 20, mt);
+        case MidgroundType_Stone_Square:
+            return new Midground(gridX, gridY, 24, 24, mt);
+        case MidgroundType_Stone_Diamond:
+            return new Midground(gridX, gridY, 24, 24, mt);
+        case MidgroundType_Wall:
+            return new Midground(gridX, gridY, 16, 16, mt);
+        case MidgroundType_Roof:
+            return new Midground(gridX, gridY, 16, 4, mt);
     }
     
     assert(false);
@@ -41,9 +72,3 @@ MidgroundType Midground::getType()
 }
 
 RTTI_IMPL(Midground, GridLockedPhysicalEntity);
-RTTI_IMPL(TreeOne, Midground);
-RTTI_IMPL(TreeTwo, Midground);
-RTTI_IMPL(TreeThree, Midground);
-RTTI_IMPL(DeepCaveColumnSmall, Midground);
-RTTI_IMPL(DeepCaveColumnMedium, Midground);
-RTTI_IMPL(DeepCaveColumnBig, Midground);

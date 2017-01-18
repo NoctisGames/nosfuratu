@@ -21,6 +21,7 @@
 #include "EndBossSnake.h"
 #include "CountHissWithMina.h"
 #include "GameMarker.h"
+#include "ForegroundCoverObject.h"
 
 #include <memory>
 #include <vector>
@@ -48,7 +49,9 @@ public:
     
     void update(float deltaTime);
     
-    void updateAndClean(float deltaTime);
+    void updateAndClean(float deltaTime, bool onlyJonCollectiblesAndCountHiss = false);
+    
+    void updateBackgrounds(Vector2D& cameraPosition, float deltaTime);
     
     int calcSum();
     
@@ -71,6 +74,8 @@ public:
     std::vector<Background *>& getBackgroundUppers();
     
     std::vector<Background *>& getBackgroundMids();
+    
+    std::vector<Background *>& getBackgroundLowerBacks();
     
     std::vector<Background *>& getBackgroundLowers();
     
@@ -114,6 +119,8 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
+    std::vector<ForegroundCoverObject *>& getForegroundCoverObjects();
+    
     std::vector<GameMarker *>& getMarkers();
     
     void setBestLevelStatsFlag(int bestLevelStatsFlag);
@@ -127,6 +134,10 @@ public:
     float getFarRight();
     
     float getFarRightBottom();
+    
+    float getCamFarRight();
+    
+    float getCamFarRightBottom();
     
     float getStateTime();
     
@@ -150,9 +161,14 @@ public:
     
     void setStateTime(float stateTime);
     
+    void setIsLevelEditor(bool isLevelEditor) { m_isLevelEditor = isLevelEditor; }
+    
+    bool isLevelEditor() { return m_isLevelEditor; }
+    
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
+    std::vector<Background *> m_backgroundLowerBacks;
     std::vector<Background *> m_backgroundLowers;
     std::vector<Midground *> m_midgrounds;
     std::vector<Background *> m_backgroundMidgroundCovers;
@@ -169,18 +185,22 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
+    std::vector<ForegroundCoverObject *> m_foregroundCoverObjects;
     std::vector<GameMarker *> m_markers;
     Rectangle* m_cameraBounds;
     
     float m_fStateTime;
     float m_fFarRight;
     float m_fFarRightBottom;
+    float m_fCamFarRight;
+    float m_fCamFarRightBottom;
     int m_iBestLevelStatsFlag;
     int m_iNumCarrotsCollected;
     int m_iNumGoldenCarrotsCollected;
     int m_iWorld;
     int m_iLevel;
     bool m_isLoaded;
+    bool m_isLevelEditor;
     
     template<typename T>
     void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)
