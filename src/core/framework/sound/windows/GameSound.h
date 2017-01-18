@@ -20,12 +20,13 @@ public:
 	void play(bool isLoop = false);
 
 	void stop();
-
-	void clearFrame();
+    
+    bool isLooping() { return m_isLooping; }
 
 private:
 	int m_sounds[4];
 	int m_iSoundIndex;
+    bool m_isLooping;
 
 	int loadSound(Platform::String^ fileName);
 };

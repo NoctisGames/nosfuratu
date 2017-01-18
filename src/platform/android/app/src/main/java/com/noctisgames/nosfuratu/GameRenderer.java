@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 import com.noctisgames.nosfuratu.sound.SoundManager;
 
@@ -39,6 +42,8 @@ public final class GameRenderer implements Renderer
     private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
 
     private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+
+    private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 9;
 
     private static final short MESSAGE_NO_END_SIGN_KEY = 1;
     private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
@@ -79,8 +84,11 @@ public final class GameRenderer implements Renderer
     private static final short STOP_SOUND_SPARROW_FLY = SOUND_SPARROW_FLY + 1000;
     private static final short STOP_SOUND_SAW_GRIND = SOUND_SAW_GRIND + 1000;
     private static final short STOP_SOUND_SPIKED_BALL_ROLLING = SOUND_SPIKED_BALL_ROLLING + 1000;
+    private static final short STOP_ALL_SOUNDS = 9998;
+    private static final short STOP_ALL_LOOPING_SOUNDS = 9999;
 
     private final Activity _activity;
+    private final InterstitialAd mInterstitialAd;
     private final FileHandler _fileHandler;
     private SoundManager _soundManager;
 
@@ -90,6 +98,27 @@ public final class GameRenderer implements Renderer
     public GameRenderer(Activity activity)
     {
         _activity = activity;
+        mInterstitialAd = new InterstitialAd(_activity);
+
+        if (BuildConfig.DEBUG)
+        {
+            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        }
+        else
+        {
+            mInterstitialAd.setAdUnitId("ca-app-pub-6017554042572989/7036617356");
+        }
+
+        mInterstitialAd.setAdListener(new AdListener()
+        {
+            @Override
+            public void onAdClosed()
+            {
+                requestNewInterstitial();
+            }
+        });
+
+        requestNewInterstitial();
         _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
 
         SaveData.init(activity);
@@ -97,7 +126,7 @@ public final class GameRenderer implements Renderer
         int[] screenDimensions = getScreenDimensions(activity);
 
         double ramSize = getTotalRAM(activity);
-        boolean isLowMemoryDevice = screenDimensions[0] < 1024 || screenDimensions[1] < 1024 || ramSize < 1610612736; // 1536 MB
+        boolean isLowMemoryDevice = screenDimensions[0] < 2048 || screenDimensions[1] < 2048 || ramSize < 2147483648.0; // 2048 MB
 
         Log.d("NosFURatu", "ramSize: " + ramSize);
         Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
@@ -180,6 +209,10 @@ public final class GameRenderer implements Renderer
                 showMessage(Game.get_requested_action());
                 Game.clear_requested_action();
                 break;
+            case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+                displayInterstitialAdIfLoaded();
+                Game.clear_requested_action();
+                break;
             default:
                 break;
         }
@@ -251,6 +284,12 @@ public final class GameRenderer implements Renderer
                 case STOP_SOUND_SPIKED_BALL_ROLLING:
                     stopSound(soundId - 1000);
                     break;
+                case STOP_ALL_SOUNDS:
+                    stopAllSounds();
+                    break;
+                case STOP_ALL_LOOPING_SOUNDS:
+                    stopAllLoopingSounds();
+                    break;
                 default:
                     playSound(soundId);
                     break;
@@ -287,10 +326,6 @@ public final class GameRenderer implements Renderer
                 case MUSIC_SET_VOLUME:
                 {
                     float volume = rawMusicId / 100.0f / 2.0f; // On Android, volume starts off at 0.5
-                    if (volume < 0)
-                    {
-                        volume = 0;
-                    }
 
                     _soundManager.setMusicVolume(volume);
                 }
@@ -332,6 +367,16 @@ public final class GameRenderer implements Renderer
     private void stopSound(int soundId)
     {
         _soundManager.stopSound(soundId - 1);
+    }
+
+    private void stopAllSounds()
+    {
+        SoundManager.stop_all_sounds();
+    }
+
+    private void stopAllLoopingSounds()
+    {
+        SoundManager.stop_all_looping_sounds();
     }
 
     private void saveLevel(final int requestedAction)
@@ -592,10 +637,10 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.collect_carrot, 6);
         _soundManager.loadSound(activity, R.raw.collect_golden_carrot, 1);
         _soundManager.loadSound(activity, R.raw.death, 1);
-        _soundManager.loadSound(activity, R.raw.footstep_left_grass, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_right_grass, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_left_cave, 2);
-        _soundManager.loadSound(activity, R.raw.footstep_right_cave, 2);
+        _soundManager.loadSound(activity, R.raw.footstep_left_grass, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_grass, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_left_cave, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_cave, 1);
         _soundManager.loadSound(activity, R.raw.jump_spring, 1);
         _soundManager.loadSound(activity, R.raw.landing_grass, 1);
         _soundManager.loadSound(activity, R.raw.landing_cave, 1);
@@ -650,6 +695,33 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.end_boss_snake_death, 1);
         _soundManager.loadSound(activity, R.raw.spiked_ball_rolling_loop, 2);
         _soundManager.loadSound(activity, R.raw.absorb_dash_ability, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_left_wood, 1);
+        _soundManager.loadSound(activity, R.raw.footstep_right_wood, 1);
+        _soundManager.loadSound(activity, R.raw.landing_wood, 1);
+    }
+
+    private void displayInterstitialAdIfLoaded()
+    {
+        _activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (mInterstitialAd.isLoaded())
+                {
+                    mInterstitialAd.show();
+                }
+            }
+        });
+    }
+
+    private void requestNewInterstitial()
+    {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
     private static int[] getScreenDimensions(Activity activity)

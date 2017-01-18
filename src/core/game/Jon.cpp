@@ -49,13 +49,16 @@ m_isUserActionPrevented(false),
 m_isBurrowEffective(false),
 m_shouldUseVampireFormForConsumeAnimation(false),
 m_fFlashStateTime(0),
-m_isFlashing(false)
+m_isFlashing(false),
+m_isReleasingShockwave(false)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
 	m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(this));
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
 	m_formStateMachine->getCurrentState()->enter(this);
+    
+    m_jonShadow = std::unique_ptr<JonShadow>(new JonShadow());
 }
 
 void Jon::update(float deltaTime)
@@ -63,6 +66,8 @@ void Jon::update(float deltaTime)
 	m_fDeltaTime = deltaTime;
     
     EntityUtils::updateAndClean(getDustClouds(), deltaTime);
+    
+    m_jonShadow->update(deltaTime);
     
     for (std::vector<Jon *>::iterator i = m_afterImages.begin(); i != m_afterImages.end(); )
     {
@@ -94,6 +99,8 @@ void Jon::update(float deltaTime)
 
 	if (m_state == JON_DYING)
 	{
+        m_jonShadow->makeInvisible();
+        
         m_fDyingStateTime += deltaTime;
 		if (m_fDyingStateTime > 1)
 		{
@@ -160,6 +167,8 @@ void Jon::update(float deltaTime)
 
 	if (m_physicalState == PHYSICAL_GROUNDED)
 	{
+        m_jonShadow->onGrounded(getPosition().getX(), getMainBounds().getBottom());
+        
 		if (!wasGrounded && m_state == JON_ALIVE)
 		{
 			m_isLanding = true;
@@ -170,7 +179,7 @@ void Jon::update(float deltaTime)
 				m_velocity->setX(0);
 			}
 
-			m_dustClouds.push_back(new DustCloud(getPosition().getX(), getPosition().getY() - getHeight() / 2, fabsf(m_velocity->getY() / 12.6674061f)));
+            m_dustClouds.push_back(DustCloud::create(getPosition().getX(), getPosition().getY() - getHeight() / 2, DustCloudType_Landing, fabsf(m_velocity->getY() / 12.6674061f)));
 
 			if (m_groundSoundType == GROUND_SOUND_GRASS)
 			{
@@ -180,6 +189,10 @@ void Jon::update(float deltaTime)
 			{
 				ASSETS->addSoundIdToPlayQueue(SOUND_LANDING_CAVE);
 			}
+            else if (m_groundSoundType == GROUND_SOUND_WOOD)
+            {
+                ASSETS->addSoundIdToPlayQueue(SOUND_LANDING_WOOD);
+            }
 		}
         
         if (m_isRollLanding)
@@ -220,6 +233,8 @@ void Jon::update(float deltaTime)
         }
         
         m_acceleration->setY(GAME_GRAVITY);
+        
+        m_jonShadow->onAir();
     }
 
 	if (m_game->isJonBlockedVertically(deltaTime))
@@ -645,7 +660,23 @@ void Jon::consume(bool vampireDies)
     m_isFatallyConsumed = vampireDies;
     m_iNumRabbitJumps = 0;
     m_iNumVampireJumps = 0;
-	setState(ABILITY_NONE);
+    
+    m_velocity->set(0, 0);
+    m_acceleration->set(0, 0);
+    
+    m_jonShadow->makeInvisible();
+	
+    setState(ABILITY_NONE);
+    
+    if (isTransformingIntoVampire())
+    {
+        Jon::RabbitToVampire::getInstance()->handleTransformation(this);
+    }
+    else if (isRevertingToRabbit())
+    {
+        Jon::VampireToRabbit::getInstance()->handleTransformation(this);
+    }
+    
 	ASSETS->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
@@ -713,8 +744,6 @@ void Jon::setState(JonAbilityState state)
 	m_fAbilityStateTime = 0;
 }
 
-RTTI_IMPL(Jon, GridLockedPhysicalEntity);
-
 /// Rabbit Form ///
 
 Jon::Rabbit * Jon::Rabbit::getInstance()
@@ -733,6 +762,7 @@ void Jon::Rabbit::enter(Jon* jon)
 	jon->m_fDefaultMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
     jon->m_fMaxSpeed = RABBIT_DEFAULT_MAX_SPEED;
 	jon->m_fAccelerationX = RABBIT_DEFAULT_ACCELERATION;
+    jon->m_isReleasingShockwave = false;
     
     jon->m_acceleration->setY(GAME_GRAVITY);
 
@@ -867,6 +897,10 @@ void Jon::Rabbit::triggerJump(Jon* jon)
 		jon->m_acceleration->setY(GAME_GRAVITY);
         
 		jon->m_velocity->setY(13 - jon->m_iNumRabbitJumps * 3);
+        
+        jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
+        
+        jon->m_jonShadow->onJump();
 
 		jon->setState(jon->m_iNumRabbitJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
         jon->setState(ABILITY_NONE);
@@ -1031,6 +1065,7 @@ void Jon::Vampire::enter(Jon* jon)
 	jon->m_fDefaultMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
 	jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED;
     jon->m_fAccelerationX = VAMP_DEFAULT_ACCELERATION;
+    jon->m_isReleasingShockwave = false;
     
     jon->m_acceleration->setY(GAME_GRAVITY);
     
@@ -1257,6 +1292,10 @@ void Jon::Vampire::triggerJump(Jon* jon)
             jon->m_acceleration->setX(0);
 			jon->m_acceleration->setY(GAME_GRAVITY);
 			jon->m_velocity->setY(7 - jon->m_iNumVampireJumps);
+            
+            jon->m_dustClouds.push_back(DustCloud::create(jon->getPosition().getX(), jon->getPosition().getY() - jon->getHeight() / 3, DustCloudType_Kick_Up));
+            
+            jon->m_jonShadow->onJump();
 
 			jon->setState(jon->m_iNumVampireJumps == 0 ? ACTION_JUMPING : ACTION_DOUBLE_JUMPING);
 
@@ -1438,6 +1477,8 @@ void Jon::RabbitToVampire::execute(Jon* jon)
         jon->m_shouldUseVampireFormForConsumeAnimation = true;
         jon->setState(ABILITY_NONE);
         
+        jon->m_isReleasingShockwave = true;
+        
 		ASSETS->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
 }
@@ -1567,6 +1608,8 @@ void Jon::VampireToRabbit::execute(Jon* jon)
         jon->m_shouldUseVampireFormForConsumeAnimation = false;
         jon->setState(ABILITY_NONE);
         
+        jon->m_isReleasingShockwave = true;
+        
 		ASSETS->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
 	}
 }
@@ -1661,3 +1704,10 @@ Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMoti
 {
 	// Empty
 }
+
+RTTI_IMPL(JonShadow, PhysicalEntity);
+RTTI_IMPL(Jon, GridLockedPhysicalEntity);
+RTTI_IMPL(Jon::Rabbit, JonFormState);
+RTTI_IMPL(Jon::Vampire, JonFormState);
+RTTI_IMPL(Jon::RabbitToVampire, JonFormState);
+RTTI_IMPL(Jon::VampireToRabbit, JonFormState);

@@ -19,10 +19,11 @@
 
 typedef void (^DisplayMessageBlock)(NSString *message);
 typedef NSString * (^GetLevelFilePath)(NSString *levelFileName);
+typedef void (^HandleInterstitialAd)();
 
 @interface GameScreenController : NSObject
 
-- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath andDisplayMessageBlock:(DisplayMessageBlock)displayMessageBlock;
+- (instancetype)initWithGameScreen:(GameScreen *)gameScreen getLevelFilePath:(GetLevelFilePath)getLevelFilePath displayMessageBlock:(DisplayMessageBlock)displayMessageBlock andHandleInterstitialAd:(HandleInterstitialAd)handleInterstitialAd;
 
 - (void)update:(float)deltaTime;
 

@@ -17,7 +17,9 @@
 
 Enemy* Enemy::create(int gridX, int gridY, int type)
 {
-    switch ((EnemyType)type)
+    EnemyType et = (EnemyType)type;
+    
+    switch (et)
     {
         case EnemyType_MushroomGround:
             return new MushroomGround(gridX, gridY);
@@ -35,16 +37,16 @@ Enemy* Enemy::create(int gridX, int gridY, int type)
             return new BigMushroomGround(gridX, gridY);
         case EnemyType_BigMushroomCeiling:
             return new BigMushroomCeiling(gridX, gridY);
-        case EnemyType_MovingSnakeGruntV1:
-            return new MovingSnakeGruntV1(gridX, gridY);
-        case EnemyType_MovingSnakeGruntV2:
-            return new MovingSnakeGruntV2(gridX, gridY);
-        case EnemyType_MovingSnakeGruntV3:
-            return new MovingSnakeGruntV3(gridX, gridY);
-        case EnemyType_MovingSnakeGruntV4:
-            return new MovingSnakeGruntV4(gridX, gridY);
-        case EnemyType_MovingSnakeGruntV5:
-            return new MovingSnakeGruntV5(gridX, gridY);
+        case EnemyType_MovingSnakeGruntV1: // Forest Green
+            return new MovingSnakeGrunt(gridX, gridY, 2, 2, false, et, 0.13333333333333f, 0.54509803921569f, 0.13333333333333f);
+        case EnemyType_MovingSnakeGruntV2: // Jungle green Green
+            return new MovingSnakeGrunt(gridX, gridY, 4, 4, false, et, 0.16078431372549f, 0.67058823529412f, 0.52941176470588f);
+        case EnemyType_MovingSnakeGruntV3: // Mantis Green
+            return new MovingSnakeGrunt(gridX, gridY, 8, 8, false, et, 0.45490196078431f, 0.76470588235294f, 0.39607843137255f);
+        case EnemyType_MovingSnakeGruntV4: // Fire Brick Red
+            return new MovingSnakeGrunt(gridX, gridY, 4, 4, true, et, 0.69803921568627f, 0.13333333333333f, 0.13333333333333f);
+        case EnemyType_MovingSnakeGruntV5: // Lust Red
+            return new MovingSnakeGrunt(gridX, gridY, 8, 8, true, et, 0.90196078431373f, 0.12549019607843f, 0.12549019607843f);
     }
     
     assert(false);
@@ -90,7 +92,7 @@ void Enemy::triggerHit()
     m_isDying = true;
     
     m_fXOfDeath = getMainBounds().getLeft() + getMainBounds().getWidth() / 2;
-    m_fYOfDeath = getMainBounds().getLowerLeft().getY() + getMainBounds().getHeight() / 2;
+    m_fYOfDeath = getMainBounds().getBottom() + getMainBounds().getHeight() / 2;
     
     ASSETS->addSoundIdToPlayQueue(m_deathSoundId);
 }
@@ -249,15 +251,13 @@ bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
 
         if (OverlapTester::doRectanglesOverlap(jon->getMainBounds(), enemyBounds))
         {
-            float jonLowerLeftY = jon->getMainBounds().getLowerLeft().getY();
-            float jonYDelta = fabsf(jonVelocityY * deltaTime);
+            float jonBottom = jon->getMainBounds().getBottom();
             
-            float itemTop = enemyBounds.getTop();
-            float padding = itemTop * .01f;
-            padding += jonYDelta;
-            float itemTopReq = itemTop - padding;
+            float itemBottom = enemyBounds.getBottom();
+            float padding = enemyBounds.getHeight() * 0.05f;
+            float itemBottomReq = itemBottom + padding;
             
-            if (jonLowerLeftY >= itemTopReq)
+            if (jonBottom > itemBottomReq)
             {
 				jon->getPosition().setY(getMainBounds().getTop() + jon->getMainBounds().getHeight() / 2 * 1.01f);
 				jon->updateBounds();
@@ -274,12 +274,27 @@ void Enemy::handleJon()
 {
 	Jon& jon = m_game->getJon();
 
-	if (!jon.isConsumed()
-		&& jon.getAbilityState() != ABILITY_UPWARD_THRUST
-		&& OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
-	{
-		jon.kill();
-	}
+    if (OverlapTester::doRectanglesOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        if (jon.isConsumed()
+            || jon.getAbilityState() == ABILITY_UPWARD_THRUST)
+        {
+            return;
+        }
+        
+        if (jon.getAbilityState() == ABILITY_DASH
+            && jon.getAbilityStateTime() < 0.5f)
+        {
+            return;
+        }
+        
+        if (jon.getPosition().getY() > (getPosition().getY() + getHeight() / 2))
+        {
+            return;
+        }
+        
+        jon.kill();
+    }
 }
 
 #pragma mark subclasses
@@ -432,7 +447,10 @@ void Toad::handleAlive(float deltaTime)
                     && jon.getMainBounds().getRight() > getMainBounds().getLeft() - 1.2f
                     && jon.getMainBounds().getRight() < getMainBounds().getLeft())
                 {
-                    jon.consume();
+                    if (!jon.isConsumed())
+                    {
+                        jon.consume();
+                    }
                 }
                 else
                 {
@@ -448,7 +466,8 @@ void Toad::handleAlive(float deltaTime)
         if (jon.getMainBounds().getBottom() > (getMainBounds().getBottom() - 1.0f)
 			&& jon.getMainBounds().getTop() < (getMainBounds().getTop() + 2.0f)
             && jonPredictedRight > getMainBounds().getLeft() - 1.2f
-            && jonPredictedRight < getMainBounds().getLeft())
+            && jonPredictedRight < getMainBounds().getLeft()
+            && !jon.isConsumed())
         {
             m_fStateTime = 0;
             m_isEating = true;
@@ -867,8 +886,3 @@ RTTI_IMPL(Fox, Enemy);
 RTTI_IMPL(BigMushroomGround, Mushroom);
 RTTI_IMPL(BigMushroomCeiling, Mushroom);
 RTTI_IMPL(MovingSnakeGrunt, Enemy);
-RTTI_IMPL(MovingSnakeGruntV1, MovingSnakeGrunt);
-RTTI_IMPL(MovingSnakeGruntV2, MovingSnakeGrunt);
-RTTI_IMPL(MovingSnakeGruntV3, MovingSnakeGrunt);
-RTTI_IMPL(MovingSnakeGruntV4, MovingSnakeGrunt);
-RTTI_IMPL(MovingSnakeGruntV5, MovingSnakeGrunt);

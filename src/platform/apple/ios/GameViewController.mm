@@ -11,16 +11,20 @@
 #import "UIView+Toast.h"
 #import "GameScreenController.h"
 
+#import "GoogleMobileAds/GoogleMobileAds.h"
+
 // C++
 #include "IOSOpenGLGameScreen.h"
 
-@interface GameViewController ()
+@interface GameViewController () <GADInterstitialDelegate>
 {
     IOSOpenGLGameScreen *gameScreen;
     GameScreenController *_gameScreenController;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
+@property (strong, nonatomic) GADInterstitial *interstitial;
+
 
 @end
 
@@ -73,10 +77,18 @@
         NSString *filePath = [documentsDirectory stringByAppendingPathComponent:levelFileName];
         
         return filePath;
-    } andDisplayMessageBlock:^(NSString *message)
+    } displayMessageBlock:^(NSString *message)
     {
         [self.view makeToast:message];
+    } andHandleInterstitialAd:^
+    {
+        if (self.interstitial.isReady)
+        {
+            [self.interstitial presentFromRootViewController:self];
+        }
     }];
+    
+    [self createAndLoadInterstitial];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onPause)
@@ -148,6 +160,23 @@
 - (void)onPause
 {
     [_gameScreenController pause];
+}
+
+- (void)createAndLoadInterstitial
+{
+#if DEBUG
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+#else
+    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-6017554042572989/7161041758"];
+#endif
+    
+    self.interstitial.delegate = self;
+    [self.interstitial loadRequest:[GADRequest request]];
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
+{
+    [self createAndLoadInterstitial];
 }
 
 @end

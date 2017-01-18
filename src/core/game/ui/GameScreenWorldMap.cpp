@@ -40,6 +40,8 @@ void WorldMap::enter(GameScreen* gs)
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
     m_fGoldenCarrotCountFlickerTime = 1337;
+    
+    m_iNumTimesVisitedSinceLastAdBreak++;
 }
 
 void WorldMap::initRenderer(GameScreen* gs)
@@ -89,6 +91,14 @@ void WorldMap::execute(GameScreen* gs)
     }
     else
     {
+        if (m_iNumTimesVisitedSinceLastAdBreak >= 3)
+        {
+            gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+            m_iNumTimesVisitedSinceLastAdBreak = 0;
+            
+            return;
+        }
+        
         if (m_isReadyForTransition)
         {
             gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
@@ -288,6 +298,7 @@ void WorldMap::setFade(float fade)
     // Music Fade
     
     float musicVolume = alpha / 2;
+    musicVolume = clamp(musicVolume, 1, 0);
     
     short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
     ASSETS->addMusicIdToPlayQueue(musicId);
@@ -703,6 +714,7 @@ m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
 m_iUnlockedLevelStatsFlag(0),
 m_iViewedCutsceneFlag(0),
+m_iNumTimesVisitedSinceLastAdBreak(0),
 m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
 m_userHasClickedOpeningCutscene(false),

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "251190947198",
+    "firebase_url": "https://nosfuratu-77f45.firebaseio.com",
+    "project_id": "nosfuratu-77f45",
+    "storage_bucket": "nosfuratu-77f45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251190947198:android:e47917480a842c14",
+        "android_client_info": {
+          "package_name": "com.noctisgames.nosfuratu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251190947198-hpim7723kipbo3jr43tbfb4sn9c9t8fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.noctisgames.nosfuratu",
+            "certificate_hash": "70D1D6F09729B10836E86BB91E8B8157B98CAB5F"
+          }
+        },
+        {
+          "client_id": "251190947198-af2tfnnggb2p6n1kke9r2k198geemi94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFdr5ozHRz2AK9UjGATBjehlRYTBfDxoM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251190947198-af2tfnnggb2p6n1kke9r2k198geemi94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

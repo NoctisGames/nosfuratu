@@ -12,8 +12,14 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
-#if defined NG_WIN_10 || defined NG_WIN_PHONE_8
-using namespace Windows::Phone::UI::Input;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		using namespace Windows::Phone::UI::Input;
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			using namespace Windows::Phone::UI::Input;
+		#endif
+	#endif
 #endif
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
@@ -27,6 +33,8 @@ using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace concurrency;
+using namespace Microsoft::Advertising::WinRT::UI;
+using namespace Windows::System::Profile;
 
 DirectXPage::DirectXPage():
 	m_windowVisible(true),
@@ -37,10 +45,17 @@ DirectXPage::DirectXPage():
 
 	ApplicationView^ view = ApplicationView::GetForCurrentView();
 
-#if defined NG_WIN_10
-	view->TryEnterFullScreenMode();
-#elif defined NG_WIN_PHONE_8
-	view->SetDesiredBoundsMode(ApplicationViewBoundsMode::UseCoreWindow);
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		view->SetDesiredBoundsMode(ApplicationViewBoundsMode::UseCoreWindow);
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			if (Windows::Foundation::Metadata::ApiInformation::IsMethodPresent("Windows.UI.ViewManagement.ApplicationView", "TryEnterFullScreenMode"))
+			{
+				view->TryEnterFullScreenMode();
+			}
+		#endif
+	#endif
 #endif
 
 	// Register event handlers for page lifecycle.
@@ -62,13 +77,17 @@ DirectXPage::DirectXPage():
 
 	swapChainPanel->SizeChanged += ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
 
-#if defined NG_WIN_10
-	if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-	{
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 		HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
-	}
-#elif defined NG_WIN_PHONE_8
-	HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
+			{
+				HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
+			}
+		#endif
+	#endif
 #endif
 
 	// At this point we have access to the device. 
@@ -98,8 +117,16 @@ DirectXPage::DirectXPage():
 	// Run task on a dedicated high priority background thread.
 	m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(m_deviceResources));
+	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(this, m_deviceResources));
 	m_main->StartRenderLoop();
+
+	m_interstitialAd = ref new InterstitialAd();
+	m_interstitialAd->AdReady += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdReady);
+	m_interstitialAd->Completed += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCompleted);
+	m_interstitialAd->Cancelled += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCancelled);
+	m_interstitialAd->ErrorOccurred += ref new Windows::Foundation::EventHandler<Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^>(this, &NosFURatu::DirectXPage::OnAdError);
+
+	RequestInterstitialAd();
 }
 
 DirectXPage::~DirectXPage()
@@ -128,6 +155,58 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 
 	// Start rendering when the app is resumed.
 	m_main->StartRenderLoop();
+}
+
+void DirectXPage::RequestInterstitialAd()
+{
+	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	{
+		Platform::String^ myAppId;
+		Platform::String^ myAdUnitId;
+
+#if defined(_DEBUG)
+		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
+		myAdUnitId = L"11389925";
+#else
+	bool isMobile;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		isMobile = true;
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+		#else
+			isMobile = false;
+		#endif
+	#endif
+#endif
+		if (isMobile)
+		{
+			myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
+			myAdUnitId = L"11666621";
+		}
+		else
+		{
+			myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
+			myAdUnitId = L"11666622";
+		}
+#endif
+
+		m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
+	}));
+}
+
+void DirectXPage::DisplayInterstitialAdIfAvailable()
+{
+	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
+	{
+		if (InterstitialAdState::Ready == m_interstitialAd->State)
+		{
+			m_main->StopRenderLoop();
+			m_interstitialAd->Show();
+		}
+	}));
 }
 
 // Window event handlers.
@@ -198,13 +277,17 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 	bool right = e->VirtualKey == Windows::System::VirtualKey::Right;
 	bool down = e->VirtualKey == Windows::System::VirtualKey::Down;
 
-#if defined NG_WIN_10
-	if (!jump) jump = e->VirtualKey == Windows::System::VirtualKey::GamepadA;
-	if (!transform) transform = e->VirtualKey == Windows::System::VirtualKey::GamepadX;
-	if (!left) left = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft;
-	if (!up) up = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp;
-	if (!right) right = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight;
-	if (!down) down = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			if (!jump) jump = e->VirtualKey == Windows::System::VirtualKey::GamepadA;
+			if (!transform) transform = e->VirtualKey == Windows::System::VirtualKey::GamepadX;
+			if (!left) left = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft;
+			if (!up) up = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp;
+			if (!right) right = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight;
+			if (!down) down = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown;
+		#endif
+	#endif
 #endif
 
 	if (jump)
@@ -276,9 +359,41 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 	m_main->CreateWindowSizeDependentResources();
 }
 
-#if defined NG_WIN_10 || defined NG_WIN_PHONE_8
-void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
-{
-	args->Handled = m_main->handleOnBackPressed();
-}
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
+		{
+			args->Handled = m_main->handleOnBackPressed();
+		}
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
+			{
+				args->Handled = m_main->handleOnBackPressed();
+			}
+		#endif
+	#endif
 #endif
+
+void DirectXPage::OnAdReady(Platform::Object^ sender, Platform::Object^ args)
+{
+	// Empty
+}
+
+void DirectXPage::OnAdCompleted(Platform::Object^ sender, Platform::Object^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}
+
+void DirectXPage::OnAdCancelled(Platform::Object^ sender, Platform::Object^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}
+
+void DirectXPage::OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args)
+{
+	m_main->StartRenderLoop();
+	RequestInterstitialAd();
+}

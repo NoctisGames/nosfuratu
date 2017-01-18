@@ -13,17 +13,18 @@
 
 ExitGround* ExitGround::create(int gridX, int gridY, int type)
 {
-    switch ((ExitGroundType)type)
+    ExitGroundType egt = (ExitGroundType)type;
+    switch (egt)
     {
         case ExitGroundType_GrassWithCaveSmallExitMid:
-            return new GrassWithCaveSmallExitMid(gridX);
+            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_GRASS);
         case ExitGroundType_GrassWithCaveSmallExitEnd:
-            return new GrassWithCaveSmallExitEnd(gridX);
+            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_GRASS);
         case ExitGroundType_CaveSmallExit:
-            return new CaveSmallExit(gridX);
+            return new ExitGround(gridX, 48, 32, 24, 0.29166666666667f, true, egt, GROUND_SOUND_CAVE);
             
         case ExitGroundType_CaveDeepSmallWaterfall:
-            return new CaveDeepSmallWaterfall(gridX);
+            return new CaveDeepSmallWaterfall(gridX, 0, 32, 28, 0.96428571428571f, false, egt, GROUND_SOUND_CAVE);
     }
     
     assert(false);
@@ -204,7 +205,4 @@ bool CaveDeepSmallWaterfall::canObjectBePlacedOn()
 }
 
 RTTI_IMPL(ExitGround, GridLockedPhysicalEntity);
-RTTI_IMPL(GrassWithCaveSmallExitMid, ExitGround);
-RTTI_IMPL(GrassWithCaveSmallExitEnd, ExitGround);
-RTTI_IMPL(CaveSmallExit, ExitGround);
 RTTI_IMPL(CaveDeepSmallWaterfall, ExitGround);

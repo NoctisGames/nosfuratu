@@ -178,13 +178,17 @@ void DX::DeviceResources::CreateDeviceResources()
 void DX::DeviceResources::CreateWindowSizeDependentResources()
 {
 	bool isMobile;
-#if defined NG_WIN_10
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-#elif defined NG_WIN_8
-	isMobile = false;
-#elif defined NG_WIN_PHONE_8
-	isMobile = true;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		isMobile = true;
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+		#else
+			isMobile = false;
+		#endif
+	#endif
 #endif
 	
 	// Clear the previous window size specific context.

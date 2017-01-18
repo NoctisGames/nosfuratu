@@ -52,12 +52,14 @@ void TitleToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenUi(*wm);
         gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -120,12 +122,14 @@ void TitleToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -191,12 +195,14 @@ void OpeningCutsceneToWorldMap::execute(GameScreen* gs)
         gs->m_renderer->renderWorldMapScreenUi(*wm);
         gs->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -258,12 +264,14 @@ void TitleToLevelEditor::execute(GameScreen* gs)
         
         gs->m_renderer->renderLevelEditor(GameScreenLevelEditor::getInstance());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -323,12 +331,14 @@ void TitleToSpriteTester::execute(GameScreen* gs)
         
         gs->m_renderer->renderSpriteTester(GameScreenSpriteTester::getInstance());
         
-        gs->m_renderer->renderToScreenTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -405,12 +415,14 @@ void WorldMapToOpeningCutscene::execute(GameScreen* gs)
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -506,12 +518,14 @@ void WorldMapToLevel::execute(GameScreen* gs)
         
         gs->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
         
-        gs->m_renderer->renderToScreenPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }
@@ -626,12 +640,14 @@ void LevelToComingSoon::execute(GameScreen* gs)
         
         gs->m_renderer->renderComingSoonScreenBackground();
         
-        gs->m_renderer->renderToScreenFadeTransition(m_fTransitionStateTime);
+        gs->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
         
         if (gs->m_renderer->isLoadingAdditionalTextures())
         {
             gs->m_renderer->renderLoading();
         }
+        
+        gs->m_renderer->renderToScreen();
         
         gs->m_renderer->endFrame();
     }

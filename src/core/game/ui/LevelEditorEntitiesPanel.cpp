@@ -38,150 +38,156 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
     EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     if (world == 1)
     {
-        m_midgrounds.push_back(new TreeOne(0));
-        m_midgrounds.push_back(new TreeTwo(0));
-        m_midgrounds.push_back(new TreeThree(0));
+        m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveEndLeft));
+        m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveSmall));
+        m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveMedium));
+        m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveLarge));
+        m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithoutCaveEndRight));
         
         if (level >= 10)
         {
-            m_midgrounds.push_back(new DeepCaveColumnSmall(0));
-            m_midgrounds.push_back(new DeepCaveColumnMedium(0));
-            m_midgrounds.push_back(new DeepCaveColumnBig(0));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveEndLeft));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveSmall));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveMedium));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveLarge));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_GrassWithCaveEndRight));
             
-            m_grounds.push_back(new CaveExtraDeepEndLeft(0));
-            m_grounds.push_back(new CaveExtraDeepSmall(0));
-            m_grounds.push_back(new CaveExtraDeepMedium(0));
-            m_grounds.push_back(new CaveExtraDeepLarge(0));
-            m_grounds.push_back(new CaveExtraDeepEndRight(0));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveRaisedEndLeft));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveRaisedSmall));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveRaisedMedium));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveRaisedLarge));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveRaisedEndRight));
             
-            m_grounds.push_back(new CaveDeepEndLeft(0));
-            m_grounds.push_back(new CaveDeepSmall(0));
-            m_grounds.push_back(new CaveDeepMedium(0));
-            m_grounds.push_back(new CaveDeepLarge(0));
-            m_grounds.push_back(new CaveDeepEndRight(0));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveEndLeft));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveSmall));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveMedium));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveLarge));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveEndRight));
             
-            m_grounds.push_back(new CaveEndLeft(0));
-            m_grounds.push_back(new CaveSmall(0));
-            m_grounds.push_back(new CaveMedium(0));
-            m_grounds.push_back(new CaveLarge(0));
-            m_grounds.push_back(new CaveEndRight(0));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveDeepEndLeft));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveDeepSmall));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveDeepMedium));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveDeepLarge));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveDeepEndRight));
             
-            m_grounds.push_back(new CaveRaisedEndLeft(0));
-            m_grounds.push_back(new CaveRaisedSmall(0));
-            m_grounds.push_back(new CaveRaisedMedium(0));
-            m_grounds.push_back(new CaveRaisedLarge(0));
-            m_grounds.push_back(new CaveRaisedEndRight(0));
-            
-            m_grounds.push_back(new GrassWithCaveEndLeft(0));
-            m_grounds.push_back(new GrassWithCaveSmall(0));
-            m_grounds.push_back(new GrassWithCaveMedium(0));
-            m_grounds.push_back(new GrassWithCaveLarge(0));
-            m_grounds.push_back(new GrassWithCaveEndRight(0));
-        }
-        
-        m_grounds.push_back(new GrassWithoutCaveEndLeft(0));
-        m_grounds.push_back(new GrassWithoutCaveSmall(0));
-        m_grounds.push_back(new GrassWithoutCaveMedium(0));
-        m_grounds.push_back(new GrassWithoutCaveLarge(0));
-        m_grounds.push_back(new GrassWithoutCaveEndRight(0));
-        
-        if (level < 10)
-        {
-            m_pits.push_back(new GrassPitSmall(0));
-            m_pits.push_back(new GrassPitMedium(0));
-            m_pits.push_back(new GrassPitLarge(0));
-            m_pits.push_back(new GrassPitExtraLarge(0));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveExtraDeepEndLeft));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveExtraDeepSmall));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveExtraDeepMedium));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveExtraDeepLarge));
+            m_grounds.push_back(Ground::create(0, 0, GroundType_CaveExtraDeepEndRight));
         }
         
         if (level >= 10)
         {
-            m_exitGrounds.push_back(new GrassWithCaveSmallExitMid(0));
-            m_exitGrounds.push_back(new GrassWithCaveSmallExitEnd(0));
-            m_exitGrounds.push_back(new CaveSmallExit(0));
+            m_exitGrounds.push_back(ExitGround::create(0, 0, ExitGroundType_GrassWithCaveSmallExitMid));
+            m_exitGrounds.push_back(ExitGround::create(0, 0, ExitGroundType_GrassWithCaveSmallExitEnd));
+            m_exitGrounds.push_back(ExitGround::create(0, 0, ExitGroundType_CaveSmallExit));
             
-            m_exitGrounds.push_back(new CaveDeepSmallWaterfall(0));
+            m_exitGrounds.push_back(ExitGround::create(0, 0, ExitGroundType_CaveDeepSmallWaterfall));
             
-            m_holes.push_back(new HoleGrassTileLeft(0));
-            m_holes.push_back(new HoleGrassTileCenter(0));
-            m_holes.push_back(new HoleGrassTileRight(0));
-            m_holes.push_back(new HoleGrass(0));
-            m_holes.push_back(new HoleCave(0));
+            m_holes.push_back(Hole::create(0, 0, HoleType_GrassTileLeft));
+            m_holes.push_back(Hole::create(0, 0, HoleType_GrassTileCenter));
+            m_holes.push_back(Hole::create(0, 0, HoleType_GrassTileRight));
+            m_holes.push_back(Hole::create(0, 0, HoleType_Grass));
+            m_holes.push_back(Hole::create(0, 0, HoleType_Cave));
+        }
+        else
+        {
+            m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitSmall));
+            m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitMedium));
+            m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitLarge));
+            m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitExtraLarge));
         }
         
-        m_foregroundObjects.push_back(new GrassPlatformLeft(0, 0));
-        m_foregroundObjects.push_back(new GrassPlatformCenter(0, 0));
-        m_foregroundObjects.push_back(new GrassPlatformRight(0, 0));
-		m_foregroundObjects.push_back(new CavePlatformLeft(0, 0));
-		m_foregroundObjects.push_back(new CavePlatformCenter(0, 0));
-		m_foregroundObjects.push_back(new CavePlatformRight(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GrassPlatformLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GrassPlatformCenter));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GrassPlatformRight));
+		m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_CavePlatformLeft));
+		m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_CavePlatformCenter));
+		m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_CavePlatformRight));
         
-        m_foregroundObjects.push_back(new RockLarge(0, 0));
-        m_foregroundObjects.push_back(new RockMedium(0, 0));
-        m_foregroundObjects.push_back(new RockSmall(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_RockLarge));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_RockMedium));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_RockSmall));
         
-        m_foregroundObjects.push_back(new StumpBig(0, 0));
-        m_foregroundObjects.push_back(new StumpSmall(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_StumpBig));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_StumpSmall));
         
-        m_foregroundObjects.push_back(new EndSign(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_EndSign));
         
-        m_foregroundObjects.push_back(new ThornsLeft(0, 0));
-        m_foregroundObjects.push_back(new ThornsCenterSmall(0, 0));
-        m_foregroundObjects.push_back(new ThornsCenterBig(0, 0));
-        m_foregroundObjects.push_back(new ThornsRight(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsCenterBig));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsRight));
         
-        m_foregroundObjects.push_back(new LogVerticalTall(0, 0));
-        m_foregroundObjects.push_back(new LogVerticalShort(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLightFlush));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLight));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringMedium));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringHeavy));
         
-        m_foregroundObjects.push_back(new JumpSpringLightFlush(0, 0));
-        m_foregroundObjects.push_back(new JumpSpringLight(0, 0));
-        m_foregroundObjects.push_back(new JumpSpringMedium(0, 0));
-        m_foregroundObjects.push_back(new JumpSpringHeavy(0, 0));
-        
-        m_foregroundObjects.push_back(new SpikeGrassSingle(0, 0));
-        m_foregroundObjects.push_back(new SpikeGrassFour(0, 0));
-        m_foregroundObjects.push_back(new SpikeGrassEight(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeGrassSingle));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeGrassFour));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeGrassEight));
         
         if (level >= 10)
         {
-            m_foregroundObjects.push_back(new SpikeCaveSingle(0, 0));
-            m_foregroundObjects.push_back(new SpikeCaveFour(0, 0));
-            m_foregroundObjects.push_back(new SpikeCaveEight(0, 0));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveSingle));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveFour));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveEight));
             
-            m_foregroundObjects.push_back(new SpikeCaveCeilingSingle(0, 0));
-            m_foregroundObjects.push_back(new SpikeCaveCeilingFour(0, 0));
-            m_foregroundObjects.push_back(new SpikeCaveCeilingEight(0, 0));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveCeilingSingle));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveCeilingFour));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeCaveCeilingEight));
         }
         
-        m_foregroundObjects.push_back(new SpikeWallSingle(0, 0));
-        m_foregroundObjects.push_back(new SpikeWallFour(0, 0));
-        m_foregroundObjects.push_back(new SpikeWallEight(0, 0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeWallSingle));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeWallFour));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeWallEight));
         
-        m_foregroundObjects.push_back(new SpikeStar(0, 0));
-        
-        m_foregroundObjects.push_back(new VerticalSaw(0));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikeStar));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_VerticalSaw));
         
         if (level == 10)
         {
-            m_midBossForegroundObjects.push_back(new GiantShakingTree(0, 0));
-            m_midBossForegroundObjects.push_back(new GiantPerchTree(0, 0));
+            m_midBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GiantShakingTree));
+            m_midBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GiantPerchTree));
         }
         else if (level > 10)
         {
-            m_foregroundObjects.push_back(new GiantTree(0, 0));
+            m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GiantTree));
         }
+        
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformCenter));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_MetalGrassPlatformRight));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodPlatform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBoxTop));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_WoodBox));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsLeft));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsCenterSmall));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsCenterBig));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GreenThornsRight));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Logs));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Bottom));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Middle));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Top));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Platform));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Stone_Square));
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_Floating_Platform));
         
         if (level == 21)
         {
-            m_endBossForegroundObjects.push_back(new SpikedBall(0, 0));
-            m_endBossForegroundObjects.push_back(new SpikedBallChain(0, 0));
-            m_endBossForegroundObjects.push_back(new SpikedBallRollingLeft(0, 0));
-            m_endBossForegroundObjects.push_back(new SpikedBallRollingRight(0, 0));
+            m_endBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikedBall));
+            m_endBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikedBallChain));
+            m_endBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikedBallRollingLeft));
+            m_endBossForegroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_SpikedBallRollingRight));
         }
         
-        m_countHissWithMinas.push_back(new CountHissWithMina(0, 0));
+        m_countHissWithMinas.push_back(CountHissWithMina::create(0, 0, -1));
         
 		if (level == 21)
 		{
@@ -190,20 +196,20 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_enemies.push_back(new BigMushroomGround(0, 0));
         
-        if (level >= 10)
+        if (level > 10)
         {
             m_enemies.push_back(new BigMushroomCeiling(0, 0));
         }
         
-        m_enemies.push_back(new MovingSnakeGruntV1(0, 0));
-        m_enemies.push_back(new MovingSnakeGruntV2(0, 0));
-        m_enemies.push_back(new MovingSnakeGruntV3(0, 0));
-        m_enemies.push_back(new MovingSnakeGruntV4(0, 0));
-        m_enemies.push_back(new MovingSnakeGruntV5(0, 0));
+        m_enemies.push_back(Enemy::create(0, 0, EnemyType_MovingSnakeGruntV1));
+        m_enemies.push_back(Enemy::create(0, 0, EnemyType_MovingSnakeGruntV2));
+        m_enemies.push_back(Enemy::create(0, 0, EnemyType_MovingSnakeGruntV3));
+        m_enemies.push_back(Enemy::create(0, 0, EnemyType_MovingSnakeGruntV4));
+        m_enemies.push_back(Enemy::create(0, 0, EnemyType_MovingSnakeGruntV5));
         m_enemies.push_back(new Sparrow(0, 0));
         m_enemies.push_back(new Toad(0, 0));
         
-        if (level >= 10)
+        if (level > 10)
         {
             m_enemies.push_back(new Fox(0, 0));
         }
@@ -216,7 +222,63 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_collectibleItems.push_back(new Carrot(0, 0));
         m_collectibleItems.push_back(new GoldenCarrot(0, 0));
         
-        m_extraForegroundObjects.push_back(new SpikeTower(0));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeOne));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeTwo));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeThree));
+        
+        if (level > 10)
+        {
+            m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_DeepCaveColumnSmall));
+            m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_DeepCaveColumnMedium));
+            m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_DeepCaveColumnBig));
+        }
+        
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Plant));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Metal_Tower_Section));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Count_Hiss));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Slag_Town));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Billboard_Jon_Wanted));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Hill));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Train_Car));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Short_Stump));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Tall_Stump));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Thin_Tall_Tree));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Thin_Short_Tree));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Stone_Square));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Stone_Diamond));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Wall));
+        m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Roof));
+        
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Tree));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Plant));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Bush));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Ferns));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Bottom));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window_Bottom));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Side_Left));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Side_Right));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Plain));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Chimney));
+        
+        m_extraForegroundObjects.push_back(ExtraForegroundObject::create(0, 0, ForegroundObjectType_SpikeTower));
+    }
+    else if (world == 2)
+    {
+        // TODO, Desert
+    }
+    else if (world == 3)
+    {
+        // TODO, Slag Town
+    }
+    else if (world == 4)
+    {
+        // TODO, Volcano
+    }
+    else if (world == 5)
+    {
+        // TODO, Castle
     }
     
     m_jons.push_back(new Jon(0, 0));
@@ -240,6 +302,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     i = EntityUtils::boxInAll(m_collectibleItems, eX, eY, eWidth, eHeight, i);
     i = EntityUtils::boxInAll(m_jons, eX, eY, eWidth, eHeight, i);
     i = EntityUtils::boxInAll(m_extraForegroundObjects, eX, eY, eWidth, eHeight, i);
+    i = EntityUtils::boxInAll(m_foregroundCoverObjects, eX, eY, eWidth, eHeight, i);
     
     m_fEntitiesHeight = fmaxf((i * eHeight), m_fHeight);
     
@@ -257,7 +320,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
         {
             case DOWN:
             {
-                if(touchPoint.getX() > m_closeButton->getLowerLeft().getX() + m_closeButton->getWidth())
+                if(touchPoint.getX() > m_closeButton->getLeft() + m_closeButton->getWidth())
                 {
                     m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                     m_touchPointDown2->set(touchPoint.getX(), touchPoint.getY());
@@ -310,7 +373,8 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                         || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
                         || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_extraForegroundObjects, game.getExtraForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint))
+                        || isTouchingEntityForPlacement(m_extraForegroundObjects, game.getExtraForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || isTouchingEntityForPlacement(m_foregroundCoverObjects, game.getForegroundCoverObjects(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }
@@ -404,6 +468,11 @@ std::vector<Jon *>& LevelEditorEntitiesPanel::getJons()
 std::vector<ExtraForegroundObject *>& LevelEditorEntitiesPanel::getExtraForegroundObjects()
 {
     return m_extraForegroundObjects;
+}
+
+std::vector<ForegroundCoverObject *>& LevelEditorEntitiesPanel::getForegroundCoverObjects()
+{
+    return m_foregroundCoverObjects;
 }
 
 float LevelEditorEntitiesPanel::getEntitiesCameraPos()

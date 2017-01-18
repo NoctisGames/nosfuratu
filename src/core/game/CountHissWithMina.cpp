@@ -10,10 +10,10 @@
 
 CountHissWithMina* CountHissWithMina::create(int gridX, int gridY, int type)
 {
-    return new CountHissWithMina(gridX, gridY);
+    return new CountHissWithMina(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f);
 }
 
-CountHissWithMina::CountHissWithMina(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 32, 32, 0, 0.1953125f, 1, 0.8046875f),
+CountHissWithMina::CountHissWithMina(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight),
 m_type(-1),
 m_isMoving(false),
 m_isFacingLeft(false)

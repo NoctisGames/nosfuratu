@@ -23,6 +23,8 @@ OpenGLTransScreenGpuProgramWrapper::OpenGLTransScreenGpuProgramWrapper() : Trans
 
 void OpenGLTransScreenGpuProgramWrapper::bind()
 {
+    OGLESManager->useScreenBlending();
+    
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_to->texture);
     

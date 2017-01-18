@@ -13,6 +13,7 @@ typedef enum
 {
     GROUND_SOUND_GRASS,
     GROUND_SOUND_CAVE,
+    GROUND_SOUND_WOOD,
     GROUND_SOUND_NONE
 } GroundSoundType;
 

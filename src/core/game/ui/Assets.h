@@ -67,6 +67,14 @@ class UnknownEntity;
 class SpriteTesterEntitiesPanel;
 class SpriteTesterActionsPanel;
 class TextureSelectorPanel;
+class BigCloud;
+class SmallCloud;
+class Lightning;
+class NosfuratuLogoLightEffect;
+class NosfuratuLogo;
+class CastleLightEffect;
+class Castle;
+class ForegroundCoverObject;
 
 class Assets
 {
@@ -74,6 +82,20 @@ public:
 	static Assets* getInstance();
     
     TextureRegion& get(TitlePanel* panel);
+    
+    TextureRegion& get(BigCloud* bigCloud);
+    
+    TextureRegion& get(SmallCloud* smallCloud);
+    
+    TextureRegion& get(Lightning* lightning);
+    
+    TextureRegion& get(NosfuratuLogoLightEffect* nosfuratuLogoLightEffect);
+    
+    TextureRegion& get(NosfuratuLogo* nosfuratuLogo);
+    
+    TextureRegion& get(CastleLightEffect* castleLightEffect);
+    
+    TextureRegion& get(Castle* castle);
     
     TextureRegion& get(CutsceneEffect* effect);
     
@@ -105,6 +127,8 @@ public:
     
     TextureRegion& get(ForegroundObject* foregroundObject);
     
+    TextureRegion& get(ForegroundCoverObject* foregroundCoverObject);
+    
     TextureRegion& get(CountHissWithMina* countHissWithMina);
     
 	TextureRegion& get(SnakeSpirit* snakeSpirit);
@@ -132,6 +156,8 @@ public:
     TextureRegion& get(Jon* jon);
     
     TextureRegion& get(DustCloud* dustCloud);
+    
+    TextureRegion& get(JonShadow* jonShadow);
     
     TextureRegion& get(MidBossOwl* owl);
     

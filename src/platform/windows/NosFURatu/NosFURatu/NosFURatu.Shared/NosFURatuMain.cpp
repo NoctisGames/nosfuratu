@@ -1,5 +1,7 @@
 #include "pch.h"
+
 #include "NosFURatuMain.h"
+
 #include "DirectXHelper.h"
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
@@ -17,91 +19,30 @@ using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
+NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
 	bool isMobile;
 	bool isCompressed = false;
-#if defined NG_WIN_10
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-#elif defined NG_WIN_8
-	isMobile = false;
-#elif defined NG_WIN_PHONE_8
-	isMobile = true;
-	isCompressed = true;
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		isMobile = true;
+		isCompressed = true;
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+		#else
+			isMobile = false;
+		#endif
+	#endif
 #endif
 
 	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isCompressed));
 
-	// Load Media Player
-	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-
-	// Load Sound Effects
-	m_sounds.push_back("collect_carrot.wav");
-	m_sounds.push_back("collect_golden_carrot.wav");
-	m_sounds.push_back("death.wav");
-	m_sounds.push_back("footstep_left_grass.wav");
-	m_sounds.push_back("footstep_right_grass.wav");
-	m_sounds.push_back("footstep_left_cave.wav");
-	m_sounds.push_back("footstep_right_cave.wav");
-	m_sounds.push_back("jump_spring.wav");
-	m_sounds.push_back("landing_grass.wav");
-	m_sounds.push_back("landing_cave.wav");
-	m_sounds.push_back("snake_death.wav");
-	m_sounds.push_back("trigger_transform.wav");
-	m_sounds.push_back("cancel_transform.wav");
-	m_sounds.push_back("complete_transform.wav");
-	m_sounds.push_back("jump_spring_heavy.wav");
-	m_sounds.push_back("jon_rabbit_jump.wav");
-	m_sounds.push_back("jon_vampire_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("vampire_glide_loop.wav");
-	m_sounds.push_back("mushroom_bounce.wav");
-	m_sounds.push_back("jon_burrow_rocksfall.wav");
-	m_sounds.push_back("sparrow_fly_loop.wav");
-	m_sounds.push_back("sparrow_die.wav");
-	m_sounds.push_back("toad_die.wav");
-	m_sounds.push_back("toad_eat.wav");
-	m_sounds.push_back("saw_grind_loop.wav");
-	m_sounds.push_back("fox_bounced_on.wav");
-	m_sounds.push_back("fox_strike.wav");
-	m_sounds.push_back("fox_death.wav");
-	m_sounds.push_back("world_1_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_owl_swoop.wav");
-	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
-    m_sounds.push_back("mid_boss_owl_death.wav");
-    m_sounds.push_back("screen_transition.wav");
-    m_sounds.push_back("screen_transition_2.wav");
-    m_sounds.push_back("level_complete.wav");
-    m_sounds.push_back("title_lightning_1.wav");
-    m_sounds.push_back("title_lightning_2.wav");
-    m_sounds.push_back("ability_unlock.wav");
-    m_sounds.push_back("boss_level_clear.wav");
-    m_sounds.push_back("level_clear.wav");
-    m_sounds.push_back("level_selected.wav");
-    m_sounds.push_back("rabbit_drill.wav");
-    m_sounds.push_back("snake_jump.wav");
-    m_sounds.push_back("vampire_dash.wav");
-    m_sounds.push_back("boss_level_unlock.wav");
-    m_sounds.push_back("rabbit_stomp.wav");
-    m_sounds.push_back("final_boss_bgm_intro.wav");
-    m_sounds.push_back("button_click.wav");
-    m_sounds.push_back("level_confirmed.wav");
-    m_sounds.push_back("bat_poof.wav");
-    m_sounds.push_back("chain_snap.wav");
-    m_sounds.push_back("end_boss_snake_mouth_open.wav");
-    m_sounds.push_back("end_boss_snake_charge_cue.wav");
-    m_sounds.push_back("end_boss_snake_charge.wav");
-    m_sounds.push_back("end_boss_snake_damaged.wav");
-    m_sounds.push_back("end_boss_snake_death.wav");
-    m_sounds.push_back("spiked_ball_rolling_loop.wav");
-    m_sounds.push_back("absorb_dash_ability.wav");
+	initSoundEngine();
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -244,6 +185,10 @@ void NosFURatuMain::Update()
 			showMessage(m_gameScreen->getRequestedAction());
 			m_gameScreen->clearRequestedAction();
 			break;
+		case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+			m_gameScreen->clearRequestedAction();
+			m_directXPage->DisplayInterstitialAdIfAvailable();
+			break;
 		case REQUESTED_ACTION_UPDATE:
 		default:
 			break;
@@ -299,6 +244,12 @@ void NosFURatuMain::handleSound()
         case STOP_SOUND_SPIKED_BALL_ROLLING:
 			stopSound(soundId - 1000);
 			break;
+        case STOP_ALL_SOUNDS:
+            stopAllSounds();
+            break;
+        case STOP_ALL_LOOPING_SOUNDS:
+            stopAllLoopingSounds();
+            break;
 		default:
 			playSound(soundId);
 			break;
@@ -337,31 +288,33 @@ void NosFURatuMain::handleMusic()
 			case MUSIC_SET_VOLUME:
 			{
 				float volume = rawMusicId / 100.0f / 2.0f; // On Win 10, volume starts off at 0.5
-				if (volume < 0)
-				{
-					volume = 0;
-				}
 
 				m_mediaPlayer->SetVolume(volume);
 			}
 			break;
 			case MUSIC_LOAD_TITLE_LOOP:
 				m_mediaPlayer->SetSource("title_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
 				m_mediaPlayer->SetSource("level_select_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_WORLD_1_LOOP:
 				m_mediaPlayer->SetSource("world_1_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_MID_BOSS_LOOP:
 				m_mediaPlayer->SetSource("mid_boss_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_END_BOSS_LOOP:
 				m_mediaPlayer->SetSource("final_boss_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			case MUSIC_LOAD_OPENING_CUTSCENE:
 				m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
+				m_mediaPlayer->SetCurrentTime(0);
 				break;
 			default:
 				break;
@@ -378,6 +331,24 @@ void NosFURatuMain::playSound(int soundId, bool isLoop)
 void NosFURatuMain::stopSound(int soundId)
 {
 	m_sounds.at(soundId - 1).stop();
+}
+
+void NosFURatuMain::stopAllSounds(bool stopOnlyLoopingSounds)
+{
+    for (std::vector<GameSound>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    {
+        if (!stopOnlyLoopingSounds
+            || (stopOnlyLoopingSounds
+                && (*i).isLooping()))
+        {
+            (*i).stop();
+        }
+    }
+}
+
+void NosFURatuMain::stopAllLoopingSounds()
+{
+    stopAllSounds(true);
 }
 
 void NosFURatuMain::saveLevel(int requestedAction)
@@ -717,4 +688,77 @@ void NosFURatuMain::displayToast(Platform::String^ message)
 
 	Windows::UI::Notifications::ToastNotifier^ toastNotifier = Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier();
 	toastNotifier->Show(toastNotification);
+}
+
+void NosFURatuMain::initSoundEngine()
+{
+	// Load Media Player
+	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
+	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+
+	// Load Sound Effects
+	m_sounds.push_back("collect_carrot.wav");
+	m_sounds.push_back("collect_golden_carrot.wav");
+	m_sounds.push_back("death.wav");
+	m_sounds.push_back("footstep_left_grass.wav");
+	m_sounds.push_back("footstep_right_grass.wav");
+	m_sounds.push_back("footstep_left_cave.wav");
+	m_sounds.push_back("footstep_right_cave.wav");
+	m_sounds.push_back("jump_spring.wav");
+	m_sounds.push_back("landing_grass.wav");
+	m_sounds.push_back("landing_cave.wav");
+	m_sounds.push_back("snake_death.wav");
+	m_sounds.push_back("trigger_transform.wav");
+	m_sounds.push_back("cancel_transform.wav");
+	m_sounds.push_back("complete_transform.wav");
+	m_sounds.push_back("jump_spring_heavy.wav");
+	m_sounds.push_back("jon_rabbit_jump.wav");
+	m_sounds.push_back("jon_vampire_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("jon_rabbit_double_jump.wav");
+	m_sounds.push_back("vampire_glide_loop.wav");
+	m_sounds.push_back("mushroom_bounce.wav");
+	m_sounds.push_back("jon_burrow_rocksfall.wav");
+	m_sounds.push_back("sparrow_fly_loop.wav");
+	m_sounds.push_back("sparrow_die.wav");
+	m_sounds.push_back("toad_die.wav");
+	m_sounds.push_back("toad_eat.wav");
+	m_sounds.push_back("saw_grind_loop.wav");
+	m_sounds.push_back("fox_bounced_on.wav");
+	m_sounds.push_back("fox_strike.wav");
+	m_sounds.push_back("fox_death.wav");
+	m_sounds.push_back("world_1_bgm_intro.wav");
+	m_sounds.push_back("mid_boss_bgm_intro.wav");
+	m_sounds.push_back("mid_boss_owl_swoop.wav");
+	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
+	m_sounds.push_back("mid_boss_owl_death.wav");
+	m_sounds.push_back("screen_transition.wav");
+	m_sounds.push_back("screen_transition_2.wav");
+	m_sounds.push_back("level_complete.wav");
+	m_sounds.push_back("title_lightning_1.wav");
+	m_sounds.push_back("title_lightning_2.wav");
+	m_sounds.push_back("ability_unlock.wav");
+	m_sounds.push_back("boss_level_clear.wav");
+	m_sounds.push_back("level_clear.wav");
+	m_sounds.push_back("level_selected.wav");
+	m_sounds.push_back("rabbit_drill.wav");
+	m_sounds.push_back("snake_jump.wav");
+	m_sounds.push_back("vampire_dash.wav");
+	m_sounds.push_back("boss_level_unlock.wav");
+	m_sounds.push_back("rabbit_stomp.wav");
+	m_sounds.push_back("final_boss_bgm_intro.wav");
+	m_sounds.push_back("button_click.wav");
+	m_sounds.push_back("level_confirmed.wav");
+	m_sounds.push_back("bat_poof.wav");
+	m_sounds.push_back("chain_snap.wav");
+	m_sounds.push_back("end_boss_snake_mouth_open.wav");
+	m_sounds.push_back("end_boss_snake_charge_cue.wav");
+	m_sounds.push_back("end_boss_snake_charge.wav");
+	m_sounds.push_back("end_boss_snake_damaged.wav");
+	m_sounds.push_back("end_boss_snake_death.wav");
+	m_sounds.push_back("spiked_ball_rolling_loop.wav");
+	m_sounds.push_back("absorb_dash_ability.wav");
+	m_sounds.push_back("footstep_left_wood.wav");
+	m_sounds.push_back("footstep_right_wood.wav");
+	m_sounds.push_back("landing_wood.wav");
 }

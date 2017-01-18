@@ -52,7 +52,6 @@ void OpenGLRenderer::beginFrame(float deltaTime)
     glEnable(GL_TEXTURE_2D);
     
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     Renderer::beginFrame(deltaTime);
 }

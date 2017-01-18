@@ -237,6 +237,7 @@ private:
     Game* m_game;
     BatGoalType m_type;
     float m_fJonX;
+    float m_fJonVelocityX;
     bool m_isRequestingInput;
     bool m_isAcknowledgedPart1;
     bool m_isAcknowledgedPart2;

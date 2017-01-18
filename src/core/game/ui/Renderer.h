@@ -145,17 +145,17 @@ public:
     
     void renderToThirdFramebufferWithObfuscation();
     
-    void renderToScreenWithTransDeathIn(float timeElapsed);
+    void renderToThirdFramebufferWithTransDeathIn(float timeElapsed);
     
-    void renderToScreenWithTransDeathOut(float timeElapsed);
+    void renderToThirdFramebufferWithTransDeathOut(float timeElapsed);
     
-    void renderToScreenTransition(float progress);
+    void renderToThirdFramebufferTransition(float progress);
     
-    void renderToScreenFadeTransition(float progress);
+    void renderToThirdFramebufferFadeTransition(float progress);
     
-    void renderToScreenPointTransition(float centerX, float centerY, float progress);
+    void renderToThirdFramebufferPointTransition(float centerX, float centerY, float progress);
     
-    void renderToScreenWithRadialBlur();
+    void renderToThirdFramebufferWithRadialBlur();
     
     void renderToScreen();
 
@@ -179,13 +179,12 @@ protected:
     TextureWrapper m_misc;
     TextureWrapper m_title_screen;
     TextureWrapper m_trans_death_shader_helper;
+    TextureWrapper m_tutorial;
     TextureWrapper m_vampire;
     TextureWrapper m_world_1_background_lower_part_1;
     TextureWrapper m_world_1_background_lower_part_2;
-    TextureWrapper m_world_1_background_mid_part_1;
-    TextureWrapper m_world_1_background_mid_part_2;
-    TextureWrapper m_world_1_background_upper_part_1;
-    TextureWrapper m_world_1_background_upper_part_2;
+    TextureWrapper m_world_1_background_mid;
+    TextureWrapper m_world_1_background_upper;
     TextureWrapper m_world_1_cutscene_1;
     TextureWrapper m_world_1_cutscene_2;
     TextureWrapper m_world_1_end_boss_part_1;
@@ -222,6 +221,7 @@ protected:
     GpuProgramWrapper* m_framebufferObfuscationGpuProgramWrapper;
     FramebufferRadialBlurGpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
 
+    RendererType m_loadedRendererType;
 	int m_iFramebufferIndex;
     
     virtual void loadShaderPrograms() = 0;
@@ -253,6 +253,9 @@ private:
     std::unique_ptr<Vector2D> m_camPosVelocity;
     float m_fStateTime;
 	float m_fCamPosX;
+    float m_fGroundedCamY;
+    float m_fLowestGroundedCamY;
+    float m_fLastKnownCamY;
     int m_iNumAsyncLoads;
     float m_fRadialBlurDirection;
     bool m_compressed;
@@ -305,8 +308,6 @@ private:
     
     void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
     
-    float getCamPosFarRight(Game& game);
-    
     void loadMiscTextures();
     
     void loadTitle();
@@ -337,12 +338,14 @@ private:
     void loadJonTextures();
     bool ensureJonTextures();
     
+    void loadTutorial();
+    void loadTutorialTextures();
+    bool ensureTutorialTextures();
+    
     void loadWorld1BackgroundLowerPart1();
     void loadWorld1BackgroundLowerPart2();
-    void loadWorld1BackgroundMidPart1();
-    void loadWorld1BackgroundMidPart2();
-    void loadWorld1BackgroundUpperPart1();
-    void loadWorld1BackgroundUpperPart2();
+    void loadWorld1BackgroundMid();
+    void loadWorld1BackgroundUpper();
     void loadWorld1Enemies();
     void loadWorld1Ground();
     void loadWorld1ObjectsPart1();
@@ -389,6 +392,8 @@ private:
     void unloadSpriteTesterTextures();
     
     void unloadJonTextures();
+    
+    void unloadTutorialTextures();
     
     void unloadWorld1CutsceneTextures();
     

@@ -34,6 +34,7 @@ void OpenGLManager::init(int width, int height, int maxBatchSize, int numFramebu
     
     glViewport(0, 0, width, height);
     glScissor(0, 0, width, height);
+    glEnable(GL_SCISSOR_TEST);
     
     buildShaderPrograms();
     generateIndices(maxBatchSize);
@@ -104,6 +105,18 @@ void OpenGLManager::addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat
     m_colorVertices.push_back(g);
     m_colorVertices.push_back(b);
     m_colorVertices.push_back(a);
+}
+
+void OpenGLManager::useNormalBlending()
+{
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
+}
+
+void OpenGLManager::useScreenBlending()
+{
+    glBlendFuncSeparate(GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 }
 
 bool OpenGLManager::isLoaded()
