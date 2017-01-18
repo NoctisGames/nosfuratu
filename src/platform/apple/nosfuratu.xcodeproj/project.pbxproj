@@ -1866,7 +1866,6 @@
 		BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		BBE02D3A1DB18D4600C3268B /* GameScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenController.h; sourceTree = "<group>"; };
 		BBE02D3B1DB18D4600C3268B /* GameScreenController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScreenController.mm; sourceTree = "<group>"; };
-		BBE6B8341E2F371C006B780A /* NosFURatu.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = NosFURatu.entitlements; sourceTree = "<group>"; };
 		BBE92E1A1DB2E671008359C2 /* NosFURatu Level Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE9D4051DBE8F4E002D2120 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BBEFC3041DB551800011BD9B /* AndroidOpenGLGameScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidOpenGLGameScreen.cpp; sourceTree = "<group>"; };
@@ -2315,7 +2314,6 @@
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
-				BBE6B8341E2F371C006B780A /* NosFURatu.entitlements */,
 				BB44C3331DB0317E003E633F /* UIView+Toast.h */,
 				BB44C3341DB0317E003E633F /* UIView+Toast.m */,
 			);
@@ -3173,11 +3171,6 @@
 				TargetAttributes = {
 					0ADF1873178E2185005DA99E = {
 						DevelopmentTeam = 7V5EV5R3XG;
-						SystemCapabilities = {
-							com.apple.Push = {
-								enabled = 1;
-							};
-						};
 					};
 					BB44C3091DB0303F003E633F = {
 						CreatedOnToolsVersion = 8.0;
@@ -4521,7 +4514,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CODE_SIGN_ENTITLEMENTS = ios/NosFURatu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -4569,7 +4561,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
-				CODE_SIGN_ENTITLEMENTS = ios/NosFURatu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
