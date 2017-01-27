@@ -261,7 +261,12 @@ class MovingSnakeGrunt : public Enemy
     RTTI_DECL;
     
 public:
-    MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type) : Enemy(gridX, gridY, 16, 8, 0.1f, 0, 0.8f, 1, type, EnemySpiritType_Snake, SOUND_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false) {}
+    MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type, float red, float green, float blue) : Enemy(gridX, gridY, 16, 8, 0.1f, 0, 0.8f, 1, type, EnemySpiritType_Snake, SOUND_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false)
+    {
+        m_color.red = red;
+        m_color.green = green;
+        m_color.blue = blue;
+    }
     
     virtual void updateBounds();
     
@@ -281,76 +286,6 @@ private:
     bool m_isGrounded;
     bool m_isAbleToJump;
     bool m_isOnScreen;
-};
-
-class MovingSnakeGruntV1 : public MovingSnakeGrunt
-{
-    RTTI_DECL;
-    
-public:
-    MovingSnakeGruntV1(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 2, 2, false, EnemyType_MovingSnakeGruntV1)
-    {
-        // Forest Green
-        m_color.red = 0.13333333333333f;
-        m_color.green = 0.54509803921569f;
-        m_color.blue = 0.13333333333333f;
-    }
-};
-
-class MovingSnakeGruntV2 : public MovingSnakeGrunt
-{
-    RTTI_DECL;
-    
-public:
-    MovingSnakeGruntV2(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, false, EnemyType_MovingSnakeGruntV2)
-    {
-        // Jungle green Green
-        m_color.red = 0.16078431372549f;
-        m_color.green = 0.67058823529412f;
-        m_color.blue = 0.52941176470588f;
-    }
-};
-
-class MovingSnakeGruntV3 : public MovingSnakeGrunt
-{
-    RTTI_DECL;
-    
-public:
-    MovingSnakeGruntV3(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, false, EnemyType_MovingSnakeGruntV3)
-    {
-        // Mantis Green
-        m_color.red = 0.45490196078431f;
-        m_color.green = 0.76470588235294f;
-        m_color.blue = 0.39607843137255f;
-    }
-};
-
-class MovingSnakeGruntV4 : public MovingSnakeGrunt
-{
-    RTTI_DECL;
-    
-public:
-    MovingSnakeGruntV4(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 4, 4, true, EnemyType_MovingSnakeGruntV4)
-    {
-        // Fire Brick Red
-        m_color.red = 0.69803921568627f;
-        m_color.green = 0.13333333333333f;
-        m_color.blue = 0.13333333333333f;
-    }
-};
-
-class MovingSnakeGruntV5 : public MovingSnakeGrunt
-{
-    RTTI_DECL;
-    
-public:
-    MovingSnakeGruntV5(int gridX, int gridY) : MovingSnakeGrunt(gridX, gridY, 8, 8, true, EnemyType_MovingSnakeGruntV5)
-    {
-        // Lust Red
-        m_color.red = 0.90196078431373f;
-        m_color.green = 0.12549019607843f;
-        m_color.blue = 0.12549019607843f;
-    }
 };
 
 #endif /* defined(__nosfuratu__Enemy__) */

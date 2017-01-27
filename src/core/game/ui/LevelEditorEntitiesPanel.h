@@ -10,6 +10,7 @@
 #define __nosfuratu__LevelEditorEntitiesPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
 #include "TouchEvent.h"
 #include "Vector2D.h"
@@ -25,6 +26,7 @@
 #include "Jon.h"
 #include "EndBossSnake.h"
 #include "RTTI.h"
+#include "ForegroundCoverObject.h"
 
 #include <vector>
 #include <math.h>
@@ -74,6 +76,8 @@ public:
     
     std::vector<ExtraForegroundObject *>& getExtraForegroundObjects();
     
+    std::vector<ForegroundCoverObject *>& getForegroundCoverObjects();
+    
     float getEntitiesCameraPos();
     
     bool isOpen();
@@ -111,36 +115,6 @@ private:
         return retVal != -1;
     }
     
-    template<typename T>
-    static int boxInAll(std::vector<T*>& items, float eX, float eY, float eWidth, float eHeight, int index)
-    {
-        float size = fminf(eWidth, eHeight);
-        
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            T* item = *i;
-            
-            item->getPosition().set(eX, eY + (index++ * eHeight));
-            item->setWidth(eWidth);
-            item->setHeight(eHeight);
-            
-            if (item->getWidth() > item->getHeight())
-            {
-                item->setHeight(item->getHeight() / item->getWidth());
-                item->setHeight(item->getHeight() * size);
-                item->setWidth(size);
-            }
-            else
-            {
-                item->setWidth(item->getWidth() / item->getHeight());
-                item->setWidth(item->getWidth() * size);
-                item->setHeight(size);
-            }
-        }
-        
-        return index;
-    }
-    
     std::vector<Midground *> m_midgrounds;
     std::vector<Ground *> m_grounds;
     std::vector<Ground *> m_pits;
@@ -155,6 +129,7 @@ private:
     std::vector<CollectibleItem *> m_collectibleItems;
     std::vector<Jon *> m_jons;
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
+    std::vector<ForegroundCoverObject *> m_foregroundCoverObjects;
     
     std::unique_ptr<Rectangle> m_openButton;
     std::unique_ptr<Rectangle> m_closeButton;

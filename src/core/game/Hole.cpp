@@ -11,18 +11,19 @@
 
 Hole* Hole::create(int gridX, int gridY, int type)
 {
-    switch ((HoleType)type)
+    HoleType ht = (HoleType)type;
+    switch (ht)
     {
         case HoleType_GrassTileLeft:
-            return new HoleGrassTileLeft(gridX);
+            return new Hole(gridX, 73, 16, 23, ht, HoleCoverType_GrassTileLeft);
         case HoleType_GrassTileCenter:
-            return new HoleGrassTileCenter(gridX);
+            return new Hole(gridX, 73, 16, 23, ht, HoleCoverType_GrassTileCenter);
         case HoleType_GrassTileRight:
-            return new HoleGrassTileRight(gridX);
+            return new Hole(gridX, 73, 16, 23, ht, HoleCoverType_GrassTileRight);
         case HoleType_Grass:
-            return new HoleGrass(gridX);
+            return new Hole(gridX, 80, 16, 16, ht, HoleCoverType_Grass);
         case HoleType_Cave:
-            return new HoleCave(gridX);
+            return new Hole(gridX, 32, 17, 24, ht, HoleCoverType_Cave);
     }
     
     assert(false);
@@ -83,8 +84,3 @@ HoleType Hole::getType()
 }
 
 RTTI_IMPL(Hole, GridLockedPhysicalEntity);
-RTTI_IMPL(HoleGrassTileLeft, Hole);
-RTTI_IMPL(HoleGrassTileCenter, Hole);
-RTTI_IMPL(HoleGrassTileRight, Hole);
-RTTI_IMPL(HoleGrass, Hole);
-RTTI_IMPL(HoleCave, Hole);

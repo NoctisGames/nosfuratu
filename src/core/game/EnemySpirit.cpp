@@ -14,9 +14,9 @@ EnemySpirit* EnemySpirit::create(float x, float y, EnemySpiritType type)
     switch (type)
     {
         case EnemySpiritType_Snake:
-            return new EnemySpiritSnake(x, y);
+            return new EnemySpirit(x, y, 1.828125f, 2.25f, type);
         case EnemySpiritType_Sparrow:
-            return new EnemySpiritSparrow(x, y);
+            return new EnemySpirit(x, y + 1.546875f, 2.25f, 4.5f, type);
         case EnemySpiritType_None:
             return nullptr;
     }
@@ -45,5 +45,3 @@ EnemySpiritType EnemySpirit::getType()
 }
 
 RTTI_IMPL(EnemySpirit, PhysicalEntity);
-RTTI_IMPL(EnemySpiritSnake, EnemySpirit);
-RTTI_IMPL(EnemySpiritSparrow, EnemySpirit);

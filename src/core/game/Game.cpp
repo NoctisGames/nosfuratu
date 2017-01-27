@@ -29,18 +29,22 @@
 #define collectiblesKey "collectibles"
 #define jonsKey "jons"
 #define extraForegroundObjectsKey "extraForegroundObjects"
+#define foregroundCoverObjectsKey "foregroundCoverObjects"
 #define markersKey "markers"
 
 Game::Game() :
 m_fStateTime(0.0f),
 m_fFarRight(ZOOMED_OUT_CAM_WIDTH),
 m_fFarRightBottom(GAME_HEIGHT / 2),
+m_fCamFarRight(ZOOMED_OUT_CAM_WIDTH),
+m_fCamFarRightBottom(GAME_HEIGHT / 2),
 m_iBestLevelStatsFlag(0),
 m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
 m_iWorld(1),
 m_iLevel(1),
-m_isLoaded(false)
+m_isLoaded(false),
+m_isLevelEditor(false)
 {
     GRID_MANAGER->setGridCellSize(GRID_CELL_SIZE);
 }
@@ -51,6 +55,7 @@ void Game::copy(Game* game)
     
     m_iWorld = game->getWorld();
     m_iLevel = game->getLevel();
+    m_isLevelEditor = game->isLevelEditor();
     
     copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
     copyPhysicalEntities(game->getGrounds(), m_grounds);
@@ -66,6 +71,7 @@ void Game::copy(Game* game)
     copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
     copyPhysicalEntities(game->getJons(), m_jons);
     copyPhysicalEntities(game->getExtraForegroundObjects(), m_extraForegroundObjects);
+    copyPhysicalEntities(game->getForegroundCoverObjects(), m_foregroundCoverObjects);
     
     copyPhysicalEntities(game->getMarkers(), m_markers);
     
@@ -104,6 +110,7 @@ void Game::load(const char* json)
     loadArray(m_collectibleItems, d, collectiblesKey);
     loadArray(m_jons, d, jonsKey);
     loadArray(m_extraForegroundObjects, d, extraForegroundObjectsKey);
+    loadArray(m_foregroundCoverObjects, d, foregroundCoverObjectsKey);
     
     loadArray(m_markers, d, markersKey);
     
@@ -141,6 +148,7 @@ const char* Game::save()
     saveArray(m_collectibleItems, w, collectiblesKey);
     saveArray(m_jons, w, jonsKey);
     saveArray(m_extraForegroundObjects, w, extraForegroundObjectsKey);
+    saveArray(m_foregroundCoverObjects, w, foregroundCoverObjectsKey);
     
     saveArray(m_markers, w, markersKey);
     
@@ -171,6 +179,7 @@ void Game::reset()
     EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
     EntityUtils::cleanUpVectorOfPointers(m_jons);
     EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    EntityUtils::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     EntityUtils::cleanUpVectorOfPointers(m_markers);
     
@@ -185,8 +194,21 @@ void Game::update(float deltaTime)
 	m_fStateTime += deltaTime;
 }
 
-void Game::updateAndClean(float deltaTime)
+void Game::updateAndClean(float deltaTime, bool onlyJonCollectiblesAndCountHiss)
 {
+    if (onlyJonCollectiblesAndCountHiss)
+    {
+        EntityUtils::updateAndClean(getCountHissWithMinas(), deltaTime);
+        EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
+        
+        if (getJons().size() > 0)
+        {
+            getJon().update(deltaTime);
+        }
+        
+        return;
+    }
+    
     EntityUtils::updateAndClean(getMidgrounds(), deltaTime);
     EntityUtils::updateAndClean(getGrounds(), deltaTime);
     EntityUtils::updateAndClean(getPits(), deltaTime);
@@ -200,6 +222,7 @@ void Game::updateAndClean(float deltaTime)
     EntityUtils::updateAndClean(getEnemies(), deltaTime);
     EntityUtils::updateAndClean(getCollectibleItems(), deltaTime);
     EntityUtils::updateAndClean(getExtraForegroundObjects(), deltaTime);
+    EntityUtils::updateAndClean(getForegroundCoverObjects(), deltaTime);
     
     EntityUtils::updateAndClean(getMarkers(), deltaTime);
     
@@ -207,6 +230,15 @@ void Game::updateAndClean(float deltaTime)
 	{
 		getJon().update(deltaTime);
 	}
+}
+
+void Game::updateBackgrounds(Vector2D& cameraPosition, float deltaTime)
+{
+    EntityUtils::updateBackgrounds(getBackgroundUppers(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundMids(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundLowerBacks(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundLowers(), cameraPosition, deltaTime);
+    EntityUtils::updateBackgrounds(getBackgroundMidgroundCovers(), cameraPosition, deltaTime);
 }
 
 int Game::calcSum()
@@ -227,6 +259,7 @@ int Game::calcSum()
     sum += m_collectibleItems.size();
     sum += m_jons.size();
     sum += m_extraForegroundObjects.size();
+    sum += m_foregroundCoverObjects.size();
     
     sum += m_markers.size();
     
@@ -237,7 +270,8 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 {
     if (EntityUtils::isFallingThroughHole(entity, getHoles(), deltaTime))
     {
-        return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime);
+        return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime);
     }
 
 	if (EntityUtils::isFallingThroughPit(entity, getPits(), deltaTime))
@@ -246,6 +280,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
         || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
+        || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEnemies(), deltaTime);
 	}
     
@@ -253,6 +288,7 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
     || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)
+    || EntityUtils::isLanding(entity, getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isLanding(entity, getEnemies(), deltaTime)
     || EntityUtils::isLanding(entity, getEndBossSnakes(), deltaTime)
     || EntityUtils::isLanding(entity, getExitGrounds(), deltaTime)
@@ -263,7 +299,8 @@ bool Game::isJonBlockedOnRight(float deltaTime)
 {
     if (EntityUtils::isFallingThroughHole(getJonP(), getHoles(), deltaTime))
     {
-        return EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime);
+        return EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime);
     }
     
     if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
@@ -272,14 +309,16 @@ bool Game::isJonBlockedOnRight(float deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
+        || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime);
     }
     
     return EntityUtils::isBlockedOnRight(getJonP(), getGrounds(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getExtraForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedOnRight(getJonP(), getMidBossForegroundObjects(), deltaTime)
-    || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime);
+    || EntityUtils::isBlockedOnRight(getJonP(), getEndBossForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedOnRight(getJonP(), getForegroundCoverObjects(), deltaTime);
 }
 
 bool Game::isJonBlockedOnLeft(float deltaTime)
@@ -288,7 +327,8 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
 	{
         if (EntityUtils::isFallingThroughHole(getJonP(), getHoles(), deltaTime))
         {
-            return EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime);
+            return EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
+            || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime);
         }
         
         if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
@@ -297,14 +337,16 @@ bool Game::isJonBlockedOnLeft(float deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
             || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
-            || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
+            || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime)
+            || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime);
         }
         
         return EntityUtils::isBlockedOnLeft(getJonP(), getGrounds(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getExtraForegroundObjects(), deltaTime)
         || EntityUtils::isBlockedOnLeft(getJonP(), getMidBossForegroundObjects(), deltaTime)
-        || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime);
+        || EntityUtils::isBlockedOnLeft(getJonP(), getEndBossForegroundObjects(), deltaTime)
+        || EntityUtils::isBlockedOnLeft(getJonP(), getForegroundCoverObjects(), deltaTime);
 	}
     
     return false;
@@ -323,6 +365,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getExtraForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getMidBossForegroundObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEndBossForegroundObjects(), deltaTime)
+    || EntityUtils::isBlockedAbove(getJon(), getForegroundCoverObjects(), deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
 }
 
@@ -370,6 +413,11 @@ std::vector<Background *>& Game::getBackgroundUppers()
 std::vector<Background *>& Game::getBackgroundMids()
 {
     return m_backgroundMids;
+}
+
+std::vector<Background *>& Game::getBackgroundLowerBacks()
+{
+    return m_backgroundLowerBacks;
 }
 
 std::vector<Background *>& Game::getBackgroundLowers()
@@ -477,6 +525,11 @@ std::vector<ExtraForegroundObject *>& Game::getExtraForegroundObjects()
     return m_extraForegroundObjects;
 }
 
+std::vector<ForegroundCoverObject *>& Game::getForegroundCoverObjects()
+{
+    return m_foregroundCoverObjects;
+}
+
 std::vector<GameMarker *>& Game::getMarkers()
 {
     return m_markers;
@@ -512,6 +565,16 @@ float Game::getFarRight()
 float Game::getFarRightBottom()
 {
     return m_fFarRightBottom;
+}
+
+float Game::getCamFarRight()
+{
+    return m_fCamFarRight;
+}
+
+float Game::getCamFarRightBottom()
+{
+    return m_fCamFarRightBottom;
 }
 
 float Game::getStateTime()
@@ -569,12 +632,30 @@ bool Game::hasEndSign()
 
 void Game::calcFarRight()
 {
+    bool isUsingEndBossCam = m_iLevel == 21;
+    
+    if (isUsingEndBossCam
+        && m_countHissWithMinas.size() > 0)
+    {
+        // End Boss Level
+        CountHissWithMina* countHissWithMina = m_countHissWithMinas.at(0);
+        m_fCamFarRight = countHissWithMina->getMainBounds().getRight() - CAM_WIDTH;
+        m_fCamFarRightBottom = countHissWithMina->getMainBounds().getBottom() - 0.5625f;
+    }
+    
     for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
     {
         if ((*i)->getType() == ForegroundObjectType_EndSign)
         {
             m_fFarRight = (*i)->getMainBounds().getLeft();
             m_fFarRightBottom = (*i)->getMainBounds().getBottom() - 0.5625f;
+            
+            if (!isUsingEndBossCam)
+            {
+                m_fCamFarRight = m_fFarRight;
+                m_fCamFarRightBottom = m_fFarRightBottom;
+            }
+            
             return;
         }
     }
@@ -591,13 +672,22 @@ void Game::onLoaded()
 {
     if (m_iWorld == 1)
     {
-        for (int i = 0; i < 4; i++)
+        int numBgs = m_isLevelEditor ? 4 : 1;
+        for (int i = 0; i < numBgs; i++)
         {
-            m_backgroundUppers.push_back(new Upper(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundMids.push_back(new Mid(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundLowers.push_back(new Lower(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundLowers.push_back(new WaterBack(i * CAM_WIDTH + CAM_WIDTH / 2));
-            m_backgroundMidgroundCovers.push_back(new WaterFront(i * CAM_WIDTH + CAM_WIDTH / 2));
+            m_backgroundUppers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Upper));
+            
+            m_backgroundMids.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Mid_Hills));
+            m_backgroundMids.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Mid_Trees));
+            
+            m_backgroundLowerBacks.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Innermost));
+            m_backgroundLowerBacks.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Inner));
+            
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Top));
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Lower_Bottom));
+            m_backgroundLowers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_WaterBack));
+            
+            m_backgroundMidgroundCovers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_WaterFront));
         }
     }
     

@@ -8,14 +8,9 @@
 
 #include "MacOpenGLGameScreen.h"
 
-MacOpenGLGameScreen::MacOpenGLGameScreen(int screenWidth, int screenHeight) : OpenGLGameScreen(false, true)
+MacOpenGLGameScreen::MacOpenGLGameScreen() : OpenGLGameScreen(false, true)
 {
-    m_iScreenWidth = screenWidth;
-    m_iScreenHeight = screenHeight;
-    
-    init(screenWidth, screenHeight);
-    
-    m_stateMachine->getCurrentState()->enter(this);
+    // Empty
 }
 
 void MacOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
@@ -28,12 +23,25 @@ void MacOpenGLGameScreen::onResize(int screenWidth, int screenHeight)
     m_iScreenWidth = screenWidth;
     m_iScreenHeight = screenHeight;
     
+    bool needsToEnter = true;
+    if (m_renderer)
+    {
+        needsToEnter = false;
+    }
+    
     cleanUp();
     
-    init(screenWidth, screenHeight, true);
+    init(screenWidth, screenHeight);
     
-    GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
-    gameScreenState->initRenderer(this);
+    if (needsToEnter)
+    {
+        m_stateMachine->getCurrentState()->enter(this);
+    }
+    else
+    {
+        GameScreenState* gameScreenState = (GameScreenState*) m_stateMachine->getCurrentState();
+        gameScreenState->initRenderer(this);
+    }
 }
 
 void MacOpenGLGameScreen::cleanUp()

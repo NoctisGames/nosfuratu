@@ -47,6 +47,8 @@ void GameScreenLevelEditor::enter(GameScreen* gs)
     
     gs->m_renderer->zoomOut();
     
+    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+    
     if (m_iWorld == 0)
     {
         m_levelSelectorPanel->open();
@@ -149,10 +151,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
         
         m_trashCan->update(gs->m_renderer->getCameraPosition());
         
-        EntityUtils::updateBackgrounds(m_game->getBackgroundUppers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMids(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundLowers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
-        EntityUtils::updateBackgrounds(m_game->getBackgroundMidgroundCovers(), gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
     }
 }
 
@@ -302,6 +301,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getEnemies(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getCollectibleItems(), beginGridX, endGridX, offset);
                         EntityUtils::offsetAllInRangeOpenEnd(m_game->getExtraForegroundObjects(), beginGridX, endGridX, offset);
+                        EntityUtils::offsetAllInRangeOpenEnd(m_game->getForegroundCoverObjects(), beginGridX, endGridX, offset);
                         
                         EntityUtils::offsetAllInRangeClosedEnd(m_game->getMarkers(), beginGridX, endGridX, offset);
                     }
@@ -434,25 +434,21 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
-					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     jon->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(Enemy::rtti))
                 {
                     Enemy* e = reinterpret_cast<Enemy *>(m_lastAddedEntity);
-					m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     e->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(ForegroundObject::rtti))
                 {
                     ForegroundObject* fo = reinterpret_cast<ForegroundObject *>(m_lastAddedEntity);
-                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     fo->setGame(m_game.get());
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                 {
                     CollectibleItem* ci = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
-                    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
                     ci->setGame(m_game.get());
                 }
             }
@@ -482,8 +478,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti)
-                        || m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
+                    if (m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(SpikeTower::rtti)
@@ -493,6 +488,38 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_isVerticalChangeAllowed = false;
                         m_allowPlaceOn = false;
                         m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+                    }
+					else if (m_draggingEntity->getRTTI().derivesFrom(ForegroundCoverObject::rtti))
+					{
+						ForegroundCoverObject* fco = reinterpret_cast<ForegroundCoverObject *>(m_draggingEntity);
+						if (fco->getType() != ForegroundCoverObjectType_Wall
+							&& fco->getType() != ForegroundCoverObjectType_Wall_Window
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Left
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Right
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Plain
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Chimney)
+						{
+							m_isVerticalChangeAllowed = false;
+							m_allowPlaceOn = false;
+							m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+						}
+					}
+                    else if (m_draggingEntity->getRTTI().derivesFrom(Midground::rtti))
+                    {
+                        Midground* midground = reinterpret_cast<Midground *>(m_draggingEntity);
+                        if (midground->getType() != MidgroundType_Metal_Tower_Section
+                            && midground->getType() != MidgroundType_Billboard_Count_Hiss
+                            && midground->getType() != MidgroundType_Billboard_Slag_Town
+                            && midground->getType() != MidgroundType_Billboard_Jon_Wanted
+							&& midground->getType() != MidgroundType_Stone_Square
+							&& midground->getType() != MidgroundType_Stone_Diamond
+							&& midground->getType() != MidgroundType_Wall
+							&& midground->getType() != MidgroundType_Roof)
+                        {
+                            m_isVerticalChangeAllowed = false;
+                            m_allowPlaceOn = false;
+                            m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
+                        }
                     }
                     else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti))
                     {
@@ -550,7 +577,7 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
                         m_draggingEntity->updateBounds();
                     }
                     
-                    if (m_draggingEntity->getMainBounds().getLowerLeft().getY() < 0 && yDelta < 0)
+                    if (m_draggingEntity->getMainBounds().getBottom() < 0 && yDelta < 0)
                     {
                         m_draggingEntity->getPosition().sub(0, yDelta);
                         m_draggingEntity->updateBounds();
@@ -656,6 +683,11 @@ void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
 							Sparrow *sparrow = reinterpret_cast<Sparrow *>(m_draggingEntity);
 							sparrow->onMoved();
 						}
+                        else if (m_draggingEntity->getRTTI().derivesFrom(FloatingPlatformObject::rtti))
+                        {
+                            FloatingPlatformObject *fpo = reinterpret_cast<FloatingPlatformObject *>(m_draggingEntity);
+                            fpo->onMoved();
+                        }
                     }
                 }
                 
@@ -703,6 +735,7 @@ void GameScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     EntityUtils::addAll(m_game->getCollectibleItems(), m_gameEntities);
 	EntityUtils::addAll(m_game->getJons(), m_gameEntities);
     EntityUtils::addAll(m_game->getExtraForegroundObjects(), m_gameEntities);
+    EntityUtils::addAll(m_game->getForegroundCoverObjects(), m_gameEntities);
     EntityUtils::addAll(m_game->getMarkers(), m_gameEntities);
     
     std::sort(m_gameEntities.begin(), m_gameEntities.end(), sortGameEntities);
@@ -773,6 +806,7 @@ GameScreenLevelEditor::GameScreenLevelEditor() :
 	m_allowPlaceUnder(false)
 {
     m_game = std::unique_ptr<Game>(new Game());
+    m_game->setIsLevelEditor(true);
     m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
     m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
     m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());

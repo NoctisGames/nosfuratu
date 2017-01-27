@@ -9,13 +9,17 @@
 #ifndef __noctisgames__platform_gl_h
 #define __noctisgames__platform_gl_h
 
-#ifdef NG_IOS
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if TARGET_OS_IPHONE
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#elif defined NG_MAC
+#elif TARGET_OS_OSX
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
-#elif defined NG_ANDROID
+#elif __ANDROID__
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #endif

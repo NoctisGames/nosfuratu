@@ -33,6 +33,11 @@ float Entity::getStateTime()
     return m_fStateTime;
 }
 
+void Entity::setStateTime(float stateTime)
+{
+    m_fStateTime = stateTime;
+}
+
 void Entity::requestDeletion()
 {
     m_isRequestingDeletion = true;

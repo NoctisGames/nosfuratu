@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __nosfuratu__SuperpoweredSoundManager__
-#define __nosfuratu__SuperpoweredSoundManager__
+#ifndef __noctisgames__SuperpoweredSoundManager__
+#define __noctisgames__SuperpoweredSoundManager__
 
 #include "SuperpoweredSound.h"
 
@@ -70,6 +70,10 @@ public:
     
     void stopSound(int rawResourceId);
     
+    void stopAllSounds(bool stopOnlyLoopingSounds = false);
+    
+    void stopAllLoopingSounds();
+    
     void loadMusic(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
     
     void playMusic(float volume, bool isLooping);
@@ -105,4 +109,4 @@ private:
     bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
 };
 
-#endif /* defined(__nosfuratu__SuperpoweredSound__) */
+#endif /* defined(__noctisgames__SuperpoweredSound__) */

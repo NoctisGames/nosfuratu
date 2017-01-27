@@ -26,6 +26,8 @@ public:
     
     float getStateTime();
     
+    void setStateTime(float stateTime);
+    
     void requestDeletion();
     
     bool isRequestingDeletion();

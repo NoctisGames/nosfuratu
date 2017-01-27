@@ -23,6 +23,8 @@ OpenGLTransDeathGpuProgramWrapper::OpenGLTransDeathGpuProgramWrapper(bool isTran
 
 void OpenGLTransDeathGpuProgramWrapper::bind()
 {
+    OGLESManager->useScreenBlending();
+    
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_grayMap->texture);
     

@@ -6,10 +6,12 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __nosfuratu__SuperpoweredSound__
-#define __nosfuratu__SuperpoweredSound__
+#ifndef __noctisgames__SuperpoweredSound__
+#define __noctisgames__SuperpoweredSound__
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
+
+#include <string>
 
 class SuperpoweredSound
 {
@@ -33,11 +35,11 @@ public:
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
-    const char *m_path;
+    std::string m_path;
     float m_fVolume;
     int m_iRawResourceId;
     unsigned int m_iLastSamplerate;
     bool m_isLooping;
 };
 
-#endif /* defined(__nosfuratu__SuperpoweredSound__) */
+#endif /* defined(__noctisgames__SuperpoweredSound__) */

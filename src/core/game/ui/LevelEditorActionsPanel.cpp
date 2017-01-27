@@ -7,6 +7,7 @@
 //
 
 #include "LevelEditorActionsPanel.h"
+
 #include "Rectangle.h"
 #include "GameConstants.h"
 #include "OverlapTester.h"

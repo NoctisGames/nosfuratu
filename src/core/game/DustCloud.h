@@ -13,18 +13,29 @@
 #include "Color.h"
 #include "RTTI.h"
 
+typedef enum
+{
+    DustCloudType_Landing,
+    DustCloudType_Kick_Up
+} DustCloudType;
+
 class DustCloud : public PhysicalEntity
 {
     RTTI_DECL;
     
 public:
-    DustCloud(float x, float y, float scale);
+    static DustCloud* create(float x, float y, DustCloudType type, float scale = 1);
+    
+    DustCloud(float x, float y, float width, float height, DustCloudType type);
     
     virtual void update(float deltaTime);
+    
+    DustCloudType getType() { return m_type; }
     
     Color getColor();
     
 private:
+    DustCloudType m_type;
     Color m_color;
 };
 

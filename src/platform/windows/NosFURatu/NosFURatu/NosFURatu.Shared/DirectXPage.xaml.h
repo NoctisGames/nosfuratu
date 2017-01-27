@@ -24,6 +24,10 @@ namespace NosFURatu
 		void SaveInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 		void LoadInternalState(Windows::Foundation::Collections::IPropertySet^ state);
 
+		void RequestInterstitialAd();
+
+		void DisplayInterstitialAdIfAvailable();
+
 	private:
 		// Track our independent input on a background worker thread.
 		Windows::Foundation::IAsyncAction^ m_inputLoopWorker;
@@ -47,9 +51,16 @@ namespace NosFURatu
 		void OnCompositionScaleChanged(Windows::UI::Xaml::Controls::SwapChainPanel^ sender, Object^ args);
 		void OnSwapChainPanelSizeChanged(Platform::Object^ sender, Windows::UI::Xaml::SizeChangedEventArgs^ e);
 
-#if defined NG_WIN_10 || defined NG_WIN_PHONE_8
+#if defined(WINAPI_FAMILY)
+	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 		// Back Button Handling (only for Windows Phone)
 		void OnBackPressed(Platform::Object^ sender, Windows::Phone::UI::Input::BackPressedEventArgs^ args);
+	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
+		#if WINAPI_PARTITION_PHONE_APP
+			// Back Button Handling (only for Windows Phone)
+			void OnBackPressed(Platform::Object^ sender, Windows::Phone::UI::Input::BackPressedEventArgs^ args);
+		#endif
+	#endif
 #endif
 
 		// Independent input handling functions.
@@ -58,6 +69,14 @@ namespace NosFURatu
 		void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 
 		void onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e);
+
+		// Monetization
+		Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;
+
+		void OnAdReady(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdCancelled(Platform::Object^ sender, Platform::Object^ args);
+		void OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args);
 	};
 }
 

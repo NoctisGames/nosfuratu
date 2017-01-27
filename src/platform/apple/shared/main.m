@@ -6,21 +6,25 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifdef NG_IOS
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#elif defined NG_MAC
+#elif TARGET_OS_OSX
 #import <Cocoa/Cocoa.h>
 #endif
 
 int main(int argc, char * argv[])
 {
-#ifdef NG_IOS
+#if TARGET_OS_IPHONE
     @autoreleasepool
     {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
-#else
+#elif TARGET_OS_OSX
     return NSApplicationMain(argc, (const char**)argv);
 #endif
 }

@@ -12,8 +12,8 @@
 //// VERSION ////
 
 #define VERSION_MAJOR 1
-#define VERSION_MINOR 0
-#define VERSION_BUILD 12
+#define VERSION_MINOR 1
+#define VERSION_BUILD 0
 
 //// Requested Action Definitions ////
 
@@ -30,7 +30,9 @@
 
 #define REQUESTED_ACTION_GET_SAVE_DATA 7
 
-#define REQUESTED_ACTION_SHOW_MESSAGE 8 // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
+#define REQUESTED_ACTION_SHOW_MESSAGE 8 // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below under //// Message Definitions ////)
+
+#define REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD 9
 
 //// Message Definitions ////
 
@@ -131,17 +133,24 @@
 #define SOUND_SPIKED_BALL_ROLLING 60
 #define STOP_SOUND_SPIKED_BALL_ROLLING SOUND_SPIKED_BALL_ROLLING + 1000
 #define SOUND_ABSORB_DASH_ABILITY 61
+#define SOUND_FOOTSTEP_LEFT_WOOD 62
+#define SOUND_FOOTSTEP_RIGHT_WOOD 63
+#define SOUND_LANDING_WOOD 64
+
+#define STOP_ALL_SOUNDS 9998
+#define STOP_ALL_LOOPING_SOUNDS 9999
 
 //// Render Definitions ////
 
-#define MAX_BATCH_SIZE 4096
+#define MAX_BATCH_SIZE 16384
 
 //// Texture Definitions ////
 
 #define TEXTURE_SIZE_1024 1024
 #define TEXTURE_SIZE_2048 2048
 #define TEXTURE_SIZE_4096 4096
-#define PIXEL_WIDTH_FOR_BACKGROUND 1808
+#define PIXEL_WIDTH_FOR_GAME 1808
+#define PIXEL_HEIGHT_FOR_GAME 4096
 
 //// Matrix Definitions ////
 
@@ -201,6 +210,6 @@
 
 //// Render Definitions ////
 
-#define NUM_FRAMEBUFFERS 3
+#define NUM_FRAMEBUFFERS 4
 
 #endif /* GAME_CONSTANTS_H */

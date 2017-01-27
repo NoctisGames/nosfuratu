@@ -10,6 +10,7 @@
 #define __nosfuratu__LevelEditorActionsPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
 #include "TouchEvent.h"
 #include "Vector2D.h"

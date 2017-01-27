@@ -61,6 +61,9 @@ public:
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat u, GLfloat v);
     void addVertexCoordinate(GLfloat x, GLfloat y, GLfloat z, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
     
+    void useNormalBlending();
+    void useScreenBlending();
+    
     bool isLoaded();
     
 private:
