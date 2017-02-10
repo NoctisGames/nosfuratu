@@ -15,16 +15,19 @@
 #include "GameScreenComingSoon.h"
 #include "Game.h"
 
+#define FRAME_RATE 0.01666666666667f // 60 frames per second
+
 GameScreen::GameScreen() :
 m_fFPSStateTime(0),
 m_iFrames(0),
 m_iFPS(0),
-m_fDeltaTime(0),
+m_fDeltaTime(FRAME_RATE),
 m_fScreenHeldTime(0),
 m_isRequestingRender(false),
 m_iRequestedAction(REQUESTED_ACTION_UPDATE),
 m_isPaused(false),
 m_isScreenHeldDown(false),
+m_fFrameStateTime(0),
 m_iPoolIndex(0),
 m_wasPaused(false),
 m_hasSwiped(false),
@@ -97,20 +100,33 @@ void GameScreen::onPause()
 
 void GameScreen::update(float deltaTime)
 {
-    m_fDeltaTime = deltaTime;
+    m_fFPSStateTime += deltaTime;
+    m_iFrames++;
+    if (m_fFPSStateTime >= 1.0f)
+    {
+        m_fFPSStateTime -= 1.0f;
+        m_iFPS = m_iFrames;
+        m_iFrames = 0;
+    }
     
-	m_fFPSStateTime += deltaTime;
-	m_iFrames++;
-	if (m_fFPSStateTime >= 1.0f)
-	{
-		m_fFPSStateTime -= 1.0f;
-		m_iFPS = m_iFrames;
-		m_iFrames = 0;
-	}
+    m_fDeltaTime = FRAME_RATE;
     
-    processTouchEvents();
+    m_fFrameStateTime += deltaTime;
+    while (m_fFrameStateTime >= FRAME_RATE)
+    {
+        m_fFrameStateTime -= FRAME_RATE;
+        
+        internalUpdate();
+    }
+    
+    m_isRequestingRender = m_renderer->isLoaded();
+}
 
-    m_fTimeUntilResume -= deltaTime;
+void GameScreen::internalUpdate()
+{
+    processTouchEvents();
+    
+    m_fTimeUntilResume -= m_fDeltaTime;
     
     if (m_isPaused)
     {
@@ -119,20 +135,20 @@ void GameScreen::update(float deltaTime)
             switch ((*i)->getTouchType())
             {
                 case DOWN:
-                    continue;
+                continue;
                 case DRAGGED:
-                    continue;
+                continue;
                 case UP:
-                    m_isPaused = false;
-                    m_fTimeUntilResume = 0.5f;
-                    
-                    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
-                    {
-                        ASSETS->addMusicIdToPlayQueue(MUSIC_RESUME);
-                    }
-                    break;
+                m_isPaused = false;
+                m_fTimeUntilResume = 0.5f;
+                
+                if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+                {
+                    ASSETS->addMusicIdToPlayQueue(MUSIC_RESUME);
+                }
+                break;
                 default:
-                    break;
+                break;
             }
         }
     }
@@ -150,18 +166,15 @@ void GameScreen::update(float deltaTime)
             m_stateMachine->execute();
         }
     }
-    
-    m_isRequestingRender = m_renderer->isLoaded();
 }
 
 void GameScreen::render()
 {
 	// Loading may be asynchronous, so make sure we are loaded before rendering
-	if (m_renderer->isLoaded())
+	if (m_renderer->isLoaded()
+        && m_isRequestingRender)
 	{
-        m_isRequestingRender = true;
-        
-		m_stateMachine->execute();
+        m_stateMachine->execute();
 
 		m_isRequestingRender = false;
 	}

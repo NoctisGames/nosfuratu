@@ -122,8 +122,11 @@ public:
     void processTouchEvents();
     
 private:
+    float m_fFrameStateTime;
     int m_iPoolIndex;
     bool m_wasPaused;
+    
+    void internalUpdate();
 
     TouchEvent* newTouchEvent();
     
