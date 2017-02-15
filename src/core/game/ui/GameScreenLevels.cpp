@@ -19,6 +19,7 @@
 #include "BatPanel.h"
 #include "GameScreenWorldMap.h"
 #include "GameScreenTransitions.h"
+#include "ScreenInputManager.h"
 
 /// Level ///
 
@@ -284,16 +285,16 @@ void Level::update(GameScreen* gs)
                 m_continueButton->getColor().alpha = 1;
             }
             
-            for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
             {
                 gs->touchToWorld(*(*i));
                 
-                switch ((*i)->getTouchType())
+                switch ((*i)->getType())
                 {
-                    case DOWN:
-                    case DRAGGED:
+                    case ScreenEventType_DOWN:
+                    case ScreenEventType_DRAGGED:
                         continue;
-                    case UP:
+                    case ScreenEventType_UP:
                         if (m_continueButton->handleClick(*gs->m_touchPoint))
                         {
                             if (m_game->getWorld() == 1
@@ -689,15 +690,15 @@ void Level::configBatPanel()
 
 bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
 {
-    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
-        switch ((*i)->getTouchType())
+        switch ((*i)->getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
                 continue;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
                 continue;
-            case UP:
+            case ScreenEventType_UP:
                 return true;
         }
     }
@@ -710,13 +711,13 @@ bool Level::handleTouchInput(GameScreen* gs)
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
     
-    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
         gs->touchToWorld(*(*i));
         
-        switch ((*i)->getTouchType())
+        switch ((*i)->getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
                 if (isJonAlive)
                 {
                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
@@ -724,7 +725,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                     gs->m_fScreenHeldTime = 0.0f;
                 }
                 continue;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
                 if (isJonAlive && !gs->m_hasSwiped)
                 {
                     if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
@@ -759,7 +760,7 @@ bool Level::handleTouchInput(GameScreen* gs)
                     }
                 }
                 continue;
-            case UP:
+            case ScreenEventType_UP:
                 if (!m_hasCompletedLevel
                     && m_backButton->handleClick(*gs->m_touchPoint))
                 {

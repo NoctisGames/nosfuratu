@@ -14,6 +14,7 @@
 #include "GameScreenOpeningCutscene.h"
 #include "GameScreenComingSoon.h"
 #include "Game.h"
+#include "ScreenInputManager.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
@@ -41,11 +42,6 @@ m_fTimeUntilResume(0)
     m_touchPoint = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
     m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
-    
-    for (int i = 0; i < 100; i++)
-    {
-		m_touchEventsPool.push_back(new TouchEvent(0, 0, Touch_Type::DOWN));
-    }
     
     m_stateMachine = std::unique_ptr<StateMachine<GameScreen, GameScreenState>>(new StateMachine<GameScreen, GameScreenState>(this));
     m_stateMachine->setCurrentState(Title::getInstance());
@@ -124,21 +120,21 @@ void GameScreen::update(float deltaTime)
 
 void GameScreen::internalUpdate()
 {
-    processTouchEvents();
+    SCREEN_INPUT_MANAGER->process();
     
     m_fTimeUntilResume -= m_fDeltaTime;
     
     if (m_isPaused)
     {
-        for (std::vector<TouchEvent *>::iterator i = m_touchEvents.begin(); i != m_touchEvents.end(); i++)
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
-            switch ((*i)->getTouchType())
+            switch ((*i)->getType())
             {
-                case DOWN:
+                case ScreenEventType_DOWN:
                 continue;
-                case DRAGGED:
+                case ScreenEventType_DRAGGED:
                 continue;
-                case UP:
+                case ScreenEventType_UP:
                 m_isPaused = false;
                 m_fTimeUntilResume = 0.5f;
                 
@@ -253,47 +249,6 @@ int GameScreen::getJonAbilityFlag()
     Level* level = (Level*) m_stateMachine->getCurrentState();
     
     return level->getJonAbilityFlag();
-}
-
-void GameScreen::onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y)
-{
-    if (type == Touch_Type::DRAGGED && m_touchEventsBuffer.size() > 3)
-    {
-        return;
-    }
-    
-    addTouchEventForType(type, raw_touch_x, raw_touch_y);
-}
-
-void GameScreen::processTouchEvents()
-{
-	m_touchEvents.clear();
-    m_touchEvents.swap(m_touchEventsBuffer);
-    m_touchEventsBuffer.clear();
-}
-
-#pragma mark private
-
-TouchEvent* GameScreen::newTouchEvent()
-{
-	TouchEvent* touchEvent = m_touchEventsPool.at(m_iPoolIndex++);
-
-	if (m_iPoolIndex > 99)
-	{
-		m_iPoolIndex = 0;
-	}
-
-	return touchEvent;
-}
-
-void GameScreen::addTouchEventForType(Touch_Type type, float x, float y)
-{
-	TouchEvent* touchEvent = newTouchEvent();
-	touchEvent->setTouchType(type);
-	touchEvent->setX(x);
-	touchEvent->setY(y);
-
-	m_touchEventsBuffer.push_back(touchEvent);
 }
 
 RTTI_IMPL(GameHudCarrot, PhysicalEntity);

@@ -312,13 +312,13 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
     }
 }
 
-int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity)
+int LevelEditorEntitiesPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity)
 {
     if (m_isOpen && touchPoint.getX() > (CAM_WIDTH - getWidth()))
     {
-        switch (te.getTouchType())
+        switch (te.getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
             {
                 if(touchPoint.getX() > m_closeButton->getLeft() + m_closeButton->getWidth())
                 {
@@ -329,7 +329,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                 }
             }
                 break;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
                 m_fEntitiesCameraPos += (m_touchPointDown->getY() - touchPoint.getY()) * 3;
                 if (m_fEntitiesCameraPos < 0)
                 {
@@ -343,7 +343,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
                 m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                 
                 return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
-            case UP:
+            case ScreenEventType_UP:
             {
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_closeButton))
                 {
@@ -386,7 +386,7 @@ int LevelEditorEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, 
     {
 		if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				m_position->setX(CAM_WIDTH - getWidth() / 2);
 

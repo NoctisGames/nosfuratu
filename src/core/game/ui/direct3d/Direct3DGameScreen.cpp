@@ -48,7 +48,7 @@ void Direct3DGameScreen::ReleaseDeviceDependentResources()
 	D3DManager->releaseDeviceDependentResources();
 }
 
-void Direct3DGameScreen::touchToWorld(TouchEvent &touchEvent)
+void Direct3DGameScreen::touchToWorld(ScreenEvent &touchEvent)
 {
 	Size logicalSize = m_deviceResources->GetLogicalSize();
 	m_touchPoint->set(touchEvent.getX() / logicalSize.Width * CAM_WIDTH, CAM_HEIGHT - (touchEvent.getY() / logicalSize.Height * CAM_HEIGHT));
@@ -59,7 +59,7 @@ bool Direct3DGameScreen::handleOnBackPressed()
 	if (m_stateMachine->getPreviousState())
 	{
 		Size logicalSize = m_deviceResources->GetLogicalSize();
-		onTouch(Touch_Type::UP, logicalSize.Width / 20, logicalSize.Height / 20);
+		onTouch(ScreenEventType_UP, logicalSize.Width / 20, logicalSize.Height / 20);
 		return true;
 	}
 

@@ -12,7 +12,7 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "TouchEvent.h"
+#include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "OverlapTester.h"
@@ -37,7 +37,7 @@ public:
     
     void initForTextureName(std::string textureName);
     
-    int handleTouch(TouchEvent& te, Vector2D& touchPoint, Vector2D& camPos, std::vector<UnknownEntity*>& gameItems, UnknownEntity** lastAddedEntity);
+    int handleTouch(ScreenEvent& te, Vector2D& touchPoint, Vector2D& camPos, std::vector<UnknownEntity*>& gameItems, UnknownEntity** lastAddedEntity);
     
     std::vector<UnknownEntity *>& getEntities();
     

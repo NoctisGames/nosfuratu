@@ -20,7 +20,7 @@ public:
     
     void onSurfaceChanged(int screenWidth, int screenHeight);
 
-    virtual void touchToWorld(TouchEvent &touchEvent);
+    virtual void touchToWorld(ScreenEvent &touchEvent);
 
     bool handleOnBackPressed();
 

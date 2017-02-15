@@ -16,7 +16,7 @@ class IOSOpenGLGameScreen : public OpenGLGameScreen
 public:
     IOSOpenGLGameScreen(int screenWidth, int screenHeight, int pointsWidth, int pointsHeight, bool isLowMemoryDevice);
     
-    virtual void touchToWorld(TouchEvent &touchEvent);
+    virtual void touchToWorld(ScreenEvent &touchEvent);
     
 protected:
     int m_iPointsWidth;

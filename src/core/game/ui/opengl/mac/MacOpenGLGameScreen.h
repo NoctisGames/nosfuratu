@@ -16,7 +16,7 @@ class MacOpenGLGameScreen : public OpenGLGameScreen
 public:
     MacOpenGLGameScreen();
     
-    virtual void touchToWorld(TouchEvent &touchEvent);
+    virtual void touchToWorld(ScreenEvent &touchEvent);
     
     void onResize(int screenWidth, int screenHeight);
     

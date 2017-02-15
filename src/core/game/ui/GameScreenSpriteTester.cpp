@@ -12,6 +12,7 @@
 #include "GameScreenTitle.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
+#include "ScreenInputManager.h"
 
 #include <algorithm> // std::sort
 
@@ -125,7 +126,7 @@ ConfirmExitPanel* GameScreenSpriteTester::getConfirmExitPanel()
 
 void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
 {
-    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
         gs->touchToWorld(*(*i));
         
@@ -226,9 +227,9 @@ void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
             return;
         }
         
-        switch ((*i)->getTouchType())
+        switch ((*i)->getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
             {
                 Vector2D tp = gs->m_touchPoint->cpy();
                 tp.mul(4);
@@ -246,7 +247,7 @@ void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
                 gs->m_touchPointDown2->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             }
                 continue;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
             {
                 float xDelta = gs->m_touchPoint->getX() - gs->m_touchPointDown->getX();
                 xDelta *= 4;
@@ -292,7 +293,7 @@ void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
             }
                 continue;
-            case UP:
+            case ScreenEventType_UP:
                 if (m_draggingEntity != nullptr)
                 {
                     if (OverlapTester::doRectanglesOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()))

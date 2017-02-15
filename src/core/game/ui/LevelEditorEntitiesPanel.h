@@ -12,7 +12,7 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "TouchEvent.h"
+#include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "OverlapTester.h"
@@ -46,7 +46,7 @@ public:
     
     void initForLevel(int world, int level);
     
-    int handleTouch(TouchEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
+    int handleTouch(ScreenEvent& te, Vector2D& touchPoint, Game& game, Vector2D& camPos, PhysicalEntity** lastAddedEntity);
     
     std::vector<Midground *>& getMidgrounds();
     

@@ -26,13 +26,13 @@ LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, 
     m_closeButton = std::unique_ptr<Rectangle>(new Rectangle(width * 0.83305227655987f, height * 0.49081920903955f, 1, 1));
 }
 
-int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
+int LevelEditorActionsPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint)
 {
     if (m_isOpen)
     {
 		if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleBoundsButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				if (m_showBounds)
 				{
@@ -69,7 +69,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_markerButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER;
 			}
@@ -78,7 +78,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_offsetButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET;
 			}
@@ -87,7 +87,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_resetButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_RESET;
 			}
@@ -96,7 +96,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_exitButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_EXIT;
 			}
@@ -105,7 +105,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_testButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST;
 			}
@@ -114,7 +114,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_loadButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_LOAD;
 			}
@@ -123,7 +123,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_saveButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				return LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE;
 			}
@@ -132,7 +132,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
 		}
 		else if (OverlapTester::isPointInRectangle(touchPoint, *m_closeButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				m_position->setX(-3.76608187134503f / 2 + 0.94736842105263f);
 
@@ -146,7 +146,7 @@ int LevelEditorActionsPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
     {
 		if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				m_position->setX(getWidth() / 2);
 

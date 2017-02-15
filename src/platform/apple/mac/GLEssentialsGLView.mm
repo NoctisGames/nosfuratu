@@ -12,6 +12,8 @@
 
 // C++
 #include "MacOpenGLGameScreen.h"
+#include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
 
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -291,44 +293,24 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    if (!_gameScreen)
-    {
-        return;
-    }
-    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    _gameScreen->onTouch(DOWN, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, pos.x, pos.y);
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-    if (!_gameScreen)
-    {
-        return;
-    }
-    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    _gameScreen->onTouch(DRAGGED, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, pos.x, pos.y);
 }
 
 - (void)mouseUp:(NSEvent *)theEvent
 {
-    if (!_gameScreen)
-    {
-        return;
-    }
-    
     NSPoint pos = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    _gameScreen->onTouch(UP, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, pos.x, pos.y);
 }
 
 - (void)keyDown:(NSEvent *)event
 {
-    if (!_gameScreen)
-    {
-        return;
-    }
-    
     if ([event modifierFlags] & NSNumericPadKeyMask)
     {
         // arrow keys have this mask
@@ -345,12 +327,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         {
             keyChar = [theArrow characterAtIndex:0];
             
-            if (keyChar == NSLeftArrowFunctionKey)
+            if (keyChar == NSRightArrowFunctionKey)
             {
-                _gameScreen->onTouch(DOWN, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 0, 500);
-                _gameScreen->onTouch(UP, 0, 500);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -359,22 +338,16 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSUpArrowFunctionKey)
             {
-                _gameScreen->onTouch(DOWN, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 900);
-                _gameScreen->onTouch(UP, 500, 900);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
                 return;
             }
             
-            if (keyChar == NSRightArrowFunctionKey)
+            if (keyChar == NSLeftArrowFunctionKey)
             {
-                _gameScreen->onTouch(DOWN, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 900, 500);
-                _gameScreen->onTouch(UP, 900, 500);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -383,10 +356,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSDownArrowFunctionKey)
             {
-                _gameScreen->onTouch(DOWN, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 500);
-                _gameScreen->onTouch(DRAGGED, 500, 0);
-                _gameScreen->onTouch(UP, 500, 0);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -411,16 +381,32 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             switch (keyChar)
             {
+                case 'W':
                 case 'w':
-                {
-                    _gameScreen->onTouch(DOWN, 300, 300);
-                    _gameScreen->onTouch(UP, 300, 300);
-                }
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W);
                     return;
+                case 'A':
+                case 'a':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A);
+                    return;
+                case 'S':
                 case 's':
-                {
-                    _gameScreen->onTouch(DOWN, 300, 300);
-                }
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S);
+                    return;
+                case 'D':
+                case 'd':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D);
+                    return;
+                case NSEnterCharacter:
+                case NSCarriageReturnCharacter:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER);
+                    return;
+                case 32:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE);
+                    return;
+                case NSBackspaceCharacter:
+                case NSDeleteCharacter:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK);
                     return;
                 default:
                     break;

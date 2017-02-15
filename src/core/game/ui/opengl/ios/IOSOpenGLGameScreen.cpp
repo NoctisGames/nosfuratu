@@ -16,7 +16,7 @@ IOSOpenGLGameScreen::IOSOpenGLGameScreen(int screenWidth, int screenHeight, int 
     init(screenWidth, screenHeight);
 }
 
-void IOSOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
+void IOSOpenGLGameScreen::touchToWorld(ScreenEvent &touchEvent)
 {
     m_touchPoint->set((touchEvent.getX() / (float) m_iPointsWidth) * CAM_WIDTH, (1 - touchEvent.getY() / (float) m_iPointsHeight) * CAM_HEIGHT);
 }

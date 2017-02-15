@@ -33,9 +33,9 @@ void TextureSelectorPanel::close()
     m_isOpen = false;
 }
 
-int TextureSelectorPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, std::vector<TextureWrapper *>& textureWrappers)
+int TextureSelectorPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint, std::vector<TextureWrapper *>& textureWrappers)
 {
-    if (te.getTouchType() == Touch_Type::UP)
+    if (te.getType() == ScreenEventType_UP)
     {
         if (OverlapTester::isPointInRectangle(touchPoint, *m_toggleTextureButton))
         {

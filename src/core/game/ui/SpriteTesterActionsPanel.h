@@ -12,7 +12,7 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "TouchEvent.h"
+#include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "RTTI.h"
@@ -30,7 +30,7 @@ class SpriteTesterActionsPanel : public PhysicalEntity
 public:
     SpriteTesterActionsPanel(float x = -3.76608187134503f / 2 + 0.94736842105263f, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
     
-    int handleTouch(TouchEvent& te, Vector2D& touchPoint);
+    int handleTouch(ScreenEvent& te, Vector2D& touchPoint);
     
 private:
     std::unique_ptr<Rectangle> m_resetButton;

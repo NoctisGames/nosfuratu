@@ -32,10 +32,10 @@ void OffsetPanel::close()
     m_isOpen = false;
 }
 
-int OffsetPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
+int OffsetPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint)
 {
-    if (te.getTouchType() == Touch_Type::DOWN
-        || te.getTouchType() == Touch_Type::DRAGGED)
+    if (te.getType() == ScreenEventType_DOWN
+        || te.getType() == ScreenEventType_DRAGGED)
     {
         if (OverlapTester::isPointInRectangle(touchPoint, *m_offsetLeftButton))
         {

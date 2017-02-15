@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "GameScreen.h"
 #include "OverlapTester.h"
+#include "ScreenInputManager.h"
 
 BatGoalType calcBatGoalType(int world, int level)
 {
@@ -214,17 +215,17 @@ void BatPanel::updateJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 jon.setUserActionPrevented(false);
@@ -235,7 +236,7 @@ void BatPanel::updateJump(GameScreen* gs)
                                 
                                 m_batInstruction->close();
                                 
-                                gs->processTouchEvents();
+                                SCREEN_INPUT_MANAGER->process();
                                 
                                 return;
                             }
@@ -287,17 +288,17 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 jon.setUserActionPrevented(false);
@@ -309,7 +310,7 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
                                 
                                 m_batInstruction->close();
                                 
-                                gs->processTouchEvents();
+                                SCREEN_INPUT_MANAGER->process();
                                 
                                 return;
                             }
@@ -350,17 +351,17 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 jon.setUserActionPrevented(false);
@@ -371,7 +372,7 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
                                 
                                 m_batInstruction->close();
                                 
-                                gs->processTouchEvents();
+                                SCREEN_INPUT_MANAGER->process();
                                 
                                 return;
                             }
@@ -441,7 +442,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                             
                             m_batInstruction->close();
                             
-                            gs->processTouchEvents();
+                            SCREEN_INPUT_MANAGER->process();
                             
                             return;
                         }
@@ -488,22 +489,22 @@ void BatPanel::updateVampire(GameScreen* gs)
                     jon.getVelocity().setX(m_fJonVelocityX);
                 }
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             if (isJonAlive)
                             {
                                 gs->m_isScreenHeldDown = true;
                                 gs->m_fScreenHeldTime = 0.0f;
                             }
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 if (gs->m_fScreenHeldTime > 0.4f)
@@ -555,17 +556,17 @@ void BatPanel::updateVampire(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 jon.setUserActionPrevented(false);
@@ -577,7 +578,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                                 
                                 m_batInstruction->close();
                                 
-                                gs->processTouchEvents();
+                                SCREEN_INPUT_MANAGER->process();
                                 
                                 return;
                             }
@@ -615,17 +616,17 @@ void BatPanel::updateVampire(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 jon.setUserActionPrevented(false);
@@ -636,7 +637,7 @@ void BatPanel::updateVampire(GameScreen* gs)
                                 
                                 m_batInstruction->close();
                                 
-                                gs->processTouchEvents();
+                                SCREEN_INPUT_MANAGER->process();
                                 
                                 return;
                             }
@@ -687,19 +688,19 @@ void BatPanel::updateDrill(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             if (isJonAlive)
                             {
                                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                             }
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             if (isJonAlive && !m_hasSwiped)
                             {
                                 if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
@@ -719,7 +720,7 @@ void BatPanel::updateDrill(GameScreen* gs)
                                     
                                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                                     
-                                    gs->processTouchEvents();
+                                    SCREEN_INPUT_MANAGER->process();
                                     
                                     m_hasSwiped = true;
                                     
@@ -727,7 +728,7 @@ void BatPanel::updateDrill(GameScreen* gs)
                                 }
                             }
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 m_hasSwiped = false;
@@ -778,19 +779,19 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
-                for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
-                    switch ((*i)->getTouchType())
+                    switch ((*i)->getType())
                     {
-                        case DOWN:
+                        case ScreenEventType_DOWN:
                             if (isJonAlive)
                             {
                                 gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                             }
                             continue;
-                        case DRAGGED:
+                        case ScreenEventType_DRAGGED:
                             if (isJonAlive && !m_hasSwiped)
                             {
                                 if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
@@ -810,7 +811,7 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
                                     
                                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                                     
-                                    gs->processTouchEvents();
+                                    SCREEN_INPUT_MANAGER->process();
                                     
                                     m_hasSwiped = true;
                                     
@@ -818,7 +819,7 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
                                 }
                             }
                             continue;
-                        case UP:
+                        case ScreenEventType_UP:
                             if (isJonAlive)
                             {
                                 m_hasSwiped = false;
@@ -883,19 +884,19 @@ void BatPanel::updateStomp(GameScreen* gs)
 			{
 				bool isJonAlive = jon.isAlive();
 
-				for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
 					gs->touchToWorld(*(*i));
 
-					switch ((*i)->getTouchType())
+					switch ((*i)->getType())
 					{
-					case DOWN:
+					case ScreenEventType_DOWN:
 						if (isJonAlive)
 						{
 							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
 						}
 						continue;
-					case DRAGGED:
+					case ScreenEventType_DRAGGED:
 						if (isJonAlive && !m_hasSwiped)
 						{
 							if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
@@ -914,7 +915,7 @@ void BatPanel::updateStomp(GameScreen* gs)
 
 								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
 
-								gs->processTouchEvents();
+								SCREEN_INPUT_MANAGER->process();
 
 								m_hasSwiped = true;
 
@@ -922,7 +923,7 @@ void BatPanel::updateStomp(GameScreen* gs)
 							}
 						}
 						continue;
-					case UP:
+					case ScreenEventType_UP:
 						if (isJonAlive)
 						{
 							m_hasSwiped = false;
@@ -985,19 +986,19 @@ void BatPanel::updateDash(GameScreen* gs)
 			{
 				bool isJonAlive = jon.isAlive();
 
-				for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
 					gs->touchToWorld(*(*i));
 
-					switch ((*i)->getTouchType())
+					switch ((*i)->getType())
 					{
-					case DOWN:
+					case ScreenEventType_DOWN:
 						if (isJonAlive)
 						{
 							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
 						}
 						continue;
-					case DRAGGED:
+					case ScreenEventType_DRAGGED:
 						if (isJonAlive && !m_hasSwiped)
 						{
 							if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
@@ -1016,7 +1017,7 @@ void BatPanel::updateDash(GameScreen* gs)
 
 								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
 
-								gs->processTouchEvents();
+								SCREEN_INPUT_MANAGER->process();
 
 								m_hasSwiped = true;
 
@@ -1024,7 +1025,7 @@ void BatPanel::updateDash(GameScreen* gs)
 							}
 						}
 						continue;
-					case UP:
+					case ScreenEventType_UP:
 						if (isJonAlive)
 						{
 							m_hasSwiped = false;
@@ -1080,13 +1081,13 @@ void BatPanel::handleTouchInput(GameScreen* gs)
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
     
-    for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
         gs->touchToWorld(*(*i));
         
-        switch ((*i)->getTouchType())
+        switch ((*i)->getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
                 if (isJonAlive)
                 {
                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
@@ -1094,7 +1095,7 @@ void BatPanel::handleTouchInput(GameScreen* gs)
                     gs->m_fScreenHeldTime = 0.0f;
                 }
                 continue;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
                 if (isJonAlive && !m_hasSwiped)
                 {
                     if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
@@ -1129,7 +1130,7 @@ void BatPanel::handleTouchInput(GameScreen* gs)
                     }
                 }
                 continue;
-            case UP:
+            case ScreenEventType_UP:
                 if (isJonAlive)
                 {
                     if (!m_hasSwiped && gs->m_fScreenHeldTime < 0.4f)

@@ -41,7 +41,7 @@ void AndroidOpenGLGameScreen::onSurfaceChanged(int screenWidth, int screenHeight
     }
 }
 
-void AndroidOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
+void AndroidOpenGLGameScreen::touchToWorld(ScreenEvent &touchEvent)
 {
     m_touchPoint->set((touchEvent.getX() / (float) m_iScreenWidth) * CAM_WIDTH, (1 - touchEvent.getY() / (float) m_iScreenHeight) * CAM_HEIGHT);
 }
@@ -50,7 +50,7 @@ bool AndroidOpenGLGameScreen::handleOnBackPressed()
 {
     if (m_stateMachine->getPreviousState())
     {
-        onTouch(Touch_Type::UP, m_iScreenWidth / 20, m_iScreenHeight / 20);
+        onTouch(ScreenEventType_UP, m_iScreenWidth / 20, m_iScreenHeight / 20);
         return true;
     }
     

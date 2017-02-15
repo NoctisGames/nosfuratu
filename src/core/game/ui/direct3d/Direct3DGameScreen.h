@@ -23,7 +23,7 @@ namespace NosFURatu
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
 
-		virtual void touchToWorld(TouchEvent &touchEvent);
+		virtual void touchToWorld(ScreenEvent &touchEvent);
 
 		bool handleOnBackPressed();
 

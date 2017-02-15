@@ -28,9 +28,9 @@ void ConfirmResetPanel::close()
     m_isOpen = false;
 }
 
-int ConfirmResetPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint)
+int ConfirmResetPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint)
 {
-    if (te.getTouchType() == Touch_Type::UP)
+    if (te.getType() == ScreenEventType_UP)
     {
         if (OverlapTester::isPointInRectangle(touchPoint, *m_cancelButton))
         {

@@ -17,6 +17,7 @@
 #include "GameScreenTransitions.h"
 #include "GameScreenTitle.h"
 #include "MathUtil.h"
+#include "ScreenInputManager.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -113,17 +114,17 @@ void WorldMap::execute(GameScreen* gs)
             return;
         }
         
-        for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
             gs->touchToWorld(*(*i));
             
-            switch ((*i)->getTouchType())
+            switch ((*i)->getType())
             {
-                case DOWN:
+                case ScreenEventType_DOWN:
                     continue;
-                case DRAGGED:
+                case ScreenEventType_DRAGGED:
                     continue;
-                case UP:
+                case ScreenEventType_UP:
                     if (m_backButton->handleClick(*gs->m_touchPoint))
                     {
                         gs->m_stateMachine->revertToPreviousState();

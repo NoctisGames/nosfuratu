@@ -15,6 +15,7 @@
 #include "GameScreenTransitions.h"
 #include "GameScreenWorldMap.h"
 #include "GameScreenOpeningCutscene.h"
+#include "ScreenInputManager.h"
 
 /// Title Screen ///
 
@@ -115,17 +116,17 @@ void Title::execute(GameScreen* gs)
 #if NG_LEVEL_EDITOR
 		isDisplayingLevelEditorButtons = true;
 #endif
-		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
             gs->touchToWorld(*(*i));
             
-            switch ((*i)->getTouchType())
+            switch ((*i)->getType())
             {
-                case DOWN:
+                case ScreenEventType_DOWN:
                     continue;
-                case DRAGGED:
+                case ScreenEventType_DRAGGED:
                     continue;
-                case UP:
+                case ScreenEventType_UP:
 					if (isDisplayingLevelEditorButtons
                         && m_levelEditorButton->handleClick(*gs->m_touchPoint))
                     {

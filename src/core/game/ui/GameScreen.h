@@ -12,8 +12,8 @@
 #include <memory>
 #include <vector>
 
-#include "TouchType.h"
-#include "TouchEvent.h"
+#include "ScreenEventType.h"
+#include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "SpriteBatcher.h"
 #include "RectangleBatcher.h"
@@ -59,9 +59,6 @@ class GameScreen
     
 public:
     std::unique_ptr<StateMachine<GameScreen, GameScreenState>> m_stateMachine;
-    std::vector<TouchEvent *> m_touchEvents;
-    std::vector<TouchEvent *> m_touchEventsPool;
-    std::vector<TouchEvent *> m_touchEventsBuffer;
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<Vector2D> m_touchPoint;
     std::unique_ptr<Vector2D> m_touchPointDown;
@@ -85,7 +82,7 @@ public:
     
 	GameScreen();
     
-    virtual void touchToWorld(TouchEvent &touchEvent) = 0;
+    virtual void touchToWorld(ScreenEvent &touchEvent) = 0;
 
 	virtual void onResume();
 	
@@ -117,22 +114,12 @@ public:
     
     int getJonAbilityFlag();
     
-    void onTouch(Touch_Type type, float raw_touch_x, float raw_touch_y);
-    
-    void processTouchEvents();
-    
 private:
     float m_fFrameStateTime;
     int m_iPoolIndex;
     bool m_wasPaused;
     
     void internalUpdate();
-
-    TouchEvent* newTouchEvent();
-    
-    void addTouchEventForType(Touch_Type type, float x, float y);
-    
-    void handleTouchInput();
 };
 
 #endif /* GAME_SCREEN_H */

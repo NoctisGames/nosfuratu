@@ -11,7 +11,7 @@
 
 #include "PhysicalEntity.h"
 #include "GameConstants.h"
-#include "TouchEvent.h"
+#include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "Rectangle.h"
 #include "RTTI.h"
@@ -31,7 +31,7 @@ public:
     
     void close();
     
-    int handleTouch(TouchEvent& te, Vector2D& touchPoint);
+    int handleTouch(ScreenEvent& te, Vector2D& touchPoint);
     
     bool isOpen();
     

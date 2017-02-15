@@ -179,10 +179,6 @@
 		BB03C7001E0DA00800F745E3 /* TextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C6471E0DA00800F745E3 /* TextureRegion.cpp */; };
 		BB03C7011E0DA00800F745E3 /* TextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C6471E0DA00800F745E3 /* TextureRegion.cpp */; };
 		BB03C7021E0DA00800F745E3 /* TextureRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C6471E0DA00800F745E3 /* TextureRegion.cpp */; };
-		BB03C7031E0DA00800F745E3 /* TouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */; };
-		BB03C7041E0DA00800F745E3 /* TouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */; };
-		BB03C7051E0DA00800F745E3 /* TouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */; };
-		BB03C7061E0DA00800F745E3 /* TouchEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */; };
 		BB03C7071E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64D1E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp */; };
 		BB03C7081E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64D1E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp */; };
 		BB03C7091E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03C64D1E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp */; };
@@ -1219,6 +1215,30 @@
 		BBE92E0E1DB2E671008359C2 /* world_1_objects_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EE1DB03276003E633F /* world_1_objects_part_1.png */; };
 		BBE9D4061DBE8F4E002D2120 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
 		BBE9D4071DBE8F4E002D2120 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
+		BBF0FB7A1E551C5000016D0F /* GamePadEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */; };
+		BBF0FB7B1E551C5000016D0F /* GamePadEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */; };
+		BBF0FB7C1E551C5000016D0F /* GamePadEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */; };
+		BBF0FB7D1E551C5000016D0F /* GamePadEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */; };
+		BBF0FB7E1E551C5000016D0F /* GamePadInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */; };
+		BBF0FB7F1E551C5000016D0F /* GamePadInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */; };
+		BBF0FB801E551C5000016D0F /* GamePadInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */; };
+		BBF0FB811E551C5000016D0F /* GamePadInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */; };
+		BBF0FB821E551C5000016D0F /* KeyboardEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */; };
+		BBF0FB831E551C5000016D0F /* KeyboardEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */; };
+		BBF0FB841E551C5000016D0F /* KeyboardEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */; };
+		BBF0FB851E551C5000016D0F /* KeyboardEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */; };
+		BBF0FB861E551C5000016D0F /* KeyboardInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */; };
+		BBF0FB871E551C5000016D0F /* KeyboardInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */; };
+		BBF0FB881E551C5000016D0F /* KeyboardInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */; };
+		BBF0FB891E551C5000016D0F /* KeyboardInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */; };
+		BBF0FB8A1E551C5000016D0F /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */; };
+		BBF0FB8B1E551C5000016D0F /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */; };
+		BBF0FB8C1E551C5000016D0F /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */; };
+		BBF0FB8D1E551C5000016D0F /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */; };
+		BBF0FB8E1E551C5000016D0F /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */; };
+		BBF0FB8F1E551C5000016D0F /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */; };
+		BBF0FB901E551C5000016D0F /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */; };
+		BBF0FB911E551C5000016D0F /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */; };
 		BEDBEB10667F7565A72E937B /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05945F36F017190884FC7FB9 /* AssetsLibrary.framework */; };
 		C2FAA41A7EE7DD75E14DA2A1 /* BuddyBuildSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */; };
 		EF21A84F90D23B88CD7E3542 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */; };
@@ -1317,9 +1337,6 @@
 		BB03C6471E0DA00800F745E3 /* TextureRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureRegion.cpp; sourceTree = "<group>"; };
 		BB03C6481E0DA00800F745E3 /* TextureRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureRegion.h; sourceTree = "<group>"; };
 		BB03C6491E0DA00800F745E3 /* TextureWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureWrapper.h; sourceTree = "<group>"; };
-		BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchEvent.cpp; sourceTree = "<group>"; };
-		BB03C64B1E0DA00800F745E3 /* TouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchEvent.h; sourceTree = "<group>"; };
-		BB03C64C1E0DA00800F745E3 /* TouchType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchType.h; sourceTree = "<group>"; };
 		BB03C64D1E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransitionGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB03C64E1E0DA00800F745E3 /* TransitionGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB03C70C1E0DA01700F745E3 /* DSCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSCircleBatcher.cpp; sourceTree = "<group>"; };
@@ -1888,6 +1905,23 @@
 		BBEFC3471DB552000011BD9B /* pch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pch.cpp; sourceTree = "<group>"; };
 		BBEFC3481DB552000011BD9B /* pch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
 		BBEFC3491DB552000011BD9B /* StepTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepTimer.h; sourceTree = "<group>"; };
+		BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadEvent.cpp; sourceTree = "<group>"; };
+		BBF0FB6C1E551C5000016D0F /* GamePadEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadEvent.h; sourceTree = "<group>"; };
+		BBF0FB6D1E551C5000016D0F /* GamePadEventType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadEventType.h; sourceTree = "<group>"; };
+		BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePadInputManager.cpp; sourceTree = "<group>"; };
+		BBF0FB6F1E551C5000016D0F /* GamePadInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePadInputManager.h; sourceTree = "<group>"; };
+		BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardEvent.cpp; sourceTree = "<group>"; };
+		BBF0FB711E551C5000016D0F /* KeyboardEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
+		BBF0FB721E551C5000016D0F /* KeyboardEventType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardEventType.h; sourceTree = "<group>"; };
+		BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardInputManager.cpp; sourceTree = "<group>"; };
+		BBF0FB741E551C5000016D0F /* KeyboardInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardInputManager.h; sourceTree = "<group>"; };
+		BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenEvent.cpp; sourceTree = "<group>"; };
+		BBF0FB761E551C5000016D0F /* ScreenEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenEvent.h; sourceTree = "<group>"; };
+		BBF0FB771E551C5000016D0F /* ScreenEventType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenEventType.h; sourceTree = "<group>"; };
+		BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenInputManager.cpp; sourceTree = "<group>"; };
+		BBF0FB791E551C5000016D0F /* ScreenInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenInputManager.h; sourceTree = "<group>"; };
+		BBF0FB921E551DC900016D0F /* NGRollingPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRollingPool.h; sourceTree = "<group>"; };
+		BBF0FB931E551DE500016D0F /* VectorUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VectorUtil.h; sourceTree = "<group>"; };
 		FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -2644,15 +2678,30 @@
 				BB03C5F81E0DA00800F745E3 /* DummyGpuProgramWrapper.h */,
 				BB03C5F91E0DA00800F745E3 /* Font.cpp */,
 				BB03C5FA1E0DA00800F745E3 /* Font.h */,
+				BBF0FB6B1E551C5000016D0F /* GamePadEvent.cpp */,
+				BBF0FB6C1E551C5000016D0F /* GamePadEvent.h */,
+				BBF0FB6D1E551C5000016D0F /* GamePadEventType.h */,
+				BBF0FB6E1E551C5000016D0F /* GamePadInputManager.cpp */,
+				BBF0FB6F1E551C5000016D0F /* GamePadInputManager.h */,
 				BB03C5FB1E0DA00800F745E3 /* GpuProgramWrapper.cpp */,
 				BB03C5FC1E0DA00800F745E3 /* GpuProgramWrapper.h */,
 				BB03C5FD1E0DA00800F745E3 /* GpuTextureDataWrapper.h */,
 				BB03C5FE1E0DA00800F745E3 /* GpuTextureWrapper.h */,
+				BBF0FB701E551C5000016D0F /* KeyboardEvent.cpp */,
+				BBF0FB711E551C5000016D0F /* KeyboardEvent.h */,
+				BBF0FB721E551C5000016D0F /* KeyboardEventType.h */,
+				BBF0FB731E551C5000016D0F /* KeyboardInputManager.cpp */,
+				BBF0FB741E551C5000016D0F /* KeyboardInputManager.h */,
 				BB03C5FF1E0DA00800F745E3 /* LineBatcher.cpp */,
 				BB03C6001E0DA00800F745E3 /* LineBatcher.h */,
 				BB03C6011E0DA00800F745E3 /* opengl */,
 				BB03C63D1E0DA00800F745E3 /* RectangleBatcher.cpp */,
 				BB03C63E1E0DA00800F745E3 /* RectangleBatcher.h */,
+				BBF0FB751E551C5000016D0F /* ScreenEvent.cpp */,
+				BBF0FB761E551C5000016D0F /* ScreenEvent.h */,
+				BBF0FB771E551C5000016D0F /* ScreenEventType.h */,
+				BBF0FB781E551C5000016D0F /* ScreenInputManager.cpp */,
+				BBF0FB791E551C5000016D0F /* ScreenInputManager.h */,
 				BB03C6411E0DA00800F745E3 /* SinWaveTextureGpuProgramWrapper.cpp */,
 				BB03C6421E0DA00800F745E3 /* SinWaveTextureGpuProgramWrapper.h */,
 				BB03C6431E0DA00800F745E3 /* SpriteBatcher.cpp */,
@@ -2662,9 +2711,6 @@
 				BB03C6471E0DA00800F745E3 /* TextureRegion.cpp */,
 				BB03C6481E0DA00800F745E3 /* TextureRegion.h */,
 				BB03C6491E0DA00800F745E3 /* TextureWrapper.h */,
-				BB03C64A1E0DA00800F745E3 /* TouchEvent.cpp */,
-				BB03C64B1E0DA00800F745E3 /* TouchEvent.h */,
-				BB03C64C1E0DA00800F745E3 /* TouchType.h */,
 				BB03C64D1E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp */,
 				BB03C64E1E0DA00800F745E3 /* TransitionGpuProgramWrapper.h */,
 			);
@@ -2674,6 +2720,8 @@
 		BB44C6A91DB03A7D003E633F /* util */ = {
 			isa = PBXGroup;
 			children = (
+				BBF0FB931E551DE500016D0F /* VectorUtil.h */,
+				BBF0FB921E551DC900016D0F /* NGRollingPool.h */,
 				BB44C6AA1DB03A7D003E633F /* FlagUtil.h */,
 				BB44C6AB1DB03A7D003E633F /* macros.h */,
 				BB5C0EC61DCD46E1000C5C07 /* RTTI.cpp */,
@@ -3790,11 +3838,13 @@
 				BB44CA3D1DB03A7F003E633F /* GameScreen.cpp in Sources */,
 				BB03C6531E0DA00800F745E3 /* CircleBatcher.cpp in Sources */,
 				BB44C9F71DB03A7E003E633F /* Chapter1Level21.cpp in Sources */,
+				BBF0FB7E1E551C5000016D0F /* GamePadInputManager.cpp in Sources */,
 				BB44C9DF1DB03A7E003E633F /* ForegroundObject.cpp in Sources */,
 				BB44C9ED1DB03A7E003E633F /* MidBossOwl.cpp in Sources */,
 				BB44CA7B1DB03A7F003E633F /* PointTransitionProgram.cpp in Sources */,
 				BB44C94F1DB03A7E003E633F /* Line.cpp in Sources */,
 				BB44CA551DB03A7F003E633F /* OffsetPanel.cpp in Sources */,
+				BBF0FB8E1E551C5000016D0F /* ScreenInputManager.cpp in Sources */,
 				BB03C65B1E0DA00800F745E3 /* Font.cpp in Sources */,
 				BB03C6FF1E0DA00800F745E3 /* TextureRegion.cpp in Sources */,
 				BB44C9F11DB03A7E003E633F /* Assets.cpp in Sources */,
@@ -3815,6 +3865,8 @@
 				BB03C68B1E0DA00800F745E3 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BB09CE3A1DBD4701006A3E49 /* AppleSoundManager.mm in Sources */,
 				BB44C9D51DB03A7E003E633F /* EndBossSnake.cpp in Sources */,
+				BBF0FB8A1E551C5000016D0F /* ScreenEvent.cpp in Sources */,
+				BBF0FB861E551C5000016D0F /* KeyboardInputManager.cpp in Sources */,
 				BB44C8891DB03A7E003E633F /* pngwutil.c in Sources */,
 				BB44C9D31DB03A7E003E633F /* DustCloud.cpp in Sources */,
 				BB44C9E51DB03A7E003E633F /* Ground.cpp in Sources */,
@@ -3872,6 +3924,7 @@
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
 				BB44C9F91DB03A7E003E633F /* ConfirmExitPanel.cpp in Sources */,
 				BB44CA791DB03A7F003E633F /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
+				BBF0FB7A1E551C5000016D0F /* GamePadEvent.cpp in Sources */,
 				BB44CAA51DB03A7F003E633F /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB03C7071E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB44CAA11DB03A7F003E633F /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
@@ -3885,6 +3938,7 @@
 				BB03C69B1E0DA00800F745E3 /* OpenGLManager.cpp in Sources */,
 				BB03C6BF1E0DA00800F745E3 /* shader.c in Sources */,
 				BB03C6B71E0DA00800F745E3 /* platform_file_utils.c in Sources */,
+				BBF0FB821E551C5000016D0F /* KeyboardEvent.cpp in Sources */,
 				BB03C6831E0DA00800F745E3 /* image.c in Sources */,
 				BB44C8631DB03A7E003E633F /* png.c in Sources */,
 				BB44C9F31DB03A7E003E633F /* BatPanel.cpp in Sources */,
@@ -3904,7 +3958,6 @@
 				BB44C9D91DB03A7E003E633F /* EnemySpirit.cpp in Sources */,
 				BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
-				BB03C7031E0DA00800F745E3 /* TouchEvent.cpp in Sources */,
 				BB44CA4B1DB03A7F003E633F /* GameScreenWorldMap.cpp in Sources */,
 				BB21A45A1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB03C6EB1E0DA00800F745E3 /* RectangleBatcher.cpp in Sources */,
@@ -3925,6 +3978,7 @@
 				BB21A46D1DD2721000D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
 				BB21A46E1DD2721000D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
+				BBF0FB881E551C5000016D0F /* KeyboardInputManager.cpp in Sources */,
 				BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB44CB161DB051C8003E633F /* MacOpenGLGameScreen.cpp in Sources */,
@@ -3938,6 +3992,7 @@
 				BB44CB841DB053C0003E633F /* pngmem.c in Sources */,
 				BB44CB851DB053C0003E633F /* pngpread.c in Sources */,
 				BB44CB861DB053C0003E633F /* pngread.c in Sources */,
+				BBF0FB7C1E551C5000016D0F /* GamePadEvent.cpp in Sources */,
 				BB44CB871DB053C0003E633F /* pngrio.c in Sources */,
 				BB44CB881DB053C0003E633F /* pngrtran.c in Sources */,
 				BB44CB891DB053C0003E633F /* pngrutil.c in Sources */,
@@ -3952,6 +4007,7 @@
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
 				BB21A4731DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BB03C6751E0DA00800F745E3 /* ColorProgram.cpp in Sources */,
+				BBF0FB8C1E551C5000016D0F /* ScreenEvent.cpp in Sources */,
 				BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */,
 				BB03C6911E0DA00800F745E3 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBE02D3D1DB18D4600C3268B /* GameScreenController.mm in Sources */,
@@ -3961,6 +4017,7 @@
 				BB44CB7F1DB0533E003E633F /* EntityManager.cpp in Sources */,
 				BB44CB801DB0533E003E633F /* PhysicalEntity.cpp in Sources */,
 				BB7450901DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */,
+				BBF0FB901E551C5000016D0F /* ScreenInputManager.cpp in Sources */,
 				BB44CB781DB05336003E633F /* Circle.cpp in Sources */,
 				BB44CB791DB05336003E633F /* Line.cpp in Sources */,
 				BB44CB7A1DB05336003E633F /* OverlapTester.cpp in Sources */,
@@ -4029,10 +4086,12 @@
 				BB21A45C1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB03C68D1E0DA00800F745E3 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BB44CB3B1DB052F5003E633F /* GameTracker.cpp in Sources */,
+				BBF0FB801E551C5000016D0F /* GamePadInputManager.cpp in Sources */,
 				BB44CB3C1DB052F5003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB44CB3D1DB052F5003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
 				BBCB71DD1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB44CB3E1DB052F5003E633F /* LevelSelectorPanel.cpp in Sources */,
+				BBF0FB841E551C5000016D0F /* KeyboardEvent.cpp in Sources */,
 				BB44CB3F1DB052F5003E633F /* OffsetPanel.cpp in Sources */,
 				BB44CB401DB052F5003E633F /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB411DB052F5003E633F /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
@@ -4064,7 +4123,6 @@
 				BB03C6F91E0DA00800F745E3 /* SpriteBatcher.cpp in Sources */,
 				BB44CB5B1DB052F5003E633F /* TrashCan.cpp in Sources */,
 				BB44CB5C1DB052F5003E633F /* WorldMapPanel.cpp in Sources */,
-				BB03C7051E0DA00800F745E3 /* TouchEvent.cpp in Sources */,
 				BB44CB091DB04C83003E633F /* GLEssentialsGLView.mm in Sources */,
 				BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
 				BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */,
@@ -4080,6 +4138,7 @@
 				BBCB71D31DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB44CBF41DB07165003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44CBF51DB07165003E633F /* SaveData.m in Sources */,
+				BBF0FB891E551C5000016D0F /* KeyboardInputManager.cpp in Sources */,
 				BB44CBF61DB07165003E633F /* MacOpenGLGameScreen.cpp in Sources */,
 				BB44CBF71DB07165003E633F /* main.m in Sources */,
 				BB44CBF91DB07165003E633F /* png.c in Sources */,
@@ -4093,6 +4152,7 @@
 				BB44CBFE1DB07165003E633F /* pngread.c in Sources */,
 				BB44CBFF1DB07165003E633F /* pngrio.c in Sources */,
 				BB44CC001DB07165003E633F /* pngrtran.c in Sources */,
+				BBF0FB7D1E551C5000016D0F /* GamePadEvent.cpp in Sources */,
 				BB44CC011DB07165003E633F /* pngrutil.c in Sources */,
 				BB44CC021DB07165003E633F /* pngset.c in Sources */,
 				BB44CC031DB07165003E633F /* pngtrans.c in Sources */,
@@ -4107,6 +4167,7 @@
 				BB21A4741DD2771800D72C8B /* UnknownEntity.cpp in Sources */,
 				BBE02D3E1DB18D4600C3268B /* GameScreenController.mm in Sources */,
 				BB03C6761E0DA00800F745E3 /* ColorProgram.cpp in Sources */,
+				BBF0FB8D1E551C5000016D0F /* ScreenEvent.cpp in Sources */,
 				BB44CC071DB07165003E633F /* pngwutil.c in Sources */,
 				BB03C6921E0DA00800F745E3 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44CC0C1DB07165003E633F /* Entity.cpp in Sources */,
@@ -4116,6 +4177,7 @@
 				BB7450911DC158FA001568B2 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BB44CC131DB07165003E633F /* Circle.cpp in Sources */,
 				BB44CC141DB07165003E633F /* Line.cpp in Sources */,
+				BBF0FB911E551C5000016D0F /* ScreenInputManager.cpp in Sources */,
 				BB44CC151DB07165003E633F /* OverlapTester.cpp in Sources */,
 				BB5C0ECB1DCD46E1000C5C07 /* RTTI.cpp in Sources */,
 				BB44CC161DB07165003E633F /* Rectangle.cpp in Sources */,
@@ -4184,10 +4246,12 @@
 				BB44CC501DB07165003E633F /* LevelEditorActionsPanel.cpp in Sources */,
 				BB03C68E1E0DA00800F745E3 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BB44CC511DB07165003E633F /* LevelEditorEntitiesPanel.cpp in Sources */,
+				BBF0FB811E551C5000016D0F /* GamePadInputManager.cpp in Sources */,
 				BBCB71DE1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB44CC521DB07165003E633F /* LevelSelectorPanel.cpp in Sources */,
 				BB44CC531DB07165003E633F /* OffsetPanel.cpp in Sources */,
 				BB44CC541DB07165003E633F /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
+				BBF0FB851E551C5000016D0F /* KeyboardEvent.cpp in Sources */,
 				BB44CC551DB07165003E633F /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB21A4661DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
 				BB44CC571DB07165003E633F /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
@@ -4219,7 +4283,6 @@
 				BB44CC6F1DB07165003E633F /* TrashCan.cpp in Sources */,
 				BB44CC701DB07165003E633F /* WorldMapPanel.cpp in Sources */,
 				BB44CC711DB07165003E633F /* GLEssentialsGLView.mm in Sources */,
-				BB03C7061E0DA00800F745E3 /* TouchEvent.cpp in Sources */,
 				BB21A4681DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BB44CC721DB07165003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
 				BB44CC731DB07165003E633F /* AppDelegate.m in Sources */,
@@ -4254,11 +4317,13 @@
 				BB03C6541E0DA00800F745E3 /* CircleBatcher.cpp in Sources */,
 				BB21A4671DD271B400D72C8B /* SpriteTesterEntitiesPanel.cpp in Sources */,
 				BBE92D0D1DB2E671008359C2 /* ForegroundObject.cpp in Sources */,
+				BBF0FB7F1E551C5000016D0F /* GamePadInputManager.cpp in Sources */,
 				BBE92D0F1DB2E671008359C2 /* MidBossOwl.cpp in Sources */,
 				BBE92D101DB2E671008359C2 /* PointTransitionProgram.cpp in Sources */,
 				BBE92D111DB2E671008359C2 /* Line.cpp in Sources */,
 				BBE92D121DB2E671008359C2 /* OffsetPanel.cpp in Sources */,
 				BBE92D131DB2E671008359C2 /* Assets.cpp in Sources */,
+				BBF0FB8F1E551C5000016D0F /* ScreenInputManager.cpp in Sources */,
 				BB03C65C1E0DA00800F745E3 /* Font.cpp in Sources */,
 				BB03C7001E0DA00800F745E3 /* TextureRegion.cpp in Sources */,
 				BBE92D141DB2E671008359C2 /* LevelSelectorPanel.cpp in Sources */,
@@ -4279,6 +4344,8 @@
 				BB03C68C1E0DA00800F745E3 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
 				BBE92D251DB2E671008359C2 /* EndBossSnake.cpp in Sources */,
 				BBE92D261DB2E671008359C2 /* pngwutil.c in Sources */,
+				BBF0FB8B1E551C5000016D0F /* ScreenEvent.cpp in Sources */,
+				BBF0FB871E551C5000016D0F /* KeyboardInputManager.cpp in Sources */,
 				BBE92D281DB2E671008359C2 /* DustCloud.cpp in Sources */,
 				BBE92D291DB2E671008359C2 /* Ground.cpp in Sources */,
 				BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */,
@@ -4336,6 +4403,7 @@
 				BB21A4651DD271B400D72C8B /* SpriteTesterActionsPanel.cpp in Sources */,
 				BBE92D551DB2E671008359C2 /* ConfirmExitPanel.cpp in Sources */,
 				BBE92D561DB2E671008359C2 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
+				BBF0FB7B1E551C5000016D0F /* GamePadEvent.cpp in Sources */,
 				BBE92D571DB2E671008359C2 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB03C7081E0DA00800F745E3 /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BBE92D581DB2E671008359C2 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
@@ -4349,6 +4417,7 @@
 				BB03C69C1E0DA00800F745E3 /* OpenGLManager.cpp in Sources */,
 				BB03C6C01E0DA00800F745E3 /* shader.c in Sources */,
 				BB03C6B81E0DA00800F745E3 /* platform_file_utils.c in Sources */,
+				BBF0FB831E551C5000016D0F /* KeyboardEvent.cpp in Sources */,
 				BB03C6841E0DA00800F745E3 /* image.c in Sources */,
 				BBE92D611DB2E671008359C2 /* png.c in Sources */,
 				BBE92D621DB2E671008359C2 /* BatPanel.cpp in Sources */,
@@ -4368,7 +4437,6 @@
 				BBE92D7C1DB2E671008359C2 /* EnemySpirit.cpp in Sources */,
 				BBE92D7E1DB2E671008359C2 /* platform_asset_utils.m in Sources */,
 				BBE92D7F1DB2E671008359C2 /* pngmem.c in Sources */,
-				BB03C7041E0DA00800F745E3 /* TouchEvent.cpp in Sources */,
 				BBE92D801DB2E671008359C2 /* GameScreenWorldMap.cpp in Sources */,
 				BB21A45B1DD24C4100D72C8B /* GameScreenSpriteTester.cpp in Sources */,
 				BB03C6EC1E0DA00800F745E3 /* RectangleBatcher.cpp in Sources */,

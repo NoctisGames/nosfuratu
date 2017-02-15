@@ -63,13 +63,13 @@ void SpriteTesterEntitiesPanel::initForTextureName(std::string textureName)
     }
 }
 
-int SpriteTesterEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint, Vector2D& camPos, std::vector<UnknownEntity*>& gameItems, UnknownEntity** lastAddedEntity)
+int SpriteTesterEntitiesPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint, Vector2D& camPos, std::vector<UnknownEntity*>& gameItems, UnknownEntity** lastAddedEntity)
 {
     if (m_isOpen && touchPoint.getX() > (CAM_WIDTH - getWidth()))
     {
-        switch (te.getTouchType())
+        switch (te.getType())
         {
-            case DOWN:
+            case ScreenEventType_DOWN:
             {
                 if(touchPoint.getX() > m_closeButton->getLeft() + m_closeButton->getWidth())
                 {
@@ -80,7 +80,7 @@ int SpriteTesterEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint,
                 }
             }
                 break;
-            case DRAGGED:
+            case ScreenEventType_DRAGGED:
                 m_fEntitiesCameraPos += (m_touchPointDown->getY() - touchPoint.getY()) * 3;
                 if (m_fEntitiesCameraPos < 0)
                 {
@@ -94,7 +94,7 @@ int SpriteTesterEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint,
                 m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                 
                 return SPRITE_TESTER_ENTITIES_PANEL_RC_HANDLED;
-            case UP:
+            case ScreenEventType_UP:
             {
                 if (OverlapTester::isPointInRectangle(touchPoint, *m_closeButton))
                 {
@@ -123,7 +123,7 @@ int SpriteTesterEntitiesPanel::handleTouch(TouchEvent& te, Vector2D& touchPoint,
     {
 		if (OverlapTester::isPointInRectangle(touchPoint, *m_openButton))
 		{
-			if (te.getTouchType() == UP)
+			if (te.getType() == ScreenEventType_UP)
 			{
 				m_position->setX(CAM_WIDTH - getWidth() / 2);
 

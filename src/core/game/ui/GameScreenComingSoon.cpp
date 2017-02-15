@@ -15,6 +15,7 @@
 #include "GameScreenTransitions.h"
 #include "GameScreenWorldMap.h"
 #include "GameScreenOpeningCutscene.h"
+#include "ScreenInputManager.h"
 
 /// ComingSoon Screen ///
 
@@ -61,15 +62,15 @@ void ComingSoon::execute(GameScreen* gs)
             return;
         }
         
-		for (std::vector<TouchEvent *>::iterator i = gs->m_touchEvents.begin(); i != gs->m_touchEvents.end(); i++)
+		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
-            switch ((*i)->getTouchType())
+            switch ((*i)->getType())
             {
-                case DOWN:
+                case ScreenEventType_DOWN:
                     continue;
-                case DRAGGED:
+                case ScreenEventType_DRAGGED:
                     continue;
-                case UP:
+                case ScreenEventType_UP:
 					m_isRequestingNextState = true;
                     
                     return;

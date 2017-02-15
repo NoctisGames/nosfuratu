@@ -13,7 +13,7 @@ MacOpenGLGameScreen::MacOpenGLGameScreen() : OpenGLGameScreen(false, true)
     // Empty
 }
 
-void MacOpenGLGameScreen::touchToWorld(TouchEvent &touchEvent)
+void MacOpenGLGameScreen::touchToWorld(ScreenEvent &touchEvent)
 {
     m_touchPoint->set((touchEvent.getX() / (float) m_iScreenWidth) * CAM_WIDTH, (touchEvent.getY() / (float) m_iScreenHeight) * CAM_HEIGHT);
 }
