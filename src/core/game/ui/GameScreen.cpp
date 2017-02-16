@@ -15,6 +15,10 @@
 #include "GameScreenComingSoon.h"
 #include "Game.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "KeyboardEvent.h"
+#include "GamePadEvent.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
@@ -121,30 +125,73 @@ void GameScreen::update(float deltaTime)
 void GameScreen::internalUpdate()
 {
     SCREEN_INPUT_MANAGER->process();
+    KEYBOARD_INPUT_MANAGER->process();
+    GAME_PAD_INPUT_MANAGER->process();
     
     m_fTimeUntilResume -= m_fDeltaTime;
     
     if (m_isPaused)
     {
+        bool unpause = false;
+        
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case KeyboardEventType_W:
+                case KeyboardEventType_BACK:
+                case KeyboardEventType_SPACE:
+                case KeyboardEventType_ENTER:
+                    if ((*i)->isUp())
+                    {
+                        unpause = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case GamePadEventType_A_BUTTON:
+                case GamePadEventType_B_BUTTON:
+                case GamePadEventType_BACK_BUTTON:
+                case GamePadEventType_START_BUTTON:
+                    if ((*i)->isButtonPressed())
+                    {
+                        unpause = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
         for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
             switch ((*i)->getType())
             {
-                case ScreenEventType_DOWN:
-                continue;
-                case ScreenEventType_DRAGGED:
-                continue;
                 case ScreenEventType_UP:
-                m_isPaused = false;
-                m_fTimeUntilResume = 0.5f;
-                
-                if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
-                {
-                    ASSETS->addMusicIdToPlayQueue(MUSIC_RESUME);
-                }
-                break;
+                    unpause = true;
+                    break;
                 default:
-                break;
+                    continue;
+            }
+        }
+        
+        if (unpause)
+        {
+            m_isPaused = false;
+            m_fTimeUntilResume = 0.5f;
+            
+            if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+            {
+                ASSETS->addMusicIdToPlayQueue(MUSIC_RESUME);
             }
         }
     }

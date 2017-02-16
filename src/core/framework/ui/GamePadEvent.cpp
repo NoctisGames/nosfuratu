@@ -56,3 +56,8 @@ void GamePadEvent::setY(float y)
 {
 	m_fY = y;
 }
+
+bool GamePadEvent::isButtonPressed()
+{
+    return m_fX > 0;
+}

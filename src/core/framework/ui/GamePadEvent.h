@@ -14,7 +14,7 @@
 class GamePadEvent
 {
 public:
-    GamePadEvent(GamePadEventType type = GamePadEventType_DPAD, int index = 0, float x = 0, float y = 0);
+    GamePadEvent(GamePadEventType type = GamePadEventType_D_PAD_RIGHT, int index = 0, float x = 0, float y = 0);
 
     GamePadEventType getType();
     
@@ -31,6 +31,8 @@ public:
 	float getY();
 
 	void setY(float y);
+    
+    bool isButtonPressed();
     
 private:
     GamePadEventType m_type;

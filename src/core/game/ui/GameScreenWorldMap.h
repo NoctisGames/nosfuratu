@@ -649,9 +649,21 @@ private:
     
     void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
     
-    void selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score);
+    void selectLevel(LevelThumbnail* levelThumbnail);
+    
+    void startLevel();
     
     void validateAbilityFlag();
+    
+    void navRight();
+    
+    void navUp();
+    
+    void navLeft();
+    
+    void navDown();
+    
+    LevelThumbnail * getLevelThumbnail(int world, int level);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();

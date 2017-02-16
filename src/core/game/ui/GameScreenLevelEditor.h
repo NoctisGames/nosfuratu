@@ -80,7 +80,7 @@ private:
     bool m_allowPlaceOn;
     bool m_allowPlaceUnder;
     
-    void handleTouchInput(GameScreen* gs);
+    void handleInput(GameScreen* gs);
     
     void resetEntities(bool clearLastAddedEntity);
     

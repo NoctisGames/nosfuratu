@@ -13,6 +13,7 @@
 #include "GameScreenLevelEditor.h"
 #include "GameScreenWorldMap.h"
 #include "Game.h"
+#include "ScreenInputManager.h"
 
 AndroidOpenGLGameScreen *gameScreen;
 
@@ -130,24 +131,24 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1down(JNIEn
 {
 	UNUSED(env);
 	UNUSED(cls);
-
-	gameScreen->onTouch(DOWN, raw_touch_x, raw_touch_y);
+    
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, raw_touch_x, raw_touch_y);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1dragged(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y)
 {
 	UNUSED(env);
 	UNUSED(cls);
-
-	gameScreen->onTouch(DRAGGED, raw_touch_x, raw_touch_y);
+    
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, raw_touch_x, raw_touch_y);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1up(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y)
 {
 	UNUSED(env);
 	UNUSED(cls);
-
-	gameScreen->onTouch(UP, raw_touch_x, raw_touch_y);
+    
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, raw_touch_x, raw_touch_y);
 }
 
 JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1music_1id(JNIEnv* env, jclass cls)

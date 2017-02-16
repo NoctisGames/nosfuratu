@@ -68,7 +68,7 @@ private:
     UnknownEntity* m_lastAddedEntity;
     UnknownEntity* m_draggingEntity;
     
-    void handleTouchInput(GameScreen* gs);
+    void handleInput(GameScreen* gs);
     
     void resetEntities();
     

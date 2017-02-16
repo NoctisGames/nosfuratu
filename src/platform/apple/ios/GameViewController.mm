@@ -15,6 +15,7 @@
 
 // C++
 #include "IOSOpenGLGameScreen.h"
+#include "ScreenInputManager.h"
 
 @interface GameViewController () <GADInterstitialDelegate>
 {
@@ -119,21 +120,21 @@
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    gameScreen->onTouch(DOWN, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, pos.x, pos.y);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    gameScreen->onTouch(DRAGGED, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, pos.x, pos.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
     CGPoint pos = [touch locationInView: [UIApplication sharedApplication].keyWindow];
-    gameScreen->onTouch(UP, pos.x, pos.y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, pos.x, pos.y);
 }
 
 #pragma mark <GLKViewControllerDelegate>

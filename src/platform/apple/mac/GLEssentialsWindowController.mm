@@ -35,7 +35,7 @@
 	return self;
 }
 
-- (void) goFullscreen
+- (void)goFullscreen
 {
 	// If app is already fullscreen...
 	if (_fullscreenWindow)
@@ -70,7 +70,7 @@
 	[_fullscreenWindow makeKeyAndOrderFront:self];
 }
 
-- (void) goWindow
+- (void)goWindow
 {
 	// If controller doesn't have a full screen window...
 	if(_fullscreenWindow == nil)
@@ -100,7 +100,7 @@
 	_fullscreenWindow = nil;
 }
 
-- (void) keyDown:(NSEvent *)event
+- (void)keyDown:(NSEvent *)event
 {
 	unichar c = [[event charactersIgnoringModifiers] characterAtIndex:0];
 
@@ -128,6 +128,11 @@
 
 	// Allow other character to be handled (or not and beep)
 	[self.window.contentView keyDown:event];
+}
+
+- (void)keyUp:(NSEvent *)event
+{
+    [self.window.contentView keyUp:event];
 }
 
 @end

@@ -113,8 +113,7 @@ protected:
     
     virtual void configBatPanel();
     
-    bool handleOpeningSequenceTouchInput(GameScreen* gs);
-    bool handleTouchInput(GameScreen* gs);
+    bool handleInput(GameScreen* gs);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);

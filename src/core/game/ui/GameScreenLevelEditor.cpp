@@ -114,7 +114,7 @@ void GameScreenLevelEditor::execute(GameScreen* gs)
     }
     else
     {
-        handleTouchInput(gs);
+        handleInput(gs);
         
         int oldSum = m_game->calcSum();
         
@@ -219,7 +219,7 @@ ConfirmExitPanel* GameScreenLevelEditor::getConfirmExitPanel()
 
 #pragma mark private
 
-void GameScreenLevelEditor::handleTouchInput(GameScreen* gs)
+void GameScreenLevelEditor::handleInput(GameScreen* gs)
 {
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {

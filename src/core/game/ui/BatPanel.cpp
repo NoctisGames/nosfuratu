@@ -12,6 +12,10 @@
 #include "GameScreen.h"
 #include "OverlapTester.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "KeyboardEvent.h"
+#include "GamePadEvent.h"
 
 BatGoalType calcBatGoalType(int world, int level)
 {
@@ -215,34 +219,66 @@ void BatPanel::updateJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_W:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_A_BUTTON:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
                     switch ((*i)->getType())
                     {
-                        case ScreenEventType_DOWN:
-                            continue;
-                        case ScreenEventType_DRAGGED:
-                            continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                
-                                m_isAcknowledgedPart1 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                SCREEN_INPUT_MANAGER->process();
-                                
-                                return;
-                            }
-                            
+                            execute = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    jon.triggerJump();
+                    
+                    m_isAcknowledgedPart1 = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
+                    
+                    return;
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -288,34 +324,65 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_W:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_A_BUTTON:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
                     switch ((*i)->getType())
                     {
-                        case ScreenEventType_DOWN:
-                            continue;
-                        case ScreenEventType_DRAGGED:
-                            continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                jon.setUserActionPrevented(true);
-                                
-                                m_isAcknowledgedPart1 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                SCREEN_INPUT_MANAGER->process();
-                                
-                                return;
-                            }
+                            execute = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    jon.triggerJump();
+                    jon.setUserActionPrevented(true);
+                    
+                    m_isAcknowledgedPart1 = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -351,33 +418,64 @@ void BatPanel::updateDoubleJump(GameScreen* gs)
             {
                 bool isJonAlive = jon.isAlive();
                 
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_W:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_A_BUTTON:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
                     
                     switch ((*i)->getType())
                     {
-                        case ScreenEventType_DOWN:
-                            continue;
-                        case ScreenEventType_DRAGGED:
-                            continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                
-                                m_isAcknowledgedPart2 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                SCREEN_INPUT_MANAGER->process();
-                                
-                                return;
-                            }
+                            execute = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    jon.triggerJump();
+                    
+                    m_isAcknowledgedPart2 = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -425,6 +523,10 @@ void BatPanel::updateVampire(GameScreen* gs)
             if (m_batInstruction->isOpen())
             {
                 bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
                 
                 if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
                 {
@@ -443,6 +545,8 @@ void BatPanel::updateVampire(GameScreen* gs)
                             m_batInstruction->close();
                             
                             SCREEN_INPUT_MANAGER->process();
+                            KEYBOARD_INPUT_MANAGER->process();
+                            GAME_PAD_INPUT_MANAGER->process();
                             
                             return;
                         }
@@ -489,6 +593,35 @@ void BatPanel::updateVampire(GameScreen* gs)
                     jon.getVelocity().setX(m_fJonVelocityX);
                 }
                 
+                bool executeDown = false;
+                bool executeUp = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_S:
+                            executeDown = !(*i)->isUp();
+                            executeUp = (*i)->isUp();
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_X_BUTTON:
+                            executeDown = (*i)->isButtonPressed();
+                            executeUp = !(*i)->isButtonPressed();
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
                     gs->touchToWorld(*(*i));
@@ -496,31 +629,36 @@ void BatPanel::updateVampire(GameScreen* gs)
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
-                            if (isJonAlive)
-                            {
-                                gs->m_isScreenHeldDown = true;
-                                gs->m_fScreenHeldTime = 0.0f;
-                            }
-                            continue;
-                        case ScreenEventType_DRAGGED:
+                            executeDown = true;
+                            executeUp = false;
                             continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                if (gs->m_fScreenHeldTime > 0.4f)
-                                {
-                                    jon.setUserActionPrevented(false);
-                                    jon.triggerCancelTransform();
-                                    jon.setUserActionPrevented(true);
-                                }
-                                
-                                gs->m_isScreenHeldDown = false;
-                                gs->m_fScreenHeldTime = 0;
-                                
-                                m_fJonX = -1;
-                            }
+                            executeDown = false;
+                            executeUp = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (executeDown)
+                {
+                    gs->m_isScreenHeldDown = true;
+                    gs->m_fScreenHeldTime = 0.0f;
+                }
+                else if (executeUp)
+                {
+                    if (gs->m_fScreenHeldTime > 0.4f)
+                    {
+                        jon.setUserActionPrevented(false);
+                        jon.triggerCancelTransform();
+                        jon.setUserActionPrevented(true);
+                    }
+                    
+                    gs->m_isScreenHeldDown = false;
+                    gs->m_fScreenHeldTime = 0;
+                    
+                    m_fJonX = -1;
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -555,6 +693,36 @@ void BatPanel::updateVampire(GameScreen* gs)
             if (m_batInstruction->isOpen())
             {
                 bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_W:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_A_BUTTON:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
@@ -562,28 +730,28 @@ void BatPanel::updateVampire(GameScreen* gs)
                     
                     switch ((*i)->getType())
                     {
-                        case ScreenEventType_DOWN:
-                            continue;
-                        case ScreenEventType_DRAGGED:
-                            continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                jon.setUserActionPrevented(true);
-                                
-                                m_isAcknowledgedPart2 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                SCREEN_INPUT_MANAGER->process();
-                                
-                                return;
-                            }
+                            execute = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    jon.triggerJump();
+                    jon.setUserActionPrevented(true);
+                    
+                    m_isAcknowledgedPart2 = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -615,6 +783,36 @@ void BatPanel::updateVampire(GameScreen* gs)
             if (m_batInstruction->isOpen())
             {
                 bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_W:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_A_BUTTON:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
@@ -622,27 +820,27 @@ void BatPanel::updateVampire(GameScreen* gs)
                     
                     switch ((*i)->getType())
                     {
-                        case ScreenEventType_DOWN:
-                            continue;
-                        case ScreenEventType_DRAGGED:
-                            continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                jon.setUserActionPrevented(false);
-                                jon.triggerJump();
-                                
-                                m_isAcknowledgedPart3 = true;
-                                m_isRequestingInput = false;
-                                
-                                m_batInstruction->close();
-                                
-                                SCREEN_INPUT_MANAGER->process();
-                                
-                                return;
-                            }
+                            execute = true;
                             break;
+                        default:
+                            continue;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    jon.triggerJump();
+                    
+                    m_isAcknowledgedPart3 = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -687,6 +885,50 @@ void BatPanel::updateDrill(GameScreen* gs)
             if (m_batInstruction->isOpen())
             {
                 bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_ARROW_KEY_DOWN:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_D_PAD_DOWN:
+                            execute = true;
+                            break;
+                        case GamePadEventType_STICK_LEFT:
+                        case GamePadEventType_STICK_RIGHT:
+                        {
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
+                            
+                            if (y < -0.8f
+                                && x < 0.2f
+                                && x > -0.2f)
+                            {
+                                execute = true;
+                                break;
+                            }
+                        }
+                        default:
+                            continue;
+                    }
+                }
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
@@ -695,48 +937,53 @@ void BatPanel::updateDrill(GameScreen* gs)
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
-                            if (isJonAlive)
-                            {
-                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                            }
+                        {
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
                             continue;
                         case ScreenEventType_DRAGGED:
-                            if (isJonAlive && !m_hasSwiped)
+                            if (!m_hasSwiped)
                             {
                                 if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
                                 {
-                                    jon.setUserActionPrevented(false);
-                                    
-                                    // Swipe Down
-                                    jon.setPhysicalState(PHYSICAL_GROUNDED);
-                                    jon.triggerDownAction();
-                                    
-                                    jon.setUserActionPrevented(true);
-                                    
-                                    m_hasTriggeredRequestedAction = true;
-                                    m_isRequestingInput = false;
-                                    
-                                    m_batInstruction->close();
-                                    
                                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                                     
-                                    SCREEN_INPUT_MANAGER->process();
+                                    execute = true;
                                     
                                     m_hasSwiped = true;
                                     
-                                    return;
+                                    break;
                                 }
                             }
                             continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                m_hasSwiped = false;
-                                
-                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                            }
+                        {
+                            m_hasSwiped = false;
+                            
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
                             break;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    
+                    // Swipe Down
+                    jon.setPhysicalState(PHYSICAL_GROUNDED);
+                    jon.triggerDownAction();
+                    
+                    jon.setUserActionPrevented(true);
+                    
+                    m_hasTriggeredRequestedAction = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -778,6 +1025,50 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
             if (m_batInstruction->isOpen())
             {
                 bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_ARROW_KEY_DOWN:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_D_PAD_DOWN:
+                            execute = true;
+                            break;
+                        case GamePadEventType_STICK_LEFT:
+                        case GamePadEventType_STICK_RIGHT:
+                        {
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
+                            
+                            if (y < -0.8f
+                                && x < 0.2f
+                                && x > -0.2f)
+                            {
+                                execute = true;
+                                break;
+                            }
+                        }
+                        default:
+                            continue;
+                    }
+                }
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
@@ -786,48 +1077,53 @@ void BatPanel::updateDrillToDamageOwl(GameScreen* gs)
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
-                            if (isJonAlive)
-                            {
-                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                            }
+                        {
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
                             continue;
                         case ScreenEventType_DRAGGED:
-                            if (isJonAlive && !m_hasSwiped)
+                            if (!m_hasSwiped)
                             {
                                 if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
                                 {
-                                    jon.setUserActionPrevented(false);
-                                    
-                                    // Swipe Down
-                                    jon.setPhysicalState(PHYSICAL_GROUNDED);
-                                    jon.triggerDownAction();
-                                    
-                                    jon.setUserActionPrevented(true);
-                                    
-                                    m_hasTriggeredRequestedAction = true;
-                                    m_isRequestingInput = false;
-                                    
-                                    m_batInstruction->close();
-                                    
                                     gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
                                     
-                                    SCREEN_INPUT_MANAGER->process();
+                                    execute = true;
                                     
                                     m_hasSwiped = true;
                                     
-                                    return;
+                                    break;
                                 }
                             }
                             continue;
                         case ScreenEventType_UP:
-                            if (isJonAlive)
-                            {
-                                m_hasSwiped = false;
-                                
-                                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                            }
+                        {
+                            m_hasSwiped = false;
+                            
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
                             break;
                     }
+                }
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    
+                    // Swipe Down
+                    jon.setPhysicalState(PHYSICAL_GROUNDED);
+                    jon.triggerDownAction();
+                    
+                    jon.setUserActionPrevented(true);
+                    
+                    m_hasTriggeredRequestedAction = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
                 }
             }
             else if (!m_batInstruction->isOpening())
@@ -883,6 +1179,50 @@ void BatPanel::updateStomp(GameScreen* gs)
 			if (m_batInstruction->isOpen())
 			{
 				bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_ARROW_KEY_DOWN:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_D_PAD_DOWN:
+                            execute = true;
+                            break;
+                        case GamePadEventType_STICK_LEFT:
+                        case GamePadEventType_STICK_RIGHT:
+                        {
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
+                            
+                            if (y < -0.8f
+                                && x < 0.2f
+                                && x > -0.2f)
+                            {
+                                execute = true;
+                                break;
+                            }
+                        }
+                        default:
+                            continue;
+                    }
+                }
 
 				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
@@ -890,49 +1230,54 @@ void BatPanel::updateStomp(GameScreen* gs)
 
 					switch ((*i)->getType())
 					{
-					case ScreenEventType_DOWN:
-						if (isJonAlive)
-						{
-							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-						}
-						continue;
-					case ScreenEventType_DRAGGED:
-						if (isJonAlive && !m_hasSwiped)
-						{
-							if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
-							{
-								jon.setUserActionPrevented(false);
-
-								// Swipe Down
-								jon.triggerDownAction();
-
-								jon.setUserActionPrevented(true);
-
-								m_hasTriggeredRequestedAction = true;
-								m_isRequestingInput = false;
-
-								m_batInstruction->close();
-
-								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-
-								SCREEN_INPUT_MANAGER->process();
-
-								m_hasSwiped = true;
-
-								return;
-							}
-						}
-						continue;
-					case ScreenEventType_UP:
-						if (isJonAlive)
-						{
-							m_hasSwiped = false;
-
-							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-						}
-						break;
-					}
+                        case ScreenEventType_DOWN:
+                        {
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
+                            continue;
+                        case ScreenEventType_DRAGGED:
+                            if (!m_hasSwiped)
+                            {
+                                if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
+                                {
+                                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                                    
+                                    execute = true;
+                                    
+                                    m_hasSwiped = true;
+                                    
+                                    break;
+                                }
+                            }
+                            continue;
+                        case ScreenEventType_UP:
+                        {
+                            m_hasSwiped = false;
+                            
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
+                            break;
+                    }
 				}
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    
+                    // Swipe Down
+                    jon.triggerDownAction();
+                    
+                    jon.setUserActionPrevented(true);
+                    
+                    m_hasTriggeredRequestedAction = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
+                }
 			}
 			else if (!m_batInstruction->isOpening())
 			{
@@ -985,6 +1330,50 @@ void BatPanel::updateDash(GameScreen* gs)
 			if (m_batInstruction->isOpen())
 			{
 				bool isJonAlive = jon.isAlive();
+                if (!isJonAlive)
+                {
+                    return;
+                }
+                
+                bool execute = false;
+                
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case KeyboardEventType_ARROW_KEY_RIGHT:
+                            execute = true;
+                            break;
+                        default:
+                            continue;
+                    }
+                }
+                
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                {
+                    switch ((*i)->getType())
+                    {
+                        case GamePadEventType_D_PAD_RIGHT:
+                            execute = true;
+                            break;
+                        case GamePadEventType_STICK_LEFT:
+                        case GamePadEventType_STICK_RIGHT:
+                        {
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
+                            
+                            if (x > 0.8f
+                                && y < 0.2f
+                                && y > -0.2f)
+                            {
+                                execute = true;
+                                break;
+                            }
+                        }
+                        default:
+                            continue;
+                    }
+                }
 
 				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
@@ -992,49 +1381,54 @@ void BatPanel::updateDash(GameScreen* gs)
 
 					switch ((*i)->getType())
 					{
-					case ScreenEventType_DOWN:
-						if (isJonAlive)
-						{
-							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-						}
-						continue;
-					case ScreenEventType_DRAGGED:
-						if (isJonAlive && !m_hasSwiped)
-						{
-							if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
-							{
-								jon.setUserActionPrevented(false);
-
-								// Swipe Right
-								jon.triggerRightAction();
-
-								jon.setUserActionPrevented(true);
-
-								m_hasTriggeredRequestedAction = true;
-								m_isRequestingInput = false;
-
-								m_batInstruction->close();
-
-								gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-
-								SCREEN_INPUT_MANAGER->process();
-
-								m_hasSwiped = true;
-
-								return;
-							}
-						}
-						continue;
-					case ScreenEventType_UP:
-						if (isJonAlive)
-						{
-							m_hasSwiped = false;
-
-							gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-						}
-						break;
+                        case ScreenEventType_DOWN:
+                        {
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
+                            continue;
+                        case ScreenEventType_DRAGGED:
+                            if (!m_hasSwiped)
+                            {
+                                if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
+                                {
+                                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                                    
+                                    execute = true;
+                                    
+                                    m_hasSwiped = true;
+                                    
+                                    break;
+                                }
+                            }
+                            continue;
+                        case ScreenEventType_UP:
+                        {
+                            m_hasSwiped = false;
+                            
+                            gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                        }
+                            break;
 					}
 				}
+                
+                if (execute)
+                {
+                    jon.setUserActionPrevented(false);
+                    
+                    // Swipe Right
+                    jon.triggerRightAction();
+                    
+                    jon.setUserActionPrevented(true);
+                    
+                    m_hasTriggeredRequestedAction = true;
+                    m_isRequestingInput = false;
+                    
+                    m_batInstruction->close();
+                    
+                    SCREEN_INPUT_MANAGER->process();
+                    KEYBOARD_INPUT_MANAGER->process();
+                    GAME_PAD_INPUT_MANAGER->process();
+                }
 			}
 			else if (!m_batInstruction->isOpening())
 			{
@@ -1074,85 +1468,6 @@ void BatPanel::showBatNearJon(Jon& jon)
 void BatPanel::showBatInstruction(BatInstructionType type)
 {
     m_batInstruction->open(type, m_bat->getPosition().getX() + 2.7f, m_bat->getPosition().getY() + 2);
-}
-
-void BatPanel::handleTouchInput(GameScreen* gs)
-{
-    Jon& jon = m_game->getJon();
-    bool isJonAlive = jon.isAlive();
-    
-    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
-    {
-        gs->touchToWorld(*(*i));
-        
-        switch ((*i)->getType())
-        {
-            case ScreenEventType_DOWN:
-                if (isJonAlive)
-                {
-                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                    gs->m_isScreenHeldDown = true;
-                    gs->m_fScreenHeldTime = 0.0f;
-                }
-                continue;
-            case ScreenEventType_DRAGGED:
-                if (isJonAlive && !m_hasSwiped)
-                {
-                    if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
-                    {
-                        // Swipe Right
-                        jon.triggerRightAction();
-                        m_hasSwiped = true;
-                    }
-                    else if (gs->m_touchPoint->getX() <= (gs->m_touchPointDown->getX() - SWIPE_WIDTH))
-                    {
-                        // Swipe Left
-                        jon.triggerLeftAction();
-                        m_hasSwiped = true;
-                    }
-                    else if (gs->m_touchPoint->getY() >= (gs->m_touchPointDown->getY() + SWIPE_HEIGHT))
-                    {
-                        // Swipe Up
-                        jon.triggerUpAction();
-                        m_hasSwiped = true;
-                    }
-                    else if (gs->m_touchPoint->getY() <= (gs->m_touchPointDown->getY() - SWIPE_HEIGHT))
-                    {
-                        // Swipe Down
-                        jon.triggerDownAction();
-                        m_hasSwiped = true;
-                    }
-                    
-                    if (m_hasSwiped)
-                    {
-                        gs->m_isScreenHeldDown = false;
-                        gs->m_fScreenHeldTime = 0.0f;
-                    }
-                }
-                continue;
-            case ScreenEventType_UP:
-                if (isJonAlive)
-                {
-                    if (!m_hasSwiped && gs->m_fScreenHeldTime < 0.4f)
-                    {
-                        jon.triggerJump();
-                    }
-                    
-                    if (gs->m_fScreenHeldTime > 0.4f)
-                    {
-                        jon.triggerCancelTransform();
-                    }
-                    
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fScreenHeldTime = 0;
-                    
-                    m_hasSwiped = false;
-                    
-                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                }
-                break;
-        }
-    }
 }
 
 RTTI_IMPL(BatInstruction, PhysicalEntity);

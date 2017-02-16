@@ -63,7 +63,7 @@ void GameScreenSpriteTester::execute(GameScreen* gs)
     }
     else
     {
-        handleTouchInput(gs);
+        handleInput(gs);
         
         EntityUtils::updateAndClean(m_gameEntities, gs->m_fDeltaTime);
         
@@ -124,7 +124,7 @@ ConfirmExitPanel* GameScreenSpriteTester::getConfirmExitPanel()
 
 #pragma mark private
 
-void GameScreenSpriteTester::handleTouchInput(GameScreen* gs)
+void GameScreenSpriteTester::handleInput(GameScreen* gs)
 {
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {

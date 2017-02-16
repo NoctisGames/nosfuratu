@@ -23,7 +23,7 @@ class GamePadInputManager
 public:
     static GamePadInputManager* getInstance();
     
-    void onInput(GamePadEventType type, int index, float x, float y);
+    void onInput(GamePadEventType type, int index, float x = 0, float y = 0);
     
     void process();
     

@@ -266,8 +266,6 @@ private:
     void showBatNearJon(Jon& jon);
     
     void showBatInstruction(BatInstructionType type);
-    
-    void handleTouchInput(GameScreen* gs);
 };
 
 #endif /* defined(__nosfuratu__BatPanel__) */

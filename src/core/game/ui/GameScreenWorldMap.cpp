@@ -18,6 +18,10 @@
 #include "GameScreenTitle.h"
 #include "MathUtil.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "KeyboardEvent.h"
+#include "GamePadEvent.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -112,6 +116,165 @@ void WorldMap::execute(GameScreen* gs)
             m_needsRefresh = false;
             
             return;
+        }
+        
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case KeyboardEventType_ARROW_KEY_RIGHT:
+                {
+                    if ((*i)->isUp())
+                    {
+                        navRight();
+                        return;
+                    }
+                }
+                    continue;
+                case KeyboardEventType_ARROW_KEY_UP:
+                {
+                    if ((*i)->isUp())
+                    {
+                        navUp();
+                        return;
+                    }
+                }
+                    continue;
+                case KeyboardEventType_ARROW_KEY_LEFT:
+                {
+                    if ((*i)->isUp())
+                    {
+                        navLeft();
+                        return;
+                    }
+                }
+                    continue;
+                case KeyboardEventType_ARROW_KEY_DOWN:
+                {
+                    if ((*i)->isUp())
+                    {
+                        navDown();
+                        return;
+                    }
+                }
+                    continue;
+                case KeyboardEventType_W:
+                case KeyboardEventType_SPACE:
+                case KeyboardEventType_ENTER:
+                {
+                    if ((*i)->isUp()
+                        && m_clickedLevel
+                        && m_clickedLevel->isSelected())
+                    {
+                        startLevel();
+                        return;
+                    }
+                }
+                    continue;
+                case KeyboardEventType_BACK:
+                    if ((*i)->isUp())
+                    {
+                        gs->m_stateMachine->revertToPreviousState();
+                        return;
+                    }
+                    continue;
+                default:
+                    break;
+            }
+        }
+        
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case GamePadEventType_STICK_LEFT:
+                case GamePadEventType_STICK_RIGHT:
+                {
+                    float x = (*i)->getX();
+                    float y = (*i)->getY();
+                    
+                    if (x > 0.8f)
+                    {
+                        navRight();
+                        return;
+                    }
+                    else if (x < -0.8f)
+                    {
+                        navLeft();
+                        return;
+                    }
+                    
+                    if (y > 0.8f)
+                    {
+                        navUp();
+                        return;
+                    }
+                    else if (y < -0.8f)
+                    {
+                        navDown();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_D_PAD_RIGHT:
+                {
+                    if ((*i)->isButtonPressed())
+                    {
+                        navRight();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_D_PAD_UP:
+                {
+                    if ((*i)->isButtonPressed())
+                    {
+                        navUp();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_D_PAD_LEFT:
+                {
+                    if ((*i)->isButtonPressed())
+                    {
+                        navLeft();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_D_PAD_DOWN:
+                {
+                    if ((*i)->isButtonPressed())
+                    {
+                        navDown();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_A_BUTTON:
+                case GamePadEventType_START_BUTTON:
+                {
+                    if ((*i)->isButtonPressed()
+                        && m_clickedLevel
+                        && m_clickedLevel->isSelected())
+                    {
+                        startLevel();
+                        return;
+                    }
+                }
+                    continue;
+                case GamePadEventType_B_BUTTON:
+                case GamePadEventType_BACK_BUTTON:
+                    if ((*i)->isButtonPressed())
+                    {
+                        gs->m_stateMachine->revertToPreviousState();
+                        return;
+                    }
+                    continue;
+                default:
+                    break;
+            }
         }
         
         for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
@@ -211,42 +374,14 @@ void WorldMap::execute(GameScreen* gs)
                         {
                             if (OverlapTester::isPointInRectangle(*gs->m_touchPoint, (*j)->getMainBounds()))
                             {
-                                int worldToLoad = (*j)->getWorld();
-                                int levelToLoad = (*j)->getLevel(); 
-                                
-                                int worldIndex = worldToLoad - 1;
-                                int levelIndex = levelToLoad - 1;
-                                
-                                int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
-                                int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
-                                
                                 if ((*j)->isSelected())
                                 {
-                                    int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
-                                    
-                                    WorldMapToLevel::getInstance()->setLevelLocation((*j)->getPosition().getX(), (*j)->getPosition().getY());
-                                    WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
-                                    WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
-                                    
-                                    validateAbilityFlag();
-                                    
-                                    int abilityFlag = m_iJonAbilityFlag;
-#if NG_LEVEL_EDITOR
-                                    abilityFlag = FLAG_ABILITY_ALL;
-#endif
-                                    
-                                    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStats, m_iNumCollectedGoldenCarrots, abilityFlag);
-              
-                                    m_isReadyForTransition = true;
-                                    
-                                    m_goldenCarrotsMarker->onConfirm();
-                                    (*j)->onConfirm();
-                                    m_scoreMarker->onConfirm();
+                                    startLevel();
                                 }
                                 else if ((*j)->isPlayable()
                                          && !(*j)->isSelecting())
                                 {
-                                    selectLevel((*j), levelStats, score);
+                                    selectLevel((*j));
                                     
                                     ASSETS->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
                                 }
@@ -403,7 +538,7 @@ void WorldMap::loadUserSaveData(const char* json)
     
     if (levelToSelect)
     {
-        selectLevel(levelToSelect, levelStatsForLevelToSelect, scoreForLevelToSelect);
+        selectLevel(levelToSelect);
     }
 }
 
@@ -608,8 +743,22 @@ void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocke
     }
 }
 
-void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, int score)
+void WorldMap::selectLevel(LevelThumbnail* levelThumbnail)
 {
+    int worldToLoad = levelThumbnail->getWorld();
+    int levelToLoad = levelThumbnail->getLevel();
+    
+    int worldIndex = worldToLoad - 1;
+    int levelIndex = levelToLoad - 1;
+    
+    int levelStatsFlag = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+    int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
+    
+    if (!levelThumbnail->isPlayable())
+    {
+        return;
+    }
+    
     for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
         (*j)->deselect();
@@ -672,6 +821,38 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail, int levelStatsFlag, i
     }
 }
 
+void WorldMap::startLevel()
+{
+    int worldToLoad = m_clickedLevel->getWorld();
+    int levelToLoad = m_clickedLevel->getLevel();
+    
+    int worldIndex = worldToLoad - 1;
+    int levelIndex = levelToLoad - 1;
+    
+    int levelStatsFlag = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+    int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
+    int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
+    
+    WorldMapToLevel::getInstance()->setLevelLocation(m_clickedLevel->getPosition().getX(), m_clickedLevel->getPosition().getY());
+    WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
+    WorldMapToLevel::getInstance()->setLevelToLoad(levelToLoad);
+    
+    validateAbilityFlag();
+    
+    int abilityFlag = m_iJonAbilityFlag;
+#if NG_LEVEL_EDITOR
+    abilityFlag = FLAG_ABILITY_ALL;
+#endif
+    
+    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStatsFlag, m_iNumCollectedGoldenCarrots, abilityFlag);
+    
+    m_isReadyForTransition = true;
+    
+    m_goldenCarrotsMarker->onConfirm();
+    m_clickedLevel->onConfirm();
+    m_scoreMarker->onConfirm();
+}
+
 void WorldMap::validateAbilityFlag()
 {
     for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
@@ -707,6 +888,166 @@ void WorldMap::validateAbilityFlag()
             }
         }
     }
+}
+
+void WorldMap::navRight()
+{
+    if (!m_clickedLevel)
+    {
+        return;
+    }
+    
+    int world = m_clickedLevel->getWorld();
+    int level = m_clickedLevel->getLevel();
+    
+    if (level < 7
+        || (level > 14 && level < 21))
+    {
+        level++;
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+    else if (level > 7 && level < 14)
+    {
+        level--;
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+}
+
+void WorldMap::navUp()
+{
+    if (!m_clickedLevel)
+    {
+        return;
+    }
+    
+    int world = m_clickedLevel->getWorld();
+    int level = m_clickedLevel->getLevel();
+    int currentLevel = m_clickedLevel->getLevel();
+    
+    if (level == 13 || level == 20)
+    {
+        level -= 12;
+    }
+    else if (level == 12 || level == 19)
+    {
+        level -= 10;
+    }
+    else if (level == 11 || level == 18)
+    {
+        level -= 8;
+    }
+    else if (level == 10 || level == 17)
+    {
+        level -= 6;
+    }
+    else if (level == 9 || level == 16)
+    {
+        level -= 4;
+    }
+    else if (level == 8 || level == 15)
+    {
+        level -= 2;
+    }
+    else if (level == 7 || level == 14)
+    {
+        level -= 1;
+    }
+    
+    if (level != currentLevel)
+    {
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+}
+
+void WorldMap::navLeft()
+{
+    if (!m_clickedLevel)
+    {
+        return;
+    }
+    
+    int world = m_clickedLevel->getWorld();
+    int level = m_clickedLevel->getLevel();
+    
+    if ((level > 1 && level < 7)
+        || level > 14)
+    {
+        level--;
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+    else if (level > 7 && level < 14)
+    {
+        level++;
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+}
+
+void WorldMap::navDown()
+{
+    if (!m_clickedLevel)
+    {
+        return;
+    }
+    
+    int world = m_clickedLevel->getWorld();
+    int level = m_clickedLevel->getLevel();
+    int currentLevel = m_clickedLevel->getLevel();
+    
+    if (level == 1 || level == 8)
+    {
+        level += 12;
+    }
+    else if (level == 2 || level == 9)
+    {
+        level += 10;
+    }
+    else if (level == 3 || level == 10)
+    {
+        level += 8;
+    }
+    else if (level == 4 || level == 11)
+    {
+        level += 6;
+    }
+    else if (level == 5 || level == 12)
+    {
+        level += 4;
+    }
+    else if (level == 6 || level == 13)
+    {
+        level += 2;
+    }
+    else if (level == 7 || level == 14)
+    {
+        level += 1;
+    }
+    
+    if (level != currentLevel)
+    {
+        LevelThumbnail* newLevel = getLevelThumbnail(world, level);
+        selectLevel(newLevel);
+    }
+}
+
+LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
+{
+    for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
+    {
+        int w = (*i)->getWorld();
+        int l = (*i)->getLevel();
+        
+        if (world == w && level == l)
+        {
+            return *i;
+        }
+    }
+    
+    return nullptr;
 }
 
 WorldMap::WorldMap() :

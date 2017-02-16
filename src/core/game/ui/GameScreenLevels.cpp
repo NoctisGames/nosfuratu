@@ -20,6 +20,10 @@
 #include "GameScreenWorldMap.h"
 #include "GameScreenTransitions.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "KeyboardEvent.h"
+#include "GamePadEvent.h"
 
 /// Level ///
 
@@ -285,6 +289,46 @@ void Level::update(GameScreen* gs)
                 m_continueButton->getColor().alpha = 1;
             }
             
+            bool goToNextState = false;
+            
+            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+            {
+                switch ((*i)->getType())
+                {
+                    case KeyboardEventType_W:
+                    case KeyboardEventType_BACK:
+                    case KeyboardEventType_SPACE:
+                    case KeyboardEventType_ENTER:
+                        if ((*i)->isUp())
+                        {
+                            goToNextState = true;
+                            break;
+                        }
+                        continue;
+                    default:
+                        continue;
+                }
+            }
+            
+            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+            {
+                switch ((*i)->getType())
+                {
+                    case GamePadEventType_A_BUTTON:
+                    case GamePadEventType_B_BUTTON:
+                    case GamePadEventType_BACK_BUTTON:
+                    case GamePadEventType_START_BUTTON:
+                        if ((*i)->isButtonPressed())
+                        {
+                            goToNextState = true;
+                            break;
+                        }
+                        continue;
+                    default:
+                        continue;
+                }
+            }
+            
             for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
             {
                 gs->touchToWorld(*(*i));
@@ -297,29 +341,31 @@ void Level::update(GameScreen* gs)
                     case ScreenEventType_UP:
                         if (m_continueButton->handleClick(*gs->m_touchPoint))
                         {
-                            if (m_game->getWorld() == 1
-                                && m_game->getLevel() == 21)
-                            {
-                                m_playLevelSelectMusicOnExit = false;
-                                LevelToComingSoon::getInstance()->setLevelComingFrom(this);
-                                gs->m_stateMachine->changeState(LevelToComingSoon::getInstance());
-                            }
-                            else
-                            {
-                                gs->m_stateMachine->revertToPreviousState();
-                            }
-                            
-                            return;
+                            goToNextState = true;
                         }
-                        
                         break;
+                }
+            }
+            
+            if (goToNextState)
+            {
+                if (m_game->getWorld() == 1
+                    && m_game->getLevel() == 21)
+                {
+                    m_playLevelSelectMusicOnExit = false;
+                    LevelToComingSoon::getInstance()->setLevelComingFrom(this);
+                    gs->m_stateMachine->changeState(LevelToComingSoon::getInstance());
+                }
+                else
+                {
+                    gs->m_stateMachine->revertToPreviousState();
                 }
             }
             
             return;
         }
         
-        if (handleTouchInput(gs))
+        if (handleInput(gs))
         {
             return;
         }
@@ -688,28 +734,221 @@ void Level::configBatPanel()
     }
 }
 
-bool Level::handleOpeningSequenceTouchInput(GameScreen* gs)
-{
-    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
-    {
-        switch ((*i)->getType())
-        {
-            case ScreenEventType_DOWN:
-                continue;
-            case ScreenEventType_DRAGGED:
-                continue;
-            case ScreenEventType_UP:
-                return true;
-        }
-    }
-    
-    return false;
-}
-
-bool Level::handleTouchInput(GameScreen* gs)
+bool Level::handleInput(GameScreen* gs)
 {
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
+    if (!isJonAlive)
+    {
+        return false;
+    }
+    
+    for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+    {
+        switch ((*i)->getType())
+        {
+            case KeyboardEventType_ARROW_KEY_RIGHT:
+            {
+                if ((*i)->isUp())
+                {
+                    jon.triggerRightAction();
+                    return false;
+                }
+            }
+                continue;
+            case KeyboardEventType_ARROW_KEY_UP:
+            {
+                if ((*i)->isUp())
+                {
+                    jon.triggerUpAction();
+                    return false;
+                }
+            }
+                continue;
+            case KeyboardEventType_ARROW_KEY_LEFT:
+            {
+                if ((*i)->isUp())
+                {
+                    jon.triggerLeftAction();
+                    return false;
+                }
+            }
+                continue;
+            case KeyboardEventType_ARROW_KEY_DOWN:
+            {
+                if ((*i)->isUp())
+                {
+                    jon.triggerDownAction();
+                    return false;
+                }
+            }
+                continue;
+            case KeyboardEventType_W:
+            {
+                if ((*i)->isUp())
+                {
+                    if (gs->m_fScreenHeldTime < 0.4f)
+                    {
+                        jon.triggerJump();
+                    }
+                    return false;
+                }
+            }
+                continue;
+            case KeyboardEventType_S:
+            {
+                if ((*i)->isUp())
+                {
+                    if (gs->m_fScreenHeldTime > 0.4f)
+                    {
+                        jon.triggerCancelTransform();
+                    }
+                    
+                    gs->m_isScreenHeldDown = false;
+                    gs->m_fScreenHeldTime = 0;
+                }
+                else
+                {
+                    gs->m_isScreenHeldDown = true;
+                    gs->m_fScreenHeldTime = 0.0f;
+                }
+            }
+                return false;
+            case KeyboardEventType_BACK:
+                if ((*i)->isUp())
+                {
+                    m_exitLoop = true;
+                    
+                    gs->m_renderer->stopCamera();
+                    
+                    gs->m_stateMachine->revertToPreviousState();
+                    
+                    return true;
+                }
+                continue;
+            default:
+                break;
+        }
+    }
+    
+    for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+    {
+        switch ((*i)->getType())
+        {
+            case GamePadEventType_STICK_LEFT:
+            case GamePadEventType_STICK_RIGHT:
+            {
+                float x = (*i)->getX();
+                float y = (*i)->getY();
+                
+                if (x > 0.8f)
+                {
+                    jon.triggerRightAction();
+                    return false;
+                }
+                else if (x < -0.8f)
+                {
+                    jon.triggerLeftAction();
+                    return false;
+                }
+                
+                if (y > 0.8f)
+                {
+                    jon.triggerUpAction();
+                    return false;
+                }
+                else if (y < -0.8f)
+                {
+                    jon.triggerDownAction();
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_D_PAD_RIGHT:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    jon.triggerRightAction();
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_D_PAD_UP:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    jon.triggerUpAction();
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_D_PAD_LEFT:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    jon.triggerLeftAction();
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_D_PAD_DOWN:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    jon.triggerDownAction();
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_A_BUTTON:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    if (gs->m_fScreenHeldTime < 0.4f)
+                    {
+                        jon.triggerJump();
+                    }
+                    
+                    return false;
+                }
+            }
+                continue;
+            case GamePadEventType_X_BUTTON:
+            {
+                if ((*i)->isButtonPressed())
+                {
+                    gs->m_isScreenHeldDown = true;
+                    gs->m_fScreenHeldTime = 0.0f;
+                }
+                else
+                {
+                    if (gs->m_fScreenHeldTime > 0.4f)
+                    {
+                        jon.triggerCancelTransform();
+                    }
+                    
+                    gs->m_isScreenHeldDown = false;
+                    gs->m_fScreenHeldTime = 0;
+                }
+            }
+                return false;
+            case GamePadEventType_B_BUTTON:
+            case GamePadEventType_BACK_BUTTON:
+                if ((*i)->isButtonPressed())
+                {
+                    m_exitLoop = true;
+                    
+                    gs->m_renderer->stopCamera();
+                    
+                    gs->m_stateMachine->revertToPreviousState();
+                    
+                    return true;
+                }
+                continue;
+            default:
+                break;
+        }
+    }
     
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
@@ -718,15 +957,14 @@ bool Level::handleTouchInput(GameScreen* gs)
         switch ((*i)->getType())
         {
             case ScreenEventType_DOWN:
-                if (isJonAlive)
-                {
-                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
-                    gs->m_isScreenHeldDown = true;
-                    gs->m_fScreenHeldTime = 0.0f;
-                }
+            {
+                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                gs->m_isScreenHeldDown = true;
+                gs->m_fScreenHeldTime = 0.0f;
+            }
                 continue;
             case ScreenEventType_DRAGGED:
-                if (isJonAlive && !gs->m_hasSwiped)
+                if (!gs->m_hasSwiped)
                 {
                     if (gs->m_touchPoint->getX() >= (gs->m_touchPointDown->getX() + SWIPE_WIDTH))
                     {
@@ -773,25 +1011,23 @@ bool Level::handleTouchInput(GameScreen* gs)
                     return true;
                 }
                 
-                if (isJonAlive)
+                if (!gs->m_hasSwiped && gs->m_fScreenHeldTime < 0.4f)
                 {
-                    if (!gs->m_hasSwiped && gs->m_fScreenHeldTime < 0.4f)
-                    {
-                        jon.triggerJump();
-                    }
-                    
-                    if (gs->m_fScreenHeldTime > 0.4f)
-                    {
-                        jon.triggerCancelTransform();
-                    }
-                    
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fScreenHeldTime = 0;
-                    
-                    gs->m_hasSwiped = false;
-                    
-                    gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                    jon.triggerJump();
                 }
+                
+                if (gs->m_fScreenHeldTime > 0.4f)
+                {
+                    jon.triggerCancelTransform();
+                }
+                
+                gs->m_isScreenHeldDown = false;
+                gs->m_fScreenHeldTime = 0;
+                
+                gs->m_hasSwiped = false;
+                
+                gs->m_touchPointDown->set(gs->m_touchPoint->getX(), gs->m_touchPoint->getY());
+                
                 break;
         }
     }

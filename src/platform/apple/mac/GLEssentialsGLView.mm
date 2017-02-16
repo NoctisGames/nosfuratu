@@ -415,4 +415,110 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     }
 }
 
+- (void)keyUp:(NSEvent *)event
+{
+    if ([event modifierFlags] & NSNumericPadKeyMask)
+    {
+        // arrow keys have this mask
+        NSString *theArrow = [event charactersIgnoringModifiers];
+        
+        unichar keyChar = 0;
+        
+        if ([theArrow length] == 0)
+        {
+            return; // reject dead keys
+        }
+        
+        if ([theArrow length] == 1)
+        {
+            keyChar = [theArrow characterAtIndex:0];
+            
+            if (keyChar == NSRightArrowFunctionKey)
+            {
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT, true);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSUpArrowFunctionKey)
+            {
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP, true);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSLeftArrowFunctionKey)
+            {
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT, true);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+            
+            if (keyChar == NSDownArrowFunctionKey)
+            {
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
+                
+                [[self window] invalidateCursorRectsForView:self];
+                
+                return;
+            }
+        }
+    }
+    else
+    {
+        NSString *characters = [event characters];
+        
+        if ([characters length] == 0)
+        {
+            return; // reject dead keys
+        }
+        
+        unichar keyChar = 0;
+        
+        if ([characters length] == 1)
+        {
+            keyChar = [characters characterAtIndex:0];
+            
+            switch (keyChar)
+            {
+                case 'W':
+                case 'w':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W, true);
+                    return;
+                case 'A':
+                case 'a':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A, true);
+                    return;
+                case 'S':
+                case 's':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S, true);
+                    return;
+                case 'D':
+                case 'd':
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D, true);
+                    return;
+                case NSEnterCharacter:
+                case NSCarriageReturnCharacter:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER, true);
+                    return;
+                case 32:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE, true);
+                    return;
+                case NSBackspaceCharacter:
+                case NSDeleteCharacter:
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
 @end

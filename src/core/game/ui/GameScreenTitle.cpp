@@ -16,6 +16,10 @@
 #include "GameScreenWorldMap.h"
 #include "GameScreenOpeningCutscene.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "KeyboardEvent.h"
+#include "GamePadEvent.h"
 
 /// Title Screen ///
 
@@ -116,6 +120,32 @@ void Title::execute(GameScreen* gs)
 #if NG_LEVEL_EDITOR
 		isDisplayingLevelEditorButtons = true;
 #endif
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case KeyboardEventType_SPACE:
+                case KeyboardEventType_ENTER:
+                    m_isRequestingNextState = true;
+                    return;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        {
+            switch ((*i)->getType())
+            {
+                case GamePadEventType_A_BUTTON:
+                case GamePadEventType_START_BUTTON:
+                    m_isRequestingNextState = true;
+                    return;
+                default:
+                    continue;
+            }
+        }
+        
 		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
             gs->touchToWorld(*(*i));
