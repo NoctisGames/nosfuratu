@@ -203,11 +203,9 @@ void Renderer::unloadTexture(TextureWrapper* textureWrapper)
 
 bool Renderer::ensureTexture(TextureWrapper* textureWrapper)
 {
-    if (textureWrapper == nullptr
-        || textureWrapper->gpuTextureWrapper == nullptr)
+    if (textureWrapper->gpuTextureWrapper == nullptr)
     {
-        if (textureWrapper == nullptr
-            || !textureWrapper->isLoadingData)
+        if (!textureWrapper->isLoadingData)
         {
             loadTextureAsync(textureWrapper);
         }
