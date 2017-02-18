@@ -84,7 +84,7 @@
 
 - (void)scan
 {
-    [self performSelector:@selector(scan) withObject:nil afterDelay:5];
+//    [self performSelector:@selector(scan) withObject:nil afterDelay:5];
     
     NSArray * joysticks = [DDHidJoystick allJoysticks];
     
