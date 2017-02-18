@@ -735,8 +735,8 @@ void MainRenderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
 
 void MainRenderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 {
-    if (!ensureTexture(m_world_map_screen_part_1)
-        || !ensureTexture(m_world_map_screen_part_2))
+    if (!(ensureTexture(m_world_map_screen_part_1)
+          && ensureTexture(m_world_map_screen_part_2)))
     {
         return;
     }
@@ -750,8 +750,8 @@ void MainRenderer::renderWorldMapScreenBackground(WorldMapPanel* panel)
 
 void MainRenderer::renderWorldMapScreenUi(WorldMap& wm)
 {
-    if (!ensureTexture(m_world_map_screen_part_1)
-        || !ensureTexture(m_world_map_screen_part_2))
+    if (!(ensureTexture(m_world_map_screen_part_1)
+         && ensureTexture(m_world_map_screen_part_2)))
     {
         return;
     }
@@ -826,8 +826,8 @@ void MainRenderer::renderWorldMapScreenUi(WorldMap& wm)
 
 void MainRenderer::renderWorldMapScreenButtons(WorldMap& wm)
 {
-    if (!ensureTexture(m_world_map_screen_part_1)
-        || !ensureTexture(m_world_map_screen_part_2))
+    if (!(ensureTexture(m_world_map_screen_part_1)
+          && ensureTexture(m_world_map_screen_part_2)))
     {
         return;
     }

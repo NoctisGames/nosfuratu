@@ -37,6 +37,11 @@ short SoundManager::getFirstSoundId()
 
 void SoundManager::addSoundIdToPlayQueue(short soundId)
 {
+    if (!m_isSoundEnabled)
+    {
+        return;
+    }
+    
     if (m_sSoundIds.size() < MAX_SOUNDS_TO_PLAY_PER_FRAME)
     {
         m_sSoundIds.push_back(soundId);
@@ -45,6 +50,11 @@ void SoundManager::addSoundIdToPlayQueue(short soundId)
 
 void SoundManager::forceAddSoundIdToPlayQueue(short soundId)
 {
+    if (!m_isSoundEnabled)
+    {
+        return;
+    }
+    
     m_sSoundIds.push_back(soundId);
 }
 
@@ -63,6 +73,12 @@ short SoundManager::getFirstMusicId()
 
 void SoundManager::addMusicIdToPlayQueue(short musicId)
 {
+    if (!m_isMusicEnabled
+        && musicId > 1)
+    {
+        return;
+    }
+    
     m_sMusicIds.push_back(musicId);
 }
 
@@ -83,7 +99,7 @@ void SoundManager::setMusicEnabled(bool isMusicEnabled)
 {
     m_isMusicEnabled = isMusicEnabled;
     
-    addMusicIdToPlayQueue(m_isMusicEnabled ? 1 : 0);
+    addMusicIdToPlayQueue(m_isMusicEnabled ? 2 : 1);
 }
 
 bool SoundManager::isSoundEnabled()
