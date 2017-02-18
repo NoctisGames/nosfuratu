@@ -3,13 +3,15 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "asset_utils.h"
+
 #include "platform_asset_utils.h"
 #include "shader.h"
 #include "texture.h"
+
 #include <assert.h>
 #include <stdlib.h>
 

@@ -1,0 +1,210 @@
+//
+//  Renderer.cpp
+//  noctisgames-framework
+//
+//  Created by Stephen Gowen on 2/22/14.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
+//
+
+#include "Renderer.h"
+
+#include "SpriteBatcher.h"
+#include "NGRectBatcher.h"
+#include "LineBatcher.h"
+#include "CircleBatcher.h"
+#include "ITextureLoader.h"
+#include "IRendererHelper.h"
+#include "GpuProgramWrapper.h"
+#include "PhysicalEntity.h"
+#include "TextureRegion.h"
+#include "Color.h"
+#include "TextureWrapper.h"
+#include "GpuTextureWrapper.h"
+
+#include "SpriteBatcherFactory.h"
+#include "NGRectBatcherFactory.h"
+#include "LineBatcherFactory.h"
+#include "CircleBatcherFactory.h"
+#include "TextureLoaderFactory.h"
+#include "RendererHelperFactory.h"
+#include "GpuProgramWrapperFactory.h"
+
+#include <string>
+#include <assert.h>
+
+Renderer::Renderer() :
+m_spriteBatcher(SPRITE_BATCHER_FACTORY->createSpriteBatcher()),
+m_fillNGRectBatcher(RECTANGLE_BATCHER_FACTORY->createNGRectBatcher(true)),
+m_boundsNGRectBatcher(RECTANGLE_BATCHER_FACTORY->createNGRectBatcher(false)),
+m_lineBatcher(LINE_BATCHER_FACTORY->createLineBatcher()),
+m_circleBatcher(CIRCLE_BATCHER_FACTORY->createCircleBatcher()),
+m_textureLoader(TEXTURE_LOADER_FACTORY->createTextureLoader()),
+m_rendererHelper(RENDERER_HELPER_FACTORY->createRendererHelper()),
+m_textureGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createTextureGpuProgramWrapper()),
+m_colorGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createColorGpuProgramWrapper()),
+m_framebufferToScreenGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferToScreenGpuProgramWrapper()),
+m_iFramebufferIndex(0)
+{
+    // Empty
+}
+
+Renderer::~Renderer()
+{
+    delete m_spriteBatcher;
+    delete m_fillNGRectBatcher;
+    delete m_boundsNGRectBatcher;
+    delete m_lineBatcher;
+    delete m_circleBatcher;
+    
+    delete m_textureLoader;
+    delete m_rendererHelper;
+    
+	delete m_textureGpuProgramWrapper;
+	delete m_colorGpuProgramWrapper;
+    delete m_framebufferToScreenGpuProgramWrapper;
+    
+    m_loadingTextures.clear();
+    
+    cleanUpThreads();
+}
+
+void Renderer::beginFrame()
+{
+    handleAsyncTextureLoads();
+    
+    m_rendererHelper->beginFrame();
+}
+
+void Renderer::setFramebuffer(int framebufferIndex)
+{
+    assert(framebufferIndex >= 0);
+    
+    m_iFramebufferIndex = framebufferIndex;
+    
+    m_rendererHelper->bindToOffscreenFramebuffer(m_iFramebufferIndex);
+    m_rendererHelper->clearFramebufferWithColor(0, 0, 0, 1);
+}
+
+void Renderer::renderFramebufferToScreen(int framebufferIndex)
+{
+    assert(framebufferIndex >= 0);
+    
+    m_rendererHelper->bindToScreenFramebuffer();
+    m_rendererHelper->clearFramebufferWithColor(0, 0, 0, 1);
+    
+    static TextureRegion tr = TextureRegion("framebuffer", 0, 0, 1, 1, 1, 1);
+    
+    m_spriteBatcher->beginBatch();
+    m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
+    m_spriteBatcher->endBatch(m_rendererHelper->getFramebuffer(framebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
+}
+
+void Renderer::endFrame()
+{
+    m_rendererHelper->endFrame();
+}
+
+bool Renderer::isLoadingData()
+{
+    return m_loadingTextures.size() > 0;
+}
+
+#pragma mark protected
+
+void Renderer::renderPhysicalEntity(PhysicalEntity &pe, TextureRegion& tr)
+{
+    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), tr);
+}
+
+void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& tr, Color c)
+{
+    m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
+}
+
+void Renderer::loadTextureSync(TextureWrapper& textureWrapper)
+{
+    assert(textureWrapper.gpuTextureDataWrapper == nullptr);
+    assert(textureWrapper.gpuTextureWrapper == nullptr);
+    assert(!textureWrapper.isLoadingData);
+    assert(textureWrapper.name.length() > 0);
+    
+    textureWrapper.isLoadingData = true;
+    textureWrapper.gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper.name.c_str());
+    
+    textureWrapper.gpuTextureWrapper = m_textureLoader->loadTexture(textureWrapper.gpuTextureDataWrapper);
+    
+    delete textureWrapper.gpuTextureDataWrapper;
+    textureWrapper.gpuTextureDataWrapper = nullptr;
+    
+    textureWrapper.isLoadingData = false;
+}
+
+void Renderer::loadTextureAsync(TextureWrapper& textureWrapper)
+{
+    assert(textureWrapper.gpuTextureDataWrapper == nullptr);
+    assert(textureWrapper.gpuTextureWrapper == nullptr);
+    assert(!textureWrapper.isLoadingData);
+    assert(textureWrapper.name.length() > 0);
+    
+    m_loadingTextures.push_back(textureWrapper);
+    
+    textureWrapper.isLoadingData = true;
+    m_textureDataLoadingThreads.push_back(std::thread([](TextureWrapper& tw, ITextureLoader* tl)
+    {
+        tw.gpuTextureDataWrapper = tl->loadTextureData(tw.name.c_str());
+    }, this));
+}
+
+void Renderer::destroyTexture(TextureWrapper& textureWrapper)
+{
+    if (textureWrapper.gpuTextureWrapper)
+    {
+        m_rendererHelper->destroyTexture(*textureWrapper.gpuTextureWrapper);
+        
+        delete textureWrapper.gpuTextureWrapper;
+        textureWrapper.gpuTextureWrapper = nullptr;
+    }
+    
+    if (textureWrapper.gpuTextureDataWrapper)
+    {
+        delete textureWrapper.gpuTextureDataWrapper;
+        textureWrapper.gpuTextureDataWrapper = nullptr;
+    }
+}
+
+void Renderer::handleAsyncTextureLoads()
+{
+    for (std::vector<TextureWrapper *>::iterator i = m_loadingTextures.begin(); i != m_loadingTextures.end(); )
+    {
+        if ((*i)->gpuTextureDataWrapper)
+        {
+            (*i)->gpuTextureWrapper = m_textureLoader->loadTexture((*i)->gpuTextureDataWrapper);
+            
+            delete (*i)->gpuTextureDataWrapper;
+            (*i)->gpuTextureDataWrapper = nullptr;
+            
+            (*i)->isLoadingData = false;
+            
+            i = m_loadingTextures.erase(i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    
+    if (m_loadingTextures.size() == 0)
+    {
+        cleanUpThreads();
+    }
+}
+
+void Renderer::cleanUpThreads()
+{
+    for (std::vector<std::thread>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); i++)
+    {
+        (*i).detach();
+    }
+    
+    m_textureDataLoadingThreads.clear();
+}

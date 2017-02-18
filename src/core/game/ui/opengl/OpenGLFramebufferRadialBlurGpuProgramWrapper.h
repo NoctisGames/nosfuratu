@@ -17,11 +17,11 @@ class OpenGLFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlu
 public:
     OpenGLFramebufferRadialBlurGpuProgramWrapper();
     
+    virtual ~OpenGLFramebufferRadialBlurGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
-    
-    virtual void cleanUp();
     
 private:
     FramebufferToScreenProgramStruct m_program;

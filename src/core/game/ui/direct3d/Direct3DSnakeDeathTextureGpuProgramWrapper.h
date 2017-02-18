@@ -9,28 +9,23 @@
 #ifndef __noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__
 #define __noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__
 
-#include "SinWaveTextureGpuProgramWrapper.h"
-#include "DeviceResources.h"
+#include "SnakeDeathTextureGpuProgramWrapper.h"
+
+class Direct3DProgram;
 
 class Direct3DSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper
 {
 public:
-	Direct3DSnakeDeathTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+	Direct3DSnakeDeathTextureGpuProgramWrapper();
+    
+    virtual ~Direct3DSnakeDeathTextureGpuProgramWrapper();
 
 	virtual void bind();
 
 	virtual void unbind();
 
-	virtual void cleanUp();
-
 private:
-	int m_iNumShadersLoaded;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+	Direct3DProgram* m_program;
 };
 
 #endif /* defined(__noctisgames__Direct3DSnakeDeathTextureGpuProgramWrapper__) */

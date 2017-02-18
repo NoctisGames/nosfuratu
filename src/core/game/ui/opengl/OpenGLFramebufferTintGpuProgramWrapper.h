@@ -17,11 +17,11 @@ class OpenGLFramebufferTintGpuProgramWrapper : public GpuProgramWrapper
 public:
     OpenGLFramebufferTintGpuProgramWrapper();
     
+    virtual ~OpenGLFramebufferTintGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
-    
-    virtual void cleanUp();
     
 private:
     FramebufferToScreenProgramStruct m_program;

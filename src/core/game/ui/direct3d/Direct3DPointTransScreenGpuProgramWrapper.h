@@ -10,30 +10,28 @@
 #define __noctisgames__Direct3DPointTransScreenGpuProgramWrapper__
 
 #include "PointTransitionGpuProgramWrapper.h"
-#include "DeviceResources.h"
+
+#include "pch.h"
+
+class Direct3DProgram;
 
 class Direct3DPointTransScreenGpuProgramWrapper : public PointTransitionGpuProgramWrapper
 {
 public:
-	Direct3DPointTransScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+	Direct3DPointTransScreenGpuProgramWrapper();
+    
+    virtual ~Direct3DPointTransScreenGpuProgramWrapper();
 
 	virtual void bind();
 
 	virtual void unbind();
 
-	virtual void cleanUp();
-
 private:
-	int m_iNumShadersLoaded;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+    Direct3DProgram* m_program;
+    
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_centerXConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_centerYConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	void createConstantBuffers();
 };

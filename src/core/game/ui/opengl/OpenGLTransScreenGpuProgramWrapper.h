@@ -17,11 +17,11 @@ class OpenGLTransScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 public:
     OpenGLTransScreenGpuProgramWrapper();
     
+    virtual ~OpenGLTransScreenGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
-    
-    virtual void cleanUp();
     
 private:
     TransitionProgramStruct m_program;

@@ -10,21 +10,21 @@
 #define __noctisgames__OpenGLShockwaveTextureGpuProgramWrapper__
 
 #include "ShockwaveTextureGpuProgramWrapper.h"
-#include "ShockwaveTextureProgram.h"
+#include "OpenGLShockwaveTextureProgram.h"
 
 class OpenGLShockwaveTextureGpuProgramWrapper : public ShockwaveTextureGpuProgramWrapper
 {
 public:
     OpenGLShockwaveTextureGpuProgramWrapper();
     
+    virtual ~OpenGLShockwaveTextureGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    ShockwaveTextureProgramStruct m_program;
+    OpenGLShockwaveTextureProgramStruct m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLShockwaveTextureGpuProgramWrapper__) */

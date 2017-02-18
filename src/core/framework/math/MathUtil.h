@@ -3,11 +3,11 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 7/28/16.
-//  Copyright © 2016 Noctis Games. All rights reserved.
+//  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef MathUtil_h
-#define MathUtil_h
+#ifndef __noctisgames__MathUtil__
+#define __noctisgames__MathUtil__
 
 #include <math.h>
 
@@ -16,4 +16,4 @@ inline float clamp(float x, float upper, float lower)
     return fminf(upper, fmaxf(x, lower));
 }
 
-#endif /* MathUtil_h */
+#endif /* defined(__noctisgames__MathUtil__) */

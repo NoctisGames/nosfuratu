@@ -10,21 +10,21 @@
 #define __noctisgames__OpenGLSnakeDeathTextureGpuProgramWrapper__
 
 #include "SnakeDeathTextureGpuProgramWrapper.h"
-#include "SnakeDeathTextureProgram.h"
+#include "OpenGLSnakeDeathTextureProgram.h"
 
 class OpenGLSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper
 {
 public:
     OpenGLSnakeDeathTextureGpuProgramWrapper();
     
+    virtual ~OpenGLSnakeDeathTextureGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    SnakeDeathTextureProgramStruct m_program;
+    OpenGLSnakeDeathTextureProgramStruct m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLSnakeDeathTextureGpuProgramWrapper__) */

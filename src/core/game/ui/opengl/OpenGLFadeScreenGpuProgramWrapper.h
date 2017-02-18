@@ -10,6 +10,7 @@
 #define __noctisgames__OpenGLFadeScreenGpuProgramWrapper__
 
 #include "TransitionGpuProgramWrapper.h"
+
 #include "TransitionProgram.h"
 
 class OpenGLFadeScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
@@ -17,11 +18,11 @@ class OpenGLFadeScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 public:
     OpenGLFadeScreenGpuProgramWrapper();
     
+    virtual ~OpenGLFadeScreenGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
-    
-    virtual void cleanUp();
     
 private:
     TransitionProgramStruct m_program;

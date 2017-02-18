@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "SuperpoweredSound.h"
@@ -48,11 +48,11 @@ m_isLooping(false)
     
     if (fileOffset > -1 && fileLength > -1)
     {
-        m_player->open(m_path.c_str(), fileOffset, fileLength);
+        m_player->open(m_path, fileOffset, fileLength);
     }
     else
     {
-        m_player->open(m_path.c_str());
+        m_player->open(m_path);
     }
 }
 
@@ -115,7 +115,7 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
         float **buffers = (float **)output;
         SuperpoweredDeInterleave(stereoBuffer, buffers[0], buffers[1], numberOfSamples); // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
-#elif __ANDROID__
+#elif defined __ANDROID__
         short int *realOutput = (short int *)output;
         SuperpoweredFloatToShortInt(stereoBuffer, realOutput, numberOfSamples);
 #endif

@@ -3,15 +3,13 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__SuperpoweredSound__
 #define __noctisgames__SuperpoweredSound__
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
-
-#include <string>
 
 class SuperpoweredSound
 {
@@ -35,7 +33,7 @@ public:
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
-    std::string m_path;
+    const char *m_path;
     float m_fVolume;
     int m_iRawResourceId;
     unsigned int m_iLastSamplerate;

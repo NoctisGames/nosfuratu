@@ -3,11 +3,12 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "macros.h"
 #include "Vector2D.h"
+
+#include "macros.h"
 
 #include <math.h>
 

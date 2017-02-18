@@ -10,21 +10,21 @@
 #define __noctisgames__OpenGLPointTransScreenGpuProgramWrapper__
 
 #include "PointTransitionGpuProgramWrapper.h"
-#include "PointTransitionProgram.h"
+#include "OpenGLPointTransitionProgram.h"
 
 class OpenGLPointTransScreenGpuProgramWrapper : public PointTransitionGpuProgramWrapper
 {
 public:
     OpenGLPointTransScreenGpuProgramWrapper();
     
+    virtual ~OpenGLPointTransScreenGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    PointTransitionProgramStruct m_program;
+    OpenGLPointTransitionProgramStruct m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLPointTransScreenGpuProgramWrapper__) */

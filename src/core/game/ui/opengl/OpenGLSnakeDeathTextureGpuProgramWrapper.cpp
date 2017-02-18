@@ -7,6 +7,7 @@
 //
 
 #include "OpenGLSnakeDeathTextureGpuProgramWrapper.h"
+
 #include "OpenGLManager.h"
 #include "macros.h"
 
@@ -17,22 +18,26 @@ extern "C"
 
 OpenGLSnakeDeathTextureGpuProgramWrapper::OpenGLSnakeDeathTextureGpuProgramWrapper()
 {
-    m_program = SnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
-    m_isLoaded = true;
+    m_program = OpenGLSnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
+}
+
+OpenGLSnakeDeathTextureGpuProgramWrapper::~OpenGLSnakeDeathTextureGpuProgramWrapper()
+{
+    glDeleteProgram(m_program.program);
 }
 
 void OpenGLSnakeDeathTextureGpuProgramWrapper::bind()
 {
-    OGLESManager->useNormalBlending();
+    OGLManager->useNormalBlending();
     
     glUseProgram(m_program.program);
     
-    glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLESManager->m_viewProjectionMatrix);
+    glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLManager->getViewProjectionMatrix());
     glUniform1i(m_program.u_texture_unit_location, 0);
     
-    glGenBuffers(1, &OGLESManager->sb_vbo_object);
-    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLESManager->m_textureVertices.size(), &OGLESManager->m_textureVertices[0], GL_STATIC_DRAW);
+    glGenBuffers(1, &OGLManager->getSbVboObject());
+    glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLManager->getTextureVertices().size(), &OGLManager->getTextureVertices()[0], GL_STATIC_DRAW);
     
     glVertexAttribPointer(m_program.a_position_location, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
     glVertexAttribPointer(m_program.a_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(3 * sizeof(GL_FLOAT)));
@@ -47,12 +52,7 @@ void OpenGLSnakeDeathTextureGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
+    glDeleteBuffers(1, &OGLManager->getSbVboObject());
     
     glUseProgram(0);
-}
-
-void OpenGLSnakeDeathTextureGpuProgramWrapper::cleanUp()
-{
-    glDeleteProgram(m_program.program);
 }

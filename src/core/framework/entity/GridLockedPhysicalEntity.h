@@ -3,41 +3,15 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/6/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__GridLockedPhysicalEntity__
 #define __noctisgames__GridLockedPhysicalEntity__
 
-#include "RTTI.h"
-
-#define GRID_MANAGER (GridManager::getInstance())
-#define GM_GRID_CELL_SIZE (GRID_MANAGER->getGridCellSize())
-
-class GridManager
-{
-public:
-    static GridManager* getInstance()
-    {
-        static GridManager *instance = new GridManager();
-        
-        return instance;
-    }
-    
-    void setGridCellSize(float gridCellSize) { m_fGridCellSize = gridCellSize; }
-    float getGridCellSize() { return m_fGridCellSize; }
-    
-private:
-    float m_fGridCellSize;
-    
-    // ctor, copy ctor, and assignment should be private in a Singleton
-    GridManager() : m_fGridCellSize(0) {}
-    GridManager(const GridManager&);
-    GridManager& operator=(const GridManager&);
-    ~GridManager();
-};
-
 #include "PhysicalEntity.h"
+
+#include "RTTI.h"
 
 class GridLockedPhysicalEntity : public PhysicalEntity
 {

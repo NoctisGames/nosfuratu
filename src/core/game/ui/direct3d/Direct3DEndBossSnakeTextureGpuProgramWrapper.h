@@ -10,27 +10,22 @@
 #define __noctisgames__Direct3DEndBossSnakeTextureGpuProgramWrapper__
 
 #include "EndBossSnakeTextureGpuProgramWrapper.h"
-#include "DeviceResources.h"
+
+class Direct3DProgram;
 
 class Direct3DEndBossSnakeTextureGpuProgramWrapper : public EndBossSnakeTextureGpuProgramWrapper
 {
 public:
-	Direct3DEndBossSnakeTextureGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
-
-	virtual void bind();
-
-	virtual void unbind();
-
-	virtual void cleanUp();
-
+    Direct3DEndBossSnakeTextureGpuProgramWrapper();
+    
+    virtual ~Direct3DEndBossSnakeTextureGpuProgramWrapper();
+    
+    virtual void bind();
+    
+    virtual void unbind();
+    
 private:
-	int m_iNumShadersLoaded;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
+    Direct3DProgram* m_program;
 };
 
 #endif /* defined(__noctisgames__Direct3DEndBossSnakeTextureGpuProgramWrapper__) */

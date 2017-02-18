@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/15/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__OpenGLLineBatcher__
@@ -16,9 +16,9 @@ class OpenGLLineBatcher : public LineBatcher
 public:
     OpenGLLineBatcher();
     
-    virtual void beginBatch();
+    virtual ~OpenGLLineBatcher() {}
     
-    virtual void endBatch();
+    virtual void beginBatch();
     
     virtual void endBatch(GpuProgramWrapper &gpuProgramWrapper);
     

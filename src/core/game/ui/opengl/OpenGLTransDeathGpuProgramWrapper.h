@@ -10,21 +10,21 @@
 #define __noctisgames__OpenGLTransDeathGpuProgramWrapper__
 
 #include "TransDeathGpuProgramWrapper.h"
-#include "TransDeathProgram.h"
+#include "OpenGLTransDeathProgram.h"
 
 class OpenGLTransDeathGpuProgramWrapper : public TransDeathGpuProgramWrapper
 {
 public:
     OpenGLTransDeathGpuProgramWrapper(bool isTransIn);
     
+    virtual ~OpenGLTransDeathGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    TransDeathProgramStruct m_program;
+    OpenGLTransDeathProgramStruct m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLTransDeathGpuProgramWrapper__) */

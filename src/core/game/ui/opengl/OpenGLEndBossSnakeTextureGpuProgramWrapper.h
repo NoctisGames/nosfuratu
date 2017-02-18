@@ -10,6 +10,7 @@
 #define __noctisgames__OpenGLEndBossSnakeTextureGpuProgramWrapper__
 
 #include "EndBossSnakeTextureGpuProgramWrapper.h"
+
 #include "TextureProgram.h"
 
 class OpenGLEndBossSnakeTextureGpuProgramWrapper : public EndBossSnakeTextureGpuProgramWrapper
@@ -17,11 +18,11 @@ class OpenGLEndBossSnakeTextureGpuProgramWrapper : public EndBossSnakeTextureGpu
 public:
     OpenGLEndBossSnakeTextureGpuProgramWrapper();
     
+    virtual ~OpenGLEndBossSnakeTextureGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
-    
-    virtual void cleanUp();
     
 private:
     TextureProgramStruct m_program;

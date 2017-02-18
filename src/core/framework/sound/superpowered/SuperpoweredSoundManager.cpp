@@ -3,10 +3,14 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "SuperpoweredSoundManager.h"
+
+#include "SuperpoweredSound.h"
+#include "SuperpoweredSoundCollection.h"
+#include "VectorUtil.h"
 
 #include <SuperpoweredSimple.h>
 
@@ -27,7 +31,7 @@ m_iSoundIndex(0)
         float* stereoBuffer;
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
         if (posix_memalign((void **)&stereoBuffer, 16, 4096 + 128) != 0) abort(); // Allocating memory, aligned to 16.
-#elif __ANDROID__
+#elif defined __ANDROID__
         stereoBuffer = (float *)memalign(16, (bufferSize + 16) * sizeof(float) * 2);
 #endif
         m_stereoBuffers.push_back(stereoBuffer);
@@ -37,7 +41,8 @@ m_iSoundIndex(0)
 SuperpoweredSoundManager::~SuperpoweredSoundManager()
 {
     delete m_music;
-    EntityUtils::cleanUpVectorOfPointers(m_sounds);
+    
+    VectorUtil::cleanUpVectorOfPointers(m_sounds);
     
     for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; i++)
     {

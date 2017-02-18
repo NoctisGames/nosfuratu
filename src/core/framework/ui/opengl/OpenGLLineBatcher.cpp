@@ -3,10 +3,11 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/15/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "OpenGLLineBatcher.h"
+
 #include "macros.h"
 #include "Line.h"
 #include "Vector2D.h"
@@ -20,13 +21,8 @@ OpenGLLineBatcher::OpenGLLineBatcher() : LineBatcher()
 
 void OpenGLLineBatcher::beginBatch()
 {
-    OGLESManager->m_colorVertices.clear();
+    OGLManager->getColorVertices().clear();
     m_iNumLines = 0;
-}
-
-void OpenGLLineBatcher::endBatch()
-{
-    endBatch(*OGLESManager->m_colorProgram);
 }
 
 void OpenGLLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
@@ -43,8 +39,8 @@ void OpenGLLineBatcher::endBatch(GpuProgramWrapper &gpuProgramWrapper)
 
 void OpenGLLineBatcher::renderLine(float originX, float originY, float endX, float endY, Color &c)
 {
-    OGLESManager->addVertexCoordinate(originX, originY, 0, c.red, c.green, c.blue, c.alpha);
-    OGLESManager->addVertexCoordinate(endX, endY, 0, c.red, c.green, c.blue, c.alpha);
+    OGLManager->addVertexCoordinate(originX, originY, 0, c.red, c.green, c.blue, c.alpha);
+    OGLManager->addVertexCoordinate(endX, endY, 0, c.red, c.green, c.blue, c.alpha);
     
     m_iNumLines++;
 }

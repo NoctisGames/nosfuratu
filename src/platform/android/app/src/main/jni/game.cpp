@@ -8,67 +8,63 @@
 
 #include <jni.h>
 #include <stdio.h>
-#include "macros.h"
-#include "AndroidOpenGLGameScreen.h"
-#include "GameScreenLevelEditor.h"
-#include "GameScreenWorldMap.h"
-#include "Game.h"
-#include "ScreenInputManager.h"
 
-AndroidOpenGLGameScreen *gameScreen;
+#include "macros.h"
+#include "MainScreen.h"
+#include "MainScreenWorldMap.h"
+#include "ScreenInputManager.h"
+#include "SoundManager.h"
+
+MainScreen *screen;
 
 /* These functions are called from Java. */
 extern "C"
 {
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jboolean isLowMemoryDevice);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1changed(JNIEnv * env, jclass cls, jint pixel_width, jint pixel_height);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1resume(JNIEnv* env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1pause(JNIEnv* env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_update(JNIEnv* env, jclass cls, jfloat delta_time);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_render(JNIEnv* env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1down(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1dragged(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1up(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
-
-JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1music_1id(JNIEnv* env, jclass cls);
-
-JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1sound_1id(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1requested_1action(JNIEnv* env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_clear_1requested_1action(JNIEnv* env, jclass cls);
-
-JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pressed(JNIEnv* env, jclass cls);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1level(JNIEnv* env, jclass cls, jstring level_json);
-
-JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *env, jclass cls, jstring json_file_path);
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls);
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jboolean isLowMemoryDevice);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1changed(JNIEnv * env, jclass cls, jint pixel_width, jint pixel_height);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1resume(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1pause(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_update(JNIEnv* env, jclass cls, jfloat delta_time);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_render(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1down(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1dragged(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1up(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y);
+    
+    JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1music_1id(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1sound_1id(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1requested_1action(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_clear_1requested_1action(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pressed(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jboolean isLowMemoryDevice)
@@ -76,7 +72,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jcl
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen = new AndroidOpenGLGameScreen(isLowMemoryDevice);
+    screen = nullptr;
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls)
@@ -84,7 +80,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->onSurfaceCreated();
+    screen = new MainScreen();
+    screen->createDeviceDependentResources();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1changed(JNIEnv * env, jclass cls, jint pixel_width, jint pixel_height)
@@ -92,7 +89,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1changed(
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->onSurfaceChanged(pixel_width, pixel_height);
+    if (!screen)
+    {
+        return;
+    }
+    
+    screen->createWindowSizeDependentResources(pixel_width, pixel_height, pixel_width, pixel_height);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1resume(JNIEnv* env, jclass cls)
@@ -100,7 +102,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1resume(JNIEnv* en
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->onResume();
+    if (!screen)
+    {
+        return;
+    }
+    
+    screen->onResume();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1pause(JNIEnv* env, jclass cls)
@@ -108,7 +115,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1pause(JNIEnv* env
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->onPause();
+    if (!screen)
+    {
+        return;
+    }
+    
+    screen->onPause();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_update(JNIEnv* env, jclass cls, jfloat delta_time)
@@ -116,7 +128,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_update(JNIEnv* env, j
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->update(delta_time);
+    if (!screen)
+    {
+        return;
+    }
+    
+    screen->update(delta_time);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_render(JNIEnv* env, jclass cls)
@@ -124,7 +141,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_render(JNIEnv* env, j
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->render();
+    if (!screen)
+    {
+        return;
+    }
+    
+    screen->render();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1touch_1down(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y)
@@ -155,8 +177,8 @@ JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1music_
 {
 	UNUSED(env);
 	UNUSED(cls);
-
-	return gameScreen->getCurrentMusicId();
+    
+    return SOUND_MANAGER->getCurrentMusicId();
 }
 
 JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1sound_1id(JNIEnv* env, jclass cls)
@@ -164,7 +186,7 @@ JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1sound_
 	UNUSED(env);
 	UNUSED(cls);
 
-	return gameScreen->getCurrentSoundId();
+	return SOUND_MANAGER->getCurrentSoundId();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1requested_1action(JNIEnv* env, jclass cls)
@@ -172,7 +194,12 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1requested_1action
 	UNUSED(env);
 	UNUSED(cls);
 
-	return gameScreen->getRequestedAction();
+    if (!screen)
+    {
+        return;
+    }
+    
+	return screen->getRequestedAction();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_clear_1requested_1action(JNIEnv* env, jclass cls)
@@ -180,7 +207,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_clear_1requested_1act
 	UNUSED(env);
 	UNUSED(cls);
 
-	gameScreen->clearRequestedAction();
+    if (!screen)
+    {
+        return;
+    }
+    
+	screen->clearRequestedAction();
 }
 
 JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pressed(JNIEnv* env, jclass cls)
@@ -188,37 +220,12 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pre
 	UNUSED(env);
 	UNUSED(cls);
 
-	return gameScreen->handleOnBackPressed();
-}
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1level(JNIEnv* env, jclass cls, jstring level_json)
-{
-	UNUSED(cls);
-
-	const char *nativeLevelJson = (env)->GetStringUTFChars(level_json, nullptr);
-
-	GameScreenLevelEditor::getInstance()->load(nativeLevelJson, gameScreen);
-}
-
-JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_save_1level(JNIEnv *env, jclass cls, jstring json_file_path)
-{
-	UNUSED(env);
-	UNUSED(cls);
-
-	const char *level_json = GameScreenLevelEditor::getInstance()->save();
-	const char *jsonFilePath = (env)->GetStringUTFChars(json_file_path, nullptr);
-	if (level_json)
-	{
-		FILE *f = fopen(jsonFilePath, "w+, ccs=UTF-8");
-		int sum = fprintf(f, "%s", level_json);
-		fclose(f);
-
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (!screen)
+    {
+        return;
+    }
+    
+	return screen->handleOnBackPressed();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json)
@@ -235,54 +242,89 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getScore();
+	return screen->getScore();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getOnlineScore();
+	return screen->getOnlineScore();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getLevelStatsFlag();
+	return screen->getLevelStatsFlag();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getNumGoldenCarrots();
+	return screen->getNumGoldenCarrots();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getJonAbilityFlag();
+	return screen->getJonAbilityFlag();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getLevelStatsFlagForUnlockedLevel();
+	return screen->getLevelStatsFlagForUnlockedLevel();
 }
 
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!screen)
+    {
+        return;
+    }
 
-	return gameScreen->getNumGoldenCarrotsAfterUnlockingLevel();
+	return screen->getNumGoldenCarrotsAfterUnlockingLevel();
 }

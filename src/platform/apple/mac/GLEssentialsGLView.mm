@@ -8,10 +8,9 @@
 
 #import "GLEssentialsGLView.h"
 
-#import "GameScreenController.h"
+#import "ScreenController.h"
 
 // C++
-#include "MacOpenGLGameScreen.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 
@@ -22,27 +21,25 @@
 
 @interface GLEssentialsGLView ()
 {
-    MacOpenGLGameScreen *_gameScreen;
-    GameScreenController *_gameScreenController;
+    MainScreen *_screen;
+    ScreenController *_screenController;
     
     double m_fLastTime;
-    float m_fFPSStateTime;
-    int m_iFrames;
-    int m_iFPS;
 }
 @end
 
 @implementation GLEssentialsGLView
 
-
-- (CVReturn) getFrameForTime:(const CVTimeStamp*)outputTime
+- (CVReturn)getFrameForTime:(const CVTimeStamp *)outputTime
 {
     // There is no autorelease pool when this method is called
     // because it will be called from a background thread.
     // It's important to create one or app can leak objects.
-    @autoreleasepool {
+    @autoreleasepool
+    {
         [self drawView];
     }
+    
     return kCVReturnSuccess;
 }
 
@@ -54,16 +51,13 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
                                       CVOptionFlags* flagsOut,
                                       void* displayLinkContext)
 {
-    CVReturn result = [(__bridge GLEssentialsGLView*)displayLinkContext getFrameForTime:outputTime];
+    CVReturn result = [(__bridge GLEssentialsGLView *)displayLinkContext getFrameForTime:outputTime];
     return result;
 }
 
-- (void) awakeFromNib
+- (void)awakeFromNib
 {
     m_fLastTime = CFAbsoluteTimeGetCurrent();
-    m_fFPSStateTime = 0;
-    m_iFrames = 0;
-    m_iFPS = 0;
     
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
     
@@ -109,7 +103,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 #endif // SUPPORT_RETINA_RESOLUTION
 }
 
-- (void) prepareOpenGL
+- (void)prepareOpenGL
 {
     [super prepareOpenGL];
     
@@ -138,18 +132,16 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
                                                object:[self window]];
 }
 
-- (void) windowWillClose:(NSNotification*)notification
+- (void)windowWillClose:(NSNotification *)notification
 {
     // Stop the display link when the window is closing because default
     // OpenGL render buffers will be destroyed.  If display link continues to
     // fire without renderbuffers, OpenGL draw calls will set errors.
     
-    _gameScreen->cleanUp();
-    
     CVDisplayLinkStop(displayLink);
 }
 
-- (void) initGL
+- (void)initGL
 {
     // The reshape function may have changed the thread to which our OpenGL
     // context is attached before prepareOpenGL and initGL are called.  So call
@@ -167,28 +159,13 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     // TODO
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
-    _gameScreen = new MacOpenGLGameScreen();
+    _screen = new MainScreen();
     
-    _gameScreenController = [[GameScreenController alloc] initWithGameScreen:_gameScreen getLevelFilePath:^NSString *(NSString *levelFileName)
-    {
-        NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
-        filePath = [filePath stringByAppendingPathComponent:levelFileName];
-        return filePath;
-    } displayMessageBlock:^(NSString *message)
-    {
-        NSAlert* alert = [NSAlert alertWithMessageText:message
-                                         defaultButton:nil
-                                       alternateButton:nil
-                                           otherButton:nil
-                             informativeTextWithFormat:@""];
-        
-        [alert runModal];
-    } andHandleInterstitialAd:^
-    {
-        // Empty
-    }];
+    _screen->createDeviceDependentResources();
     
-    _gameScreen->onResume();
+    _screenController = [[ScreenController alloc] initWithScreen:_screen];
+    
+    _screen->onResume();
 }
 
 - (void)reshape
@@ -232,7 +209,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 #endif // !SUPPORT_RETINA_RESOLUTION
     
     // Set the new dimensions in our renderer
-    _gameScreen->onResize(viewRectPixels.size.width, viewRectPixels.size.height);
+    CGFloat width = viewRectPixels.size.width;
+    CGFloat height = viewRectPixels.size.height;
+    _screen->createWindowSizeDependentResources(width, height, width, height);
     
     CGLUnlockContext([[self openGLContext] CGLContextObj]);
 }
@@ -251,7 +230,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     [super renewGState];
 }
 
-- (void) drawRect: (NSRect) theRect
+- (void)drawRect:(NSRect)theRect
 {
     // Called during resize operations
     
@@ -259,7 +238,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     [self drawView];
 }
 
-- (void) drawView
+- (void)drawView
 {
     [[self openGLContext] makeCurrentContext];
     
@@ -274,14 +253,14 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     double deltaTime = time - m_fLastTime;
     m_fLastTime = time;
     
-    [_gameScreenController update:deltaTime];
-    [_gameScreenController present];
+    [_screenController update:deltaTime];
+    [_screenController present];
     
     CGLFlushDrawable([[self openGLContext] CGLContextObj]);
     CGLUnlockContext([[self openGLContext] CGLContextObj]);
 }
 
-- (void) dealloc
+- (void)dealloc
 {
     // Stop the display link BEFORE releasing anything in the view
     // otherwise the display link thread may call into the view and crash
@@ -289,6 +268,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     CVDisplayLinkStop(displayLink);
     
     CVDisplayLinkRelease(displayLink);
+    
+    delete _screen;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
@@ -311,111 +292,15 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)keyDown:(NSEvent *)event
 {
-    if ([event modifierFlags] & NSNumericPadKeyMask)
-    {
-        // arrow keys have this mask
-        NSString *theArrow = [event charactersIgnoringModifiers];
-        
-        unichar keyChar = 0;
-        
-        if ([theArrow length] == 0)
-        {
-            return; // reject dead keys
-        }
-        
-        if ([theArrow length] == 1)
-        {
-            keyChar = [theArrow characterAtIndex:0];
-            
-            if (keyChar == NSRightArrowFunctionKey)
-            {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT);
-                
-                [[self window] invalidateCursorRectsForView:self];
-                
-                return;
-            }
-            
-            if (keyChar == NSUpArrowFunctionKey)
-            {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP);
-                
-                [[self window] invalidateCursorRectsForView:self];
-                
-                return;
-            }
-            
-            if (keyChar == NSLeftArrowFunctionKey)
-            {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT);
-                
-                [[self window] invalidateCursorRectsForView:self];
-                
-                return;
-            }
-            
-            if (keyChar == NSDownArrowFunctionKey)
-            {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
-                
-                [[self window] invalidateCursorRectsForView:self];
-                
-                return;
-            }
-        }
-    }
-    else
-    {
-        NSString *characters = [event characters];
-        
-        if ([characters length] == 0)
-        {
-            return; // reject dead keys
-        }
-        
-        unichar keyChar = 0;
-        
-        if ([characters length] == 1)
-        {
-            keyChar = [characters characterAtIndex:0];
-            
-            switch (keyChar)
-            {
-                case 'W':
-                case 'w':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W);
-                    return;
-                case 'A':
-                case 'a':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A);
-                    return;
-                case 'S':
-                case 's':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S);
-                    return;
-                case 'D':
-                case 'd':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D);
-                    return;
-                case NSEnterCharacter:
-                case NSCarriageReturnCharacter:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER);
-                    return;
-                case 32:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE);
-                    return;
-                case NSBackspaceCharacter:
-                case NSDeleteCharacter:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK);
-                    return;
-                default:
-                    break;
-            }
-        }
-    }
+    [self handleKeyEvent:event isUp:false];
 }
 
 - (void)keyUp:(NSEvent *)event
+{
+    [self handleKeyEvent:event isUp:true];
+}
+
+- (void)handleKeyEvent:(NSEvent *)event isUp:(bool)isUp
 {
     if ([event modifierFlags] & NSNumericPadKeyMask)
     {
@@ -435,7 +320,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSRightArrowFunctionKey)
             {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT, true);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT, isUp);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -444,7 +329,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSUpArrowFunctionKey)
             {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP, true);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP, isUp);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -453,7 +338,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSLeftArrowFunctionKey)
             {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT, true);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT, isUp);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -462,7 +347,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             
             if (keyChar == NSDownArrowFunctionKey)
             {
-                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
+                KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, isUp);
                 
                 [[self window] invalidateCursorRectsForView:self];
                 
@@ -489,30 +374,30 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             {
                 case 'W':
                 case 'w':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W, isUp);
                     return;
                 case 'A':
                 case 'a':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A, isUp);
                     return;
                 case 'S':
                 case 's':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S, isUp);
                     return;
                 case 'D':
                 case 'd':
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D, isUp);
                     return;
                 case NSEnterCharacter:
                 case NSCarriageReturnCharacter:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER, isUp);
                     return;
                 case 32:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE, isUp);
                     return;
                 case NSBackspaceCharacter:
                 case NSDeleteCharacter:
-                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+                    KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, isUp);
                     return;
                 default:
                     break;

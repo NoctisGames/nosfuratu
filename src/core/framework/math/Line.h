@@ -3,15 +3,13 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__Line__
 #define __noctisgames__Line__
 
-#include <memory>
-
-class Vector2D;
+#include "Vector2D.h"
 
 class Line
 {
@@ -23,8 +21,8 @@ public:
     Vector2D& getEnd();
     
 private:
-    std::unique_ptr<Vector2D> m_origin;
-    std::unique_ptr<Vector2D> m_end;
+    Vector2D m_origin;
+    Vector2D m_end;
 };
 
 #endif /* defined(__noctisgames__Line__) */

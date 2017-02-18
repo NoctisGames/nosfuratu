@@ -3,12 +3,13 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "macros.h"
 #include "OverlapTester.h"
-#include "Rectangle.h"
+
+#include "macros.h"
+#include "NGRect.h"
 #include "Circle.h"
 #include "Vector2D.h"
 #include "Triangle.h"
@@ -18,17 +19,17 @@
 #include <stdlib.h>
 #include <math.h>
 
-bool OverlapTester::doCirclesOverlap(const Circle &c1, const Circle &c2)
+bool OverlapTester::doCirclesOverlap(Circle &c1, Circle &c2)
 {
     Vector2D c1Center = c1.getCenter();
     Vector2D c2Center = c2.getCenter();
     float distance = c1Center.distSquared(c2Center);
-    float radiusSum = c1.m_fRadius + c2.m_fRadius;
+    float radiusSum = c1.getRadius() + c2.getRadius();
     
     return distance <= radiusSum * radiusSum;
 }
 
-bool OverlapTester::doRectanglesOverlap(Rectangle &r1, Rectangle &r2)
+bool OverlapTester::doNGRectsOverlap(NGRect &r1, NGRect &r2)
 {
     if (r1.getAngle() > 0)
     {
@@ -66,7 +67,7 @@ bool OverlapTester::doRectanglesOverlap(Rectangle &r1, Rectangle &r2)
         x4 += x;
         y4 += y;
         
-        return isPointInRectangle(Vector2D(x1, y1), r2) || isPointInRectangle(Vector2D(x2, y2), r2) || isPointInRectangle(Vector2D(x3, y3), r2) || isPointInRectangle(Vector2D(x4, y4), r2);
+        return isPointInNGRect(Vector2D(x1, y1), r2) || isPointInNGRect(Vector2D(x2, y2), r2) || isPointInNGRect(Vector2D(x3, y3), r2) || isPointInNGRect(Vector2D(x4, y4), r2);
     }
     else
     {
@@ -74,7 +75,7 @@ bool OverlapTester::doRectanglesOverlap(Rectangle &r1, Rectangle &r2)
     }
 }
 
-bool OverlapTester::overlapCircleRectangle(const Circle &c, Rectangle &r)
+bool OverlapTester::overlapCircleNGRect(Circle &c, NGRect &r)
 {
     float closestX = c.getCenter().getX();
     float closestY = c.getCenter().getY();
@@ -97,22 +98,22 @@ bool OverlapTester::overlapCircleRectangle(const Circle &c, Rectangle &r)
         closestY = r.getTop();
     }
     
-    return c.getCenter().distSquared(closestX, closestY) < c.m_fRadius * c.m_fRadius;
+    return c.getCenter().distSquared(closestX, closestY) < c.getRadius() * c.getRadius();
 }
 
-bool OverlapTester::doesRectangleOverlapTriangle(Rectangle &r, Triangle &t)
+bool OverlapTester::doesNGRectOverlapTriangle(NGRect &r, Triangle &t)
 {
-    return doLineAndRectangleOverlap(t.getSideA(), r) || doLineAndRectangleOverlap(t.getSideB(), r) || doLineAndRectangleOverlap(t.getSideC(), r);
+    return doLineAndNGRectOverlap(t.getSideA(), r) || doLineAndNGRectOverlap(t.getSideB(), r) || doLineAndNGRectOverlap(t.getSideC(), r);
 }
 
-bool OverlapTester::isPointInRectangle(const Vector2D &p, Rectangle &r)
+bool OverlapTester::isPointInNGRect(Vector2D p, NGRect &r)
 {
     return r.getLeft() <= p.getX() && r.getLeft() + r.getWidth() >= p.getX() && r.getBottom() <= p.getY() && r.getTop() >= p.getY();
 }
 
-bool OverlapTester::isPointInCircle(const Vector2D &p, const Circle &c)
+bool OverlapTester::isPointInCircle(Vector2D &p, Circle &c)
 {
-    return c.getCenter().distSquared(p) < c.m_fRadius * c.m_fRadius;
+    return c.getCenter().distSquared(p) < c.getRadius() * c.getRadius();
 }
 
 bool OverlapTester::isPointInTriangle(Vector2D &p, Triangle &tr)
@@ -144,7 +145,7 @@ bool OverlapTester::isPointInTriangle(Vector2D &p, Triangle &tr)
     return a < (aSum + 0.1f) && a > (aSum - 0.1f);
 }
 
-bool OverlapTester::doLineAndRectangleOverlap(Line &l, Rectangle &r)
+bool OverlapTester::doLineAndNGRectOverlap(Line &l, NGRect &r)
 {
     if (doLinesIntersect(l.getOrigin().getX(), l.getOrigin().getY(), l.getEnd().getX(), l.getEnd().getY(), r.getLeft(), r.getBottom() + r.getHeight() / 2, r.getLeft() + r.getWidth(), r.getBottom() + r.getHeight() / 2))
     {

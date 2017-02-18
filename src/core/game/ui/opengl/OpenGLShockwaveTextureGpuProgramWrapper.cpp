@@ -7,6 +7,7 @@
 //
 
 #include "OpenGLShockwaveTextureGpuProgramWrapper.h"
+
 #include "OpenGLManager.h"
 #include "macros.h"
 
@@ -17,26 +18,30 @@ extern "C"
 
 OpenGLShockwaveTextureGpuProgramWrapper::OpenGLShockwaveTextureGpuProgramWrapper()
 {
-    m_program = ShockwaveTextureProgram::build(build_program_from_assets("pp_shockwave_texture_shader.vsh", "pp_shockwave_texture_shader.fsh"));
-    m_isLoaded = true;
+    m_program = OpenGLShockwaveTextureProgram::build(build_program_from_assets("pp_shockwave_texture_shader.vsh", "pp_shockwave_texture_shader.fsh"));
+}
+
+OpenGLShockwaveTextureGpuProgramWrapper::~OpenGLShockwaveTextureGpuProgramWrapper()
+{
+    glDeleteProgram(m_program.program);
 }
 
 void OpenGLShockwaveTextureGpuProgramWrapper::bind()
 {
-    OGLESManager->useScreenBlending();
+    OGLManager->useScreenBlending();
     
     glUseProgram(m_program.program);
     
-    glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLESManager->m_viewProjectionMatrix);
+    glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLManager->getViewProjectionMatrix());
     glUniform1i(m_program.u_texture_unit_location, 0);
-    glUniform1f(m_program.u_center_x_unit_location, m_center->getX());
-    glUniform1f(m_program.u_center_y_unit_location, m_center->getY());
+    glUniform1f(m_program.u_center_x_unit_location, m_center.getX());
+    glUniform1f(m_program.u_center_y_unit_location, m_center.getY());
     glUniform1f(m_program.u_time_elapsed_unit_location, m_fTimeElapsed);
     glUniform1i(m_program.u_is_transforming, m_isTransforming ? 1 : 0);
     
-    glGenBuffers(1, &OGLESManager->sb_vbo_object);
-    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLESManager->m_textureVertices.size(), &OGLESManager->m_textureVertices[0], GL_STATIC_DRAW);
+    glGenBuffers(1, &OGLManager->getSbVboObject());
+    glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLManager->getTextureVertices().size(), &OGLManager->getTextureVertices()[0], GL_STATIC_DRAW);
     
     glVertexAttribPointer(m_program.a_position_location, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
     glVertexAttribPointer(m_program.a_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(3 * sizeof(GL_FLOAT)));
@@ -51,12 +56,7 @@ void OpenGLShockwaveTextureGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
+    glDeleteBuffers(1, &OGLManager->getSbVboObject());
     
     glUseProgram(0);
-}
-
-void OpenGLShockwaveTextureGpuProgramWrapper::cleanUp()
-{
-    glDeleteProgram(m_program.program);
 }

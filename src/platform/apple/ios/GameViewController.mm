@@ -9,18 +9,18 @@
 #import "GameViewController.h"
 
 #import "UIView+Toast.h"
-#import "GameScreenController.h"
+#import "MainScreenController.h"
 
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
 // C++
-#include "IOSOpenGLGameScreen.h"
+#include "IOSOpenGLMainScreen.h"
 #include "ScreenInputManager.h"
 
 @interface GameViewController () <GADInterstitialDelegate>
 {
-    IOSOpenGLGameScreen *gameScreen;
-    GameScreenController *_gameScreenController;
+    IOSOpenGLMainScreen *gameScreen;
+    MainScreenController *_gameScreenController;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -69,9 +69,9 @@
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
     
-    gameScreen = new IOSOpenGLGameScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
+    gameScreen = new IOSOpenGLMainScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
     
-    _gameScreenController = [[GameScreenController alloc] initWithGameScreen:gameScreen getLevelFilePath:^NSString *(NSString *levelFileName)
+    _gameScreenController = [[MainScreenController alloc] initWithMainScreen:gameScreen getLevelFilePath:^NSString *(NSString *levelFileName)
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];

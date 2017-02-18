@@ -7,8 +7,10 @@
 //
 
 #include "OpenGLFadeScreenGpuProgramWrapper.h"
+
 #include "OpenGLManager.h"
 #include "macros.h"
+#include "GpuTextureWrapper.h"
 
 extern "C"
 {
@@ -18,12 +20,16 @@ extern "C"
 OpenGLFadeScreenGpuProgramWrapper::OpenGLFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper()
 {
     m_program = TransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "fade_screen_shader.fsh"));
-    m_isLoaded = true;
+}
+
+OpenGLFadeScreenGpuProgramWrapper::~OpenGLFadeScreenGpuProgramWrapper()
+{
+    glDeleteProgram(m_program.program);
 }
 
 void OpenGLFadeScreenGpuProgramWrapper::bind()
 {
-    OGLESManager->useScreenBlending();
+    OGLManager->useScreenBlending();
     
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_to->texture);
@@ -34,9 +40,9 @@ void OpenGLFadeScreenGpuProgramWrapper::bind()
     glUniform1i(m_program.u_to_location, 1);
     glUniform1f(m_program.u_progress_location, m_fProgress);
     
-    glGenBuffers(1, &OGLESManager->sb_vbo_object);
-    glBindBuffer(GL_ARRAY_BUFFER, OGLESManager->sb_vbo_object);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLESManager->m_textureVertices.size(), &OGLESManager->m_textureVertices[0], GL_STATIC_DRAW);
+    glGenBuffers(1, &OGLManager->getSbVboObject());
+    glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLManager->getTextureVertices().size(), &OGLManager->getTextureVertices()[0], GL_STATIC_DRAW);
     
     glVertexAttribPointer(m_program.a_position_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
     
@@ -50,12 +56,7 @@ void OpenGLFadeScreenGpuProgramWrapper::unbind()
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    glDeleteBuffers(1, &OGLESManager->sb_vbo_object);
+    glDeleteBuffers(1, &OGLManager->getSbVboObject());
     
     glUseProgram(0);
-}
-
-void OpenGLFadeScreenGpuProgramWrapper::cleanUp()
-{
-    glDeleteProgram(m_program.program);
 }

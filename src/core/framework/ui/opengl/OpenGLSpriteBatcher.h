@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__OpenGLSpriteBatcher__
@@ -18,9 +18,7 @@ public:
     
     virtual void beginBatch();
     
-    virtual void endBatch(GpuTextureWrapper &textureWrapper);
-    
-    virtual void endBatch(GpuTextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper);
+    virtual void endBatch(GpuTextureWrapper textureWrapper, GpuProgramWrapper &gpuProgramWrapper);
     
     virtual void drawSprite(float x, float y, float width, float height, float angle, TextureRegion tr);
     

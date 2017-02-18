@@ -3,20 +3,20 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef Platform_File_Utils_H
-#define Platform_File_Utils_H
+#ifndef __noctisgames__platform_file_utils__
+#define __noctisgames__platform_file_utils__
 
 typedef struct {
-	const long data_length;
-	const void *data;
-	const void *file_handle;
+    const long data_length;
+    const void *data;
+    const void *file_handle;
 } FileData;
 
 FileData get_file_data(const char* path);
 
 void release_file_data(const FileData* file_data);
 
-#endif /* Platform_File_Utils_H */
+#endif /* defined(__noctisgames__platform_file_utils__) */

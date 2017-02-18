@@ -3,11 +3,11 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/29/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef Shader_H
-#define Shader_H
+#ifndef __noctisgames__shader__
+#define __noctisgames__shader__
 
 #include "platform_gl.h"
 
@@ -20,4 +20,4 @@ GLuint build_program(const GLchar * vertex_shader_source, const GLint vertex_sha
 /* Should be called just before using a program to draw, if validation is needed. */
 GLint validate_program(const GLuint program);
 
-#endif /* Shader_H */
+#endif /* defined(__noctisgames__shader__) */

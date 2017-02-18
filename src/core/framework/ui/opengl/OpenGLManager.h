@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 11/19/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__OpenGLManager__
@@ -13,7 +13,7 @@
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
 
-#define OGLESManager (OpenGLManager::getInstance())
+#define OGLManager (OpenGLManager::getInstance())
 
 extern "C"
 {
@@ -29,31 +29,17 @@ class GpuProgramWrapper;
 class OpenGLManager
 {
 public:
+    static void create();
+    
+    static void destroy();
+    
     static OpenGLManager * getInstance();
     
-    std::vector<GLfloat> m_textureVertices;
-    std::vector<GLfloat> m_colorVertices;
+    void createDeviceDependentResources(int maxBatchSize);
     
-    std::vector<GLshort> m_indices;
+    void createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers);
     
-    std::unique_ptr<GpuProgramWrapper> m_textureProgram;
-    std::unique_ptr<GpuProgramWrapper> m_colorProgram;
-	std::unique_ptr<GpuProgramWrapper> m_fbToScreenProgram;
-    
-    GLuint sb_vbo_object; // For Sprite Batcher
-    GLuint gb_vbo_object; // For Geometry Batcher
-    
-    std::vector<GLuint> m_fbos;
-    std::vector<GLuint> m_fbo_textures;
-    
-    GLint m_iScreenFBO;
-    GLint m_iMaxTextureSize;
-    
-    mat4x4 m_viewProjectionMatrix;
-    
-    void init(int width, int height, int maxBatchSize, int numFramebuffers = 1);
-    
-    void cleanUp();
+    void releaseDeviceDependentResources();
     
     void createMatrix(float left, float right, float bottom, float top);
     
@@ -64,18 +50,50 @@ public:
     void useNormalBlending();
     void useScreenBlending();
     
-    bool isLoaded();
+    std::vector<GLshort>& getIndices();
+    std::vector<GLuint>& getFbos();
+    std::vector<GLuint>& getFboTextures();
+    std::vector<GLfloat>& getTextureVertices();
+    std::vector<GLfloat>& getColorVertices();
+    GLuint& getSbVboObject(); // For Sprite Batcher
+    GLuint& getGbVboObject(); // For Geometry Batcher
+    GLint& getScreenFBO();
+    GLint& getMaxTextureSize();
+    mat4x4& getViewProjectionMatrix();
     
 private:
-    void buildShaderPrograms();
+    static OpenGLManager* s_pInstance;
+    
+    std::vector<GLshort> m_indices;
+    
+    std::vector<GLuint> m_fbos;
+    std::vector<GLuint> m_fbo_textures;
+    
+    std::vector<GLfloat> m_textureVertices;
+    std::vector<GLfloat> m_colorVertices;
+    
+    GLuint sb_vbo_object; // For Sprite Batcher
+    GLuint gb_vbo_object; // For Geometry Batcher
+    
+    GLint m_iScreenFBO;
+    GLint m_iMaxTextureSize;
+    
+    mat4x4 m_viewProjectionMatrix;
+    
+    int m_iScreenWidth;
+    int m_iScreenHeight;
+    int m_iNumFramebuffers;
+    
     void generateIndices(int maxBatchSize);
-    void createFramebufferObject(int width, int height);
+    void createFramebufferObjects();
+    void createFramebufferObject();
+    void releaseFramebuffers();
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     OpenGLManager();
+    ~OpenGLManager();
     OpenGLManager(const OpenGLManager&);
     OpenGLManager& operator=(const OpenGLManager&);
-    ~OpenGLManager();
 };
 
 #endif /* defined(__noctisgames__OpenGLManager__) */
