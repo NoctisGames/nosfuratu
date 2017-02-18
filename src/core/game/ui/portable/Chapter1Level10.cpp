@@ -184,7 +184,7 @@ void Chapter1Level10::update(MainScreen* gs)
             m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
             m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
             
-            if (MAIN_ASSETS->isMusicEnabled())
+            if (SOUND_MANAGER->isMusicEnabled())
             {
                 SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
                 SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_MID_BOSS_LOOP);

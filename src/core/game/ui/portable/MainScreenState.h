@@ -25,8 +25,6 @@ public:
     
     virtual void exit(MainScreen* gs) = 0;
     
-    virtual void initRenderer(MainScreen* gs) = 0;
-    
     MainScreenState() {}
     
 private:

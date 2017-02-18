@@ -31,9 +31,9 @@ OpeningCutscene * OpeningCutscene::getInstance()
 
 void OpeningCutscene::enter(MainScreen* gs)
 {
-    gs->m_stateMachine->setPreviousState(Title::getInstance());
+    gs->m_stateMachine.setPreviousState(Title::getInstance());
     
-    initRenderer(gs);
+    gs->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
     
     if (m_needsReset)
     {
@@ -45,22 +45,17 @@ void OpeningCutscene::enter(MainScreen* gs)
     }
 }
 
-void OpeningCutscene::initRenderer(MainScreen* gs)
-{
-    gs->m_renderer->init(RENDERER_TYPE_WORLD_1_CUTSCENE);
-}
-
 void OpeningCutscene::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderCutscene(m_cutscenePanels);
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -71,7 +66,7 @@ void OpeningCutscene::execute(MainScreen* gs)
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine->changeState(OpeningCutsceneToWorldMap::getInstance());
+            gs->m_stateMachine.changeState(OpeningCutsceneToWorldMap::getInstance());
             return;
         }
         

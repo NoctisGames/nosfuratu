@@ -10,6 +10,7 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
+#include "Vector2D.h"
 #include "GpuTextureWrapper.h"
 
 extern "C"
@@ -37,8 +38,8 @@ void OpenGLPointTransScreenGpuProgramWrapper::bind()
     glUseProgram(m_program.program);
     
     glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLManager->getViewProjectionMatrix());
-    glUniform1f(m_program.u_center_x_unit_location, m_center.getX());
-    glUniform1f(m_program.u_center_y_unit_location, m_center.getY());
+    glUniform1f(m_program.u_center_x_unit_location, m_center->getX());
+    glUniform1f(m_program.u_center_y_unit_location, m_center->getY());
     glUniform1i(m_program.u_from_location, 0);
     glUniform1i(m_program.u_to_location, 1);
     glUniform1f(m_program.u_progress_location, m_fProgress);

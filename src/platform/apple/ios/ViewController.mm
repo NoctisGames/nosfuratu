@@ -1,26 +1,26 @@
 //
-//  GameViewController.m
+//  ViewController.m
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 9/5/14.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#import "GameViewController.h"
+#import "ViewController.h"
 
 #import "UIView+Toast.h"
-#import "MainScreenController.h"
+#import "ScreenController.h"
 
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
 // C++
-#include "IOSOpenGLMainScreen.h"
+#include "MainScreen.h"
 #include "ScreenInputManager.h"
+#include "MainAssets.h"
 
-@interface GameViewController () <GADInterstitialDelegate>
+@interface ViewController () <GADInterstitialDelegate>
 {
-    IOSOpenGLMainScreen *gameScreen;
-    MainScreenController *_gameScreenController;
+    ScreenController *_screenController;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation GameViewController
+@implementation ViewController
 
 - (void)viewDidLoad
 {
@@ -69,9 +69,14 @@
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
     
-    gameScreen = new IOSOpenGLMainScreen(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height, isLowMemoryDevice);
+    MAIN_ASSETS->setUsingDesktopTextureSet(false);
+    MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
     
-    _gameScreenController = [[MainScreenController alloc] initWithMainScreen:gameScreen getLevelFilePath:^NSString *(NSString *levelFileName)
+    MainScreen *screen = new MainScreen();
+    screen->createDeviceDependentResources();
+    screen->createWindowSizeDependentResources(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+    
+    _screenController = [[ScreenController alloc] initWithScreen:screen getLevelFilePath:^NSString *(NSString *levelFileName)
     {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -106,7 +111,7 @@
 {
     [super viewDidAppear:animated];
     
-    gameScreen->onResume();
+    [_screenController resume];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -141,26 +146,26 @@
 
 - (void)update
 {
-    [_gameScreenController update:self.timeSinceLastUpdate];
+    [_screenController update:self.timeSinceLastUpdate];
 }
 
 #pragma mark <GLKViewDelegate>
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [_gameScreenController present];
+    [_screenController present];
 }
 
 #pragma mark Private
 
 - (void)onResume
 {
-    [_gameScreenController resume];
+    [_screenController resume];
 }
 
 - (void)onPause
 {
-    [_gameScreenController pause];
+    [_screenController pause];
 }
 
 - (void)createAndLoadInterstitial

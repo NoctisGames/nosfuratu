@@ -20,7 +20,6 @@
 #include "MainRenderer.h"
 #include "Circle.h"
 #include "Assets.h"
-#include "AssetsMapper.h"
 #include "GameConstants.h"
 #include "Jon.h"
 #include "StateMachine.h"
@@ -61,8 +60,7 @@ class MainScreen : public IScreen
 public:
     IDeviceHelper* m_deviceHelper;
     MainRenderer* m_renderer;
-    StateMachine<MainScreen, MainScreenState>* m_stateMachine;
-    Vector2D m_touchPoint;
+    StateMachine<MainScreen, MainScreenState> m_stateMachine;
     Vector2D m_touchPointDown;
     Vector2D m_touchPointDown2;
 	float m_fFPSStateTime;

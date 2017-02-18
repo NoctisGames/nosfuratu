@@ -330,7 +330,7 @@ int LevelEditorEntitiesPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint,
             }
                 break;
             case ScreenEventType_DRAGGED:
-                m_fEntitiesCameraPos += (m_touchPointDown.getY() - touchPoint.getY()) * 3;
+                m_fEntitiesCameraPos += (m_touchPointDown->getY() - touchPoint.getY()) * 3;
                 if (m_fEntitiesCameraPos < 0)
                 {
                     m_fEntitiesCameraPos = 0;
@@ -353,7 +353,7 @@ int LevelEditorEntitiesPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint,
                     
                     return LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED;
                 }
-                else if (touchPoint.getY() < m_touchPointDown2.getY() + 0.25f && touchPoint.getY() > m_touchPointDown2.getY() - 0.25f)
+                else if (touchPoint.getY() < m_touchPointDown2->getY() + 0.25f && touchPoint.getY() > m_touchPointDown2->getY() - 0.25f)
                 {
                     touchPoint.add(0, m_fEntitiesCameraPos);
                     

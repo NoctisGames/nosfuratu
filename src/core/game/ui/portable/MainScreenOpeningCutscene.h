@@ -30,8 +30,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
     std::vector<CutscenePanel*>& getCutscenePanels();
     
 private:

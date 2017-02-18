@@ -40,9 +40,9 @@ void OpenGLRendererHelper::endFrame()
     glDisable(GL_TEXTURE_2D);
 }
 
-GpuTextureWrapper OpenGLRendererHelper::getFramebuffer(int index)
+GpuTextureWrapper* OpenGLRendererHelper::getFramebuffer(int index)
 {
-    return GpuTextureWrapper(OGLManager->getFboTextures().at(index));
+    return OGLManager->getFramebuffers().at(index);
 }
 
 void OpenGLRendererHelper::updateMatrix(float left, float right, float bottom, float top)

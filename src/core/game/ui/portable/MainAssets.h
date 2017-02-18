@@ -21,6 +21,7 @@ class Hole;
 class HoleCover;
 class DustCloud;
 class Jon;
+class JonShadow;
 class MidBossOwl;
 class GameButton;
 class TrashCan;
@@ -182,13 +183,18 @@ public:
     bool isUsingDesktopTextureSet();
     
     void setUsingDesktopTextureSet(bool isUsingDesktopTextureSet);
+    
+    bool isUsingGamePadTextureSet();
+    
+    void setUsingGamePadTextureSet(bool isUsingGamePadTextureSet);
 
 private:
     bool m_isUsingCompressedTextureSet;
     bool m_isUsingDesktopTextureSet;
+    bool m_isUsingGamePadTextureSet;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    MainAssets() : m_isUsingCompressedTextureSet(false), m_isUsingDesktopTextureSet(false) {}
+    MainAssets();
     MainAssets(const MainAssets&);
     MainAssets& operator=(const MainAssets&);
 };

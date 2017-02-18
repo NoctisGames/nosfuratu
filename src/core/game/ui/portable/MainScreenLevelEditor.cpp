@@ -16,6 +16,7 @@
 #include "MainScreenTitle.h"
 #include "BatPanel.h"
 #include "ScreenInputManager.h"
+#include "TouchConverter.h"
 
 #include <algorithm> // std::sort
 
@@ -40,11 +41,11 @@ MainScreenLevelEditor * MainScreenLevelEditor::getInstance()
 
 void MainScreenLevelEditor::enter(MainScreen* gs)
 {
-    gs->m_stateMachine->setPreviousState(Title::getInstance());
+    gs->m_stateMachine.setPreviousState(Title::getInstance());
     
     loadIfNecessary(gs);
     
-    initRenderer(gs);
+    gs->m_renderer->load(RENDERER_TYPE_LEVEL_EDITOR);
     
     gs->m_renderer->zoomOut();
     
@@ -56,16 +57,11 @@ void MainScreenLevelEditor::enter(MainScreen* gs)
     }
 }
 
-void MainScreenLevelEditor::initRenderer(MainScreen* gs)
-{
-    gs->m_renderer->init(RENDERER_TYPE_LEVEL_EDITOR);
-}
-
 void MainScreenLevelEditor::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
 
 		if (m_game->isLoaded())
 		{
@@ -107,7 +103,7 @@ void MainScreenLevelEditor::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->endFrame();
@@ -223,12 +219,12 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
 {
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
-        gs->touchToWorld(*(*i));
+        Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
         
         int rc;
         if (m_levelSelectorPanel->isOpen())
         {
-            if ((rc = m_levelSelectorPanel->handleTouch(*(*i), *gs->m_touchPoint)) != LEVEL_SELECTOR_PANEL_RC_UNHANDLED)
+            if ((rc = m_levelSelectorPanel->handleTouch(*(*i), touchPoint)) != LEVEL_SELECTOR_PANEL_RC_UNHANDLED)
             {
                 switch (rc)
                 {
@@ -271,7 +267,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
         
         if (m_offsetPanel->isOpen())
         {
-            if ((rc = m_offsetPanel->handleTouch(*(*i), *gs->m_touchPoint)) != OFFSET_PANEL_RC_UNHANDLED)
+            if ((rc = m_offsetPanel->handleTouch(*(*i), touchPoint)) != OFFSET_PANEL_RC_UNHANDLED)
             {
                 switch (rc)
                 {
@@ -319,7 +315,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
         
         if (m_confirmResetPanel->isOpen())
         {
-            if ((rc = m_confirmResetPanel->handleTouch(*(*i), *gs->m_touchPoint)) != CONFIRM_RESET_PANEL_RC_UNHANDLED)
+            if ((rc = m_confirmResetPanel->handleTouch(*(*i), touchPoint)) != CONFIRM_RESET_PANEL_RC_UNHANDLED)
             {
                 switch (rc)
                 {
@@ -341,7 +337,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
         
         if (m_confirmExitPanel->isOpen())
         {
-            if ((rc = m_confirmExitPanel->handleTouch(*(*i), *gs->m_touchPoint)) != CONFIRM_EXIT_PANEL_RC_UNHANDLED)
+            if ((rc = m_confirmExitPanel->handleTouch(*(*i), touchPoint)) != CONFIRM_EXIT_PANEL_RC_UNHANDLED)
             {
                 switch (rc)
                 {
@@ -349,7 +345,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     {
                         m_iWorld = 0;
                         m_iLevel = 0;
-                        gs->m_stateMachine->revertToPreviousState();
+                        gs->m_stateMachine.revertToPreviousState();
                     }
                         break;
                     case CONFIRM_EXIT_PANEL_RC_CANCEL:
@@ -361,9 +357,9 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
             return;
         }
         
-        if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), *gs->m_touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
+        if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
-            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
             
             switch (rc)
             {
@@ -404,7 +400,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                         Level* levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorld, m_iLevel);
                         levelState->setSourceGame(m_game.get());
 						levelState->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
-                        gs->m_stateMachine->changeState(levelState);
+                        gs->m_stateMachine.changeState(levelState);
 						return;
                     }
                     return;
@@ -428,7 +424,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
             return;
         }
         
-        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*(*i), *gs->m_touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
+        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*(*i), touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
@@ -463,7 +459,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
         {
             case ScreenEventType_DOWN:
             {
-                Vector2D tp = gs->m_touchPoint->cpy();
+                Vector2D tp = touchPoint.cpy();
                 tp.mul(4);
                 float camPosX = gs->m_renderer->getCameraPosition().getX();
                 tp.add(camPosX, 0);
@@ -556,15 +552,15 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
 					resetEntities(false);
 				}
                 
-                gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
-                gs->m_touchPointDown2->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                gs->m_touchPointDown2.set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_DRAGGED:
             {
-                float xDelta = gs->m_touchPoint.getX() - gs->m_touchPointDown.getX();
+                float xDelta = touchPoint.getX() - gs->m_touchPointDown.getX();
                 xDelta *= 4;
-                float yDelta = gs->m_touchPoint.getY() - gs->m_touchPointDown.getY();
+                float yDelta = touchPoint.getY() - gs->m_touchPointDown.getY();
                 yDelta *= 4;
                 
                 if (m_draggingEntity != nullptr)
@@ -620,8 +616,8 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     
                     m_trashCan->setHighlighted(OverlapTester::doNGRectsOverlap(m_draggingEntity->getMainBounds(), m_trashCan->getMainBounds()));
                     
-                    if ((gs->m_touchPoint.getX() > (CAM_WIDTH * 0.8f) && xDelta > 0)
-                        || (gs->m_touchPoint.getX() < (CAM_WIDTH * 0.2f) && xDelta < 0))
+                    if ((touchPoint.getX() > (CAM_WIDTH * 0.8f) && xDelta > 0)
+                        || (touchPoint.getX() < (CAM_WIDTH * 0.2f) && xDelta < 0))
                     {
                         gs->m_renderer->moveCamera(xDelta);
                     }
@@ -632,7 +628,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     gs->m_renderer->moveCamera(-xDelta);
                 }
                 
-                gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_UP:

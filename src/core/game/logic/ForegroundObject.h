@@ -418,7 +418,7 @@ class SpikeTower : public ExtraForegroundObject
 public:
     SpikeTower(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ExtraForegroundObject(gridX, gridY, gridWidth, gridHeight, type, shadowType, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
     {
-		m_bounds.push_back(std::unique_ptr<NGRect>(new NGRect(0, 0, 1, 1)));
+		m_bounds.push_back(NGRect(0, 0, 1, 1));
 
         updateBounds();
     }

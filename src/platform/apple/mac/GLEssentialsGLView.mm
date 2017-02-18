@@ -13,6 +13,7 @@
 // C++
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
+#include "MainAssets.h"
 
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -159,11 +160,31 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     // TODO
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
+    MAIN_ASSETS->setUsingDesktopTextureSet(true);
+    MAIN_ASSETS->setUsingCompressedTextureSet(false);
+    
     _screen = new MainScreen();
     
     _screen->createDeviceDependentResources();
     
-    _screenController = [[ScreenController alloc] initWithScreen:_screen];
+    _screenController = [[ScreenController alloc] initWithScreen:_screen getLevelFilePath:^NSString *(NSString *levelFileName)
+    {
+        NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
+        filePath = [filePath stringByAppendingPathComponent:levelFileName];
+        return filePath;
+    } displayMessageBlock:^(NSString *message)
+    {
+        NSAlert* alert = [NSAlert alertWithMessageText:message
+                                         defaultButton:nil
+                                       alternateButton:nil
+                                           otherButton:nil
+                             informativeTextWithFormat:@""];
+        
+        [alert runModal];
+    } andHandleInterstitialAd:^
+    {
+        // Empty
+    }];
     
     _screen->onResume();
 }

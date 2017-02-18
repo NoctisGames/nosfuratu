@@ -249,7 +249,7 @@ void Chapter1Level21::onEnter(MainScreen* gs)
 
 void Chapter1Level21::beginOpeningSequence(MainScreen* gs)
 {
-    if (gs->m_stateMachine->getPreviousState() == MainScreenLevelEditor::getInstance())
+    if (gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
     {
         m_hasShownOpeningSequence = true;
         m_hasOpeningSequenceCompleted = true;
@@ -268,7 +268,7 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* gs)
     
     m_hasShownOpeningSequence = true;
     
-    if (MAIN_ASSETS->isMusicEnabled())
+    if (SOUND_MANAGER->isMusicEnabled())
     {
         SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
         SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
@@ -279,7 +279,7 @@ void Chapter1Level21::handleOpeningSequence(MainScreen* gs)
 {
     m_game->updateAndClean(gs->m_fDeltaTime, true);
     
-    int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
+    int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
     m_hasOpeningSequenceCompleted = result == 3;
     m_activateRadialBlur = result == 1;
     
@@ -327,7 +327,7 @@ void Chapter1Level21::update(MainScreen* gs)
             jon.getPosition().setX(m_hole->getPosition().getX());
             jon.updateBounds();
             
-            if (MAIN_ASSETS->isMusicEnabled())
+            if (SOUND_MANAGER->isMusicEnabled())
             {
                 SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
                 SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_END_BOSS_LOOP);

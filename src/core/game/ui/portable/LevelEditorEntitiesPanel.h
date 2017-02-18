@@ -27,6 +27,7 @@
 #include "EndBossSnake.h"
 #include "RTTI.h"
 #include "ForegroundCoverObject.h"
+#include "CountHissWithMina.h"
 
 #include <vector>
 #include <math.h>

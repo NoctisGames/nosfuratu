@@ -23,6 +23,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "SoundManager.h"
+#include "TouchConverter.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -37,9 +38,13 @@ WorldMap * WorldMap::getInstance()
 
 void WorldMap::enter(MainScreen* gs)
 {
-	gs->m_stateMachine->setPreviousState(Title::getInstance());
+	gs->m_stateMachine.setPreviousState(Title::getInstance());
     
-    initRenderer(gs);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    gs->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
     
     gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
     
@@ -50,36 +55,11 @@ void WorldMap::enter(MainScreen* gs)
     m_iNumTimesVisitedSinceLastAdBreak++;
 }
 
-void WorldMap::initRenderer(MainScreen* gs)
-{
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_END_BOSS);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_END_BOSS);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_END_BOSS);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
-    
-    gs->m_renderer->init(RENDERER_TYPE_WORLD_MAP);
-}
-
 void WorldMap::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
@@ -88,7 +68,7 @@ void WorldMap::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -107,7 +87,7 @@ void WorldMap::execute(MainScreen* gs)
         
         if (m_isReadyForTransition)
         {
-            gs->m_stateMachine->changeState(WorldMapToLevel::getInstance());
+            gs->m_stateMachine.changeState(WorldMapToLevel::getInstance());
 			return;
         }
         
@@ -167,6 +147,7 @@ void WorldMap::execute(MainScreen* gs)
                         && m_clickedLevel
                         && m_clickedLevel->isSelected())
                     {
+                        MAIN_ASSETS->setUsingGamePadTextureSet(false);
                         startLevel();
                         return;
                     }
@@ -175,7 +156,7 @@ void WorldMap::execute(MainScreen* gs)
                 case KeyboardEventType_BACK:
                     if ((*i)->isUp())
                     {
-                        gs->m_stateMachine->revertToPreviousState();
+                        gs->m_stateMachine.revertToPreviousState();
                         return;
                     }
                     continue;
@@ -191,8 +172,8 @@ void WorldMap::execute(MainScreen* gs)
                 case GamePadEventType_STICK_LEFT:
                 case GamePadEventType_STICK_RIGHT:
                 {
-                    float x = (*i).getX();
-                    float y = (*i).getY();
+                    float x = (*i)->getX();
+                    float y = (*i)->getY();
                     
                     if (x > 0.8f)
                     {
@@ -260,6 +241,7 @@ void WorldMap::execute(MainScreen* gs)
                         && m_clickedLevel
                         && m_clickedLevel->isSelected())
                     {
+                        MAIN_ASSETS->setUsingGamePadTextureSet(true);
                         startLevel();
                         return;
                     }
@@ -269,7 +251,7 @@ void WorldMap::execute(MainScreen* gs)
                 case GamePadEventType_BACK_BUTTON:
                     if ((*i)->isButtonPressed())
                     {
-                        gs->m_stateMachine->revertToPreviousState();
+                        gs->m_stateMachine.revertToPreviousState();
                         return;
                     }
                     continue;
@@ -280,7 +262,7 @@ void WorldMap::execute(MainScreen* gs)
         
         for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
-            gs->touchToWorld(*(*i));
+            Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
             
             switch ((*i)->getType())
             {
@@ -289,30 +271,30 @@ void WorldMap::execute(MainScreen* gs)
                 case ScreenEventType_DRAGGED:
                     continue;
                 case ScreenEventType_UP:
-                    if (m_backButton->handleClick(*gs->m_touchPoint))
+                    if (m_backButton->handleClick(touchPoint))
                     {
-                        gs->m_stateMachine->revertToPreviousState();
+                        gs->m_stateMachine.revertToPreviousState();
                     }
-                    else if (m_toggleMusic->handleClick(*gs->m_touchPoint))
+                    else if (m_toggleMusic->handleClick(touchPoint))
                     {
-                        MAIN_ASSETS->setMusicEnabled(!MAIN_ASSETS->isMusicEnabled());
-                        m_toggleMusic->getColor().alpha = MAIN_ASSETS->isMusicEnabled() ? 1 : 0.35f;
+                        SOUND_MANAGER->setMusicEnabled(!SOUND_MANAGER->isMusicEnabled());
+                        m_toggleMusic->getColor().alpha = SOUND_MANAGER->isMusicEnabled() ? 1 : 0.35f;
                     }
-                    else if (m_toggleSound->handleClick(*gs->m_touchPoint))
+                    else if (m_toggleSound->handleClick(touchPoint))
                     {
-                        MAIN_ASSETS->setSoundEnabled(!MAIN_ASSETS->isSoundEnabled());
-                        m_toggleSound->getColor().alpha = MAIN_ASSETS->isSoundEnabled() ? 1 : 0.35f;
+                        SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
+                        m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
                     }
-                    //else if (OverlapTester::isPointInNGRect(*gs->m_touchPoint, m_leaderBoardsButton->getMainBounds()))
+                    //else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
                     //{
                     //    // Temporary, replace with display Leaderboards
                     //    gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
                     //    return;
                     //}
-                    else if (m_viewOpeningCutsceneButton->handleClick(*gs->m_touchPoint))
+                    else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
-                        gs->m_stateMachine->changeState(WorldMapToOpeningCutscene::getInstance());
+                        gs->m_stateMachine.changeState(WorldMapToOpeningCutscene::getInstance());
                         m_userHasClickedOpeningCutscene = true;
                         m_clickedLevel = nullptr;
                         return;
@@ -321,7 +303,7 @@ void WorldMap::execute(MainScreen* gs)
                     {
                         if (m_spendGoldenCarrotsBubble->isOpen())
                         {
-                            int ret = m_spendGoldenCarrotsBubble->handleTouch(*gs->m_touchPoint);
+                            int ret = m_spendGoldenCarrotsBubble->handleTouch(touchPoint);
                             if (ret == 1 || ret == 0)
                             {
                                 if (ret == 1)
@@ -353,7 +335,7 @@ void WorldMap::execute(MainScreen* gs)
                         for (std::vector<AbilitySlot *>::iterator j = m_abilitySlots.begin(); j != m_abilitySlots.end(); j++)
                         {
                             if ((*j)->isUnlocked()
-                                && OverlapTester::isPointInNGRect(*gs->m_touchPoint, (*j)->getMainBounds()))
+                                && OverlapTester::isPointInNGRect(touchPoint, (*j)->getMainBounds()))
                             {
                                 switch ((*j)->getType())
                                 {
@@ -373,10 +355,11 @@ void WorldMap::execute(MainScreen* gs)
                         
                         for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
                         {
-                            if (OverlapTester::isPointInNGRect(*gs->m_touchPoint, (*j)->getMainBounds()))
+                            if (OverlapTester::isPointInNGRect(touchPoint, (*j)->getMainBounds()))
                             {
                                 if ((*j)->isSelected())
                                 {
+                                    MAIN_ASSETS->setUsingGamePadTextureSet(false);
                                     startLevel();
                                 }
                                 else if ((*j)->isPlayable()

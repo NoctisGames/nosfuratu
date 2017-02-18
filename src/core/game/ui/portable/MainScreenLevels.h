@@ -38,8 +38,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
     void setSourceGame(Game* game);
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);

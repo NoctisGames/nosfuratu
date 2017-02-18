@@ -146,9 +146,6 @@
 
 //// Texture Definitions ////
 
-#define TEXTURE_SIZE_1024 1024
-#define TEXTURE_SIZE_2048 2048
-#define TEXTURE_SIZE_4096 4096
 #define PIXEL_WIDTH_FOR_GAME 1808
 #define PIXEL_HEIGHT_FOR_GAME 4096
 

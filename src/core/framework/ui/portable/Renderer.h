@@ -22,6 +22,7 @@ class GpuProgramWrapper;
 class PhysicalEntity;
 class TextureRegion;
 struct Color;
+class NGRect;
 struct TextureWrapper;
 
 class Renderer
@@ -61,15 +62,23 @@ protected:
 
 	void renderPhysicalEntityWithColor(PhysicalEntity &go, TextureRegion& tr, Color c);
     
-    void loadTextureSync(TextureWrapper& textureWrapper);
+    void renderBoundsForPhysicalEntity(PhysicalEntity &pe);
     
-    void loadTextureAsync(TextureWrapper& textureWrapper);
+    void renderBoundsWithColor(NGRect &r, Color& c);
     
-    void destroyTexture(TextureWrapper& textureWrapper);
+    void renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c);
+    
+    void loadTextureSync(TextureWrapper* textureWrapper);
+    
+    void loadTextureAsync(TextureWrapper* textureWrapper);
+    
+    void destroyTexture(TextureWrapper** textureWrapper);
+    
+    bool ensureTexture(TextureWrapper* textureWrapper);
     
 private:
-    std::vector<TextureWrapper &> m_loadingTextures;
-    std::vector<std::thread> m_textureDataLoadingThreads;
+    std::vector<TextureWrapper *> m_loadingTextures;
+    std::vector<std::thread *> m_textureDataLoadingThreads;
     
     void handleAsyncTextureLoads();
     

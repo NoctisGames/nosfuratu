@@ -15,6 +15,8 @@
 #include "Direct3DFramebufferToScreenGpuProgramWrapper.h"
 #include "GpuTextureWrapper.h"
 #include "PlatformHelpers.h"
+#include "VectorUtil.h"
+#include "GpuTextureWrapper.h"
 
 extern "C"
 {
@@ -158,6 +160,11 @@ std::vector<ID3D11RenderTargetView*>& Direct3DManager::getOffscreenRenderTargetV
 std::vector<ID3D11ShaderResourceView*>& Direct3DManager::getOffscreenShaderResourceViews()
 {
 	return m_offscreenShaderResourceViews;
+}
+
+std::vector<GpuTextureWrapper *>& Direct3DManager::getFramebuffers()
+{
+    return m_framebuffers;
 }
 
 Microsoft::WRL::ComPtr<ID3D11BlendState>& Direct3DManager::getBlendState()
@@ -456,6 +463,8 @@ void Direct3DManager::createFramebufferObject()
     m_offscreenRenderTargets.push_back(m_offscreenRenderTarget);
     m_offscreenRenderTargetViews.push_back(m_offscreenRenderTargetView);
     m_offscreenShaderResourceViews.push_back(m_offscreenShaderResourceView);
+    
+    m_framebuffers.push_back(new GpuTextureWrapper(m_offscreenShaderResourceView));
 }
 
 void Direct3DManager::releaseFramebuffers()
@@ -478,6 +487,8 @@ void Direct3DManager::releaseFramebuffers()
     m_offscreenRenderTargets.clear();
     m_offscreenRenderTargetViews.clear();
     m_offscreenShaderResourceViews.clear();
+    
+    VectorUtil::cleanUpVectorOfPointers(m_framebuffers);
 }
 
 Direct3DManager::Direct3DManager() :

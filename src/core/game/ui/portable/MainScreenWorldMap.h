@@ -578,8 +578,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
     void loadUserSaveData(const char* json);
     
     void updateButtons(float deltaTime);

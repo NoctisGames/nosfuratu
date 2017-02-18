@@ -16,6 +16,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
+#include "TouchConverter.h"
 
 BatGoalType calcBatGoalType(int world, int level)
 {
@@ -252,8 +253,6 @@ void BatPanel::updateJump(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_UP:
@@ -357,8 +356,6 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_UP:
@@ -451,8 +448,6 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_UP:
@@ -624,8 +619,6 @@ void BatPanel::updateVampire(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
@@ -726,8 +719,6 @@ void BatPanel::updateVampire(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_UP:
@@ -816,8 +807,6 @@ void BatPanel::updateVampire(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
-                    
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_UP:
@@ -914,8 +903,8 @@ void BatPanel::updateDrill(MainScreen* gs)
                         case GamePadEventType_STICK_LEFT:
                         case GamePadEventType_STICK_RIGHT:
                         {
-                            float x = (*i).getX();
-                            float y = (*i).getY();
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
                             
                             if (y < -0.8f
                                 && x < 0.2f
@@ -932,21 +921,21 @@ void BatPanel::updateDrill(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
+                    Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                     
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (gs->m_touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -960,7 +949,7 @@ void BatPanel::updateDrill(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1054,8 +1043,8 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
                         case GamePadEventType_STICK_LEFT:
                         case GamePadEventType_STICK_RIGHT:
                         {
-                            float x = (*i).getX();
-                            float y = (*i).getY();
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
                             
                             if (y < -0.8f
                                 && x < 0.2f
@@ -1072,21 +1061,21 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
                 
                 for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
                 {
-                    gs->touchToWorld(*(*i));
+                    Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                     
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (gs->m_touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1100,7 +1089,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1208,8 +1197,8 @@ void BatPanel::updateStomp(MainScreen* gs)
                         case GamePadEventType_STICK_LEFT:
                         case GamePadEventType_STICK_RIGHT:
                         {
-                            float x = (*i).getX();
-                            float y = (*i).getY();
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
                             
                             if (y < -0.8f
                                 && x < 0.2f
@@ -1226,21 +1215,21 @@ void BatPanel::updateStomp(MainScreen* gs)
 
 				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
-					gs->touchToWorld(*(*i));
+					Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
 
 					switch ((*i)->getType())
 					{
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (gs->m_touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1254,7 +1243,7 @@ void BatPanel::updateStomp(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1359,8 +1348,8 @@ void BatPanel::updateDash(MainScreen* gs)
                         case GamePadEventType_STICK_LEFT:
                         case GamePadEventType_STICK_RIGHT:
                         {
-                            float x = (*i).getX();
-                            float y = (*i).getY();
+                            float x = (*i)->getX();
+                            float y = (*i)->getY();
                             
                             if (x > 0.8f
                                 && y < 0.2f
@@ -1377,21 +1366,21 @@ void BatPanel::updateDash(MainScreen* gs)
 
 				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
 				{
-					gs->touchToWorld(*(*i));
+					Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
 
 					switch ((*i)->getType())
 					{
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (gs->m_touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
+                                if (touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
                                 {
-                                    gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1405,7 +1394,7 @@ void BatPanel::updateDash(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
 					}

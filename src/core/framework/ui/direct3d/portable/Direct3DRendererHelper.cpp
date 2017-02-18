@@ -31,9 +31,9 @@ void Direct3DRendererHelper::endFrame()
     // Empty
 }
 
-GpuTextureWrapper Direct3DRendererHelper::getFramebuffer(int index)
+GpuTextureWrapper* Direct3DRendererHelper::getFramebuffer(int index)
 {
-    return D3DManager->getOffscreenShaderResourceViews().at(index);
+    return D3DManager->getFramebuffers().at(index);
 }
 
 void Direct3DRendererHelper::updateMatrix(float left, float right, float bottom, float top)

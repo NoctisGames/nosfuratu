@@ -7,6 +7,7 @@
 //
 
 #include "OpenGLManager.h"
+
 #include "OpenGLTextureGpuProgramWrapper.h"
 #include "OpenGLGeometryGpuProgramWrapper.h"
 #include "OpenGLFramebufferToScreenGpuProgramWrapper.h"
@@ -14,6 +15,8 @@
 #include "TextureProgram.h"
 #include "FramebufferToScreenProgram.h"
 #include "macros.h"
+#include "VectorUtil.h"
+#include "GpuTextureWrapper.h"
 
 extern "C"
 {
@@ -151,6 +154,11 @@ std::vector<GLuint>& OpenGLManager::getFboTextures()
     return m_fbo_textures;
 }
 
+std::vector<GpuTextureWrapper *>& OpenGLManager::getFramebuffers()
+{
+    return m_framebuffers;
+}
+
 std::vector<GLfloat>& OpenGLManager::getTextureVertices()
 {
     return m_textureVertices;
@@ -241,6 +249,8 @@ void OpenGLManager::createFramebufferObject()
     
     m_fbo_textures.push_back(fbo_texture);
     m_fbos.push_back(fbo);
+    
+    m_framebuffers.push_back(new GpuTextureWrapper(fbo_texture));
 }
 
 void OpenGLManager::releaseFramebuffers()
@@ -258,6 +268,8 @@ void OpenGLManager::releaseFramebuffers()
     }
     
     m_fbos.clear();
+    
+    VectorUtil::cleanUpVectorOfPointers(m_framebuffers);
 }
 
 OpenGLManager::OpenGLManager() : sb_vbo_object(0), gb_vbo_object(0), m_iScreenFBO(0), m_iMaxTextureSize(64), m_iScreenWidth(-1), m_iScreenHeight(-1), m_iNumFramebuffers(-1)

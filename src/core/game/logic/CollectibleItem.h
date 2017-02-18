@@ -14,6 +14,7 @@
 #include "Assets.h"
 #include "Color.h"
 #include "RTTI.h"
+#include "GameConstants.h"
 
 typedef enum
 {

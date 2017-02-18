@@ -43,7 +43,6 @@
 #include "MainScreen.h"
 #include "EndBossSnake.h"
 #include "TextureSelectorPanel.h"
-#include "AssetsMapper.h"
 #include "ForegroundCoverObject.h"
 #include "SoundManager.h"
 
@@ -382,55 +381,55 @@ TextureRegion& MainAssets::get(Background* background)
         case BackgroundType_Upper:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Upper");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Mid_Hills:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Mid_Hills");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Lower_Innermost:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Lower_Innermost");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Mid_Trees:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Mid_Trees");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Lower_Inner:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Lower_Inner");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Lower_Top:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Lower_Top");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_Lower_Bottom:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_Lower_Bottom");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_WaterBack:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_WaterBack");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
         case BackgroundType_WaterFront:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("BackgroundType_WaterFront");
-            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, TEXTURE_SIZE_2048);
+            ASSETS->initTextureRegion(tr, background->getTextureRegionX(), PIXEL_WIDTH_FOR_GAME, 2048);
             return tr;
         }
     }
@@ -1891,15 +1890,15 @@ TextureRegion& MainAssets::get(Jon* jon)
                 
                 if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
                 {
-                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
+                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_GRASS);
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
                 {
-                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
+                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_CAVE);
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_WOOD);
+                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOOTSTEP_RIGHT_WOOD);
                 }
             }
             else if (keyFrameNumber == 6 && jon->isRightFoot())
@@ -1916,7 +1915,7 @@ TextureRegion& MainAssets::get(Jon* jon)
                 }
                 else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
                 {
-                    getInstance()->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_WOOD);
+                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOOTSTEP_LEFT_WOOD);
                 }
             }
             
@@ -2279,4 +2278,19 @@ bool MainAssets::isUsingDesktopTextureSet()
 void MainAssets::setUsingDesktopTextureSet(bool isUsingDesktopTextureSet)
 {
     m_isUsingDesktopTextureSet = isUsingDesktopTextureSet;
+}
+
+bool MainAssets::isUsingGamePadTextureSet()
+{
+    return m_isUsingGamePadTextureSet;
+}
+
+void MainAssets::setUsingGamePadTextureSet(bool isUsingGamePadTextureSet)
+{
+    m_isUsingGamePadTextureSet = isUsingGamePadTextureSet;
+}
+
+MainAssets() : m_isUsingCompressedTextureSet(false), m_isUsingDesktopTextureSet(false), m_isUsingGamePadTextureSet(false)
+{
+    // Empty
 }

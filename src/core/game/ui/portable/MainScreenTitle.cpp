@@ -20,6 +20,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
+#include "TouchConverter.h"
 
 /// Title Screen ///
 
@@ -32,18 +33,8 @@ Title * Title::getInstance()
 
 void Title::enter(MainScreen* gs)
 {
-    gs->m_stateMachine->setPreviousState(nullptr);
+    gs->m_stateMachine.setPreviousState(nullptr);
     
-    initRenderer(gs);
-    
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
-    
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
-}
-
-void Title::initRenderer(MainScreen* gs)
-{
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
     gs->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
     
@@ -51,36 +42,25 @@ void Title::initRenderer(MainScreen* gs)
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
     gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
     
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_2_END_BOSS);
+    gs->m_renderer->load(RENDERER_TYPE_TITLE);
     
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_3_END_BOSS);
+    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
+    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
     
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_4_END_BOSS);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_5_END_BOSS);
-    
-    gs->m_renderer->init(RENDERER_TYPE_TITLE);
+    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }
 
 void Title::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderTitleScreenBackground(m_panel.get());
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         else
         {
@@ -99,16 +79,16 @@ void Title::execute(MainScreen* gs)
         {
             if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
             {
-                gs->m_stateMachine->changeState(TitleToWorldMap::getInstance());
+                gs->m_stateMachine.changeState(TitleToWorldMap::getInstance());
             }
             else
             {
-                gs->m_stateMachine->changeState(TitleToOpeningCutscene::getInstance());
+                gs->m_stateMachine.changeState(TitleToOpeningCutscene::getInstance());
             }
         }
         else if (m_isRequestingLevelEditor)
         {
-            gs->m_stateMachine->changeState(TitleToLevelEditor::getInstance());
+            gs->m_stateMachine.changeState(TitleToLevelEditor::getInstance());
         }
         
 		bool isDisplayingLevelEditorButtons = false;
@@ -121,6 +101,7 @@ void Title::execute(MainScreen* gs)
             {
                 case KeyboardEventType_SPACE:
                 case KeyboardEventType_ENTER:
+                    MAIN_ASSETS->setUsingGamePadTextureSet(false);
                     m_isRequestingNextState = true;
                     return;
                 default:
@@ -134,6 +115,7 @@ void Title::execute(MainScreen* gs)
             {
                 case GamePadEventType_A_BUTTON:
                 case GamePadEventType_START_BUTTON:
+                    MAIN_ASSETS->setUsingGamePadTextureSet(true);
                     m_isRequestingNextState = true;
                     return;
                 default:
@@ -143,7 +125,7 @@ void Title::execute(MainScreen* gs)
         
 		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
         {
-            gs->touchToWorld(*(*i));
+            Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
             
             switch ((*i)->getType())
             {
@@ -153,12 +135,13 @@ void Title::execute(MainScreen* gs)
                     continue;
                 case ScreenEventType_UP:
 					if (isDisplayingLevelEditorButtons
-                        && m_levelEditorButton->handleClick(*gs->m_touchPoint))
+                        && m_levelEditorButton->handleClick(touchPoint))
                     {
                         m_isRequestingLevelEditor = true;
                     }
                     else
                     {
+                        MAIN_ASSETS->setUsingGamePadTextureSet(false);
                         m_isRequestingNextState = true;
                     }
                     

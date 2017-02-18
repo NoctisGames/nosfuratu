@@ -561,10 +561,6 @@
 		BB34FCB01E5645F500AC8197 /* MainAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB301E5645F400AC8197 /* MainAssets.cpp */; };
 		BB34FCB11E5645F500AC8197 /* MainAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB301E5645F400AC8197 /* MainAssets.cpp */; };
 		BB34FCB21E5645F500AC8197 /* MainAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB301E5645F400AC8197 /* MainAssets.cpp */; };
-		BB34FCB31E5645F500AC8197 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */; };
-		BB34FCB41E5645F500AC8197 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */; };
-		BB34FCB51E5645F500AC8197 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */; };
-		BB34FCB61E5645F500AC8197 /* AssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */; };
 		BB34FCB71E5645F500AC8197 /* BatPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB341E5645F400AC8197 /* BatPanel.cpp */; };
 		BB34FCB81E5645F500AC8197 /* BatPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB341E5645F400AC8197 /* BatPanel.cpp */; };
 		BB34FCB91E5645F500AC8197 /* BatPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB341E5645F400AC8197 /* BatPanel.cpp */; };
@@ -712,7 +708,7 @@
 		BB44C3291DB030B3003E633F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3211DB030B3003E633F /* Assets.xcassets */; };
 		BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3221DB030B3003E633F /* Main.storyboard */; };
 		BB44C3351DB0317E003E633F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3301DB0317E003E633F /* AppDelegate.m */; };
-		BB44C3361DB0317E003E633F /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* GameViewController.mm */; };
+		BB44C3361DB0317E003E633F /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* ViewController.mm */; };
 		BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3341DB0317E003E633F /* UIView+Toast.m */; };
 		BB44C3441DB0323F003E633F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3391DB0323F003E633F /* InfoPlist.strings */; };
 		BB44C3451DB0323F003E633F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33B1DB0323F003E633F /* Localizable.strings */; };
@@ -1216,6 +1212,10 @@
 		BBCCA8FE1DB36EBB00452FA1 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */; };
 		BBCCA8FF1DB36ED200452FA1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
 		BBCCA9001DB36F0F00452FA1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB001DB04C67003E633F /* AVFoundation.framework */; };
+		BBD5A9CA1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */; };
+		BBD5A9CB1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */; };
+		BBD5A9CC1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */; };
+		BBD5A9CD1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */; };
 		BBE02D3C1DB18D4600C3268B /* ScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* ScreenController.mm */; };
 		BBE02D3D1DB18D4600C3268B /* ScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* ScreenController.mm */; };
 		BBE02D3E1DB18D4600C3268B /* ScreenController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBE02D3B1DB18D4600C3268B /* ScreenController.mm */; };
@@ -1234,7 +1234,7 @@
 		BBE92D491DB2E671008359C2 /* pngrio.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58F1DB03A7C003E633F /* pngrio.c */; };
 		BBE92D4B1DB2E671008359C2 /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5971DB03A7C003E633F /* pngwio.c */; };
 		BBE92D4C1DB2E671008359C2 /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5911DB03A7C003E633F /* pngrutil.c */; };
-		BBE92D4F1DB2E671008359C2 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* GameViewController.mm */; };
+		BBE92D4F1DB2E671008359C2 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* ViewController.mm */; };
 		BBE92D531DB2E671008359C2 /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5981DB03A7C003E633F /* pngwrite.c */; };
 		BBE92D5C1DB2E671008359C2 /* pngread.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58E1DB03A7C003E633F /* pngread.c */; };
 		BBE92D611DB2E671008359C2 /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5801DB03A7C003E633F /* png.c */; };
@@ -1663,8 +1663,6 @@
 		BB34FB2E1E5645F400AC8197 /* OpenGLTransDeathProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTransDeathProgram.h; sourceTree = "<group>"; };
 		BB34FB301E5645F400AC8197 /* MainAssets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainAssets.cpp; sourceTree = "<group>"; };
 		BB34FB311E5645F400AC8197 /* MainAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAssets.h; sourceTree = "<group>"; };
-		BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsMapper.cpp; sourceTree = "<group>"; };
-		BB34FB331E5645F400AC8197 /* AssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsMapper.h; sourceTree = "<group>"; };
 		BB34FB341E5645F400AC8197 /* BatPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatPanel.cpp; sourceTree = "<group>"; };
 		BB34FB351E5645F400AC8197 /* BatPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatPanel.h; sourceTree = "<group>"; };
 		BB34FB361E5645F400AC8197 /* Chapter1Level10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chapter1Level10.cpp; sourceTree = "<group>"; };
@@ -1780,8 +1778,8 @@
 		BB44C3241DB030B3003E633F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB44C32F1DB0317E003E633F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB44C3301DB0317E003E633F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BB44C3311DB0317E003E633F /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		BB44C3321DB0317E003E633F /* GameViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameViewController.mm; sourceTree = "<group>"; };
+		BB44C3311DB0317E003E633F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BB44C3321DB0317E003E633F /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		BB44C3331DB0317E003E633F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		BB44C3341DB0317E003E633F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		BB44C33A1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -1999,6 +1997,8 @@
 		BBCCA8461DB3469500452FA1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		BBCCA8491DB346C100452FA1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		BBCCA8FC1DB36EB600452FA1 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainGpuProgramWrapperFactory.cpp; sourceTree = "<group>"; };
+		BBD5A9C91E584894007CE6A8 /* MainGpuProgramWrapperFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainGpuProgramWrapperFactory.h; sourceTree = "<group>"; };
 		BBE02D3A1DB18D4600C3268B /* ScreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenController.h; sourceTree = "<group>"; };
 		BBE02D3B1DB18D4600C3268B /* ScreenController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScreenController.mm; sourceTree = "<group>"; };
 		BBE92E1A1DB2E671008359C2 /* NosFURatu Level Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NosFURatu Level Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2796,12 +2796,6 @@
 		BB34FB2F1E5645F400AC8197 /* portable */ = {
 			isa = PBXGroup;
 			children = (
-				BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */,
-				BB8E94631E57E11A00D237D2 /* MainAssetsMapper.h */,
-				BB34FB301E5645F400AC8197 /* MainAssets.cpp */,
-				BB34FB311E5645F400AC8197 /* MainAssets.h */,
-				BB34FB321E5645F400AC8197 /* AssetsMapper.cpp */,
-				BB34FB331E5645F400AC8197 /* AssetsMapper.h */,
 				BB34FB341E5645F400AC8197 /* BatPanel.cpp */,
 				BB34FB351E5645F400AC8197 /* BatPanel.h */,
 				BB34FB361E5645F400AC8197 /* Chapter1Level10.cpp */,
@@ -2826,6 +2820,12 @@
 				BB34FB5D1E5645F400AC8197 /* LevelEditorEntitiesPanel.h */,
 				BB34FB5E1E5645F400AC8197 /* LevelSelectorPanel.cpp */,
 				BB34FB5F1E5645F400AC8197 /* LevelSelectorPanel.h */,
+				BB34FB301E5645F400AC8197 /* MainAssets.cpp */,
+				BB34FB311E5645F400AC8197 /* MainAssets.h */,
+				BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */,
+				BB8E94631E57E11A00D237D2 /* MainAssetsMapper.h */,
+				BBD5A9C81E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp */,
+				BBD5A9C91E584894007CE6A8 /* MainGpuProgramWrapperFactory.h */,
 				BB34FB641E5645F400AC8197 /* MainRenderer.cpp */,
 				BB34FB651E5645F400AC8197 /* MainRenderer.h */,
 				BB34FB441E5645F400AC8197 /* MainScreen.cpp */,
@@ -2963,8 +2963,8 @@
 				BB44C3301DB0317E003E633F /* AppDelegate.m */,
 				BB44C3381DB0323F003E633F /* en.lproj */,
 				0ADF1876178E2185005DA99E /* Frameworks */,
-				BB44C3311DB0317E003E633F /* GameViewController.h */,
-				BB44C3321DB0317E003E633F /* GameViewController.mm */,
+				BB44C3311DB0317E003E633F /* ViewController.h */,
+				BB44C3321DB0317E003E633F /* ViewController.mm */,
 				BB76393E1E21B17800534DAB /* GoogleService-Info.plist */,
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
@@ -4107,12 +4107,11 @@
 				BB44C8831DB03A7E003E633F /* pngwio.c in Sources */,
 				BB34FC5F1E5645F500AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34FBB31E5645F400AC8197 /* Hole.cpp in Sources */,
-				BB34FCB31E5645F500AC8197 /* AssetsMapper.cpp in Sources */,
 				BB44C8791DB03A7E003E633F /* pngrutil.c in Sources */,
 				BB34F9F91E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB34F9811E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */,
-				BB44C3361DB0317E003E633F /* GameViewController.mm in Sources */,
+				BB44C3361DB0317E003E633F /* ViewController.mm in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB34FA091E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
@@ -4132,6 +4131,7 @@
 				BB34FD371E5645F500AC8197 /* TitlePanel.cpp in Sources */,
 				BB34FA511E563C2400AC8197 /* RTTI.cpp in Sources */,
 				BB34F8B11E563C2100AC8197 /* EntityManager.cpp in Sources */,
+				BBD5A9CA1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB871E5645F400AC8197 /* DustCloud.cpp in Sources */,
 				BB34FD271E5645F500AC8197 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F9E11E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */,
@@ -4195,7 +4195,6 @@
 				BB44CB871DB053C0003E633F /* pngrio.c in Sources */,
 				BB34FCCD1E5645F500AC8197 /* CutscenePanel.cpp in Sources */,
 				BB34FD111E5645F500AC8197 /* LevelSelectorPanel.cpp in Sources */,
-				BB34FCB51E5645F500AC8197 /* AssetsMapper.cpp in Sources */,
 				BB44CB881DB053C0003E633F /* pngrtran.c in Sources */,
 				BB34F8C71E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB44CB891DB053C0003E633F /* pngrutil.c in Sources */,
@@ -4313,6 +4312,7 @@
 				BB34FBC11E5645F400AC8197 /* JonFormState.cpp in Sources */,
 				BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */,
 				BB34F9D71E563C2300AC8197 /* Animation.cpp in Sources */,
+				BBD5A9CC1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4367,7 +4367,6 @@
 				BB44CBFF1DB07165003E633F /* pngrio.c in Sources */,
 				BB34FCCE1E5645F500AC8197 /* CutscenePanel.cpp in Sources */,
 				BB34FD121E5645F500AC8197 /* LevelSelectorPanel.cpp in Sources */,
-				BB34FCB61E5645F500AC8197 /* AssetsMapper.cpp in Sources */,
 				BB44CC001DB07165003E633F /* pngrtran.c in Sources */,
 				BB44CC011DB07165003E633F /* pngrutil.c in Sources */,
 				BB44CC021DB07165003E633F /* pngset.c in Sources */,
@@ -4485,6 +4484,7 @@
 				BB34FBC21E5645F400AC8197 /* JonFormState.cpp in Sources */,
 				BB44CC731DB07165003E633F /* AppDelegate.m in Sources */,
 				BB34F9D81E563C2300AC8197 /* Animation.cpp in Sources */,
+				BBD5A9CD1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4622,9 +4622,8 @@
 				BBE92D4B1DB2E671008359C2 /* pngwio.c in Sources */,
 				BB34FC601E5645F500AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34FBB41E5645F400AC8197 /* Hole.cpp in Sources */,
-				BB34FCB41E5645F500AC8197 /* AssetsMapper.cpp in Sources */,
 				BBE92D4C1DB2E671008359C2 /* pngrutil.c in Sources */,
-				BBE92D4F1DB2E671008359C2 /* GameViewController.mm in Sources */,
+				BBE92D4F1DB2E671008359C2 /* ViewController.mm in Sources */,
 				BB34FB901E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB34F9FA1E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34F9821E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */,
@@ -4647,6 +4646,7 @@
 				BB34FD381E5645F500AC8197 /* TitlePanel.cpp in Sources */,
 				BB34FA521E563C2400AC8197 /* RTTI.cpp in Sources */,
 				BB34F8B21E563C2100AC8197 /* EntityManager.cpp in Sources */,
+				BBD5A9CB1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB881E5645F400AC8197 /* DustCloud.cpp in Sources */,
 				BB34FD281E5645F500AC8197 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F9E21E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */,

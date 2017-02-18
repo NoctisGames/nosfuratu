@@ -24,7 +24,7 @@ extern "C"
 #include <memory>
 #include <vector>
 
-class GpuProgramWrapper;
+struct GpuTextureWrapper;
 
 class OpenGLManager
 {
@@ -53,6 +53,7 @@ public:
     std::vector<GLshort>& getIndices();
     std::vector<GLuint>& getFbos();
     std::vector<GLuint>& getFboTextures();
+    std::vector<GpuTextureWrapper *>& getFramebuffers();
     std::vector<GLfloat>& getTextureVertices();
     std::vector<GLfloat>& getColorVertices();
     GLuint& getSbVboObject(); // For Sprite Batcher
@@ -68,6 +69,8 @@ private:
     
     std::vector<GLuint> m_fbos;
     std::vector<GLuint> m_fbo_textures;
+    
+    std::vector<GpuTextureWrapper *> m_framebuffers;
     
     std::vector<GLfloat> m_textureVertices;
     std::vector<GLfloat> m_colorVertices;

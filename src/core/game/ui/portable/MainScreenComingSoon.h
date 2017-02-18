@@ -25,8 +25,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
 private:
     bool m_isRequestingNextState;
     

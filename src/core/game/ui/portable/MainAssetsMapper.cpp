@@ -9,9 +9,11 @@
 #include "MainAssetsMapper.h"
 
 #include "Assets.h"
+#include "MainAssets.h"
 
 #include "TextureRegion.h"
 #include "Animation.h"
+#include "GameConstants.h"
 
 void MainAssetsMapper::mapAssets()
 {

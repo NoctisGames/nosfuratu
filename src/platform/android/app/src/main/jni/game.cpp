@@ -14,6 +14,7 @@
 #include "MainScreenWorldMap.h"
 #include "ScreenInputManager.h"
 #include "SoundManager.h"
+#include "MainAssets.h"
 
 MainScreen *screen;
 
@@ -73,6 +74,9 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jcl
 	UNUSED(cls);
 
     screen = nullptr;
+    
+    MAIN_ASSETS->setUsingDesktopTextureSet(false);
+    MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls)

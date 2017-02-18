@@ -25,6 +25,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "SoundManager.h"
+#include "TouchConverter.h"
 
 /// Level ///
 
@@ -75,7 +76,7 @@ void Level::enter(MainScreen* gs)
     
     configBatPanel();
 
-    initRenderer(gs);
+    gs->m_renderer->load(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
     
     gs->m_renderer->beginOpeningPanningSequence(*m_game);
     
@@ -95,13 +96,8 @@ void Level::enter(MainScreen* gs)
                                        fgWidth,
                                        fgHeight);
     
-    m_playLevelSelectMusicOnExit = gs->m_stateMachine->getPreviousState() == WorldMap::getInstance();
-	m_stopMusicOnExit = gs->m_stateMachine->getPreviousState() == MainScreenLevelEditor::getInstance();
-}
-
-void Level::initRenderer(MainScreen* gs)
-{
-    gs->m_renderer->init(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
+    m_playLevelSelectMusicOnExit = gs->m_stateMachine.getPreviousState() == WorldMap::getInstance();
+	m_stopMusicOnExit = gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
 }
 
 void Level::execute(MainScreen* gs)
@@ -173,12 +169,12 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
 
 void Level::stopAllSounds()
 {
-    MAIN_ASSETS->forceAddSoundIdToPlayQueue(STOP_ALL_SOUNDS);
+    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_ALL_SOUNDS);
 }
 
 void Level::stopAllLoopingSounds()
 {
-    MAIN_ASSETS->forceAddSoundIdToPlayQueue(STOP_ALL_LOOPING_SOUNDS);
+    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_ALL_LOOPING_SOUNDS);
 }
 
 int Level::getJonAbilityFlag()
@@ -202,14 +198,14 @@ void Level::beginOpeningSequence(MainScreen* gs)
     CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
     countHissWithMina.beginMovement();
     
-    if (gs->m_stateMachine->getPreviousState() == MainScreenLevelEditor::getInstance())
+    if (gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
 	{
 		m_hasShownOpeningSequence = true;
 		m_hasOpeningSequenceCompleted = true;
 
 		updateCamera(gs, 0, false, true);
 
-        if (MAIN_ASSETS->isMusicEnabled())
+        if (SOUND_MANAGER->isMusicEnabled())
         {
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
@@ -224,7 +220,7 @@ void Level::beginOpeningSequence(MainScreen* gs)
 
 	m_hasShownOpeningSequence = true;
 
-	if (MAIN_ASSETS->isMusicEnabled())
+	if (SOUND_MANAGER->isMusicEnabled())
 	{
 		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
         SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
@@ -235,7 +231,7 @@ void Level::handleOpeningSequence(MainScreen* gs)
 {
     m_game->updateAndClean(gs->m_fDeltaTime, true);
 
-	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game);
+	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
 	m_hasOpeningSequenceCompleted = result == 3;
 	m_activateRadialBlur = result == 1;
 	
@@ -332,7 +328,7 @@ void Level::update(MainScreen* gs)
             
             for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
             {
-                gs->touchToWorld(*(*i));
+                Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                 
                 switch ((*i)->getType())
                 {
@@ -340,7 +336,7 @@ void Level::update(MainScreen* gs)
                     case ScreenEventType_DRAGGED:
                         continue;
                     case ScreenEventType_UP:
-                        if (m_continueButton->handleClick(*gs->m_touchPoint))
+                        if (m_continueButton->handleClick(touchPoint))
                         {
                             goToNextState = true;
                         }
@@ -355,11 +351,11 @@ void Level::update(MainScreen* gs)
                 {
                     m_playLevelSelectMusicOnExit = false;
                     LevelToComingSoon::getInstance()->setLevelComingFrom(this);
-                    gs->m_stateMachine->changeState(LevelToComingSoon::getInstance());
+                    gs->m_stateMachine.changeState(LevelToComingSoon::getInstance());
                 }
                 else
                 {
-                    gs->m_stateMachine->revertToPreviousState();
+                    gs->m_stateMachine.revertToPreviousState();
                 }
             }
             
@@ -639,7 +635,7 @@ void Level::render(MainScreen* gs)
 {
     Jon& jon = m_game->getJon();
     
-    gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+    gs->m_renderer->beginFrame();
     
     gs->m_renderer->renderWorld(*m_game);
     
@@ -822,7 +818,7 @@ bool Level::handleInput(MainScreen* gs)
                     
                     gs->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine->revertToPreviousState();
+                    gs->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
@@ -839,8 +835,8 @@ bool Level::handleInput(MainScreen* gs)
             case GamePadEventType_STICK_LEFT:
             case GamePadEventType_STICK_RIGHT:
             {
-                float x = (*i).getX();
-                float y = (*i).getY();
+                float x = (*i)->getX();
+                float y = (*i)->getY();
                 
                 if (x > 0.8f)
                 {
@@ -941,7 +937,7 @@ bool Level::handleInput(MainScreen* gs)
                     
                     gs->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine->revertToPreviousState();
+                    gs->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
@@ -953,13 +949,13 @@ bool Level::handleInput(MainScreen* gs)
     
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
-        gs->touchToWorld(*(*i));
+        Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
         
         switch ((*i)->getType())
         {
             case ScreenEventType_DOWN:
             {
-                gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                 gs->m_isScreenHeldDown = true;
                 gs->m_fScreenHeldTime = 0.0f;
             }
@@ -967,25 +963,25 @@ bool Level::handleInput(MainScreen* gs)
             case ScreenEventType_DRAGGED:
                 if (!gs->m_hasSwiped)
                 {
-                    if (gs->m_touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
+                    if (touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
                     {
                         // Swipe Right
                         jon.triggerRightAction();
                         gs->m_hasSwiped = true;
                     }
-                    else if (gs->m_touchPoint.getX() <= (gs->m_touchPointDown.getX() - SWIPE_WIDTH))
+                    else if (touchPoint.getX() <= (gs->m_touchPointDown.getX() - SWIPE_WIDTH))
                     {
                         // Swipe Left
                         jon.triggerLeftAction();
                         gs->m_hasSwiped = true;
                     }
-                    else if (gs->m_touchPoint.getY() >= (gs->m_touchPointDown.getY() + SWIPE_HEIGHT))
+                    else if (touchPoint.getY() >= (gs->m_touchPointDown.getY() + SWIPE_HEIGHT))
                     {
                         // Swipe Up
                         jon.triggerUpAction();
                         gs->m_hasSwiped = true;
                     }
-                    else if (gs->m_touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                    else if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
                     {
                         // Swipe Down
                         jon.triggerDownAction();
@@ -1001,13 +997,13 @@ bool Level::handleInput(MainScreen* gs)
                 continue;
             case ScreenEventType_UP:
                 if (!m_hasCompletedLevel
-                    && m_backButton->handleClick(*gs->m_touchPoint))
+                    && m_backButton->handleClick(touchPoint))
                 {
                     m_exitLoop = true;
                     
                     gs->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine->revertToPreviousState();
+                    gs->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
@@ -1027,7 +1023,7 @@ bool Level::handleInput(MainScreen* gs)
                 
                 gs->m_hasSwiped = false;
                 
-                gs->m_touchPointDown->set(gs->m_touchPoint.getX(), gs->m_touchPoint.getY());
+                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                 
                 break;
         }

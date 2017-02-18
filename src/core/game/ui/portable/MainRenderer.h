@@ -11,10 +11,9 @@
 
 #include "Renderer.h"
 
-#include "Assets.h"
+#include "MainAssets.h"
 #include "RendererType.h"
 #include "NGRectBatcher.h"
-#include "TextureWrapper.h"
 
 #include "Color.h"
 
@@ -24,7 +23,9 @@
 
 class SpriteBatcher;
 class LineBatcher;
+class NGRect;
 class Font;
+struct TextureWrapper;
 struct GpuTextureWrapper;
 struct GpuTextureDataWrapper;
 class PhysicalEntity;
@@ -62,17 +63,11 @@ public:
     
     virtual ~MainRenderer();
     
-    void init(RendererType rendererType);
-    
     void load(RendererType rendererType);
     
     void unload(RendererType rendererType);
-
-    bool isLoadingData();
     
-    virtual bool isLoaded();
-    
-    virtual void beginFrame(float deltaTime);
+    virtual void beginFrame();
     
     void beginOpeningPanningSequence(Game& game);
     
@@ -80,7 +75,7 @@ public:
     // Return 2 if Jon should begin warming up
     // Return 1 to activate the radial blur effect
     // Return 0 to do nothing
-    int updateCameraToFollowPathToJon(Game& game);
+    int updateCameraToFollowPathToJon(Game& game, float deltaTime);
     
     void updateCameraToFollowJon(Game& game, BatPanel* batPanel, float deltaTime, float paddingX = 0, bool chase = false, bool ignoreY = false, bool instant = false);
     
@@ -132,7 +127,7 @@ public:
     
     void renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEditor);
     
-    void renderLoading();
+    void renderLoading(float deltaTime);
     
     void renderToSecondFramebufferWithShockwave(float centerX, float centerY, float timeElapsed, bool isTransforming);
     
@@ -158,35 +153,37 @@ public:
     
     Vector2D& getCameraPosition();
     
+    RendererType getRendererType();
+    
 private:
     Font* m_font;
     
-    TextureWrapper m_jon;
-    TextureWrapper m_level_editor;
-    TextureWrapper m_misc;
-    TextureWrapper m_title_screen;
-    TextureWrapper m_trans_death_shader_helper;
-    TextureWrapper m_tutorial;
-    TextureWrapper m_vampire;
-    TextureWrapper m_world_1_background_lower_part_1;
-    TextureWrapper m_world_1_background_lower_part_2;
-    TextureWrapper m_world_1_background_mid;
-    TextureWrapper m_world_1_background_upper;
-    TextureWrapper m_world_1_cutscene_1;
-    TextureWrapper m_world_1_cutscene_2;
-    TextureWrapper m_world_1_end_boss_part_1;
-    TextureWrapper m_world_1_end_boss_part_2;
-    TextureWrapper m_world_1_end_boss_part_3;
-    TextureWrapper m_world_1_enemies;
-    TextureWrapper m_world_1_ground;
-    TextureWrapper m_world_1_mid_boss_part_1;
-    TextureWrapper m_world_1_mid_boss_part_2;
-    TextureWrapper m_world_1_mid_boss_part_3;
-    TextureWrapper m_world_1_objects_part_1;
-    TextureWrapper m_world_1_objects_part_2;
-    TextureWrapper m_world_1_special;
-    TextureWrapper m_world_map_screen_part_1;
-    TextureWrapper m_world_map_screen_part_2;
+    TextureWrapper* m_jon;
+    TextureWrapper* m_level_editor;
+    TextureWrapper* m_misc;
+    TextureWrapper* m_title_screen;
+    TextureWrapper* m_trans_death_shader_helper;
+    TextureWrapper* m_tutorial;
+    TextureWrapper* m_vampire;
+    TextureWrapper* m_world_1_background_lower_part_1;
+    TextureWrapper* m_world_1_background_lower_part_2;
+    TextureWrapper* m_world_1_background_mid;
+    TextureWrapper* m_world_1_background_upper;
+    TextureWrapper* m_world_1_cutscene_1;
+    TextureWrapper* m_world_1_cutscene_2;
+    TextureWrapper* m_world_1_end_boss_part_1;
+    TextureWrapper* m_world_1_end_boss_part_2;
+    TextureWrapper* m_world_1_end_boss_part_3;
+    TextureWrapper* m_world_1_enemies;
+    TextureWrapper* m_world_1_ground;
+    TextureWrapper* m_world_1_mid_boss_part_1;
+    TextureWrapper* m_world_1_mid_boss_part_2;
+    TextureWrapper* m_world_1_mid_boss_part_3;
+    TextureWrapper* m_world_1_objects_part_1;
+    TextureWrapper* m_world_1_objects_part_2;
+    TextureWrapper* m_world_1_special;
+    TextureWrapper* m_world_map_screen_part_1;
+    TextureWrapper* m_world_map_screen_part_2;
     
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     TransitionGpuProgramWrapper* m_fadeScreenGpuProgramWrapper;
@@ -198,14 +195,12 @@ private:
     ShockwaveTextureGpuProgramWrapper* m_shockwaveTextureGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathInGpuProgramWrapper;
     TransDeathGpuProgramWrapper* m_transDeathOutGpuProgramWrapper;
-    GpuProgramWrapper* m_framebufferToScreenGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferTintGpuProgramWrapper;
     GpuProgramWrapper* m_framebufferObfuscationGpuProgramWrapper;
     FramebufferRadialBlurGpuProgramWrapper* m_framebufferRadialBlurGpuProgramWrapper;
     
-    NGRect m_camBounds;
-    Vector2D m_camPosAcceleration;
-    Vector2D m_camPosVelocity;
+    NGRect* m_camBounds;
+    Vector2D* m_camPosVelocity;
     
     RendererType m_loadedRendererType;
     
@@ -248,92 +243,14 @@ private:
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            for (typename std::vector<std::unique_ptr<NGRect>>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
+            for (typename std::vector<NGRect>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
             {
-                rectangleBatcher.beginBatch();
-                renderBoundsWithColor(*(*j), red);
-                rectangleBatcher.endBatch(*m_colorGpuProgramWrapper);
+                m_boundsNGRectBatcher->beginBatch();
+                renderBoundsWithColor((*j), red);
+                m_boundsNGRectBatcher->endBatch(*m_colorGpuProgramWrapper);
             }
         }
     }
-    
-    void renderBoundsForPhysicalEntity(PhysicalEntity &go);
-    
-    void renderBoundsWithColor(NGRect &r, Color& c);
-    
-    void renderHighlightForPhysicalEntity(PhysicalEntity &go, Color& c);
-    
-    void loadMiscTextures();
-    
-    void loadTitle();
-    void loadTitleTextures();
-    bool ensureTitleTextures();
-    
-    void loadWorldMapPart1();
-    void loadWorldMapPart2();
-    void loadWorldMapTextures();
-    bool ensureWorldMapTextures();
-    
-    void loadLevelEditor();
-    void loadLevelEditorTextures();
-    bool ensureLevelEditorTextures();
-    
-    void loadWorld1Cutscene1();
-    void loadWorld1Cutscene2();
-    void loadWorld1CutsceneTextures();
-    bool ensureWorld1CutsceneTextures();
-    
-    void loadJon();
-    void loadTransDeath();
-    void loadVampire();
-    void loadJonTextures();
-    bool ensureJonTextures();
-    
-    void loadTutorial();
-    void loadTutorialTextures();
-    bool ensureTutorialTextures();
-    
-    void loadWorld1BackgroundLowerPart1();
-    void loadWorld1BackgroundLowerPart2();
-    void loadWorld1BackgroundMid();
-    void loadWorld1BackgroundUpper();
-    void loadWorld1Enemies();
-    void loadWorld1Ground();
-    void loadWorld1ObjectsPart1();
-    void loadWorld1ObjectsPart2();
-    void loadWorld1Special();
-    void loadWorld1Textures();
-    bool ensureWorld1Textures();
-    bool ensureWorld1Objects();
-    bool ensureWorld1Special();
-    
-    void loadWorld1MidBossPart1();
-    void loadWorld1MidBossPart2();
-    void loadWorld1MidBossPart3();
-    void loadWorld1MidBossTextures();
-    bool ensureWorld1MidBossTextures();
-    bool ensureWorld1MidBossPart3();
-    
-    void loadWorld1EndBossPart1();
-    void loadWorld1EndBossPart2();
-    void loadWorld1EndBossPart3();
-    void loadWorld1EndBossTextures();
-    bool ensureWorld1EndBossTextures();
-    bool ensureWorld1EndBossPart1();
-    
-    void unloadTitleTextures();
-    void unloadWorldMapTextures();
-    void unloadLevelEditorTextures();
-    
-    void unloadJonTextures();
-    
-    void unloadTutorialTextures();
-    
-    void unloadWorld1CutsceneTextures();
-    
-    void unloadWorld1Textures();
-    void unloadWorld1MidBossTextures();
-    void unloadWorld1EndBossTextures();
 };
 
 #endif /* defined(__nosfuratu__MainRenderer__) */

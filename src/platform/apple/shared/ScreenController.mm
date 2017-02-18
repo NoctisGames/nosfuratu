@@ -16,8 +16,7 @@
 #include "MainScreenLevelEditor.h"
 #include "MainScreenWorldMap.h"
 #include "Game.h"
-#include "SoundConstants.h"
-#include "MusicConstants.h"
+#include "GameConstants.h"
 #include "SoundManager.h"
 
 @interface ScreenController ()

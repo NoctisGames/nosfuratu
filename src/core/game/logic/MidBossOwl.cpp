@@ -50,7 +50,7 @@ void MidBossOwl::update(float deltaTime)
             if (m_fStateTime > 0.55f)
             {
                 m_velocity.set(0, 0);
-                m_acceleration->set(0, 4);
+                m_acceleration.set(0, 4);
                 
                 setState(MidBossOwlState_FlyingOverTree);
             }
@@ -86,7 +86,7 @@ void MidBossOwl::update(float deltaTime)
                         getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
                         
                         m_velocity.set(0, 0);
-                        m_acceleration->set(0, 4);
+                        m_acceleration.set(0, 4);
                         
                         setState(MidBossOwlState_FlyingOverTree);
                         
@@ -126,7 +126,7 @@ void MidBossOwl::update(float deltaTime)
                         if (OverlapTester::doNGRectsOverlap((*i)->getMainBounds(), getMainBounds()))
                         {
                             m_velocity.set(0, 0);
-                            m_acceleration->set(0, 4);
+                            m_acceleration.set(0, 4);
                             
                             setState(MidBossOwlState_FlyingOverTree);
                             
@@ -164,7 +164,7 @@ void MidBossOwl::update(float deltaTime)
 						getPosition().setY(m_fGroundTopYWithPadding + getMainBounds().getHeight() / 2);
 
 						m_velocity.set(0, 0);
-						m_acceleration->set(0, 4);
+						m_acceleration.set(0, 4);
 
 						setState(MidBossOwlState_FlyingOverTree);
                         
@@ -212,7 +212,7 @@ void MidBossOwl::update(float deltaTime)
                     }
                     
                     m_velocity.set(0, 0);
-                    m_acceleration->set(0, 4);
+                    m_acceleration.set(0, 4);
                     
                     return;
                 }
@@ -229,7 +229,7 @@ void MidBossOwl::update(float deltaTime)
                             {
                                 m_iDamage++;
                                 
-                                m_acceleration->set(1.00f, 0);
+                                m_acceleration.set(1.00f, 0);
                                 m_velocity.set(-3, 0);
                                 
                                 setState(m_iDamage == 3 ? MidBossOwlState_Dying : MidBossOwlState_SlammingIntoTree);
@@ -254,7 +254,7 @@ void MidBossOwl::update(float deltaTime)
                             else
                             {
                                 m_velocity.set(0, 0);
-                                m_acceleration->set(0, 4);
+                                m_acceleration.set(0, 4);
                                 
                                 setState(MidBossOwlState_FlyingOverTree);
                                 
@@ -304,7 +304,7 @@ MidBossOwlState MidBossOwl::getState()
 void MidBossOwl::goBackToSleep()
 {
     m_velocity.set(0, 0);
-    m_acceleration->set(0, 0);
+    m_acceleration.set(0, 0);
     
     m_iDamage = 0;
     m_fWidth = MID_BOSS_OWL_SLEEPING_WIDTH;
@@ -330,7 +330,7 @@ void MidBossOwl::beginPursuit()
     
     m_didJonTransform = false;
     
-    m_acceleration->set(0, 0);
+    m_acceleration.set(0, 0);
     
     m_position.setY(m_fTreeTopY + getHeight() / 2);
     

@@ -54,7 +54,7 @@ void TitlePanel::update(float deltaTime)
             m_fStateTime = 0;
             m_isLightningStriking = true;
             
-            if (MAIN_ASSETS->isMusicEnabled())
+            if (SOUND_MANAGER->isMusicEnabled())
             {
                 int rn = rand() % 2;
                 SOUND_MANAGER->addSoundIdToPlayQueue(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);

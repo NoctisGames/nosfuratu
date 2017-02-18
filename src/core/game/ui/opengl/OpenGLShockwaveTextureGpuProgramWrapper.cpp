@@ -10,6 +10,7 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
+#include "Vector2D.h"
 
 extern "C"
 {
@@ -34,8 +35,8 @@ void OpenGLShockwaveTextureGpuProgramWrapper::bind()
     
     glUniformMatrix4fv(m_program.u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLManager->getViewProjectionMatrix());
     glUniform1i(m_program.u_texture_unit_location, 0);
-    glUniform1f(m_program.u_center_x_unit_location, m_center.getX());
-    glUniform1f(m_program.u_center_y_unit_location, m_center.getY());
+    glUniform1f(m_program.u_center_x_unit_location, m_center->getX());
+    glUniform1f(m_program.u_center_y_unit_location, m_center->getY());
     glUniform1f(m_program.u_time_elapsed_unit_location, m_fTimeElapsed);
     glUniform1i(m_program.u_is_transforming, m_isTransforming ? 1 : 0);
     

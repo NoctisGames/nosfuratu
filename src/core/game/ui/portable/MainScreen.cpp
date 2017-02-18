@@ -20,14 +20,14 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
 MainScreen::MainScreen() : IScreen(),
 m_deviceHelper(DEVICE_HELPER_FACTORY->createDeviceHelper()),
 m_renderer(new MainRenderer()),
-m_stateMachine(new StateMachine<MainScreen, MainScreenState>(this)),
-m_touchPoint(),
+m_stateMachine(this),
 m_touchPointDown(),
 m_touchPointDown2(),
 m_fFPSStateTime(0),
@@ -49,7 +49,9 @@ m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
-    m_stateMachine->setCurrentState(Title::getInstance());
+    Title::getInstance()->enter(this);
+    
+    m_stateMachine.setCurrentState(Title::getInstance());
 }
 
 MainScreen::~MainScreen()
@@ -62,8 +64,10 @@ void MainScreen::createDeviceDependentResources()
 {
     m_deviceHelper->createDeviceDependentResources(MAX_BATCH_SIZE);
     
+    RendererType loadedRendererType = m_renderer->getRendererType();
     delete m_renderer;
     m_renderer = new MainRenderer();
+    m_renderer->load(loadedRendererType);
 }
 
 void MainScreen::createWindowSizeDependentResources(int screenWidth, int screenHeight, int touchScreenWidth, int touchScreenHeight)
@@ -82,10 +86,10 @@ void MainScreen::releaseDeviceDependentResources()
 void MainScreen::onResume()
 {
     if (m_wasPaused &&
-        (m_stateMachine->getCurrentState() == Title::getInstance()
-         || m_stateMachine->getCurrentState() == WorldMap::getInstance()
-         || m_stateMachine->getCurrentState() == OpeningCutscene::getInstance()
-         || m_stateMachine->getCurrentState() == ComingSoon::getInstance()))
+        (m_stateMachine.getCurrentState() == Title::getInstance()
+         || m_stateMachine.getCurrentState() == WorldMap::getInstance()
+         || m_stateMachine.getCurrentState() == OpeningCutscene::getInstance()
+         || m_stateMachine.getCurrentState() == ComingSoon::getInstance()))
     {
         if (m_renderer->isLoadingData())
         {
@@ -97,7 +101,7 @@ void MainScreen::onResume()
         }
     }
     
-    if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
+    if (m_stateMachine.getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = false;
     }
@@ -109,14 +113,14 @@ void MainScreen::onResume()
 
 void MainScreen::onPause()
 {
-    if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
-        Level* level = (Level*) m_stateMachine->getCurrentState();
+        Level* level = (Level*) m_stateMachine.getCurrentState();
         level->stopAllSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }
-    else if (m_stateMachine->getCurrentState() == OpeningCutscene::getInstance())
+    else if (m_stateMachine.getCurrentState() == OpeningCutscene::getInstance())
     {
         m_isPaused = true;
     }
@@ -149,7 +153,7 @@ void MainScreen::update(float deltaTime)
         internalUpdate();
     }
     
-    m_isRequestingRender = !m_renderer->isLoadingData();
+    m_isRequestingRender = true;
 }
 
 void MainScreen::internalUpdate()
@@ -219,7 +223,7 @@ void MainScreen::internalUpdate()
             m_isPaused = false;
             m_fTimeUntilResume = 0.5f;
             
-            if (m_stateMachine->getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+            if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
             {
                 SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_RESUME);
             }
@@ -236,7 +240,7 @@ void MainScreen::internalUpdate()
                 m_needsToResumeMusicAfterTexLoad = false;
             }
             
-            m_stateMachine->execute();
+            m_stateMachine.execute();
         }
     }
 }
@@ -245,7 +249,7 @@ void MainScreen::render()
 {
     if (m_isRequestingRender)
 	{
-        m_stateMachine->execute();
+        m_stateMachine.execute();
 
 		m_isRequestingRender = false;
 	}
@@ -263,21 +267,21 @@ void MainScreen::clearRequestedAction()
 
 int MainScreen::getScore()
 {
-    Level* level = (Level*) m_stateMachine->getCurrentState();
+    Level* level = (Level*) m_stateMachine.getCurrentState();
     
     return level->getScore();
 }
 
 int MainScreen::getOnlineScore()
 {
-    Level* level = (Level*) m_stateMachine->getCurrentState();
+    Level* level = (Level*) m_stateMachine.getCurrentState();
     
     return level->getOnlineScore();
 }
 
 int MainScreen::getLevelStatsFlag()
 {
-    Level* level = (Level*) m_stateMachine->getCurrentState();
+    Level* level = (Level*) m_stateMachine.getCurrentState();
     
     return level->getLevelStatsFlag();
 }
@@ -291,7 +295,7 @@ int MainScreen::getLevelStatsFlagForUnlockedLevel()
 
 int MainScreen::getNumGoldenCarrots()
 {
-    Level* level = (Level*) m_stateMachine->getCurrentState();
+    Level* level = (Level*) m_stateMachine.getCurrentState();
     
     return level->getNumGoldenCarrots();
 }
@@ -305,7 +309,7 @@ int MainScreen::getNumGoldenCarrotsAfterUnlockingLevel()
 
 int MainScreen::getJonAbilityFlag()
 {
-    Level* level = (Level*) m_stateMachine->getCurrentState();
+    Level* level = (Level*) m_stateMachine.getCurrentState();
     
     return level->getJonAbilityFlag();
 }

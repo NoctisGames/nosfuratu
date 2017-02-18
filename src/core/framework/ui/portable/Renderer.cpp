@@ -18,9 +18,9 @@
 #include "PhysicalEntity.h"
 #include "TextureRegion.h"
 #include "Color.h"
+#include "NGRect.h"
 #include "TextureWrapper.h"
-#include "GpuTextureWrapper.h"
-
+#include "GputextureWrapper.h"
 #include "SpriteBatcherFactory.h"
 #include "NGRectBatcherFactory.h"
 #include "LineBatcherFactory.h"
@@ -28,6 +28,7 @@
 #include "TextureLoaderFactory.h"
 #include "RendererHelperFactory.h"
 #include "GpuProgramWrapperFactory.h"
+#include "VectorUtil.h"
 
 #include <string>
 #include <assert.h>
@@ -96,7 +97,7 @@ void Renderer::renderFramebufferToScreen(int framebufferIndex)
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
-    m_spriteBatcher->endBatch(m_rendererHelper->getFramebuffer(framebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
+    m_spriteBatcher->endBatch(*m_rendererHelper->getFramebuffer(framebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
 }
 
 void Renderer::endFrame()
@@ -121,55 +122,100 @@ void Renderer::renderPhysicalEntityWithColor(PhysicalEntity &pe, TextureRegion& 
     m_spriteBatcher->drawSprite(pe.getPosition().getX(), pe.getPosition().getY(), pe.getWidth(), pe.getHeight(), pe.getAngle(), c, tr);
 }
 
-void Renderer::loadTextureSync(TextureWrapper& textureWrapper)
+void Renderer::renderBoundsForPhysicalEntity(PhysicalEntity &pe)
 {
-    assert(textureWrapper.gpuTextureDataWrapper == nullptr);
-    assert(textureWrapper.gpuTextureWrapper == nullptr);
-    assert(!textureWrapper.isLoadingData);
-    assert(textureWrapper.name.length() > 0);
+    static Color red = Color(1, 0, 0, 1);
     
-    textureWrapper.isLoadingData = true;
-    textureWrapper.gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper.name.c_str());
-    
-    textureWrapper.gpuTextureWrapper = m_textureLoader->loadTexture(textureWrapper.gpuTextureDataWrapper);
-    
-    delete textureWrapper.gpuTextureDataWrapper;
-    textureWrapper.gpuTextureDataWrapper = nullptr;
-    
-    textureWrapper.isLoadingData = false;
+    renderBoundsWithColor(pe.getMainBounds(), red);
 }
 
-void Renderer::loadTextureAsync(TextureWrapper& textureWrapper)
+void Renderer::renderBoundsWithColor(NGRect &r, Color& c)
 {
-    assert(textureWrapper.gpuTextureDataWrapper == nullptr);
-    assert(textureWrapper.gpuTextureWrapper == nullptr);
-    assert(!textureWrapper.isLoadingData);
-    assert(textureWrapper.name.length() > 0);
+    m_boundsNGRectBatcher->renderNGRect(r, c);
+}
+
+void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
+{
+    m_fillNGRectBatcher->renderNGRect(pe.getMainBounds(), c);
+}
+
+void Renderer::loadTextureSync(TextureWrapper* textureWrapper)
+{
+    assert(textureWrapper != nullptr);
+    assert(textureWrapper->gpuTextureDataWrapper == nullptr);
+    assert(textureWrapper->gpuTextureWrapper == nullptr);
+    assert(!textureWrapper->isLoadingData);
+    assert(textureWrapper->name.length() > 0);
+    
+    textureWrapper->isLoadingData = true;
+    textureWrapper->gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper->name.c_str());
+    
+    textureWrapper->gpuTextureWrapper = m_textureLoader->loadTexture(textureWrapper->gpuTextureDataWrapper);
+    
+    delete textureWrapper->gpuTextureDataWrapper;
+    textureWrapper->gpuTextureDataWrapper = nullptr;
+    
+    textureWrapper->isLoadingData = false;
+}
+
+void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
+{
+    assert(textureWrapper != nullptr);
+    assert(textureWrapper->gpuTextureDataWrapper == nullptr);
+    assert(textureWrapper->gpuTextureWrapper == nullptr);
+    assert(!textureWrapper->isLoadingData);
+    assert(textureWrapper->name.length() > 0);
     
     m_loadingTextures.push_back(textureWrapper);
     
-    textureWrapper.isLoadingData = true;
-    m_textureDataLoadingThreads.push_back(std::thread([](TextureWrapper& tw, ITextureLoader* tl)
+    textureWrapper->isLoadingData = true;
+    m_textureDataLoadingThreads.push_back(new std::thread([](TextureWrapper* tw, ITextureLoader* tl)
     {
-        tw.gpuTextureDataWrapper = tl->loadTextureData(tw.name.c_str());
-    }, this));
+        tw->gpuTextureDataWrapper = tl->loadTextureData(tw->name.c_str());
+    }, textureWrapper, m_textureLoader));
 }
 
-void Renderer::destroyTexture(TextureWrapper& textureWrapper)
+void Renderer::destroyTexture(TextureWrapper** pTextureWrapper)
 {
-    if (textureWrapper.gpuTextureWrapper)
+    TextureWrapper* textureWrapper = *pTextureWrapper;
+    if (textureWrapper == nullptr)
     {
-        m_rendererHelper->destroyTexture(*textureWrapper.gpuTextureWrapper);
-        
-        delete textureWrapper.gpuTextureWrapper;
-        textureWrapper.gpuTextureWrapper = nullptr;
+        return;
     }
     
-    if (textureWrapper.gpuTextureDataWrapper)
+    if (textureWrapper->gpuTextureWrapper)
     {
-        delete textureWrapper.gpuTextureDataWrapper;
-        textureWrapper.gpuTextureDataWrapper = nullptr;
+        m_rendererHelper->destroyTexture(*textureWrapper->gpuTextureWrapper);
+        
+        delete textureWrapper->gpuTextureWrapper;
+        textureWrapper->gpuTextureWrapper = nullptr;
     }
+    
+    if (textureWrapper->gpuTextureDataWrapper)
+    {
+        delete textureWrapper->gpuTextureDataWrapper;
+        textureWrapper->gpuTextureDataWrapper = nullptr;
+    }
+    
+    delete textureWrapper;
+    *pTextureWrapper = nullptr;
+}
+
+bool Renderer::ensureTexture(TextureWrapper* textureWrapper)
+{
+    if (textureWrapper == nullptr
+        || textureWrapper->gpuTextureWrapper == nullptr)
+    {
+        if (textureWrapper == nullptr
+            || !textureWrapper->isLoadingData)
+        {
+            loadTextureAsync(textureWrapper);
+        }
+        
+        return false;
+    }
+    
+    return true;
 }
 
 void Renderer::handleAsyncTextureLoads()
@@ -201,10 +247,12 @@ void Renderer::handleAsyncTextureLoads()
 
 void Renderer::cleanUpThreads()
 {
-    for (std::vector<std::thread>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); i++)
+    for (std::vector<std::thread *>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); i++)
     {
-        (*i).detach();
+        (*i)->detach();
     }
+    
+    VectorUtil::cleanUpVectorOfPointers(m_textureDataLoadingThreads);
     
     m_textureDataLoadingThreads.clear();
 }

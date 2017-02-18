@@ -11,6 +11,7 @@
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
+#include "GridManager.h"
 
 #define worldKey "world"
 #define levelKey "level"

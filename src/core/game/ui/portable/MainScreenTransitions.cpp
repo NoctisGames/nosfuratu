@@ -21,6 +21,7 @@
 #include "MainScreenComingSoon.h"
 #include "BatPanel.h"
 #include "SoundManager.h"
+#include "MainRenderer.h"
 
 /// Title To World Map Transition ///
 
@@ -41,7 +42,7 @@ void TitleToWorldMap::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
@@ -56,7 +57,7 @@ void TitleToWorldMap::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -76,7 +77,7 @@ void TitleToWorldMap::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
+            gs->m_stateMachine.setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
@@ -114,7 +115,7 @@ void TitleToOpeningCutscene::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
@@ -126,7 +127,7 @@ void TitleToOpeningCutscene::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -146,7 +147,7 @@ void TitleToOpeningCutscene::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
+            gs->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
@@ -184,7 +185,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
@@ -199,7 +200,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -217,8 +218,8 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setPreviousState(Title::getInstance());
-            gs->m_stateMachine->setCurrentState(WorldMap::getInstance());
+            gs->m_stateMachine.setPreviousState(Title::getInstance());
+            gs->m_stateMachine.setCurrentState(WorldMap::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
@@ -256,7 +257,7 @@ void TitleToLevelEditor::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
@@ -268,7 +269,7 @@ void TitleToLevelEditor::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -288,7 +289,7 @@ void TitleToLevelEditor::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setCurrentState(MainScreenLevelEditor::getInstance());
+            gs->m_stateMachine.setCurrentState(MainScreenLevelEditor::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_TITLE);
         }
     }
@@ -325,7 +326,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
@@ -353,7 +354,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -376,7 +377,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setCurrentState(OpeningCutscene::getInstance());
+            gs->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
@@ -427,7 +428,7 @@ void WorldMapToLevel::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
@@ -456,7 +457,7 @@ void WorldMapToLevel::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -480,8 +481,8 @@ void WorldMapToLevel::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
-            gs->m_stateMachine->setCurrentState(m_levelState);
+            gs->m_stateMachine.setPreviousState(WorldMap::getInstance());
+            gs->m_stateMachine.setCurrentState(m_levelState);
             gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
         }
     }
@@ -563,7 +564,7 @@ void LevelToComingSoon::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         if (m_levelState)
         {
@@ -578,7 +579,7 @@ void LevelToComingSoon::execute(MainScreen* gs)
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -598,7 +599,7 @@ void LevelToComingSoon::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine->setCurrentState(ComingSoon::getInstance());
+            gs->m_stateMachine.setCurrentState(ComingSoon::getInstance());
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);

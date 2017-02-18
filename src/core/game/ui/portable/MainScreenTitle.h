@@ -31,8 +31,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
     TitlePanel* getTitlePanel();
     
     GameButton* getLevelEditorButton();

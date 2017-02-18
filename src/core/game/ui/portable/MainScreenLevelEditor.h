@@ -37,8 +37,6 @@ public:
     
     virtual void exit(MainScreen* gs);
     
-    virtual void initRenderer(MainScreen* gs);
-    
     const char* save();
     
     void load(const char* json, MainScreen* gs);

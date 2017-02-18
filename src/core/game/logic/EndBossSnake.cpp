@@ -85,7 +85,7 @@ void EndBossSnake::update(float deltaTime)
                 m_fTimeSinceLastVelocityCheck = 0;
                 
                 EndBossSnake* afterImage = new EndBossSnake(getGridX(), getGridY());
-                afterImage->m_velocity.set(*m_velocity);
+                afterImage->m_velocity.set(m_velocity);
                 afterImage->m_position.set(m_position);
                 afterImage->m_state = m_state;
                 
@@ -387,14 +387,14 @@ void EndBossSnake::update(float deltaTime)
             if (m_velocity.getX() < 0)
             {
                 m_velocity.setX(0);
-                m_acceleration->setX(0);
+                m_acceleration.setX(0);
             }
             
             Jon& jon = m_game->getJon();
             if (getMainBounds().getRight() > (jon.getMainBounds().getLeft() - 1))
             {
                 m_velocity.setX(0);
-                m_acceleration->setX(0);
+                m_acceleration.setX(0);
             }
             
 			if (m_fStateTime > 4.3f)
@@ -433,7 +433,7 @@ void EndBossSnake::begin()
 		Jon& jon = m_game->getJon();
 
 		m_velocity.setX(0);
-		m_acceleration->setX(0);
+		m_acceleration.setX(0);
 
 		m_position.setX(jon.getPosition().getX() - CAM_WIDTH);
 		m_position.setY(2.80124998f);
@@ -458,7 +458,7 @@ void EndBossSnake::beginPursuit()
 		Jon& jon = m_game->getJon();
 
         m_velocity.setX(VAMP_DEFAULT_MAX_SPEED);
-		m_acceleration->setX(END_BOSS_SNAKE_DEFAULT_ACCELERATION);
+		m_acceleration.setX(END_BOSS_SNAKE_DEFAULT_ACCELERATION);
 
 		m_position.setX(jon.getPosition().getX() - CAM_WIDTH * 1.25f);
 		m_position.setY(2.80124998f);
@@ -471,7 +471,7 @@ void EndBossSnake::triggerHit()
     if (m_iDamage < 3)
     {
         m_velocity.setX(0);
-        m_acceleration->setX(0);
+        m_acceleration.setX(0);
         
         setState(EndBossSnakeState_Damaged);
         
@@ -483,7 +483,7 @@ void EndBossSnake::triggerHit()
     else
     {
 		m_velocity.setX(8);
-		m_acceleration->setX(-8);
+		m_acceleration.setX(-8);
 
 		m_iDamage = 3;
 		m_color.red = 3.0f;

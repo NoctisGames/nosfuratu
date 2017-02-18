@@ -20,6 +20,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
+#include "MainRenderer.h"
 
 /// ComingSoon Screen ///
 
@@ -32,25 +33,20 @@ ComingSoon * ComingSoon::getInstance()
 
 void ComingSoon::enter(MainScreen* gs)
 {
-    gs->m_stateMachine->setPreviousState(WorldMap::getInstance());
-}
-
-void ComingSoon::initRenderer(MainScreen* gs)
-{
-    // Empty
+    gs->m_stateMachine.setPreviousState(WorldMap::getInstance());
 }
 
 void ComingSoon::execute(MainScreen* gs)
 {
     if (gs->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame(gs->m_fDeltaTime);
+        gs->m_renderer->beginFrame();
         
         gs->m_renderer->renderComingSoonScreenBackground();
         
         if (gs->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading();
+            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
         }
         
         gs->m_renderer->renderToScreen();
@@ -61,7 +57,7 @@ void ComingSoon::execute(MainScreen* gs)
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine->revertToPreviousState();
+            gs->m_stateMachine.revertToPreviousState();
             
             return;
         }
