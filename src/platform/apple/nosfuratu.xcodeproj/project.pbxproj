@@ -3467,6 +3467,11 @@
 					BB44CBF01DB07165003E633F = {
 						DevelopmentTeam = 7V5EV5R3XG;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					BBE92CFB1DB2E671008359C2 = {
 						DevelopmentTeam = 7V5EV5R3XG;
