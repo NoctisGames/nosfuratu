@@ -38,7 +38,7 @@ public:
     
     Vector2D& getAcceleration();
 
-    std::vector<NGRect>& getBounds();
+    std::vector<NGRect *>& getBounds();
     
     NGRect& getMainBounds();
     
@@ -58,7 +58,7 @@ protected:
     Vector2D m_position;
     Vector2D m_velocity;
     Vector2D m_acceleration;
-	std::vector<NGRect> m_bounds;
+	std::vector<NGRect *> m_bounds;
     float m_fWidth;
     float m_fHeight;
     float m_fAngle;

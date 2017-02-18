@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__SnakeDeathTextureGpuProgramWrapper__
-#define __noctisgames__SnakeDeathTextureGpuProgramWrapper__
+#ifndef __nosfuratu__SnakeDeathTextureGpuProgramWrapper__
+#define __nosfuratu__SnakeDeathTextureGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -19,4 +19,4 @@ public:
     virtual ~SnakeDeathTextureGpuProgramWrapper();
 };
 
-#endif /* defined(__noctisgames__SnakeDeathTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__SnakeDeathTextureGpuProgramWrapper__) */

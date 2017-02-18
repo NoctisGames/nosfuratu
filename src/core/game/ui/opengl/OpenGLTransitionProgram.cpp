@@ -1,16 +1,16 @@
 //
-//  TransitionProgram.cpp
+//  OpenGLTransitionProgram.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "TransitionProgram.h"
+#include "OpenGLTransitionProgram.h"
 
-TransitionProgramStruct TransitionProgram::build(GLuint program)
+OpenGLTransitionProgramStruct OpenGLTransitionProgram::build(GLuint program)
 {
-    return (TransitionProgramStruct)
+    return (OpenGLTransitionProgramStruct)
     {
         program,
         glGetAttribLocation(program, "a_Position"),

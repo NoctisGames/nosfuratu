@@ -18,7 +18,7 @@ extern "C"
 
 OpenGLGeometryGpuProgramWrapper::OpenGLGeometryGpuProgramWrapper()
 {
-    m_program = ColorProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
+    m_program = OpenGLGeometryProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
 }
 
 OpenGLGeometryGpuProgramWrapper::~OpenGLGeometryGpuProgramWrapper()

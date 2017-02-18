@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__TransDeathGpuProgramWrapper__
-#define __noctisgames__TransDeathGpuProgramWrapper__
+#ifndef __nosfuratu__TransDeathGpuProgramWrapper__
+#define __nosfuratu__TransDeathGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -28,4 +28,4 @@ protected:
     bool m_isTransIn;
 };
 
-#endif /* defined(__noctisgames__TransDeathGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__TransDeathGpuProgramWrapper__) */

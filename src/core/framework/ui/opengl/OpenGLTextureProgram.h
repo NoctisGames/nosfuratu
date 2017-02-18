@@ -1,13 +1,13 @@
 //
-//  TextureProgram.h
+//  OpenGLTextureProgram.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/4/15.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__TextureProgram__
-#define __noctisgames__TextureProgram__
+#ifndef __noctisgames__OpenGLTextureProgram__
+#define __noctisgames__OpenGLTextureProgram__
 
 extern "C"
 {
@@ -23,15 +23,15 @@ typedef struct
     GLint a_color_location;
     GLint a_texture_coordinates_location;
     GLint u_texture_unit_location;
-} TextureProgramStruct;
+} OpenGLTextureProgramStruct;
 
-class TextureProgram
+class OpenGLTextureProgram
 {
 public:
-    static TextureProgramStruct build(GLuint program);
+    static OpenGLTextureProgramStruct build(GLuint program);
     
 private:
-    TextureProgram();
+    OpenGLTextureProgram();
 };
 
-#endif /* defined(__noctisgames__TextureProgram__) */
+#endif /* defined(__noctisgames__OpenGLTextureProgram__) */

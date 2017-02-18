@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLSnakeDeathTextureProgram__
-#define __noctisgames__OpenGLSnakeDeathTextureProgram__
+#ifndef __nosfuratu__OpenGLSnakeDeathTextureProgram__
+#define __nosfuratu__OpenGLSnakeDeathTextureProgram__
 
 extern "C"
 {
@@ -34,4 +34,4 @@ private:
     OpenGLSnakeDeathTextureProgram();
 };
 
-#endif /* defined(__noctisgames__OpenGLSnakeDeathTextureProgram__) */
+#endif /* defined(__nosfuratu__OpenGLSnakeDeathTextureProgram__) */

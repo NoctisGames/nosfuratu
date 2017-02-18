@@ -1,13 +1,13 @@
 //
-//  TransitionProgram.h
+//  OpenGLTransitionProgram.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__TransitionProgram__
-#define __noctisgames__TransitionProgram__
+#ifndef __noctisgames__OpenGLTransitionProgram__
+#define __noctisgames__OpenGLTransitionProgram__
 
 extern "C"
 {
@@ -22,15 +22,15 @@ typedef struct
     GLint u_from_location;
     GLint u_to_location;
     GLint u_progress_location;
-} TransitionProgramStruct;
+} OpenGLTransitionProgramStruct;
 
-class TransitionProgram
+class OpenGLTransitionProgram
 {
 public:
-    static TransitionProgramStruct build(GLuint program);
+    static OpenGLTransitionProgramStruct build(GLuint program);
     
 private:
-    TransitionProgram();
+    OpenGLTransitionProgram();
 };
 
-#endif /* defined(__noctisgames__TransitionProgram__) */
+#endif /* defined(__noctisgames__OpenGLTransitionProgram__) */

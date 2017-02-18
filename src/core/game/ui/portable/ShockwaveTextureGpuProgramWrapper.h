@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__ShockwaveTextureGpuProgramWrapper__
-#define __noctisgames__ShockwaveTextureGpuProgramWrapper__
+#ifndef __nosfuratu__ShockwaveTextureGpuProgramWrapper__
+#define __nosfuratu__ShockwaveTextureGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -28,4 +28,4 @@ protected:
     bool m_isTransforming;
 };
 
-#endif /* defined(__noctisgames__ShockwaveTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__ShockwaveTextureGpuProgramWrapper__) */

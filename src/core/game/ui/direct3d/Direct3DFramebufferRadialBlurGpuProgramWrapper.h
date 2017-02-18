@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__
-#define __noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__
+#define __nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
 
@@ -37,4 +37,4 @@ private:
     void createConstantBuffers();
 };
 
-#endif /* defined(__noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__) */

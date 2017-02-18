@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLTransDeathGpuProgramWrapper__
-#define __noctisgames__OpenGLTransDeathGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLTransDeathGpuProgramWrapper__
+#define __nosfuratu__OpenGLTransDeathGpuProgramWrapper__
 
 #include "TransDeathGpuProgramWrapper.h"
 #include "OpenGLTransDeathProgram.h"
@@ -27,4 +27,4 @@ private:
     OpenGLTransDeathProgramStruct m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLTransDeathGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLTransDeathGpuProgramWrapper__) */

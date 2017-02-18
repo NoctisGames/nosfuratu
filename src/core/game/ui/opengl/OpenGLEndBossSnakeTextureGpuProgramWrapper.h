@@ -6,12 +6,12 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLEndBossSnakeTextureGpuProgramWrapper__
-#define __noctisgames__OpenGLEndBossSnakeTextureGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLEndBossSnakeTextureGpuProgramWrapper__
+#define __nosfuratu__OpenGLEndBossSnakeTextureGpuProgramWrapper__
 
 #include "EndBossSnakeTextureGpuProgramWrapper.h"
 
-#include "TextureProgram.h"
+#include "OpenGLTextureProgram.h"
 
 class OpenGLEndBossSnakeTextureGpuProgramWrapper : public EndBossSnakeTextureGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    TextureProgramStruct m_program;
+    OpenGLTextureProgramStruct m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLEndBossSnakeTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLEndBossSnakeTextureGpuProgramWrapper__) */

@@ -1,13 +1,13 @@
 //
 //  SinWaveTextureGpuProgramWrapper.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/15.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__SinWaveTextureGpuProgramWrapper__
-#define __noctisgames__SinWaveTextureGpuProgramWrapper__
+#ifndef __nosfuratu__SinWaveTextureGpuProgramWrapper__
+#define __nosfuratu__SinWaveTextureGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -24,4 +24,4 @@ protected:
     float m_fOffset;
 };
 
-#endif /* defined(__noctisgames__SinWaveTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__SinWaveTextureGpuProgramWrapper__) */

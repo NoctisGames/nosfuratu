@@ -18,7 +18,7 @@ extern "C"
 
 OpenGLTextureGpuProgramWrapper::OpenGLTextureGpuProgramWrapper()
 {
-    m_program = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
+    m_program = OpenGLTextureProgram::build(build_program_from_assets("texture_shader.vsh", "texture_shader.fsh"));
 }
 
 OpenGLTextureGpuProgramWrapper::~OpenGLTextureGpuProgramWrapper()

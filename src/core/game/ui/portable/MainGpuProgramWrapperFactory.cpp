@@ -1,6 +1,6 @@
 //
 //  MainGpuProgramWrapperFactory.cpp
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 1/15/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
@@ -30,7 +30,7 @@ MainGpuProgramWrapperFactory* MainGpuProgramWrapperFactory::getInstance()
 #include "OpenGLShockwaveTextureGpuProgramWrapper.h"
 #include "OpenGLTransDeathGpuProgramWrapper.h"
 #include "OpenGLFramebufferTintGpuProgramWrapper.h"
-#include "TODO"
+#include "OpenGLFramebufferObfuscationGpuProgramWrapper.h"
 #include "OpenGLFramebufferRadialBlurGpuProgramWrapper.h"
 
 TransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createTransScreenGpuProgramWrapper()
@@ -90,8 +90,7 @@ GpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferTintGpuProgram
 
 GpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferObfuscationGpuProgramWrapper()
 {
-    // TODO
-    return new OpenGLTextureGpuProgramWrapper();
+    return new OpenGLFramebufferObfuscationGpuProgramWrapper();
 }
 
 FramebufferRadialBlurGpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferRadialBlurGpuProgramWrapper()
@@ -110,7 +109,7 @@ FramebufferRadialBlurGpuProgramWrapper* MainGpuProgramWrapperFactory::createFram
 #include "Direct3DShockwaveTextureGpuProgramWrapper.h"
 #include "Direct3DTransDeathGpuProgramWrapper.h"
 #include "Direct3DFramebufferTintGpuProgramWrapper.h"
-#include "TODO"
+#include "Direct3DFrameBufferObfuscationGpuProgramWrapper.h"
 #include "Direct3DFramebufferRadialBlurGpuProgramWrapper.h"
 
 TransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createTransScreenGpuProgramWrapper()
@@ -170,8 +169,7 @@ GpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferTintGpuProgram
 
 GpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferObfuscationGpuProgramWrapper()
 {
-    // TODO
-    return new Direct3DBackgroundTextureGpuProgramWrapper();
+    return new Direct3DFrameBufferObfuscationGpuProgramWrapper();
 }
 
 FramebufferRadialBlurGpuProgramWrapper* MainGpuProgramWrapperFactory::createFramebufferRadialBlurGpuProgramWrapper()

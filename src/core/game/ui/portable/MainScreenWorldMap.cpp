@@ -890,12 +890,16 @@ void WorldMap::navRight()
         level++;
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
         level--;
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -943,6 +947,8 @@ void WorldMap::navUp()
     {
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -962,12 +968,16 @@ void WorldMap::navLeft()
         level--;
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
         level++;
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -1015,6 +1025,8 @@ void WorldMap::navDown()
     {
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
 }
 

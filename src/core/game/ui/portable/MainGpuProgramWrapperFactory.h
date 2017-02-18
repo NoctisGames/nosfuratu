@@ -1,13 +1,13 @@
 //
 //  MainGpuProgramWrapperFactory.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 1/15/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__MainGpuProgramWrapperFactory__
-#define __noctisgames__MainGpuProgramWrapperFactory__
+#ifndef __nosfuratu__MainGpuProgramWrapperFactory__
+#define __nosfuratu__MainGpuProgramWrapperFactory__
 
 class TransitionGpuProgramWrapper;
 class PointTransitionGpuProgramWrapper;
@@ -61,4 +61,4 @@ private:
     MainGpuProgramWrapperFactory& operator=(const MainGpuProgramWrapperFactory&);
 };
 
-#endif /* defined(__noctisgames__MainGpuProgramWrapperFactory__) */
+#endif /* defined(__nosfuratu__MainGpuProgramWrapperFactory__) */

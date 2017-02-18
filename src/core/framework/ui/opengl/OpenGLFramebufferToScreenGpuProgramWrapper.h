@@ -11,7 +11,7 @@
 
 #include "GpuProgramWrapper.h"
 
-#include "FramebufferToScreenProgram.h"
+#include "OpenGLFramebufferToScreenProgram.h"
 
 class OpenGLFramebufferToScreenGpuProgramWrapper : public GpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    FramebufferToScreenProgramStruct m_program;
+    OpenGLFramebufferToScreenProgramStruct m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLFramebufferToScreenGpuProgramWrapper__) */

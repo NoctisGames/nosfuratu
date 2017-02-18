@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLPointTransitionProgram__
-#define __noctisgames__OpenGLPointTransitionProgram__
+#ifndef __nosfuratu__OpenGLPointTransitionProgram__
+#define __nosfuratu__OpenGLPointTransitionProgram__
 
 extern "C"
 {
@@ -36,4 +36,4 @@ private:
     OpenGLPointTransitionProgram();
 };
 
-#endif /* defined(__noctisgames__OpenGLPointTransitionProgram__) */
+#endif /* defined(__nosfuratu__OpenGLPointTransitionProgram__) */

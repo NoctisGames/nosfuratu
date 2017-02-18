@@ -1,13 +1,13 @@
 //
 //  OpenGLSinWaveTextureProgram.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/15.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLSinWaveTextureProgram__
-#define __noctisgames__OpenGLSinWaveTextureProgram__
+#ifndef __nosfuratu__OpenGLSinWaveTextureProgram__
+#define __nosfuratu__OpenGLSinWaveTextureProgram__
 
 extern "C"
 {
@@ -35,4 +35,4 @@ private:
     OpenGLSinWaveTextureProgram();
 };
 
-#endif /* defined(__noctisgames__OpenGLSinWaveTextureProgram__) */
+#endif /* defined(__nosfuratu__OpenGLSinWaveTextureProgram__) */

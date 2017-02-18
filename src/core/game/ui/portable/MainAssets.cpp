@@ -2290,7 +2290,7 @@ void MainAssets::setUsingGamePadTextureSet(bool isUsingGamePadTextureSet)
     m_isUsingGamePadTextureSet = isUsingGamePadTextureSet;
 }
 
-MainAssets() : m_isUsingCompressedTextureSet(false), m_isUsingDesktopTextureSet(false), m_isUsingGamePadTextureSet(false)
+MainAssets::MainAssets() : m_isUsingCompressedTextureSet(false), m_isUsingDesktopTextureSet(false), m_isUsingGamePadTextureSet(false)
 {
     // Empty
 }

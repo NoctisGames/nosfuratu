@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DPointTransScreenGpuProgramWrapper__
-#define __noctisgames__Direct3DPointTransScreenGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DPointTransScreenGpuProgramWrapper__
+#define __nosfuratu__Direct3DPointTransScreenGpuProgramWrapper__
 
 #include "PointTransitionGpuProgramWrapper.h"
 
@@ -36,4 +36,4 @@ private:
 	void createConstantBuffers();
 };
 
-#endif /* defined(__noctisgames__Direct3DPointTransScreenGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DPointTransScreenGpuProgramWrapper__) */

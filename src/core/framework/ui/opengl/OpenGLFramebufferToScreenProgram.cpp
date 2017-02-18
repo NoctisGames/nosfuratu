@@ -1,16 +1,16 @@
 //
-//  FramebufferToScreenProgram.cpp
+//  OpenGLFramebufferToScreenProgram.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 9/3/15.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "FramebufferToScreenProgram.h"
+#include "OpenGLFramebufferToScreenProgram.h"
 
-FramebufferToScreenProgramStruct FramebufferToScreenProgram::build(GLuint program)
+OpenGLFramebufferToScreenProgramStruct OpenGLFramebufferToScreenProgram::build(GLuint program)
 {
-    return (FramebufferToScreenProgramStruct)
+    return (OpenGLFramebufferToScreenProgramStruct)
     {
         program,
         glGetAttribLocation(program, "a_Position"),

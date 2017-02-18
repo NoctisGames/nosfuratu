@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLTransDeathProgram__
-#define __noctisgames__OpenGLTransDeathProgram__
+#ifndef __nosfuratu__OpenGLTransDeathProgram__
+#define __nosfuratu__OpenGLTransDeathProgram__
 
 extern "C"
 {
@@ -33,4 +33,4 @@ private:
     OpenGLTransDeathProgram();
 };
 
-#endif /* defined(__noctisgames__OpenGLTransDeathProgram__) */
+#endif /* defined(__nosfuratu__OpenGLTransDeathProgram__) */

@@ -19,7 +19,7 @@ extern "C"
 
 OpenGLFadeScreenGpuProgramWrapper::OpenGLFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper()
 {
-    m_program = TransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "fade_screen_shader.fsh"));
+    m_program = OpenGLTransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "fade_screen_shader.fsh"));
 }
 
 OpenGLFadeScreenGpuProgramWrapper::~OpenGLFadeScreenGpuProgramWrapper()

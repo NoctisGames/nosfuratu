@@ -594,17 +594,17 @@ void SpikeTower::updateBounds()
 {
     ForegroundObject::updateBounds();
     
-    NGRect& bounds = getBounds().at(1);
+    NGRect* bounds = getBounds().at(1);
     
-    bounds.setWidth(getWidth());
-    bounds.setHeight(getHeight());
+    bounds->setWidth(getWidth());
+    bounds->setHeight(getHeight());
     
-    Vector2D &lowerLeft = bounds.getLowerLeft();
-    lowerLeft.set(m_position.getX() - bounds.getWidth() / 2, m_position.getY() - bounds.getHeight() / 2);
+    Vector2D &lowerLeft = bounds->getLowerLeft();
+    lowerLeft.set(m_position.getX() - bounds->getWidth() / 2, m_position.getY() - bounds->getHeight() / 2);
     
-    bounds.getLowerLeft().add(getWidth() * 0.0f, getHeight() * 0.79910714285714f);
-    bounds.setWidth(getWidth() * 1.0f);
-    bounds.setHeight(getHeight() * 0.20089285714286f);
+    bounds->getLowerLeft().add(getWidth() * 0.0f, getHeight() * 0.79910714285714f);
+    bounds->setWidth(getWidth() * 1.0f);
+    bounds->setHeight(getHeight() * 0.20089285714286f);
 }
 
 bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -618,7 +618,7 @@ bool SpikeTower::isEntityLanding(PhysicalEntity* entity, float deltaTime)
         jon->getMainBounds().setAngle(jon->getAbilityState() == ABILITY_GLIDE ? 90 : 0);
         
         if (ForegroundObject::isEntityLanding(jon, deltaTime)
-            || ForegroundObject::isEntityLanding(jon, getBounds().at(1), deltaTime))
+            || ForegroundObject::isEntityLanding(jon, *getBounds().at(1), deltaTime))
         {
             if (jon)
             {
@@ -646,7 +646,7 @@ bool SpikeTower::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
     }
     
     if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime)
-        || ForegroundObject::isEntityBlockedOnRight(entity, getBounds().at(1), deltaTime))
+        || ForegroundObject::isEntityBlockedOnRight(entity, *getBounds().at(1), deltaTime))
     {
         if (jon)
         {

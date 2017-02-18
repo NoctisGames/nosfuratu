@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLShockwaveTextureProgram__
-#define __noctisgames__OpenGLShockwaveTextureProgram__
+#ifndef __nosfuratu__OpenGLShockwaveTextureProgram__
+#define __nosfuratu__OpenGLShockwaveTextureProgram__
 
 extern "C"
 {
@@ -38,4 +38,4 @@ private:
     OpenGLShockwaveTextureProgram();
 };
 
-#endif /* defined(__noctisgames__OpenGLShockwaveTextureProgram__) */
+#endif /* defined(__nosfuratu__OpenGLShockwaveTextureProgram__) */

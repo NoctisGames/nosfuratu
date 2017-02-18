@@ -18,7 +18,7 @@ extern "C"
 
 OpenGLEndBossSnakeTextureGpuProgramWrapper::OpenGLEndBossSnakeTextureGpuProgramWrapper()
 {
-    m_program = TextureProgram::build(build_program_from_assets("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"));
+    m_program = OpenGLTextureProgram::build(build_program_from_assets("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"));
 }
 
 OpenGLEndBossSnakeTextureGpuProgramWrapper::~OpenGLEndBossSnakeTextureGpuProgramWrapper()

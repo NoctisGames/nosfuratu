@@ -142,10 +142,12 @@ void Renderer::renderHighlightForPhysicalEntity(PhysicalEntity &pe, Color &c)
 void Renderer::loadTextureSync(TextureWrapper* textureWrapper)
 {
     assert(textureWrapper != nullptr);
-    assert(textureWrapper->gpuTextureDataWrapper == nullptr);
-    assert(textureWrapper->gpuTextureWrapper == nullptr);
-    assert(!textureWrapper->isLoadingData);
     assert(textureWrapper->name.length() > 0);
+    
+    if (textureWrapper->gpuTextureWrapper)
+    {
+        return;
+    }
     
     textureWrapper->isLoadingData = true;
     textureWrapper->gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper->name.c_str());
@@ -161,10 +163,12 @@ void Renderer::loadTextureSync(TextureWrapper* textureWrapper)
 void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
 {
     assert(textureWrapper != nullptr);
-    assert(textureWrapper->gpuTextureDataWrapper == nullptr);
-    assert(textureWrapper->gpuTextureWrapper == nullptr);
-    assert(!textureWrapper->isLoadingData);
     assert(textureWrapper->name.length() > 0);
+    
+    if (textureWrapper->gpuTextureWrapper)
+    {
+        return;
+    }
     
     m_loadingTextures.push_back(textureWrapper);
     
@@ -175,9 +179,8 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     }, textureWrapper, m_textureLoader));
 }
 
-void Renderer::destroyTexture(TextureWrapper** pTextureWrapper)
+void Renderer::unloadTexture(TextureWrapper* textureWrapper)
 {
-    TextureWrapper* textureWrapper = *pTextureWrapper;
     if (textureWrapper == nullptr)
     {
         return;
@@ -196,9 +199,6 @@ void Renderer::destroyTexture(TextureWrapper** pTextureWrapper)
         delete textureWrapper->gpuTextureDataWrapper;
         textureWrapper->gpuTextureDataWrapper = nullptr;
     }
-    
-    delete textureWrapper;
-    *pTextureWrapper = nullptr;
 }
 
 bool Renderer::ensureTexture(TextureWrapper* textureWrapper)

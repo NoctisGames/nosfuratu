@@ -1,39 +1,39 @@
 //
-//  OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp
+//  OpenGLFramebufferObfuscationGpuProgramWrapper.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 1/29/16.
+//  Created by Stephen Gowen on 9/17/16.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "OpenGLFramebufferRadialBlurGpuProgramWrapper.h"
+#include "OpenGLFramebufferObfuscationGpuProgramWrapper.h"
 
 #include "OpenGLManager.h"
 #include "macros.h"
+#include "GpuTextureWrapper.h"
 
 extern "C"
 {
 #include "asset_utils.h"
 }
 
-OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper()
+OpenGLFramebufferObfuscationGpuProgramWrapper::OpenGLFramebufferObfuscationGpuProgramWrapper()
 {
-    m_program = OpenGLFramebufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"));
+    m_program = OpenGLFramebufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "pp_frame_buffer_obfuscation.fsh"));
 }
 
-OpenGLFramebufferRadialBlurGpuProgramWrapper::~OpenGLFramebufferRadialBlurGpuProgramWrapper()
+OpenGLFramebufferObfuscationGpuProgramWrapper::~OpenGLFramebufferObfuscationGpuProgramWrapper()
 {
     glDeleteProgram(m_program.program);
 }
 
-void OpenGLFramebufferRadialBlurGpuProgramWrapper::bind()
+void OpenGLFramebufferObfuscationGpuProgramWrapper::bind()
 {
-    OGLManager->useScreenBlending();
+    OGLManager->useNormalBlending();
     
     glUseProgram(m_program.program);
     
     glUniform1i(m_program.u_texture_unit_location, 0);
-    glUniform1f(m_program.u_direction_location, m_fDirection);
     
     glGenBuffers(1, &OGLManager->getSbVboObject());
     glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
@@ -44,7 +44,7 @@ void OpenGLFramebufferRadialBlurGpuProgramWrapper::bind()
     glEnableVertexAttribArray(m_program.a_position_location);
 }
 
-void OpenGLFramebufferRadialBlurGpuProgramWrapper::unbind()
+void OpenGLFramebufferObfuscationGpuProgramWrapper::unbind()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     

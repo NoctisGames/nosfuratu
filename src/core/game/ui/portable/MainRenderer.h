@@ -243,10 +243,10 @@ private:
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-            for (typename std::vector<NGRect>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
+            for (typename std::vector<NGRect *>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
             {
                 m_boundsNGRectBatcher->beginBatch();
-                renderBoundsWithColor((*j), red);
+                renderBoundsWithColor(*(*j), red);
                 m_boundsNGRectBatcher->endBatch(*m_colorGpuProgramWrapper);
             }
         }

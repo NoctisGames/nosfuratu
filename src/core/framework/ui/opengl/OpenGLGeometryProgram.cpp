@@ -1,16 +1,16 @@
 //
-//  ColorProgram.cpp
+//  OpenGLGeometryProgram.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/4/15.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "ColorProgram.h"
+#include "OpenGLGeometryProgram.h"
 
-ColorProgramStruct ColorProgram::build(GLuint program)
+OpenGLGeometryProgramStruct OpenGLGeometryProgram::build(GLuint program)
 {
-    return (ColorProgramStruct)
+    return (OpenGLGeometryProgramStruct)
     {
         program,
         glGetUniformLocation(program, "u_MvpMatrix"),

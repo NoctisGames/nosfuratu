@@ -1,13 +1,13 @@
 //
 //  Direct3DSinWaveTextureGpuProgramWrapper.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/18/15.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__
-#define __noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DSinWaveTextureGpuProgramWrapper__
+#define __nosfuratu__Direct3DSinWaveTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
 
@@ -34,4 +34,4 @@ private:
 	void createConstantBuffer();
 };
 
-#endif /* defined(__noctisgames__Direct3DSinWaveTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DSinWaveTextureGpuProgramWrapper__) */

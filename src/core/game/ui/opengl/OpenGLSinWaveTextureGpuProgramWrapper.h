@@ -1,13 +1,13 @@
 //
 //  OpenGLSinWaveTextureGpuProgramWrapper.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 10/6/15.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLSinWaveTextureGpuProgramWrapper__
-#define __noctisgames__OpenGLSinWaveTextureGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLSinWaveTextureGpuProgramWrapper__
+#define __nosfuratu__OpenGLSinWaveTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLSinWaveTextureProgram.h"
@@ -27,4 +27,4 @@ private:
     OpenGLSinWaveTextureProgramStruct m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLSinWaveTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLSinWaveTextureGpuProgramWrapper__) */

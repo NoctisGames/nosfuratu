@@ -1,16 +1,16 @@
 //
-//  TextureProgram.cpp
+//  OpenGLTextureProgram.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/4/15.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "TextureProgram.h"
+#include "OpenGLTextureProgram.h"
 
-TextureProgramStruct TextureProgram::build(GLuint program)
+OpenGLTextureProgramStruct OpenGLTextureProgram::build(GLuint program)
 {
-    return (TextureProgramStruct)
+    return (OpenGLTextureProgramStruct)
     {
         program,
         glGetUniformLocation(program, "u_MvpMatrix"),

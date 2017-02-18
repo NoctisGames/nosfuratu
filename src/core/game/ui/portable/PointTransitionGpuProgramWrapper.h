@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__PointTransitionGpuProgramWrapper__
-#define __noctisgames__PointTransitionGpuProgramWrapper__
+#ifndef __nosfuratu__PointTransitionGpuProgramWrapper__
+#define __nosfuratu__PointTransitionGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -29,4 +29,4 @@ protected:
     float m_fProgress;
 };
 
-#endif /* defined(__noctisgames__PointTransitionGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__PointTransitionGpuProgramWrapper__) */

@@ -1,13 +1,13 @@
 //
-//  ColorProgram.h
+//  OpenGLGeometryProgram.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/4/15.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__ColorProgram__
-#define __noctisgames__ColorProgram__
+#ifndef __noctisgames__OpenGLGeometryProgram__
+#define __noctisgames__OpenGLGeometryProgram__
 
 extern "C"
 {
@@ -21,15 +21,15 @@ typedef struct
     GLint u_mvp_matrix_location;
     GLint a_position_location;
     GLint a_color_location;
-} ColorProgramStruct;
+} OpenGLGeometryProgramStruct;
 
-class ColorProgram
+class OpenGLGeometryProgram
 {
 public:
-    static ColorProgramStruct build(GLuint program);
+    static OpenGLGeometryProgramStruct build(GLuint program);
     
 private:
-    ColorProgram();
+    OpenGLGeometryProgram();
 };
 
-#endif /* defined(__noctisgames__ColorProgram__) */
+#endif /* defined(__noctisgames__OpenGLGeometryProgram__) */

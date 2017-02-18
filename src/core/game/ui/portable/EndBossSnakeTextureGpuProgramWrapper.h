@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__EndBossSnakeTextureGpuProgramWrapper__
-#define __noctisgames__EndBossSnakeTextureGpuProgramWrapper__
+#ifndef __nosfuratu__EndBossSnakeTextureGpuProgramWrapper__
+#define __nosfuratu__EndBossSnakeTextureGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -19,4 +19,4 @@ public:
     virtual ~EndBossSnakeTextureGpuProgramWrapper();
 };
 
-#endif /* defined(__noctisgames__EndBossSnakeTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__EndBossSnakeTextureGpuProgramWrapper__) */

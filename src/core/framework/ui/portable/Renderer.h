@@ -72,7 +72,7 @@ protected:
     
     void loadTextureAsync(TextureWrapper* textureWrapper);
     
-    void destroyTexture(TextureWrapper** textureWrapper);
+    void unloadTexture(TextureWrapper* textureWrapper);
     
     bool ensureTexture(TextureWrapper* textureWrapper);
     
