@@ -232,7 +232,10 @@ void BatPanel::updateJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_W:
-                            execute = true;
+                            if ((*i)->isUp())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -244,7 +247,10 @@ void BatPanel::updateJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case GamePadEventType_A_BUTTON:
-                            execute = true;
+                            if (!(*i)->isButtonPressed())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -335,7 +341,10 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_W:
-                            execute = true;
+                            if ((*i)->isUp())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -347,7 +356,10 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case GamePadEventType_A_BUTTON:
-                            execute = true;
+                            if (!(*i)->isButtonPressed())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -427,7 +439,10 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_W:
-                            execute = true;
+                            if ((*i)->isUp())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -439,7 +454,10 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case GamePadEventType_A_BUTTON:
-                            execute = true;
+                            if (!(*i)->isButtonPressed())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -698,7 +716,10 @@ void BatPanel::updateVampire(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_W:
-                            execute = true;
+                            if ((*i)->isUp())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -710,7 +731,10 @@ void BatPanel::updateVampire(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case GamePadEventType_A_BUTTON:
-                            execute = true;
+                            if (!(*i)->isButtonPressed())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -786,7 +810,10 @@ void BatPanel::updateVampire(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_W:
-                            execute = true;
+                            if ((*i)->isUp())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;
@@ -798,7 +825,10 @@ void BatPanel::updateVampire(MainScreen* gs)
                     switch ((*i)->getType())
                     {
                         case GamePadEventType_A_BUTTON:
-                            execute = true;
+                            if (!(*i)->isButtonPressed())
+                            {
+                                execute = true;
+                            }
                             break;
                         default:
                             continue;

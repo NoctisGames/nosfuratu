@@ -199,6 +199,7 @@ MainRenderer::~MainRenderer()
 void MainRenderer::load(RendererType rendererType)
 {
     m_loadedRendererType = rendererType;
+    m_stopCamera = false;
     
     switch (m_loadedRendererType)
     {
@@ -708,8 +709,8 @@ void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
 
 void MainRenderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
 {
-    if (!ensureTexture(m_world_1_cutscene_1)
-        || !ensureTexture(m_world_1_cutscene_2))
+    if (!(ensureTexture(m_world_1_cutscene_1)
+          && ensureTexture(m_world_1_cutscene_2)))
     {
         return;
     }
@@ -846,13 +847,13 @@ void MainRenderer::renderWorldMapScreenButtons(WorldMap& wm)
 
 void MainRenderer::renderWorld(Game& game)
 {
-    if (!ensureTexture(m_world_1_background_lower_part_1)
-        || !ensureTexture(m_world_1_background_lower_part_2)
-        || !ensureTexture(m_world_1_background_mid)
-        || !ensureTexture(m_world_1_background_upper)
-        || !ensureTexture(m_world_1_ground)
-        || !ensureTexture(m_world_1_objects_part_1)
-        || !ensureTexture(m_world_1_objects_part_2))
+    if (!(ensureTexture(m_world_1_background_lower_part_1)
+          && ensureTexture(m_world_1_background_lower_part_2)
+          && ensureTexture(m_world_1_background_mid)
+          && ensureTexture(m_world_1_background_upper)
+          && ensureTexture(m_world_1_ground)
+          && ensureTexture(m_world_1_objects_part_1)
+          && ensureTexture(m_world_1_objects_part_2)))
     {
         return;
     }
@@ -1045,7 +1046,8 @@ void MainRenderer::renderJonAndExtraForegroundObjects(Game& game)
     m_rendererHelper->updateMatrix(m_camBounds->getLeft(), m_camBounds->getLeft() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     if (game.getJons().size() > 0
-        && ensureTexture(m_jon))
+        && ensureTexture(m_jon)
+        && ensureTexture(m_vampire))
     {
         Jon& jon = game.getJon();
         bool isTransforming = jon.isTransformingIntoVampire() || jon.isRevertingToRabbit();
@@ -1092,7 +1094,7 @@ void MainRenderer::renderJonAndExtraForegroundObjects(Game& game)
 	if (game.getCountHissWithMinas().size() > 0)
 	{
 		CountHissWithMina *chwm = game.getCountHissWithMinas().at(0);
-		if ((!chwm->isFacingLeft() && m_jon->gpuTextureWrapper)
+		if ((!chwm->isFacingLeft() && ensureTexture(m_jon))
 			|| (chwm->isFacingLeft() && ensureTexture(m_world_1_end_boss_part_1)))
 		{
 			m_spriteBatcher->beginBatch();
@@ -1112,9 +1114,9 @@ void MainRenderer::renderJonAndExtraForegroundObjects(Game& game)
 
 void MainRenderer::renderMidBossOwl(MidBossOwl& midBossOwl)
 {
-    if (!ensureTexture(m_world_1_mid_boss_part_1)
-        || !ensureTexture(m_world_1_mid_boss_part_2)
-        || !ensureTexture(m_world_1_mid_boss_part_3))
+    if (!(ensureTexture(m_world_1_mid_boss_part_1)
+          && ensureTexture(m_world_1_mid_boss_part_2)
+          && ensureTexture(m_world_1_mid_boss_part_3)))
     {
         return;
     }
@@ -1158,9 +1160,9 @@ void MainRenderer::renderMidBossOwl(MidBossOwl& midBossOwl)
 
 void MainRenderer::renderEndBossSnake(EndBossSnake& endBossSnake)
 {
-    if (!ensureTexture(m_world_1_end_boss_part_1)
-        || !ensureTexture(m_world_1_end_boss_part_2)
-        || !ensureTexture(m_world_1_end_boss_part_3))
+    if (!(ensureTexture(m_world_1_end_boss_part_1)
+          && ensureTexture(m_world_1_end_boss_part_2)
+          && ensureTexture(m_world_1_end_boss_part_3)))
     {
         return;
     }

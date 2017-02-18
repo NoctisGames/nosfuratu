@@ -96,10 +96,7 @@ void MainScreenLevelEditor::execute(MainScreen* gs)
         
         gs->m_renderer->renderToScreen();
         
-		if (m_game->isLoaded())
-		{
-			gs->m_renderer->renderLevelEditor(this);
-		}
+		gs->m_renderer->renderLevelEditor(this);
         
         if (gs->m_renderer->isLoadingData())
         {
