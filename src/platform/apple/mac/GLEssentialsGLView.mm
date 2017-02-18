@@ -9,6 +9,7 @@
 #import "GLEssentialsGLView.h"
 
 #import "ScreenController.h"
+#import "JoystickController.h"
 
 // C++
 #include "ScreenInputManager.h"
@@ -24,6 +25,7 @@
 {
     MainScreen *_screen;
     ScreenController *_screenController;
+    JoystickController* _joystickController;
     
     double m_fLastTime;
 }
@@ -63,6 +65,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
     
     [mainWindow toggleFullScreen:self];
+    
+    _joystickController = [[JoystickController alloc] init];
+    [_joystickController performSelector:@selector(scan) withObject:nil afterDelay:1];
     
     NSOpenGLPixelFormatAttribute attrs[] =
     {

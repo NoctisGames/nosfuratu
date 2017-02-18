@@ -69,7 +69,7 @@ m_level_editor(new TextureWrapper("level_editor")),
 m_misc(new TextureWrapper("misc")),
 m_title_screen(new TextureWrapper("title_screen")),
 m_trans_death_shader_helper(new TextureWrapper("trans_death_shader_helper")),
-m_tutorial(new TextureWrapper(MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial.png" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial")),
+m_tutorial(new TextureWrapper(MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial")),
 m_vampire(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_vampire" : "vampire")),
 m_world_1_background_lower_part_1(new TextureWrapper("world_1_background_lower_part_1", 1)),
 m_world_1_background_lower_part_2(new TextureWrapper("world_1_background_lower_part_2", 1)),
@@ -232,7 +232,7 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial.png" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
+            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             break;
         case RENDERER_TYPE_WORLD_1_MID_BOSS:
@@ -246,7 +246,7 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial.png" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
+            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             loadTextureAsync(m_world_1_mid_boss_part_1);
             loadTextureAsync(m_world_1_mid_boss_part_2);
@@ -263,7 +263,7 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial.png" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
+            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             loadTextureAsync(m_world_1_end_boss_part_1);
             loadTextureAsync(m_world_1_end_boss_part_2);

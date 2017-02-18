@@ -11,6 +11,7 @@
 
 typedef enum
 {
+    GamePadEventType_NONE,
     GamePadEventType_D_PAD_RIGHT,
     GamePadEventType_D_PAD_UP,
     GamePadEventType_D_PAD_LEFT,

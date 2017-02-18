@@ -61,6 +61,12 @@
 		BB0B3EE91DBAA4F400597FE9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF1877178E2185005DA99E /* UIKit.framework */; };
 		BB12EDD21A1CF6D1006D385B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */; };
 		BB12EDD41A1CF6D9006D385B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */; };
+		BB13BD471E58E04D0073C08F /* DDHidLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; };
+		BB13BD481E58E04D0073C08F /* DDHidLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; };
+		BB13BD4F1E58E0800073C08F /* JoystickController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB13BD4C1E58E0800073C08F /* JoystickController.mm */; };
+		BB13BD501E58E0800073C08F /* JoystickController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB13BD4C1E58E0800073C08F /* JoystickController.mm */; };
+		BB13BD521E58E7350073C08F /* DDHidLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BB13BD541E58E73D0073C08F /* DDHidLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB21A4811DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
 		BB21A4821DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
 		BB21A4831DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */; };
@@ -1297,6 +1303,29 @@
 		FE1ACF4F5D764720ED51C8A8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7422774349EFDC9E550FC8B5 /* CoreText.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BB13BD511E58E72C0073C08F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BB13BD521E58E7350073C08F /* DDHidLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB13BD531E58E7380073C08F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BB13BD541E58E73D0073C08F /* DDHidLib.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		05945F36F017190884FC7FB9 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		0ADF1874178E2185005DA99E /* NosFURatu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NosFURatu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1359,6 +1388,9 @@
 		BB12EDD11A1CF6D1006D385B /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BB12EDD31A1CF6D9006D385B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB12EDD71A1CF6F1006D385B /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		BB13BD461E58E04D0073C08F /* DDHidLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DDHidLib.framework; sourceTree = "<group>"; };
+		BB13BD4B1E58E0800073C08F /* JoystickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickController.h; sourceTree = "<group>"; };
+		BB13BD4C1E58E0800073C08F /* JoystickController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = JoystickController.mm; sourceTree = "<group>"; };
 		BB21A47B1DD2F51100D72C8B /* world_1_background_lower_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower_part_1.png; sourceTree = "<group>"; };
 		BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_lower_part_2.png; sourceTree = "<group>"; };
 		BB21A47D1DD2F51100D72C8B /* world_1_background_mid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_background_mid.png; sourceTree = "<group>"; };
@@ -2073,6 +2105,7 @@
 			files = (
 				BB09CE361DBD46B3006A3E49 /* CoreMedia.framework in Frameworks */,
 				BBCCA9001DB36F0F00452FA1 /* AVFoundation.framework in Frameworks */,
+				BB13BD471E58E04D0073C08F /* DDHidLib.framework in Frameworks */,
 				BBCCA8FD1DB36EB600452FA1 /* OpenAL.framework in Frameworks */,
 				BBCCA84A1DB346C100452FA1 /* CoreAudio.framework in Frameworks */,
 				BBCCA8451DB3468800452FA1 /* AudioToolbox.framework in Frameworks */,
@@ -2095,6 +2128,7 @@
 			files = (
 				BB09CE371DBD46BA006A3E49 /* CoreMedia.framework in Frameworks */,
 				BBCCA8FF1DB36ED200452FA1 /* AVFoundation.framework in Frameworks */,
+				BB13BD481E58E04D0073C08F /* DDHidLib.framework in Frameworks */,
 				BBCCA8FE1DB36EBB00452FA1 /* OpenAL.framework in Frameworks */,
 				BBCCA84B1DB346C700452FA1 /* CoreAudio.framework in Frameworks */,
 				BBCCA8441DB3468100452FA1 /* AudioToolbox.framework in Frameworks */,
@@ -2284,6 +2318,14 @@
 				BB09CDD61DBD3779006A3E49 /* SuperpoweredUSBAudio.h */,
 			);
 			path = AndroidIO;
+			sourceTree = "<group>";
+		};
+		BB13BD451E58E04D0073C08F /* DDHidLib */ = {
+			isa = PBXGroup;
+			children = (
+				BB13BD461E58E04D0073C08F /* DDHidLib.framework */,
+			);
+			path = DDHidLib;
 			sourceTree = "<group>";
 		};
 		BB34F7B41E563C2100AC8197 /* framework */ = {
@@ -2970,6 +3012,8 @@
 				BB44CB061DB04C83003E633F /* GLEssentialsWindowController.h */,
 				BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */,
 				BB44C3241DB030B3003E633F /* Info.plist */,
+				BB13BD4B1E58E0800073C08F /* JoystickController.h */,
+				BB13BD4C1E58E0800073C08F /* JoystickController.mm */,
 				BB44C3221DB030B3003E633F /* Main.storyboard */,
 				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 			);
@@ -3173,6 +3217,7 @@
 		BB44C4F61DB03A7C003E633F /* 3rdparty */ = {
 			isa = PBXGroup;
 			children = (
+				BB13BD451E58E04D0073C08F /* DDHidLib */,
 				BB44C4F71DB03A7C003E633F /* libpng */,
 				BB44C5FF1DB03A7D003E633F /* rapidjson */,
 				BB09CDD21DBD3779006A3E49 /* Superpowered */,
@@ -3351,6 +3396,7 @@
 				BB44C3061DB0303F003E633F /* Sources */,
 				BB44C3071DB0303F003E633F /* Frameworks */,
 				BB44C3081DB0303F003E633F /* Resources */,
+				BB13BD511E58E72C0073C08F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -3368,6 +3414,7 @@
 				BB44CBF11DB07165003E633F /* Sources */,
 				BB44CC741DB07165003E633F /* Frameworks */,
 				BB44CC7F1DB07165003E633F /* Resources */,
+				BB13BD531E58E7380073C08F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -4317,6 +4364,7 @@
 				BB34FA1F1E563C2400AC8197 /* Renderer.cpp in Sources */,
 				BB34F9EF1E563C2300AC8197 /* Font.cpp in Sources */,
 				BB34FCA91E5645F500AC8197 /* OpenGLSnakeDeathTextureProgram.cpp in Sources */,
+				BB13BD4F1E58E0800073C08F /* JoystickController.mm in Sources */,
 				BB34FCB11E5645F500AC8197 /* MainAssets.cpp in Sources */,
 				BB34FA0F1E563C2400AC8197 /* LineBatcher.cpp in Sources */,
 				BB34F9731E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */,
@@ -4490,6 +4538,7 @@
 				BB34FA201E563C2400AC8197 /* Renderer.cpp in Sources */,
 				BB34F9F01E563C2300AC8197 /* Font.cpp in Sources */,
 				BB34FCAA1E5645F500AC8197 /* OpenGLSnakeDeathTextureProgram.cpp in Sources */,
+				BB13BD501E58E0800073C08F /* JoystickController.mm in Sources */,
 				BB34FCB21E5645F500AC8197 /* MainAssets.cpp in Sources */,
 				BB34FA101E563C2400AC8197 /* LineBatcher.cpp in Sources */,
 				BB34F9741E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */,
