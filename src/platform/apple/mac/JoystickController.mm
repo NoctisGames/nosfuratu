@@ -128,7 +128,7 @@
     if (index != NSNotFound)
     {
         DDHidJoystick *currentJoystick = [mJoysticks objectAtIndex:index];
-        [currentJoystick setTag:index];
+        [currentJoystick setTag:(int)index];
         [currentJoystick startListening];
         
         [mJoystickButtons addObject:[[NSMutableArray alloc] init]];
