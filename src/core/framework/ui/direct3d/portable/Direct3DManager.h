@@ -54,6 +54,7 @@ public:
 	std::vector<ID3D11Texture2D*>& getOffscreenRenderTargets();
 	std::vector<ID3D11RenderTargetView*>& getOffscreenRenderTargetViews();
 	std::vector<ID3D11ShaderResourceView*>& getOffscreenShaderResourceViews();
+	std::vector<GpuTextureWrapper *>& getFramebuffers();
 	Microsoft::WRL::ComPtr<ID3D11BlendState>& getBlendState();
 	Microsoft::WRL::ComPtr<ID3D11BlendState>& getScreenBlendState();
 	Microsoft::WRL::ComPtr<ID3D11Buffer>& getMatrixConstantbuffer();
