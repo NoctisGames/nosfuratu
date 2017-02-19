@@ -4,7 +4,7 @@
 
 #include "pch.h"
 
-#include "Game.h"
+#include "Direct3DMain.h"
 #include "Direct3DManager.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
@@ -22,8 +22,8 @@ using Microsoft::WRL::ComPtr;
 
 Direct3DMain::Direct3DMain() : m_screen(nullptr), m_isPointerPressed(false)
 {
-    deviceResources = std::make_unique<DX::DeviceResources>();
-    deviceResources->RegisterDeviceNotify(this);
+    m_deviceResources = std::make_unique<DX::DeviceResources>();
+	m_deviceResources->RegisterDeviceNotify(this);
 }
 
 Direct3DMain::~Direct3DMain()
@@ -37,31 +37,31 @@ Direct3DMain::~Direct3DMain()
 
 	delete m_screen;
 
-	deviceResources.reset();
+	m_deviceResources.reset();
 }
 
 // Initialize the Direct3D resources required to run.
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 void Direct3DMain::Initialize(HWND window, int width, int height)
 {
-	deviceResources->SetWindow(window, width, height);
+	m_deviceResources->SetWindow(window, width, height);
 #else
 void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi, DXGI_MODE_ROTATION rotation)
 {
 	m_fDPI = dpi;
-	deviceResources->SetWindow(window, width, height, rotation);
+	m_deviceResources->SetWindow(window, width, height, rotation);
 #endif
 
-    deviceResources->CreateDeviceResources();
+	m_deviceResources->CreateDeviceResources();
 
-	Direct3DManager::setDeviceResources(deviceResources.get());
+	Direct3DManager::setDeviceResources(m_deviceResources.get());
 
 	m_screen = new MainScreen();
 	m_screen->onResume();
 
     CreateDeviceDependentResources();
 
-    deviceResources->CreateWindowSizeDependentResources();
+	m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
 	m_keyboard = std::make_unique<Keyboard>();
@@ -176,36 +176,85 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 
 		if (m_buttons.dpadRight == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_DPAD, 0, 1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0, 1);
+		}
+		else if (m_buttons.dpadRight == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0);
 		}
 		if (m_buttons.dpadUp == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_DPAD, 0, 0, 1);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0, 1);
+		}
+		else if (m_buttons.dpadUp == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0);
 		}
 		if (m_buttons.dpadLeft == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_DPAD, 0, -1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0, 1);
+		}
+		else if (m_buttons.dpadLeft == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0);
 		}
 		if (m_buttons.dpadDown == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_DPAD, 0, 0, -1);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0, 1);
+		}
+		else if (m_buttons.dpadDown == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0);
 		}
         
 		if (m_buttons.a == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0, 1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0, 1);
+		}
+		else if (m_buttons.a == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0);
 		}
 		if (m_buttons.b == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_B_BUTTON, 0, 1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_B_BUTTON, 0, 1);
+		}
+		else if (m_buttons.b == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_B_BUTTON, 0);
 		}
 		if (m_buttons.x == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0, 1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0, 1);
+		}
+		else if (m_buttons.x == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0);
 		}
 		if (m_buttons.y == GamePad::ButtonStateTracker::PRESSED)
 		{
-			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_Y_BUTTON, 0, 1, 0);
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_Y_BUTTON, 0, 1);
+		}
+		else if (m_buttons.y == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_Y_BUTTON, 0);
+		}
+
+		if (m_buttons.start == GamePad::ButtonStateTracker::PRESSED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, 0, 1);
+		}
+		else if (m_buttons.start == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, 0);
+		}
+		if (m_buttons.back == GamePad::ButtonStateTracker::PRESSED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BACK_BUTTON, 0, 1);
+		}
+		else if (m_buttons.back == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BACK_BUTTON, 0);
 		}
         
 		GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_TRIGGER, 0, gamePadState.triggers.left, gamePadState.triggers.right);
@@ -251,40 +300,40 @@ void Direct3DMain::Render()
 
     Clear();
 
-	beginPixEvent(L"Render", deviceResources.get());
+	beginPixEvent(L"Render", m_deviceResources.get());
 
 	m_screen->render();
 
-    endPixEvent(deviceResources.get());
+    endPixEvent(m_deviceResources.get());
 
 	handleSound();
 	handleMusic();
 
     // Show the new frame.
 	beginPixEvent(L"Present");
-    deviceResources->Present();
+	m_deviceResources->Present();
 	endPixEvent();
 }
 
 // Helper method to clear the back buffers.
 void Direct3DMain::Clear()
 {
-	beginPixEvent(L"Clear", deviceResources.get());
+	beginPixEvent(L"Clear", m_deviceResources.get());
 
 	// Clear the views.
-	auto context = deviceResources->GetD3DDeviceContext();
-	auto renderTarget = deviceResources->GetRenderTargetView();
-	auto depthStencil = deviceResources->GetDepthStencilView();
+	auto context = m_deviceResources->GetD3DDeviceContext();
+	auto renderTarget = m_deviceResources->GetRenderTargetView();
+	auto depthStencil = m_deviceResources->GetDepthStencilView();
 
 	context->ClearRenderTargetView(renderTarget, Colors::CornflowerBlue);
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 
 	// Set the viewport.
-	auto viewport = deviceResources->GetScreenViewport();
+	auto viewport = m_deviceResources->GetScreenViewport();
 	context->RSSetViewports(1, &viewport);
 
-	endPixEvent(deviceResources.get());
+	endPixEvent(m_deviceResources.get());
 }
 #pragma endregion
 
@@ -330,10 +379,10 @@ void Direct3DMain::OnSuspending()
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	// Empty
 #else
-	auto context = deviceResources->GetD3DDeviceContext();
+	auto context = m_deviceResources->GetD3DDeviceContext();
 	context->ClearState();
 
-	deviceResources->Trim();
+	m_deviceResources->Trim();
 #endif
 
 	m_screen->onPause();
@@ -358,7 +407,7 @@ void Direct3DMain::OnResuming()
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 void Direct3DMain::OnWindowSizeChanged(int width, int height)
 {
-	if (!deviceResources->WindowSizeChanged(width, height))
+	if (!m_deviceResources->WindowSizeChanged(width, height))
 	{
 		return;
 	}
@@ -374,7 +423,7 @@ void Direct3DMain::OnWindowSizeChanged(int width, int height, float dpi, DXGI_MO
 
 	m_fDPI = dpi;
 
-	if (!deviceResources->WindowSizeChanged(width, height, rotation))
+	if (!m_deviceResources->WindowSizeChanged(width, height, rotation))
 	{
 		return;
 	}
@@ -388,7 +437,7 @@ void Direct3DMain::ValidateDevice()
 	OutputDebugStringW(L"ValidateDevice");
 #endif
 
-	deviceResources->ValidateDevice();
+	m_deviceResources->ValidateDevice();
 }
 #endif
 
@@ -419,7 +468,7 @@ void Direct3DMain::CreateWindowSizeDependentResources()
 	OutputDebugStringW(L"CreateWindowSizeDependentResources");
 #endif
 
-	RECT outputSize = deviceResources->GetOutputSize();
+	RECT outputSize = m_deviceResources->GetOutputSize();
 	LONG width = outputSize.right - outputSize.left;
 	LONG height = outputSize.bottom - outputSize.top;
 
@@ -431,7 +480,7 @@ void Direct3DMain::beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceReso
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	UNUSED(deviceResources);
 
-	deviceResources->PIXBeginEvent(pFormat);
+	m_deviceResources->PIXBeginEvent(pFormat);
 #else
 	if (deviceResources)
 	{
@@ -450,7 +499,7 @@ void Direct3DMain::endPixEvent(DX::DeviceResources* deviceResources)
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	UNUSED(deviceResources);
 
-	deviceResources->PIXEndEvent();
+	m_deviceResources->PIXEndEvent();
 #else
 	if (deviceResources)
 	{
