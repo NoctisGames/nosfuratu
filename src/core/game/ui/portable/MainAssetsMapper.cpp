@@ -370,7 +370,7 @@ void MainAssetsMapper::mapAssets()
         ASSETS->getAnimationsMap()["MidBossOwlState_Dying_Dead"] = anim;
     }
     ASSETS->getAnimationsMap()["Bat"] = new Animation("tutorial", 2048, 898, 164, 158, 1312, 316, TEXTURE_SIZE_4096, true, 0.10f, 15, 8);
-    ASSETS->getAnimationsMap()["BatInstruction_Opening"] = new Animation("tutorial", 0, 3588, 498, 394, 1494, 394, TEXTURE_SIZE_4096, false, 0.10f, 3);
+    ASSETS->getAnimationsMap()["BatInstruction_Opening"] = new Animation("tutorial", 0, 792, 498, 394, 996, 394, TEXTURE_SIZE_4096, false, 0.10f, 2);
     ASSETS->getAnimationsMap()["BatInstructionType_Tap"] = new Animation("tutorial", 1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, true, 0.10f, 5);
     
     if (MAIN_ASSETS->isUsingDesktopTextureSet())

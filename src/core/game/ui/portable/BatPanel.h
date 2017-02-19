@@ -60,7 +60,7 @@ public:
         
         if (m_isOpening)
         {
-            if (m_fStateTime > 0.3f)
+            if (m_fStateTime > 0.2f)
             {
                 m_fStateTime = 0;
                 m_isOpening = false;

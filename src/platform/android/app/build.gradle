@@ -50,18 +50,10 @@ android {
     clean.dependsOn cleanNative
 
     task copyFrameworkShaders(type: Copy)
-    copyFrameworkShaders {
-        description = 'Copies shaders from src/core/framework/ui/opengl into project assets'
-        from '../../../../src/core/framework/ui/opengl'
-        into 'src/main/assets'
-        include('*.vsh')
-        include('*.fsh')
-    }
-
-    task copyGameShaders(type: Copy)
-    copyGameShaders {
-        description = 'Copies shaders from src/core/game/ui/opengl into project assets'
-        from '../../../../src/core/game/ui/opengl'
+    copyShaders {
+        description = 'Copies shaders into project assets'
+        from '../../../../src/core/framework/ui/opengl/shader'
+        from '../../../../src/core/game/ui/opengl/shader'
         into 'src/main/assets'
         include('*.vsh')
         include('*.fsh')
@@ -71,13 +63,6 @@ android {
     copyTextures {
         description = 'Copies textures from root assets into project assets'
         from '../../../../assets/textures'
-        into 'src/main/assets'
-        include('*.png')
-    }
-
-    task copyCompressedTextures(type: Copy)
-    copyCompressedTextures {
-        description = 'Copies compressed textures from root assets into project assets'
         from '../../../../assets/textures/compressed'
         into 'src/main/assets'
         include('*.png')
@@ -85,16 +70,15 @@ android {
 
     task copySounds(type: Copy)
     copySounds {
-        description = 'Copies sounds from root assets into project assets'
+        description = 'Copies music and sounds from root assets into project assets'
+        from '../../../../assets/music'
         from '../../../../assets/sounds'
         into 'src/main/res/raw'
         include('*.wav')
     }
 
-    preBuild.dependsOn(copyFrameworkShaders)
-    preBuild.dependsOn(copyGameShaders)
+    preBuild.dependsOn(copyShaders)
     preBuild.dependsOn(copyTextures)
-    preBuild.dependsOn(copyCompressedTextures)
     preBuild.dependsOn(copySounds)
 }
 
