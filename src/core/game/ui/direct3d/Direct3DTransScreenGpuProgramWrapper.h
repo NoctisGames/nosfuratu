@@ -33,8 +33,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
 	
     bool m_isWindowsMobile;
-
-	void createConstantBuffers();
 };
 
 #endif /* defined(__nosfuratu__Direct3DTransScreenGpuProgramWrapper__) */

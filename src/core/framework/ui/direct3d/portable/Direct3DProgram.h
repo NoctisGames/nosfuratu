@@ -27,6 +27,8 @@ public:
     void bindNormalSamplerState();
     
     void bindWrapSamplerState();
+
+	void createConstantBuffer(_COM_Outptr_opt_  ID3D11Buffer **ppBuffer);
     
 private:
     Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;

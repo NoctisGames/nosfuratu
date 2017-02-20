@@ -12,6 +12,8 @@
 #include "Audio.h"
 #include "MainScreen.h"
 
+#include <string>
+
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Direct3DMain : public DX::IDeviceNotify
@@ -54,7 +56,7 @@ public:
 
 	MainScreen* getMainScreen();
 	int getRequestedAction();
-	int getScreenRequestedAction();
+	void clearRequestedAction();
 
 private:
 	// Device resources.
@@ -79,7 +81,6 @@ private:
 
 	float m_fDPI;
 	int m_iRequestedAction;
-	int m_iScreenRequestedAction;
 	bool m_isPointerPressed;
 	bool m_retryAudio;
 
@@ -106,12 +107,19 @@ private:
 	void loadSound(const wchar_t* waveFileName);
 	void loadMusic(const wchar_t* waveFileName);
 
+	int calcWorld(int requestedAction);
+	int calcLevel(int requestedAction);
 	void unlockLevel(int requestedAction);
 	void markLevelAsCompleted(int requestedAction);
 	void submitScoreOnline(int requestedAction);
 	void setCutsceneViewedFlag(int requestedAction);
 	void sendSaveData();
 
-	int calcWorld(int requestedAction);
-	int calcLevel(int requestedAction);
+	void displayInterstitialAdIfAvailable();
+
+	void saveLevel(int requestedAction);
+	void loadLevel(int requestedAction);
+	std::string getLevelName(int requestedAction);
+	void showMessage(int requestedAction);
+	void displayToast(std::string message);
 };

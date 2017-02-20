@@ -30,8 +30,6 @@ private:
     Direct3DProgram* m_program;
     
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_timeElapsedConstantBuffer;
-
-	void createConstantBuffers();
 };
 
 #endif /* defined(__nosfuratu__Direct3DTransDeathGpuProgramWrapper__) */

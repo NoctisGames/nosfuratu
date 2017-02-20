@@ -5,26 +5,32 @@
 #include "pch.h"
 #include "Direct3DMain.h"
 #include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "MainScreenTitle.h"
 
 #include <ppltasks.h>
 
 using namespace concurrency;
+using namespace Microsoft::Advertising::WinRT::UI;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::ApplicationModel::Activation;
-using namespace Windows::UI::Core;
-using namespace Windows::UI::Input;
-using namespace Windows::UI::ViewManagement;
 using namespace Windows::System;
 using namespace Windows::Foundation;
 using namespace Windows::Graphics::Display;
+using namespace Windows::Phone::UI::Input;
 using namespace Windows::System::Profile;
+using namespace Windows::System::Threading;
+using namespace Windows::UI::Core;
+using namespace Windows::UI::Input;
+using namespace Windows::UI::ViewManagement;
 using namespace DirectX;
 
 ref class ViewProvider sealed : public IFrameworkView
 {
 public:
     ViewProvider() :
+		m_isPointerPressed(false),
         m_exit(false),
         m_visible(true),
         m_DPI(96.f),
@@ -45,6 +51,12 @@ public:
         CoreApplication::Resuming += ref new EventHandler<Platform::Object^>(this, &ViewProvider::OnResuming);
 
         m_main = std::make_unique<Direct3DMain>();
+
+		m_interstitialAd = ref new InterstitialAd();
+		m_interstitialAd->AdReady += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdReady);
+		m_interstitialAd->Completed += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdCompleted);
+		m_interstitialAd->Cancelled += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdCancelled);
+		m_interstitialAd->ErrorOccurred += ref new Windows::Foundation::EventHandler<Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^>(this, &ViewProvider::OnAdError);
     }
 
     virtual void Uninitialize()
@@ -72,14 +84,14 @@ public:
 
         DisplayInformation::DisplayContentsInvalidated += ref new TypedEventHandler<DisplayInformation^, Object^>(this, &ViewProvider::OnDisplayContentsInvalidated);
 
-		AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-		bool isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-		if (isMobile)
+		// Register for pointer events, which will be raised on the background thread.
+		window->PointerPressed += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerPressed);
+		window->PointerMoved += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerMoved);
+		window->PointerReleased += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerReleased);
+
+		if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
 		{
-			// Register for pointer events, which will be raised on the background thread.
-			window->PointerPressed += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerPressed);
-			window->PointerMoved += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerMoved);
-			window->PointerReleased += ref new TypedEventHandler<CoreWindow^, PointerEventArgs^>(this, &ViewProvider::OnPointerReleased);
+			HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &ViewProvider::OnBackPressed);
 		}
 
         m_DPI = currentDisplayInformation->LogicalDpi;
@@ -116,6 +128,13 @@ public:
             if (m_visible)
             {
                 m_main->Tick();
+
+				if (m_main->getRequestedAction() == 1)
+				{
+					// Display Ad
+					DisplayInterstitialAdIfAvailable();
+					m_main->clearRequestedAction();
+				}
 
                 CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
             }
@@ -164,6 +183,9 @@ protected:
         view->FullScreenSystemOverlayMode = FullScreenSystemOverlayMode::Minimal;
 
         view->TryResizeView(desiredSize);
+
+		// TODO, Ads are not working
+		//RequestInterstitialAd();
     }
 
     void OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
@@ -255,20 +277,61 @@ protected:
 
 	void OnPointerPressed(CoreWindow^ sender, PointerEventArgs^ e)
 	{
-		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+		float x = e->CurrentPoint->Position.X;
+		float y = e->CurrentPoint->Position.Y;
+		x = ConvertDipsToPixels(x);
+		y = ConvertDipsToPixels(y);
+
+		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, x, y);
+
+		m_isPointerPressed = true;
 	}
 
 	void OnPointerMoved(CoreWindow^ sender, PointerEventArgs^ e)
 	{
-		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+		if  (!m_isPointerPressed)
+		{
+			return;
+		}
+		
+		float x = e->CurrentPoint->Position.X;
+		float y = e->CurrentPoint->Position.Y;
+		x = ConvertDipsToPixels(x);
+		y = ConvertDipsToPixels(y);
+
+		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, x, y);
 	}
 
 	void OnPointerReleased(CoreWindow^ sender, PointerEventArgs^ e)
 	{
-		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+		float x = e->CurrentPoint->Position.X;
+		float y = e->CurrentPoint->Position.Y;
+		x = ConvertDipsToPixels(x);
+		y = ConvertDipsToPixels(y);
+
+		SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, x, y);
+	}
+
+	// Back Button Handling (only for Windows Phone)
+	void OnBackPressed(Platform::Object^ sender, Windows::Phone::UI::Input::BackPressedEventArgs^ args)
+	{
+		if (m_main->getMainScreen()->m_stateMachine.getCurrentState() == Title::getInstance())
+		{
+			args->Handled = false;
+		}
+		else
+		{
+			KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+
+			args->Handled = true;
+		}
 	}
 
 private:
+	// Monetization
+	Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;
+
+	bool                    m_isPointerPressed;
     bool                    m_exit;
     bool                    m_visible;
     float                   m_DPI;
@@ -355,6 +418,71 @@ private:
 
         m_main->OnWindowSizeChanged(outputWidth, outputHeight, m_DPI, rotation);
     }
+
+	void RequestInterstitialAd()
+	{
+		IAsyncAction^ threadPoolWorkItem = ThreadPool::RunAsync(ref new WorkItemHandler([this](IAsyncAction^ operation)
+		{
+			Platform::String^ myAppId;
+			Platform::String^ myAdUnitId;
+
+#if defined(_DEBUG)
+			myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
+			myAdUnitId = L"11389925";
+#else
+			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+
+			if (isMobile)
+			{
+				myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
+				myAdUnitId = L"11666621";
+			}
+			else
+			{
+				myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
+				myAdUnitId = L"11666622";
+		}
+#endif
+			m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
+		}, Platform::CallbackContext::Any));
+	}
+
+	void DisplayInterstitialAdIfAvailable()
+	{
+		IAsyncAction^ threadPoolWorkItem = ThreadPool::RunAsync(ref new WorkItemHandler([this](IAsyncAction^ operation)
+		{
+			if (InterstitialAdState::Ready == m_interstitialAd->State)
+			{
+				m_main->OnSuspending();
+
+				m_interstitialAd->Show();
+			}
+		}, Platform::CallbackContext::Any));
+	}
+
+	void OnAdReady(Platform::Object^ sender, Platform::Object^ args)
+	{
+		// Empty
+	}
+
+	void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args)
+	{
+		m_main->OnResuming();
+		RequestInterstitialAd();
+	}
+
+	void OnAdCancelled(Platform::Object^ sender, Platform::Object^ args)
+	{
+		m_main->OnResuming();
+		RequestInterstitialAd();
+	}
+
+	void OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args)
+	{
+		m_main->OnResuming();
+		RequestInterstitialAd();
+	}
 };
 
 ref class ViewProviderFactory : IFrameworkViewSource

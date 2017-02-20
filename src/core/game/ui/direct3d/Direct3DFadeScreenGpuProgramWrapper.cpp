@@ -18,7 +18,8 @@
 Direct3DFadeScreenGpuProgramWrapper::Direct3DFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"FadeScreenTexturePixelShader.cso"))
 {
-    createConstantBuffers();
+	m_program->createConstantBuffer(&m_progressConstantBuffer);
+	m_program->createConstantBuffer(&m_isWindowsMobileConstantBuffer);
     
     m_isWindowsMobile = D3DManager->isWindowsMobile();
 }
@@ -62,29 +63,4 @@ void Direct3DFadeScreenGpuProgramWrapper::unbind()
 
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
-}
-
-void Direct3DFadeScreenGpuProgramWrapper::createConstantBuffers()
-{
-	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_progressConstantBuffer);
-	}
-    
-    {
-        D3D11_BUFFER_DESC bd = { 0 };
-        
-        bd.Usage = D3D11_USAGE_DEFAULT;
-        bd.ByteWidth = 16;
-        bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-        
-        deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isWindowsMobileConstantBuffer);
-    }
 }

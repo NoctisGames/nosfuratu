@@ -18,7 +18,7 @@
 Direct3DSinWaveTextureGpuProgramWrapper::Direct3DSinWaveTextureGpuProgramWrapper() : SinWaveTextureGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"TextureVertexShader.cso", L"SinWaveTexturePixelShader.cso"))
 {
-    createConstantBuffer();
+	m_program->createConstantBuffer(&m_offsetConstantBuffer);
 }
 
 Direct3DSinWaveTextureGpuProgramWrapper::~Direct3DSinWaveTextureGpuProgramWrapper()
@@ -51,17 +51,4 @@ void Direct3DSinWaveTextureGpuProgramWrapper::bind()
 void Direct3DSinWaveTextureGpuProgramWrapper::unbind()
 {
 	// Empty
-}
-
-void Direct3DSinWaveTextureGpuProgramWrapper::createConstantBuffer()
-{
-	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
-
-	D3D11_BUFFER_DESC bd = { 0 };
-
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = 16;
-	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_offsetConstantBuffer);
 }

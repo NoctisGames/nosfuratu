@@ -19,7 +19,10 @@
 Direct3DShockwaveTextureGpuProgramWrapper::Direct3DShockwaveTextureGpuProgramWrapper() : ShockwaveTextureGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"ShockwaveTextureVertexShader.cso", L"ShockwaveTexturePixelShader.cso"))
 {
-    createConstantBuffers();
+	m_program->createConstantBuffer(&m_centerXConstantBuffer);
+	m_program->createConstantBuffer(&m_centerYConstantBuffer);
+	m_program->createConstantBuffer(&m_timeElapsedConstantBuffer);
+	m_program->createConstantBuffer(&m_isTransformingConstantBuffer);
 }
 
 Direct3DShockwaveTextureGpuProgramWrapper::~Direct3DShockwaveTextureGpuProgramWrapper()
@@ -64,49 +67,4 @@ void Direct3DShockwaveTextureGpuProgramWrapper::bind()
 void Direct3DShockwaveTextureGpuProgramWrapper::unbind()
 {
 	// Empty
-}
-
-void Direct3DShockwaveTextureGpuProgramWrapper::createConstantBuffers()
-{
-	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_centerXConstantBuffer);
-	}
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_centerYConstantBuffer);
-	}
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_timeElapsedConstantBuffer);
-	}
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isTransformingConstantBuffer);
-	}
 }

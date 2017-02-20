@@ -18,7 +18,8 @@
 Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper() : FramebufferRadialBlurGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"RadialBlurTexturePixelShader.cso"))
 {
-    createConstantBuffers();
+	m_program->createConstantBuffer(&m_isWindowsMobileConstantBuffer);
+	m_program->createConstantBuffer(&m_directionConstantBuffer);
     
     m_isWindowsMobile = D3DManager->isWindowsMobile();
 }
@@ -55,29 +56,4 @@ void Direct3DFramebufferRadialBlurGpuProgramWrapper::bind()
 void Direct3DFramebufferRadialBlurGpuProgramWrapper::unbind()
 {
     // Empty
-}
-
-void Direct3DFramebufferRadialBlurGpuProgramWrapper::createConstantBuffers()
-{
-	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_isWindowsMobileConstantBuffer);
-	}
-
-	{
-		D3D11_BUFFER_DESC bd = { 0 };
-
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = 16;
-		bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-		deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, &m_directionConstantBuffer);
-	}
 }

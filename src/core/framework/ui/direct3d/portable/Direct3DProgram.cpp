@@ -105,7 +105,15 @@ void Direct3DProgram::bindWrapSamplerState()
     deviceResources->GetD3DDeviceContext()->PSSetSamplers(0, 1, D3DManager->getSbWrapSamplerState().GetAddressOf());
 }
 
-void Direct3DProgram::mapVertices()
+void Direct3DProgram::createConstantBuffer(_COM_Outptr_opt_  ID3D11Buffer **ppBuffer)
 {
-    // Override
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
+	D3D11_BUFFER_DESC bd = { 0 };
+
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = 16;
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	deviceResources->GetD3DDevice()->CreateBuffer(&bd, nullptr, ppBuffer);
 }

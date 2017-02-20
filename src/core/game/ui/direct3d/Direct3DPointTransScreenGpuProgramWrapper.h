@@ -32,8 +32,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_centerXConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_centerYConstantBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
-
-	void createConstantBuffers();
 };
 
 #endif /* defined(__nosfuratu__Direct3DPointTransScreenGpuProgramWrapper__) */

@@ -25,7 +25,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_iScreenRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false)
+Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -342,11 +342,11 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 	switch (requestedAction)
 	{
 	case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-		//saveLevel(m_screen->getRequestedAction());
+		saveLevel(m_screen->getRequestedAction());
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-		//loadLevel(m_screen->getRequestedAction());
+		loadLevel(m_screen->getRequestedAction());
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_LEVEL_COMPLETED:
@@ -370,11 +370,11 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_SHOW_MESSAGE:
-		//showMessage(m_screen->getRequestedAction());
+		showMessage(m_screen->getRequestedAction());
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-		//displayInterstitialAdIfAvailable();
+		displayInterstitialAdIfAvailable();
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_UPDATE:
@@ -564,9 +564,9 @@ int Direct3DMain::getRequestedAction()
 	return m_iRequestedAction;
 }
 
-int Direct3DMain::getScreenRequestedAction()
+void Direct3DMain::clearRequestedAction()
 {
-	return m_iScreenRequestedAction;
+	m_iRequestedAction = 0;
 }
 #pragma endregion
 
@@ -867,7 +867,7 @@ void Direct3DMain::loadMusic(const wchar_t* waveFileName)
 }
 #pragma endregion
 
-#pragma misc
+#pragma region Misc
 void Direct3DMain::unlockLevel(int requestedAction)
 {
 	int world = calcWorld(requestedAction);
@@ -1001,6 +1001,109 @@ int Direct3DMain::calcLevel(int requestedAction)
 	level = requestedAction;
 
 	return level;
+}
+#pragma endregion
+
+#pragma region Ads
+void Direct3DMain::displayInterstitialAdIfAvailable()
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	m_iRequestedAction = 1;
+#endif
+}
+#pragma endregion
+
+#pragma region Level Editor
+void Direct3DMain::saveLevel(int requestedAction)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// TODO
+#endif
+}
+
+void Direct3DMain::loadLevel(int requestedAction)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// TODO
+#endif
+}
+
+std::string Direct3DMain::getLevelName(int requestedAction)
+{
+	std::stringstream ss;
+
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+
+	if (world > 0 && level > 0)
+	{
+		ss << "nosfuratu_c" << world << "_l" << level << ".json";
+	}
+	else
+	{
+		ss << "nosfuratu.json";
+	}
+
+	std::string ret = ss.str();
+
+	return ret;
+}
+
+void Direct3DMain::showMessage(int requestedAction)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	int messageKey = requestedAction;
+
+	const char* toast = nullptr;
+
+	switch (messageKey)
+	{
+	case MESSAGE_NO_END_SIGN_KEY:
+		toast = MESSAGE_NO_END_SIGN_VAL;
+		break;
+	case MESSAGE_NO_JON_KEY:
+		toast = MESSAGE_NO_JON_VAL;
+		break;
+	case MESSAGE_INVALID_JON_KEY:
+		toast = MESSAGE_INVALID_JON_VAL;
+		break;
+	case MESSAGE_NO_COUNT_HISS_KEY:
+		toast = MESSAGE_NO_COUNT_HISS_VAL;
+		break;
+	case MESSAGE_INVALID_COUNT_HISS_KEY:
+		toast = MESSAGE_INVALID_COUNT_HISS_VAL;
+		break;
+	case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
+		toast = MESSAGE_OFFSET_NEEDS_MARKERS_VAL;
+		break;
+	case MESSAGE_FEATURE_COMING_SOON_KEY:
+		toast = MESSAGE_FEATURE_COMING_SOON_VAL;
+		break;
+	default:
+		break;
+	}
+
+	if (toast)
+	{
+		std::string message = std::string(toast);
+		
+		displayToast(message);
+	}
+#endif
+}
+
+void Direct3DMain::displayToast(std::string message)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// TODO
+#endif
 }
 #pragma endregion
 

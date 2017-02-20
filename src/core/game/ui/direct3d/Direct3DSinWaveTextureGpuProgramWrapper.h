@@ -30,8 +30,6 @@ private:
     Direct3DProgram* m_program;
     
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_offsetConstantBuffer;
-
-	void createConstantBuffer();
 };
 
 #endif /* defined(__nosfuratu__Direct3DSinWaveTextureGpuProgramWrapper__) */
