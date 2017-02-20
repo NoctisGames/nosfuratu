@@ -16,14 +16,14 @@
 #include "CollectibleItem.h"
 #include "FlagUtil.h"
 #include "RTTI.h"
+#include "Game.h"
+#include "BatPanel.h"
+#include "MidBossOwl.h"
 
 #include <memory>
 
-class Game;
-class MidBossOwl;
 class EndBossSnake;
 class ForegroundObject;
-class BatPanel;
 
 class Level : public MainScreenState
 {

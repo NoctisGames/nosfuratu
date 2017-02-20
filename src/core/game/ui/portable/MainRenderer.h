@@ -17,7 +17,6 @@
 
 #include "Color.h"
 
-#include <memory>
 #include <vector>
 #include <thread>
 
