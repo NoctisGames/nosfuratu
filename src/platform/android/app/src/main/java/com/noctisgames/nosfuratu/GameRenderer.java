@@ -66,13 +66,13 @@ public final class GameRenderer implements Renderer
     private static final short MUSIC_RESUME = 2;
     private static final short MUSIC_PLAY = 3; // Assuming music is loaded
     private static final short MUSIC_PLAY_LOOP = 4; // Assuming music is loaded
-    private static final short MUSIC_SET_VOLUME = 5; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
-    private static final short MUSIC_LOAD_TITLE_LOOP = 6;
-    private static final short MUSIC_LOAD_OPENING_CUTSCENE = 7;
-    private static final short MUSIC_LOAD_LEVEL_SELECT_LOOP = 8;
-    private static final short MUSIC_LOAD_WORLD_1_LOOP = 9;
-    private static final short MUSIC_LOAD_MID_BOSS_LOOP = 10;
-    private static final short MUSIC_LOAD_END_BOSS_LOOP = 11;
+    private static final short MUSIC_LOAD_TITLE_LOOP = 5;
+    private static final short MUSIC_LOAD_OPENING_CUTSCENE = 6;
+    private static final short MUSIC_LOAD_LEVEL_SELECT_LOOP = 7;
+    private static final short MUSIC_LOAD_WORLD_1_LOOP = 8;
+    private static final short MUSIC_LOAD_MID_BOSS_LOOP = 9;
+    private static final short MUSIC_LOAD_END_BOSS_LOOP = 10;
+    private static final short MUSIC_SET_VOLUME = 11; // Passed in this format: [3][0-100], where the first digit is the action and the rest determines the volume (0-100)
 
     //// Sound Definitions ////
 
