@@ -3,13 +3,13 @@
 //
 
 #include "pch.h"
-#include "Game.h"
+#include "Direct3DMain.h"
 
 using namespace DirectX;
 
 namespace
 {
-    std::unique_ptr<Game> g_game;
+    std::unique_ptr<Direct3DMain> g_main;
 };
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -34,7 +34,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     if (FAILED(hr))
         return 1;
 
-    g_game = std::make_unique<Game>();
+    g_main = std::make_unique<Direct3DMain>();
 
     // Register class and create window
     {
@@ -57,7 +57,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 
         // Create window
         int w, h;
-        g_game->GetDefaultSize(w, h);
+        g_main->GetDefaultSize(w, h);
 
         RECT rc;
         rc.top = 0;
@@ -79,11 +79,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         ShowWindow(hwnd, nCmdShow);
         // TODO: Change nCmdShow to SW_SHOWMAXIMIZED to default to fullscreen.
 
-        SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(g_game.get()) );
+        SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(g_main.get()) );
 
         GetClientRect(hwnd, &rc);
 
-        g_game->Initialize(hwnd, rc.right - rc.left, rc.bottom - rc.top);
+        g_main->Initialize(hwnd, rc.right - rc.left, rc.bottom - rc.top);
     }
 
     // Main message loop
@@ -97,11 +97,11 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         }
         else
         {
-            g_game->Tick();
+            g_main->Tick();
         }
     }
 
-    g_game.reset();
+    g_main.reset();
 
     CoUninitialize();
 
@@ -120,7 +120,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static bool s_fullscreen = false;
     // TODO: Set s_fullscreen to true if defaulting to fullscreen.
 
-    auto game = reinterpret_cast<Game*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+    auto direct3DMain = reinterpret_cast<Direct3DMain*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
 
     switch (message)
     {
@@ -135,21 +135,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             if (!s_minimized)
             {
                 s_minimized = true;
-                if (!s_in_suspend && game)
-                    game->OnSuspending();
+                if (!s_in_suspend && direct3DMain)
+                    direct3DMain->OnSuspending();
                 s_in_suspend = true;
             }
         }
         else if (s_minimized)
         {
             s_minimized = false;
-            if (s_in_suspend && game)
-                game->OnResuming();
+            if (s_in_suspend && direct3DMain)
+                direct3DMain->OnResuming();
             s_in_suspend = false;
         }
-        else if (!s_in_sizemove && game)
+        else if (!s_in_sizemove && direct3DMain)
         {
-            game->OnWindowSizeChanged(LOWORD(lParam), HIWORD(lParam));
+            direct3DMain->OnWindowSizeChanged(LOWORD(lParam), HIWORD(lParam));
         }
         break;
 
@@ -159,12 +159,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_EXITSIZEMOVE:
         s_in_sizemove = false;
-        if (game)
+        if (direct3DMain)
         {
             RECT rc;
             GetClientRect(hWnd, &rc);
 
-            game->OnWindowSizeChanged(rc.right - rc.left, rc.bottom - rc.top);
+            direct3DMain->OnWindowSizeChanged(rc.right - rc.left, rc.bottom - rc.top);
         }
         break;
 
@@ -177,15 +177,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_ACTIVATEAPP:
-        if (game)
+        if (direct3DMain)
         {
             if (wParam)
             {
-                game->OnActivated();
+                direct3DMain->OnActivated();
             }
             else
             {
-                game->OnDeactivated();
+                direct3DMain->OnDeactivated();
             }
         }
         break;
@@ -194,16 +194,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case PBT_APMQUERYSUSPEND:
-            if (!s_in_suspend && game)
-                game->OnSuspending();
+            if (!s_in_suspend && direct3DMain)
+                direct3DMain->OnSuspending();
             s_in_suspend = true;
             return TRUE;
 
         case PBT_APMRESUMESUSPEND:
             if (!s_minimized)
             {
-                if (s_in_suspend && game)
-                    game->OnResuming();
+                if (s_in_suspend && direct3DMain)
+                    direct3DMain->OnResuming();
                 s_in_suspend = false;
             }
             return TRUE;
@@ -225,8 +225,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
                 int width = 800;
                 int height = 600;
-                if (game)
-                    game->GetDefaultSize(width, height);
+                if (direct3DMain)
+                    direct3DMain->GetDefaultSize(width, height);
 
                 ShowWindow(hWnd, SW_SHOWNORMAL);
 
