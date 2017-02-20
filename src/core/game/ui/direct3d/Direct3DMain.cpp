@@ -5,6 +5,7 @@
 #include "pch.h"
 
 #include "Direct3DMain.h"
+
 #include "Direct3DManager.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
@@ -12,6 +13,11 @@
 #include "SoundManager.h"
 #include "GameConstants.h"
 #include "macros.h"
+#include "Game.h"
+#include "MainScreenWorldMap.h"
+#include "SaveData.h"
+
+#include <sstream>
 
 extern void ExitGame();
 
@@ -19,7 +25,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-Direct3DMain::Direct3DMain() : m_screen(nullptr), m_isPointerPressed(false)
+Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_iScreenRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -279,9 +285,57 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 
 	beginPixEvent(L"Update");
 
-	float elapsedTime = float(timer.GetElapsedSeconds());
+	int requestedAction = m_screen->getRequestedAction();
+	if (requestedAction >= 1000)
+	{
+		requestedAction /= 1000;
+	}
 
-	m_screen->update(elapsedTime);
+	switch (requestedAction)
+	{
+	case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+		//saveLevel(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+		//loadLevel(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_LEVEL_COMPLETED:
+		markLevelAsCompleted(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
+		submitScoreOnline(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_UNLOCK_LEVEL:
+		unlockLevel(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
+		setCutsceneViewedFlag(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_GET_SAVE_DATA:
+		sendSaveData();
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_SHOW_MESSAGE:
+		//showMessage(m_screen->getRequestedAction());
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+		//displayInterstitialAdIfAvailable();
+		m_screen->clearRequestedAction();
+		break;
+	case REQUESTED_ACTION_UPDATE:
+		float elapsedTime = float(timer.GetElapsedSeconds());
+
+		m_screen->update(elapsedTime);
+	default:
+		break;
+	}
 
 	endPixEvent();
 }
@@ -446,6 +500,21 @@ void Direct3DMain::GetDefaultSize(int& width, int& height) const
     // TODO: Change to desired default window size (note minimum size is 320x200).
     width = 800;
     height = 600;
+}
+
+MainScreen* Direct3DMain::getMainScreen()
+{
+	return m_screen;
+}
+
+int Direct3DMain::getRequestedAction()
+{
+	return m_iRequestedAction;
+}
+
+int Direct3DMain::getScreenRequestedAction()
+{
+	return m_iScreenRequestedAction;
 }
 #pragma endregion
 
@@ -631,7 +700,70 @@ void Direct3DMain::initSoundEngine()
 	m_audEngine = std::make_unique<AudioEngine>(eflags);
 	m_retryAudio = false;
 
-	//loadSound(L"sound_demo.wav");
+	loadSound(L"collect_carrot.wav");
+	loadSound(L"collect_golden_carrot.wav");
+	loadSound(L"death.wav");
+	loadSound(L"footstep_left_grass.wav");
+	loadSound(L"footstep_right_grass.wav");
+	loadSound(L"footstep_left_cave.wav");
+	loadSound(L"footstep_right_cave.wav");
+	loadSound(L"jump_spring.wav");
+	loadSound(L"landing_grass.wav");
+	loadSound(L"landing_cave.wav");
+	loadSound(L"snake_death.wav");
+	loadSound(L"trigger_transform.wav");
+	loadSound(L"cancel_transform.wav");
+	loadSound(L"complete_transform.wav");
+	loadSound(L"jump_spring_heavy.wav");
+	loadSound(L"jon_rabbit_jump.wav");
+	loadSound(L"jon_vampire_jump.wav");
+	loadSound(L"jon_rabbit_double_jump.wav");
+	loadSound(L"jon_rabbit_double_jump.wav");
+	loadSound(L"vampire_glide_loop.wav");
+	loadSound(L"mushroom_bounce.wav");
+	loadSound(L"jon_burrow_rocksfall.wav");
+	loadSound(L"sparrow_fly_loop.wav");
+	loadSound(L"sparrow_die.wav");
+	loadSound(L"toad_die.wav");
+	loadSound(L"toad_eat.wav");
+	loadSound(L"saw_grind_loop.wav");
+	loadSound(L"fox_bounced_on.wav");
+	loadSound(L"fox_strike.wav");
+	loadSound(L"fox_death.wav");
+	loadSound(L"world_1_bgm_intro.wav");
+	loadSound(L"mid_boss_bgm_intro.wav");
+	loadSound(L"mid_boss_owl_swoop.wav");
+	loadSound(L"mid_boss_owl_tree_smash.wav");
+	loadSound(L"mid_boss_owl_death.wav");
+	loadSound(L"screen_transition.wav");
+	loadSound(L"screen_transition_2.wav");
+	loadSound(L"level_complete.wav");
+	loadSound(L"title_lightning_1.wav");
+	loadSound(L"title_lightning_2.wav");
+	loadSound(L"ability_unlock.wav");
+	loadSound(L"boss_level_clear.wav");
+	loadSound(L"level_clear.wav");
+	loadSound(L"level_selected.wav");
+	loadSound(L"rabbit_drill.wav");
+	loadSound(L"snake_jump.wav");
+	loadSound(L"vampire_dash.wav");
+	loadSound(L"boss_level_unlock.wav");
+	loadSound(L"rabbit_stomp.wav");
+	loadSound(L"final_boss_bgm_intro.wav");
+	loadSound(L"button_click.wav");
+	loadSound(L"level_confirmed.wav");
+	loadSound(L"bat_poof.wav");
+	loadSound(L"chain_snap.wav");
+	loadSound(L"end_boss_snake_mouth_open.wav");
+	loadSound(L"end_boss_snake_charge_cue.wav");
+	loadSound(L"end_boss_snake_charge.wav");
+	loadSound(L"end_boss_snake_damaged.wav");
+	loadSound(L"end_boss_snake_death.wav");
+	loadSound(L"spiked_ball_rolling_loop.wav");
+	loadSound(L"absorb_dash_ability.wav");
+	loadSound(L"footstep_left_wood.wav");
+	loadSound(L"footstep_right_wood.wav");
+	loadSound(L"landing_wood.wav");
 }
 
 void Direct3DMain::loadSound(const wchar_t* waveFileName)
@@ -646,6 +778,143 @@ void Direct3DMain::loadMusic(const wchar_t* waveFileName)
 
 	m_musicLoop.reset();
 	m_musicLoop = m_music->CreateInstance();
+}
+#pragma endregion
+
+#pragma misc
+void Direct3DMain::unlockLevel(int requestedAction)
+{
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+	int score = m_screen->getScore();
+	int levelStatsFlag = m_screen->getLevelStatsFlagForUnlockedLevel();
+	int numGoldenCarrots = m_screen->getNumGoldenCarrotsAfterUnlockingLevel();
+
+	SaveData::setLevelStatsFlag(world, level, levelStatsFlag);
+
+	SaveData::setNumGoldenCarrots(numGoldenCarrots);
+}
+
+void Direct3DMain::markLevelAsCompleted(int requestedAction)
+{
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+	int score = m_screen->getScore();
+	int levelStatsFlag = m_screen->getLevelStatsFlag();
+	int numGoldenCarrots = m_screen->getNumGoldenCarrots();
+	int jonUnlockedAbilitiesFlag = m_screen->getJonAbilityFlag();
+
+	SaveData::setLevelComplete(world, level, score, levelStatsFlag, jonUnlockedAbilitiesFlag);
+
+	SaveData::setNumGoldenCarrots(numGoldenCarrots);
+}
+
+void Direct3DMain::submitScoreOnline(int requestedAction)
+{
+	int world = calcWorld(requestedAction);
+	int level = calcLevel(requestedAction);
+	int onlineScore = m_screen->getOnlineScore();
+
+	// TODO, submit score using Xbox Live or OpenXLive, on success, save the score that was pushed online
+
+	SaveData::setScorePushedOnline(world, level, onlineScore);
+}
+
+void Direct3DMain::setCutsceneViewedFlag(int requestedAction)
+{
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	int cutsceneViewedFlag = requestedAction;
+
+	SaveData::setViewedCutscenesFlag(cutsceneViewedFlag);
+}
+
+void Direct3DMain::sendSaveData()
+{
+	int numGoldenCarrots = SaveData::getNumGoldenCarrots();
+	int jonUnlockedAbilitiesFlag = SaveData::getJonUnlockedAbilitiesFlag();
+	int viewedCutscenesFlag = SaveData::getViewedCutscenesFlag();
+
+	std::stringstream ss;
+	ss << "{";
+	ss << "\"num_golden_carrots\": " << numGoldenCarrots << ", ";
+	ss << "\"jon_unlocked_abilities_flag\": " << jonUnlockedAbilitiesFlag << ", ";
+	ss << "\"viewed_cutscenes_flag\": " << viewedCutscenesFlag << ", ";
+
+	for (int i = 1; i <= 5; i++)
+	{
+		ss << "\"world_" << i << "\":[";
+
+		for (int j = 1; j <= 21; j++)
+		{
+			int statsFlag = SaveData::getLevelStatsFlag(i, j);
+			int score = SaveData::getLevelScore(i, j);
+			int scoreOnline = SaveData::getScorePushedOnline(i, j);
+
+			ss << "{";
+			ss << "\"stats_flag\": " << statsFlag << ", ";
+			ss << "\"score\": " << score << ", ";
+			ss << "\"score_online\": " << scoreOnline << " ";
+
+			ss << "}";
+			if (j < 21)
+			{
+				ss << ",";
+			}
+
+			ss << " ";
+		}
+		ss << "]";
+		if (i < 5)
+		{
+			ss << ",";
+		}
+	}
+	ss << "}";
+
+	std::string userSaveData = ss.str();
+
+	WorldMap::getInstance()->loadUserSaveData(userSaveData.c_str());
+}
+
+int Direct3DMain::calcWorld(int requestedAction)
+{
+	int world = 0;
+
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	while (requestedAction >= 100)
+	{
+		requestedAction -= 100;
+		world++;
+	}
+
+	return world;
+}
+
+int Direct3DMain::calcLevel(int requestedAction)
+{
+	int level = 0;
+
+	while (requestedAction >= 1000)
+	{
+		requestedAction -= 1000;
+	}
+
+	while (requestedAction >= 100)
+	{
+		requestedAction -= 100;
+	}
+
+	level = requestedAction;
+
+	return level;
 }
 #pragma endregion
 

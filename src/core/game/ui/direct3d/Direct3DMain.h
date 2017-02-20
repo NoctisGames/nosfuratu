@@ -52,6 +52,10 @@ public:
     // Properties
     void GetDefaultSize( int& width, int& height ) const;
 
+	MainScreen* getMainScreen();
+	int getRequestedAction();
+	int getScreenRequestedAction();
+
 private:
 	// Device resources.
 	std::unique_ptr<DX::DeviceResources>    m_deviceResources;
@@ -73,6 +77,8 @@ private:
 	MainScreen* m_screen;
 
 	float m_fDPI;
+	int m_iRequestedAction;
+	int m_iScreenRequestedAction;
 	bool m_isPointerPressed;
 	bool m_retryAudio;
 
@@ -98,4 +104,13 @@ private:
 	void initSoundEngine();
 	void loadSound(const wchar_t* waveFileName);
 	void loadMusic(const wchar_t* waveFileName);
+
+	void unlockLevel(int requestedAction);
+	void markLevelAsCompleted(int requestedAction);
+	void submitScoreOnline(int requestedAction);
+	void setCutsceneViewedFlag(int requestedAction);
+	void sendSaveData();
+
+	int calcWorld(int requestedAction);
+	int calcLevel(int requestedAction);
 };
