@@ -139,7 +139,6 @@ void WorldMap::execute(MainScreen* gs)
                     }
                 }
                     continue;
-                case KeyboardEventType_W:
                 case KeyboardEventType_SPACE:
                 case KeyboardEventType_ENTER:
                 {

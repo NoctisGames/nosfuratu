@@ -64,6 +64,7 @@ private:
 	DX::StepTimer                           m_timer;
 
 	std::unique_ptr<DirectX::Keyboard> m_keyboard;
+	DirectX::Keyboard::KeyboardStateTracker m_keys;
 	std::unique_ptr<DirectX::Mouse> m_mouse;
 	std::unique_ptr<DirectX::GamePad> m_gamePad;
 	DirectX::GamePad::ButtonStateTracker m_buttons;
@@ -98,7 +99,7 @@ private:
 	void playSound(int soundId, bool isLooping);
 	void playSound(int soundId);
 	void stopSound(int soundId);
-	void stopAllSounds();
+	void stopAllSounds(bool stopOnlyLoopingSounds = false);
 	void stopAllLoopingSounds();
 
 	void initSoundEngine();

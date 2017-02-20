@@ -64,6 +64,8 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 	m_screen = new MainScreen();
 	m_screen->onResume();
 
+	MAIN_ASSETS->setUsingDesktopTextureSet(!D3DManager->isWindowsMobile());
+
     CreateDeviceDependentResources();
 
 	m_deviceResources->CreateWindowSizeDependentResources();
@@ -107,50 +109,96 @@ void Direct3DMain::Tick()
 void Direct3DMain::Update(DX::StepTimer const& timer)
 {
 	auto kb = m_keyboard->GetState();
-	if (kb.Right)
+	m_keys.Update(kb);
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Right))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT);
 	}
-	if (kb.Up)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Right))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Up))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP);
 	}
-	if (kb.Left)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Up))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Left))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT);
 	}
-	if (kb.Down)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Left))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Down))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
 	}
-	if (kb.W)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Down))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::W))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W);
 	}
-	if (kb.A)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::W))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::A))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A);
 	}
-	if (kb.S)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::A))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::S))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S);
 	}
-	if (kb.D)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::S))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::D))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D);
 	}
-	if (kb.Enter)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::D))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Enter))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER);
 	}
-	if (kb.Space)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Enter))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Space))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE);
 	}
-	if (kb.Back
-		|| kb.Delete)
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Space))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE, true);
+	}
+	if (m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Back)
+		|| m_keys.IsKeyPressed(DirectX::Keyboard::Keys::Delete))
 	{
 		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK);
+	}
+	else if (m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Back)
+		|| m_keys.IsKeyReleased(DirectX::Keyboard::Keys::Delete))
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
 	}
 
 	auto mouse = m_mouse->GetState();
@@ -330,12 +378,13 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_UPDATE:
-		float elapsedTime = float(timer.GetElapsedSeconds());
-
-		m_screen->update(elapsedTime);
 	default:
 		break;
 	}
+
+	float elapsedTime = float(timer.GetElapsedSeconds());
+
+	m_screen->update(elapsedTime);
 
 	endPixEvent();
 }
@@ -398,6 +447,7 @@ void Direct3DMain::OnActivated()
 	OutputDebugStringW(L"OnActivated");
 #endif
 
+	m_keys.Reset();
 	m_gamePad->Resume();
 	m_buttons.Reset();
 
@@ -410,6 +460,8 @@ void Direct3DMain::OnDeactivated()
 #if defined(_DEBUG)
 	OutputDebugStringW(L"OnDeactivated");
 #endif
+
+	m_keys.Reset();
 
 	m_gamePad->Suspend();
 	m_buttons.Reset();
@@ -608,7 +660,30 @@ void Direct3DMain::handleSound()
 	short soundId;
 	while ((soundId = SOUND_MANAGER->getCurrentSoundId()) > SOUND_NONE)
 	{
-		playSound(soundId);
+		switch (soundId)
+		{
+		case SOUND_JON_VAMPIRE_GLIDE:
+		case SOUND_SPARROW_FLY:
+		case SOUND_SAW_GRIND:
+		case SOUND_SPIKED_BALL_ROLLING:
+			playSound(soundId, true);
+			break;
+		case STOP_SOUND_JON_VAMPIRE_GLIDE:
+		case STOP_SOUND_SPARROW_FLY:
+		case STOP_SOUND_SAW_GRIND:
+		case STOP_SOUND_SPIKED_BALL_ROLLING:
+			stopSound(soundId - 1000);
+			break;
+		case STOP_ALL_SOUNDS:
+			stopAllSounds();
+			break;
+		case STOP_ALL_LOOPING_SOUNDS:
+			stopAllLoopingSounds();
+			break;
+		default:
+			playSound(soundId);
+			break;
+		}
 	}
 }
 
@@ -628,8 +703,17 @@ void Direct3DMain::handleMusic()
 		{
 			switch (musicId)
 			{
-			case MUSIC_LOAD_WORLD_1_LOOP:
-				loadMusic(L"music_demo.wav");
+			case MUSIC_STOP:
+				if (m_musicLoop)
+				{
+					m_musicLoop->Pause();
+				}
+				break;
+			case MUSIC_RESUME:
+				if (m_musicLoop)
+				{
+					m_musicLoop->Resume();
+				}
 				break;
 			case MUSIC_PLAY:
 				if (m_musicLoop)
@@ -643,23 +727,25 @@ void Direct3DMain::handleMusic()
 					m_musicLoop->Play(true);
 				}
 				break;
-			case MUSIC_STOP:
-				if (m_musicLoop)
-				{
-					m_musicLoop->Pause();
-				}
+			case MUSIC_LOAD_TITLE_LOOP:
+				loadMusic(L"title_bgm.wav");
 				break;
-			case MUSIC_RESUME:
-				if (m_musicLoop)
-				{
-					m_musicLoop->Resume();
-				}
+			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
+				loadMusic(L"level_select_bgm.wav");
 				break;
-			//case MUSIC_STOP:
-			//	if (m_musicLoop)
-			//	{
-			//		m_musicLoop->Stop();
-			//	}
+			case MUSIC_LOAD_WORLD_1_LOOP:
+				loadMusic(L"world_1_bgm.wav");
+				break;
+			case MUSIC_LOAD_MID_BOSS_LOOP:
+				loadMusic(L"mid_boss_bgm.wav");
+				break;
+			case MUSIC_LOAD_END_BOSS_LOOP:
+				loadMusic(L"final_boss_bgm.wav");
+				break;
+			case MUSIC_LOAD_OPENING_CUTSCENE:
+				loadMusic(L"opening_cutscene_bgm.wav");
+				break;
+			default:
 				break;
 			}
 		}
@@ -668,12 +754,12 @@ void Direct3DMain::handleMusic()
 
 void Direct3DMain::playSound(int soundId, bool isLooping)
 {
-	// TODO
+	m_sounds.at(soundId - 1)->Play();
 }
 
 void Direct3DMain::playSound(int soundId)
 {
-	//m_sounds.at(soundId - 1)->Play();
+	playSound(soundId, false);
 }
 
 void Direct3DMain::stopSound(int soundId)
@@ -681,7 +767,7 @@ void Direct3DMain::stopSound(int soundId)
 	// TODO
 }
 
-void Direct3DMain::stopAllSounds()
+void Direct3DMain::stopAllSounds(bool stopOnlyLoopingSounds)
 {
 	// TODO
 }
