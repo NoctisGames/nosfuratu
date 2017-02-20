@@ -469,17 +469,17 @@ void Direct3DManager::createFramebufferObject()
 
 void Direct3DManager::releaseFramebuffers()
 {
-    for (std::vector<ID3D11Texture2D*>::iterator i = m_offscreenRenderTargets.begin(); i != m_offscreenRenderTargets.end(); )
+    for (std::vector<ID3D11Texture2D*>::iterator i = m_offscreenRenderTargets.begin(); i != m_offscreenRenderTargets.end(); i++)
     {
         (*i)->Release();
     }
     
-    for (std::vector<ID3D11RenderTargetView*>::iterator i = m_offscreenRenderTargetViews.begin(); i != m_offscreenRenderTargetViews.end(); )
+    for (std::vector<ID3D11RenderTargetView*>::iterator i = m_offscreenRenderTargetViews.begin(); i != m_offscreenRenderTargetViews.end(); i++)
     {
         (*i)->Release();
     }
     
-    for (std::vector<ID3D11ShaderResourceView*>::iterator i = m_offscreenShaderResourceViews.begin(); i != m_offscreenShaderResourceViews.end(); )
+    for (std::vector<ID3D11ShaderResourceView*>::iterator i = m_offscreenShaderResourceViews.begin(); i != m_offscreenShaderResourceViews.end(); i++)
     {
         (*i)->Release();
     }
