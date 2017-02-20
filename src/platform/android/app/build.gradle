@@ -49,7 +49,7 @@ android {
     }
     clean.dependsOn cleanNative
 
-    task copyFrameworkShaders(type: Copy)
+    task copyShaders(type: Copy)
     copyShaders {
         description = 'Copies shaders into project assets'
         from '../../../../src/core/framework/ui/opengl/shader'

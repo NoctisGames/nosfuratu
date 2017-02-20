@@ -37,7 +37,7 @@ Vector2D& TouchConverter::touchToWorld(ScreenEvent& touchEvent)
 #elif TARGET_OS_OSX
     m_touchPoint.set((touchEvent.getX() / m_fTouchScreenWidth) * m_fCamWidth, (touchEvent.getY() / m_fTouchScreenHeight) * m_fCamHeight);
 #elif __ANDROID__
-    m_touchPoint.set((toucEvent.getX() / m_fTouchScreenWidth) * m_fCamWidth, (1 - touchEvent.getY() / m_fTouchScreenHeight) * m_fCamHeight);
+    m_touchPoint.set((touchEvent.getX() / m_fTouchScreenWidth) * m_fCamWidth, (1 - touchEvent.getY() / m_fTouchScreenHeight) * m_fCamHeight);
 #elif defined _WIN32
 	m_touchPoint.set(touchEvent.getX() / m_fTouchScreenWidth * m_fCamWidth, m_fCamHeight - (touchEvent.getY() / m_fTouchScreenHeight * m_fCamHeight));
 #endif
