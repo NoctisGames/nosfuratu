@@ -16,6 +16,8 @@
 #include "RTTI.h"
 #include "GameConstants.h"
 
+#include <memory>
+
 typedef enum
 {
     CollectibleItemType_Carrot,

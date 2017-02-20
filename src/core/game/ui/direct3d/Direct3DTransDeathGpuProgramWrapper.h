@@ -20,6 +20,8 @@ class Direct3DTransDeathGpuProgramWrapper : public TransDeathGpuProgramWrapper
 public:
 	Direct3DTransDeathGpuProgramWrapper(bool isTransIn);
 
+	virtual ~Direct3DTransDeathGpuProgramWrapper();
+
 	virtual void bind();
 
 	virtual void unbind();

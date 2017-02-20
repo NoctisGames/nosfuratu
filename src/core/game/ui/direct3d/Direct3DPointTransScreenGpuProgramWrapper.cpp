@@ -13,6 +13,8 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
+#include "Vector2D.h"
 
 Direct3DPointTransScreenGpuProgramWrapper::Direct3DPointTransScreenGpuProgramWrapper() : PointTransitionGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"PointTransScreenTextureVertexShader.cso", L"PointTransScreenTexturePixelShader.cso"))
@@ -49,8 +51,8 @@ void Direct3DPointTransScreenGpuProgramWrapper::bind()
     m_program->bindMatrix();
 
 	// send center and time elapsed to video memory
-	float centerX = m_center.getX();
-	float centerY = m_center.getY();
+	float centerX = m_center->getX();
+	float centerY = m_center->getY();
 	deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerXConstantBuffer.Get(), 0, 0, &centerX, 0, 0);
 	deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerYConstantBuffer.Get(), 0, 0, &centerY, 0, 0);
 	deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_progressConstantBuffer.Get(), 0, 0, &m_fProgress, 0, 0);
@@ -60,12 +62,16 @@ void Direct3DPointTransScreenGpuProgramWrapper::bind()
 
 void Direct3DPointTransScreenGpuProgramWrapper::unbind()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
 }
 
 void Direct3DPointTransScreenGpuProgramWrapper::createConstantBuffers()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	{
 		D3D11_BUFFER_DESC bd = { 0 };
 

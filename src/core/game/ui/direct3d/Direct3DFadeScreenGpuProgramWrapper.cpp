@@ -13,6 +13,7 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
 
 Direct3DFadeScreenGpuProgramWrapper::Direct3DFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"FadeScreenTexturePixelShader.cso"))
@@ -57,12 +58,16 @@ void Direct3DFadeScreenGpuProgramWrapper::bind()
 
 void Direct3DFadeScreenGpuProgramWrapper::unbind()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
 }
 
 void Direct3DFadeScreenGpuProgramWrapper::createConstantBuffers()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	{
 		D3D11_BUFFER_DESC bd = { 0 };
 

@@ -10,8 +10,7 @@
 #include "KeyboardInputManager.h"
 #include "GamePadInputManager.h"
 #include "SoundManager.h"
-#include "MusicConstants.h"
-#include "SoundConstants.h"
+#include "GameConstants.h"
 #include "macros.h"
 
 extern void ExitGame();
@@ -560,7 +559,7 @@ void Direct3DMain::handleMusic()
 		{
 			switch (musicId)
 			{
-			case MUSIC_LOAD_DEMO:
+			case MUSIC_LOAD_WORLD_1_LOOP:
 				loadMusic(L"music_demo.wav");
 				break;
 			case MUSIC_PLAY:
@@ -575,7 +574,7 @@ void Direct3DMain::handleMusic()
 					m_musicLoop->Play(true);
 				}
 				break;
-			case MUSIC_PAUSE:
+			case MUSIC_STOP:
 				if (m_musicLoop)
 				{
 					m_musicLoop->Pause();
@@ -587,11 +586,11 @@ void Direct3DMain::handleMusic()
 					m_musicLoop->Resume();
 				}
 				break;
-			case MUSIC_STOP:
-				if (m_musicLoop)
-				{
-					m_musicLoop->Stop();
-				}
+			//case MUSIC_STOP:
+			//	if (m_musicLoop)
+			//	{
+			//		m_musicLoop->Stop();
+			//	}
 				break;
 			}
 		}
@@ -605,7 +604,7 @@ void Direct3DMain::playSound(int soundId, bool isLooping)
 
 void Direct3DMain::playSound(int soundId)
 {
-	m_sounds.at(soundId - 1)->Play();
+	//m_sounds.at(soundId - 1)->Play();
 }
 
 void Direct3DMain::stopSound(int soundId)
@@ -632,7 +631,7 @@ void Direct3DMain::initSoundEngine()
 	m_audEngine = std::make_unique<AudioEngine>(eflags);
 	m_retryAudio = false;
 
-	loadSound(L"sound_demo.wav");
+	//loadSound(L"sound_demo.wav");
 }
 
 void Direct3DMain::loadSound(const wchar_t* waveFileName)

@@ -13,6 +13,7 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
 
 Direct3DSnakeDeathTextureGpuProgramWrapper::Direct3DSnakeDeathTextureGpuProgramWrapper() : SnakeDeathTextureGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"TextureVertexShader.cso", L"SnakeDeathTexturePixelShader.cso"))

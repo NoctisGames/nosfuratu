@@ -18,6 +18,8 @@
 #include "TextureWrapper.h"
 #include "RTTI.h"
 
+#include <memory>
+
 #define TEXTURE_SELECTOR_PANEL_RC_UNHANDLED -1
 #define TEXTURE_SELECTOR_PANEL_RC_HANDLED 0
 #define TEXTURE_SELECTOR_PANEL_RC_CONFIRM 1

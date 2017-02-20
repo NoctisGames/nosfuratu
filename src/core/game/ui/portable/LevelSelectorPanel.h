@@ -16,6 +16,8 @@
 #include "NGRect.h"
 #include "RTTI.h"
 
+#include <memory>
+
 #define LEVEL_SELECTOR_PANEL_RC_UNHANDLED -1
 #define LEVEL_SELECTOR_PANEL_RC_HANDLED 0
 #define LEVEL_SELECTOR_PANEL_RC_CONFIRM 1

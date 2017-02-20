@@ -30,7 +30,7 @@ private:
     Direct3DProgram* m_program;
     
     Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
-    Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
+    Microsoft::WRL::ComPtr<ID3D11Buffer> m_directionConstantBuffer;
     
     bool m_isWindowsMobile;
     

@@ -13,6 +13,8 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
+#include "Vector2D.h"
 
 Direct3DShockwaveTextureGpuProgramWrapper::Direct3DShockwaveTextureGpuProgramWrapper() : ShockwaveTextureGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"ShockwaveTextureVertexShader.cso", L"ShockwaveTexturePixelShader.cso"))
@@ -48,8 +50,8 @@ void Direct3DShockwaveTextureGpuProgramWrapper::bind()
     m_program->bindMatrix();
 
 	// send center and time elapsed to video memory
-	float centerX = m_center.getX();
-	float centerY = m_center.getY();
+	float centerX = m_center->getX();
+	float centerY = m_center->getY();
 	int isTransforming = m_isTransforming ? 1 : 0;
 	deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerXConstantBuffer.Get(), 0, 0, &centerX, 0, 0);
 	deviceResources->GetD3DDeviceContext()->UpdateSubresource(m_centerYConstantBuffer.Get(), 0, 0, &centerY, 0, 0);
@@ -66,6 +68,8 @@ void Direct3DShockwaveTextureGpuProgramWrapper::unbind()
 
 void Direct3DShockwaveTextureGpuProgramWrapper::createConstantBuffers()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	{
 		D3D11_BUFFER_DESC bd = { 0 };
 

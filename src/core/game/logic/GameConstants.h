@@ -53,6 +53,7 @@
 
 //// Music Definitions ////
 
+#define MUSIC_NONE 0
 #define MUSIC_STOP 1
 #define MUSIC_RESUME 2
 #define MUSIC_PLAY 3 // Assuming music is loaded
@@ -67,7 +68,7 @@
 
 //// Sound Definitions ////
 
-#define NO_SOUND 0
+#define SOUND_NONE 0
 #define SOUND_COLLECT_CARROT 1
 #define SOUND_COLLECT_GOLDEN_CARROT 2
 #define SOUND_DEATH 3

@@ -16,6 +16,8 @@
 #include "NGRect.h"
 #include "RTTI.h"
 
+#include <memory>
+
 #define OFFSET_PANEL_RC_UNHANDLED -1
 #define OFFSET_PANEL_RC_HANDLED 0
 #define OFFSET_PANEL_RC_CONFIRM 1

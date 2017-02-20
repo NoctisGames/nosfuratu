@@ -107,7 +107,7 @@ class Mushroom : public Enemy
     RTTI_DECL;
     
 public:
-    Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, NO_SOUND), m_isBeingBouncedOn(false), m_isBouncingBack(false) {}
+    Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, SOUND_NONE), m_isBeingBouncedOn(false), m_isBouncingBack(false) {}
     
     virtual void handleAlive(float deltaTime);
     

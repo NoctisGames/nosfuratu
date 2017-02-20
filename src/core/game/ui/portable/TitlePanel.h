@@ -13,6 +13,8 @@
 #include "GameConstants.h"
 #include "RTTI.h"
 
+#include <memory>
+
 class BigCloud : public PhysicalEntity
 {
     RTTI_DECL;

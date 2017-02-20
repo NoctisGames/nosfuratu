@@ -14,6 +14,8 @@
 #include "Color.h"
 #include "RTTI.h"
 
+#include <memory>
+
 typedef enum
 {
     CutsceneEffectType_Shadow_One,

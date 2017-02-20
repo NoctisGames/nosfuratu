@@ -26,8 +26,6 @@ public:
 
 	virtual void unbind();
 
-	virtual void cleanUp();
-
 private:
     Direct3DProgram* m_program;
 

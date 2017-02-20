@@ -44,8 +44,8 @@ Direct3DProgram::Direct3DProgram(_In_z_ const wchar_t* vertexShaderName, _In_z_ 
 
 	DirectX::ThrowIfFailed(
 		deviceResources->GetD3DDevice()->CreateInputLayout(
-            (useTextureCoords ? textureVertexDesc : geometryVertexDesc),
-			ARRAYSIZE(useTextureCoords ? textureVertexDesc : geometryVertexDesc),
+            useTextureCoords ? textureVertexDesc : geometryVertexDesc,
+			useTextureCoords ? ARRAYSIZE(textureVertexDesc) : ARRAYSIZE(geometryVertexDesc),
 			blob.data(),
 			blob.size(),
 			&m_inputLayout
@@ -65,7 +65,9 @@ Direct3DProgram::Direct3DProgram(_In_z_ const wchar_t* vertexShaderName, _In_z_ 
 
 Direct3DProgram::~Direct3DProgram()
 {
-    delete m_program;
+	m_vertexShader.Reset();
+	m_inputLayout.Reset();
+	m_pixelShader.Reset();
 }
 
 void Direct3DProgram::bindShaders()

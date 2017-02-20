@@ -13,6 +13,7 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
 
 Direct3DFramebufferTintGpuProgramWrapper::Direct3DFramebufferTintGpuProgramWrapper() : GpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"FramebufferTintToScreenPixelShader.cso"))

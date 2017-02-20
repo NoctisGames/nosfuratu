@@ -13,6 +13,7 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
 
 Direct3DFramebufferRadialBlurGpuProgramWrapper::Direct3DFramebufferRadialBlurGpuProgramWrapper() : FramebufferRadialBlurGpuProgramWrapper(),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"RadialBlurTexturePixelShader.cso"))
@@ -25,7 +26,7 @@ m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"R
 Direct3DFramebufferRadialBlurGpuProgramWrapper::~Direct3DFramebufferRadialBlurGpuProgramWrapper()
 {
     m_isWindowsMobileConstantBuffer.Reset();
-    m_progressConstantBuffer.Reset();
+	m_directionConstantBuffer.Reset();
     
     delete m_program;
 }
@@ -58,6 +59,8 @@ void Direct3DFramebufferRadialBlurGpuProgramWrapper::unbind()
 
 void Direct3DFramebufferRadialBlurGpuProgramWrapper::createConstantBuffers()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	{
 		D3D11_BUFFER_DESC bd = { 0 };
 

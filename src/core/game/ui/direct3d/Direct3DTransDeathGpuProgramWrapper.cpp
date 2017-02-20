@@ -13,6 +13,7 @@
 #include "Direct3DTextureProgram.h"
 #include "DeviceResources.h"
 #include "Direct3DManager.h"
+#include "GpuTextureWrapper.h"
 
 Direct3DTransDeathGpuProgramWrapper::Direct3DTransDeathGpuProgramWrapper(bool isTransIn) : TransDeathGpuProgramWrapper(isTransIn),
 m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", isTransIn ? L"TransDeathInTexturePixelShader.cso" : L"TransDeathOutTexturePixelShader.cso"))
@@ -50,12 +51,16 @@ void Direct3DTransDeathGpuProgramWrapper::bind()
 
 void Direct3DTransDeathGpuProgramWrapper::unbind()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
 	ID3D11ShaderResourceView *pSRV[1] = { NULL };
 	deviceResources->GetD3DDeviceContext()->PSSetShaderResources(1, 1, pSRV);
 }
 
 void Direct3DTransDeathGpuProgramWrapper::createConstantBuffers()
 {
+	DX::DeviceResources* deviceResources = Direct3DManager::getDeviceResources();
+
     D3D11_BUFFER_DESC bd = { 0 };
     
     bd.Usage = D3D11_USAGE_DEFAULT;

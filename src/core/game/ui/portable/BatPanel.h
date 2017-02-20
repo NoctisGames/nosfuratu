@@ -21,6 +21,7 @@
 #include "SoundManager.h"
 
 #include <math.h>
+#include <memory>
 
 class Game;
 class MainScreen;

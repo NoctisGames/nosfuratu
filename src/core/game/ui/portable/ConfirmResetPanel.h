@@ -16,6 +16,8 @@
 #include "NGRect.h"
 #include "RTTI.h"
 
+#include <memory>
+
 #define CONFIRM_RESET_PANEL_RC_UNHANDLED 0
 #define CONFIRM_RESET_PANEL_RC_CANCEL 1
 #define CONFIRM_RESET_PANEL_RC_RESET 2

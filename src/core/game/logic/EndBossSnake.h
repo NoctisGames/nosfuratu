@@ -15,6 +15,9 @@
 #include "Color.h"
 #include "RTTI.h"
 
+#include <memory>
+#include <vector>
+
 class Game;
 class EndBossSnake;
 
