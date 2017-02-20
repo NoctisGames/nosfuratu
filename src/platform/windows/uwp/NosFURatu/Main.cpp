@@ -11,7 +11,6 @@
 #include <ppltasks.h>
 
 using namespace concurrency;
-using namespace Microsoft::Advertising::WinRT::UI;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::ApplicationModel::Activation;
@@ -51,12 +50,6 @@ public:
         CoreApplication::Resuming += ref new EventHandler<Platform::Object^>(this, &ViewProvider::OnResuming);
 
         m_main = std::make_unique<Direct3DMain>();
-
-		m_interstitialAd = ref new InterstitialAd();
-		m_interstitialAd->AdReady += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdReady);
-		m_interstitialAd->Completed += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdCompleted);
-		m_interstitialAd->Cancelled += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &ViewProvider::OnAdCancelled);
-		m_interstitialAd->ErrorOccurred += ref new Windows::Foundation::EventHandler<Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^>(this, &ViewProvider::OnAdError);
     }
 
     virtual void Uninitialize()
@@ -129,13 +122,6 @@ public:
             {
                 m_main->Tick();
 
-				if (m_main->getRequestedAction() == 1)
-				{
-					// Display Ad
-					DisplayInterstitialAdIfAvailable();
-					m_main->clearRequestedAction();
-				}
-
                 CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
             }
             else
@@ -183,9 +169,6 @@ protected:
         view->FullScreenSystemOverlayMode = FullScreenSystemOverlayMode::Minimal;
 
         view->TryResizeView(desiredSize);
-
-		// TODO, Ads are not working
-		//RequestInterstitialAd();
     }
 
     void OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
@@ -328,9 +311,6 @@ protected:
 	}
 
 private:
-	// Monetization
-	Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;
-
 	bool                    m_isPointerPressed;
     bool                    m_exit;
     bool                    m_visible;
@@ -418,71 +398,6 @@ private:
 
         m_main->OnWindowSizeChanged(outputWidth, outputHeight, m_DPI, rotation);
     }
-
-	void RequestInterstitialAd()
-	{
-		IAsyncAction^ threadPoolWorkItem = ThreadPool::RunAsync(ref new WorkItemHandler([this](IAsyncAction^ operation)
-		{
-			Platform::String^ myAppId;
-			Platform::String^ myAdUnitId;
-
-#if defined(_DEBUG)
-			myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
-			myAdUnitId = L"11389925";
-#else
-			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-
-			if (isMobile)
-			{
-				myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
-				myAdUnitId = L"11666621";
-			}
-			else
-			{
-				myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
-				myAdUnitId = L"11666622";
-		}
-#endif
-			m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
-		}, Platform::CallbackContext::Any));
-	}
-
-	void DisplayInterstitialAdIfAvailable()
-	{
-		IAsyncAction^ threadPoolWorkItem = ThreadPool::RunAsync(ref new WorkItemHandler([this](IAsyncAction^ operation)
-		{
-			if (InterstitialAdState::Ready == m_interstitialAd->State)
-			{
-				m_main->OnSuspending();
-
-				m_interstitialAd->Show();
-			}
-		}, Platform::CallbackContext::Any));
-	}
-
-	void OnAdReady(Platform::Object^ sender, Platform::Object^ args)
-	{
-		// Empty
-	}
-
-	void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args)
-	{
-		m_main->OnResuming();
-		RequestInterstitialAd();
-	}
-
-	void OnAdCancelled(Platform::Object^ sender, Platform::Object^ args)
-	{
-		m_main->OnResuming();
-		RequestInterstitialAd();
-	}
-
-	void OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args)
-	{
-		m_main->OnResuming();
-		RequestInterstitialAd();
-	}
 };
 
 ref class ViewProviderFactory : IFrameworkViewSource

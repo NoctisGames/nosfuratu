@@ -347,7 +347,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0" />
     <SDKReference Include="WindowsMobile, Version=10.0.14393.0" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
