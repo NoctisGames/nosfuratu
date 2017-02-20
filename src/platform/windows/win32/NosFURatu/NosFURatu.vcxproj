@@ -88,7 +88,7 @@
       </PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/win32/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,7 +105,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/win32/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,7 +125,7 @@
       </PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/win32/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,7 +146,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/win32/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +179,7 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\state\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\uwp\*.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\win32\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\portable\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\portable\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\*.cpp" />
@@ -195,7 +195,7 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\state\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\portable\*.c" />
-    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\uwp\*.c" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\win32\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\ui\portable\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\util\portable\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\*.c" />
