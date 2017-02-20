@@ -33,6 +33,7 @@
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\state\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\portable\*.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\win32\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\portable\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\portable\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\util\windows\*.cpp" />
