@@ -735,7 +735,6 @@
 		BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3221DB030B3003E633F /* Main.storyboard */; };
 		BB44C3351DB0317E003E633F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3301DB0317E003E633F /* AppDelegate.m */; };
 		BB44C3361DB0317E003E633F /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* ViewController.mm */; };
-		BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3341DB0317E003E633F /* UIView+Toast.m */; };
 		BB44C3441DB0323F003E633F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3391DB0323F003E633F /* InfoPlist.strings */; };
 		BB44C3451DB0323F003E633F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33B1DB0323F003E633F /* Localizable.strings */; };
 		BB44C3461DB0323F003E633F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33D1DB0323F003E633F /* MainStoryboard_iPad.storyboard */; };
@@ -1236,7 +1235,6 @@
 		BBE167251A17F1DD00080846 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BB451A3618C30E810093E559 /* libz.dylib */; };
 		BBE92D061DB2E671008359C2 /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5861DB03A7C003E633F /* pngerror.c */; };
 		BBE92D261DB2E671008359C2 /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C59A1DB03A7C003E633F /* pngwutil.c */; };
-		BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3341DB0317E003E633F /* UIView+Toast.m */; };
 		BBE92D321DB2E671008359C2 /* pngpread.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58C1DB03A7C003E633F /* pngpread.c */; };
 		BBE92D341DB2E671008359C2 /* pngset.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5921DB03A7C003E633F /* pngset.c */; };
 		BBE92D351DB2E671008359C2 /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3501DB03267003E633F /* SaveData.m */; };
@@ -1824,8 +1822,6 @@
 		BB44C3301DB0317E003E633F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BB44C3311DB0317E003E633F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BB44C3321DB0317E003E633F /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
-		BB44C3331DB0317E003E633F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
-		BB44C3341DB0317E003E633F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		BB44C33A1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		BB44C33C1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		BB44C33E1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
@@ -3046,8 +3042,6 @@
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
-				BB44C3331DB0317E003E633F /* UIView+Toast.h */,
-				BB44C3341DB0317E003E633F /* UIView+Toast.m */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -4145,7 +4139,6 @@
 				BB34F8D91E563C2200AC8197 /* Vector2D.cpp in Sources */,
 				BB34FC371E5645F500AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F97D1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */,
-				BB44C3371DB0317E003E633F /* UIView+Toast.m in Sources */,
 				BBCB71DB1DB6B0AF006430B6 /* Base64.m in Sources */,
 				BB34F8B51E563C2100AC8197 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BB34FB931E5645F400AC8197 /* EnemySpirit.cpp in Sources */,
@@ -4662,7 +4655,6 @@
 				BB34FCB81E5645F500AC8197 /* BatPanel.cpp in Sources */,
 				BB34FA321E563C2400AC8197 /* SpriteBatcher.cpp in Sources */,
 				BB34FB981E5645F400AC8197 /* ExitGround.cpp in Sources */,
-				BBE92D2A1DB2E671008359C2 /* UIView+Toast.m in Sources */,
 				BB34FC381E5645F500AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F8DA1E563C2200AC8197 /* Vector2D.cpp in Sources */,
 				BB34F97E1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */,

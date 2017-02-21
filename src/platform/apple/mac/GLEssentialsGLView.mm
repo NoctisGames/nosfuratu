@@ -172,24 +172,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     _screen->createDeviceDependentResources();
     
-    _screenController = [[ScreenController alloc] initWithScreen:_screen getLevelFilePath:^NSString *(NSString *levelFileName)
-    {
-        NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
-        filePath = [filePath stringByAppendingPathComponent:levelFileName];
-        return filePath;
-    } displayMessageBlock:^(NSString *message)
-    {
-        NSAlert* alert = [NSAlert alertWithMessageText:message
-                                         defaultButton:nil
-                                       alternateButton:nil
-                                           otherButton:nil
-                             informativeTextWithFormat:@""];
-        
-        [alert runModal];
-    } andHandleInterstitialAd:^
-    {
-        // Empty
-    }];
+    _screenController = [[ScreenController alloc] initWithScreen:_screen andInterstitialAdHandler:nil];
     
     _screen->onResume();
 }

@@ -13,7 +13,6 @@
 
 // C++
 #include "GameConstants.h"
-#include "MainScreenLevelEditor.h"
 #include "MainScreenWorldMap.h"
 #include "Game.h"
 #include "GameConstants.h"
@@ -22,8 +21,6 @@
 @interface ScreenController ()
 {
     MainScreen *_screen;
-    GetLevelFilePath _getLevelFilePath;
-    DisplayMessageBlock _displayMessageBlock;
     HandleInterstitialAd _handleInterstitialAd;
     AppleSoundManager *_appleSoundManager;
 }
@@ -32,15 +29,13 @@
 
 @implementation ScreenController
 
-- (instancetype)initWithScreen:(MainScreen *)screen getLevelFilePath:(GetLevelFilePath)getLevelFilePath displayMessageBlock:(DisplayMessageBlock)displayMessageBlock andHandleInterstitialAd:(HandleInterstitialAd)handleInterstitialAd
+- (instancetype)initWithScreen:(MainScreen *)screen andInterstitialAdHandler:(HandleInterstitialAd)handleInterstitialAd
 {
     self = [super init];
     
     if (self)
     {
         _screen = screen;
-        _getLevelFilePath = getLevelFilePath;
-        _displayMessageBlock = displayMessageBlock;
         _handleInterstitialAd = handleInterstitialAd;
         
         [self initSoundEngine];
@@ -59,17 +54,6 @@
     
     switch (requestedAction)
     {
-        case REQUESTED_ACTION_UPDATE:
-            _screen->update(deltaTime);
-            break;
-        case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-            [self saveLevel:_screen->getRequestedAction()];
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-            [self loadLevel:_screen->getRequestedAction()];
-            _screen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_LEVEL_COMPLETED:
             [self markLevelAsCompleted:_screen->getRequestedAction()];
             _screen->clearRequestedAction();
@@ -90,17 +74,19 @@
             [self sendSaveData];
             _screen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_SHOW_MESSAGE:
-            [self showMessage:_screen->getRequestedAction()];
-            _screen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            _handleInterstitialAd();
+            if (_handleInterstitialAd)
+            {
+                _handleInterstitialAd();
+            }
             _screen->clearRequestedAction();
             break;
         default:
+            _screen->clearRequestedAction();
             break;
     }
+    
+    _screen->update(deltaTime);
 }
 
 - (void)present
@@ -266,54 +252,6 @@
     [_appleSoundManager setMusicVolume:volume];
 }
 
-- (void)saveLevel:(int)requestedAction
-{
-    NSString* levelFileName = [self getLevelName:requestedAction];
-    
-    bool result = false;
-    const char *level_json = MainScreenLevelEditor::getInstance()->save();
-    
-    if (level_json)
-    {
-        NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
-        
-        NSString *filePath = _getLevelFilePath(levelFileName);
-        
-        NSError* error;
-        [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-        
-        result = error ? false : true;
-    }
-    
-    [self displayMessage:result ? @"Level saved successfully" : @"Error occurred while saving level... Please try again!"];
-}
-
-- (void)loadLevel:(int)requestedAction
-{
-    NSString* levelFileName = [self getLevelName:requestedAction];
-    
-    bool success = false;
-    
-    NSString *filePath = _getLevelFilePath(levelFileName);
-    
-    NSError* error;
-    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
-    
-    if (error)
-    {
-        success = false;
-    }
-    else
-    {
-        const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
-        success = true;
-        
-        MainScreenLevelEditor::getInstance()->load(contentCString, _screen);
-    }
-    
-    [self displayMessage:success ? @"Level loaded successfully" : @"Error occurred while loading level..."];
-}
-
 - (void)unlockLevel:(int)requestedAction
 {
     int world = [self calcWorld:requestedAction];
@@ -407,57 +345,6 @@
     const char* usdCString = [usd cStringUsingEncoding:NSUTF8StringEncoding];
     
     WorldMap::getInstance()->loadUserSaveData(usdCString);
-}
-
-- (void)showMessage:(int)requestedAction
-{
-    while (requestedAction >= 1000)
-    {
-        requestedAction -= 1000;
-    }
-    
-    int messageKey = requestedAction;
-    
-    NSString* toast = nil;
-    
-    switch (messageKey) {
-        case MESSAGE_NO_END_SIGN_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_NO_END_SIGN_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_NO_JON_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_NO_JON_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_INVALID_JON_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_INVALID_JON_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_NO_COUNT_HISS_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_NO_COUNT_HISS_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_INVALID_COUNT_HISS_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_INVALID_COUNT_HISS_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_OFFSET_NEEDS_MARKERS_VAL encoding:NSUTF8StringEncoding];
-            break;
-        case MESSAGE_FEATURE_COMING_SOON_KEY:
-            toast = [[NSString alloc] initWithCString:MESSAGE_FEATURE_COMING_SOON_VAL encoding:NSUTF8StringEncoding];
-            break;
-        default:
-            break;
-    }
-    
-    if (toast)
-    {
-        [self displayMessage:toast];
-    }
-}
-
-- (void)displayMessage:(NSString *)message
-{
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        _displayMessageBlock(message);
-    });
 }
 
 - (NSString *)getLevelName:(int)requestedAction

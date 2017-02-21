@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 
-#import "UIView+Toast.h"
 #import "ScreenController.h"
 
 #import "GoogleMobileAds/GoogleMobileAds.h"
@@ -76,17 +75,7 @@
     screen->createDeviceDependentResources();
     screen->createWindowSizeDependentResources(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
     
-    _screenController = [[ScreenController alloc] initWithScreen:screen getLevelFilePath:^NSString *(NSString *levelFileName)
-    {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:levelFileName];
-        
-        return filePath;
-    } displayMessageBlock:^(NSString *message)
-    {
-        [self.view makeToast:message];
-    } andHandleInterstitialAd:^
+    _screenController = [[ScreenController alloc] initWithScreen:screen andInterstitialAdHandler:^
     {
         if (self.interstitial.isReady)
         {

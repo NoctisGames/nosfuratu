@@ -4,20 +4,15 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.graphics.Point;
 import android.opengl.GLSurfaceView.Renderer;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
 import com.noctisgames.nosfuratu.sound.SoundManager;
-
-import java.io.File;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -28,37 +23,13 @@ public final class GameRenderer implements Renderer
 
     //// Requested Action Definitions ////
 
-    private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
-    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
-    private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
+    // Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
     private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
     private static final short REQUESTED_ACTION_UNLOCK_LEVEL = 5;
-
-    // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
-    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6;
-
+    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6; // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
     private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
-
-    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below)
-
     private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 9;
-
-    private static final short MESSAGE_NO_END_SIGN_KEY = 1;
-    private static final String MESSAGE_NO_END_SIGN_VAL = "Cannot save or test a level that does not contain an End Sign";
-    private static final short MESSAGE_NO_JON_KEY = 2;
-    private static final String MESSAGE_NO_JON_VAL = "Cannot save or test a level that does not contain a Jon";
-    private static final short MESSAGE_INVALID_JON_KEY = 3;
-    private static final String MESSAGE_INVALID_JON_VAL = "Cannot save or test a level unless Jon is placed to the left of the end sign";
-    private static final short MESSAGE_NO_COUNT_HISS_KEY = 4;
-    private static final String MESSAGE_NO_COUNT_HISS_VAL = "Cannot save or test a level that does not contain a Count Hiss";
-    private static final short MESSAGE_INVALID_COUNT_HISS_KEY = 5;
-    private static final String MESSAGE_INVALID_COUNT_HISS_VAL = "Cannot save or test a level unless Count Hiss is placed to the left of the end sign";
-    private static final short MESSAGE_OFFSET_NEEDS_MARKERS_KEY = 6;
-    private static final String MESSAGE_OFFSET_NEEDS_MARKERS_VAL = "2 markers must be placed to denote the section which you want to offset";
-    private static final short MESSAGE_FEATURE_COMING_SOON_KEY = 7;
-    private static final String MESSAGE_FEATURE_COMING_SOON_VAL = "This feature is not available yet, but is coming soon!";
 
     //// Music Definitions ////
 
@@ -89,11 +60,9 @@ public final class GameRenderer implements Renderer
 
     private final Activity _activity;
     private final InterstitialAd mInterstitialAd;
-    private final FileHandler _fileHandler;
     private SoundManager _soundManager;
 
     private long _startTime;
-    private boolean _isDoingIO = false;
 
     public GameRenderer(Activity activity)
     {
@@ -119,7 +88,6 @@ public final class GameRenderer implements Renderer
         });
 
         requestNewInterstitial();
-        _fileHandler = new FileHandler(new File(Environment.getExternalStorageDirectory(), "NosFURatu"));
 
         SaveData.init(activity);
 
@@ -171,20 +139,6 @@ public final class GameRenderer implements Renderer
 
         switch (requestedAction)
         {
-            case REQUESTED_ACTION_UPDATE:
-                if (!_isDoingIO)
-                {
-                    Game.update(deltaTime);
-                }
-                break;
-            case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-                saveLevel(Game.get_requested_action());
-                Game.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-                loadLevel(Game.get_requested_action());
-                Game.clear_requested_action();
-                break;
             case REQUESTED_ACTION_LEVEL_COMPLETED:
                 markLevelAsCompleted(Game.get_requested_action());
                 Game.clear_requested_action();
@@ -205,17 +159,16 @@ public final class GameRenderer implements Renderer
                 sendSaveData();
                 Game.clear_requested_action();
                 break;
-            case REQUESTED_ACTION_SHOW_MESSAGE:
-                showMessage(Game.get_requested_action());
-                Game.clear_requested_action();
-                break;
             case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
                 displayInterstitialAdIfLoaded();
                 Game.clear_requested_action();
                 break;
             default:
+                Game.clear_requested_action();
                 break;
         }
+
+        Game.update(deltaTime);
 
         Game.render();
 
@@ -379,61 +332,6 @@ public final class GameRenderer implements Renderer
         SoundManager.stop_all_looping_sounds();
     }
 
-    private void saveLevel(final int requestedAction)
-    {
-        final String levelFileName = getLevelName(requestedAction);
-
-        File file = _fileHandler.getFile(levelFileName);
-        _isDoingIO = true;
-        final boolean result = Game.save_level(file.getAbsolutePath());
-        _isDoingIO = false;
-
-        _activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Toast.makeText(_activity, result ? "Level saved successfully" : "Error occurred while saving level... Please try again!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loadLevel(final int requestedAction)
-    {
-        final String levelFileName = getLevelName(requestedAction);
-
-        _isDoingIO = true;
-
-        _activity.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                new AsyncTask<Void, Void, String>()
-                {
-                    @Override
-                    protected String doInBackground(Void... params)
-                    {
-                        return _fileHandler.readFromFile(levelFileName);
-                    }
-
-                    @Override
-                    protected void onPostExecute(String result)
-                    {
-                        Toast.makeText(_activity, result == null ? "Error occurred while loading level..." : "Level loaded successfully", Toast.LENGTH_SHORT).show();
-
-                        if (result != null)
-                        {
-                            Game.load_level(result);
-                        }
-
-                        _isDoingIO = false;
-                    }
-                }.execute();
-            }
-        });
-    }
-
     private void unlockLevel(int requestedAction)
     {
         int world = calcWorld(requestedAction);
@@ -526,73 +424,6 @@ public final class GameRenderer implements Renderer
         usd += "}";
 
         Game.load_user_save_data(usd);
-    }
-
-    private void showMessage(int requestedAction)
-    {
-        while (requestedAction >= 1000)
-        {
-            requestedAction -= 1000;
-        }
-
-        int messageKey = requestedAction;
-
-        final String toast;
-
-        switch (messageKey)
-        {
-            case MESSAGE_NO_END_SIGN_KEY:
-                toast = MESSAGE_NO_END_SIGN_VAL;
-                break;
-            case MESSAGE_NO_JON_KEY:
-                toast = MESSAGE_NO_JON_VAL;
-                break;
-            case MESSAGE_INVALID_JON_KEY:
-                toast = MESSAGE_INVALID_JON_VAL;
-                break;
-            case MESSAGE_NO_COUNT_HISS_KEY:
-                toast = MESSAGE_NO_COUNT_HISS_VAL;
-                break;
-            case MESSAGE_INVALID_COUNT_HISS_KEY:
-                toast = MESSAGE_INVALID_COUNT_HISS_VAL;
-                break;
-            case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
-                toast = MESSAGE_OFFSET_NEEDS_MARKERS_VAL;
-                break;
-            case MESSAGE_FEATURE_COMING_SOON_KEY:
-                toast = MESSAGE_FEATURE_COMING_SOON_VAL;
-                break;
-            default:
-                toast = "";
-                break;
-        }
-
-        if (toast.length() > 0)
-        {
-            _activity.runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Toast.makeText(_activity, toast, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    private String getLevelName(int requestedAction)
-    {
-        int world = calcWorld(requestedAction);
-        int level = calcLevel(requestedAction);
-
-        if (world > 0 && level > 0)
-        {
-            return String.format("nosfuratu_c%d_l%d.json", world, level);
-        }
-        else
-        {
-            return "nosfuratu.json";
-        }
     }
 
     private int calcWorld(int requestedAction)

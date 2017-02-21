@@ -11,13 +11,11 @@
 // C++
 #include "MainScreen.h"
 
-typedef void (^DisplayMessageBlock)(NSString *message);
-typedef NSString * (^GetLevelFilePath)(NSString *levelFileName);
 typedef void (^HandleInterstitialAd)();
 
 @interface ScreenController : NSObject
 
-- (instancetype)initWithScreen:(MainScreen *)screen getLevelFilePath:(GetLevelFilePath)getLevelFilePath displayMessageBlock:(DisplayMessageBlock)displayMessageBlock andHandleInterstitialAd:(HandleInterstitialAd)handleInterstitialAd;
+- (instancetype)initWithScreen:(MainScreen *)screen andInterstitialAdHandler:(HandleInterstitialAd)handleInterstitialAd;
 
 - (void)update:(float)deltaTime;
 
