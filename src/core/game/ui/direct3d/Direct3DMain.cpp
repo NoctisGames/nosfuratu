@@ -588,8 +588,16 @@ void Direct3DMain::CreateWindowSizeDependentResources()
 	RECT outputSize = m_deviceResources->GetOutputSize();
 	LONG width = outputSize.right - outputSize.left;
 	LONG height = outputSize.bottom - outputSize.top;
+	LONG touchWidth = width;
+	LONG touchHeight = height;
 
-	m_screen->createWindowSizeDependentResources(width, height, width, height);
+	if (D3DManager->isWindowsMobile())
+	{
+		touchWidth = height;
+		touchHeight = width;
+	}
+
+	m_screen->createWindowSizeDependentResources(width, height, touchWidth, touchHeight);
 }
 
 void Direct3DMain::beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceResources)
