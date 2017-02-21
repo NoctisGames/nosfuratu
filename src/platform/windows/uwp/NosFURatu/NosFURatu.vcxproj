@@ -302,11 +302,20 @@
       <Outputs>%(Filename).dds</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
-    <Image Include="Assets\Logo.scale-200.png" />
-    <Image Include="Assets\SmallLogo.scale-200.png" />
+    <Image Include="Assets\Logo.scale-200.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\SmallLogo.scale-200.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\SmallLogo.targetsize-24.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\StoreLogo.png" />
-    <Image Include="Assets\WideLogo.scale-200.png" />
+    <Image Include="Assets\WideLogo.scale-200.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\..\..\core\framework\ui\direct3d\shader\*PixelShader.hlsl">
