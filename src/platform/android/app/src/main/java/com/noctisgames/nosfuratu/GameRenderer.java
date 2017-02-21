@@ -174,9 +174,6 @@ public final class GameRenderer implements Renderer
                 sendSaveData();
                 Game.clear_requested_action();
                 break;
-            case REQUESTED_ACTION_SHOW_MESSAGE:
-                Game.clear_requested_action();
-                break;
             case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
                 displayInterstitialAdIfLoaded();
                 Game.clear_requested_action();

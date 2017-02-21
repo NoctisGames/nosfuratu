@@ -80,9 +80,6 @@
             [self sendSaveData];
             _screen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_SHOW_MESSAGE:
-            _screen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
             if (_handleInterstitialAd)
             {
