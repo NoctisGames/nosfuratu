@@ -19,16 +19,25 @@ import javax.microedition.khronos.opengles.GL10;
 
 public final class GameRenderer implements Renderer
 {
-    // Definitions from src/core/game/GameConstants.h
+    // Definitions from src/core/game/logic/GameConstants.h
 
     //// Requested Action Definitions ////
 
-    // Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
+    private static final short REQUESTED_ACTION_UPDATE = 0;
+    // Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
+    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
+    private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
     private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
     private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
     private static final short REQUESTED_ACTION_UNLOCK_LEVEL = 5;
-    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6; // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
+
+    // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
+    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6;
+
     private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
+
+    private static final short REQUESTED_ACTION_SHOW_MESSAGE = 8; // Passed in this format: [8][001-999], where the first digit is the action and the rest determines the actual message (defined below under //// Message Definitions ////)
+
     private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 9;
 
     //// Music Definitions ////
@@ -139,6 +148,12 @@ public final class GameRenderer implements Renderer
 
         switch (requestedAction)
         {
+            case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+                Game.clear_requested_action();
+                break;
+            case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+                Game.clear_requested_action();
+                break;
             case REQUESTED_ACTION_LEVEL_COMPLETED:
                 markLevelAsCompleted(Game.get_requested_action());
                 Game.clear_requested_action();
@@ -159,12 +174,15 @@ public final class GameRenderer implements Renderer
                 sendSaveData();
                 Game.clear_requested_action();
                 break;
+            case REQUESTED_ACTION_SHOW_MESSAGE:
+                Game.clear_requested_action();
+                break;
             case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
                 displayInterstitialAdIfLoaded();
                 Game.clear_requested_action();
                 break;
+            case REQUESTED_ACTION_UPDATE:
             default:
-                Game.clear_requested_action();
                 break;
         }
 

@@ -54,6 +54,12 @@
     
     switch (requestedAction)
     {
+        case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+            _screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+            _screen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_LEVEL_COMPLETED:
             [self markLevelAsCompleted:_screen->getRequestedAction()];
             _screen->clearRequestedAction();
@@ -74,6 +80,9 @@
             [self sendSaveData];
             _screen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SHOW_MESSAGE:
+            _screen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
             if (_handleInterstitialAd)
             {
@@ -81,8 +90,8 @@
             }
             _screen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_UPDATE:
         default:
-            _screen->clearRequestedAction();
             break;
     }
     
