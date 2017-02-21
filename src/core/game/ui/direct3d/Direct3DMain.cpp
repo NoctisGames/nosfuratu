@@ -15,6 +15,7 @@
 #include "macros.h"
 #include "Game.h"
 #include "MainScreenWorldMap.h"
+#include "MainScreenLevelEditor.h"
 #include "SaveData.h"
 
 #include <sstream>
@@ -367,10 +368,6 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 		break;
 	case REQUESTED_ACTION_GET_SAVE_DATA:
 		sendSaveData();
-		m_screen->clearRequestedAction();
-		break;
-	case REQUESTED_ACTION_SHOW_MESSAGE:
-		showMessage(m_screen->getRequestedAction());
 		m_screen->clearRequestedAction();
 		break;
 	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
@@ -1019,20 +1016,56 @@ void Direct3DMain::displayInterstitialAdIfAvailable()
 void Direct3DMain::saveLevel(int requestedAction)
 {
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	// TODO
+	const char *level_json = MainScreenLevelEditor::getInstance()->save();
+	if (level_json)
+	{
+		std::stringstream ss;
+
+		ss << "..\\nosfuratu-levels\\";
+
+		int world = calcWorld(requestedAction);
+		int level = calcLevel(requestedAction);
+
+		if (world > 0 && level > 0)
+		{
+			ss << "nosfuratu_c" << world << "_l" << level << ".json";
+		}
+		else
+		{
+			ss << "nosfuratu.json";
+		}
+
+		std::string ret = ss.str();
+
+		const char *jsonFilePath = ret.c_str();
+
+		FILE *file;
+		errno_t err;
+		if ((err = fopen_s(&file, jsonFilePath, "w+")) != 0)
+		{
+			MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
+		}
+		else
+		{
+			int sum = fprintf(file, "%s", level_json);
+			fclose(file);
+		}
+
+		MainScreenLevelEditor::getInstance()->setMessage("Level Saved Successfully!");
+	}
+	else
+	{
+		MainScreenLevelEditor::getInstance()->setMessage("Error Saving Level...");
+	}
 #endif
 }
 
 void Direct3DMain::loadLevel(int requestedAction)
 {
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	// TODO
-#endif
-}
-
-std::string Direct3DMain::getLevelName(int requestedAction)
-{
 	std::stringstream ss;
+
+	ss << "..\\nosfuratu-levels\\";
 
 	int world = calcWorld(requestedAction);
 	int level = calcLevel(requestedAction);
@@ -1048,61 +1081,40 @@ std::string Direct3DMain::getLevelName(int requestedAction)
 
 	std::string ret = ss.str();
 
-	return ret;
-}
+	const char *jsonFilePath = ret.c_str();
 
-void Direct3DMain::showMessage(int requestedAction)
-{
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	while (requestedAction >= 1000)
+	FILE *file;
+	errno_t err;
+	if ((err = fopen_s(&file, jsonFilePath, "r")) != 0)
 	{
-		requestedAction -= 1000;
+		MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
 	}
-
-	int messageKey = requestedAction;
-
-	const char* toast = nullptr;
-
-	switch (messageKey)
+	else
 	{
-	case MESSAGE_NO_END_SIGN_KEY:
-		toast = MESSAGE_NO_END_SIGN_VAL;
-		break;
-	case MESSAGE_NO_JON_KEY:
-		toast = MESSAGE_NO_JON_VAL;
-		break;
-	case MESSAGE_INVALID_JON_KEY:
-		toast = MESSAGE_INVALID_JON_VAL;
-		break;
-	case MESSAGE_NO_COUNT_HISS_KEY:
-		toast = MESSAGE_NO_COUNT_HISS_VAL;
-		break;
-	case MESSAGE_INVALID_COUNT_HISS_KEY:
-		toast = MESSAGE_INVALID_COUNT_HISS_VAL;
-		break;
-	case MESSAGE_OFFSET_NEEDS_MARKERS_KEY:
-		toast = MESSAGE_OFFSET_NEEDS_MARKERS_VAL;
-		break;
-	case MESSAGE_FEATURE_COMING_SOON_KEY:
-		toast = MESSAGE_FEATURE_COMING_SOON_VAL;
-		break;
-	default:
-		break;
-	}
+		// seek to end of file
+		fseek(file, 0, SEEK_END);
 
-	if (toast)
-	{
-		std::string message = std::string(toast);
-		
-		displayToast(message);
-	}
-#endif
-}
+		// get current file position which is end from seek
+		size_t size = ftell(file);
 
-void Direct3DMain::displayToast(std::string message)
-{
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	// TODO
+		std::string jsonContent;
+
+		// allocate string space and set length
+		jsonContent.resize(size);
+
+		// go back to beginning of file for read
+		rewind(file);
+
+		// read 1*size bytes from sfile into ss
+		fread(&jsonContent[0], 1, size, file);
+
+		// close the file
+		fclose(file);
+
+		MainScreenLevelEditor::getInstance()->load(jsonContent.c_str(), m_screen);
+
+		MainScreenLevelEditor::getInstance()->setMessage("Level Loaded Successfully!");
+	}
 #endif
 }
 #pragma endregion

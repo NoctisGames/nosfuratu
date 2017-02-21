@@ -107,6 +107,15 @@ void MainScreenLevelEditor::execute(MainScreen* gs)
     }
     else
     {
+		if (m_fMessageTime > 0)
+		{
+			m_fMessageTime -= gs->m_fDeltaTime;
+			if (m_fMessageTime < 0)
+			{
+				m_message = nullptr;
+			}
+		}
+
         handleInput(gs);
         
         int oldSum = m_game->calcSum();
@@ -208,6 +217,17 @@ ConfirmResetPanel* MainScreenLevelEditor::getConfirmResetPanel()
 ConfirmExitPanel* MainScreenLevelEditor::getConfirmExitPanel()
 {
 	return m_confirmExitPanel.get();
+}
+
+void MainScreenLevelEditor::setMessage(char *message)
+{
+	m_message = message;
+	m_fMessageTime = 5;
+}
+
+char* MainScreenLevelEditor::getMessage()
+{
+	return m_message;
 }
 
 #pragma mark private
@@ -376,7 +396,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET:
                     if (m_game->getMarkers().size() < 2)
                     {
-                        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_OFFSET_NEEDS_MARKERS_KEY;
+						setMessage("2 markers must be placed to denote the section to offset");
                     }
                     else
                     {
@@ -753,19 +773,19 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *gs)
 {
     if (!m_game->hasEndSign())
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_NO_END_SIGN_KEY;
+		setMessage("Cannot save a level that does not contain an End Sign");
         return false;
     }
     
     if (m_game->getJons().size() == 0)
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_NO_JON_KEY;
+		setMessage("Cannot save a level that does not contain a Jon");
         return false;
     }
     
     if (m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
     {
-        gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_JON_KEY;
+		setMessage("Cannot save a level unless Jon is to the left of the end sign");
         return false;
     }
     
@@ -773,13 +793,13 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *gs)
     {
         if (m_game->getCountHissWithMinas().size() == 0)
         {
-            gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_NO_COUNT_HISS_KEY;
+			setMessage("Cannot save a level that does not contain a Count Hiss");
             return false;
         }
         
         if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
         {
-            gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_INVALID_COUNT_HISS_KEY;
+			setMessage("Cannot save a level unless Count Hiss is left of the end sign");
             return false;
         }
     }
@@ -791,6 +811,8 @@ MainScreenLevelEditor::MainScreenLevelEditor() :
 	m_lastAddedEntity(nullptr),
 	m_draggingEntity(nullptr),
 	m_attachToEntity(nullptr),
+	m_message(nullptr),
+	m_fMessageTime(-1),
 	m_fDraggingEntityOriginalY(0),
 	m_iWorld(0),
 	m_iLevel(0),

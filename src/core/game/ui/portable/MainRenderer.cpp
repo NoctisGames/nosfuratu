@@ -1912,6 +1912,29 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
             
             m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);
         }
+
+		if (gameScreenLevelEditor->getMessage())
+		{
+			static NGRect fontBg = NGRect(0, CAM_HEIGHT / 2 - fgHeight / 2, CAM_WIDTH, fgHeight);
+			static Color fontBgColor = Color(0, 0, 0, 1);
+
+			m_fillNGRectBatcher->beginBatch();
+
+			m_fillNGRectBatcher->renderNGRect(fontBg, fontBgColor);
+
+			m_fillNGRectBatcher->endBatch(*m_colorGpuProgramWrapper);
+
+			static Color fontMessageColor = Color(1, 0, 0, 1);
+
+			m_spriteBatcher->beginBatch();
+
+			std::stringstream ss;
+			ss << gameScreenLevelEditor->getMessage();
+			std::string text = ss.str();
+			m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 2, CAM_HEIGHT / 2, fgWidth / 2, fgHeight / 2, fontMessageColor, true);
+
+			m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+		}
 	}
 }
 

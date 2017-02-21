@@ -119,7 +119,4 @@ private:
 
 	void saveLevel(int requestedAction);
 	void loadLevel(int requestedAction);
-	std::string getLevelName(int requestedAction);
-	void showMessage(int requestedAction);
-	void displayToast(std::string message);
 };

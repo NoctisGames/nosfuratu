@@ -287,7 +287,6 @@ void WorldMap::execute(MainScreen* gs)
                     //else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
                     //{
                     //    // Temporary, replace with display Leaderboards
-                    //    gs->m_iRequestedAction = REQUESTED_ACTION_SHOW_MESSAGE * 1000 + MESSAGE_FEATURE_COMING_SOON_KEY;
                     //    return;
                     //}
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
