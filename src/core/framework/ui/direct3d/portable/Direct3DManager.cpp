@@ -501,7 +501,7 @@ m_isWindowsMobile(false)
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	m_isWindowsMobile = false;
 #else
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
 	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
 #endif
 }
