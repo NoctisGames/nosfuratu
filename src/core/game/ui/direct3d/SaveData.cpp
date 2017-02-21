@@ -1,233 +1,38 @@
+//
+// Direct3DMain.cpp
+//
+
+#include "pch.h"
+
 #include "SaveData.h"
 
 #include <vector>
 
-using namespace Windows::Foundation;
-using namespace Windows::Storage;
-
-int SaveData::getNumGoldenCarrots()
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForNumGoldenCarrots();
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForNumGoldenCarrots();
-
-	values->Insert(key, PropertyValue::CreateInt32(numGoldenCarrots));
-}
-
-int SaveData::getViewedCutscenesFlag()
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForViewedCutscenesFlag();
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForViewedCutscenesFlag();
-
-	values->Insert(key, PropertyValue::CreateInt32(viewedCutscenesFlag));
-}
-
-int SaveData::getJonUnlockedAbilitiesFlag()
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-int SaveData::getLevelScore(int world, int level)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForLevelScore(world, level);
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-int SaveData::getLevelStatsFlag(int world, int level)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForLevelStats(world, level);
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-void SaveData::setLevelStatsFlag(int world, int level, int levelStatsFlag)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	{
-		Platform::String^ key = getKeyForLevelStats(world, level);
-
-		values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
-	}
-}
-
-void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	{
-		Platform::String^ key = getKeyForLevelScore(world, level);
-
-		values->Insert(key, PropertyValue::CreateInt32(score));
-	}
-
-	{
-		Platform::String^ key = getKeyForLevelStats(world, level);
-
-		values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
-	}
-
-	{
-		Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
-
-		values->Insert(key, PropertyValue::CreateInt32(jonUnlockedAbilitiesFlag));
-	}
-}
-
-int SaveData::getScorePushedOnline(int world, int level)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForLevelOnlineScore(world, level);
-
-	bool hasValue = values->HasKey(key);
-
-	if (hasValue)
-	{
-		return safe_cast<int>(values->Lookup(key));
-	}
-
-	return 0;
-}
-
-void SaveData::setScorePushedOnline(int world, int level, int score)
-{
-	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
-
-	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
-
-	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
-
-	Platform::String^ key = getKeyForLevelOnlineScore(world, level);
-
-	values->Insert(key, PropertyValue::CreateInt32(score));
-}
-
-Platform::String^ SaveData::getKeyForNumGoldenCarrots()
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+// TODO
+#else
+Platform::String^ getKeyForNumGoldenCarrots()
 {
 	static Platform::String^ key = "v1_0_0_num_golden_carrots";
 
 	return key;
 }
 
-Platform::String^ SaveData::getKeyForJonUnlockedAbilitiesFlag()
+Platform::String^ getKeyForJonUnlockedAbilitiesFlag()
 {
 	static Platform::String^ key = "v1_0_0_jon_unlocked_abilities_flag";
 
 	return key;
 }
 
-Platform::String^ SaveData::getKeyForViewedCutscenesFlag()
+Platform::String^ getKeyForViewedCutscenesFlag()
 {
 	static Platform::String^ key = "v1_0_0_viewed_cutscenes_flag";
 
 	return key;
 }
 
-Platform::String^ SaveData::getKeyForLevelScore(int world, int level)
+Platform::String^ getKeyForLevelScore(int world, int level)
 {
 	static std::vector<std::vector<Platform::String^>> WORLDS_LEVELS_SCORES;
 	static std::vector<Platform::String^> world_1;
@@ -365,7 +170,7 @@ Platform::String^ SaveData::getKeyForLevelScore(int world, int level)
 	return WORLDS_LEVELS_SCORES[worldIndex][levelIndex];
 }
 
-Platform::String^ SaveData::getKeyForLevelStats(int world, int level)
+Platform::String^ getKeyForLevelStats(int world, int level)
 {
 	static std::vector<std::vector<Platform::String^>> WORLDS_LEVELS_STATS;
 	static std::vector<Platform::String^> world_1;
@@ -503,7 +308,7 @@ Platform::String^ SaveData::getKeyForLevelStats(int world, int level)
 	return WORLDS_LEVELS_STATS[worldIndex][levelIndex];
 }
 
-Platform::String^ SaveData::getKeyForLevelOnlineScore(int world, int level)
+Platform::String^ getKeyForLevelOnlineScore(int world, int level)
 {
 	static std::vector<std::vector<Platform::String^>> WORLDS_LEVELS_SCORES_ONLINE;
 	static std::vector<Platform::String^> world_1;
@@ -639,4 +444,257 @@ Platform::String^ SaveData::getKeyForLevelOnlineScore(int world, int level)
 	int levelIndex = level - 1;
 
 	return WORLDS_LEVELS_SCORES_ONLINE[worldIndex][levelIndex];
+}
+#endif
+
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+// Empty
+#else
+using namespace Windows::Foundation;
+using namespace Windows::Storage;
+#endif
+
+int SaveData::getNumGoldenCarrots()
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForNumGoldenCarrots();
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+	
+	return 0;
+}
+
+void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForNumGoldenCarrots();
+
+	values->Insert(key, PropertyValue::CreateInt32(numGoldenCarrots));
+#endif
+}
+
+int SaveData::getViewedCutscenesFlag()
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForViewedCutscenesFlag();
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+	
+	return 0;
+}
+
+void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForViewedCutscenesFlag();
+
+	values->Insert(key, PropertyValue::CreateInt32(viewedCutscenesFlag));
+#endif
+}
+
+int SaveData::getJonUnlockedAbilitiesFlag()
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+
+	return 0;
+}
+
+int SaveData::getLevelScore(int world, int level)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForLevelScore(world, level);
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+
+	return 0;
+}
+
+int SaveData::getLevelStatsFlag(int world, int level)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForLevelStats(world, level);
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+	
+	return 0;
+}
+
+void SaveData::setLevelStatsFlag(int world, int level, int levelStatsFlag)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	{
+		Platform::String^ key = getKeyForLevelStats(world, level);
+
+		values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
+	}
+#endif
+}
+
+void SaveData::setLevelComplete(int world, int level, int score, int levelStatsFlag, int jonUnlockedAbilitiesFlag)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	{
+		Platform::String^ key = getKeyForLevelScore(world, level);
+
+		values->Insert(key, PropertyValue::CreateInt32(score));
+	}
+
+	{
+		Platform::String^ key = getKeyForLevelStats(world, level);
+
+		values->Insert(key, PropertyValue::CreateInt32(levelStatsFlag));
+	}
+
+	{
+		Platform::String^ key = getKeyForJonUnlockedAbilitiesFlag();
+
+		values->Insert(key, PropertyValue::CreateInt32(jonUnlockedAbilitiesFlag));
+	}
+#endif
+}
+
+int SaveData::getScorePushedOnline(int world, int level)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForLevelOnlineScore(world, level);
+
+	bool hasValue = values->HasKey(key);
+
+	if (hasValue)
+	{
+		return safe_cast<int>(values->Lookup(key));
+	}
+#endif
+
+	return 0;
+}
+
+void SaveData::setScorePushedOnline(int world, int level, int score)
+{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	// Empty
+#else
+	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
+
+	ApplicationDataContainer^ container = localSettings->CreateContainer("nosFURatuContainer", ApplicationDataCreateDisposition::Always);
+
+	auto values = localSettings->Containers->Lookup("nosFURatuContainer")->Values;
+
+	Platform::String^ key = getKeyForLevelOnlineScore(world, level);
+
+	values->Insert(key, PropertyValue::CreateInt32(score));
+#endif
 }

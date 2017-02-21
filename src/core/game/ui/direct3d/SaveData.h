@@ -1,3 +1,7 @@
+//
+// SaveData.h
+//
+
 #pragma once
 
 class SaveData
@@ -22,14 +26,8 @@ public:
 	static void setScorePushedOnline(int world, int level, int score);
 
 private:
-	static Platform::String^ getKeyForNumGoldenCarrots();
-	static Platform::String^ getKeyForJonUnlockedAbilitiesFlag();
-	static Platform::String^ getKeyForViewedCutscenesFlag();
-
-	static Platform::String^ getKeyForLevelScore(int world, int level);
-	static Platform::String^ getKeyForLevelStats(int world, int level);
-	static Platform::String^ getKeyForLevelOnlineScore(int world, int level);
-
-	SaveData() {}
-	~SaveData() {}
+	// ctor, copy ctor, and assignment should be private in a Singleton
+	SaveData();
+	SaveData(const SaveData&);
+	SaveData& operator=(const SaveData&);
 };
