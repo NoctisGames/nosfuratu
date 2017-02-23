@@ -173,10 +173,13 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     m_loadingTextures.push_back(textureWrapper);
     
     textureWrapper->isLoadingData = true;
-    m_textureDataLoadingThreads.push_back(new std::thread([](TextureWrapper* tw, ITextureLoader* tl)
+    m_textureDataLoadingThreads.push_back(new std::thread([](TextureWrapper* tw, Renderer* r)
     {
-        tw->gpuTextureDataWrapper = tl->loadTextureData(tw->name.c_str());
-    }, textureWrapper, m_textureLoader));
+        if (r->m_textureDataLoadingThreads.size() > 0)
+        {
+            tw->gpuTextureDataWrapper = r->m_textureLoader->loadTextureData(tw->name.c_str());
+        }
+    }, textureWrapper, this));
 }
 
 void Renderer::unloadTexture(TextureWrapper* textureWrapper)
@@ -247,10 +250,8 @@ void Renderer::cleanUpThreads()
 {
     for (std::vector<std::thread *>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); i++)
     {
-        (*i)->detach();
+        (*i)->join();
     }
     
     VectorUtil::cleanUpVectorOfPointers(m_textureDataLoadingThreads);
-    
-    m_textureDataLoadingThreads.clear();
 }
