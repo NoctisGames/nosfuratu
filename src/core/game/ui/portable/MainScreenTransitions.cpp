@@ -32,37 +32,38 @@ TitleToWorldMap * TitleToWorldMap::getInstance()
     return instance;
 }
 
-void TitleToWorldMap::enter(MainScreen* gs)
+void TitleToWorldMap::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    WorldMap::getInstance()->enter(gs);
+    
+    WorldMap::getInstance()->enter(ms);
 }
 
-void TitleToWorldMap::execute(MainScreen* gs)
+void TitleToWorldMap::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        ms->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
         WorldMap* wm = WorldMap::getInstance();
-        gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenUi(*wm);
-        gs->m_renderer->renderWorldMapScreenButtons(*wm);
+        ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+        ms->m_renderer->renderWorldMapScreenUi(*wm);
+        ms->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -73,12 +74,12 @@ void TitleToWorldMap::execute(MainScreen* gs)
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setCurrentState(WorldMap::getInstance());
-            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
+            ms->m_stateMachine.setCurrentState(WorldMap::getInstance());
+            ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
@@ -86,9 +87,21 @@ void TitleToWorldMap::execute(MainScreen* gs)
     }
 }
 
-void TitleToWorldMap::exit(MainScreen* gs)
+void TitleToWorldMap::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
+}
+
+void TitleToWorldMap::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_TITLE);
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
 }
 
 TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
@@ -105,34 +118,35 @@ TitleToOpeningCutscene * TitleToOpeningCutscene::getInstance()
     return instance;
 }
 
-void TitleToOpeningCutscene::enter(MainScreen* gs)
+void TitleToOpeningCutscene::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    OpeningCutscene::getInstance()->enter(gs);
+    
+    OpeningCutscene::getInstance()->enter(ms);
 }
 
-void TitleToOpeningCutscene::execute(MainScreen* gs)
+void TitleToOpeningCutscene::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        ms->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -143,12 +157,12 @@ void TitleToOpeningCutscene::execute(MainScreen* gs)
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
-            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
+            ms->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
+            ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY);
@@ -156,9 +170,21 @@ void TitleToOpeningCutscene::execute(MainScreen* gs)
     }
 }
 
-void TitleToOpeningCutscene::exit(MainScreen* gs)
+void TitleToOpeningCutscene::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
+}
+
+void TitleToOpeningCutscene::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_TITLE);
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
 TitleToOpeningCutscene::TitleToOpeningCutscene() : m_fTransitionStateTime(0)
@@ -175,37 +201,38 @@ OpeningCutsceneToWorldMap * OpeningCutsceneToWorldMap::getInstance()
     return instance;
 }
 
-void OpeningCutsceneToWorldMap::enter(MainScreen* gs)
+void OpeningCutsceneToWorldMap::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    WorldMap::getInstance()->enter(gs);
+    
+    WorldMap::getInstance()->enter(ms);
 }
 
-void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
+void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
         WorldMap* wm = WorldMap::getInstance();
-        gs->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenUi(*wm);
-        gs->m_renderer->renderWorldMapScreenButtons(*wm);
+        ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+        ms->m_renderer->renderWorldMapScreenUi(*wm);
+        ms->m_renderer->renderWorldMapScreenButtons(*wm);
         
-        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -214,13 +241,13 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
             m_fTransitionStateTime = 0;
         }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setPreviousState(Title::getInstance());
-            gs->m_stateMachine.setCurrentState(WorldMap::getInstance());
-            gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+            ms->m_stateMachine.setPreviousState(Title::getInstance());
+            ms->m_stateMachine.setCurrentState(WorldMap::getInstance());
+            ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
@@ -228,9 +255,21 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* gs)
     }
 }
 
-void OpeningCutsceneToWorldMap::exit(MainScreen* gs)
+void OpeningCutsceneToWorldMap::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
+}
+
+void OpeningCutsceneToWorldMap::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
 OpeningCutsceneToWorldMap::OpeningCutsceneToWorldMap() : m_fTransitionStateTime(0)
@@ -247,34 +286,35 @@ TitleToLevelEditor * TitleToLevelEditor::getInstance()
     return instance;
 }
 
-void TitleToLevelEditor::enter(MainScreen* gs)
+void TitleToLevelEditor::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    MainScreenLevelEditor::getInstance()->enter(gs);
+    
+    MainScreenLevelEditor::getInstance()->enter(ms);
 }
 
-void TitleToLevelEditor::execute(MainScreen* gs)
+void TitleToLevelEditor::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        ms->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderLevelEditor(MainScreenLevelEditor::getInstance());
+        ms->m_renderer->renderLevelEditor(MainScreenLevelEditor::getInstance());
         
-        gs->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -285,19 +325,31 @@ void TitleToLevelEditor::execute(MainScreen* gs)
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setCurrentState(MainScreenLevelEditor::getInstance());
-            gs->m_renderer->unload(RENDERER_TYPE_TITLE);
+            ms->m_stateMachine.setCurrentState(MainScreenLevelEditor::getInstance());
+            ms->m_renderer->unload(RENDERER_TYPE_TITLE);
         }
     }
 }
 
-void TitleToLevelEditor::exit(MainScreen* gs)
+void TitleToLevelEditor::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
+}
+
+void TitleToLevelEditor::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_TITLE);
+    ms->m_renderer->load(RENDERER_TYPE_LEVEL_EDITOR);
 }
 
 TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
@@ -314,21 +366,22 @@ WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
     return instance;
 }
 
-void WorldMapToOpeningCutscene::enter(MainScreen* gs)
+void WorldMapToOpeningCutscene::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = 0;
     m_fFade = 0;
     m_hasPlayedTransitionSound = false;
-    OpeningCutscene::getInstance()->enter(gs);
+    
+    OpeningCutscene::getInstance()->enter(ms);
 }
 
-void WorldMapToOpeningCutscene::execute(MainScreen* gs)
+void WorldMapToOpeningCutscene::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
         {
             if (!m_hasPlayedTransitionSound)
@@ -340,26 +393,26 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
         m_fFade = m_fTransitionStateTime * 2;
         
         WorldMap::getInstance()->setFade(m_fFade);
-        WorldMap::getInstance()->updateButtons(gs->m_fDeltaTime);
+        WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
         
-        gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
-        gs->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
+        ms->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        ms->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
+        ms->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
         
-        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -377,8 +430,8 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
-            gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+            ms->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
+            ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_OPENING_CUTSCENE);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY);
@@ -386,9 +439,21 @@ void WorldMapToOpeningCutscene::execute(MainScreen* gs)
     }
 }
 
-void WorldMapToOpeningCutscene::exit(MainScreen* gs)
+void WorldMapToOpeningCutscene::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = 0;
+}
+
+void WorldMapToOpeningCutscene::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
 void WorldMapToOpeningCutscene::setCutsceneButtonLocation(float centerX, float centerY)
@@ -411,26 +476,26 @@ WorldMapToLevel * WorldMapToLevel::getInstance()
     return instance;
 }
 
-void WorldMapToLevel::enter(MainScreen* gs)
+void WorldMapToLevel::enter(MainScreen* ms)
 {
+    m_fTransitionStateTime = 0;
+    m_fFade = 0;
+    m_hasPlayedTransitionSound = false;
+
     m_levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad);
     
 	m_levelState->setBestStats(m_iBestScore, m_iBestOnlineScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
     
-    m_levelState->enter(gs);
-    
-    m_fTransitionStateTime = 0;
-    m_fFade = 0;
-    m_hasPlayedTransitionSound = false;
+    m_levelState->enter(ms);
 }
 
-void WorldMapToLevel::execute(MainScreen* gs)
+void WorldMapToLevel::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.5f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
         {
             if (!m_hasPlayedTransitionSound)
@@ -443,26 +508,26 @@ void WorldMapToLevel::execute(MainScreen* gs)
         
         WorldMap::getInstance()->setFade(m_fFade);
         
-        gs->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
-        gs->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
-        gs->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
+        ms->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
+        ms->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
+        ms->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderWorld(m_levelState->getGame());
+        ms->m_renderer->renderWorld(m_levelState->getGame());
         
-        gs->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
         
-        gs->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -481,14 +546,14 @@ void WorldMapToLevel::execute(MainScreen* gs)
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setPreviousState(WorldMap::getInstance());
-            gs->m_stateMachine.setCurrentState(m_levelState);
-            gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+            ms->m_stateMachine.setPreviousState(WorldMap::getInstance());
+            ms->m_stateMachine.setCurrentState(m_levelState);
+            ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
         }
     }
 }
 
-void WorldMapToLevel::exit(MainScreen* gs)
+void WorldMapToLevel::exit(MainScreen* ms)
 {
     m_levelState = nullptr;
     m_fTransitionStateTime = 0;
@@ -500,6 +565,19 @@ void WorldMapToLevel::exit(MainScreen* gs)
     m_iBestLevelStatsFlag = 0;
     m_iLastKnownNumGoldenCarrots = 0;
     m_iLastKnownJonAbilityFlag = 0;
+}
+
+void WorldMapToLevel::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->load(calcRendererTypeFromLevel(m_iWorldToLoad, m_iLevelToLoad));
 }
 
 void WorldMapToLevel::setLevelLocation(float centerX, float centerY)
@@ -554,37 +632,38 @@ LevelToComingSoon * LevelToComingSoon::getInstance()
     return instance;
 }
 
-void LevelToComingSoon::enter(MainScreen* gs)
+void LevelToComingSoon::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    ComingSoon::getInstance()->enter(gs);
+    
+    ComingSoon::getInstance()->enter(ms);
 }
 
-void LevelToComingSoon::execute(MainScreen* gs)
+void LevelToComingSoon::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
         if (m_levelState)
         {
-            gs->m_renderer->renderHud(m_levelState->getGame(), nullptr, m_levelState->getContinueButton(), m_levelState->getScore());
+            ms->m_renderer->renderHud(m_levelState->getGame(), nullptr, m_levelState->getContinueButton(), m_levelState->getScore());
         }
         
-        gs->m_renderer->setFramebuffer(1);
+        ms->m_renderer->setFramebuffer(1);
         
-        gs->m_renderer->renderComingSoonScreenBackground();
+        ms->m_renderer->renderComingSoonScreenBackground();
         
-        gs->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
+        ms->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
@@ -595,11 +674,11 @@ void LevelToComingSoon::execute(MainScreen* gs)
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_STOP);
         }
         
-        m_fTransitionStateTime += gs->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
         
         if (m_fTransitionStateTime > 1)
         {
-            gs->m_stateMachine.setCurrentState(ComingSoon::getInstance());
+            ms->m_stateMachine.setCurrentState(ComingSoon::getInstance());
             
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
             SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
@@ -607,9 +686,21 @@ void LevelToComingSoon::execute(MainScreen* gs)
     }
 }
 
-void LevelToComingSoon::exit(MainScreen* gs)
+void LevelToComingSoon::exit(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
+}
+
+void LevelToComingSoon::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1);
 }
 
 void LevelToComingSoon::setLevelComingFrom(Level* levelState)

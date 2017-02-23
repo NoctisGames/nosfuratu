@@ -572,11 +572,13 @@ class WorldMap : public MainScreenState
 public:
     static WorldMap* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void execute(MainScreen* gs);
+    virtual void execute(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
+    
+    virtual void initRenderer(MainScreen* ms);
     
     void loadUserSaveData(const char* json);
     

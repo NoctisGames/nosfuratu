@@ -25,11 +25,13 @@ class Title : public MainScreenState
 public:
     static Title* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void execute(MainScreen* gs);
+    virtual void execute(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
+    
+    virtual void initRenderer(MainScreen* ms);
     
     TitlePanel* getTitlePanel();
     

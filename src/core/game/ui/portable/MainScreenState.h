@@ -19,12 +19,15 @@ class MainScreenState : public State<MainScreen>
     RTTI_DECL;
     
 public:
-    virtual void enter(MainScreen* gs) = 0;
+    virtual void enter(MainScreen* ms) = 0;
     
-    virtual void execute(MainScreen* gs) = 0;
+    virtual void execute(MainScreen* ms) = 0;
     
-    virtual void exit(MainScreen* gs) = 0;
+    virtual void exit(MainScreen* ms) = 0;
     
+    virtual void initRenderer(MainScreen* ms) = 0;
+    
+protected:
     MainScreenState() {}
     
 private:

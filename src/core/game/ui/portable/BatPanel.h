@@ -215,7 +215,7 @@ class BatPanel
 public:
     BatPanel();
     
-    virtual void update(MainScreen* gs);
+    virtual void update(MainScreen* ms);
     
     void config(Game* game, int world, int level);
     
@@ -251,19 +251,19 @@ private:
     
     void enableAbilityAndReset();
     
-    void updateJump(MainScreen* gs);
+    void updateJump(MainScreen* ms);
     
-    void updateDoubleJump(MainScreen* gs);
+    void updateDoubleJump(MainScreen* ms);
     
-    void updateVampire(MainScreen* gs);
+    void updateVampire(MainScreen* ms);
     
-    void updateDrill(MainScreen* gs);
+    void updateDrill(MainScreen* ms);
     
-    void updateDrillToDamageOwl(MainScreen* gs);
+    void updateDrillToDamageOwl(MainScreen* ms);
     
-    void updateStomp(MainScreen* gs);
+    void updateStomp(MainScreen* ms);
     
-    void updateDash(MainScreen* gs);
+    void updateDash(MainScreen* ms);
     
     void showBatNearJon(Jon& jon);
     

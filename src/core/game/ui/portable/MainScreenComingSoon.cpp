@@ -31,33 +31,35 @@ ComingSoon * ComingSoon::getInstance()
     return instance;
 }
 
-void ComingSoon::enter(MainScreen* gs)
+void ComingSoon::enter(MainScreen* ms)
 {
-    gs->m_stateMachine.setPreviousState(WorldMap::getInstance());
+    ms->m_stateMachine.setPreviousState(WorldMap::getInstance());
+    
+    initRenderer(ms);
 }
 
-void ComingSoon::execute(MainScreen* gs)
+void ComingSoon::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderComingSoonScreenBackground();
+        ms->m_renderer->renderComingSoonScreenBackground();
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine.revertToPreviousState();
+            ms->m_stateMachine.revertToPreviousState();
             
             return;
         }
@@ -114,12 +116,17 @@ void ComingSoon::execute(MainScreen* gs)
     }
 }
 
-void ComingSoon::exit(MainScreen* gs)
+void ComingSoon::exit(MainScreen* ms)
 {
     m_isRequestingNextState = false;
     
     SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
     SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+}
+
+void ComingSoon::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1);
 }
 
 ComingSoon::ComingSoon() : m_isRequestingNextState(false)

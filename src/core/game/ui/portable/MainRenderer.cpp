@@ -90,22 +90,21 @@ m_world_1_objects_part_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextur
 m_world_1_special(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_special" : "world_1_special")),
 m_world_map_screen_part_1(new TextureWrapper("world_map_screen_part_1")),
 m_world_map_screen_part_2(new TextureWrapper("world_map_screen_part_2")),
-m_transScreenGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransScreenGpuProgramWrapper()),
-m_fadeScreenGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFadeScreenGpuProgramWrapper()),
-m_pointTransScreenGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createPointTransScreenGpuProgramWrapper()),
-m_sinWaveTextureProgram(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSinWaveTextureProgram()),
-m_backgroundGpuTextureProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createBackgroundGpuTextureProgramWrapper()),
-m_snakeDeathTextureProgram(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSnakeDeathTextureProgram()),
-m_endBossSnakeTextureProgram(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createEndBossSnakeTextureProgram()),
-m_shockwaveTextureGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createShockwaveTextureGpuProgramWrapper()),
-m_transDeathInGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransDeathInGpuProgramWrapper()),
-m_transDeathOutGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransDeathOutGpuProgramWrapper()),
-m_framebufferTintGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferTintGpuProgramWrapper()),
-m_framebufferObfuscationGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferObfuscationGpuProgramWrapper()),
-m_framebufferRadialBlurGpuProgramWrapper(MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferRadialBlurGpuProgramWrapper()),
+m_transScreenGpuProgramWrapper(nullptr),
+m_fadeScreenGpuProgramWrapper(nullptr),
+m_pointTransScreenGpuProgramWrapper(nullptr),
+m_sinWaveTextureProgram(nullptr),
+m_backgroundGpuTextureProgramWrapper(nullptr),
+m_snakeDeathTextureProgram(nullptr),
+m_endBossSnakeTextureProgram(nullptr),
+m_shockwaveTextureGpuProgramWrapper(nullptr),
+m_transDeathInGpuProgramWrapper(nullptr),
+m_transDeathOutGpuProgramWrapper(nullptr),
+m_framebufferTintGpuProgramWrapper(nullptr),
+m_framebufferObfuscationGpuProgramWrapper(nullptr),
+m_framebufferRadialBlurGpuProgramWrapper(nullptr),
 m_camBounds(new NGRect(0, 0, CAM_WIDTH, CAM_HEIGHT)),
 m_camPosVelocity(new Vector2D()),
-m_loadedRendererType(RENDERER_TYPE_NONE),
 m_fStateTime(0),
 m_fCamPosX(0),
 m_fGroundedCamY(0),
@@ -116,40 +115,13 @@ m_stopCamera(false),
 m_hasCompletedRadialBlur(false)
 {
     ASSETS->init(new MainAssetsMapper());
-    
-    loadTextureSync(m_misc);
 }
 
 MainRenderer::~MainRenderer()
 {
-    delete m_font;
+    releaseDeviceDependentResources();
     
-    unloadTexture(m_jon);
-    unloadTexture(m_level_editor);
-    unloadTexture(m_misc);
-    unloadTexture(m_title_screen);
-    unloadTexture(m_trans_death_shader_helper);
-    unloadTexture(m_tutorial);
-    unloadTexture(m_vampire);
-    unloadTexture(m_world_1_background_lower_part_1);
-    unloadTexture(m_world_1_background_lower_part_2);
-    unloadTexture(m_world_1_background_mid);
-    unloadTexture(m_world_1_background_upper);
-    unloadTexture(m_world_1_cutscene_1);
-    unloadTexture(m_world_1_cutscene_2);
-    unloadTexture(m_world_1_end_boss_part_1);
-    unloadTexture(m_world_1_end_boss_part_2);
-    unloadTexture(m_world_1_end_boss_part_3);
-    unloadTexture(m_world_1_enemies);
-    unloadTexture(m_world_1_ground);
-    unloadTexture(m_world_1_mid_boss_part_1);
-    unloadTexture(m_world_1_mid_boss_part_2);
-    unloadTexture(m_world_1_mid_boss_part_3);
-    unloadTexture(m_world_1_objects_part_1);
-    unloadTexture(m_world_1_objects_part_2);
-    unloadTexture(m_world_1_special);
-    unloadTexture(m_world_map_screen_part_1);
-    unloadTexture(m_world_map_screen_part_2);
+    delete m_font;
     
     delete m_jon;
     delete m_level_editor;
@@ -178,6 +150,62 @@ MainRenderer::~MainRenderer()
     delete m_world_map_screen_part_1;
     delete m_world_map_screen_part_2;
     
+    delete m_camBounds;
+    delete m_camPosVelocity;
+}
+
+void MainRenderer::createDeviceDependentResources()
+{
+    Renderer::createDeviceDependentResources();
+    
+    m_transScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransScreenGpuProgramWrapper();
+    m_fadeScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFadeScreenGpuProgramWrapper();
+    m_pointTransScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createPointTransScreenGpuProgramWrapper();
+    m_sinWaveTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSinWaveTextureProgram();
+    m_backgroundGpuTextureProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createBackgroundGpuTextureProgramWrapper();
+    m_snakeDeathTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSnakeDeathTextureProgram();
+    m_endBossSnakeTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createEndBossSnakeTextureProgram();
+    m_shockwaveTextureGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createShockwaveTextureGpuProgramWrapper();
+    m_transDeathInGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransDeathInGpuProgramWrapper();
+    m_transDeathOutGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransDeathOutGpuProgramWrapper();
+    m_framebufferTintGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferTintGpuProgramWrapper();
+    m_framebufferObfuscationGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferObfuscationGpuProgramWrapper();
+    m_framebufferRadialBlurGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferRadialBlurGpuProgramWrapper();
+    
+    loadTextureSync(m_misc);
+}
+
+void MainRenderer::releaseDeviceDependentResources()
+{
+    Renderer::releaseDeviceDependentResources();
+    
+    unloadTexture(m_jon);
+    unloadTexture(m_level_editor);
+    unloadTexture(m_misc);
+    unloadTexture(m_title_screen);
+    unloadTexture(m_trans_death_shader_helper);
+    unloadTexture(m_tutorial);
+    unloadTexture(m_vampire);
+    unloadTexture(m_world_1_background_lower_part_1);
+    unloadTexture(m_world_1_background_lower_part_2);
+    unloadTexture(m_world_1_background_mid);
+    unloadTexture(m_world_1_background_upper);
+    unloadTexture(m_world_1_cutscene_1);
+    unloadTexture(m_world_1_cutscene_2);
+    unloadTexture(m_world_1_end_boss_part_1);
+    unloadTexture(m_world_1_end_boss_part_2);
+    unloadTexture(m_world_1_end_boss_part_3);
+    unloadTexture(m_world_1_enemies);
+    unloadTexture(m_world_1_ground);
+    unloadTexture(m_world_1_mid_boss_part_1);
+    unloadTexture(m_world_1_mid_boss_part_2);
+    unloadTexture(m_world_1_mid_boss_part_3);
+    unloadTexture(m_world_1_objects_part_1);
+    unloadTexture(m_world_1_objects_part_2);
+    unloadTexture(m_world_1_special);
+    unloadTexture(m_world_map_screen_part_1);
+    unloadTexture(m_world_map_screen_part_2);
+    
     delete m_transScreenGpuProgramWrapper;
     delete m_fadeScreenGpuProgramWrapper;
     delete m_pointTransScreenGpuProgramWrapper;
@@ -191,17 +219,13 @@ MainRenderer::~MainRenderer()
     delete m_framebufferTintGpuProgramWrapper;
     delete m_framebufferObfuscationGpuProgramWrapper;
     delete m_framebufferRadialBlurGpuProgramWrapper;
-    
-    delete m_camBounds;
-    delete m_camPosVelocity;
 }
 
 void MainRenderer::load(RendererType rendererType)
 {
-    m_loadedRendererType = rendererType;
-    m_stopCamera = false;
+    m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
     
-    switch (m_loadedRendererType)
+    switch (rendererType)
     {
         case RENDERER_TYPE_TITLE:
             loadTextureAsync(m_title_screen);
@@ -232,7 +256,6 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             break;
         case RENDERER_TYPE_WORLD_1_MID_BOSS:
@@ -246,7 +269,6 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             loadTextureAsync(m_world_1_mid_boss_part_1);
             loadTextureAsync(m_world_1_mid_boss_part_2);
@@ -263,7 +285,6 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_jon);
             loadTextureAsync(m_trans_death_shader_helper);
             loadTextureAsync(m_vampire);
-            m_tutorial->name = MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial";
             loadTextureAsync(m_tutorial);
             loadTextureAsync(m_world_1_end_boss_part_1);
             loadTextureAsync(m_world_1_end_boss_part_2);
@@ -278,8 +299,6 @@ void MainRenderer::load(RendererType rendererType)
 
 void MainRenderer::unload(RendererType rendererType)
 {
-    m_loadedRendererType = RENDERER_TYPE_NONE;
-    
     switch (rendererType)
     {
         case RENDERER_TYPE_TITLE:
@@ -361,6 +380,8 @@ void MainRenderer::beginFrame()
 
 void MainRenderer::beginOpeningPanningSequence(Game& game)
 {
+    m_stopCamera = false;
+    
     zoomIn();
     
     m_fStateTime = 0;
@@ -2126,9 +2147,4 @@ NGRect& MainRenderer::getCameraBounds()
 Vector2D& MainRenderer::getCameraPosition()
 {
     return m_camBounds->getLowerLeft();
-}
-
-RendererType MainRenderer::getRendererType()
-{
-    return m_loadedRendererType;
 }

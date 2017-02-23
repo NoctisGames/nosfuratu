@@ -117,7 +117,7 @@ void BatPanel::reset()
     m_batInstruction->reset();
 }
 
-void BatPanel::update(MainScreen* gs)
+void BatPanel::update(MainScreen* ms)
 {
     if (m_type == BatGoalType_None)
     {
@@ -127,38 +127,38 @@ void BatPanel::update(MainScreen* gs)
     switch (m_type)
     {
         case BatGoalType_Jump:
-            updateJump(gs);
+            updateJump(ms);
             break;
         case BatGoalType_DoubleJump:
-            updateDoubleJump(gs);
+            updateDoubleJump(ms);
             break;
         case BatGoalType_Vampire:
-            updateVampire(gs);
+            updateVampire(ms);
             break;
         case BatGoalType_Drill:
-            updateDrill(gs);
+            updateDrill(ms);
             break;
 		case BatGoalType_DrillToDamageOwl:
-            updateDrillToDamageOwl(gs);
+            updateDrillToDamageOwl(ms);
 			break;
         case BatGoalType_Stomp:
-            updateStomp(gs);
+            updateStomp(ms);
             break;
         case BatGoalType_Dash:
-            updateDash(gs);
+            updateDash(ms);
             break;
         default:
             break;
     }
     
-    m_bat->update(gs->m_fDeltaTime);
-    m_batInstruction->update(gs->m_fDeltaTime);
+    m_bat->update(ms->m_fDeltaTime);
+    m_batInstruction->update(ms->m_fDeltaTime);
     
     if (m_isRequestingInput)
     {
         bool isChaseCam = m_type == BatGoalType_DrillToDamageOwl;
         float paddingX = m_type == BatGoalType_DrillToDamageOwl ? 4 : 0;
-        gs->m_renderer->updateCameraToFollowJon(*m_game, this, gs->m_fDeltaTime, paddingX, isChaseCam);
+        ms->m_renderer->updateCameraToFollowJon(*m_game, this, ms->m_fDeltaTime, paddingX, isChaseCam);
     }
 }
 
@@ -190,7 +190,7 @@ void BatPanel::enableAbilityAndReset()
     reset();
 }
 
-void BatPanel::updateJump(MainScreen* gs)
+void BatPanel::updateJump(MainScreen* ms)
 {
     if (!m_isAcknowledgedPart1)
     {
@@ -297,7 +297,7 @@ void BatPanel::updateJump(MainScreen* gs)
     }
 }
 
-void BatPanel::updateDoubleJump(MainScreen* gs)
+void BatPanel::updateDoubleJump(MainScreen* ms)
 {
     if (!m_isAcknowledgedPart1)
     {
@@ -502,7 +502,7 @@ void BatPanel::updateDoubleJump(MainScreen* gs)
     }
 }
 
-void BatPanel::updateVampire(MainScreen* gs)
+void BatPanel::updateVampire(MainScreen* ms)
 {
     if (!m_isAcknowledgedPart1)
     {
@@ -545,12 +545,12 @@ void BatPanel::updateVampire(MainScreen* gs)
                 {
                     if (jon.isReleasingShockwave())
                     {
-                        if (!gs->m_isReleasingShockwave)
+                        if (!ms->m_isReleasingShockwave)
                         {
-                            gs->m_fShockwaveCenterX = jon.getPosition().getX();
-                            gs->m_fShockwaveCenterY = jon.getPosition().getY();
-                            gs->m_fShockwaveElapsedTime = 0.0f;
-                            gs->m_isReleasingShockwave = true;
+                            ms->m_fShockwaveCenterX = jon.getPosition().getX();
+                            ms->m_fShockwaveCenterY = jon.getPosition().getY();
+                            ms->m_fShockwaveElapsedTime = 0.0f;
+                            ms->m_isReleasingShockwave = true;
                             
                             m_isAcknowledgedPart1 = true;
                             m_isRequestingInput = false;
@@ -566,26 +566,26 @@ void BatPanel::updateVampire(MainScreen* gs)
                     }
                     else
                     {
-                        gs->m_fDeltaTime /= 8;
+                        ms->m_fDeltaTime /= 8;
                     }
                 }
                 
-                if (gs->m_isReleasingShockwave)
+                if (ms->m_isReleasingShockwave)
                 {
-                    gs->m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
+                    ms->m_fShockwaveElapsedTime += ms->m_fDeltaTime * 1.2f;
                     
-                    if (gs->m_fShockwaveElapsedTime > 2)
+                    if (ms->m_fShockwaveElapsedTime > 2)
                     {
-                        gs->m_fShockwaveElapsedTime = 0;
-                        gs->m_isReleasingShockwave = false;
+                        ms->m_fShockwaveElapsedTime = 0;
+                        ms->m_isReleasingShockwave = false;
                     }
                 }
                 
-                if (gs->m_isScreenHeldDown)
+                if (ms->m_isScreenHeldDown)
                 {
-                    gs->m_fScreenHeldTime += gs->m_fDeltaTime;
+                    ms->m_fScreenHeldTime += ms->m_fDeltaTime;
                     
-                    if (gs->m_fScreenHeldTime > 0.4f)
+                    if (ms->m_fScreenHeldTime > 0.4f)
                     {
                         jon.setUserActionPrevented(false);
                         jon.triggerTransform();
@@ -593,15 +593,15 @@ void BatPanel::updateVampire(MainScreen* gs)
                         
                         m_fJonX = jon.getPosition().getX();
                         
-                        gs->m_isScreenHeldDown = false;
-                        gs->m_fShockwaveElapsedTime = 0;
-                        gs->m_isReleasingShockwave = false;
+                        ms->m_isScreenHeldDown = false;
+                        ms->m_fShockwaveElapsedTime = 0;
+                        ms->m_isReleasingShockwave = false;
                     }
                 }
                 
                 if (m_fJonX > 0)
                 {
-                    jon.update(gs->m_fDeltaTime);
+                    jon.update(ms->m_fDeltaTime);
                     jon.getPosition().setX(m_fJonX);
                     jon.getVelocity().setX(m_fJonVelocityX);
                 }
@@ -654,20 +654,20 @@ void BatPanel::updateVampire(MainScreen* gs)
                 
                 if (executeDown)
                 {
-                    gs->m_isScreenHeldDown = true;
-                    gs->m_fScreenHeldTime = 0.0f;
+                    ms->m_isScreenHeldDown = true;
+                    ms->m_fScreenHeldTime = 0.0f;
                 }
                 else if (executeUp)
                 {
-                    if (gs->m_fScreenHeldTime > 0.4f)
+                    if (ms->m_fScreenHeldTime > 0.4f)
                     {
                         jon.setUserActionPrevented(false);
                         jon.triggerCancelTransform();
                         jon.setUserActionPrevented(true);
                     }
                     
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fScreenHeldTime = 0;
+                    ms->m_isScreenHeldDown = false;
+                    ms->m_fScreenHeldTime = 0;
                     
                     m_fJonX = -1;
                 }
@@ -873,7 +873,7 @@ void BatPanel::updateVampire(MainScreen* gs)
     }
 }
 
-void BatPanel::updateDrill(MainScreen* gs)
+void BatPanel::updateDrill(MainScreen* ms)
 {
     if (!m_isAcknowledgedPart1)
     {
@@ -957,15 +957,15 @@ void BatPanel::updateDrill(MainScreen* gs)
                     {
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -979,7 +979,7 @@ void BatPanel::updateDrill(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1025,7 +1025,7 @@ void BatPanel::updateDrill(MainScreen* gs)
     }
 }
 
-void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
+void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
 {
     if (!m_isAcknowledgedPart1)
     {
@@ -1097,15 +1097,15 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
                     {
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1119,7 +1119,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1165,7 +1165,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* gs)
     }
 }
 
-void BatPanel::updateStomp(MainScreen* gs)
+void BatPanel::updateStomp(MainScreen* ms)
 {
 	if (!m_isAcknowledgedPart1)
 	{
@@ -1251,15 +1251,15 @@ void BatPanel::updateStomp(MainScreen* gs)
 					{
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
                                 {
-                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1273,7 +1273,7 @@ void BatPanel::updateStomp(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1318,7 +1318,7 @@ void BatPanel::updateStomp(MainScreen* gs)
 	}
 }
 
-void BatPanel::updateDash(MainScreen* gs)
+void BatPanel::updateDash(MainScreen* ms)
 {
 	if (!m_isAcknowledgedPart1)
 	{
@@ -1402,15 +1402,15 @@ void BatPanel::updateDash(MainScreen* gs)
 					{
                         case ScreenEventType_DOWN:
                         {
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
+                                if (touchPoint.getX() >= (ms->m_touchPointDown.getX() + SWIPE_WIDTH))
                                 {
-                                    gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1424,7 +1424,7 @@ void BatPanel::updateDash(MainScreen* gs)
                         {
                             m_hasSwiped = false;
                             
-                            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
 					}

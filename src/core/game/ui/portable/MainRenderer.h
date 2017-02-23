@@ -62,6 +62,10 @@ public:
     
     virtual ~MainRenderer();
     
+    virtual void createDeviceDependentResources();
+    
+    virtual void releaseDeviceDependentResources();
+    
     void load(RendererType rendererType);
     
     void unload(RendererType rendererType);
@@ -152,8 +156,6 @@ public:
     
     Vector2D& getCameraPosition();
     
-    RendererType getRendererType();
-    
 private:
     Font* m_font;
     
@@ -200,8 +202,6 @@ private:
     
     NGRect* m_camBounds;
     Vector2D* m_camPosVelocity;
-    
-    RendererType m_loadedRendererType;
     
     float m_fStateTime;
 	float m_fCamPosX;

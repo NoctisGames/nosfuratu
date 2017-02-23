@@ -20,10 +20,7 @@ RendererHelperFactory* RendererHelperFactory::getInstance()
 
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
 #include "OpenGLRendererHelper.h"
-IRendererHelper* RendererHelperFactory::createRendererHelper()
-{
-    return new OpenGLRendererHelper();
-}
+IRendererHelper* RendererHelperFactory::createRendererHelper() { return new OpenGLRendererHelper(); }
 #elif defined _WIN32
 #include "Direct3DRendererHelper.h"
 IRendererHelper* RendererHelperFactory::createRendererHelper() { return new Direct3DRendererHelper(); }

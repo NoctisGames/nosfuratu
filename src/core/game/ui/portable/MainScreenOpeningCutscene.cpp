@@ -29,11 +29,11 @@ OpeningCutscene * OpeningCutscene::getInstance()
     return instance;
 }
 
-void OpeningCutscene::enter(MainScreen* gs)
+void OpeningCutscene::enter(MainScreen* ms)
 {
-    gs->m_stateMachine.setPreviousState(Title::getInstance());
+    ms->m_stateMachine.setPreviousState(Title::getInstance());
     
-    gs->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    initRenderer(ms);
     
     if (m_needsReset)
     {
@@ -45,35 +45,35 @@ void OpeningCutscene::enter(MainScreen* gs)
     }
 }
 
-void OpeningCutscene::execute(MainScreen* gs)
+void OpeningCutscene::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderCutscene(m_cutscenePanels);
+        ms->m_renderer->renderCutscene(m_cutscenePanels);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
         if (m_isRequestingNextState)
         {
-            gs->m_stateMachine.changeState(OpeningCutsceneToWorldMap::getInstance());
+            ms->m_stateMachine.changeState(OpeningCutsceneToWorldMap::getInstance());
             return;
         }
         
         if (m_cutscenePanels.size() > 0)
         {
             CutscenePanel* cPanel = m_cutscenePanels.at(m_currentPanelIndex);
-            EntityUtils::updateAndClean(m_cutscenePanels, gs->m_fDeltaTime);
+            EntityUtils::updateAndClean(m_cutscenePanels, ms->m_fDeltaTime);
             
             if (cPanel->getColor().alpha >= 1
                 && m_cutscenePanels.size() > 1)
@@ -113,8 +113,8 @@ void OpeningCutscene::execute(MainScreen* gs)
                 }
                 else
                 {
-                    gs->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
-                    gs->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
+                    ms->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
+                    ms->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
                     
                     m_isRequestingNextState = true;
                 }
@@ -176,11 +176,16 @@ void OpeningCutscene::execute(MainScreen* gs)
     }
 }
 
-void OpeningCutscene::exit(MainScreen* gs)
+void OpeningCutscene::exit(MainScreen* ms)
 {
     m_currentPanelIndex = 0;
     m_isRequestingNextState = false;
     m_needsReset = true;
+}
+
+void OpeningCutscene::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
 std::vector<CutscenePanel*>& OpeningCutscene::getCutscenePanels()

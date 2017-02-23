@@ -41,9 +41,9 @@ m_lineBatcher(LINE_BATCHER_FACTORY->createLineBatcher()),
 m_circleBatcher(CIRCLE_BATCHER_FACTORY->createCircleBatcher()),
 m_textureLoader(TEXTURE_LOADER_FACTORY->createTextureLoader()),
 m_rendererHelper(RENDERER_HELPER_FACTORY->createRendererHelper()),
-m_textureGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createTextureGpuProgramWrapper()),
-m_colorGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createColorGpuProgramWrapper()),
-m_framebufferToScreenGpuProgramWrapper(GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferToScreenGpuProgramWrapper()),
+m_textureGpuProgramWrapper(nullptr),
+m_colorGpuProgramWrapper(nullptr),
+m_framebufferToScreenGpuProgramWrapper(nullptr),
 m_iFramebufferIndex(0)
 {
     // Empty
@@ -60,13 +60,29 @@ Renderer::~Renderer()
     delete m_textureLoader;
     delete m_rendererHelper;
     
-	delete m_textureGpuProgramWrapper;
-	delete m_colorGpuProgramWrapper;
-    delete m_framebufferToScreenGpuProgramWrapper;
+    releaseDeviceDependentResources();
     
     m_loadingTextures.clear();
     
     cleanUpThreads();
+}
+
+void Renderer::createDeviceDependentResources()
+{
+    m_textureGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createTextureGpuProgramWrapper();
+    m_colorGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createColorGpuProgramWrapper();
+    m_framebufferToScreenGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferToScreenGpuProgramWrapper();
+    
+    m_areDeviceDependentResourcesCreated = true;
+}
+
+void Renderer::releaseDeviceDependentResources()
+{
+    m_areDeviceDependentResourcesCreated = false;
+    
+    delete m_textureGpuProgramWrapper;
+    delete m_colorGpuProgramWrapper;
+    delete m_framebufferToScreenGpuProgramWrapper;
 }
 
 void Renderer::beginFrame()
@@ -144,7 +160,8 @@ void Renderer::loadTextureSync(TextureWrapper* textureWrapper)
     assert(textureWrapper != nullptr);
     assert(textureWrapper->name.length() > 0);
     
-    if (textureWrapper->gpuTextureWrapper)
+    if (textureWrapper->gpuTextureWrapper
+        || !m_areDeviceDependentResourcesCreated)
     {
         return;
     }
@@ -165,7 +182,8 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     assert(textureWrapper != nullptr);
     assert(textureWrapper->name.length() > 0);
     
-    if (textureWrapper->gpuTextureWrapper)
+    if (textureWrapper->gpuTextureWrapper
+        || !m_areDeviceDependentResourcesCreated)
     {
         return;
     }

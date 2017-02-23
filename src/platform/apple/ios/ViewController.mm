@@ -68,7 +68,6 @@
     NSLog(@"ramSize: %llu", ramSize);
     NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
     
-    MAIN_ASSETS->setUsingDesktopTextureSet(false);
     MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
     
     MainScreen *screen = new MainScreen();

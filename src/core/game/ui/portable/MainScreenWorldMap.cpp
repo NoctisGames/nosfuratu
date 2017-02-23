@@ -36,17 +36,13 @@ WorldMap * WorldMap::getInstance()
     return instance;
 }
 
-void WorldMap::enter(MainScreen* gs)
+void WorldMap::enter(MainScreen* ms)
 {
-	gs->m_stateMachine.setPreviousState(Title::getInstance());
+	ms->m_stateMachine.setPreviousState(Title::getInstance());
     
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    initRenderer(ms);
     
-    gs->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
-    
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
     
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
@@ -55,31 +51,31 @@ void WorldMap::enter(MainScreen* gs)
     m_iNumTimesVisitedSinceLastAdBreak++;
 }
 
-void WorldMap::execute(MainScreen* gs)
+void WorldMap::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderWorldMapScreenBackground(m_panel.get());
+        ms->m_renderer->renderWorldMapScreenBackground(m_panel.get());
         
-        gs->m_renderer->renderWorldMapScreenUi(*this);
-        gs->m_renderer->renderWorldMapScreenButtons(*this);
+        ms->m_renderer->renderWorldMapScreenUi(*this);
+        ms->m_renderer->renderWorldMapScreenButtons(*this);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
         if (m_iNumTimesVisitedSinceLastAdBreak >= 3)
         {
-            gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+            ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
             m_iNumTimesVisitedSinceLastAdBreak = 0;
             
             return;
@@ -87,13 +83,13 @@ void WorldMap::execute(MainScreen* gs)
         
         if (m_isReadyForTransition)
         {
-            gs->m_stateMachine.changeState(WorldMapToLevel::getInstance());
+            ms->m_stateMachine.changeState(WorldMapToLevel::getInstance());
 			return;
         }
         
         if (m_needsRefresh)
         {
-            gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+            ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
             m_needsRefresh = false;
             
             return;
@@ -155,7 +151,7 @@ void WorldMap::execute(MainScreen* gs)
                 case KeyboardEventType_BACK:
                     if ((*i)->isUp())
                     {
-                        gs->m_stateMachine.revertToPreviousState();
+                        ms->m_stateMachine.revertToPreviousState();
                         return;
                     }
                     continue;
@@ -250,7 +246,7 @@ void WorldMap::execute(MainScreen* gs)
                 case GamePadEventType_BACK_BUTTON:
                     if ((*i)->isButtonPressed())
                     {
-                        gs->m_stateMachine.revertToPreviousState();
+                        ms->m_stateMachine.revertToPreviousState();
                         return;
                     }
                     continue;
@@ -272,7 +268,7 @@ void WorldMap::execute(MainScreen* gs)
                 case ScreenEventType_UP:
                     if (m_backButton->handleClick(touchPoint))
                     {
-                        gs->m_stateMachine.revertToPreviousState();
+                        ms->m_stateMachine.revertToPreviousState();
                     }
                     else if (m_toggleMusic->handleClick(touchPoint))
                     {
@@ -292,7 +288,7 @@ void WorldMap::execute(MainScreen* gs)
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
-                        gs->m_stateMachine.changeState(WorldMapToOpeningCutscene::getInstance());
+                        ms->m_stateMachine.changeState(WorldMapToOpeningCutscene::getInstance());
                         m_userHasClickedOpeningCutscene = true;
                         m_clickedLevel = nullptr;
                         return;
@@ -319,9 +315,9 @@ void WorldMap::execute(MainScreen* gs)
                                     
                                     m_iUnlockedLevelStatsFlag = FlagUtil::setFlag(levelStats, FLAG_LEVEL_UNLOCKED);
                                     
-                                    gs->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_LEVEL * 1000;
-                                    gs->m_iRequestedAction += worldToUnlock * 100;
-                                    gs->m_iRequestedAction += levelToUnlock;
+                                    ms->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_LEVEL * 1000;
+                                    ms->m_iRequestedAction += worldToUnlock * 100;
+                                    ms->m_iRequestedAction += levelToUnlock;
                                     
                                     m_needsRefresh = true;
                                 }
@@ -377,27 +373,37 @@ void WorldMap::execute(MainScreen* gs)
         
         for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
         {
-            (*i)->update(gs->m_fDeltaTime);
+            (*i)->update(ms->m_fDeltaTime);
         }
         
         for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
         {
-            (*i)->update(gs->m_fDeltaTime);
+            (*i)->update(ms->m_fDeltaTime);
         }
         
-        m_goldenCarrotsMarker->update(gs->m_fDeltaTime);
-        m_scoreMarker->update(gs->m_fDeltaTime);
-        m_spendGoldenCarrotsBubble->update(gs->m_fDeltaTime);
+        m_goldenCarrotsMarker->update(ms->m_fDeltaTime);
+        m_scoreMarker->update(ms->m_fDeltaTime);
+        m_spendGoldenCarrotsBubble->update(ms->m_fDeltaTime);
         
-        m_fGoldenCarrotCountFlickerTime += gs->m_fDeltaTime / 2;
+        m_fGoldenCarrotCountFlickerTime += ms->m_fDeltaTime / 2;
         
-        updateButtons(gs->m_fDeltaTime);
+        updateButtons(ms->m_fDeltaTime);
     }
 }
 
-void WorldMap::exit(MainScreen* gs)
+void WorldMap::exit(MainScreen* ms)
 {
     m_isReadyForTransition = false;
+}
+
+void WorldMap::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
 }
 
 void WorldMap::updateButtons(float deltaTime)

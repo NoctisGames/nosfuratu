@@ -24,11 +24,13 @@ class OpeningCutscene : public MainScreenState
 public:
     static OpeningCutscene* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void execute(MainScreen* gs);
+    virtual void execute(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
+    
+    virtual void initRenderer(MainScreen* ms);
     
     std::vector<CutscenePanel*>& getCutscenePanels();
     

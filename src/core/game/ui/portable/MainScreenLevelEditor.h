@@ -31,15 +31,17 @@ class MainScreenLevelEditor : public MainScreenState
 public:
     static MainScreenLevelEditor* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void execute(MainScreen* gs);
+    virtual void execute(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
+    
+    virtual void initRenderer(MainScreen* ms);
     
     const char* save();
     
-    void load(const char* json, MainScreen* gs);
+    void load(const char* json, MainScreen* ms);
     
     Game& getGame();
     
@@ -84,13 +86,13 @@ private:
     bool m_allowPlaceOn;
     bool m_allowPlaceUnder;
     
-    void handleInput(MainScreen* gs);
+    void handleInput(MainScreen* ms);
     
     void resetEntities(bool clearLastAddedEntity);
     
-    void loadIfNecessary(MainScreen* gs);
+    void loadIfNecessary(MainScreen* ms);
     
-    bool isLevelValid(MainScreen* gs);
+    bool isLevelValid(MainScreen* ms);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     MainScreenLevelEditor();

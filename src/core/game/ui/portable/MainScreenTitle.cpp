@@ -31,64 +31,55 @@ Title * Title::getInstance()
     return instance;
 }
 
-void Title::enter(MainScreen* gs)
+void Title::enter(MainScreen* ms)
 {
-    gs->m_stateMachine.setPreviousState(nullptr);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
-    gs->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
-    
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
-    gs->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
-    
-    gs->m_renderer->load(RENDERER_TYPE_TITLE);
+    ms->m_stateMachine.setPreviousState(nullptr);
     
     SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
     SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
     
-    gs->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }
 
-void Title::execute(MainScreen* gs)
+void Title::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
         
-        gs->m_renderer->renderTitleScreenBackground(m_panel.get());
+        ms->m_renderer->renderTitleScreenBackground(m_panel.get());
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         else
         {
-            gs->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+            ms->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
         }
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
-        m_panel->update(gs->m_fDeltaTime);
+        m_panel->update(ms->m_fDeltaTime);
         
         if (m_isRequestingNextState)
         {
             if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
             {
-                gs->m_stateMachine.changeState(TitleToWorldMap::getInstance());
+                ms->m_stateMachine.changeState(TitleToWorldMap::getInstance());
             }
             else
             {
-                gs->m_stateMachine.changeState(TitleToOpeningCutscene::getInstance());
+                ms->m_stateMachine.changeState(TitleToOpeningCutscene::getInstance());
             }
         }
         else if (m_isRequestingLevelEditor)
         {
-            gs->m_stateMachine.changeState(TitleToLevelEditor::getInstance());
+            ms->m_stateMachine.changeState(TitleToLevelEditor::getInstance());
         }
         
 		bool isDisplayingLevelEditorButtons = false;
@@ -101,7 +92,6 @@ void Title::execute(MainScreen* gs)
             {
                 case KeyboardEventType_SPACE:
                 case KeyboardEventType_ENTER:
-                    MAIN_ASSETS->setUsingGamePadTextureSet(false);
                     m_isRequestingNextState = true;
                     return;
                 default:
@@ -115,7 +105,6 @@ void Title::execute(MainScreen* gs)
             {
                 case GamePadEventType_A_BUTTON:
                 case GamePadEventType_START_BUTTON:
-                    MAIN_ASSETS->setUsingGamePadTextureSet(true);
                     m_isRequestingNextState = true;
                     return;
                 default:
@@ -141,7 +130,6 @@ void Title::execute(MainScreen* gs)
                     }
                     else
                     {
-                        MAIN_ASSETS->setUsingGamePadTextureSet(false);
                         m_isRequestingNextState = true;
                     }
                     
@@ -151,10 +139,25 @@ void Title::execute(MainScreen* gs)
     }
 }
 
-void Title::exit(MainScreen* gs)
+void Title::exit(MainScreen* ms)
 {
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
+}
+
+void Title::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+    
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_MID_BOSS);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_END_BOSS);
+    
+    ms->m_renderer->load(RENDERER_TYPE_TITLE);
 }
 
 TitlePanel* Title::getTitlePanel()

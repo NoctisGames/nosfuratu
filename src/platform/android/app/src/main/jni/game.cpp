@@ -75,10 +75,9 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jcl
 	UNUSED(env);
 	UNUSED(cls);
 
-    screen = nullptr;
-    
-    MAIN_ASSETS->setUsingDesktopTextureSet(false);
     MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
+    
+    screen = new MainScreen();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls)
@@ -86,7 +85,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(
 	UNUSED(env);
 	UNUSED(cls);
 
-    screen = new MainScreen();
+    screen->releaseDeviceDependentResources();
+    
     screen->createDeviceDependentResources();
 }
 
@@ -95,11 +95,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1changed(
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
     screen->createWindowSizeDependentResources(pixel_width, pixel_height, pixel_width, pixel_height);
 }
 
@@ -108,11 +103,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1resume(JNIEnv* en
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
     screen->onResume();
 }
 
@@ -121,11 +111,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1pause(JNIEnv* env
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
     screen->onPause();
 }
 
@@ -134,11 +119,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_update(JNIEnv* env, j
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
     screen->update(delta_time);
 }
 
@@ -147,11 +127,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_render(JNIEnv* env, j
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
     screen->render();
 }
 
@@ -198,12 +173,7 @@ JNIEXPORT short JNICALL Java_com_noctisgames_nosfuratu_Game_get_1current_1sound_
 JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1requested_1action(JNIEnv* env, jclass cls)
 {
 	UNUSED(env);
-	UNUSED(cls);
-
-    if (!screen)
-    {
-        return 0;
-    }
+    UNUSED(cls);
     
 	return screen->getRequestedAction();
 }
@@ -213,11 +183,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_clear_1requested_1act
 	UNUSED(env);
 	UNUSED(cls);
 
-    if (!screen)
-    {
-        return;
-    }
-    
 	screen->clearRequestedAction();
 }
 
@@ -225,11 +190,6 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_Game_handle_1on_1back_1pre
 {
 	UNUSED(env);
 	UNUSED(cls);
-
-    if (!screen)
-    {
-        return false;
-    }
     
     if (screen->m_stateMachine.getCurrentState() == Title::getInstance())
     {
@@ -256,11 +216,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1score(JNIEnv* env
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getScore();
 }
 
@@ -269,11 +224,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1online_1score(JNI
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getOnlineScore();
 }
 
@@ -282,11 +232,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1fla
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getLevelStatsFlag();
 }
 
@@ -295,11 +240,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carr
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getNumGoldenCarrots();
 }
 
@@ -308,11 +248,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1jon_1unlocked_1ab
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getJonAbilityFlag();
 }
 
@@ -321,11 +256,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1level_1stats_1fla
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getLevelStatsFlagForUnlockedLevel();
 }
 
@@ -334,10 +264,5 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carr
 	UNUSED(env);
 	UNUSED(cls);
     
-    if (!screen)
-    {
-        return 0;
-    }
-
 	return screen->getNumGoldenCarrotsAfterUnlockingLevel();
 }

@@ -17,9 +17,9 @@
 #include "MathUtil.h"
 #include "SoundManager.h"
 
-void Chapter1Level21::enter(MainScreen* gs)
+void Chapter1Level21::enter(MainScreen* ms)
 {
-    Level::enter(gs);
+    Level::enter(ms);
     
     for (std::vector<Hole*>::iterator i = m_game->getHoles().begin(); i != m_game->getHoles().end(); i++)
     {
@@ -214,7 +214,7 @@ void Chapter1Level21::enter(MainScreen* gs)
 	}
 }
 
-void Chapter1Level21::exit(MainScreen* gs)
+void Chapter1Level21::exit(MainScreen* ms)
 {
 	m_endBossSnake = nullptr;
     m_hole = nullptr;
@@ -236,25 +236,25 @@ void Chapter1Level21::exit(MainScreen* gs)
 	m_hasTriggeredCheckPoint = false;
 	m_hasTriggeredSnakeDeathCheckPoint = false;
     
-    Level::exit(gs);
+    Level::exit(ms);
 }
 
-void Chapter1Level21::onEnter(MainScreen* gs)
+void Chapter1Level21::onEnter(MainScreen* ms)
 {
     if (m_hasOpeningSequenceCompleted)
     {
-        updateCamera(gs, 0, false, true);
+        updateCamera(ms, 0, false, true);
     }
 }
 
-void Chapter1Level21::beginOpeningSequence(MainScreen* gs)
+void Chapter1Level21::beginOpeningSequence(MainScreen* ms)
 {
-    if (gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
+    if (ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
     {
         m_hasShownOpeningSequence = true;
         m_hasOpeningSequenceCompleted = true;
         
-        updateCamera(gs, 0, false, true);
+        updateCamera(ms, 0, false, true);
         
         SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
         SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
@@ -262,9 +262,9 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* gs)
         return;
     }
     
-    gs->m_renderer->beginOpeningPanningSequence(*m_game);
+    ms->m_renderer->beginOpeningPanningSequence(*m_game);
     
-    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+    m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
     
     m_hasShownOpeningSequence = true;
     
@@ -275,11 +275,11 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* gs)
     }
 }
 
-void Chapter1Level21::handleOpeningSequence(MainScreen* gs)
+void Chapter1Level21::handleOpeningSequence(MainScreen* ms)
 {
-    m_game->updateAndClean(gs->m_fDeltaTime, true);
+    m_game->updateAndClean(ms->m_fDeltaTime, true);
     
-    int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+    int result = ms->m_renderer->updateCameraToFollowPathToJon(*m_game, ms->m_fDeltaTime);
     m_hasOpeningSequenceCompleted = result == 3;
     m_activateRadialBlur = result == 1;
     
@@ -296,12 +296,12 @@ void Chapter1Level21::handleOpeningSequence(MainScreen* gs)
         jon.beginWarmingUp();
     }
     
-    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+    m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
 }
 
-void Chapter1Level21::update(MainScreen* gs)
+void Chapter1Level21::update(MainScreen* ms)
 {
-    Level::update(gs);
+    Level::update(ms);
     
     if (m_game->getJons().size() == 0
         || !m_endBossSnake
@@ -351,7 +351,7 @@ void Chapter1Level21::update(MainScreen* gs)
 		if (m_hasTriggeredMusicLoopIntro
 			&& !m_hasTriggeredSnakeAwaken)
 		{
-			m_fGameStateTime += gs->m_fDeltaTime;
+			m_fGameStateTime += ms->m_fDeltaTime;
 
 			if (m_fGameStateTime > 3)
 			{
@@ -365,7 +365,7 @@ void Chapter1Level21::update(MainScreen* gs)
 		|| m_endBossSnake->getState() == EndBossSnakeState_OpeningMouthLeft
 		|| m_endBossSnake->getState() == EndBossSnakeState_OpenMouthLeft)
 	{
-		m_fGameStateTime += gs->m_fDeltaTime;
+		m_fGameStateTime += ms->m_fDeltaTime;
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_ChargingLeft)
 	{
@@ -373,7 +373,7 @@ void Chapter1Level21::update(MainScreen* gs)
 
 		if (!m_hasTriggeredMusicLoop)
 		{
-			m_fGameStateTime += gs->m_fDeltaTime;
+			m_fGameStateTime += ms->m_fDeltaTime;
 
 			if (m_fGameStateTime > 7.15f)
 			{
@@ -479,7 +479,7 @@ void Chapter1Level21::update(MainScreen* gs)
 		if (m_endBossSnake->getState() == EndBossSnakeState_Dying
 			&& m_fMusicVolume > 0)
 		{
-			m_fMusicVolume -= gs->m_fDeltaTime;
+			m_fMusicVolume -= ms->m_fDeltaTime;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
 
 			short musicId = MUSIC_SET_VOLUME * 1000 + (short)(m_fMusicVolume * 100);
@@ -526,15 +526,15 @@ void Chapter1Level21::update(MainScreen* gs)
 	}
 }
 
-void Chapter1Level21::updateCamera(MainScreen* gs, float paddingX, bool ignoreY, bool instant)
+void Chapter1Level21::updateCamera(MainScreen* ms, float paddingX, bool ignoreY, bool instant)
 {
     if (m_isChaseCamActivated)
     {
-		gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
+		ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), ms->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {
-        Level::updateCamera(gs, paddingX, ignoreY, instant);
+        Level::updateCamera(ms, paddingX, ignoreY, instant);
     }
 }
 

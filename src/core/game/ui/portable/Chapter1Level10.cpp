@@ -18,9 +18,9 @@
 #include "MathUtil.h"
 #include "SoundManager.h"
 
-void Chapter1Level10::enter(MainScreen* gs)
+void Chapter1Level10::enter(MainScreen* ms)
 {
-    Level::enter(gs);
+    Level::enter(ms);
     
     m_iLastKnownOwlDamage = 0;
     m_iLastKnownJonNumBoosts = 1;
@@ -70,7 +70,7 @@ void Chapter1Level10::enter(MainScreen* gs)
     }
 }
 
-void Chapter1Level10::exit(MainScreen* gs)
+void Chapter1Level10::exit(MainScreen* ms)
 {
     m_isIdleWaitingForOwl = false;
     m_fJonY = 0.0f;
@@ -87,12 +87,12 @@ void Chapter1Level10::exit(MainScreen* gs)
     m_showHintBecauseJonHasBeenCaptured = false;
     m_hasShownHintPopup = false;
     
-    Level::exit(gs);
+    Level::exit(ms);
 }
 
-void Chapter1Level10::update(MainScreen* gs)
+void Chapter1Level10::update(MainScreen* ms)
 {
-    Level::update(gs);
+    Level::update(ms);
     
     if (m_game->getJons().size() == 0)
     {
@@ -104,7 +104,7 @@ void Chapter1Level10::update(MainScreen* gs)
         return;
     }
     
-    m_midBossOwl->update(gs->m_fDeltaTime);
+    m_midBossOwl->update(ms->m_fDeltaTime);
     
     Jon& jon = m_game->getJon();
     
@@ -112,7 +112,7 @@ void Chapter1Level10::update(MainScreen* gs)
     {
         if (jon.getNumBoosts() >= 1)
         {
-            m_fMusicVolume -= gs->m_fDeltaTime / 8;
+            m_fMusicVolume -= ms->m_fDeltaTime / 8;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
@@ -160,7 +160,7 @@ void Chapter1Level10::update(MainScreen* gs)
         
         if (m_isIdleWaitingForOwl)
         {
-            m_fIdleWaitTime += gs->m_fDeltaTime;
+            m_fIdleWaitTime += ms->m_fDeltaTime;
             
             if (m_fIdleWaitTime > 1.0f)
             {
@@ -292,7 +292,7 @@ void Chapter1Level10::update(MainScreen* gs)
         if (m_midBossOwl->getState() == MidBossOwlState_Dying
             && m_fMusicVolume > 0)
         {
-            m_fMusicVolume -= gs->m_fDeltaTime;
+            m_fMusicVolume -= ms->m_fDeltaTime;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
             short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
@@ -340,14 +340,14 @@ void Chapter1Level10::update(MainScreen* gs)
     }
 }
 
-void Chapter1Level10::updateCamera(MainScreen* gs, float paddingX, bool ignoreY, bool instant)
+void Chapter1Level10::updateCamera(MainScreen* ms, float paddingX, bool ignoreY, bool instant)
 {
     ignoreY = m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree || m_midBossOwl->getState() == MidBossOwlState_Dying;
     
     if (m_isChaseCamActivated
         && m_game->getJon().getPosition().getY() > 9)
     {
-        gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, true, ignoreY, instant);
+        ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), ms->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {
@@ -356,13 +356,13 @@ void Chapter1Level10::updateCamera(MainScreen* gs, float paddingX, bool ignoreY,
             paddingX = -6;
         }
         
-        Level::updateCamera(gs, paddingX, ignoreY, instant);
+        Level::updateCamera(ms, paddingX, ignoreY, instant);
     }
 }
 
-void Chapter1Level10::additionalRenderingBeforeHud(MainScreen* gs)
+void Chapter1Level10::additionalRenderingBeforeHud(MainScreen* ms)
 {
-    gs->m_renderer->renderMidBossOwl(*m_midBossOwl);
+    ms->m_renderer->renderMidBossOwl(*m_midBossOwl);
 }
 
 bool Chapter1Level10::isInSlowMotionMode()

@@ -56,18 +56,17 @@ m_fTimeUntilResume(0)
 
 MainScreen::~MainScreen()
 {
-    delete m_renderer;
     delete m_deviceHelper;
+    delete m_renderer;
 }
 
 void MainScreen::createDeviceDependentResources()
 {
     m_deviceHelper->createDeviceDependentResources(MAX_BATCH_SIZE);
     
-    RendererType loadedRendererType = m_renderer->getRendererType();
-    delete m_renderer;
-    m_renderer = new MainRenderer();
-    m_renderer->load(loadedRendererType);
+    m_renderer->createDeviceDependentResources();
+    
+    ((MainScreenState *)m_stateMachine.getCurrentState())->initRenderer(this);
 }
 
 void MainScreen::createWindowSizeDependentResources(int screenWidth, int screenHeight, int touchScreenWidth, int touchScreenHeight)
@@ -81,6 +80,8 @@ void MainScreen::createWindowSizeDependentResources(int screenWidth, int screenH
 void MainScreen::releaseDeviceDependentResources()
 {
     m_deviceHelper->releaseDeviceDependentResources();
+    
+    m_renderer->releaseDeviceDependentResources();
 }
 
 void MainScreen::onResume()

@@ -32,11 +32,13 @@ class Level : public MainScreenState
 public:
     static Level* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void execute(MainScreen* gs);
+    virtual void execute(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
+    
+    virtual void initRenderer(MainScreen* ms);
     
     void setSourceGame(Game* game);
     
@@ -93,25 +95,25 @@ protected:
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;
     
-    virtual void onEnter(MainScreen* gs);
+    virtual void onEnter(MainScreen* ms);
 
-	virtual void beginOpeningSequence(MainScreen* gs);
+	virtual void beginOpeningSequence(MainScreen* ms);
 
-	virtual void handleOpeningSequence(MainScreen* gs);
+	virtual void handleOpeningSequence(MainScreen* ms);
     
-    virtual void update(MainScreen* gs);
+    virtual void update(MainScreen* ms);
     
-    virtual void render(MainScreen* gs);
+    virtual void render(MainScreen* ms);
     
-    virtual void updateCamera(MainScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
+    virtual void updateCamera(MainScreen* ms, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
-    virtual void additionalRenderingBeforeHud(MainScreen* gs);
+    virtual void additionalRenderingBeforeHud(MainScreen* ms);
     
     virtual bool isInSlowMotionMode();
     
     virtual void configBatPanel();
     
-    bool handleInput(MainScreen* gs);
+    bool handleInput(MainScreen* ms);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);
@@ -261,9 +263,9 @@ class Chapter1Level10 : public Level
 public:
     static Chapter1Level10* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
     
 private:
     std::unique_ptr<MidBossOwl> m_midBossOwl;
@@ -284,11 +286,11 @@ private:
     bool m_showHintBecauseJonHasBeenCaptured;
     bool m_hasShownHintPopup;
     
-    virtual void update(MainScreen* gs);
+    virtual void update(MainScreen* ms);
     
-    virtual void updateCamera(MainScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
+    virtual void updateCamera(MainScreen* ms, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
-    virtual void additionalRenderingBeforeHud(MainScreen* gs);
+    virtual void additionalRenderingBeforeHud(MainScreen* ms);
     
     virtual bool isInSlowMotionMode();
     
@@ -447,9 +449,9 @@ class Chapter1Level21 : public Level
 public:
     static Chapter1Level21* getInstance();
     
-    virtual void enter(MainScreen* gs);
+    virtual void enter(MainScreen* ms);
     
-    virtual void exit(MainScreen* gs);
+    virtual void exit(MainScreen* ms);
     
 private:
     EndBossSnake* m_endBossSnake;
@@ -472,15 +474,15 @@ private:
 	bool m_hasTriggeredCheckPoint;
 	bool m_hasTriggeredSnakeDeathCheckPoint;
 
-    virtual void onEnter(MainScreen* gs);
+    virtual void onEnter(MainScreen* ms);
     
-	virtual void beginOpeningSequence(MainScreen* gs);
+	virtual void beginOpeningSequence(MainScreen* ms);
 
-	virtual void handleOpeningSequence(MainScreen* gs);
+	virtual void handleOpeningSequence(MainScreen* ms);
     
-    virtual void update(MainScreen* gs);
+    virtual void update(MainScreen* ms);
     
-    virtual void updateCamera(MainScreen* gs, float paddingX = 0, bool ignoreY = false, bool instant = false);
+    virtual void updateCamera(MainScreen* ms, float paddingX = 0, bool ignoreY = false, bool instant = false);
     
     virtual bool isInSlowMotionMode();
 

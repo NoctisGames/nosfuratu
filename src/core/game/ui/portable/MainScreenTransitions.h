@@ -32,6 +32,8 @@ public:
     
     virtual void exit(MainScreen* gs);
     
+    virtual void initRenderer(MainScreen* gs);
+    
 private:
     float m_fTransitionStateTime;
     
@@ -53,6 +55,8 @@ public:
     virtual void execute(MainScreen* gs);
     
     virtual void exit(MainScreen* gs);
+    
+    virtual void initRenderer(MainScreen* gs);
     
 private:
     float m_fTransitionStateTime;
@@ -76,6 +80,8 @@ public:
     
     virtual void exit(MainScreen* gs);
     
+    virtual void initRenderer(MainScreen* gs);
+    
 private:
     float m_fTransitionStateTime;
     
@@ -98,6 +104,8 @@ public:
     
     virtual void exit(MainScreen* gs);
     
+    virtual void initRenderer(MainScreen* gs);
+    
 private:
     float m_fTransitionStateTime;
     
@@ -119,6 +127,8 @@ public:
     virtual void execute(MainScreen* gs);
     
     virtual void exit(MainScreen* gs);
+    
+    virtual void initRenderer(MainScreen* gs);
     
     void setCutsceneButtonLocation(float centerX, float centerY);
     
@@ -147,6 +157,8 @@ public:
     virtual void execute(MainScreen* gs);
     
     virtual void exit(MainScreen* gs);
+    
+    virtual void initRenderer(MainScreen* gs);
     
     void setLevelLocation(float centerX, float centerY);
     
@@ -192,6 +204,8 @@ public:
     virtual void execute(MainScreen* gs);
     
     virtual void exit(MainScreen* gs);
+    
+    virtual void initRenderer(MainScreen* gs);
     
     void setLevelComingFrom(Level* levelState);
     

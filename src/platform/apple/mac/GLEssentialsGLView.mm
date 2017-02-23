@@ -60,6 +60,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 
 - (void)awakeFromNib
 {
+    _screen = new MainScreen();
+    _screenController = [[ScreenController alloc] initWithScreen:_screen andInterstitialAdHandler:nil];
+    
     m_fLastTime = CFAbsoluteTimeGetCurrent();
     
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
@@ -169,13 +172,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
     MAIN_ASSETS->setUsingDesktopTextureSet(true);
-    MAIN_ASSETS->setUsingCompressedTextureSet(false);
-    
-    _screen = new MainScreen();
     
     _screen->createDeviceDependentResources();
-    
-    _screenController = [[ScreenController alloc] initWithScreen:_screen andInterstitialAdHandler:nil];
 }
 
 - (void)reshape

@@ -39,17 +39,17 @@ MainScreenLevelEditor * MainScreenLevelEditor::getInstance()
     return instance;
 }
 
-void MainScreenLevelEditor::enter(MainScreen* gs)
+void MainScreenLevelEditor::enter(MainScreen* ms)
 {
-    gs->m_stateMachine.setPreviousState(Title::getInstance());
+    ms->m_stateMachine.setPreviousState(Title::getInstance());
     
-    loadIfNecessary(gs);
+    loadIfNecessary(ms);
     
-    gs->m_renderer->load(RENDERER_TYPE_LEVEL_EDITOR);
+    initRenderer(ms);
     
-    gs->m_renderer->zoomOut();
+    ms->m_renderer->zoomOut();
     
-    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+    m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
     
     if (m_iWorld == 0)
     {
@@ -57,74 +57,74 @@ void MainScreenLevelEditor::enter(MainScreen* gs)
     }
 }
 
-void MainScreenLevelEditor::execute(MainScreen* gs)
+void MainScreenLevelEditor::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        gs->m_renderer->beginFrame();
+        ms->m_renderer->beginFrame();
 
 		if (m_game->isLoaded())
 		{
-			gs->m_renderer->renderWorld(*m_game);
+			ms->m_renderer->renderWorld(*m_game);
 
-			gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
+			ms->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
 
 			if (m_lastAddedEntity != nullptr)
 			{
 				static Color highlight = Color(1, 1, 1, 0.25f);
-				gs->m_renderer->renderEntityHighlighted(*m_lastAddedEntity, highlight);
+				ms->m_renderer->renderEntityHighlighted(*m_lastAddedEntity, highlight);
 			}
 
 			if (m_draggingEntity != nullptr)
 			{
 				static Color highlight = Color(1, 1, 1, 0.5f);
-				gs->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
+				ms->m_renderer->renderEntityHighlighted(*m_draggingEntity, highlight);
 
 				if (m_attachToEntity != nullptr)
 				{
-					gs->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
+					ms->m_renderer->renderEntityHighlighted(*m_attachToEntity, highlight);
 				}
 			}
 
 			if (m_levelEditorActionsPanel->showBounds())
 			{
-				gs->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
+				ms->m_renderer->renderBounds(*m_game, m_levelEditorActionsPanel->boundsLevelRequested());
 			}
 
-			gs->m_renderer->renderMarkers(*m_game);
+			ms->m_renderer->renderMarkers(*m_game);
 		}
         
-        gs->m_renderer->renderToScreen();
+        ms->m_renderer->renderToScreen();
         
-		gs->m_renderer->renderLevelEditor(this);
+		ms->m_renderer->renderLevelEditor(this);
         
-        if (gs->m_renderer->isLoadingData())
+        if (ms->m_renderer->isLoadingData())
         {
-            gs->m_renderer->renderLoading(gs->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
         }
         
-        gs->m_renderer->endFrame();
+        ms->m_renderer->endFrame();
     }
     else
     {
 		if (m_fMessageTime > 0)
 		{
-			m_fMessageTime -= gs->m_fDeltaTime;
+			m_fMessageTime -= ms->m_fDeltaTime;
 			if (m_fMessageTime < 0)
 			{
 				m_message = nullptr;
 			}
 		}
 
-        handleInput(gs);
+        handleInput(ms);
         
         int oldSum = m_game->calcSum();
         
-        m_game->update(gs->m_fDeltaTime);
+        m_game->update(ms->m_fDeltaTime);
 
 		if (m_game->getJons().size() > 0)
 		{
-			m_game->updateAndClean(gs->m_fDeltaTime);
+			m_game->updateAndClean(ms->m_fDeltaTime);
 		}
         
         if (m_game->getJons().size() > 1)
@@ -152,17 +152,22 @@ void MainScreenLevelEditor::execute(MainScreen* gs)
             resetEntities(true);
         }
         
-        m_trashCan->update(gs->m_renderer->getCameraPosition());
+        m_trashCan->update(ms->m_renderer->getCameraPosition());
         
-        m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
     }
 }
 
-void MainScreenLevelEditor::exit(MainScreen* gs)
+void MainScreenLevelEditor::exit(MainScreen* ms)
 {
 	m_draggingEntity = nullptr;
 	m_attachToEntity = nullptr;
 	m_lastAddedEntity = nullptr;
+}
+
+void MainScreenLevelEditor::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->load(RENDERER_TYPE_LEVEL_EDITOR);
 }
 
 const char* MainScreenLevelEditor::save()
@@ -170,11 +175,11 @@ const char* MainScreenLevelEditor::save()
     return m_game->save();
 }
 
-void MainScreenLevelEditor::load(const char* json, MainScreen* gs)
+void MainScreenLevelEditor::load(const char* json, MainScreen* ms)
 {
     m_game->load(json);
     
-    m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+    m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
     
     resetEntities(true);
 }
@@ -232,7 +237,7 @@ char* MainScreenLevelEditor::getMessage()
 
 #pragma mark private
 
-void MainScreenLevelEditor::handleInput(MainScreen* gs)
+void MainScreenLevelEditor::handleInput(MainScreen* ms)
 {
     for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
     {
@@ -256,21 +261,21 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
 
                         if (oldRendererType != newRendererType)
                         {
-                            gs->m_renderer->unload(oldRendererType);
-							gs->m_renderer->load(newRendererType);
+                            ms->m_renderer->unload(oldRendererType);
+							ms->m_renderer->load(newRendererType);
                         }
                         
                         m_levelEditorEntitiesPanel->initForLevel(m_iWorld, m_iLevel);
                         
                         m_game->reset();
                         
-                        loadIfNecessary(gs);
+                        loadIfNecessary(ms);
                         
                         resetEntities(true);
                         
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
-                        gs->m_iRequestedAction += m_iWorld * 100;
-                        gs->m_iRequestedAction += m_iLevel;
+                        ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
+                        ms->m_iRequestedAction += m_iWorld * 100;
+                        ms->m_iRequestedAction += m_iLevel;
                     }
                         break;
                     case LEVEL_SELECTOR_PANEL_RC_HANDLED:
@@ -340,7 +345,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     {
                         m_game->reset();
                         resetEntities(true);
-                        enter(gs);
+                        enter(ms);
                     }
                         break;
                     case CONFIRM_RESET_PANEL_RC_CANCEL:
@@ -362,7 +367,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     {
                         m_iWorld = 0;
                         m_iLevel = 0;
-                        gs->m_stateMachine.revertToPreviousState();
+                        ms->m_stateMachine.revertToPreviousState();
                     }
                         break;
                     case CONFIRM_EXIT_PANEL_RC_CANCEL:
@@ -376,13 +381,13 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
         
         if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
-            gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
             
             switch (rc)
             {
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_MARKER:
                 {
-                    int gridX = (gs->m_renderer->getCameraPosition().getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
+                    int gridX = (ms->m_renderer->getCameraPosition().getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
                     int type = 0; // begin loop
                     if (m_game->getMarkers().size() == 1 || m_game->getMarkers().size() % 2 == 1)
                     {
@@ -410,14 +415,14 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     m_confirmExitPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_TEST:
-                    if (isLevelValid(gs))
+                    if (isLevelValid(ms))
                     {
                         Jon* jon = m_game->getJonP();
                         jon->enableAbility(FLAG_ABILITY_ALL);
                         Level* levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorld, m_iLevel);
                         levelState->setSourceGame(m_game.get());
 						levelState->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
-                        gs->m_stateMachine.changeState(levelState);
+                        ms->m_stateMachine.changeState(levelState);
 						return;
                     }
                     return;
@@ -425,12 +430,12 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     m_levelSelectorPanel->open();
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_SAVE:
-                    if (isLevelValid(gs))
+                    if (isLevelValid(ms))
                     {
                         resetEntities(true);
-                        gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
-                        gs->m_iRequestedAction += m_iWorld * 100;
-                        gs->m_iRequestedAction += m_iLevel;
+                        ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
+                        ms->m_iRequestedAction += m_iWorld * 100;
+                        ms->m_iRequestedAction += m_iLevel;
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
@@ -441,7 +446,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
             return;
         }
         
-        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*(*i), touchPoint, *m_game, gs->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
+        if ((rc = m_levelEditorEntitiesPanel->handleTouch(*(*i), touchPoint, *m_game, ms->m_renderer->getCameraPosition(), &m_lastAddedEntity)) != LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
@@ -478,7 +483,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
             {
                 Vector2D tp = touchPoint.cpy();
                 tp.mul(4);
-                float camPosX = gs->m_renderer->getCameraPosition().getX();
+                float camPosX = ms->m_renderer->getCameraPosition().getX();
                 tp.add(camPosX, 0);
                 
                 m_isVerticalChangeAllowed = true;
@@ -569,15 +574,15 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
 					resetEntities(false);
 				}
                 
-                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
-                gs->m_touchPointDown2.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown2.set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_DRAGGED:
             {
-                float xDelta = touchPoint.getX() - gs->m_touchPointDown.getX();
+                float xDelta = touchPoint.getX() - ms->m_touchPointDown.getX();
                 xDelta *= 4;
-                float yDelta = touchPoint.getY() - gs->m_touchPointDown.getY();
+                float yDelta = touchPoint.getY() - ms->m_touchPointDown.getY();
                 yDelta *= 4;
                 
                 if (m_draggingEntity != nullptr)
@@ -636,16 +641,16 @@ void MainScreenLevelEditor::handleInput(MainScreen* gs)
                     if ((touchPoint.getX() > (CAM_WIDTH * 0.8f) && xDelta > 0)
                         || (touchPoint.getX() < (CAM_WIDTH * 0.2f) && xDelta < 0))
                     {
-                        gs->m_renderer->moveCamera(xDelta);
+                        ms->m_renderer->moveCamera(xDelta);
                     }
                 }
                 else
                 {
                     xDelta *= 4;
-                    gs->m_renderer->moveCamera(-xDelta);
+                    ms->m_renderer->moveCamera(-xDelta);
                 }
                 
-                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_UP:
@@ -757,7 +762,7 @@ void MainScreenLevelEditor::resetEntities(bool clearLastAddedEntity)
     m_game->calcFarRight();
 }
 
-void MainScreenLevelEditor::loadIfNecessary(MainScreen* gs)
+void MainScreenLevelEditor::loadIfNecessary(MainScreen* ms)
 {
     if (!m_game->isLoaded())
     {
@@ -765,11 +770,11 @@ void MainScreenLevelEditor::loadIfNecessary(MainScreen* gs)
         ss << "{\"world\":" << m_iWorld << ",\"level\":" << m_iLevel << ", \"jons\":[{\"gridX\":200,\"gridY\":200}]}";
         std::string jsonString = ss.str();
         
-        load(jsonString.c_str(), gs);
+        load(jsonString.c_str(), ms);
     }
 }
 
-bool MainScreenLevelEditor::isLevelValid(MainScreen *gs)
+bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
 {
     if (!m_game->hasEndSign())
     {

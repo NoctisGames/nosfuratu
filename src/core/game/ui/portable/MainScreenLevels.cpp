@@ -36,7 +36,7 @@ Level * Level::getInstance()
     return instance;
 }
 
-void Level::enter(MainScreen* gs)
+void Level::enter(MainScreen* ms)
 {
     m_fStateTime = 0;
     m_iScoreFromTime = 0;
@@ -48,9 +48,9 @@ void Level::enter(MainScreen* gs)
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
     m_hasStoppedAllLoopingSoundsAfterJonDeath = false;
-    gs->m_isReleasingShockwave = false;
-    gs->m_isScreenHeldDown = false;
-    gs->m_fScreenHeldTime = 0;
+    ms->m_isReleasingShockwave = false;
+    ms->m_isScreenHeldDown = false;
+    ms->m_fScreenHeldTime = 0;
     
     if (!m_game->isLoaded())
     {
@@ -64,7 +64,7 @@ void Level::enter(MainScreen* gs)
         }
         
         m_game->setBestLevelStatsFlag(m_iBestLevelStatsFlag);
-        m_game->setCameraBounds(&gs->m_renderer->getCameraBounds());
+        m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
         
         Jon& jon = m_game->getJon();
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
@@ -76,13 +76,13 @@ void Level::enter(MainScreen* gs)
     
     configBatPanel();
 
-    gs->m_renderer->load(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
+    initRenderer(ms);
     
-    gs->m_renderer->beginOpeningPanningSequence(*m_game);
+    ms->m_renderer->beginOpeningPanningSequence(*m_game);
     
-    onEnter(gs);
+    onEnter(ms);
     
-    m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+    m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
     
     static float fgWidth = CAM_WIDTH / 32;
     static float fgHeight = fgWidth * 1.171875f;
@@ -96,23 +96,23 @@ void Level::enter(MainScreen* gs)
                                        fgWidth,
                                        fgHeight);
     
-    m_playLevelSelectMusicOnExit = gs->m_stateMachine.getPreviousState() == WorldMap::getInstance();
-	m_stopMusicOnExit = gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
+    m_playLevelSelectMusicOnExit = ms->m_stateMachine.getPreviousState() == WorldMap::getInstance();
+	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
 }
 
-void Level::execute(MainScreen* gs)
+void Level::execute(MainScreen* ms)
 {
-    if (gs->m_isRequestingRender)
+    if (ms->m_isRequestingRender)
     {
-        render(gs);
+        render(ms);
     }
     else
     {
-        update(gs);
+        update(ms);
     }
 }
 
-void Level::exit(MainScreen* gs)
+void Level::exit(MainScreen* ms)
 {
     m_iNumTimesBatPanelDisplayed = 0;
     m_iNumAttemptsSinceLastAdBreak = 0;
@@ -134,13 +134,13 @@ void Level::exit(MainScreen* gs)
 	}
     
     m_fStateTime = 0;
-    gs->m_isReleasingShockwave = false;
-    gs->m_fShockwaveElapsedTime = 0;
-    gs->m_fShockwaveCenterX = 0;
-    gs->m_fShockwaveCenterY = 0;
+    ms->m_isReleasingShockwave = false;
+    ms->m_fShockwaveElapsedTime = 0;
+    ms->m_fShockwaveCenterX = 0;
+    ms->m_fShockwaveCenterY = 0;
     m_hasShownOpeningSequence = false;
     m_hasOpeningSequenceCompleted = false;
-    gs->m_hasSwiped = false;
+    ms->m_hasSwiped = false;
     m_showDeathTransOut = false;
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
@@ -151,6 +151,14 @@ void Level::exit(MainScreen* gs)
     m_iBestLevelStatsFlag = 0;
     m_iLastKnownNumGoldenCarrots = 0;
     m_iLastKnownJonAbilityFlag = 0;
+}
+
+void Level::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    
+    ms->m_renderer->load(calcRendererTypeFromLevel(m_game->getWorld(), m_game->getLevel()));
 }
 
 void Level::setSourceGame(Game* game)
@@ -182,28 +190,28 @@ int Level::getJonAbilityFlag()
     return m_game->getJon().getAbilityFlag();
 }
 
-void Level::onEnter(MainScreen* gs)
+void Level::onEnter(MainScreen* ms)
 {
     if (m_hasOpeningSequenceCompleted)
     {
         CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
         countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
         
-        updateCamera(gs, 0, false, true);
+        updateCamera(ms, 0, false, true);
     }
 }
 
-void Level::beginOpeningSequence(MainScreen* gs)
+void Level::beginOpeningSequence(MainScreen* ms)
 {
     CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
     countHissWithMina.beginMovement();
     
-    if (gs->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
+    if (ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance())
 	{
 		m_hasShownOpeningSequence = true;
 		m_hasOpeningSequenceCompleted = true;
 
-		updateCamera(gs, 0, false, true);
+		updateCamera(ms, 0, false, true);
 
         if (SOUND_MANAGER->isMusicEnabled())
         {
@@ -214,9 +222,9 @@ void Level::beginOpeningSequence(MainScreen* gs)
 		return;
 	}
 
-	gs->m_renderer->beginOpeningPanningSequence(*m_game);
+	ms->m_renderer->beginOpeningPanningSequence(*m_game);
 
-	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+	m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
 
 	m_hasShownOpeningSequence = true;
 
@@ -227,11 +235,11 @@ void Level::beginOpeningSequence(MainScreen* gs)
 	}
 }
 
-void Level::handleOpeningSequence(MainScreen* gs)
+void Level::handleOpeningSequence(MainScreen* ms)
 {
-    m_game->updateAndClean(gs->m_fDeltaTime, true);
+    m_game->updateAndClean(ms->m_fDeltaTime, true);
 
-	int result = gs->m_renderer->updateCameraToFollowPathToJon(*m_game, gs->m_fDeltaTime);
+	int result = ms->m_renderer->updateCameraToFollowPathToJon(*m_game, ms->m_fDeltaTime);
 	m_hasOpeningSequenceCompleted = result == 3;
 	m_activateRadialBlur = result == 1;
 	
@@ -251,27 +259,27 @@ void Level::handleOpeningSequence(MainScreen* gs)
 		jon.beginWarmingUp();
 	}
 
-	m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+	m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
 }
 
-void Level::update(MainScreen* gs)
+void Level::update(MainScreen* ms)
 {
     Jon& jon = m_game->getJon();
     jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
     
     if (!m_hasShownOpeningSequence)
     {
-		beginOpeningSequence(gs);
+		beginOpeningSequence(ms);
     }
     else if (!m_hasOpeningSequenceCompleted)
     {
-		handleOpeningSequence(gs);
+		handleOpeningSequence(ms);
     }
     else
     {
-        GameTracker::getInstance()->update(gs->m_fDeltaTime);
+        GameTracker::getInstance()->update(ms->m_fDeltaTime);
         
-        m_batPanel->update(gs);
+        m_batPanel->update(ms);
         
         if (m_batPanel->isRequestingInput())
         {
@@ -280,7 +288,7 @@ void Level::update(MainScreen* gs)
         
         if (m_isDisplayingResults)
         {
-            m_continueButton->getColor().alpha += gs->m_fDeltaTime;
+            m_continueButton->getColor().alpha += ms->m_fDeltaTime;
             if (m_continueButton->getColor().alpha > 1)
             {
                 m_continueButton->getColor().alpha = 1;
@@ -351,18 +359,18 @@ void Level::update(MainScreen* gs)
                 {
                     m_playLevelSelectMusicOnExit = false;
                     LevelToComingSoon::getInstance()->setLevelComingFrom(this);
-                    gs->m_stateMachine.changeState(LevelToComingSoon::getInstance());
+                    ms->m_stateMachine.changeState(LevelToComingSoon::getInstance());
                 }
                 else
                 {
-                    gs->m_stateMachine.revertToPreviousState();
+                    ms->m_stateMachine.revertToPreviousState();
                 }
             }
             
             return;
         }
         
-        if (handleInput(gs))
+        if (handleInput(ms))
         {
             return;
         }
@@ -371,7 +379,7 @@ void Level::update(MainScreen* gs)
         {
             // Starting new game after death
             
-            m_fStateTime += gs->m_fDeltaTime * 2;
+            m_fStateTime += ms->m_fDeltaTime * 2;
             
             if (m_fStateTime > 2.4f)
             {
@@ -391,19 +399,19 @@ void Level::update(MainScreen* gs)
                 m_hasStoppedAllLoopingSoundsAfterJonDeath = true;
             }
             
-            m_fStateTime += gs->m_fDeltaTime * 2;
+            m_fStateTime += ms->m_fDeltaTime * 2;
             
             if (m_fStateTime > 1.6f)
             {
                 m_game->reset();
-                enter(gs);
+                enter(ms);
                 
-                updateCamera(gs, 0, false, true);
+                updateCamera(ms, 0, false, true);
                 
                 m_iNumAttemptsSinceLastAdBreak++;
                 if (m_iNumAttemptsSinceLastAdBreak >= 9)
                 {
-                    gs->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+                    ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
                     m_iNumAttemptsSinceLastAdBreak = 0;
                 }
                 
@@ -420,72 +428,72 @@ void Level::update(MainScreen* gs)
             
 			if (!m_hasCompletedLevel)
 			{
-				m_game->update(gs->m_fDeltaTime);
+				m_game->update(ms->m_fDeltaTime);
 			}
             
             if (isInSlowMotionMode())
             {
-                gs->m_fDeltaTime /= 8;
+                ms->m_fDeltaTime /= 8;
             }
             
             if (jon.isTransformingIntoVampire() || jon.isRevertingToRabbit())
             {
                 if (jon.isReleasingShockwave())
                 {
-                    if (!gs->m_isReleasingShockwave)
+                    if (!ms->m_isReleasingShockwave)
                     {
-                        gs->m_fShockwaveCenterX = jon.getPosition().getX();
-                        gs->m_fShockwaveCenterY = jon.getPosition().getY();
-                        gs->m_fShockwaveElapsedTime = 0.0f;
-                        gs->m_isReleasingShockwave = true;
+                        ms->m_fShockwaveCenterX = jon.getPosition().getX();
+                        ms->m_fShockwaveCenterY = jon.getPosition().getY();
+                        ms->m_fShockwaveElapsedTime = 0.0f;
+                        ms->m_isReleasingShockwave = true;
                     }
                 }
                 else
                 {
                     if (!isInSlowMotionMode())
                     {
-                        gs->m_fDeltaTime /= 8;
+                        ms->m_fDeltaTime /= 8;
                     }
                 }
             }
             
-            if (gs->m_isReleasingShockwave)
+            if (ms->m_isReleasingShockwave)
             {
-                gs->m_fShockwaveElapsedTime += gs->m_fDeltaTime * 1.2f;
+                ms->m_fShockwaveElapsedTime += ms->m_fDeltaTime * 1.2f;
                 
-                if (gs->m_fShockwaveElapsedTime > 2)
+                if (ms->m_fShockwaveElapsedTime > 2)
                 {
-                    gs->m_fShockwaveElapsedTime = 0;
-                    gs->m_isReleasingShockwave = false;
+                    ms->m_fShockwaveElapsedTime = 0;
+                    ms->m_isReleasingShockwave = false;
                 }
             }
             
-            m_game->updateAndClean(gs->m_fDeltaTime);
+            m_game->updateAndClean(ms->m_fDeltaTime);
             
-            handleCollections(jon, m_game->getCollectibleItems(), gs->m_fDeltaTime);
+            handleCollections(jon, m_game->getCollectibleItems(), ms->m_fDeltaTime);
             
             updateScore();
             
-            if (gs->m_isScreenHeldDown)
+            if (ms->m_isScreenHeldDown)
             {
-                gs->m_fScreenHeldTime += gs->m_fDeltaTime;
+                ms->m_fScreenHeldTime += ms->m_fDeltaTime;
                 
-                if (gs->m_fScreenHeldTime > 0.4f)
+                if (ms->m_fScreenHeldTime > 0.4f)
                 {
                     jon.triggerTransform();
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fShockwaveElapsedTime = 0;
-                    gs->m_isReleasingShockwave = false;
+                    ms->m_isScreenHeldDown = false;
+                    ms->m_fShockwaveElapsedTime = 0;
+                    ms->m_isReleasingShockwave = false;
                 }
             }
         }
 
-        updateCamera(gs, (jon.isAlive() && jon.getVelocity().getX() < 0) ? jon.getVelocity().getX() : 0);
+        updateCamera(ms, (jon.isAlive() && jon.getVelocity().getX() < 0) ? jon.getVelocity().getX() : 0);
         
         if (m_game->getMarkers().size() > 1)
         {
             GameMarker* nextEndLoopMarker = m_game->getMarkers().at(1);
-            if (gs->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
+            if (ms->m_renderer->getCameraBounds().getRight() > nextEndLoopMarker->getGridX() * GRID_CELL_SIZE)
             {
                 if (m_exitLoop)
                 {
@@ -533,7 +541,7 @@ void Level::update(MainScreen* gs)
         
         if (m_hasCompletedLevel)
         {
-            m_fStateTime += gs->m_fDeltaTime / 2;
+            m_fStateTime += ms->m_fDeltaTime / 2;
             if (m_fStateTime > 1)
             {
 				stopAllLoopingSounds();
@@ -616,95 +624,95 @@ void Level::update(MainScreen* gs)
                 m_iNumGoldenCarrots++;
             }
             
-            gs->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-            gs->m_iRequestedAction += m_game->getWorld() * 100;
-            gs->m_iRequestedAction += m_game->getLevel();
+            ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
+            ms->m_iRequestedAction += m_game->getWorld() * 100;
+            ms->m_iRequestedAction += m_game->getLevel();
   
             m_fStateTime = 0;
-			gs->m_renderer->stopCamera();
+			ms->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
             SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
         }
         
-        m_game->updateBackgrounds(gs->m_renderer->getCameraPosition(), gs->m_fDeltaTime);
+        m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
     }
 }
 
-void Level::render(MainScreen* gs)
+void Level::render(MainScreen* ms)
 {
     Jon& jon = m_game->getJon();
     
-    gs->m_renderer->beginFrame();
+    ms->m_renderer->beginFrame();
     
-    gs->m_renderer->renderWorld(*m_game);
+    ms->m_renderer->renderWorld(*m_game);
     
-    if (gs->m_isReleasingShockwave)
+    if (ms->m_isReleasingShockwave)
     {
-        gs->m_renderer->renderToSecondFramebufferWithShockwave(gs->m_fShockwaveCenterX, gs->m_fShockwaveCenterY, gs->m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
+        ms->m_renderer->renderToSecondFramebufferWithShockwave(ms->m_fShockwaveCenterX, ms->m_fShockwaveCenterY, ms->m_fShockwaveElapsedTime, jon.isTransformingIntoVampire() || jon.isVampire());
     }
     else
     {
-        gs->m_renderer->renderToSecondFramebuffer(*m_game);
+        ms->m_renderer->renderToSecondFramebuffer(*m_game);
     }
     
-    gs->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
+    ms->m_renderer->renderJonAndExtraForegroundObjects(*m_game);
     
-    additionalRenderingBeforeHud(gs);
+    additionalRenderingBeforeHud(ms);
     
     if (m_hasCompletedLevel)
     {
-        gs->m_renderer->renderBlackOverlay(m_fStateTime);
+        ms->m_renderer->renderBlackOverlay(m_fStateTime);
     }
     
-    gs->m_renderer->renderBatPanel(*m_batPanel);
+    ms->m_renderer->renderBatPanel(*m_batPanel);
     
-    if (gs->m_isPaused)
+    if (ms->m_isPaused)
     {
-        gs->m_renderer->renderToThirdFramebufferWithObfuscation();
+        ms->m_renderer->renderToThirdFramebufferWithObfuscation();
     }
     
     if (m_hasOpeningSequenceCompleted)
     {
-        gs->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
+        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
     }
 
 #if DEBUG || _DEBUG
-	gs->m_renderer->renderDebugInfo(*m_game, gs->m_iFPS);
+	ms->m_renderer->renderDebugInfo(*m_game, ms->m_iFPS);
 #endif
     
-    if (gs->m_isPaused)
+    if (ms->m_isPaused)
     {
 		m_fStateTime = 0;
 		m_showDeathTransOut = false;
 
-        gs->m_renderer->renderResumeButtonOverlay();
+        ms->m_renderer->renderResumeButtonOverlay();
     }
     
     if (jon.isDead())
     {
-        gs->m_renderer->renderToThirdFramebufferWithTransDeathIn(m_fStateTime);
+        ms->m_renderer->renderToThirdFramebufferWithTransDeathIn(m_fStateTime);
     }
     else if (m_showDeathTransOut)
     {
-        gs->m_renderer->renderToThirdFramebufferWithTransDeathOut(m_fStateTime);
+        ms->m_renderer->renderToThirdFramebufferWithTransDeathOut(m_fStateTime);
     }
     else if (m_activateRadialBlur)
     {
-        gs->m_renderer->renderToThirdFramebufferWithRadialBlur();
+        ms->m_renderer->renderToThirdFramebufferWithRadialBlur();
     }
     
-    gs->m_renderer->renderToScreen();
+    ms->m_renderer->renderToScreen();
     
-    gs->m_renderer->endFrame();
+    ms->m_renderer->endFrame();
 }
 
-void Level::updateCamera(MainScreen* gs, float paddingX, bool ignoreY, bool instant)
+void Level::updateCamera(MainScreen* ms, float paddingX, bool ignoreY, bool instant)
 {
-    gs->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), gs->m_fDeltaTime, paddingX, false, ignoreY, instant);
+    ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), ms->m_fDeltaTime, paddingX, false, ignoreY, instant);
 }
 
-void Level::additionalRenderingBeforeHud(MainScreen* gs)
+void Level::additionalRenderingBeforeHud(MainScreen* ms)
 {
     // Empty, override in subclass
 }
@@ -731,7 +739,7 @@ void Level::configBatPanel()
     }
 }
 
-bool Level::handleInput(MainScreen* gs)
+bool Level::handleInput(MainScreen* ms)
 {
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
@@ -784,7 +792,7 @@ bool Level::handleInput(MainScreen* gs)
             {
                 if ((*i)->isUp())
                 {
-                    if (gs->m_fScreenHeldTime < 0.4f)
+                    if (ms->m_fScreenHeldTime < 0.4f)
                     {
                         jon.triggerJump();
                     }
@@ -796,18 +804,18 @@ bool Level::handleInput(MainScreen* gs)
             {
                 if ((*i)->isUp())
                 {
-                    if (gs->m_fScreenHeldTime > 0.4f)
+                    if (ms->m_fScreenHeldTime > 0.4f)
                     {
                         jon.triggerCancelTransform();
                     }
                     
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fScreenHeldTime = 0;
+                    ms->m_isScreenHeldDown = false;
+                    ms->m_fScreenHeldTime = 0;
                 }
                 else
                 {
-                    gs->m_isScreenHeldDown = true;
-                    gs->m_fScreenHeldTime = 0.0f;
+                    ms->m_isScreenHeldDown = true;
+                    ms->m_fScreenHeldTime = 0.0f;
                 }
             }
                 return false;
@@ -816,9 +824,9 @@ bool Level::handleInput(MainScreen* gs)
                 {
                     m_exitLoop = true;
                     
-                    gs->m_renderer->stopCamera();
+                    ms->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine.revertToPreviousState();
+                    ms->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
@@ -901,7 +909,7 @@ bool Level::handleInput(MainScreen* gs)
             {
                 if ((*i)->isButtonPressed())
                 {
-                    if (gs->m_fScreenHeldTime < 0.4f)
+                    if (ms->m_fScreenHeldTime < 0.4f)
                     {
                         jon.triggerJump();
                     }
@@ -914,18 +922,18 @@ bool Level::handleInput(MainScreen* gs)
             {
                 if ((*i)->isButtonPressed())
                 {
-                    gs->m_isScreenHeldDown = true;
-                    gs->m_fScreenHeldTime = 0.0f;
+                    ms->m_isScreenHeldDown = true;
+                    ms->m_fScreenHeldTime = 0.0f;
                 }
                 else
                 {
-                    if (gs->m_fScreenHeldTime > 0.4f)
+                    if (ms->m_fScreenHeldTime > 0.4f)
                     {
                         jon.triggerCancelTransform();
                     }
                     
-                    gs->m_isScreenHeldDown = false;
-                    gs->m_fScreenHeldTime = 0;
+                    ms->m_isScreenHeldDown = false;
+                    ms->m_fScreenHeldTime = 0;
                 }
             }
                 return false;
@@ -935,9 +943,9 @@ bool Level::handleInput(MainScreen* gs)
                 {
                     m_exitLoop = true;
                     
-                    gs->m_renderer->stopCamera();
+                    ms->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine.revertToPreviousState();
+                    ms->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
@@ -955,43 +963,43 @@ bool Level::handleInput(MainScreen* gs)
         {
             case ScreenEventType_DOWN:
             {
-                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
-                gs->m_isScreenHeldDown = true;
-                gs->m_fScreenHeldTime = 0.0f;
+                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_isScreenHeldDown = true;
+                ms->m_fScreenHeldTime = 0.0f;
             }
                 continue;
             case ScreenEventType_DRAGGED:
-                if (!gs->m_hasSwiped)
+                if (!ms->m_hasSwiped)
                 {
-                    if (touchPoint.getX() >= (gs->m_touchPointDown.getX() + SWIPE_WIDTH))
+                    if (touchPoint.getX() >= (ms->m_touchPointDown.getX() + SWIPE_WIDTH))
                     {
                         // Swipe Right
                         jon.triggerRightAction();
-                        gs->m_hasSwiped = true;
+                        ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getX() <= (gs->m_touchPointDown.getX() - SWIPE_WIDTH))
+                    else if (touchPoint.getX() <= (ms->m_touchPointDown.getX() - SWIPE_WIDTH))
                     {
                         // Swipe Left
                         jon.triggerLeftAction();
-                        gs->m_hasSwiped = true;
+                        ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getY() >= (gs->m_touchPointDown.getY() + SWIPE_HEIGHT))
+                    else if (touchPoint.getY() >= (ms->m_touchPointDown.getY() + SWIPE_HEIGHT))
                     {
                         // Swipe Up
                         jon.triggerUpAction();
-                        gs->m_hasSwiped = true;
+                        ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getY() <= (gs->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                    else if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
                     {
                         // Swipe Down
                         jon.triggerDownAction();
-                        gs->m_hasSwiped = true;
+                        ms->m_hasSwiped = true;
                     }
                     
-                    if (gs->m_hasSwiped)
+                    if (ms->m_hasSwiped)
                     {
-                        gs->m_isScreenHeldDown = false;
-                        gs->m_fScreenHeldTime = 0.0f;
+                        ms->m_isScreenHeldDown = false;
+                        ms->m_fScreenHeldTime = 0.0f;
                     }
                 }
                 continue;
@@ -1001,29 +1009,29 @@ bool Level::handleInput(MainScreen* gs)
                 {
                     m_exitLoop = true;
                     
-                    gs->m_renderer->stopCamera();
+                    ms->m_renderer->stopCamera();
                     
-                    gs->m_stateMachine.revertToPreviousState();
+                    ms->m_stateMachine.revertToPreviousState();
                     
                     return true;
                 }
                 
-                if (!gs->m_hasSwiped && gs->m_fScreenHeldTime < 0.4f)
+                if (!ms->m_hasSwiped && ms->m_fScreenHeldTime < 0.4f)
                 {
                     jon.triggerJump();
                 }
                 
-                if (gs->m_fScreenHeldTime > 0.4f)
+                if (ms->m_fScreenHeldTime > 0.4f)
                 {
                     jon.triggerCancelTransform();
                 }
                 
-                gs->m_isScreenHeldDown = false;
-                gs->m_fScreenHeldTime = 0;
+                ms->m_isScreenHeldDown = false;
+                ms->m_fScreenHeldTime = 0;
                 
-                gs->m_hasSwiped = false;
+                ms->m_hasSwiped = false;
                 
-                gs->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
                 
                 break;
         }

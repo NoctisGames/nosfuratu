@@ -32,6 +32,10 @@ public:
     
     virtual ~Renderer();
     
+    virtual void createDeviceDependentResources();
+    
+    virtual void releaseDeviceDependentResources();
+    
     virtual void beginFrame();
     
     void setFramebuffer(int framebufferIndex);
@@ -79,6 +83,7 @@ protected:
 private:
     std::vector<TextureWrapper *> m_loadingTextures;
     std::vector<std::thread *> m_textureDataLoadingThreads;
+    bool m_areDeviceDependentResourcesCreated;
     
     void handleAsyncTextureLoads();
     
