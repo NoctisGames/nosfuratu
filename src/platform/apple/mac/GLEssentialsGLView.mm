@@ -176,8 +176,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     _screen->createDeviceDependentResources();
     
     _screenController = [[ScreenController alloc] initWithScreen:_screen andInterstitialAdHandler:nil];
-    
-    _screen->onResume();
 }
 
 - (void)reshape
