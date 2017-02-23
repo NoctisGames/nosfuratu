@@ -64,6 +64,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
     
+    [mainWindow setDelegate:self];
     [mainWindow toggleFullScreen:self];
     
     _joystickController = [[JoystickController alloc] init];
@@ -72,12 +73,15 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     NSOpenGLPixelFormatAttribute attrs[] =
     {
         NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFADepthSize, 24,
-        // Must specify the 3.2 Core Profile to use OpenGL 3.2
-#if ESSENTIAL_GL_PRACTICES_SUPPORT_GL3
-        NSOpenGLPFAOpenGLProfile,
-        NSOpenGLProfileVersion3_2Core,
-#endif
+        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersionLegacy,
+        NSOpenGLPFAAccelerated,
+        NSOpenGLPFAClosestPolicy,
+        NSOpenGLPFAAccumSize, 32,
+        NSOpenGLPFAColorSize, 24,
+        NSOpenGLPFAAlphaSize, 8,
+        NSOpenGLPFADepthSize, 16,
+        NSOpenGLPFAStencilSize, 8,
+        NSOpenGLPFAAllowOfflineRenderers, // Allows using the integrated GPU
         0
     };
     
@@ -162,7 +166,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     // Init our renderer.  Use 0 for the defaultFBO which is appropriate for
     // OSX (but not iOS since iOS apps must create their own FBO)
-    // TODO
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     
     MAIN_ASSETS->setUsingDesktopTextureSet(true);
@@ -413,6 +416,37 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             }
         }
     }
+}
+
+static NSTimer *timer = nil;
+
+- (void)windowDidResignMain:(NSNotification *)notification
+{
+    [_screenController pause];
+    
+    [timer invalidate];
+    
+    [self setNeedsDisplay:YES];
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    [_screenController resume];
+    
+    [self setNeedsDisplay:YES];
+    
+    timer = [NSTimer timerWithTimeInterval:0.016666666666667f
+                                    target:self
+                                  selector:@selector(timerEvent:)
+                                  userInfo:nil
+                                   repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)timerEvent:(NSTimer *)t
+{
+    [self setNeedsDisplay:YES];
 }
 
 @end
