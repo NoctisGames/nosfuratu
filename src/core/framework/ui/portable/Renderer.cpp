@@ -44,7 +44,8 @@ m_rendererHelper(RENDERER_HELPER_FACTORY->createRendererHelper()),
 m_textureGpuProgramWrapper(nullptr),
 m_colorGpuProgramWrapper(nullptr),
 m_framebufferToScreenGpuProgramWrapper(nullptr),
-m_iFramebufferIndex(0)
+m_iFramebufferIndex(0),
+m_areDeviceDependentResourcesCreated(false)
 {
     // Empty
 }
@@ -193,7 +194,7 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     textureWrapper->isLoadingData = true;
     m_textureDataLoadingThreads.push_back(new std::thread([](TextureWrapper* tw, Renderer* r)
     {
-        if (r->m_textureDataLoadingThreads.size() > 0)
+        if (r->m_loadingTextures.size() > 0)
         {
             tw->gpuTextureDataWrapper = r->m_textureLoader->loadTextureData(tw->name.c_str());
         }

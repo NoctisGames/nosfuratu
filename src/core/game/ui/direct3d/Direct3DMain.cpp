@@ -30,6 +30,21 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
+
+	Direct3DManager::setDeviceResources(m_deviceResources.get());
+
+	bool isWindowsMobile;
+	// Hide Constructor for Singleton
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	isWindowsMobile = false;
+#else
+	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
+	isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#endif
+
+	MAIN_ASSETS->setUsingDesktopTextureSet(!isWindowsMobile);
+
+	m_screen = new MainScreen();
 }
 
 Direct3DMain::~Direct3DMain()
@@ -59,18 +74,10 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 #endif
 
 	m_deviceResources->CreateDeviceResources();
-
-	Direct3DManager::setDeviceResources(m_deviceResources.get());
-
-	m_screen = new MainScreen();
-	m_screen->onResume();
-
-	MAIN_ASSETS->setUsingDesktopTextureSet(!D3DManager->isWindowsMobile());
-
-    CreateDeviceDependentResources();
+	CreateDeviceDependentResources();
 
 	m_deviceResources->CreateWindowSizeDependentResources();
-    CreateWindowSizeDependentResources();
+	CreateWindowSizeDependentResources();
 
 	m_keyboard = std::make_unique<Keyboard>();
 
