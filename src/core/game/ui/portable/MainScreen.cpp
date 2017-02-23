@@ -143,8 +143,6 @@ void MainScreen::update(float deltaTime)
     }
 #endif
     
-    m_fDeltaTime = FRAME_RATE;
-    
     m_fFrameStateTime += deltaTime;
     while (m_fFrameStateTime >= FRAME_RATE)
     {
@@ -158,6 +156,8 @@ void MainScreen::update(float deltaTime)
 
 void MainScreen::internalUpdate()
 {
+	m_fDeltaTime = FRAME_RATE;
+
     SCREEN_INPUT_MANAGER->process();
     KEYBOARD_INPUT_MANAGER->process();
     GAME_PAD_INPUT_MANAGER->process();
