@@ -929,7 +929,6 @@
 		BBB1E4551E60A54C00201A0C /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid.png */; };
 		BBB1E4571E60A54C00201A0C /* DDHidLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBB1E45D1E60A96F00201A0C /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
-		BBB1E45F1E60AA7B00201A0C /* LevelEditorInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E45E1E60AA7B00201A0C /* LevelEditorInfo.plist */; };
 		BBB1E4611E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
 		BBB1E4621E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
 		BBB1E4631E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
@@ -3393,7 +3392,6 @@
 				BBB1E4631E60B36E00201A0C /* big_carrot.wav in Resources */,
 				BBB1E3EB1E60A54C00201A0C /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBB1E3EC1E60A54C00201A0C /* title_screen.png in Resources */,
-				BBB1E45F1E60AA7B00201A0C /* LevelEditorInfo.plist in Resources */,
 				BBB1E3ED1E60A54C00201A0C /* end_boss_snake_death.wav in Resources */,
 				BBB1E3EE1E60A54C00201A0C /* collect_carrot.wav in Resources */,
 				BBB1E3EF1E60A54C00201A0C /* snake_death.wav in Resources */,
