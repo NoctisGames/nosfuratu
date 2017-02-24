@@ -20,7 +20,7 @@
 #include "Color.h"
 #include "NGRect.h"
 #include "TextureWrapper.h"
-#include "GputextureWrapper.h"
+#include "GpuTextureWrapper.h"
 #include "SpriteBatcherFactory.h"
 #include "NGRectBatcherFactory.h"
 #include "LineBatcherFactory.h"
