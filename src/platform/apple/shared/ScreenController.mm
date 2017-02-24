@@ -14,6 +14,7 @@
 // C++
 #include "GameConstants.h"
 #include "MainScreenWorldMap.h"
+#include "MainScreenLevelEditor.h"
 #include "Game.h"
 #include "GameConstants.h"
 #include "SoundManager.h"
@@ -55,9 +56,11 @@
     switch (requestedAction)
     {
         case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
+            [self saveLevel:_screen->getRequestedAction()];
             _screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
+            [self loadLevel:_screen->getRequestedAction()];
             _screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_LEVEL_COMPLETED:
@@ -353,6 +356,53 @@
     WorldMap::getInstance()->loadUserSaveData(usdCString);
 }
 
+- (void)saveLevel:(int)requestedAction
+{
+    NSString* levelFileName = [self getLevelName:requestedAction];
+    
+    const char *level_json = MainScreenLevelEditor::getInstance()->save();
+    
+    if (level_json)
+    {
+        NSString *json = [[NSString alloc] initWithCString:level_json encoding:NSUTF8StringEncoding];
+        
+        NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
+        filePath = [filePath stringByAppendingPathComponent:levelFileName];
+        
+        NSError* error;
+        [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        
+        char *message = (char *)(error ? "Error Saving Level..." : "Level Saved Successfully!");
+        MainScreenLevelEditor::getInstance()->setMessage(message);
+    }
+}
+
+- (void)loadLevel:(int)requestedAction
+{
+    NSString* levelFileName = [self getLevelName:requestedAction];
+    
+    NSString *filePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Dropbox/Documents/freelance/NoctisGames/github/nosfuratu-levels"];
+    filePath = [filePath stringByAppendingPathComponent:levelFileName];
+    
+    NSError* error;
+    NSString *content = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+    
+    if (error)
+    {
+        char *message = (char *)("Error occurred while loading level...");
+        MainScreenLevelEditor::getInstance()->setMessage(message);
+    }
+    else
+    {
+        const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
+        
+        MainScreenLevelEditor::getInstance()->load(contentCString, _screen);
+        
+        char *message = (char *)("Level Loaded Successfully!");
+        MainScreenLevelEditor::getInstance()->setMessage(message);
+    }
+}
+
 - (NSString *)getLevelName:(int)requestedAction
 {
     int world = [self calcWorld:requestedAction];
@@ -471,6 +521,7 @@
     [_appleSoundManager loadSound:@"footstep_left_wood" withNumCopies:1];
     [_appleSoundManager loadSound:@"footstep_right_wood" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_wood" withNumCopies:1];
+    [_appleSoundManager loadSound:@"big_carrot" withNumCopies:1];
 }
 
 @end

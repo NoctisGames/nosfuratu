@@ -227,7 +227,7 @@ ConfirmExitPanel* MainScreenLevelEditor::getConfirmExitPanel()
 void MainScreenLevelEditor::setMessage(char *message)
 {
 	m_message = message;
-	m_fMessageTime = 5;
+	m_fMessageTime = 2;
 }
 
 char* MainScreenLevelEditor::getMessage()

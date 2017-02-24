@@ -30,7 +30,7 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
     assert(false);
 }
 
-CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false), m_isOnScreen(false), m_game(nullptr)
+CollectibleItem::CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : GridLockedPhysicalEntity(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight), m_type(type), m_color(1, 1, 1, 1), m_iCollectSoundId(collectSoundId), m_isCollected(false), m_isOnScreen(false), m_game(nullptr)
 {
     updateBounds();
     
@@ -273,6 +273,18 @@ void BigCarrot::update(float deltaTime)
             m_isRequestingDeletion = true;
         }
     }
+}
+
+void BigCarrot::updateBounds()
+{
+    CollectibleItem::updateBounds();
+    
+    GridLockedPhysicalEntity::updateBounds();
+}
+
+void BigCarrot::snapToGrid(int gridCellSizeScalar)
+{
+    GridLockedPhysicalEntity::snapToGrid(gridCellSizeScalar);
 }
 
 RTTI_IMPL(CollectibleItem, GridLockedPhysicalEntity);

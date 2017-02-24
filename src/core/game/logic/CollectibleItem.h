@@ -34,7 +34,7 @@ class CollectibleItem : public GridLockedPhysicalEntity
 public:
     static CollectibleItem* create(int gridX, int gridY, int type);
     
-    CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type);
+    CollectibleItem(int gridX, int gridY, int gridWidth, int gridHeight, int collectSoundId, CollectibleItemType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void update(float deltaTime);
     
@@ -133,9 +133,13 @@ class BigCarrot : public CollectibleItem
     RTTI_DECL;
     
 public:
-    BigCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 27, 27, SOUND_COLLECT_BIG_CARROT, CollectibleItemType_BigCarrot) {}
+    BigCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 27, 27, SOUND_COLLECT_BIG_CARROT, CollectibleItemType_BigCarrot, 0.405092592592593f, 0.259259259259259f, 0.428240740740741f, 0.481481481481481f) {}
     
     virtual void update(float deltaTime);
+    
+    virtual void updateBounds();
+    
+    virtual void snapToGrid(int gridCellSizeScalar = 1);
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */

@@ -637,6 +637,7 @@ private:
     int m_iUnlockedLevelStatsFlag;
     int m_iViewedCutsceneFlag;
     int m_iNumTimesVisitedSinceLastAdBreak;
+    int m_iStickNavDirection;
     bool m_isReadyForTransition;
     bool m_needsRefresh;
     bool m_isNextWorldButtonEnabled;

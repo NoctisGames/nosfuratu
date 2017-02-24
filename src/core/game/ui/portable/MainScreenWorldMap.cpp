@@ -170,24 +170,51 @@ void WorldMap::execute(MainScreen* ms)
                     
                     if (x > 0.8f)
                     {
-                        navRight();
+                        m_iStickNavDirection = 0;
                         return;
                     }
                     else if (x < -0.8f)
                     {
-                        navLeft();
+                        m_iStickNavDirection = 2;
                         return;
                     }
                     
                     if (y > 0.8f)
                     {
-                        navUp();
+                        m_iStickNavDirection = 1;
                         return;
                     }
                     else if (y < -0.8f)
                     {
-                        navDown();
+                        m_iStickNavDirection = 3;
                         return;
+                    }
+                    
+                    if (x < 0.1f
+                        && x > -0.1f
+                        && y > -0.1f
+                        && y > -0.1f)
+                    {
+                        int dir = m_iStickNavDirection;
+                        m_iStickNavDirection = -1;
+                        
+                        switch (dir)
+                        {
+                            case 0:
+                                navRight();
+                                return;
+                            case 1:
+                                navUp();
+                                return;
+                            case 2:
+                                navLeft();
+                                return;
+                            case 3:
+                                navDown();
+                                return;
+                            default:
+                                return;
+                        }
                     }
                 }
                     continue;
@@ -270,11 +297,13 @@ void WorldMap::execute(MainScreen* ms)
                     {
                         SOUND_MANAGER->setMusicEnabled(!SOUND_MANAGER->isMusicEnabled());
                         m_toggleMusic->getColor().alpha = SOUND_MANAGER->isMusicEnabled() ? 1 : 0.35f;
+                        onButtonSelected();
                     }
                     else if (m_toggleSound->handleClick(touchPoint))
                     {
                         SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
                         m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
+                        onButtonSelected();
                     }
                     //else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
                     //{
@@ -286,7 +315,7 @@ void WorldMap::execute(MainScreen* ms)
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
                         ms->m_stateMachine.changeState(WorldMapToOpeningCutscene::getInstance());
                         m_userHasClickedOpeningCutscene = true;
-                        m_clickedLevel = nullptr;
+                        onButtonSelected();
                         return;
                     }
                     else
@@ -743,6 +772,10 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail)
         return;
     }
     
+    m_viewOpeningCutsceneButton->deselect();
+    m_toggleMusic->deselect();
+    m_toggleSound->deselect();
+    
     for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
     {
         (*j)->deselect();
@@ -884,14 +917,13 @@ void WorldMap::navRight()
         selectLevel(newLevel);
         
         SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
-        
   
         return;
     }
     
     if (m_toggleMusic->isSelected())
     {
-        m_toggleMusic->deselect();
+        onButtonSelected();
         m_toggleSound->select();
         
         return;
@@ -938,14 +970,14 @@ void WorldMap::navUp()
     
     if (m_toggleMusic->isSelected())
     {
-        m_toggleMusic->deselect();
+        onButtonSelected();
         m_viewOpeningCutsceneButton->select();
         return;
     }
     
     if (m_toggleSound->isSelected())
     {
-        m_toggleSound->deselect();
+        onButtonSelected();
         m_viewOpeningCutsceneButton->select();
         return;
     }
@@ -1011,7 +1043,7 @@ void WorldMap::navLeft()
     
     if (m_toggleSound->isSelected())
     {
-        m_toggleSound->deselect();
+        onButtonSelected();
         m_toggleMusic->select();
         return;
     }
@@ -1052,7 +1084,7 @@ void WorldMap::navDown()
 {
     if (m_viewOpeningCutsceneButton->isSelected())
     {
-        m_viewOpeningCutsceneButton->deselect();
+        onButtonSelected();
         m_toggleMusic->select();
         return;
     }
@@ -1133,7 +1165,7 @@ void WorldMap::navSelect(MainScreen* ms)
     }
     else if (m_toggleSound->isSelected())
     {
-        m_toggleMusic->click();
+        m_toggleSound->click();
         SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
         m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
     }
@@ -1154,6 +1186,12 @@ void WorldMap::onButtonSelected()
     m_goldenCarrotsMarker->config(1337, 1337, 0);
     
     m_scoreMarker->config(1337, 1337, 0);
+    
+    m_clickedLevel = nullptr;
+    
+    m_viewOpeningCutsceneButton->deselect();
+    m_toggleSound->deselect();
+    m_toggleMusic->deselect();
 }
 
 LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
@@ -1179,6 +1217,7 @@ m_iJonAbilityFlag(0),
 m_iUnlockedLevelStatsFlag(0),
 m_iViewedCutsceneFlag(0),
 m_iNumTimesVisitedSinceLastAdBreak(0),
+m_iStickNavDirection(0),
 m_isReadyForTransition(false),
 m_clickedLevel(nullptr),
 m_userHasClickedOpeningCutscene(false),
