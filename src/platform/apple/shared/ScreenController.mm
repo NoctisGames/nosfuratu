@@ -213,7 +213,7 @@
 
 - (void)playMusic:(BOOL)isLooping
 {
-    [_appleSoundManager playMusic:0.5f isLooping:isLooping];
+    [_appleSoundManager playMusic:1.0f isLooping:isLooping];
 }
 
 - (void)playSound:(int)soundId isLooping:(BOOL)isLooping
