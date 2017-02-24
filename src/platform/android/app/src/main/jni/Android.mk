@@ -56,6 +56,12 @@ LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 FILE_LIST := $(filter %.c, $(NETWORK_CLIENT_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
+SOUND_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/portable/)
+FILE_LIST := $(filter %.cpp, $(SOUND_PORTABLE_FILES))
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
+FILE_LIST := $(filter %.c, $(SOUND_PORTABLE_FILES))
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
+
 SOUND_SUPERPOWERED_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/)
 FILE_LIST := $(filter %.cpp, $(SOUND_SUPERPOWERED_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)

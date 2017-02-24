@@ -174,8 +174,6 @@
 		BB34FA271E563C2400AC8197 /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8891E563C2100AC8197 /* ScreenEvent.cpp */; };
 		BB34FA291E563C2400AC8197 /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F88C1E563C2100AC8197 /* ScreenInputManager.cpp */; };
 		BB34FA2B1E563C2400AC8197 /* ScreenInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F88C1E563C2100AC8197 /* ScreenInputManager.cpp */; };
-		BB34FA2D1E563C2400AC8197 /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F88E1E563C2100AC8197 /* SoundManager.cpp */; };
-		BB34FA2F1E563C2400AC8197 /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F88E1E563C2100AC8197 /* SoundManager.cpp */; };
 		BB34FA311E563C2400AC8197 /* SpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8901E563C2100AC8197 /* SpriteBatcher.cpp */; };
 		BB34FA331E563C2400AC8197 /* SpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8901E563C2100AC8197 /* SpriteBatcher.cpp */; };
 		BB34FA351E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8921E563C2100AC8197 /* SpriteBatcherFactory.cpp */; };
@@ -624,6 +622,9 @@
 		BB8E94581E57656D00D237D2 /* game_pad_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */; };
 		BB8E94641E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
 		BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
+		BBADF46E1E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
+		BBADF46F1E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
+		BBADF4701E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
 		BBB1E3251E60A54C00201A0C /* MainRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB641E5645F400AC8197 /* MainRenderer.cpp */; };
 		BBB1E3261E60A54C00201A0C /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BBB1E3271E60A54C00201A0C /* OverlapTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7D11E563C2100AC8197 /* OverlapTester.cpp */; };
@@ -720,7 +721,6 @@
 		BBB1E3821E60A54C00201A0C /* IScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8751E563C2100AC8197 /* IScreen.cpp */; };
 		BBB1E3831E60A54C00201A0C /* CollectibleItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAA91E5645F400AC8197 /* CollectibleItem.cpp */; };
 		BBB1E3841E60A54C00201A0C /* SuperpoweredOSXAudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB09CDF21DBD3779006A3E49 /* SuperpoweredOSXAudioIO.mm */; };
-		BBB1E3851E60A54C00201A0C /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F88E1E563C2100AC8197 /* SoundManager.cpp */; };
 		BBB1E3861E60A54C00201A0C /* GridManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7BC1E563C2100AC8197 /* GridManager.cpp */; };
 		BBB1E3871E60A54C00201A0C /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB401E5645F400AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp */; };
 		BBB1E3881E60A54C00201A0C /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FABE1E5645F400AC8197 /* Game.cpp */; };
@@ -1193,8 +1193,6 @@
 		BB34F88B1E563C2100AC8197 /* ScreenEventType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenEventType.h; sourceTree = "<group>"; };
 		BB34F88C1E563C2100AC8197 /* ScreenInputManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenInputManager.cpp; sourceTree = "<group>"; };
 		BB34F88D1E563C2100AC8197 /* ScreenInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenInputManager.h; sourceTree = "<group>"; };
-		BB34F88E1E563C2100AC8197 /* SoundManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundManager.cpp; sourceTree = "<group>"; };
-		BB34F88F1E563C2100AC8197 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		BB34F8901E563C2100AC8197 /* SpriteBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteBatcher.cpp; sourceTree = "<group>"; };
 		BB34F8911E563C2100AC8197 /* SpriteBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteBatcher.h; sourceTree = "<group>"; };
 		BB34F8921E563C2100AC8197 /* SpriteBatcherFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteBatcherFactory.cpp; sourceTree = "<group>"; };
@@ -1676,6 +1674,8 @@
 		BB8E94611E57C5F100D237D2 /* Direct3DProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgram.h; sourceTree = "<group>"; };
 		BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainAssetsMapper.cpp; sourceTree = "<group>"; };
 		BB8E94631E57E11A00D237D2 /* MainAssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAssetsMapper.h; sourceTree = "<group>"; };
+		BBADF46C1E60D55400F4288A /* SoundManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundManager.cpp; sourceTree = "<group>"; };
+		BBADF46D1E60D55400F4288A /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		BBB1E45B1E60A54C00201A0C /* level editor mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "level editor mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBB1E45E1E60AA7B00201A0C /* LevelEditorInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LevelEditorInfo.plist; sourceTree = "<group>"; };
 		BBB1E4601E60B36E00201A0C /* big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = big_carrot.wav; sourceTree = "<group>"; };
@@ -2014,8 +2014,9 @@
 		BB34F7DE1E563C2100AC8197 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				BB34FA671E563CA400AC8197 /* windows */,
+				BBADF46B1E60D4A000F4288A /* portable */,
 				BB34F7DF1E563C2100AC8197 /* superpowered */,
+				BB34FA671E563CA400AC8197 /* windows */,
 			);
 			path = sound;
 			sourceTree = "<group>";
@@ -2171,8 +2172,6 @@
 				BB34F88B1E563C2100AC8197 /* ScreenEventType.h */,
 				BB34F88C1E563C2100AC8197 /* ScreenInputManager.cpp */,
 				BB34F88D1E563C2100AC8197 /* ScreenInputManager.h */,
-				BB34F88E1E563C2100AC8197 /* SoundManager.cpp */,
-				BB34F88F1E563C2100AC8197 /* SoundManager.h */,
 				BB34F8901E563C2100AC8197 /* SpriteBatcher.cpp */,
 				BB34F8911E563C2100AC8197 /* SpriteBatcher.h */,
 				BB34F8921E563C2100AC8197 /* SpriteBatcherFactory.cpp */,
@@ -2935,6 +2934,15 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		BBADF46B1E60D4A000F4288A /* portable */ = {
+			isa = PBXGroup;
+			children = (
+				BBADF46C1E60D55400F4288A /* SoundManager.cpp */,
+				BBADF46D1E60D55400F4288A /* SoundManager.h */,
+			);
+			path = portable;
+			sourceTree = "<group>";
+		};
 		BBCB71C71DB6A217006430B6 /* Texconv */ = {
 			isa = PBXGroup;
 			children = (
@@ -3520,7 +3528,6 @@
 				BB34FCD31E5645F500AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34FBAB1E5645F400AC8197 /* GameMarker.cpp in Sources */,
 				BB34FC3F1E5645F500AC8197 /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
-				BB34FA2D1E563C2400AC8197 /* SoundManager.cpp in Sources */,
 				BB34F8D51E563C2200AC8197 /* Triangle.cpp in Sources */,
 				BB34FB831E5645F400AC8197 /* CountHissWithMina.cpp in Sources */,
 				BB34FC631E5645F500AC8197 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
@@ -3541,6 +3548,7 @@
 				BB34FA1D1E563C2400AC8197 /* Renderer.cpp in Sources */,
 				BB34FD131E5645F500AC8197 /* OffsetPanel.cpp in Sources */,
 				BB34FCD71E5645F500AC8197 /* GameButton.cpp in Sources */,
+				BBADF46E1E60D55400F4288A /* SoundManager.cpp in Sources */,
 				BB34FB9B1E5645F400AC8197 /* ExitGroundCover.cpp in Sources */,
 				BB34FCA31E5645F500AC8197 /* OpenGLSinWaveTextureProgram.cpp in Sources */,
 				BB34F9A51E563C2300AC8197 /* OpenGLTextureLoader.cpp in Sources */,
@@ -3774,7 +3782,6 @@
 				BB34FA031E563C2400AC8197 /* IScreen.cpp in Sources */,
 				BB34FB811E5645F400AC8197 /* CollectibleItem.cpp in Sources */,
 				BB09CE231DBD3779006A3E49 /* SuperpoweredOSXAudioIO.mm in Sources */,
-				BB34FA2F1E563C2400AC8197 /* SoundManager.cpp in Sources */,
 				BB34F8BB1E563C2100AC8197 /* GridManager.cpp in Sources */,
 				BB34FCD51E5645F500AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34FBA91E5645F400AC8197 /* Game.cpp in Sources */,
@@ -3844,6 +3851,7 @@
 				BB34FBC11E5645F400AC8197 /* JonFormState.cpp in Sources */,
 				BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */,
 				BB34F9D71E563C2300AC8197 /* Animation.cpp in Sources */,
+				BBADF46F1E60D55400F4288A /* SoundManager.cpp in Sources */,
 				BBD5A9CC1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3948,7 +3956,6 @@
 				BBB1E3821E60A54C00201A0C /* IScreen.cpp in Sources */,
 				BBB1E3831E60A54C00201A0C /* CollectibleItem.cpp in Sources */,
 				BBB1E3841E60A54C00201A0C /* SuperpoweredOSXAudioIO.mm in Sources */,
-				BBB1E3851E60A54C00201A0C /* SoundManager.cpp in Sources */,
 				BBB1E3861E60A54C00201A0C /* GridManager.cpp in Sources */,
 				BBB1E3871E60A54C00201A0C /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BBB1E3881E60A54C00201A0C /* Game.cpp in Sources */,
@@ -4018,6 +4025,7 @@
 				BBB1E3C81E60A54C00201A0C /* JonFormState.cpp in Sources */,
 				BBB1E3C91E60A54C00201A0C /* AppDelegate.m in Sources */,
 				BBB1E3CA1E60A54C00201A0C /* Animation.cpp in Sources */,
+				BBADF4701E60D55400F4288A /* SoundManager.cpp in Sources */,
 				BBB1E3CB1E60A54C00201A0C /* MainGpuProgramWrapperFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -117,7 +117,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -136,7 +136,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -155,7 +155,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -175,7 +175,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -195,7 +195,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -214,7 +214,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../3rdparty/;../../../../core/framework/entity/;../../../../core/framework/file/windows/;../../../../core/framework/math/;../../../../core/framework/network/client/;../../../../core/framework/sound/portable/;../../../../core/framework/sound/windows/;../../../../core/framework/state/;../../../../core/framework/ui/direct3d/portable/;../../../../core/framework/ui/direct3d/uwp/;../../../../core/framework/ui/portable/;../../../../core/framework/util/portable/;../../../../core/framework/util/windows/;../../../../core/game/logic/;../../../../core/game/ui/direct3d/;../../../../core/game/ui/portable/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -228,6 +228,7 @@
     <ClInclude Include="..\..\..\..\core\framework\entity\*.h" />
     <ClInclude Include="..\..\..\..\core\framework\file\windows\*.h" />
     <ClInclude Include="..\..\..\..\core\framework\math\*.h" />
+    <ClInclude Include="..\..\..\..\core\framework\sound\portable\*.h" />
     <ClInclude Include="..\..\..\..\core\framework\sound\windows\*.h" />
     <ClInclude Include="..\..\..\..\core\framework\state\*.h" />
     <ClInclude Include="..\..\..\..\core\framework\ui\direct3d\portable\*.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="..\..\..\..\core\framework\entity\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\math\*.cpp" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\portable\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\state\*.cpp" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\portable\*.cpp" />
@@ -260,6 +262,7 @@
     <ClCompile Include="..\..\..\..\core\framework\entity\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\file\windows\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\math\*.c" />
+    <ClCompile Include="..\..\..\..\core\framework\sound\portable\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\sound\windows\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\state\*.c" />
     <ClCompile Include="..\..\..\..\core\framework\ui\direct3d\portable\*.c" />
