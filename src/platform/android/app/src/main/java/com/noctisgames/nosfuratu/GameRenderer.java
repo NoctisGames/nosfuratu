@@ -286,10 +286,10 @@ public final class GameRenderer implements Renderer
                     _soundManager.resumeMusic();
                     break;
                 case MUSIC_PLAY:
-                    _soundManager.playMusic(0.5f, false);
+                    _soundManager.playMusic(1.0f, false);
                     break;
                 case MUSIC_PLAY_LOOP:
-                    _soundManager.playMusic(0.5f, true);
+                    _soundManager.playMusic(1.0f, true);
                     break;
                 case MUSIC_SET_VOLUME:
                 {
