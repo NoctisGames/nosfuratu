@@ -37,6 +37,7 @@ m_fDeltaTime(FRAME_RATE),
 m_fScreenHeldTime(0),
 m_isRequestingRender(false),
 m_iRequestedAction(REQUESTED_ACTION_UPDATE),
+m_iNumInternalUpdates(0),
 m_isPaused(false),
 m_isScreenHeldDown(false),
 m_fFrameStateTime(0),
@@ -144,6 +145,7 @@ void MainScreen::update(float deltaTime)
     }
 #endif
     
+    m_iNumInternalUpdates = 0;
     m_fFrameStateTime += deltaTime;
     while (m_fFrameStateTime >= FRAME_RATE)
     {
@@ -157,6 +159,7 @@ void MainScreen::update(float deltaTime)
 
 void MainScreen::internalUpdate()
 {
+    m_iNumInternalUpdates++;
 	m_fDeltaTime = FRAME_RATE;
 
     SCREEN_INPUT_MANAGER->process();

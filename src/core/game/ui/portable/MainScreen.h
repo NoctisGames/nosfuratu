@@ -71,6 +71,7 @@ public:
     float m_fScreenHeldTime;
     bool m_isRequestingRender;
     int m_iRequestedAction;
+    int m_iNumInternalUpdates;
     bool m_isPaused;
     bool m_isScreenHeldDown;
     bool m_hasSwiped;

@@ -58,7 +58,7 @@ void TitleToWorldMap::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -141,7 +141,7 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -227,7 +227,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -309,7 +309,7 @@ void TitleToLevelEditor::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -381,19 +381,23 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
-        if (m_fTransitionStateTime > 0.5f)
+        for (int i = 0; i < ms->m_iNumInternalUpdates; i++)
         {
-            if (!m_hasPlayedTransitionSound)
+            m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
+            if (m_fTransitionStateTime > 0.5f)
             {
-                m_fTransitionStateTime = 0.5f;
+                if (!m_hasPlayedTransitionSound)
+                {
+                    m_fTransitionStateTime = 0.5f;
+                }
             }
+            
+            m_fFade = m_fTransitionStateTime * 2;
+            
+            WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
         }
         
-        m_fFade = m_fTransitionStateTime * 2;
-        
         WorldMap::getInstance()->setFade(m_fFade);
-        WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
         
         ms->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         ms->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
@@ -407,7 +411,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -495,16 +499,19 @@ void WorldMapToLevel::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
-        if (m_fTransitionStateTime > 0.5f)
+        for (int i = 0; i < ms->m_iNumInternalUpdates; i++)
         {
-            if (!m_hasPlayedTransitionSound)
+            m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
+            if (m_fTransitionStateTime > 0.5f)
             {
-                m_fTransitionStateTime = 0.5f;
+                if (!m_hasPlayedTransitionSound)
+                {
+                    m_fTransitionStateTime = 0.5f;
+                }
             }
+            
+            m_fFade = m_fTransitionStateTime * 2;
         }
-        
-        m_fFade = m_fTransitionStateTime * 2;
         
         WorldMap::getInstance()->setFade(m_fFade);
         
@@ -522,7 +529,7 @@ void WorldMapToLevel::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();
@@ -658,7 +665,7 @@ void LevelToComingSoon::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         
         ms->m_renderer->renderToScreen();

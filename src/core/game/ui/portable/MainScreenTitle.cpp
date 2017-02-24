@@ -51,7 +51,7 @@ void Title::execute(MainScreen* ms)
         
         if (ms->m_renderer->isLoadingData())
         {
-            ms->m_renderer->renderLoading(ms->m_fDeltaTime);
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
         }
         else
         {
