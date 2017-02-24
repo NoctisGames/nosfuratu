@@ -90,6 +90,8 @@ protected:
     
     virtual bool calcIsJonLanding(Jon* jon, float deltaTime);
 
+    virtual void handleJonInKillRange(Jon& jon);
+    
 	void handleJon();
     
 private:
@@ -193,6 +195,7 @@ protected:
     virtual void handleAlive(float deltaTime);
     virtual void handleDying(float deltaTime);
     virtual void handleDead(float deltaTime);
+    virtual void handleJonInKillRange(Jon& jon);
     
 private:
     bool m_isDeadPart1;

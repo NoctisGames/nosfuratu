@@ -272,6 +272,11 @@ bool Enemy::calcIsJonLanding(Jon *jon, float deltaTime)
     return false;
 }
 
+void Enemy::handleJonInKillRange(Jon& jon)
+{
+    jon.kill();
+}
+
 void Enemy::handleJon()
 {
 	Jon& jon = m_game->getJon();
@@ -295,7 +300,7 @@ void Enemy::handleJon()
             return;
         }
         
-        jon.kill();
+        handleJonInKillRange(jon);
     }
 }
 
@@ -521,6 +526,29 @@ void Toad::handleDead(float deltaTime)
         {
             m_isRequestingDeletion = true;
         }
+    }
+}
+
+void Toad::handleJonInKillRange(Jon& jon)
+{
+    m_fStateTime = 0.50f;
+    m_isEating = true;
+    
+    m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
+    
+    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+    
+    if (!jon.isConsumed())
+    {
+        jon.consume();
+    }
+    
+    jon.getPosition().set(getMainBounds().getLeft() + getMainBounds().getWidth() / 2, getPosition().getY());
+    jon.updateBounds();
+    
+    if (!m_isJonVampire)
+    {
+        jon.kill();
     }
 }
 
