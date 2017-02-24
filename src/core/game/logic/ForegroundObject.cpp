@@ -1024,7 +1024,7 @@ void BlockingObject::updateBounds()
         Vector2D &lowerLeft = bounds->getLowerLeft();
         lowerLeft.set(getMainBounds().getLowerLeft());
         
-        NGRect* normal = m_normalizedBounds.at(i);
+        NGRect* normal = m_normalizedBounds.at(i - 1);
         lowerLeft.add(getWidth() * normal->getLeft(), getHeight() * normal->getBottom());
         bounds->setWidth(getWidth() * normal->getWidth());
         bounds->setHeight(getHeight() * normal->getHeight());
