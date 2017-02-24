@@ -850,10 +850,18 @@ void Direct3DMain::loadSound(const wchar_t* waveFileName)
 
 void Direct3DMain::loadMusic(const wchar_t* waveFileName)
 {
-	m_music.reset();
-	m_music = std::make_unique<SoundEffect>(m_audEngine.get(), waveFileName);
+	if (m_musicLoop.get())
+	{
+		m_musicLoop->Stop();
+		m_musicLoop.reset();
+	}
 
-	m_musicLoop.reset();
+	if (m_music.get())
+	{
+		m_music.reset();
+	}
+
+	m_music = std::make_unique<SoundEffect>(m_audEngine.get(), waveFileName);
 	m_musicLoop = m_music->CreateInstance();
 }
 #pragma endregion
