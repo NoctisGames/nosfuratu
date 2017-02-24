@@ -84,8 +84,6 @@
 
 - (void)scan
 {
-//    [self performSelector:@selector(scan) withObject:nil afterDelay:5];
-    
     NSArray * joysticks = [DDHidJoystick allJoysticks];
     
     [mJoystickButtons removeAllObjects];
@@ -156,7 +154,6 @@
     mJoystickAxis[index] = x;
     
     GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_STICK_LEFT, [joystick tag], mJoystickAxis[index], mJoystickAxis[index + 1]);
-    //NSLog(@"X Value %f", x);
 }
 
 - (void)ddhidJoystick:(DDHidJoystick *)joystick
@@ -172,7 +169,6 @@
     mJoystickAxis[index + 1] = y;
     
     GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_STICK_LEFT, [joystick tag], mJoystickAxis[index], mJoystickAxis[index + 1]);
-    //NSLog(@"Y Value %f", y);
 }
 
 - (void)ddhidJoystick:(DDHidJoystick *)joystick
@@ -188,8 +184,6 @@
              povNumber:(unsigned)povNumber
           valueChanged:(int)value;
 {
-    //NSLog(@"Stick: %d, POV number: %d, changed: %d", stick, povNumber, value);
-    
     if (value == -1)
     {
         if (self.lastDPadEvent != GamePadEventType_NONE)
