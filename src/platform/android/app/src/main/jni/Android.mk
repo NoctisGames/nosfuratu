@@ -32,6 +32,7 @@ LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/entity/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/math/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/network/client/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/state/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/
