@@ -497,8 +497,9 @@ void SaveData::setNumGoldenCarrots(int numGoldenCarrots)
 
 int SaveData::getViewedCutscenesFlag()
 {
+	int ret = 0;
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	// Empty
+	ret = 1;
 #else
 	ApplicationDataContainer^ localSettings = ApplicationData::Current->LocalSettings;
 
@@ -512,11 +513,11 @@ int SaveData::getViewedCutscenesFlag()
 
 	if (hasValue)
 	{
-		return safe_cast<int>(values->Lookup(key));
+		ret = safe_cast<int>(values->Lookup(key));
 	}
 #endif
 	
-	return 0;
+	return ret;
 }
 
 void SaveData::setViewedCutscenesFlag(int viewedCutscenesFlag)
