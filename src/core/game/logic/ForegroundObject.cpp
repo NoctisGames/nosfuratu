@@ -12,6 +12,7 @@
 #include "Assets.h"
 #include "Game.h"
 #include "SoundManager.h"
+#include "VectorUtil.h"
 
 ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
 {
@@ -1007,21 +1008,97 @@ void SpikedBallChain::trigger()
 	m_color.alpha = 0;
 }
 
+BlockingObject::~BlockingObject()
+{
+    VectorUtil::cleanUpVectorOfPointers(m_normalizedBounds);
+}
+
+void BlockingObject::updateBounds()
+{
+    ForegroundObject::updateBounds();
+    
+    unsigned long len = getBounds().size();
+    for (int i = 1; i < len; i++)
+    {
+        NGRect* bounds = getBounds().at(i);
+        Vector2D &lowerLeft = bounds->getLowerLeft();
+        lowerLeft.set(getMainBounds().getLowerLeft());
+        
+        NGRect* normal = m_normalizedBounds.at(i);
+        lowerLeft.add(getWidth() * normal->getLeft(), getHeight() * normal->getBottom());
+        bounds->setWidth(getWidth() * normal->getWidth());
+        bounds->setHeight(getHeight() * normal->getHeight());
+    }
+}
+
+bool BlockingObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    unsigned long len = getBounds().size();
+    for (int i = 1; i < len; i++)
+    {
+        NGRect* bounds = getBounds().at(i);
+        if (ForegroundObject::isEntityLanding(entity, *bounds, deltaTime))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool BlockingObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+{
+    unsigned long len = getBounds().size();
+    for (int i = 1; i < len; i++)
+    {
+        NGRect* bounds = getBounds().at(i);
+        if (ForegroundObject::isEntityBlockedOnRight(entity, *bounds, deltaTime))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool BlockingObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+    unsigned long len = getBounds().size();
+    for (int i = 1; i < len; i++)
+    {
+        NGRect* bounds = getBounds().at(i);
+        if (ForegroundObject::isEntityBlockedOnLeft(entity, *bounds, deltaTime))
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 bool BlockingObject::isJonBlockedAbove(Jon &jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
     
-    if (entityVelocityY > 0 && OverlapTester::doNGRectsOverlap(jon.getMainBounds(), getMainBounds()))
+    if (entityVelocityY > 0)
     {
-        float entityLeft = jon.getMainBounds().getLeft();
-        float itemLeft = getMainBounds().getLeft();
-        
-        if (itemLeft < entityLeft)
+        unsigned long len = getBounds().size();
+        for (int i = 1; i < len; i++)
         {
-            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
-            jon.updateBounds();
-            
-            return true;
+            NGRect* bounds = getBounds().at(i);
+            if (OverlapTester::doNGRectsOverlap(jon.getMainBounds(), *bounds))
+            {
+                float entityLeft = jon.getMainBounds().getLeft();
+                float itemLeft = getMainBounds().getLeft();
+                
+                if (itemLeft < entityLeft)
+                {
+                    jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+                    jon.updateBounds();
+                    
+                    return true;
+                }
+            }
         }
     }
     

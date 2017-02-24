@@ -538,9 +538,95 @@ class BlockingObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
+    {
+        switch (type)
+        {
+            case ForegroundObjectType_Stone_Bottom:
+            {
+                static float sz = 384.0f;
+                
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                
+                m_normalizedBounds.push_back(new NGRect(20 / sz, 0, 348 / sz, 157 / sz));
+                m_normalizedBounds.push_back(new NGRect(40 / sz, 170 / sz, 304 / sz, 58 / sz));
+                m_normalizedBounds.push_back(new NGRect(144 / sz, 230 / sz, 116 / sz, 138 / sz));
+            }
+                break;
+            case ForegroundObjectType_Stone_Middle:
+            {
+                static float sz = 384.0f;
+                
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                
+                m_normalizedBounds.push_back(new NGRect(187 / sz, 12 / sz, 81 / sz, 78 / sz));
+                m_normalizedBounds.push_back(new NGRect(77 / sz, 97 / sz, 200 / sz, 56 / sz));
+                m_normalizedBounds.push_back(new NGRect(18 / sz, 163 / sz, 317 / sz, 50 / sz));
+                m_normalizedBounds.push_back(new NGRect(66 / sz, 217 / sz, 249 / sz, 63 / sz));
+                m_normalizedBounds.push_back(new NGRect(122 / sz, 282 / sz, 114 / sz, 73 / sz));
+            }
+                break;
+            case ForegroundObjectType_Stone_Top:
+            {
+                static float szw = 448.0f;
+                static float szh = 384.0f;
+                
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                
+                m_normalizedBounds.push_back(new NGRect(8 / szw, 329 / szh, 432 / szw, 38 / szh));
+                m_normalizedBounds.push_back(new NGRect(44 / szw, 255 / szh, 360 / szw, 69 / szh));
+                m_normalizedBounds.push_back(new NGRect(118 / szw, 118 / szh, 243 / szw, 135 / szh));
+                m_normalizedBounds.push_back(new NGRect(158 / szw, 32 / szh, 152 / szw, 84 / szh));
+            }
+                break;
+            case ForegroundObjectType_Stone_Platform:
+            {
+                static float szw = 448.0f;
+                static float szh = 112.0f;
+                
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                
+                m_normalizedBounds.push_back(new NGRect(8 / szw, 57 / szh, 432 / szw, 38 / szh));
+                m_normalizedBounds.push_back(new NGRect(41 / szw, 20 / szh, 358 / szw, 38 / szh));
+            }
+                break;
+            case ForegroundObjectType_Stone_Square:
+            {
+                static float sz = 384.0f;
+                
+                m_bounds.push_back(new NGRect(0, 0, 1, 1));
+                m_normalizedBounds.push_back(new NGRect(8 / sz, 8 / sz, 368 / sz, 368 / sz));
+            }
+                break;
+            default:
+                assert(false);
+        }
+    }
+    
+    virtual ~BlockingObject();
+    
+    virtual void updateBounds();
+    
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
+    
+private:
+    std::vector<NGRect *> m_normalizedBounds;
 };
 
 #endif /* defined(__nosfuratu__ForegroundObject__) */

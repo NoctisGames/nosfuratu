@@ -24,6 +24,8 @@ class PhysicalEntity : public Entity
 public:
     PhysicalEntity(float x, float y, float width, float height);
     
+    virtual ~PhysicalEntity();
+    
     virtual void update(float deltaTime);
 
     virtual void resetBounds(float width, float height);
