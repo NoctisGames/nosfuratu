@@ -162,62 +162,6 @@ void WorldMap::execute(MainScreen* ms)
         {
             switch ((*i)->getType())
             {
-                case GamePadEventType_STICK_LEFT:
-                case GamePadEventType_STICK_RIGHT:
-                {
-                    float x = (*i)->getX();
-                    float y = (*i)->getY();
-                    
-                    if (x > 0.8f)
-                    {
-                        m_iStickNavDirection = 0;
-                        return;
-                    }
-                    else if (x < -0.8f)
-                    {
-                        m_iStickNavDirection = 2;
-                        return;
-                    }
-                    
-                    if (y > 0.8f)
-                    {
-                        m_iStickNavDirection = 1;
-                        return;
-                    }
-                    else if (y < -0.8f)
-                    {
-                        m_iStickNavDirection = 3;
-                        return;
-                    }
-                    
-                    if (x < 0.1f
-                        && x > -0.1f
-                        && y > -0.1f
-                        && y > -0.1f)
-                    {
-                        int dir = m_iStickNavDirection;
-                        m_iStickNavDirection = -1;
-                        
-                        switch (dir)
-                        {
-                            case 0:
-                                navRight();
-                                return;
-                            case 1:
-                                navUp();
-                                return;
-                            case 2:
-                                navLeft();
-                                return;
-                            case 3:
-                                navDown();
-                                return;
-                            default:
-                                return;
-                        }
-                    }
-                }
-                    continue;
                 case GamePadEventType_D_PAD_RIGHT:
                 {
                     if ((*i)->isButtonPressed())
