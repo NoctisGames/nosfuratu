@@ -138,12 +138,10 @@ void WorldMap::execute(MainScreen* ms)
                 case KeyboardEventType_SPACE:
                 case KeyboardEventType_ENTER:
                 {
-                    if ((*i)->isUp()
-                        && m_clickedLevel
-                        && m_clickedLevel->isSelected())
+                    if ((*i)->isUp())
                     {
                         MAIN_ASSETS->setUsingGamePadTextureSet(false);
-                        startLevel();
+                        navSelect(ms);
                         return;
                     }
                 }
@@ -232,12 +230,10 @@ void WorldMap::execute(MainScreen* ms)
                 case GamePadEventType_A_BUTTON:
                 case GamePadEventType_START_BUTTON:
                 {
-                    if ((*i)->isButtonPressed()
-                        && m_clickedLevel
-                        && m_clickedLevel->isSelected())
+                    if ((*i)->isButtonPressed())
                     {
                         MAIN_ASSETS->setUsingGamePadTextureSet(true);
-                        startLevel();
+                        navSelect(ms);
                         return;
                     }
                 }
@@ -880,6 +876,32 @@ void WorldMap::validateAbilityFlag()
 
 void WorldMap::navRight()
 {
+    if (m_viewOpeningCutsceneButton->isSelected())
+    {
+        m_viewOpeningCutsceneButton->deselect();
+        
+        LevelThumbnail* newLevel = getLevelThumbnail(1, 1);
+        selectLevel(newLevel);
+        
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        
+  
+        return;
+    }
+    
+    if (m_toggleMusic->isSelected())
+    {
+        m_toggleMusic->deselect();
+        m_toggleSound->select();
+        
+        return;
+    }
+    
+    if (m_toggleSound->isSelected())
+    {
+        return;
+    }
+    
     if (!m_clickedLevel)
     {
         return;
@@ -909,6 +931,25 @@ void WorldMap::navRight()
 
 void WorldMap::navUp()
 {
+    if (m_viewOpeningCutsceneButton->isSelected())
+    {
+        return;
+    }
+    
+    if (m_toggleMusic->isSelected())
+    {
+        m_toggleMusic->deselect();
+        m_viewOpeningCutsceneButton->select();
+        return;
+    }
+    
+    if (m_toggleSound->isSelected())
+    {
+        m_toggleSound->deselect();
+        m_viewOpeningCutsceneButton->select();
+        return;
+    }
+    
     if (!m_clickedLevel)
     {
         return;
@@ -958,6 +999,23 @@ void WorldMap::navUp()
 
 void WorldMap::navLeft()
 {
+    if (m_viewOpeningCutsceneButton->isSelected())
+    {
+        return;
+    }
+    
+    if (m_toggleMusic->isSelected())
+    {
+        return;
+    }
+    
+    if (m_toggleSound->isSelected())
+    {
+        m_toggleSound->deselect();
+        m_toggleMusic->select();
+        return;
+    }
+    
     if (!m_clickedLevel)
     {
         return;
@@ -983,10 +1041,32 @@ void WorldMap::navLeft()
         
         SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
+    else if (level == 1)
+    {
+        onButtonSelected();
+        m_viewOpeningCutsceneButton->select();
+    }
 }
 
 void WorldMap::navDown()
 {
+    if (m_viewOpeningCutsceneButton->isSelected())
+    {
+        m_viewOpeningCutsceneButton->deselect();
+        m_toggleMusic->select();
+        return;
+    }
+    
+    if (m_toggleMusic->isSelected())
+    {
+        return;
+    }
+    
+    if (m_toggleSound->isSelected())
+    {
+        return;
+    }
+    
     if (!m_clickedLevel)
     {
         return;
@@ -1032,6 +1112,48 @@ void WorldMap::navDown()
         
         SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
     }
+}
+
+void WorldMap::navSelect(MainScreen* ms)
+{
+    if (m_viewOpeningCutsceneButton->isSelected())
+    {
+        m_viewOpeningCutsceneButton->click();
+        WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
+        ms->m_stateMachine.changeState(WorldMapToOpeningCutscene::getInstance());
+        m_userHasClickedOpeningCutscene = true;
+        m_clickedLevel = nullptr;
+    }
+    if (m_toggleMusic->isSelected())
+    {
+        m_toggleMusic->click();
+        SOUND_MANAGER->setMusicEnabled(!SOUND_MANAGER->isMusicEnabled());
+        m_toggleMusic->getColor().alpha = SOUND_MANAGER->isMusicEnabled() ? 1 : 0.35f;
+        
+    }
+    else if (m_toggleSound->isSelected())
+    {
+        m_toggleMusic->click();
+        SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
+        m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
+    }
+    else if (m_clickedLevel
+        && m_clickedLevel->isSelected())
+    {
+        startLevel();
+    }
+}
+
+void WorldMap::onButtonSelected()
+{
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    {
+        (*j)->deselect();
+    }
+    
+    m_goldenCarrotsMarker->config(1337, 1337, 0);
+    
+    m_scoreMarker->config(1337, 1337, 0);
 }
 
 LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)

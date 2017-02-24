@@ -664,6 +664,10 @@ private:
     
     void navDown();
     
+    void navSelect(MainScreen* ms);
+    
+    void onButtonSelected();
+    
     LevelThumbnail * getLevelThumbnail(int world, int level);
     
     // ctor, copy ctor, and assignment should be private in a Singleton

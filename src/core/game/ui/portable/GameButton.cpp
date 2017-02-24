@@ -69,7 +69,7 @@ GameButton* GameButton::create(GameButtonType type)
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isClicked(false)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false)
 {
     // Empty
 }
@@ -78,21 +78,20 @@ void GameButton::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_isClicked)
+    if (m_isSelected)
     {
-        m_fWidth -= deltaTime;
-        m_fHeight -= deltaTime;
-        
-        if (m_fWidth < (m_fOriginalWidth * 0.84f)
-            || m_fHeight < (m_fOriginalHeight * 0.84f))
+        if (m_isShrinking)
         {
-            m_isClicked = false;
+            m_fWidth -= deltaTime;
+            m_fHeight -= deltaTime;
+            
+            if (m_fWidth < (m_fOriginalWidth * 0.84f)
+                || m_fHeight < (m_fOriginalHeight * 0.84f))
+            {
+                m_isShrinking = false;
+            }
         }
-    }
-    else
-    {
-        if (m_fWidth < m_fOriginalWidth
-            || m_fHeight < m_fOriginalHeight)
+        else
         {
             m_fWidth += deltaTime;
             m_fHeight += deltaTime;
@@ -100,11 +99,13 @@ void GameButton::update(float deltaTime)
             if (m_fWidth > m_fOriginalWidth)
             {
                 m_fWidth = m_fOriginalWidth;
+                m_isShrinking = true;
             }
             
             if (m_fHeight > m_fOriginalHeight)
             {
                 m_fHeight = m_fOriginalHeight;
+                m_isShrinking = true;
             }
         }
     }
@@ -119,7 +120,7 @@ bool GameButton::handleClick(Vector2D& touchPoint)
 {
     if (OverlapTester::isPointInNGRect(touchPoint, getMainBounds()))
     {
-        m_isClicked = true;
+        m_isSelected = true;
         
         SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
         
@@ -127,6 +128,37 @@ bool GameButton::handleClick(Vector2D& touchPoint)
     }
     
     return false;
+}
+
+void GameButton::select()
+{
+    m_fWidth = m_fOriginalWidth;
+    m_fHeight = m_fOriginalHeight;
+    m_isSelected = true;
+    m_isShrinking = true;
+}
+
+void GameButton::deselect()
+{
+    m_fWidth = m_fOriginalWidth;
+    m_fHeight = m_fOriginalHeight;
+    m_isSelected = false;
+    m_isShrinking = false;
+}
+
+void GameButton::click()
+{
+    m_fWidth = m_fOriginalWidth;
+    m_fHeight = m_fOriginalHeight;
+    m_isSelected = true;
+    m_isShrinking = true;
+    
+    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+}
+
+bool GameButton::isSelected()
+{
+    return m_isSelected;
 }
 
 RTTI_IMPL(GameButton, PhysicalEntity);

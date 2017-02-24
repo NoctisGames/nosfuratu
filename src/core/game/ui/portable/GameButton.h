@@ -43,12 +43,21 @@ public:
     
     bool handleClick(Vector2D& touchPoint);
     
+    void select();
+    
+    void deselect();
+    
+    void click();
+    
+    bool isSelected();
+    
 private:
     GameButtonType m_type;
     Color m_color;
     float m_fOriginalWidth;
     float m_fOriginalHeight;
-    bool m_isClicked;
+    bool m_isSelected;
+    bool m_isShrinking;
 };
 
 #endif /* defined(__nosfuratu__GameButton__) */
