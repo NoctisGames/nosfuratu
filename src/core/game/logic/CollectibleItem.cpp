@@ -23,6 +23,8 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
             return new Carrot(gridX, gridY);
         case CollectibleItemType_GoldenCarrot:
             return new GoldenCarrot(gridX, gridY);
+        case CollectibleItemType_BigCarrot:
+            return new BigCarrot(gridX, gridY);
     }
     
     assert(false);
@@ -260,7 +262,21 @@ bool GoldenCarrot::isPreviouslyCollected()
     return m_isPreviouslyCollected;
 }
 
+void BigCarrot::update(float deltaTime)
+{
+    CollectibleItem::update(deltaTime);
+    
+    if (m_isCollected)
+    {
+        if (m_fStateTime > 0.48f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
 RTTI_IMPL(CollectibleItem, GridLockedPhysicalEntity);
 RTTI_IMPL(Carrot, CollectibleItem);
 RTTI_IMPL(GoldenCarrotTwinkle, PhysicalEntity);
 RTTI_IMPL(GoldenCarrot, CollectibleItem);
+RTTI_IMPL(BigCarrot, CollectibleItem);

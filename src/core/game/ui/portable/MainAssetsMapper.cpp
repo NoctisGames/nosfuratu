@@ -154,6 +154,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["CollectibleItemType_Carrot_Not_Collected"] = new TextureRegion("world_1_objects_part_1", 0, 3204, 218, 224, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["CollectibleItemType_GoldenCarrot_Previously_Collected"] = new TextureRegion("world_1_objects_part_1", 2286, 3204, 254, 224, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["CollectibleItemType_GoldenCarrot_Not_Collected"] = new TextureRegion("world_1_objects_part_1", 2032, 3204, 254, 224, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["CollectibleItemType_BigCarrot_Not_Collected"] = new TextureRegion("world_1_objects_part_1", 3028, 248, 432, 432, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["GameButtonType_ToggleMusic"] = new TextureRegion("world_map_screen_part_1", 1244, 72, 128, 128, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_ToggleSound"] = new TextureRegion("world_map_screen_part_1", 1244, 204, 128, 128, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_BackToTitle"] = new TextureRegion("world_map_screen_part_1", 1800, 0, 104, 104, TEXTURE_SIZE_2048);
@@ -300,6 +301,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["EnemySpiritType_Sparrow"] = new Animation("world_1_enemies", 0, 856, 256, 512, 3072, 512, TEXTURE_SIZE_4096, false, 0.04166666666667f, 12);
     ASSETS->getAnimationsMap()["CollectibleItemType_Carrot_Collected"] = new Animation("world_1_objects_part_1", 0, 3204, 218, 224, 1744, 224, TEXTURE_SIZE_4096, false, 0.05f, 8);
     ASSETS->getAnimationsMap()["CollectibleItemType_GoldenCarrot_Collected"] = new Animation("world_1_objects_part_1", 0, 3432, 254, 224, 2794, 224, TEXTURE_SIZE_4096, false, 0.05f, 11);
+    ASSETS->getAnimationsMap()["CollectibleItemType_BigCarrot_Collected"] = new Animation("world_1_objects_part_1", 3028, 248, 432, 432, 864, 1296, TEXTURE_SIZE_4096, false, 0.08f, 6);
     ASSETS->getAnimationsMap()["GoldenCarrotTwinkle"] = new Animation("world_1_objects_part_1", 3004, 2004, 74, 78, 518, 78, TEXTURE_SIZE_4096, true, 0.10f, 7);
     {
         Animation* anim = new Animation("vampire", 2048, 2048, 256, 256, 2048, 768, TEXTURE_SIZE_4096, false, 19);

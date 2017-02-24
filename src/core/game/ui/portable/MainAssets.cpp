@@ -1680,6 +1680,19 @@ TextureRegion& MainAssets::get(CollectibleItem* collectibleItem)
                 return tr;
             }
         }
+        case CollectibleItemType_BigCarrot:
+        {
+            if (collectibleItem->isCollected())
+            {
+                static Animation anim = ASSETS->findAnimation("CollectibleItemType_BigCarrot_Collected");
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
+            else
+            {
+                static TextureRegion tr = ASSETS->findTextureRegion("CollectibleItemType_BigCarrot_Not_Collected");
+                return tr;
+            }
+        }
     }
     
     assert(false);

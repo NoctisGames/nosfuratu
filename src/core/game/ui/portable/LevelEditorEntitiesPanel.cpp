@@ -221,6 +221,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         
         m_collectibleItems.push_back(new Carrot(0, 0));
         m_collectibleItems.push_back(new GoldenCarrot(0, 0));
+        m_collectibleItems.push_back(new BigCarrot(0, 0));
         
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeOne));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_TreeTwo));

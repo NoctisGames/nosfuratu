@@ -21,7 +21,8 @@
 typedef enum
 {
     CollectibleItemType_Carrot,
-    CollectibleItemType_GoldenCarrot
+    CollectibleItemType_GoldenCarrot,
+    CollectibleItemType_BigCarrot
 } CollectibleItemType;
 
 class Game;
@@ -125,6 +126,16 @@ private:
     std::unique_ptr<GoldenCarrotTwinkle> m_goldenCarrotTwinkle;
     int m_iIndex;
     bool m_isPreviouslyCollected;
+};
+
+class BigCarrot : public CollectibleItem
+{
+    RTTI_DECL;
+    
+public:
+    BigCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 27, 27, SOUND_COLLECT_BIG_CARROT, CollectibleItemType_BigCarrot) {}
+    
+    virtual void update(float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */

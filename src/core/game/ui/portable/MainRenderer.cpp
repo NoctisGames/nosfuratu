@@ -1901,6 +1901,10 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
                 {
                     numCarrots++;
                 }
+                else if ((*i)->getType() == CollectibleItemType_BigCarrot)
+                {
+                    numCarrots += 10;
+                }
                 else if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
                 {
                     numGoldenCarrots++;

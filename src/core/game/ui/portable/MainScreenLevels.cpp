@@ -1089,6 +1089,12 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
                         break;
                 }
             }
+            else if ((*i)->getType() == CollectibleItemType_BigCarrot)
+            {
+                m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 10);
+                
+                GameTracker::getInstance()->onScored(SCORE_BIG_CARROT);
+            }
             else
             {
                 m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 1);
