@@ -26,7 +26,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false)
+Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false), m_isDeviceLost(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -431,7 +431,7 @@ void Direct3DMain::Clear()
 	auto renderTarget = m_deviceResources->GetRenderTargetView();
 	auto depthStencil = m_deviceResources->GetDepthStencilView();
 
-	context->ClearRenderTargetView(renderTarget, Colors::Black);
+	context->ClearRenderTargetView(renderTarget, Colors::ForestGreen);
 	context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 
@@ -447,42 +447,47 @@ void Direct3DMain::Clear()
 // Message handlers
 void Direct3DMain::OnActivated()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnActivated");
-#endif
+	// Game is becoming active window.
 
 	m_keys.Reset();
 	m_gamePad->Resume();
 	m_buttons.Reset();
 
-    // TODO: Game is becoming active window.
+	m_audEngine->Resume();
+
+	if (m_isDeviceLost)
+	{
+		OnDeviceRestored();
+	}
+
 	m_screen->onResume();
 }
 
 void Direct3DMain::OnDeactivated()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnDeactivated");
-#endif
+	// Game is becoming background window.
 
 	m_keys.Reset();
-
 	m_gamePad->Suspend();
 	m_buttons.Reset();
 
-    // TODO: Game is becoming background window.
+	m_audEngine->Suspend();
+
+	OnDeviceLost();
+
+	m_isDeviceLost = true;
+
 	m_screen->onPause();
 }
 
 void Direct3DMain::OnSuspending()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnSuspending");
-#endif
+	// Game is being power-suspended (or minimized).
 
+	m_keys.Reset();
 	m_gamePad->Suspend();
+	m_buttons.Reset();
 
-	// TODO: Game is being power-suspended (or minimized).
 	m_audEngine->Suspend();
 
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
@@ -499,13 +504,12 @@ void Direct3DMain::OnSuspending()
 
 void Direct3DMain::OnResuming()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnResuming");
-#endif
+	// Game is being power-resumed (or returning from minimize).
 
+	m_keys.Reset();
 	m_gamePad->Resume();
+	m_buttons.Reset();
 
-	// TODO: Game is being power-resumed (or returning from minimize).
 	m_timer.ResetElapsedTime();
 	
 	m_audEngine->Resume();
@@ -526,10 +530,6 @@ void Direct3DMain::OnWindowSizeChanged(int width, int height)
 #else
 void Direct3DMain::OnWindowSizeChanged(int width, int height, float dpi, DXGI_MODE_ROTATION rotation)
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnWindowSizeChanged");
-#endif
-
 	m_fDPI = dpi;
 
 	if (!m_deviceResources->WindowSizeChanged(width, height, rotation))
@@ -542,10 +542,6 @@ void Direct3DMain::OnWindowSizeChanged(int width, int height, float dpi, DXGI_MO
 
 void Direct3DMain::ValidateDevice()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"ValidateDevice");
-#endif
-
 	m_deviceResources->ValidateDevice();
 }
 #endif
@@ -553,8 +549,7 @@ void Direct3DMain::ValidateDevice()
 // Properties
 void Direct3DMain::GetDefaultSize(int& width, int& height) const
 {
-    // TODO: Change to desired default window size (note minimum size is 320x200).
-    width = 800;
+	width = 800;
     height = 600;
 }
 
@@ -578,20 +573,12 @@ void Direct3DMain::clearRequestedAction()
 // These are the resources that depend on the device.
 void Direct3DMain::CreateDeviceDependentResources()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"CreateDeviceDependentResources");
-#endif
-
 	m_screen->createDeviceDependentResources();
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Direct3DMain::CreateWindowSizeDependentResources()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"CreateWindowSizeDependentResources");
-#endif
-
 	RECT outputSize = m_deviceResources->GetOutputSize();
 	LONG width = outputSize.right - outputSize.left;
 	LONG height = outputSize.bottom - outputSize.top;
@@ -647,19 +634,11 @@ void Direct3DMain::endPixEvent(DX::DeviceResources* deviceResources)
 
 void Direct3DMain::OnDeviceLost()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnDeviceLost");
-#endif
-
 	m_screen->releaseDeviceDependentResources();
 }
 
 void Direct3DMain::OnDeviceRestored()
 {
-#if defined(_DEBUG)
-	OutputDebugStringW(L"OnDeviceRestored");
-#endif
-
 	CreateDeviceDependentResources();
 
 	CreateWindowSizeDependentResources();
@@ -913,7 +892,7 @@ void Direct3DMain::submitScoreOnline(int requestedAction)
 	int level = calcLevel(requestedAction);
 	int onlineScore = m_screen->getOnlineScore();
 
-	// TODO, submit score using Xbox Live or OpenXLive, on success, save the score that was pushed online
+	// TODO, submit score using Xbox Live, on success, save the score that was pushed online
 
 	SaveData::setScorePushedOnline(world, level, onlineScore);
 }

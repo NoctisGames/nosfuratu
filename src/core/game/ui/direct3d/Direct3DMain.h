@@ -83,6 +83,7 @@ private:
 	int m_iRequestedAction;
 	bool m_isPointerPressed;
 	bool m_retryAudio;
+	bool m_isDeviceLost;
 
     void Update(DX::StepTimer const& timer);
     void Render();
