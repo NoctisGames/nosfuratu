@@ -131,7 +131,6 @@ public final class GameRenderer implements Renderer
         Log.d("GameRenderer", "GL Surface changed!");
 
         Game.on_surface_changed(width, height);
-        Game.on_resume();
     }
 
     @Override

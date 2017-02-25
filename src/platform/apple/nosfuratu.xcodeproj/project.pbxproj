@@ -437,9 +437,7 @@
 		BB44C93B1DB03A7E003E633F /* rapidjson_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB44C6081DB03A7D003E633F /* rapidjson_readme.txt */; };
 		BB44C93C1DB03A7E003E633F /* rapidjson_readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB44C6081DB03A7D003E633F /* rapidjson_readme.txt */; };
 		BB44CAEE1DB04B13003E633F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CAED1DB04B13003E633F /* Cocoa.framework */; };
-		BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */; };
-		BB44CB091DB04C83003E633F /* GLEssentialsGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* GLEssentialsGLView.mm */; };
-		BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */; };
+		BB44CB091DB04C83003E633F /* NGOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* NGOpenGLView.mm */; };
 		BB44CB0F1DB04E81003E633F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB0E1DB04E81003E633F /* OpenGL.framework */; };
 		BB44CB811DB053C0003E633F /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5801DB03A7C003E633F /* png.c */; };
 		BB44CB821DB053C0003E633F /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5861DB03A7C003E633F /* pngerror.c */; };
@@ -642,7 +640,6 @@
 		BBB1E3351E60A54C00201A0C /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB381E5645F400AC8197 /* ConfirmExitPanel.cpp */; };
 		BBB1E3361E60A54C00201A0C /* MainScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB441E5645F400AC8197 /* MainScreen.cpp */; };
 		BBB1E3371E60A54C00201A0C /* GpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F86C1E563C2100AC8197 /* GpuProgramWrapper.cpp */; };
-		BBB1E3381E60A54C00201A0C /* GLEssentialsWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */; };
 		BBB1E3391E60A54C00201A0C /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3501DB03267003E633F /* SaveData.m */; };
 		BBB1E33A1E60A54C00201A0C /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB051E5645F400AC8197 /* OpenGLFramebufferTintGpuProgramWrapper.cpp */; };
 		BBB1E33B1E60A54C00201A0C /* MainScreenOpeningCutscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB4C1E5645F400AC8197 /* MainScreenOpeningCutscene.cpp */; };
@@ -779,8 +776,7 @@
 		BBB1E3C01E60A54C00201A0C /* ExitGround.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAB61E5645F400AC8197 /* ExitGround.cpp */; };
 		BBB1E3C11E60A54C00201A0C /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
 		BBB1E3C21E60A54C00201A0C /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7B61E563C2100AC8197 /* Entity.cpp */; };
-		BBB1E3C31E60A54C00201A0C /* GLEssentialsGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* GLEssentialsGLView.mm */; };
-		BBB1E3C41E60A54C00201A0C /* GLEssentialsFullscreenWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */; };
+		BBB1E3C31E60A54C00201A0C /* NGOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* NGOpenGLView.mm */; };
 		BBB1E3C51E60A54C00201A0C /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */; };
 		BBB1E3C61E60A54C00201A0C /* EnemySpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAB31E5645F400AC8197 /* EnemySpirit.cpp */; };
 		BBB1E3C71E60A54C00201A0C /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */; };
@@ -1555,12 +1551,8 @@
 		BB44C60B1DB03A7D003E633F /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
 		BB44CAED1DB04B13003E633F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB001DB04C67003E633F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		BB44CB021DB04C83003E633F /* GLEssentialsFullscreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEssentialsFullscreenWindow.h; sourceTree = "<group>"; };
-		BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLEssentialsFullscreenWindow.mm; sourceTree = "<group>"; };
-		BB44CB041DB04C83003E633F /* GLEssentialsGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEssentialsGLView.h; sourceTree = "<group>"; };
-		BB44CB051DB04C83003E633F /* GLEssentialsGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLEssentialsGLView.mm; sourceTree = "<group>"; };
-		BB44CB061DB04C83003E633F /* GLEssentialsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLEssentialsWindowController.h; sourceTree = "<group>"; };
-		BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLEssentialsWindowController.mm; sourceTree = "<group>"; };
+		BB44CB041DB04C83003E633F /* NGOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGOpenGLView.h; sourceTree = "<group>"; };
+		BB44CB051DB04C83003E633F /* NGOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NGOpenGLView.mm; sourceTree = "<group>"; };
 		BB44CB0E1DB04E81003E633F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB101DB04E9D003E633F /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB911DB05468003E633F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -2620,16 +2612,12 @@
 				BB44C3201DB030B3003E633F /* AppDelegate.m */,
 				BB44C3211DB030B3003E633F /* Assets.xcassets */,
 				BB44CAEC1DB04B13003E633F /* Frameworks */,
-				BB44CB021DB04C83003E633F /* GLEssentialsFullscreenWindow.h */,
-				BB44CB031DB04C83003E633F /* GLEssentialsFullscreenWindow.mm */,
-				BB44CB041DB04C83003E633F /* GLEssentialsGLView.h */,
-				BB44CB051DB04C83003E633F /* GLEssentialsGLView.mm */,
-				BB44CB061DB04C83003E633F /* GLEssentialsWindowController.h */,
-				BB44CB071DB04C83003E633F /* GLEssentialsWindowController.mm */,
 				BB44C3241DB030B3003E633F /* Info.plist */,
 				BB13BD4B1E58E0800073C08F /* JoystickController.h */,
 				BB13BD4C1E58E0800073C08F /* JoystickController.mm */,
 				BB44C3221DB030B3003E633F /* Main.storyboard */,
+				BB44CB041DB04C83003E633F /* NGOpenGLView.h */,
+				BB44CB051DB04C83003E633F /* NGOpenGLView.mm */,
 				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 			);
 			path = mac;
@@ -3695,7 +3683,6 @@
 				BB34FCC51E5645F500AC8197 /* ConfirmExitPanel.cpp in Sources */,
 				BB34FCDD1E5645F500AC8197 /* MainScreen.cpp in Sources */,
 				BB34F9FB1E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
-				BB44CB0A1DB04C83003E633F /* GLEssentialsWindowController.mm in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB34FC451E5645F500AC8197 /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BB34FCED1E5645F500AC8197 /* MainScreenOpeningCutscene.cpp in Sources */,
@@ -3832,8 +3819,7 @@
 				BB34FB991E5645F400AC8197 /* ExitGround.cpp in Sources */,
 				BB34F9871E563C2300AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB34F8AF1E563C2100AC8197 /* Entity.cpp in Sources */,
-				BB44CB091DB04C83003E633F /* GLEssentialsGLView.mm in Sources */,
-				BB44CB081DB04C83003E633F /* GLEssentialsFullscreenWindow.mm in Sources */,
+				BB44CB091DB04C83003E633F /* NGOpenGLView.mm in Sources */,
 				BB34F99B1E563C2300AC8197 /* OpenGLRendererHelper.cpp in Sources */,
 				BB34FB951E5645F400AC8197 /* EnemySpirit.cpp in Sources */,
 				BB34F97F1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */,
@@ -3868,7 +3854,6 @@
 				BBB1E3351E60A54C00201A0C /* ConfirmExitPanel.cpp in Sources */,
 				BBB1E3361E60A54C00201A0C /* MainScreen.cpp in Sources */,
 				BBB1E3371E60A54C00201A0C /* GpuProgramWrapper.cpp in Sources */,
-				BBB1E3381E60A54C00201A0C /* GLEssentialsWindowController.mm in Sources */,
 				BBB1E3391E60A54C00201A0C /* SaveData.m in Sources */,
 				BBB1E33A1E60A54C00201A0C /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BBB1E33B1E60A54C00201A0C /* MainScreenOpeningCutscene.cpp in Sources */,
@@ -4005,8 +3990,7 @@
 				BBB1E3C01E60A54C00201A0C /* ExitGround.cpp in Sources */,
 				BBB1E3C11E60A54C00201A0C /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBB1E3C21E60A54C00201A0C /* Entity.cpp in Sources */,
-				BBB1E3C31E60A54C00201A0C /* GLEssentialsGLView.mm in Sources */,
-				BBB1E3C41E60A54C00201A0C /* GLEssentialsFullscreenWindow.mm in Sources */,
+				BBB1E3C31E60A54C00201A0C /* NGOpenGLView.mm in Sources */,
 				BBB1E3C51E60A54C00201A0C /* OpenGLRendererHelper.cpp in Sources */,
 				BBB1E3C61E60A54C00201A0C /* EnemySpirit.cpp in Sources */,
 				BBB1E3C71E60A54C00201A0C /* OpenGLCircleBatcher.cpp in Sources */,

@@ -1,12 +1,12 @@
-/*
- Copyright (C) 2015 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- OpenGL view subclass.
- */
+//
+//  NGOpenGLView.mm
+//  nosfuratu
+//
+//  Created by Stephen Gowen on 2/25/17.
+//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//
 
-#import "GLEssentialsGLView.h"
+#import "NGOpenGLView.h"
 
 #import "ScreenController.h"
 #import "JoystickController.h"
@@ -21,7 +21,7 @@
 
 #define SUPPORT_RETINA_RESOLUTION 1
 
-@interface GLEssentialsGLView ()
+@interface NGOpenGLView ()
 {
     MainScreen *_screen;
     ScreenController *_screenController;
@@ -31,7 +31,7 @@
 }
 @end
 
-@implementation GLEssentialsGLView
+@implementation NGOpenGLView
 
 - (CVReturn)getFrameForTime:(const CVTimeStamp *)outputTime
 {
@@ -54,7 +54,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
                                       CVOptionFlags* flagsOut,
                                       void* displayLinkContext)
 {
-    CVReturn result = [(__bridge GLEssentialsGLView *)displayLinkContext getFrameForTime:outputTime];
+    CVReturn result = [(__bridge NGOpenGLView *)displayLinkContext getFrameForTime:outputTime];
     return result;
 }
 
@@ -96,15 +96,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     }
 	   
     NSOpenGLContext* context = [[NSOpenGLContext alloc] initWithFormat:pf shareContext:nil];
-    
-#if ESSENTIAL_GL_PRACTICES_SUPPORT_GL3 && defined(DEBUG)
-    // When we're using a CoreProfile context, crash if we call a legacy OpenGL function
-    // This will make it much more obvious where and when such a function call is made so
-    // that we can remove such calls.
-    // Without this we'd simply get GL_INVALID_OPERATION error for calling legacy functions
-    // but it would be more difficult to see where that function was called.
-    CGLEnable([context CGLContextObj], kCGLCECrashOnRemovedFunctions);
-#endif
     
     [self setPixelFormat:pf];
     
@@ -278,6 +269,11 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     CVDisplayLinkRelease(displayLink);
     
     delete _screen;
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
