@@ -15,6 +15,7 @@
 #include "OpenGLManager.h"
 #include "GpuProgramWrapper.h"
 #include "GpuTextureWrapper.h"
+#include "Color.h"
 
 OpenGLSpriteBatcher::OpenGLSpriteBatcher()
 {
@@ -27,7 +28,7 @@ void OpenGLSpriteBatcher::beginBatch()
     m_iNumSprites = 0;
 }
 
-void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper& textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
 {
     if (m_iNumSprites > 0)
     {

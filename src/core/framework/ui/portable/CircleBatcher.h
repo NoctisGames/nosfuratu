@@ -9,10 +9,9 @@
 #ifndef __noctisgames__CircleBatcher__
 #define __noctisgames__CircleBatcher__
 
-#include "Color.h"
-
 class Circle;
 class GpuProgramWrapper;
+struct Color;
 
 class CircleBatcher
 {

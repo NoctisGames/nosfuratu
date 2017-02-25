@@ -12,10 +12,11 @@
 #include "Entity.h"
 
 #include "Vector2D.h"
-#include "NGRect.h"
 #include "RTTI.h"
 
 #include <vector>
+
+class NGRect;
 
 class PhysicalEntity : public Entity
 {

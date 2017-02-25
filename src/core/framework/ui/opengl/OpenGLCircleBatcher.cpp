@@ -14,6 +14,7 @@
 #include "Vector2D.h"
 #include "OpenGLManager.h"
 #include "DummyGpuProgramWrapper.h"
+#include "Color.h"
 
 OpenGLCircleBatcher::OpenGLCircleBatcher() : CircleBatcher()
 {

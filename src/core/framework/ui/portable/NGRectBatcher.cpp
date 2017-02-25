@@ -7,8 +7,10 @@
 //
 
 #include "NGRectBatcher.h"
+
 #include "NGRect.h"
 #include "Vector2D.h"
+#include "Color.h"
 
 NGRectBatcher::NGRectBatcher(bool isFill) : m_isFill(isFill), m_iNumNGRects(0)
 {

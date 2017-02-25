@@ -10,6 +10,7 @@
 
 #include "TextureRegion.h"
 #include "SpriteBatcher.h"
+#include "Color.h"
 
 Font::Font(std::string textureName, int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight)
 {

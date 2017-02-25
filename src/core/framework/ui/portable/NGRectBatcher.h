@@ -9,10 +9,9 @@
 #ifndef __noctisgames__NGRectBatcher__
 #define __noctisgames__NGRectBatcher__
 
-#include "Color.h"
-
 class GpuProgramWrapper;
 class NGRect;
+struct Color;
 
 class NGRectBatcher
 {

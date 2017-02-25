@@ -9,10 +9,9 @@
 #ifndef __noctisgames__LineBatcher__
 #define __noctisgames__LineBatcher__
 
-#include "Color.h"
-
 class Line;
 class GpuProgramWrapper;
+struct Color;
 
 class LineBatcher
 {

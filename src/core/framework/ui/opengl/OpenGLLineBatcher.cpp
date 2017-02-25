@@ -13,6 +13,7 @@
 #include "Vector2D.h"
 #include "OpenGLManager.h"
 #include "GpuProgramWrapper.h"
+#include "Color.h"
 
 OpenGLLineBatcher::OpenGLLineBatcher() : LineBatcher()
 {

@@ -21,7 +21,6 @@ extern "C"
 #include "linmath.h"
 }
 
-#include <memory>
 #include <vector>
 
 struct GpuTextureWrapper;

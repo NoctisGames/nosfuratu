@@ -12,6 +12,8 @@
 #include "NGRect.h"
 #include "Vector2D.h"
 #include "GpuProgramWrapper.h"
+#include "OpenGLManager.h"
+#include "Color.h"
 
 OpenGLNGRectBatcher::OpenGLNGRectBatcher(bool isFill) : NGRectBatcher(isFill)
 {

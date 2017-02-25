@@ -10,7 +10,9 @@
 #define __noctisgames__OpenGLNGRectBatcher__
 
 #include "NGRectBatcher.h"
-#include "OpenGLManager.h"
+
+class GpuProgramWrapper;
+struct Color;
 
 class OpenGLNGRectBatcher : public NGRectBatcher
 {

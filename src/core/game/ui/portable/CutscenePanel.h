@@ -13,6 +13,7 @@
 #include "GameConstants.h"
 #include "Color.h"
 #include "RTTI.h"
+#include "NGRect.h"
 
 #include <memory>
 

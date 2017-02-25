@@ -9,6 +9,7 @@
 #include "PhysicalEntity.h"
 
 #include "macros.h"
+#include "NGRect.h"
 #include "VectorUtil.h"
 
 PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity(),

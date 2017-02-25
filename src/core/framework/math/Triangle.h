@@ -10,7 +10,8 @@
 #define __noctisgames__Triangle__
 
 #include "Line.h"
-#include "Vector2D.h"
+
+class Vector2D;
 
 class Triangle
 {

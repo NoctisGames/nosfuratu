@@ -9,6 +9,7 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "GridManager.h"
+#include "NGRect.h"
 
 GridLockedPhysicalEntity::GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PhysicalEntity(gridX * GM_GRID_CELL_SIZE, gridY * GM_GRID_CELL_SIZE, gridWidth * GM_GRID_CELL_SIZE, gridHeight * GM_GRID_CELL_SIZE), m_iGridX(gridX), m_iGridY(gridY), m_iGridWidth(gridWidth), m_iGridHeight(gridHeight), m_fBoundsX(boundsX), m_fBoundsY(boundsY), m_fBoundsWidth(boundsWidth), m_fBoundsHeight(boundsHeight)
 {

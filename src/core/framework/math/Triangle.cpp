@@ -8,6 +8,8 @@
 
 #include "Triangle.h"
 
+#include "Vector2D.h"
+
 Triangle::Triangle(float x1, float y1, float x2, float y2, float x3, float y3) :
 m_sideA(x1, y1, x2, y2),
 m_sideB(x2, y2, x3, y3),

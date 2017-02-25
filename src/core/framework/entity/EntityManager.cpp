@@ -20,7 +20,7 @@ EntityManager* EntityManager::getInstance()
 
 Entity* EntityManager::getEntityFromID(int id)const
 {
-    EntityMap::const_iterator ent = m_entityMap.find(id);
+    std::map<int, Entity*>::const_iterator ent = m_entityMap.find(id);
     
     assert((ent != m_entityMap.end()) && "<EntityManager::getEntityFromID>: invalid ID");
     

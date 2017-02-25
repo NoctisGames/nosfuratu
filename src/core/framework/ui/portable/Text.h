@@ -24,20 +24,17 @@ public:
 
 	void setText(std::string text);
 
-    Color getColor();
+    Color& getColor();
 
 	void setColor(float red, float green, float blue, float alpha);
 
 private:
 	std::string m_strText;
+    Color m_color;
 	float m_fX;
 	float m_fY;
 	float m_fWidth;
 	float m_fHeight;
-	float m_fAlpha;
-	float m_fRed;
-	float m_fGreen;
-	float m_fBlue;
 };
 
 #endif /* defined(__noctisgames__Text__) */

@@ -8,8 +8,6 @@
 
 #include "IScreen.h"
 
-#include "TouchConverter.h"
-
 IScreen::IScreen()
 {
     // Empty

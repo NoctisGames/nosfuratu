@@ -7,8 +7,10 @@
 //
 
 #include "LineBatcher.h"
+
 #include "Line.h"
 #include "Vector2D.h"
+#include "Color.h"
 
 LineBatcher::LineBatcher() : m_iNumLines(0)
 {

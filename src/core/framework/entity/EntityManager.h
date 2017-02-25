@@ -9,13 +9,9 @@
 #ifndef __noctisgames__EntityManager__
 #define __noctisgames__EntityManager__
 
-#define EntityMgr (EntityManager::getInstance())
-
 #include <map>
 
 class Entity;
-
-typedef std::map<int, Entity*> EntityMap;
 
 class EntityManager
 {
@@ -31,7 +27,7 @@ public:
     void reset();
     
 private:
-    EntityMap m_entityMap;
+    std::map<int, Entity*> m_entityMap;
     
     EntityManager();
     
