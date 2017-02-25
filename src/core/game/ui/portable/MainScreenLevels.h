@@ -44,6 +44,10 @@ public:
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
+    void pauseAllSounds();
+    
+    void resumeAllSounds();
+    
     void stopAllSounds();
     
     void stopAllLoopingSounds();

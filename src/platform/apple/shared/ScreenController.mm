@@ -115,7 +115,7 @@
 {
     _screen->onPause();
     
-    [self pauseMusic];
+    [_appleSoundManager pauseMusic];
 }
 
 #pragma mark Private
@@ -131,22 +131,28 @@
             case SOUND_SPARROW_FLY:
             case SOUND_SAW_GRIND:
             case SOUND_SPIKED_BALL_ROLLING:
-                [self playSound:soundId isLooping:YES];
+                [_appleSoundManager playSound:[self soundIndexForSoundId:soundId] volume:1.0f isLooping:true];
                 break;
             case STOP_SOUND_JON_VAMPIRE_GLIDE:
             case STOP_SOUND_SPARROW_FLY:
             case STOP_SOUND_SAW_GRIND:
             case STOP_SOUND_SPIKED_BALL_ROLLING:
-                [self stopSound:soundId - 1000];
+                [_appleSoundManager stopSound:[self soundIndexForSoundId:(soundId - 1000)]];
+                break;
+            case RESUME_ALL_SOUNDS:
+                [_appleSoundManager resumeAllSounds];
+                break;
+            case PAUSE_ALL_SOUNDS:
+                [_appleSoundManager pauseAllSounds];
                 break;
             case STOP_ALL_SOUNDS:
-                [self stopAllSounds];
+                [_appleSoundManager stopAllSounds];
                 break;
             case STOP_ALL_LOOPING_SOUNDS:
-                [self stopAllLoopingSounds];
+                [_appleSoundManager stopAllLoopingSounds];
                 break;
             default:
-                [self playSound:soundId];
+                [_appleSoundManager playSound:[self soundIndexForSoundId:soundId] volume:1.0f isLooping:false];
                 break;
         }
     }
@@ -167,41 +173,41 @@
         switch (musicId)
         {
             case MUSIC_STOP:
-                [self pauseMusic];
+                [_appleSoundManager pauseMusic];
                 break;
             case MUSIC_RESUME:
-                [self resumeMusic];
+                [_appleSoundManager resumeMusic];
                 break;
             case MUSIC_PLAY:
-                [self playMusic:NO];
+                [_appleSoundManager playMusic:1.0f isLooping:false];
                 break;
             case MUSIC_PLAY_LOOP:
-                [self playMusic:YES];
+                [_appleSoundManager playMusic:1.0f isLooping:true];
                 break;
             case MUSIC_SET_VOLUME:
             {
                 float volume = rawMusicId / 100.0f;
                 
-                [self setMusicVolume:volume];
+                [_appleSoundManager setMusicVolume:volume];
             }
                 break;
             case MUSIC_LOAD_OPENING_CUTSCENE:
-                [self loadMusic:@"opening_cutscene_bgm"];
+                [_appleSoundManager loadMusic:@"opening_cutscene_bgm"];
                 break;
             case MUSIC_LOAD_TITLE_LOOP:
-                [self loadMusic:@"title_bgm"];
+                [_appleSoundManager loadMusic:@"title_bgm"];
                 break;
             case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-                [self loadMusic:@"level_select_bgm"];
+                [_appleSoundManager loadMusic:@"level_select_bgm"];
                 break;
             case MUSIC_LOAD_WORLD_1_LOOP:
-                [self loadMusic:@"world_1_bgm"];
+                [_appleSoundManager loadMusic:@"world_1_bgm"];
                 break;
             case MUSIC_LOAD_MID_BOSS_LOOP:
-                [self loadMusic:@"mid_boss_bgm"];
+                [_appleSoundManager loadMusic:@"mid_boss_bgm"];
                 break;
             case MUSIC_LOAD_END_BOSS_LOOP:
-                [self loadMusic:@"final_boss_bgm"];
+                [_appleSoundManager loadMusic:@"final_boss_bgm"];
                 break;
             default:
                 break;
@@ -209,56 +215,11 @@
     }
 }
 
-- (void)loadMusic:(NSString *)fileName
-{
-    [_appleSoundManager loadMusic:fileName];
-}
-
-- (void)playMusic:(BOOL)isLooping
-{
-    [_appleSoundManager playMusic:1.0f isLooping:isLooping];
-}
-
-- (void)playSound:(int)soundId isLooping:(BOOL)isLooping
+- (int)soundIndexForSoundId:(int)soundId
 {
     int soundIndex = soundId - 1;
-    [_appleSoundManager playSound:soundIndex volume:1.0f isLooping:isLooping];
-}
-
-- (void)playSound:(int)soundId
-{
-    [self playSound:soundId isLooping:NO];
-}
-
-- (void)stopSound:(int)soundId
-{
-    int soundIndex = soundId - 1;
-    [_appleSoundManager stopSound:soundIndex];
-}
-
-- (void)stopAllSounds
-{
-    [_appleSoundManager stopAllSounds];
-}
-
-- (void)stopAllLoopingSounds
-{
-    [_appleSoundManager stopAllLoopingSounds];
-}
-
-- (void)pauseMusic
-{
-    [_appleSoundManager pauseMusic];
-}
-
-- (void)resumeMusic
-{
-    [_appleSoundManager resumeMusic];
-}
-
-- (void)setMusicVolume:(float)volume
-{
-    [_appleSoundManager setMusicVolume:volume];
+    
+    return soundIndex;
 }
 
 - (void)unlockLevel:(int)requestedAction

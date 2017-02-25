@@ -82,27 +82,31 @@ static bool audioProcessingSound11(void *clientData, short int *audioIO, int num
 /* These functions are called from Java. */
 extern "C"
 {
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_init_1sound_1manager(JNIEnv* env, jclass cls, jint sample_rate, jint buffer_size);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_init_1sound_1manager(JNIEnv* env, jclass cls, jint sample_rate, jint buffer_size);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_load_1sound(JNIEnv* env, jclass cls, jint rawResourceId, jstring apk_path, jint num_copies, jint fileOffset, jint fileLength);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_load_1sound(JNIEnv* env, jclass cls, jint rawResourceId, jstring apk_path, jint num_copies, jint fileOffset, jint fileLength);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_play_1sound(JNIEnv* env, jclass cls, jint rawResourceId, jfloat volume, jboolean isLooping);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_play_1sound(JNIEnv* env, jclass cls, jint rawResourceId, jfloat volume, jboolean isLooping);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1sound(JNIEnv* env, jclass cls, jint rawResourceId);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1sound(JNIEnv* env, jclass cls, jint rawResourceId);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1all_1sounds(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_resume_1all_1sounds(JNIEnv* env, jclass cls);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1all_1looping_1sounds(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_pause_1all_1sounds(JNIEnv* env, jclass cls);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_load_1music(JNIEnv* env, jclass cls, jint rawResourceId, jstring apk_path, jint fileOffset, jint fileLength);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1all_1sounds(JNIEnv* env, jclass cls);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_play_1music(JNIEnv* env, jclass cls, jfloat volume, jboolean isLooping);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1all_1looping_1sounds(JNIEnv* env, jclass cls);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_set_1music_1volume(JNIEnv* env, jclass cls, jfloat volume);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_load_1music(JNIEnv* env, jclass cls, jint rawResourceId, jstring apk_path, jint fileOffset, jint fileLength);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_resume_1music(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_play_1music(JNIEnv* env, jclass cls, jfloat volume, jboolean isLooping);
     
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_pause_1music(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_set_1music_1volume(JNIEnv* env, jclass cls, jfloat volume);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_resume_1music(JNIEnv* env, jclass cls);
+    
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_pause_1music(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_init_1sound_1manager(JNIEnv* env, jclass cls, jint sample_rate, jint buffer_size)
@@ -153,6 +157,22 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1s
     UNUSED(cls);
     
     superpoweredSoundManager->stopSound(rawResourceId);
+}
+
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_resume_1all_1sounds(JNIEnv* env, jclass cls)
+{
+    UNUSED(env);
+    UNUSED(cls);
+    
+    superpoweredSoundManager->resumeAllSounds();
+}
+
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_pause_1all_1sounds(JNIEnv* env, jclass cls)
+{
+    UNUSED(env);
+    UNUSED(cls);
+    
+    superpoweredSoundManager->pauseAllSounds();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_sound_SoundManager_stop_1all_1sounds(JNIEnv* env, jclass cls)

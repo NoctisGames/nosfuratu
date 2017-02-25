@@ -28,6 +28,10 @@ public:
     
     void stopSound(int rawResourceId);
     
+    void resumeAllSounds();
+    
+    void pauseAllSounds();
+    
     void stopAllSounds(bool stopOnlyLoopingSounds = false);
     
     void stopAllLoopingSounds();

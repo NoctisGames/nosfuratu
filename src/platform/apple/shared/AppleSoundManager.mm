@@ -236,6 +236,16 @@ static bool audioProcessingSound11(void *clientData, float **inputBuffers, unsig
     _superpoweredSoundManager->stopSound(rawResourceId);
 }
 
+- (void)resumeAllSounds
+{
+    _superpoweredSoundManager->resumeAllSounds();
+}
+
+- (void)pauseAllSounds
+{
+    _superpoweredSoundManager->pauseAllSounds();
+}
+
 - (void)stopAllSounds
 {
     _superpoweredSoundManager->stopAllSounds();

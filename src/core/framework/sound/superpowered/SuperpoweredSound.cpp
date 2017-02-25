@@ -40,7 +40,8 @@ m_path(path),
 m_fVolume(volume * headroom),
 m_iRawResourceId(-1),
 m_iLastSamplerate(sampleRate),
-m_isLooping(false)
+m_isLooping(false),
+m_isPaused(false)
 {
     m_iRawResourceId = rawResourceId;
     
@@ -64,6 +65,7 @@ SuperpoweredSound::~SuperpoweredSound()
 void SuperpoweredSound::play(bool isLooping)
 {
     m_isLooping = isLooping;
+    m_isPaused = false;
  
     m_player->seek(0);
     
@@ -72,19 +74,32 @@ void SuperpoweredSound::play(bool isLooping)
 
 void SuperpoweredSound::resume()
 {
-    m_player->play(false);
+    if (m_isPaused)
+    {
+        m_player->play(false);
+        
+        m_isPaused = false;
+    }
 }
 
 void SuperpoweredSound::pause()
 {
-    m_player->pause();
+    if (isPlaying())
+    {
+        m_player->pause();
+        
+        m_isPaused = true;
+    }
 }
 
 void SuperpoweredSound::stop()
 {
     m_isLooping = false;
+    m_isPaused = false;
     
-    pause();
+    m_player->pause();
+    m_player->setFirstBeatMs(0);
+    m_player->setPosition(m_player->firstBeatMs, false, false);
 }
 
 void SuperpoweredSound::setVolume(float volume)

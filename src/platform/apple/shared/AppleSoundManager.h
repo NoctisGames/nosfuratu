@@ -16,6 +16,10 @@
 
 - (void)stopSound:(int)rawResourceId;
 
+- (void)resumeAllSounds;
+
+- (void)pauseAllSounds;
+
 - (void)stopAllSounds;
 
 - (void)stopAllLoopingSounds;

@@ -126,6 +126,30 @@ void SuperpoweredSoundManager::stopSound(int rawResourceId)
     }
 }
 
+void SuperpoweredSoundManager::resumeAllSounds()
+{
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    {
+        for (int j = 0; j < (*i)->getNumCopies(); j++)
+        {
+            SuperpoweredSound* sound = (*i)->getSound();
+            sound->resume();
+        }
+    }
+}
+
+void SuperpoweredSoundManager::pauseAllSounds()
+{
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    {
+        for (int j = 0; j < (*i)->getNumCopies(); j++)
+        {
+            SuperpoweredSound* sound = (*i)->getSound();
+            sound->pause();
+        }
+    }
+}
+
 void SuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
 {
     for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
@@ -133,14 +157,11 @@ void SuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
         for (int j = 0; j < (*i)->getNumCopies(); j++)
         {
             SuperpoweredSound* sound = (*i)->getSound();
-            if (sound->isPlaying())
-            {
-                if (!stopOnlyLoopingSounds
-                    || (stopOnlyLoopingSounds
+            if (!stopOnlyLoopingSounds
+                || (stopOnlyLoopingSounds
                     && sound->isLooping()))
-                {
-                    sound->stop();
-                }
+            {
+                sound->stop();
             }
         }
     }
@@ -182,7 +203,7 @@ void SuperpoweredSoundManager::setMusicVolume(float volume)
 
 void SuperpoweredSoundManager::resumeMusic()
 {
-    if (m_music)
+    if (m_music && m_music->isPaused())
     {
         m_music->resume();
     }

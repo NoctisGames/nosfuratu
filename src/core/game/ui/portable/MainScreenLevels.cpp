@@ -182,6 +182,16 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
+void Level::pauseAllSounds()
+{
+    SOUND_MANAGER->forceAddSoundIdToPlayQueue(PAUSE_ALL_SOUNDS);
+}
+
+void Level::resumeAllSounds()
+{
+    SOUND_MANAGER->forceAddSoundIdToPlayQueue(RESUME_ALL_SOUNDS);
+}
+
 void Level::stopAllSounds()
 {
     SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_ALL_SOUNDS);

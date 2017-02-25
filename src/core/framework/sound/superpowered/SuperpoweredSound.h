@@ -30,6 +30,7 @@ public:
     int getRawResourceId() { return m_iRawResourceId; }
     bool isLooping() { return m_isLooping; }
     bool isPlaying() { return m_player->playing; }
+    bool isPaused() { return m_isPaused; }
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;
@@ -38,6 +39,7 @@ private:
     int m_iRawResourceId;
     unsigned int m_iLastSamplerate;
     bool m_isLooping;
+    bool m_isPaused;
 };
 
 #endif /* defined(__noctisgames__SuperpoweredSound__) */

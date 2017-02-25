@@ -21,6 +21,10 @@ public final class SoundManager
 
     public static native void stop_sound(int rawResourceId);
 
+    public static native void resume_all_sounds();
+
+    public static native void pause_all_sounds();
+
     public static native void stop_all_sounds();
 
     public static native void stop_all_looping_sounds();
