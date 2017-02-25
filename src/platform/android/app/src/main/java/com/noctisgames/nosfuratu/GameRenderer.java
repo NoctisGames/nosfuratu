@@ -11,8 +11,6 @@ import android.view.Display;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
-import com.noctisgames.nosfuratu.platform.PlatformAssetUtils;
-import com.noctisgames.nosfuratu.sound.SoundManager;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -101,11 +99,9 @@ public final class GameRenderer implements Renderer
         Log.d("NosFURatu", "ramSize: " + ramSize);
         Log.d("NosFURatu", "isLowMemoryDevice: " + (isLowMemoryDevice ? "YES" : "NO"));
 
-        Game.init(isLowMemoryDevice);
+        Game.init(activity.getAssets(), isLowMemoryDevice);
 
         initSoundEngine(activity);
-
-        PlatformAssetUtils.init_asset_manager(activity.getAssets());
     }
 
     @Override

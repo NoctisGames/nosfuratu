@@ -1,5 +1,7 @@
 package com.noctisgames.nosfuratu;
 
+import android.content.res.AssetManager;
+
 public final class Game
 {
     static
@@ -7,7 +9,7 @@ public final class Game
         System.loadLibrary("game");
     }
 
-    public static native void init(boolean isLowMemoryDevice);
+    public static native void init(AssetManager assetManager, boolean isLowMemoryDevice);
 
     public static native void on_surface_created();
 

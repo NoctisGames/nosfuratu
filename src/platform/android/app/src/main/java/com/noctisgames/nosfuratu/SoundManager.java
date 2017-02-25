@@ -1,4 +1,4 @@
-package com.noctisgames.nosfuratu.sound;
+package com.noctisgames.nosfuratu;
 
 import android.app.Activity;
 import android.content.Context;

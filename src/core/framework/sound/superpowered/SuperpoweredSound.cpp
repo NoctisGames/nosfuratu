@@ -38,13 +38,11 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
 SuperpoweredSound::SuperpoweredSound(const char *path, unsigned int sampleRate, int rawResourceId, int fileOffset, int fileLength, float volume) :
 m_path(path),
 m_fVolume(volume * headroom),
-m_iRawResourceId(-1),
+m_iRawResourceId(rawResourceId),
 m_iLastSamplerate(sampleRate),
 m_isLooping(false),
 m_isPaused(false)
 {
-    m_iRawResourceId = rawResourceId;
-    
     m_player = new SuperpoweredAdvancedAudioPlayer(this, playerEventCallback, sampleRate, 0);
     
     if (fileOffset > -1 && fileLength > -1)

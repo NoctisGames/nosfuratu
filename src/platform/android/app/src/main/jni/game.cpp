@@ -23,7 +23,7 @@ MainScreen *screen;
 /* These functions are called from Java. */
 extern "C"
 {
-    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jboolean isLowMemoryDevice);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jobject java_asset_manager, jboolean isLowMemoryDevice);
     
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_on_1surface_1created(JNIEnv * env, jclass cls);
     
@@ -70,11 +70,13 @@ extern "C"
     JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_Game_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls);
 };
 
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jboolean isLowMemoryDevice)
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_Game_init(JNIEnv* env, jclass cls, jobject java_asset_manager, jboolean isLowMemoryDevice)
 {
 	UNUSED(env);
 	UNUSED(cls);
 
+    ANDROID_ASSETS->init(env, java_asset_manager);
+    
     MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
     
     screen = new MainScreen();

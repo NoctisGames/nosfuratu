@@ -80,56 +80,6 @@
 		BB34F8EB1E563C2200AC8197 /* SuperpoweredSoundCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E21E563C2100AC8197 /* SuperpoweredSoundCollection.cpp */; };
 		BB34F8ED1E563C2200AC8197 /* SuperpoweredSoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E41E563C2100AC8197 /* SuperpoweredSoundManager.cpp */; };
 		BB34F8EF1E563C2200AC8197 /* SuperpoweredSoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E41E563C2100AC8197 /* SuperpoweredSoundManager.cpp */; };
-		BB34F96D1E563C2300AC8197 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8251E563C2100AC8197 /* asset_utils.c */; };
-		BB34F96F1E563C2300AC8197 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8251E563C2100AC8197 /* asset_utils.c */; };
-		BB34F9711E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8271E563C2100AC8197 /* OpenGLGeometryProgram.cpp */; };
-		BB34F9731E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8271E563C2100AC8197 /* OpenGLGeometryProgram.cpp */; };
-		BB34F9751E563C2300AC8197 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8291E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.cpp */; };
-		BB34F9771E563C2300AC8197 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8291E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.cpp */; };
-		BB34F9791E563C2300AC8197 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82B1E563C2100AC8197 /* image.c */; };
-		BB34F97B1E563C2300AC8197 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82B1E563C2100AC8197 /* image.c */; };
-		BB34F97D1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */; };
-		BB34F97F1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */; };
-		BB34F9811E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8301E563C2100AC8197 /* OpenGLDeviceHelper.cpp */; };
-		BB34F9831E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8301E563C2100AC8197 /* OpenGLDeviceHelper.cpp */; };
-		BB34F9851E563C2300AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
-		BB34F9871E563C2300AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
-		BB34F9891E563C2300AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8341E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
-		BB34F98B1E563C2300AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8341E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
-		BB34F98D1E563C2300AC8197 /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8361E563C2100AC8197 /* OpenGLLineBatcher.cpp */; };
-		BB34F98F1E563C2300AC8197 /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8361E563C2100AC8197 /* OpenGLLineBatcher.cpp */; };
-		BB34F9911E563C2300AC8197 /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8381E563C2100AC8197 /* OpenGLManager.cpp */; };
-		BB34F9931E563C2300AC8197 /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8381E563C2100AC8197 /* OpenGLManager.cpp */; };
-		BB34F9951E563C2300AC8197 /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83B1E563C2100AC8197 /* OpenGLNGRectBatcher.cpp */; };
-		BB34F9971E563C2300AC8197 /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83B1E563C2100AC8197 /* OpenGLNGRectBatcher.cpp */; };
-		BB34F9991E563C2300AC8197 /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */; };
-		BB34F99B1E563C2300AC8197 /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */; };
-		BB34F99D1E563C2300AC8197 /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83E1E563C2100AC8197 /* OpenGLSpriteBatcher.cpp */; };
-		BB34F99F1E563C2300AC8197 /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83E1E563C2100AC8197 /* OpenGLSpriteBatcher.cpp */; };
-		BB34F9A11E563C2300AC8197 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8401E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.cpp */; };
-		BB34F9A31E563C2300AC8197 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8401E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.cpp */; };
-		BB34F9A51E563C2300AC8197 /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8421E563C2100AC8197 /* OpenGLTextureLoader.cpp */; };
-		BB34F9A71E563C2300AC8197 /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8421E563C2100AC8197 /* OpenGLTextureLoader.cpp */; };
-		BB34F9A91E563C2300AC8197 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8451E563C2100AC8197 /* platform_file_utils.c */; };
-		BB34F9AB1E563C2300AC8197 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8451E563C2100AC8197 /* platform_file_utils.c */; };
-		BB34F9AD1E563C2300AC8197 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F8491E563C2100AC8197 /* color_shader.fsh */; };
-		BB34F9AF1E563C2300AC8197 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F8491E563C2100AC8197 /* color_shader.fsh */; };
-		BB34F9B11E563C2300AC8197 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84A1E563C2100AC8197 /* color_shader.vsh */; };
-		BB34F9B31E563C2300AC8197 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84A1E563C2100AC8197 /* color_shader.vsh */; };
-		BB34F9B51E563C2300AC8197 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84B1E563C2100AC8197 /* frame_buffer_to_screen_shader.fsh */; };
-		BB34F9B71E563C2300AC8197 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84B1E563C2100AC8197 /* frame_buffer_to_screen_shader.fsh */; };
-		BB34F9B91E563C2300AC8197 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84C1E563C2100AC8197 /* frame_buffer_to_screen_shader.vsh */; };
-		BB34F9BB1E563C2300AC8197 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84C1E563C2100AC8197 /* frame_buffer_to_screen_shader.vsh */; };
-		BB34F9BD1E563C2300AC8197 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84D1E563C2100AC8197 /* texture_shader.fsh */; };
-		BB34F9BF1E563C2300AC8197 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84D1E563C2100AC8197 /* texture_shader.fsh */; };
-		BB34F9C11E563C2300AC8197 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84E1E563C2100AC8197 /* texture_shader.vsh */; };
-		BB34F9C31E563C2300AC8197 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84E1E563C2100AC8197 /* texture_shader.vsh */; };
-		BB34F9C51E563C2300AC8197 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F84F1E563C2100AC8197 /* shader.c */; };
-		BB34F9C71E563C2300AC8197 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F84F1E563C2100AC8197 /* shader.c */; };
-		BB34F9C91E563C2300AC8197 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8511E563C2100AC8197 /* texture.c */; };
-		BB34F9CB1E563C2300AC8197 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8511E563C2100AC8197 /* texture.c */; };
-		BB34F9CD1E563C2300AC8197 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8531E563C2100AC8197 /* OpenGLTextureProgram.cpp */; };
-		BB34F9CF1E563C2300AC8197 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8531E563C2100AC8197 /* OpenGLTextureProgram.cpp */; };
 		BB34F9D51E563C2300AC8197 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8581E563C2100AC8197 /* Animation.cpp */; };
 		BB34F9D71E563C2300AC8197 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8581E563C2100AC8197 /* Animation.cpp */; };
 		BB34F9D91E563C2300AC8197 /* Assets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85A1E563C2100AC8197 /* Assets.cpp */; };
@@ -367,7 +317,6 @@
 		BB44C3481DB0323F003E633F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3411DB0323F003E633F /* Images.xcassets */; };
 		BB44C35D1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
 		BB44C35E1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
-		BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BB44C3611DB03267003E633F /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3501DB03267003E633F /* SaveData.m */; };
 		BB44C3621DB03267003E633F /* SaveData.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3501DB03267003E633F /* SaveData.m */; };
 		BB44C4781DB03277003E633F /* c_jon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3B21DB03276003E633F /* c_jon.png */; };
@@ -454,12 +403,89 @@
 		BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5981DB03A7C003E633F /* pngwrite.c */; };
 		BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5991DB03A7C003E633F /* pngwtran.c */; };
 		BB44CB8F1DB053C0003E633F /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C59A1DB03A7C003E633F /* pngwutil.c */; };
-		BB44CB901DB05426003E633F /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BB44CB921DB05468003E633F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB911DB05468003E633F /* CoreGraphics.framework */; };
 		BB44CB941DB05479003E633F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB931DB05479003E633F /* GLKit.framework */; };
 		BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
 		BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
 		BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
+		BB5130FD1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
+		BB5130FE1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
+		BB5130FF1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
+		BB5131001E62475B00204148 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* asset_utils.c */; };
+		BB5131011E62475B00204148 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* asset_utils.c */; };
+		BB5131021E62475B00204148 /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* asset_utils.c */; };
+		BB5131031E62475B00204148 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CF1E62475B00204148 /* image.c */; };
+		BB5131041E62475B00204148 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CF1E62475B00204148 /* image.c */; };
+		BB5131051E62475B00204148 /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CF1E62475B00204148 /* image.c */; };
+		BB5131061E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D21E62475B00204148 /* OpenGLCircleBatcher.cpp */; };
+		BB5131071E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D21E62475B00204148 /* OpenGLCircleBatcher.cpp */; };
+		BB5131081E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D21E62475B00204148 /* OpenGLCircleBatcher.cpp */; };
+		BB5131091E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D41E62475B00204148 /* OpenGLDeviceHelper.cpp */; };
+		BB51310A1E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D41E62475B00204148 /* OpenGLDeviceHelper.cpp */; };
+		BB51310B1E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D41E62475B00204148 /* OpenGLDeviceHelper.cpp */; };
+		BB51310C1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D61E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
+		BB51310D1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D61E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
+		BB51310E1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D61E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
+		BB51310F1E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D81E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp */; };
+		BB5131101E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D81E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp */; };
+		BB5131111E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130D81E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp */; };
+		BB5131121E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DA1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
+		BB5131131E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DA1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
+		BB5131141E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DA1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
+		BB5131151E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DC1E62475B00204148 /* OpenGLGeometryProgram.cpp */; };
+		BB5131161E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DC1E62475B00204148 /* OpenGLGeometryProgram.cpp */; };
+		BB5131171E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DC1E62475B00204148 /* OpenGLGeometryProgram.cpp */; };
+		BB5131181E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DE1E62475B00204148 /* OpenGLLineBatcher.cpp */; };
+		BB5131191E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DE1E62475B00204148 /* OpenGLLineBatcher.cpp */; };
+		BB51311A1E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130DE1E62475B00204148 /* OpenGLLineBatcher.cpp */; };
+		BB51311B1E62475B00204148 /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E01E62475B00204148 /* OpenGLManager.cpp */; };
+		BB51311C1E62475B00204148 /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E01E62475B00204148 /* OpenGLManager.cpp */; };
+		BB51311D1E62475B00204148 /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E01E62475B00204148 /* OpenGLManager.cpp */; };
+		BB51311E1E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E21E62475B00204148 /* OpenGLNGRectBatcher.cpp */; };
+		BB51311F1E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E21E62475B00204148 /* OpenGLNGRectBatcher.cpp */; };
+		BB5131201E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E21E62475B00204148 /* OpenGLNGRectBatcher.cpp */; };
+		BB5131211E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E41E62475B00204148 /* OpenGLRendererHelper.cpp */; };
+		BB5131221E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E41E62475B00204148 /* OpenGLRendererHelper.cpp */; };
+		BB5131231E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E41E62475B00204148 /* OpenGLRendererHelper.cpp */; };
+		BB5131241E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E61E62475B00204148 /* OpenGLSpriteBatcher.cpp */; };
+		BB5131251E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E61E62475B00204148 /* OpenGLSpriteBatcher.cpp */; };
+		BB5131261E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E61E62475B00204148 /* OpenGLSpriteBatcher.cpp */; };
+		BB5131271E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E81E62475B00204148 /* OpenGLTextureGpuProgramWrapper.cpp */; };
+		BB5131281E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E81E62475B00204148 /* OpenGLTextureGpuProgramWrapper.cpp */; };
+		BB5131291E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130E81E62475B00204148 /* OpenGLTextureGpuProgramWrapper.cpp */; };
+		BB51312A1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EA1E62475B00204148 /* OpenGLTextureLoader.cpp */; };
+		BB51312B1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EA1E62475B00204148 /* OpenGLTextureLoader.cpp */; };
+		BB51312C1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EA1E62475B00204148 /* OpenGLTextureLoader.cpp */; };
+		BB51312D1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
+		BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
+		BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
+		BB5131301E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
+		BB5131311E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
+		BB5131321E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
+		BB5131331E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
+		BB5131341E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
+		BB5131351E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
+		BB5131361E62475C00204148 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F41E62475B00204148 /* texture.c */; };
+		BB5131371E62475C00204148 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F41E62475B00204148 /* texture.c */; };
+		BB5131381E62475C00204148 /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F41E62475B00204148 /* texture.c */; };
+		BB5131391E62475C00204148 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F71E62475B00204148 /* color_shader.fsh */; };
+		BB51313A1E62475C00204148 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F71E62475B00204148 /* color_shader.fsh */; };
+		BB51313B1E62475C00204148 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F71E62475B00204148 /* color_shader.fsh */; };
+		BB51313C1E62475C00204148 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F81E62475B00204148 /* color_shader.vsh */; };
+		BB51313D1E62475C00204148 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F81E62475B00204148 /* color_shader.vsh */; };
+		BB51313E1E62475C00204148 /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F81E62475B00204148 /* color_shader.vsh */; };
+		BB51313F1E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F91E62475B00204148 /* frame_buffer_to_screen_shader.fsh */; };
+		BB5131401E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F91E62475B00204148 /* frame_buffer_to_screen_shader.fsh */; };
+		BB5131411E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130F91E62475B00204148 /* frame_buffer_to_screen_shader.fsh */; };
+		BB5131421E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FA1E62475B00204148 /* frame_buffer_to_screen_shader.vsh */; };
+		BB5131431E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FA1E62475B00204148 /* frame_buffer_to_screen_shader.vsh */; };
+		BB5131441E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FA1E62475B00204148 /* frame_buffer_to_screen_shader.vsh */; };
+		BB5131451E62475C00204148 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FB1E62475B00204148 /* texture_shader.fsh */; };
+		BB5131461E62475C00204148 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FB1E62475B00204148 /* texture_shader.fsh */; };
+		BB5131471E62475C00204148 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FB1E62475B00204148 /* texture_shader.fsh */; };
+		BB5131481E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
+		BB5131491E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
+		BB51314A1E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
 		BB5C2A611E09E071009577BD /* d_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A601E09E071009577BD /* d_tutorial.png */; };
 		BB5C2A641E09E07E009577BD /* c_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A631E09E07E009577BD /* c_tutorial.png */; };
 		BB5C2A671E09E088009577BD /* tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A661E09E088009577BD /* tutorial.png */; };
@@ -622,10 +648,8 @@
 		BBADF46F1E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
 		BBADF4701E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
 		BBB1E3251E60A54C00201A0C /* MainRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB641E5645F400AC8197 /* MainRenderer.cpp */; };
-		BBB1E3261E60A54C00201A0C /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34E1DB03267003E633F /* platform_asset_utils.m */; };
 		BBB1E3271E60A54C00201A0C /* OverlapTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7D11E563C2100AC8197 /* OverlapTester.cpp */; };
 		BBB1E3281E60A54C00201A0C /* MainScreenComingSoon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB461E5645F400AC8197 /* MainScreenComingSoon.cpp */; };
-		BBB1E3291E60A54C00201A0C /* asset_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8251E563C2100AC8197 /* asset_utils.c */; };
 		BBB1E32A1E60A54C00201A0C /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB031E5645F400AC8197 /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp */; };
 		BBB1E32B1E60A54C00201A0C /* MainScreenTransitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB541E5645F400AC8197 /* MainScreenTransitions.cpp */; };
 		BBB1E32C1E60A54C00201A0C /* MainScreenTitle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB521E5645F400AC8197 /* MainScreenTitle.cpp */; };
@@ -636,7 +660,6 @@
 		BBB1E3311E60A54C00201A0C /* BatPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB341E5645F400AC8197 /* BatPanel.cpp */; };
 		BBB1E3321E60A54C00201A0C /* GameMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAC11E5645F400AC8197 /* GameMarker.cpp */; };
 		BBB1E3331E60A54C00201A0C /* OffsetPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB601E5645F400AC8197 /* OffsetPanel.cpp */; };
-		BBB1E3341E60A54C00201A0C /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8291E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.cpp */; };
 		BBB1E3351E60A54C00201A0C /* ConfirmExitPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB381E5645F400AC8197 /* ConfirmExitPanel.cpp */; };
 		BBB1E3361E60A54C00201A0C /* MainScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB441E5645F400AC8197 /* MainScreen.cpp */; };
 		BBB1E3371E60A54C00201A0C /* GpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F86C1E563C2100AC8197 /* GpuProgramWrapper.cpp */; };
@@ -649,7 +672,6 @@
 		BBB1E33F1E60A54C00201A0C /* GpuProgramWrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F86E1E563C2100AC8197 /* GpuProgramWrapperFactory.cpp */; };
 		BBB1E3401E60A54C00201A0C /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAB11E5645F400AC8197 /* Enemy.cpp */; };
 		BBB1E3411E60A54C00201A0C /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5801DB03A7C003E633F /* png.c */; };
-		BBB1E3421E60A54C00201A0C /* OpenGLTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8421E563C2100AC8197 /* OpenGLTextureLoader.cpp */; };
 		BBB1E3431E60A54C00201A0C /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5861DB03A7C003E633F /* pngerror.c */; };
 		BBB1E3441E60A54C00201A0C /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB6B1E5645F400AC8197 /* SnakeDeathTextureGpuProgramWrapper.cpp */; };
 		BBB1E3451E60A54C00201A0C /* pngget.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5871DB03A7C003E633F /* pngget.c */; };
@@ -658,7 +680,6 @@
 		BBB1E3481E60A54C00201A0C /* NGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8811E563C2100AC8197 /* NGRectBatcher.cpp */; };
 		BBB1E3491E60A54C00201A0C /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58A1DB03A7C003E633F /* pngmem.c */; };
 		BBB1E34A1E60A54C00201A0C /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAFF1E5645F400AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp */; };
-		BBB1E34B1E60A54C00201A0C /* OpenGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8381E563C2100AC8197 /* OpenGLManager.cpp */; };
 		BBB1E34C1E60A54C00201A0C /* ScreenEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8891E563C2100AC8197 /* ScreenEvent.cpp */; };
 		BBB1E34D1E60A54C00201A0C /* SuperpoweredSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E01E563C2100AC8197 /* SuperpoweredSound.cpp */; };
 		BBB1E34E1E60A54C00201A0C /* pngpread.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C58C1DB03A7C003E633F /* pngpread.c */; };
@@ -680,12 +701,10 @@
 		BBB1E35E1E60A54C00201A0C /* pngtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5961DB03A7C003E633F /* pngtrans.c */; };
 		BBB1E35F1E60A54C00201A0C /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB3E1E5645F400AC8197 /* EndBossSnakeTextureGpuProgramWrapper.cpp */; };
 		BBB1E3601E60A54C00201A0C /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5971DB03A7C003E633F /* pngwio.c */; };
-		BBB1E3611E60A54C00201A0C /* texture.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8511E563C2100AC8197 /* texture.c */; };
 		BBB1E3621E60A54C00201A0C /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB0D1E5645F400AC8197 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp */; };
 		BBB1E3631E60A54C00201A0C /* WorldMapPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB791E5645F400AC8197 /* WorldMapPanel.cpp */; };
 		BBB1E3641E60A54C00201A0C /* MainScreenLevelEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB481E5645F400AC8197 /* MainScreenLevelEditor.cpp */; };
 		BBB1E3651E60A54C00201A0C /* SuperpoweredSoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E41E563C2100AC8197 /* SuperpoweredSoundManager.cpp */; };
-		BBB1E3661E60A54C00201A0C /* OpenGLSpriteBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83E1E563C2100AC8197 /* OpenGLSpriteBatcher.cpp */; };
 		BBB1E3671E60A54C00201A0C /* MidBossOwl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FACE1E5645F400AC8197 /* MidBossOwl.cpp */; };
 		BBB1E3681E60A54C00201A0C /* PhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7BE1E563C2100AC8197 /* PhysicalEntity.cpp */; };
 		BBB1E3691E60A54C00201A0C /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB671E5645F400AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp */; };
@@ -694,7 +713,6 @@
 		BBB1E36C1E60A54C00201A0C /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = BB44C5981DB03A7C003E633F /* pngwrite.c */; };
 		BBB1E36D1E60A54C00201A0C /* SuperpoweredSoundCollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E21E563C2100AC8197 /* SuperpoweredSoundCollection.cpp */; };
 		BBB1E36E1E60A54C00201A0C /* RTTI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A61E563C2100AC8197 /* RTTI.cpp */; };
-		BBB1E36F1E60A54C00201A0C /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8531E563C2100AC8197 /* OpenGLTextureProgram.cpp */; };
 		BBB1E3701E60A54C00201A0C /* DummyGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8631E563C2100AC8197 /* DummyGpuProgramWrapper.cpp */; };
 		BBB1E3711E60A54C00201A0C /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB131E5645F400AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp */; };
 		BBB1E3721E60A54C00201A0C /* OpenGLShockwaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB271E5645F400AC8197 /* OpenGLShockwaveTextureProgram.cpp */; };
@@ -706,10 +724,8 @@
 		BBB1E3781E60A54C00201A0C /* CountHissWithMina.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAAB1E5645F400AC8197 /* CountHissWithMina.cpp */; };
 		BBB1E3791E60A54C00201A0C /* OpenGLSinWaveTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB291E5645F400AC8197 /* OpenGLSinWaveTextureProgram.cpp */; };
 		BBB1E37A1E60A54C00201A0C /* ForegroundCoverObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FABA1E5645F400AC8197 /* ForegroundCoverObject.cpp */; };
-		BBB1E37B1E60A54C00201A0C /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8301E563C2100AC8197 /* OpenGLDeviceHelper.cpp */; };
 		BBB1E37C1E60A54C00201A0C /* OpenGLTransitionProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9DC1E585282007CE6A8 /* OpenGLTransitionProgram.cpp */; };
 		BBB1E37D1E60A54C00201A0C /* MainScreenWorldMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB561E5645F400AC8197 /* MainScreenWorldMap.cpp */; };
-		BBB1E37E1E60A54C00201A0C /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8451E563C2100AC8197 /* platform_file_utils.c */; };
 		BBB1E37F1E60A54C00201A0C /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7D31E563C2100AC8197 /* Triangle.cpp */; };
 		BBB1E3801E60A54C00201A0C /* PointTransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB621E5645F400AC8197 /* PointTransitionGpuProgramWrapper.cpp */; };
 		BBB1E3811E60A54C00201A0C /* SpriteBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8921E563C2100AC8197 /* SpriteBatcherFactory.cpp */; };
@@ -730,8 +746,6 @@
 		BBB1E3921E60A54C00201A0C /* MainScreenState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB501E5645F400AC8197 /* MainScreenState.cpp */; };
 		BBB1E3931E60A54C00201A0C /* Ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAC31E5645F400AC8197 /* Ground.cpp */; };
 		BBB1E3941E60A54C00201A0C /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAA71E5645F400AC8197 /* Background.cpp */; };
-		BBB1E3951E60A54C00201A0C /* OpenGLLineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8361E563C2100AC8197 /* OpenGLLineBatcher.cpp */; };
-		BBB1E3961E60A54C00201A0C /* image.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82B1E563C2100AC8197 /* image.c */; };
 		BBB1E3971E60A54C00201A0C /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB011E5645F400AC8197 /* OpenGLFadeScreenGpuProgramWrapper.cpp */; };
 		BBB1E3981E60A54C00201A0C /* TitlePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB731E5645F400AC8197 /* TitlePanel.cpp */; };
 		BBB1E3991E60A54C00201A0C /* TextureLoaderFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8961E563C2100AC8197 /* TextureLoaderFactory.cpp */; };
@@ -751,13 +765,10 @@
 		BBB1E3A71E60A54C00201A0C /* Hole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAC61E5645F400AC8197 /* Hole.cpp */; };
 		BBB1E3A81E60A54C00201A0C /* Assets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85A1E563C2100AC8197 /* Assets.cpp */; };
 		BBB1E3A91E60A54C00201A0C /* CircleBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85E1E563C2100AC8197 /* CircleBatcherFactory.cpp */; };
-		BBB1E3AA1E60A54C00201A0C /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8341E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp */; };
-		BBB1E3AB1E60A54C00201A0C /* OpenGLTextureGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8401E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.cpp */; };
 		BBB1E3AC1E60A54C00201A0C /* GamePadEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8671E563C2100AC8197 /* GamePadEvent.cpp */; };
 		BBB1E3AD1E60A54C00201A0C /* Chapter1Level21.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB371E5645F400AC8197 /* Chapter1Level21.cpp */; };
 		BBB1E3AE1E60A54C00201A0C /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8941E563C2100AC8197 /* Text.cpp */; };
 		BBB1E3AF1E60A54C00201A0C /* HoleCover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAC81E5645F400AC8197 /* HoleCover.cpp */; };
-		BBB1E3B01E60A54C00201A0C /* OpenGLNGRectBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83B1E563C2100AC8197 /* OpenGLNGRectBatcher.cpp */; };
 		BBB1E3B11E60A54C00201A0C /* Midground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAD01E5645F400AC8197 /* Midground.cpp */; };
 		BBB1E3B21E60A54C00201A0C /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8851E563C2100AC8197 /* Renderer.cpp */; };
 		BBB1E3B31E60A54C00201A0C /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8651E563C2100AC8197 /* Font.cpp */; };
@@ -765,21 +776,16 @@
 		BBB1E3B51E60A54C00201A0C /* JoystickController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB13BD4C1E58E0800073C08F /* JoystickController.mm */; };
 		BBB1E3B61E60A54C00201A0C /* MainAssets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB301E5645F400AC8197 /* MainAssets.cpp */; };
 		BBB1E3B71E60A54C00201A0C /* LineBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F87D1E563C2100AC8197 /* LineBatcher.cpp */; };
-		BBB1E3B81E60A54C00201A0C /* OpenGLGeometryProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8271E563C2100AC8197 /* OpenGLGeometryProgram.cpp */; };
 		BBB1E3B91E60A54C00201A0C /* NGRectBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8831E563C2100AC8197 /* NGRectBatcherFactory.cpp */; };
 		BBB1E3BA1E60A54C00201A0C /* TransDeathGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB751E5645F400AC8197 /* TransDeathGpuProgramWrapper.cpp */; };
 		BBB1E3BB1E60A54C00201A0C /* GamePadInputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F86A1E563C2100AC8197 /* GamePadInputManager.cpp */; };
 		BBB1E3BC1E60A54C00201A0C /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBD5A9CE1E584D93007CE6A8 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp */; };
-		BBB1E3BD1E60A54C00201A0C /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB34F84F1E563C2100AC8197 /* shader.c */; };
 		BBB1E3BE1E60A54C00201A0C /* TrashCan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB771E5645F400AC8197 /* TrashCan.cpp */; };
 		BBB1E3BF1E60A54C00201A0C /* LevelEditorActionsPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB5A1E5645F400AC8197 /* LevelEditorActionsPanel.cpp */; };
 		BBB1E3C01E60A54C00201A0C /* ExitGround.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAB61E5645F400AC8197 /* ExitGround.cpp */; };
-		BBB1E3C11E60A54C00201A0C /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
 		BBB1E3C21E60A54C00201A0C /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7B61E563C2100AC8197 /* Entity.cpp */; };
 		BBB1E3C31E60A54C00201A0C /* NGOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44CB051DB04C83003E633F /* NGOpenGLView.mm */; };
-		BBB1E3C51E60A54C00201A0C /* OpenGLRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */; };
 		BBB1E3C61E60A54C00201A0C /* EnemySpirit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAB31E5645F400AC8197 /* EnemySpirit.cpp */; };
-		BBB1E3C71E60A54C00201A0C /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */; };
 		BBB1E3C81E60A54C00201A0C /* JonFormState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FACC1E5645F400AC8197 /* JonFormState.cpp */; };
 		BBB1E3C91E60A54C00201A0C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3201DB030B3003E633F /* AppDelegate.m */; };
 		BBB1E3CA1E60A54C00201A0C /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8581E563C2100AC8197 /* Animation.cpp */; };
@@ -807,13 +813,11 @@
 		BBB1E3E21E60A54C00201A0C /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3C51DB03276003E633F /* misc.png */; };
 		BBB1E3E31E60A54C00201A0C /* world_1_end_boss_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E71DB03276003E633F /* world_1_end_boss_part_2.png */; };
 		BBB1E3E41E60A54C00201A0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3211DB030B3003E633F /* Assets.xcassets */; };
-		BBB1E3E51E60A54C00201A0C /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84D1E563C2100AC8197 /* texture_shader.fsh */; };
 		BBB1E3E61E60A54C00201A0C /* end_boss_snake_mouth_open.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7591E248D4200222AE2 /* end_boss_snake_mouth_open.wav */; };
 		BBB1E3E71E60A54C00201A0C /* world_1_end_boss_part_3.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3E81DB03276003E633F /* world_1_end_boss_part_3.png */; };
 		BBB1E3E81E60A54C00201A0C /* fox_strike.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7641E248D4200222AE2 /* fox_strike.wav */; };
 		BBB1E3E91E60A54C00201A0C /* vampire_glide_loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C78C1E248D4200222AE2 /* vampire_glide_loop.wav */; };
 		BBB1E3EA1E60A54C00201A0C /* footstep_left_grass.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C75D1E248D4200222AE2 /* footstep_left_grass.wav */; };
-		BBB1E3EB1E60A54C00201A0C /* frame_buffer_to_screen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84B1E563C2100AC8197 /* frame_buffer_to_screen_shader.fsh */; };
 		BBB1E3EC1E60A54C00201A0C /* title_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3DE1DB03276003E633F /* title_screen.png */; };
 		BBB1E3ED1E60A54C00201A0C /* end_boss_snake_death.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7581E248D4200222AE2 /* end_boss_snake_death.wav */; };
 		BBB1E3EE1E60A54C00201A0C /* collect_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7511E248D4200222AE2 /* collect_carrot.wav */; };
@@ -833,9 +837,7 @@
 		BBB1E3FC1E60A54C00201A0C /* opening_cutscene_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB0F7A0E1E5A35BE005FB0F3 /* opening_cutscene_bgm.wav */; };
 		BBB1E3FD1E60A54C00201A0C /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BBB1E3FE1E60A54C00201A0C /* world_1_ground.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EA1DB03276003E633F /* world_1_ground.png */; };
-		BBB1E3FF1E60A54C00201A0C /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F8491E563C2100AC8197 /* color_shader.fsh */; };
 		BBB1E4001E60A54C00201A0C /* trans_out_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34FB231E5645F400AC8197 /* trans_out_death_shader.fsh */; };
-		BBB1E4011E60A54C00201A0C /* frame_buffer_to_screen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84C1E563C2100AC8197 /* frame_buffer_to_screen_shader.vsh */; };
 		BBB1E4021E60A54C00201A0C /* world_1_background_lower_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47C1DD2F51100D72C8B /* world_1_background_lower_part_2.png */; };
 		BBB1E4031E60A54C00201A0C /* snake_jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7811E248D4200222AE2 /* snake_jump.wav */; };
 		BBB1E4041E60A54C00201A0C /* footstep_left_wood.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C75E1E248D4200222AE2 /* footstep_left_wood.wav */; };
@@ -868,7 +870,6 @@
 		BBB1E41F1E60A54C00201A0C /* complete_transform.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7531E248D4200222AE2 /* complete_transform.wav */; };
 		BBB1E4201E60A54C00201A0C /* trans_screen_circle_open_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34FB251E5645F400AC8197 /* trans_screen_circle_open_shader.vsh */; };
 		BBB1E4211E60A54C00201A0C /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34FB1C1E5645F400AC8197 /* frame_buffer_to_screen_purple_highlight_shader.fsh */; };
-		BBB1E4221E60A54C00201A0C /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84A1E563C2100AC8197 /* color_shader.vsh */; };
 		BBB1E4231E60A54C00201A0C /* trans_in_death_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34FB221E5645F400AC8197 /* trans_in_death_shader.fsh */; };
 		BBB1E4241E60A54C00201A0C /* title_lightning_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7861E248D4200222AE2 /* title_lightning_1.wav */; };
 		BBB1E4251E60A54C00201A0C /* ability_unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7491E248D4200222AE2 /* ability_unlock.wav */; };
@@ -907,7 +908,6 @@
 		BBB1E4461E60A54C00201A0C /* jump_spring_heavy.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C76A1E248D4200222AE2 /* jump_spring_heavy.wav */; };
 		BBB1E4471E60A54C00201A0C /* level_complete.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7701E248D4200222AE2 /* level_complete.wav */; };
 		BBB1E4481E60A54C00201A0C /* vampire_dash.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C78B1E248D4200222AE2 /* vampire_dash.wav */; };
-		BBB1E4491E60A54C00201A0C /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB34F84E1E563C2100AC8197 /* texture_shader.vsh */; };
 		BBB1E44A1E60A54C00201A0C /* level_select_bgm.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB0F7A0C1E5A35BE005FB0F3 /* level_select_bgm.wav */; };
 		BBB1E44B1E60A54C00201A0C /* world_1_background_upper.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47F1DD2F51100D72C8B /* world_1_background_upper.png */; };
 		BBB1E44C1E60A54C00201A0C /* end_boss_snake_damaged.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7571E248D4200222AE2 /* end_boss_snake_damaged.wav */; };
@@ -1085,53 +1085,6 @@
 		BB34F7E51E563C2100AC8197 /* SuperpoweredSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredSoundManager.h; sourceTree = "<group>"; };
 		BB34F7F41E563C2100AC8197 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
 		BB34F7F51E563C2100AC8197 /* StateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateMachine.h; sourceTree = "<group>"; };
-		BB34F8251E563C2100AC8197 /* asset_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asset_utils.c; sourceTree = "<group>"; };
-		BB34F8261E563C2100AC8197 /* asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_utils.h; sourceTree = "<group>"; };
-		BB34F8271E563C2100AC8197 /* OpenGLGeometryProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLGeometryProgram.cpp; sourceTree = "<group>"; };
-		BB34F8281E563C2100AC8197 /* OpenGLGeometryProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLGeometryProgram.h; sourceTree = "<group>"; };
-		BB34F8291E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenProgram.cpp; sourceTree = "<group>"; };
-		BB34F82A1E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferToScreenProgram.h; sourceTree = "<group>"; };
-		BB34F82B1E563C2100AC8197 /* image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image.c; sourceTree = "<group>"; };
-		BB34F82C1E563C2100AC8197 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
-		BB34F82D1E563C2100AC8197 /* linmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linmath.h; sourceTree = "<group>"; };
-		BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
-		BB34F82F1E563C2100AC8197 /* OpenGLCircleBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLCircleBatcher.h; sourceTree = "<group>"; };
-		BB34F8301E563C2100AC8197 /* OpenGLDeviceHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLDeviceHelper.cpp; sourceTree = "<group>"; };
-		BB34F8311E563C2100AC8197 /* OpenGLDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLDeviceHelper.h; sourceTree = "<group>"; };
-		BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB34F8331E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB34F8341E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLGeometryGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB34F8351E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLGeometryGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB34F8361E563C2100AC8197 /* OpenGLLineBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLLineBatcher.cpp; sourceTree = "<group>"; };
-		BB34F8371E563C2100AC8197 /* OpenGLLineBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLLineBatcher.h; sourceTree = "<group>"; };
-		BB34F8381E563C2100AC8197 /* OpenGLManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLManager.cpp; sourceTree = "<group>"; };
-		BB34F8391E563C2100AC8197 /* OpenGLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLManager.h; sourceTree = "<group>"; };
-		BB34F83A1E563C2100AC8197 /* OpenGLNGRectBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLNGRectBatcher.h; sourceTree = "<group>"; };
-		BB34F83B1E563C2100AC8197 /* OpenGLNGRectBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLNGRectBatcher.cpp; sourceTree = "<group>"; };
-		BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLRendererHelper.cpp; sourceTree = "<group>"; };
-		BB34F83D1E563C2100AC8197 /* OpenGLRendererHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLRendererHelper.h; sourceTree = "<group>"; };
-		BB34F83E1E563C2100AC8197 /* OpenGLSpriteBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLSpriteBatcher.cpp; sourceTree = "<group>"; };
-		BB34F83F1E563C2100AC8197 /* OpenGLSpriteBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLSpriteBatcher.h; sourceTree = "<group>"; };
-		BB34F8401E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
-		BB34F8411E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB34F8421E563C2100AC8197 /* OpenGLTextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureLoader.cpp; sourceTree = "<group>"; };
-		BB34F8431E563C2100AC8197 /* OpenGLTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureLoader.h; sourceTree = "<group>"; };
-		BB34F8441E563C2100AC8197 /* platform_asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_asset_utils.h; sourceTree = "<group>"; };
-		BB34F8451E563C2100AC8197 /* platform_file_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_file_utils.c; sourceTree = "<group>"; };
-		BB34F8461E563C2100AC8197 /* platform_file_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_file_utils.h; sourceTree = "<group>"; };
-		BB34F8471E563C2100AC8197 /* platform_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_gl.h; sourceTree = "<group>"; };
-		BB34F8491E563C2100AC8197 /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.fsh; sourceTree = "<group>"; };
-		BB34F84A1E563C2100AC8197 /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.vsh; sourceTree = "<group>"; };
-		BB34F84B1E563C2100AC8197 /* frame_buffer_to_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.fsh; sourceTree = "<group>"; };
-		BB34F84C1E563C2100AC8197 /* frame_buffer_to_screen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.vsh; sourceTree = "<group>"; };
-		BB34F84D1E563C2100AC8197 /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.fsh; sourceTree = "<group>"; };
-		BB34F84E1E563C2100AC8197 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.vsh; sourceTree = "<group>"; };
-		BB34F84F1E563C2100AC8197 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
-		BB34F8501E563C2100AC8197 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
-		BB34F8511E563C2100AC8197 /* texture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = texture.c; sourceTree = "<group>"; };
-		BB34F8521E563C2100AC8197 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
-		BB34F8531E563C2100AC8197 /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
-		BB34F8541E563C2100AC8197 /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
 		BB34F8581E563C2100AC8197 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		BB34F8591E563C2100AC8197 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		BB34F85A1E563C2100AC8197 /* Assets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Assets.cpp; sourceTree = "<group>"; };
@@ -1460,7 +1413,6 @@
 		BB34FD711E565A7400AC8197 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		BB34FD721E565A7400AC8197 /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
 		BB34FD731E565A7400AC8197 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
-		BB34FD741E565A7400AC8197 /* platform_asset_utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = platform_asset_utils.c; sourceTree = "<group>"; };
 		BB34FD751E565A7400AC8197 /* sound_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sound_manager.cpp; sourceTree = "<group>"; };
 		BB44C30A1DB0303F003E633F /* NosFURatu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NosFURatu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB44C31F1DB030B3003E633F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1480,7 +1432,6 @@
 		BB44C3421DB0323F003E633F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "nosfuratu-Prefix.pch"; sourceTree = "<group>"; };
 		BB44C34D1DB03267003E633F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BB44C34E1DB03267003E633F /* platform_asset_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_asset_utils.m; sourceTree = "<group>"; };
 		BB44C34F1DB03267003E633F /* SaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveData.h; sourceTree = "<group>"; };
 		BB44C3501DB03267003E633F /* SaveData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveData.m; sourceTree = "<group>"; };
 		BB44C3B21DB03276003E633F /* c_jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_jon.png; sourceTree = "<group>"; };
@@ -1562,6 +1513,57 @@
 		BB44CB991DB054B8003E633F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB9D1DB054F9003E633F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BB5130CB1E62475B00204148 /* platform_asset_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_asset_utils.m; sourceTree = "<group>"; };
+		BB5130CD1E62475B00204148 /* asset_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asset_utils.c; sourceTree = "<group>"; };
+		BB5130CE1E62475B00204148 /* asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_utils.h; sourceTree = "<group>"; };
+		BB5130CF1E62475B00204148 /* image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image.c; sourceTree = "<group>"; };
+		BB5130D01E62475B00204148 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
+		BB5130D11E62475B00204148 /* linmath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linmath.h; sourceTree = "<group>"; };
+		BB5130D21E62475B00204148 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
+		BB5130D31E62475B00204148 /* OpenGLCircleBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLCircleBatcher.h; sourceTree = "<group>"; };
+		BB5130D41E62475B00204148 /* OpenGLDeviceHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLDeviceHelper.cpp; sourceTree = "<group>"; };
+		BB5130D51E62475B00204148 /* OpenGLDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLDeviceHelper.h; sourceTree = "<group>"; };
+		BB5130D61E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB5130D71E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB5130D81E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenProgram.cpp; sourceTree = "<group>"; };
+		BB5130D91E62475B00204148 /* OpenGLFramebufferToScreenProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferToScreenProgram.h; sourceTree = "<group>"; };
+		BB5130DA1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLGeometryGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB5130DB1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLGeometryGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB5130DC1E62475B00204148 /* OpenGLGeometryProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLGeometryProgram.cpp; sourceTree = "<group>"; };
+		BB5130DD1E62475B00204148 /* OpenGLGeometryProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLGeometryProgram.h; sourceTree = "<group>"; };
+		BB5130DE1E62475B00204148 /* OpenGLLineBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLLineBatcher.cpp; sourceTree = "<group>"; };
+		BB5130DF1E62475B00204148 /* OpenGLLineBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLLineBatcher.h; sourceTree = "<group>"; };
+		BB5130E01E62475B00204148 /* OpenGLManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLManager.cpp; sourceTree = "<group>"; };
+		BB5130E11E62475B00204148 /* OpenGLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLManager.h; sourceTree = "<group>"; };
+		BB5130E21E62475B00204148 /* OpenGLNGRectBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLNGRectBatcher.cpp; sourceTree = "<group>"; };
+		BB5130E31E62475B00204148 /* OpenGLNGRectBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLNGRectBatcher.h; sourceTree = "<group>"; };
+		BB5130E41E62475B00204148 /* OpenGLRendererHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLRendererHelper.cpp; sourceTree = "<group>"; };
+		BB5130E51E62475B00204148 /* OpenGLRendererHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLRendererHelper.h; sourceTree = "<group>"; };
+		BB5130E61E62475B00204148 /* OpenGLSpriteBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLSpriteBatcher.cpp; sourceTree = "<group>"; };
+		BB5130E71E62475B00204148 /* OpenGLSpriteBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLSpriteBatcher.h; sourceTree = "<group>"; };
+		BB5130E81E62475B00204148 /* OpenGLTextureGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureGpuProgramWrapper.cpp; sourceTree = "<group>"; };
+		BB5130E91E62475B00204148 /* OpenGLTextureGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureGpuProgramWrapper.h; sourceTree = "<group>"; };
+		BB5130EA1E62475B00204148 /* OpenGLTextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureLoader.cpp; sourceTree = "<group>"; };
+		BB5130EB1E62475B00204148 /* OpenGLTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureLoader.h; sourceTree = "<group>"; };
+		BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
+		BB5130ED1E62475B00204148 /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
+		BB5130EE1E62475B00204148 /* platform_asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_asset_utils.h; sourceTree = "<group>"; };
+		BB5130EF1E62475B00204148 /* platform_file_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_file_utils.c; sourceTree = "<group>"; };
+		BB5130F01E62475B00204148 /* platform_file_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_file_utils.h; sourceTree = "<group>"; };
+		BB5130F11E62475B00204148 /* platform_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_gl.h; sourceTree = "<group>"; };
+		BB5130F21E62475B00204148 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
+		BB5130F31E62475B00204148 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
+		BB5130F41E62475B00204148 /* texture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = texture.c; sourceTree = "<group>"; };
+		BB5130F51E62475B00204148 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
+		BB5130F71E62475B00204148 /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.fsh; sourceTree = "<group>"; };
+		BB5130F81E62475B00204148 /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.vsh; sourceTree = "<group>"; };
+		BB5130F91E62475B00204148 /* frame_buffer_to_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.fsh; sourceTree = "<group>"; };
+		BB5130FA1E62475B00204148 /* frame_buffer_to_screen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.vsh; sourceTree = "<group>"; };
+		BB5130FB1E62475B00204148 /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.fsh; sourceTree = "<group>"; };
+		BB5130FC1E62475B00204148 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.vsh; sourceTree = "<group>"; };
+		BB51314C1E624BC700204148 /* AndroidAssetsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetsManager.cpp; sourceTree = "<group>"; };
+		BB51314D1E624BC700204148 /* AndroidAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetsManager.h; sourceTree = "<group>"; };
+		BB51314E1E624BC700204148 /* platform_asset_utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = platform_asset_utils.c; sourceTree = "<group>"; };
 		BB5C2A601E09E071009577BD /* d_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A631E09E07E009577BD /* c_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A661E09E088009577BD /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
@@ -2033,72 +2035,10 @@
 			isa = PBXGroup;
 			children = (
 				BB34FA781E563CC700AC8197 /* direct3d */,
-				BB34F8241E563C2100AC8197 /* opengl */,
+				BB5130C91E62475B00204148 /* opengl */,
 				BB34F8571E563C2100AC8197 /* portable */,
 			);
 			path = ui;
-			sourceTree = "<group>";
-		};
-		BB34F8241E563C2100AC8197 /* opengl */ = {
-			isa = PBXGroup;
-			children = (
-				BB34F8251E563C2100AC8197 /* asset_utils.c */,
-				BB34F8261E563C2100AC8197 /* asset_utils.h */,
-				BB34F82B1E563C2100AC8197 /* image.c */,
-				BB34F82C1E563C2100AC8197 /* image.h */,
-				BB34F82D1E563C2100AC8197 /* linmath.h */,
-				BB34F82E1E563C2100AC8197 /* OpenGLCircleBatcher.cpp */,
-				BB34F82F1E563C2100AC8197 /* OpenGLCircleBatcher.h */,
-				BB34F8301E563C2100AC8197 /* OpenGLDeviceHelper.cpp */,
-				BB34F8311E563C2100AC8197 /* OpenGLDeviceHelper.h */,
-				BB34F8321E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */,
-				BB34F8331E563C2100AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */,
-				BB34F8291E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.cpp */,
-				BB34F82A1E563C2100AC8197 /* OpenGLFramebufferToScreenProgram.h */,
-				BB34F8341E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp */,
-				BB34F8351E563C2100AC8197 /* OpenGLGeometryGpuProgramWrapper.h */,
-				BB34F8271E563C2100AC8197 /* OpenGLGeometryProgram.cpp */,
-				BB34F8281E563C2100AC8197 /* OpenGLGeometryProgram.h */,
-				BB34F8361E563C2100AC8197 /* OpenGLLineBatcher.cpp */,
-				BB34F8371E563C2100AC8197 /* OpenGLLineBatcher.h */,
-				BB34F8381E563C2100AC8197 /* OpenGLManager.cpp */,
-				BB34F8391E563C2100AC8197 /* OpenGLManager.h */,
-				BB34F83B1E563C2100AC8197 /* OpenGLNGRectBatcher.cpp */,
-				BB34F83A1E563C2100AC8197 /* OpenGLNGRectBatcher.h */,
-				BB34F83C1E563C2100AC8197 /* OpenGLRendererHelper.cpp */,
-				BB34F83D1E563C2100AC8197 /* OpenGLRendererHelper.h */,
-				BB34F83E1E563C2100AC8197 /* OpenGLSpriteBatcher.cpp */,
-				BB34F83F1E563C2100AC8197 /* OpenGLSpriteBatcher.h */,
-				BB34F8401E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.cpp */,
-				BB34F8411E563C2100AC8197 /* OpenGLTextureGpuProgramWrapper.h */,
-				BB34F8421E563C2100AC8197 /* OpenGLTextureLoader.cpp */,
-				BB34F8431E563C2100AC8197 /* OpenGLTextureLoader.h */,
-				BB34F8531E563C2100AC8197 /* OpenGLTextureProgram.cpp */,
-				BB34F8541E563C2100AC8197 /* OpenGLTextureProgram.h */,
-				BB34F8441E563C2100AC8197 /* platform_asset_utils.h */,
-				BB34F8451E563C2100AC8197 /* platform_file_utils.c */,
-				BB34F8461E563C2100AC8197 /* platform_file_utils.h */,
-				BB34F8471E563C2100AC8197 /* platform_gl.h */,
-				BB34F8481E563C2100AC8197 /* shader */,
-				BB34F84F1E563C2100AC8197 /* shader.c */,
-				BB34F8501E563C2100AC8197 /* shader.h */,
-				BB34F8511E563C2100AC8197 /* texture.c */,
-				BB34F8521E563C2100AC8197 /* texture.h */,
-			);
-			path = opengl;
-			sourceTree = "<group>";
-		};
-		BB34F8481E563C2100AC8197 /* shader */ = {
-			isa = PBXGroup;
-			children = (
-				BB34F8491E563C2100AC8197 /* color_shader.fsh */,
-				BB34F84A1E563C2100AC8197 /* color_shader.vsh */,
-				BB34F84B1E563C2100AC8197 /* frame_buffer_to_screen_shader.fsh */,
-				BB34F84C1E563C2100AC8197 /* frame_buffer_to_screen_shader.vsh */,
-				BB34F84D1E563C2100AC8197 /* texture_shader.fsh */,
-				BB34F84E1E563C2100AC8197 /* texture_shader.vsh */,
-			);
-			path = shader;
 			sourceTree = "<group>";
 		};
 		BB34F8571E563C2100AC8197 /* portable */ = {
@@ -2598,7 +2538,6 @@
 				BB34FD711E565A7400AC8197 /* Android.mk */,
 				BB34FD721E565A7400AC8197 /* Application.mk */,
 				BB34FD731E565A7400AC8197 /* game.cpp */,
-				BB34FD741E565A7400AC8197 /* platform_asset_utils.c */,
 				BB34FD751E565A7400AC8197 /* sound_manager.cpp */,
 			);
 			name = jni;
@@ -2660,7 +2599,6 @@
 				BBCB71D81DB6B0AF006430B6 /* Base64 */,
 				BBCB71CA1DB6AF4B006430B6 /* CocoaSecurity */,
 				BB44C34D1DB03267003E633F /* main.m */,
-				BB44C34E1DB03267003E633F /* platform_asset_utils.m */,
 				BB44C34F1DB03267003E633F /* SaveData.h */,
 				BB44C3501DB03267003E633F /* SaveData.m */,
 				BBE02D3A1DB18D4600C3268B /* ScreenController.h */,
@@ -2913,6 +2851,96 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		BB5130C91E62475B00204148 /* opengl */ = {
+			isa = PBXGroup;
+			children = (
+				BB51314B1E624BC700204148 /* android */,
+				BB5130CA1E62475B00204148 /* apple */,
+				BB5130CC1E62475B00204148 /* portable */,
+				BB5130F61E62475B00204148 /* shader */,
+			);
+			path = opengl;
+			sourceTree = "<group>";
+		};
+		BB5130CA1E62475B00204148 /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				BB5130CB1E62475B00204148 /* platform_asset_utils.m */,
+			);
+			path = apple;
+			sourceTree = "<group>";
+		};
+		BB5130CC1E62475B00204148 /* portable */ = {
+			isa = PBXGroup;
+			children = (
+				BB5130CD1E62475B00204148 /* asset_utils.c */,
+				BB5130CE1E62475B00204148 /* asset_utils.h */,
+				BB5130CF1E62475B00204148 /* image.c */,
+				BB5130D01E62475B00204148 /* image.h */,
+				BB5130D11E62475B00204148 /* linmath.h */,
+				BB5130D21E62475B00204148 /* OpenGLCircleBatcher.cpp */,
+				BB5130D31E62475B00204148 /* OpenGLCircleBatcher.h */,
+				BB5130D41E62475B00204148 /* OpenGLDeviceHelper.cpp */,
+				BB5130D51E62475B00204148 /* OpenGLDeviceHelper.h */,
+				BB5130D61E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */,
+				BB5130D71E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */,
+				BB5130D81E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp */,
+				BB5130D91E62475B00204148 /* OpenGLFramebufferToScreenProgram.h */,
+				BB5130DA1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp */,
+				BB5130DB1E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.h */,
+				BB5130DC1E62475B00204148 /* OpenGLGeometryProgram.cpp */,
+				BB5130DD1E62475B00204148 /* OpenGLGeometryProgram.h */,
+				BB5130DE1E62475B00204148 /* OpenGLLineBatcher.cpp */,
+				BB5130DF1E62475B00204148 /* OpenGLLineBatcher.h */,
+				BB5130E01E62475B00204148 /* OpenGLManager.cpp */,
+				BB5130E11E62475B00204148 /* OpenGLManager.h */,
+				BB5130E21E62475B00204148 /* OpenGLNGRectBatcher.cpp */,
+				BB5130E31E62475B00204148 /* OpenGLNGRectBatcher.h */,
+				BB5130E41E62475B00204148 /* OpenGLRendererHelper.cpp */,
+				BB5130E51E62475B00204148 /* OpenGLRendererHelper.h */,
+				BB5130E61E62475B00204148 /* OpenGLSpriteBatcher.cpp */,
+				BB5130E71E62475B00204148 /* OpenGLSpriteBatcher.h */,
+				BB5130E81E62475B00204148 /* OpenGLTextureGpuProgramWrapper.cpp */,
+				BB5130E91E62475B00204148 /* OpenGLTextureGpuProgramWrapper.h */,
+				BB5130EA1E62475B00204148 /* OpenGLTextureLoader.cpp */,
+				BB5130EB1E62475B00204148 /* OpenGLTextureLoader.h */,
+				BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */,
+				BB5130ED1E62475B00204148 /* OpenGLTextureProgram.h */,
+				BB5130EE1E62475B00204148 /* platform_asset_utils.h */,
+				BB5130EF1E62475B00204148 /* platform_file_utils.c */,
+				BB5130F01E62475B00204148 /* platform_file_utils.h */,
+				BB5130F11E62475B00204148 /* platform_gl.h */,
+				BB5130F21E62475B00204148 /* shader.c */,
+				BB5130F31E62475B00204148 /* shader.h */,
+				BB5130F41E62475B00204148 /* texture.c */,
+				BB5130F51E62475B00204148 /* texture.h */,
+			);
+			path = portable;
+			sourceTree = "<group>";
+		};
+		BB5130F61E62475B00204148 /* shader */ = {
+			isa = PBXGroup;
+			children = (
+				BB5130F71E62475B00204148 /* color_shader.fsh */,
+				BB5130F81E62475B00204148 /* color_shader.vsh */,
+				BB5130F91E62475B00204148 /* frame_buffer_to_screen_shader.fsh */,
+				BB5130FA1E62475B00204148 /* frame_buffer_to_screen_shader.vsh */,
+				BB5130FB1E62475B00204148 /* texture_shader.fsh */,
+				BB5130FC1E62475B00204148 /* texture_shader.vsh */,
+			);
+			path = shader;
+			sourceTree = "<group>";
+		};
+		BB51314B1E624BC700204148 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				BB51314C1E624BC700204148 /* AndroidAssetsManager.cpp */,
+				BB51314D1E624BC700204148 /* AndroidAssetsManager.h */,
+				BB51314E1E624BC700204148 /* platform_asset_utils.c */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
 		BBADF46B1E60D4A000F4288A /* portable */ = {
 			isa = PBXGroup;
 			children = (
@@ -3107,6 +3135,7 @@
 				BB0F7A251E5A35BE005FB0F3 /* world_1_bgm.wav in Resources */,
 				BB34FC971E5645F500AC8197 /* trans_screen_circle_open_shader.vsh in Resources */,
 				BB44C4E41DB03277003E633F /* world_1_enemies.png in Resources */,
+				BB5131481E62475C00204148 /* texture_shader.vsh in Resources */,
 				BB71C7B71E248D4200222AE2 /* complete_transform.wav in Resources */,
 				BB71C7931E248D4200222AE2 /* absorb_dash_ability.wav in Resources */,
 				BB71C8631E248D4200222AE2 /* screen_transition_2.wav in Resources */,
@@ -3122,6 +3151,7 @@
 				BB71C88B1E248D4300222AE2 /* toad_die.wav in Resources */,
 				BB71C8071E248D4200222AE2 /* jon_rabbit_jump.wav in Resources */,
 				BB44C3481DB0323F003E633F /* Images.xcassets in Resources */,
+				BB5131421E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB44C3441DB0323F003E633F /* InfoPlist.strings in Resources */,
 				BB71C80F1E248D4200222AE2 /* jon_vampire_jump.wav in Resources */,
 				BB44C4921DB03277003E633F /* c_world_1_mid_boss_part_2.png in Resources */,
@@ -3131,7 +3161,6 @@
 				BB71C8171E248D4200222AE2 /* jump_spring.wav in Resources */,
 				BB44C4F21DB03277003E633F /* world_map_screen_part_1.png in Resources */,
 				BB0F7A211E5A35BE005FB0F3 /* title_bgm.wav in Resources */,
-				BB34F9B11E563C2300AC8197 /* color_shader.vsh in Resources */,
 				BB71C81F1E248D4200222AE2 /* landing_grass.wav in Resources */,
 				BB71C89F1E248D4300222AE2 /* world_1_bgm_intro.wav in Resources */,
 				BB34FC6F1E5645F500AC8197 /* fade_screen_shader.fsh in Resources */,
@@ -3145,7 +3174,6 @@
 				BB71C85F1E248D4200222AE2 /* saw_grind_loop.wav in Resources */,
 				BB71C7DF1E248D4200222AE2 /* footstep_left_grass.wav in Resources */,
 				BB44C4901DB03277003E633F /* c_world_1_mid_boss_part_1.png in Resources */,
-				BB34F9BD1E563C2300AC8197 /* texture_shader.fsh in Resources */,
 				BB71C82B1E248D4200222AE2 /* level_complete.wav in Resources */,
 				BB21A4811DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB44C4DA1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
@@ -3163,6 +3191,7 @@
 				BB5C2A671E09E088009577BD /* tutorial.png in Resources */,
 				BB44C48A1DB03277003E633F /* c_world_1_end_boss_part_3.png in Resources */,
 				BB71C80B1E248D4200222AE2 /* jon_vampire_double_jump.wav in Resources */,
+				BB51313F1E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB44C4961DB03277003E633F /* c_world_1_objects_part_1.png in Resources */,
 				BB71C7AB1E248D4200222AE2 /* chain_snap.wav in Resources */,
 				BB71C7EF1E248D4200222AE2 /* footstep_right_wood.wav in Resources */,
@@ -3182,12 +3211,11 @@
 				BB44C4F41DB03277003E633F /* world_map_screen_part_2.png in Resources */,
 				BB71C8731E248D4300222AE2 /* sparrow_die.wav in Resources */,
 				BB21A4851DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
-				BB34F9C11E563C2300AC8197 /* texture_shader.vsh in Resources */,
 				BB71C81B1E248D4200222AE2 /* landing_cave.wav in Resources */,
 				BB71C8031E248D4200222AE2 /* jon_rabbit_double_jump.wav in Resources */,
-				BB34F9AD1E563C2300AC8197 /* color_shader.fsh in Resources */,
 				BB71C86B1E248D4300222AE2 /* snake_death.wav in Resources */,
 				BB34FC931E5645F500AC8197 /* trans_screen_circle_open_shader.fsh in Resources */,
+				BB5131451E62475C00204148 /* texture_shader.fsh in Resources */,
 				BB71C8231E248D4200222AE2 /* landing_wood.wav in Resources */,
 				BB44C4821DB03277003E633F /* c_world_1_cutscene_1.png in Resources */,
 				BB71C7CB1E248D4200222AE2 /* end_boss_snake_death.wav in Resources */,
@@ -3196,6 +3224,8 @@
 				BB71C7F71E248D4200222AE2 /* fox_death.wav in Resources */,
 				BB44C4781DB03277003E633F /* c_jon.png in Resources */,
 				BB71C7FF1E248D4200222AE2 /* jon_burrow_rocksfall.wav in Resources */,
+				BB51313C1E62475C00204148 /* color_shader.vsh in Resources */,
+				BB5131391E62475C00204148 /* color_shader.fsh in Resources */,
 				BB71C89B1E248D4300222AE2 /* vampire_glide_loop.wav in Resources */,
 				BB44C4EC1DB03277003E633F /* world_1_mid_boss_part_3.png in Resources */,
 				BB71C7E31E248D4200222AE2 /* footstep_left_wood.wav in Resources */,
@@ -3203,10 +3233,8 @@
 				BB34FC731E5645F500AC8197 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
 				BB71C7C71E248D4200222AE2 /* end_boss_snake_damaged.wav in Resources */,
 				BB21A4891DD2F51100D72C8B /* world_1_background_mid.png in Resources */,
-				BB34F9B51E563C2300AC8197 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB44C4DE1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB71C8671E248D4200222AE2 /* screen_transition.wav in Resources */,
-				BB34F9B91E563C2300AC8197 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB71C7A31E248D4200222AE2 /* button_click.wav in Resources */,
 				BB0F7A111E5A35BE005FB0F3 /* final_boss_bgm.wav in Resources */,
 				BB44C4F01DB03277003E633F /* world_1_special.png in Resources */,
@@ -3237,17 +3265,16 @@
 				BB44C4E91DB03277003E633F /* world_1_mid_boss_part_1.png in Resources */,
 				BB34FC7D1E5645F500AC8197 /* pp_shockwave_texture_shader.fsh in Resources */,
 				BB0F7A1B1E5A35BE005FB0F3 /* mid_boss_bgm.wav in Resources */,
+				BB5131401E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB8E94581E57656D00D237D2 /* game_pad_tutorial.png in Resources */,
 				BB44C49F1DB03277003E633F /* misc.png in Resources */,
 				BB44C4E11DB03277003E633F /* world_1_end_boss_part_2.png in Resources */,
 				BB44C3291DB030B3003E633F /* Assets.xcassets in Resources */,
-				BB34F9BF1E563C2300AC8197 /* texture_shader.fsh in Resources */,
 				BB71C7D11E248D4200222AE2 /* end_boss_snake_mouth_open.wav in Resources */,
 				BB44C4E31DB03277003E633F /* world_1_end_boss_part_3.png in Resources */,
 				BB71C7FD1E248D4200222AE2 /* fox_strike.wav in Resources */,
 				BB71C89D1E248D4300222AE2 /* vampire_glide_loop.wav in Resources */,
 				BB71C7E11E248D4200222AE2 /* footstep_left_grass.wav in Resources */,
-				BB34F9B71E563C2300AC8197 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB44C4CF1DB03277003E633F /* title_screen.png in Resources */,
 				BB71C7CD1E248D4200222AE2 /* end_boss_snake_death.wav in Resources */,
 				BB71C7B11E248D4200222AE2 /* collect_carrot.wav in Resources */,
@@ -3267,9 +3294,7 @@
 				BB0F7A1F1E5A35BE005FB0F3 /* opening_cutscene_bgm.wav in Resources */,
 				BB5C2A6B1E09EADD009577BD /* world_1_special.png in Resources */,
 				BB44C4E71DB03277003E633F /* world_1_ground.png in Resources */,
-				BB34F9AF1E563C2300AC8197 /* color_shader.fsh in Resources */,
 				BB34FC911E5645F500AC8197 /* trans_out_death_shader.fsh in Resources */,
-				BB34F9BB1E563C2300AC8197 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB21A4871DD2F51100D72C8B /* world_1_background_lower_part_2.png in Resources */,
 				BB71C8711E248D4300222AE2 /* snake_jump.wav in Resources */,
 				BB71C7E51E248D4200222AE2 /* footstep_left_wood.wav in Resources */,
@@ -3281,13 +3306,16 @@
 				BB71C7F51E248D4200222AE2 /* fox_bounced_on.wav in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
 				BBB1E4621E60B36E00201A0C /* big_carrot.wav in Resources */,
+				BB5131431E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB71C7A11E248D4200222AE2 /* boss_level_unlock.wav in Resources */,
 				BB71C8911E248D4300222AE2 /* toad_eat.wav in Resources */,
+				BB5131491E62475C00204148 /* texture_shader.vsh in Resources */,
 				BB34FC951E5645F500AC8197 /* trans_screen_circle_open_shader.fsh in Resources */,
 				BB71C84D1E248D4200222AE2 /* mid_boss_owl_tree_smash.wav in Resources */,
 				BB71C8051E248D4200222AE2 /* jon_rabbit_double_jump.wav in Resources */,
 				BB71C85D1E248D4200222AE2 /* rabbit_stomp.wav in Resources */,
 				BB71C79D1E248D4200222AE2 /* boss_level_clear.wav in Resources */,
+				BB51313D1E62475C00204148 /* color_shader.vsh in Resources */,
 				BB44C4DF1DB03277003E633F /* world_1_end_boss_part_1.png in Resources */,
 				BB44C4EF1DB03277003E633F /* world_1_objects_part_1.png in Resources */,
 				BB44C4D11DB03277003E633F /* trans_death_shader_helper.png in Resources */,
@@ -3303,7 +3331,6 @@
 				BB71C7B91E248D4200222AE2 /* complete_transform.wav in Resources */,
 				BB34FC991E5645F500AC8197 /* trans_screen_circle_open_shader.vsh in Resources */,
 				BB34FC751E5645F500AC8197 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
-				BB34F9B31E563C2300AC8197 /* color_shader.vsh in Resources */,
 				BB34FC8D1E5645F500AC8197 /* trans_in_death_shader.fsh in Resources */,
 				BB71C8851E248D4300222AE2 /* title_lightning_1.wav in Resources */,
 				BB71C7911E248D4200222AE2 /* ability_unlock.wav in Resources */,
@@ -3327,6 +3354,7 @@
 				BB71C7F11E248D4200222AE2 /* footstep_right_wood.wav in Resources */,
 				BB71C7ED1E248D4200222AE2 /* footstep_right_grass.wav in Resources */,
 				BB71C8A11E248D4300222AE2 /* world_1_bgm_intro.wav in Resources */,
+				BB51313A1E62475C00204148 /* color_shader.fsh in Resources */,
 				BB71C8251E248D4200222AE2 /* landing_wood.wav in Resources */,
 				BB71C8451E248D4200222AE2 /* mid_boss_owl_death.wav in Resources */,
 				BB34FC891E5645F500AC8197 /* snake_death_texture_shader.fsh in Resources */,
@@ -3339,10 +3367,10 @@
 				BB44C4F51DB03277003E633F /* world_map_screen_part_2.png in Resources */,
 				BB71C8511E248D4200222AE2 /* mushroom_bounce.wav in Resources */,
 				BB71C8191E248D4200222AE2 /* jump_spring.wav in Resources */,
+				BB5131461E62475C00204148 /* texture_shader.fsh in Resources */,
 				BB71C8151E248D4200222AE2 /* jump_spring_heavy.wav in Resources */,
 				BB71C82D1E248D4200222AE2 /* level_complete.wav in Resources */,
 				BB71C8991E248D4300222AE2 /* vampire_dash.wav in Resources */,
-				BB34F9C31E563C2300AC8197 /* texture_shader.vsh in Resources */,
 				BB0F7A171E5A35BE005FB0F3 /* level_select_bgm.wav in Resources */,
 				BB21A4931DD2F51100D72C8B /* world_1_background_upper.png in Resources */,
 				BB71C7C91E248D4200222AE2 /* end_boss_snake_damaged.wav in Resources */,
@@ -3364,20 +3392,19 @@
 			files = (
 				BBB1E3DE1E60A54C00201A0C /* world_1_mid_boss_part_1.png in Resources */,
 				BBB1E3DF1E60A54C00201A0C /* pp_shockwave_texture_shader.fsh in Resources */,
+				BB5131471E62475C00204148 /* texture_shader.fsh in Resources */,
 				BBB1E3E01E60A54C00201A0C /* mid_boss_bgm.wav in Resources */,
 				BBB1E3E11E60A54C00201A0C /* game_pad_tutorial.png in Resources */,
 				BBB1E45D1E60A96F00201A0C /* level_editor.png in Resources */,
 				BBB1E3E21E60A54C00201A0C /* misc.png in Resources */,
 				BBB1E3E31E60A54C00201A0C /* world_1_end_boss_part_2.png in Resources */,
 				BBB1E3E41E60A54C00201A0C /* Assets.xcassets in Resources */,
-				BBB1E3E51E60A54C00201A0C /* texture_shader.fsh in Resources */,
 				BBB1E3E61E60A54C00201A0C /* end_boss_snake_mouth_open.wav in Resources */,
 				BBB1E3E71E60A54C00201A0C /* world_1_end_boss_part_3.png in Resources */,
 				BBB1E3E81E60A54C00201A0C /* fox_strike.wav in Resources */,
 				BBB1E3E91E60A54C00201A0C /* vampire_glide_loop.wav in Resources */,
 				BBB1E3EA1E60A54C00201A0C /* footstep_left_grass.wav in Resources */,
 				BBB1E4631E60B36E00201A0C /* big_carrot.wav in Resources */,
-				BBB1E3EB1E60A54C00201A0C /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBB1E3EC1E60A54C00201A0C /* title_screen.png in Resources */,
 				BBB1E3ED1E60A54C00201A0C /* end_boss_snake_death.wav in Resources */,
 				BBB1E3EE1E60A54C00201A0C /* collect_carrot.wav in Resources */,
@@ -3397,9 +3424,7 @@
 				BBB1E3FC1E60A54C00201A0C /* opening_cutscene_bgm.wav in Resources */,
 				BBB1E3FD1E60A54C00201A0C /* world_1_special.png in Resources */,
 				BBB1E3FE1E60A54C00201A0C /* world_1_ground.png in Resources */,
-				BBB1E3FF1E60A54C00201A0C /* color_shader.fsh in Resources */,
 				BBB1E4001E60A54C00201A0C /* trans_out_death_shader.fsh in Resources */,
-				BBB1E4011E60A54C00201A0C /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BBB1E4021E60A54C00201A0C /* world_1_background_lower_part_2.png in Resources */,
 				BBB1E4031E60A54C00201A0C /* snake_jump.wav in Resources */,
 				BBB1E4041E60A54C00201A0C /* footstep_left_wood.wav in Resources */,
@@ -3432,29 +3457,33 @@
 				BBB1E41F1E60A54C00201A0C /* complete_transform.wav in Resources */,
 				BBB1E4201E60A54C00201A0C /* trans_screen_circle_open_shader.vsh in Resources */,
 				BBB1E4211E60A54C00201A0C /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
-				BBB1E4221E60A54C00201A0C /* color_shader.vsh in Resources */,
 				BBB1E4231E60A54C00201A0C /* trans_in_death_shader.fsh in Resources */,
 				BBB1E4241E60A54C00201A0C /* title_lightning_1.wav in Resources */,
 				BBB1E4251E60A54C00201A0C /* ability_unlock.wav in Resources */,
 				BBB1E4261E60A54C00201A0C /* screen_transition_2.wav in Resources */,
 				BBB1E4271E60A54C00201A0C /* jon_vampire_double_jump.wav in Resources */,
 				BBB1E4281E60A54C00201A0C /* jon_rabbit_jump.wav in Resources */,
+				BB51313B1E62475C00204148 /* color_shader.fsh in Resources */,
 				BBB1E4291E60A54C00201A0C /* footstep_left_cave.wav in Resources */,
 				BBB1E42A1E60A54C00201A0C /* fade_screen_shader.fsh in Resources */,
+				BB51314A1E62475C00204148 /* texture_shader.vsh in Resources */,
 				BBB1E42B1E60A54C00201A0C /* jon_burrow_rocksfall.wav in Resources */,
 				BBB1E42C1E60A54C00201A0C /* pp_frame_buffer_obfuscation.fsh in Resources */,
 				BBB1E42D1E60A54C00201A0C /* d_tutorial.png in Resources */,
 				BBB1E42E1E60A54C00201A0C /* end_boss_snake_texture_shader.fsh in Resources */,
 				BBB1E42F1E60A54C00201A0C /* pp_shockwave_texture_shader.vsh in Resources */,
 				BBB1E4301E60A54C00201A0C /* level_confirmed.wav in Resources */,
+				BB5131441E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BBB1E4311E60A54C00201A0C /* world_1_objects_part_2.png in Resources */,
 				BBB1E4321E60A54C00201A0C /* rabbit_drill.wav in Resources */,
 				BBB1E4331E60A54C00201A0C /* landing_cave.wav in Resources */,
 				BBB1E4341E60A54C00201A0C /* world_map_screen_part_1.png in Resources */,
 				BBB1E4351E60A54C00201A0C /* landing_grass.wav in Resources */,
+				BB51313E1E62475C00204148 /* color_shader.vsh in Resources */,
 				BBB1E4361E60A54C00201A0C /* world_1_bgm.wav in Resources */,
 				BBB1E4371E60A54C00201A0C /* footstep_right_wood.wav in Resources */,
 				BBB1E4381E60A54C00201A0C /* footstep_right_grass.wav in Resources */,
+				BB5131411E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BBB1E4391E60A54C00201A0C /* world_1_bgm_intro.wav in Resources */,
 				BBB1E43A1E60A54C00201A0C /* landing_wood.wav in Resources */,
 				BBB1E43B1E60A54C00201A0C /* mid_boss_owl_death.wav in Resources */,
@@ -3471,7 +3500,6 @@
 				BBB1E4461E60A54C00201A0C /* jump_spring_heavy.wav in Resources */,
 				BBB1E4471E60A54C00201A0C /* level_complete.wav in Resources */,
 				BBB1E4481E60A54C00201A0C /* vampire_dash.wav in Resources */,
-				BBB1E4491E60A54C00201A0C /* texture_shader.vsh in Resources */,
 				BBB1E44A1E60A54C00201A0C /* level_select_bgm.wav in Resources */,
 				BBB1E44B1E60A54C00201A0C /* world_1_background_upper.png in Resources */,
 				BBB1E44C1E60A54C00201A0C /* end_boss_snake_damaged.wav in Resources */,
@@ -3494,32 +3522,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB34F9951E563C2300AC8197 /* OpenGLNGRectBatcher.cpp in Sources */,
+				BB5131121E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
 				BB34FCDB1E5645F500AC8197 /* MainScreen.cpp in Sources */,
 				BB34FD071E5645F500AC8197 /* LevelEditorActionsPanel.cpp in Sources */,
 				BB34FC431E5645F500AC8197 /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
 				BB34FB7B1E5645F400AC8197 /* Background.cpp in Sources */,
-				BB34F9891E563C2300AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
+				BB5131001E62475B00204148 /* asset_utils.c in Sources */,
 				BB34FD171E5645F500AC8197 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FC5B1E5645F500AC8197 /* OpenGLSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB34FA251E563C2400AC8197 /* ScreenEvent.cpp in Sources */,
-				BB34F98D1E563C2300AC8197 /* OpenGLLineBatcher.cpp in Sources */,
 				BB34FCD31E5645F500AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34FBAB1E5645F400AC8197 /* GameMarker.cpp in Sources */,
 				BB34FC3F1E5645F500AC8197 /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34F8D51E563C2200AC8197 /* Triangle.cpp in Sources */,
+				BB51310C1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FB831E5645F400AC8197 /* CountHissWithMina.cpp in Sources */,
 				BB34FC631E5645F500AC8197 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
+				BB51312A1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */,
 				BB34FCC31E5645F500AC8197 /* ConfirmExitPanel.cpp in Sources */,
-				BB34F9A91E563C2300AC8197 /* platform_file_utils.c in Sources */,
 				BB34F9ED1E563C2300AC8197 /* Font.cpp in Sources */,
 				BB34FCCB1E5645F500AC8197 /* CutscenePanel.cpp in Sources */,
 				BB34FA3D1E563C2400AC8197 /* TextureLoaderFactory.cpp in Sources */,
+				BB51311B1E62475B00204148 /* OpenGLManager.cpp in Sources */,
 				BB34FA051E563C2400AC8197 /* KeyboardEvent.cpp in Sources */,
 				BB34FC531E5645F500AC8197 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BB34FC9F1E5645F500AC8197 /* OpenGLShockwaveTextureProgram.cpp in Sources */,
-				BB34F9711E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */,
 				BB34FBBB1E5645F400AC8197 /* Jon.cpp in Sources */,
 				BB34FCAF1E5645F500AC8197 /* MainAssets.cpp in Sources */,
 				BB34FA191E563C2400AC8197 /* NGRectBatcherFactory.cpp in Sources */,
@@ -3529,8 +3557,8 @@
 				BBADF46E1E60D55400F4288A /* SoundManager.cpp in Sources */,
 				BB34FB9B1E5645F400AC8197 /* ExitGroundCover.cpp in Sources */,
 				BB34FCA31E5645F500AC8197 /* OpenGLSinWaveTextureProgram.cpp in Sources */,
-				BB34F9A51E563C2300AC8197 /* OpenGLTextureLoader.cpp in Sources */,
 				BB34F8E51E563C2200AC8197 /* SuperpoweredSound.cpp in Sources */,
+				BB5131241E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */,
 				BB44C8691DB03A7E003E633F /* pngerror.c in Sources */,
 				BB34FD031E5645F500AC8197 /* GameTracker.cpp in Sources */,
 				BB34FCCF1E5645F500AC8197 /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
@@ -3541,25 +3569,20 @@
 				BB34FD0B1E5645F500AC8197 /* LevelEditorEntitiesPanel.cpp in Sources */,
 				BB34FC4B1E5645F500AC8197 /* OpenGLPointTransScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FCF31E5645F500AC8197 /* MainScreenState.cpp in Sources */,
-				BB34F9C91E563C2300AC8197 /* texture.c in Sources */,
-				BB34F9A11E563C2300AC8197 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
-				BB34F9911E563C2300AC8197 /* OpenGLManager.cpp in Sources */,
 				BB34F9DD1E563C2300AC8197 /* CircleBatcher.cpp in Sources */,
 				BB34F8E91E563C2200AC8197 /* SuperpoweredSoundCollection.cpp in Sources */,
+				BB5131091E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */,
 				BB34FD431E5645F500AC8197 /* WorldMapPanel.cpp in Sources */,
 				BB34FD1B1E5645F500AC8197 /* MainRenderer.cpp in Sources */,
-				BB34F99D1E563C2300AC8197 /* OpenGLSpriteBatcher.cpp in Sources */,
 				BB34FCBB1E5645F500AC8197 /* Chapter1Level10.cpp in Sources */,
 				BB34FC3B1E5645F500AC8197 /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FD0F1E5645F500AC8197 /* LevelSelectorPanel.cpp in Sources */,
 				BB34F9E51E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FA351E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */,
-				BB34F9991E563C2300AC8197 /* OpenGLRendererHelper.cpp in Sources */,
 				BB34FD3F1E5645F500AC8197 /* TrashCan.cpp in Sources */,
 				BB34FCFB1E5645F500AC8197 /* MainScreenTransitions.cpp in Sources */,
 				BB34FA451E563C2400AC8197 /* TouchConverter.cpp in Sources */,
 				BB34FD331E5645F500AC8197 /* TextureSelectorPanel.cpp in Sources */,
-				BB34F9C51E563C2300AC8197 /* shader.c in Sources */,
 				BB34FA411E563C2400AC8197 /* TextureRegion.cpp in Sources */,
 				BB34FA011E563C2400AC8197 /* IScreen.cpp in Sources */,
 				BB34FCDF1E5645F500AC8197 /* MainScreenComingSoon.cpp in Sources */,
@@ -3576,16 +3599,18 @@
 				BB34FB971E5645F400AC8197 /* ExitGround.cpp in Sources */,
 				BB34F8D91E563C2200AC8197 /* Vector2D.cpp in Sources */,
 				BB34FC371E5645F500AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
-				BB34F97D1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */,
 				BBCB71DB1DB6B0AF006430B6 /* Base64.m in Sources */,
+				BB5131151E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */,
 				BB34F8B51E563C2100AC8197 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BB34FB931E5645F400AC8197 /* EnemySpirit.cpp in Sources */,
 				BB34FA0D1E563C2400AC8197 /* LineBatcher.cpp in Sources */,
+				BB5131031E62475B00204148 /* image.c in Sources */,
 				BB34FCF71E5645F500AC8197 /* MainScreenTitle.cpp in Sources */,
-				BB34F9791E563C2300AC8197 /* image.c in Sources */,
 				BB44C8711DB03A7E003E633F /* pngpread.c in Sources */,
 				BB34FC571E5645F500AC8197 /* OpenGLSinWaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44C87B1DB03A7E003E633F /* pngset.c in Sources */,
+				BB51312D1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
+				BB5131181E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */,
 				BB44C3611DB03267003E633F /* SaveData.m in Sources */,
 				BB34FCC71E5645F500AC8197 /* ConfirmResetPanel.cpp in Sources */,
 				BBE02D3C1DB18D4600C3268B /* ScreenController.mm in Sources */,
@@ -3604,6 +3629,7 @@
 				BB34F9F11E563C2300AC8197 /* GamePadEvent.cpp in Sources */,
 				BB34FBA71E5645F400AC8197 /* Game.cpp in Sources */,
 				BB34FD3B1E5645F500AC8197 /* TransDeathGpuProgramWrapper.cpp in Sources */,
+				BB51310F1E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
 				BB34FBB71E5645F400AC8197 /* HoleCover.cpp in Sources */,
 				BB34FA291E563C2400AC8197 /* ScreenInputManager.cpp in Sources */,
 				BB44C8771DB03A7E003E633F /* pngrtran.c in Sources */,
@@ -3613,38 +3639,39 @@
 				BB8E94641E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */,
 				BB34F9E91E563C2300AC8197 /* DummyGpuProgramWrapper.cpp in Sources */,
 				BB34FBAF1E5645F400AC8197 /* Ground.cpp in Sources */,
-				BB34F96D1E563C2300AC8197 /* asset_utils.c in Sources */,
 				BB44C3351DB0317E003E633F /* AppDelegate.m in Sources */,
 				BB34FA211E563C2400AC8197 /* RendererHelperFactory.cpp in Sources */,
 				BB34FCE31E5645F500AC8197 /* MainScreenLevelEditor.cpp in Sources */,
+				BB5131271E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BB34FBC31E5645F400AC8197 /* MidBossOwl.cpp in Sources */,
 				BB44C8751DB03A7E003E633F /* pngrio.c in Sources */,
 				BB44C8831DB03A7E003E633F /* pngwio.c in Sources */,
+				BB5131061E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */,
 				BB34FC5F1E5645F500AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34FBB31E5645F400AC8197 /* Hole.cpp in Sources */,
 				BB44C8791DB03A7E003E633F /* pngrutil.c in Sources */,
 				BB34F9F91E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
-				BB34F9811E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */,
 				BB44C3361DB0317E003E633F /* ViewController.mm in Sources */,
+				BB5130FD1E62475B00204148 /* platform_asset_utils.m in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB34FA091E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
-				BB34F9851E563C2300AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
-				BB34F9CD1E563C2300AC8197 /* OpenGLTextureProgram.cpp in Sources */,
 				BB34FCAB1E5645F500AC8197 /* OpenGLTransDeathProgram.cpp in Sources */,
 				BB34FD231E5645F500AC8197 /* SinWaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB5131361E62475C00204148 /* texture.c in Sources */,
 				BB34FCFF1E5645F500AC8197 /* MainScreenWorldMap.cpp in Sources */,
 				BB44C8731DB03A7E003E633F /* pngread.c in Sources */,
 				BB34FCA71E5645F500AC8197 /* OpenGLSnakeDeathTextureProgram.cpp in Sources */,
 				BB34FD1F1E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
-				BB34F9751E563C2300AC8197 /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
 				BB44C8631DB03A7E003E633F /* png.c in Sources */,
 				BB34F8C91E563C2200AC8197 /* Line.cpp in Sources */,
 				BB34F8AD1E563C2100AC8197 /* Entity.cpp in Sources */,
 				BB44C86B1DB03A7E003E633F /* pngget.c in Sources */,
 				BB34FD371E5645F500AC8197 /* TitlePanel.cpp in Sources */,
 				BB34FA511E563C2400AC8197 /* RTTI.cpp in Sources */,
+				BB51311E1E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */,
+				BB5131331E62475C00204148 /* shader.c in Sources */,
 				BB34F8B11E563C2100AC8197 /* EntityManager.cpp in Sources */,
 				BBD5A9CA1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB871E5645F400AC8197 /* DustCloud.cpp in Sources */,
@@ -3654,8 +3681,9 @@
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
 				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB34F9D51E563C2300AC8197 /* Animation.cpp in Sources */,
+				BB5131211E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */,
+				BB5131301E62475C00204148 /* platform_file_utils.c in Sources */,
 				BB34F8BD1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
-				BB44C35F1DB03267003E633F /* platform_asset_utils.m in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3664,24 +3692,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB5131101E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
+				BB51311F1E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */,
 				BB34FD1D1E5645F500AC8197 /* MainRenderer.cpp in Sources */,
-				BB44CB901DB05426003E633F /* platform_asset_utils.m in Sources */,
 				BB34F8D31E563C2200AC8197 /* OverlapTester.cpp in Sources */,
 				BB34FCE11E5645F500AC8197 /* MainScreenComingSoon.cpp in Sources */,
-				BB34F96F1E563C2300AC8197 /* asset_utils.c in Sources */,
 				BB34FC411E5645F500AC8197 /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34FCFD1E5645F500AC8197 /* MainScreenTransitions.cpp in Sources */,
 				BB34FCF91E5645F500AC8197 /* MainScreenTitle.cpp in Sources */,
 				BB34FA2B1E563C2400AC8197 /* ScreenInputManager.cpp in Sources */,
 				BB34FBA51E5645F400AC8197 /* ForegroundObject.cpp in Sources */,
 				BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
+				BB5131191E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */,
 				BB34FBBD1E5645F400AC8197 /* Jon.cpp in Sources */,
 				BB34FCB91E5645F500AC8197 /* BatPanel.cpp in Sources */,
 				BB34FBAD1E5645F400AC8197 /* GameMarker.cpp in Sources */,
+				BB5131221E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */,
 				BB34FD151E5645F500AC8197 /* OffsetPanel.cpp in Sources */,
-				BB34F9771E563C2300AC8197 /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
 				BB34FCC51E5645F500AC8197 /* ConfirmExitPanel.cpp in Sources */,
 				BB34FCDD1E5645F500AC8197 /* MainScreen.cpp in Sources */,
+				BB5131161E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */,
 				BB34F9FB1E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB34FC451E5645F500AC8197 /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
@@ -3689,10 +3719,10 @@
 				BB34FB8D1E5645F400AC8197 /* EndBossSnake.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
 				BB34FCC91E5645F500AC8197 /* ConfirmResetPanel.cpp in Sources */,
+				BB5130FE1E62475B00204148 /* platform_asset_utils.m in Sources */,
 				BB34F9FF1E563C2300AC8197 /* GpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB911E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB44CB811DB053C0003E633F /* png.c in Sources */,
-				BB34F9A71E563C2300AC8197 /* OpenGLTextureLoader.cpp in Sources */,
 				BB44CB821DB053C0003E633F /* pngerror.c in Sources */,
 				BB34FD291E5645F500AC8197 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB831DB053C0003E633F /* pngget.c in Sources */,
@@ -3701,7 +3731,6 @@
 				BB34FA171E563C2400AC8197 /* NGRectBatcher.cpp in Sources */,
 				BB44CB841DB053C0003E633F /* pngmem.c in Sources */,
 				BB34FC391E5645F500AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
-				BB34F9931E563C2300AC8197 /* OpenGLManager.cpp in Sources */,
 				BB34FA271E563C2400AC8197 /* ScreenEvent.cpp in Sources */,
 				BB34F8E71E563C2200AC8197 /* SuperpoweredSound.cpp in Sources */,
 				BB44CB851DB053C0003E633F /* pngpread.c in Sources */,
@@ -3723,39 +3752,42 @@
 				BB44CB8B1DB053C0003E633F /* pngtrans.c in Sources */,
 				BB34FCD11E5645F500AC8197 /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BB44CB8C1DB053C0003E633F /* pngwio.c in Sources */,
-				BB34F9CB1E563C2300AC8197 /* texture.c in Sources */,
 				BB34FC551E5645F500AC8197 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB34FD451E5645F500AC8197 /* WorldMapPanel.cpp in Sources */,
 				BB34FCE51E5645F500AC8197 /* MainScreenLevelEditor.cpp in Sources */,
 				BB34F8EF1E563C2200AC8197 /* SuperpoweredSoundManager.cpp in Sources */,
-				BB34F99F1E563C2300AC8197 /* OpenGLSpriteBatcher.cpp in Sources */,
 				BB34FBC51E5645F400AC8197 /* MidBossOwl.cpp in Sources */,
 				BB34F8BF1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
 				BB34FD211E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F9E71E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FC691E5645F500AC8197 /* OpenGLPointTransitionProgram.cpp in Sources */,
+				BB5131071E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */,
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
 				BB34F8EB1E563C2200AC8197 /* SuperpoweredSoundCollection.cpp in Sources */,
 				BB34FA531E563C2400AC8197 /* RTTI.cpp in Sources */,
-				BB34F9CF1E563C2300AC8197 /* OpenGLTextureProgram.cpp in Sources */,
+				BB5131251E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */,
 				BB34F9EB1E563C2300AC8197 /* DummyGpuProgramWrapper.cpp in Sources */,
 				BB34FC611E5645F500AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34FCA11E5645F500AC8197 /* OpenGLShockwaveTextureProgram.cpp in Sources */,
 				BB34FA0B1E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
 				BB44CB8E1DB053C0003E633F /* pngwtran.c in Sources */,
+				BB5131041E62475B00204148 /* image.c in Sources */,
+				BB5131011E62475B00204148 /* asset_utils.c in Sources */,
 				BBE02D3D1DB18D4600C3268B /* ScreenController.mm in Sources */,
 				BB44CB8F1DB053C0003E633F /* pngwutil.c in Sources */,
 				BB34FA4B1E563C2400AC8197 /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FB851E5645F400AC8197 /* CountHissWithMina.cpp in Sources */,
 				BB34FCA51E5645F500AC8197 /* OpenGLSinWaveTextureProgram.cpp in Sources */,
 				BB34FBA11E5645F400AC8197 /* ForegroundCoverObject.cpp in Sources */,
-				BB34F9831E563C2300AC8197 /* OpenGLDeviceHelper.cpp in Sources */,
+				BB5131371E62475C00204148 /* texture.c in Sources */,
 				BBD5A9E01E585282007CE6A8 /* OpenGLTransitionProgram.cpp in Sources */,
+				BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BB34FD011E5645F500AC8197 /* MainScreenWorldMap.cpp in Sources */,
-				BB34F9AB1E563C2300AC8197 /* platform_file_utils.c in Sources */,
+				BB5131311E62475C00204148 /* platform_file_utils.c in Sources */,
 				BB34F8D71E563C2200AC8197 /* Triangle.cpp in Sources */,
 				BB34FD191E5645F500AC8197 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FA371E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */,
+				BB51311C1E62475B00204148 /* OpenGLManager.cpp in Sources */,
 				BB34FA031E563C2400AC8197 /* IScreen.cpp in Sources */,
 				BB34FB811E5645F400AC8197 /* CollectibleItem.cpp in Sources */,
 				BB09CE231DBD3779006A3E49 /* SuperpoweredOSXAudioIO.mm in Sources */,
@@ -3773,8 +3805,7 @@
 				BB34FCF51E5645F500AC8197 /* MainScreenState.cpp in Sources */,
 				BB34FBB11E5645F400AC8197 /* Ground.cpp in Sources */,
 				BB34FB7D1E5645F400AC8197 /* Background.cpp in Sources */,
-				BB34F98F1E563C2300AC8197 /* OpenGLLineBatcher.cpp in Sources */,
-				BB34F97B1E563C2300AC8197 /* image.c in Sources */,
+				BB51310A1E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */,
 				BB34FC3D1E5645F500AC8197 /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FD391E5645F500AC8197 /* TitlePanel.cpp in Sources */,
 				BB34FA3F1E563C2400AC8197 /* TextureLoaderFactory.cpp in Sources */,
@@ -3784,6 +3815,9 @@
 				BB34F8CB1E563C2200AC8197 /* Line.cpp in Sources */,
 				BB34FC651E5645F500AC8197 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FA131E563C2400AC8197 /* LineBatcherFactory.cpp in Sources */,
+				BB5131131E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
+				BB51310D1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
+				BB5131341E62475C00204148 /* shader.c in Sources */,
 				BB34FB9D1E5645F400AC8197 /* ExitGroundCover.cpp in Sources */,
 				BB34FD351E5645F500AC8197 /* TextureSelectorPanel.cpp in Sources */,
 				BB34FA071E563C2400AC8197 /* KeyboardEvent.cpp in Sources */,
@@ -3794,13 +3828,10 @@
 				BB34FBB51E5645F400AC8197 /* Hole.cpp in Sources */,
 				BB34F9DB1E563C2300AC8197 /* Assets.cpp in Sources */,
 				BB34F9E31E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */,
-				BB34F98B1E563C2300AC8197 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
-				BB34F9A31E563C2300AC8197 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F9F31E563C2300AC8197 /* GamePadEvent.cpp in Sources */,
 				BB34FCC11E5645F500AC8197 /* Chapter1Level21.cpp in Sources */,
 				BB34FA3B1E563C2400AC8197 /* Text.cpp in Sources */,
 				BB34FBB91E5645F400AC8197 /* HoleCover.cpp in Sources */,
-				BB34F9971E563C2300AC8197 /* OpenGLNGRectBatcher.cpp in Sources */,
 				BB34FBC91E5645F400AC8197 /* Midground.cpp in Sources */,
 				BB34FA1F1E563C2400AC8197 /* Renderer.cpp in Sources */,
 				BB34F9EF1E563C2300AC8197 /* Font.cpp in Sources */,
@@ -3808,21 +3839,18 @@
 				BB13BD4F1E58E0800073C08F /* JoystickController.mm in Sources */,
 				BB34FCB11E5645F500AC8197 /* MainAssets.cpp in Sources */,
 				BB34FA0F1E563C2400AC8197 /* LineBatcher.cpp in Sources */,
-				BB34F9731E563C2300AC8197 /* OpenGLGeometryProgram.cpp in Sources */,
 				BB34FA1B1E563C2400AC8197 /* NGRectBatcherFactory.cpp in Sources */,
 				BB34FD3D1E5645F500AC8197 /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34F9F71E563C2300AC8197 /* GamePadInputManager.cpp in Sources */,
 				BBD5A9D21E584D93007CE6A8 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
-				BB34F9C71E563C2300AC8197 /* shader.c in Sources */,
 				BB34FD411E5645F500AC8197 /* TrashCan.cpp in Sources */,
 				BB34FD091E5645F500AC8197 /* LevelEditorActionsPanel.cpp in Sources */,
+				BB51312B1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */,
 				BB34FB991E5645F400AC8197 /* ExitGround.cpp in Sources */,
-				BB34F9871E563C2300AC8197 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB34F8AF1E563C2100AC8197 /* Entity.cpp in Sources */,
 				BB44CB091DB04C83003E633F /* NGOpenGLView.mm in Sources */,
-				BB34F99B1E563C2300AC8197 /* OpenGLRendererHelper.cpp in Sources */,
 				BB34FB951E5645F400AC8197 /* EnemySpirit.cpp in Sources */,
-				BB34F97F1E563C2300AC8197 /* OpenGLCircleBatcher.cpp in Sources */,
+				BB5131281E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BB34FBC11E5645F400AC8197 /* JonFormState.cpp in Sources */,
 				BB44C3281DB030B3003E633F /* AppDelegate.m in Sources */,
 				BB34F9D71E563C2300AC8197 /* Animation.cpp in Sources */,
@@ -3835,24 +3863,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB5131111E62475B00204148 /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
+				BB5131201E62475B00204148 /* OpenGLNGRectBatcher.cpp in Sources */,
 				BBB1E3251E60A54C00201A0C /* MainRenderer.cpp in Sources */,
-				BBB1E3261E60A54C00201A0C /* platform_asset_utils.m in Sources */,
 				BBB1E3271E60A54C00201A0C /* OverlapTester.cpp in Sources */,
 				BBB1E3281E60A54C00201A0C /* MainScreenComingSoon.cpp in Sources */,
-				BBB1E3291E60A54C00201A0C /* asset_utils.c in Sources */,
 				BBB1E32A1E60A54C00201A0C /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BBB1E32B1E60A54C00201A0C /* MainScreenTransitions.cpp in Sources */,
 				BBB1E32C1E60A54C00201A0C /* MainScreenTitle.cpp in Sources */,
 				BBB1E32D1E60A54C00201A0C /* ScreenInputManager.cpp in Sources */,
 				BBB1E32E1E60A54C00201A0C /* ForegroundObject.cpp in Sources */,
 				BBB1E32F1E60A54C00201A0C /* CocoaSecurity.m in Sources */,
+				BB51311A1E62475B00204148 /* OpenGLLineBatcher.cpp in Sources */,
 				BBB1E3301E60A54C00201A0C /* Jon.cpp in Sources */,
 				BBB1E3311E60A54C00201A0C /* BatPanel.cpp in Sources */,
 				BBB1E3321E60A54C00201A0C /* GameMarker.cpp in Sources */,
+				BB5131231E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */,
 				BBB1E3331E60A54C00201A0C /* OffsetPanel.cpp in Sources */,
-				BBB1E3341E60A54C00201A0C /* OpenGLFramebufferToScreenProgram.cpp in Sources */,
 				BBB1E3351E60A54C00201A0C /* ConfirmExitPanel.cpp in Sources */,
 				BBB1E3361E60A54C00201A0C /* MainScreen.cpp in Sources */,
+				BB5131171E62475B00204148 /* OpenGLGeometryProgram.cpp in Sources */,
 				BBB1E3371E60A54C00201A0C /* GpuProgramWrapper.cpp in Sources */,
 				BBB1E3391E60A54C00201A0C /* SaveData.m in Sources */,
 				BBB1E33A1E60A54C00201A0C /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
@@ -3860,10 +3890,10 @@
 				BBB1E33C1E60A54C00201A0C /* EndBossSnake.cpp in Sources */,
 				BBB1E33D1E60A54C00201A0C /* main.m in Sources */,
 				BBB1E33E1E60A54C00201A0C /* ConfirmResetPanel.cpp in Sources */,
+				BB5130FF1E62475B00204148 /* platform_asset_utils.m in Sources */,
 				BBB1E33F1E60A54C00201A0C /* GpuProgramWrapperFactory.cpp in Sources */,
 				BBB1E3401E60A54C00201A0C /* Enemy.cpp in Sources */,
 				BBB1E3411E60A54C00201A0C /* png.c in Sources */,
-				BBB1E3421E60A54C00201A0C /* OpenGLTextureLoader.cpp in Sources */,
 				BBB1E3431E60A54C00201A0C /* pngerror.c in Sources */,
 				BBB1E3441E60A54C00201A0C /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E3451E60A54C00201A0C /* pngget.c in Sources */,
@@ -3872,7 +3902,6 @@
 				BBB1E3481E60A54C00201A0C /* NGRectBatcher.cpp in Sources */,
 				BBB1E3491E60A54C00201A0C /* pngmem.c in Sources */,
 				BBB1E34A1E60A54C00201A0C /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
-				BBB1E34B1E60A54C00201A0C /* OpenGLManager.cpp in Sources */,
 				BBB1E34C1E60A54C00201A0C /* ScreenEvent.cpp in Sources */,
 				BBB1E34D1E60A54C00201A0C /* SuperpoweredSound.cpp in Sources */,
 				BBB1E34E1E60A54C00201A0C /* pngpread.c in Sources */,
@@ -3894,39 +3923,42 @@
 				BBB1E35E1E60A54C00201A0C /* pngtrans.c in Sources */,
 				BBB1E35F1E60A54C00201A0C /* EndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E3601E60A54C00201A0C /* pngwio.c in Sources */,
-				BBB1E3611E60A54C00201A0C /* texture.c in Sources */,
 				BBB1E3621E60A54C00201A0C /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E3631E60A54C00201A0C /* WorldMapPanel.cpp in Sources */,
 				BBB1E3641E60A54C00201A0C /* MainScreenLevelEditor.cpp in Sources */,
 				BBB1E3651E60A54C00201A0C /* SuperpoweredSoundManager.cpp in Sources */,
-				BBB1E3661E60A54C00201A0C /* OpenGLSpriteBatcher.cpp in Sources */,
 				BBB1E3671E60A54C00201A0C /* MidBossOwl.cpp in Sources */,
 				BBB1E3681E60A54C00201A0C /* PhysicalEntity.cpp in Sources */,
 				BBB1E3691E60A54C00201A0C /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E36A1E60A54C00201A0C /* DeviceHelperFactory.cpp in Sources */,
 				BBB1E36B1E60A54C00201A0C /* OpenGLPointTransitionProgram.cpp in Sources */,
+				BB5131081E62475B00204148 /* OpenGLCircleBatcher.cpp in Sources */,
 				BBB1E36C1E60A54C00201A0C /* pngwrite.c in Sources */,
 				BBB1E36D1E60A54C00201A0C /* SuperpoweredSoundCollection.cpp in Sources */,
 				BBB1E36E1E60A54C00201A0C /* RTTI.cpp in Sources */,
-				BBB1E36F1E60A54C00201A0C /* OpenGLTextureProgram.cpp in Sources */,
+				BB5131261E62475C00204148 /* OpenGLSpriteBatcher.cpp in Sources */,
 				BBB1E3701E60A54C00201A0C /* DummyGpuProgramWrapper.cpp in Sources */,
 				BBB1E3711E60A54C00201A0C /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
 				BBB1E3721E60A54C00201A0C /* OpenGLShockwaveTextureProgram.cpp in Sources */,
 				BBB1E3731E60A54C00201A0C /* KeyboardInputManager.cpp in Sources */,
 				BBB1E3741E60A54C00201A0C /* pngwtran.c in Sources */,
+				BB5131051E62475B00204148 /* image.c in Sources */,
+				BB5131021E62475B00204148 /* asset_utils.c in Sources */,
 				BBB1E3751E60A54C00201A0C /* ScreenController.mm in Sources */,
 				BBB1E3761E60A54C00201A0C /* pngwutil.c in Sources */,
 				BBB1E3771E60A54C00201A0C /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BBB1E3781E60A54C00201A0C /* CountHissWithMina.cpp in Sources */,
 				BBB1E3791E60A54C00201A0C /* OpenGLSinWaveTextureProgram.cpp in Sources */,
 				BBB1E37A1E60A54C00201A0C /* ForegroundCoverObject.cpp in Sources */,
-				BBB1E37B1E60A54C00201A0C /* OpenGLDeviceHelper.cpp in Sources */,
+				BB5131381E62475C00204148 /* texture.c in Sources */,
 				BBB1E37C1E60A54C00201A0C /* OpenGLTransitionProgram.cpp in Sources */,
+				BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BBB1E37D1E60A54C00201A0C /* MainScreenWorldMap.cpp in Sources */,
-				BBB1E37E1E60A54C00201A0C /* platform_file_utils.c in Sources */,
+				BB5131321E62475C00204148 /* platform_file_utils.c in Sources */,
 				BBB1E37F1E60A54C00201A0C /* Triangle.cpp in Sources */,
 				BBB1E3801E60A54C00201A0C /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBB1E3811E60A54C00201A0C /* SpriteBatcherFactory.cpp in Sources */,
+				BB51311D1E62475B00204148 /* OpenGLManager.cpp in Sources */,
 				BBB1E3821E60A54C00201A0C /* IScreen.cpp in Sources */,
 				BBB1E3831E60A54C00201A0C /* CollectibleItem.cpp in Sources */,
 				BBB1E3841E60A54C00201A0C /* SuperpoweredOSXAudioIO.mm in Sources */,
@@ -3944,8 +3976,7 @@
 				BBB1E3921E60A54C00201A0C /* MainScreenState.cpp in Sources */,
 				BBB1E3931E60A54C00201A0C /* Ground.cpp in Sources */,
 				BBB1E3941E60A54C00201A0C /* Background.cpp in Sources */,
-				BBB1E3951E60A54C00201A0C /* OpenGLLineBatcher.cpp in Sources */,
-				BBB1E3961E60A54C00201A0C /* image.c in Sources */,
+				BB51310B1E62475B00204148 /* OpenGLDeviceHelper.cpp in Sources */,
 				BBB1E3971E60A54C00201A0C /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BBB1E3981E60A54C00201A0C /* TitlePanel.cpp in Sources */,
 				BBB1E3991E60A54C00201A0C /* TextureLoaderFactory.cpp in Sources */,
@@ -3955,6 +3986,9 @@
 				BBB1E39D1E60A54C00201A0C /* Line.cpp in Sources */,
 				BBB1E39E1E60A54C00201A0C /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
 				BBB1E39F1E60A54C00201A0C /* LineBatcherFactory.cpp in Sources */,
+				BB5131141E62475B00204148 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
+				BB51310E1E62475B00204148 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
+				BB5131351E62475C00204148 /* shader.c in Sources */,
 				BBB1E3A01E60A54C00201A0C /* ExitGroundCover.cpp in Sources */,
 				BBB1E3A11E60A54C00201A0C /* TextureSelectorPanel.cpp in Sources */,
 				BBB1E3A21E60A54C00201A0C /* KeyboardEvent.cpp in Sources */,
@@ -3965,13 +3999,10 @@
 				BBB1E3A71E60A54C00201A0C /* Hole.cpp in Sources */,
 				BBB1E3A81E60A54C00201A0C /* Assets.cpp in Sources */,
 				BBB1E3A91E60A54C00201A0C /* CircleBatcherFactory.cpp in Sources */,
-				BBB1E3AA1E60A54C00201A0C /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
-				BBB1E3AB1E60A54C00201A0C /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E3AC1E60A54C00201A0C /* GamePadEvent.cpp in Sources */,
 				BBB1E3AD1E60A54C00201A0C /* Chapter1Level21.cpp in Sources */,
 				BBB1E3AE1E60A54C00201A0C /* Text.cpp in Sources */,
 				BBB1E3AF1E60A54C00201A0C /* HoleCover.cpp in Sources */,
-				BBB1E3B01E60A54C00201A0C /* OpenGLNGRectBatcher.cpp in Sources */,
 				BBB1E3B11E60A54C00201A0C /* Midground.cpp in Sources */,
 				BBB1E3B21E60A54C00201A0C /* Renderer.cpp in Sources */,
 				BBB1E3B31E60A54C00201A0C /* Font.cpp in Sources */,
@@ -3979,21 +4010,18 @@
 				BBB1E3B51E60A54C00201A0C /* JoystickController.mm in Sources */,
 				BBB1E3B61E60A54C00201A0C /* MainAssets.cpp in Sources */,
 				BBB1E3B71E60A54C00201A0C /* LineBatcher.cpp in Sources */,
-				BBB1E3B81E60A54C00201A0C /* OpenGLGeometryProgram.cpp in Sources */,
 				BBB1E3B91E60A54C00201A0C /* NGRectBatcherFactory.cpp in Sources */,
 				BBB1E3BA1E60A54C00201A0C /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBB1E3BB1E60A54C00201A0C /* GamePadInputManager.cpp in Sources */,
 				BBB1E3BC1E60A54C00201A0C /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
-				BBB1E3BD1E60A54C00201A0C /* shader.c in Sources */,
 				BBB1E3BE1E60A54C00201A0C /* TrashCan.cpp in Sources */,
 				BBB1E3BF1E60A54C00201A0C /* LevelEditorActionsPanel.cpp in Sources */,
+				BB51312C1E62475C00204148 /* OpenGLTextureLoader.cpp in Sources */,
 				BBB1E3C01E60A54C00201A0C /* ExitGround.cpp in Sources */,
-				BBB1E3C11E60A54C00201A0C /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BBB1E3C21E60A54C00201A0C /* Entity.cpp in Sources */,
 				BBB1E3C31E60A54C00201A0C /* NGOpenGLView.mm in Sources */,
-				BBB1E3C51E60A54C00201A0C /* OpenGLRendererHelper.cpp in Sources */,
 				BBB1E3C61E60A54C00201A0C /* EnemySpirit.cpp in Sources */,
-				BBB1E3C71E60A54C00201A0C /* OpenGLCircleBatcher.cpp in Sources */,
+				BB5131291E62475C00204148 /* OpenGLTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E3C81E60A54C00201A0C /* JonFormState.cpp in Sources */,
 				BBB1E3C91E60A54C00201A0C /* AppDelegate.m in Sources */,
 				BBB1E3CA1E60A54C00201A0C /* Animation.cpp in Sources */,
