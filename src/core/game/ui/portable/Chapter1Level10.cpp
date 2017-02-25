@@ -39,7 +39,7 @@ void Chapter1Level10::enter(MainScreen* ms)
         }
     }
     
-    m_midBossOwl->setGame(m_game.get());
+    m_midBossOwl->setGame(m_game);
     
     Jon& jon = m_game->getJon();
     
@@ -259,7 +259,7 @@ void Chapter1Level10::update(MainScreen* ms)
 		{
 			m_midBossOwl->givePlayerAFreeHit();
 
-			m_batPanel->config(m_game.get(), BatGoalType_DrillToDamageOwl);
+			m_batPanel->config(m_game, BatGoalType_DrillToDamageOwl);
 
 			m_hasShownHintPopup = true;
 

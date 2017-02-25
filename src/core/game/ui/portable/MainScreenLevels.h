@@ -66,7 +66,7 @@ public:
     
 protected:
     const char* m_json;
-    std::unique_ptr<Game> m_game;
+    Game* m_game;
     Game* m_sourceGame;
     std::unique_ptr<GameButton> m_backButton;
     std::unique_ptr<GameButton> m_continueButton;
@@ -87,6 +87,7 @@ protected:
     bool m_exitLoop;
     bool m_hasCompletedLevel;
     bool m_isDisplayingResults;
+    bool m_createdOwnSourceGame; // Can also be injected by the Level Editor
     
     // Set from app storage
     int m_iBestScore;
@@ -117,6 +118,7 @@ protected:
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Level(const char* m_json = nullptr);
+    virtual ~Level();
     Level(const Level&);
     Level& operator=(const Level&);
     

@@ -174,11 +174,11 @@ void Chapter1Level21::enter(MainScreen* ms)
 		{
             if (m_iNumTimesBatPanelDisplayed < 2)
             {
-                m_batPanel->config(m_game.get(), BatGoalType_Dash);
+                m_batPanel->config(m_game, BatGoalType_Dash);
             }
             else
             {
-                m_batPanel->configWithoutUi(m_game.get(), BatGoalType_Dash);
+                m_batPanel->configWithoutUi(m_game, BatGoalType_Dash);
             }
             
             m_iNumTimesBatPanelDisplayed++;
@@ -214,6 +214,8 @@ void Chapter1Level21::enter(MainScreen* ms)
 
 void Chapter1Level21::exit(MainScreen* ms)
 {
+    Level::exit(ms);
+    
 	m_endBossSnake = nullptr;
     m_hole = nullptr;
 
@@ -233,8 +235,6 @@ void Chapter1Level21::exit(MainScreen* ms)
 	m_hasTriggeredMusicLoop = false;
 	m_hasTriggeredCheckPoint = false;
 	m_hasTriggeredSnakeDeathCheckPoint = false;
-    
-    Level::exit(ms);
 }
 
 void Chapter1Level21::onEnter(MainScreen* ms)
@@ -301,9 +301,7 @@ void Chapter1Level21::update(MainScreen* ms)
 {
     Level::update(ms);
     
-    if (m_game->getJons().size() == 0
-        || !m_endBossSnake
-        || !m_hole)
+    if (!m_sourceGame)
     {
         return;
     }
@@ -509,11 +507,11 @@ void Chapter1Level21::update(MainScreen* ms)
 			{
                 if (m_iNumTimesBatPanelDisplayed < 2)
                 {
-                    m_batPanel->config(m_game.get(), BatGoalType_Dash);
+                    m_batPanel->config(m_game, BatGoalType_Dash);
                 }
                 else
                 {
-                    m_batPanel->configWithoutUi(m_game.get(), BatGoalType_Dash);
+                    m_batPanel->configWithoutUi(m_game, BatGoalType_Dash);
                 }
                 
                 m_iNumTimesBatPanelDisplayed++;

@@ -52,16 +52,18 @@ void Level::enter(MainScreen* ms)
     ms->m_isScreenHeldDown = false;
     ms->m_fScreenHeldTime = 0;
     
-    if (!m_game->isLoaded())
+    if (!m_game)
     {
-        if (m_sourceGame)
+        if (!m_sourceGame)
         {
-            m_game->copy(m_sourceGame);
+            m_sourceGame = new Game();
+            m_sourceGame->load(m_json);
+            
+            m_createdOwnSourceGame = true;
         }
-        else
-        {
-            m_game->load(m_json);
-        }
+        
+        m_game = new Game();
+        m_game->copy(m_sourceGame);
         
         m_game->setBestLevelStatsFlag(m_iBestLevelStatsFlag);
         m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
@@ -117,7 +119,12 @@ void Level::exit(MainScreen* ms)
     m_iNumTimesBatPanelDisplayed = 0;
     m_iNumAttemptsSinceLastAdBreak = 0;
     
-    m_game->reset();
+    delete m_game;
+    
+    if (m_createdOwnSourceGame)
+    {
+        delete m_sourceGame;
+    }
     
     m_sourceGame = nullptr;
     
@@ -403,7 +410,9 @@ void Level::update(MainScreen* ms)
             
             if (m_fStateTime > 1.6f)
             {
-                m_game->reset();
+                delete m_game;
+                m_game = nullptr;
+                
                 enter(ms);
                 
                 updateCamera(ms, 0, false, true);
@@ -526,13 +535,13 @@ void Level::update(MainScreen* ms)
                     
                     EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
                     
-                    EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getEndBossForegroundObjects(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getCollectibleItems(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getEnemies(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game.get());
-                    EntityUtils::setGameToEntities(m_game->getEndBossSnakes(), m_game.get());
+                    EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getEndBossForegroundObjects(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getCollectibleItems(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getEnemies(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getExtraForegroundObjects(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getEndBossSnakes(), m_game);
                     
                     m_game->calcFarRight();
                 }
@@ -728,11 +737,11 @@ void Level::configBatPanel()
     {
         if (m_iNumTimesBatPanelDisplayed < 2)
         {
-            m_batPanel->config(m_game.get(), m_game->getWorld(), m_game->getLevel());
+            m_batPanel->config(m_game, m_game->getWorld(), m_game->getLevel());
         }
         else
         {
-            m_batPanel->configWithoutUi(m_game.get(), m_game->getWorld(), m_game->getLevel());
+            m_batPanel->configWithoutUi(m_game, m_game->getWorld(), m_game->getLevel());
         }
         
         m_iNumTimesBatPanelDisplayed++;
@@ -1106,6 +1115,8 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
 }
 
 Level::Level(const char* json) :
+m_json(json),
+m_game(nullptr),
 m_sourceGame(nullptr),
 m_fStateTime(0.0f),
 m_iScoreFromTime(0),
@@ -1123,6 +1134,7 @@ m_showDeathTransOut(false),
 m_exitLoop(false),
 m_hasCompletedLevel(false),
 m_isDisplayingResults(false),
+m_createdOwnSourceGame(false),
 m_iBestScore(0),
 m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
@@ -1132,11 +1144,18 @@ m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
 m_hasStoppedAllLoopingSoundsAfterJonDeath(false)
 {
-    m_json = json;
-    m_game = std::unique_ptr<Game>(new Game());
     m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
     m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
     m_continueButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ContinueToLevelSelect));
+}
+
+Level::~Level()
+{
+    if (m_createdOwnSourceGame)
+    {
+        delete m_sourceGame;
+        m_sourceGame = nullptr;
+    }
 }
 
 RTTI_IMPL(Level, MainScreenState);
