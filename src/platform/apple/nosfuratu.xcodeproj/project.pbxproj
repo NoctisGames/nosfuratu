@@ -1677,7 +1677,6 @@
 		BBADF46C1E60D55400F4288A /* SoundManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundManager.cpp; sourceTree = "<group>"; };
 		BBADF46D1E60D55400F4288A /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		BBB1E45B1E60A54C00201A0C /* level editor mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "level editor mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBB1E45E1E60AA7B00201A0C /* LevelEditorInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LevelEditorInfo.plist; sourceTree = "<group>"; };
 		BBB1E4601E60B36E00201A0C /* big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = big_carrot.wav; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
 		BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Texconv_readme.txt; sourceTree = "<group>"; };
@@ -2637,7 +2636,6 @@
 				BB44C3241DB030B3003E633F /* Info.plist */,
 				BB13BD4B1E58E0800073C08F /* JoystickController.h */,
 				BB13BD4C1E58E0800073C08F /* JoystickController.mm */,
-				BBB1E45E1E60AA7B00201A0C /* LevelEditorInfo.plist */,
 				BB44C3221DB030B3003E633F /* Main.storyboard */,
 				BB2BB0851DB81ECF000CE5E5 /* NosFURatu.entitlements */,
 			);
@@ -4371,7 +4369,7 @@
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/mac/LevelEditorInfo.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
@@ -4419,7 +4417,7 @@
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/mac/LevelEditorInfo.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/mac/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
