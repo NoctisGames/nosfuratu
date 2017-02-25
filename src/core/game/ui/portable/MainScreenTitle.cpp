@@ -68,7 +68,11 @@ void Title::execute(MainScreen* ms)
         
         if (m_isRequestingNextState)
         {
-            if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
+            bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING);
+#if NG_LEVEL_EDITOR
+            isOpeningCutsceneViewed = true;
+#endif
+            if (isOpeningCutsceneViewed)
             {
                 ms->m_stateMachine.changeState(TitleToWorldMap::getInstance());
             }
