@@ -712,12 +712,14 @@ void Direct3DMain::handleMusic()
 			case MUSIC_PLAY:
 				if (m_musicLoop)
 				{
+					m_musicLoop->SetVolume(1);
 					m_musicLoop->Play();
 				}
 				break;
 			case MUSIC_PLAY_LOOP:
 				if (m_musicLoop)
 				{
+					m_musicLoop->SetVolume(1);
 					m_musicLoop->Play(true);
 				}
 				break;
