@@ -336,7 +336,6 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Rabbit_DoubleJumping"] = new Animation("jon", 0, 768, 256, 256, 2048, 512, TEXTURE_SIZE_4096, false, 0.07f, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Falling"] = new Animation("jon", 0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_4096, true, 0.06f, 3);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Landing"] = new Animation("jon", 0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_4096, false, 0.05f, 4);
-    ASSETS->getAnimationsMap()["Jon_Rabbit_SpinningBackFist"] = new Animation("jon", 2048, 0, 256, 256, 2048, 256, TEXTURE_SIZE_4096, false, 0.06f, 7);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Burrow"] = new Animation("jon", 1792, 256, 256, 256, 2304, 256, TEXTURE_SIZE_4096, false, 0.06f, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Stomp"] = new Animation("jon", 2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, true, 0.05f, 11, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_LandingRoll"] = new Animation("jon", 2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, false, 0.10f, 5);

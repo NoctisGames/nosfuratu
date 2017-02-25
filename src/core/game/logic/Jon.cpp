@@ -767,26 +767,12 @@ void Jon::Rabbit::enter(Jon* jon)
     jon->m_isReleasingShockwave = false;
     
     jon->m_acceleration.setY(GAME_GRAVITY);
-
-	m_isSpinningBackFistDelivered = false;
 }
 
 void Jon::Rabbit::execute(Jon* jon)
 {
 	switch (jon->m_abilityState)
 	{
-        case ABILITY_SPINNING_BACK_FIST:
-        {
-            if (jon->m_fAbilityStateTime > 0.48f)
-            {
-                jon->setState(ABILITY_NONE);
-            }
-            else if (!m_isSpinningBackFistDelivered && jon->m_fAbilityStateTime > 0.30f)
-            {
-                m_isSpinningBackFistDelivered = jon->m_game->isSpinningBackFistDelivered(jon->m_fDeltaTime);
-            }
-        }
-            break;
         case ABILITY_BURROW:
         {
             jon->m_velocity.setX(0);
@@ -931,14 +917,7 @@ void Jon::Rabbit::triggerRightAction(Jon* jon)
         return;
     }
     
-	if (jon->m_abilityState == ABILITY_SPINNING_BACK_FIST)
-	{
-		return;
-	}
-
-	jon->setState(ABILITY_SPINNING_BACK_FIST);
-
-	m_isSpinningBackFistDelivered = false;
+	// TODO
 }
 
 void Jon::Rabbit::triggerUpAction(Jon* jon)
@@ -1045,7 +1024,7 @@ int Jon::Rabbit::getNumJumps(Jon* jon)
     return jon->m_iNumRabbitJumps;
 }
 
-Jon::Rabbit::Rabbit() : JonFormState(), m_isSpinningBackFistDelivered(false)
+Jon::Rabbit::Rabbit() : JonFormState()
 {
 	// Empty
 }

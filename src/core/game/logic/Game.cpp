@@ -374,15 +374,6 @@ bool Game::isJonBlockedVertically(float deltaTime)
     || EntityUtils::isBlockedAbove(getJon(), getEnemies(), deltaTime);
 }
 
-bool Game::isSpinningBackFistDelivered(float deltaTime)
-{
-    return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getForegroundObjects(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getExtraForegroundObjects(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getMidBossForegroundObjects(), deltaTime)
-    || EntityUtils::isHorizontallyHitting(getJon(), getEndBossForegroundObjects(), deltaTime);
-}
-
 bool Game::isBurrowEffective(float deltaTime)
 {
 	float originalY = getJon().getPosition().getY();

@@ -76,7 +76,6 @@ private:
 typedef enum
 {
     ABILITY_NONE,
-    ABILITY_SPINNING_BACK_FIST,
     ABILITY_BURROW,
     ABILITY_STOMP,
     ABILITY_GLIDE,
@@ -329,8 +328,6 @@ private:
         virtual int getNumJumps(Jon* jon);
         
     private:
-        bool m_isSpinningBackFistDelivered;
-        
         // ctor, copy ctor, and assignment should be private in a Singleton
         Rabbit();
         Rabbit(const Rabbit&);

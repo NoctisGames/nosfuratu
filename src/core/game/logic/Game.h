@@ -65,8 +65,6 @@ public:
     
     bool isJonBlockedVertically(float deltaTime);
     
-    bool isSpinningBackFistDelivered(float deltaTime);
-    
     bool isBurrowEffective(float deltaTime);
     
     bool isUpwardThrustEffective(float deltaTime);

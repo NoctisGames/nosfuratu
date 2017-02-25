@@ -1839,7 +1839,6 @@ TextureRegion& MainAssets::get(Jon* jon)
         static Animation doubleJumpingAnim = ASSETS->findAnimation("Jon_Rabbit_DoubleJumping");
         static Animation fallingAnim = ASSETS->findAnimation("Jon_Rabbit_Falling");
         static Animation landingAnim = ASSETS->findAnimation("Jon_Rabbit_Landing");
-        static Animation spinningBackFistAnimation = ASSETS->findAnimation("Jon_Rabbit_SpinningBackFist");
         static Animation burrowAnimation = ASSETS->findAnimation("Jon_Rabbit_Burrow");
         static Animation stompAnimation = ASSETS->findAnimation("Jon_Rabbit_Stomp");
         static Animation landingRollAnimation = ASSETS->findAnimation("Jon_Rabbit_LandingRoll");
@@ -1851,8 +1850,6 @@ TextureRegion& MainAssets::get(Jon* jon)
         
         switch (jon->getAbilityState())
         {
-            case ABILITY_SPINNING_BACK_FIST:
-                return spinningBackFistAnimation.getTextureRegion(jon->getAbilityStateTime());
             case ABILITY_BURROW:
                 return burrowAnimation.getTextureRegion(jon->getAbilityStateTime());
             case ABILITY_STOMP:
