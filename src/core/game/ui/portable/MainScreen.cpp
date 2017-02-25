@@ -145,6 +145,7 @@ void MainScreen::update(float deltaTime)
     }
 #endif
     
+	m_isRequestingRender = false;
     m_iNumInternalUpdates = 0;
     m_fFrameStateTime += deltaTime;
     while (m_fFrameStateTime >= FRAME_RATE)
@@ -153,8 +154,6 @@ void MainScreen::update(float deltaTime)
         
         internalUpdate();
     }
-    
-    m_isRequestingRender = true;
 }
 
 void MainScreen::internalUpdate()
@@ -251,12 +250,9 @@ void MainScreen::internalUpdate()
 
 void MainScreen::render()
 {
-    if (m_isRequestingRender)
-	{
-        m_stateMachine.execute();
+	m_isRequestingRender = true;
 
-		m_isRequestingRender = false;
-	}
+	m_stateMachine.execute();
 }
 
 int MainScreen::getRequestedAction()

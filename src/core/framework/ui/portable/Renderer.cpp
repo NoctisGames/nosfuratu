@@ -60,12 +60,6 @@ Renderer::~Renderer()
     
     delete m_textureLoader;
     delete m_rendererHelper;
-    
-    releaseDeviceDependentResources();
-    
-    m_loadingTextures.clear();
-    
-    cleanUpThreads();
 }
 
 void Renderer::createDeviceDependentResources()
@@ -80,10 +74,19 @@ void Renderer::createDeviceDependentResources()
 void Renderer::releaseDeviceDependentResources()
 {
     m_areDeviceDependentResourcesCreated = false;
+
+	m_loadingTextures.clear();
+
+	cleanUpThreads();
     
     delete m_textureGpuProgramWrapper;
+	m_textureGpuProgramWrapper = nullptr;
+
     delete m_colorGpuProgramWrapper;
+	m_colorGpuProgramWrapper = nullptr;
+
     delete m_framebufferToScreenGpuProgramWrapper;
+	m_framebufferToScreenGpuProgramWrapper = nullptr;
 }
 
 void Renderer::beginFrame()
@@ -194,7 +197,7 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     textureWrapper->isLoadingData = true;
     m_textureDataLoadingThreads.push_back(new std::thread([](TextureWrapper* tw, Renderer* r)
     {
-        if (r->m_loadingTextures.size() > 0)
+        if (r->m_areDeviceDependentResourcesCreated)
         {
             tw->gpuTextureDataWrapper = r->m_textureLoader->loadTextureData(tw->name.c_str());
         }

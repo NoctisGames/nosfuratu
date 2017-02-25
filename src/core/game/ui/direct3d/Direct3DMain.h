@@ -84,6 +84,7 @@ private:
 	bool m_isPointerPressed;
 	bool m_retryAudio;
 	bool m_isDeviceLost;
+	bool m_isWindowsMobile;
 
     void Update(DX::StepTimer const& timer);
     void Render();

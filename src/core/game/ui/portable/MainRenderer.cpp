@@ -207,18 +207,43 @@ void MainRenderer::releaseDeviceDependentResources()
     unloadTexture(m_world_map_screen_part_2);
     
     delete m_transScreenGpuProgramWrapper;
+	m_transScreenGpuProgramWrapper = nullptr;
+
     delete m_fadeScreenGpuProgramWrapper;
+	m_fadeScreenGpuProgramWrapper = nullptr;
+
     delete m_pointTransScreenGpuProgramWrapper;
+	m_pointTransScreenGpuProgramWrapper = nullptr;
+
     delete m_sinWaveTextureProgram;
+	m_sinWaveTextureProgram = nullptr;
+
     delete m_backgroundGpuTextureProgramWrapper;
+	m_backgroundGpuTextureProgramWrapper = nullptr;
+
     delete m_snakeDeathTextureProgram;
+	m_snakeDeathTextureProgram = nullptr;
+
     delete m_endBossSnakeTextureProgram;
+	m_endBossSnakeTextureProgram = nullptr;
+
     delete m_shockwaveTextureGpuProgramWrapper;
+	m_shockwaveTextureGpuProgramWrapper = nullptr;
+
     delete m_transDeathInGpuProgramWrapper;
+	m_transDeathInGpuProgramWrapper = nullptr;
+
     delete m_transDeathOutGpuProgramWrapper;
+	m_transDeathOutGpuProgramWrapper = nullptr;
+
     delete m_framebufferTintGpuProgramWrapper;
+	m_framebufferTintGpuProgramWrapper = nullptr;
+
     delete m_framebufferObfuscationGpuProgramWrapper;
+	m_framebufferObfuscationGpuProgramWrapper = nullptr;
+
     delete m_framebufferRadialBlurGpuProgramWrapper;
+	m_framebufferRadialBlurGpuProgramWrapper = nullptr;
 }
 
 void MainRenderer::load(RendererType rendererType)

@@ -33,16 +33,15 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
 
 	Direct3DManager::setDeviceResources(m_deviceResources.get());
 
-	bool isWindowsMobile;
 	// Hide Constructor for Singleton
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	isWindowsMobile = false;
+	m_isWindowsMobile = false;
 #else
 	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
-	isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
 #endif
 
-	MAIN_ASSETS->setUsingDesktopTextureSet(!isWindowsMobile);
+	MAIN_ASSETS->setUsingDesktopTextureSet(!m_isWindowsMobile);
 
 	m_screen = new MainScreen();
 }
@@ -410,7 +409,7 @@ void Direct3DMain::Render()
 
 	m_screen->render();
 
-    endPixEvent(m_deviceResources.get());
+	endPixEvent(m_deviceResources.get());
 
 	handleSound();
 	handleMusic();
@@ -455,7 +454,8 @@ void Direct3DMain::OnActivated()
 
 	m_audEngine->Resume();
 
-	if (m_isDeviceLost)
+	if (m_isWindowsMobile
+		&& m_isDeviceLost)
 	{
 		OnDeviceRestored();
 	}
@@ -473,9 +473,12 @@ void Direct3DMain::OnDeactivated()
 
 	m_audEngine->Suspend();
 
-	OnDeviceLost();
+	if (m_isWindowsMobile)
+	{
+		OnDeviceLost();
 
-	m_isDeviceLost = true;
+		m_isDeviceLost = true;
+	}
 
 	m_screen->onPause();
 }
