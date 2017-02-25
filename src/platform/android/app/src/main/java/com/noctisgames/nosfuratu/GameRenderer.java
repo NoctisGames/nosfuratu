@@ -17,6 +17,8 @@ import com.noctisgames.nosfuratu.sound.SoundManager;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import static com.noctisgames.nosfuratu.BuildConfig.DEBUG;
+
 public final class GameRenderer implements Renderer
 {
     // Definitions from src/core/game/logic/GameConstants.h
@@ -77,16 +79,7 @@ public final class GameRenderer implements Renderer
     {
         _activity = activity;
         mInterstitialAd = new InterstitialAd(_activity);
-
-        if (BuildConfig.DEBUG)
-        {
-            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        }
-        else
-        {
-            mInterstitialAd.setAdUnitId("ca-app-pub-6017554042572989/7036617356");
-        }
-
+        mInterstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
         mInterstitialAd.setAdListener(new AdListener()
         {
             @Override
@@ -118,8 +111,6 @@ public final class GameRenderer implements Renderer
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
-        Log.d("GameRenderer", "GL Surface created!");
-
         Game.on_surface_created();
 
         _startTime = System.nanoTime();
@@ -128,8 +119,6 @@ public final class GameRenderer implements Renderer
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height)
     {
-        Log.d("GameRenderer", "GL Surface changed!");
-
         Game.on_surface_changed(width, height);
     }
 
@@ -192,15 +181,11 @@ public final class GameRenderer implements Renderer
 
     public void onResume()
     {
-        Log.d("GameRenderer", "onResume");
-
         Game.on_resume();
     }
 
     public void onPause()
     {
-        Log.d("GameRenderer", "onPause");
-
         Game.on_pause();
 
         _soundManager.pauseMusic();
@@ -455,9 +440,7 @@ public final class GameRenderer implements Renderer
             requestedAction -= 100;
         }
 
-        int level = requestedAction;
-
-        return level;
+        return requestedAction;
     }
 
     private void initSoundEngine(Activity activity)
