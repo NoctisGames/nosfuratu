@@ -135,9 +135,15 @@ class Chapter1Level1 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level1* getInstance();
     
 private:
+    static Chapter1Level1* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level1(const char* json) : Level(json) {};
     Chapter1Level1(const Chapter1Level1&);
@@ -149,9 +155,15 @@ class Chapter1Level2 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level2* getInstance();
     
 private:
+    static Chapter1Level2* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level2(const char* json) : Level(json) {};
     Chapter1Level2(const Chapter1Level2&);
@@ -163,9 +175,15 @@ class Chapter1Level3 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level3* getInstance();
     
 private:
+    static Chapter1Level3* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level3(const char* json) : Level(json) {};
     Chapter1Level3(const Chapter1Level3&);
@@ -177,9 +195,15 @@ class Chapter1Level4 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level4* getInstance();
     
 private:
+    static Chapter1Level4* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level4(const char* json) : Level(json) {};
     Chapter1Level4(const Chapter1Level4&);
@@ -191,9 +215,15 @@ class Chapter1Level5 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level5* getInstance();
     
 private:
+    static Chapter1Level5* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level5(const char* json) : Level(json) {};
     Chapter1Level5(const Chapter1Level5&);
@@ -205,9 +235,15 @@ class Chapter1Level6 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level6* getInstance();
     
 private:
+    static Chapter1Level6* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level6(const char* json) : Level(json) {};
     Chapter1Level6(const Chapter1Level6&);
@@ -219,9 +255,15 @@ class Chapter1Level7 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level7* getInstance();
     
 private:
+    static Chapter1Level7* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level7(const char* json) : Level(json) {};
     Chapter1Level7(const Chapter1Level7&);
@@ -233,9 +275,15 @@ class Chapter1Level8 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level8* getInstance();
     
 private:
+    static Chapter1Level8* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level8(const char* json) : Level(json) {};
     Chapter1Level8(const Chapter1Level8&);
@@ -247,9 +295,15 @@ class Chapter1Level9 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level9* getInstance();
     
 private:
+    static Chapter1Level9* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level9(const char* json) : Level(json) {};
     Chapter1Level9(const Chapter1Level9&);
@@ -261,6 +315,10 @@ class Chapter1Level10 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level10* getInstance();
     
     virtual void enter(MainScreen* ms);
@@ -268,6 +326,8 @@ public:
     virtual void exit(MainScreen* ms);
     
 private:
+    static Chapter1Level10* s_pInstance;
+    
     std::unique_ptr<MidBossOwl> m_midBossOwl;
     ForegroundObject* m_perchTree;
     float m_fJonY;
@@ -307,9 +367,15 @@ class Chapter1Level11 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level11* getInstance();
     
 private:
+    static Chapter1Level11* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level11(const char* json) : Level(json) {};
     Chapter1Level11(const Chapter1Level11&);
@@ -321,9 +387,15 @@ class Chapter1Level12 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level12* getInstance();
     
 private:
+    static Chapter1Level12* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level12(const char* json) : Level(json) {};
     Chapter1Level12(const Chapter1Level12&);
@@ -335,9 +407,15 @@ class Chapter1Level13 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level13* getInstance();
     
 private:
+    static Chapter1Level13* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level13(const char* json) : Level(json) {};
     Chapter1Level13(const Chapter1Level13&);
@@ -349,9 +427,15 @@ class Chapter1Level14 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level14* getInstance();
     
 private:
+    static Chapter1Level14* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level14(const char* json) : Level(json) {};
     Chapter1Level14(const Chapter1Level14&);
@@ -363,9 +447,15 @@ class Chapter1Level15 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level15* getInstance();
     
 private:
+    static Chapter1Level15* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level15(const char* json) : Level(json) {};
     Chapter1Level15(const Chapter1Level15&);
@@ -377,9 +467,15 @@ class Chapter1Level16 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level16* getInstance();
     
 private:
+    static Chapter1Level16* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level16(const char* json) : Level(json) {};
     Chapter1Level16(const Chapter1Level16&);
@@ -391,9 +487,15 @@ class Chapter1Level17 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level17* getInstance();
     
 private:
+    static Chapter1Level17* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level17(const char* json) : Level(json) {};
     Chapter1Level17(const Chapter1Level17&);
@@ -405,9 +507,15 @@ class Chapter1Level18 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level18* getInstance();
     
 private:
+    static Chapter1Level18* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level18(const char* json) : Level(json) {};
     Chapter1Level18(const Chapter1Level18&);
@@ -419,9 +527,15 @@ class Chapter1Level19 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level19* getInstance();
     
 private:
+    static Chapter1Level19* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level19(const char* json) : Level(json) {};
     Chapter1Level19(const Chapter1Level19&);
@@ -433,9 +547,15 @@ class Chapter1Level20 : public Level
     RTTI_DECL;
     
 public:
+    static void create();
+    
+    static void destroy();
+    
     static Chapter1Level20* getInstance();
     
 private:
+    static Chapter1Level20* s_pInstance;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level20(const char* json) : Level(json) {};
     Chapter1Level20(const Chapter1Level20&);
@@ -447,13 +567,19 @@ class Chapter1Level21 : public Level
     RTTI_DECL;
     
 public:
-    static Chapter1Level21* getInstance();
+    static void create();
+    
+    static void destroy();
+    
+    static Chapter1Level21 * getInstance();
     
     virtual void enter(MainScreen* ms);
     
     virtual void exit(MainScreen* ms);
     
 private:
+    static Chapter1Level21* s_pInstance;
+    
     EndBossSnake* m_endBossSnake;
     Hole* m_hole;
 	float m_fGameStateTime;
@@ -508,47 +634,236 @@ public:
                 switch (level)
                 {
                     case 1:
+                    {
+                        if (Chapter1Level1::getInstance() != nullptr)
+                        {
+                            Chapter1Level1::destroy();
+                        }
+                        
+                        Chapter1Level1::create();
+                        
                         return Chapter1Level1::getInstance();
+                    }
                     case 2:
+                    {
+                        if (Chapter1Level2::getInstance() != nullptr)
+                        {
+                            Chapter1Level2::destroy();
+                        }
+                        
+                        Chapter1Level2::create();
+                        
                         return Chapter1Level2::getInstance();
+                    }
                     case 3:
+                    {
+                        if (Chapter1Level3::getInstance() != nullptr)
+                        {
+                            Chapter1Level3::destroy();
+                        }
+                        
+                        Chapter1Level3::create();
+                        
                         return Chapter1Level3::getInstance();
+                    }
                     case 4:
+                    {
+                        if (Chapter1Level4::getInstance() != nullptr)
+                        {
+                            Chapter1Level4::destroy();
+                        }
+                        
+                        Chapter1Level4::create();
+                        
                         return Chapter1Level4::getInstance();
+                    }
                     case 5:
+                    {
+                        if (Chapter1Level5::getInstance() != nullptr)
+                        {
+                            Chapter1Level5::destroy();
+                        }
+                        
+                        Chapter1Level5::create();
+                        
                         return Chapter1Level5::getInstance();
+                    }
                     case 6:
+                    {
+                        if (Chapter1Level6::getInstance() != nullptr)
+                        {
+                            Chapter1Level6::destroy();
+                        }
+                        
+                        Chapter1Level6::create();
+                        
                         return Chapter1Level6::getInstance();
+                    }
                     case 7:
+                    {
+                        if (Chapter1Level7::getInstance() != nullptr)
+                        {
+                            Chapter1Level7::destroy();
+                        }
+                        
+                        Chapter1Level7::create();
+                        
                         return Chapter1Level7::getInstance();
+                    }
                     case 8:
+                    {
+                        if (Chapter1Level8::getInstance() != nullptr)
+                        {
+                            Chapter1Level8::destroy();
+                        }
+                        
+                        Chapter1Level8::create();
+                        
                         return Chapter1Level8::getInstance();
+                    }
                     case 9:
+                    {
+                        if (Chapter1Level9::getInstance() != nullptr)
+                        {
+                            Chapter1Level9::destroy();
+                        }
+                        
+                        Chapter1Level9::create();
+                        
                         return Chapter1Level9::getInstance();
+                    }
                     case 10:
+                    {
+                        if (Chapter1Level10::getInstance() != nullptr)
+                        {
+                            Chapter1Level10::destroy();
+                        }
+                        
+                        Chapter1Level10::create();
+                        
                         return Chapter1Level10::getInstance();
+                    }
                     case 11:
+                    {
+                        if (Chapter1Level11::getInstance() != nullptr)
+                        {
+                            Chapter1Level11::destroy();
+                        }
+                        
+                        Chapter1Level11::create();
+                        
                         return Chapter1Level11::getInstance();
+                    }
                     case 12:
+                    {
+                        if (Chapter1Level12::getInstance() != nullptr)
+                        {
+                            Chapter1Level12::destroy();
+                        }
+                        
+                        Chapter1Level12::create();
+                        
                         return Chapter1Level12::getInstance();
+                    }
                     case 13:
+                    {
+                        if (Chapter1Level13::getInstance() != nullptr)
+                        {
+                            Chapter1Level13::destroy();
+                        }
+                        
+                        Chapter1Level13::create();
+                        
                         return Chapter1Level13::getInstance();
+                    }
                     case 14:
+                    {
+                        if (Chapter1Level14::getInstance() != nullptr)
+                        {
+                            Chapter1Level14::destroy();
+                        }
+                        
+                        Chapter1Level14::create();
+                        
                         return Chapter1Level14::getInstance();
+                    }
                     case 15:
+                    {
+                        if (Chapter1Level15::getInstance() != nullptr)
+                        {
+                            Chapter1Level15::destroy();
+                        }
+                        
+                        Chapter1Level15::create();
+                        
                         return Chapter1Level15::getInstance();
+                    }
                     case 16:
+                    {
+                        if (Chapter1Level16::getInstance() != nullptr)
+                        {
+                            Chapter1Level16::destroy();
+                        }
+                        
+                        Chapter1Level16::create();
+                        
                         return Chapter1Level16::getInstance();
+                    }
                     case 17:
+                    {
+                        if (Chapter1Level17::getInstance() != nullptr)
+                        {
+                            Chapter1Level17::destroy();
+                        }
+                        
+                        Chapter1Level17::create();
+                        
                         return Chapter1Level17::getInstance();
+                    }
                     case 18:
+                    {
+                        if (Chapter1Level18::getInstance() != nullptr)
+                        {
+                            Chapter1Level18::destroy();
+                        }
+                        
+                        Chapter1Level18::create();
+                        
                         return Chapter1Level18::getInstance();
+                    }
                     case 19:
+                    {
+                        if (Chapter1Level19::getInstance() != nullptr)
+                        {
+                            Chapter1Level19::destroy();
+                        }
+                        
+                        Chapter1Level19::create();
+                        
                         return Chapter1Level19::getInstance();
+                    }
                     case 20:
+                    {
+                        if (Chapter1Level20::getInstance() != nullptr)
+                        {
+                            Chapter1Level20::destroy();
+                        }
+                        
+                        Chapter1Level20::create();
+                        
                         return Chapter1Level20::getInstance();
+                    }
                     case 21:
+                    {
+                        if (Chapter1Level21::getInstance() != nullptr)
+                        {
+                            Chapter1Level21::destroy();
+                        }
+                        
+                        Chapter1Level21::create();
+                        
                         return Chapter1Level21::getInstance();
+                    }
                 }
             }
         }
