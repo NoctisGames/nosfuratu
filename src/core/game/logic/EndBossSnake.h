@@ -207,6 +207,8 @@ public:
     
     EndBossSnake(int gridX, int gridY);
     
+    virtual ~EndBossSnake();
+    
     virtual void update(float deltaTime);
     
 	void begin();

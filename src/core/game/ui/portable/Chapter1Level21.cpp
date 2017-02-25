@@ -190,9 +190,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 		{
 			if ((*i)->getPosition().getX() < jon.getPosition().getX())
 			{
-				(*i)->onDeletion();
-
-				delete *i;
+                delete *i;
 				i = m_game->getCollectibleItems().erase(i);
 			}
 			else

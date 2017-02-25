@@ -348,8 +348,6 @@ public:
             
             if ((*i)->isRequestingDeletion())
             {
-                (*i)->onDeletion();
-                
                 delete *i;
                 i = items.erase(i);
             }
@@ -430,17 +428,6 @@ public:
         }
         
         return -1;
-    }
-    
-    template<typename T>
-    static void cleanUpVectorOfPointers(std::vector<T*>& items)
-    {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            delete (*i);
-        }
-        
-        items.clear();
     }
     
     template<typename T>

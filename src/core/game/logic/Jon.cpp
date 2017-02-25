@@ -17,6 +17,7 @@
 #include "MathUtil.h"
 #include "GameTracker.h"
 #include "SoundManager.h"
+#include "VectorUtil.h"
 
 #include <math.h>
 
@@ -282,9 +283,9 @@ void Jon::updateBounds()
 	lowerLeft.set(m_position.getX() - width / 2, m_position.getY() - height / 2);
 }
 
-void Jon::onDeletion()
+Jon::~Jon()
 {
-    EntityUtils::cleanUpVectorOfPointers(getDustClouds());
+    VectorUtil::cleanUpVectorOfPointers(getDustClouds());
 }
 
 void Jon::triggerTransform()

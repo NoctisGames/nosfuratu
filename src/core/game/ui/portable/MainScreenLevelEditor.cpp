@@ -133,8 +133,6 @@ void MainScreenLevelEditor::execute(MainScreen* ms)
             {
                 if ((*i)->isDead())
                 {
-                    (*i)->onDeletion();
-                    
                     delete *i;
                     i = m_game->getJons().erase(i);
                 }

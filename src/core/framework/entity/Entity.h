@@ -18,9 +18,9 @@ class Entity
 public:
     Entity();
     
-    virtual void update(float deltaTime);
+    virtual ~Entity();
     
-    virtual void onDeletion();
+    virtual void update(float deltaTime);
     
     int getID();
     

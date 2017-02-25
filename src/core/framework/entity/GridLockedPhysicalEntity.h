@@ -20,6 +20,8 @@ class GridLockedPhysicalEntity : public PhysicalEntity
 public:
     GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
+    virtual ~GridLockedPhysicalEntity();
+    
 	virtual void updateBounds();
 
 	virtual void placeOn(float itemTopY);

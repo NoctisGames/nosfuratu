@@ -16,6 +16,7 @@
 #include "GameConstants.h"
 #include "MathUtil.h"
 #include "SoundManager.h"
+#include "VectorUtil.h"
 
 #include <math.h>
 
@@ -44,6 +45,11 @@ m_hasPlayedChargeSound(false)
     m_snakeBody = std::unique_ptr<SnakeBody>(new SnakeBody(x, y, h, this));
 	m_snakeHeadImpact = std::unique_ptr<SnakeHeadImpact>(new SnakeHeadImpact(x, y, this));
     m_snakeSpirit = std::unique_ptr<SnakeSpirit>(new SnakeSpirit(x, y, this));
+}
+
+EndBossSnake::~EndBossSnake()
+{
+    VectorUtil::cleanUpVectorOfPointers(m_afterImages);
 }
 
 void EndBossSnake::update(float deltaTime)

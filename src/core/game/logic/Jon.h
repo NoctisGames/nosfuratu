@@ -113,11 +113,11 @@ public:
     
     Jon(int gridX, int gridY, int gridWidth = 16, int gridHeight = 16);
     
+    ~Jon();
+    
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
-    
-    virtual void onDeletion();
     
     void triggerTransform();
     

@@ -39,6 +39,8 @@ class Game
 public:
     Game();
     
+    ~Game();
+    
     void copy(Game* game);
     
     void load(const char* json);

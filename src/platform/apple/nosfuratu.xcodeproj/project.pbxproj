@@ -188,8 +188,6 @@
 		BB34FA471E563C2400AC8197 /* TouchConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F89B1E563C2100AC8197 /* TouchConverter.cpp */; };
 		BB34FA491E563C2400AC8197 /* TransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F89D1E563C2100AC8197 /* TransitionGpuProgramWrapper.cpp */; };
 		BB34FA4B1E563C2400AC8197 /* TransitionGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F89D1E563C2100AC8197 /* TransitionGpuProgramWrapper.cpp */; };
-		BB34FA4D1E563C2400AC8197 /* EntityUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A11E563C2100AC8197 /* EntityUtil.cpp */; };
-		BB34FA4F1E563C2400AC8197 /* EntityUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A11E563C2100AC8197 /* EntityUtil.cpp */; };
 		BB34FA511E563C2400AC8197 /* RTTI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A61E563C2100AC8197 /* RTTI.cpp */; };
 		BB34FA531E563C2400AC8197 /* RTTI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A61E563C2100AC8197 /* RTTI.cpp */; };
 		BB34FB7B1E5645F400AC8197 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FAA71E5645F400AC8197 /* Background.cpp */; };
@@ -729,7 +727,6 @@
 		BBB1E38B1E60A54C00201A0C /* TouchConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F89B1E563C2100AC8197 /* TouchConverter.cpp */; };
 		BBB1E38C1E60A54C00201A0C /* NGRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7CF1E563C2100AC8197 /* NGRect.cpp */; };
 		BBB1E38D1E60A54C00201A0C /* OpenGLPointTransScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB091E5645F400AC8197 /* OpenGLPointTransScreenGpuProgramWrapper.cpp */; };
-		BBB1E38E1E60A54C00201A0C /* EntityUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8A11E563C2100AC8197 /* EntityUtil.cpp */; };
 		BBB1E38F1E60A54C00201A0C /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
 		BBB1E3901E60A54C00201A0C /* GameTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB581E5645F400AC8197 /* GameTracker.cpp */; };
 		BBB1E3911E60A54C00201A0C /* GridLockedPhysicalEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7BA1E563C2100AC8197 /* GridLockedPhysicalEntity.cpp */; };
@@ -1208,8 +1205,6 @@
 		BB34F89C1E563C2100AC8197 /* TouchConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchConverter.h; sourceTree = "<group>"; };
 		BB34F89D1E563C2100AC8197 /* TransitionGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransitionGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB34F89E1E563C2100AC8197 /* TransitionGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB34F8A11E563C2100AC8197 /* EntityUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityUtil.cpp; sourceTree = "<group>"; };
-		BB34F8A21E563C2100AC8197 /* EntityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityUtil.h; sourceTree = "<group>"; };
 		BB34F8A31E563C2100AC8197 /* FlagUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagUtil.h; sourceTree = "<group>"; };
 		BB34F8A41E563C2100AC8197 /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		BB34F8A51E563C2100AC8197 /* NGRollingPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGRollingPool.h; sourceTree = "<group>"; };
@@ -2202,8 +2197,6 @@
 		BB34F8A01E563C2100AC8197 /* portable */ = {
 			isa = PBXGroup;
 			children = (
-				BB34F8A11E563C2100AC8197 /* EntityUtil.cpp */,
-				BB34F8A21E563C2100AC8197 /* EntityUtil.h */,
 				BB34F8A31E563C2100AC8197 /* FlagUtil.h */,
 				BB34F8A41E563C2100AC8197 /* macros.h */,
 				BB34F8A51E563C2100AC8197 /* NGRollingPool.h */,
@@ -3530,7 +3523,6 @@
 				BB34FB831E5645F400AC8197 /* CountHissWithMina.cpp in Sources */,
 				BB34FC631E5645F500AC8197 /* OpenGLTransScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FCC31E5645F500AC8197 /* ConfirmExitPanel.cpp in Sources */,
-				BB34FA4D1E563C2400AC8197 /* EntityUtil.cpp in Sources */,
 				BB34F9A91E563C2300AC8197 /* platform_file_utils.c in Sources */,
 				BB34F9ED1E563C2300AC8197 /* Font.cpp in Sources */,
 				BB34FCCB1E5645F500AC8197 /* CutscenePanel.cpp in Sources */,
@@ -3788,7 +3780,6 @@
 				BB34FA471E563C2400AC8197 /* TouchConverter.cpp in Sources */,
 				BB34F8CF1E563C2200AC8197 /* NGRect.cpp in Sources */,
 				BB34FC4D1E5645F500AC8197 /* OpenGLPointTransScreenGpuProgramWrapper.cpp in Sources */,
-				BB34FA4F1E563C2400AC8197 /* EntityUtil.cpp in Sources */,
 				BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */,
 				BB34FD051E5645F500AC8197 /* GameTracker.cpp in Sources */,
 				BB34F8B71E563C2100AC8197 /* GridLockedPhysicalEntity.cpp in Sources */,
@@ -3962,7 +3953,6 @@
 				BBB1E38B1E60A54C00201A0C /* TouchConverter.cpp in Sources */,
 				BBB1E38C1E60A54C00201A0C /* NGRect.cpp in Sources */,
 				BBB1E38D1E60A54C00201A0C /* OpenGLPointTransScreenGpuProgramWrapper.cpp in Sources */,
-				BBB1E38E1E60A54C00201A0C /* EntityUtil.cpp in Sources */,
 				BBB1E38F1E60A54C00201A0C /* MainAssetsMapper.cpp in Sources */,
 				BBB1E3901E60A54C00201A0C /* GameTracker.cpp in Sources */,
 				BBB1E3911E60A54C00201A0C /* GridLockedPhysicalEntity.cpp in Sources */,

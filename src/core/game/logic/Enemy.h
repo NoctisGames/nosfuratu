@@ -44,6 +44,8 @@ public:
     
     Enemy(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type, EnemySpiritType enemySpiritType, short deathSoundId);
     
+    virtual ~Enemy();
+    
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
@@ -59,8 +61,6 @@ public:
     virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
     
     virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
-    
-    virtual void onDeletion();
     
     bool hasSpirit();
     

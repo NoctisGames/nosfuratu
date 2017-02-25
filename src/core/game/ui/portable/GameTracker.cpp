@@ -9,7 +9,7 @@
 #include "GameTracker.h"
 
 #include "MathUtil.h"
-#include "EntityUtils.h"
+#include "VectorUtil.h"
 
 #include <sstream>
 
@@ -50,7 +50,7 @@ void GameTracker::update(float deltaTime)
 
 void GameTracker::reset()
 {
-    EntityUtils::cleanUpVectorOfPointers(m_texts);
+    VectorUtil::cleanUpVectorOfPointers(m_texts);
 }
 
 void GameTracker::onScored(int score)
@@ -122,7 +122,7 @@ void GameTracker::config(float scoreX, float scoreY, float bonusGoldenCarrotX, f
     m_fontWidth = fontWidth;
     m_fontHeight = fontHeight;
     
-    EntityUtils::cleanUpVectorOfPointers(m_texts);
+    VectorUtil::cleanUpVectorOfPointers(m_texts);
 }
 
 std::vector<DelayText *>& GameTracker::getTexts()

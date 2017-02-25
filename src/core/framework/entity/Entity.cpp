@@ -13,14 +13,14 @@ Entity::Entity() : m_fStateTime(0.0f), m_isRequestingDeletion(false), m_ID(getUn
     // Empty
 }
 
+Entity::~Entity()
+{
+    // Empty
+}
+
 void Entity::update(float deltaTime)
 {
     m_fStateTime += deltaTime;
-}
-
-void Entity::onDeletion()
-{
-    // Empty
 }
 
 int Entity::getID()

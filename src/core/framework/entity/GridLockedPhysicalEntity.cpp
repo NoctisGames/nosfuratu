@@ -20,6 +20,11 @@ GridLockedPhysicalEntity::GridLockedPhysicalEntity(int gridX, int gridY, int gri
     m_position.add(getWidth() / 2, getHeight() / 2);
 }
 
+GridLockedPhysicalEntity::~GridLockedPhysicalEntity()
+{
+    // Empty
+}
+
 void GridLockedPhysicalEntity::updateBounds()
 {
 	getMainBounds().setWidth(getWidth());

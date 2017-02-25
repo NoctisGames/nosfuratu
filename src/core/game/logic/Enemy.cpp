@@ -156,7 +156,7 @@ bool Enemy::isJonHittingFromBelow(Jon& jon, float deltaTime)
     return false;
 }
 
-void Enemy::onDeletion()
+Enemy::~Enemy()
 {
     delete m_enemySpirit;
     m_enemySpirit = nullptr;

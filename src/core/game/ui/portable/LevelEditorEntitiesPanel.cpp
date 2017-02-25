@@ -13,6 +13,7 @@
 #include "GameConstants.h"
 #include "Game.h"
 #include "EntityUtils.h"
+#include "VectorUtil.h"
 
 LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_fEntitiesCameraPos(0), m_fEntitiesHeight(0)
 {
@@ -24,21 +25,21 @@ LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width
 
 void LevelEditorEntitiesPanel::initForLevel(int world, int level)
 {
-    EntityUtils::cleanUpVectorOfPointers(m_midgrounds);
-    EntityUtils::cleanUpVectorOfPointers(m_grounds);
-    EntityUtils::cleanUpVectorOfPointers(m_pits);
-    EntityUtils::cleanUpVectorOfPointers(m_exitGrounds);
-    EntityUtils::cleanUpVectorOfPointers(m_holes);
-    EntityUtils::cleanUpVectorOfPointers(m_foregroundObjects);
-    EntityUtils::cleanUpVectorOfPointers(m_midBossForegroundObjects);
-    EntityUtils::cleanUpVectorOfPointers(m_endBossForegroundObjects);
-	EntityUtils::cleanUpVectorOfPointers(m_countHissWithMinas);
-    EntityUtils::cleanUpVectorOfPointers(m_endBossSnakes);
-    EntityUtils::cleanUpVectorOfPointers(m_enemies);
-    EntityUtils::cleanUpVectorOfPointers(m_collectibleItems);
-    EntityUtils::cleanUpVectorOfPointers(m_jons);
-    EntityUtils::cleanUpVectorOfPointers(m_extraForegroundObjects);
-    EntityUtils::cleanUpVectorOfPointers(m_foregroundCoverObjects);
+    VectorUtil::cleanUpVectorOfPointers(m_midgrounds);
+    VectorUtil::cleanUpVectorOfPointers(m_grounds);
+    VectorUtil::cleanUpVectorOfPointers(m_pits);
+    VectorUtil::cleanUpVectorOfPointers(m_exitGrounds);
+    VectorUtil::cleanUpVectorOfPointers(m_holes);
+    VectorUtil::cleanUpVectorOfPointers(m_foregroundObjects);
+    VectorUtil::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+    VectorUtil::cleanUpVectorOfPointers(m_endBossForegroundObjects);
+	VectorUtil::cleanUpVectorOfPointers(m_countHissWithMinas);
+    VectorUtil::cleanUpVectorOfPointers(m_endBossSnakes);
+    VectorUtil::cleanUpVectorOfPointers(m_enemies);
+    VectorUtil::cleanUpVectorOfPointers(m_collectibleItems);
+    VectorUtil::cleanUpVectorOfPointers(m_jons);
+    VectorUtil::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    VectorUtil::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     if (world == 1)
     {

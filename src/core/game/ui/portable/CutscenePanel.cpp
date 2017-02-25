@@ -11,6 +11,7 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 #include "EntityUtils.h"
+#include "VectorUtil.h"
 
 #include <assert.h>
 
@@ -57,7 +58,7 @@ void CutscenePanel::onCleanUp()
 {
     if (m_cutsceneEffects.size() > 0)
     {
-        EntityUtils::cleanUpVectorOfPointers(m_cutsceneEffects);
+        VectorUtil::cleanUpVectorOfPointers(m_cutsceneEffects);
     }
 }
 

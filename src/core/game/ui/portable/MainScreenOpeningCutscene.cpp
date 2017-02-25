@@ -21,6 +21,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
+#include "VectorUtil.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {
@@ -37,7 +38,7 @@ void OpeningCutscene::enter(MainScreen* ms)
     
     if (m_needsReset)
     {
-        EntityUtils::cleanUpVectorOfPointers(m_cutscenePanels);
+        VectorUtil::cleanUpVectorOfPointers(m_cutscenePanels);
         
         m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
         
