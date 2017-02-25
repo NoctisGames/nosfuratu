@@ -571,7 +571,7 @@ RTTI_IMPL(Chapter1Level21, Level);
 
 /// Chapter 1 Level 21 ///
 
-Chapter1Level21* Chapter1Level21::s_pInstance = nullptr;
+Chapter1Level21 * Chapter1Level21::s_pInstance = nullptr;
 
 void Chapter1Level21::create()
 {
