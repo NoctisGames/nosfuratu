@@ -59,9 +59,9 @@ public:
 
 	ConfirmExitPanel* getConfirmExitPanel();
 
-	void setMessage(char *message);
+	void setMessage(const char *message);
 
-	char* getMessage();
+	const char* getMessage();
     
 private:
     std::unique_ptr<Game> m_game;
@@ -76,7 +76,7 @@ private:
     PhysicalEntity* m_lastAddedEntity;
     GridLockedPhysicalEntity* m_draggingEntity;
     GridLockedPhysicalEntity* m_attachToEntity;
-	char* m_message;
+	const char* m_message;
 	float m_fMessageTime;
     float m_fDraggingEntityOriginalY;
     int m_iWorld;

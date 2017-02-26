@@ -333,8 +333,7 @@
         NSError* error;
         [json writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
         
-        char *message = (char *)(error ? "Error Saving Level..." : "Level Saved Successfully!");
-        MainScreenLevelEditor::getInstance()->setMessage(message);
+        MainScreenLevelEditor::getInstance()->setMessage(error ? "Error Saving Level..." : "Level Saved Successfully!");
     }
 }
 
@@ -350,17 +349,13 @@
     
     if (error)
     {
-        char *message = (char *)("Error occurred while loading level...");
-        MainScreenLevelEditor::getInstance()->setMessage(message);
+        MainScreenLevelEditor::getInstance()->setMessage("Error occurred while loading level...");
     }
     else
     {
         const char* contentCString = [content cStringUsingEncoding:NSUTF8StringEncoding];
         
         MainScreenLevelEditor::getInstance()->load(contentCString, _screen);
-        
-        char *message = (char *)("Level Loaded Successfully!");
-        MainScreenLevelEditor::getInstance()->setMessage(message);
     }
 }
 

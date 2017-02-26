@@ -1051,7 +1051,7 @@ void Direct3DMain::saveLevel(int requestedAction)
 		errno_t err;
 		if ((err = fopen_s(&file, jsonFilePath, "w+")) != 0)
 		{
-			MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
+            MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
 		}
 		else
 		{
@@ -1059,11 +1059,11 @@ void Direct3DMain::saveLevel(int requestedAction)
 			fclose(file);
 		}
 
-		MainScreenLevelEditor::getInstance()->setMessage("Level Saved Successfully!");
+        MainScreenLevelEditor::getInstance()->setMessage("Level Saved Successfully!");
 	}
 	else
 	{
-		MainScreenLevelEditor::getInstance()->setMessage("Error Saving Level...");
+        MainScreenLevelEditor::getInstance()->setMessage("Error Saving Level...");
 	}
 #endif
 }
@@ -1095,7 +1095,7 @@ void Direct3DMain::loadLevel(int requestedAction)
 	errno_t err;
 	if ((err = fopen_s(&file, jsonFilePath, "r")) != 0)
 	{
-		MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
+        MainScreenLevelEditor::getInstance()->setMessage("Could not find json file...");
 	}
 	else
 	{
@@ -1120,8 +1120,6 @@ void Direct3DMain::loadLevel(int requestedAction)
 		fclose(file);
 
 		MainScreenLevelEditor::getInstance()->load(jsonContent.c_str(), m_screen);
-
-		MainScreenLevelEditor::getInstance()->setMessage("Level Loaded Successfully!");
 	}
 #endif
 }

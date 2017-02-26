@@ -180,6 +180,8 @@ void MainScreenLevelEditor::load(const char* json, MainScreen* ms)
     m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
     
     resetEntities(true);
+    
+    setMessage("Level Loaded Successfully!");
 }
 
 Game& MainScreenLevelEditor::getGame()
@@ -222,13 +224,13 @@ ConfirmExitPanel* MainScreenLevelEditor::getConfirmExitPanel()
 	return m_confirmExitPanel.get();
 }
 
-void MainScreenLevelEditor::setMessage(char *message)
+void MainScreenLevelEditor::setMessage(const char *message)
 {
 	m_message = message;
 	m_fMessageTime = 2;
 }
 
-char* MainScreenLevelEditor::getMessage()
+const char* MainScreenLevelEditor::getMessage()
 {
 	return m_message;
 }
@@ -399,7 +401,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_OFFSET:
                     if (m_game->getMarkers().size() < 2)
                     {
-						setMessage("2 markers must be placed to denote the section to offset");
+                        setMessage("2 markers must be placed to denote the section to offset");
                     }
                     else
                     {
@@ -776,7 +778,7 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
 {
     if (!m_game->hasEndSign())
     {
-		setMessage("Cannot save a level that does not contain an End Sign");
+        setMessage("Cannot save a level that does not contain an End Sign");
         return false;
     }
     
@@ -788,7 +790,7 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
     
     if (m_game->getJon().getMainBounds().getRight() > m_game->getFarRight())
     {
-		setMessage("Cannot save a level unless Jon is to the left of the end sign");
+        setMessage("Cannot save a level unless Jon is to the left of the end sign");
         return false;
     }
     
@@ -796,13 +798,13 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
     {
         if (m_game->getCountHissWithMinas().size() == 0)
         {
-			setMessage("Cannot save a level that does not contain a Count Hiss");
+            setMessage("Cannot save a level that does not contain a Count Hiss");
             return false;
         }
         
         if (m_game->getCountHissWithMina().getMainBounds().getRight() > m_game->getFarRight())
         {
-			setMessage("Cannot save a level unless Count Hiss is left of the end sign");
+            setMessage("Cannot save a level unless Count Hiss is left of the end sign");
             return false;
         }
     }
