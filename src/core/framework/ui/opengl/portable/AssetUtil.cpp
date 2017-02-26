@@ -8,9 +8,21 @@
 
 #include "AssetUtil.h"
 
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
 extern "C"
 {
 #include "platform_asset_utils.h"
+}
+#elif __ANDROID__
+#include "platform_asset_utils.h"
+#endif
+
+extern "C"
+{
 #include "shader.h"
 #include "texture.h"
 }

@@ -12,10 +12,10 @@
 
 FileData get_asset_data(const char* relative_path)
 {
-    return AndroidAssetsManager::getInstance()->getAssetData(relative_path);
+    return ANDROID_ASSETS->getAssetData(relative_path);
 }
 
 void release_asset_data(const FileData* file_data)
 {
-    AndroidAssetsManager::getInstance()->releaseAssetData(file_data);
+    ANDROID_ASSETS->releaseAssetData(file_data);
 }
