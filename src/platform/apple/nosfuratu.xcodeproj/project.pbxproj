@@ -997,8 +997,6 @@
 		BB09CDD41DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperpoweredAndroidAudioIO.cpp; sourceTree = "<group>"; };
 		BB09CDD51DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredAndroidAudioIO.h; sourceTree = "<group>"; };
 		BB09CDD61DBD3779006A3E49 /* SuperpoweredUSBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredUSBAudio.h; sourceTree = "<group>"; };
-		BB09CDD71DBD3779006A3E49 /* libSuperpoweredAndroidARM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSuperpoweredAndroidARM.a; sourceTree = "<group>"; };
-		BB09CDD81DBD3779006A3E49 /* libSuperpoweredAndroidARM64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSuperpoweredAndroidARM64.a; sourceTree = "<group>"; };
 		BB09CDD91DBD3779006A3E49 /* libSuperpoweredAndroidX86.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSuperpoweredAndroidX86.a; sourceTree = "<group>"; };
 		BB09CDDA1DBD3779006A3E49 /* libSuperpoweredAndroidX86_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSuperpoweredAndroidX86_64.a; sourceTree = "<group>"; };
 		BB09CDDB1DBD3779006A3E49 /* libSuperpoweredAudioIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSuperpoweredAudioIOS.a; sourceTree = "<group>"; };
@@ -1564,6 +1562,8 @@
 		BB51314C1E624BC700204148 /* AndroidAssetsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetsManager.cpp; sourceTree = "<group>"; };
 		BB51314D1E624BC700204148 /* AndroidAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetsManager.h; sourceTree = "<group>"; };
 		BB51314E1E624BC700204148 /* platform_asset_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = platform_asset_utils.cpp; sourceTree = "<group>"; };
+		BB51314F1E625BD700204148 /* libSuperpoweredAndroidarm64-v8a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarm64-v8a.a"; sourceTree = "<group>"; };
+		BB5131501E625BD700204148 /* libSuperpoweredAndroidarmeabi-v7a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarmeabi-v7a.a"; sourceTree = "<group>"; };
 		BB5C2A601E09E071009577BD /* d_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A631E09E07E009577BD /* c_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A661E09E088009577BD /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
@@ -1867,8 +1867,8 @@
 			isa = PBXGroup;
 			children = (
 				BB09CDD31DBD3779006A3E49 /* AndroidIO */,
-				BB09CDD71DBD3779006A3E49 /* libSuperpoweredAndroidARM.a */,
-				BB09CDD81DBD3779006A3E49 /* libSuperpoweredAndroidARM64.a */,
+				BB51314F1E625BD700204148 /* libSuperpoweredAndroidarm64-v8a.a */,
+				BB5131501E625BD700204148 /* libSuperpoweredAndroidarmeabi-v7a.a */,
 				BB09CDDA1DBD3779006A3E49 /* libSuperpoweredAndroidX86_64.a */,
 				BB09CDD91DBD3779006A3E49 /* libSuperpoweredAndroidX86.a */,
 				BB09CDDB1DBD3779006A3E49 /* libSuperpoweredAudioIOS.a */,
