@@ -936,7 +936,8 @@ void Direct3DMain::sendSaveData()
 	ss << "\"jon_unlocked_abilities_flag\": " << jonUnlockedAbilitiesFlag << ", ";
 	ss << "\"viewed_cutscenes_flag\": " << viewedCutscenesFlag << ", ";
 
-	for (int i = 1; i <= 5; i++)
+    int numWorlds = 1;
+	for (int i = 1; i <= numWorlds; i++)
 	{
 		ss << "\"world_" << i << "\":[";
 
@@ -960,7 +961,7 @@ void Direct3DMain::sendSaveData()
 			ss << " ";
 		}
 		ss << "]";
-		if (i < 5)
+		if (i < numWorlds)
 		{
 			ss << ",";
 		}

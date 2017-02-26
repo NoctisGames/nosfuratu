@@ -372,7 +372,8 @@ public final class GameRenderer implements Renderer
         usd += "\"jon_unlocked_abilities_flag\": " + jonUnlockedAbilitiesFlag + ", ";
         usd += "\"viewed_cutscenes_flag\": " + viewedCutscenesFlag + ", ";
 
-        for (int i = 1; i <= 5; i++)
+        int numWorlds = 1;
+        for (int i = 1; i <= numWorlds; i++)
         {
             usd += "\"world_" + i + "\":[";
 
@@ -396,7 +397,7 @@ public final class GameRenderer implements Renderer
                 usd += " ";
             }
             usd += "]";
-            if (i < 5)
+            if (i < numWorlds)
             {
                 usd += ",";
             }

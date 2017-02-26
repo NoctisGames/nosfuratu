@@ -26,10 +26,10 @@ FileData get_asset_data(const char *relative_path)
 {
 	assert(relative_path != NULL);
     
-    NSMutableString* adjusted_relative_path = [[NSMutableString alloc] initWithString:@"/"];
-    [adjusted_relative_path appendString:[[NSString alloc] initWithCString:relative_path encoding:NSASCIIStringEncoding]];
+    NSString *path = [[NSString alloc] initWithCString:relative_path encoding:NSASCIIStringEncoding];
+    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:nil] fileSystemRepresentation];
     
-    return get_file_data([[[NSBundle mainBundle] pathForResource:adjusted_relative_path ofType:nil] cStringUsingEncoding:NSASCIIStringEncoding]);
+    return get_file_data(bundlePath);
 }
 
 void release_asset_data(const FileData *file_data)

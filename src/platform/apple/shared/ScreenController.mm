@@ -282,7 +282,8 @@
     usd = [usd stringByAppendingFormat:@"\"jon_unlocked_abilities_flag\": %i, ", jonUnlockedAbilitiesFlag];
     usd = [usd stringByAppendingFormat:@"\"viewed_cutscenes_flag\": %i, ", viewedCutscenesFlag];
     
-    for (int i = 1; i <= 5; i++)
+    int numWorlds = 1;
+    for (int i = 1; i <= numWorlds; i++)
     {
         usd = [usd stringByAppendingFormat:@"\"world_%i\":[", i];
         for (int j = 1; j <= 21; j++)
@@ -305,7 +306,7 @@
             usd = [usd stringByAppendingString:@" "];
         }
         usd = [usd stringByAppendingString:@"]"];
-        if (i < 5)
+        if (i < numWorlds)
         {
             usd = [usd stringByAppendingString:@","];
         }
