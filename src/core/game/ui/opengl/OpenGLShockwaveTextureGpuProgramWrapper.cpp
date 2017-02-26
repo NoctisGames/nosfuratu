@@ -11,15 +11,11 @@
 #include "OpenGLManager.h"
 #include "macros.h"
 #include "Vector2D.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLShockwaveTextureGpuProgramWrapper::OpenGLShockwaveTextureGpuProgramWrapper()
 {
-    m_program = OpenGLShockwaveTextureProgram::build(build_program_from_assets("pp_shockwave_texture_shader.vsh", "pp_shockwave_texture_shader.fsh"));
+    m_program = OpenGLShockwaveTextureProgram::build(AssetUtil::buildProgramFromAssets("pp_shockwave_texture_shader.vsh", "pp_shockwave_texture_shader.fsh"));
 }
 
 OpenGLShockwaveTextureGpuProgramWrapper::~OpenGLShockwaveTextureGpuProgramWrapper()

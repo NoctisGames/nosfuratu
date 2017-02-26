@@ -17,6 +17,7 @@
 #include "SoundManager.h"
 #include "MainAssets.h"
 #include "MainScreenTitle.h"
+#include "AndroidAssetsManager.h"
 
 MainScreen *screen;
 

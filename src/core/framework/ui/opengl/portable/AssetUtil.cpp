@@ -1,21 +1,24 @@
 //
-//  asset_utils.c
+//  AssetUtil.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "asset_utils.h"
+#include "AssetUtil.h"
 
+extern "C"
+{
 #include "platform_asset_utils.h"
 #include "shader.h"
 #include "texture.h"
+}
 
 #include <assert.h>
 #include <stdlib.h>
 
-RawImageData load_png_asset(const char* relative_path)
+RawImageData AssetUtil::loadPngAsset(const char* relative_path)
 {
     assert(relative_path != NULL);
     
@@ -27,7 +30,7 @@ RawImageData load_png_asset(const char* relative_path)
     return raw_image_data;
 }
 
-GLuint load_png_asset_into_texture(RawImageData raw_image_data, int repeat_s)
+GLuint AssetUtil::loadPngAssetIntoTexture(RawImageData raw_image_data, int repeat_s)
 {
     const GLuint texture_object_id = load_texture(raw_image_data.width, raw_image_data.height, raw_image_data.gl_color_format, raw_image_data.data, repeat_s, 0);
 
@@ -36,7 +39,7 @@ GLuint load_png_asset_into_texture(RawImageData raw_image_data, int repeat_s)
 	return texture_object_id;
 }
 
-GLuint build_program_from_assets(const char* vertex_shader_path, const char* fragment_shader_path)
+GLuint AssetUtil::AssetUtil::buildProgramFromAssets(const char* vertex_shader_path, const char* fragment_shader_path)
 {
     assert(vertex_shader_path != NULL);
     assert(fragment_shader_path != NULL);

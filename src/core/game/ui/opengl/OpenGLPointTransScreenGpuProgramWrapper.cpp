@@ -12,15 +12,11 @@
 #include "macros.h"
 #include "Vector2D.h"
 #include "GpuTextureWrapper.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLPointTransScreenGpuProgramWrapper::OpenGLPointTransScreenGpuProgramWrapper() : PointTransitionGpuProgramWrapper()
 {
-    m_program = OpenGLPointTransitionProgram::build(build_program_from_assets("trans_screen_circle_open_shader.vsh", "trans_screen_circle_open_shader.fsh"));
+    m_program = OpenGLPointTransitionProgram::build(AssetUtil::buildProgramFromAssets("trans_screen_circle_open_shader.vsh", "trans_screen_circle_open_shader.fsh"));
 }
 
 OpenGLPointTransScreenGpuProgramWrapper::~OpenGLPointTransScreenGpuProgramWrapper()

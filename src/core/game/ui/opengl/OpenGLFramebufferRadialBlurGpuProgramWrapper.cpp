@@ -10,15 +10,11 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper()
 {
-    m_program = OpenGLFramebufferToScreenProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"));
+    m_program = OpenGLFramebufferToScreenProgram::build(AssetUtil::buildProgramFromAssets("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"));
 }
 
 OpenGLFramebufferRadialBlurGpuProgramWrapper::~OpenGLFramebufferRadialBlurGpuProgramWrapper()

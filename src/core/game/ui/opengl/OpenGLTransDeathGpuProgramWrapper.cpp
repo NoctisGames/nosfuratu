@@ -11,15 +11,11 @@
 #include "OpenGLManager.h"
 #include "macros.h"
 #include "GpuTextureWrapper.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLTransDeathGpuProgramWrapper::OpenGLTransDeathGpuProgramWrapper(bool isTransIn) : TransDeathGpuProgramWrapper(isTransIn)
 {
-    m_program = OpenGLTransDeathProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", isTransIn ? "trans_in_death_shader.fsh" : "trans_out_death_shader.fsh"));
+    m_program = OpenGLTransDeathProgram::build(AssetUtil::buildProgramFromAssets("frame_buffer_to_screen_shader.vsh", isTransIn ? "trans_in_death_shader.fsh" : "trans_out_death_shader.fsh"));
 }
 
 OpenGLTransDeathGpuProgramWrapper::~OpenGLTransDeathGpuProgramWrapper()

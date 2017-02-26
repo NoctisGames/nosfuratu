@@ -9,9 +9,10 @@
 #ifndef __noctisgames__AndroidAssetsManager__
 #define __noctisgames__AndroidAssetsManager__
 
-#define ANDROID_ASSETS (AndroidAssetsManager::getInstance())
-
+extern "C"
+{
 #include "platform_file_utils.h"
+}
 
 #include <android/asset_manager_jni.h>
 

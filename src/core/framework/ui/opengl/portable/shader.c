@@ -7,6 +7,7 @@
 //
 
 #include "shader.h"
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,7 +62,7 @@ GLuint link_program(const GLuint vertex_shader, const GLuint fragment_shader)
 	return program_object_id;
 }
 
-GLuint build_program(const GLchar * vertex_shader_source, const GLint vertex_shader_source_length, const GLchar * fragment_shader_source, const GLint fragment_shader_source_length)
+GLuint build_program(const void * vertex_shader_source, const int vertex_shader_source_length, const void * fragment_shader_source, const int fragment_shader_source_length)
 {
 	assert(vertex_shader_source != NULL);
 	assert(fragment_shader_source != NULL);

@@ -10,15 +10,11 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLEndBossSnakeTextureGpuProgramWrapper::OpenGLEndBossSnakeTextureGpuProgramWrapper()
 {
-    m_program = OpenGLTextureProgram::build(build_program_from_assets("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"));
+    m_program = OpenGLTextureProgram::build(AssetUtil::buildProgramFromAssets("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"));
 }
 
 OpenGLEndBossSnakeTextureGpuProgramWrapper::~OpenGLEndBossSnakeTextureGpuProgramWrapper()

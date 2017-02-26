@@ -10,15 +10,11 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLSnakeDeathTextureGpuProgramWrapper::OpenGLSnakeDeathTextureGpuProgramWrapper()
 {
-    m_program = OpenGLSnakeDeathTextureProgram::build(build_program_from_assets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
+    m_program = OpenGLSnakeDeathTextureProgram::build(AssetUtil::buildProgramFromAssets("texture_shader.vsh", "snake_death_texture_shader.fsh"));
 }
 
 OpenGLSnakeDeathTextureGpuProgramWrapper::~OpenGLSnakeDeathTextureGpuProgramWrapper()

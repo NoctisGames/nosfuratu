@@ -11,15 +11,11 @@
 #include "OpenGLManager.h"
 #include "macros.h"
 #include "GpuTextureWrapper.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLTransScreenGpuProgramWrapper::OpenGLTransScreenGpuProgramWrapper() : TransitionGpuProgramWrapper()
 {
-    m_program = OpenGLTransitionProgram::build(build_program_from_assets("frame_buffer_to_screen_shader.vsh", "trans_screen_shader.fsh"));
+    m_program = OpenGLTransitionProgram::build(AssetUtil::buildProgramFromAssets("frame_buffer_to_screen_shader.vsh", "trans_screen_shader.fsh"));
 }
 
 OpenGLTransScreenGpuProgramWrapper::~OpenGLTransScreenGpuProgramWrapper()

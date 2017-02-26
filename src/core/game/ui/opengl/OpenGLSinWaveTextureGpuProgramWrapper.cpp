@@ -10,15 +10,11 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLSinWaveTextureGpuProgramWrapper::OpenGLSinWaveTextureGpuProgramWrapper()
 {
-    m_program = OpenGLSinWaveTextureProgram::build(build_program_from_assets("texture_shader.vsh", "sin_wave_texture_shader.fsh"));
+    m_program = OpenGLSinWaveTextureProgram::build(AssetUtil::buildProgramFromAssets("texture_shader.vsh", "sin_wave_texture_shader.fsh"));
 }
 
 OpenGLSinWaveTextureGpuProgramWrapper::~OpenGLSinWaveTextureGpuProgramWrapper()

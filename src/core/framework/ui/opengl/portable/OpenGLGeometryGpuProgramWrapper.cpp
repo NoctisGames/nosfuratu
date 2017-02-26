@@ -10,15 +10,11 @@
 
 #include "OpenGLManager.h"
 #include "macros.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 OpenGLGeometryGpuProgramWrapper::OpenGLGeometryGpuProgramWrapper()
 {
-    m_program = OpenGLGeometryProgram::build(build_program_from_assets("color_shader.vsh", "color_shader.fsh"));
+    m_program = OpenGLGeometryProgram::build(AssetUtil::buildProgramFromAssets("color_shader.vsh", "color_shader.fsh"));
 }
 
 OpenGLGeometryGpuProgramWrapper::~OpenGLGeometryGpuProgramWrapper()

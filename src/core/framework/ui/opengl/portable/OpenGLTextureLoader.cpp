@@ -10,11 +10,7 @@
 
 #include "GpuTextureDataWrapper.h"
 #include "GpuTextureWrapper.h"
-
-extern "C"
-{
-#include "asset_utils.h"
-}
+#include "AssetUtil.h"
 
 #include <string>
 
@@ -36,7 +32,7 @@ GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureN
     textureFileName[len+3] = 'g';
     textureFileName[len+4] = '\0';
     
-    GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(load_png_asset(textureFileName));
+    GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(AssetUtil::loadPngAsset(textureFileName));
     
     delete[] textureFileName;
     
@@ -45,5 +41,5 @@ GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureN
 
 GpuTextureWrapper* OpenGLTextureLoader::loadTexture(GpuTextureDataWrapper* textureData, int repeatS)
 {
-    return new GpuTextureWrapper(load_png_asset_into_texture(textureData->raw_image_data, repeatS));
+    return new GpuTextureWrapper(AssetUtil::loadPngAssetIntoTexture(textureData->raw_image_data, repeatS));
 }
