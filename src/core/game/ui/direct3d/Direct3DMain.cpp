@@ -846,7 +846,8 @@ void Direct3DMain::initSoundEngine()
 	loadSound(L"footstep_left_wood.wav");
 	loadSound(L"footstep_right_wood.wav");
 	loadSound(L"landing_wood.wav");
-	loadSound(L"big_carrot.wav");
+	loadSound(L"collect_big_carrot.wav");
+    loadSound(L"collect_vial.wav");
 }
 
 void Direct3DMain::loadSound(const wchar_t* waveFileName)

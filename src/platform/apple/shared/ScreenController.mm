@@ -477,7 +477,8 @@
     [_appleSoundManager loadSound:@"footstep_left_wood" withNumCopies:1];
     [_appleSoundManager loadSound:@"footstep_right_wood" withNumCopies:1];
     [_appleSoundManager loadSound:@"landing_wood" withNumCopies:1];
-    [_appleSoundManager loadSound:@"big_carrot" withNumCopies:1];
+    [_appleSoundManager loadSound:@"collect_big_carrot" withNumCopies:1];
+    [_appleSoundManager loadSound:@"collect_vial" withNumCopies:1];
 }
 
 @end

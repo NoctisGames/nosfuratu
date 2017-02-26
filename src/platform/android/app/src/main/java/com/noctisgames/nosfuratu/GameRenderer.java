@@ -507,7 +507,8 @@ public final class GameRenderer implements Renderer
         _soundManager.loadSound(activity, R.raw.footstep_left_wood, 1);
         _soundManager.loadSound(activity, R.raw.footstep_right_wood, 1);
         _soundManager.loadSound(activity, R.raw.landing_wood, 1);
-        _soundManager.loadSound(activity, R.raw.big_carrot, 1);
+        _soundManager.loadSound(activity, R.raw.collect_big_carrot, 1);
+        _soundManager.loadSound(activity, R.raw.collect_vial, 1);
     }
 
     private void displayInterstitialAdIfLoaded()

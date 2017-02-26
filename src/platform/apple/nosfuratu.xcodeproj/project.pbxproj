@@ -647,6 +647,12 @@
 		BBADF46E1E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
 		BBADF46F1E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
 		BBADF4701E60D55400F4288A /* SoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBADF46C1E60D55400F4288A /* SoundManager.cpp */; };
+		BBAE6A7A1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
+		BBAE6A7B1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
+		BBAE6A7C1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
+		BBAE6A7D1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
+		BBAE6A7E1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
+		BBAE6A7F1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
 		BBB1E3251E60A54C00201A0C /* MainRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB641E5645F400AC8197 /* MainRenderer.cpp */; };
 		BBB1E3271E60A54C00201A0C /* OverlapTester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7D11E563C2100AC8197 /* OverlapTester.cpp */; };
 		BBB1E3281E60A54C00201A0C /* MainScreenComingSoon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34FB461E5645F400AC8197 /* MainScreenComingSoon.cpp */; };
@@ -922,9 +928,6 @@
 		BBB1E4551E60A54C00201A0C /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid.png */; };
 		BBB1E4571E60A54C00201A0C /* DDHidLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBB1E45D1E60A96F00201A0C /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
-		BBB1E4611E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
-		BBB1E4621E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
-		BBB1E4631E60B36E00201A0C /* big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBB1E4601E60B36E00201A0C /* big_carrot.wav */; };
 		BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
 		BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
 		BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
@@ -1665,8 +1668,9 @@
 		BB8E94631E57E11A00D237D2 /* MainAssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAssetsMapper.h; sourceTree = "<group>"; };
 		BBADF46C1E60D55400F4288A /* SoundManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundManager.cpp; sourceTree = "<group>"; };
 		BBADF46D1E60D55400F4288A /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		BBAE6A781E6346260040E361 /* collect_big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_big_carrot.wav; sourceTree = "<group>"; };
+		BBAE6A791E6346260040E361 /* collect_vial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_vial.wav; sourceTree = "<group>"; };
 		BBB1E45B1E60A54C00201A0C /* level editor mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "level editor mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BBB1E4601E60B36E00201A0C /* big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = big_carrot.wav; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
 		BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Texconv_readme.txt; sourceTree = "<group>"; };
 		BBCB71CB1DB6AF4B006430B6 /* CocoaSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaSecurity.h; sourceTree = "<group>"; };
@@ -2625,14 +2629,15 @@
 				BB71C7491E248D4200222AE2 /* ability_unlock.wav */,
 				BB71C74A1E248D4200222AE2 /* absorb_dash_ability.wav */,
 				BB71C74B1E248D4200222AE2 /* bat_poof.wav */,
-				BBB1E4601E60B36E00201A0C /* big_carrot.wav */,
 				BB71C74C1E248D4200222AE2 /* boss_level_clear.wav */,
 				BB71C74D1E248D4200222AE2 /* boss_level_unlock.wav */,
 				BB71C74E1E248D4200222AE2 /* button_click.wav */,
 				BB71C74F1E248D4200222AE2 /* cancel_transform.wav */,
 				BB71C7501E248D4200222AE2 /* chain_snap.wav */,
+				BBAE6A781E6346260040E361 /* collect_big_carrot.wav */,
 				BB71C7511E248D4200222AE2 /* collect_carrot.wav */,
 				BB71C7521E248D4200222AE2 /* collect_golden_carrot.wav */,
+				BBAE6A791E6346260040E361 /* collect_vial.wav */,
 				BB71C7531E248D4200222AE2 /* complete_transform.wav */,
 				BB71C7541E248D4200222AE2 /* death.wav */,
 				BB71C7551E248D4200222AE2 /* end_boss_snake_charge_cue.wav */,
@@ -3169,7 +3174,6 @@
 				BB44C4861DB03277003E633F /* c_world_1_end_boss_part_1.png in Resources */,
 				BB44C4DC1DB03277003E633F /* world_1_cutscene_2.png in Resources */,
 				BB71C78F1E248D4200222AE2 /* ability_unlock.wav in Resources */,
-				BBB1E4611E60B36E00201A0C /* big_carrot.wav in Resources */,
 				BB0F7A1D1E5A35BE005FB0F3 /* opening_cutscene_bgm.wav in Resources */,
 				BB71C85F1E248D4200222AE2 /* saw_grind_loop.wav in Resources */,
 				BB71C7DF1E248D4200222AE2 /* footstep_left_grass.wav in Resources */,
@@ -3190,6 +3194,7 @@
 				BB44C93B1DB03A7E003E633F /* rapidjson_readme.txt in Resources */,
 				BB5C2A671E09E088009577BD /* tutorial.png in Resources */,
 				BB44C48A1DB03277003E633F /* c_world_1_end_boss_part_3.png in Resources */,
+				BBAE6A7D1E6346260040E361 /* collect_vial.wav in Resources */,
 				BB71C80B1E248D4200222AE2 /* jon_vampire_double_jump.wav in Resources */,
 				BB51313F1E62475C00204148 /* frame_buffer_to_screen_shader.fsh in Resources */,
 				BB44C4961DB03277003E633F /* c_world_1_objects_part_1.png in Resources */,
@@ -3220,6 +3225,7 @@
 				BB44C4821DB03277003E633F /* c_world_1_cutscene_1.png in Resources */,
 				BB71C7CB1E248D4200222AE2 /* end_boss_snake_death.wav in Resources */,
 				BB71C85B1E248D4200222AE2 /* rabbit_stomp.wav in Resources */,
+				BBAE6A7A1E6346260040E361 /* collect_big_carrot.wav in Resources */,
 				BB71C8971E248D4300222AE2 /* vampire_dash.wav in Resources */,
 				BB71C7F71E248D4200222AE2 /* fox_death.wav in Resources */,
 				BB44C4781DB03277003E633F /* c_jon.png in Resources */,
@@ -3305,7 +3311,6 @@
 				BB0F7A231E5A35BE005FB0F3 /* title_bgm.wav in Resources */,
 				BB71C7F51E248D4200222AE2 /* fox_bounced_on.wav in Resources */,
 				BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */,
-				BBB1E4621E60B36E00201A0C /* big_carrot.wav in Resources */,
 				BB5131431E62475C00204148 /* frame_buffer_to_screen_shader.vsh in Resources */,
 				BB71C7A11E248D4200222AE2 /* boss_level_unlock.wav in Resources */,
 				BB71C8911E248D4300222AE2 /* toad_eat.wav in Resources */,
@@ -3338,6 +3343,7 @@
 				BB71C80D1E248D4200222AE2 /* jon_vampire_double_jump.wav in Resources */,
 				BB71C8091E248D4200222AE2 /* jon_rabbit_jump.wav in Resources */,
 				BB71C7DD1E248D4200222AE2 /* footstep_left_cave.wav in Resources */,
+				BBAE6A7E1E6346260040E361 /* collect_vial.wav in Resources */,
 				BB34FC711E5645F500AC8197 /* fade_screen_shader.fsh in Resources */,
 				BB71C8011E248D4200222AE2 /* jon_burrow_rocksfall.wav in Resources */,
 				BBD5A9D71E584DAB007CE6A8 /* pp_frame_buffer_obfuscation.fsh in Resources */,
@@ -3361,6 +3367,7 @@
 				BB71C7991E248D4200222AE2 /* bat_poof.wav in Resources */,
 				BB71C8491E248D4200222AE2 /* mid_boss_owl_swoop.wav in Resources */,
 				BB71C7BD1E248D4200222AE2 /* death.wav in Resources */,
+				BBAE6A7B1E6346260040E361 /* collect_big_carrot.wav in Resources */,
 				BB71C7B51E248D4200222AE2 /* collect_golden_carrot.wav in Resources */,
 				BB34FC851E5645F500AC8197 /* sin_wave_texture_shader.fsh in Resources */,
 				BB71C8691E248D4200222AE2 /* screen_transition.wav in Resources */,
@@ -3404,7 +3411,6 @@
 				BBB1E3E81E60A54C00201A0C /* fox_strike.wav in Resources */,
 				BBB1E3E91E60A54C00201A0C /* vampire_glide_loop.wav in Resources */,
 				BBB1E3EA1E60A54C00201A0C /* footstep_left_grass.wav in Resources */,
-				BBB1E4631E60B36E00201A0C /* big_carrot.wav in Resources */,
 				BBB1E3EC1E60A54C00201A0C /* title_screen.png in Resources */,
 				BBB1E3ED1E60A54C00201A0C /* end_boss_snake_death.wav in Resources */,
 				BBB1E3EE1E60A54C00201A0C /* collect_carrot.wav in Resources */,
@@ -3462,6 +3468,7 @@
 				BBB1E4251E60A54C00201A0C /* ability_unlock.wav in Resources */,
 				BBB1E4261E60A54C00201A0C /* screen_transition_2.wav in Resources */,
 				BBB1E4271E60A54C00201A0C /* jon_vampire_double_jump.wav in Resources */,
+				BBAE6A7F1E6346260040E361 /* collect_vial.wav in Resources */,
 				BBB1E4281E60A54C00201A0C /* jon_rabbit_jump.wav in Resources */,
 				BB51313B1E62475C00204148 /* color_shader.fsh in Resources */,
 				BBB1E4291E60A54C00201A0C /* footstep_left_cave.wav in Resources */,
@@ -3498,6 +3505,7 @@
 				BBB1E4441E60A54C00201A0C /* mushroom_bounce.wav in Resources */,
 				BBB1E4451E60A54C00201A0C /* jump_spring.wav in Resources */,
 				BBB1E4461E60A54C00201A0C /* jump_spring_heavy.wav in Resources */,
+				BBAE6A7C1E6346260040E361 /* collect_big_carrot.wav in Resources */,
 				BBB1E4471E60A54C00201A0C /* level_complete.wav in Resources */,
 				BBB1E4481E60A54C00201A0C /* vampire_dash.wav in Resources */,
 				BBB1E44A1E60A54C00201A0C /* level_select_bgm.wav in Resources */,
