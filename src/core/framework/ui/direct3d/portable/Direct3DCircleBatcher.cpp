@@ -18,6 +18,7 @@
 #include "Direct3DManager.h"
 #include "GpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
+#include "Color.h"
 
 Direct3DCircleBatcher::Direct3DCircleBatcher() : CircleBatcher()
 {

@@ -16,6 +16,7 @@
 #include "Direct3DManager.h"
 #include "GpuProgramWrapper.h"
 #include "Direct3DGeometryGpuProgramWrapper.h"
+#include "Color.h"
 
 Direct3DNGRectBatcher::Direct3DNGRectBatcher(bool isFill) : NGRectBatcher(isFill)
 {

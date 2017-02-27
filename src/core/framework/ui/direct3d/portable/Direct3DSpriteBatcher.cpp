@@ -14,6 +14,7 @@
 #include "macros.h"
 #include "TextureRegion.h"
 #include "GpuProgramWrapper.h"
+#include "Color.h"
 
 #include <vector>
 #include <stdlib.h>
