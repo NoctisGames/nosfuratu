@@ -99,11 +99,7 @@ private:
 
 	void handleSound();
 	void handleMusic();
-	void playSound(int soundId, bool isLooping);
-	void playSound(int soundId);
-	void stopSound(int soundId);
-	void stopAllSounds(bool stopOnlyLoopingSounds = false);
-	void stopAllLoopingSounds();
+	int soundIndexForSoundId(int soundId);
 
 	void initSoundEngine();
 	void loadSound(const wchar_t* waveFileName);

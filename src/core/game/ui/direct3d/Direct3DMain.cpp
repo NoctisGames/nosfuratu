@@ -660,22 +660,29 @@ void Direct3DMain::handleSound()
 		case SOUND_SPARROW_FLY:
 		case SOUND_SAW_GRIND:
 		case SOUND_SPIKED_BALL_ROLLING:
-			playSound(soundId, true);
+			// TODO, make looping
+			m_sounds.at(soundIndexForSoundId(soundId))->Play();
 			break;
 		case STOP_SOUND_JON_VAMPIRE_GLIDE:
 		case STOP_SOUND_SPARROW_FLY:
 		case STOP_SOUND_SAW_GRIND:
 		case STOP_SOUND_SPIKED_BALL_ROLLING:
-			stopSound(soundId - 1000);
+			// TODO, soundId - 1000
+			break;
+		case RESUME_ALL_SOUNDS:
+			// TODO
+			break;
+		case PAUSE_ALL_SOUNDS:
+			// TODO
 			break;
 		case STOP_ALL_SOUNDS:
-			stopAllSounds();
+			// TODO
 			break;
 		case STOP_ALL_LOOPING_SOUNDS:
-			stopAllLoopingSounds();
+			// TODO
 			break;
 		default:
-			playSound(soundId);
+			m_sounds.at(soundIndexForSoundId(soundId))->Play();
 			break;
 		}
 	}
@@ -748,29 +755,11 @@ void Direct3DMain::handleMusic()
 	}
 }
 
-void Direct3DMain::playSound(int soundId, bool isLooping)
+int Direct3DMain::soundIndexForSoundId(int soundId)
 {
-	m_sounds.at(soundId - 1)->Play();
-}
+	int soundIndex = soundId - 1;
 
-void Direct3DMain::playSound(int soundId)
-{
-	playSound(soundId, false);
-}
-
-void Direct3DMain::stopSound(int soundId)
-{
-	// TODO
-}
-
-void Direct3DMain::stopAllSounds(bool stopOnlyLoopingSounds)
-{
-	// TODO
-}
-
-void Direct3DMain::stopAllLoopingSounds()
-{
-	// TODO
+	return soundIndex;
 }
 
 void Direct3DMain::initSoundEngine()
