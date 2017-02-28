@@ -512,7 +512,7 @@ int SaveData::getViewedCutscenesFlag()
 
 	if (hasValue)
 	{
-		ret = safe_cast<int>(values->Lookup(key));
+		return safe_cast<int>(values->Lookup(key));
 	}
 #endif
 	
