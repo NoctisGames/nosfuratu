@@ -93,7 +93,7 @@ void Level::enter(MainScreen* ms)
     
     GameTracker::getInstance()->config(CAM_WIDTH * 0.5f,
                                        textY,
-                                       3.34f,
+                                       4.04f,
                                        textY - 0.14f,
                                        fgWidth,
                                        fgHeight);
@@ -1063,6 +1063,7 @@ void Level::updateScore()
 {
     m_iScoreFromObjects = m_game->getNumCarrotsCollected() * SCORE_CARROT;
     m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * SCORE_GOLDEN_CARROT;
+    m_iScoreFromObjects += m_game->getNumVialsCollected() * SCORE_VIAL;
     
     if (m_game->getJons().size() > 0)
     {
@@ -1113,6 +1114,12 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
                 m_game->setNumCarrotsCollected(m_game->getNumCarrotsCollected() + 10);
                 
                 GameTracker::getInstance()->onScored(SCORE_BIG_CARROT);
+            }
+            else if ((*i)->getType() == CollectibleItemType_Vial)
+            {
+                m_game->setNumVialsCollected(m_game->getNumVialsCollected() + 1);
+                
+                GameTracker::getInstance()->onScored(SCORE_VIAL);
             }
             else
             {

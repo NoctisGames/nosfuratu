@@ -988,7 +988,7 @@ void MainRenderer::renderWorld(Game& game)
             renderPhysicalEntity(hc, MAIN_ASSETS->get(&hc));
         }
     }
-    m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_2->gpuTextureWrapper, *m_textureGpuProgramWrapper);
     
     m_spriteBatcher->beginBatch();
     for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
@@ -1458,18 +1458,24 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* con
     
     if (ensureTexture(m_world_1_objects_part_1))
     {
-        static GameHudCarrot uiCarrot = GameHudCarrot(false);
-        static GameHudCarrot uiGoldenCarrot = GameHudCarrot(true);
+        static GameHudItem uiVial = GameHudItem::createVial();
+        static GameHudItem uiGoldenCarrot = GameHudItem::createGoldenCarrot();
+        static GameHudItem uiCarrot = GameHudItem::createCarrot();
         
-        uiGoldenCarrot.getPosition().set(2.7f, textY);
+        uiVial.getPosition().set(2.0f, textY);
+        uiVial.setWidth(fgWidth);
+        uiVial.setHeight(fgHeight * 1.142857142857143f);
+        
+        uiGoldenCarrot.getPosition().set(3.3f, textY);
         uiGoldenCarrot.setWidth(fgWidth);
         uiGoldenCarrot.setHeight(fgHeight);
         
-        uiCarrot.getPosition().set(4.3f, textY);
+        uiCarrot.getPosition().set(4.7f, textY);
         uiCarrot.setWidth(fgWidth);
         uiCarrot.setHeight(fgHeight);
         
         m_spriteBatcher->beginBatch();
+        renderPhysicalEntity(uiVial, MAIN_ASSETS->get(&uiVial));
         renderPhysicalEntity(uiGoldenCarrot, MAIN_ASSETS->get(&uiGoldenCarrot));
         renderPhysicalEntity(uiCarrot, MAIN_ASSETS->get(&uiCarrot));
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
@@ -1479,26 +1485,37 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* con
     
     static TextureRegion xTr = ASSETS->findTextureRegion("CarrotCountMarker");
     
+    /// Render Num Vials Collected
+    
+    {
+        m_spriteBatcher->drawSprite(2.34f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+        
+        std::stringstream ss;
+        ss << game.getNumVialsCollected();
+        std::string text = ss.str();
+        m_font->renderText(*m_spriteBatcher, text, 2.74f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+    }
+    
     /// Render Num Golden Carrots Collected
     
     {
-        m_spriteBatcher->drawSprite(2.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+        m_spriteBatcher->drawSprite(3.64f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
         
         std::stringstream ss;
         ss << game.getNumGoldenCarrotsCollected();
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, 3.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, 4.04f, textY - 0.14f, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Num Carrots Collected
     
     {
-        m_spriteBatcher->drawSprite(4.54f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+        m_spriteBatcher->drawSprite(4.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
         
         std::stringstream ss;
         ss << game.getNumCarrotsCollected();
         std::string text = ss.str();
-        m_font->renderText(*m_spriteBatcher, text, 4.94f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+        m_font->renderText(*m_spriteBatcher, text, 5.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
     }
     
     /// Render Score
@@ -1753,6 +1770,9 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
         
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getHoles());
+        m_spriteBatcher->endBatch(*m_world_1_objects_part_2->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+        
+        m_spriteBatcher->beginBatch();
         renderPhysicalEntities(leep->getCollectibleItems());
         renderPhysicalEntities(leep->getForegroundObjects());
         m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
@@ -1894,29 +1914,36 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
 
 		float textY = CAM_HEIGHT - fgHeight;
 
-		if (ensureTexture(m_world_1_objects_part_1))
-		{
-			static GameHudCarrot uiCarrot = GameHudCarrot(false);
-			static GameHudCarrot uiGoldenCarrot = GameHudCarrot(true);
-
-			uiGoldenCarrot.getPosition().set(2.7f, textY);
-			uiGoldenCarrot.setWidth(fgWidth);
-			uiGoldenCarrot.setHeight(fgHeight);
-
-			uiCarrot.getPosition().set(4.3f, textY);
-			uiCarrot.setWidth(fgWidth);
-			uiCarrot.setHeight(fgHeight);
-
-			m_spriteBatcher->beginBatch();
-			renderPhysicalEntity(uiGoldenCarrot, MAIN_ASSETS->get(&uiGoldenCarrot));
-			renderPhysicalEntity(uiCarrot, MAIN_ASSETS->get(&uiCarrot));
-			m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
-		}
+        if (ensureTexture(m_world_1_objects_part_1))
+        {
+            static GameHudItem uiVial = GameHudItem::createVial();
+            static GameHudItem uiGoldenCarrot = GameHudItem::createGoldenCarrot();
+            static GameHudItem uiCarrot = GameHudItem::createCarrot();
+            
+            uiVial.getPosition().set(2.0f, textY);
+            uiVial.setWidth(fgWidth);
+            uiVial.setHeight(fgHeight * 1.142857142857143f);
+            
+            uiGoldenCarrot.getPosition().set(3.3f, textY);
+            uiGoldenCarrot.setWidth(fgWidth);
+            uiGoldenCarrot.setHeight(fgHeight);
+            
+            uiCarrot.getPosition().set(4.7f, textY);
+            uiCarrot.setWidth(fgWidth);
+            uiCarrot.setHeight(fgHeight);
+            
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntity(uiVial, MAIN_ASSETS->get(&uiVial));
+            renderPhysicalEntity(uiGoldenCarrot, MAIN_ASSETS->get(&uiGoldenCarrot));
+            renderPhysicalEntity(uiCarrot, MAIN_ASSETS->get(&uiCarrot));
+            m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+        }
 
         if (ensureTexture(m_misc))
         {
             int numCarrots = 0;
             int numGoldenCarrots = 0;
+            int numVials = 0;
             for (
                  std::vector<CollectibleItem *>::iterator i = gameScreenLevelEditor->getGame().getCollectibleItems().begin();
                  i != gameScreenLevelEditor->getGame().getCollectibleItems().end();
@@ -1930,6 +1957,10 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
                 {
                     numCarrots += 10;
                 }
+                else if ((*i)->getType() == CollectibleItemType_Vial)
+                {
+                    numVials++;
+                }
                 else if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
                 {
                     numGoldenCarrots++;
@@ -1938,26 +1969,37 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
             
             m_spriteBatcher->beginBatch();
             
+            /// Render Num Vials Added
+            
+            {
+                m_spriteBatcher->drawSprite(2.34f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+                
+                std::stringstream ss;
+                ss << numVials;
+                std::string text = ss.str();
+                m_font->renderText(*m_spriteBatcher, text, 2.74f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+            }
+            
             /// Render Num Golden Carrots Added
             
             {
-                m_spriteBatcher->drawSprite(2.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+                m_spriteBatcher->drawSprite(3.64f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
                 
                 std::stringstream ss;
                 ss << numGoldenCarrots;
                 std::string text = ss.str();
-                m_font->renderText(*m_spriteBatcher, text, 3.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+                m_font->renderText(*m_spriteBatcher, text, 4.04f, textY - 0.14f, fgWidth, fgHeight, fontColor);
             }
             
             /// Render Num Carrots Added
             
             {
-                m_spriteBatcher->drawSprite(4.54f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
+                m_spriteBatcher->drawSprite(4.94f, textY - 0.1f, fgWidth / 2, fgHeight / 2, 0, xTr);
                 
                 std::stringstream ss;
                 ss << numCarrots;
                 std::string text = ss.str();
-                m_font->renderText(*m_spriteBatcher, text, 4.94f, textY - 0.14f, fgWidth, fgHeight, fontColor);
+                m_font->renderText(*m_spriteBatcher, text, 5.34f, textY - 0.14f, fgWidth, fgHeight, fontColor);
             }
             
             m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);

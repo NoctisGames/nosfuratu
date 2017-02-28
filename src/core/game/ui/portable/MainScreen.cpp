@@ -322,5 +322,5 @@ int MainScreen::getJonAbilityFlag()
     return level->getJonAbilityFlag();
 }
 
-RTTI_IMPL(GameHudCarrot, PhysicalEntity);
+RTTI_IMPL(GameHudItem, PhysicalEntity);
 RTTI_IMPL_NOPARENT(MainScreen);

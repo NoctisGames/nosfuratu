@@ -40,17 +40,23 @@
 #include <memory>
 #include <vector>
 
-class GameHudCarrot : public PhysicalEntity
+class GameHudItem : public PhysicalEntity
 {
     RTTI_DECL;
     
 public:
-    GameHudCarrot(bool isGolden) : PhysicalEntity(0, 0, 1, 1), m_isGolden(isGolden) {}
+    static GameHudItem createCarrot() { return GameHudItem(0); }
+    static GameHudItem createGoldenCarrot() { return GameHudItem(1); }
+    static GameHudItem createVial() { return GameHudItem(2); }
     
-    bool isGolden() { return m_isGolden; }
+    GameHudItem(int type) : PhysicalEntity(0, 0, 1, 1), m_iType(type) {}
+    
+    bool isCarrot() { return m_iType == 0; }
+    bool isGolden() { return m_iType == 1; }
+    bool isVial() { return m_iType == 2; }
     
 private:
-    bool m_isGolden;
+    int m_iType;
 };
 
 class MainScreen : public IScreen

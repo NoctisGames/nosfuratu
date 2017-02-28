@@ -54,7 +54,7 @@ class SnakeBody;
 class EndBossSnake;
 class BatInstruction;
 class BatPanel;
-class GameHudCarrot;
+class GameHudItem;
 class Bat;
 class BatInstruction;
 class TextureSelectorPanel;
@@ -158,7 +158,7 @@ public:
     
     TextureRegion& get(GameButton* backButton);
     
-    TextureRegion& get(GameHudCarrot* gameHudCarrot);
+    TextureRegion& get(GameHudItem* gameHudItem);
     
     TextureRegion& get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel);
     

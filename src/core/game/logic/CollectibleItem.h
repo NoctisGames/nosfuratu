@@ -22,7 +22,8 @@ typedef enum
 {
     CollectibleItemType_Carrot,
     CollectibleItemType_GoldenCarrot,
-    CollectibleItemType_BigCarrot
+    CollectibleItemType_BigCarrot,
+    CollectibleItemType_Vial
 } CollectibleItemType;
 
 class Game;
@@ -138,8 +139,18 @@ public:
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
+};
+
+class Vial : public CollectibleItem
+{
+    RTTI_DECL;
     
-    virtual void snapToGrid(int gridCellSizeScalar = 1);
+public:
+    Vial(int gridX, int gridY) : CollectibleItem(gridX, gridY, 20, 21, SOUND_COLLECT_VIAL, CollectibleItemType_Vial, 0.43125f, 0.25297619047619f, 0.25f, 0.339285714285714f) {}
+    
+    virtual void update(float deltaTime);
+    
+    virtual void updateBounds();
 };
 
 #endif /* defined(__nosfuratu__CollectibleItem__) */

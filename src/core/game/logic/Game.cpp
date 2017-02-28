@@ -43,6 +43,7 @@ m_fCamFarRightBottom(GAME_HEIGHT / 2),
 m_iBestLevelStatsFlag(0),
 m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
+m_iNumVialsCollected(0),
 m_iWorld(1),
 m_iLevel(1),
 m_isLevelEditor(false)
@@ -192,6 +193,7 @@ void Game::reset()
     m_fStateTime = 0;
     m_iNumCarrotsCollected = 0;
     m_iNumGoldenCarrotsCollected = 0;
+    m_iNumVialsCollected = 0;
 }
 
 void Game::update(float deltaTime)
@@ -596,6 +598,16 @@ void Game::setNumGoldenCarrotsCollected(int numGoldenCarrotsCollected)
 int Game::getNumGoldenCarrotsCollected()
 {
     return m_iNumGoldenCarrotsCollected;
+}
+
+void Game::setNumVialsCollected(int numVialsCollected)
+{
+    m_iNumVialsCollected = numVialsCollected;
+}
+
+int Game::getNumVialsCollected()
+{
+    return m_iNumVialsCollected;
 }
 
 int Game::getWorld()

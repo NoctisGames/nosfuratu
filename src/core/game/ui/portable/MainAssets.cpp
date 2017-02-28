@@ -1693,6 +1693,19 @@ TextureRegion& MainAssets::get(CollectibleItem* collectibleItem)
                 return tr;
             }
         }
+        case CollectibleItemType_Vial:
+        {
+            if (collectibleItem->isCollected())
+            {
+                static Animation anim = ASSETS->findAnimation("CollectibleItemType_Vial_Collected");
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
+            else
+            {
+                static Animation anim = ASSETS->findAnimation("CollectibleItemType_Vial_Not_Collected");
+                return anim.getTextureRegion(collectibleItem->getStateTime());
+            }
+        }
     }
     
     assert(false);
@@ -2200,18 +2213,25 @@ TextureRegion& MainAssets::get(GameButton* gameButton)
     assert(false);
 }
 
-TextureRegion& MainAssets::get(GameHudCarrot* gameHudCarrot)
+TextureRegion& MainAssets::get(GameHudItem* gameHudItem)
 {
-    if (gameHudCarrot->isGolden())
+    if (gameHudItem->isGolden())
     {
-        static TextureRegion tr = ASSETS->findTextureRegion("GameHudCarrot_Golden");
+        static TextureRegion tr = ASSETS->findTextureRegion("GameHudItem_Golden");
         return tr;
     }
-    else
+    else if (gameHudItem->isCarrot())
     {
-        static TextureRegion tr = ASSETS->findTextureRegion("GameHudCarrot_Normal");
+        static TextureRegion tr = ASSETS->findTextureRegion("GameHudItem_Normal");
         return tr;
     }
+    else if (gameHudItem->isVial())
+    {
+        static TextureRegion tr = ASSETS->findTextureRegion("GameHudItem_Vial");
+        return tr;
+    }
+    
+    assert(false);
 }
 
 TextureRegion& MainAssets::get(LevelEditorEntitiesPanel* levelEditorEntitiesPanel)

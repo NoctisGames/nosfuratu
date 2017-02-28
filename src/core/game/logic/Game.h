@@ -149,6 +149,10 @@ public:
     
     int getNumGoldenCarrotsCollected();
     
+    void setNumVialsCollected(int numVialsCollected);
+    
+    int getNumVialsCollected();
+    
     int getWorld();
     
     int getLevel();
@@ -197,6 +201,7 @@ private:
     int m_iBestLevelStatsFlag;
     int m_iNumCarrotsCollected;
     int m_iNumGoldenCarrotsCollected;
+    int m_iNumVialsCollected;
     int m_iWorld;
     int m_iLevel;
     bool m_isLevelEditor;

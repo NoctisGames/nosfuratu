@@ -25,6 +25,8 @@ CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
             return new GoldenCarrot(gridX, gridY);
         case CollectibleItemType_BigCarrot:
             return new BigCarrot(gridX, gridY);
+        case CollectibleItemType_Vial:
+            return new Vial(gridX, gridY);
     }
     
     assert(false);
@@ -282,9 +284,24 @@ void BigCarrot::updateBounds()
     GridLockedPhysicalEntity::updateBounds();
 }
 
-void BigCarrot::snapToGrid(int gridCellSizeScalar)
+void Vial::update(float deltaTime)
 {
-    GridLockedPhysicalEntity::snapToGrid(gridCellSizeScalar);
+    CollectibleItem::update(deltaTime);
+    
+    if (m_isCollected)
+    {
+        if (m_fStateTime > 0.54f)
+        {
+            m_isRequestingDeletion = true;
+        }
+    }
+}
+
+void Vial::updateBounds()
+{
+    CollectibleItem::updateBounds();
+    
+    GridLockedPhysicalEntity::updateBounds();
 }
 
 RTTI_IMPL(CollectibleItem, GridLockedPhysicalEntity);
@@ -292,3 +309,4 @@ RTTI_IMPL(Carrot, CollectibleItem);
 RTTI_IMPL(GoldenCarrotTwinkle, PhysicalEntity);
 RTTI_IMPL(GoldenCarrot, CollectibleItem);
 RTTI_IMPL(BigCarrot, CollectibleItem);
+RTTI_IMPL(Vial, CollectibleItem);
