@@ -659,12 +659,9 @@ void BatPanel::updateVampire(MainScreen* ms)
                 }
                 else if (executeUp)
                 {
-                    if (ms->m_fScreenHeldTime > 0.4f)
-                    {
-                        jon.setUserActionPrevented(false);
-                        jon.triggerCancelTransform();
-                        jon.setUserActionPrevented(true);
-                    }
+                    jon.setUserActionPrevented(false);
+                    jon.triggerCancelTransform();
+                    jon.setUserActionPrevented(true);
                     
                     ms->m_isScreenHeldDown = false;
                     ms->m_fScreenHeldTime = 0;
