@@ -90,16 +90,16 @@ void Chapter1Level21::enter(MainScreen* ms)
 		spikedBallChain3->setSpikedBall(spikedBall3);
 	}
 
-	ForegroundObject* gt1 = nullptr;
-	ForegroundObject* gt2 = nullptr;
-	ForegroundObject* gt3 = nullptr;
-	int giantTreeIndex = 0;
-	for (std::vector<ForegroundObject*>::iterator i = m_game->getForegroundObjects().begin(); i != m_game->getForegroundObjects().end(); i++)
+	Midground* gt1 = nullptr;
+	Midground* gt2 = nullptr;
+	Midground* gt3 = nullptr;
+	int stumpIndex = 0;
+	for (std::vector<Midground*>::iterator i = m_game->getMidgrounds().begin(); i != m_game->getMidgrounds().end(); i++)
 	{
-		if ((*i)->getType() == ForegroundObjectType_GiantTree)
+		if ((*i)->getType() == MidgroundType_Tall_Stump)
 		{
-			giantTreeIndex++;
-			switch (giantTreeIndex)
+			stumpIndex++;
+			switch (stumpIndex)
 			{
 			case 1:
 				gt1 = (*i);
@@ -113,7 +113,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 			}
 		}
 
-		if (giantTreeIndex == 3)
+		if (stumpIndex == 3)
 		{
 			break;
 		}
@@ -126,17 +126,23 @@ void Chapter1Level21::enter(MainScreen* ms)
 		m_fMarker1X = fminf(gt1->getPosition().getX(), fminf(gt2->getPosition().getX(), gt3->getPosition().getX()));
 		m_fMarker3X = fmaxf(gt1->getPosition().getX(), fmaxf(gt2->getPosition().getX(), gt3->getPosition().getX()));
 		
-		m_fMarker2X = gt1->getPosition().getX();
-		if (m_fMarker2X < m_fMarker1X
-			|| m_fMarker2X > m_fMarker3X)
-		{
-			m_fMarker2X = gt2->getPosition().getX();
-			if (m_fMarker2X < m_fMarker1X
-				|| m_fMarker2X > m_fMarker3X)
-			{
-				m_fMarker2X = gt3->getPosition().getX();
-			}
-		}
+        float posX = gt1->getPosition().getX();
+        if (m_fMarker1X < posX && m_fMarker3X > posX)
+        {
+            m_fMarker2X = posX;
+        }
+        else
+        {
+            posX = gt2->getPosition().getX();
+            if (m_fMarker1X < posX && m_fMarker3X > posX)
+            {
+                m_fMarker2X = posX;
+            }
+            else
+            {
+                m_fMarker2X = gt3->getPosition().getX();
+            }
+        }
 	}
     
     if (m_game->getEndBossSnakes().size() > 0)
