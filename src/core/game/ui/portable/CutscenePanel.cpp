@@ -56,10 +56,7 @@ void CutscenePanel::update(float deltaTime)
 
 void CutscenePanel::onCleanUp()
 {
-    if (m_cutsceneEffects.size() > 0)
-    {
-        VectorUtil::cleanUpVectorOfPointers(m_cutsceneEffects);
-    }
+    VectorUtil::cleanUpVectorOfPointers(m_cutsceneEffects);
 }
 
 RTTI_IMPL(CutsceneEffect, PhysicalEntity);
