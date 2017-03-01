@@ -1,12 +1,12 @@
 //
-//  platform_asset_utils.cpp
+//  asset_data_handler.cpp
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/22/14.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "platform_asset_utils.h"
+#include "asset_data_handler.h"
 
 #include "AndroidAssetsManager.h"
 

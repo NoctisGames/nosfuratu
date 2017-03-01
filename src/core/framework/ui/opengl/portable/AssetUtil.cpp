@@ -15,10 +15,10 @@
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
 extern "C"
 {
-#include "platform_asset_utils.h"
+#include "asset_data_handler.h"
 }
 #elif __ANDROID__
-#include "platform_asset_utils.h"
+#include "asset_data_handler.h"
 #endif
 
 extern "C"
@@ -51,7 +51,7 @@ GLuint AssetUtil::loadPngAssetIntoTexture(RawImageData raw_image_data, int repea
 	return texture_object_id;
 }
 
-GLuint AssetUtil::AssetUtil::buildProgramFromAssets(const char* vertex_shader_path, const char* fragment_shader_path)
+GLuint AssetUtil::buildProgramFromAssets(const char* vertex_shader_path, const char* fragment_shader_path)
 {
     assert(vertex_shader_path != NULL);
     assert(fragment_shader_path != NULL);

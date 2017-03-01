@@ -1,13 +1,15 @@
 //
-//  platform_asset_utils.m
+//  asset_data_handler.m
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "platform_asset_utils.h"
-#include "platform_file_utils.h"
+#include "asset_data_handler.h"
+
+#include "file_util.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>

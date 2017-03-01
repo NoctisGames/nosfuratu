@@ -7,8 +7,10 @@
 //
 
 #include "image.h"
-#include <assert.h>
+
 #include "png.h"
+
+#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 

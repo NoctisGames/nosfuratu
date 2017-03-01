@@ -17,7 +17,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := game
+LOCAL_MODULE    := android_main
 LOCAL_CFLAGS    := -Wall -Wextra -DGL_GLEXT_PROTOTYPES=1 -O3 -fsigned-char
 
 #traverse all the directory and subdirectory
@@ -142,7 +142,7 @@ LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/3rdparty/
 LOCAL_STATIC_LIBRARIES := libpng Superpowered
-LOCAL_LDLIBS := -lGLESv2 -landroid -lOpenSLES
+LOCAL_LDLIBS := -llog -lGLESv2 -landroid -lOpenSLES
 
 include $(BUILD_SHARED_LIBRARY)
 

@@ -13,7 +13,7 @@
 
 extern "C"
 {
-#include "platform_file_utils.h"
+#include "file_util.h"
 }
 
 #include <android/asset_manager_jni.h>

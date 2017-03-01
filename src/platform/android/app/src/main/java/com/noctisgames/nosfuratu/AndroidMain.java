@@ -1,15 +1,15 @@
 package com.noctisgames.nosfuratu;
 
-import android.content.res.AssetManager;
+import android.app.Activity;
 
-public final class Game
+public final class AndroidMain
 {
     static
     {
-        System.loadLibrary("game");
+        System.loadLibrary("android_main");
     }
 
-    public static native void init(AssetManager assetManager, boolean isLowMemoryDevice);
+    public static native void init(Activity activity, boolean isLowMemoryDevice);
 
     public static native void on_surface_created();
 
@@ -28,10 +28,6 @@ public final class Game
     public static native void on_touch_dragged(float normalized_x, float normalized_y);
 
     public static native void on_touch_up(float normalized_x, float normalized_y);
-
-    public static native short get_current_music_id();
-
-    public static native short get_current_sound_id();
 
     public static native int get_requested_action();
 

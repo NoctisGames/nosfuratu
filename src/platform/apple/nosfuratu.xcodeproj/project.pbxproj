@@ -408,9 +408,9 @@
 		BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
 		BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
 		BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
-		BB5130FD1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
-		BB5130FE1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
-		BB5130FF1E62475B00204148 /* platform_asset_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* platform_asset_utils.m */; };
+		BB5130FD1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
+		BB5130FE1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
+		BB5130FF1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
 		BB5131001E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
 		BB5131011E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
 		BB5131021E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
@@ -459,9 +459,9 @@
 		BB51312D1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
 		BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
 		BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
-		BB5131301E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
-		BB5131311E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
-		BB5131321E62475C00204148 /* platform_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* platform_file_utils.c */; };
+		BB5131301E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
+		BB5131311E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
+		BB5131321E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
 		BB5131331E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
 		BB5131341E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
 		BB5131351E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
@@ -1413,8 +1413,7 @@
 		BB34FD6F1E56464200AC8197 /* TransScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB34FD711E565A7400AC8197 /* Android.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		BB34FD721E565A7400AC8197 /* Application.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = Application.mk; sourceTree = "<group>"; };
-		BB34FD731E565A7400AC8197 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
-		BB34FD751E565A7400AC8197 /* sound_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sound_manager.cpp; sourceTree = "<group>"; };
+		BB34FD731E565A7400AC8197 /* android_main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = android_main.cpp; sourceTree = "<group>"; };
 		BB44C30A1DB0303F003E633F /* NosFURatu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NosFURatu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB44C31F1DB030B3003E633F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB44C3201DB030B3003E633F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1514,7 +1513,7 @@
 		BB44CB991DB054B8003E633F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB9D1DB054F9003E633F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		BB5130CB1E62475B00204148 /* platform_asset_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = platform_asset_utils.m; sourceTree = "<group>"; };
+		BB5130CB1E62475B00204148 /* asset_data_handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = asset_data_handler.m; sourceTree = "<group>"; };
 		BB5130CD1E62475B00204148 /* AssetUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetUtil.cpp; sourceTree = "<group>"; };
 		BB5130CE1E62475B00204148 /* AssetUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetUtil.h; sourceTree = "<group>"; };
 		BB5130CF1E62475B00204148 /* image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image.c; sourceTree = "<group>"; };
@@ -1548,9 +1547,9 @@
 		BB5130EB1E62475B00204148 /* OpenGLTextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureLoader.h; sourceTree = "<group>"; };
 		BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
 		BB5130ED1E62475B00204148 /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
-		BB5130EE1E62475B00204148 /* platform_asset_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_asset_utils.h; sourceTree = "<group>"; };
-		BB5130EF1E62475B00204148 /* platform_file_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_file_utils.c; sourceTree = "<group>"; };
-		BB5130F01E62475B00204148 /* platform_file_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_file_utils.h; sourceTree = "<group>"; };
+		BB5130EE1E62475B00204148 /* asset_data_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_data_handler.h; sourceTree = "<group>"; };
+		BB5130EF1E62475B00204148 /* file_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file_util.c; sourceTree = "<group>"; };
+		BB5130F01E62475B00204148 /* file_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_util.h; sourceTree = "<group>"; };
 		BB5130F11E62475B00204148 /* platform_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_gl.h; sourceTree = "<group>"; };
 		BB5130F21E62475B00204148 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
 		BB5130F31E62475B00204148 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
@@ -1564,7 +1563,7 @@
 		BB5130FC1E62475B00204148 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = texture_shader.vsh; sourceTree = "<group>"; };
 		BB51314C1E624BC700204148 /* AndroidAssetsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetsManager.cpp; sourceTree = "<group>"; };
 		BB51314D1E624BC700204148 /* AndroidAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetsManager.h; sourceTree = "<group>"; };
-		BB51314E1E624BC700204148 /* platform_asset_utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = platform_asset_utils.cpp; sourceTree = "<group>"; };
+		BB51314E1E624BC700204148 /* asset_data_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = asset_data_handler.cpp; sourceTree = "<group>"; };
 		BB51314F1E625BD700204148 /* libSuperpoweredAndroidarm64-v8a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarm64-v8a.a"; sourceTree = "<group>"; };
 		BB5131501E625BD700204148 /* libSuperpoweredAndroidarmeabi-v7a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarmeabi-v7a.a"; sourceTree = "<group>"; };
 		BB5C2A601E09E071009577BD /* d_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_tutorial.png; sourceTree = "<group>"; };
@@ -2541,8 +2540,7 @@
 			children = (
 				BB34FD711E565A7400AC8197 /* Android.mk */,
 				BB34FD721E565A7400AC8197 /* Application.mk */,
-				BB34FD731E565A7400AC8197 /* game.cpp */,
-				BB34FD751E565A7400AC8197 /* sound_manager.cpp */,
+				BB34FD731E565A7400AC8197 /* android_main.cpp */,
 			);
 			name = jni;
 			path = ../android/app/src/main/jni;
@@ -2870,7 +2868,7 @@
 		BB5130CA1E62475B00204148 /* apple */ = {
 			isa = PBXGroup;
 			children = (
-				BB5130CB1E62475B00204148 /* platform_asset_utils.m */,
+				BB5130CB1E62475B00204148 /* asset_data_handler.m */,
 			);
 			path = apple;
 			sourceTree = "<group>";
@@ -2878,8 +2876,11 @@
 		BB5130CC1E62475B00204148 /* portable */ = {
 			isa = PBXGroup;
 			children = (
+				BB5130EE1E62475B00204148 /* asset_data_handler.h */,
 				BB5130CD1E62475B00204148 /* AssetUtil.cpp */,
 				BB5130CE1E62475B00204148 /* AssetUtil.h */,
+				BB5130EF1E62475B00204148 /* file_util.c */,
+				BB5130F01E62475B00204148 /* file_util.h */,
 				BB5130CF1E62475B00204148 /* image.c */,
 				BB5130D01E62475B00204148 /* image.h */,
 				BB5130D11E62475B00204148 /* linmath.h */,
@@ -2911,9 +2912,6 @@
 				BB5130EB1E62475B00204148 /* OpenGLTextureLoader.h */,
 				BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */,
 				BB5130ED1E62475B00204148 /* OpenGLTextureProgram.h */,
-				BB5130EE1E62475B00204148 /* platform_asset_utils.h */,
-				BB5130EF1E62475B00204148 /* platform_file_utils.c */,
-				BB5130F01E62475B00204148 /* platform_file_utils.h */,
 				BB5130F11E62475B00204148 /* platform_gl.h */,
 				BB5130F21E62475B00204148 /* shader.c */,
 				BB5130F31E62475B00204148 /* shader.h */,
@@ -2941,7 +2939,7 @@
 			children = (
 				BB51314C1E624BC700204148 /* AndroidAssetsManager.cpp */,
 				BB51314D1E624BC700204148 /* AndroidAssetsManager.h */,
-				BB51314E1E624BC700204148 /* platform_asset_utils.cpp */,
+				BB51314E1E624BC700204148 /* asset_data_handler.cpp */,
 			);
 			path = android;
 			sourceTree = "<group>";
@@ -3661,7 +3659,7 @@
 				BB34F9F91E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB44C3361DB0317E003E633F /* ViewController.mm in Sources */,
-				BB5130FD1E62475B00204148 /* platform_asset_utils.m in Sources */,
+				BB5130FD1E62475B00204148 /* asset_data_handler.m in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB34FA091E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
@@ -3690,7 +3688,7 @@
 				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB34F9D51E563C2300AC8197 /* Animation.cpp in Sources */,
 				BB5131211E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */,
-				BB5131301E62475C00204148 /* platform_file_utils.c in Sources */,
+				BB5131301E62475C00204148 /* file_util.c in Sources */,
 				BB34F8BD1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 			);
@@ -3727,7 +3725,7 @@
 				BB34FB8D1E5645F400AC8197 /* EndBossSnake.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
 				BB34FCC91E5645F500AC8197 /* ConfirmResetPanel.cpp in Sources */,
-				BB5130FE1E62475B00204148 /* platform_asset_utils.m in Sources */,
+				BB5130FE1E62475B00204148 /* asset_data_handler.m in Sources */,
 				BB34F9FF1E563C2300AC8197 /* GpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB911E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB44CB811DB053C0003E633F /* png.c in Sources */,
@@ -3791,7 +3789,7 @@
 				BBD5A9E01E585282007CE6A8 /* OpenGLTransitionProgram.cpp in Sources */,
 				BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BB34FD011E5645F500AC8197 /* MainScreenWorldMap.cpp in Sources */,
-				BB5131311E62475C00204148 /* platform_file_utils.c in Sources */,
+				BB5131311E62475C00204148 /* file_util.c in Sources */,
 				BB34F8D71E563C2200AC8197 /* Triangle.cpp in Sources */,
 				BB34FD191E5645F500AC8197 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FA371E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */,
@@ -3898,7 +3896,7 @@
 				BBB1E33C1E60A54C00201A0C /* EndBossSnake.cpp in Sources */,
 				BBB1E33D1E60A54C00201A0C /* main.m in Sources */,
 				BBB1E33E1E60A54C00201A0C /* ConfirmResetPanel.cpp in Sources */,
-				BB5130FF1E62475B00204148 /* platform_asset_utils.m in Sources */,
+				BB5130FF1E62475B00204148 /* asset_data_handler.m in Sources */,
 				BBB1E33F1E60A54C00201A0C /* GpuProgramWrapperFactory.cpp in Sources */,
 				BBB1E3401E60A54C00201A0C /* Enemy.cpp in Sources */,
 				BBB1E3411E60A54C00201A0C /* png.c in Sources */,
@@ -3962,7 +3960,7 @@
 				BBB1E37C1E60A54C00201A0C /* OpenGLTransitionProgram.cpp in Sources */,
 				BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BBB1E37D1E60A54C00201A0C /* MainScreenWorldMap.cpp in Sources */,
-				BB5131321E62475C00204148 /* platform_file_utils.c in Sources */,
+				BB5131321E62475C00204148 /* file_util.c in Sources */,
 				BBB1E37F1E60A54C00201A0C /* Triangle.cpp in Sources */,
 				BBB1E3801E60A54C00201A0C /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBB1E3811E60A54C00201A0C /* SpriteBatcherFactory.cpp in Sources */,
