@@ -42,7 +42,7 @@ MainScreen* gScreen;
 SuperpoweredSoundManager* gSuperpoweredSoundManager;
 std::vector<SuperpoweredAndroidAudioIO*> gAudioSystems;
 
-int gSoundIndexCounter = 0;
+int gSoundIndexCounter;
 
 static bool audioProcessingMusic(void *clientData, short int *audioIO, int numberOfSamples, int __unused samplerate)
 {
@@ -422,6 +422,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
     gAudioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound9, gSuperpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
     gAudioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound10, gSuperpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
     gAudioSystems.push_back(new SuperpoweredAndroidAudioIO(sampleRate, bufferSize, false, true, audioProcessingSound11, gSuperpoweredSoundManager, -1, SL_ANDROID_STREAM_MEDIA, bufferSize * 2));
+    
+    gSoundIndexCounter = 0;
     
     loadSound(env, "collect_carrot", 6);
     loadSound(env, "collect_golden_carrot", 1);
