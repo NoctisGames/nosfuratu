@@ -19,6 +19,8 @@ public final class AndroidMain
 
     public static native void on_pause();
 
+    public static native void on_stop();
+
     public static native void update(float deltaTime);
 
     public static native void render();

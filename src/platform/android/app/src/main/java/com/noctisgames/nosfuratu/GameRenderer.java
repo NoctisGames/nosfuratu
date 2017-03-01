@@ -142,6 +142,11 @@ public final class GameRenderer implements Renderer
         AndroidMain.on_pause();
     }
 
+    public void onStop()
+    {
+        AndroidMain.on_stop();
+    }
+
     public void handleTouchDown(float rawX, float rawY)
     {
         AndroidMain.on_touch_down(rawX, rawY);

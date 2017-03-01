@@ -94,6 +94,14 @@ public final class GameActivity extends Activity
     }
 
     @Override
+    protected void onStop()
+    {
+        _gameRenderer.onStop();
+
+        super.onStop();
+    }
+
+    @Override
     public void onBackPressed()
     {
         if (_gameRenderer.handleOnBackPressed())

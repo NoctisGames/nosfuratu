@@ -18,6 +18,7 @@
 #include "SuperpoweredSoundManager.h"
 #include "SuperpoweredAndroidAudioIO.h"
 #include "GameConstants.h"
+#include "VectorUtil.h"
 
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_AndroidConfiguration.h>
@@ -30,14 +31,17 @@
 #include <sstream>
 
 jobject gActivity;
+jobject gResources;
+
+jstring gJavaPackageResourcePath;
+const char* gPackageResourcePath;
+jstring gPackageName;
+
 MainScreen* gScreen;
 
 SuperpoweredSoundManager* gSuperpoweredSoundManager;
 std::vector<SuperpoweredAndroidAudioIO*> gAudioSystems;
 
-const char* gPackageResourcePath;
-const char* gPackageName;
-jobject gResources;
 int gSoundIndexCounter = 0;
 
 static bool audioProcessingMusic(void *clientData, short int *audioIO, int numberOfSamples, int __unused samplerate)
@@ -102,60 +106,35 @@ static bool audioProcessingSound11(void *clientData, short int *audioIO, int num
 
 void loadSound(JNIEnv* env, const char* soundName, int numCopies, int rawResourceId = -1)
 {
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "loadSound");
-    
     jclass class_resources = env->GetObjectClass(gResources);
     
     jmethodID mid_getIdentifier = env->GetMethodID(class_resources, "getIdentifier", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
     assert(mid_getIdentifier != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getIdentifier");
-    
     jstring java_soundName = env->NewStringUTF(soundName);
     jstring java_defType = env->NewStringUTF("raw");
-    jstring java_packageName = env->NewStringUTF(gPackageName);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "soundName %s", soundName);
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "gPackageName %s", gPackageName);
-    
-    jint resId = env->CallIntMethod(gResources, mid_getIdentifier, java_soundName, java_defType, java_packageName);
+    jint resId = env->CallIntMethod(gResources, mid_getIdentifier, java_soundName, java_defType, gPackageName);
     
     env->DeleteLocalRef(java_soundName);
     env->DeleteLocalRef(java_defType);
-    env->DeleteLocalRef(java_packageName);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "resId %d", resId);
     
     jmethodID mid_openRawResourceFd = env->GetMethodID(class_resources, "openRawResourceFd", "(I)Landroid/content/res/AssetFileDescriptor;");
     assert(mid_openRawResourceFd != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_openRawResourceFd");
-    
     jobject java_assetFileDescriptor = env->CallObjectMethod(gResources, mid_openRawResourceFd, resId);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "java_assetFileDescriptor");
-    
     jclass class_assetFileDescriptor = env->GetObjectClass(java_assetFileDescriptor);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "class_assetFileDescriptor");
     
     jmethodID mid_getStartOffset = env->GetMethodID(class_assetFileDescriptor, "getStartOffset", "()J");
     assert(mid_getStartOffset != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getStartOffset");
-    
     jlong java_fileOffset = env->CallLongMethod(java_assetFileDescriptor, mid_getStartOffset);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "java_fileOffset");
     
     jmethodID mid_getLength = env->GetMethodID(class_assetFileDescriptor, "getLength", "()J");
     assert(mid_getLength != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getLength");
-    
     jlong java_fileLength = env->CallLongMethod(java_assetFileDescriptor, mid_getLength);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "java_fileLength");
     
     int fileOffset = (int) java_fileOffset;
     int fileLength = (int) java_fileLength;
@@ -163,27 +142,16 @@ void loadSound(JNIEnv* env, const char* soundName, int numCopies, int rawResourc
     jmethodID mid_getParcelFileDescriptor = env->GetMethodID(class_assetFileDescriptor, "getParcelFileDescriptor", "()Landroid/os/ParcelFileDescriptor;");
     assert(mid_getParcelFileDescriptor != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getParcelFileDescriptor");
-    
     jobject java_parcelFileDescriptor = env->CallObjectMethod(java_assetFileDescriptor, mid_getParcelFileDescriptor);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "java_parcelFileDescriptor");
     
     jclass class_parcelFileDescriptor = env->GetObjectClass(java_parcelFileDescriptor);
     jmethodID mid_close = env->GetMethodID(class_parcelFileDescriptor, "close", "()V");
     assert(mid_close != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_close");
-    
     env->CallVoidMethod(java_parcelFileDescriptor, mid_close);
     
     env->DeleteLocalRef(java_assetFileDescriptor);
     env->DeleteLocalRef(java_parcelFileDescriptor);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "gPackageResourcePath %s", gPackageResourcePath);
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "numCopies %d", numCopies);
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "fileOffset %d", fileOffset);
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "fileLength %d", fileLength);
     
     if (rawResourceId == -1)
     {
@@ -308,6 +276,8 @@ extern "C"
     
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIEnv* env, jclass cls);
     
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1stop(JNIEnv* env, jclass cls);
+    
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_update(JNIEnv* env, jclass cls, jfloat delta_time);
     
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_render(JNIEnv* env, jclass cls);
@@ -357,13 +327,13 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
     
     jmethodID mid_getPackageResourcePath = env->GetMethodID(class_activity, "getPackageResourcePath", "()Ljava/lang/String;");
     assert(mid_getPackageResourcePath != 0);
-    jstring java_packageResourcePath = (jstring) env->CallObjectMethod(gActivity, mid_getPackageResourcePath);
-    gPackageResourcePath = env->GetStringUTFChars(java_packageResourcePath, JNI_FALSE);
+    gJavaPackageResourcePath = (jstring) env->CallObjectMethod(gActivity, mid_getPackageResourcePath);
+    gPackageResourcePath = env->GetStringUTFChars(gJavaPackageResourcePath, JNI_FALSE);
     
     jmethodID mid_getPackageName = env->GetMethodID(class_activity, "getPackageName", "()Ljava/lang/String;");
     assert(mid_getPackageName != 0);
-    jstring java_packageName = (jstring) env->CallObjectMethod(gActivity, mid_getPackageName);
-    gPackageName = env->GetStringUTFChars(java_packageName, JNI_FALSE);
+    jobject java_PackageName = env->CallObjectMethod(gActivity, mid_getPackageName);
+    gPackageName = (jstring) env->NewGlobalRef(java_PackageName);
     
     jmethodID mid_getResources = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
     assert(mid_getResources != 0);
@@ -374,12 +344,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
     jmethodID mid_getSystemService = env->GetMethodID(class_activity, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;");
     assert(mid_getSystemService != 0);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getSystemService");
-    
     jstring java_audio = env->NewStringUTF("audio");
     jobject java_audioManager = env->CallObjectMethod(gActivity, mid_getSystemService, java_audio);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "java_audioManager");
     
     env->DeleteLocalRef(java_audio);
     
@@ -388,16 +354,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
     
     jclass class_audioManager = env->GetObjectClass(java_audioManager);
     
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "class_audioManager");
-    
     {
         jmethodID mid_getProperty = env->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
         assert(mid_getProperty != 0);
         
-        __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getProperty");
-        
         jstring java_property = env->NewStringUTF("android.media.property.OUTPUT_SAMPLE_RATE");
-        jstring java_sampleRateString = (jstring) env->CallObjectMethod(gActivity, mid_getProperty, java_property);
+        jstring java_sampleRateString = (jstring) env->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
         if (java_sampleRateString == NULL)
         {
             sampleRate = 44100;
@@ -420,10 +382,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
         jmethodID mid_getProperty = env->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
         assert(mid_getProperty != 0);
         
-        __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "mid_getProperty");
-        
         jstring java_property = env->NewStringUTF("android.media.property.OUTPUT_FRAMES_PER_BUFFER");
-        jstring java_bufferSizeString = (jstring) env->CallObjectMethod(gActivity, mid_getProperty, java_property);
+        jstring java_bufferSizeString = (jstring) env->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
         if (java_bufferSizeString == NULL)
         {
             bufferSize = 512;
@@ -574,6 +534,25 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIE
     gSuperpoweredSoundManager->stopSound(SOUND_SPARROW_FLY - 1);
     gSuperpoweredSoundManager->stopSound(SOUND_SAW_GRIND - 1);
     gSuperpoweredSoundManager->stopSound(SOUND_SPIKED_BALL_ROLLING - 1);
+}
+
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1stop(JNIEnv* env, jclass cls)
+{
+    UNUSED(env);
+    UNUSED(cls);
+    
+    VectorUtil::cleanUpVectorOfPointers(gAudioSystems);
+    
+    delete gSuperpoweredSoundManager;
+    gSuperpoweredSoundManager = nullptr;
+    
+    delete gScreen;
+    gScreen = nullptr;
+    
+    env->DeleteLocalRef(gActivity);
+    env->DeleteLocalRef(gResources);
+    env->DeleteLocalRef(gPackageName);
+    env->ReleaseStringUTFChars(gJavaPackageResourcePath, gPackageResourcePath);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_update(JNIEnv* env, jclass cls, jfloat delta_time)
