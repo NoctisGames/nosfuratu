@@ -45,6 +45,7 @@
 #include "TextureSelectorPanel.h"
 #include "ForegroundCoverObject.h"
 #include "SoundManager.h"
+#include "GameHudItem.h"
 
 MainAssets* MainAssets::getInstance()
 {

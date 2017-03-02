@@ -13,7 +13,7 @@
 
 extern "C"
 {
-#include "file_util.h"
+#include "asset_data_handler.h"
 }
 
 #include <android/asset_manager_jni.h>
@@ -23,7 +23,7 @@ class AndroidAssetsManager
 public:
 	static AndroidAssetsManager* getInstance();
     
-    void init(jobject java_asset_manager);
+    void init(JNIEnv* env, jobject java_asset_manager);
     
     FileData getAssetData(const char* relativePath);
     

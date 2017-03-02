@@ -17,6 +17,7 @@
 #include "BatPanel.h"
 #include "ScreenInputManager.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 #include <algorithm> // std::sort
 

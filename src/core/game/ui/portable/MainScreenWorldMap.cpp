@@ -24,6 +24,7 @@
 #include "GamePadEvent.h"
 #include "SoundManager.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 static const int NUM_GC_REQ = 25;
 

@@ -40,5 +40,6 @@ void AndroidAssetsManager::releaseAssetData(const FileData* fileData)
 {
     assert(fileData != NULL);
     assert(fileData->file_handle != NULL);
+    
     AAsset_close((AAsset*)fileData->file_handle);
 }

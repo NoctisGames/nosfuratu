@@ -17,6 +17,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 BatGoalType calcBatGoalType(int world, int level)
 {

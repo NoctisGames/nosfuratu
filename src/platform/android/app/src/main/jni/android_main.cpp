@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <sstream>
 
+JavaVM* gJvm;
 jobject gActivity;
 jobject gResources;
 
@@ -104,8 +105,16 @@ static bool audioProcessingSound11(void *clientData, short int *audioIO, int num
     return ((SuperpoweredSoundManager *)clientData)->processSound11(audioIO, (unsigned int)numberOfSamples);
 }
 
-void loadSound(JNIEnv* env, const char* soundName, int numCopies, int rawResourceId = -1)
+void loadSound(const char* soundName, int numCopies, int rawResourceId = -1)
 {
+    JNIEnv* env;
+    
+    jint status = gJvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    if (status != JNI_OK)
+    {
+        gJvm->AttachCurrentThread(&env, NULL);
+    }
+    
     jclass class_resources = env->GetObjectClass(gResources);
     
     jmethodID mid_getIdentifier = env->GetMethodID(class_resources, "getIdentifier", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
@@ -161,11 +170,16 @@ void loadSound(JNIEnv* env, const char* soundName, int numCopies, int rawResourc
     {
         gSuperpoweredSoundManager->loadMusic(rawResourceId, gPackageResourcePath, fileOffset, fileLength);
     }
+    
+    if (status != JNI_OK)
+    {
+        gJvm->DetachCurrentThread();
+    }
 }
 
-void loadMusic(JNIEnv* env, const char* musicName)
+void loadMusic(const char* musicName)
 {
-    loadSound(env, musicName, 1, 1337);
+    loadSound(musicName, 1, 1337);
 }
 
 void handleSound()
@@ -206,7 +220,7 @@ void handleSound()
     }
 }
 
-void handleMusic(JNIEnv* env)
+void handleMusic()
 {
     short rawMusicId;
     while ((rawMusicId = SOUND_MANAGER->getCurrentMusicId()) > 0)
@@ -240,22 +254,22 @@ void handleMusic(JNIEnv* env)
             }
                 break;
             case MUSIC_LOAD_TITLE_LOOP:
-                loadMusic(env, "title_bgm");
+                loadMusic("title_bgm");
                 break;
             case MUSIC_LOAD_OPENING_CUTSCENE:
-                loadMusic(env, "opening_cutscene_bgm");
+                loadMusic("opening_cutscene_bgm");
                 break;
             case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-                loadMusic(env, "level_select_bgm");
+                loadMusic("level_select_bgm");
                 break;
             case MUSIC_LOAD_WORLD_1_LOOP:
-                loadMusic(env, "world_1_bgm");
+                loadMusic("world_1_bgm");
                 break;
             case MUSIC_LOAD_MID_BOSS_LOOP:
-                loadMusic(env, "mid_boss_bgm");
+                loadMusic("mid_boss_bgm");
                 break;
             case MUSIC_LOAD_END_BOSS_LOOP:
-                loadMusic(env, "final_boss_bgm");
+                loadMusic("final_boss_bgm");
                 break;
             default:
                 break;
@@ -314,6 +328,8 @@ extern "C"
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* env, jclass cls, jobject activity, jboolean isLowMemoryDevice)
 {
     UNUSED(cls);
+    
+    env->GetJavaVM(&gJvm);
     
     gActivity = env->NewGlobalRef(activity);
     
@@ -425,72 +441,72 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
     
     gSoundIndexCounter = 0;
     
-    loadSound(env, "collect_carrot", 6);
-    loadSound(env, "collect_golden_carrot", 1);
-    loadSound(env, "death", 1);
-    loadSound(env, "footstep_left_grass", 1);
-    loadSound(env, "footstep_right_grass", 1);
-    loadSound(env, "footstep_left_cave", 1);
-    loadSound(env, "footstep_right_cave", 1);
-    loadSound(env, "jump_spring", 1);
-    loadSound(env, "landing_grass", 1);
-    loadSound(env, "landing_cave", 1);
-    loadSound(env, "snake_death", 2);
-    loadSound(env, "trigger_transform", 1);
-    loadSound(env, "cancel_transform", 1);
-    loadSound(env, "complete_transform", 1);
-    loadSound(env, "jump_spring_heavy", 1);
-    loadSound(env, "jon_rabbit_jump", 1);
-    loadSound(env, "jon_vampire_jump", 1);
-    loadSound(env, "jon_rabbit_double_jump", 1);
-    loadSound(env, "jon_vampire_double_jump", 1);
-    loadSound(env, "vampire_glide_loop", 1);
-    loadSound(env, "mushroom_bounce", 1);
-    loadSound(env, "jon_burrow_rocksfall", 1);
-    loadSound(env, "sparrow_fly_loop", 4);
-    loadSound(env, "sparrow_die", 2);
-    loadSound(env, "toad_die", 1);
-    loadSound(env, "toad_eat", 1);
-    loadSound(env, "saw_grind_loop", 4);
-    loadSound(env, "fox_bounced_on", 1);
-    loadSound(env, "fox_strike", 4);
-    loadSound(env, "fox_death", 2);
-    loadSound(env, "world_1_bgm_intro", 1);
-    loadSound(env, "mid_boss_bgm_intro", 1);
-    loadSound(env, "mid_boss_owl_swoop", 1);
-    loadSound(env, "mid_boss_owl_tree_smash", 1);
-    loadSound(env, "mid_boss_owl_death", 1);
-    loadSound(env, "screen_transition", 1);
-    loadSound(env, "screen_transition_2", 1);
-    loadSound(env, "level_complete", 1);
-    loadSound(env, "title_lightning_1", 2);
-    loadSound(env, "title_lightning_2", 2);
-    loadSound(env, "ability_unlock", 1);
-    loadSound(env, "boss_level_clear", 1);
-    loadSound(env, "level_clear", 1);
-    loadSound(env, "level_selected", 2);
-    loadSound(env, "rabbit_drill", 1);
-    loadSound(env, "snake_jump", 2);
-    loadSound(env, "vampire_dash", 1);
-    loadSound(env, "boss_level_unlock", 1);
-    loadSound(env, "rabbit_stomp", 1);
-    loadSound(env, "final_boss_bgm_intro", 1);
-    loadSound(env, "button_click", 1);
-    loadSound(env, "level_confirmed", 1);
-    loadSound(env, "bat_poof", 1);
-    loadSound(env, "chain_snap", 1);
-    loadSound(env, "end_boss_snake_mouth_open", 1);
-    loadSound(env, "end_boss_snake_charge_cue", 1);
-    loadSound(env, "end_boss_snake_charge", 1);
-    loadSound(env, "end_boss_snake_damaged", 1);
-    loadSound(env, "end_boss_snake_death", 1);
-    loadSound(env, "spiked_ball_rolling_loop", 2);
-    loadSound(env, "absorb_dash_ability", 1);
-    loadSound(env, "footstep_left_wood", 1);
-    loadSound(env, "footstep_right_wood", 1);
-    loadSound(env, "landing_wood", 1);
-    loadSound(env, "collect_big_carrot", 1);
-    loadSound(env, "collect_vial", 1);
+    loadSound("collect_carrot", 6);
+    loadSound("collect_golden_carrot", 1);
+    loadSound("death", 1);
+    loadSound("footstep_left_grass", 1);
+    loadSound("footstep_right_grass", 1);
+    loadSound("footstep_left_cave", 1);
+    loadSound("footstep_right_cave", 1);
+    loadSound("jump_spring", 1);
+    loadSound("landing_grass", 1);
+    loadSound("landing_cave", 1);
+    loadSound("snake_death", 2);
+    loadSound("trigger_transform", 1);
+    loadSound("cancel_transform", 1);
+    loadSound("complete_transform", 1);
+    loadSound("jump_spring_heavy", 1);
+    loadSound("jon_rabbit_jump", 1);
+    loadSound("jon_vampire_jump", 1);
+    loadSound("jon_rabbit_double_jump", 1);
+    loadSound("jon_vampire_double_jump", 1);
+    loadSound("vampire_glide_loop", 1);
+    loadSound("mushroom_bounce", 1);
+    loadSound("jon_burrow_rocksfall", 1);
+    loadSound("sparrow_fly_loop", 4);
+    loadSound("sparrow_die", 2);
+    loadSound("toad_die", 1);
+    loadSound("toad_eat", 1);
+    loadSound("saw_grind_loop", 4);
+    loadSound("fox_bounced_on", 1);
+    loadSound("fox_strike", 4);
+    loadSound("fox_death", 2);
+    loadSound("world_1_bgm_intro", 1);
+    loadSound("mid_boss_bgm_intro", 1);
+    loadSound("mid_boss_owl_swoop", 1);
+    loadSound("mid_boss_owl_tree_smash", 1);
+    loadSound("mid_boss_owl_death", 1);
+    loadSound("screen_transition", 1);
+    loadSound("screen_transition_2", 1);
+    loadSound("level_complete", 1);
+    loadSound("title_lightning_1", 2);
+    loadSound("title_lightning_2", 2);
+    loadSound("ability_unlock", 1);
+    loadSound("boss_level_clear", 1);
+    loadSound("level_clear", 1);
+    loadSound("level_selected", 2);
+    loadSound("rabbit_drill", 1);
+    loadSound("snake_jump", 2);
+    loadSound("vampire_dash", 1);
+    loadSound("boss_level_unlock", 1);
+    loadSound("rabbit_stomp", 1);
+    loadSound("final_boss_bgm_intro", 1);
+    loadSound("button_click", 1);
+    loadSound("level_confirmed", 1);
+    loadSound("bat_poof", 1);
+    loadSound("chain_snap", 1);
+    loadSound("end_boss_snake_mouth_open", 1);
+    loadSound("end_boss_snake_charge_cue", 1);
+    loadSound("end_boss_snake_charge", 1);
+    loadSound("end_boss_snake_damaged", 1);
+    loadSound("end_boss_snake_death", 1);
+    loadSound("spiked_ball_rolling_loop", 2);
+    loadSound("absorb_dash_ability", 1);
+    loadSound("footstep_left_wood", 1);
+    loadSound("footstep_right_wood", 1);
+    loadSound("landing_wood", 1);
+    loadSound("collect_big_carrot", 1);
+    loadSound("collect_vial", 1);
     
     MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
     
@@ -573,7 +589,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_render(JNIEnv*
     gScreen->render();
     
     handleSound();
-    handleMusic(env);
+    handleMusic();
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1touch_1down(JNIEnv* env, jclass cls, jfloat raw_touch_x, jfloat raw_touch_y)

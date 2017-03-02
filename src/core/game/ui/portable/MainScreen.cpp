@@ -21,6 +21,9 @@
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
+#include "DeviceHelperFactory.h"
+#include "IDeviceHelper.h"
+#include "MainRenderer.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
@@ -322,5 +325,4 @@ int MainScreen::getJonAbilityFlag()
     return level->getJonAbilityFlag();
 }
 
-RTTI_IMPL(GameHudItem, PhysicalEntity);
 RTTI_IMPL_NOPARENT(MainScreen);

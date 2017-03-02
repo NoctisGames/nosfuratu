@@ -57,6 +57,7 @@
 #include "Animation.h"
 #include "IAssetsMapper.h"
 #include "MainGpuProgramWrapperFactory.h"
+#include "GameHudItem.h"
 
 #include <math.h>
 #include <sstream>

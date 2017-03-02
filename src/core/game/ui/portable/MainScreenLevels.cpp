@@ -26,6 +26,7 @@
 #include "GamePadEvent.h"
 #include "SoundManager.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 /// Level ///
 

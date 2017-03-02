@@ -16,6 +16,7 @@
 #include "MainScreenLevelEditor.h"
 #include "MathUtil.h"
 #include "SoundManager.h"
+#include "MainRenderer.h"
 
 void Chapter1Level21::enter(MainScreen* ms)
 {

@@ -21,6 +21,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
+#include "MainRenderer.h"
 
 /// Title Screen ///
 

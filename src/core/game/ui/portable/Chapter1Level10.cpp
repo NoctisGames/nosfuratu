@@ -17,6 +17,7 @@
 #include "BatPanel.h"
 #include "MathUtil.h"
 #include "SoundManager.h"
+#include "MainRenderer.h"
 
 void Chapter1Level10::enter(MainScreen* ms)
 {

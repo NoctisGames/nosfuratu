@@ -22,6 +22,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "VectorUtil.h"
+#include "MainRenderer.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {

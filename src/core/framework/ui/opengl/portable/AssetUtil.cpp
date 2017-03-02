@@ -12,14 +12,7 @@
 #include "TargetConditionals.h"
 #endif
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
-extern "C"
-{
 #include "asset_data_handler.h"
-}
-#elif __ANDROID__
-#include "asset_data_handler.h"
-#endif
 
 extern "C"
 {

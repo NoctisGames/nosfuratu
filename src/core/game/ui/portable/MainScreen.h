@@ -17,7 +17,6 @@
 #include "SpriteBatcher.h"
 #include "NGRectBatcher.h"
 #include "NGRect.h"
-#include "MainRenderer.h"
 #include "Circle.h"
 #include "Assets.h"
 #include "GameConstants.h"
@@ -33,31 +32,14 @@
 #include "State.h"
 #include "GameButton.h"
 #include "TitlePanel.h"
-#include "IDeviceHelper.h"
-#include "DeviceHelperFactory.h"
+
 #include "RTTI.h"
 
 #include <memory>
 #include <vector>
 
-class GameHudItem : public PhysicalEntity
-{
-    RTTI_DECL;
-    
-public:
-    static GameHudItem createCarrot() { return GameHudItem(0); }
-    static GameHudItem createGoldenCarrot() { return GameHudItem(1); }
-    static GameHudItem createVial() { return GameHudItem(2); }
-    
-    GameHudItem(int type) : PhysicalEntity(0, 0, 1, 1), m_iType(type) {}
-    
-    bool isCarrot() { return m_iType == 0; }
-    bool isGolden() { return m_iType == 1; }
-    bool isVial() { return m_iType == 2; }
-    
-private:
-    int m_iType;
-};
+class IDeviceHelper;
+class MainRenderer;
 
 class MainScreen : public IScreen
 {

@@ -408,9 +408,9 @@
 		BB44CB961DB05486003E633F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB951DB05486003E633F /* QuartzCore.framework */; };
 		BB44CB9A1DB054B8003E633F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB991DB054B8003E633F /* Foundation.framework */; };
 		BB44CB9E1DB054F9003E633F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB44CB9D1DB054F9003E633F /* libz.tbd */; };
-		BB5130FD1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
-		BB5130FE1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
-		BB5130FF1E62475B00204148 /* asset_data_handler.m in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.m */; };
+		BB5130FD1E62475B00204148 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.mm */; };
+		BB5130FE1E62475B00204148 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.mm */; };
+		BB5130FF1E62475B00204148 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CB1E62475B00204148 /* asset_data_handler.mm */; };
 		BB5131001E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
 		BB5131011E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
 		BB5131021E62475B00204148 /* AssetUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130CD1E62475B00204148 /* AssetUtil.cpp */; };
@@ -459,9 +459,6 @@
 		BB51312D1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
 		BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
 		BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */; };
-		BB5131301E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
-		BB5131311E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
-		BB5131321E62475C00204148 /* file_util.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130EF1E62475B00204148 /* file_util.c */; };
 		BB5131331E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
 		BB5131341E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
 		BB5131351E62475C00204148 /* shader.c in Sources */ = {isa = PBXBuildFile; fileRef = BB5130F21E62475B00204148 /* shader.c */; };
@@ -486,6 +483,9 @@
 		BB5131481E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
 		BB5131491E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
 		BB51314A1E62475C00204148 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = BB5130FC1E62475B00204148 /* texture_shader.vsh */; };
+		BB5BA4BE1E67ADA80074A315 /* GameHudItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */; };
+		BB5BA4BF1E67ADA80074A315 /* GameHudItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */; };
+		BB5BA4C01E67ADA80074A315 /* GameHudItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */; };
 		BB5C2A611E09E071009577BD /* d_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A601E09E071009577BD /* d_tutorial.png */; };
 		BB5C2A641E09E07E009577BD /* c_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A631E09E07E009577BD /* c_tutorial.png */; };
 		BB5C2A671E09E088009577BD /* tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB5C2A661E09E088009577BD /* tutorial.png */; };
@@ -1513,7 +1513,7 @@
 		BB44CB991DB054B8003E633F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BB44CB9D1DB054F9003E633F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		BB451A3618C30E810093E559 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		BB5130CB1E62475B00204148 /* asset_data_handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = asset_data_handler.m; sourceTree = "<group>"; };
+		BB5130CB1E62475B00204148 /* asset_data_handler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = asset_data_handler.mm; sourceTree = "<group>"; };
 		BB5130CD1E62475B00204148 /* AssetUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetUtil.cpp; sourceTree = "<group>"; };
 		BB5130CE1E62475B00204148 /* AssetUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetUtil.h; sourceTree = "<group>"; };
 		BB5130CF1E62475B00204148 /* image.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image.c; sourceTree = "<group>"; };
@@ -1548,8 +1548,6 @@
 		BB5130EC1E62475B00204148 /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
 		BB5130ED1E62475B00204148 /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
 		BB5130EE1E62475B00204148 /* asset_data_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_data_handler.h; sourceTree = "<group>"; };
-		BB5130EF1E62475B00204148 /* file_util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = file_util.c; sourceTree = "<group>"; };
-		BB5130F01E62475B00204148 /* file_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file_util.h; sourceTree = "<group>"; };
 		BB5130F11E62475B00204148 /* platform_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_gl.h; sourceTree = "<group>"; };
 		BB5130F21E62475B00204148 /* shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shader.c; sourceTree = "<group>"; };
 		BB5130F31E62475B00204148 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
@@ -1566,6 +1564,8 @@
 		BB51314E1E624BC700204148 /* asset_data_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = asset_data_handler.cpp; sourceTree = "<group>"; };
 		BB51314F1E625BD700204148 /* libSuperpoweredAndroidarm64-v8a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarm64-v8a.a"; sourceTree = "<group>"; };
 		BB5131501E625BD700204148 /* libSuperpoweredAndroidarmeabi-v7a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libSuperpoweredAndroidarmeabi-v7a.a"; sourceTree = "<group>"; };
+		BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameHudItem.cpp; sourceTree = "<group>"; };
+		BB5BA4BD1E67ADA80074A315 /* GameHudItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHudItem.h; sourceTree = "<group>"; };
 		BB5C2A601E09E071009577BD /* d_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A631E09E07E009577BD /* c_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A661E09E088009577BD /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
@@ -2421,6 +2421,8 @@
 				BB34FB411E5645F400AC8197 /* FramebufferRadialBlurGpuProgramWrapper.h */,
 				BB34FB421E5645F400AC8197 /* GameButton.cpp */,
 				BB34FB431E5645F400AC8197 /* GameButton.h */,
+				BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */,
+				BB5BA4BD1E67ADA80074A315 /* GameHudItem.h */,
 				BB34FB581E5645F400AC8197 /* GameTracker.cpp */,
 				BB34FB591E5645F400AC8197 /* GameTracker.h */,
 				BB34FB5A1E5645F400AC8197 /* LevelEditorActionsPanel.cpp */,
@@ -2868,7 +2870,7 @@
 		BB5130CA1E62475B00204148 /* apple */ = {
 			isa = PBXGroup;
 			children = (
-				BB5130CB1E62475B00204148 /* asset_data_handler.m */,
+				BB5130CB1E62475B00204148 /* asset_data_handler.mm */,
 			);
 			path = apple;
 			sourceTree = "<group>";
@@ -2879,8 +2881,6 @@
 				BB5130EE1E62475B00204148 /* asset_data_handler.h */,
 				BB5130CD1E62475B00204148 /* AssetUtil.cpp */,
 				BB5130CE1E62475B00204148 /* AssetUtil.h */,
-				BB5130EF1E62475B00204148 /* file_util.c */,
-				BB5130F01E62475B00204148 /* file_util.h */,
 				BB5130CF1E62475B00204148 /* image.c */,
 				BB5130D01E62475B00204148 /* image.h */,
 				BB5130D11E62475B00204148 /* linmath.h */,
@@ -3551,6 +3551,7 @@
 				BB34FA3D1E563C2400AC8197 /* TextureLoaderFactory.cpp in Sources */,
 				BB51311B1E62475B00204148 /* OpenGLManager.cpp in Sources */,
 				BB34FA051E563C2400AC8197 /* KeyboardEvent.cpp in Sources */,
+				BB5BA4BE1E67ADA80074A315 /* GameHudItem.cpp in Sources */,
 				BB34FC531E5645F500AC8197 /* OpenGLShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */,
 				BB34FC9F1E5645F500AC8197 /* OpenGLShockwaveTextureProgram.cpp in Sources */,
@@ -3659,7 +3660,7 @@
 				BB34F9F91E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB44C3361DB0317E003E633F /* ViewController.mm in Sources */,
-				BB5130FD1E62475B00204148 /* asset_data_handler.m in Sources */,
+				BB5130FD1E62475B00204148 /* asset_data_handler.mm in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB34FA091E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
@@ -3688,7 +3689,6 @@
 				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
 				BB34F9D51E563C2300AC8197 /* Animation.cpp in Sources */,
 				BB5131211E62475C00204148 /* OpenGLRendererHelper.cpp in Sources */,
-				BB5131301E62475C00204148 /* file_util.c in Sources */,
 				BB34F8BD1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 			);
@@ -3725,7 +3725,7 @@
 				BB34FB8D1E5645F400AC8197 /* EndBossSnake.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
 				BB34FCC91E5645F500AC8197 /* ConfirmResetPanel.cpp in Sources */,
-				BB5130FE1E62475B00204148 /* asset_data_handler.m in Sources */,
+				BB5130FE1E62475B00204148 /* asset_data_handler.mm in Sources */,
 				BB34F9FF1E563C2300AC8197 /* GpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB911E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB44CB811DB053C0003E633F /* png.c in Sources */,
@@ -3764,6 +3764,7 @@
 				BB34F8EF1E563C2200AC8197 /* SuperpoweredSoundManager.cpp in Sources */,
 				BB34FBC51E5645F400AC8197 /* MidBossOwl.cpp in Sources */,
 				BB34F8BF1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
+				BB5BA4BF1E67ADA80074A315 /* GameHudItem.cpp in Sources */,
 				BB34FD211E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB34F9E71E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FC691E5645F500AC8197 /* OpenGLPointTransitionProgram.cpp in Sources */,
@@ -3789,7 +3790,6 @@
 				BBD5A9E01E585282007CE6A8 /* OpenGLTransitionProgram.cpp in Sources */,
 				BB51312E1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BB34FD011E5645F500AC8197 /* MainScreenWorldMap.cpp in Sources */,
-				BB5131311E62475C00204148 /* file_util.c in Sources */,
 				BB34F8D71E563C2200AC8197 /* Triangle.cpp in Sources */,
 				BB34FD191E5645F500AC8197 /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FA371E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */,
@@ -3896,7 +3896,7 @@
 				BBB1E33C1E60A54C00201A0C /* EndBossSnake.cpp in Sources */,
 				BBB1E33D1E60A54C00201A0C /* main.m in Sources */,
 				BBB1E33E1E60A54C00201A0C /* ConfirmResetPanel.cpp in Sources */,
-				BB5130FF1E62475B00204148 /* asset_data_handler.m in Sources */,
+				BB5130FF1E62475B00204148 /* asset_data_handler.mm in Sources */,
 				BBB1E33F1E60A54C00201A0C /* GpuProgramWrapperFactory.cpp in Sources */,
 				BBB1E3401E60A54C00201A0C /* Enemy.cpp in Sources */,
 				BBB1E3411E60A54C00201A0C /* png.c in Sources */,
@@ -3935,6 +3935,7 @@
 				BBB1E3651E60A54C00201A0C /* SuperpoweredSoundManager.cpp in Sources */,
 				BBB1E3671E60A54C00201A0C /* MidBossOwl.cpp in Sources */,
 				BBB1E3681E60A54C00201A0C /* PhysicalEntity.cpp in Sources */,
+				BB5BA4C01E67ADA80074A315 /* GameHudItem.cpp in Sources */,
 				BBB1E3691E60A54C00201A0C /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BBB1E36A1E60A54C00201A0C /* DeviceHelperFactory.cpp in Sources */,
 				BBB1E36B1E60A54C00201A0C /* OpenGLPointTransitionProgram.cpp in Sources */,
@@ -3960,7 +3961,6 @@
 				BBB1E37C1E60A54C00201A0C /* OpenGLTransitionProgram.cpp in Sources */,
 				BB51312F1E62475C00204148 /* OpenGLTextureProgram.cpp in Sources */,
 				BBB1E37D1E60A54C00201A0C /* MainScreenWorldMap.cpp in Sources */,
-				BB5131321E62475C00204148 /* file_util.c in Sources */,
 				BBB1E37F1E60A54C00201A0C /* Triangle.cpp in Sources */,
 				BBB1E3801E60A54C00201A0C /* PointTransitionGpuProgramWrapper.cpp in Sources */,
 				BBB1E3811E60A54C00201A0C /* SpriteBatcherFactory.cpp in Sources */,
