@@ -19,7 +19,7 @@ extern "C"
 #include "platform_gl.h"
 }
 #elif defined _WIN32
-#include <d3d11_1.h>
+#include "pch.h"
 #endif
 
 struct GpuTextureWrapper
@@ -32,9 +32,9 @@ struct GpuTextureWrapper
         // Empty
     }
 #elif defined _WIN32
-    ID3D11ShaderResourceView *texture;
+    DirectX::ID3D11ShaderResourceView *texture;
     
-    GpuTextureWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
+    GpuTextureWrapper(DirectX::ID3D11ShaderResourceView *textureIn) : texture(textureIn)
     {
         // Empty
     }

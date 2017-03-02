@@ -8,6 +8,8 @@
 
 #include "SuperpoweredSound.h"
 
+#include "SuperpoweredAdvancedAudioPlayer.h"
+
 #include <math.h>
 
 #include <SuperpoweredSimple.h>
@@ -136,3 +138,9 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
     
     return ret;
 }
+
+SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer() { return m_player; }
+int SuperpoweredSound::getRawResourceId() { return m_iRawResourceId; }
+bool SuperpoweredSound::isLooping() { return m_isLooping; }
+bool SuperpoweredSound::isPlaying() { return m_player->playing; }
+bool SuperpoweredSound::isPaused() { return m_isPaused; }

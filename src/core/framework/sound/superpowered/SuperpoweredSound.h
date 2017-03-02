@@ -9,7 +9,7 @@
 #ifndef __noctisgames__SuperpoweredSound__
 #define __noctisgames__SuperpoweredSound__
 
-#include "SuperpoweredAdvancedAudioPlayer.h"
+class SuperpoweredAdvancedAudioPlayer;
 
 class SuperpoweredSound
 {
@@ -26,11 +26,11 @@ public:
     // output is float **buffers for iOS and Mac OS X and short int * for Android
     bool process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     
-    SuperpoweredAdvancedAudioPlayer* getPlayer() { return m_player; }
-    int getRawResourceId() { return m_iRawResourceId; }
-    bool isLooping() { return m_isLooping; }
-    bool isPlaying() { return m_player->playing; }
-    bool isPaused() { return m_isPaused; }
+    SuperpoweredAdvancedAudioPlayer* getPlayer();
+    int getRawResourceId();
+    bool isLooping();
+    bool isPlaying();
+    bool isPaused();
 
 private:
     SuperpoweredAdvancedAudioPlayer *m_player;

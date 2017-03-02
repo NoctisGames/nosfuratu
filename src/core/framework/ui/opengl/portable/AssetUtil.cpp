@@ -8,10 +8,6 @@
 
 #include "AssetUtil.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 #include "asset_data_handler.h"
 
 extern "C"

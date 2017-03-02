@@ -7,7 +7,9 @@
 //
 
 #include "texture.h"
+
 #include "platform_gl.h"
+
 #include <assert.h>
 
 GLuint load_texture(const GLsizei width, const GLsizei height, const GLenum type, const GLvoid* pixels, int repeat_s, int mipmap)

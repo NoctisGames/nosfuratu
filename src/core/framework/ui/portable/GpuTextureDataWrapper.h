@@ -19,8 +19,7 @@ extern "C"
 #include "image.h"
 }
 #elif defined _WIN32
-#include "DDSTextureLoader.h"
-using namespace DirectX;
+#include "pch.h"
 #endif
 
 struct GpuTextureDataWrapper
@@ -33,9 +32,9 @@ struct GpuTextureDataWrapper
         // Empty
     }
 #elif defined _WIN32
-	ID3D11ShaderResourceView *texture;
+    DirectX::ID3D11ShaderResourceView *texture;
 
-	GpuTextureDataWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
+    GpuTextureDataWrapper(DirectX::ID3D11ShaderResourceView *textureIn) : texture(textureIn)
 	{
 		// Empty
 	}
