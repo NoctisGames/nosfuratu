@@ -23,14 +23,13 @@ class AndroidAssetsManager
 public:
 	static AndroidAssetsManager* getInstance();
     
-    void init(JNIEnv* env, jobject java_asset_manager);
+    void init(jobject java_asset_manager);
     
     FileData getAssetData(const char* relativePath);
     
     void releaseAssetData(const FileData* fileData);
 
 private:
-    JNIEnv* mJniEnv;
     AAssetManager* mAssetManager;
     
     // ctor, copy ctor, and assignment should be private in a Singleton

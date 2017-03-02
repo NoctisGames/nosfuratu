@@ -18,8 +18,7 @@ AndroidAssetsManager* AndroidAssetsManager::getInstance()
 
 void AndroidAssetsManager::init(JNIEnv* env, jobject java_asset_manager)
 {
-    mJniEnv = env;
-    mAssetManager = AAssetManager_fromJava(mJniEnv, java_asset_manager);
+    mAssetManager = AAssetManager_fromJava(env, java_asset_manager);
 }
 
 FileData AndroidAssetsManager::getAssetData(const char* relativePath)
