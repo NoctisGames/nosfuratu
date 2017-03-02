@@ -983,7 +983,7 @@ bool Level::handleInput(MainScreen* ms)
         {
             case ScreenEventType_DOWN:
             {
-                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                 ms->m_isScreenHeldDown = true;
                 ms->m_fScreenHeldTime = 0.0f;
             }
@@ -991,25 +991,25 @@ bool Level::handleInput(MainScreen* ms)
             case ScreenEventType_DRAGGED:
                 if (!ms->m_hasSwiped)
                 {
-                    if (touchPoint.getX() >= (ms->m_touchPointDown.getX() + SWIPE_WIDTH))
+                    if (touchPoint.getX() >= (ms->m_touchPointDown->getX() + SWIPE_WIDTH))
                     {
                         // Swipe Right
                         jon.triggerRightAction();
                         ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getX() <= (ms->m_touchPointDown.getX() - SWIPE_WIDTH))
+                    else if (touchPoint.getX() <= (ms->m_touchPointDown->getX() - SWIPE_WIDTH))
                     {
                         // Swipe Left
                         jon.triggerLeftAction();
                         ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getY() >= (ms->m_touchPointDown.getY() + SWIPE_HEIGHT))
+                    else if (touchPoint.getY() >= (ms->m_touchPointDown->getY() + SWIPE_HEIGHT))
                     {
                         // Swipe Up
                         jon.triggerUpAction();
                         ms->m_hasSwiped = true;
                     }
-                    else if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                    else if (touchPoint.getY() <= (ms->m_touchPointDown->getY() - SWIPE_HEIGHT))
                     {
                         // Swipe Down
                         jon.triggerDownAction();
@@ -1051,7 +1051,7 @@ bool Level::handleInput(MainScreen* ms)
                 
                 ms->m_hasSwiped = false;
                 
-                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                 
                 break;
         }

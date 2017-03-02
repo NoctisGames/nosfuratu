@@ -955,15 +955,15 @@ void BatPanel::updateDrill(MainScreen* ms)
                     {
                         case ScreenEventType_DOWN:
                         {
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown->getY() - SWIPE_HEIGHT))
                                 {
-                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -977,7 +977,7 @@ void BatPanel::updateDrill(MainScreen* ms)
                         {
                             m_hasSwiped = false;
                             
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1095,15 +1095,15 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
                     {
                         case ScreenEventType_DOWN:
                         {
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown->getY() - SWIPE_HEIGHT))
                                 {
-                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1117,7 +1117,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
                         {
                             m_hasSwiped = false;
                             
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1249,15 +1249,15 @@ void BatPanel::updateStomp(MainScreen* ms)
 					{
                         case ScreenEventType_DOWN:
                         {
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getY() <= (ms->m_touchPointDown.getY() - SWIPE_HEIGHT))
+                                if (touchPoint.getY() <= (ms->m_touchPointDown->getY() - SWIPE_HEIGHT))
                                 {
-                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1271,7 +1271,7 @@ void BatPanel::updateStomp(MainScreen* ms)
                         {
                             m_hasSwiped = false;
                             
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
                     }
@@ -1400,15 +1400,15 @@ void BatPanel::updateDash(MainScreen* ms)
 					{
                         case ScreenEventType_DOWN:
                         {
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             continue;
                         case ScreenEventType_DRAGGED:
                             if (!m_hasSwiped)
                             {
-                                if (touchPoint.getX() >= (ms->m_touchPointDown.getX() + SWIPE_WIDTH))
+                                if (touchPoint.getX() >= (ms->m_touchPointDown->getX() + SWIPE_WIDTH))
                                 {
-                                    ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                                    ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                                     
                                     execute = true;
                                     
@@ -1422,7 +1422,7 @@ void BatPanel::updateDash(MainScreen* ms)
                         {
                             m_hasSwiped = false;
                             
-                            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
                         }
                             break;
 					}

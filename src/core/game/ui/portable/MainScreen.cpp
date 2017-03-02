@@ -24,15 +24,17 @@
 #include "DeviceHelperFactory.h"
 #include "IDeviceHelper.h"
 #include "MainRenderer.h"
+#include "BatPanel.h"
+#include "Vector2D.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
 MainScreen::MainScreen() : IScreen(),
 m_deviceHelper(DEVICE_HELPER_FACTORY->createDeviceHelper()),
 m_renderer(new MainRenderer()),
+m_touchPointDown(new Vector2D()),
+m_touchPointDown2(new Vector2D()),
 m_stateMachine(this),
-m_touchPointDown(),
-m_touchPointDown2(),
 m_fFPSStateTime(0),
 m_iFrames(0),
 m_iFPS(0),
@@ -63,6 +65,8 @@ MainScreen::~MainScreen()
 {
     delete m_deviceHelper;
     delete m_renderer;
+    delete m_touchPointDown;
+    delete m_touchPointDown2;
 }
 
 void MainScreen::createDeviceDependentResources()

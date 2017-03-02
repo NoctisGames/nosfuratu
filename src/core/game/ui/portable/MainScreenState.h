@@ -10,6 +10,7 @@
 #define MainScreenState_h
 
 #include "State.h"
+
 #include "RTTI.h"
 
 class MainScreen;

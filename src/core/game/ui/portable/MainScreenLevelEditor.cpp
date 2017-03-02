@@ -382,7 +382,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
         
         if ((rc = m_levelEditorActionsPanel->handleTouch(*(*i), touchPoint)) != LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED)
         {
-            ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+            ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
             
             switch (rc)
             {
@@ -575,15 +575,15 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
 					resetEntities(false);
 				}
                 
-                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
-                ms->m_touchPointDown2.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown2->set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_DRAGGED:
             {
-                float xDelta = touchPoint.getX() - ms->m_touchPointDown.getX();
+                float xDelta = touchPoint.getX() - ms->m_touchPointDown->getX();
                 xDelta *= 4;
-                float yDelta = touchPoint.getY() - ms->m_touchPointDown.getY();
+                float yDelta = touchPoint.getY() - ms->m_touchPointDown->getY();
                 yDelta *= 4;
                 
                 if (m_draggingEntity != nullptr)
@@ -651,7 +651,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                     ms->m_renderer->moveCamera(-xDelta);
                 }
                 
-                ms->m_touchPointDown.set(touchPoint.getX(), touchPoint.getY());
+                ms->m_touchPointDown->set(touchPoint.getX(), touchPoint.getY());
             }
                 continue;
             case ScreenEventType_UP:

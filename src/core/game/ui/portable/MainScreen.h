@@ -11,35 +11,14 @@
 
 #include "IScreen.h"
 
-#include "ScreenEventType.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "SpriteBatcher.h"
-#include "NGRectBatcher.h"
-#include "NGRect.h"
-#include "Circle.h"
-#include "Assets.h"
-#include "GameConstants.h"
-#include "Jon.h"
-#include "StateMachine.h"
-#include "GpuProgramWrapper.h"
-#include "SinWaveTextureGpuProgramWrapper.h"
-#include "SnakeDeathTextureGpuProgramWrapper.h"
-#include "ShockwaveTextureGpuProgramWrapper.h"
-#include "BatPanel.h"
 #include "StateMachine.h"
 #include "MainScreenState.h"
-#include "State.h"
-#include "GameButton.h"
-#include "TitlePanel.h"
 
 #include "RTTI.h"
 
-#include <memory>
-#include <vector>
-
 class IDeviceHelper;
 class MainRenderer;
+class Vector2D;
 
 class MainScreen : public IScreen
 {
@@ -48,9 +27,9 @@ class MainScreen : public IScreen
 public:
     IDeviceHelper* m_deviceHelper;
     MainRenderer* m_renderer;
+    Vector2D* m_touchPointDown;
+    Vector2D* m_touchPointDown2;
     StateMachine<MainScreen, MainScreenState> m_stateMachine;
-    Vector2D m_touchPointDown;
-    Vector2D m_touchPointDown2;
 	float m_fFPSStateTime;
     float m_fTimeUntilResume;
 	int m_iFrames;
