@@ -10,9 +10,12 @@
 #define __nosfuratu__Ground__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "GroundSoundType.h"
-#include "Jon.h"
+
 #include "RTTI.h"
+
+class Jon;
 
 typedef enum
 {

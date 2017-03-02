@@ -18,6 +18,8 @@
 
 #include <memory>
 
+class Game;
+
 typedef enum
 {
     CollectibleItemType_Carrot,
@@ -25,8 +27,6 @@ typedef enum
     CollectibleItemType_BigCarrot,
     CollectibleItemType_Vial
 } CollectibleItemType;
-
-class Game;
 
 class CollectibleItem : public GridLockedPhysicalEntity
 {
@@ -49,9 +49,9 @@ public:
     
     CollectibleItemType getType();
     
-    Color& getColor() { return m_color; }
+    Color& getColor();
     
-    void setGame(Game* game) { m_game = game; }
+    void setGame(Game* game);
     
 protected:
     Game* m_game;

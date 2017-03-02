@@ -10,11 +10,12 @@
 #define __nosfuratu__TrashCan__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
+
 #include "RTTI.h"
+
+class Vector2D;
 
 class TrashCan : public PhysicalEntity
 {

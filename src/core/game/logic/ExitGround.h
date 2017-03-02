@@ -10,10 +10,13 @@
 #define __nosfuratu__ExitGround__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "GroundSoundType.h"
-#include "Jon.h"
-#include "ExitGroundCover.h"
+
 #include "RTTI.h"
+
+class Jon;
+class ExitGroundCover;
 
 typedef enum
 {
@@ -52,7 +55,7 @@ public:
     GroundSoundType getGroundSoundType();
     
 private:
-    ExitGroundCover *m_exitCover;
+    ExitGroundCover* m_exitCover;
     ExitGroundType m_type;
     GroundSoundType m_groundSoundType;
 };

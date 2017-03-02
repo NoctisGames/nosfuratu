@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLPointTransScreenGpuProgramWrapper__
 
 #include "PointTransitionGpuProgramWrapper.h"
+
 #include "OpenGLPointTransitionProgram.h"
 
 class OpenGLPointTransScreenGpuProgramWrapper : public PointTransitionGpuProgramWrapper

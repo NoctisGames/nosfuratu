@@ -10,7 +10,9 @@
 #define __nosfuratu__ExitGroundCover__
 
 #include "PhysicalEntity.h"
+
 #include "Color.h"
+
 #include "RTTI.h"
 
 typedef enum

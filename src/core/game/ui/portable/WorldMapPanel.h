@@ -10,7 +10,9 @@
 #define __nosfuratu__WorldMapPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
+
 #include "RTTI.h"
 
 class WorldMapPanel : public PhysicalEntity

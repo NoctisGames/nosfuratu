@@ -10,6 +10,7 @@
 #define __nosfuratu__GameMarker__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "RTTI.h"
 
 class GameMarker : public GridLockedPhysicalEntity

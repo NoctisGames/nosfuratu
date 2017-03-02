@@ -46,6 +46,7 @@
 #include "ForegroundCoverObject.h"
 #include "SoundManager.h"
 #include "GameHudItem.h"
+#include "ExitGroundCover.h"
 
 MainAssets* MainAssets::getInstance()
 {

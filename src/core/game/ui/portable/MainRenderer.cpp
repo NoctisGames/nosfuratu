@@ -58,6 +58,7 @@
 #include "IAssetsMapper.h"
 #include "MainGpuProgramWrapperFactory.h"
 #include "GameHudItem.h"
+#include "ExitGroundCover.h"
 
 #include <math.h>
 #include <sstream>

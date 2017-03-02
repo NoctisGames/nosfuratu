@@ -10,6 +10,7 @@
 #define __nosfuratu__EnemySpirit__
 
 #include "PhysicalEntity.h"
+
 #include "RTTI.h"
 
 typedef enum

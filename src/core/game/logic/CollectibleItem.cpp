@@ -121,6 +121,10 @@ CollectibleItemType CollectibleItem::getType()
     return m_type;
 }
 
+Color& CollectibleItem::getColor() { return m_color; }
+
+void CollectibleItem::setGame(Game* game) { m_game = game; }
+
 void Carrot::update(float deltaTime)
 {
     CollectibleItem::update(deltaTime);

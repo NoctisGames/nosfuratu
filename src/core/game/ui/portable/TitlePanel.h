@@ -10,10 +10,10 @@
 #define __nosfuratu__TitlePanel__
 
 #include "PhysicalEntity.h"
-#include "GameConstants.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "GameConstants.h"
+
+#include "RTTI.h"
 
 class BigCloud : public PhysicalEntity
 {
@@ -88,26 +88,28 @@ class TitlePanel : public PhysicalEntity
 public:
     TitlePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH, float height = CAM_HEIGHT);
     
+    ~TitlePanel();
+    
     virtual void update(float deltaTime);
     
     bool isLightningStriking();
     
-    BigCloud* getBigCloud() { return m_bigCloud.get(); }
-    SmallCloud* getSmallCloud() { return m_smallCloud.get(); }
-    Lightning* getLightning() { return m_lightning.get(); }
-    NosfuratuLogoLightEffect* getNosfuratuLogoLightEffect() { return m_nosfuratuLogoLightEffect.get(); }
-    NosfuratuLogo* getNosfuratuLogo() { return m_nosfuratuLogo.get(); }
-    CastleLightEffect* getCastleLightEffect() { return m_castleLightEffect.get(); }
-    Castle* getCastle() { return m_castle.get(); }
+    BigCloud* getBigCloud();
+    SmallCloud* getSmallCloud();
+    Lightning* getLightning();
+    NosfuratuLogoLightEffect* getNosfuratuLogoLightEffect();
+    NosfuratuLogo* getNosfuratuLogo();
+    CastleLightEffect* getCastleLightEffect();
+    Castle* getCastle();
     
 private:
-    std::unique_ptr<BigCloud> m_bigCloud;
-    std::unique_ptr<SmallCloud> m_smallCloud;
-    std::unique_ptr<Lightning> m_lightning;
-    std::unique_ptr<NosfuratuLogoLightEffect> m_nosfuratuLogoLightEffect;
-    std::unique_ptr<NosfuratuLogo> m_nosfuratuLogo;
-    std::unique_ptr<CastleLightEffect> m_castleLightEffect;
-    std::unique_ptr<Castle> m_castle;
+    BigCloud* m_bigCloud;
+    SmallCloud* m_smallCloud;
+    Lightning* m_lightning;
+    NosfuratuLogoLightEffect* m_nosfuratuLogoLightEffect;
+    NosfuratuLogo* m_nosfuratuLogo;
+    CastleLightEffect* m_castleLightEffect;
+    Castle* m_castle;
     float m_fTimeBetweenStrikes;
     bool m_isLightningStriking;
 };

@@ -7,6 +7,8 @@
 //
 
 #include "Ground.h"
+
+#include "Jon.h"
 #include "EntityUtils.h"
 
 Ground* Ground::create(int gridX, int gridY, int type)

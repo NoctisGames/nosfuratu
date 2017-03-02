@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLFramebufferTintGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
+
 #include "OpenGLFramebufferToScreenProgram.h"
 
 class OpenGLFramebufferTintGpuProgramWrapper : public GpuProgramWrapper

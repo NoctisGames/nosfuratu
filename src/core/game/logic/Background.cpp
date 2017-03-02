@@ -9,6 +9,7 @@
 #include "Background.h"
 
 #include "EntityUtils.h"
+#include "GameConstants.h"
 
 Background* Background::create(float x, int type)
 {

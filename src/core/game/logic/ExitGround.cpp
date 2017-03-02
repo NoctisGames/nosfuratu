@@ -8,6 +8,8 @@
 
 #include "ExitGround.h"
 
+#include "Jon.h"
+#include "ExitGroundCover.h"
 #include "EntityUtils.h"
 #include "GameConstants.h"
 

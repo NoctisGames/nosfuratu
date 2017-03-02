@@ -10,7 +10,9 @@
 #define __nosfuratu__Hole__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "HoleCover.h"
+
 #include "RTTI.h"
 
 typedef enum

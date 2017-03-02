@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLSinWaveTextureGpuProgramWrapper__
 
 #include "SinWaveTextureGpuProgramWrapper.h"
+
 #include "OpenGLSinWaveTextureProgram.h"
 
 class OpenGLSinWaveTextureGpuProgramWrapper : public SinWaveTextureGpuProgramWrapper

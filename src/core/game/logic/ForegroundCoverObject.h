@@ -11,11 +11,13 @@
 
 #include "GridLockedPhysicalEntity.h"
 
-#include "RTTI.h"
 #include "GroundSoundType.h"
-#include "Jon.h"
-#include "GameConstants.h"
+#include "Color.h"
+
 #include "RTTI.h"
+
+class Jon;
+class Game;
 
 typedef enum
 {

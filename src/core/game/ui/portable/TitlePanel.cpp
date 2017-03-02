@@ -17,17 +17,29 @@
 #include <cstdlib>
 #include <ctime>
 
-TitlePanel::TitlePanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_fTimeBetweenStrikes(1.80f), m_isLightningStriking(false)
+TitlePanel::TitlePanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
+m_bigCloud(new BigCloud()),
+m_smallCloud(new SmallCloud()),
+m_lightning(new Lightning()),
+m_nosfuratuLogoLightEffect(new NosfuratuLogoLightEffect()),
+m_nosfuratuLogo(new NosfuratuLogo()),
+m_castleLightEffect(new CastleLightEffect()),
+m_castle(new Castle()),
+m_fTimeBetweenStrikes(1.80f),
+m_isLightningStriking(false)
 {
-    m_bigCloud = std::unique_ptr<BigCloud>(new BigCloud());
-    m_smallCloud = std::unique_ptr<SmallCloud>(new SmallCloud());
-    m_lightning = std::unique_ptr<Lightning>(new Lightning());
-    m_nosfuratuLogoLightEffect = std::unique_ptr<NosfuratuLogoLightEffect>(new NosfuratuLogoLightEffect());
-    m_nosfuratuLogo = std::unique_ptr<NosfuratuLogo>(new NosfuratuLogo());
-    m_castleLightEffect = std::unique_ptr<CastleLightEffect>(new CastleLightEffect());
-    m_castle = std::unique_ptr<Castle>(new Castle());
-    
     srand (static_cast <unsigned> (time(0)));
+}
+
+TitlePanel::~TitlePanel()
+{
+    delete m_bigCloud;
+    delete m_smallCloud;
+    delete m_lightning;
+    delete m_nosfuratuLogoLightEffect;
+    delete m_nosfuratuLogo;
+    delete m_castleLightEffect;
+    delete m_castle;
 }
 
 void TitlePanel::update(float deltaTime)
@@ -71,6 +83,14 @@ bool TitlePanel::isLightningStriking()
 {
     return m_isLightningStriking;
 }
+
+BigCloud* TitlePanel::getBigCloud() { return m_bigCloud; }
+SmallCloud* TitlePanel::getSmallCloud() { return m_smallCloud; }
+Lightning* TitlePanel::getLightning() { return m_lightning; }
+NosfuratuLogoLightEffect* TitlePanel::getNosfuratuLogoLightEffect() { return m_nosfuratuLogoLightEffect; }
+NosfuratuLogo* TitlePanel::getNosfuratuLogo() { return m_nosfuratuLogo; }
+CastleLightEffect* TitlePanel::getCastleLightEffect() { return m_castleLightEffect; }
+Castle* TitlePanel::getCastle() { return m_castle; }
 
 void BigCloud::update(float deltaTime)
 {

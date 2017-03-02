@@ -7,7 +7,12 @@
 //
 
 #include "ForegroundCoverObject.h"
+
+#include "Jon.h"
+#include "Game.h"
 #include "EntityUtils.h"
+#include "GameConstants.h"
+#include "NGRect.h"
 
 ForegroundCoverObject* ForegroundCoverObject::create(int gridX, int gridY, int type)
 {

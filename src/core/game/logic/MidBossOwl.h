@@ -10,6 +10,7 @@
 #define __nosfuratu__MidBossOwl__
 
 #include "PhysicalEntity.h"
+
 #include "RTTI.h"
 
 class Game;

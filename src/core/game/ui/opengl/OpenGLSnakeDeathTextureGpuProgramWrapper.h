@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLSnakeDeathTextureGpuProgramWrapper__
 
 #include "SnakeDeathTextureGpuProgramWrapper.h"
+
 #include "OpenGLSnakeDeathTextureProgram.h"
 
 class OpenGLSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper

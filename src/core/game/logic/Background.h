@@ -11,7 +11,6 @@
 
 #include "PhysicalEntity.h"
 
-#include "GameConstants.h"
 #include "RTTI.h"
 
 typedef enum

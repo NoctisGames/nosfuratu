@@ -14,8 +14,9 @@
 #include "GroundSoundType.h"
 #include "Jon.h"
 #include "GameConstants.h"
-#include "RTTI.h"
 #include "NGRect.h"
+
+#include "RTTI.h"
 
 class Game;
 

@@ -10,6 +10,7 @@
 #define __nosfuratu__Midground__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "RTTI.h"
 
 typedef enum

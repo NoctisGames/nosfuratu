@@ -10,6 +10,7 @@
 #define JonFormState_h
 
 #include "State.h"
+
 #include "RTTI.h"
 
 class Jon;

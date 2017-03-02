@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLTransDeathGpuProgramWrapper__
 
 #include "TransDeathGpuProgramWrapper.h"
+
 #include "OpenGLTransDeathProgram.h"
 
 class OpenGLTransDeathGpuProgramWrapper : public TransDeathGpuProgramWrapper

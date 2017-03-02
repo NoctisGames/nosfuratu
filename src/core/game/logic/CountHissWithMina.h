@@ -10,6 +10,7 @@
 #define __nosfuratu__CountHissWithMina__
 
 #include "GridLockedPhysicalEntity.h"
+
 #include "RTTI.h"
 
 class CountHissWithMina : public GridLockedPhysicalEntity

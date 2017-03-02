@@ -8,6 +8,9 @@
 
 #include "TrashCan.h"
 
+#include "Vector2D.h"
+#include "NGRect.h"
+
 TrashCan::TrashCan(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isHighlighted(false)
 {
     updateBounds();

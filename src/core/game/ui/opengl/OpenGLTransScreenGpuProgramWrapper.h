@@ -10,6 +10,7 @@
 #define __nosfuratu__OpenGLTransScreenGpuProgramWrapper__
 
 #include "TransitionGpuProgramWrapper.h"
+
 #include "OpenGLTransitionProgram.h"
 
 class OpenGLTransScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
