@@ -47,11 +47,11 @@ LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 FILE_OGL_ANDROID_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/opengl/android)
 FILE_LIST := $(filter %.cpp, $(FILE_OGL_ANDROID_FILES))
-LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 FILE_OGL_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/opengl/portable)
 FILE_LIST := $(filter %.cpp, $(FILE_OGL_PORTABLE_FILES))
-LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 MATH_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/math)
 FILE_LIST := $(filter %.cpp, $(MATH_FILES))
