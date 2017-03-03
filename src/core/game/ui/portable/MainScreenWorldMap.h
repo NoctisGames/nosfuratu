@@ -16,6 +16,8 @@
 #include "WorldMapPanel.h"
 #include "RTTI.h"
 #include "SoundManager.h"
+#include "LevelThumbnailType.h"
+#include "AbilitySlotType.h"
 
 #include "rapidjson/document.h"
 
@@ -33,18 +35,6 @@ public:
     std::vector<int> m_scores;
     std::vector<int> m_onlineScores;
 };
-
-typedef enum
-{
-    LevelThumbnailType_Normal,
-    LevelThumbnailType_Boss
-} LevelThumbnailType;
-
-typedef enum
-{
-    AbilitySlotType_Drill,
-    AbilitySlotType_Dash
-} AbilitySlotType;
 
 class LevelThumbnail : public PhysicalEntity
 {

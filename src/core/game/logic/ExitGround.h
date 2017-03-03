@@ -11,21 +11,13 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "ExitGroundType.h"
 #include "GroundSoundType.h"
 
 #include "RTTI.h"
 
 class Jon;
 class ExitGroundCover;
-
-typedef enum
-{
-    ExitGroundType_GrassWithCaveSmallExitMid,
-    ExitGroundType_GrassWithCaveSmallExitEnd,
-    ExitGroundType_CaveSmallExit,
-    
-    ExitGroundType_CaveDeepSmallWaterfall
-} ExitGroundType;
 
 class ExitGround : public GridLockedPhysicalEntity
 {
@@ -40,7 +32,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
-	virtual int getEntityLandingPriority() { return 0; }
+    virtual int getEntityLandingPriority();
     
     bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
@@ -65,7 +57,7 @@ class CaveDeepSmallWaterfall : public ExitGround
     RTTI_DECL;
     
 public:
-    CaveDeepSmallWaterfall(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeight, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeight, hasCover, type, groundSoundType) {}
+    CaveDeepSmallWaterfall(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeight, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     

@@ -16,18 +16,13 @@
 #include "StateMachine.h"
 #include "JonFormState.h"
 #include "RTTI.h"
+#include "JonShadowState.h"
+#include "JonStates.h"
 
 #include <memory>
 #include <vector>
 
 class Game;
-
-typedef enum
-{
-    JonShadowState_Invisible,
-    JonShadowState_Grounded,
-    JonShadowState_Jumping
-} JonShadowState;
 
 class JonShadow : public PhysicalEntity
 {
@@ -72,36 +67,6 @@ public:
 private:
     JonShadowState m_state;
 };
-
-typedef enum
-{
-    ABILITY_NONE,
-    ABILITY_BURROW,
-    ABILITY_STOMP,
-    ABILITY_GLIDE,
-    ABILITY_UPWARD_THRUST,
-    ABILITY_DASH
-} JonAbilityState;
-
-typedef enum
-{
-    ACTION_NONE,
-    ACTION_JUMPING,
-    ACTION_DOUBLE_JUMPING
-} JonActionState;
-
-typedef enum
-{
-    PHYSICAL_GROUNDED,
-    PHYSICAL_IN_AIR
-} JonPhysicalState;
-
-typedef enum
-{
-    JON_ALIVE,
-    JON_DYING,
-    JON_DEAD
-} JonState;
 
 class Jon : public GridLockedPhysicalEntity
 {

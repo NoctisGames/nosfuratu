@@ -11,6 +11,7 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "ForegroundCoverObjectType.h"
 #include "GroundSoundType.h"
 #include "Color.h"
 
@@ -18,22 +19,6 @@
 
 class Jon;
 class Game;
-
-typedef enum
-{
-    ForegroundCoverObjectType_Tree,
-    ForegroundCoverObjectType_Plant,
-    ForegroundCoverObjectType_Bush,
-    ForegroundCoverObjectType_Ferns,
-    ForegroundCoverObjectType_Wall,
-    ForegroundCoverObjectType_Wall_Bottom,
-    ForegroundCoverObjectType_Wall_Window,
-    ForegroundCoverObjectType_Wall_Window_Bottom,
-    ForegroundCoverObjectType_Roof_Side_Left,
-    ForegroundCoverObjectType_Roof_Side_Right,
-    ForegroundCoverObjectType_Roof_Plain,
-    ForegroundCoverObjectType_Roof_Chimney
-} ForegroundCoverObjectType;
 
 class ForegroundCoverObject : public GridLockedPhysicalEntity
 {

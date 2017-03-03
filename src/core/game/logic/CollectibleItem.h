@@ -11,19 +11,12 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "CollectibleItemType.h"
 #include "Color.h"
 
 #include "RTTI.h"
 
 class Game;
-
-typedef enum
-{
-    CollectibleItemType_Carrot,
-    CollectibleItemType_GoldenCarrot,
-    CollectibleItemType_BigCarrot,
-    CollectibleItemType_Vial
-} CollectibleItemType;
 
 class CollectibleItem : public GridLockedPhysicalEntity
 {

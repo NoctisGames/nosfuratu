@@ -11,20 +11,10 @@
 
 #include "PhysicalEntity.h"
 
+#include "GameButtonType.h"
 #include "Color.h"
-#include "RTTI.h"
 
-typedef enum
-{
-    GameButtonType_ToggleMusic,
-    GameButtonType_ToggleSound,
-    GameButtonType_BackToTitle,
-    GameButtonType_Leaderboards,
-    GameButtonType_ViewOpeningCutscene,
-    GameButtonType_BackToLevelSelect,
-    GameButtonType_ContinueToLevelSelect,
-    GameButtonType_LevelEditor
-} GameButtonType;
+#include "RTTI.h"
 
 class GameButton : public PhysicalEntity
 {

@@ -12,9 +12,8 @@
 #include "OverlapTester.h"
 #include "GridLockedPhysicalEntity.h"
 #include "NGRect.h"
-#include "Vector2D.h"
 #include "Jon.h"
-#include "ForegroundObject.h"
+#include "GameConstants.h"
 
 #include <math.h>
 #include <vector>

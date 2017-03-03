@@ -14,6 +14,8 @@
 #include "SoundManager.h"
 #include "VectorUtil.h"
 
+#include <math.h>
+
 ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
 {
     ForegroundObjectType fot = (ForegroundObjectType)type;

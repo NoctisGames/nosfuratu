@@ -19,33 +19,14 @@
 #include "Assets.h"
 #include "RTTI.h"
 #include "SoundManager.h"
+#include "BatInstructionType.h"
+#include "BatGoalType.h"
 
 #include <math.h>
 
 class Game;
 class MainScreen;
 class Jon;
-
-typedef enum
-{
-    BatInstructionType_None,
-    BatInstructionType_Tap,
-    BatInstructionType_TapHold,
-    BatInstructionType_SwipeDown,
-    BatInstructionType_SwipeRight
-} BatInstructionType;
-
-typedef enum
-{
-    BatGoalType_None,
-    BatGoalType_Jump,
-    BatGoalType_DoubleJump,
-    BatGoalType_Vampire,
-    BatGoalType_Drill,
-	BatGoalType_DrillToDamageOwl,
-    BatGoalType_Stomp,
-    BatGoalType_Dash,
-} BatGoalType;
 
 class BatInstruction : public PhysicalEntity
 {

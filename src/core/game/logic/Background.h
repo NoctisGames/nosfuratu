@@ -11,20 +11,9 @@
 
 #include "PhysicalEntity.h"
 
-#include "RTTI.h"
+#include "BackgroundType.h"
 
-typedef enum
-{
-    BackgroundType_Upper,
-    BackgroundType_Mid_Hills,
-    BackgroundType_Lower_Innermost,
-    BackgroundType_Mid_Trees,
-    BackgroundType_Lower_Inner,
-    BackgroundType_Lower_Top,
-    BackgroundType_Lower_Bottom,
-    BackgroundType_WaterBack,
-    BackgroundType_WaterFront
-} BackgroundType;
+#include "RTTI.h"
 
 class Background : public PhysicalEntity
 {

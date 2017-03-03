@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DFrameBufferObfuscationGpuProgramWrapper__
-#define __noctisgames__Direct3DFrameBufferObfuscationGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DFrameBufferObfuscationGpuProgramWrapper__
+#define __nosfuratu__Direct3DFrameBufferObfuscationGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
 
@@ -28,4 +28,4 @@ private:
 	Direct3DProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__Direct3DFrameBufferObfuscationGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DFrameBufferObfuscationGpuProgramWrapper__) */

@@ -11,18 +11,10 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "HoleType.h"
 #include "HoleCover.h"
 
 #include "RTTI.h"
-
-typedef enum
-{
-    HoleType_GrassTileLeft,
-    HoleType_GrassTileCenter,
-    HoleType_GrassTileRight,
-    HoleType_Grass,
-    HoleType_Cave
-} HoleType;
 
 class Hole : public GridLockedPhysicalEntity
 {

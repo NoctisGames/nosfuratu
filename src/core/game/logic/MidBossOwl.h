@@ -11,6 +11,8 @@
 
 #include "PhysicalEntity.h"
 
+#include "MidBossOwlState.h"
+
 #include "RTTI.h"
 
 class Game;
@@ -23,20 +25,6 @@ class Game;
 
 #define MID_BOSS_OWL_DYING_WIDTH 6.328125f
 #define MID_BOSS_OWL_DYING_HEIGHT 7.03125f
-
-typedef enum
-{
-    MidBossOwlState_Sleeping,
-    MidBossOwlState_Awakening,
-    MidBossOwlState_Screeching,
-    MidBossOwlState_Pursuing,
-    MidBossOwlState_SwoopingDown,
-    MidBossOwlState_FlyingAwayAfterCatchingJon,
-    MidBossOwlState_SlammingIntoTree,
-    MidBossOwlState_FlyingOverTree,
-    MidBossOwlState_Dying,
-    MidBossOwlState_Dead
-} MidBossOwlState;
 
 class MidBossOwl : public PhysicalEntity
 {

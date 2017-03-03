@@ -1595,6 +1595,29 @@
 		BB9A17431E69B9E800429479 /* AndroidAssetDataHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetDataHandler.cpp; sourceTree = "<group>"; };
 		BB9A17441E69B9E800429479 /* AndroidAssetDataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetDataHandler.h; sourceTree = "<group>"; };
 		BB9A17451E69FD0E00429479 /* EnemySpiritType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnemySpiritType.h; sourceTree = "<group>"; };
+		BB9A17461E6A0C6F00429479 /* BackgroundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackgroundType.h; sourceTree = "<group>"; };
+		BB9A17471E6A0CAD00429479 /* CollectibleItemType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectibleItemType.h; sourceTree = "<group>"; };
+		BB9A17481E6A0D0400429479 /* DustCloudType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DustCloudType.h; sourceTree = "<group>"; };
+		BB9A17491E6A0D4400429479 /* EndBossSnakeState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EndBossSnakeState.h; sourceTree = "<group>"; };
+		BB9A174A1E6A0DD900429479 /* BatInstructionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BatInstructionType.h; sourceTree = "<group>"; };
+		BB9A174B1E6A0DEC00429479 /* BatGoalType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BatGoalType.h; sourceTree = "<group>"; };
+		BB9A174C1E6A0E4A00429479 /* CutsceneEffectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CutsceneEffectType.h; sourceTree = "<group>"; };
+		BB9A174D1E6A0E7A00429479 /* CutscenePanelType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CutscenePanelType.h; sourceTree = "<group>"; };
+		BB9A174E1E6A0EA200429479 /* EnemyType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnemyType.h; sourceTree = "<group>"; };
+		BB9A174F1E6A0EC100429479 /* ExitGroundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExitGroundType.h; sourceTree = "<group>"; };
+		BB9A17501E6A0EDD00429479 /* ExitGroundCoverType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExitGroundCoverType.h; sourceTree = "<group>"; };
+		BB9A17511E6A0F0100429479 /* ForegroundCoverObjectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForegroundCoverObjectType.h; sourceTree = "<group>"; };
+		BB9A17521E6A0F2200429479 /* ForegroundObjectType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForegroundObjectType.h; sourceTree = "<group>"; };
+		BB9A17531E6A0F4400429479 /* GameButtonType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameButtonType.h; sourceTree = "<group>"; };
+		BB9A17541E6A0F6600429479 /* GroundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GroundType.h; sourceTree = "<group>"; };
+		BB9A17551E6A0F9C00429479 /* HoleType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoleType.h; sourceTree = "<group>"; };
+		BB9A17561E6A0FDF00429479 /* HoleCoverType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoleCoverType.h; sourceTree = "<group>"; };
+		BB9A17571E6A102D00429479 /* JonShadowState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonShadowState.h; sourceTree = "<group>"; };
+		BB9A17581E6A107100429479 /* JonStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JonStates.h; sourceTree = "<group>"; };
+		BB9A17591E6A109700429479 /* LevelThumbnailType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelThumbnailType.h; sourceTree = "<group>"; };
+		BB9A175A1E6A10A800429479 /* AbilitySlotType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbilitySlotType.h; sourceTree = "<group>"; };
+		BB9A175B1E6A10CC00429479 /* MidBossOwlState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidBossOwlState.h; sourceTree = "<group>"; };
+		BB9A175C1E6A10EF00429479 /* MidgroundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidgroundType.h; sourceTree = "<group>"; };
 		BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferRadialBlurGpuProgram.cpp; sourceTree = "<group>"; };
 		BBA051D61E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferRadialBlurGpuProgram.h; sourceTree = "<group>"; };
 		BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
@@ -2259,28 +2282,37 @@
 			children = (
 				BB34FAA71E5645F400AC8197 /* Background.cpp */,
 				BB34FAA81E5645F400AC8197 /* Background.h */,
+				BB9A17461E6A0C6F00429479 /* BackgroundType.h */,
 				BB34FAA91E5645F400AC8197 /* CollectibleItem.cpp */,
 				BB34FAAA1E5645F400AC8197 /* CollectibleItem.h */,
+				BB9A17471E6A0CAD00429479 /* CollectibleItemType.h */,
 				BB34FAAB1E5645F400AC8197 /* CountHissWithMina.cpp */,
 				BB34FAAC1E5645F400AC8197 /* CountHissWithMina.h */,
 				BB34FAAD1E5645F400AC8197 /* DustCloud.cpp */,
 				BB34FAAE1E5645F400AC8197 /* DustCloud.h */,
+				BB9A17481E6A0D0400429479 /* DustCloudType.h */,
 				BB34FAAF1E5645F400AC8197 /* EndBossSnake.cpp */,
 				BB34FAB01E5645F400AC8197 /* EndBossSnake.h */,
+				BB9A17491E6A0D4400429479 /* EndBossSnakeState.h */,
 				BB34FAB11E5645F400AC8197 /* Enemy.cpp */,
 				BB34FAB21E5645F400AC8197 /* Enemy.h */,
 				BB34FAB31E5645F400AC8197 /* EnemySpirit.cpp */,
 				BB34FAB41E5645F400AC8197 /* EnemySpirit.h */,
 				BB9A17451E69FD0E00429479 /* EnemySpiritType.h */,
+				BB9A174E1E6A0EA200429479 /* EnemyType.h */,
 				BB34FAB51E5645F400AC8197 /* EntityUtils.h */,
 				BB34FAB61E5645F400AC8197 /* ExitGround.cpp */,
 				BB34FAB71E5645F400AC8197 /* ExitGround.h */,
 				BB34FAB81E5645F400AC8197 /* ExitGroundCover.cpp */,
 				BB34FAB91E5645F400AC8197 /* ExitGroundCover.h */,
+				BB9A17501E6A0EDD00429479 /* ExitGroundCoverType.h */,
+				BB9A174F1E6A0EC100429479 /* ExitGroundType.h */,
 				BB34FABA1E5645F400AC8197 /* ForegroundCoverObject.cpp */,
 				BB34FABB1E5645F400AC8197 /* ForegroundCoverObject.h */,
+				BB9A17511E6A0F0100429479 /* ForegroundCoverObjectType.h */,
 				BB34FABC1E5645F400AC8197 /* ForegroundObject.cpp */,
 				BB34FABD1E5645F400AC8197 /* ForegroundObject.h */,
+				BB9A17521E6A0F2200429479 /* ForegroundObjectType.h */,
 				BB34FABE1E5645F400AC8197 /* Game.cpp */,
 				BB34FABF1E5645F400AC8197 /* Game.h */,
 				BB34FAC01E5645F400AC8197 /* GameConstants.h */,
@@ -2289,18 +2321,25 @@
 				BB34FAC31E5645F400AC8197 /* Ground.cpp */,
 				BB34FAC41E5645F400AC8197 /* Ground.h */,
 				BB34FAC51E5645F400AC8197 /* GroundSoundType.h */,
+				BB9A17541E6A0F6600429479 /* GroundType.h */,
 				BB34FAC61E5645F400AC8197 /* Hole.cpp */,
 				BB34FAC71E5645F400AC8197 /* Hole.h */,
 				BB34FAC81E5645F400AC8197 /* HoleCover.cpp */,
 				BB34FAC91E5645F400AC8197 /* HoleCover.h */,
+				BB9A17561E6A0FDF00429479 /* HoleCoverType.h */,
+				BB9A17551E6A0F9C00429479 /* HoleType.h */,
 				BB34FACA1E5645F400AC8197 /* Jon.cpp */,
 				BB34FACB1E5645F400AC8197 /* Jon.h */,
 				BB34FACC1E5645F400AC8197 /* JonFormState.cpp */,
 				BB34FACD1E5645F400AC8197 /* JonFormState.h */,
+				BB9A17571E6A102D00429479 /* JonShadowState.h */,
+				BB9A17581E6A107100429479 /* JonStates.h */,
 				BB34FACE1E5645F400AC8197 /* MidBossOwl.cpp */,
 				BB34FACF1E5645F400AC8197 /* MidBossOwl.h */,
+				BB9A175B1E6A10CC00429479 /* MidBossOwlState.h */,
 				BB34FAD01E5645F400AC8197 /* Midground.cpp */,
 				BB34FAD11E5645F400AC8197 /* Midground.h */,
+				BB9A175C1E6A10EF00429479 /* MidgroundType.h */,
 			);
 			path = logic;
 			sourceTree = "<group>";
@@ -2376,6 +2415,9 @@
 		BB34FB2F1E5645F400AC8197 /* portable */ = {
 			isa = PBXGroup;
 			children = (
+				BB9A175A1E6A10A800429479 /* AbilitySlotType.h */,
+				BB9A174B1E6A0DEC00429479 /* BatGoalType.h */,
+				BB9A174A1E6A0DD900429479 /* BatInstructionType.h */,
 				BB34FB341E5645F400AC8197 /* BatPanel.cpp */,
 				BB34FB351E5645F400AC8197 /* BatPanel.h */,
 				BB34FB361E5645F400AC8197 /* Chapter1Level10.cpp */,
@@ -2384,14 +2426,17 @@
 				BB34FB391E5645F400AC8197 /* ConfirmExitPanel.h */,
 				BB34FB3A1E5645F400AC8197 /* ConfirmResetPanel.cpp */,
 				BB34FB3B1E5645F400AC8197 /* ConfirmResetPanel.h */,
+				BB9A174C1E6A0E4A00429479 /* CutsceneEffectType.h */,
 				BB34FB3C1E5645F400AC8197 /* CutscenePanel.cpp */,
 				BB34FB3D1E5645F400AC8197 /* CutscenePanel.h */,
+				BB9A174D1E6A0E7A00429479 /* CutscenePanelType.h */,
 				BB34FB3E1E5645F400AC8197 /* EndBossSnakeTextureGpuProgramWrapper.cpp */,
 				BB34FB3F1E5645F400AC8197 /* EndBossSnakeTextureGpuProgramWrapper.h */,
 				BB34FB401E5645F400AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp */,
 				BB34FB411E5645F400AC8197 /* FramebufferRadialBlurGpuProgramWrapper.h */,
 				BB34FB421E5645F400AC8197 /* GameButton.cpp */,
 				BB34FB431E5645F400AC8197 /* GameButton.h */,
+				BB9A17531E6A0F4400429479 /* GameButtonType.h */,
 				BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */,
 				BB5BA4BD1E67ADA80074A315 /* GameHudItem.h */,
 				BB34FB581E5645F400AC8197 /* GameTracker.cpp */,
@@ -2402,6 +2447,7 @@
 				BB34FB5D1E5645F400AC8197 /* LevelEditorEntitiesPanel.h */,
 				BB34FB5E1E5645F400AC8197 /* LevelSelectorPanel.cpp */,
 				BB34FB5F1E5645F400AC8197 /* LevelSelectorPanel.h */,
+				BB9A17591E6A109700429479 /* LevelThumbnailType.h */,
 				BB34FB301E5645F400AC8197 /* MainAssets.cpp */,
 				BB34FB311E5645F400AC8197 /* MainAssets.h */,
 				BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */,

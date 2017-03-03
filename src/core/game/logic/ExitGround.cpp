@@ -106,6 +106,11 @@ bool ExitGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return false;
 }
 
+int ExitGround::getEntityLandingPriority()
+{
+    return 0;
+}
+
 bool ExitGround::isJonBlockedAbove(Jon &jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
@@ -156,6 +161,11 @@ ExitGroundType ExitGround::getType()
 GroundSoundType ExitGround::getGroundSoundType()
 {
     return m_groundSoundType;
+}
+
+CaveDeepSmallWaterfall::CaveDeepSmallWaterfall(int gridX, int gridY, int gridWidth, int gridHeight, float boundsHeight, bool hasCover, ExitGroundType type, GroundSoundType groundSoundType) : ExitGround(gridX, gridY, gridWidth, gridHeight, boundsHeight, hasCover, type, groundSoundType)
+{
+    // Empty
 }
 
 bool CaveDeepSmallWaterfall::isEntityLanding(PhysicalEntity* entity, float deltaTime)

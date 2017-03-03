@@ -14,15 +14,10 @@
 #include "Color.h"
 #include "RTTI.h"
 #include "NGRect.h"
+#include "CutsceneEffectType.h"
+#include "CutscenePanelType.h"
 
 #include <memory>
-
-typedef enum
-{
-    CutsceneEffectType_Shadow_One,
-    CutsceneEffectType_Shadow_Two,
-    CutsceneEffectType_POW
-} CutsceneEffectType;
 
 class CutsceneEffect : public PhysicalEntity
 {
@@ -98,18 +93,6 @@ public:
         m_fHeight += deltaTime * 2.4f;
     }
 };
-
-typedef enum
-{
-    CutscenePanelType_Opening_None,
-    CutscenePanelType_Opening_One,
-    CutscenePanelType_Opening_Two,
-    CutscenePanelType_Opening_Three,
-    CutscenePanelType_Opening_Four,
-    CutscenePanelType_Opening_Five,
-    CutscenePanelType_Opening_Six,
-    CutscenePanelType_Opening_Seven
-} CutscenePanelType;
 
 class CutscenePanel : public PhysicalEntity
 {

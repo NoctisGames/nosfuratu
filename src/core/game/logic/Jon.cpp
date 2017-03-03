@@ -18,6 +18,7 @@
 #include "GameTracker.h"
 #include "SoundManager.h"
 #include "VectorUtil.h"
+#include "DustCloudType.h"
 
 #include <math.h>
 

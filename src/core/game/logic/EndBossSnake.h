@@ -11,6 +11,7 @@
 
 #include "GridLockedPhysicalEntity.h"
 
+#include "EndBossSnakeState.h"
 #include "Color.h"
 
 #include "RTTI.h"
@@ -18,24 +19,6 @@
 #include <vector>
 
 class Game;
-
-typedef enum
-{
-    EndBossSnakeState_Sleeping,
-    EndBossSnakeState_Awakening,
-    EndBossSnakeState_OpeningMouthLeft,
-	EndBossSnakeState_OpenMouthLeft,
-    EndBossSnakeState_ChargingLeft,
-	EndBossSnakeState_Waiting,
-    EndBossSnakeState_Pursuing,
-    EndBossSnakeState_Damaged,
-    EndBossSnakeState_OpeningMouthRight,
-	EndBossSnakeState_OpenMouthRight,
-    EndBossSnakeState_ChargingRight,
-    EndBossSnakeState_Dying,
-	EndBossSnakeState_DeadSpiritReleasing,
-    EndBossSnakeState_Dead
-} EndBossSnakeState;
 
 class SnakeSkin;
 class SnakeEye;

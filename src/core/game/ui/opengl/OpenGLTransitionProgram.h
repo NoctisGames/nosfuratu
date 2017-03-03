@@ -6,8 +6,8 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLTransitionProgram__
-#define __noctisgames__OpenGLTransitionProgram__
+#ifndef __nosfuratu__OpenGLTransitionProgram__
+#define __nosfuratu__OpenGLTransitionProgram__
 
 #include "OpenGLProgram.h"
 
@@ -26,4 +26,4 @@ public:
     virtual void unbind();
 };
 
-#endif /* defined(__noctisgames__OpenGLTransitionProgram__) */
+#endif /* defined(__nosfuratu__OpenGLTransitionProgram__) */

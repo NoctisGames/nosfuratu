@@ -11,15 +11,10 @@
 
 #include "PhysicalEntity.h"
 
+#include "ExitGroundCoverType.h"
 #include "Color.h"
 
 #include "RTTI.h"
-
-typedef enum
-{
-    ExitGroundCoverType_Grass,
-    ExitGroundCoverType_Cave
-} ExitGroundCoverType;
 
 class ExitGroundCover : public PhysicalEntity
 {

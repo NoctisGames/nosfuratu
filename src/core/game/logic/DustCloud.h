@@ -11,15 +11,10 @@
 
 #include "PhysicalEntity.h"
 
+#include "DustCloudType.h"
 #include "Color.h"
 
 #include "RTTI.h"
-
-typedef enum
-{
-    DustCloudType_Landing,
-    DustCloudType_Kick_Up
-} DustCloudType;
 
 class DustCloud : public PhysicalEntity
 {

@@ -12,6 +12,7 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "Color.h"
+#include "EnemyType.h"
 #include "EnemySpiritType.h"
 
 #include "RTTI.h"
@@ -19,23 +20,6 @@
 class Game;
 class Jon;
 class EnemySpirit;
-
-typedef enum
-{
-    EnemyType_MushroomGround,
-    EnemyType_MushroomCeiling,
-    EnemyType_SnakeGrunt,
-    EnemyType_Sparrow,
-    EnemyType_Toad,
-    EnemyType_Fox,
-    EnemyType_BigMushroomGround,
-    EnemyType_BigMushroomCeiling,
-    EnemyType_MovingSnakeGruntV1,
-    EnemyType_MovingSnakeGruntV2,
-    EnemyType_MovingSnakeGruntV3,
-    EnemyType_MovingSnakeGruntV4,
-    EnemyType_MovingSnakeGruntV5
-} EnemyType;
 
 class Enemy : public GridLockedPhysicalEntity
 {
