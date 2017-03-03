@@ -33,7 +33,7 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
     m_deviceResources = new DX::DeviceResources();
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	Direct3DManager::setDeviceResources(m_deviceResources);
+	Direct3DManager::setDeviceResources(m_deviceResources.get());
 
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	m_isWindowsMobile = false;
@@ -412,11 +412,11 @@ void Direct3DMain::Render()
 
     Clear();
 
-	beginPixEvent(L"Render", m_deviceResources);
+	beginPixEvent(L"Render", m_deviceResources.get());
 
 	m_screen->render();
 
-	endPixEvent(m_deviceResources);
+	endPixEvent(m_deviceResources.get());
 
 	handleSound();
 	handleMusic();
@@ -430,7 +430,7 @@ void Direct3DMain::Render()
 // Helper method to clear the back buffers.
 void Direct3DMain::Clear()
 {
-	beginPixEvent(L"Clear", m_deviceResources);
+	beginPixEvent(L"Clear", m_deviceResources.get());
 
 	// Clear the views.
 	auto context = m_deviceResources->GetD3DDeviceContext();
@@ -445,7 +445,7 @@ void Direct3DMain::Clear()
 	auto viewport = m_deviceResources->GetScreenViewport();
 	context->RSSetViewports(1, &viewport);
 
-	endPixEvent(m_deviceResources);
+	endPixEvent(m_deviceResources.get());
 }
 #pragma endregion
 
@@ -848,23 +848,23 @@ void Direct3DMain::initSoundEngine()
 
 void Direct3DMain::loadSound(const wchar_t* waveFileName)
 {
-	m_sounds.push_back(new SoundEffect(m_audEngine, waveFileName));
+	m_sounds.push_back(new SoundEffect(m_audEngine.get(), waveFileName));
 }
 
 void Direct3DMain::loadMusic(const wchar_t* waveFileName)
 {
-	if (m_musicLoop)
+	if (m_musicLoop.get())
 	{
 		m_musicLoop->Stop();
 		m_musicLoop.reset();
 	}
 
-	if (m_music)
+	if (m_music.get())
 	{
 		m_music.reset();
 	}
 
-	m_music = new SoundEffect(m_audEngine, waveFileName);
+	m_music = new SoundEffect(m_audEngine.get(), waveFileName);
 	m_musicLoop = m_music->CreateInstance();
 }
 #pragma endregion
