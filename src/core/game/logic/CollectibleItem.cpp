@@ -121,9 +121,20 @@ CollectibleItemType CollectibleItem::getType()
     return m_type;
 }
 
-Color& CollectibleItem::getColor() { return m_color; }
+Color& CollectibleItem::getColor()
+{
+    return m_color;
+}
 
-void CollectibleItem::setGame(Game* game) { m_game = game; }
+void CollectibleItem::setGame(Game* game)
+{
+    m_game = game;
+}
+
+Carrot::Carrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 7, SOUND_COLLECT_CARROT, CollectibleItemType_Carrot)
+{
+    // Empty
+}
 
 void Carrot::update(float deltaTime)
 {
@@ -164,6 +175,28 @@ void Carrot::resize()
 {
     m_fWidth = 1.916015625f;
     m_fHeight = 1.96875f;
+}
+
+GoldenCarrotTwinkle::GoldenCarrotTwinkle(float x, float y, float seedStateTime) : PhysicalEntity(x, y, 0.65039062500001f, 0.68554687500001f)
+{
+    m_fStateTime = seedStateTime;
+}
+
+GoldenCarrot::GoldenCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 6, 8, SOUND_COLLECT_GOLDEN_CARROT, CollectibleItemType_GoldenCarrot), m_iIndex(0), m_isPreviouslyCollected(false)
+{
+    float x = m_position.getX();
+    float y = m_position.getY();
+    float w = m_fWidth;
+    float h = m_fHeight;
+    float l = x - w / 2;
+    float b = y - (h / 2);
+    
+    m_goldenCarrotTwinkle = new GoldenCarrotTwinkle(0.53543307086614f * w + l, 0.60714285714286f * h + b, m_fStateTime);
+}
+
+GoldenCarrot::~GoldenCarrot()
+{
+    delete m_goldenCarrotTwinkle;
 }
 
 void GoldenCarrot::update(float deltaTime)
@@ -258,6 +291,11 @@ void GoldenCarrot::init(int index, int bestLevelStatsFlag)
     }
 }
 
+GoldenCarrotTwinkle& GoldenCarrot::getGoldenCarrotTwinkle()
+{
+    return *m_goldenCarrotTwinkle;
+}
+
 int GoldenCarrot::getIndex()
 {
     return m_iIndex;
@@ -266,6 +304,11 @@ int GoldenCarrot::getIndex()
 bool GoldenCarrot::isPreviouslyCollected()
 {
     return m_isPreviouslyCollected;
+}
+
+BigCarrot::BigCarrot(int gridX, int gridY) : CollectibleItem(gridX, gridY, 27, 27, SOUND_COLLECT_BIG_CARROT, CollectibleItemType_BigCarrot, 0.405092592592593f, 0.259259259259259f, 0.428240740740741f, 0.481481481481481f)
+{
+    // Empty
 }
 
 void BigCarrot::update(float deltaTime)
@@ -286,6 +329,11 @@ void BigCarrot::updateBounds()
     CollectibleItem::updateBounds();
     
     GridLockedPhysicalEntity::updateBounds();
+}
+
+Vial::Vial(int gridX, int gridY) : CollectibleItem(gridX, gridY, 20, 21, SOUND_COLLECT_VIAL, CollectibleItemType_Vial, 0.43125f, 0.25297619047619f, 0.25f, 0.339285714285714f)
+{
+    // Empty
 }
 
 void Vial::update(float deltaTime)

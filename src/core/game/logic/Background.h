@@ -53,7 +53,7 @@ class Water : public Background
     RTTI_DECL;
     
 public:
-    Water(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type) : Background(x, y, width, height, xScrollSpeed, type) {}
+    Water(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type);
     
     virtual void update(Vector2D& cameraPosition, float deltaTime);
 };

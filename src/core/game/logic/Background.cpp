@@ -71,6 +71,11 @@ BackgroundType Background::getType()
     return m_type;
 }
 
+Water::Water(float x, float y, float width, float height, int xScrollSpeed, BackgroundType type) : Background(x, y, width, height, xScrollSpeed, type)
+{
+    // Empty
+}
+
 void Water::update(Vector2D& cameraPosition, float deltaTime)
 {
     m_fStateTime += deltaTime;
