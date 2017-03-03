@@ -10,63 +10,22 @@
 #define __nosfuratu__Jon__
 
 #include "GridLockedPhysicalEntity.h"
-#include "Color.h"
-#include "DustCloud.h"
-#include "GroundSoundType.h"
+
 #include "StateMachine.h"
+#include "Color.h"
+#include "GroundSoundType.h"
 #include "JonFormState.h"
-#include "RTTI.h"
 #include "JonShadowState.h"
 #include "JonStates.h"
 
-#include <memory>
+#include "RTTI.h"
+
 #include <vector>
 
 class Game;
+class DustCloud;
 
-class JonShadow : public PhysicalEntity
-{
-    RTTI_DECL;
-    
-public:
-    JonShadow() : PhysicalEntity(0, 0, 1.353515625f, 0.158203125f), m_state(JonShadowState_Invisible) {}
-    
-    void onGrounded(float x, float y)
-    {
-        m_position.set(x, y);
-        
-        m_state = JonShadowState_Grounded;
-    }
-    
-    void onJump()
-    {
-        if (m_state == JonShadowState_Grounded)
-        {
-            m_state = JonShadowState_Jumping;
-            m_fStateTime = 0;
-        }
-    }
-    
-    void onAir()
-    {
-        if (m_state == JonShadowState_Grounded)
-        {
-            m_state = JonShadowState_Invisible;
-            m_fStateTime = 0;
-        }
-    }
-    
-    void makeInvisible()
-    {
-        m_state = JonShadowState_Invisible;
-        m_fStateTime = 0;
-    }
-    
-    JonShadowState getState() { return m_state; }
-    
-private:
-    JonShadowState m_state;
-};
+class JonShadow;
 
 class Jon : public GridLockedPhysicalEntity
 {
@@ -109,7 +68,7 @@ public:
     
     std::vector<DustCloud *>& getDustClouds();
     
-    JonShadow* getJonShadow() { return m_jonShadow.get(); }
+    JonShadow* getJonShadow();
     
     std::vector<Jon *>& getAfterImages();
     
@@ -213,13 +172,13 @@ public:
 
 	void flash();
     
-    bool isReleasingShockwave() { return m_isReleasingShockwave; }
+    bool isReleasingShockwave();
     
 private:
-    std::unique_ptr<StateMachine<Jon, JonFormState>> m_formStateMachine;
+    StateMachine<Jon, JonFormState>* m_formStateMachine;
     Game* m_game;
     std::vector<DustCloud *> m_dustClouds;
-    std::unique_ptr<JonShadow> m_jonShadow;
+    JonShadow* m_jonShadow;
     std::vector<Jon *> m_afterImages;
     JonState m_state;
     JonPhysicalState m_physicalState;
@@ -275,7 +234,7 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
-        virtual void triggerCancelTransform(Jon* jon) {}
+        virtual void triggerCancelTransform(Jon* jon);
         
         virtual void triggerJump(Jon* jon);
         virtual void triggerLeftAction(Jon* jon);
@@ -288,7 +247,7 @@ private:
         virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
         virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
         
-        virtual void onDeath(Jon* jon) {};
+        virtual void onDeath(Jon* jon);
         
         virtual int getNumJumps(Jon* jon);
         
@@ -311,46 +270,6 @@ private:
         virtual void exit(Jon* jon);
         
         virtual void triggerTransform(Jon* jon);
-        virtual void triggerCancelTransform(Jon* jon) {}
-        
-        virtual void triggerJump(Jon* jon);
-        virtual void triggerLeftAction(Jon* jon);
-        virtual void triggerRightAction(Jon* jon);
-        virtual void triggerUpAction(Jon* jon);
-        virtual void triggerDownAction(Jon* jon);
-        
-        virtual void triggerBoost(Jon* jon, float boostVelocity);
-        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
-        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
-        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
-        
-        virtual void onDeath(Jon* jon) {};
-        
-        virtual int getNumJumps(Jon* jon);
-        
-    private:
-        std::unique_ptr<Vector2D> m_lastKnownVelocity;
-        float m_fTimeSinceLastVelocityCheck;
-        bool m_isFallingAfterGlide;
-        
-        // ctor, copy ctor, and assignment should be private in a Singleton
-        Vampire();
-        Vampire(const Vampire&);
-        Vampire& operator=(const Vampire&);
-    };
-    
-    class RabbitToVampire : public JonFormState
-    {
-        RTTI_DECL;
-        
-    public:
-        static RabbitToVampire* getInstance();
-        
-        virtual void enter(Jon* jon);
-        virtual void execute(Jon* jon);
-        virtual void exit(Jon* jon);
-        
-        virtual void triggerTransform(Jon* jon) {}
         virtual void triggerCancelTransform(Jon* jon);
         
         virtual void triggerJump(Jon* jon);
@@ -366,7 +285,48 @@ private:
         
         virtual void onDeath(Jon* jon);
         
-        virtual int getNumJumps(Jon* jon) { return 0; };
+        virtual int getNumJumps(Jon* jon);
+        
+    private:
+        Vector2D* m_lastKnownVelocity;
+        float m_fTimeSinceLastVelocityCheck;
+        bool m_isFallingAfterGlide;
+        
+        // ctor, copy ctor, and assignment should be private in a Singleton
+        Vampire();
+        ~Vampire();
+        Vampire(const Vampire&);
+        Vampire& operator=(const Vampire&);
+    };
+    
+    class RabbitToVampire : public JonFormState
+    {
+        RTTI_DECL;
+        
+    public:
+        static RabbitToVampire* getInstance();
+        
+        virtual void enter(Jon* jon);
+        virtual void execute(Jon* jon);
+        virtual void exit(Jon* jon);
+        
+        virtual void triggerTransform(Jon* jon);
+        virtual void triggerCancelTransform(Jon* jon);
+        
+        virtual void triggerJump(Jon* jon);
+        virtual void triggerLeftAction(Jon* jon);
+        virtual void triggerRightAction(Jon* jon);
+        virtual void triggerUpAction(Jon* jon);
+        virtual void triggerDownAction(Jon* jon);
+        
+        virtual void triggerBoost(Jon* jon, float boostVelocity);
+        virtual void triggerBoostOffEnemy(Jon* jon, float boostVelocity);
+        virtual void triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity);
+        virtual void triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity);
+        
+        virtual void onDeath(Jon* jon);
+        
+        virtual int getNumJumps(Jon* jon);
         
         void handleTransformation(Jon* jon);
         
@@ -390,7 +350,7 @@ private:
         virtual void execute(Jon* jon);
         virtual void exit(Jon* jon);
         
-        virtual void triggerTransform(Jon* jon) {}
+        virtual void triggerTransform(Jon* jon);
         virtual void triggerCancelTransform(Jon* jon);
         
         virtual void triggerJump(Jon* jon);
@@ -406,7 +366,7 @@ private:
         
         virtual void onDeath(Jon* jon);
         
-        virtual int getNumJumps(Jon* jon) { return 0; };
+        virtual int getNumJumps(Jon* jon);
         
         void handleTransformation(Jon* jon);
         
@@ -418,6 +378,27 @@ private:
         VampireToRabbit(const VampireToRabbit&);
         VampireToRabbit& operator=(const VampireToRabbit&);
     };
+};
+
+class JonShadow : public PhysicalEntity
+{
+    RTTI_DECL;
+    
+public:
+    JonShadow();
+    
+    void onGrounded(float x, float y);
+    
+    void onJump();
+    
+    void onAir();
+    
+    void makeInvisible();
+    
+    JonShadowState getState();
+    
+private:
+    JonShadowState m_state;
 };
 
 #endif /* defined(__nosfuratu__Jon__) */

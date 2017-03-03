@@ -14,6 +14,9 @@
 #include "Game.h"
 #include "OverlapTester.h"
 #include "SoundManager.h"
+#include "NGRect.h"
+
+#include <assert.h>
 
 CollectibleItem* CollectibleItem::create(int gridX, int gridY, int type)
 {

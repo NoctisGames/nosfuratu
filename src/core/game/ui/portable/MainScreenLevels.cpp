@@ -27,6 +27,7 @@
 #include "SoundManager.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
+#include "GameMarker.h"
 
 /// Level ///
 

@@ -101,8 +101,8 @@
 {
     _screen->render();
     
-    [self handleSound];
-    [self handleMusic];
+    //[self handleSound];
+    //[self handleMusic];
 }
 
 - (void)resume

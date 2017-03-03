@@ -13,6 +13,10 @@
 #include "Jon.h"
 #include "macros.h"
 #include "SoundManager.h"
+#include "GameConstants.h"
+#include "NGRect.h"
+#include "ForegroundObject.h"
+#include "Ground.h"
 
 #include <math.h>
 
@@ -373,6 +377,16 @@ void MidBossOwl::setGame(Game* game)
 int MidBossOwl::getDamage()
 {
     return m_iDamage;
+}
+
+bool MidBossOwl::didJonTransform()
+{
+    return m_didJonTransform;
+}
+
+void MidBossOwl::givePlayerAFreeHit()
+{
+    m_giveFreeHit = true;
 }
 
 void MidBossOwl::setState(MidBossOwlState state)

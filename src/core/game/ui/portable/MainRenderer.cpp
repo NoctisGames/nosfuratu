@@ -59,6 +59,9 @@
 #include "GameHudItem.h"
 #include "ExitGroundCover.h"
 #include "EnemySpirit.h"
+#include "GameMarker.h"
+#include "Background.h"
+#include "DustCloud.h"
 
 #include <math.h>
 #include <sstream>

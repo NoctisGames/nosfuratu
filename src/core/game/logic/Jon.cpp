@@ -8,8 +8,10 @@
 
 #include "Jon.h"
 
-#include "EntityUtils.h"
 #include "Game.h"
+#include "DustCloud.h"
+
+#include "EntityUtils.h"
 #include "GameConstants.h"
 #include "OverlapTester.h"
 #include "Assets.h"
@@ -18,7 +20,6 @@
 #include "GameTracker.h"
 #include "SoundManager.h"
 #include "VectorUtil.h"
-#include "DustCloudType.h"
 
 #include <math.h>
 
@@ -57,11 +58,19 @@ m_isReleasingShockwave(false)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
-	m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(this));
+	m_formStateMachine = new StateMachine<Jon, JonFormState>(this);
 	m_formStateMachine->setCurrentState(Rabbit::getInstance());
 	m_formStateMachine->getCurrentState()->enter(this);
     
-    m_jonShadow = std::unique_ptr<JonShadow>(new JonShadow());
+    m_jonShadow = new JonShadow();
+}
+
+Jon::~Jon()
+{
+    VectorUtil::cleanUpVectorOfPointers(getDustClouds());
+    
+    delete m_formStateMachine;
+    delete m_jonShadow;
 }
 
 void Jon::update(float deltaTime)
@@ -284,11 +293,6 @@ void Jon::updateBounds()
 	lowerLeft.set(m_position.getX() - width / 2, m_position.getY() - height / 2);
 }
 
-Jon::~Jon()
-{
-    VectorUtil::cleanUpVectorOfPointers(getDustClouds());
-}
-
 void Jon::triggerTransform()
 {
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
@@ -419,6 +423,11 @@ int Jon::getNumJumps()
 std::vector<DustCloud *>& Jon::getDustClouds()
 {
 	return m_dustClouds;
+}
+
+JonShadow* Jon::getJonShadow()
+{
+    return m_jonShadow;
 }
 
 std::vector<Jon *>& Jon::getAfterImages()
@@ -722,6 +731,11 @@ void Jon::flash()
 	m_isFlashing = true;
 }
 
+bool Jon::isReleasingShockwave()
+{
+    return m_isReleasingShockwave;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)
@@ -856,6 +870,11 @@ void Jon::Rabbit::triggerTransform(Jon* jon)
     }
     
 	jon->m_formStateMachine->changeState(Jon::RabbitToVampire::getInstance());
+}
+
+void Jon::Rabbit::triggerCancelTransform(Jon* jon)
+{
+    // Empty
 }
 
 void Jon::Rabbit::triggerJump(Jon* jon)
@@ -1018,6 +1037,11 @@ void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
+}
+
+void Jon::Rabbit::onDeath(Jon* jon)
+{
+    // Empty
 }
 
 int Jon::Rabbit::getNumJumps(Jon* jon)
@@ -1184,7 +1208,7 @@ void Jon::Vampire::execute(Jon* jon)
         m_fTimeSinceLastVelocityCheck = 0;
         
         Jon* afterImage = new Jon(jon->getGridX(), jon->getGridY());
-        afterImage->m_formStateMachine = std::unique_ptr<StateMachine<Jon, JonFormState>>(new StateMachine<Jon, JonFormState>(afterImage));
+        afterImage->m_formStateMachine = new StateMachine<Jon, JonFormState>(afterImage);
         afterImage->m_formStateMachine->setCurrentState(jon->m_formStateMachine->getCurrentState());
         afterImage->m_velocity.set(jon->m_velocity);
         afterImage->m_position.set(jon->m_position);
@@ -1234,6 +1258,11 @@ void Jon::Vampire::exit(Jon* jon)
 void Jon::Vampire::triggerTransform(Jon* jon)
 {
     jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
+}
+
+void Jon::Vampire::triggerCancelTransform(Jon* jon)
+{
+    // Empty
 }
 
 void Jon::Vampire::triggerJump(Jon* jon)
@@ -1415,6 +1444,11 @@ void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
 }
 
+void Jon::Vampire::onDeath(Jon* jon)
+{
+    // Empty
+}
+
 int Jon::Vampire::getNumJumps(Jon* jon)
 {
     return jon->m_iNumVampireJumps;
@@ -1422,7 +1456,12 @@ int Jon::Vampire::getNumJumps(Jon* jon)
 
 Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false)
 {
-    m_lastKnownVelocity = std::unique_ptr<Vector2D>(new Vector2D());
+    m_lastKnownVelocity = new Vector2D();
+}
+
+Jon::Vampire::~Vampire()
+{
+    delete m_lastKnownVelocity;
 }
 
 /// Transform to Vampire ///
@@ -1468,6 +1507,11 @@ void Jon::RabbitToVampire::execute(Jon* jon)
 void Jon::RabbitToVampire::exit(Jon* jon)
 {
 	// Empty
+}
+
+void Jon::RabbitToVampire::triggerTransform(Jon* jon)
+{
+    // Empty
 }
 
 void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
@@ -1539,6 +1583,11 @@ void Jon::RabbitToVampire::onDeath(Jon* jon)
     handleTransformation(jon);
 }
 
+int Jon::RabbitToVampire::getNumJumps(Jon* jon)
+{
+    return 0;
+}
+
 void Jon::RabbitToVampire::handleTransformation(Jon* jon)
 {
     if (m_hasCompletedSlowMotion)
@@ -1599,6 +1648,11 @@ void Jon::VampireToRabbit::execute(Jon* jon)
 void Jon::VampireToRabbit::exit(Jon* jon)
 {
 	// Empty
+}
+
+void Jon::VampireToRabbit::triggerTransform(Jon* jon)
+{
+    // Empty
 }
 
 void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
@@ -1670,6 +1724,11 @@ void Jon::VampireToRabbit::onDeath(Jon* jon)
     handleTransformation(jon);
 }
 
+int Jon::VampireToRabbit::getNumJumps(Jon* jon)
+{
+    return 0;
+}
+
 void Jon::VampireToRabbit::handleTransformation(Jon* jon)
 {
     if (m_hasCompletedSlowMotion)
@@ -1687,9 +1746,50 @@ Jon::VampireToRabbit::VampireToRabbit() : JonFormState(), m_hasCompletedSlowMoti
 	// Empty
 }
 
-RTTI_IMPL(JonShadow, PhysicalEntity);
+JonShadow::JonShadow() : PhysicalEntity(0, 0, 1.353515625f, 0.158203125f), m_state(JonShadowState_Invisible)
+{
+    // Empty
+}
+
+void JonShadow::onGrounded(float x, float y)
+{
+    m_position.set(x, y);
+    
+    m_state = JonShadowState_Grounded;
+}
+
+void JonShadow::onJump()
+{
+    if (m_state == JonShadowState_Grounded)
+    {
+        m_state = JonShadowState_Jumping;
+        m_fStateTime = 0;
+    }
+}
+
+void JonShadow::onAir()
+{
+    if (m_state == JonShadowState_Grounded)
+    {
+        m_state = JonShadowState_Invisible;
+        m_fStateTime = 0;
+    }
+}
+
+void JonShadow::makeInvisible()
+{
+    m_state = JonShadowState_Invisible;
+    m_fStateTime = 0;
+}
+
+JonShadowState JonShadow::getState()
+{
+    return m_state;
+}
+
 RTTI_IMPL(Jon, GridLockedPhysicalEntity);
 RTTI_IMPL(Jon::Rabbit, JonFormState);
 RTTI_IMPL(Jon::Vampire, JonFormState);
 RTTI_IMPL(Jon::RabbitToVampire, JonFormState);
 RTTI_IMPL(Jon::VampireToRabbit, JonFormState);
+RTTI_IMPL(JonShadow, PhysicalEntity);

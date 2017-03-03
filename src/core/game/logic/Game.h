@@ -9,30 +9,25 @@
 #ifndef __nosfuratu__Game__
 #define __nosfuratu__Game__
 
-#include "Background.h"
-#include "Midground.h"
-#include "Ground.h"
-#include "ExitGround.h"
-#include "Hole.h"
-#include "ForegroundObject.h"
-#include "Enemy.h"
-#include "CollectibleItem.h"
-#include "Jon.h"
-#include "EndBossSnake.h"
-#include "CountHissWithMina.h"
-#include "GameMarker.h"
-#include "ForegroundCoverObject.h"
+class Vector2D;
+class PhysicalEntity;
+class Background;
+class Midground;
+class Ground;
+class ExitGround;
+class Hole;
+class ForegroundObject;
+class CountHissWithMina;
+class EndBossSnake;
+class Enemy;
+class CollectibleItem;
+class Jon;
+class ExtraForegroundObject;
+class ForegroundCoverObject;
+class GameMarker;
+class NGRect;
 
-#include <memory>
 #include <vector>
-
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
-
-#define gridXKey "gridX"
-#define gridYKey "gridY"
-#define typeKey "type"
 
 class Game
 {
@@ -165,9 +160,9 @@ public:
     
     void setStateTime(float stateTime);
     
-    void setIsLevelEditor(bool isLevelEditor) { m_isLevelEditor = isLevelEditor; }
+    void setIsLevelEditor(bool isLevelEditor);
     
-    bool isLevelEditor() { return m_isLevelEditor; }
+    bool isLevelEditor();
     
 private:
     std::vector<Background *> m_backgroundUppers;
@@ -205,78 +200,6 @@ private:
     int m_iWorld;
     int m_iLevel;
     bool m_isLevelEditor;
-    
-    template<typename T>
-    void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)
-    {
-        for (typename std::vector<T*>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
-        {
-            itemsTo.push_back(T::create((*i)->getGridX(), (*i)->getGridY(), (*i)->getType()));
-        }
-    }
-    
-    template<typename T>
-    static void serialize(T* item, rapidjson::Writer<rapidjson::StringBuffer>& w)
-    {
-        w.StartObject();
-        w.String(gridXKey);
-        w.Int(item->getGridX());
-        w.String(gridYKey);
-        w.Int(item->getGridY());
-        int type = item->getType();
-        if (type != -1)
-        {
-            w.String(typeKey);
-            w.Int(type);
-        }
-        
-        w.EndObject();
-    }
-    
-    template<typename T>
-    static T* deserialize(rapidjson::Value& v)
-    {
-        int gridX = v[gridXKey].GetInt();
-        int gridY = v[gridYKey].GetInt();
-        int type = 0;
-        if (v.HasMember(typeKey))
-        {
-            type = v[typeKey].GetInt();
-        }
-        
-        return T::create(gridX, gridY, type);
-    }
-    
-    template<typename T>
-    void loadArray(std::vector<T*>& items, rapidjson::Document& d, const char * key)
-    {
-        using namespace rapidjson;
-        
-        if (d.HasMember(key))
-        {
-            Value& v = d[key];
-            assert(v.IsArray());
-            
-            for (SizeType i = 0; i < v.Size(); i++)
-            {
-                items.push_back(deserialize<T>(v[i]));
-            }
-        }
-    }
-    
-    template<typename T>
-    void saveArray(std::vector<T*>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
-    {
-        w.String(key);
-        w.StartArray();
-        
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-        {
-            serialize((*i), w);
-        }
-        
-        w.EndArray();
-    }
     
     void onLoaded();
     

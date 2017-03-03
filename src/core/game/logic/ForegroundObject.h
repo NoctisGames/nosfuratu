@@ -12,14 +12,14 @@
 #include "GridLockedPhysicalEntity.h"
 
 #include "GroundSoundType.h"
-#include "Jon.h"
-#include "GameConstants.h"
-#include "NGRect.h"
 #include "ForegroundObjectType.h"
+#include "Color.h"
 
 #include "RTTI.h"
 
 class Game;
+class Jon;
+class NGRect;
 
 class ForegroundObject : public GridLockedPhysicalEntity
 {
@@ -32,7 +32,7 @@ public:
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
-	virtual int getEntityLandingPriority() { return 0; }
+    virtual int getEntityLandingPriority();
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
@@ -52,7 +52,7 @@ public:
     
     void setGame(Game* game);
 
-	Color getColor() { return m_color; }
+    Color getColor();
 
 protected:
     Game* m_game;
@@ -74,7 +74,7 @@ class PlatformObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
 	virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
@@ -88,85 +88,27 @@ class FloatingPlatformObject : public PlatformObject
     RTTI_DECL;
     
 public:
-    FloatingPlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : PlatformObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fOriginalY(0), m_isIdle(true), m_isWeighted(false)
-    {
-        float x = m_position.getX();
-        float y = m_position.getY() - m_fHeight / 2 + 0.1f;
-        m_idlePoof = std::unique_ptr<PhysicalEntity>(new PhysicalEntity(x, y - 0.31640625f / 2, 0.4921875f, 0.31640625f));
-        m_addedWeightPoof = std::unique_ptr<PhysicalEntity>(new PhysicalEntity(x, y - 1.51171875f / 2, 1.40625f, 1.51171875f));
-        
-        onMoved();
-    }
+    FloatingPlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
-    virtual void update(float deltaTime)
-    {
-        m_position.add(m_velocity.getX() * deltaTime, m_velocity.getY() * deltaTime);
-        
-        float x = m_position.getX();
-        float y = m_position.getY() - m_fHeight / 2 + 0.1f;
-        m_idlePoof->getPosition().set(x, y - 0.31640625f / 2);
-        m_addedWeightPoof->getPosition().set(x, y - 1.51171875f / 2);
-        
-        m_idlePoof->update(deltaTime);
-        m_addedWeightPoof->update(deltaTime);
-        
-        if (m_isIdle)
-        {
-            if (m_position.getY() > (m_fOriginalY + 0.1f))
-            {
-                m_velocity.setY(-0.2f);
-            }
-            else if (m_position.getY() < (m_fOriginalY - 0.1f))
-            {
-                m_velocity.setY(0.2f);
-            }
-        }
-    }
+    ~FloatingPlatformObject();
     
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime)
-    {
-        if (PlatformObject::isEntityLanding(entity, deltaTime))
-        {
-            m_isIdle = false;
-            m_isWeighted = true;
-            
-            m_position.setY(m_fOriginalY - 0.2f);
-            m_velocity.setY(0);
-            
-            return true;
-        }
-        
-        m_isIdle = true;
-        m_isWeighted = false;
-        
-        return false;
-    }
+    virtual void update(float deltaTime);
     
-    void onMoved()
-    {
-        m_fOriginalY = m_position.getY();
-        
-        // One time
-        getMainBounds().setWidth(getWidth());
-        getMainBounds().setHeight(getHeight());
-        
-        PhysicalEntity::updateBounds();
-        
-        getMainBounds().getLowerLeft().add(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
-        getMainBounds().setWidth(getWidth() * m_fBoundsWidth);
-        getMainBounds().setHeight(getHeight() * m_fBoundsHeight);
-        
-        m_velocity.setY(-0.25f);
-    }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    PhysicalEntity& getIdlePoof() { return *m_idlePoof; }
-    PhysicalEntity& getAddedWeightPoof() { return *m_addedWeightPoof; }
-    bool isIdle() { return m_isIdle; }
-    bool isWeighted() { return m_isWeighted; }
+    void onMoved();
+    
+    PhysicalEntity& getIdlePoof();
+    
+    PhysicalEntity& getAddedWeightPoof();
+    
+    bool isIdle();
+    
+    bool isWeighted();
     
 private:
-    std::unique_ptr<PhysicalEntity> m_idlePoof;
-    std::unique_ptr<PhysicalEntity> m_addedWeightPoof;
+    PhysicalEntity* m_idlePoof;
+    PhysicalEntity* m_addedWeightPoof;
     float m_fOriginalY;
     bool m_isIdle;
     bool m_isWeighted;
@@ -177,9 +119,11 @@ class DeadlyObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+    
+    virtual int getEntityLandingPriority();
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
@@ -188,8 +132,6 @@ public:
 	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
-
-	virtual int getEntityLandingPriority() { return 1; }
 };
 
 class LandingDeathObject : public ForegroundObject
@@ -197,11 +139,11 @@ class LandingDeathObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
-	virtual int getEntityLandingPriority() { return 1; }
+    virtual int getEntityLandingPriority();
 };
 
 class RunningIntoDeathObject : public ForegroundObject
@@ -209,7 +151,7 @@ class RunningIntoDeathObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    RunningIntoDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    RunningIntoDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type);
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 };
@@ -219,7 +161,7 @@ class DeathFromAboveObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };
@@ -229,13 +171,13 @@ class ProvideBoostObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fBoostVelocity(boostVelocity), m_isBoosting(false) {}
+    ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity);
     
     virtual void update(float deltaTime);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
-	virtual int getEntityLandingPriority() { return 1; }
+    virtual int getEntityLandingPriority();
     
 private:
     float m_fBoostVelocity;
@@ -247,22 +189,18 @@ class ExtraForegroundObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    static ExtraForegroundObject* create(int gridX, int gridY, int type)
-    {
-        return reinterpret_cast<ExtraForegroundObject *>(ForegroundObject::create(gridX, gridY, type));
-    }
+    static ExtraForegroundObject* create(int gridX, int gridY, int type);
     
-    ExtraForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_shadow(nullptr)
-    {
-        m_shadow = std::unique_ptr<ForegroundObject>(ForegroundObject::create(gridX, gridY, shadowType));
-    }
+    ExtraForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
+    
+    ~ExtraForegroundObject();
     
     virtual void update(float deltaTime);
     
-    ForegroundObject& getShadow() { return *m_shadow; }
+    ForegroundObject& getShadow();
     
 protected:
-    std::unique_ptr<ForegroundObject> m_shadow;
+    ForegroundObject* m_shadow;
 };
 
 class EndSign : public ForegroundObject
@@ -270,13 +208,13 @@ class EndSign : public ForegroundObject
     RTTI_DECL;
     
 public:
-    EndSign(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type) {}
+    EndSign(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type);
     
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
-	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
 };
 
 class JumpSpringLightFlush : public ProvideBoostObject
@@ -284,7 +222,7 @@ class JumpSpringLightFlush : public ProvideBoostObject
     RTTI_DECL;
     
 public:
-    JumpSpringLightFlush(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ProvideBoostObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight, boostVelocity) {}
+    JumpSpringLightFlush(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity);
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
@@ -298,7 +236,7 @@ class VerticalSaw : public DeadlyObject
     RTTI_DECL;
     
 public:
-    VerticalSaw(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isOnScreen(false) {}
+    VerticalSaw(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void updateBounds();
     
@@ -311,7 +249,7 @@ class GiantShakingTree : public ForegroundObject
     RTTI_DECL;
     
 public:
-    GiantShakingTree(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isShaking(false) {}
+    GiantShakingTree(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void update(float deltaTime);
     
@@ -326,12 +264,7 @@ class SpikeTower : public ExtraForegroundObject
     RTTI_DECL;
     
 public:
-    SpikeTower(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ExtraForegroundObject(gridX, gridY, gridWidth, gridHeight, type, shadowType, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
-    {
-		m_bounds.push_back(new NGRect(0, 0, 1, 1));
-
-        updateBounds();
-    }
+    SpikeTower(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void updateBounds();
     
@@ -345,18 +278,13 @@ class SpikedBallRollingLeft : public DeadlyObject
     RTTI_DECL;
     
 public:
-    SpikedBallRollingLeft(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
-		m_isOnScreen(false),
-		m_isStopped(false),
-		m_needsToPlaySound(false),
-		m_isActivated(false),
-		m_hasFallen(false) {}
+    SpikedBallRollingLeft(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
 
-	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
 	void stop();
     
@@ -373,18 +301,13 @@ class SpikedBallRollingRight : public DeadlyObject
     RTTI_DECL;
     
 public:
-	SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
-		m_isOnScreen(false),
-		m_isStopped(false),
-		m_needsToPlaySound(false),
-		m_isActivated(false),
-		m_hasFallen(false) {}
+    SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void update(float deltaTime);
     
     virtual void updateBounds();
 
-	virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
 	void stop();
     
@@ -401,15 +324,11 @@ class SpikedBall : public DeadlyObject
     RTTI_DECL;
     
 public:
-    SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isFalling(false), m_hasTriggeredSnakeHit(false) {}
+    SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual void update(float deltaTime);
     
-    void fall()
-    {
-        m_isFalling = true;
-        m_velocity.setY(GAME_GRAVITY);
-    }
+    void fall();
     
 private:
     bool m_isFalling;
@@ -421,13 +340,13 @@ class SpikedBallChain : public ForegroundObject
     RTTI_DECL;
     
 public:
-    SpikedBallChain(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_spikedBall(nullptr), m_isSnapping(false), m_hasTriggeredSpikedBall(false) {}
+    SpikedBallChain(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
-	void setSpikedBall(SpikedBall* spikedBall) { m_spikedBall = spikedBall; }
+    void setSpikedBall(SpikedBall* spikedBall);
     
     virtual void update(float deltaTime);
     
@@ -448,80 +367,7 @@ class BlockingObject : public ForegroundObject
     RTTI_DECL;
     
 public:
-    BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
-    {
-        switch (type)
-        {
-            case ForegroundObjectType_Stone_Bottom:
-            {
-                static float sz = 384.0f;
-                
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                
-                m_normalizedBounds.push_back(new NGRect(20 / sz, 0, 348 / sz, 157 / sz));
-                m_normalizedBounds.push_back(new NGRect(40 / sz, 170 / sz, 304 / sz, 58 / sz));
-                m_normalizedBounds.push_back(new NGRect(144 / sz, 230 / sz, 116 / sz, 138 / sz));
-            }
-                break;
-            case ForegroundObjectType_Stone_Middle:
-            {
-                static float sz = 384.0f;
-                
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                
-                m_normalizedBounds.push_back(new NGRect(187 / sz, 12 / sz, 81 / sz, 78 / sz));
-                m_normalizedBounds.push_back(new NGRect(77 / sz, 97 / sz, 200 / sz, 56 / sz));
-                m_normalizedBounds.push_back(new NGRect(18 / sz, 163 / sz, 317 / sz, 50 / sz));
-                m_normalizedBounds.push_back(new NGRect(66 / sz, 217 / sz, 249 / sz, 63 / sz));
-                m_normalizedBounds.push_back(new NGRect(122 / sz, 282 / sz, 114 / sz, 73 / sz));
-            }
-                break;
-            case ForegroundObjectType_Stone_Top:
-            {
-                static float szw = 448.0f;
-                static float szh = 384.0f;
-                
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                
-                m_normalizedBounds.push_back(new NGRect(8 / szw, 329 / szh, 432 / szw, 38 / szh));
-                m_normalizedBounds.push_back(new NGRect(44 / szw, 255 / szh, 360 / szw, 69 / szh));
-                m_normalizedBounds.push_back(new NGRect(118 / szw, 118 / szh, 243 / szw, 135 / szh));
-                m_normalizedBounds.push_back(new NGRect(158 / szw, 32 / szh, 152 / szw, 84 / szh));
-            }
-                break;
-            case ForegroundObjectType_Stone_Platform:
-            {
-                static float szw = 448.0f;
-                static float szh = 112.0f;
-                
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                
-                m_normalizedBounds.push_back(new NGRect(8 / szw, 57 / szh, 432 / szw, 38 / szh));
-                m_normalizedBounds.push_back(new NGRect(41 / szw, 20 / szh, 358 / szw, 38 / szh));
-            }
-                break;
-            case ForegroundObjectType_Stone_Square:
-            {
-                static float sz = 384.0f;
-                
-                m_bounds.push_back(new NGRect(0, 0, 1, 1));
-                m_normalizedBounds.push_back(new NGRect(8 / sz, 8 / sz, 368 / sz, 368 / sz));
-            }
-                break;
-            default:
-                assert(false);
-        }
-    }
+    BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual ~BlockingObject();
     

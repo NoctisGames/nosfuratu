@@ -29,29 +29,29 @@ public:
     
     ForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
-    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
-    virtual int getEntityLandingPriority() { return 0; }
+    virtual int getEntityLandingPriority();
     
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime) { return false; }
+    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
-    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime) { return false; }
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
-    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime) { return false; }
+    virtual bool isJonHittingHorizontally(Jon& jon, float deltaTime);
     
-    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime) { return false; }
+    virtual bool isJonHittingFromBelow(Jon& jon, float deltaTime);
     
-    virtual bool canObjectBePlacedOn() { return false; }
+    virtual bool canObjectBePlacedOn();
     
-    ForegroundCoverObjectType getType() { return m_type; }
+    ForegroundCoverObjectType getType();
     
-    GroundSoundType getGroundSoundType() { return m_groundSoundType; }
+    GroundSoundType getGroundSoundType();
     
-    void setGame(Game* game) { m_game = game; }
+    void setGame(Game* game);
     
-    Color getColor() { return m_color; }
+    Color getColor();
     
 protected:
     Game* m_game;
@@ -67,7 +67,7 @@ class LandableForegroundCoverObject : public ForegroundCoverObject
     RTTI_DECL;
     
 public:
-    LandableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1) : ForegroundCoverObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight) {}
+    LandableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     

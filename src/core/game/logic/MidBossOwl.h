@@ -47,9 +47,9 @@ public:
     
     int getDamage();
     
-    bool didJonTransform() { return m_didJonTransform; }
+    bool didJonTransform();
 
-	void givePlayerAFreeHit() { m_giveFreeHit = true; }
+    void givePlayerAFreeHit();
     
 private:
     Game* m_game;

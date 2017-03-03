@@ -7,12 +7,34 @@
 //
 
 #include "Game.h"
+
+#include "Vector2D.h"
+#include "PhysicalEntity.h"
+#include "Background.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "CountHissWithMina.h"
+#include "EndBossSnake.h"
+#include "Enemy.h"
+#include "CollectibleItem.h"
+#include "Jon.h"
+#include "ForegroundCoverObject.h"
+#include "GameMarker.h"
+#include "NGRect.h"
+
 #include "GameConstants.h"
 #include "EntityUtils.h"
 #include "OverlapTester.h"
 #include "Assets.h"
 #include "GridManager.h"
 #include "VectorUtil.h"
+
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 #define worldKey "world"
 #define levelKey "level"
@@ -64,23 +86,23 @@ void Game::copy(Game* game)
     m_iLevel = game->getLevel();
     m_isLevelEditor = game->isLevelEditor();
     
-    copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
-    copyPhysicalEntities(game->getGrounds(), m_grounds);
-    copyPhysicalEntities(game->getPits(), m_pits);
-    copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
-    copyPhysicalEntities(game->getHoles(), m_holes);
-    copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
-    copyPhysicalEntities(game->getMidBossForegroundObjects(), m_midBossForegroundObjects);
-    copyPhysicalEntities(game->getEndBossForegroundObjects(), m_endBossForegroundObjects);
-    copyPhysicalEntities(game->getCountHissWithMinas(), m_countHissWithMinas);
-    copyPhysicalEntities(game->getEndBossSnakes(), m_endBossSnakes);
-    copyPhysicalEntities(game->getEnemies(), m_enemies);
-    copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
-    copyPhysicalEntities(game->getJons(), m_jons);
-    copyPhysicalEntities(game->getExtraForegroundObjects(), m_extraForegroundObjects);
-    copyPhysicalEntities(game->getForegroundCoverObjects(), m_foregroundCoverObjects);
+    EntityUtils::copyPhysicalEntities(game->getMidgrounds(), m_midgrounds);
+    EntityUtils::copyPhysicalEntities(game->getGrounds(), m_grounds);
+    EntityUtils::copyPhysicalEntities(game->getPits(), m_pits);
+    EntityUtils::copyPhysicalEntities(game->getExitGrounds(), m_exitGrounds);
+    EntityUtils::copyPhysicalEntities(game->getHoles(), m_holes);
+    EntityUtils::copyPhysicalEntities(game->getForegroundObjects(), m_foregroundObjects);
+    EntityUtils::copyPhysicalEntities(game->getMidBossForegroundObjects(), m_midBossForegroundObjects);
+    EntityUtils::copyPhysicalEntities(game->getEndBossForegroundObjects(), m_endBossForegroundObjects);
+    EntityUtils::copyPhysicalEntities(game->getCountHissWithMinas(), m_countHissWithMinas);
+    EntityUtils::copyPhysicalEntities(game->getEndBossSnakes(), m_endBossSnakes);
+    EntityUtils::copyPhysicalEntities(game->getEnemies(), m_enemies);
+    EntityUtils::copyPhysicalEntities(game->getCollectibleItems(), m_collectibleItems);
+    EntityUtils::copyPhysicalEntities(game->getJons(), m_jons);
+    EntityUtils::copyPhysicalEntities(game->getExtraForegroundObjects(), m_extraForegroundObjects);
+    EntityUtils::copyPhysicalEntities(game->getForegroundCoverObjects(), m_foregroundCoverObjects);
     
-    copyPhysicalEntities(game->getMarkers(), m_markers);
+    EntityUtils::copyPhysicalEntities(game->getMarkers(), m_markers);
     
     onLoaded();
 }
@@ -103,23 +125,23 @@ void Game::load(const char* json)
         m_iLevel = d[levelKey].GetInt();
     }
     
-    loadArray(m_midgrounds, d, midgroundsKey);
-    loadArray(m_grounds, d, groundsKey);
-    loadArray(m_pits, d, pitsKey);
-    loadArray(m_exitGrounds, d, exitGroundsKey);
-    loadArray(m_holes, d, holesKey);
-    loadArray(m_foregroundObjects, d, foregroundObjectsKey);
-    loadArray(m_midBossForegroundObjects, d, midBossForegroundObjectsKey);
-    loadArray(m_endBossForegroundObjects, d, endBossForegroundObjectsKey);
-    loadArray(m_countHissWithMinas, d, countHissWithMinasKey);
-    loadArray(m_endBossSnakes, d, endBossSnakesKey);
-    loadArray(m_enemies, d, enemiesKey);
-    loadArray(m_collectibleItems, d, collectiblesKey);
-    loadArray(m_jons, d, jonsKey);
-    loadArray(m_extraForegroundObjects, d, extraForegroundObjectsKey);
-    loadArray(m_foregroundCoverObjects, d, foregroundCoverObjectsKey);
+    EntityUtils::loadArray(m_midgrounds, d, midgroundsKey);
+    EntityUtils::loadArray(m_grounds, d, groundsKey);
+    EntityUtils::loadArray(m_pits, d, pitsKey);
+    EntityUtils::loadArray(m_exitGrounds, d, exitGroundsKey);
+    EntityUtils::loadArray(m_holes, d, holesKey);
+    EntityUtils::loadArray(m_foregroundObjects, d, foregroundObjectsKey);
+    EntityUtils::loadArray(m_midBossForegroundObjects, d, midBossForegroundObjectsKey);
+    EntityUtils::loadArray(m_endBossForegroundObjects, d, endBossForegroundObjectsKey);
+    EntityUtils::loadArray(m_countHissWithMinas, d, countHissWithMinasKey);
+    EntityUtils::loadArray(m_endBossSnakes, d, endBossSnakesKey);
+    EntityUtils::loadArray(m_enemies, d, enemiesKey);
+    EntityUtils::loadArray(m_collectibleItems, d, collectiblesKey);
+    EntityUtils::loadArray(m_jons, d, jonsKey);
+    EntityUtils::loadArray(m_extraForegroundObjects, d, extraForegroundObjectsKey);
+    EntityUtils::loadArray(m_foregroundCoverObjects, d, foregroundCoverObjectsKey);
     
-    loadArray(m_markers, d, markersKey);
+    EntityUtils::loadArray(m_markers, d, markersKey);
     
     onLoaded();
 }
@@ -141,23 +163,23 @@ const char* Game::save()
     w.String(levelKey);
     w.Int(m_iLevel);
     
-    saveArray(m_midgrounds, w, midgroundsKey);
-    saveArray(m_grounds, w, groundsKey);
-    saveArray(m_pits, w, pitsKey);
-    saveArray(m_exitGrounds, w, exitGroundsKey);
-    saveArray(m_holes, w, holesKey);
-    saveArray(m_foregroundObjects, w, foregroundObjectsKey);
-    saveArray(m_midBossForegroundObjects, w, midBossForegroundObjectsKey);
-    saveArray(m_endBossForegroundObjects, w, endBossForegroundObjectsKey);
-    saveArray(m_countHissWithMinas, w, countHissWithMinasKey);
-    saveArray(m_endBossSnakes, w, endBossSnakesKey);
-    saveArray(m_enemies, w, enemiesKey);
-    saveArray(m_collectibleItems, w, collectiblesKey);
-    saveArray(m_jons, w, jonsKey);
-    saveArray(m_extraForegroundObjects, w, extraForegroundObjectsKey);
-    saveArray(m_foregroundCoverObjects, w, foregroundCoverObjectsKey);
+    EntityUtils::saveArray(m_midgrounds, w, midgroundsKey);
+    EntityUtils::saveArray(m_grounds, w, groundsKey);
+    EntityUtils::saveArray(m_pits, w, pitsKey);
+    EntityUtils::saveArray(m_exitGrounds, w, exitGroundsKey);
+    EntityUtils::saveArray(m_holes, w, holesKey);
+    EntityUtils::saveArray(m_foregroundObjects, w, foregroundObjectsKey);
+    EntityUtils::saveArray(m_midBossForegroundObjects, w, midBossForegroundObjectsKey);
+    EntityUtils::saveArray(m_endBossForegroundObjects, w, endBossForegroundObjectsKey);
+    EntityUtils::saveArray(m_countHissWithMinas, w, countHissWithMinasKey);
+    EntityUtils::saveArray(m_endBossSnakes, w, endBossSnakesKey);
+    EntityUtils::saveArray(m_enemies, w, enemiesKey);
+    EntityUtils::saveArray(m_collectibleItems, w, collectiblesKey);
+    EntityUtils::saveArray(m_jons, w, jonsKey);
+    EntityUtils::saveArray(m_extraForegroundObjects, w, extraForegroundObjectsKey);
+    EntityUtils::saveArray(m_foregroundCoverObjects, w, foregroundCoverObjectsKey);
     
-    saveArray(m_markers, w, markersKey);
+    EntityUtils::saveArray(m_markers, w, markersKey);
     
     w.EndObject();
     
@@ -673,6 +695,16 @@ void Game::calcFarRight()
 void Game::setStateTime(float stateTime)
 {
     m_fStateTime = stateTime;
+}
+
+void Game::setIsLevelEditor(bool isLevelEditor)
+{
+    m_isLevelEditor = isLevelEditor;
+}
+
+bool Game::isLevelEditor()
+{
+    return m_isLevelEditor;
 }
 
 #pragma mark private

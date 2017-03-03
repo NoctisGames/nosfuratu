@@ -14,9 +14,20 @@
 #include "NGRect.h"
 #include "Jon.h"
 #include "GameConstants.h"
+#include "Ground.h"
+#include "ForegroundObject.h"
+#include "GameMarker.h"
+
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 #include <math.h>
 #include <vector>
+
+#define gridXKey "gridX"
+#define gridYKey "gridY"
+#define typeKey "type"
 
 class EntityUtils
 {
@@ -554,6 +565,78 @@ public:
         }
         
         return index;
+    }
+    
+    template<typename T>
+    static void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)
+    {
+        for (typename std::vector<T*>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        {
+            itemsTo.push_back(T::create((*i)->getGridX(), (*i)->getGridY(), (*i)->getType()));
+        }
+    }
+    
+    template<typename T>
+    static void serialize(T* item, rapidjson::Writer<rapidjson::StringBuffer>& w)
+    {
+        w.StartObject();
+        w.String(gridXKey);
+        w.Int(item->getGridX());
+        w.String(gridYKey);
+        w.Int(item->getGridY());
+        int type = item->getType();
+        if (type != -1)
+        {
+            w.String(typeKey);
+            w.Int(type);
+        }
+        
+        w.EndObject();
+    }
+    
+    template<typename T>
+    static T* deserialize(rapidjson::Value& v)
+    {
+        int gridX = v[gridXKey].GetInt();
+        int gridY = v[gridYKey].GetInt();
+        int type = 0;
+        if (v.HasMember(typeKey))
+        {
+            type = v[typeKey].GetInt();
+        }
+        
+        return T::create(gridX, gridY, type);
+    }
+    
+    template<typename T>
+    static void loadArray(std::vector<T*>& items, rapidjson::Document& d, const char * key)
+    {
+        using namespace rapidjson;
+        
+        if (d.HasMember(key))
+        {
+            Value& v = d[key];
+            assert(v.IsArray());
+            
+            for (SizeType i = 0; i < v.Size(); i++)
+            {
+                items.push_back(deserialize<T>(v[i]));
+            }
+        }
+    }
+    
+    template<typename T>
+    static void saveArray(std::vector<T*>& items, rapidjson::Writer<rapidjson::StringBuffer>& w, const char * key)
+    {
+        w.String(key);
+        w.StartArray();
+        
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        {
+            serialize((*i), w);
+        }
+        
+        w.EndArray();
     }
     
 private:

@@ -8,11 +8,16 @@
 
 #include "ForegroundObject.h"
 
+#include "Game.h"
+#include "Jon.h"
+#include "NGRect.h"
+
 #include "EntityUtils.h"
 #include "Assets.h"
-#include "Game.h"
 #include "SoundManager.h"
 #include "VectorUtil.h"
+#include "GameConstants.h"
+#include "EndBossSnake.h"
 
 #include <math.h>
 
@@ -187,6 +192,11 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return isEntityLanding(entity, getMainBounds(), deltaTime);
 }
 
+int ForegroundObject::getEntityLandingPriority()
+{
+    return 0;
+}
+
 bool ForegroundObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return isEntityBlockedOnRight(entity, getMainBounds(), deltaTime);
@@ -230,6 +240,11 @@ GroundSoundType ForegroundObject::getGroundSoundType()
 void ForegroundObject::setGame(Game* game)
 {
     m_game = game;
+}
+
+Color ForegroundObject::getColor()
+{
+    return m_color;
 }
 
 #pragma mark protected
@@ -335,6 +350,11 @@ bool ForegroundObject::isEntityBlockedOnLeft(PhysicalEntity* entity, NGRect& bou
 
 #pragma mark subclasses
 
+PlatformObject::PlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    // Empty
+}
+
 bool PlatformObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     return false;
@@ -348,6 +368,108 @@ bool PlatformObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTi
 bool PlatformObject::canObjectBePlacedOn()
 {
     return true;
+}
+
+FloatingPlatformObject::FloatingPlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PlatformObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fOriginalY(0), m_isIdle(true), m_isWeighted(false)
+{
+    float x = m_position.getX();
+    float y = m_position.getY() - m_fHeight / 2 + 0.1f;
+    m_idlePoof = new PhysicalEntity(x, y - 0.31640625f / 2, 0.4921875f, 0.31640625f);
+    m_addedWeightPoof = new PhysicalEntity(x, y - 1.51171875f / 2, 1.40625f, 1.51171875f);
+    
+    onMoved();
+}
+
+FloatingPlatformObject::~FloatingPlatformObject()
+{
+    delete m_idlePoof;
+    delete m_addedWeightPoof;
+}
+
+void FloatingPlatformObject::update(float deltaTime)
+{
+    m_position.add(m_velocity.getX() * deltaTime, m_velocity.getY() * deltaTime);
+    
+    float x = m_position.getX();
+    float y = m_position.getY() - m_fHeight / 2 + 0.1f;
+    m_idlePoof->getPosition().set(x, y - 0.31640625f / 2);
+    m_addedWeightPoof->getPosition().set(x, y - 1.51171875f / 2);
+    
+    m_idlePoof->update(deltaTime);
+    m_addedWeightPoof->update(deltaTime);
+    
+    if (m_isIdle)
+    {
+        if (m_position.getY() > (m_fOriginalY + 0.1f))
+        {
+            m_velocity.setY(-0.2f);
+        }
+        else if (m_position.getY() < (m_fOriginalY - 0.1f))
+        {
+            m_velocity.setY(0.2f);
+        }
+    }
+}
+
+bool FloatingPlatformObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    if (PlatformObject::isEntityLanding(entity, deltaTime))
+    {
+        m_isIdle = false;
+        m_isWeighted = true;
+        
+        m_position.setY(m_fOriginalY - 0.2f);
+        m_velocity.setY(0);
+        
+        return true;
+    }
+    
+    m_isIdle = true;
+    m_isWeighted = false;
+    
+    return false;
+}
+
+void FloatingPlatformObject::onMoved()
+{
+    m_fOriginalY = m_position.getY();
+    
+    // One time
+    getMainBounds().setWidth(getWidth());
+    getMainBounds().setHeight(getHeight());
+    
+    PhysicalEntity::updateBounds();
+    
+    getMainBounds().getLowerLeft().add(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+    getMainBounds().setWidth(getWidth() * m_fBoundsWidth);
+    getMainBounds().setHeight(getHeight() * m_fBoundsHeight);
+    
+    m_velocity.setY(-0.25f);
+}
+
+PhysicalEntity& FloatingPlatformObject::getIdlePoof()
+{
+    return *m_idlePoof;
+}
+
+PhysicalEntity& FloatingPlatformObject::getAddedWeightPoof()
+{
+    return *m_addedWeightPoof;
+}
+
+bool FloatingPlatformObject::isIdle()
+{
+    return m_isIdle;
+}
+
+bool FloatingPlatformObject::isWeighted()
+{
+    return m_isWeighted;
+}
+
+DeadlyObject::DeadlyObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    // Empty
 }
 
 bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -372,6 +494,11 @@ bool DeadlyObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     }
     
     return false;
+}
+
+int DeadlyObject::getEntityLandingPriority()
+{
+    return 1;
 }
 
 bool DeadlyObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
@@ -448,6 +575,11 @@ bool DeadlyObject::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
+LandingDeathObject::LandingDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    // Empty
+}
+
 bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     if (ForegroundObject::isEntityLanding(entity, deltaTime))
@@ -461,6 +593,16 @@ bool LandingDeathObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
     }
     
     return false;
+}
+
+int LandingDeathObject::getEntityLandingPriority()
+{
+    return 1;
+}
+
+RunningIntoDeathObject::RunningIntoDeathObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type)
+{
+    // Empty
 }
 
 bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
@@ -478,6 +620,11 @@ bool RunningIntoDeathObject::isEntityBlockedOnRight(PhysicalEntity* entity, floa
     return false;
 }
 
+DeathFromAboveObject::DeathFromAboveObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, GROUND_SOUND_NONE, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    // Empty
+}
+
 bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
 {
     float entityVelocityY = jon.getVelocity().getY();
@@ -490,6 +637,11 @@ bool DeathFromAboveObject::isJonBlockedAbove(Jon& jon, float deltaTime)
     }
     
     return false;
+}
+
+ProvideBoostObject::ProvideBoostObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fBoostVelocity(boostVelocity), m_isBoosting(false)
+{
+    // Empty
 }
 
 void ProvideBoostObject::update(float deltaTime)
@@ -527,14 +679,63 @@ bool ProvideBoostObject::isEntityLanding(PhysicalEntity* entity, float deltaTime
     return false;
 }
 
-bool JumpSpringLightFlush::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+int ProvideBoostObject::getEntityLandingPriority()
+{
+    return 1;
+}
+
+ExtraForegroundObject* ExtraForegroundObject::create(int gridX, int gridY, int type)
+{
+    return reinterpret_cast<ExtraForegroundObject *>(ForegroundObject::create(gridX, gridY, type));
+}
+
+ExtraForegroundObject::ExtraForegroundObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_shadow(nullptr)
+{
+    m_shadow = ForegroundObject::create(gridX, gridY, shadowType);
+}
+
+ExtraForegroundObject::~ExtraForegroundObject()
+{
+    delete m_shadow;
+}
+
+void ExtraForegroundObject::update(float deltaTime)
+{
+    ForegroundObject::update(deltaTime);
+    
+    m_shadow->update(deltaTime);
+    m_shadow->getPosition().set(getPosition());
+    m_shadow->updateBounds();
+}
+
+ForegroundObject& ExtraForegroundObject::getShadow()
+{
+    return *m_shadow;
+}
+
+EndSign::EndSign(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type)
+{
+    // Empty
+}
+
+bool EndSign::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     return false;
 }
 
-bool JumpSpringLightFlush::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+bool EndSign::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-	return false;
+    return false;
+}
+
+bool EndSign::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
+JumpSpringLightFlush::JumpSpringLightFlush(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight, float boostVelocity) : ProvideBoostObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight, boostVelocity)
+{
+    // Empty
 }
 
 bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bounds, float deltaTime)
@@ -549,7 +750,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bound
         {
             float itemTop = bounds.getTop();
             
-			entity->placeOn(itemTop);
+            entity->placeOn(itemTop);
             
             Jon *jon = nullptr;
             if (entity->getRTTI().derivesFrom(Jon::rtti))
@@ -563,6 +764,54 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bound
     }
     
     return false;
+}
+
+bool JumpSpringLightFlush::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
+bool JumpSpringLightFlush::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+	return false;
+}
+
+VerticalSaw::VerticalSaw(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isOnScreen(false)
+{
+    // Empty
+}
+
+void VerticalSaw::updateBounds()
+{
+    DeadlyObject::updateBounds();
+    
+    NGRect& camBounds = *m_game->getCameraBounds();
+    
+    if (camBounds.getWidth() > CAM_WIDTH)
+    {
+        return;
+    }
+    
+    if (OverlapTester::doNGRectsOverlap(camBounds, getMainBounds()))
+    {
+        if (!m_isOnScreen)
+        {
+            m_isOnScreen = true;
+            
+            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
+        }
+    }
+    else if (m_isOnScreen)
+    {
+        m_isOnScreen = false;
+        
+        SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+    }
+}
+
+GiantShakingTree::GiantShakingTree(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isShaking(false)
+{
+    // Empty
 }
 
 void GiantShakingTree::update(float deltaTime)
@@ -584,13 +833,11 @@ void GiantShakingTree::triggerHit()
     m_isShaking = true;
 }
 
-void ExtraForegroundObject::update(float deltaTime)
+SpikeTower::SpikeTower(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, ForegroundObjectType shadowType, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ExtraForegroundObject(gridX, gridY, gridWidth, gridHeight, type, shadowType, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
 {
-    ForegroundObject::update(deltaTime);
+    m_bounds.push_back(new NGRect(0, 0, 1, 1));
     
-    m_shadow->update(deltaTime);
-    m_shadow->getPosition().set(getPosition());
-    m_shadow->updateBounds();
+    updateBounds();
 }
 
 void SpikeTower::updateBounds()
@@ -667,32 +914,14 @@ bool SpikeTower::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
     return ret;
 }
 
-void VerticalSaw::updateBounds()
+SpikedBallRollingLeft::SpikedBallRollingLeft(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
+m_isOnScreen(false),
+m_isStopped(false),
+m_needsToPlaySound(false),
+m_isActivated(false),
+m_hasFallen(false)
 {
-    DeadlyObject::updateBounds();
-    
-    NGRect& camBounds = *m_game->getCameraBounds();
-    
-    if (camBounds.getWidth() > CAM_WIDTH)
-    {
-        return;
-    }
-    
-    if (OverlapTester::doNGRectsOverlap(camBounds, getMainBounds()))
-    {
-        if (!m_isOnScreen)
-        {
-            m_isOnScreen = true;
-            
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
-        }
-    }
-    else if (m_isOnScreen)
-    {
-        m_isOnScreen = false;
-        
-        SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
-    }
+    // Empty
 }
 
 void SpikedBallRollingLeft::update(float deltaTime)
@@ -789,6 +1018,11 @@ void SpikedBallRollingLeft::updateBounds()
     }
 }
 
+bool SpikedBallRollingLeft::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
 void SpikedBallRollingLeft::stop()
 {
 	m_isStopped = true;
@@ -797,6 +1031,16 @@ void SpikedBallRollingLeft::stop()
 	m_acceleration.setX(0);
 
 	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+}
+
+SpikedBallRollingRight::SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
+m_isOnScreen(false),
+m_isStopped(false),
+m_needsToPlaySound(false),
+m_isActivated(false),
+m_hasFallen(false)
+{
+    // Empty
 }
 
 void SpikedBallRollingRight::update(float deltaTime)
@@ -892,6 +1136,11 @@ void SpikedBallRollingRight::updateBounds()
     }
 }
 
+bool SpikedBallRollingRight::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
 void SpikedBallRollingRight::stop()
 {
 	m_isStopped = true;
@@ -900,6 +1149,11 @@ void SpikedBallRollingRight::stop()
 	m_acceleration.setX(0);
 
 	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+}
+
+SpikedBall::SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isFalling(false), m_hasTriggeredSnakeHit(false)
+{
+    // Empty
 }
 
 void SpikedBall::update(float deltaTime)
@@ -938,6 +1192,32 @@ void SpikedBall::update(float deltaTime)
 			m_acceleration.setY(GAME_GRAVITY);
 		}
     }
+}
+
+void SpikedBall::fall()
+{
+    m_isFalling = true;
+    m_velocity.setY(GAME_GRAVITY);
+}
+
+SpikedBallChain::SpikedBallChain(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_spikedBall(nullptr), m_isSnapping(false), m_hasTriggeredSpikedBall(false)
+{
+    // Empty
+}
+
+bool SpikedBallChain::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
+bool SpikedBallChain::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
+void SpikedBallChain::setSpikedBall(SpikedBall* spikedBall)
+{
+    m_spikedBall = spikedBall;
 }
 
 void SpikedBallChain::update(float deltaTime)
@@ -1008,6 +1288,81 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
 void SpikedBallChain::trigger()
 {
 	m_color.alpha = 0;
+}
+
+BlockingObject::BlockingObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    switch (type)
+    {
+        case ForegroundObjectType_Stone_Bottom:
+        {
+            static float sz = 384.0f;
+            
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            
+            m_normalizedBounds.push_back(new NGRect(20 / sz, 0, 348 / sz, 157 / sz));
+            m_normalizedBounds.push_back(new NGRect(40 / sz, 170 / sz, 304 / sz, 58 / sz));
+            m_normalizedBounds.push_back(new NGRect(144 / sz, 230 / sz, 116 / sz, 138 / sz));
+        }
+            break;
+        case ForegroundObjectType_Stone_Middle:
+        {
+            static float sz = 384.0f;
+            
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            
+            m_normalizedBounds.push_back(new NGRect(187 / sz, 12 / sz, 81 / sz, 78 / sz));
+            m_normalizedBounds.push_back(new NGRect(77 / sz, 97 / sz, 200 / sz, 56 / sz));
+            m_normalizedBounds.push_back(new NGRect(18 / sz, 163 / sz, 317 / sz, 50 / sz));
+            m_normalizedBounds.push_back(new NGRect(66 / sz, 217 / sz, 249 / sz, 63 / sz));
+            m_normalizedBounds.push_back(new NGRect(122 / sz, 282 / sz, 114 / sz, 73 / sz));
+        }
+            break;
+        case ForegroundObjectType_Stone_Top:
+        {
+            static float szw = 448.0f;
+            static float szh = 384.0f;
+            
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            
+            m_normalizedBounds.push_back(new NGRect(8 / szw, 329 / szh, 432 / szw, 38 / szh));
+            m_normalizedBounds.push_back(new NGRect(44 / szw, 255 / szh, 360 / szw, 69 / szh));
+            m_normalizedBounds.push_back(new NGRect(118 / szw, 118 / szh, 243 / szw, 135 / szh));
+            m_normalizedBounds.push_back(new NGRect(158 / szw, 32 / szh, 152 / szw, 84 / szh));
+        }
+            break;
+        case ForegroundObjectType_Stone_Platform:
+        {
+            static float szw = 448.0f;
+            static float szh = 112.0f;
+            
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            
+            m_normalizedBounds.push_back(new NGRect(8 / szw, 57 / szh, 432 / szw, 38 / szh));
+            m_normalizedBounds.push_back(new NGRect(41 / szw, 20 / szh, 358 / szw, 38 / szh));
+        }
+            break;
+        case ForegroundObjectType_Stone_Square:
+        {
+            static float sz = 384.0f;
+            
+            m_bounds.push_back(new NGRect(0, 0, 1, 1));
+            m_normalizedBounds.push_back(new NGRect(8 / sz, 8 / sz, 368 / sz, 368 / sz));
+        }
+            break;
+        default:
+            assert(false);
+    }
 }
 
 BlockingObject::~BlockingObject()
