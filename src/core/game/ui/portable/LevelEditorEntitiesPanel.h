@@ -29,6 +29,7 @@
 #include "ForegroundCoverObject.h"
 #include "CountHissWithMina.h"
 
+#include <memory>
 #include <vector>
 #include <math.h>
 
