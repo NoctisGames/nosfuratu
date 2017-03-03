@@ -32,7 +32,7 @@ public:
     
     virtual void update(float deltaTime);
     
-    DustCloudType getType() { return m_type; }
+    DustCloudType getType();
     
     Color getColor();
     

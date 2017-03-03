@@ -41,6 +41,11 @@ void DustCloud::update(float deltaTime)
     }
 }
 
+DustCloudType DustCloud::getType()
+{
+    return m_type;
+}
+
 Color DustCloud::getColor()
 {
     return m_color;
