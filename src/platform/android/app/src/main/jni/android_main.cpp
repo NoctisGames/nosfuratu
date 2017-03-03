@@ -14,7 +14,7 @@
 #include "SoundManager.h"
 #include "MainAssets.h"
 #include "MainScreenTitle.h"
-#include "AndroidAssetsManager.h"
+#include "AndroidAssetDataHandler.h"
 #include "SuperpoweredSoundManager.h"
 #include "SuperpoweredAndroidAudioIO.h"
 #include "GameConstants.h"
