@@ -348,7 +348,7 @@ void Chapter1Level10::updateCamera(MainScreen* ms, float paddingX, bool ignoreY,
     if (m_isChaseCamActivated
         && m_game->getJon().getPosition().getY() > 9)
     {
-        ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), ms->m_fDeltaTime, paddingX, true, ignoreY, instant);
+        ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel, ms->m_fDeltaTime, paddingX, true, ignoreY, instant);
     }
     else
     {
@@ -382,6 +382,7 @@ void Chapter1Level10::configBatPanel()
 }
 
 Chapter1Level10::Chapter1Level10(const char* json) : Level(json),
+m_midBossOwl(new MidBossOwl(0, 0)),
 m_perchTree(nullptr),
 m_fJonY(0),
 m_fGameStateTime(0.0f),
@@ -399,7 +400,12 @@ m_hasTriggeredBurrow(false),
 m_showHintBecauseJonHasBeenCaptured(false),
 m_hasShownHintPopup(false)
 {
-    m_midBossOwl = std::unique_ptr<MidBossOwl>(new MidBossOwl(0, 0));
+    // Empty
+}
+
+Chapter1Level10::~Chapter1Level10()
+{
+    delete m_midBossOwl;
 }
 
 RTTI_IMPL(Chapter1Level10, Level);

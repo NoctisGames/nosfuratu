@@ -695,7 +695,7 @@ void Level::render(MainScreen* ms)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton.get(), m_isDisplayingResults ? m_continueButton.get() : nullptr, m_iScore);
+        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_isDisplayingResults ? m_continueButton : nullptr, m_iScore);
     }
 
 #if DEBUG || _DEBUG
@@ -730,7 +730,7 @@ void Level::render(MainScreen* ms)
 
 void Level::updateCamera(MainScreen* ms, float paddingX, bool ignoreY, bool instant)
 {
-    ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel.get(), ms->m_fDeltaTime, paddingX, false, ignoreY, instant);
+    ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel, ms->m_fDeltaTime, paddingX, false, ignoreY, instant);
 }
 
 void Level::additionalRenderingBeforeHud(MainScreen* ms)
@@ -1137,6 +1137,9 @@ Level::Level(const char* json) :
 m_json(json),
 m_game(nullptr),
 m_sourceGame(nullptr),
+m_batPanel(new BatPanel()),
+m_backButton(GameButton::create(GameButtonType_BackToLevelSelect)),
+m_continueButton(GameButton::create(GameButtonType_ContinueToLevelSelect)),
 m_fStateTime(0.0f),
 m_iScoreFromTime(0),
 m_iScoreFromObjects(0),
@@ -1163,13 +1166,15 @@ m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
 m_hasStoppedAllLoopingSoundsAfterJonDeath(false)
 {
-    m_batPanel = std::unique_ptr<BatPanel>(new BatPanel());
-    m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToLevelSelect));
-    m_continueButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ContinueToLevelSelect));
+    // Empty
 }
 
 Level::~Level()
 {
+    delete m_batPanel;
+    delete m_backButton;
+    delete m_continueButton;
+    
     if (m_createdOwnSourceGame)
     {
         delete m_sourceGame;

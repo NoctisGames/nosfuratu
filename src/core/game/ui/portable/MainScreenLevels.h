@@ -66,15 +66,15 @@ public:
     
     Game& getGame() { return *m_game; }
     
-    GameButton* getContinueButton() { return m_continueButton.get(); }
+    GameButton* getContinueButton() { return m_continueButton; }
     
 protected:
     const char* m_json;
     Game* m_game;
     Game* m_sourceGame;
-    std::unique_ptr<GameButton> m_backButton;
-    std::unique_ptr<GameButton> m_continueButton;
-    std::unique_ptr<BatPanel> m_batPanel;
+    GameButton* m_backButton;
+    GameButton* m_continueButton;
+    BatPanel* m_batPanel;
     float m_fStateTime;
     int m_iScoreFromTime;
     int m_iScoreFromObjects;
@@ -334,7 +334,7 @@ public:
 private:
     static Chapter1Level10* s_pInstance;
     
-    std::unique_ptr<MidBossOwl> m_midBossOwl;
+    MidBossOwl* m_midBossOwl;
     ForegroundObject* m_perchTree;
     float m_fJonY;
     float m_fGameStateTime;
@@ -364,6 +364,7 @@ private:
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level10(const char* json);
+    virtual ~Chapter1Level10();
     Chapter1Level10(const Chapter1Level10&);
     Chapter1Level10& operator=(const Chapter1Level10&);
 };
