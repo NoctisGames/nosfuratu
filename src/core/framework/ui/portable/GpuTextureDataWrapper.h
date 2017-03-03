@@ -16,7 +16,7 @@
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
 extern "C"
 {
-#include "image.h"
+#include "PngImageData.h"
 }
 #elif defined _WIN32
 #include "pch.h"
@@ -25,9 +25,9 @@ extern "C"
 struct GpuTextureDataWrapper
 {
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
-    RawImageData raw_image_data;
+    PngImageData raw_image_data;
     
-    GpuTextureDataWrapper(RawImageData raw_image_data_in) : raw_image_data(raw_image_data_in)
+    GpuTextureDataWrapper(PngImageData raw_image_data_in) : raw_image_data(raw_image_data_in)
     {
         // Empty
     }

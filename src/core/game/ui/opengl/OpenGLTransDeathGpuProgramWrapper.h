@@ -11,7 +11,7 @@
 
 #include "TransDeathGpuProgramWrapper.h"
 
-#include "OpenGLTransDeathProgram.h"
+class OpenGLTransDeathProgram;
 
 class OpenGLTransDeathGpuProgramWrapper : public TransDeathGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLTransDeathProgramStruct m_program;
+    OpenGLTransDeathProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLTransDeathGpuProgramWrapper__) */

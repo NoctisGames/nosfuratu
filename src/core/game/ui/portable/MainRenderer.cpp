@@ -33,7 +33,6 @@
 #include "GpuProgramWrapper.h"
 #include "TransitionGpuProgramWrapper.h"
 #include "PointTransitionGpuProgramWrapper.h"
-#include "SinWaveTextureGpuProgramWrapper.h"
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 #include "EndBossSnakeTextureGpuProgramWrapper.h"
 #include "ShockwaveTextureGpuProgramWrapper.h"
@@ -73,10 +72,10 @@ m_title_screen(new TextureWrapper("title_screen")),
 m_trans_death_shader_helper(new TextureWrapper("trans_death_shader_helper")),
 m_tutorial(new TextureWrapper(MAIN_ASSETS->isUsingGamePadTextureSet() ? "game_pad_tutorial" : MAIN_ASSETS->isUsingDesktopTextureSet() ? "d_tutorial" : MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_tutorial" : "tutorial")),
 m_vampire(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_vampire" : "vampire")),
-m_world_1_background_lower_part_1(new TextureWrapper("world_1_background_lower_part_1", 1)),
-m_world_1_background_lower_part_2(new TextureWrapper("world_1_background_lower_part_2", 1)),
-m_world_1_background_mid(new TextureWrapper("world_1_background_mid", 1)),
-m_world_1_background_upper(new TextureWrapper("world_1_background_upper", 1)),
+m_world_1_background_lower_part_1(new TextureWrapper("world_1_background_lower_part_1", true)),
+m_world_1_background_lower_part_2(new TextureWrapper("world_1_background_lower_part_2", true)),
+m_world_1_background_mid(new TextureWrapper("world_1_background_mid", true)),
+m_world_1_background_upper(new TextureWrapper("world_1_background_upper", true)),
 m_world_1_cutscene_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_cutscene_1" : "world_1_cutscene_1")),
 m_world_1_cutscene_2(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_cutscene_2" : "world_1_cutscene_2")),
 m_world_1_end_boss_part_1(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_world_1_end_boss_part_1" : "world_1_end_boss_part_1")),
@@ -95,7 +94,6 @@ m_world_map_screen_part_2(new TextureWrapper("world_map_screen_part_2")),
 m_transScreenGpuProgramWrapper(nullptr),
 m_fadeScreenGpuProgramWrapper(nullptr),
 m_pointTransScreenGpuProgramWrapper(nullptr),
-m_sinWaveTextureProgram(nullptr),
 m_backgroundGpuTextureProgramWrapper(nullptr),
 m_snakeDeathTextureProgram(nullptr),
 m_endBossSnakeTextureProgram(nullptr),
@@ -163,7 +161,6 @@ void MainRenderer::createDeviceDependentResources()
     m_transScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createTransScreenGpuProgramWrapper();
     m_fadeScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createFadeScreenGpuProgramWrapper();
     m_pointTransScreenGpuProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createPointTransScreenGpuProgramWrapper();
-    m_sinWaveTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSinWaveTextureProgram();
     m_backgroundGpuTextureProgramWrapper = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createBackgroundGpuTextureProgramWrapper();
     m_snakeDeathTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createSnakeDeathTextureProgram();
     m_endBossSnakeTextureProgram = MAIN_GPU_PROGRAM_WRAPPER_FACTORY->createEndBossSnakeTextureProgram();
@@ -216,9 +213,6 @@ void MainRenderer::releaseDeviceDependentResources()
 
     delete m_pointTransScreenGpuProgramWrapper;
 	m_pointTransScreenGpuProgramWrapper = nullptr;
-
-    delete m_sinWaveTextureProgram;
-	m_sinWaveTextureProgram = nullptr;
 
     delete m_backgroundGpuTextureProgramWrapper;
 	m_backgroundGpuTextureProgramWrapper = nullptr;

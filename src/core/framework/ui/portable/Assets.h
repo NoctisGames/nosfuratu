@@ -10,7 +10,7 @@
 #define __noctisgames__Assets__
 
 #include <map>
-#include <string.h>
+#include <string>
 
 #define ASSETS (Assets::getInstance())
 

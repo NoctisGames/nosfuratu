@@ -11,7 +11,7 @@
 
 #include "EndBossSnakeTextureGpuProgramWrapper.h"
 
-#include "OpenGLTextureProgram.h"
+class OpenGLTextureProgram;
 
 class OpenGLEndBossSnakeTextureGpuProgramWrapper : public EndBossSnakeTextureGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLTextureProgramStruct m_program;
+    OpenGLTextureProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLEndBossSnakeTextureGpuProgramWrapper__) */

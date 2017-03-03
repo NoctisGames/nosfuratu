@@ -9,28 +9,21 @@
 #ifndef __nosfuratu__OpenGLTransDeathProgram__
 #define __nosfuratu__OpenGLTransDeathProgram__
 
-extern "C"
-{
-#include "platform_gl.h"
-}
+#include "OpenGLProgram.h"
 
-typedef struct
+class OpenGLTransDeathProgram : public OpenGLProgram
 {
-    GLuint program;
-    
-    GLint a_position_location;
+public:
     GLint u_texture_unit_location;
     GLint u_texture_unit_gray_map_location;
     GLint u_time_elapsed_unit_location;
-} OpenGLTransDeathProgramStruct;
-
-class OpenGLTransDeathProgram
-{
-public:
-    static OpenGLTransDeathProgramStruct build(GLuint program);
+    GLint a_position_location;
     
-private:
-    OpenGLTransDeathProgram();
+    OpenGLTransDeathProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    
+    virtual void bind();
+    
+    virtual void unbind();
 };
 
 #endif /* defined(__nosfuratu__OpenGLTransDeathProgram__) */

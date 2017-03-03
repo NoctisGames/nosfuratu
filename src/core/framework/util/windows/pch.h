@@ -24,53 +24,47 @@
 #include <string>
 #include <utility>
 #include <vector>
-
+#include <stdexcept>
+#include <stdio.h>
 #include <stdint.h>
-
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-#include <WinSDKVer.h>
-#include <SDKDDKVer.h>
-
-// DirectX apps don't need GDI
-#define NODRAWTEXT
-#define NOGDI
-#define NOBITMAP
-
-// Include <mcx.h> if you need this
-#define NOMCX
-
-// Include <winsvc.h> if you need this
-#define NOSERVICE
-
-// WinHelp is deprecated
-#define NOHELP
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
-#include <d3d11_1.h>
-#else
-#include <d3d11_3.h>
-#include <dxgi1_4.h>
-
-#include <pix.h>
-
-#ifdef _DEBUG
-#include <dxgidebug.h>
-#endif
-
-#include <Windows.UI.Core.h>
-#endif
 
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 
-#include <algorithm>
-#include <exception>
-#include <memory>
-#include <stdexcept>
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    #include <WinSDKVer.h>
+    #include <SDKDDKVer.h>
 
-#include <stdio.h>
+    // DirectX apps don't need GDI
+    #define NODRAWTEXT
+    #define NOGDI
+    #define NOBITMAP
+
+    // Include <mcx.h> if you need this
+    #define NOMCX
+
+    // Include <winsvc.h> if you need this
+    #define NOSERVICE
+
+    // WinHelp is deprecated
+    #define NOHELP
+
+    #define WIN32_LEAN_AND_MEAN
+    #include <windows.h>
+
+    #include <d3d11_1.h>
+#else
+    #include <d3d11_3.h>
+    #include <dxgi1_4.h>
+
+    #include <pix.h>
+
+    #ifdef _DEBUG
+        #include <dxgidebug.h>
+    #endif
+
+    #include <Windows.UI.Core.h>
+#endif
 
 namespace DX
 {

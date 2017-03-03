@@ -11,7 +11,7 @@
 
 #include "PointTransitionGpuProgramWrapper.h"
 
-#include "OpenGLPointTransitionProgram.h"
+class OpenGLPointTransitionProgram;
 
 class OpenGLPointTransScreenGpuProgramWrapper : public PointTransitionGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLPointTransitionProgramStruct m_program;
+    OpenGLPointTransitionProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLPointTransScreenGpuProgramWrapper__) */

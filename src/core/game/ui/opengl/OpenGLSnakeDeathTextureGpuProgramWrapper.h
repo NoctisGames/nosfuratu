@@ -11,7 +11,7 @@
 
 #include "SnakeDeathTextureGpuProgramWrapper.h"
 
-#include "OpenGLSnakeDeathTextureProgram.h"
+class OpenGLTextureProgram;
 
 class OpenGLSnakeDeathTextureGpuProgramWrapper : public SnakeDeathTextureGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLSnakeDeathTextureProgramStruct m_program;
+    OpenGLTextureProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLSnakeDeathTextureGpuProgramWrapper__) */

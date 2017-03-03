@@ -11,7 +11,7 @@
 
 #include "TransitionGpuProgramWrapper.h"
 
-#include "OpenGLTransitionProgram.h"
+class OpenGLTransitionProgram;
 
 class OpenGLFadeScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLTransitionProgramStruct m_program;
+    OpenGLTransitionProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLFadeScreenGpuProgramWrapper__) */

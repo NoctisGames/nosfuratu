@@ -21,7 +21,7 @@ public:
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName) = 0;
     
-    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, int repeatS = 0) = 0;
+    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, bool repeatS = false) = 0;
 };
 
 #endif /* defined(__noctisgames__ITextureLoader__) */

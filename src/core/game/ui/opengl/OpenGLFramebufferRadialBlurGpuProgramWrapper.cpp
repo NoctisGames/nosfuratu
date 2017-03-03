@@ -8,43 +8,29 @@
 
 #include "OpenGLFramebufferRadialBlurGpuProgramWrapper.h"
 
+#include "OpenGLFramebufferRadialBlurGpuProgram.h"
 #include "OpenGLManager.h"
-#include "macros.h"
-#include "AssetUtil.h"
 
-OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper()
+OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper() : FramebufferRadialBlurGpuProgramWrapper(), m_program(new OpenGLFramebufferRadialBlurGpuProgram("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"))
 {
-    m_program = OpenGLFramebufferToScreenProgram::build(AssetUtil::buildProgramFromAssets("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"));
+    // Empty
 }
 
 OpenGLFramebufferRadialBlurGpuProgramWrapper::~OpenGLFramebufferRadialBlurGpuProgramWrapper()
 {
-    glDeleteProgram(m_program.program);
+    delete m_program;
 }
 
 void OpenGLFramebufferRadialBlurGpuProgramWrapper::bind()
 {
     OGLManager->useScreenBlending();
     
-    glUseProgram(m_program.program);
+    m_program->bind();
     
-    glUniform1i(m_program.u_texture_unit_location, 0);
-    glUniform1f(m_program.u_direction_location, m_fDirection);
-    
-    glGenBuffers(1, &OGLManager->getSbVboObject());
-    glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLManager->getTextureVertices().size(), &OGLManager->getTextureVertices()[0], GL_STATIC_DRAW);
-    
-    glVertexAttribPointer(m_program.a_position_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
-    
-    glEnableVertexAttribArray(m_program.a_position_location);
+    glUniform1f(m_program->u_direction_location, m_fDirection);
 }
 
 void OpenGLFramebufferRadialBlurGpuProgramWrapper::unbind()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    glDeleteBuffers(1, &OGLManager->getSbVboObject());
-    
-    glUseProgram(0);
+    m_program->unbind();
 }

@@ -259,22 +259,6 @@
     <ClCompile Include="*.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\core\framework\entity\*.c" />
-    <ClCompile Include="..\..\..\core\framework\file\windows\*.c" />
-    <ClCompile Include="..\..\..\core\framework\math\*.c" />
-    <ClCompile Include="..\..\..\core\framework\sound\portable\*.c" />
-    <ClCompile Include="..\..\..\core\framework\sound\windows\*.c" />
-    <ClCompile Include="..\..\..\core\framework\state\*.c" />
-    <ClCompile Include="..\..\..\core\framework\ui\direct3d\portable\*.c" />
-    <ClCompile Include="..\..\..\core\framework\ui\direct3d\uwp\*.c" />
-    <ClCompile Include="..\..\..\core\framework\ui\portable\*.c" />
-    <ClCompile Include="..\..\..\core\framework\util\portable\*.c" />
-    <ClCompile Include="..\..\..\core\framework\util\windows\*.c" />
-    <ClCompile Include="..\..\..\core\game\logic\*.c" />
-    <ClCompile Include="..\..\..\core\game\ui\direct3d\*.c" />
-    <ClCompile Include="..\..\..\core\game\ui\portable\*.c" />
-  </ItemGroup>
-  <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>

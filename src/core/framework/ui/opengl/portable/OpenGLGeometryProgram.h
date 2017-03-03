@@ -9,27 +9,21 @@
 #ifndef __noctisgames__OpenGLGeometryProgram__
 #define __noctisgames__OpenGLGeometryProgram__
 
-extern "C"
-{
-#include "platform_gl.h"
-}
+#include "OpenGLProgram.h"
 
-typedef struct
+class OpenGLGeometryProgram : public OpenGLProgram
 {
-    GLuint program;
+public:
+    OpenGLGeometryProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
     
+    virtual void bind();
+    
+    virtual void unbind();
+    
+private:
     GLint u_mvp_matrix_location;
     GLint a_position_location;
     GLint a_color_location;
-} OpenGLGeometryProgramStruct;
-
-class OpenGLGeometryProgram
-{
-public:
-    static OpenGLGeometryProgramStruct build(GLuint program);
-    
-private:
-    OpenGLGeometryProgram();
 };
 
 #endif /* defined(__noctisgames__OpenGLGeometryProgram__) */

@@ -1,29 +1,27 @@
 //
-//  OpenGLTransDeathProgram.cpp
+//  OpenGLFramebufferRadialBlurGpuProgram.cpp
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 1/27/16.
+//  Created by Stephen Gowen on 3/2/17.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "OpenGLTransDeathProgram.h"
+#include "OpenGLFramebufferRadialBlurGpuProgram.h"
 
 #include "OpenGLManager.h"
 
-OpenGLTransDeathProgram::OpenGLTransDeathProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLFramebufferRadialBlurGpuProgram::OpenGLFramebufferRadialBlurGpuProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
 {
     u_texture_unit_location = glGetUniformLocation(m_programObjectId, "u_TextureUnit");
-    u_texture_unit_gray_map_location = glGetUniformLocation(m_programObjectId, "u_TextureUnitGrayMap");
-    u_time_elapsed_unit_location = glGetUniformLocation(m_programObjectId, "u_TimeElapsed");
+    u_direction_location = glGetUniformLocation(m_programObjectId, "u_Direction");
     a_position_location = glGetAttribLocation(m_programObjectId, "a_Position");
 }
 
-void OpenGLTransDeathProgram::bind()
+void OpenGLFramebufferRadialBlurGpuProgram::bind()
 {
     OpenGLProgram::bind();
     
     glUniform1i(u_texture_unit_location, 0);
-    glUniform1i(u_texture_unit_gray_map_location, 1);
     
     mapBuffer(OGLManager->getSbVboObject(), OGLManager->getTextureVertices());
     
@@ -32,7 +30,7 @@ void OpenGLTransDeathProgram::bind()
     glEnableVertexAttribArray(a_position_location);
 }
 
-void OpenGLTransDeathProgram::unbind()
+void OpenGLFramebufferRadialBlurGpuProgram::unbind()
 {
     unmapBuffer(OGLManager->getSbVboObject());
     

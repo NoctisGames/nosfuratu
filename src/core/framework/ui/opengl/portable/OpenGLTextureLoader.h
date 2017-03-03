@@ -11,6 +11,9 @@
 
 #include "ITextureLoader.h"
 
+#include "platform_gl.h"
+#include "PngImageData.h"
+
 class OpenGLTextureLoader : public ITextureLoader
 {
 public:
@@ -20,7 +23,15 @@ public:
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName);
     
-    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, int repeatS = 0);
+    virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, bool repeatS = false);
+    
+private:
+    PngImageData getPngImageDataFromFileData(const void* png_data, const int png_data_size);
+    
+    void releasePngImageData(const PngImageData* data);
+    
+    GLuint loadPngAssetIntoTexture(PngImageData PngImageData, bool repeatS = false);
+    GLuint createTexture(const GLsizei width, const GLsizei height, const GLenum type, const GLvoid* pixels, bool repeatS = false, bool mipmap = false);
 };
 
 #endif /* defined(__noctisgames__OpenGLTextureLoader__) */

@@ -52,7 +52,7 @@ GpuTextureDataWrapper* Direct3DTextureLoader::loadTextureData(const char* textur
     return tdw;
 }
 
-GpuTextureWrapper* Direct3DTextureLoader::loadTexture(GpuTextureDataWrapper* textureData, int repeatS)
+GpuTextureWrapper* Direct3DTextureLoader::loadTexture(GpuTextureDataWrapper* textureData, bool repeatS)
 {
     UNUSED(repeatS);
     

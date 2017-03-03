@@ -9,11 +9,12 @@
 #ifndef __noctisgames__asset_data_handler__
 #define __noctisgames__asset_data_handler__
 
-typedef struct {
+struct FileData
+{
     const long data_length;
     const void *data;
     const void *file_handle;
-} FileData;
+};
 
 FileData get_asset_data(const char* relative_path);
 

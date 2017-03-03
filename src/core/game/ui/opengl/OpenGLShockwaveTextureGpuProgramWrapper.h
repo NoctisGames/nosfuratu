@@ -11,7 +11,7 @@
 
 #include "ShockwaveTextureGpuProgramWrapper.h"
 
-#include "OpenGLShockwaveTextureProgram.h"
+class OpenGLShockwaveTextureProgram;
 
 class OpenGLShockwaveTextureGpuProgramWrapper : public ShockwaveTextureGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLShockwaveTextureProgramStruct m_program;
+    OpenGLShockwaveTextureProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLShockwaveTextureGpuProgramWrapper__) */

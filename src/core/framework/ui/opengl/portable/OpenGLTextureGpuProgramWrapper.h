@@ -11,7 +11,7 @@
 
 #include "GpuProgramWrapper.h"
 
-#include "OpenGLTextureProgram.h"
+class OpenGLTextureProgram;
 
 class OpenGLTextureGpuProgramWrapper : public GpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLTextureProgramStruct m_program;
+    OpenGLTextureProgram* m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLTextureGpuProgramWrapper__) */

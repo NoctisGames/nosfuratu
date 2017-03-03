@@ -34,7 +34,6 @@ class Jon;
 class GpuProgramWrapper;
 class TransitionGpuProgramWrapper;
 class PointTransitionGpuProgramWrapper;
-class SinWaveTextureGpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class EndBossSnakeTextureGpuProgramWrapper;
 class ShockwaveTextureGpuProgramWrapper;
@@ -189,7 +188,6 @@ private:
     TransitionGpuProgramWrapper* m_transScreenGpuProgramWrapper;
     TransitionGpuProgramWrapper* m_fadeScreenGpuProgramWrapper;
     PointTransitionGpuProgramWrapper* m_pointTransScreenGpuProgramWrapper;
-    SinWaveTextureGpuProgramWrapper* m_sinWaveTextureProgram;
     GpuProgramWrapper* m_backgroundGpuTextureProgramWrapper;
     SnakeDeathTextureGpuProgramWrapper* m_snakeDeathTextureProgram;
     EndBossSnakeTextureGpuProgramWrapper* m_endBossSnakeTextureProgram;

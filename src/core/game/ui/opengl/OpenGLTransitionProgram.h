@@ -9,28 +9,21 @@
 #ifndef __noctisgames__OpenGLTransitionProgram__
 #define __noctisgames__OpenGLTransitionProgram__
 
-extern "C"
-{
-#include "platform_gl.h"
-}
+#include "OpenGLProgram.h"
 
-typedef struct
+class OpenGLTransitionProgram : public OpenGLProgram
 {
-    GLuint program;
-    
-    GLint a_position_location;
+public:
     GLint u_from_location;
     GLint u_to_location;
     GLint u_progress_location;
-} OpenGLTransitionProgramStruct;
-
-class OpenGLTransitionProgram
-{
-public:
-    static OpenGLTransitionProgramStruct build(GLuint program);
+    GLint a_position_location;
     
-private:
-    OpenGLTransitionProgram();
+    OpenGLTransitionProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    
+    virtual void bind();
+    
+    virtual void unbind();
 };
 
 #endif /* defined(__noctisgames__OpenGLTransitionProgram__) */

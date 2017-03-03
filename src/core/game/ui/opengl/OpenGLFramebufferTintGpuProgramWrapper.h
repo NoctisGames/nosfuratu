@@ -11,7 +11,7 @@
 
 #include "GpuProgramWrapper.h"
 
-#include "OpenGLFramebufferToScreenProgram.h"
+class OpenGLFramebufferToScreenProgram;
 
 class OpenGLFramebufferTintGpuProgramWrapper : public GpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLFramebufferToScreenProgramStruct m_program;
+    OpenGLFramebufferToScreenProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLFramebufferTintGpuProgramWrapper__) */

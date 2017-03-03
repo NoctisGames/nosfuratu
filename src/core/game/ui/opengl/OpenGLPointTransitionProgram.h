@@ -9,31 +9,24 @@
 #ifndef __nosfuratu__OpenGLPointTransitionProgram__
 #define __nosfuratu__OpenGLPointTransitionProgram__
 
-extern "C"
-{
-#include "platform_gl.h"
-}
+#include "OpenGLProgram.h"
 
-typedef struct
+class OpenGLPointTransitionProgram : public OpenGLProgram
 {
-    GLuint program;
-    
-    GLint a_position_location;
+public:
     GLint u_mvp_matrix_location;
     GLint u_center_x_unit_location;
     GLint u_center_y_unit_location;
     GLint u_from_location;
     GLint u_to_location;
     GLint u_progress_location;
-} OpenGLPointTransitionProgramStruct;
-
-class OpenGLPointTransitionProgram
-{
-public:
-    static OpenGLPointTransitionProgramStruct build(GLuint program);
+    GLint a_position_location;
     
-private:
-    OpenGLPointTransitionProgram();
+    OpenGLPointTransitionProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    
+    virtual void bind();
+    
+    virtual void unbind();
 };
 
 #endif /* defined(__nosfuratu__OpenGLPointTransitionProgram__) */

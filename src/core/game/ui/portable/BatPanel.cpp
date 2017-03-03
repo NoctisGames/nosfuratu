@@ -58,8 +58,8 @@ m_isAcknowledgedPart5(false),
 m_hasTriggeredRequestedAction(false),
 m_hasSwiped(false)
 {
-    m_bat = std::unique_ptr<Bat>(new Bat());
-    m_batInstruction = std::unique_ptr<BatInstruction>(new BatInstruction());
+    m_bat = new Bat();
+    m_batInstruction = new BatInstruction();
 }
 
 void BatPanel::config(Game *game, int world, int level)

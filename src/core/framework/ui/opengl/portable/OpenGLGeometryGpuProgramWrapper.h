@@ -11,7 +11,7 @@
 
 #include "GpuProgramWrapper.h"
 
-#include "OpenGLGeometryProgram.h"
+class OpenGLGeometryProgram;
 
 class OpenGLGeometryGpuProgramWrapper : public GpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLGeometryProgramStruct m_program;
+    OpenGLGeometryProgram* m_program;
 };
 
 #endif /* defined(__noctisgames__OpenGLGeometryGpuProgramWrapper__) */

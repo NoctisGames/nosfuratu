@@ -21,7 +21,6 @@
 #include "SoundManager.h"
 
 #include <math.h>
-#include <memory>
 
 class Game;
 class MainScreen;
@@ -143,8 +142,13 @@ class Bat : public PhysicalEntity
 public:
     Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f)
     {
-        m_target = std::unique_ptr<Vector2D>(new Vector2D());
+        m_target = new Vector2D();
         m_isInPosition = false;
+    }
+    
+    ~Bat()
+    {
+        delete m_target;
     }
     
     virtual void update(float deltaTime)
@@ -204,7 +208,7 @@ public:
     bool isInPosition() { return m_isInPosition && m_fStateTime > 0.80f; }
 
 private:
-    std::unique_ptr<Vector2D> m_target;
+    Vector2D* m_target;
     bool m_isInPosition;
 };
 
@@ -214,6 +218,12 @@ class BatPanel
     
 public:
     BatPanel();
+    
+    ~BatPanel()
+    {
+        delete m_bat;
+        delete m_batInstruction;
+    }
     
     virtual void update(MainScreen* ms);
     
@@ -229,13 +239,13 @@ public:
     
     bool isRequestingInput() { return m_isRequestingInput; }
     
-    Bat* getBat() { return m_bat.get(); }
+    Bat* getBat() { return m_bat; }
     
-    BatInstruction* getBatInstruction() { return m_batInstruction.get(); }
+    BatInstruction* getBatInstruction() { return m_batInstruction; }
     
 private:
-    std::unique_ptr<Bat> m_bat;
-    std::unique_ptr<BatInstruction> m_batInstruction;
+    Bat* m_bat;
+    BatInstruction* m_batInstruction;
     Game* m_game;
     BatGoalType m_type;
     float m_fJonX;

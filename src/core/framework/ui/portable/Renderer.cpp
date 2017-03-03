@@ -247,7 +247,7 @@ void Renderer::handleAsyncTextureLoads()
     {
         if ((*i)->gpuTextureDataWrapper)
         {
-            (*i)->gpuTextureWrapper = m_textureLoader->loadTexture((*i)->gpuTextureDataWrapper, (*i)->repeat_s);
+            (*i)->gpuTextureWrapper = m_textureLoader->loadTexture((*i)->gpuTextureDataWrapper, (*i)->repeatS);
             
             delete (*i)->gpuTextureDataWrapper;
             (*i)->gpuTextureDataWrapper = nullptr;

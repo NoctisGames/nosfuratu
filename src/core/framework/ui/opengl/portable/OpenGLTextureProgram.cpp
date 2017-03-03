@@ -8,15 +8,39 @@
 
 #include "OpenGLTextureProgram.h"
 
-OpenGLTextureProgramStruct OpenGLTextureProgram::build(GLuint program)
+#include "OpenGLManager.h"
+
+OpenGLTextureProgram::OpenGLTextureProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
 {
-    return (OpenGLTextureProgramStruct)
-    {
-        program,
-        glGetUniformLocation(program, "u_MvpMatrix"),
-        glGetAttribLocation(program, "a_Position"),
-        glGetAttribLocation(program, "a_Color"),
-        glGetAttribLocation(program, "a_TextureCoordinates"),
-        glGetUniformLocation(program, "u_TextureUnit")
-    };
+    u_mvp_matrix_location = glGetUniformLocation(m_programObjectId, "u_MvpMatrix");
+    u_texture_unit_location = glGetUniformLocation(m_programObjectId, "u_TextureUnit");
+    a_position_location = glGetAttribLocation(m_programObjectId, "a_Position");
+    a_color_location = glGetAttribLocation(m_programObjectId, "a_Color");
+    a_texture_coordinates_location = glGetAttribLocation(m_programObjectId, "a_TextureCoordinates");
+}
+
+void OpenGLTextureProgram::bind()
+{
+    OpenGLProgram::bind();
+    
+    glUniformMatrix4fv(u_mvp_matrix_location, 1, GL_FALSE, (GLfloat*)OGLManager->getViewProjectionMatrix());
+    
+    glUniform1i(u_texture_unit_location, 0);
+    
+    mapBuffer(OGLManager->getSbVboObject(), OGLManager->getTextureVertices());
+    
+    glVertexAttribPointer(a_position_location, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
+    glVertexAttribPointer(a_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(3 * sizeof(GL_FLOAT)));
+    glVertexAttribPointer(a_texture_coordinates_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(7 * sizeof(GL_FLOAT)));
+    
+    glEnableVertexAttribArray(a_position_location);
+    glEnableVertexAttribArray(a_color_location);
+    glEnableVertexAttribArray(a_texture_coordinates_location);
+}
+
+void OpenGLTextureProgram::unbind()
+{
+    unmapBuffer(OGLManager->getSbVboObject());
+    
+    OpenGLProgram::unbind();
 }

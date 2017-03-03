@@ -11,7 +11,7 @@
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
 
-#include "OpenGLFramebufferToScreenProgram.h"
+class OpenGLFramebufferRadialBlurGpuProgram;
 
 class OpenGLFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlurGpuProgramWrapper
 {
@@ -25,7 +25,7 @@ public:
     virtual void unbind();
     
 private:
-    OpenGLFramebufferToScreenProgramStruct m_program;
+    OpenGLFramebufferRadialBlurGpuProgram* m_program;
 };
 
 #endif /* defined(__nosfuratu__OpenGLFramebufferRadialBlurGpuProgramWrapper__) */

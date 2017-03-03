@@ -11,7 +11,6 @@
 
 class TransitionGpuProgramWrapper;
 class PointTransitionGpuProgramWrapper;
-class SinWaveTextureGpuProgramWrapper;
 class GpuProgramWrapper;
 class SnakeDeathTextureGpuProgramWrapper;
 class EndBossSnakeTextureGpuProgramWrapper;
@@ -31,8 +30,6 @@ public:
     TransitionGpuProgramWrapper* createFadeScreenGpuProgramWrapper();
     
     PointTransitionGpuProgramWrapper* createPointTransScreenGpuProgramWrapper();
-    
-    SinWaveTextureGpuProgramWrapper* createSinWaveTextureProgram();
     
     GpuProgramWrapper* createBackgroundGpuTextureProgramWrapper();
     

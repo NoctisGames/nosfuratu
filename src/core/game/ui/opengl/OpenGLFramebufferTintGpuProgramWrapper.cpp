@@ -8,42 +8,27 @@
 
 #include "OpenGLFramebufferTintGpuProgramWrapper.h"
 
+#include "OpenGLFramebufferToScreenProgram.h"
 #include "OpenGLManager.h"
-#include "macros.h"
-#include "AssetUtil.h"
 
-OpenGLFramebufferTintGpuProgramWrapper::OpenGLFramebufferTintGpuProgramWrapper()
+OpenGLFramebufferTintGpuProgramWrapper::OpenGLFramebufferTintGpuProgramWrapper() : GpuProgramWrapper(), m_program(new OpenGLFramebufferToScreenProgram("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_purple_highlight_shader.fsh"))
 {
-    m_program = OpenGLFramebufferToScreenProgram::build(AssetUtil::buildProgramFromAssets("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_purple_highlight_shader.fsh"));
+    // Empty
 }
 
 OpenGLFramebufferTintGpuProgramWrapper::~OpenGLFramebufferTintGpuProgramWrapper()
 {
-    glDeleteProgram(m_program.program);
+    delete m_program;
 }
 
 void OpenGLFramebufferTintGpuProgramWrapper::bind()
 {
     OGLManager->useScreenBlending();
     
-    glUseProgram(m_program.program);
-    
-    glUniform1i(m_program.u_texture_unit_location, 0);
-    
-    glGenBuffers(1, &OGLManager->getSbVboObject());
-    glBindBuffer(GL_ARRAY_BUFFER, OGLManager->getSbVboObject());
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * OGLManager->getTextureVertices().size(), &OGLManager->getTextureVertices()[0], GL_STATIC_DRAW);
-    
-    glVertexAttribPointer(m_program.a_position_location, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 9, BUFFER_OFFSET(0));
-    
-    glEnableVertexAttribArray(m_program.a_position_location);
+    m_program->bind();
 }
 
 void OpenGLFramebufferTintGpuProgramWrapper::unbind()
 {
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    glDeleteBuffers(1, &OGLManager->getSbVboObject());
-    
-    glUseProgram(0);
+    m_program->unbind();
 }

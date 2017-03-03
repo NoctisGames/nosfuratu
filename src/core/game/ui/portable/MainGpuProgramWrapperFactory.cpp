@@ -23,7 +23,6 @@ MainGpuProgramWrapperFactory* MainGpuProgramWrapperFactory::getInstance()
 #include "OpenGLTransScreenGpuProgramWrapper.h"
 #include "OpenGLFadeScreenGpuProgramWrapper.h"
 #include "OpenGLPointTransScreenGpuProgramWrapper.h"
-#include "OpenGLSinWaveTextureGpuProgramWrapper.h"
 #include "OpenGLTextureGpuProgramWrapper.h"
 #include "OpenGLSnakeDeathTextureGpuProgramWrapper.h"
 #include "OpenGLEndBossSnakeTextureGpuProgramWrapper.h"
@@ -46,11 +45,6 @@ TransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createFadeScreenGpuPr
 PointTransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createPointTransScreenGpuProgramWrapper()
 {
     return new OpenGLPointTransScreenGpuProgramWrapper();
-}
-
-SinWaveTextureGpuProgramWrapper* MainGpuProgramWrapperFactory::createSinWaveTextureProgram()
-{
-    return new OpenGLSinWaveTextureGpuProgramWrapper();
 }
 
 GpuProgramWrapper* MainGpuProgramWrapperFactory::createBackgroundGpuTextureProgramWrapper()
@@ -102,7 +96,6 @@ FramebufferRadialBlurGpuProgramWrapper* MainGpuProgramWrapperFactory::createFram
 #include "Direct3DTransScreenGpuProgramWrapper.h"
 #include "Direct3DFadeScreenGpuProgramWrapper.h"
 #include "Direct3DPointTransScreenGpuProgramWrapper.h"
-#include "Direct3DSinWaveTextureGpuProgramWrapper.h"
 #include "Direct3DBackgroundTextureGpuProgramWrapper.h"
 #include "Direct3DSnakeDeathTextureGpuProgramWrapper.h"
 #include "Direct3DEndBossSnakeTextureGpuProgramWrapper.h"
@@ -125,11 +118,6 @@ TransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createFadeScreenGpuPr
 PointTransitionGpuProgramWrapper* MainGpuProgramWrapperFactory::createPointTransScreenGpuProgramWrapper()
 {
     return new Direct3DPointTransScreenGpuProgramWrapper();
-}
-
-SinWaveTextureGpuProgramWrapper* MainGpuProgramWrapperFactory::createSinWaveTextureProgram()
-{
-    return new Direct3DSinWaveTextureGpuProgramWrapper();
 }
 
 GpuProgramWrapper* MainGpuProgramWrapperFactory::createBackgroundGpuTextureProgramWrapper()
