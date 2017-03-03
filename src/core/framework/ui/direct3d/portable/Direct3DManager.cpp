@@ -18,10 +18,7 @@
 #include "VectorUtil.h"
 #include "GpuTextureWrapper.h"
 
-extern "C"
-{
 #include <assert.h>
-}
 
 using namespace DirectX;
 
