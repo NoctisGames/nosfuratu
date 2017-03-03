@@ -17,6 +17,7 @@
 #include "MainScreenWorldMap.h"
 #include "MainScreenLevelEditor.h"
 #include "SaveData.h"
+#include "MainAssets.h"
 
 #include <sstream>
 

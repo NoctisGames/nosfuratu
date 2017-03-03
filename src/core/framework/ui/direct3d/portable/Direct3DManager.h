@@ -16,10 +16,10 @@
 #define D3DManager (Direct3DManager::getInstance())
 
 #include "Direct3DProgramInput.h"
+#include "DeviceResources.h"
 
 #include <vector>
 
-class DeviceResources;
 struct GpuTextureWrapper;
 
 class Direct3DManager

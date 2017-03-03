@@ -32,9 +32,9 @@ struct GpuTextureWrapper
         // Empty
     }
 #elif defined _WIN32
-    DirectX::ID3D11ShaderResourceView *texture;
+    ID3D11ShaderResourceView *texture;
     
-    GpuTextureWrapper(DirectX::ID3D11ShaderResourceView *textureIn) : texture(textureIn)
+    GpuTextureWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
     {
         // Empty
     }

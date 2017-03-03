@@ -17,7 +17,6 @@
 #include "PlatformHelpers.h"
 #include "VectorUtil.h"
 #include "GpuTextureWrapper.h"
-#include "DeviceResources.h"
 
 extern "C"
 {
