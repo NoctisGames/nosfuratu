@@ -59,22 +59,26 @@ public:
 	void clearRequestedAction();
 
 private:
-	std::vector<DirectX::SoundEffect*> m_sounds;
-    
-    DX::DeviceResources* m_deviceResources;
-	DirectX::Keyboard* m_keyboard;
-	DirectX::Mouse* m_mouse;
-	DirectX::GamePad* m_gamePad;
-	DirectX::AudioEngine* m_audEngine;
-	DirectX::SoundEffect* m_music;
-	DirectX::SoundEffectInstance* m_musicLoop;
+	// Device resources.
+	std::unique_ptr<DX::DeviceResources>    m_deviceResources;
+
+	// Rendering loop timer.
+	DX::StepTimer                           m_timer;
+
+	std::unique_ptr<DirectX::Keyboard> m_keyboard;
+	DirectX::Keyboard::KeyboardStateTracker m_keys;
+	std::unique_ptr<DirectX::Mouse> m_mouse;
+	std::unique_ptr<DirectX::GamePad> m_gamePad;
+	DirectX::GamePad::ButtonStateTracker m_buttons;
+	std::unique_ptr<DirectX::AudioEngine> m_audEngine;
+
+	std::vector<std::unique_ptr<DirectX::SoundEffect>> m_sounds;
+
+	std::unique_ptr<DirectX::SoundEffect> m_music;
+	std::unique_ptr<DirectX::SoundEffectInstance> m_musicLoop;
+
 	MainScreen* m_screen;
 
-    DirectX::Keyboard::KeyboardStateTracker m_keys;
-    DirectX::GamePad::ButtonStateTracker m_buttons;
-    
-    DX::StepTimer m_timer;
-    
 	float m_fDPI;
 	int m_iRequestedAction;
 	bool m_isPointerPressed;

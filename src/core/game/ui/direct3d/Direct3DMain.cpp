@@ -18,7 +18,6 @@
 #include "MainScreenLevelEditor.h"
 #include "SaveData.h"
 #include "MainAssets.h"
-#include "VectorUtil.h"
 
 #include <sstream>
 
@@ -30,7 +29,7 @@ using Microsoft::WRL::ComPtr;
 
 Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false), m_isDeviceLost(false)
 {
-    m_deviceResources = new DX::DeviceResources();
+    m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
 
 	Direct3DManager::setDeviceResources(m_deviceResources.get());
@@ -49,22 +48,16 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
 
 Direct3DMain::~Direct3DMain()
 {
-    if (m_audEngine)
-    {
-        m_audEngine->Suspend();
-    }
-    
-    VectorUtil::cleanUpVectorOfPointers(m_sounds);
-    
-    delete m_deviceResources;
-    delete m_keyboard;
-    delete m_mouse;
-    delete m_gamePad;
-    delete m_audEngine;
-    delete m_music;
-    delete m_musicLoop;
+	if (m_audEngine)
+	{
+		m_audEngine->Suspend();
+	}
+
+	m_musicLoop.reset();
 
 	delete m_screen;
+
+	m_deviceResources.reset();
 }
 
 // Initialize the Direct3D resources required to run.
@@ -85,12 +78,12 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 	m_deviceResources->CreateWindowSizeDependentResources();
 	CreateWindowSizeDependentResources();
 
-	m_keyboard = new Keyboard();
+	m_keyboard = std::make_unique<Keyboard>();
 
-	m_mouse = new Mouse();
+	m_mouse = std::make_unique<Mouse>();
 	m_mouse->SetMode(Mouse::MODE_ABSOLUTE); // Use MODE_RELATIVE for displaying your own mouse pointer (like Diablo or Age of Empires)
 
-	m_gamePad = new GamePad();
+	m_gamePad = std::make_unique<GamePad>();
 
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	m_mouse->SetWindow(window);
@@ -775,7 +768,7 @@ void Direct3DMain::initSoundEngine()
 #ifdef _DEBUG
 	eflags = eflags | AudioEngine_Debug;
 #endif
-	m_audEngine = new AudioEngine(eflags);
+	m_audEngine = std::make_unique<AudioEngine>(eflags);
 	m_retryAudio = false;
 
 	loadSound(L"collect_carrot.wav");
@@ -848,7 +841,7 @@ void Direct3DMain::initSoundEngine()
 
 void Direct3DMain::loadSound(const wchar_t* waveFileName)
 {
-	m_sounds.push_back(new SoundEffect(m_audEngine.get(), waveFileName));
+	m_sounds.push_back(std::make_unique<SoundEffect>(m_audEngine.get(), waveFileName));
 }
 
 void Direct3DMain::loadMusic(const wchar_t* waveFileName)
@@ -864,7 +857,7 @@ void Direct3DMain::loadMusic(const wchar_t* waveFileName)
 		m_music.reset();
 	}
 
-	m_music = new SoundEffect(m_audEngine.get(), waveFileName);
+	m_music = std::make_unique<SoundEffect>(m_audEngine.get(), waveFileName);
 	m_musicLoop = m_music->CreateInstance();
 }
 #pragma endregion
