@@ -17,6 +17,8 @@
 #include "GpuTextureWrapper.h"
 #include "Color.h"
 
+#include <math.h>
+
 OpenGLSpriteBatcher::OpenGLSpriteBatcher()
 {
     m_iNumSprites = 0;

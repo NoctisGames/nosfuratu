@@ -10,11 +10,7 @@
 
 #include "GpuTextureWrapper.h"
 #include "OpenGLManager.h"
-
-extern "C"
-{
 #include "platform_gl.h"
-}
 
 OpenGLRendererHelper::OpenGLRendererHelper() : IRendererHelper()
 {

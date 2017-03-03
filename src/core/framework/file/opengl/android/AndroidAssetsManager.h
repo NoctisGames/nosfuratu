@@ -11,10 +11,7 @@
 
 #define ANDROID_ASSETS (AndroidAssetsManager::getInstance())
 
-extern "C"
-{
-#include "asset_data_handler.h"
-}
+#include "FileData.h"
 
 #include <android/asset_manager_jni.h>
 

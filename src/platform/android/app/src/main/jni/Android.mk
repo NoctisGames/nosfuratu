@@ -30,18 +30,27 @@ PROJECT_ROOT_PATH := $(LOCAL_PATH)/../../../../../../
 # Game Framework
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/entity/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/opengl/android/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/opengl/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/math/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/network/client/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/state/
-LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/android/
-LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/portable/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/util/portable/
 
 ENTITY_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/entity)
 FILE_LIST := $(filter %.cpp, $(ENTITY_FILES))
+LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
+
+FILE_OGL_ANDROID_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/opengl/android)
+FILE_LIST := $(filter %.cpp, $(FILE_OGL_ANDROID_FILES))
+LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
+
+FILE_OGL_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/opengl/portable)
+FILE_LIST := $(filter %.cpp, $(FILE_OGL_PORTABLE_FILES))
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 MATH_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/math)
@@ -64,12 +73,8 @@ STATE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/state)
 FILE_LIST := $(filter %.cpp, $(STATE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
-UI_OPENGL_ANDROID_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/android)
+UI_OPENGL_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/opengl)
 FILE_LIST := $(filter %.cpp, $(UI_OPENGL_ANDROID_FILES))
-LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
-
-UI_OPENGL_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/portable)
-FILE_LIST := $(filter %.cpp, $(UI_OPENGL_PORTABLE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 UI_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/portable)

@@ -22,7 +22,7 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-FileData get_asset_data(const char *relative_path)
+FileData getAssetData(const char *relative_path)
 {
 	assert(relative_path != NULL);
     
@@ -50,7 +50,7 @@ FileData get_asset_data(const char *relative_path)
     };
 }
 
-void release_asset_data(const FileData *file_data)
+void releaseAssetData(const FileData *file_data)
 {
     assert(file_data != NULL);
     assert(file_data->data != NULL);

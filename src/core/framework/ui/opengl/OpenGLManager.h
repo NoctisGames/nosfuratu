@@ -9,21 +9,45 @@
 #ifndef __noctisgames__OpenGLManager__
 #define __noctisgames__OpenGLManager__
 
+#include "platform_gl.h"
+
+#include <vector>
+
 #define VERTICES_PER_LINE 2
 #define VERTICES_PER_RECTANGLE 4
 #define INDICES_PER_RECTANGLE 6
 
 #define OGLManager (OpenGLManager::getInstance())
 
-extern "C"
+struct GpuTextureWrapper;
+
+typedef float vec4[4];
+typedef vec4 mat4x4[4];
+
+static inline void mat4x4_identity(mat4x4 M)
 {
-#include "platform_gl.h"
-#include "linmath.h"
+    int i, j;
+    for(i=0; i<4; ++i)
+        for(j=0; j<4; ++j)
+            M[i][j] = i==j ? 1.f : 0.f;
 }
 
-#include <vector>
-
-struct GpuTextureWrapper;
+static inline void mat4x4_ortho(mat4x4 M, float l, float r, float b, float t, float n, float f)
+{
+    M[0][0] = 2.f/(r-l);
+    M[0][1] = M[0][2] = M[0][3] = 0.f;
+    
+    M[1][1] = 2.f/(t-b);
+    M[1][0] = M[1][2] = M[1][3] = 0.f;
+    
+    M[2][2] = -2.f/(f-n);
+    M[2][0] = M[2][1] = M[2][3] = 0.f;
+    
+    M[3][0] = -(r+l)/(r-l);
+    M[3][1] = -(t+b)/(t-b);
+    M[3][2] = -(f+n)/(f-n);
+    M[3][3] = 1.f;
+}
 
 class OpenGLManager
 {

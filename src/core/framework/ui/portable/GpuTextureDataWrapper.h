@@ -14,10 +14,7 @@
 #endif
 
 #if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
-extern "C"
-{
 #include "PngImageData.h"
-}
 #elif defined _WIN32
 #include "pch.h"
 #endif

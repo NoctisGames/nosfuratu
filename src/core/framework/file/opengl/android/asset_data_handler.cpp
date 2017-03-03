@@ -10,12 +10,12 @@
 
 #include "AndroidAssetsManager.h"
 
-FileData get_asset_data(const char* relative_path)
+FileData getAssetData(const char* relative_path)
 {
     return ANDROID_ASSETS->getAssetData(relative_path);
 }
 
-void release_asset_data(const FileData* file_data)
+void releaseAssetData(const FileData* file_data)
 {
     ANDROID_ASSETS->releaseAssetData(file_data);
 }

@@ -16,6 +16,8 @@
 #include "DummyGpuProgramWrapper.h"
 #include "Color.h"
 
+#include <math.h>
+
 OpenGLCircleBatcher::OpenGLCircleBatcher() : CircleBatcher()
 {
     // Empty
