@@ -74,7 +74,7 @@ FILE_LIST := $(filter %.cpp, $(STATE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 UI_OPENGL_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/opengl)
-FILE_LIST := $(filter %.cpp, $(UI_OPENGL_ANDROID_FILES))
+FILE_LIST := $(filter %.cpp, $(UI_OPENGL_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 UI_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/ui/portable)

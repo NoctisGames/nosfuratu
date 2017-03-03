@@ -14,6 +14,7 @@
 
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 OpenGLProgram::OpenGLProgram(const char* vertexShaderPath, const char* fragmentShaderPath)
 {
