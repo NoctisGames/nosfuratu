@@ -1,5 +1,5 @@
 //
-//  asset_data_handler.h
+//  apple_asset_data_handler.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
@@ -11,8 +11,8 @@
 
 #include "FileData.h"
 
-FileData getAssetData(const char* relative_path);
+FileData appleGetAssetData(const char* relative_path);
 
-void releaseAssetData(const FileData* file_data);
+void appleReleaseAssetData(const FileData* file_data);
 
 #endif /* defined(__noctisgames__asset_data_handler__) */

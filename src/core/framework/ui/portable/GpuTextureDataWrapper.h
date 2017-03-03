@@ -9,11 +9,7 @@
 #ifndef __noctisgames__GpuTextureDataWrapper__
 #define __noctisgames__GpuTextureDataWrapper__
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "PngImageData.h"
 #elif defined _WIN32
 #include "pch.h"
@@ -21,7 +17,7 @@
 
 struct GpuTextureDataWrapper
 {
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
     PngImageData raw_image_data;
     
     GpuTextureDataWrapper(PngImageData raw_image_data_in) : raw_image_data(raw_image_data_in)

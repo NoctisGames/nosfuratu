@@ -8,17 +8,13 @@
 
 #include "TextureLoaderFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 TextureLoaderFactory* TextureLoaderFactory::getInstance()
 {
     static TextureLoaderFactory *instance = new TextureLoaderFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "OpenGLTextureLoader.h"
 ITextureLoader* TextureLoaderFactory::createTextureLoader() { return new OpenGLTextureLoader(); }
 #elif defined _WIN32

@@ -10,7 +10,7 @@
 
 #include "GpuTextureDataWrapper.h"
 #include "GpuTextureWrapper.h"
-#include "asset_data_handler.h"
+#include "AssetDataHandler.h"
 #include "FileData.h"
 #include "PngImageData.h"
 
@@ -41,10 +41,10 @@ GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureN
     textureFileName[len+3] = 'g';
     textureFileName[len+4] = '\0';
     
-    const FileData png_file = getAssetData(textureFileName);
+    const FileData png_file = AssetDataHandler::getAssetDataHandler()->getAssetData(textureFileName);
     const PngImageData raw_image_data = getPngImageDataFromFileData(png_file.data, (int)png_file.data_length);
     
-    releaseAssetData(&png_file);
+    AssetDataHandler::getAssetDataHandler()->releaseAssetData(&png_file);
     
     GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(raw_image_data);
     

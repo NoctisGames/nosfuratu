@@ -1,27 +1,27 @@
 //
-//  AndroidAssetsManager.cpp
+//  AndroidAssetDataHandler.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/25/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "AndroidAssetsManager.h"
+#include "AndroidAssetDataHandler.h"
 
 #include <assert.h>
 
-AndroidAssetsManager* AndroidAssetsManager::getInstance()
+AndroidAssetDataHandler* AndroidAssetDataHandler::getInstance()
 {
-    static AndroidAssetsManager *instance = new AndroidAssetsManager();
+    static AndroidAssetDataHandler *instance = new AndroidAssetDataHandler();
     return instance;
 }
 
-void AndroidAssetsManager::init(JNIEnv* env, jobject java_asset_manager)
+void AndroidAssetDataHandler::init(JNIEnv* env, jobject java_asset_manager)
 {
     mAssetManager = AAssetManager_fromJava(env, java_asset_manager);
 }
 
-FileData AndroidAssetsManager::getAssetData(const char* relativePath)
+FileData AndroidAssetDataHandler::getAssetData(const char* relativePath)
 {
     assert(relativePath != NULL);
     
@@ -36,7 +36,7 @@ FileData AndroidAssetsManager::getAssetData(const char* relativePath)
     };
 }
 
-void AndroidAssetsManager::releaseAssetData(const FileData* fileData)
+void AndroidAssetDataHandler::releaseAssetData(const FileData* fileData)
 {
     assert(fileData != NULL);
     assert(fileData->file_handle != NULL);

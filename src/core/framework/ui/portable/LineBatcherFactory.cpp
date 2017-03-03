@@ -8,17 +8,13 @@
 
 #include "LineBatcherFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 LineBatcherFactory* LineBatcherFactory::getInstance()
 {
     static LineBatcherFactory *instance = new LineBatcherFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "OpenGLLineBatcher.h"
 LineBatcher* LineBatcherFactory::createLineBatcher() { return new OpenGLLineBatcher(); }
 #elif defined _WIN32

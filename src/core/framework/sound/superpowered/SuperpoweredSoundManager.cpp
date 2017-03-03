@@ -16,10 +16,6 @@
 
 #import <stdlib.h>
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 SuperpoweredSoundManager::SuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize) :
 m_music(nullptr),
 m_activeSounds(),
@@ -29,7 +25,7 @@ m_iSoundIndex(0)
     for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; i++)
     {
         float* stereoBuffer;
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
+#if defined __APPLE__
         if (posix_memalign((void **)&stereoBuffer, 16, 4096 + 128) != 0) abort(); // Allocating memory, aligned to 16.
 #elif defined __ANDROID__
         stereoBuffer = (float *)memalign(16, (bufferSize + 16) * sizeof(float) * 2);

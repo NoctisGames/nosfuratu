@@ -14,10 +14,6 @@
 
 #include <SuperpoweredSimple.h>
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 #define HEADROOM_DECIBEL 3.0f
 static const float headroom = powf(10.0f, -HEADROOM_DECIBEL * 0.025f);
 
@@ -127,7 +123,7 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
     // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
     if (ret)
     {
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX
+#if defined __APPLE__
         float **buffers = (float **)output;
         SuperpoweredDeInterleave(stereoBuffer, buffers[0], buffers[1], numberOfSamples); // The stereoBuffer is ready now, let's put the finished audio into the requested buffers.
 #elif defined __ANDROID__

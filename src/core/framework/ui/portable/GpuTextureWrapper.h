@@ -9,11 +9,7 @@
 #ifndef __noctisgames__GpuTextureWrapper__
 #define __noctisgames__GpuTextureWrapper__
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "platform_gl.h"
 #elif defined _WIN32
 #include "pch.h"
@@ -21,7 +17,7 @@
 
 struct GpuTextureWrapper
 {
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
     GLuint texture;
     
     GpuTextureWrapper(GLuint textureIn) : texture(textureIn)

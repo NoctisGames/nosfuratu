@@ -8,17 +8,13 @@
 
 #include "RendererHelperFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 RendererHelperFactory* RendererHelperFactory::getInstance()
 {
     static RendererHelperFactory *instance = new RendererHelperFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "OpenGLRendererHelper.h"
 IRendererHelper* RendererHelperFactory::createRendererHelper() { return new OpenGLRendererHelper(); }
 #elif defined _WIN32

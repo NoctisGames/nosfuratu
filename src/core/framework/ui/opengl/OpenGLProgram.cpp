@@ -9,7 +9,7 @@
 #include "OpenGLProgram.h"
 
 #include "OpenGLManager.h"
-#include "asset_data_handler.h"
+#include "AssetDataHandler.h"
 #include "FileData.h"
 
 #include <assert.h>
@@ -21,12 +21,12 @@ OpenGLProgram::OpenGLProgram(const char* vertexShaderPath, const char* fragmentS
     assert(vertexShaderPath != NULL);
     assert(fragmentShaderPath != NULL);
     
-    const FileData vertex_shader_source = getAssetData(vertexShaderPath);
-    const FileData fragment_shader_source = getAssetData(fragmentShaderPath);
+    const FileData vertex_shader_source = AssetDataHandler::getAssetDataHandler()->getAssetData(vertexShaderPath);
+    const FileData fragment_shader_source = AssetDataHandler::getAssetDataHandler()->getAssetData(fragmentShaderPath);
     m_programObjectId = buildProgram(vertex_shader_source.data, (GLint)vertex_shader_source.data_length, fragment_shader_source.data, (GLint)fragment_shader_source.data_length);
     
-    releaseAssetData(&vertex_shader_source);
-    releaseAssetData(&fragment_shader_source);
+    AssetDataHandler::getAssetDataHandler()->releaseAssetData(&vertex_shader_source);
+    AssetDataHandler::getAssetDataHandler()->releaseAssetData(&fragment_shader_source);
 }
 
 OpenGLProgram::~OpenGLProgram()

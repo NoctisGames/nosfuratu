@@ -559,6 +559,9 @@
 		BB8E94581E57656D00D237D2 /* game_pad_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */; };
 		BB8E94641E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
 		BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
+		BB9A17401E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */; };
+		BB9A17411E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */; };
+		BB9A17421E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */; };
 		BBA051D71E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
 		BBA051D81E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
 		BBA051D91E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
@@ -607,9 +610,9 @@
 		BBA0522C1E68F96300450261 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051F71E68F96300450261 /* OpenGLTextureProgram.cpp */; };
 		BBA0522D1E68F96300450261 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051F71E68F96300450261 /* OpenGLTextureProgram.cpp */; };
 		BBA0522E1E68F96300450261 /* OpenGLTextureProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051F71E68F96300450261 /* OpenGLTextureProgram.cpp */; };
-		BBA052501E68F96E00450261 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* asset_data_handler.mm */; };
-		BBA052511E68F96E00450261 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* asset_data_handler.mm */; };
-		BBA052521E68F96E00450261 /* asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* asset_data_handler.mm */; };
+		BBA052501E68F96E00450261 /* apple_asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* apple_asset_data_handler.mm */; };
+		BBA052511E68F96E00450261 /* apple_asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* apple_asset_data_handler.mm */; };
+		BBA052521E68F96E00450261 /* apple_asset_data_handler.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBA052471E68F96E00450261 /* apple_asset_data_handler.mm */; };
 		BBA0525F1E68FACC00450261 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA052591E68FACC00450261 /* color_shader.fsh */; };
 		BBA052601E68FACC00450261 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA052591E68FACC00450261 /* color_shader.fsh */; };
 		BBA052611E68FACC00450261 /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = BBA052591E68FACC00450261 /* color_shader.fsh */; };
@@ -907,6 +910,9 @@
 		BBB1E4551E60A54C00201A0C /* world_1_background_mid.png in Resources */ = {isa = PBXBuildFile; fileRef = BB21A47D1DD2F51100D72C8B /* world_1_background_mid.png */; };
 		BBB1E4571E60A54C00201A0C /* DDHidLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB13BD461E58E04D0073C08F /* DDHidLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BBB1E45D1E60A96F00201A0C /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE9D4051DBE8F4E002D2120 /* level_editor.png */; };
+		BBC91A2A1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */; };
+		BBC91A2B1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */; };
+		BBC91A2C1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */; };
 		BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
 		BBCB71D21DB6AF4B006430B6 /* CocoaSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CC1DB6AF4B006430B6 /* CocoaSecurity.m */; };
 		BBCB71D41DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB71CF1DB6AF4B006430B6 /* NSUserDefaults+SecureAdditions.m */; };
@@ -1583,6 +1589,11 @@
 		BB8E94611E57C5F100D237D2 /* Direct3DProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgram.h; sourceTree = "<group>"; };
 		BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainAssetsMapper.cpp; sourceTree = "<group>"; };
 		BB8E94631E57E11A00D237D2 /* MainAssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainAssetsMapper.h; sourceTree = "<group>"; };
+		BB9A173D1E69B72800429479 /* apple_asset_data_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple_asset_data_handler.h; sourceTree = "<group>"; };
+		BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppleAssetDataHandler.cpp; sourceTree = "<group>"; };
+		BB9A173F1E69B74800429479 /* AppleAssetDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleAssetDataHandler.h; sourceTree = "<group>"; };
+		BB9A17431E69B9E800429479 /* AndroidAssetDataHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetDataHandler.cpp; sourceTree = "<group>"; };
+		BB9A17441E69B9E800429479 /* AndroidAssetDataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetDataHandler.h; sourceTree = "<group>"; };
 		BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferRadialBlurGpuProgram.cpp; sourceTree = "<group>"; };
 		BBA051D61E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferRadialBlurGpuProgram.h; sourceTree = "<group>"; };
 		BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
@@ -1616,12 +1627,8 @@
 		BBA051F71E68F96300450261 /* OpenGLTextureProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTextureProgram.cpp; sourceTree = "<group>"; };
 		BBA051F81E68F96300450261 /* OpenGLTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTextureProgram.h; sourceTree = "<group>"; };
 		BBA051F91E68F96300450261 /* platform_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_gl.h; sourceTree = "<group>"; };
-		BBA052471E68F96E00450261 /* asset_data_handler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = asset_data_handler.mm; sourceTree = "<group>"; };
-		BBA052491E68F96E00450261 /* asset_data_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asset_data_handler.h; sourceTree = "<group>"; };
+		BBA052471E68F96E00450261 /* apple_asset_data_handler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = apple_asset_data_handler.mm; sourceTree = "<group>"; };
 		BBA052531E68F99D00450261 /* FileData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileData.h; sourceTree = "<group>"; };
-		BBA052551E68FA8D00450261 /* AndroidAssetsManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetsManager.cpp; sourceTree = "<group>"; };
-		BBA052561E68FA8D00450261 /* AndroidAssetsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetsManager.h; sourceTree = "<group>"; };
-		BBA052571E68FA8D00450261 /* asset_data_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = asset_data_handler.cpp; sourceTree = "<group>"; };
 		BBA052591E68FACC00450261 /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.fsh; sourceTree = "<group>"; };
 		BBA0525A1E68FACC00450261 /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = color_shader.vsh; sourceTree = "<group>"; };
 		BBA0525B1E68FACC00450261 /* frame_buffer_to_screen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = frame_buffer_to_screen_shader.fsh; sourceTree = "<group>"; };
@@ -1634,6 +1641,8 @@
 		BBAE6A781E6346260040E361 /* collect_big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_big_carrot.wav; sourceTree = "<group>"; };
 		BBAE6A791E6346260040E361 /* collect_vial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_vial.wav; sourceTree = "<group>"; };
 		BBB1E45B1E60A54C00201A0C /* level editor mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "level editor mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetDataHandler.cpp; sourceTree = "<group>"; };
+		BBC91A291E691B0B005E9933 /* AssetDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDataHandler.h; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
 		BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Texconv_readme.txt; sourceTree = "<group>"; };
 		BBCB71CB1DB6AF4B006430B6 /* CocoaSecurity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaSecurity.h; sourceTree = "<group>"; };
@@ -2863,7 +2872,10 @@
 		BBA052461E68F96E00450261 /* apple */ = {
 			isa = PBXGroup;
 			children = (
-				BBA052471E68F96E00450261 /* asset_data_handler.mm */,
+				BB9A173D1E69B72800429479 /* apple_asset_data_handler.h */,
+				BBA052471E68F96E00450261 /* apple_asset_data_handler.mm */,
+				BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */,
+				BB9A173F1E69B74800429479 /* AppleAssetDataHandler.h */,
 			);
 			path = apple;
 			sourceTree = "<group>";
@@ -2871,7 +2883,8 @@
 		BBA052481E68F96E00450261 /* portable */ = {
 			isa = PBXGroup;
 			children = (
-				BBA052491E68F96E00450261 /* asset_data_handler.h */,
+				BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */,
+				BBC91A291E691B0B005E9933 /* AssetDataHandler.h */,
 				BBA052531E68F99D00450261 /* FileData.h */,
 				BBA052711E68FFC900450261 /* PngImageData.h */,
 			);
@@ -2881,9 +2894,8 @@
 		BBA052541E68FA8D00450261 /* android */ = {
 			isa = PBXGroup;
 			children = (
-				BBA052551E68FA8D00450261 /* AndroidAssetsManager.cpp */,
-				BBA052561E68FA8D00450261 /* AndroidAssetsManager.h */,
-				BBA052571E68FA8D00450261 /* asset_data_handler.cpp */,
+				BB9A17431E69B9E800429479 /* AndroidAssetDataHandler.cpp */,
+				BB9A17441E69B9E800429479 /* AndroidAssetDataHandler.h */,
 			);
 			path = android;
 			sourceTree = "<group>";
@@ -3548,7 +3560,7 @@
 				BB34FCDF1E5645F500AC8197 /* MainScreenComingSoon.cpp in Sources */,
 				BB34FA491E563C2400AC8197 /* TransitionGpuProgramWrapper.cpp in Sources */,
 				BB34FC671E5645F500AC8197 /* OpenGLPointTransitionProgram.cpp in Sources */,
-				BBA052501E68F96E00450261 /* asset_data_handler.mm in Sources */,
+				BBA052501E68F96E00450261 /* apple_asset_data_handler.mm in Sources */,
 				BB34FB9F1E5645F400AC8197 /* ForegroundCoverObject.cpp in Sources */,
 				BB34F8ED1E563C2200AC8197 /* SuperpoweredSoundManager.cpp in Sources */,
 				BB34F8B91E563C2100AC8197 /* GridManager.cpp in Sources */,
@@ -3635,10 +3647,12 @@
 				BB34F9E11E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */,
 				BB44C35D1DB03267003E633F /* main.m in Sources */,
 				BBCB71D01DB6AF4B006430B6 /* CocoaSecurity.m in Sources */,
+				BBC91A2A1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */,
 				BB34F9D51E563C2300AC8197 /* Animation.cpp in Sources */,
 				BB34F8BD1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
 				BB44C86D1DB03A7E003E633F /* pngmem.c in Sources */,
 				BBA052291E68F96300450261 /* OpenGLTextureLoader.cpp in Sources */,
+				BB9A17401E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3665,7 +3679,8 @@
 				BB34F9FB1E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB44C3621DB03267003E633F /* SaveData.m in Sources */,
 				BB34FC451E5645F500AC8197 /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
-				BBA052511E68F96E00450261 /* asset_data_handler.mm in Sources */,
+				BBA052511E68F96E00450261 /* apple_asset_data_handler.mm in Sources */,
+				BB9A17411E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */,
 				BB34FCED1E5645F500AC8197 /* MainScreenOpeningCutscene.cpp in Sources */,
 				BB34FB8D1E5645F400AC8197 /* EndBossSnake.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
@@ -3793,6 +3808,7 @@
 				BB34FD3D1E5645F500AC8197 /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BB34F9F71E563C2300AC8197 /* GamePadInputManager.cpp in Sources */,
 				BBD5A9D21E584D93007CE6A8 /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
+				BBC91A2B1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */,
 				BB34FD411E5645F500AC8197 /* TrashCan.cpp in Sources */,
 				BB34FD091E5645F500AC8197 /* LevelEditorActionsPanel.cpp in Sources */,
 				BB34FB991E5645F400AC8197 /* ExitGround.cpp in Sources */,
@@ -3830,7 +3846,8 @@
 				BBB1E3371E60A54C00201A0C /* GpuProgramWrapper.cpp in Sources */,
 				BBB1E3391E60A54C00201A0C /* SaveData.m in Sources */,
 				BBB1E33A1E60A54C00201A0C /* OpenGLFramebufferTintGpuProgramWrapper.cpp in Sources */,
-				BBA052521E68F96E00450261 /* asset_data_handler.mm in Sources */,
+				BBA052521E68F96E00450261 /* apple_asset_data_handler.mm in Sources */,
+				BB9A17421E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */,
 				BBB1E33B1E60A54C00201A0C /* MainScreenOpeningCutscene.cpp in Sources */,
 				BBB1E33C1E60A54C00201A0C /* EndBossSnake.cpp in Sources */,
 				BBB1E33D1E60A54C00201A0C /* main.m in Sources */,
@@ -3958,6 +3975,7 @@
 				BBB1E3BA1E60A54C00201A0C /* TransDeathGpuProgramWrapper.cpp in Sources */,
 				BBB1E3BB1E60A54C00201A0C /* GamePadInputManager.cpp in Sources */,
 				BBB1E3BC1E60A54C00201A0C /* OpenGLFramebufferObfuscationGpuProgramWrapper.cpp in Sources */,
+				BBC91A2C1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */,
 				BBB1E3BE1E60A54C00201A0C /* TrashCan.cpp in Sources */,
 				BBB1E3BF1E60A54C00201A0C /* LevelEditorActionsPanel.cpp in Sources */,
 				BBB1E3C01E60A54C00201A0C /* ExitGround.cpp in Sources */,

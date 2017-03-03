@@ -1,12 +1,12 @@
 //
-//  asset_data_handler.m
+//  apple_asset_data_handler.mm
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#include "asset_data_handler.h"
+#include "apple_asset_data_handler.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -22,7 +22,7 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-FileData getAssetData(const char *relative_path)
+FileData appleGetAssetData(const char *relative_path)
 {
 	assert(relative_path != NULL);
     
@@ -50,7 +50,7 @@ FileData getAssetData(const char *relative_path)
     };
 }
 
-void releaseAssetData(const FileData *file_data)
+void appleReleaseAssetData(const FileData *file_data)
 {
     assert(file_data != NULL);
     assert(file_data->data != NULL);

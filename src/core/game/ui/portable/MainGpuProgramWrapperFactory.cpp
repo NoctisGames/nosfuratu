@@ -8,17 +8,13 @@
 
 #include "MainGpuProgramWrapperFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 MainGpuProgramWrapperFactory* MainGpuProgramWrapperFactory::getInstance()
 {
     static MainGpuProgramWrapperFactory *instance = new MainGpuProgramWrapperFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 
 #include "OpenGLTransScreenGpuProgramWrapper.h"
 #include "OpenGLFadeScreenGpuProgramWrapper.h"

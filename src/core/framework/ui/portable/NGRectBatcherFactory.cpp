@@ -8,17 +8,13 @@
 
 #include "NGRectBatcherFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 NGRectBatcherFactory* NGRectBatcherFactory::getInstance()
 {
     static NGRectBatcherFactory *instance = new NGRectBatcherFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "OpenGLNGRectBatcher.h"
 NGRectBatcher* NGRectBatcherFactory::createNGRectBatcher(bool isFill) { return new OpenGLNGRectBatcher(isFill); }
 #elif defined _WIN32

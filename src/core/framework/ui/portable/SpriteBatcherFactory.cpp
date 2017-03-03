@@ -8,17 +8,13 @@
 
 #include "SpriteBatcherFactory.h"
 
-#ifdef __APPLE__
-#include "TargetConditionals.h"
-#endif
-
 SpriteBatcherFactory* SpriteBatcherFactory::getInstance()
 {
     static SpriteBatcherFactory *instance = new SpriteBatcherFactory();
     return instance;
 }
 
-#if defined TARGET_OS_IPHONE || defined TARGET_OS_OSX || defined __ANDROID__
+#if defined __APPLE__ || defined __ANDROID__
 #include "OpenGLSpriteBatcher.h"
 SpriteBatcher* SpriteBatcherFactory::createSpriteBatcher() { return new OpenGLSpriteBatcher(); }
 #elif defined _WIN32
