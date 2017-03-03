@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    NGRectBatcherFactory() {}
+    NGRectBatcherFactory();
     NGRectBatcherFactory(const NGRectBatcherFactory&);
     NGRectBatcherFactory& operator=(const NGRectBatcherFactory&);
 };

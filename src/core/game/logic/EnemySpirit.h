@@ -11,14 +11,9 @@
 
 #include "PhysicalEntity.h"
 
-#include "RTTI.h"
+#include "EnemySpiritType.h"
 
-typedef enum
-{
-    EnemySpiritType_None,
-    EnemySpiritType_Snake,
-    EnemySpiritType_Sparrow
-} EnemySpiritType;
+#include "RTTI.h"
 
 class EnemySpirit : public PhysicalEntity
 {

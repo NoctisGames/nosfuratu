@@ -24,7 +24,7 @@ public:
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    DummyGpuProgramWrapper() {}
+    DummyGpuProgramWrapper();
     DummyGpuProgramWrapper(const DummyGpuProgramWrapper&);
     DummyGpuProgramWrapper& operator=(const DummyGpuProgramWrapper&);
 };

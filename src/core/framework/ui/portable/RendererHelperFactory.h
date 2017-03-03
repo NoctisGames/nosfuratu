@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    RendererHelperFactory() {}
+    RendererHelperFactory();
     RendererHelperFactory(const RendererHelperFactory&);
     RendererHelperFactory& operator=(const RendererHelperFactory&);
 };

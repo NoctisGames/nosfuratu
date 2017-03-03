@@ -96,12 +96,17 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
             m_holes.push_back(Hole::create(0, 0, HoleType_Grass));
             m_holes.push_back(Hole::create(0, 0, HoleType_Cave));
         }
-        else
+        
+        if (level != 10 && level != 21)
         {
             m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitSmall));
             m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitMedium));
             m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitLarge));
             m_pits.push_back(Ground::create(0, 0, GroundType_GrassPitExtraLarge));
+            
+            m_pits.push_back(Ground::create(0, 0, GroundType_PitTunnelLeft));
+            m_pits.push_back(Ground::create(0, 0, GroundType_PitTunnelCenter));
+            m_pits.push_back(Ground::create(0, 0, GroundType_PitTunnelRight));
         }
         
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_GrassPlatformLeft));

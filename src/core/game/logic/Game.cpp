@@ -283,7 +283,8 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
 
 	if (EntityUtils::isFallingThroughPit(entity, getPits(), deltaTime))
 	{
-		return EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
+		return EntityUtils::isLanding(entity, getPits(), deltaTime)
+        || EntityUtils::isLanding(entity, getForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getExtraForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getMidBossForegroundObjects(), deltaTime)
         || EntityUtils::isLanding(entity, getEndBossForegroundObjects(), deltaTime)

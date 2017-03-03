@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    SpriteBatcherFactory() {}
+    SpriteBatcherFactory();
     SpriteBatcherFactory(const SpriteBatcherFactory&);
     SpriteBatcherFactory& operator=(const SpriteBatcherFactory&);
 };

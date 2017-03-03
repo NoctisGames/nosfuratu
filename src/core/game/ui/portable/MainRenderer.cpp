@@ -58,6 +58,7 @@
 #include "MainGpuProgramWrapperFactory.h"
 #include "GameHudItem.h"
 #include "ExitGroundCover.h"
+#include "EnemySpirit.h"
 
 #include <math.h>
 #include <sstream>
@@ -966,8 +967,8 @@ void MainRenderer::renderWorld(Game& game)
     renderPhysicalEntities(game.getGrounds());
     m_spriteBatcher->endBatch(*m_world_1_ground->gpuTextureWrapper, *m_textureGpuProgramWrapper);
     
-    if (game.getLevel() < 10
-        && ensureTexture(m_world_1_special))
+    if (game.getLevel() != 10
+        && game.getLevel() != 21)
     {
         m_spriteBatcher->beginBatch();
         renderPhysicalEntities(game.getPits());

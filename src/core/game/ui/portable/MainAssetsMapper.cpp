@@ -214,6 +214,9 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["ForegroundObjectType_Stone_Platform"] = new TextureRegion("world_1_objects_part_1", 3484, 3128, 448, 112, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["ForegroundObjectType_Stone_Square"] = new TextureRegion("world_1_objects_part_1", 3084, 3284, 384, 384, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["ForegroundObjectType_Floating_Platform"] = new TextureRegion("world_1_objects_part_1", 2384, 284, 320, 176, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GroundType_PitTunnelLeft"] = new TextureRegion("world_1_special", 1284, 0, 384, 512, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GroundType_PitTunnelCenter"] = new TextureRegion("world_1_special", 1668, 0, 512, 512, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GroundType_PitTunnelRight"] = new TextureRegion("world_1_special", 2180, 0, 384, 512, TEXTURE_SIZE_4096);
     
     /// Animations
     ASSETS->getAnimationsMap()["CutsceneEffectType_POW"] = new Animation("world_1_cutscene_2", 0, 1270, 1952, 1412, 3904, 2824, TEXTURE_SIZE_4096, false, 0.20f, 3);

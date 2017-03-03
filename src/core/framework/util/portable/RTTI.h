@@ -14,18 +14,12 @@
 class RTTI
 {
 public:
-    RTTI(const std::string & className) : m_className(className), m_pBaseRTTI(nullptr) {}
-    RTTI(const std::string & className, const RTTI & baseRTTI) : m_className(className), m_pBaseRTTI(&baseRTTI) {}
+    RTTI(const std::string & className);
+    RTTI(const std::string & className, const RTTI & baseRTTI);
 
-    const std::string & getClassName() const
-    {
-        return m_className;
-    }
+    const std::string & getClassName() const;
     
-    bool isExactly(const RTTI & rtti) const
-    {
-        return (this == &rtti);
-    }
+    bool isExactly(const RTTI & rtti) const;
     
     bool derivesFrom(const RTTI & rtti) const;
 

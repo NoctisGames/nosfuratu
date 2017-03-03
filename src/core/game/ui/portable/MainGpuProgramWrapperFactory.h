@@ -53,7 +53,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    MainGpuProgramWrapperFactory() {}
+    MainGpuProgramWrapperFactory();
     MainGpuProgramWrapperFactory(const MainGpuProgramWrapperFactory&);
     MainGpuProgramWrapperFactory& operator=(const MainGpuProgramWrapperFactory&);
 };

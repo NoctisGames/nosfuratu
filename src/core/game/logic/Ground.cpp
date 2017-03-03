@@ -90,6 +90,13 @@ Ground* Ground::create(int gridX, int gridY, int type)
             return new GrassPit(gridX, 0, 128, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
         case GroundType_GrassPitExtraLarge:
             return new GrassPit(gridX, 0, 256, 100, 0, 0.96f, gt, GROUND_SOUND_NONE);
+            
+        case GroundType_PitTunnelLeft:
+            return new PitTunnel(gridX, gridY, 24, 32, 0, 0.234375f, gt, GROUND_SOUND_CAVE);
+        case GroundType_PitTunnelCenter:
+            return new PitTunnel(gridX, gridY, 32, 32, 0, 0.234375f, gt, GROUND_SOUND_CAVE);
+        case GroundType_PitTunnelRight:
+            return new PitTunnel(gridX, gridY, 24, 32, 0, 0.234375f, gt, GROUND_SOUND_CAVE);
     }
     
     assert(false);
@@ -133,6 +140,11 @@ bool Ground::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     }
     
     return false;
+}
+
+int Ground::getEntityLandingPriority()
+{
+    return 0;
 }
 
 bool Ground::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
@@ -234,6 +246,16 @@ GroundSoundType Ground::getGroundSoundType()
     return m_groundSoundType;
 }
 
+GrassPit::GrassPit(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType) : Ground(gridX, gridY, gridWidth, gridHeight, boundsY, boundsHeight, type, groundSoundType)
+{
+    // Empty
+}
+
+bool GrassPit::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    return false;
+}
+
 bool GrassPit::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     float entityVelocityX = entity->getVelocity().getX();
@@ -308,5 +330,44 @@ bool GrassPit::canObjectBePlacedUnder()
     return false;
 }
 
+PitTunnel::PitTunnel(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType) : Ground(gridX, gridY, gridWidth, gridHeight, boundsY, boundsHeight, type, groundSoundType)
+{
+    // Empty
+}
+
+bool PitTunnel::isEntityLanding(PhysicalEntity* entity, float deltaTime)
+{
+    // TODO
+    return false;
+}
+
+int PitTunnel::getEntityLandingPriority()
+{
+    return 1;
+}
+
+bool PitTunnel::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+{
+    // TODO
+    return false;
+}
+
+bool PitTunnel::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+    // TODO
+    return false;
+}
+
+bool PitTunnel::canObjectBePlacedOn()
+{
+    return true;
+}
+
+bool PitTunnel::canObjectBePlacedUnder()
+{
+    return false;
+}
+
 RTTI_IMPL(Ground, GridLockedPhysicalEntity);
 RTTI_IMPL(GrassPit, Ground);
+RTTI_IMPL(PitTunnel, Ground);

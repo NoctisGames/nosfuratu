@@ -1594,6 +1594,7 @@
 		BB9A173F1E69B74800429479 /* AppleAssetDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleAssetDataHandler.h; sourceTree = "<group>"; };
 		BB9A17431E69B9E800429479 /* AndroidAssetDataHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAssetDataHandler.cpp; sourceTree = "<group>"; };
 		BB9A17441E69B9E800429479 /* AndroidAssetDataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAssetDataHandler.h; sourceTree = "<group>"; };
+		BB9A17451E69FD0E00429479 /* EnemySpiritType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnemySpiritType.h; sourceTree = "<group>"; };
 		BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferRadialBlurGpuProgram.cpp; sourceTree = "<group>"; };
 		BBA051D61E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferRadialBlurGpuProgram.h; sourceTree = "<group>"; };
 		BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
@@ -2270,6 +2271,7 @@
 				BB34FAB21E5645F400AC8197 /* Enemy.h */,
 				BB34FAB31E5645F400AC8197 /* EnemySpirit.cpp */,
 				BB34FAB41E5645F400AC8197 /* EnemySpirit.h */,
+				BB9A17451E69FD0E00429479 /* EnemySpiritType.h */,
 				BB34FAB51E5645F400AC8197 /* EntityUtils.h */,
 				BB34FAB61E5645F400AC8197 /* ExitGround.cpp */,
 				BB34FAB71E5645F400AC8197 /* ExitGround.h */,

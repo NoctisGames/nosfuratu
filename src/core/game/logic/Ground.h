@@ -58,7 +58,11 @@ typedef enum
     GroundType_GrassPitSmall,
     GroundType_GrassPitMedium,
     GroundType_GrassPitLarge,
-    GroundType_GrassPitExtraLarge
+    GroundType_GrassPitExtraLarge,
+    
+    GroundType_PitTunnelLeft,
+    GroundType_PitTunnelCenter,
+    GroundType_PitTunnelRight
 } GroundType;
 
 class Ground : public GridLockedPhysicalEntity
@@ -72,7 +76,7 @@ public:
     
     bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
-	virtual int getEntityLandingPriority() { return 0; }
+    virtual int getEntityLandingPriority();
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
@@ -98,11 +102,33 @@ class GrassPit : public Ground
     RTTI_DECL;
     
 public:
-    GrassPit(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType) : Ground(gridX, gridY, gridWidth, gridHeight, boundsY, boundsHeight, type, groundSoundType) {}
+    GrassPit(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
+    
+    bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
 	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool canObjectBePlacedOn();
+    
+    virtual bool canObjectBePlacedUnder();
+};
+
+class PitTunnel : public Ground
+{
+    RTTI_DECL;
+    
+public:
+    PitTunnel(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
+    
+    bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+    
+    virtual int getEntityLandingPriority();
+    
+    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
     

@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    LineBatcherFactory() {}
+    LineBatcherFactory();
     LineBatcherFactory(const LineBatcherFactory&);
     LineBatcherFactory& operator=(const LineBatcherFactory&);
 };

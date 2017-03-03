@@ -498,7 +498,9 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                 {
                     m_draggingEntity = m_gameEntities.at(index);
                     
-                    if (m_draggingEntity->getRTTI().derivesFrom(Ground::rtti)
+                    bool isGroundAndNotPitTunnel = m_draggingEntity->getRTTI().derivesFrom(Ground::rtti) && !m_draggingEntity->getRTTI().derivesFrom(PitTunnel::rtti);
+                    
+                    if (isGroundAndNotPitTunnel
                         || m_draggingEntity->getRTTI().derivesFrom(ExitGround::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(Hole::rtti)
                         || m_draggingEntity->getRTTI().derivesFrom(SpikeTower::rtti)
@@ -541,15 +543,10 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                             m_fDraggingEntityOriginalY = m_draggingEntity->getPosition().getY();
                         }
                     }
-                    else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti))
-                    {
-                        m_allowPlaceOn = false;
-                    }
-					else if (m_draggingEntity->getRTTI().derivesFrom(RunningIntoDeathObject::rtti))
-					{
-						m_allowPlaceOn = false;
-					}
-                    else if (m_draggingEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
+                    else if (m_draggingEntity->getRTTI().derivesFrom(PlatformObject::rtti)
+                             || m_draggingEntity->getRTTI().derivesFrom(RunningIntoDeathObject::rtti)
+                             || m_draggingEntity->getRTTI().derivesFrom(CollectibleItem::rtti)
+                             || m_draggingEntity->getRTTI().derivesFrom(PitTunnel::rtti))
                     {
                         m_allowPlaceOn = false;
                     }

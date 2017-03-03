@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    TextureLoaderFactory() {}
+    TextureLoaderFactory();
     TextureLoaderFactory(const TextureLoaderFactory&);
     TextureLoaderFactory& operator=(const TextureLoaderFactory&);
 };

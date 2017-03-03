@@ -8,6 +8,26 @@
 
 #include "RTTI.h"
 
+RTTI::RTTI(const std::string & className) : m_className(className), m_pBaseRTTI(nullptr)
+{
+    // Empty
+}
+
+RTTI::RTTI(const std::string & className, const RTTI & baseRTTI) : m_className(className), m_pBaseRTTI(&baseRTTI)
+{
+    // Empty
+}
+
+const std::string & RTTI::getClassName() const
+{
+    return m_className;
+}
+
+bool RTTI::isExactly(const RTTI & rtti) const
+{
+    return (this == &rtti);
+}
+
 bool RTTI::derivesFrom(const RTTI & rtti) const
 {
     const RTTI * pCompare = this;

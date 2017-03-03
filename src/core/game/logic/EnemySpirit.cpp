@@ -7,6 +7,7 @@
 //
 
 #include "EnemySpirit.h"
+
 #include "EntityUtils.h"
 
 EnemySpirit* EnemySpirit::create(float x, float y, EnemySpiritType type)

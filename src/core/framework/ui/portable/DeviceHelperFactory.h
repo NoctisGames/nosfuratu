@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    DeviceHelperFactory() {}
+    DeviceHelperFactory();
     DeviceHelperFactory(const DeviceHelperFactory&);
     DeviceHelperFactory& operator=(const DeviceHelperFactory&);
 };

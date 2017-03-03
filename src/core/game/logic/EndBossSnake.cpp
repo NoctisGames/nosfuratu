@@ -17,11 +17,17 @@
 #include "MathUtil.h"
 #include "SoundManager.h"
 #include "VectorUtil.h"
+#include "NGRect.h"
 
 #include <math.h>
 
 #define END_BOSS_SNAKE_DEFAULT_MAX_SPEED VAMP_DEFAULT_MAX_SPEED + 1.4f
 #define END_BOSS_SNAKE_DEFAULT_ACCELERATION VAMP_DEFAULT_ACCELERATION
+
+EndBossSnake* EndBossSnake::create(int gridX, int gridY, int type)
+{
+    return new EndBossSnake(gridX, gridY);
+}
 
 EndBossSnake::EndBossSnake(int gridX, int gridY) : GridLockedPhysicalEntity(gridX, gridY, 54, 34, 0.25f, 0.12f, 0.5f, 0.88f),
 m_game(nullptr),
@@ -39,17 +45,24 @@ m_hasPlayedChargeSound(false)
 	float l = x - w / 2;
 	float b = y - (h / 2);
     
-    m_snakeSkin = std::unique_ptr<SnakeSkin>(new SnakeSkin(x, y, w, h, this));
-    m_snakeEye = std::unique_ptr<SnakeEye>(new SnakeEye(0.52083333333333 * w + l, 0.65073529411765 * h + b, this));
-    m_snakeTonque = std::unique_ptr<SnakeTonque>(new SnakeTonque(x, y, this));
-    m_snakeBody = std::unique_ptr<SnakeBody>(new SnakeBody(x, y, h, this));
-	m_snakeHeadImpact = std::unique_ptr<SnakeHeadImpact>(new SnakeHeadImpact(x, y, this));
-    m_snakeSpirit = std::unique_ptr<SnakeSpirit>(new SnakeSpirit(x, y, this));
+    m_snakeSkin = new SnakeSkin(x, y, w, h, this);
+    m_snakeEye = new SnakeEye(0.52083333333333 * w + l, 0.65073529411765 * h + b, this);
+    m_snakeTonque = new SnakeTonque(x, y, this);
+    m_snakeBody = new SnakeBody(x, y, h, this);
+	m_snakeHeadImpact = new SnakeHeadImpact(x, y, this);
+    m_snakeSpirit = new SnakeSpirit(x, y, this);
 }
 
 EndBossSnake::~EndBossSnake()
 {
     VectorUtil::cleanUpVectorOfPointers(m_afterImages);
+    
+    delete m_snakeSkin;
+    delete m_snakeEye;
+    delete m_snakeTonque;
+    delete m_snakeBody;
+    delete m_snakeHeadImpact;
+    delete m_snakeSpirit;
 }
 
 void EndBossSnake::update(float deltaTime)
@@ -533,25 +546,79 @@ bool EndBossSnake::isEntityLanding(PhysicalEntity* entity, float deltaTime)
     return false;
 }
 
-void SnakeEye::update(float deltaTime)
+int EndBossSnake::getEntityLandingPriority()
 {
-	if (m_isWakingUp)
-	{
-		m_fStateTime += deltaTime;
-
-		if (m_fStateTime > 0.3f)
-		{
-			m_isShowing = false;
-			m_isWakingUp = false;
-		}
-	}
+    return 0;
 }
 
-void SnakeEye::onAwaken()
+Game* EndBossSnake::getGame()
 {
-	m_fStateTime = 0;
-    
-    m_isWakingUp = true;
+    return m_game;
+}
+
+void EndBossSnake::setGame(Game* game)
+{
+    m_game = game;
+}
+
+std::vector<EndBossSnake *>& EndBossSnake::getAfterImages()
+{
+    return m_afterImages;
+}
+
+SnakeSkin& EndBossSnake::getSnakeSkin()
+{
+    return *m_snakeSkin;
+}
+
+SnakeEye& EndBossSnake::getSnakeEye()
+{
+    return *m_snakeEye;
+}
+
+SnakeTonque& EndBossSnake::getSnakeTonque()
+{
+    return *m_snakeTonque;
+}
+
+SnakeBody& EndBossSnake::getSnakeBody()
+{
+    return *m_snakeBody;
+}
+
+SnakeHeadImpact& EndBossSnake::getSnakeHeadImpact()
+{
+    return *m_snakeHeadImpact;
+}
+
+SnakeSpirit& EndBossSnake::getSnakeSpirit()
+{
+    return *m_snakeSpirit;
+}
+
+EndBossSnakeState EndBossSnake::getState()
+{
+    return m_state;
+}
+
+Color EndBossSnake::getColor()
+{
+    return m_color;
+}
+
+int EndBossSnake::getDamage()
+{
+    return m_iDamage;
+}
+
+int EndBossSnake::getType()
+{
+    return m_type;
+}
+
+SnakeSpirit::SnakeSpirit(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 51.25f * GRID_CELL_SIZE, 22.5f * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+{
+    // Empty
 }
 
 void SnakeSpirit::update(float deltaTime)
@@ -600,6 +667,21 @@ void SnakeSpirit::onDeath()
     SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
 }
 
+EndBossSnake& SnakeSpirit::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+Color& SnakeSpirit::getColor()
+{
+    return m_color;
+}
+
+SnakeHeadImpact::SnakeHeadImpact(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 32 * GRID_CELL_SIZE, 32 * GRID_CELL_SIZE), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+{
+    // Empty
+}
+
 void SnakeHeadImpact::update(float deltaTime)
 {
 	if (m_isShowing)
@@ -638,6 +720,21 @@ void SnakeHeadImpact::onDamageTaken()
 	m_color.alpha = 1;
 
 	m_isShowing = true;
+}
+
+EndBossSnake& SnakeHeadImpact::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+Color& SnakeHeadImpact::getColor()
+{
+    return m_color;
+}
+
+SnakeSkin::SnakeSkin(float x, float y, float width, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, width, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isShowing(false)
+{
+    // Empty
 }
 
 void SnakeSkin::update(float deltaTime)
@@ -685,6 +782,52 @@ void SnakeSkin::onDamageTaken()
     m_isShowing = true;
 }
 
+EndBossSnake& SnakeSkin::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+Color& SnakeSkin::getColor()
+{
+    return m_color;
+}
+
+SnakeEye::SnakeEye(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 1.037109375f, 1.037109375f), m_endBossSnake(endBossSnake), m_isWakingUp(false), m_isShowing(true)
+{
+    // Empty
+}
+
+void SnakeEye::update(float deltaTime)
+{
+    if (m_isWakingUp)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 0.3f)
+        {
+            m_isShowing = false;
+            m_isWakingUp = false;
+        }
+    }
+}
+
+void SnakeEye::onAwaken()
+{
+    m_fStateTime = 0;
+    
+    m_isWakingUp = true;
+}
+
+EndBossSnake& SnakeEye::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+SnakeTonque::SnakeTonque(float x, float y, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 4.869140625f, 0.685546875f), m_endBossSnake(endBossSnake), m_isMouthOpen(false)
+{
+    // Empty
+}
+
 void SnakeTonque::update(float deltaTime)
 {
 	if (m_isMouthOpen)
@@ -723,6 +866,26 @@ void SnakeTonque::onMouthOpen()
 	m_fStateTime = 0;
     
     m_isMouthOpen = true;
+}
+
+void SnakeTonque::onMouthClose()
+{
+    m_isMouthOpen = false;
+}
+
+EndBossSnake& SnakeTonque::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+bool SnakeTonque::isMouthOpen()
+{
+    return m_isMouthOpen;
+}
+
+SnakeBody::SnakeBody(float x, float y, float height, EndBossSnake* endBossSnake) : PhysicalEntity(x, y, 30.65625f, height), m_endBossSnake(endBossSnake), m_color(1, 1, 1, 1), m_isDead(false)
+{
+    update(0);
 }
 
 void SnakeBody::update(float deltaTime)
@@ -769,16 +932,38 @@ void SnakeBody::update(float deltaTime)
 	}
 }
 
+void SnakeBody::updateBounds()
+{
+    getMainBounds().setWidth(getWidth());
+    getMainBounds().setHeight(getHeight());
+    
+    PhysicalEntity::updateBounds();
+    
+    getMainBounds().getLowerLeft().add(getWidth() * 0.15f, getHeight() * 0.0f);
+    getMainBounds().setWidth(getWidth() * 0.70f);
+    getMainBounds().setHeight(getHeight() * 0.50f);
+}
+
 void SnakeBody::onDeath()
 {
     update(0);
 	m_isDead = true;
 }
 
+EndBossSnake& SnakeBody::getEndBossSnake()
+{
+    return *m_endBossSnake;
+}
+
+Color& SnakeBody::getColor()
+{
+    return m_color;
+}
+
+RTTI_IMPL(EndBossSnake, GridLockedPhysicalEntity);
 RTTI_IMPL(SnakeSpirit, PhysicalEntity);
 RTTI_IMPL(SnakeHeadImpact, PhysicalEntity);
 RTTI_IMPL(SnakeSkin, PhysicalEntity);
 RTTI_IMPL(SnakeEye, PhysicalEntity);
 RTTI_IMPL(SnakeTonque, PhysicalEntity);
 RTTI_IMPL(SnakeBody, PhysicalEntity);
-RTTI_IMPL(EndBossSnake, GridLockedPhysicalEntity);

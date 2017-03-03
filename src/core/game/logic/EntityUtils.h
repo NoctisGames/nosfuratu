@@ -10,7 +10,6 @@
 #define __nosfuratu__EntityUtils__
 
 #include "OverlapTester.h"
-#include "PhysicalEntity.h"
 #include "GridLockedPhysicalEntity.h"
 #include "NGRect.h"
 #include "Vector2D.h"
@@ -19,8 +18,6 @@
 
 #include <math.h>
 #include <vector>
-
-class PhysicalEntity;
 
 class EntityUtils
 {

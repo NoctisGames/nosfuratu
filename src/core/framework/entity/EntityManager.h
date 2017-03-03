@@ -29,9 +29,8 @@ public:
 private:
     std::map<int, Entity*> m_entityMap;
     
+    // ctor, copy ctor, and assignment should be private in a Singleton
     EntityManager();
-    
-    //copy ctor and assignment should be private
     EntityManager(const EntityManager&);
     EntityManager& operator=(const EntityManager&);
 };

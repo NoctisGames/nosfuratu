@@ -25,7 +25,7 @@ private:
     float m_fGridCellSize;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    GridManager() {}
+    GridManager();
     GridManager(const GridManager&);
     GridManager& operator=(const GridManager&);
 };
