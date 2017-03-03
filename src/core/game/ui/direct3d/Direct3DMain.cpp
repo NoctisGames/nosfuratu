@@ -34,7 +34,6 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
 
 	Direct3DManager::setDeviceResources(m_deviceResources.get());
 
-	// Hide Constructor for Singleton
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
 	m_isWindowsMobile = false;
 #else

@@ -21,3 +21,8 @@ NGRectBatcher* NGRectBatcherFactory::createNGRectBatcher(bool isFill) { return n
 #include "Direct3DNGRectBatcher.h"
 NGRectBatcher* NGRectBatcherFactory::createNGRectBatcher(bool isFill) { return new Direct3DNGRectBatcher(isFill); }
 #endif
+
+NGRectBatcherFactory::NGRectBatcherFactory()
+{
+    // Hide Constructor for Singleton
+}

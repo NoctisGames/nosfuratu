@@ -21,3 +21,8 @@ SpriteBatcher* SpriteBatcherFactory::createSpriteBatcher() { return new OpenGLSp
 #include "Direct3DSpriteBatcher.h"
 SpriteBatcher* SpriteBatcherFactory::createSpriteBatcher() { return new Direct3DSpriteBatcher(); }
 #endif
+
+SpriteBatcherFactory::SpriteBatcherFactory()
+{
+    // Hide Constructor for Singleton
+}

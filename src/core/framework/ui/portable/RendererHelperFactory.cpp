@@ -21,3 +21,8 @@ IRendererHelper* RendererHelperFactory::createRendererHelper() { return new Open
 #include "Direct3DRendererHelper.h"
 IRendererHelper* RendererHelperFactory::createRendererHelper() { return new Direct3DRendererHelper(); }
 #endif
+
+RendererHelperFactory::RendererHelperFactory()
+{
+    // Hide Constructor for Singleton
+}

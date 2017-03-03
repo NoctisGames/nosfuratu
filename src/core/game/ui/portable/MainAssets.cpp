@@ -733,6 +733,22 @@ TextureRegion& MainAssets::get(Ground* ground)
             static TextureRegion tr = ASSETS->findTextureRegion("GroundType_GrassPitExtraLarge");
             return tr;
         }
+            
+        case GroundType_PitTunnelLeft:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GroundType_PitTunnelLeft");
+            return tr;
+        }
+        case GroundType_PitTunnelCenter:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GroundType_PitTunnelCenter");
+            return tr;
+        }
+        case GroundType_PitTunnelRight:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GroundType_PitTunnelRight");
+            return tr;
+        }
     }
     
     assert(false);

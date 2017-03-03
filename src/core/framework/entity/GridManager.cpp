@@ -24,3 +24,8 @@ float GridManager::getGridCellSize()
 {
     return m_fGridCellSize;
 }
+
+GridManager::GridManager()
+{
+    // Hide Constructor for Singleton
+}

@@ -161,3 +161,8 @@ FramebufferRadialBlurGpuProgramWrapper* MainGpuProgramWrapperFactory::createFram
     return new Direct3DFramebufferRadialBlurGpuProgramWrapper();
 }
 #endif
+
+MainGpuProgramWrapperFactory::MainGpuProgramWrapperFactory()
+{
+    // Hide Constructor for Singleton
+}

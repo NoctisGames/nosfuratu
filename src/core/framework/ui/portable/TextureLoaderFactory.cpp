@@ -21,3 +21,8 @@ ITextureLoader* TextureLoaderFactory::createTextureLoader() { return new OpenGLT
 #include "Direct3DTextureLoader.h"
 ITextureLoader* TextureLoaderFactory::createTextureLoader() { return new Direct3DTextureLoader(); }
 #endif
+
+TextureLoaderFactory::TextureLoaderFactory()
+{
+    // Hide Constructor for Singleton
+}

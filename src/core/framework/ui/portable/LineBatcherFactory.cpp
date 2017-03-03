@@ -21,3 +21,8 @@ LineBatcher* LineBatcherFactory::createLineBatcher() { return new OpenGLLineBatc
 #include "Direct3DLineBatcher.h"
 LineBatcher* LineBatcherFactory::createLineBatcher() { return new Direct3DLineBatcher(); }
 #endif
+
+LineBatcherFactory::LineBatcherFactory()
+{
+    // Hide Constructor for Singleton
+}

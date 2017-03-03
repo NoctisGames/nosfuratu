@@ -55,3 +55,8 @@ GpuProgramWrapper* GpuProgramWrapperFactory::createFramebufferToScreenGpuProgram
     return new Direct3DFramebufferToScreenGpuProgramWrapper();
 }
 #endif
+
+GpuProgramWrapperFactory::GpuProgramWrapperFactory()
+{
+    // Hide Constructor for Singleton
+}

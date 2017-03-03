@@ -21,3 +21,8 @@ IDeviceHelper* DeviceHelperFactory::createDeviceHelper() { return new OpenGLDevi
 #include "Direct3DDeviceHelper.h"
 IDeviceHelper* DeviceHelperFactory::createDeviceHelper() { return new Direct3DDeviceHelper(); }
 #endif
+
+DeviceHelperFactory::DeviceHelperFactory()
+{
+    // Hide Constructor for Singleton
+}

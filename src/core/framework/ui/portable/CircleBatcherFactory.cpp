@@ -21,3 +21,8 @@ CircleBatcher* CircleBatcherFactory::createCircleBatcher() { return new OpenGLCi
 #include "Direct3DCircleBatcher.h"
 CircleBatcher* CircleBatcherFactory::createCircleBatcher() { return new Direct3DCircleBatcher(); }
 #endif
+
+CircleBatcherFactory::CircleBatcherFactory()
+{
+    // Hide Constructor for Singleton
+}

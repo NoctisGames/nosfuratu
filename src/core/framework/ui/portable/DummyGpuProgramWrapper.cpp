@@ -28,3 +28,8 @@ void DummyGpuProgramWrapper::unbind()
 {
     // Empty
 }
+
+DummyGpuProgramWrapper::DummyGpuProgramWrapper()
+{
+    // Hide Constructor for Singleton
+}
