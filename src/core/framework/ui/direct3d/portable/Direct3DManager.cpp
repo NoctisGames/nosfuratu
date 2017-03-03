@@ -105,22 +105,15 @@ void Direct3DManager::updateMatrix(float left, float right, float bottom, float 
 {
 	using namespace DirectX;
 
-	XMVECTOR eye = XMVectorSet(0, 0, 1, 0);
-	XMVECTOR center = XMVectorSet(0, 0, 0, 0);
-	XMVECTOR up = XMVectorSet(0, 1, 0, 0);
-
-	XMMATRIX matProjection = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0);
-	XMMATRIX matView = XMMatrixLookAtRH(eye, center, up);
-
 	XMMATRIX matFinal;
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	matFinal = matView * matProjection;
+	matFinal = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0);
 #else
 	XMFLOAT4X4 orientation = s_pDeviceResources->GetOrientationTransform3D();
 
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
 
-	matFinal = matView * matProjection * orientationMatrix;
+	matFinal = XMMatrixOrthographicOffCenterRH(left, right, bottom, top, -1.0, 1.0) * orientationMatrix;
 #endif
 	XMStoreFloat4x4(&m_matFinal, matFinal);
 }
