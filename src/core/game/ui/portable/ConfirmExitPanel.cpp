@@ -7,6 +7,11 @@
 //
 
 #include "ConfirmExitPanel.h"
+
+#include "ScreenEvent.h"
+#include "Vector2D.h"
+#include "NGRect.h"
+
 #include "OverlapTester.h"
 
 ConfirmExitPanel::ConfirmExitPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false)
@@ -14,8 +19,14 @@ ConfirmExitPanel::ConfirmExitPanel(float x, float y, float width, float height) 
     float l = x - width / 2;
     float b = y - height / 2;
     
-    m_cancelButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
-    m_exitButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
+    m_cancelButton = new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+    m_exitButton = new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+}
+
+ConfirmExitPanel::~ConfirmExitPanel()
+{
+    delete m_cancelButton;
+    delete m_exitButton;
 }
 
 void ConfirmExitPanel::open()

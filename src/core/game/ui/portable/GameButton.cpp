@@ -116,6 +116,11 @@ GameButtonType GameButton::getType()
     return m_type;
 }
 
+Color& GameButton::getColor()
+{
+    return m_color;
+}
+
 bool GameButton::handleClick(Vector2D& touchPoint)
 {
     if (OverlapTester::isPointInNGRect(touchPoint, getMainBounds()))

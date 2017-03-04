@@ -7,9 +7,6 @@
 //
 
 #include "WorldMapPanel.h"
-#include "NGRect.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
 
 WorldMapPanel::WorldMapPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
 {

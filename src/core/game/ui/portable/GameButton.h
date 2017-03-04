@@ -29,7 +29,7 @@ public:
     
     GameButtonType getType();
     
-    Color& getColor() { return m_color; }
+    Color& getColor();
     
     bool handleClick(Vector2D& touchPoint);
     

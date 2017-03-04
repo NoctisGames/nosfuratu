@@ -10,13 +10,14 @@
 #define __nosfuratu__ConfirmExitPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
+
 #include "RTTI.h"
 
-#include <memory>
+class ScreenEvent;
+class Vector2D;
+class NGRect;
 
 #define CONFIRM_EXIT_PANEL_RC_UNHANDLED 0
 #define CONFIRM_EXIT_PANEL_RC_CANCEL 1
@@ -29,6 +30,8 @@ class ConfirmExitPanel : public PhysicalEntity
 public:
     ConfirmExitPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
     
+    ~ConfirmExitPanel();
+    
     void open();
     
     void close();
@@ -38,8 +41,8 @@ public:
     bool isOpen();
     
 private:
-    std::unique_ptr<NGRect> m_cancelButton;
-    std::unique_ptr<NGRect> m_exitButton;
+    NGRect* m_cancelButton;
+    NGRect* m_exitButton;
     bool m_isOpen;
 };
 

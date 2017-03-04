@@ -13,6 +13,21 @@
 
 #include <sstream>
 
+DelayText::DelayText(float delay, std::string text, float x, float y, float width, float height) : Text(text, x, y, width, height, 1, 1, 1, 1), m_fDelay(delay)
+{
+    // Empty
+}
+
+void DelayText::update(float deltaTime)
+{
+    m_fDelay -= deltaTime;
+    
+    if (m_fDelay < 0)
+    {
+        Text::update(deltaTime);
+    }
+}
+
 GameTracker * GameTracker::getInstance()
 {
     static GameTracker *instance = new GameTracker();

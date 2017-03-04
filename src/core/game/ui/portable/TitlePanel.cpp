@@ -84,13 +84,45 @@ bool TitlePanel::isLightningStriking()
     return m_isLightningStriking;
 }
 
-BigCloud* TitlePanel::getBigCloud() { return m_bigCloud; }
-SmallCloud* TitlePanel::getSmallCloud() { return m_smallCloud; }
-Lightning* TitlePanel::getLightning() { return m_lightning; }
-NosfuratuLogoLightEffect* TitlePanel::getNosfuratuLogoLightEffect() { return m_nosfuratuLogoLightEffect; }
-NosfuratuLogo* TitlePanel::getNosfuratuLogo() { return m_nosfuratuLogo; }
-CastleLightEffect* TitlePanel::getCastleLightEffect() { return m_castleLightEffect; }
-Castle* TitlePanel::getCastle() { return m_castle; }
+BigCloud* TitlePanel::getBigCloud()
+{
+    return m_bigCloud;
+}
+
+SmallCloud* TitlePanel::getSmallCloud()
+{
+    return m_smallCloud;
+}
+
+Lightning* TitlePanel::getLightning()
+{
+    return m_lightning;
+}
+
+NosfuratuLogoLightEffect* TitlePanel::getNosfuratuLogoLightEffect()
+{
+    return m_nosfuratuLogoLightEffect;
+}
+
+NosfuratuLogo* TitlePanel::getNosfuratuLogo()
+{
+    return m_nosfuratuLogo;
+}
+
+CastleLightEffect* TitlePanel::getCastleLightEffect()
+{
+    return m_castleLightEffect;
+}
+
+Castle* TitlePanel::getCastle()
+{
+    return m_castle;
+}
+
+BigCloud::BigCloud(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    m_velocity.setX(-1.5f);
+}
 
 void BigCloud::update(float deltaTime)
 {
@@ -104,6 +136,11 @@ void BigCloud::update(float deltaTime)
     {
         m_velocity.setX(-1.6f);
     }
+}
+
+SmallCloud::SmallCloud(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    m_velocity.setX(2.5f);
 }
 
 void SmallCloud::update(float deltaTime)
@@ -120,6 +157,32 @@ void SmallCloud::update(float deltaTime)
     }
 }
 
+Lightning::Lightning(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+NosfuratuLogoLightEffect::NosfuratuLogoLightEffect(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+NosfuratuLogo::NosfuratuLogo(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+CastleLightEffect::CastleLightEffect(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+Castle::Castle(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+RTTI_IMPL(TitlePanel, PhysicalEntity);
 RTTI_IMPL(BigCloud, PhysicalEntity);
 RTTI_IMPL(SmallCloud, PhysicalEntity);
 RTTI_IMPL(Lightning, PhysicalEntity);
@@ -127,4 +190,3 @@ RTTI_IMPL(NosfuratuLogoLightEffect, PhysicalEntity);
 RTTI_IMPL(NosfuratuLogo, PhysicalEntity);
 RTTI_IMPL(CastleLightEffect, PhysicalEntity);
 RTTI_IMPL(Castle, PhysicalEntity);
-RTTI_IMPL(TitlePanel, PhysicalEntity);
