@@ -11,7 +11,10 @@
 #include "Jon.h"
 #include "Game.h"
 
-#include "EntityUtils.h"
+#include "NGRect.h"
+#include "OverlapTester.h"
+
+#include <math.h>
 
 Ground* Ground::create(int gridX, int gridY, int type)
 {
