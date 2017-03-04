@@ -17,6 +17,7 @@
 #include "RTTI.h"
 
 class Jon;
+class Game;
 
 class Ground : public GridLockedPhysicalEntity
 {
@@ -25,7 +26,7 @@ class Ground : public GridLockedPhysicalEntity
 public:
     static Ground* create(int gridX, int gridY, int type);
     
-    Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
+    Ground(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsWidth, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
     bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
 
@@ -35,7 +36,7 @@ public:
 
 	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
     
-    bool isJonBlockedAbove(Jon& jon, float deltaTime);
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
     
@@ -44,6 +45,11 @@ public:
     GroundType getType();
     
     GroundSoundType getGroundSoundType();
+    
+    void setGame(Game* game);
+    
+protected:
+    Game* m_game;
     
 private:
     GroundType m_type;
@@ -55,13 +61,17 @@ class GrassPit : public Ground
     RTTI_DECL;
     
 public:
-    GrassPit(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
+    GrassPit(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsWidth, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
     bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
+    
+    virtual int getEntityLandingPriority();
     
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
 
 	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
     
@@ -73,7 +83,7 @@ class PitTunnel : public Ground
     RTTI_DECL;
     
 public:
-    PitTunnel(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
+    PitTunnel(int gridX, int gridY, int gridWidth, int gridHeight, float boundsY, float boundsWidth, float boundsHeight, GroundType type, GroundSoundType groundSoundType);
     
     bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
@@ -82,6 +92,8 @@ public:
     virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
     
     virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
+    
+    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
     
     virtual bool canObjectBePlacedOn();
     

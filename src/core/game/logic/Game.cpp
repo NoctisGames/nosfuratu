@@ -386,7 +386,7 @@ bool Game::isJonBlockedVertically(float deltaTime)
 {
     if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
     {
-        return false;
+        return EntityUtils::isBlockedAbove(getJon(), getPits(), deltaTime);
     }
     
     return EntityUtils::isBlockedAbove(getJon(), getGrounds(), deltaTime)
@@ -732,6 +732,8 @@ void Game::onLoaded()
         }
     }
     
+    EntityUtils::setGameToEntities(m_grounds, this);
+    EntityUtils::setGameToEntities(m_pits, this);
     EntityUtils::setGameToEntities(m_jons, this);
     EntityUtils::setGameToEntities(m_collectibleItems, this);
     EntityUtils::setGameToEntities(m_enemies, this);

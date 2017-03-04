@@ -547,6 +547,8 @@ void Level::update(MainScreen* ms)
                     
                     EntityUtils::offsetAll(m_game->getMarkers(), beginGridX, endGridX);
                     
+                    EntityUtils::setGameToEntities(m_game->getGrounds(), m_game);
+                    EntityUtils::setGameToEntities(m_game->getPits(), m_game);
                     EntityUtils::setGameToEntities(m_game->getForegroundObjects(), m_game);
                     EntityUtils::setGameToEntities(m_game->getMidBossForegroundObjects(), m_game);
                     EntityUtils::setGameToEntities(m_game->getEndBossForegroundObjects(), m_game);

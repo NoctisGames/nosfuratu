@@ -451,7 +451,12 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
         {
             if (rc == LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED)
             {
-                if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
+                if (m_lastAddedEntity->getRTTI().derivesFrom(Ground::rtti))
+                {
+                    Ground* ground = reinterpret_cast<Ground *>(m_lastAddedEntity);
+                    ground->setGame(m_game.get());
+                }
+                else if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
                     jon->setGame(m_game.get());

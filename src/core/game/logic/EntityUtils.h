@@ -148,24 +148,29 @@ public:
     {
         float entityLeft = entity->getMainBounds().getLeft();
         float entityRight = entity->getMainBounds().getRight();
-        float entityBottom = entity->getMainBounds().getBottom();
         
         for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
         {
-            float itemLeftX = (*i)->getMainBounds().getLeft();
+            float itemLeft = (*i)->getMainBounds().getLeft();
+            float itemBottom = (*i)->getPosition().getY() - (*i)->getHeight() / 2;
             float itemRight = (*i)->getMainBounds().getRight();
-            float itemTop = (*i)->getMainBounds().getTop() * 0.99f;
             
-            if (OverlapTester::doNGRectsOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
+            NGRect objBounds = NGRect(itemLeft, itemBottom, (*i)->getMainBounds().getWidth(), (*i)->getHeight());
+            
+            if (OverlapTester::doNGRectsOverlap(entity->getMainBounds(), objBounds))
             {
-                if (entityBottom < itemTop)
+                if (entityLeft >= itemLeft && entityRight <= itemRight)
                 {
-                    return true;
-                }
-                
-                if (entityLeft >= itemLeftX && entityRight <= itemRight)
-                {
-                    return true;
+                    if ((*i)->getRTTI().derivesFrom(PitTunnel::rtti))
+                    {
+                        float entityTop = entity->getMainBounds().getTop();
+                        float itemTop = (*i)->getPosition().getY() + (*i)->getHeight() / 2;
+                        return entityTop < itemTop;
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
         }
@@ -197,13 +202,47 @@ public:
     template<typename T>
     static bool isBlockedOnRight(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
+//        int highestPriority = 0;
+//        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+//        {
+//            if ((*i) == entity)
+//            {
+//                continue;
+//            }
+//            
+//            int priority = (*i)->getEntityLandingPriority();
+//            if (priority > highestPriority)
+//            {
+//                highestPriority = priority;
+//            }
+//        }
+//        
+//        for (int p = highestPriority; p >= 0; p--)
+//        {
+//            for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+//            {
+//                if ((*i) == entity)
+//                {
+//                    continue;
+//                }
+//                
+//                int priority = (*i)->getEntityLandingPriority();
+//                
+//                if (p == priority
+//                    && (*i)->isEntityBlockedOnRight(entity, deltaTime))
+//                {
+//                    return true;
+//                }
+//            }
+//        }
+        
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
-			if ((*i) == entity)
-			{
-				continue;
-			}
-
+            if ((*i) == entity)
+            {
+                continue;
+            }
+            
             if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
                 return true;
