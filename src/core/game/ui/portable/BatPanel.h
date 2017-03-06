@@ -10,188 +10,20 @@
 #define __nosfuratu__BatPanel__
 
 #include "PhysicalEntity.h"
-#include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
+
 #include "Color.h"
-#include "macros.h"
-#include "Assets.h"
-#include "RTTI.h"
-#include "SoundManager.h"
 #include "BatInstructionType.h"
 #include "BatGoalType.h"
 
-#include <math.h>
+#include "RTTI.h"
 
-class Game;
 class MainScreen;
+class Game;
 class Jon;
+class Vector2D;
 
-class BatInstruction : public PhysicalEntity
-{
-    RTTI_DECL;
-    
-public:
-    BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_color(1, 1, 1, 1), m_isClosing(false), m_isOpening(false), m_isOpen(false) { }
-    
-    virtual void update(float deltaTime)
-    {
-        PhysicalEntity::update(deltaTime);
-        
-        if (m_isOpening)
-        {
-            if (m_fStateTime > 0.2f)
-            {
-                m_fStateTime = 0;
-                m_isOpening = false;
-                m_isOpen = true;
-            }
-        }
-        else if (m_isClosing)
-        {
-            m_color.alpha -= deltaTime * 2;
-            
-            if (m_color.alpha < 0)
-            {
-                m_isClosing = false;
-                m_isOpen = false;
-                
-                m_position.set(1337, 1337);
-            }
-        }
-    }
-    
-    void open(BatInstructionType type, float x, float y)
-    {
-        m_type = type;
-        
-        m_position.set(x, y);
-        
-        m_fStateTime = 0;
-        m_isOpening = true;
-        m_isOpen = false;
-        
-        m_color.alpha = 1;
-    }
-    
-    void close()
-    {
-        m_fStateTime = 0;
-        m_isOpening = false;
-        m_isOpen = true;
-        m_isClosing = true;
-        
-        m_color.alpha = 1;
-    }
-    
-    void reset()
-    {
-        m_type = BatInstructionType_None;
-        
-        m_position.set(1337, 1337);
-        
-        m_fStateTime = 0;
-        
-        m_isClosing = false;
-        m_isOpening = false;
-        m_isOpen = false;
-        
-        m_color.alpha = 1;
-    }
-    
-    BatInstructionType getType() { return m_type; }
-    
-    Color& getColor() { return m_color; }
-    
-    bool isOpening() { return m_isOpening; }
-    
-    bool isOpen() { return m_isOpen; }
-    
-private:
-    BatInstructionType m_type;
-    Color m_color;
-    bool m_isClosing;
-    bool m_isOpening;
-    bool m_isOpen;
-};
-
-class Bat : public PhysicalEntity
-{
-    RTTI_DECL;
-    
-public:
-    Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f)
-    {
-        m_target = new Vector2D();
-        m_isInPosition = false;
-    }
-    
-    ~Bat()
-    {
-        delete m_target;
-    }
-    
-    virtual void update(float deltaTime)
-    {
-        PhysicalEntity::update(deltaTime);
-        
-        if (!m_isInPosition)
-        {
-            m_isInPosition = !(m_target->dist(m_position) > 0.25f);
-            
-            if (m_isInPosition)
-            {
-                m_velocity.set(0, 0);
-            }
-        }
-    }
-    
-    void naviPoof(float x, float y)
-    {
-        m_position.set(x, y);
-        m_target->set(x, y);
-        
-        m_fStateTime = 0;
-        m_isInPosition = true;
-        
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BAT_POOF);
-    }
-    
-    void moveTo(float x, float y)
-    {
-        m_target->set(x, y);
-        
-        if (m_target->dist(m_position) > 6)
-        {
-            naviPoof(x, y);
-            
-            return;
-        }
-        
-        float angle = m_target->cpy().sub(m_position.getX(), m_position.getY()).angle();
-        float radians = DEGREES_TO_RADIANS(angle);
-        
-        m_velocity.set(cosf(radians) * 6, sinf(radians) * 6);
-        
-        m_isInPosition = false;
-    }
-    
-    void reset()
-    {
-        m_position.set(1337, 1337);
-        m_target->set(0, 0);
-        
-        m_fStateTime = 0;
-        m_isInPosition = false;
-    }
-    
-    bool isInPosition() { return m_isInPosition && m_fStateTime > 0.80f; }
-
-private:
-    Vector2D* m_target;
-    bool m_isInPosition;
-};
+class Bat;
+class BatInstruction;
 
 class BatPanel
 {
@@ -200,11 +32,7 @@ class BatPanel
 public:
     BatPanel();
     
-    ~BatPanel()
-    {
-        delete m_bat;
-        delete m_batInstruction;
-    }
+    ~BatPanel();
     
     virtual void update(MainScreen* ms);
     
@@ -218,11 +46,11 @@ public:
     
     void reset();
     
-    bool isRequestingInput() { return m_isRequestingInput; }
+    bool isRequestingInput();
     
-    Bat* getBat() { return m_bat; }
+    Bat* getBat();
     
-    BatInstruction* getBatInstruction() { return m_batInstruction; }
+    BatInstruction* getBatInstruction();
     
 private:
     Bat* m_bat;
@@ -259,6 +87,61 @@ private:
     void showBatNearJon(Jon& jon);
     
     void showBatInstruction(BatInstructionType type);
+};
+
+class BatInstruction : public PhysicalEntity
+{
+    RTTI_DECL;
+    
+public:
+    BatInstruction();
+    
+    virtual void update(float deltaTime);
+    
+    void open(BatInstructionType type, float x, float y);
+    
+    void close();
+    
+    void reset();
+    
+    BatInstructionType getType();
+    
+    Color& getColor();
+    
+    bool isOpening();
+    
+    bool isOpen();
+    
+private:
+    BatInstructionType m_type;
+    Color m_color;
+    bool m_isClosing;
+    bool m_isOpening;
+    bool m_isOpen;
+};
+
+class Bat : public PhysicalEntity
+{
+    RTTI_DECL;
+    
+public:
+    Bat();
+    
+    ~Bat();
+    
+    virtual void update(float deltaTime);
+    
+    void naviPoof(float x, float y);
+    
+    void moveTo(float x, float y);
+    
+    void reset();
+    
+    bool isInPosition();
+    
+private:
+    Vector2D* m_target;
+    bool m_isInPosition;
 };
 
 #endif /* defined(__nosfuratu__BatPanel__) */

@@ -8,9 +8,18 @@
 
 #include "BatPanel.h"
 
-#include "Game.h"
 #include "MainScreen.h"
+#include "Game.h"
+#include "Jon.h"
+#include "Vector2D.h"
+
 #include "OverlapTester.h"
+#include "NGRect.h"
+#include "Assets.h"
+#include "SoundManager.h"
+#include "macros.h"
+#include "GameConstants.h"
+#include "ScreenEvent.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "GamePadInputManager.h"
@@ -18,7 +27,8 @@
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
-#include "Jon.h"
+
+#include <math.h>
 
 BatGoalType calcBatGoalType(int world, int level)
 {
@@ -46,6 +56,8 @@ BatGoalType calcBatGoalType(int world, int level)
 }
 
 BatPanel::BatPanel() :
+m_bat(new Bat()),
+m_batInstruction(new BatInstruction()),
 m_game(nullptr),
 m_type(BatGoalType_None),
 m_fJonX(0),
@@ -59,8 +71,58 @@ m_isAcknowledgedPart5(false),
 m_hasTriggeredRequestedAction(false),
 m_hasSwiped(false)
 {
-    m_bat = new Bat();
-    m_batInstruction = new BatInstruction();
+    // Empty
+}
+
+BatPanel::~BatPanel()
+{
+    delete m_bat;
+    delete m_batInstruction;
+}
+
+void BatPanel::update(MainScreen* ms)
+{
+    if (m_type == BatGoalType_None)
+    {
+        return;
+    }
+    
+    switch (m_type)
+    {
+        case BatGoalType_Jump:
+            updateJump(ms);
+            break;
+        case BatGoalType_DoubleJump:
+            updateDoubleJump(ms);
+            break;
+        case BatGoalType_Vampire:
+            updateVampire(ms);
+            break;
+        case BatGoalType_Drill:
+            updateDrill(ms);
+            break;
+        case BatGoalType_DrillToDamageOwl:
+            updateDrillToDamageOwl(ms);
+            break;
+        case BatGoalType_Stomp:
+            updateStomp(ms);
+            break;
+        case BatGoalType_Dash:
+            updateDash(ms);
+            break;
+        default:
+            break;
+    }
+    
+    m_bat->update(ms->m_fDeltaTime);
+    m_batInstruction->update(ms->m_fDeltaTime);
+    
+    if (m_isRequestingInput)
+    {
+        bool isChaseCam = m_type == BatGoalType_DrillToDamageOwl;
+        float paddingX = m_type == BatGoalType_DrillToDamageOwl ? 4 : 0;
+        ms->m_renderer->updateCameraToFollowJon(*m_game, this, ms->m_fDeltaTime, paddingX, isChaseCam);
+    }
 }
 
 void BatPanel::config(Game *game, int world, int level)
@@ -119,49 +181,19 @@ void BatPanel::reset()
     m_batInstruction->reset();
 }
 
-void BatPanel::update(MainScreen* ms)
+bool BatPanel::isRequestingInput()
 {
-    if (m_type == BatGoalType_None)
-    {
-        return;
-    }
-    
-    switch (m_type)
-    {
-        case BatGoalType_Jump:
-            updateJump(ms);
-            break;
-        case BatGoalType_DoubleJump:
-            updateDoubleJump(ms);
-            break;
-        case BatGoalType_Vampire:
-            updateVampire(ms);
-            break;
-        case BatGoalType_Drill:
-            updateDrill(ms);
-            break;
-		case BatGoalType_DrillToDamageOwl:
-            updateDrillToDamageOwl(ms);
-			break;
-        case BatGoalType_Stomp:
-            updateStomp(ms);
-            break;
-        case BatGoalType_Dash:
-            updateDash(ms);
-            break;
-        default:
-            break;
-    }
-    
-    m_bat->update(ms->m_fDeltaTime);
-    m_batInstruction->update(ms->m_fDeltaTime);
-    
-    if (m_isRequestingInput)
-    {
-        bool isChaseCam = m_type == BatGoalType_DrillToDamageOwl;
-        float paddingX = m_type == BatGoalType_DrillToDamageOwl ? 4 : 0;
-        ms->m_renderer->updateCameraToFollowJon(*m_game, this, ms->m_fDeltaTime, paddingX, isChaseCam);
-    }
+    return m_isRequestingInput;
+}
+
+Bat* BatPanel::getBat()
+{
+    return m_bat;
+}
+
+BatInstruction* BatPanel::getBatInstruction()
+{
+    return m_batInstruction;
 }
 
 void BatPanel::enableAbilityAndReset()
@@ -1488,6 +1520,166 @@ void BatPanel::showBatInstruction(BatInstructionType type)
     m_batInstruction->open(type, m_bat->getPosition().getX() + 2.7f, m_bat->getPosition().getY() + 2);
 }
 
+BatInstruction::BatInstruction() : PhysicalEntity(1337, 1337, 4.376953125f, 3.462890625f), m_type(BatInstructionType_None), m_color(1, 1, 1, 1), m_isClosing(false), m_isOpening(false), m_isOpen(false)
+{
+    // Empty
+}
+
+void BatInstruction::update(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_isOpening)
+    {
+        if (m_fStateTime > 0.2f)
+        {
+            m_fStateTime = 0;
+            m_isOpening = false;
+            m_isOpen = true;
+        }
+    }
+    else if (m_isClosing)
+    {
+        m_color.alpha -= deltaTime * 2;
+        
+        if (m_color.alpha < 0)
+        {
+            m_isClosing = false;
+            m_isOpen = false;
+            
+            m_position.set(1337, 1337);
+        }
+    }
+}
+
+void BatInstruction::open(BatInstructionType type, float x, float y)
+{
+    m_type = type;
+    
+    m_position.set(x, y);
+    
+    m_fStateTime = 0;
+    m_isOpening = true;
+    m_isOpen = false;
+    
+    m_color.alpha = 1;
+}
+
+void BatInstruction::close()
+{
+    m_fStateTime = 0;
+    m_isOpening = false;
+    m_isOpen = true;
+    m_isClosing = true;
+    
+    m_color.alpha = 1;
+}
+
+void BatInstruction::reset()
+{
+    m_type = BatInstructionType_None;
+    
+    m_position.set(1337, 1337);
+    
+    m_fStateTime = 0;
+    
+    m_isClosing = false;
+    m_isOpening = false;
+    m_isOpen = false;
+    
+    m_color.alpha = 1;
+}
+
+BatInstructionType BatInstruction::getType()
+{
+    return m_type;
+}
+
+Color& BatInstruction::getColor()
+{
+    return m_color;
+}
+
+bool BatInstruction::isOpening()
+{
+    return m_isOpening;
+}
+
+bool BatInstruction::isOpen()
+{
+    return m_isOpen;
+}
+
+Bat::Bat() : PhysicalEntity(1337, 1337, 1.44140625f, 1.388671875f)
+{
+    m_target = new Vector2D();
+    m_isInPosition = false;
+}
+
+Bat::~Bat()
+{
+    delete m_target;
+}
+
+void Bat::update(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (!m_isInPosition)
+    {
+        m_isInPosition = !(m_target->dist(m_position) > 0.25f);
+        
+        if (m_isInPosition)
+        {
+            m_velocity.set(0, 0);
+        }
+    }
+}
+
+void Bat::naviPoof(float x, float y)
+{
+    m_position.set(x, y);
+    m_target->set(x, y);
+    
+    m_fStateTime = 0;
+    m_isInPosition = true;
+    
+    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BAT_POOF);
+}
+
+void Bat::moveTo(float x, float y)
+{
+    m_target->set(x, y);
+    
+    if (m_target->dist(m_position) > 6)
+    {
+        naviPoof(x, y);
+        
+        return;
+    }
+    
+    float angle = m_target->cpy().sub(m_position.getX(), m_position.getY()).angle();
+    float radians = DEGREES_TO_RADIANS(angle);
+    
+    m_velocity.set(cosf(radians) * 6, sinf(radians) * 6);
+    
+    m_isInPosition = false;
+}
+
+void Bat::reset()
+{
+    m_position.set(1337, 1337);
+    m_target->set(0, 0);
+    
+    m_fStateTime = 0;
+    m_isInPosition = false;
+}
+
+bool Bat::isInPosition()
+{
+    return m_isInPosition && m_fStateTime > 0.80f;
+}
+
+RTTI_IMPL_NOPARENT(BatPanel);
 RTTI_IMPL(BatInstruction, PhysicalEntity);
 RTTI_IMPL(Bat, PhysicalEntity);
-RTTI_IMPL_NOPARENT(BatPanel);

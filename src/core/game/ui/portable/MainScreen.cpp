@@ -26,6 +26,7 @@
 #include "MainRenderer.h"
 #include "BatPanel.h"
 #include "Vector2D.h"
+#include "ScreenEvent.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 

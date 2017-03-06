@@ -18,6 +18,7 @@
 #include "SoundManager.h"
 #include "LevelThumbnailType.h"
 #include "AbilitySlotType.h"
+#include "NGRect.h"
 
 #include "rapidjson/document.h"
 
