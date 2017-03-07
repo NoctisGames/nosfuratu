@@ -14,9 +14,8 @@
 #include "GameButton.h"
 #include "TitlePanel.h"
 #include "MainScreenState.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "RTTI.h"
 
 class Title : public MainScreenState
 {
@@ -38,13 +37,14 @@ public:
     GameButton* getLevelEditorButton();
     
 private:
-    std::unique_ptr<TitlePanel> m_panel;
-    std::unique_ptr<GameButton> m_levelEditorButton;
+    TitlePanel* m_panel;
+    GameButton* m_levelEditorButton;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();
+    ~Title();
     Title(const Title&);
     Title& operator=(const Title&);
 };

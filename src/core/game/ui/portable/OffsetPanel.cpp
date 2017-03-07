@@ -14,12 +14,21 @@ OffsetPanel::OffsetPanel(float x, float y, float width, float height) : Physical
     float l = x - width / 2;
     float b = y - height / 2;
     
-    m_offsetLeftButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
-    m_offsetRightButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
-    m_confirmButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f));
+    m_offsetLeftButton = new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+    m_offsetRightButton = new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+    m_confirmButton = new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f);
     
-    m_leftTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetLeftButton->getLeft() + m_offsetLeftButton->getWidth() - m_offsetLeftButton->getWidth() / 3, m_offsetLeftButton->getBottom() + m_offsetLeftButton->getHeight() / 2));
-    m_rightTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_offsetRightButton->getLeft() + m_offsetRightButton->getWidth() - m_offsetRightButton->getWidth() / 3, m_offsetRightButton->getBottom() + m_offsetRightButton->getHeight() / 2));
+    m_leftTextPosition = new Vector2D(m_offsetLeftButton->getLeft() + m_offsetLeftButton->getWidth() - m_offsetLeftButton->getWidth() / 3, m_offsetLeftButton->getBottom() + m_offsetLeftButton->getHeight() / 2);
+    m_rightTextPosition = new Vector2D(m_offsetRightButton->getLeft() + m_offsetRightButton->getWidth() - m_offsetRightButton->getWidth() / 3, m_offsetRightButton->getBottom() + m_offsetRightButton->getHeight() / 2);
+}
+
+OffsetPanel::~OffsetPanel()
+{
+    delete m_offsetLeftButton;
+    delete m_offsetRightButton;
+    delete m_confirmButton;
+    delete m_leftTextPosition;
+    delete m_rightTextPosition;
 }
 
 void OffsetPanel::open()

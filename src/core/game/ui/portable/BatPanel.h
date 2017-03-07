@@ -127,7 +127,7 @@ class Bat : public PhysicalEntity
 public:
     Bat();
     
-    ~Bat();
+    virtual ~Bat();
     
     virtual void update(float deltaTime);
     

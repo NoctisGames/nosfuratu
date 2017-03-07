@@ -9,12 +9,11 @@
 #ifndef __nosfuratu__MainScreenTransitions__
 #define __nosfuratu__MainScreenTransitions__
 
-#include "State.h"
-#include "MainScreenLevels.h"
 #include "MainScreenState.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "MainScreenLevels.h"
+
+#include "RTTI.h"
 
 class MainScreen;
 class Game;

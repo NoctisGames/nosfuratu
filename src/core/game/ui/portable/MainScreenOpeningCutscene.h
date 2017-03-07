@@ -12,10 +12,10 @@
 #include "MainScreen.h"
 
 #include "CutscenePanel.h"
+
 #include "RTTI.h"
 
 #include <vector>
-#include <memory>
 
 class OpeningCutscene : public MainScreenState
 {
@@ -44,6 +44,7 @@ private:
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     OpeningCutscene();
+    ~OpeningCutscene();
     OpeningCutscene(const OpeningCutscene&);
     OpeningCutscene& operator=(const OpeningCutscene&);
 };

@@ -29,7 +29,6 @@
 #include "ForegroundCoverObject.h"
 #include "CountHissWithMina.h"
 
-#include <memory>
 #include <vector>
 #include <math.h>
 
@@ -45,6 +44,8 @@ class LevelEditorEntitiesPanel : public PhysicalEntity
     
 public:
     LevelEditorEntitiesPanel(float x = CAM_WIDTH + (3.76608187134503f - 1.89473684210526) / 2, float y = CAM_HEIGHT / 2, float width = 3.76608187134503f, float height = CAM_HEIGHT);
+    
+    virtual ~LevelEditorEntitiesPanel();
     
     void initForLevel(int world, int level);
     
@@ -133,10 +134,10 @@ private:
     std::vector<ExtraForegroundObject *> m_extraForegroundObjects;
     std::vector<ForegroundCoverObject *> m_foregroundCoverObjects;
     
-    std::unique_ptr<NGRect> m_openButton;
-    std::unique_ptr<NGRect> m_closeButton;
-    std::unique_ptr<Vector2D> m_touchPointDown;
-    std::unique_ptr<Vector2D> m_touchPointDown2;
+    NGRect* m_openButton;
+    NGRect* m_closeButton;
+    Vector2D* m_touchPointDown;
+    Vector2D* m_touchPointDown2;
     
     float m_fEntitiesCameraPos;
     float m_fEntitiesHeight;

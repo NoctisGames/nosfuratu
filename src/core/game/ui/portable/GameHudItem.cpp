@@ -28,8 +28,19 @@ GameHudItem::GameHudItem(int type) : PhysicalEntity(0, 0, 1, 1), m_iType(type)
     // Empty
 }
 
-bool GameHudItem::isCarrot() { return m_iType == 0; }
-bool GameHudItem::isGolden() { return m_iType == 1; }
-bool GameHudItem::isVial() { return m_iType == 2; }
+bool GameHudItem::isCarrot()
+{
+    return m_iType == 0;
+}
+
+bool GameHudItem::isGolden()
+{
+    return m_iType == 1;
+}
+
+bool GameHudItem::isVial()
+{
+    return m_iType == 2;
+}
 
 RTTI_IMPL(GameHudItem, PhysicalEntity);

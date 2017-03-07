@@ -10,15 +10,15 @@
 #define __nosfuratu__TextureSelectorPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
 #include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "NGRect.h"
 #include "Text.h"
 #include "TextureWrapper.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "RTTI.h"
 
 #define TEXTURE_SELECTOR_PANEL_RC_UNHANDLED -1
 #define TEXTURE_SELECTOR_PANEL_RC_HANDLED 0
@@ -30,6 +30,8 @@ class TextureSelectorPanel : public PhysicalEntity
     
 public:
     TextureSelectorPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
+    
+    virtual ~TextureSelectorPanel();
     
     void open();
     
@@ -44,9 +46,9 @@ public:
     TextureWrapper* getSelectedTexture() { return m_selectedTextureWrapper; }
     
 private:
-    std::unique_ptr<NGRect> m_toggleTextureButton;
-    std::unique_ptr<NGRect> m_confirmButton;
-    std::unique_ptr<Text> m_text;
+    NGRect* m_toggleTextureButton;
+    NGRect* m_confirmButton;
+    Text* m_text;
     TextureWrapper* m_selectedTextureWrapper;
     int m_iSelectedTextureWrapperIndex;
     bool m_isOpen;

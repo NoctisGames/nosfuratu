@@ -192,37 +192,37 @@ Game& MainScreenLevelEditor::getGame()
 
 LevelEditorActionsPanel* MainScreenLevelEditor::getLevelEditorActionsPanel()
 {
-    return m_levelEditorActionsPanel.get();
+    return m_levelEditorActionsPanel;
 }
 
 LevelEditorEntitiesPanel* MainScreenLevelEditor::getLevelEditorEntitiesPanel()
 {
-    return m_levelEditorEntitiesPanel.get();
+    return m_levelEditorEntitiesPanel;
 }
 
 TrashCan* MainScreenLevelEditor::getTrashCan()
 {
-    return m_trashCan.get();
+    return m_trashCan;
 }
 
 LevelSelectorPanel* MainScreenLevelEditor::getLevelSelectorPanel()
 {
-    return m_levelSelectorPanel.get();
+    return m_levelSelectorPanel;
 }
 
 OffsetPanel* MainScreenLevelEditor::getOffsetPanel()
 {
-	return m_offsetPanel.get();
+	return m_offsetPanel;
 }
 
 ConfirmResetPanel* MainScreenLevelEditor::getConfirmResetPanel()
 {
-	return m_confirmResetPanel.get();
+	return m_confirmResetPanel;
 }
 
 ConfirmExitPanel* MainScreenLevelEditor::getConfirmExitPanel()
 {
-	return m_confirmExitPanel.get();
+	return m_confirmExitPanel;
 }
 
 void MainScreenLevelEditor::setMessage(const char *message)
@@ -421,7 +421,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                         Jon* jon = m_game->getJonP();
                         jon->enableAbility(FLAG_ABILITY_ALL);
                         Level* levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorld, m_iLevel);
-                        levelState->setSourceGame(m_game.get());
+                        levelState->setSourceGame(m_game);
 						levelState->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
                         ms->m_stateMachine.changeState(levelState);
 						return;
@@ -454,27 +454,27 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                 if (m_lastAddedEntity->getRTTI().derivesFrom(Ground::rtti))
                 {
                     Ground* ground = reinterpret_cast<Ground *>(m_lastAddedEntity);
-                    ground->setGame(m_game.get());
+                    ground->setGame(m_game);
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(Jon::rtti))
                 {
                     Jon* jon = reinterpret_cast<Jon *>(m_lastAddedEntity);
-                    jon->setGame(m_game.get());
+                    jon->setGame(m_game);
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(Enemy::rtti))
                 {
                     Enemy* e = reinterpret_cast<Enemy *>(m_lastAddedEntity);
-                    e->setGame(m_game.get());
+                    e->setGame(m_game);
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(ForegroundObject::rtti))
                 {
                     ForegroundObject* fo = reinterpret_cast<ForegroundObject *>(m_lastAddedEntity);
-                    fo->setGame(m_game.get());
+                    fo->setGame(m_game);
                 }
                 else if (m_lastAddedEntity->getRTTI().derivesFrom(CollectibleItem::rtti))
                 {
                     CollectibleItem* ci = reinterpret_cast<CollectibleItem *>(m_lastAddedEntity);
-                    ci->setGame(m_game.get());
+                    ci->setGame(m_game);
                 }
             }
             
@@ -816,28 +816,40 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
 }
 
 MainScreenLevelEditor::MainScreenLevelEditor() :
-	m_lastAddedEntity(nullptr),
-	m_draggingEntity(nullptr),
-	m_attachToEntity(nullptr),
-	m_message(nullptr),
-	m_fMessageTime(-1),
-	m_fDraggingEntityOriginalY(0),
-	m_iWorld(0),
-	m_iLevel(0),
-	m_iLastOffset(0),
-	m_isVerticalChangeAllowed(true),
-	m_allowPlaceOn(true),
-	m_allowPlaceUnder(false)
+m_game(new Game()),
+m_levelEditorActionsPanel(new LevelEditorActionsPanel()),
+m_levelEditorEntitiesPanel(new LevelEditorEntitiesPanel()),
+m_trashCan(new TrashCan()),
+m_levelSelectorPanel(new LevelSelectorPanel()),
+m_offsetPanel(new OffsetPanel()),
+m_confirmResetPanel(new ConfirmResetPanel()),
+m_confirmExitPanel(new ConfirmExitPanel()),
+m_lastAddedEntity(nullptr),
+m_draggingEntity(nullptr),
+m_attachToEntity(nullptr),
+m_message(nullptr),
+m_fMessageTime(-1),
+m_fDraggingEntityOriginalY(0),
+m_iWorld(0),
+m_iLevel(0),
+m_iLastOffset(0),
+m_isVerticalChangeAllowed(true),
+m_allowPlaceOn(true),
+m_allowPlaceUnder(false)
 {
-    m_game = std::unique_ptr<Game>(new Game());
     m_game->setIsLevelEditor(true);
-    m_levelEditorActionsPanel = std::unique_ptr<LevelEditorActionsPanel>(new LevelEditorActionsPanel());
-    m_levelEditorEntitiesPanel = std::unique_ptr<LevelEditorEntitiesPanel>(new LevelEditorEntitiesPanel());
-    m_trashCan = std::unique_ptr<TrashCan>(new TrashCan());
-    m_levelSelectorPanel = std::unique_ptr<LevelSelectorPanel>(new LevelSelectorPanel());
-    m_offsetPanel = std::unique_ptr<OffsetPanel>(new OffsetPanel());
-    m_confirmResetPanel = std::unique_ptr<ConfirmResetPanel>(new ConfirmResetPanel());
-    m_confirmExitPanel = std::unique_ptr<ConfirmExitPanel>(new ConfirmExitPanel());
+}
+
+MainScreenLevelEditor::~MainScreenLevelEditor()
+{
+    delete m_game;
+    delete m_levelEditorActionsPanel;
+    delete m_levelEditorEntitiesPanel;
+    delete m_trashCan;
+    delete m_levelSelectorPanel;
+    delete m_offsetPanel;
+    delete m_confirmResetPanel;
+    delete m_confirmExitPanel;
 }
 
 RTTI_IMPL(MainScreenLevelEditor, MainScreenState);

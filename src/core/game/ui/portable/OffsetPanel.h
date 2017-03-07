@@ -10,13 +10,13 @@
 #define __nosfuratu__OffsetPanel__
 
 #include "PhysicalEntity.h"
+
 #include "GameConstants.h"
 #include "ScreenEvent.h"
 #include "Vector2D.h"
 #include "NGRect.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "RTTI.h"
 
 #define OFFSET_PANEL_RC_UNHANDLED -1
 #define OFFSET_PANEL_RC_HANDLED 0
@@ -28,6 +28,8 @@ class OffsetPanel : public PhysicalEntity
     
 public:
     OffsetPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
+    
+    virtual ~OffsetPanel();
     
     void open();
     
@@ -46,11 +48,11 @@ public:
     bool isOpen();
     
 private:
-    std::unique_ptr<NGRect> m_offsetLeftButton;
-    std::unique_ptr<NGRect> m_offsetRightButton;
-    std::unique_ptr<NGRect> m_confirmButton;
-    std::unique_ptr<Vector2D> m_leftTextPosition;
-    std::unique_ptr<Vector2D> m_rightTextPosition;
+    NGRect* m_offsetLeftButton;
+    NGRect* m_offsetRightButton;
+    NGRect* m_confirmButton;
+    Vector2D* m_leftTextPosition;
+    Vector2D* m_rightTextPosition;
     int m_iOffset;
     bool m_isOpen;
 };

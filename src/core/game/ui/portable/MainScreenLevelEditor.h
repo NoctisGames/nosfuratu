@@ -20,9 +20,8 @@
 #include "ConfirmExitPanel.h"
 #include "RendererType.h"
 #include "MainScreenState.h"
-#include "RTTI.h"
 
-#include <memory>
+#include "RTTI.h"
 
 class MainScreenLevelEditor : public MainScreenState
 {
@@ -64,14 +63,14 @@ public:
 	const char* getMessage();
     
 private:
-    std::unique_ptr<Game> m_game;
-    std::unique_ptr<LevelEditorActionsPanel> m_levelEditorActionsPanel;
-    std::unique_ptr<LevelEditorEntitiesPanel> m_levelEditorEntitiesPanel;
-    std::unique_ptr<TrashCan> m_trashCan;
-    std::unique_ptr<LevelSelectorPanel> m_levelSelectorPanel;
-    std::unique_ptr<OffsetPanel> m_offsetPanel;
-    std::unique_ptr<ConfirmResetPanel> m_confirmResetPanel;
-    std::unique_ptr<ConfirmExitPanel> m_confirmExitPanel;
+    Game* m_game;
+    LevelEditorActionsPanel* m_levelEditorActionsPanel;
+    LevelEditorEntitiesPanel* m_levelEditorEntitiesPanel;
+    TrashCan* m_trashCan;
+    LevelSelectorPanel* m_levelSelectorPanel;
+    OffsetPanel* m_offsetPanel;
+    ConfirmResetPanel* m_confirmResetPanel;
+    ConfirmExitPanel* m_confirmExitPanel;
     std::vector<GridLockedPhysicalEntity*> m_gameEntities;
     PhysicalEntity* m_lastAddedEntity;
     GridLockedPhysicalEntity* m_draggingEntity;
@@ -96,6 +95,7 @@ private:
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     MainScreenLevelEditor();
+    ~MainScreenLevelEditor();
     MainScreenLevelEditor(const MainScreenLevelEditor&);
     MainScreenLevelEditor& operator=(const MainScreenLevelEditor&);
 };

@@ -50,7 +50,7 @@ void Title::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        ms->m_renderer->renderTitleScreenBackground(m_panel.get());
+        ms->m_renderer->renderTitleScreenBackground(m_panel);
         
         if (ms->m_renderer->isLoadingData())
         {
@@ -58,7 +58,7 @@ void Title::execute(MainScreen* ms)
         }
         else
         {
-            ms->m_renderer->renderTitleScreenUi(m_levelEditorButton.get());
+            ms->m_renderer->renderTitleScreenUi(m_levelEditorButton);
         }
         
         ms->m_renderer->renderToScreen();
@@ -169,18 +169,27 @@ void Title::initRenderer(MainScreen* ms)
 
 TitlePanel* Title::getTitlePanel()
 {
-    return m_panel.get();
+    return m_panel;
 }
 
 GameButton* Title::getLevelEditorButton()
 {
-    return m_levelEditorButton.get();
+    return m_levelEditorButton;
 }
 
-Title::Title() : m_isRequestingNextState(false), m_isRequestingLevelEditor(false)
+Title::Title() : MainScreenState(),
+m_panel(new TitlePanel()),
+m_levelEditorButton(GameButton::create(GameButtonType_LevelEditor)),
+m_isRequestingNextState(false),
+m_isRequestingLevelEditor(false)
 {
-    m_panel = std::unique_ptr<TitlePanel>(new TitlePanel());
-    m_levelEditorButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_LevelEditor));
+    // Empty
+}
+
+Title::~Title()
+{
+    delete m_panel;
+    delete m_levelEditorButton;
 }
 
 RTTI_IMPL(Title, MainScreenState);

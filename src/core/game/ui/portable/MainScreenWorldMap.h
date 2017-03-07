@@ -14,15 +14,15 @@
 #include "GameButton.h"
 #include "MainScreenLevels.h"
 #include "WorldMapPanel.h"
-#include "RTTI.h"
 #include "SoundManager.h"
 #include "LevelThumbnailType.h"
 #include "AbilitySlotType.h"
 #include "NGRect.h"
 
+#include "RTTI.h"
+
 #include "rapidjson/document.h"
 
-#include <memory>
 #include <vector>
 
 class WorldLevelCompletions
@@ -610,18 +610,18 @@ public:
     LevelThumbnail* getSelectedLevelThumbnail() { return m_clickedLevel; }
     
 private:
-    std::unique_ptr<WorldMapPanel> m_panel;
-    std::unique_ptr<GoldenCarrotsMarker> m_goldenCarrotsMarker;
-    std::unique_ptr<ScoreMarker> m_scoreMarker;
-    std::unique_ptr<SpendGoldenCarrotsBubble> m_spendGoldenCarrotsBubble;
-    std::vector<std::unique_ptr<WorldLevelCompletions>> m_worldLevelStats;
+    WorldMapPanel* m_panel;
+    GoldenCarrotsMarker* m_goldenCarrotsMarker;
+    ScoreMarker* m_scoreMarker;
+    SpendGoldenCarrotsBubble* m_spendGoldenCarrotsBubble;
+    GameButton* m_backButton;
+    GameButton* m_toggleMusic;
+    GameButton* m_toggleSound;
+    GameButton* m_leaderBoardsButton;
+    GameButton* m_viewOpeningCutsceneButton;
     std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;
-    std::unique_ptr<GameButton> m_backButton;
-    std::unique_ptr<GameButton> m_toggleMusic;
-    std::unique_ptr<GameButton> m_toggleSound;
-    std::unique_ptr<GameButton> m_leaderBoardsButton;
-    std::unique_ptr<GameButton> m_viewOpeningCutsceneButton;
+    std::vector<WorldLevelCompletions*> m_worldLevelStats;
     float m_fGoldenCarrotCountFlickerTime;
     int m_iNumCollectedGoldenCarrots;
     int m_iJonAbilityFlag;
@@ -664,6 +664,7 @@ private:
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();
+    ~WorldMap();
     WorldMap(const WorldMap&);
     WorldMap& operator=(const WorldMap&);
 };

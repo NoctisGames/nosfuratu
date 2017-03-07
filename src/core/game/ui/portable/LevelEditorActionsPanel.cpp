@@ -8,22 +8,27 @@
 
 #include "LevelEditorActionsPanel.h"
 
+#include "Vector2D.h"
 #include "NGRect.h"
-#include "GameConstants.h"
+
 #include "OverlapTester.h"
 
-LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iBoundsLevelRequested(4), m_showBounds(true), m_isOpen(false)
+LevelEditorActionsPanel::LevelEditorActionsPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
+m_toggleBoundsButton(new NGRect(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_markerButton(new NGRect(width * 0.09908256880734f, height * 0.76382660687593f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_offsetButton(new NGRect(width * 0.09908256880734f, height * 0.66816143497758f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_resetButton(new NGRect(width * 0.09908256880734f, height * 0.57100149476831f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_exitButton(new NGRect(width * 0.09908256880734f, height * 0.44544095665172f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_testButton(new NGRect(width * 0.09908256880734f, height * 0.26158445440957f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_loadButton(new NGRect(width * 0.09908256880734f, height * 0.13976083707025f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_saveButton(new NGRect(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.09118086696562f)),
+m_openButton(new NGRect(width * 0, height * 0.49081920903955f, 1, 1)),
+m_closeButton(new NGRect(width * 0.83305227655987f, height * 0.49081920903955f, 1, 1)),
+m_iBoundsLevelRequested(4),
+m_showBounds(true),
+m_isOpen(false)
 {
-    m_toggleBoundsButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.87070254110613f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_markerButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.76382660687593f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_offsetButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.66816143497758f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_resetButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.57100149476831f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_exitButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.44544095665172f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_testButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.26158445440957f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_loadButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.13976083707025f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_saveButton = std::unique_ptr<NGRect>(new NGRect(width * 0.09908256880734f, height * 0.01718983557549f, width * 0.68990825688073f, height * 0.09118086696562f));
-    m_openButton = std::unique_ptr<NGRect>(new NGRect(width * 0, height * 0.49081920903955f, 1, 1));
-    m_closeButton = std::unique_ptr<NGRect>(new NGRect(width * 0.83305227655987f, height * 0.49081920903955f, 1, 1));
+    // Empty
 }
 
 int LevelEditorActionsPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint)

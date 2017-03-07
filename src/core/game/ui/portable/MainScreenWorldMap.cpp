@@ -58,7 +58,7 @@ void WorldMap::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        ms->m_renderer->renderWorldMapScreenBackground(m_panel.get());
+        ms->m_renderer->renderWorldMapScreenBackground(m_panel);
         
         ms->m_renderer->renderWorldMapScreenUi(*this);
         ms->m_renderer->renderWorldMapScreenButtons(*this);
@@ -400,7 +400,7 @@ void WorldMap::setFade(float fade)
 
 void WorldMap::loadUserSaveData(const char* json)
 {
-    m_worldLevelStats.clear();
+    VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
     rapidjson::Document d;
     d.Parse<0>(json);
@@ -502,7 +502,7 @@ void WorldMap::loadUserSaveData(const char* json)
 
 WorldMapPanel* WorldMap::getWorldMapPanel()
 {
-    return m_panel.get();
+    return m_panel;
 }
 
 std::vector<AbilitySlot*>& WorldMap::getAbilitySlots()
@@ -512,17 +512,17 @@ std::vector<AbilitySlot*>& WorldMap::getAbilitySlots()
 
 GoldenCarrotsMarker* WorldMap::getGoldenCarrotsMarker()
 {
-    return m_goldenCarrotsMarker.get();
+    return m_goldenCarrotsMarker;
 }
 
 ScoreMarker* WorldMap::getScoreMarker()
 {
-    return m_scoreMarker.get();
+    return m_scoreMarker;
 }
 
 SpendGoldenCarrotsBubble* WorldMap::getSpendGoldenCarrotsBubble()
 {
-    return m_spendGoldenCarrotsBubble.get();
+    return m_spendGoldenCarrotsBubble;
 }
 
 std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
@@ -532,27 +532,27 @@ std::vector<LevelThumbnail*>& WorldMap::getLevelThumbnails()
 
 GameButton* WorldMap::getBackButton()
 {
-    return m_backButton.get();
+    return m_backButton;
 }
 
 GameButton* WorldMap::getToggleMusicButton()
 {
-    return m_toggleMusic.get();
+    return m_toggleMusic;
 }
 
 GameButton* WorldMap::getToggleSoundButton()
 {
-    return m_toggleSound.get();
+    return m_toggleSound;
 }
 
 GameButton* WorldMap::getLeaderBoardsButton()
 {
-    return m_leaderBoardsButton.get();
+    return m_leaderBoardsButton;
 }
 
 GameButton* WorldMap::getViewOpeningCutsceneButton()
 {
-    return m_viewOpeningCutsceneButton.get();
+    return m_viewOpeningCutsceneButton;
 }
 
 int WorldMap::getNumCollectedGoldenCarrots()
@@ -686,7 +686,7 @@ void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key
             }
         }
         
-        m_worldLevelStats.push_back(std::unique_ptr<WorldLevelCompletions>(wlc));
+        m_worldLevelStats.push_back(wlc);
     }
 }
 
@@ -1155,7 +1155,16 @@ LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
     return nullptr;
 }
 
-WorldMap::WorldMap() :
+WorldMap::WorldMap() : MainScreenState(),
+m_panel(new WorldMapPanel()),
+m_goldenCarrotsMarker(new GoldenCarrotsMarker()),
+m_scoreMarker(new ScoreMarker()),
+m_spendGoldenCarrotsBubble(new SpendGoldenCarrotsBubble()),
+m_backButton(GameButton::create(GameButtonType_BackToTitle)),
+m_toggleMusic(GameButton::create(GameButtonType_ToggleMusic)),
+m_toggleSound(GameButton::create(GameButtonType_ToggleSound)),
+m_leaderBoardsButton(GameButton::create(GameButtonType_Leaderboards)),
+m_viewOpeningCutsceneButton(GameButton::create(GameButtonType_ViewOpeningCutscene)),
 m_fGoldenCarrotCountFlickerTime(1337),
 m_iNumCollectedGoldenCarrots(0),
 m_iJonAbilityFlag(0),
@@ -1169,16 +1178,6 @@ m_userHasClickedOpeningCutscene(false),
 m_needsRefresh(false),
 m_isNextWorldButtonEnabled(false)
 {
-    m_panel = std::unique_ptr<WorldMapPanel>(new WorldMapPanel());
-    m_goldenCarrotsMarker = std::unique_ptr<GoldenCarrotsMarker>(new GoldenCarrotsMarker());
-    m_scoreMarker = std::unique_ptr<ScoreMarker>(new ScoreMarker());
-    m_spendGoldenCarrotsBubble = std::unique_ptr<SpendGoldenCarrotsBubble>(new SpendGoldenCarrotsBubble());
-    m_backButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_BackToTitle));
-    m_toggleMusic = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleMusic));
-    m_toggleSound = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ToggleSound));
-    m_leaderBoardsButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_Leaderboards));
-    m_viewOpeningCutsceneButton = std::unique_ptr<GameButton>(GameButton::create(GameButtonType_ViewOpeningCutscene));
-    
     float pW = m_panel->getWidth();
     float pH = m_panel->getHeight();
 
@@ -1206,6 +1205,23 @@ m_isNextWorldButtonEnabled(false)
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.66176470588235f, pH * 0.15032679738562f, 1, 19));
     m_levelThumbnails.push_back(new NormalLevelThumbnail(pW * 0.77941176470588f, pH * 0.15032679738562f, 1, 20));
     m_levelThumbnails.push_back(new BossLevelThumbnail(pW * 0.89705882352941f, pH * 0.14432679738562f, 1, 21, *m_spendGoldenCarrotsBubble));
+}
+
+WorldMap::~WorldMap()
+{
+    delete m_panel;
+    delete m_goldenCarrotsMarker;
+    delete m_scoreMarker;
+    delete m_spendGoldenCarrotsBubble;
+    delete m_backButton;
+    delete m_toggleMusic;
+    delete m_toggleSound;
+    delete m_leaderBoardsButton;
+    delete m_viewOpeningCutsceneButton;
+    
+    VectorUtil::cleanUpVectorOfPointers(m_abilitySlots);
+    VectorUtil::cleanUpVectorOfPointers(m_levelThumbnails);
+    VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
 }
 
 RTTI_IMPL_NOPARENT(WorldLevelCompletions);

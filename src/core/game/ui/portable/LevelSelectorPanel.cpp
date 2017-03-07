@@ -14,12 +14,21 @@ LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float heig
     float l = x - width / 2;
     float b = y - height / 2;
     
-    m_toggleWorldButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
-    m_toggleLevelButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f));
-    m_confirmButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f));
+    m_toggleWorldButton = new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+    m_toggleLevelButton = new NGRect(l + width * 0.55490196078431f, b + height * 0.36274509803922f, width * 0.3921568627451f, height * 0.3921568627451f);
+    m_confirmButton = new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f);
     
-    m_worldTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleWorldButton->getLeft() + m_toggleWorldButton->getWidth() - m_toggleWorldButton->getWidth() / 3, m_toggleWorldButton->getBottom() + m_toggleWorldButton->getHeight() / 2));
-    m_levelTextPosition = std::unique_ptr<Vector2D>(new Vector2D(m_toggleLevelButton->getLeft() + m_toggleLevelButton->getWidth() - m_toggleLevelButton->getWidth() / 3, m_toggleLevelButton->getBottom() + m_toggleLevelButton->getHeight() / 2));
+    m_worldTextPosition = new Vector2D(m_toggleWorldButton->getLeft() + m_toggleWorldButton->getWidth() - m_toggleWorldButton->getWidth() / 3, m_toggleWorldButton->getBottom() + m_toggleWorldButton->getHeight() / 2);
+    m_levelTextPosition = new Vector2D(m_toggleLevelButton->getLeft() + m_toggleLevelButton->getWidth() - m_toggleLevelButton->getWidth() / 3, m_toggleLevelButton->getBottom() + m_toggleLevelButton->getHeight() / 2);
+}
+
+LevelSelectorPanel::~LevelSelectorPanel()
+{
+    delete m_toggleWorldButton;
+    delete m_toggleLevelButton;
+    delete m_confirmButton;
+    delete m_worldTextPosition;
+    delete m_levelTextPosition;
 }
 
 void LevelSelectorPanel::open()

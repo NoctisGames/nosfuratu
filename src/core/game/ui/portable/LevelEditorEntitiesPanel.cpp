@@ -15,12 +15,24 @@
 #include "EntityUtils.h"
 #include "VectorUtil.h"
 
-LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_fEntitiesCameraPos(0), m_fEntitiesHeight(0)
+LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
+m_openButton(new NGRect(CAM_WIDTH - 1, height * 0.49081920903955f, 1, 1)),
+m_closeButton(new NGRect(CAM_WIDTH - width, height * 0.49081920903955f, 1, 1)),
+m_touchPointDown(new Vector2D()),
+m_touchPointDown2(new Vector2D()),
+m_isOpen(false),
+m_fEntitiesCameraPos(0),
+m_fEntitiesHeight(0)
 {
-    m_openButton = std::unique_ptr<NGRect>(new NGRect(CAM_WIDTH - 1, height * 0.49081920903955f, 1, 1));
-    m_closeButton = std::unique_ptr<NGRect>(new NGRect(CAM_WIDTH - width, height * 0.49081920903955f, 1, 1));
-    m_touchPointDown = std::unique_ptr<Vector2D>(new Vector2D());
-    m_touchPointDown2 = std::unique_ptr<Vector2D>(new Vector2D());
+    // Empty
+}
+
+LevelEditorEntitiesPanel::~LevelEditorEntitiesPanel()
+{
+    delete m_openButton;
+    delete m_closeButton;
+    delete m_touchPointDown;
+    delete m_touchPointDown2;
 }
 
 void LevelEditorEntitiesPanel::initForLevel(int world, int level)

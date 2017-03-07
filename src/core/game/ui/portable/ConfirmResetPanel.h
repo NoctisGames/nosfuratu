@@ -30,7 +30,7 @@ class ConfirmResetPanel : public PhysicalEntity
 public:
     ConfirmResetPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
     
-    ~ConfirmResetPanel();
+    virtual ~ConfirmResetPanel();
     
     void open();
     

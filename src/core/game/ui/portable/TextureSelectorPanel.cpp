@@ -14,13 +14,20 @@ TextureSelectorPanel::TextureSelectorPanel(float x, float y, float width, float 
     float l = x - width / 2;
     float b = y - height / 2;
     
-    m_toggleTextureButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.8f, height * 0.3921568627451f));
-    m_confirmButton = std::unique_ptr<NGRect>(new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f));
+    m_toggleTextureButton = new NGRect(l + width * 0.07647058823529f, b + height * 0.36274509803922f, width * 0.8f, height * 0.3921568627451f);
+    m_confirmButton = new NGRect(l + width * 0.12941176470588f, b + height * 0.07843137254902f, width * 0.74117647058824f, height * 0.23921568627451f);
     
     static float fgWidth = CAM_WIDTH / 100;
     static float fgHeight = fgWidth * 1.171875f;
     
-    m_text = std::unique_ptr<Text>(new Text("", m_toggleTextureButton->getLeft() + m_toggleTextureButton->getWidth() / 18, m_toggleTextureButton->getBottom() + m_toggleTextureButton->getHeight() / 2, fgWidth, fgHeight, 1, 1, 1, 1));
+    m_text = new Text("", m_toggleTextureButton->getLeft() + m_toggleTextureButton->getWidth() / 18, m_toggleTextureButton->getBottom() + m_toggleTextureButton->getHeight() / 2, fgWidth, fgHeight, 1, 1, 1, 1);
+}
+
+TextureSelectorPanel::~TextureSelectorPanel()
+{
+    delete m_toggleTextureButton;
+    delete m_confirmButton;
+    delete m_text;
 }
 
 void TextureSelectorPanel::open()

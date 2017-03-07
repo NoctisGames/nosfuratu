@@ -82,7 +82,6 @@ void OpeningCutscene::execute(MainScreen* ms)
                 && m_cutscenePanels.size() > 1)
             {
                 CutscenePanel* dPanel = m_cutscenePanels.at(m_currentPanelIndex == 0 ? 1 : 0);
-                dPanel->onCleanUp();
                 delete dPanel;
                 
                 if (m_currentPanelIndex == 0)
@@ -223,6 +222,11 @@ CutscenePanelType OpeningCutscene::cutscenePanelTypeForIndex(int index)
 OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextState(false), m_needsReset(false)
 {
     m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
+}
+
+OpeningCutscene::~OpeningCutscene()
+{
+    VectorUtil::cleanUpVectorOfPointers(m_cutscenePanels);
 }
 
 RTTI_IMPL(OpeningCutscene, MainScreenState);

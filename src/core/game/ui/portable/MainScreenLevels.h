@@ -15,12 +15,11 @@
 #include "OverlapTester.h"
 #include "CollectibleItem.h"
 #include "FlagUtil.h"
-#include "RTTI.h"
 #include "Game.h"
 #include "BatPanel.h"
 #include "MidBossOwl.h"
 
-#include <memory>
+#include "RTTI.h"
 
 class EndBossSnake;
 class ForegroundObject;

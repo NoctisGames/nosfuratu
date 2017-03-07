@@ -13,11 +13,11 @@
 
 #include "GameConstants.h"
 #include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
+
 #include "RTTI.h"
 
-#include <memory>
+class Vector2D;
+class NGRect;
 
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_UNHANDLED -1
 #define LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED 0
@@ -43,16 +43,16 @@ public:
     bool showBounds();
     
 private:
-    std::unique_ptr<NGRect> m_toggleBoundsButton;
-    std::unique_ptr<NGRect> m_markerButton;
-    std::unique_ptr<NGRect> m_offsetButton;
-    std::unique_ptr<NGRect> m_resetButton;
-    std::unique_ptr<NGRect> m_exitButton;
-    std::unique_ptr<NGRect> m_testButton;
-    std::unique_ptr<NGRect> m_loadButton;
-    std::unique_ptr<NGRect> m_saveButton;
-    std::unique_ptr<NGRect> m_openButton;
-    std::unique_ptr<NGRect> m_closeButton;
+    NGRect* m_toggleBoundsButton;
+    NGRect* m_markerButton;
+    NGRect* m_offsetButton;
+    NGRect* m_resetButton;
+    NGRect* m_exitButton;
+    NGRect* m_testButton;
+    NGRect* m_loadButton;
+    NGRect* m_saveButton;
+    NGRect* m_openButton;
+    NGRect* m_closeButton;
     
     int m_iBoundsLevelRequested;
     bool m_showBounds;

@@ -30,7 +30,7 @@ class ConfirmExitPanel : public PhysicalEntity
 public:
     ConfirmExitPanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH / 3, float height = CAM_HEIGHT / 3);
     
-    ~ConfirmExitPanel();
+    virtual ~ConfirmExitPanel();
     
     void open();
     
