@@ -29,7 +29,7 @@ public:
     virtual void initRenderer(MainScreen* ms) = 0;
     
 protected:
-    MainScreenState() {}
+    MainScreenState();
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

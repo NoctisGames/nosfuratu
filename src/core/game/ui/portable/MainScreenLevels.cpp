@@ -1531,6 +1531,12 @@ Chapter1Level1 * Chapter1Level1::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level1::Chapter1Level1(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 2 ///
 
 Chapter1Level2 * Chapter1Level2::s_pInstance = nullptr;
@@ -1560,6 +1566,12 @@ Chapter1Level2 * Chapter1Level2::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level2::Chapter1Level2(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 3 ///
 
 Chapter1Level3 * Chapter1Level3::s_pInstance = nullptr;
@@ -1589,6 +1601,12 @@ Chapter1Level3 * Chapter1Level3::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level3::Chapter1Level3(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 4 ///
 
 Chapter1Level4 * Chapter1Level4::s_pInstance = nullptr;
@@ -1618,6 +1636,12 @@ Chapter1Level4 * Chapter1Level4::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level4::Chapter1Level4(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 5 ///
 
 Chapter1Level5 * Chapter1Level5::s_pInstance = nullptr;
@@ -1647,6 +1671,12 @@ Chapter1Level5 * Chapter1Level5::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level5::Chapter1Level5(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 6 ///
 
 Chapter1Level6 * Chapter1Level6::s_pInstance = nullptr;
@@ -1676,6 +1706,12 @@ Chapter1Level6 * Chapter1Level6::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level6::Chapter1Level6(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 7 ///
 
 Chapter1Level7 * Chapter1Level7::s_pInstance = nullptr;
@@ -1705,6 +1741,12 @@ Chapter1Level7 * Chapter1Level7::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level7::Chapter1Level7(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 8 ///
 
 Chapter1Level8 * Chapter1Level8::s_pInstance = nullptr;
@@ -1734,6 +1776,12 @@ Chapter1Level8 * Chapter1Level8::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level8::Chapter1Level8(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 9 ///
 
 Chapter1Level9 * Chapter1Level9::s_pInstance = nullptr;
@@ -1763,6 +1811,12 @@ Chapter1Level9 * Chapter1Level9::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level9::Chapter1Level9(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 11 ///
 
 Chapter1Level11 * Chapter1Level11::s_pInstance = nullptr;
@@ -1792,6 +1846,12 @@ Chapter1Level11 * Chapter1Level11::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level11::Chapter1Level11(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 12 ///
 
 Chapter1Level12 * Chapter1Level12::s_pInstance = nullptr;
@@ -1821,6 +1881,12 @@ Chapter1Level12 * Chapter1Level12::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level12::Chapter1Level12(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 13 ///
 
 Chapter1Level13 * Chapter1Level13::s_pInstance = nullptr;
@@ -1850,6 +1916,12 @@ Chapter1Level13 * Chapter1Level13::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level13::Chapter1Level13(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 14 ///
 
 Chapter1Level14 * Chapter1Level14::s_pInstance = nullptr;
@@ -1879,6 +1951,12 @@ Chapter1Level14 * Chapter1Level14::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level14::Chapter1Level14(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 15 ///
 
 Chapter1Level15 * Chapter1Level15::s_pInstance = nullptr;
@@ -1908,6 +1986,12 @@ Chapter1Level15 * Chapter1Level15::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level15::Chapter1Level15(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 16 ///
 
 Chapter1Level16 * Chapter1Level16::s_pInstance = nullptr;
@@ -1937,6 +2021,12 @@ Chapter1Level16 * Chapter1Level16::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level16::Chapter1Level16(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 17 ///
 
 Chapter1Level17 * Chapter1Level17::s_pInstance = nullptr;
@@ -1966,6 +2056,12 @@ Chapter1Level17 * Chapter1Level17::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level17::Chapter1Level17(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 18 ///
 
 Chapter1Level18 * Chapter1Level18::s_pInstance = nullptr;
@@ -1995,6 +2091,12 @@ Chapter1Level18 * Chapter1Level18::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level18::Chapter1Level18(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 19 ///
 
 Chapter1Level19 * Chapter1Level19::s_pInstance = nullptr;
@@ -2024,6 +2126,12 @@ Chapter1Level19 * Chapter1Level19::getInstance()
 {
     return s_pInstance;
 }
+
+Chapter1Level19::Chapter1Level19(const char* json) : Level(json)
+{
+    // Empty
+}
+
 /// Chapter 1 Level 20 ///
 
 Chapter1Level20 * Chapter1Level20::s_pInstance = nullptr;
@@ -2052,4 +2160,9 @@ void Chapter1Level20::destroy()
 Chapter1Level20 * Chapter1Level20::getInstance()
 {
     return s_pInstance;
+}
+
+Chapter1Level20::Chapter1Level20(const char* json) : Level(json)
+{
+    // Empty
 }

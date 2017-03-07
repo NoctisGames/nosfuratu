@@ -8,4 +8,9 @@
 
 #include "MainScreenState.h"
 
+MainScreenState::MainScreenState()
+{
+    // Empty
+}
+
 RTTI_IMPL_NOPARENT(MainScreenState);

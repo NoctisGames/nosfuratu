@@ -1241,6 +1241,11 @@ WorldMap::~WorldMap()
     VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
 }
 
+WorldLevelCompletions::WorldLevelCompletions()
+{
+    // Empty
+}
+
 LevelThumbnail::LevelThumbnail(float x, float y, float width, float height, float selectTime, float clearTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
 m_color(1, 1, 1, 1),
 m_type(type),

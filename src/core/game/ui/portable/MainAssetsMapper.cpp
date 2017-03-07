@@ -13,6 +13,16 @@
 #include "Animation.h"
 #include "GameConstants.h"
 
+MainAssetsMapper::MainAssetsMapper() : IAssetsMapper()
+{
+    // Empty
+}
+
+MainAssetsMapper::~MainAssetsMapper()
+{
+    // Empty
+}
+
 void MainAssetsMapper::mapAssets()
 {
     /// Texture Regions

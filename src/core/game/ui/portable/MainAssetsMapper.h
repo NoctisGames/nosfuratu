@@ -14,9 +14,9 @@
 class MainAssetsMapper : public IAssetsMapper
 {
 public:
-    MainAssetsMapper() : IAssetsMapper() {}
+    MainAssetsMapper();
     
-    virtual ~MainAssetsMapper() {}
+    virtual ~MainAssetsMapper();
     
     virtual void mapAssets();
 };

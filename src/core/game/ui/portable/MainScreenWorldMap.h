@@ -152,7 +152,7 @@ class WorldLevelCompletions
     RTTI_DECL;
     
 public:
-    WorldLevelCompletions() { };
+    WorldLevelCompletions();
     
     std::vector<int> m_levelStats;
     std::vector<int> m_scores;
