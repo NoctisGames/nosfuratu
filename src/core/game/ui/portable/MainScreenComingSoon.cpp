@@ -8,6 +8,8 @@
 
 #include "MainScreenComingSoon.h"
 
+#include "MainScreen.h"
+
 #include "State.h"
 #include "MainScreen.h"
 #include "EntityUtils.h"
@@ -23,6 +25,7 @@
 #include "GamePadEvent.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
+#include "SoundManager.h"
 
 /// ComingSoon Screen ///
 

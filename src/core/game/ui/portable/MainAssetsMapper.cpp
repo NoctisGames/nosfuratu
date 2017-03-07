@@ -9,8 +9,6 @@
 #include "MainAssetsMapper.h"
 
 #include "Assets.h"
-#include "MainAssets.h"
-
 #include "TextureRegion.h"
 #include "Animation.h"
 #include "GameConstants.h"
@@ -380,14 +378,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["BatInstruction_Opening"] = new Animation("tutorial", 0, 792, 498, 394, 996, 394, TEXTURE_SIZE_4096, false, 0.10f, 2);
     ASSETS->getAnimationsMap()["BatInstructionType_Tap"] = new Animation("tutorial", 1498, 398, 498, 394, 3984, 394, TEXTURE_SIZE_4096, true, 0.10f, 5);
     
-    if (MAIN_ASSETS->isUsingDesktopTextureSet())
-    {
-        ASSETS->getAnimationsMap()["BatInstructionType_TapHold"] = new Animation("tutorial", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, true, 0.10f, 11);
-    }
-    else
-    {
-        ASSETS->getAnimationsMap()["BatInstructionType_TapHold"] = new Animation("tutorial", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, true, 0.10f, 11, 9);
-    }
+    ASSETS->getAnimationsMap()["BatInstructionType_TapHold"] = new Animation("tutorial", 0, 0, 498, 394, 3984, 788, TEXTURE_SIZE_4096, true, 0.10f, 11, 9);
     
     ASSETS->getAnimationsMap()["BatInstructionType_SwipeDown"] = new Animation("tutorial", 2048, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, true, 0.10f, 8);
     ASSETS->getAnimationsMap()["BatInstructionType_SwipeRight"] = new Animation("tutorial", 0, 2048, 498, 394, 1992, 788, TEXTURE_SIZE_4096, true, 0.10f, 8);

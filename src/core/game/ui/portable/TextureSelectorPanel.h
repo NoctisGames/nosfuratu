@@ -12,13 +12,16 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
-#include "Text.h"
-#include "TextureWrapper.h"
 
 #include "RTTI.h"
+
+#include <vector>
+
+class ScreenEvent;
+class Vector2D;
+class NGRect;
+class TextureWrapper;
+class Text;
 
 #define TEXTURE_SELECTOR_PANEL_RC_UNHANDLED -1
 #define TEXTURE_SELECTOR_PANEL_RC_HANDLED 0
@@ -41,9 +44,9 @@ public:
     
     bool isOpen();
     
-    Text& getText() { return *m_text; }
+    Text& getText();
     
-    TextureWrapper* getSelectedTexture() { return m_selectedTextureWrapper; }
+    TextureWrapper* getSelectedTexture();
     
 private:
     NGRect* m_toggleTextureButton;

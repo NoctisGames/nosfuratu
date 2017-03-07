@@ -17,6 +17,13 @@
 #include "Ground.h"
 #include "ForegroundObject.h"
 #include "GameMarker.h"
+#include "Enemy.h"
+#include "CountHissWithMina.h"
+#include "EndBossSnake.h"
+#include "Hole.h"
+#include "ExitGround.h"
+#include "Midground.h"
+#include "ForegroundCoverObject.h"
 
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -202,40 +209,6 @@ public:
     template<typename T>
     static bool isBlockedOnRight(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-//        int highestPriority = 0;
-//        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-//        {
-//            if ((*i) == entity)
-//            {
-//                continue;
-//            }
-//            
-//            int priority = (*i)->getEntityLandingPriority();
-//            if (priority > highestPriority)
-//            {
-//                highestPriority = priority;
-//            }
-//        }
-//        
-//        for (int p = highestPriority; p >= 0; p--)
-//        {
-//            for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
-//            {
-//                if ((*i) == entity)
-//                {
-//                    continue;
-//                }
-//                
-//                int priority = (*i)->getEntityLandingPriority();
-//                
-//                if (p == priority
-//                    && (*i)->isEntityBlockedOnRight(entity, deltaTime))
-//                {
-//                    return true;
-//                }
-//            }
-//        }
-        
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
         {
             if ((*i) == entity)
@@ -676,6 +649,38 @@ public:
         }
         
         w.EndArray();
+    }
+    
+    template<typename T>
+    static bool isTouchingEntityForPlacement(std::vector<T*>& items, std::vector<T*>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
+    {
+        int retVal = -1;
+        int index = 0;
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++, index++)
+        {
+            T* item = *i;
+            float width = item->getWidth();
+            float height = item->getHeight();
+            float x = item->getPosition().getX() - width / 2;
+            float y = item->getPosition().getY() - height / 2;
+            
+            NGRect tempBounds = NGRect(x, y, width, height);
+            if (OverlapTester::isPointInNGRect(touchPoint, tempBounds))
+            {
+                retVal = index;
+                break;
+            }
+        }
+        
+        if (retVal != -1)
+        {
+            T* pT = T::create(x, y, items.at(index)->getType());
+            gameItems.push_back(pT);
+            
+            *lastAddedEntity = pT;
+        }
+        
+        return retVal != -1;
     }
     
 private:

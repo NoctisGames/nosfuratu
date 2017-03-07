@@ -7,6 +7,13 @@
 //
 
 #include "TextureSelectorPanel.h"
+
+#include "ScreenEvent.h"
+#include "Vector2D.h"
+#include "NGRect.h"
+#include "TextureWrapper.h"
+#include "Text.h"
+
 #include "OverlapTester.h"
 
 TextureSelectorPanel::TextureSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_isOpen(false), m_selectedTextureWrapper(nullptr), m_iSelectedTextureWrapperIndex(-1)
@@ -72,6 +79,16 @@ int TextureSelectorPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint, std
 bool TextureSelectorPanel::isOpen()
 {
     return m_isOpen;
+}
+
+Text& TextureSelectorPanel::getText()
+{
+    return *m_text;
+}
+
+TextureWrapper* TextureSelectorPanel::getSelectedTexture()
+{
+    return m_selectedTextureWrapper;
 }
 
 RTTI_IMPL(TextureSelectorPanel, PhysicalEntity);

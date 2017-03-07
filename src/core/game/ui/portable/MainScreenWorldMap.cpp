@@ -8,8 +8,13 @@
 
 #include "MainScreenWorldMap.h"
 
-#include "State.h"
 #include "MainScreen.h"
+#include "GameButton.h"
+#include "WorldMapPanel.h"
+
+#include "MainScreenLevels.h"
+#include "SoundManager.h"
+#include "State.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
 #include "Game.h"
@@ -25,6 +30,8 @@
 #include "SoundManager.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
+#include "ScreenEvent.h"
+#include "FlagUtil.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -555,6 +562,11 @@ GameButton* WorldMap::getViewOpeningCutsceneButton()
     return m_viewOpeningCutsceneButton;
 }
 
+float WorldMap::getGoldenCarrotCountFlickerTime()
+{
+    return m_fGoldenCarrotCountFlickerTime;
+}
+
 int WorldMap::getNumCollectedGoldenCarrots()
 {
     return m_iNumCollectedGoldenCarrots;
@@ -568,6 +580,11 @@ int WorldMap::getViewedCutsceneFlag()
 int WorldMap::getUnlockedLevelStatsFlag()
 {
     return m_iUnlockedLevelStatsFlag;
+}
+
+LevelThumbnail* WorldMap::getSelectedLevelThumbnail()
+{
+    return m_clickedLevel;
 }
 
 #pragma mark private
@@ -1224,6 +1241,527 @@ WorldMap::~WorldMap()
     VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
 }
 
+LevelThumbnail::LevelThumbnail(float x, float y, float width, float height, float selectTime, float clearTime, int world, int level, LevelThumbnailType type) : PhysicalEntity(x, y, width, height),
+m_color(1, 1, 1, 1),
+m_type(type),
+m_fSelectTime(selectTime),
+m_fClearTime(clearTime),
+m_iWorld(world),
+m_iLevel(level),
+m_isPlayable(false),
+m_isSelecting(false),
+m_isSelected(false),
+m_isClearing(false),
+m_isCleared(false),
+m_needsToPlayClearSound(false)
+{
+    // Empty
+}
+
+void LevelThumbnail::update(float deltaTime)
+{
+    if (m_needsToPlayClearSound)
+    {
+        SOUND_MANAGER->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+        
+        m_needsToPlayClearSound = false;
+    }
+    
+    if (m_isClearing)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > m_fClearTime)
+        {
+            m_isClearing = false;
+            
+            m_fStateTime = 0;
+        }
+    }
+    else if (m_isSelecting)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > m_fSelectTime)
+        {
+            m_isSelected = true;
+            m_isSelecting = false;
+            
+            m_fStateTime = 0;
+        }
+    }
+    else if (m_isSelected)
+    {
+        m_fStateTime += deltaTime;
+    }
+}
+
+Color& LevelThumbnail::getColor()
+{
+    return m_color;
+}
+
+int LevelThumbnail::getWorld()
+{
+    return m_iWorld;
+}
+
+int LevelThumbnail::getLevel()
+{
+    return m_iLevel;
+}
+
+void LevelThumbnail::config(bool isPlayable, bool isClearing, bool isCleared)
+{
+    m_isPlayable = isPlayable;
+    m_isSelecting = false;
+    m_isSelected = false;
+    m_isClearing = isClearing;
+    m_isCleared = isCleared;
+    
+    m_needsToPlayClearSound = m_isClearing;
+    
+    m_fStateTime = 0;
+}
+
+void LevelThumbnail::select()
+{
+    m_isSelecting = true;
+    m_isSelected = false;
+    
+    m_fStateTime = 0;
+}
+
+void LevelThumbnail::deselect()
+{
+    m_isSelecting = false;
+    m_isSelected = false;
+    
+    m_fStateTime = 0;
+}
+
+bool LevelThumbnail::isPlayable()
+{
+    return m_isPlayable;
+}
+
+bool LevelThumbnail::isSelecting()
+{
+    return m_isSelecting;
+}
+
+bool LevelThumbnail::isSelected()
+{
+    return m_isSelected;
+}
+
+void LevelThumbnail::onConfirm()
+{
+    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
+    
+    m_fStateTime = 0;
+}
+
+bool LevelThumbnail::isClearing()
+{
+    return m_isClearing;
+}
+
+bool LevelThumbnail::isCleared()
+{
+    return m_isCleared;
+}
+
+NormalLevelThumbnail::NormalLevelThumbnail(float x, float y, int world, int level) : LevelThumbnail(x, y, CAM_WIDTH * 0.11397058823529f, CAM_HEIGHT * 0.20261437908497f, 0.6f, 1.10f, world, level, LevelThumbnailType_Normal)
+{
+    // Empty
+}
+
+bool NormalLevelThumbnail::isBoss()
+{
+    return false;
+}
+
+SpendGoldenCarrotsBubble::SpendGoldenCarrotsBubble() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.21507352941176f, CAM_HEIGHT * 0.30065359477124f),
+m_color(1, 1, 1, 1),
+m_iWorld(-1),
+m_iLevel(-1),
+m_userHasEnoughGoldenCats(false),
+m_isOpen(false)
+{
+    // Empty
+}
+
+void SpendGoldenCarrotsBubble::update(float deltaTime)
+{
+    if (m_isOpen)
+    {
+        m_fStateTime += deltaTime;
+    }
+}
+
+/**
+ * Return 1 if user spent golden carrots to unlock a boss level; 0 otherwise
+ * Return 2 if the user didn't even touch the bubble at all
+ */
+int SpendGoldenCarrotsBubble::handleTouch(Vector2D& touchPoint)
+{
+    if (OverlapTester::isPointInNGRect(touchPoint, getMainBounds()))
+    {
+        if (m_userHasEnoughGoldenCats && touchPoint.getY() > (getMainBounds().getBottom() + getMainBounds().getHeight() / 2))
+        {
+            return 1;
+        }
+        
+        return 0;
+    }
+    
+    return 2;
+}
+
+void SpendGoldenCarrotsBubble::setUserHasEnoughGoldenCats(bool userHasEnoughGoldenCats)
+{
+    m_userHasEnoughGoldenCats = userHasEnoughGoldenCats;
+}
+
+void SpendGoldenCarrotsBubble::config(float x, float y, int world, int level)
+{
+    m_position.set(x, y);
+    
+    m_iWorld = world;
+    m_iLevel = level;
+    
+    updateBounds();
+    
+    m_fStateTime = 0;
+    
+    m_isOpen = true;
+}
+
+void SpendGoldenCarrotsBubble::close()
+{
+    m_position.set(1337, 1337);
+    
+    updateBounds();
+    
+    m_fStateTime = 0;
+    
+    m_isOpen = false;
+}
+
+Color& SpendGoldenCarrotsBubble::getColor()
+{
+    return m_color;
+}
+
+int SpendGoldenCarrotsBubble::getWorld()
+{
+    return m_iWorld;
+}
+
+int SpendGoldenCarrotsBubble::getLevel()
+{
+    return m_iLevel;
+}
+
+bool SpendGoldenCarrotsBubble::userHasEnoughGoldenCats()
+{
+    return m_userHasEnoughGoldenCats;
+}
+
+bool SpendGoldenCarrotsBubble::isOpen()
+{
+    return m_isOpen;
+}
+
+BossLevelThumbnail::BossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width, float height) : LevelThumbnail(x, y, width, height, 0.3f, 0.7f, world, level, LevelThumbnailType_Boss), m_spendGoldenCarrotsBubble(spendGoldenCarrotsBubble), m_isJawMoving(false), m_isUnlocking(false), m_isUnlocked(false), m_needsToPlayUnlockSound(false)
+{
+    // Empty
+}
+
+bool BossLevelThumbnail::isBoss()
+{
+    return true;
+}
+
+void BossLevelThumbnail::update(float deltaTime)
+{
+    if (m_needsToPlayUnlockSound)
+    {
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
+        
+        m_needsToPlayUnlockSound = false;
+    }
+    
+    if (m_isUnlocking)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 1.30f)
+        {
+            m_isUnlocking = false;
+            
+            m_fStateTime = 0;
+            
+            if (m_isSelecting)
+            {
+                m_isSelected = true;
+                m_isSelecting = false;
+                
+                m_fStateTime = 0;
+            }
+        }
+    }
+    else if (m_isUnlocked)
+    {
+        LevelThumbnail::update(deltaTime);
+    }
+    else
+    {
+        m_fStateTime += deltaTime;
+    }
+}
+
+void BossLevelThumbnail::config(bool isPlayable, bool isClearing, bool isCleared)
+{
+    LevelThumbnail::config(isPlayable, isClearing, isCleared);
+    
+    m_color.red = m_isPlayable ? 1 : 0;
+    m_color.green = m_isPlayable ? 1 : 0;
+    m_color.blue = m_isPlayable ? 1 : 0;
+}
+
+void BossLevelThumbnail::select()
+{
+    if (m_isUnlocked)
+    {
+        LevelThumbnail::select();
+    }
+    else
+    {
+        m_isJawMoving = true;
+        
+        m_fStateTime = 0;
+        
+        float width = CAM_WIDTH * 0.18198529411765f;
+        float height = CAM_HEIGHT * 0.33333333333333f;
+        
+        m_spendGoldenCarrotsBubble.config(m_position.getX() - width * 0.28f, m_position.getY() + height * 0.44f, getWorld(), getLevel());
+    }
+}
+
+void BossLevelThumbnail::deselect()
+{
+    if (m_isUnlocked)
+    {
+        LevelThumbnail::deselect();
+    }
+    else
+    {
+        m_isJawMoving = false;
+        
+        m_fStateTime = 0;
+    }
+    
+    m_spendGoldenCarrotsBubble.close();
+}
+
+void BossLevelThumbnail::configLockStatus(bool isUnlocked, bool isUnlocking)
+{
+    m_isUnlocked = isUnlocked;
+    m_isUnlocking = isUnlocking;
+    
+    m_needsToPlayUnlockSound = m_isUnlocking;
+    
+    m_fStateTime = 0;
+}
+
+bool BossLevelThumbnail::isJawMoving()
+{
+    return m_isJawMoving;
+}
+
+bool BossLevelThumbnail::isUnlocking()
+{
+    return m_isUnlocking;
+}
+
+bool BossLevelThumbnail::isUnlocked()
+{
+    return m_isUnlocked;
+}
+
+MidBossLevelThumbnail::MidBossLevelThumbnail(float x, float y, int world, int level, SpendGoldenCarrotsBubble& spendGoldenCarrotsBubble, float width, float height) : BossLevelThumbnail(x, y, world, level, spendGoldenCarrotsBubble, width, height)
+{
+    // Empty
+}
+
+AbilitySlot::AbilitySlot(float x, float y, AbilitySlotType type) : PhysicalEntity(x, y, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.18627450980392f),
+m_color(1, 1, 1, 1),
+m_type(type),
+m_isUnlocked(false),
+m_isUnlocking(false),
+m_isRevealing(false),
+m_needsToPlayUnlockSound(false)
+{
+    // Empty
+}
+
+void AbilitySlot::update(float deltaTime)
+{
+    if (m_needsToPlayUnlockSound)
+    {
+        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+        
+        m_needsToPlayUnlockSound = false;
+    }
+    
+    if (m_isUnlocking)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 1.00f)
+        {
+            m_isUnlocking = false;
+            m_isRevealing = true;
+            
+            m_fStateTime = 0;
+        }
+    }
+    else if (m_isRevealing)
+    {
+        m_fStateTime += deltaTime;
+        
+        if (m_fStateTime > 1.10f)
+        {
+            m_isRevealing = false;
+        }
+    }
+}
+
+Color& AbilitySlot::getColor()
+{
+    return m_color;
+}
+
+AbilitySlotType AbilitySlot::getType()
+{
+    return m_type;
+}
+
+bool AbilitySlot::isUnlocked()
+{
+    return m_isUnlocked;
+}
+
+bool AbilitySlot::isUnlocking()
+{
+    return m_isUnlocking;
+}
+
+void AbilitySlot::config(bool isUnlocked, bool isUnlocking)
+{
+    m_fStateTime = 0.0f;
+    m_isUnlocked = isUnlocked;
+    m_isUnlocking = isUnlocking;
+    m_isRevealing = false;
+    
+    m_needsToPlayUnlockSound = m_isUnlocking;
+    
+    if (m_isUnlocked && !m_isUnlocking)
+    {
+        m_fStateTime = 1.10f;
+    }
+}
+
+GoldenCarrotsMarker::GoldenCarrotsMarker() : PhysicalEntity(1337, 1337, CAM_WIDTH * 0.10845588235294f, CAM_HEIGHT * 0.12091503267974f), m_color(1, 1, 1, 1), m_iNumGoldenCarrots(0)
+{
+    // Empty
+}
+
+void GoldenCarrotsMarker::update(float deltaTime)
+{
+    m_fStateTime += deltaTime;
+}
+
+void GoldenCarrotsMarker::config(float x, float y, int numGoldenCarrots)
+{
+    m_position.set(x, y);
+    
+    m_iNumGoldenCarrots = numGoldenCarrots;
+    
+    m_fStateTime = 0;
+}
+
+Color& GoldenCarrotsMarker::getColor()
+{
+    return m_color;
+}
+
+int GoldenCarrotsMarker::getNumGoldenCarrots()
+{
+    return m_iNumGoldenCarrots;
+}
+
+void GoldenCarrotsMarker::onConfirm()
+{
+    update(1337);
+}
+
+ScoreMarker::ScoreMarker() :
+m_color(1, 1, 1, 0),
+m_fX(0),
+m_fY(0),
+m_iScore(0)
+{
+    // Empty
+}
+
+void ScoreMarker::update(float deltaTime)
+{
+    m_color.alpha += deltaTime;
+    
+    if (m_color.alpha > 1)
+    {
+        m_color.alpha = 1;
+    }
+}
+
+void ScoreMarker::config(float x, float y, int score)
+{
+    m_fX = x;
+    m_fY = y;
+    m_iScore = score;
+    
+    m_color.alpha = 0;
+}
+
+Color& ScoreMarker::getColor()
+{
+    return m_color;
+}
+
+float ScoreMarker::getX()
+{
+    return m_fX;
+}
+
+float ScoreMarker::getY()
+{
+    return m_fY;
+}
+
+int ScoreMarker::getScore()
+{
+    return m_iScore;
+}
+
+void ScoreMarker::onConfirm()
+{
+    update(1337);
+}
+
+RTTI_IMPL(WorldMap, MainScreenState);
 RTTI_IMPL_NOPARENT(WorldLevelCompletions);
 RTTI_IMPL(LevelThumbnail, PhysicalEntity);
 RTTI_IMPL(NormalLevelThumbnail, LevelThumbnail);
@@ -1233,4 +1771,3 @@ RTTI_IMPL(MidBossLevelThumbnail, BossLevelThumbnail);
 RTTI_IMPL(AbilitySlot, PhysicalEntity);
 RTTI_IMPL(GoldenCarrotsMarker, PhysicalEntity);
 RTTI_IMPL_NOPARENT(ScoreMarker);
-RTTI_IMPL(WorldMap, MainScreenState);

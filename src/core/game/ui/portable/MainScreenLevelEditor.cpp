@@ -8,16 +8,32 @@
 
 #include "MainScreenLevelEditor.h"
 
+#include "MainScreen.h"
+#include "Game.h"
+#include "LevelEditorActionsPanel.h"
+#include "LevelEditorEntitiesPanel.h"
+#include "TrashCan.h"
+#include "LevelSelectorPanel.h"
+#include "OffsetPanel.h"
+#include "ConfirmResetPanel.h"
+#include "ConfirmExitPanel.h"
+#include "GridLockedPhysicalEntity.h"
+#include "PhysicalEntity.h"
+
+#include "RendererType.h"
 #include "MainScreenLevels.h"
 #include "MainScreen.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
-#include "Game.h"
 #include "MainScreenTitle.h"
 #include "BatPanel.h"
 #include "ScreenInputManager.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
+#include "ScreenEvent.h"
+#include "ForegroundCoverObject.h"
+#include "Midground.h"
+#include "CollectibleItem.h"
 
 #include <algorithm> // std::sort
 

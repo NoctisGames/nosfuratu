@@ -18,7 +18,6 @@
 #include "Color.h"
 
 #include <vector>
-#include <thread>
 
 class SpriteBatcher;
 class LineBatcher;
@@ -53,6 +52,10 @@ class LevelThumbnail;
 class BatPanel;
 class MidBossOwl;
 class EndBossSnake;
+class Ground;
+class Midground;
+class ForegroundCoverObject;
+class NGRectBatcher;
 
 class MainRenderer : public Renderer
 {

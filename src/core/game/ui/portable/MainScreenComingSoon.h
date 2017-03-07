@@ -9,8 +9,11 @@
 #ifndef __nosfuratu__MainScreenComingSoon__
 #define __nosfuratu__MainScreenComingSoon__
 
-#include "MainScreen.h"
+#include "MainScreenState.h"
+
 #include "RTTI.h"
+
+class MainScreen;
 
 class ComingSoon : public MainScreenState
 {

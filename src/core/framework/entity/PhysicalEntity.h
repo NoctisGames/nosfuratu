@@ -12,6 +12,7 @@
 #include "Entity.h"
 
 #include "Vector2D.h"
+
 #include "RTTI.h"
 
 #include <vector>

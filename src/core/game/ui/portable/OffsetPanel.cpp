@@ -7,6 +7,11 @@
 //
 
 #include "OffsetPanel.h"
+
+#include "ScreenEvent.h"
+#include "Vector2D.h"
+#include "NGRect.h"
+
 #include "OverlapTester.h"
 
 OffsetPanel::OffsetPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iOffset(0), m_isOpen(false)

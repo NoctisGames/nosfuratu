@@ -11,11 +11,10 @@
 
 #include "MainScreenState.h"
 
-#include "MainScreenLevels.h"
-
 #include "RTTI.h"
 
 class MainScreen;
+class Level;
 class Game;
 
 class TitleToWorldMap : public MainScreenState

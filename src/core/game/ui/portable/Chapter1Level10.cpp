@@ -18,6 +18,7 @@
 #include "MathUtil.h"
 #include "SoundManager.h"
 #include "MainRenderer.h"
+#include "FlagUtil.h"
 
 void Chapter1Level10::enter(MainScreen* ms)
 {

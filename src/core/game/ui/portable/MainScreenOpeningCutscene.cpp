@@ -9,6 +9,9 @@
 #include "MainScreenOpeningCutscene.h"
 
 #include "MainScreen.h"
+#include "CutscenePanel.h"
+
+#include "MainScreen.h"
 #include "MainScreenTitle.h"
 #include "MainScreenTransitions.h"
 #include "CutscenePanel.h"
@@ -24,6 +27,7 @@
 #include "VectorUtil.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
+#include "FlagUtil.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {

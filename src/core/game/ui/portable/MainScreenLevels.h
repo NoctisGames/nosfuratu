@@ -9,20 +9,22 @@
 #ifndef __nosfuratu__MainScreenLevels__
 #define __nosfuratu__MainScreenLevels__
 
-#include "MainScreen.h"
-
-#include "GameButton.h"
-#include "OverlapTester.h"
-#include "CollectibleItem.h"
-#include "FlagUtil.h"
-#include "Game.h"
-#include "BatPanel.h"
-#include "MidBossOwl.h"
+#include "MainScreenState.h"
 
 #include "RTTI.h"
 
+#include <vector>
+
+class MainScreen;
+class Game;
+class GameButton;
+class CollectibleItem;
+class MidBossOwl;
 class EndBossSnake;
+class Hole;
 class ForegroundObject;
+class BatPanel;
+class PhysicalEntity;
 
 class Level : public MainScreenState
 {
@@ -51,21 +53,21 @@ public:
     
     void stopAllLoopingSounds();
     
-    int getScore() { return m_iScore; }
+    int getScore();
     
-    int getOnlineScore() { return m_iOnlineScore; }
+    int getOnlineScore();
     
-    int getLevelStatsFlag() { return m_iLevelStatsFlag; }
+    int getLevelStatsFlag();
     
-    int getNumGoldenCarrots() { return m_iNumGoldenCarrots; }
+    int getNumGoldenCarrots();
     
     int getJonAbilityFlag();
     
-    bool hasCompletedLevel() { return m_hasCompletedLevel; }
+    bool hasCompletedLevel();
     
-    Game& getGame() { return *m_game; }
+    Game& getGame();
     
-    GameButton* getContinueButton() { return m_continueButton; }
+    GameButton* getContinueButton();
     
 protected:
     const char* m_json;
@@ -618,7 +620,7 @@ private:
     
     virtual bool isInSlowMotionMode();
 
-	virtual void configBatPanel() {} // Prevent
+    virtual void configBatPanel();
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Chapter1Level21(const char* json);
@@ -631,251 +633,7 @@ class LevelUtil
     RTTI_DECL;
     
 public:
-    static Level* getInstanceForWorldAndLevel(int world, int level)
-    {
-        switch (world)
-        {
-            case 1:
-            {
-                switch (level)
-                {
-                    case 1:
-                    {
-                        if (Chapter1Level1::getInstance() != nullptr)
-                        {
-                            Chapter1Level1::destroy();
-                        }
-                        
-                        Chapter1Level1::create();
-                        
-                        return Chapter1Level1::getInstance();
-                    }
-                    case 2:
-                    {
-                        if (Chapter1Level2::getInstance() != nullptr)
-                        {
-                            Chapter1Level2::destroy();
-                        }
-                        
-                        Chapter1Level2::create();
-                        
-                        return Chapter1Level2::getInstance();
-                    }
-                    case 3:
-                    {
-                        if (Chapter1Level3::getInstance() != nullptr)
-                        {
-                            Chapter1Level3::destroy();
-                        }
-                        
-                        Chapter1Level3::create();
-                        
-                        return Chapter1Level3::getInstance();
-                    }
-                    case 4:
-                    {
-                        if (Chapter1Level4::getInstance() != nullptr)
-                        {
-                            Chapter1Level4::destroy();
-                        }
-                        
-                        Chapter1Level4::create();
-                        
-                        return Chapter1Level4::getInstance();
-                    }
-                    case 5:
-                    {
-                        if (Chapter1Level5::getInstance() != nullptr)
-                        {
-                            Chapter1Level5::destroy();
-                        }
-                        
-                        Chapter1Level5::create();
-                        
-                        return Chapter1Level5::getInstance();
-                    }
-                    case 6:
-                    {
-                        if (Chapter1Level6::getInstance() != nullptr)
-                        {
-                            Chapter1Level6::destroy();
-                        }
-                        
-                        Chapter1Level6::create();
-                        
-                        return Chapter1Level6::getInstance();
-                    }
-                    case 7:
-                    {
-                        if (Chapter1Level7::getInstance() != nullptr)
-                        {
-                            Chapter1Level7::destroy();
-                        }
-                        
-                        Chapter1Level7::create();
-                        
-                        return Chapter1Level7::getInstance();
-                    }
-                    case 8:
-                    {
-                        if (Chapter1Level8::getInstance() != nullptr)
-                        {
-                            Chapter1Level8::destroy();
-                        }
-                        
-                        Chapter1Level8::create();
-                        
-                        return Chapter1Level8::getInstance();
-                    }
-                    case 9:
-                    {
-                        if (Chapter1Level9::getInstance() != nullptr)
-                        {
-                            Chapter1Level9::destroy();
-                        }
-                        
-                        Chapter1Level9::create();
-                        
-                        return Chapter1Level9::getInstance();
-                    }
-                    case 10:
-                    {
-                        if (Chapter1Level10::getInstance() != nullptr)
-                        {
-                            Chapter1Level10::destroy();
-                        }
-                        
-                        Chapter1Level10::create();
-                        
-                        return Chapter1Level10::getInstance();
-                    }
-                    case 11:
-                    {
-                        if (Chapter1Level11::getInstance() != nullptr)
-                        {
-                            Chapter1Level11::destroy();
-                        }
-                        
-                        Chapter1Level11::create();
-                        
-                        return Chapter1Level11::getInstance();
-                    }
-                    case 12:
-                    {
-                        if (Chapter1Level12::getInstance() != nullptr)
-                        {
-                            Chapter1Level12::destroy();
-                        }
-                        
-                        Chapter1Level12::create();
-                        
-                        return Chapter1Level12::getInstance();
-                    }
-                    case 13:
-                    {
-                        if (Chapter1Level13::getInstance() != nullptr)
-                        {
-                            Chapter1Level13::destroy();
-                        }
-                        
-                        Chapter1Level13::create();
-                        
-                        return Chapter1Level13::getInstance();
-                    }
-                    case 14:
-                    {
-                        if (Chapter1Level14::getInstance() != nullptr)
-                        {
-                            Chapter1Level14::destroy();
-                        }
-                        
-                        Chapter1Level14::create();
-                        
-                        return Chapter1Level14::getInstance();
-                    }
-                    case 15:
-                    {
-                        if (Chapter1Level15::getInstance() != nullptr)
-                        {
-                            Chapter1Level15::destroy();
-                        }
-                        
-                        Chapter1Level15::create();
-                        
-                        return Chapter1Level15::getInstance();
-                    }
-                    case 16:
-                    {
-                        if (Chapter1Level16::getInstance() != nullptr)
-                        {
-                            Chapter1Level16::destroy();
-                        }
-                        
-                        Chapter1Level16::create();
-                        
-                        return Chapter1Level16::getInstance();
-                    }
-                    case 17:
-                    {
-                        if (Chapter1Level17::getInstance() != nullptr)
-                        {
-                            Chapter1Level17::destroy();
-                        }
-                        
-                        Chapter1Level17::create();
-                        
-                        return Chapter1Level17::getInstance();
-                    }
-                    case 18:
-                    {
-                        if (Chapter1Level18::getInstance() != nullptr)
-                        {
-                            Chapter1Level18::destroy();
-                        }
-                        
-                        Chapter1Level18::create();
-                        
-                        return Chapter1Level18::getInstance();
-                    }
-                    case 19:
-                    {
-                        if (Chapter1Level19::getInstance() != nullptr)
-                        {
-                            Chapter1Level19::destroy();
-                        }
-                        
-                        Chapter1Level19::create();
-                        
-                        return Chapter1Level19::getInstance();
-                    }
-                    case 20:
-                    {
-                        if (Chapter1Level20::getInstance() != nullptr)
-                        {
-                            Chapter1Level20::destroy();
-                        }
-                        
-                        Chapter1Level20::create();
-                        
-                        return Chapter1Level20::getInstance();
-                    }
-                    case 21:
-                    {
-                        if (Chapter1Level21::getInstance() != nullptr)
-                        {
-                            Chapter1Level21::destroy();
-                        }
-                        
-                        Chapter1Level21::create();
-                        
-                        return Chapter1Level21::getInstance();
-                    }
-                }
-            }
-        }
-        
-        assert(false);
-    }
+    static Level* getInstanceForWorldAndLevel(int world, int level);
 };
 
 #endif /* defined(__nosfuratu__MainScreenLevels__) */

@@ -12,27 +12,27 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
-#include "OverlapTester.h"
-#include "Midground.h"
-#include "Ground.h"
-#include "ExitGround.h"
-#include "Hole.h"
-#include "ForegroundObject.h"
-#include "Enemy.h"
-#include "CollectibleItem.h"
-#include "Jon.h"
-#include "EndBossSnake.h"
+
 #include "RTTI.h"
-#include "ForegroundCoverObject.h"
-#include "CountHissWithMina.h"
 
 #include <vector>
-#include <math.h>
 
 class Game;
+class ScreenEvent;
+class Vector2D;
+class NGRect;
+class Midground;
+class Ground;
+class ExitGround;
+class Hole;
+class ForegroundObject;
+class ExtraForegroundObject;
+class Enemy;
+class CollectibleItem;
+class Jon;
+class EndBossSnake;
+class ForegroundCoverObject;
+class CountHissWithMina;
 
 #define LEVEL_EDITOR_ENTITIES_PANEL_RC_UNHANDLED -1
 #define LEVEL_EDITOR_ENTITIES_PANEL_RC_HANDLED 0
@@ -86,38 +86,6 @@ public:
     bool isOpen();
     
 private:
-    template<typename T>
-    static bool isTouchingEntityForPlacement(std::vector<T*>& items, std::vector<T*>& gameItems, float x, float y, PhysicalEntity** lastAddedEntity, Vector2D& touchPoint)
-    {
-        int retVal = -1;
-        int index = 0;
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++, index++)
-        {
-            T* item = *i;
-            float width = item->getWidth();
-            float height = item->getHeight();
-            float x = item->getPosition().getX() - width / 2;
-            float y = item->getPosition().getY() - height / 2;
-            
-            NGRect tempBounds = NGRect(x, y, width, height);
-            if (OverlapTester::isPointInNGRect(touchPoint, tempBounds))
-            {
-                retVal = index;
-                break;
-            }
-        }
-        
-        if (retVal != -1)
-        {
-            T* pT = T::create(x, y, items.at(index)->getType());
-            gameItems.push_back(pT);
-            
-            *lastAddedEntity = pT;
-        }
-        
-        return retVal != -1;
-    }
-    
     std::vector<Midground *> m_midgrounds;
     std::vector<Ground *> m_grounds;
     std::vector<Ground *> m_pits;

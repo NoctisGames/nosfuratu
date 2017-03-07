@@ -7,6 +7,11 @@
 //
 
 #include "LevelSelectorPanel.h"
+
+#include "ScreenEvent.h"
+#include "Vector2D.h"
+#include "NGRect.h"
+
 #include "OverlapTester.h"
 
 LevelSelectorPanel::LevelSelectorPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height), m_iWorld(1), m_iLevel(1), m_isOpen(false)

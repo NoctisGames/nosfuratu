@@ -10,6 +10,7 @@
 
 #include "Vector2D.h"
 #include "NGRect.h"
+#include "ScreenEvent.h"
 
 #include "OverlapTester.h"
 

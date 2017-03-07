@@ -9,19 +9,23 @@
 #ifndef __nosfuratu__MainScreenLevelEditor__
 #define __nosfuratu__MainScreenLevelEditor__
 
-#include "MainScreen.h"
-
-#include "LevelEditorActionsPanel.h"
-#include "LevelEditorEntitiesPanel.h"
-#include "TrashCan.h"
-#include "LevelSelectorPanel.h"
-#include "OffsetPanel.h"
-#include "ConfirmResetPanel.h"
-#include "ConfirmExitPanel.h"
-#include "RendererType.h"
 #include "MainScreenState.h"
 
 #include "RTTI.h"
+
+#include <vector>
+
+class MainScreen;
+class Game;
+class LevelEditorActionsPanel;
+class LevelEditorEntitiesPanel;
+class TrashCan;
+class LevelSelectorPanel;
+class OffsetPanel;
+class ConfirmResetPanel;
+class ConfirmExitPanel;
+class GridLockedPhysicalEntity;
+class PhysicalEntity;
 
 class MainScreenLevelEditor : public MainScreenState
 {

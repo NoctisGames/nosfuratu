@@ -9,13 +9,16 @@
 #ifndef __nosfuratu__MainScreenOpeningCutscene__
 #define __nosfuratu__MainScreenOpeningCutscene__
 
-#include "MainScreen.h"
+#include "MainScreenState.h"
 
-#include "CutscenePanel.h"
+#include "CutscenePanelType.h"
 
 #include "RTTI.h"
 
 #include <vector>
+
+class MainScreen;
+class CutscenePanel;
 
 class OpeningCutscene : public MainScreenState
 {

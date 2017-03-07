@@ -12,11 +12,12 @@
 #include "PhysicalEntity.h"
 
 #include "GameConstants.h"
-#include "ScreenEvent.h"
-#include "Vector2D.h"
-#include "NGRect.h"
 
 #include "RTTI.h"
+
+class ScreenEvent;
+class Vector2D;
+class NGRect;
 
 #define LEVEL_SELECTOR_PANEL_RC_UNHANDLED -1
 #define LEVEL_SELECTOR_PANEL_RC_HANDLED 0

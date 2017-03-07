@@ -10,7 +10,6 @@
 
 #include "SpriteBatcher.h"
 #include "LineBatcher.h"
-#include "NGRectBatcher.h"
 #include "Font.h"
 #include "TextureWrapper.h"
 #include "TextureRegion.h"
@@ -21,6 +20,7 @@
 #include "Vector2D.h"
 #include "NGRect.h"
 #include "Game.h"
+#include "Jon.h"
 #include "GameButton.h"
 #include "MainScreenLevelEditor.h"
 #include "LevelEditorActionsPanel.h"
@@ -57,11 +57,19 @@
 #include "IAssetsMapper.h"
 #include "MainGpuProgramWrapperFactory.h"
 #include "GameHudItem.h"
+#include "ExitGround.h"
 #include "ExitGroundCover.h"
 #include "EnemySpirit.h"
 #include "GameMarker.h"
 #include "Background.h"
 #include "DustCloud.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "Enemy.h"
+#include "CountHissWithMina.h"
+#include "Ground.h"
+#include "Midground.h"
+#include "ForegroundCoverObject.h"
 
 #include <math.h>
 #include <sstream>

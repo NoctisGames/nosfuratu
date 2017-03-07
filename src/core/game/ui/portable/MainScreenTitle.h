@@ -9,13 +9,13 @@
 #ifndef __nosfuratu__MainScreenTitle__
 #define __nosfuratu__MainScreenTitle__
 
-#include "MainScreen.h"
-
-#include "GameButton.h"
-#include "TitlePanel.h"
 #include "MainScreenState.h"
 
 #include "RTTI.h"
+
+class MainScreen;
+class TitlePanel;
+class GameButton;
 
 class Title : public MainScreenState
 {

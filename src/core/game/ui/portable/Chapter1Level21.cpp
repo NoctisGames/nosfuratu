@@ -17,6 +17,10 @@
 #include "MathUtil.h"
 #include "SoundManager.h"
 #include "MainRenderer.h"
+#include "Midground.h"
+#include "FlagUtil.h"
+#include "BatPanel.h"
+#include "CollectibleItem.h"
 
 void Chapter1Level21::enter(MainScreen* ms)
 {
@@ -544,6 +548,11 @@ void Chapter1Level21::updateCamera(MainScreen* ms, float paddingX, bool ignoreY,
 bool Chapter1Level21::isInSlowMotionMode()
 {
     return false;
+}
+
+void Chapter1Level21::configBatPanel()
+{
+    // Prevent
 }
 
 Chapter1Level21::Chapter1Level21(const char* json) : Level(json),

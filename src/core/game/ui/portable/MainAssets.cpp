@@ -9,6 +9,7 @@
 #include "MainAssets.h"
 
 #include "Assets.h"
+
 #include "TextureRegion.h"
 #include "Animation.h"
 #include "Vector2D.h"
@@ -47,6 +48,7 @@
 #include "SoundManager.h"
 #include "GameHudItem.h"
 #include "ExitGroundCover.h"
+#include "CountHissWithMina.h"
 
 MainAssets* MainAssets::getInstance()
 {

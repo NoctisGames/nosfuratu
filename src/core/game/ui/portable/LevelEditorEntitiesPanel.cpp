@@ -8,12 +8,27 @@
 
 #include "LevelEditorEntitiesPanel.h"
 
-#include "NGRect.h"
-#include "Vector2D.h"
-#include "GameConstants.h"
 #include "Game.h"
+#include "ScreenEvent.h"
+#include "Vector2D.h"
+#include "NGRect.h"
+#include "Midground.h"
+#include "Ground.h"
+#include "ExitGround.h"
+#include "Hole.h"
+#include "ForegroundObject.h"
+#include "Enemy.h"
+#include "CollectibleItem.h"
+#include "Jon.h"
+#include "EndBossSnake.h"
+#include "ForegroundCoverObject.h"
+#include "CountHissWithMina.h"
+
 #include "EntityUtils.h"
 #include "VectorUtil.h"
+#include "OverlapTester.h"
+
+#include <math.h>
 
 LevelEditorEntitiesPanel::LevelEditorEntitiesPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
 m_openButton(new NGRect(CAM_WIDTH - 1, height * 0.49081920903955f, 1, 1)),
@@ -380,21 +395,21 @@ int LevelEditorEntitiesPanel::handleTouch(ScreenEvent& te, Vector2D& touchPoint,
                     int gridX = (camPos.getX() + ZOOMED_OUT_CAM_WIDTH / 2) / GRID_CELL_SIZE;
                     int gridY = GAME_HEIGHT / 2 / GRID_CELL_SIZE;
                     
-                    if (isTouchingEntityForPlacement(m_midgrounds, game.getMidgrounds(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_pits, game.getPits(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getMidBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_endBossForegroundObjects, game.getEndBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_countHissWithMinas, game.getCountHissWithMinas(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_endBossSnakes, game.getEndBossSnakes(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_extraForegroundObjects, game.getExtraForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
-                        || isTouchingEntityForPlacement(m_foregroundCoverObjects, game.getForegroundCoverObjects(), gridX, gridY, lastAddedEntity, touchPoint))
+                    if (EntityUtils::isTouchingEntityForPlacement(m_midgrounds, game.getMidgrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_grounds, game.getGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_pits, game.getPits(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_exitGrounds, game.getExitGrounds(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_holes, game.getHoles(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_foregroundObjects, game.getForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_midBossForegroundObjects, game.getMidBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_endBossForegroundObjects, game.getEndBossForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_countHissWithMinas, game.getCountHissWithMinas(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_endBossSnakes, game.getEndBossSnakes(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_enemies, game.getEnemies(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_collectibleItems, game.getCollectibleItems(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_jons, game.getJons(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_extraForegroundObjects, game.getExtraForegroundObjects(), gridX, gridY, lastAddedEntity, touchPoint)
+                        || EntityUtils::isTouchingEntityForPlacement(m_foregroundCoverObjects, game.getForegroundCoverObjects(), gridX, gridY, lastAddedEntity, touchPoint))
                     {
                         return LEVEL_EDITOR_ENTITIES_PANEL_RC_ENTITY_ADDED;
                     }

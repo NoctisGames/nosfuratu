@@ -8,6 +8,10 @@
 
 #include "MainScreenTitle.h"
 
+#include "MainScreen.h"
+#include "GameButton.h"
+#include "TitlePanel.h"
+
 #include "State.h"
 #include "MainScreen.h"
 #include "EntityUtils.h"
@@ -24,6 +28,8 @@
 #include "TouchConverter.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
+#include "FlagUtil.h"
+#include "SoundManager.h"
 
 /// Title Screen ///
 

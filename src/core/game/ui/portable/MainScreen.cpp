@@ -8,6 +8,10 @@
 
 #include "MainScreen.h"
 
+#include "IDeviceHelper.h"
+#include "MainRenderer.h"
+#include "Vector2D.h"
+
 #include "MainScreenTitle.h"
 #include "MainScreenWorldMap.h"
 #include "MainScreenLevels.h"
@@ -22,11 +26,9 @@
 #include "TouchConverter.h"
 #include "MainRenderer.h"
 #include "DeviceHelperFactory.h"
-#include "IDeviceHelper.h"
-#include "MainRenderer.h"
 #include "BatPanel.h"
-#include "Vector2D.h"
 #include "ScreenEvent.h"
+#include "SoundManager.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
