@@ -15,9 +15,9 @@ struct GpuTextureWrapper;
 class ITextureLoader
 {
 public:
-    ITextureLoader() {}
+    ITextureLoader();
     
-    virtual ~ITextureLoader() {}
+    virtual ~ITextureLoader();
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName) = 0;
     

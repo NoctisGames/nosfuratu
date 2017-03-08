@@ -12,3 +12,8 @@ CircleBatcher::CircleBatcher() : m_iNumPoints(0)
 {
     // Empty
 }
+
+CircleBatcher::~CircleBatcher()
+{
+    // Empty
+}

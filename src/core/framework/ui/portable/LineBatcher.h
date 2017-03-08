@@ -18,7 +18,7 @@ class LineBatcher
 public:
     LineBatcher();
     
-    virtual ~LineBatcher() {}
+    virtual ~LineBatcher();
     
     virtual void beginBatch() = 0;
     

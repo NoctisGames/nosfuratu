@@ -30,7 +30,7 @@ private:
     AAssetManager* mAssetManager;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
-    AndroidAssetDataHandler() : AssetDataHandler() {}
+    AndroidAssetDataHandler();
     AndroidAssetDataHandler(const AndroidAssetDataHandler&);
     AndroidAssetDataHandler& operator=(const AndroidAssetDataHandler&);
 };

@@ -8,4 +8,9 @@
 
 #include "JonFormState.h"
 
+JonFormState::JonFormState()
+{
+    // Empty
+}
+
 RTTI_IMPL_NOPARENT(JonFormState);

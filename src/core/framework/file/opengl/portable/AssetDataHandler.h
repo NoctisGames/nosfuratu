@@ -21,7 +21,7 @@ public:
     virtual void releaseAssetData(const FileData* fileData) = 0;
     
 protected:
-    AssetDataHandler() {}
+    AssetDataHandler();
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

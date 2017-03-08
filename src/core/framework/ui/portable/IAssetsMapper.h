@@ -19,11 +19,11 @@
 class IAssetsMapper
 {
 public:
-    IAssetsMapper() {}
+    IAssetsMapper();
     
-    virtual ~IAssetsMapper() {}
+    virtual ~IAssetsMapper();
     
-    virtual void mapAssets() {}
+    virtual void mapAssets() = 0;
 };
 
 #endif /* defined(__noctisgames__IAssetsMapper__) */

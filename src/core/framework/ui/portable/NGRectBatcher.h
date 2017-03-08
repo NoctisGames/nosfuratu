@@ -18,7 +18,7 @@ class NGRectBatcher
 public:
     NGRectBatcher(bool isFill = false);
     
-    virtual ~NGRectBatcher() {}
+    virtual ~NGRectBatcher();
     
     virtual void beginBatch() = 0;
     

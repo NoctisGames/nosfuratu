@@ -17,6 +17,11 @@ NGRectBatcher::NGRectBatcher(bool isFill) : m_isFill(isFill), m_iNumNGRects(0)
     // Empty
 }
 
+NGRectBatcher::~NGRectBatcher()
+{
+    // Empty
+}
+
 void NGRectBatcher::renderNGRect(NGRect &rectangle, Color &color)
 {
     float x1 = rectangle.getLeft();

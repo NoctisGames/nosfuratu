@@ -18,7 +18,7 @@ class CircleBatcher
 public:
     CircleBatcher();
     
-    virtual ~CircleBatcher() {}
+    virtual ~CircleBatcher();
     
     virtual void renderCircle(Circle &circle, Color &c, GpuProgramWrapper &gpuProgramWrapper) = 0;
     

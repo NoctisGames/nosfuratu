@@ -12,9 +12,9 @@
 class IDeviceHelper
 {
 public:
-    IDeviceHelper() {}
+    IDeviceHelper();
     
-    virtual ~IDeviceHelper() {}
+    virtual ~IDeviceHelper();
     
     virtual void createDeviceDependentResources(int maxBatchSize) = 0;
     

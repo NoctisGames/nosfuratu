@@ -20,6 +20,7 @@ class SuperpoweredSoundManager
 {
 public:
     SuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize = 0);
+    
 	~SuperpoweredSoundManager();
     
     void loadSound(int rawResourceId, const char *path, int numCopies = 1, int fileOffset = -1, int fileLength = -1);

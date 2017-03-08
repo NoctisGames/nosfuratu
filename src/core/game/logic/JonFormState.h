@@ -42,7 +42,7 @@ public:
     
     virtual int getNumJumps(Jon* jon) = 0;
     
-    JonFormState() {};
+    JonFormState();
     
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton

@@ -16,7 +16,7 @@ class Direct3DTextureLoader : public ITextureLoader
 public:
     Direct3DTextureLoader();
     
-    virtual ~Direct3DTextureLoader() {}
+    virtual ~Direct3DTextureLoader();
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName);
     

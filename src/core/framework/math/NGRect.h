@@ -15,8 +15,6 @@ class NGRect
 {
 public:
     NGRect(float x, float y, float width, float height, float angle = 0);
-
-	NGRect(const NGRect &) {}
     
     Vector2D& getLowerLeft();
     

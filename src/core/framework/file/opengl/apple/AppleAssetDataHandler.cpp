@@ -25,3 +25,8 @@ void AppleAssetDataHandler::releaseAssetData(const FileData* fileData)
 {
     appleReleaseAssetData(fileData);
 }
+
+AppleAssetDataHandler::AppleAssetDataHandler() : AssetDataHandler()
+{
+    // Empty
+}

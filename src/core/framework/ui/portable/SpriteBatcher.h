@@ -20,7 +20,7 @@ class SpriteBatcher
 public:
     SpriteBatcher();
     
-    virtual ~SpriteBatcher() {}
+    virtual ~SpriteBatcher();
 
     virtual void beginBatch() = 0;
 

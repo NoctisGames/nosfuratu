@@ -16,7 +16,7 @@ class OpenGLLineBatcher : public LineBatcher
 public:
     OpenGLLineBatcher();
     
-    virtual ~OpenGLLineBatcher() {}
+    virtual ~OpenGLLineBatcher();
     
     virtual void beginBatch();
     

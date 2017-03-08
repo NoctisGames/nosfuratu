@@ -14,9 +14,9 @@ struct GpuTextureWrapper;
 class IRendererHelper
 {
 public:
-    IRendererHelper() {}
+    IRendererHelper();
     
-    virtual ~IRendererHelper() {}
+    virtual ~IRendererHelper();
     
     virtual void beginFrame() = 0;
     

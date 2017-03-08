@@ -12,3 +12,8 @@ SpriteBatcher::SpriteBatcher() : m_iNumSprites(0)
 {
     // Empty
 }
+
+SpriteBatcher::~SpriteBatcher()
+{
+    // Empty
+}

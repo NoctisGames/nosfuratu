@@ -23,6 +23,11 @@ Direct3DTextureLoader::Direct3DTextureLoader() : ITextureLoader()
     // Empty
 }
 
+Direct3DTextureLoader::~Direct3DTextureLoader()
+{
+    // Empty
+}
+
 GpuTextureDataWrapper* Direct3DTextureLoader::loadTextureData(const char* textureName)
 {
     size_t len = strlen(textureName);

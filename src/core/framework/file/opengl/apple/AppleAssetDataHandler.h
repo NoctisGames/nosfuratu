@@ -22,7 +22,7 @@ public:
 
 private:
     // ctor, copy ctor, and assignment should be private in a Singleton
-    AppleAssetDataHandler() : AssetDataHandler() {}
+    AppleAssetDataHandler();
     AppleAssetDataHandler(const AppleAssetDataHandler&);
     AppleAssetDataHandler& operator=(const AppleAssetDataHandler&);
 };

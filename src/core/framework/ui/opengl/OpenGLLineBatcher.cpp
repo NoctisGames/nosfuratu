@@ -20,6 +20,11 @@ OpenGLLineBatcher::OpenGLLineBatcher() : LineBatcher()
     m_iNumLines = 0;
 }
 
+OpenGLLineBatcher::~OpenGLLineBatcher()
+{
+    // Empty
+}
+
 void OpenGLLineBatcher::beginBatch()
 {
     OGLManager->getColorVertices().clear();

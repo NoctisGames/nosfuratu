@@ -26,3 +26,8 @@ AssetDataHandler* AssetDataHandler::getAssetDataHandler()
     
     assert(false);
 }
+
+AssetDataHandler::AssetDataHandler()
+{
+    // Empty
+}

@@ -12,6 +12,11 @@
 
 #include <math.h>
 
+Vector2D::Vector2D(float x, float y) : m_fX(x), m_fY(y)
+{
+    // Empty
+}
+
 Vector2D::Vector2D(const Vector2D &cSource)
 {
     m_fX = cSource.getX();

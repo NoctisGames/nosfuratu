@@ -17,6 +17,11 @@ LineBatcher::LineBatcher() : m_iNumLines(0)
     // Empty
 }
 
+LineBatcher::~LineBatcher()
+{
+    // Empty
+}
+
 void LineBatcher::renderLine(Line &line, Color &c)
 {
     float oX = line.getOrigin().getX();

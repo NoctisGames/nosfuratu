@@ -88,3 +88,8 @@ void Assets::initTextureRegion(TextureRegion& tr, int x, int regionWidth, int te
 {
     tr.init(x, regionWidth, textureWidth);
 }
+
+Assets::Assets()
+{
+    // Empty
+}

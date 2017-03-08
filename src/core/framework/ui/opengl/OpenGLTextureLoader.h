@@ -19,7 +19,7 @@ class OpenGLTextureLoader : public ITextureLoader
 public:
     OpenGLTextureLoader();
     
-    virtual ~OpenGLTextureLoader() {}
+    virtual ~OpenGLTextureLoader();
     
     virtual GpuTextureDataWrapper* loadTextureData(const char* textureName);
     

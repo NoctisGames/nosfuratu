@@ -28,6 +28,11 @@ OpenGLTextureLoader::OpenGLTextureLoader() : ITextureLoader()
     // Empty
 }
 
+OpenGLTextureLoader::~OpenGLTextureLoader()
+{
+    // Empty
+}
+
 GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureName)
 {
     size_t len = strlen(textureName);
