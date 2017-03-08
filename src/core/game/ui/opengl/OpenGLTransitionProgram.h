@@ -1,6 +1,6 @@
 //
 //  OpenGLTransitionProgram.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 1/27/16.
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
