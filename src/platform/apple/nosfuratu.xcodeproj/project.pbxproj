@@ -419,6 +419,9 @@
 		BB606EAF1E70724F0050476B /* ITextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EAE1E70724F0050476B /* ITextureLoader.cpp */; };
 		BB606EB01E70724F0050476B /* ITextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EAE1E70724F0050476B /* ITextureLoader.cpp */; };
 		BB606EB11E70724F0050476B /* ITextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EAE1E70724F0050476B /* ITextureLoader.cpp */; };
+		BB606EB41E7074470050476B /* NGAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EB21E7074470050476B /* NGAudioEngine.cpp */; };
+		BB606EB51E7074470050476B /* NGAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EB21E7074470050476B /* NGAudioEngine.cpp */; };
+		BB606EB61E7074470050476B /* NGAudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EB21E7074470050476B /* NGAudioEngine.cpp */; };
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
 		BB71C78F1E248D4200222AE2 /* ability_unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7491E248D4200222AE2 /* ability_unlock.wav */; };
 		BB71C7911E248D4200222AE2 /* ability_unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7491E248D4200222AE2 /* ability_unlock.wav */; };
@@ -1509,6 +1512,8 @@
 		BB606EA31E7071EA0050476B /* IDeviceHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IDeviceHelper.cpp; sourceTree = "<group>"; };
 		BB606EA41E7071EA0050476B /* IRendererHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRendererHelper.cpp; sourceTree = "<group>"; };
 		BB606EAE1E70724F0050476B /* ITextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ITextureLoader.cpp; sourceTree = "<group>"; };
+		BB606EB21E7074470050476B /* NGAudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NGAudioEngine.cpp; sourceTree = "<group>"; };
+		BB606EB31E7074470050476B /* NGAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGAudioEngine.h; sourceTree = "<group>"; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		BB71C7491E248D4200222AE2 /* ability_unlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ability_unlock.wav; sourceTree = "<group>"; };
 		BB71C74A1E248D4200222AE2 /* absorb_dash_ability.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = absorb_dash_ability.wav; sourceTree = "<group>"; };
@@ -2984,6 +2989,8 @@
 		BBADF46B1E60D4A000F4288A /* portable */ = {
 			isa = PBXGroup;
 			children = (
+				BB606EB21E7074470050476B /* NGAudioEngine.cpp */,
+				BB606EB31E7074470050476B /* NGAudioEngine.h */,
 				BBADF46C1E60D55400F4288A /* SoundManager.cpp */,
 				BBADF46D1E60D55400F4288A /* SoundManager.h */,
 			);
@@ -3661,6 +3668,7 @@
 				BB34FA151E563C2400AC8197 /* NGRectBatcher.cpp in Sources */,
 				BB34FBA31E5645F400AC8197 /* ForegroundObject.cpp in Sources */,
 				BB44C8871DB03A7E003E633F /* pngwtran.c in Sources */,
+				BB606EB41E7074470050476B /* NGAudioEngine.cpp in Sources */,
 				BB09CE1D1DBD3779006A3E49 /* SuperpoweredIOSAudioIO.mm in Sources */,
 				BB44C8811DB03A7E003E633F /* pngtrans.c in Sources */,
 				BB606EAF1E70724F0050476B /* ITextureLoader.cpp in Sources */,
@@ -3803,6 +3811,7 @@
 				BB34F8BF1E563C2200AC8197 /* PhysicalEntity.cpp in Sources */,
 				BB5BA4BF1E67ADA80074A315 /* GameHudItem.cpp in Sources */,
 				BB34FD211E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB606EB51E7074470050476B /* NGAudioEngine.cpp in Sources */,
 				BB34F9E71E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FC691E5645F500AC8197 /* OpenGLPointTransitionProgram.cpp in Sources */,
 				BBA0520F1E68F96300450261 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
@@ -3974,6 +3983,7 @@
 				BBB1E3681E60A54C00201A0C /* PhysicalEntity.cpp in Sources */,
 				BB5BA4C01E67ADA80074A315 /* GameHudItem.cpp in Sources */,
 				BBB1E3691E60A54C00201A0C /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
+				BB606EB61E7074470050476B /* NGAudioEngine.cpp in Sources */,
 				BBB1E36A1E60A54C00201A0C /* DeviceHelperFactory.cpp in Sources */,
 				BBB1E36B1E60A54C00201A0C /* OpenGLPointTransitionProgram.cpp in Sources */,
 				BBA052101E68F96300450261 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
