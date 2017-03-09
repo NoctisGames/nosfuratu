@@ -13,7 +13,12 @@
 
 #include "IAudioEngineHelper.h"
 
-#include <android/asset_manager_jni.h>
+#include <jni.h>
+
+#include <vector>
+
+class SuperpoweredSoundManager;
+class SuperpoweredAndroidAudioIO;
 
 class AndroidAudioEngineHelper : public IAudioEngineHelper
 {

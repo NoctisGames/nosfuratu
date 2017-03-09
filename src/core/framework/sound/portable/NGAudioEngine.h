@@ -69,6 +69,8 @@ private:
     bool m_isMusicDisabled;
     bool m_isSoundDisabled;
     
+    SoundWrapper* findSound(int soundId);
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     NGAudioEngine();
     ~NGAudioEngine();

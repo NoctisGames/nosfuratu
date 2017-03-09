@@ -8,12 +8,18 @@
 
 #include "AndroidAudioEngineHelper.h"
 
+#include "SoundWrapper.h"
+#include "SuperpoweredSoundManager.h"
+#include "SuperpoweredAndroidAudioIO.h"
+#include "NGSTDUtil.h"
+
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_AndroidConfiguration.h>
 
-#include <jni.h>
 #include <android/log.h>
+
 #include <assert.h>
+#include <sstream>
 
 static bool audioProcessingMusic(void *clientData, short int *audioIO, int numberOfSamples, int __unused samplerate)
 {

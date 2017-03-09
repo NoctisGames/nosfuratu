@@ -10,11 +10,12 @@
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
 
-#include <math.h>
-
 #include <SuperpoweredSimple.h>
 
+#include <math.h>
+
 #define HEADROOM_DECIBEL 3.0f
+
 static const float headroom = powf(10.0f, -HEADROOM_DECIBEL * 0.025f);
 
 static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlayerEvent event, void * __unused value)
@@ -135,8 +136,27 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
     return ret;
 }
 
-SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer() { return m_player; }
-int SuperpoweredSound::getSoundId() { return m_iSoundId; }
-bool SuperpoweredSound::isLooping() { return m_isLooping; }
-bool SuperpoweredSound::isPlaying() { return m_player->playing; }
-bool SuperpoweredSound::isPaused() { return m_isPaused; }
+SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer()
+{
+    return m_player;
+}
+
+int SuperpoweredSound::getSoundId()
+{
+    return m_iSoundId;
+}
+
+bool SuperpoweredSound::isLooping()
+{
+    return m_isLooping;
+}
+
+bool SuperpoweredSound::isPlaying()
+{
+    return m_player->playing;
+}
+
+bool SuperpoweredSound::isPaused()
+{
+    return m_isPaused;
+}

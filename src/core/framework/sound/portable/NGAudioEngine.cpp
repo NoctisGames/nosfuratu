@@ -14,6 +14,8 @@
 #include "AudioEngineHelperFactory.h"
 #include "NGSTDUtil.h"
 
+#include <assert.h>
+
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
 
 NGAudioEngine* NGAudioEngine::getInstance()
@@ -200,6 +202,17 @@ bool NGAudioEngine::isSoundDisabled()
 void NGAudioEngine::setSoundDisabled(bool isSoundDisabled)
 {
     m_isSoundDisabled = isSoundDisabled;
+}
+
+SoundWrapper* NGAudioEngine::findSound(int soundId)
+{
+    auto q = m_sounds.find(soundId);
+    
+    assert(q != m_sounds.end());
+    
+    SoundWrapper* sound = q->second;
+    
+    return sound;
 }
 
 NGAudioEngine::NGAudioEngine() :
