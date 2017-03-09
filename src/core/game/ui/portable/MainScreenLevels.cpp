@@ -143,7 +143,7 @@ void Level::exit(MainScreen* ms)
     
     m_sourceGame = nullptr;
     
-    stopAllSounds();
+    NG_AUDIO_ENGINE->stopAllSounds();
     
     if (m_playLevelSelectMusicOnExit)
     {
@@ -195,26 +195,6 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
     m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
-}
-
-void Level::pauseAllSounds()
-{
-    NG_AUDIO_ENGINE->pauseAllSounds();
-}
-
-void Level::resumeAllSounds()
-{
-    NG_AUDIO_ENGINE->resumeAllSounds();
-}
-
-void Level::stopAllSounds()
-{
-    NG_AUDIO_ENGINE->stopAllSounds();
-}
-
-void Level::stopAllLoopingSounds()
-{
-    NG_AUDIO_ENGINE->stopAllSounds();
 }
 
 int Level::getScore()
@@ -459,19 +439,14 @@ void Level::update(MainScreen* ms)
         {
             // Starting death transition, when screen goes black, new game begins
             
-            if (!m_hasStoppedAllLoopingSoundsAfterJonDeath)
-            {
-                stopAllLoopingSounds();
-                
-                m_hasStoppedAllLoopingSoundsAfterJonDeath = true;
-            }
-            
             m_fStateTime += ms->m_fDeltaTime * 2;
             
             if (m_fStateTime > 1.6f)
             {
                 delete m_game;
                 m_game = nullptr;
+                
+                NG_AUDIO_ENGINE->stopAllSounds();
                 
                 enter(ms);
                 
@@ -615,7 +590,7 @@ void Level::update(MainScreen* ms)
             m_fStateTime += ms->m_fDeltaTime / 2;
             if (m_fStateTime > 1)
             {
-				stopAllLoopingSounds();
+				NG_AUDIO_ENGINE->stopAllSounds();
 
                 m_fStateTime = 1;
                 m_isDisplayingResults = true;

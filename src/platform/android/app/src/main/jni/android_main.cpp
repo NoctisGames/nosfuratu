@@ -12,7 +12,7 @@
 #include "MainScreenTitle.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
-#include "AndroidSuperpoweredAudioEngineHelper.h"
+#include "AndroidAudioEngineHelper.h"
 #include "AndroidAssetDataHandler.h"
 #include "MainAssets.h"
 
@@ -72,7 +72,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
 {
     UNUSED(cls);
     
-    ANDROID_SUPERPOWERED_AUDIO_ENGINE_HELPER->init(env, activity);
+    ANDROID_AUDIO_ENGINE_HELPER->init(env, activity);
     
     ANDROID_ASSETS->init(env, activity);
     
@@ -120,7 +120,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1stop(JNIEn
     UNUSED(env);
     UNUSED(cls);
     
-    ANDROID_SUPERPOWERED_AUDIO_ENGINE_HELPER->deinit();
+    ANDROID_AUDIO_ENGINE_HELPER->deinit();
     
     delete gScreen;
     gScreen = nullptr;

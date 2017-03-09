@@ -10,21 +10,21 @@
 #define __noctisgames__SoundWrapper__
 
 #if defined __APPLE__ || defined __ANDROID__
-#include "NGSuperpoweredSoundCollection.h"
+#include "SuperpoweredSoundCollection.h"
 #elif defined _WIN32
-#include "NGWindowsSoundCollection.h"
+#include "WinSoundCollection.h"
 #endif
 
 struct SoundWrapper
 {
 #if defined __APPLE__ || defined __ANDROID__
-    NGSuperpoweredSoundCollection* soundCollection;
+    SuperpoweredSoundCollection* soundCollection;
     
-    SoundWrapper(NGSuperpoweredSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
+    SoundWrapper(SuperpoweredSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
 #elif defined _WIN32
-    NGWindowsSoundCollection *soundCollection;
+    WinSoundCollection *soundCollection;
     
-    SoundWrapper(NGWindowsSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
+    SoundWrapper(WinSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
 #endif
 };
 

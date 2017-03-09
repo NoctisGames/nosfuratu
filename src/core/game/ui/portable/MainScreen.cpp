@@ -52,7 +52,6 @@ m_fFrameStateTime(0),
 m_wasPaused(false),
 m_hasSwiped(false),
 m_isReleasingShockwave(false),
-m_needsToResumeMusicAfterTexLoad(false),
 m_needsToResumeAudio(false),
 m_fShockwaveElapsedTime(0.0f),
 m_fShockwaveCenterX(0.0f),
@@ -106,14 +105,7 @@ void MainScreen::onResume()
          || m_stateMachine.getCurrentState() == OpeningCutscene::getInstance()
          || m_stateMachine.getCurrentState() == ComingSoon::getInstance()))
     {
-        if (m_renderer->isLoadingData())
-        {
-            m_needsToResumeMusicAfterTexLoad = true;
-        }
-        else
-        {
-            NG_AUDIO_ENGINE->resumeMusic();
-        }
+        m_needsToResumeAudio = true;
     }
     
     if (m_stateMachine.getCurrentState() == OpeningCutscene::getInstance())
@@ -128,10 +120,11 @@ void MainScreen::onResume()
 
 void MainScreen::onPause()
 {
+    NG_AUDIO_ENGINE->pauseAllSounds();
+    
     if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
         Level* level = (Level*) m_stateMachine.getCurrentState();
-        level->pauseAllSounds();
         
         m_isPaused = !level->hasCompletedLevel();
     }
@@ -309,28 +302,14 @@ void MainScreen::internalUpdate()
     }
     else if (m_fTimeUntilResume < 0)
     {
-        if (m_needsToResumeAudio
-            && m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+        if (m_needsToResumeAudio)
         {
-            Level* level = (Level*) m_stateMachine.getCurrentState();
-            level->resumeAllSounds();
-            
-            NG_AUDIO_ENGINE->resumeMusic();
+            NG_AUDIO_ENGINE->resume();
             
             m_needsToResumeAudio = false;
         }
         
-        if (!m_renderer->isLoadingData())
-        {
-            if (m_needsToResumeMusicAfterTexLoad)
-            {
-                NG_AUDIO_ENGINE->resumeMusic();
-                
-                m_needsToResumeMusicAfterTexLoad = false;
-            }
-            
-            m_stateMachine.execute();
-        }
+        m_stateMachine.execute();
     }
 }
 

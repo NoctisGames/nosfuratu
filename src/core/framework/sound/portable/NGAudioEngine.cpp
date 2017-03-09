@@ -9,9 +9,9 @@
 #include "NGAudioEngine.h"
 
 #include "SoundWrapper.h"
-#include "INGAudioEngineHelper.h"
+#include "IAudioEngineHelper.h"
 
-#include "NGAudioEngineHelperFactory.h"
+#include "AudioEngineHelperFactory.h"
 #include "NGSTDUtil.h"
 
 #define MAX_SOUNDS_TO_PLAY_PER_FRAME 3
@@ -41,12 +41,15 @@ void NGAudioEngine::resume()
 
 void NGAudioEngine::loadSound(int soundId, const char *path, int numInstances)
 {
-    // TODO
+    SoundWrapper* sound = m_audioEngineHelper->loadSound(soundId, path, numInstances);
+    
+    m_sounds.insert(std::make_pair(soundId, sound));
 }
 
 void NGAudioEngine::playSound(int soundId, bool isLooping, float volume)
 {
     if (m_isSoundDisabled
+        || soundId <= 0
         || m_iNumSoundsPlayedThisFrame >= MAX_SOUNDS_TO_PLAY_PER_FRAME)
     {
         return;
@@ -112,7 +115,12 @@ void NGAudioEngine::loadMusic(const char *path)
         return;
     }
     
-    // TODO
+    if (m_music)
+    {
+        delete m_music;
+    }
+    
+    m_music = m_audioEngineHelper->loadMusic(path);
 }
 
 void NGAudioEngine::playMusic(bool isLooping, float volume)
@@ -195,7 +203,8 @@ void NGAudioEngine::setSoundDisabled(bool isSoundDisabled)
 }
 
 NGAudioEngine::NGAudioEngine() :
-m_audioEngineHelper(NG_AUDIO_ENGINE_HELPER_FACTORY->createNGAudioEngineHelper()),
+m_music(nullptr),
+m_audioEngineHelper(NG_AUDIO_ENGINE_HELPER_FACTORY->createAudioEngineHelper()),
 m_iNumSoundsPlayedThisFrame(0),
 m_isMusicDisabled(false),
 m_isSoundDisabled(false)
@@ -206,6 +215,8 @@ m_isSoundDisabled(false)
 NGAudioEngine::~NGAudioEngine()
 {
     NGSTDUtil::cleanUpMapOfPointerValues(m_sounds);
+    
+    delete m_music;
     
     delete m_audioEngineHelper;
 }

@@ -43,7 +43,6 @@ public:
     bool m_isScreenHeldDown;
     bool m_hasSwiped;
     bool m_isReleasingShockwave;
-    bool m_needsToResumeMusicAfterTexLoad;
     bool m_needsToResumeAudio;
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;

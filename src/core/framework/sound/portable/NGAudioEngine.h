@@ -14,7 +14,7 @@
 #include <map>
 
 struct SoundWrapper;
-class INGAudioEngineHelper;
+class IAudioEngineHelper;
 
 class NGAudioEngine
 {
@@ -63,7 +63,8 @@ public:
     
 private:
     std::map<int, SoundWrapper*> m_sounds;
-    INGAudioEngineHelper* m_audioEngineHelper;
+    SoundWrapper* m_music;
+    IAudioEngineHelper* m_audioEngineHelper;
     int m_iNumSoundsPlayedThisFrame;
     bool m_isMusicDisabled;
     bool m_isSoundDisabled;

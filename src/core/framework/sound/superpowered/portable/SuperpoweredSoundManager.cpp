@@ -1,22 +1,22 @@
 //
-//  NGSuperpoweredSoundManager.cpp
+//  SuperpoweredSoundManager.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "NGSuperpoweredSoundManager.h"
+#include "SuperpoweredSoundManager.h"
 
-#include "NGSuperpoweredSound.h"
-#include "NGSuperpoweredSoundCollection.h"
+#include "SuperpoweredSound.h"
+#include "SuperpoweredSoundCollection.h"
 #include "NGSTDUtil.h"
 
 #include <SuperpoweredSimple.h>
 
 #import <stdlib.h>
 
-NGSuperpoweredSoundManager::NGSuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize) :
+SuperpoweredSoundManager::SuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize) :
 m_music(nullptr),
 m_activeSounds(),
 m_iSampleRate(sampleRate),
@@ -34,7 +34,7 @@ m_iSoundIndex(0)
     }
 }
 
-NGSuperpoweredSoundManager::~NGSuperpoweredSoundManager()
+SuperpoweredSoundManager::~SuperpoweredSoundManager()
 {
     delete m_music;
     
@@ -46,18 +46,18 @@ NGSuperpoweredSoundManager::~NGSuperpoweredSoundManager()
     }
 }
 
-void NGSuperpoweredSoundManager::loadSound(int soundId, const char *path, int numInstances, int fileOffset, int fileLength)
+void SuperpoweredSoundManager::loadSound(int soundId, const char *path, int numInstances, int fileOffset, int fileLength)
 {
-    m_sounds.push_back(new NGSuperpoweredSoundCollection(soundId, path, m_iSampleRate, numInstances, fileOffset, fileLength));
+    m_sounds.push_back(new SuperpoweredSoundCollection(soundId, path, m_iSampleRate, numInstances, fileOffset, fileLength));
 }
 
-void NGSuperpoweredSoundManager::playSound(int soundId, float volume, bool isLooping)
+void SuperpoweredSoundManager::playSound(int soundId, float volume, bool isLooping)
 {
-    for (std::vector<NGSuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         if ((*i)->getSoundId() == soundId)
         {
-            NGSuperpoweredSound* sound = (*i)->getSound();
+            SuperpoweredSound* sound = (*i)->getSound();
             
             sound->play(isLooping);
             
@@ -100,15 +100,15 @@ void NGSuperpoweredSoundManager::playSound(int soundId, float volume, bool isLoo
     }
 }
 
-void NGSuperpoweredSoundManager::stopSound(int soundId)
+void SuperpoweredSoundManager::stopSound(int soundId)
 {
-    for (std::vector<NGSuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         if ((*i)->getSoundId() == soundId)
         {
             for (int j = 0; j < (*i)->getNumInstances(); j++)
             {
-                NGSuperpoweredSound* sound = (*i)->getSound();
+                SuperpoweredSound* sound = (*i)->getSound();
                 if (sound->isPlaying())
                 {
                     sound->stop();
@@ -122,37 +122,37 @@ void NGSuperpoweredSoundManager::stopSound(int soundId)
     }
 }
 
-void NGSuperpoweredSoundManager::resumeAllSounds()
+void SuperpoweredSoundManager::resumeAllSounds()
 {
-    for (std::vector<NGSuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         for (int j = 0; j < (*i)->getNumInstances(); j++)
         {
-            NGSuperpoweredSound* sound = (*i)->getSound();
+            SuperpoweredSound* sound = (*i)->getSound();
             sound->resume();
         }
     }
 }
 
-void NGSuperpoweredSoundManager::pauseAllSounds()
+void SuperpoweredSoundManager::pauseAllSounds()
 {
-    for (std::vector<NGSuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         for (int j = 0; j < (*i)->getNumInstances(); j++)
         {
-            NGSuperpoweredSound* sound = (*i)->getSound();
+            SuperpoweredSound* sound = (*i)->getSound();
             sound->pause();
         }
     }
 }
 
-void NGSuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
+void SuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
 {
-    for (std::vector<NGSuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
+    for (std::vector<SuperpoweredSoundCollection *>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
     {
         for (int j = 0; j < (*i)->getNumInstances(); j++)
         {
-            NGSuperpoweredSound* sound = (*i)->getSound();
+            SuperpoweredSound* sound = (*i)->getSound();
             if (!stopOnlyLoopingSounds
                 || (stopOnlyLoopingSounds
                     && sound->isLooping()))
@@ -163,12 +163,7 @@ void NGSuperpoweredSoundManager::stopAllSounds(bool stopOnlyLoopingSounds)
     }
 }
 
-void NGSuperpoweredSoundManager::stopAllLoopingSounds()
-{
-    stopAllSounds(true);
-}
-
-void NGSuperpoweredSoundManager::loadMusic(int soundId, const char *path, int fileOffset, int fileLength)
+void SuperpoweredSoundManager::loadMusic(int soundId, const char *path, int fileOffset, int fileLength)
 {
     if (m_music)
     {
@@ -177,10 +172,10 @@ void NGSuperpoweredSoundManager::loadMusic(int soundId, const char *path, int fi
         delete m_music;
     }
     
-    m_music = new NGSuperpoweredSound(soundId, path, m_iSampleRate, fileOffset, fileLength, 0.5f);
+    m_music = new SuperpoweredSound(soundId, path, m_iSampleRate, fileOffset, fileLength, 0.5f);
 }
 
-void NGSuperpoweredSoundManager::playMusic(float volume, bool isLooping)
+void SuperpoweredSoundManager::playMusic(float volume, bool isLooping)
 {
     if (m_music)
     {
@@ -189,7 +184,7 @@ void NGSuperpoweredSoundManager::playMusic(float volume, bool isLooping)
     }
 }
 
-void NGSuperpoweredSoundManager::setMusicVolume(float volume)
+void SuperpoweredSoundManager::setMusicVolume(float volume)
 {
     if (m_music)
     {
@@ -197,7 +192,7 @@ void NGSuperpoweredSoundManager::setMusicVolume(float volume)
     }
 }
 
-void NGSuperpoweredSoundManager::resumeMusic()
+void SuperpoweredSoundManager::resumeMusic()
 {
     if (m_music && m_music->isPaused())
     {
@@ -205,7 +200,7 @@ void NGSuperpoweredSoundManager::resumeMusic()
     }
 }
 
-void NGSuperpoweredSoundManager::pauseMusic()
+void SuperpoweredSoundManager::pauseMusic()
 {
     if (m_music)
     {
@@ -213,67 +208,67 @@ void NGSuperpoweredSoundManager::pauseMusic()
     }
 }
 
-bool NGSuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return m_music && m_music->process(m_stereoBuffers[0], output, numberOfSamples, sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[0], m_stereoBuffers[1], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[1], m_stereoBuffers[2], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[2], m_stereoBuffers[3], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound4(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound4(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[3], m_stereoBuffers[4], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound5(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound5(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[4], m_stereoBuffers[5], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound6(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound6(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[5], m_stereoBuffers[6], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound7(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound7(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[6], m_stereoBuffers[7], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound8(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[7], m_stereoBuffers[8], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound9(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[8], m_stereoBuffers[9], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound10(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[9], m_stereoBuffers[10], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[10], m_stereoBuffers[11], sampleRate);
 }
 
-bool NGSuperpoweredSoundManager::processSound(void *output, unsigned int numberOfSamples, NGSuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate)
+bool SuperpoweredSoundManager::processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate)
 {
     return sound && sound->process(stereoBuffer, output, numberOfSamples, sampleRate);
 }

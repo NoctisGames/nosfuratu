@@ -967,7 +967,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}
@@ -1085,7 +1085,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}

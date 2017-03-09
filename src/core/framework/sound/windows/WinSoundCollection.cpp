@@ -1,16 +1,16 @@
 //
-//  NGWindowsSoundManager.h
+//  WinSoundCollection.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 3/8/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "NGWindowsSoundCollection.h"
+#include "WinSoundCollection.h"
 
 #include "NGSTDUtil.h"
 
-NGWindowsSoundCollection::NGWindowsSoundCollection(int soundId, const char *path, int numInstances) :
+WinSoundCollection::WinSoundCollection(int soundId, const char *path, int numInstances) :
 m_iSoundIndex(0),
 m_iSoundId(soundId),
 m_iNumInstances(numInstances)
@@ -21,7 +21,7 @@ m_iNumInstances(numInstances)
     }
 }
 
-NGWindowsSoundCollection::~NGWindowsSoundCollection()
+WinSoundCollection::~WinSoundCollection()
 {
     if (m_sound)
     {
@@ -31,7 +31,7 @@ NGWindowsSoundCollection::~NGWindowsSoundCollection()
     NGSTDUtil::cleanUpVectorOfUniquePointers(m_sounds);
 }
 
-DirectX::SoundEffect* NGWindowsSoundCollection::getSound()
+DirectX::SoundEffect* WinSoundCollection::getSound()
 {
     std::unique_ptr<DirectX::SoundEffect> ret = m_sounds[m_iSoundIndex++];
     if (m_iSoundIndex >= m_iNumInstances)
@@ -42,22 +42,22 @@ DirectX::SoundEffect* NGWindowsSoundCollection::getSound()
     return ret.get();
 }
 
-std::vector<std::unique_ptr<DirectX::SoundEffect>>& NGWindowsSoundCollection::getSounds()
+std::vector<std::unique_ptr<DirectX::SoundEffect>>& WinSoundCollection::getSounds()
 {
     return m_sounds;
 }
 
-int NGWindowsSoundCollection::getSoundIndex()
+int WinSoundCollection::getSoundIndex()
 {
     return m_iSoundIndex;
 }
 
-int NGWindowsSoundCollection::getSoundId()
+int WinSoundCollection::getSoundId()
 {
     return m_iSoundId;
 }
 
-int NGWindowsSoundCollection::getNumInstances()
+int WinSoundCollection::getNumInstances()
 {
     return m_iNumInstances;
 }

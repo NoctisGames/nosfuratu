@@ -1,22 +1,22 @@
 //
-//  INGAudioEngineHelper.h
+//  IAudioEngineHelper.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 3/8/17.
 //  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__INGAudioEngineHelper__
-#define __noctisgames__INGAudioEngineHelper__
+#ifndef __noctisgames__IAudioEngineHelper__
+#define __noctisgames__IAudioEngineHelper__
 
 struct SoundWrapper;
 
-class INGAudioEngineHelper
+class IAudioEngineHelper
 {
 public:
-    INGAudioEngineHelper();
+    IAudioEngineHelper();
     
-    virtual ~INGAudioEngineHelper();
+    virtual ~IAudioEngineHelper();
     
     virtual void update() = 0;
     
@@ -25,6 +25,8 @@ public:
     virtual void resume() = 0;
     
     virtual SoundWrapper* loadSound(int soundId, const char *path, int numInstances = 1) = 0;
+    
+    virtual SoundWrapper* loadMusic(const char* path) = 0;
 };
 
-#endif /* defined(__noctisgames__INGAudioEngineHelper__) */
+#endif /* defined(__noctisgames__IAudioEngineHelper__) */

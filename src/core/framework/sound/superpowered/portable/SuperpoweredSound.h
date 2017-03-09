@@ -1,22 +1,22 @@
 //
-//  NGSuperpoweredSound.h
+//  SuperpoweredSound.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__NGSuperpoweredSound__
-#define __noctisgames__NGSuperpoweredSound__
+#ifndef __noctisgames__SuperpoweredSound__
+#define __noctisgames__SuperpoweredSound__
 
 class SuperpoweredAdvancedAudioPlayer;
 
-class NGSuperpoweredSound
+class SuperpoweredSound
 {
 public:
-    NGSuperpoweredSound(int soundId, const char *path, unsigned int sampleRate, int fileOffset = -1, int fileLength = -1, float volume = 1.0f);
+    SuperpoweredSound(int soundId, const char *path, unsigned int sampleRate, int fileOffset = -1, int fileLength = -1, float volume = 1.0f);
     
-    ~NGSuperpoweredSound();
+    ~SuperpoweredSound();
 
     void play(bool isLooping = false);
     void resume();
@@ -43,4 +43,4 @@ private:
     bool m_isPaused;
 };
 
-#endif /* defined(__noctisgames__NGSuperpoweredSound__) */
+#endif /* defined(__noctisgames__SuperpoweredSound__) */
