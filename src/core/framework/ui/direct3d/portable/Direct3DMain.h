@@ -1,5 +1,9 @@
 //
-// Direct3DMain.h
+//  Direct3DMain.h
+//  noctisgames-framework
+//
+//  Created by Stephen Gowen on 3/9/17.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #pragma once

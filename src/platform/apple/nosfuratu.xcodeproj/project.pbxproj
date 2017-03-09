@@ -999,6 +999,8 @@
 		BB01C4381E71E2C800DEE4B3 /* SaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveData.h; sourceTree = "<group>"; };
 		BB01C43C1E71F31200DEE4B3 /* SaveDataKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveDataKeys.h; sourceTree = "<group>"; };
 		BB01C43F1E72117800DEE4B3 /* SoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundWrapper.cpp; sourceTree = "<group>"; };
+		BB01C4431E72131400DEE4B3 /* Direct3DMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DMain.cpp; sourceTree = "<group>"; };
+		BB01C4441E72131400DEE4B3 /* Direct3DMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DMain.h; sourceTree = "<group>"; };
 		BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects_part_2.png; sourceTree = "<group>"; };
 		BB036B721DD390D800BB47EE /* c_world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects_part_2.png; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -1382,8 +1384,6 @@
 		BB34FD5D1E56464200AC8197 /* Direct3DTransDeathGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DTransDeathGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB34FD5E1E56464200AC8197 /* Direct3DTransScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DTransScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB34FD5F1E56464200AC8197 /* Direct3DTransScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DTransScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
-		BB34FD601E56464200AC8197 /* Direct3DMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DMain.cpp; sourceTree = "<group>"; };
-		BB34FD611E56464200AC8197 /* Direct3DMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DMain.h; sourceTree = "<group>"; };
 		BB34FD631E56464200AC8197 /* EndBossSnakeTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = EndBossSnakeTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB34FD641E56464200AC8197 /* FadeScreenTexturePixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FadeScreenTexturePixelShader.hlsl; sourceTree = "<group>"; };
 		BB34FD651E56464200AC8197 /* FrameBufferTintToScreenPixelShader.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = FrameBufferTintToScreenPixelShader.hlsl; sourceTree = "<group>"; };
@@ -2244,6 +2244,8 @@
 				BB8E945D1E57C02000D237D2 /* Direct3DGeometryProgram.h */,
 				BB34FA821E563CC700AC8197 /* Direct3DLineBatcher.cpp */,
 				BB34FA831E563CC700AC8197 /* Direct3DLineBatcher.h */,
+				BB01C4431E72131400DEE4B3 /* Direct3DMain.cpp */,
+				BB01C4441E72131400DEE4B3 /* Direct3DMain.h */,
 				BB34FA841E563CC700AC8197 /* Direct3DManager.cpp */,
 				BB34FA851E563CC700AC8197 /* Direct3DManager.h */,
 				BB34FA861E563CC700AC8197 /* Direct3DNGRectBatcher.cpp */,
@@ -2548,8 +2550,6 @@
 				BB34FD4F1E56464200AC8197 /* Direct3DFramebufferRadialBlurGpuProgramWrapper.h */,
 				BB34FD501E56464200AC8197 /* Direct3DFrameBufferTintGpuProgramWrapper.cpp */,
 				BB34FD511E56464200AC8197 /* Direct3DFrameBufferTintGpuProgramWrapper.h */,
-				BB34FD601E56464200AC8197 /* Direct3DMain.cpp */,
-				BB34FD611E56464200AC8197 /* Direct3DMain.h */,
 				BB34FD521E56464200AC8197 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */,
 				BB34FD531E56464200AC8197 /* Direct3DPointTransScreenGpuProgramWrapper.h */,
 				BB34FD561E56464200AC8197 /* Direct3DShockwaveTextureGpuProgramWrapper.cpp */,

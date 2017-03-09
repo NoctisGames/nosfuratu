@@ -65,7 +65,10 @@ void SaveData::save()
         
         const char* data = s.GetString();
         
-        int sum = fprintf(file, "%s", data);
+        std::string rawData = std::string(data);
+        std::string encryptedData = StringUtil::encryptDecrypt(rawData);
+        
+        int sum = fprintf(file, "%s", encryptedData.c_str());
         
         UNUSED(sum);
         
@@ -98,22 +101,24 @@ void SaveData::load()
         // get current file position which is end from seek
         size_t size = ftell(file);
         
-        std::string jsonContent;
+        std::string encryptedData;
         
         // allocate string space and set length
-        jsonContent.resize(size);
+        encryptedData.resize(size);
         
         // go back to beginning of file for read
         rewind(file);
         
         // read 1*size bytes from sfile into ss
-        fread(&jsonContent[0], 1, size, file);
+        fread(&encryptedData[0], 1, size, file);
         
         // close the file
         fclose(file);
         
+        std::string rawData = StringUtil::encryptDecrypt(encryptedData);
+        
         rapidjson::Document d;
-        d.Parse<0>(jsonContent.c_str());
+        d.Parse<0>(rawData.c_str());
         
         for (Value::ConstMemberIterator i = d.MemberBegin(); i != d.MemberEnd(); ++i)
         {
