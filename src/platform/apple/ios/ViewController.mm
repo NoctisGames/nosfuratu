@@ -8,18 +8,17 @@
 
 #import "ViewController.h"
 
-#import "ScreenController.h"
-
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
 // C++
 #include "MainScreen.h"
 #include "ScreenInputManager.h"
 #include "MainAssets.h"
+#include "GameConstants.h"
 
 @interface ViewController () <GADInterstitialDelegate>
 {
-    ScreenController *_screenController;
+    MainScreen *_screen;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -70,17 +69,9 @@
     
     MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
     
-    MainScreen *screen = new MainScreen();
-    screen->createDeviceDependentResources();
-    screen->createWindowSizeDependentResources(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
-    
-    _screenController = [[ScreenController alloc] initWithScreen:screen andInterstitialAdHandler:^
-    {
-        if (self.interstitial.isReady)
-        {
-            [self.interstitial presentFromRootViewController:self];
-        }
-    }];
+    _screen = new MainScreen();
+    _screen->createDeviceDependentResources();
+    _screen->createWindowSizeDependentResources(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
     
     [self createAndLoadInterstitial];
     
@@ -99,7 +90,7 @@
 {
     [super viewDidAppear:animated];
     
-    [_screenController resume];
+    _screen->onResume();
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -134,26 +125,42 @@
 
 - (void)update
 {
-    [_screenController update:self.timeSinceLastUpdate];
+    int requestedAction = _screen->getRequestedAction();
+    
+    switch (requestedAction)
+    {
+        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+            if (self.interstitial.isReady)
+            {
+                [self.interstitial presentFromRootViewController:self];
+            }
+            _screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_UPDATE:
+        default:
+            break;
+    }
+    
+    _screen->update(self.timeSinceLastUpdate);
 }
 
 #pragma mark <GLKViewDelegate>
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [_screenController present];
+    _screen->render();
 }
 
 #pragma mark Private
 
 - (void)onResume
 {
-    [_screenController resume];
+    _screen->onResume();
 }
 
 - (void)onPause
 {
-    [_screenController pause];
+    _screen->onPause();
 }
 
 - (void)createAndLoadInterstitial

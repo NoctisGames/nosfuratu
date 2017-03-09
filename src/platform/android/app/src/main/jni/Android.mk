@@ -30,6 +30,7 @@ PROJECT_ROOT_PATH := $(LOCAL_PATH)/../../../../../../
 # Game Framework
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/entity/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/opengl/android/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/opengl/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/math/
@@ -45,6 +46,10 @@ LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/util/portable/
 ENTITY_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/entity)
 FILE_LIST := $(filter %.cpp, $(ENTITY_FILES))
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
+
+FILE_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/portable)
+FILE_LIST := $(filter %.cpp, $(FILE_PORTABLE_FILES))
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 FILE_OGL_ANDROID_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/file/opengl/android)
 FILE_LIST := $(filter %.cpp, $(FILE_OGL_ANDROID_FILES))

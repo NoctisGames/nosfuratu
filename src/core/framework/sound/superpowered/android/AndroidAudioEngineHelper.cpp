@@ -164,9 +164,9 @@ SoundWrapper* AndroidAudioEngineHelper::loadSound(int soundId, const char *path,
         m_jvm->DetachCurrentThread();
     }
     
-    SuperpoweredSoundCollection* sound = new SuperpoweredSoundCollection(soundId, m_packageResourcePath, m_iSampleRate, numInstances, fileOffset, fileLength);
+    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(soundId, m_packageResourcePath, m_iSampleRate, numInstances, fileOffset, fileLength);
     
-    return new SoundWrapper(sound);
+    return sound;
 }
 
 SoundWrapper* AndroidAudioEngineHelper::loadMusic(const char* path)

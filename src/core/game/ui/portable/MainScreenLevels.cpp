@@ -41,6 +41,8 @@
 #include "MainRenderer.h"
 #include "GameMarker.h"
 #include "ScreenEvent.h"
+#include "SaveDataKeys.h"
+#include "SaveData.h"
 
 /// Level ///
 
@@ -453,7 +455,7 @@ void Level::update(MainScreen* ms)
                 updateCamera(ms, 0, false, true);
                 
                 m_iNumAttemptsSinceLastAdBreak++;
-                if (m_iNumAttemptsSinceLastAdBreak >= 9)
+                if (m_iNumAttemptsSinceLastAdBreak >= 6)
                 {
                     ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
                     m_iNumAttemptsSinceLastAdBreak = 0;
@@ -670,9 +672,31 @@ void Level::update(MainScreen* ms)
                 m_iNumGoldenCarrots++;
             }
             
-            ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_COMPLETED * 1000;
-            ms->m_iRequestedAction += m_game->getWorld() * 100;
-            ms->m_iRequestedAction += m_game->getLevel();
+            {
+                std::string key = getKeyForLevelScore(m_game->getWorld(), m_game->getLevel());
+                std::string val = std::to_string(m_iScore);
+                NG_SAVE_DATA->getKeyValues()[key] = val;
+            }
+            
+            {
+                std::string key = getKeyForLevelStats(m_game->getWorld(), m_game->getLevel());
+                std::string val = std::to_string(m_iLevelStatsFlag);
+                NG_SAVE_DATA->getKeyValues()[key] = val;
+            }
+            
+            {
+                std::string key = getKeyForNumGoldenCarrots();
+                std::string val = std::to_string(m_iNumGoldenCarrots);
+                NG_SAVE_DATA->getKeyValues()[key] = val;
+            }
+            
+            {
+                std::string key = getKeyForJonUnlockedAbilitiesFlag();
+                std::string val = std::to_string(m_game->getJon().getAbilityFlag());
+                NG_SAVE_DATA->getKeyValues()[key] = val;
+            }
+            
+            NG_SAVE_DATA->save();
   
             m_fStateTime = 0;
 			ms->m_renderer->stopCamera();

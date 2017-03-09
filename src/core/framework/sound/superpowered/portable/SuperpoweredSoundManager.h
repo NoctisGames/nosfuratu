@@ -14,7 +14,7 @@
 #define MAX_NUM_SOUND_PLAYERS 12
 
 class SuperpoweredSound;
-class SuperpoweredSoundCollection;
+class SuperpoweredSoundWrapper;
 
 class SuperpoweredSoundManager
 {
@@ -23,30 +23,11 @@ public:
     
 	~SuperpoweredSoundManager();
     
-    void loadSound(int soundId, const char *path, int numInstances = 1, int fileOffset = -1, int fileLength = -1);
+    void onMusicPlayed(SuperpoweredSound* sound);
     
-    void playSound(int soundId, float volume, bool isLooping);
-    
-    void stopSound(int soundId);
-    
-    void resumeAllSounds();
-    
-    void pauseAllSounds();
-    
-    void stopAllSounds(bool stopOnlyLoopingSounds = false);
-    
-    void loadMusic(int soundId, const char *path, int fileOffset = -1, int fileLength = -1);
-    
-    void playMusic(float volume, bool isLooping);
-    
-    void setMusicVolume(float volume);
-    
-    void resumeMusic();
-    
-    void pauseMusic();
+    void onSoundPlayed(SuperpoweredSound* sound);
     
     bool processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
-    
     bool processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound3(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
@@ -60,10 +41,8 @@ public:
     bool processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
 
 private:
-    SuperpoweredSound* m_music;
-    std::vector<SuperpoweredSoundCollection *> m_sounds;
     std::vector<float*> m_stereoBuffers;
-    SuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS - 1];
+    SuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS];
     int m_iSampleRate;
     int m_iSoundIndex;
     

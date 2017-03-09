@@ -8,13 +8,14 @@
 
 #import "NGOpenGLView.h"
 
-#import "ScreenController.h"
 #import "JoystickController.h"
 
 // C++
+#include "MainScreen.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "MainAssets.h"
+#include "GameConstants.h"
 
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -24,7 +25,6 @@
 @interface NGOpenGLView ()
 {
     MainScreen *_screen;
-    ScreenController *_screenController;
     JoystickController* _joystickController;
     
     double m_fLastTime;
@@ -61,7 +61,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 - (void)awakeFromNib
 {
     _screen = new MainScreen();
-    _screenController = [[ScreenController alloc] initWithScreen:_screen andInterstitialAdHandler:nil];
     
     m_fLastTime = CFAbsoluteTimeGetCurrent();
     
@@ -252,8 +251,20 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     double deltaTime = time - m_fLastTime;
     m_fLastTime = time;
     
-    [_screenController update:deltaTime];
-    [_screenController present];
+    int requestedAction = _screen->getRequestedAction();
+    
+    switch (requestedAction)
+    {
+        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+            _screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_UPDATE:
+        default:
+            break;
+    }
+    
+    _screen->update(deltaTime);
+    _screen->render();
     
     CGLFlushDrawable([[self openGLContext] CGLContextObj]);
     CGLUnlockContext([[self openGLContext] CGLContextObj]);
@@ -414,7 +425,7 @@ static NSTimer *timer = nil;
 
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [_screenController pause];
+    _screen->onPause();
     
     [timer invalidate];
     
@@ -423,7 +434,7 @@ static NSTimer *timer = nil;
 
 - (void)windowDidBecomeMain:(NSNotification *)notification
 {
-    [_screenController resume];
+    _screen->onResume();
     
     [self setNeedsDisplay:YES];
     

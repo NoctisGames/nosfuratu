@@ -9,7 +9,7 @@
 #ifndef __noctisgames__IAudioEngineHelper__
 #define __noctisgames__IAudioEngineHelper__
 
-struct SoundWrapper;
+class SoundWrapper;
 
 class IAudioEngineHelper
 {
@@ -27,6 +27,8 @@ public:
     virtual SoundWrapper* loadSound(int soundId, const char *path, int numInstances = 1) = 0;
     
     virtual SoundWrapper* loadMusic(const char* path) = 0;
+    
+    virtual void playSound(SoundWrapper* sound);
 };
 
 #endif /* defined(__noctisgames__IAudioEngineHelper__) */

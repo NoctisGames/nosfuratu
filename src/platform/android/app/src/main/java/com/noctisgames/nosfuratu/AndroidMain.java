@@ -36,20 +36,4 @@ public final class AndroidMain
     public static native void clear_requested_action();
 
     public static native boolean handle_on_back_pressed();
-
-    public static native void load_user_save_data(String level_json);
-
-    public static native int get_score();
-
-    public static native int get_online_score();
-
-    public static native int get_level_stats_flag();
-
-    public static native int get_num_golden_carrots();
-
-    public static native int get_jon_unlocked_abilities_flag();
-
-    public static native int get_level_stats_flag_for_unlocked_level();
-
-    public static native int get_num_golden_carrots_after_unlocking_level();
 }

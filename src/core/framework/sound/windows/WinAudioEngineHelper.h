@@ -13,6 +13,10 @@
 
 #include "IAudioEngineHelper.h"
 
+#include "Audio.h"
+
+#include <memory>
+
 class WinAudioEngineHelper : public IAudioEngineHelper
 {
 public:
@@ -29,6 +33,9 @@ public:
     virtual SoundWrapper* loadMusic(const char* path);
 
 private:
+    std::unique_ptr<DirectX::AudioEngine> m_audEngine;
+    bool m_retryAudio;
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     WinAudioEngineHelper();
     virtual ~WinAudioEngineHelper();

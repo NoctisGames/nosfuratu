@@ -9,23 +9,23 @@
 #ifndef __noctisgames__SoundWrapper__
 #define __noctisgames__SoundWrapper__
 
-#if defined __APPLE__ || defined __ANDROID__
-#include "SuperpoweredSoundCollection.h"
-#elif defined _WIN32
-#include "WinSoundCollection.h"
-#endif
-
-struct SoundWrapper
+class SoundWrapper
 {
-#if defined __APPLE__ || defined __ANDROID__
-    SuperpoweredSoundCollection* soundCollection;
+public:
+    SoundWrapper(int soundId, int numInstances = 1);
     
-    SoundWrapper(SuperpoweredSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
-#elif defined _WIN32
-    WinSoundCollection *soundCollection;
+    virtual ~SoundWrapper();
     
-    SoundWrapper(WinSoundCollection* soundCollectionIn) : soundCollection(soundCollectionIn) {}
-#endif
+    int getSoundIndex();
+    
+    int getSoundId();
+    
+    int getNumInstances();
+    
+protected:
+    int m_iSoundIndex;
+    int m_iSoundId;
+    int m_iNumInstances;
 };
 
 #endif /* defined(__noctisgames__SoundWrapper__) */

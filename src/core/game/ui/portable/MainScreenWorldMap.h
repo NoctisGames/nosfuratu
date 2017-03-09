@@ -19,8 +19,6 @@
 
 #include "RTTI.h"
 
-#include "rapidjson/document.h"
-
 #include <vector>
 
 class MainScreen;
@@ -48,8 +46,6 @@ public:
     virtual void exit(MainScreen* ms);
     
     virtual void initRenderer(MainScreen* ms);
-    
-    void loadUserSaveData(const char* json);
     
     void updateButtons(float deltaTime);
     
@@ -114,9 +110,11 @@ private:
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;
     
-    void loadGlobalUserSaveData(rapidjson::Document& d);
+    void loadUserSaveData();
     
-    void loadUserSaveDataForWorld(rapidjson::Document& d, const char * key);
+    void loadGlobalUserSaveData();
+    
+    void loadUserSaveDataForWorld1();
     
     void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
     

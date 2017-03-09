@@ -10,7 +10,7 @@
 
 #include "SoundWrapper.h"
 
-#include "WinSoundCollection.h"
+#include "WinSoundWrapper.h"
 
 WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
 {
@@ -20,37 +20,58 @@ WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
 
 void WinAudioEngineHelper::update()
 {
-    // Empty
+    if (m_retryAudio)
+    {
+        m_retryAudio = false;
+        if (m_audEngine->Reset())
+        {
+            // TODO: restart any looped sounds here
+        }
+    }
+    else if (!m_audEngine->Update())
+    {
+        if (m_audEngine->IsCriticalError())
+        {
+            m_retryAudio = true;
+        }
+    }
 }
 
 void WinAudioEngineHelper::pause()
 {
-    // Empty
+    m_audEngine->Suspend();
 }
 
 void WinAudioEngineHelper::resume()
 {
-    // Empty
+    m_audEngine->Resume();
 }
 
 SoundWrapper* WinAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
-    // TODO
-    return new SoundWrapper(nullptr);
+    WinSoundWrapper* sound = new WinSoundWrapper(soundId, path, m_audEngine.get(), numInstances);
+    
+    return sound;
 }
 
 SoundWrapper* WinAudioEngineHelper::loadMusic(const char* path)
 {
-    // TODO
-    return new SoundWrapper(nullptr);
+    return loadSound(1337, path);
 }
 
-WinAudioEngineHelper::WinAudioEngineHelper() : IAudioEngineHelper()
+WinAudioEngineHelper::WinAudioEngineHelper() : IAudioEngineHelper(), m_retryAudio(false)
 {
-    // TODO
+    AUDIO_ENGINE_FLAGS eflags = AudioEngine_Default;
+#ifdef _DEBUG
+    eflags = eflags | AudioEngine_Debug;
+#endif
+    m_audEngine = std::make_unique<AudioEngine>(eflags);
 }
 
 WinAudioEngineHelper::~WinAudioEngineHelper()
 {
-    // TODO
+    if (m_audEngine)
+    {
+        m_audEngine->Suspend();
+    }
 }

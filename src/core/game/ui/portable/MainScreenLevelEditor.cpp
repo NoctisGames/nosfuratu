@@ -34,10 +34,13 @@
 #include "ForegroundCoverObject.h"
 #include "Midground.h"
 #include "CollectibleItem.h"
+#include "macros.h"
 
 #include <algorithm> // std::sort
 
 #include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
 
 bool sortGrounds(Ground* i, Ground* j)
 {
@@ -190,17 +193,6 @@ const char* MainScreenLevelEditor::save()
     return m_game->save();
 }
 
-void MainScreenLevelEditor::load(const char* json, MainScreen* ms)
-{
-    m_game->load(json);
-    
-    m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
-    
-    resetEntities(true);
-    
-    setMessage("Level Loaded Successfully!");
-}
-
 Game& MainScreenLevelEditor::getGame()
 {
     return *m_game;
@@ -239,12 +231,6 @@ ConfirmResetPanel* MainScreenLevelEditor::getConfirmResetPanel()
 ConfirmExitPanel* MainScreenLevelEditor::getConfirmExitPanel()
 {
 	return m_confirmExitPanel;
-}
-
-void MainScreenLevelEditor::setMessage(const char *message)
-{
-	m_message = message;
-	m_fMessageTime = 2;
 }
 
 const char* MainScreenLevelEditor::getMessage()
@@ -286,13 +272,9 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                         
                         m_game->reset();
                         
-                        loadIfNecessary(ms);
-                        
                         resetEntities(true);
                         
-                        ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_LOAD * 1000;
-                        ms->m_iRequestedAction += m_iWorld * 100;
-                        ms->m_iRequestedAction += m_iLevel;
+                        loadLevel(m_iWorld, m_iLevel, ms);
                     }
                         break;
                     case LEVEL_SELECTOR_PANEL_RC_HANDLED:
@@ -450,9 +432,8 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                     if (isLevelValid(ms))
                     {
                         resetEntities(true);
-                        ms->m_iRequestedAction = REQUESTED_ACTION_LEVEL_EDITOR_SAVE * 1000;
-                        ms->m_iRequestedAction += m_iWorld * 100;
-                        ms->m_iRequestedAction += m_iLevel;
+                        
+                        saveLevel(m_iWorld, m_iLevel);
                     }
                     return;
                 case LEVEL_EDITOR_ACTIONS_PANEL_RC_HANDLED:
@@ -829,6 +810,137 @@ bool MainScreenLevelEditor::isLevelValid(MainScreen *ms)
     }
     
     return true;
+}
+
+void MainScreenLevelEditor::setMessage(const char *message)
+{
+    m_message = message;
+    m_fMessageTime = 2;
+}
+
+void MainScreenLevelEditor::saveLevel(int world, int level)
+{
+    const char *level_json = MainScreenLevelEditor::getInstance()->save();
+    if (level_json)
+    {
+        std::stringstream ss;
+        
+#ifdef WIN32
+        ss << "..\\nosfuratu-levels\\";
+#else
+        ss << "../nosfuratu-levels/";
+#endif
+        
+        if (world > 0 && level > 0)
+        {
+            ss << "nosfuratu_c" << world << "_l" << level << ".json";
+        }
+        else
+        {
+            ss << "nosfuratu.json";
+        }
+        
+        std::string ret = ss.str();
+        
+        const char *jsonFilePath = ret.c_str();
+        
+        FILE *file;
+#ifdef WIN32
+        errno_t err;
+        if((err = fopen_s(&file, jsonFilePath, "r")) != 0)
+        {
+#else
+        if ((file = fopen(jsonFilePath, "r")) == NULL)
+        {
+#endif
+            setMessage("Could not find json file...");
+        }
+        else
+        {
+            int sum = fprintf(file, "%s", level_json);
+            
+            UNUSED(sum);
+            
+            fclose(file);
+        }
+        
+        setMessage("Level Saved Successfully!");
+    }
+    else
+    {
+        setMessage("Error Saving Level...");
+    }
+}
+
+void MainScreenLevelEditor::loadLevel(int world, int level, MainScreen* ms)
+{
+    std::stringstream ss;
+    
+#ifdef WIN32
+    ss << "..\\nosfuratu-levels\\";
+#else
+    ss << "../nosfuratu-levels/";
+#endif
+    
+    if (world > 0 && level > 0)
+    {
+        ss << "nosfuratu_c" << world << "_l" << level << ".json";
+    }
+    else
+    {
+        ss << "nosfuratu.json";
+    }
+    
+    std::string ret = ss.str();
+    
+    const char *jsonFilePath = ret.c_str();
+    
+    FILE *file;
+#ifdef WIN32
+    errno_t err;
+    if((err = fopen_s(&file, jsonFilePath, "r")) != 0)
+    {
+#else
+    if ((file = fopen(jsonFilePath, "r")) == NULL)
+    {
+#endif
+        setMessage("Could not find json file...");
+    }
+    else
+    {
+        // seek to end of file
+        fseek(file, 0, SEEK_END);
+        
+        // get current file position which is end from seek
+        size_t size = ftell(file);
+        
+        std::string jsonContent;
+        
+        // allocate string space and set length
+        jsonContent.resize(size);
+        
+        // go back to beginning of file for read
+        rewind(file);
+        
+        // read 1*size bytes from sfile into ss
+        fread(&jsonContent[0], 1, size, file);
+        
+        // close the file
+        fclose(file);
+        
+        load(jsonContent.c_str(), ms);
+    }
+}
+
+void MainScreenLevelEditor::load(const char* json, MainScreen* ms)
+{
+    m_game->load(json);
+    
+    m_game->setCameraBounds(&ms->m_renderer->getCameraBounds());
+    
+    resetEntities(true);
+    
+    setMessage("Level Loaded Successfully!");
 }
 
 MainScreenLevelEditor::MainScreenLevelEditor() :

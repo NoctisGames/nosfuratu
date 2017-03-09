@@ -32,6 +32,8 @@
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
+#include "SaveData.h"
+#include "SaveDataKeys.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -50,7 +52,7 @@ void WorldMap::enter(MainScreen* ms)
     
     initRenderer(ms);
     
-    ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    NG_SAVE_DATA->load();
     
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
@@ -81,7 +83,7 @@ void WorldMap::execute(MainScreen* ms)
     }
     else
     {
-        if (m_iNumTimesVisitedSinceLastAdBreak >= 3)
+        if (m_iNumTimesVisitedSinceLastAdBreak >= 1)
         {
             ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
             m_iNumTimesVisitedSinceLastAdBreak = 0;
@@ -97,7 +99,7 @@ void WorldMap::execute(MainScreen* ms)
         
         if (m_needsRefresh)
         {
-            ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+            NG_SAVE_DATA->load();
             m_needsRefresh = false;
             
             return;
@@ -257,11 +259,11 @@ void WorldMap::execute(MainScreen* ms)
                         m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
                         onButtonSelected();
                     }
-                    //else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
-                    //{
-                    //    // Temporary, replace with display Leaderboards
-                    //    return;
-                    //}
+                    else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
+                    {
+                        // Temporary, replace with display Leaderboards
+                        return;
+                    }
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());
@@ -292,9 +294,19 @@ void WorldMap::execute(MainScreen* ms)
                                     
                                     m_iUnlockedLevelStatsFlag = FlagUtil::setFlag(levelStats, FLAG_LEVEL_UNLOCKED);
                                     
-                                    ms->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_LEVEL * 1000;
-                                    ms->m_iRequestedAction += worldToUnlock * 100;
-                                    ms->m_iRequestedAction += levelToUnlock;
+                                    {
+                                        std::string key = getKeyForLevelStats(worldToUnlock, levelToUnlock);
+                                        std::string val = std::to_string(m_iUnlockedLevelStatsFlag);
+                                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                                    }
+                                    
+                                    {
+                                        std::string key = getKeyForNumGoldenCarrots();
+                                        std::string val = std::to_string(m_iNumCollectedGoldenCarrots);
+                                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                                    }
+                                    
+                                    NG_SAVE_DATA->save();
                                     
                                     m_needsRefresh = true;
                                 }
@@ -404,16 +416,13 @@ void WorldMap::setFade(float fade)
     NG_AUDIO_ENGINE->setMusicVolume(musicVolume);
 }
 
-void WorldMap::loadUserSaveData(const char* json)
+void WorldMap::loadUserSaveData()
 {
     NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
-    rapidjson::Document d;
-    d.Parse<0>(json);
+    loadUserSaveDataForWorld1();
     
-    loadUserSaveDataForWorld(d, "world_1");
-    
-    loadGlobalUserSaveData(d);
+    loadGlobalUserSaveData();
     
     m_isNextWorldButtonEnabled = false;
     
@@ -588,16 +597,10 @@ LevelThumbnail* WorldMap::getSelectedLevelThumbnail()
 
 #pragma mark private
 
-void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
+void WorldMap::loadGlobalUserSaveData()
 {
     m_iNumCollectedGoldenCarrots = 0;
     m_iViewedCutsceneFlag = 0;
-    
-    const char * num_golden_carrots_key = "num_golden_carrots";
-    const char * jon_unlocked_abilities_flag_key = "jon_unlocked_abilities_flag";
-    const char * viewed_cutscenes_flag_key = "viewed_cutscenes_flag";
-    
-    using namespace rapidjson;
     
     if (d.HasMember(num_golden_carrots_key))
     {
@@ -652,14 +655,8 @@ void WorldMap::loadGlobalUserSaveData(rapidjson::Document& d)
     validateAbilityFlag();
 }
 
-void WorldMap::loadUserSaveDataForWorld(rapidjson::Document& d, const char * key)
+void WorldMap::loadUserSaveDataForWorld1()
 {
-    const char * stats_flag_key = "stats_flag";
-    const char * score_key = "score";
-    const char * score_online_key = "score_online";
-    
-    using namespace rapidjson;
-    
     if (d.HasMember(key))
     {
         Value& levelArrayVal = d[key];

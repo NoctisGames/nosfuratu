@@ -29,6 +29,7 @@
 #include "BatPanel.h"
 #include "ScreenEvent.h"
 #include "NGAudioEngine.h"
+#include "SaveData.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
@@ -58,6 +59,8 @@ m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
+    NG_SAVE_DATA->config("nosfuratu");
+    
     loadSounds();
     
     Title::getInstance()->enter(this);

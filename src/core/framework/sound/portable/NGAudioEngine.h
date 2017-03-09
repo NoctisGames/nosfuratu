@@ -13,7 +13,7 @@
 
 #include <map>
 
-struct SoundWrapper;
+class SoundWrapper;
 class IAudioEngineHelper;
 
 class NGAudioEngine
@@ -31,13 +31,15 @@ public:
     
     void playSound(int soundId, bool isLooping = false, float volume = 1.0f);
     
-    void pauseSound(int soundId);
-    
     void stopSound(int soundId);
     
-    void pauseAllSounds();
+    void pauseSound(int soundId);
+    
+    void resumeSound(int soundId);
     
     void stopAllSounds();
+    
+    void pauseAllSounds();
     
     void resumeAllSounds();
     
@@ -47,9 +49,9 @@ public:
     
     void setMusicVolume(float volume);
     
-    void pauseMusic();
-    
     void stopMusic();
+    
+    void pauseMusic();
     
     void resumeMusic();
     

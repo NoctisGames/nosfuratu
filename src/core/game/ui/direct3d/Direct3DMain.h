@@ -70,7 +70,6 @@ private:
 	std::unique_ptr<DirectX::Mouse> m_mouse;
 	std::unique_ptr<DirectX::GamePad> m_gamePad;
 	DirectX::GamePad::ButtonStateTracker m_buttons;
-	std::unique_ptr<DirectX::AudioEngine> m_audEngine;
 
 	std::vector<std::unique_ptr<DirectX::SoundEffect>> m_sounds;
 
@@ -82,7 +81,6 @@ private:
 	float m_fDPI;
 	int m_iRequestedAction;
 	bool m_isPointerPressed;
-	bool m_retryAudio;
 	bool m_isDeviceLost;
 	bool m_isWindowsMobile;
 
@@ -105,16 +103,5 @@ private:
 	void loadSound(const wchar_t* waveFileName);
 	void loadMusic(const wchar_t* waveFileName);
 
-	int calcWorld(int requestedAction);
-	int calcLevel(int requestedAction);
-	void unlockLevel(int requestedAction);
-	void markLevelAsCompleted(int requestedAction);
-	void submitScoreOnline(int requestedAction);
-	void setCutsceneViewedFlag(int requestedAction);
-	void sendSaveData();
-
 	void displayInterstitialAdIfAvailable();
-
-	void saveLevel(int requestedAction);
-	void loadLevel(int requestedAction);
 };

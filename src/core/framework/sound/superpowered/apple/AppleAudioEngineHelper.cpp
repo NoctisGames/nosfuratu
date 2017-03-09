@@ -10,7 +10,7 @@
 
 #include "SoundWrapper.h"
 
-#include "SuperpoweredSoundCollection.h"
+#include "SuperpoweredSoundWrapper.h"
 
 #include "apple_audio_engine_helper.h"
 
@@ -38,18 +38,15 @@ void AppleAudioEngineHelper::resume()
 SoundWrapper* AppleAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
     const char* bundlePath = getBundlePathForSoundWithName(path);
-    SuperpoweredSoundCollection* sound = new SuperpoweredSoundCollection(soundId, bundlePath, m_iSampleRate, numInstances);
     
-    return new SoundWrapper(sound);
+    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(soundId, bundlePath, m_iSampleRate, numInstances);
+    
+    return sound;
 }
 
 SoundWrapper* AppleAudioEngineHelper::loadMusic(const char* path)
 {
-    const char* bundlePath = getBundlePathForSoundWithName(path);
-    
-    SuperpoweredSoundCollection* music = new SuperpoweredSoundCollection(1337, bundlePath, m_iSampleRate);
-    
-    return new SoundWrapper(music);
+    return loadSound(1337, path);
 }
 
 AppleAudioEngineHelper::AppleAudioEngineHelper() : IAudioEngineHelper(),

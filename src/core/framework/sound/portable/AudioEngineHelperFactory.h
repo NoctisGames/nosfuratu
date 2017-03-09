@@ -9,9 +9,9 @@
 #ifndef __noctisgames__AudioEngineHelperFactory__
 #define __noctisgames__AudioEngineHelperFactory__
 
-class IAudioEngineHelper;
-
 #define NG_AUDIO_ENGINE_HELPER_FACTORY (AudioEngineHelperFactory::getInstance())
+
+class IAudioEngineHelper;
 
 class AudioEngineHelperFactory
 {

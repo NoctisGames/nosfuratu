@@ -18,7 +18,6 @@
 #include "Vector2D.h"
 #include "Game.h"
 #include "MainScreenTransitions.h"
-#include "MainScreenWorldMap.h"
 #include "MainScreenOpeningCutscene.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
@@ -30,6 +29,8 @@
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
 #include "NGAudioEngine.h"
+#include "SaveDataKeys.h"
+#include "SaveData.h"
 
 /// Title Screen ///
 
@@ -47,7 +48,7 @@ void Title::enter(MainScreen* ms)
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
     
-    ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
+    NG_SAVE_DATA->load();
 }
 
 void Title::execute(MainScreen* ms)
@@ -77,7 +78,11 @@ void Title::execute(MainScreen* ms)
         
         if (m_isRequestingNextState)
         {
-            bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING);
+            std::string key = getKeyForViewedCutscenesFlag();
+            std::string val = NG_SAVE_DATA->findValue(key);
+            int viewedCutsceneFlag = std::stoi(val);
+            
+            bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(viewedCutsceneFlag, FLAG_CUTSCENE_VIEWED_OPENING);
 #if NG_LEVEL_EDITOR
             isOpeningCutsceneViewed = true;
 #endif

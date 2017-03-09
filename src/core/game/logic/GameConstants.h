@@ -18,18 +18,7 @@
 //// Requested Action Definitions ////
 
 #define REQUESTED_ACTION_UPDATE 0
-// Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
-#define REQUESTED_ACTION_LEVEL_EDITOR_SAVE 1
-#define REQUESTED_ACTION_LEVEL_EDITOR_LOAD 2
-#define REQUESTED_ACTION_LEVEL_COMPLETED 3
-#define REQUESTED_ACTION_SUBMIT_SCORE_ONLINE 4
-#define REQUESTED_ACTION_UNLOCK_LEVEL 5
-
-// Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
-#define REQUESTED_ACTION_SET_CUTSCENE_VIEWED 6
-
-#define REQUESTED_ACTION_GET_SAVE_DATA 7
-#define REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD 8
+#define REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD 1
 
 //// Sound Definitions ////
 

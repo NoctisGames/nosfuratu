@@ -8,7 +8,6 @@
 
 #include "macros.h"
 #include "MainScreen.h"
-#include "MainScreenWorldMap.h"
 #include "MainScreenTitle.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
@@ -50,22 +49,6 @@ extern "C"
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_clear_1requested_1action(JNIEnv* env, jclass cls);
     
     JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_handle_1on_1back_1pressed(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1score(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1online_1score(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1level_1stats_1flag(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1num_1golden_1carrots(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls);
-    
-    JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls);
 };
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* env, jclass cls, jobject activity, jboolean isLowMemoryDevice)
@@ -195,72 +178,4 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_handle_1on_1ba
     KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
     
 	return true;
-}
-
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_load_1user_1save_1data(JNIEnv *env, jclass cls, jstring json)
-{
-	UNUSED(env);
-	UNUSED(cls);
-
-	const char *nativeJson = env->GetStringUTFChars(json, nullptr);
-
-	WorldMap::getInstance()->loadUserSaveData(nativeJson);
-    
-    env->ReleaseStringUTFChars(json, nativeJson);
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1score(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getScore();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1online_1score(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getOnlineScore();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1level_1stats_1flag(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getLevelStatsFlag();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1num_1golden_1carrots(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getNumGoldenCarrots();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1jon_1unlocked_1abilities_1flag(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getJonAbilityFlag();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1level_1stats_1flag_1for_1unlocked_1level(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getLevelStatsFlagForUnlockedLevel();
-}
-
-JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1num_1golden_1carrots_1after_1unlocking_1level(JNIEnv* env, jclass cls)
-{
-	UNUSED(env);
-	UNUSED(cls);
-    
-	return gScreen->getNumGoldenCarrotsAfterUnlockingLevel();
 }

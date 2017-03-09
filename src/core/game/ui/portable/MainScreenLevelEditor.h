@@ -44,8 +44,6 @@ public:
     
     const char* save();
     
-    void load(const char* json, MainScreen* ms);
-    
     Game& getGame();
     
     LevelEditorActionsPanel* getLevelEditorActionsPanel();
@@ -61,8 +59,6 @@ public:
 	ConfirmResetPanel* getConfirmResetPanel();
 
 	ConfirmExitPanel* getConfirmExitPanel();
-
-	void setMessage(const char *message);
 
 	const char* getMessage();
     
@@ -96,6 +92,13 @@ private:
     void loadIfNecessary(MainScreen* ms);
     
     bool isLevelValid(MainScreen* ms);
+    
+    void setMessage(const char *message);
+    
+    void saveLevel(int world, int level);
+    void loadLevel(int world, int level, MainScreen* ms);
+    
+    void load(const char* json, MainScreen* ms);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     MainScreenLevelEditor();

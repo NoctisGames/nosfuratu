@@ -18,20 +18,8 @@ import static com.noctisgames.nosfuratu.BuildConfig.DEBUG;
 public final class GameRenderer implements Renderer
 {
     // Requested Action Definitions from src/core/game/logic/GameConstants.h
-
     private static final short REQUESTED_ACTION_UPDATE = 0;
-    // Save, Load, Completed, Submit Score Online, and Unlock Level actions are passed in this format: [1-4][1-5][01-21], where the first digit is the action, second is the world, third is the level
-    private static final short REQUESTED_ACTION_LEVEL_EDITOR_SAVE = 1;
-    private static final short REQUESTED_ACTION_LEVEL_EDITOR_LOAD = 2;
-    private static final short REQUESTED_ACTION_LEVEL_COMPLETED = 3;
-    private static final short REQUESTED_ACTION_SUBMIT_SCORE_ONLINE = 4;
-    private static final short REQUESTED_ACTION_UNLOCK_LEVEL = 5;
-
-    // Set Cutscene Viewed action is passed in this format: [6][001-999], where the first digit is the action, and the rest is the cutscenes viewed flag
-    private static final short REQUESTED_ACTION_SET_CUTSCENE_VIEWED = 6;
-
-    private static final short REQUESTED_ACTION_GET_SAVE_DATA = 7;
-    private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 8;
+    private static final short REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD = 1;
 
     private final Activity _activity;
     private final InterstitialAd mInterstitialAd;
@@ -53,8 +41,6 @@ public final class GameRenderer implements Renderer
         });
 
         requestNewInterstitial();
-
-        SaveData.init(activity);
 
         int[] screenDimensions = getScreenDimensions(activity);
 
@@ -85,39 +71,9 @@ public final class GameRenderer implements Renderer
         _startTime = System.nanoTime();
 
         int requestedAction = AndroidMain.get_requested_action();
-        if (requestedAction >= 1000)
-        {
-            requestedAction /= 1000;
-        }
 
         switch (requestedAction)
         {
-            case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_LEVEL_COMPLETED:
-                markLevelAsCompleted(AndroidMain.get_requested_action());
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
-                submitScoreOnline(AndroidMain.get_requested_action());
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_UNLOCK_LEVEL:
-                unlockLevel(AndroidMain.get_requested_action());
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
-                setCutsceneViewedFlag(AndroidMain.get_requested_action());
-                AndroidMain.clear_requested_action();
-                break;
-            case REQUESTED_ACTION_GET_SAVE_DATA:
-                sendSaveData();
-                AndroidMain.clear_requested_action();
-                break;
             case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
                 displayInterstitialAdIfLoaded();
                 AndroidMain.clear_requested_action();
@@ -165,134 +121,6 @@ public final class GameRenderer implements Renderer
     public boolean handleOnBackPressed()
     {
         return AndroidMain.handle_on_back_pressed();
-    }
-
-    private void unlockLevel(int requestedAction)
-    {
-        int world = calcWorld(requestedAction);
-        int level = calcLevel(requestedAction);
-        int levelStatsFlag = AndroidMain.get_level_stats_flag_for_unlocked_level();
-        int numGoldenCarrots = AndroidMain.get_num_golden_carrots_after_unlocking_level();
-
-        SaveData.setLevelStatsFlag(world, level, levelStatsFlag);
-
-        SaveData.setNumGoldenCarrots(numGoldenCarrots);
-    }
-
-    private void markLevelAsCompleted(int requestedAction)
-    {
-        int world = calcWorld(requestedAction);
-        int level = calcLevel(requestedAction);
-        int score = AndroidMain.get_score();
-        int levelStatsFlag = AndroidMain.get_level_stats_flag();
-        int numGoldenCarrots = AndroidMain.get_num_golden_carrots();
-        int jonUnlockedAbilitiesFlag = AndroidMain.get_jon_unlocked_abilities_flag();
-
-        SaveData.setLevelComplete(world, level, score, levelStatsFlag, jonUnlockedAbilitiesFlag);
-
-        SaveData.setNumGoldenCarrots(numGoldenCarrots);
-    }
-
-    private void submitScoreOnline(int requestedAction)
-    {
-        int world = calcWorld(requestedAction);
-        int level = calcLevel(requestedAction);
-        int onlineScore = AndroidMain.get_online_score();
-
-        // TODO, submit score using Google Play, on success, save the score that was pushed online
-
-        SaveData.setScorePushedOnline(world, level, onlineScore);
-    }
-
-    private void setCutsceneViewedFlag(int requestedAction)
-    {
-        while (requestedAction >= 1000)
-        {
-            requestedAction -= 1000;
-        }
-
-        int cutsceneViewedFlag = requestedAction;
-
-        SaveData.setViewedCutscenesFlag(cutsceneViewedFlag);
-    }
-
-    private void sendSaveData()
-    {
-        int numGoldenCarrots = SaveData.getNumGoldenCarrots();
-        int jonUnlockedAbilitiesFlag = SaveData.getJonUnlockedAbilitiesFlag();
-        int viewedCutscenesFlag = SaveData.getViewedCutscenesFlag();
-
-        String usd = "{";
-        usd += "\"num_golden_carrots\": " + numGoldenCarrots + ", ";
-        usd += "\"jon_unlocked_abilities_flag\": " + jonUnlockedAbilitiesFlag + ", ";
-        usd += "\"viewed_cutscenes_flag\": " + viewedCutscenesFlag + ", ";
-
-        int numWorlds = 1;
-        for (int i = 1; i <= numWorlds; i++)
-        {
-            usd += "\"world_" + i + "\":[";
-
-            for (int j = 1; j <= 21; j++)
-            {
-                int statsFlag = SaveData.getLevelStatsFlag(i, j);
-                int score = SaveData.getLevelScore(i, j);
-                int scoreOnline = SaveData.getScorePushedOnline(i, j);
-
-                usd += "{";
-                usd += "\"stats_flag\": " + statsFlag + ", ";
-                usd += "\"score\": " + score + ", ";
-                usd += "\"score_online\": " + scoreOnline + " ";
-
-                usd += "}";
-                if (j < 21)
-                {
-                    usd += ",";
-                }
-
-                usd += " ";
-            }
-            usd += "]";
-            if (i < numWorlds)
-            {
-                usd += ",";
-            }
-        }
-        usd += "}";
-
-        AndroidMain.load_user_save_data(usd);
-    }
-
-    private int calcWorld(int requestedAction)
-    {
-        int world = 0;
-
-        while (requestedAction >= 1000)
-        {
-            requestedAction -= 1000;
-        }
-
-        while (requestedAction >= 100)
-        {
-            requestedAction -= 100;
-            world++;
-        }
-
-        return world;
-    }
-
-    private int calcLevel(int requestedAction)
-    {
-        while (requestedAction >= 1000)
-        {
-            requestedAction -= 1000;
-        }
-
-        while (requestedAction >= 100)
-        {
-            requestedAction -= 100;
-        }
-
-        return requestedAction;
     }
 
     private void displayInterstitialAdIfLoaded()

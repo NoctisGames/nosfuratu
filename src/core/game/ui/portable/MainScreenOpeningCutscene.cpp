@@ -28,6 +28,8 @@
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
+#include "SaveData.h"
+#include "SaveDataKeys.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {
@@ -119,8 +121,11 @@ void OpeningCutscene::execute(MainScreen* ms)
                 }
                 else
                 {
-                    ms->m_iRequestedAction = REQUESTED_ACTION_SET_CUTSCENE_VIEWED * 1000;
-                    ms->m_iRequestedAction += FLAG_CUTSCENE_VIEWED_OPENING;
+                    std::string key = getKeyForViewedCutscenesFlag();
+                    std::string val = std::to_string(FLAG_CUTSCENE_VIEWED_OPENING);
+                    NG_SAVE_DATA->getKeyValues()[key] = val;
+                    
+                    NG_SAVE_DATA->save();
                     
                     m_isRequestingNextState = true;
                 }
