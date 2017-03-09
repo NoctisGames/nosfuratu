@@ -12,7 +12,7 @@
 #include "Assets.h"
 #include "Jon.h"
 #include "macros.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "GameConstants.h"
 #include "NGRect.h"
 #include "ForegroundObject.h"
@@ -116,7 +116,7 @@ void MidBossOwl::update(float deltaTime)
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
-                            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MID_BOSS_SWOOP_DOWN);
+                            NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_SWOOP_DOWN);
                             
                             break;
                         }
@@ -245,11 +245,11 @@ void MidBossOwl::update(float deltaTime)
                                     
                                     jon.onEnemyDestroyed();
                                     
-                                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MID_BOSS_DEATH);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_DEATH);
                                 }
                                 else
                                 {
-                                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MID_BOSS_TREE_SMASH);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_TREE_SMASH);
                                 }
                                 
                                 GiantShakingTree* gst = (GiantShakingTree *) (*i);

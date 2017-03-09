@@ -1,12 +1,12 @@
 //
-//  SuperpoweredSound.cpp
+//  NGSuperpoweredSound.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "SuperpoweredSound.h"
+#include "NGSuperpoweredSound.h"
 
 #include "SuperpoweredAdvancedAudioPlayer.h"
 
@@ -19,7 +19,7 @@ static const float headroom = powf(10.0f, -HEADROOM_DECIBEL * 0.025f);
 
 static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlayerEvent event, void * __unused value)
 {
-    SuperpoweredSound *sps = (SuperpoweredSound *)clientData;
+    NGSuperpoweredSound *sps = (NGSuperpoweredSound *)clientData;
 
     if (event == SuperpoweredAdvancedAudioPlayerEvent_LoadSuccess)
     {
@@ -33,10 +33,10 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     }
 }
 
-SuperpoweredSound::SuperpoweredSound(const char *path, unsigned int sampleRate, int rawResourceId, int fileOffset, int fileLength, float volume) :
+NGSuperpoweredSound::NGSuperpoweredSound(int soundId, const char *path, unsigned int sampleRate, int fileOffset, int fileLength, float volume) :
 m_path(path),
 m_fVolume(volume * headroom),
-m_iRawResourceId(rawResourceId),
+m_iSoundId(soundId),
 m_iLastSamplerate(sampleRate),
 m_isLooping(false),
 m_isPaused(false)
@@ -53,12 +53,12 @@ m_isPaused(false)
     }
 }
 
-SuperpoweredSound::~SuperpoweredSound()
+NGSuperpoweredSound::~NGSuperpoweredSound()
 {
     delete m_player;
 }
 
-void SuperpoweredSound::play(bool isLooping)
+void NGSuperpoweredSound::play(bool isLooping)
 {
     m_isLooping = isLooping;
     m_isPaused = false;
@@ -68,7 +68,7 @@ void SuperpoweredSound::play(bool isLooping)
     m_player->play(false);
 }
 
-void SuperpoweredSound::resume()
+void NGSuperpoweredSound::resume()
 {
     if (m_isPaused)
     {
@@ -78,7 +78,7 @@ void SuperpoweredSound::resume()
     }
 }
 
-void SuperpoweredSound::pause()
+void NGSuperpoweredSound::pause()
 {
     if (isPlaying())
     {
@@ -88,7 +88,7 @@ void SuperpoweredSound::pause()
     }
 }
 
-void SuperpoweredSound::stop()
+void NGSuperpoweredSound::stop()
 {
     m_isLooping = false;
     m_isPaused = false;
@@ -98,12 +98,12 @@ void SuperpoweredSound::stop()
     m_player->setPosition(m_player->firstBeatMs, false, false);
 }
 
-void SuperpoweredSound::setVolume(float volume)
+void NGSuperpoweredSound::setVolume(float volume)
 {
     m_fVolume = volume * headroom;
 }
 
-bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
+bool NGSuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     if (m_fVolume <= 0)
     {
@@ -135,8 +135,8 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
     return ret;
 }
 
-SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer() { return m_player; }
-int SuperpoweredSound::getRawResourceId() { return m_iRawResourceId; }
-bool SuperpoweredSound::isLooping() { return m_isLooping; }
-bool SuperpoweredSound::isPlaying() { return m_player->playing; }
-bool SuperpoweredSound::isPaused() { return m_isPaused; }
+SuperpoweredAdvancedAudioPlayer* NGSuperpoweredSound::getPlayer() { return m_player; }
+int NGSuperpoweredSound::getSoundId() { return m_iSoundId; }
+bool NGSuperpoweredSound::isLooping() { return m_isLooping; }
+bool NGSuperpoweredSound::isPlaying() { return m_player->playing; }
+bool NGSuperpoweredSound::isPaused() { return m_isPaused; }

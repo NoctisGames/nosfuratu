@@ -13,7 +13,7 @@
 #include "MathUtil.h"
 #include "Game.h"
 #include "OverlapTester.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "NGRect.h"
 
 #include <assert.h>
@@ -110,7 +110,7 @@ void CollectibleItem::collect()
         m_fStateTime = 0;
         m_isCollected = true;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(m_iCollectSoundId);
+        NG_AUDIO_ENGINE->playSound(m_iCollectSoundId);
     }
 }
 

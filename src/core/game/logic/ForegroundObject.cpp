@@ -14,8 +14,8 @@
 
 #include "EntityUtils.h"
 #include "Assets.h"
-#include "SoundManager.h"
-#include "VectorUtil.h"
+#include "NGAudioEngine.h"
+#include "NGSTDUtil.h"
 #include "GameConstants.h"
 #include "EndBossSnake.h"
 
@@ -798,14 +798,14 @@ void VerticalSaw::updateBounds()
         {
             m_isOnScreen = true;
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_SAW_GRIND);
+            NG_AUDIO_ENGINE->playSound(SOUND_SAW_GRIND);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SAW_GRIND);
+        NG_AUDIO_ENGINE->stopSound(SOUND_SAW_GRIND);
     }
 }
 
@@ -967,7 +967,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					SOUND_MANAGER->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}
@@ -982,7 +982,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 					m_velocity.setX(0);
 					m_acceleration.setX(0);
 
-					SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -1030,7 +1030,7 @@ void SpikedBallRollingLeft::stop()
 	m_velocity.setX(0);
 	m_acceleration.setX(0);
 
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+	NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
 }
 
 SpikedBallRollingRight::SpikedBallRollingRight(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight),
@@ -1085,7 +1085,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					SOUND_MANAGER->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->forceAddSoundIdToPlayQueue(SOUND_SPIKED_BALL_ROLLING);
 
 					m_needsToPlaySound = false;
 				}
@@ -1100,7 +1100,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 					m_velocity.setX(0);
 					m_acceleration.setX(0);
 
-					SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
 
 					m_hasFallen = true;
 					m_needsToPlaySound = true;
@@ -1148,7 +1148,7 @@ void SpikedBallRollingRight::stop()
 	m_velocity.setX(0);
 	m_acceleration.setX(0);
 
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPIKED_BALL_ROLLING);
+	NG_AUDIO_ENGINE->stopSound(SOUND_SPIKED_BALL_ROLLING);
 }
 
 SpikedBall::SpikedBall(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : DeadlyObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_isFalling(false), m_hasTriggeredSnakeHit(false)
@@ -1259,7 +1259,7 @@ bool SpikedBallChain::isJonHittingHorizontally(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
+        NG_AUDIO_ENGINE->playSound(SOUND_CHAIN_SNAP);
         
         return true;
     }
@@ -1277,7 +1277,7 @@ bool SpikedBallChain::isJonHittingFromBelow(Jon& jon, float deltaTime)
         m_isSnapping = true;
         m_fStateTime = 0;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_CHAIN_SNAP);
+        NG_AUDIO_ENGINE->playSound(SOUND_CHAIN_SNAP);
         
         return true;
     }
@@ -1367,7 +1367,7 @@ BlockingObject::BlockingObject(int gridX, int gridY, int gridWidth, int gridHeig
 
 BlockingObject::~BlockingObject()
 {
-    VectorUtil::cleanUpVectorOfPointers(m_normalizedBounds);
+    NGSTDUtil::cleanUpVectorOfPointers(m_normalizedBounds);
 }
 
 void BlockingObject::updateBounds()

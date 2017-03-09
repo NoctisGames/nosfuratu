@@ -15,7 +15,7 @@
 #include "OverlapTester.h"
 #include "Assets.h"
 #include "EntityUtils.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "GameConstants.h"
 
 #include <math.h>
@@ -99,7 +99,7 @@ void Enemy::triggerHit()
     m_fXOfDeath = getMainBounds().getLeft() + getMainBounds().getWidth() / 2;
     m_fYOfDeath = getMainBounds().getBottom() + getMainBounds().getHeight() / 2;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(m_deathSoundId);
+    NG_AUDIO_ENGINE->playSound(m_deathSoundId);
 }
 
 bool Enemy::isEntityLanding(PhysicalEntity* entity, float deltaTime)
@@ -339,7 +339,7 @@ void Mushroom::handleAlive(float deltaTime)
         
         m_isBouncingBack = true;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
     }
 }
 
@@ -380,7 +380,7 @@ bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_fStateTime = 0;
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+            NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
         }
     }
 
@@ -405,7 +405,7 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 		m_fStateTime = 0;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -443,14 +443,14 @@ void Sparrow::updateBounds()
             m_position.setY(m_fOriginalY);
 			m_acceleration.set(0, 1);
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_SPARROW_FLY);
+            NG_AUDIO_ENGINE->playSound(SOUND_SPARROW_FLY);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_SPARROW_FLY);
+        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY);
     }
 }
 
@@ -568,7 +568,7 @@ void Toad::handleAlive(float deltaTime)
             
             m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+            NG_AUDIO_ENGINE->playSound(SOUND_TOAD_EAT);
         }
 		else
 		{
@@ -623,7 +623,7 @@ void Toad::handleJonInKillRange(Jon& jon)
     
     m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_TOAD_EAT);
+    NG_AUDIO_ENGINE->playSound(SOUND_TOAD_EAT);
     
     if (!jon.isConsumed())
     {
@@ -695,7 +695,7 @@ bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             jon->triggerBoostOffEnemy(boost);
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOX_BOUNCED_ON);
+            NG_AUDIO_ENGINE->playSound(SOUND_FOX_BOUNCED_ON);
         }
     }
     
@@ -781,7 +781,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity.setX(-RABBIT_DEFAULT_MAX_SPEED);
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+            NG_AUDIO_ENGINE->playSound(SOUND_FOX_STRIKE);
         }
         else if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
 			&& jon.getMainBounds().getBottom() < getMainBounds().getTop()
@@ -794,7 +794,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity.setX(RABBIT_DEFAULT_MAX_SPEED);
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_FOX_STRIKE);
+            NG_AUDIO_ENGINE->playSound(SOUND_FOX_STRIKE);
         }
         else
         {
@@ -861,7 +861,7 @@ bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_isBeingBouncedOn = true;
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+            NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
         }
     }
     
@@ -895,7 +895,7 @@ bool BigMushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
         
         m_isBeingBouncedOn = true;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -1021,7 +1021,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
 					m_fStateTime = 0;
 					m_isPreparingToJump = true;
 
-					SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_SNAKE_JUMP);
+					NG_AUDIO_ENGINE->playSound(SOUND_SNAKE_JUMP);
 				}
             }
             else

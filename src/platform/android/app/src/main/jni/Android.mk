@@ -35,7 +35,8 @@ LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/file/opengl/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/math/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/network/client/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/portable/
-LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/android/
+LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/portable/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/state/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/opengl/
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/core/framework/ui/portable/
@@ -65,8 +66,12 @@ SOUND_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/po
 FILE_LIST := $(filter %.cpp, $(SOUND_PORTABLE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
-SOUND_SUPERPOWERED_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered)
-FILE_LIST := $(filter %.cpp, $(SOUND_SUPERPOWERED_FILES))
+SOUND_SUPERPOWERED_ANDROID_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/android)
+FILE_LIST := $(filter %.cpp, $(SOUND_SUPERPOWERED_ANDROID_FILES))
+LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
+
+SOUND_SUPERPOWERED_PORTABLE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/sound/superpowered/portable)
+FILE_LIST := $(filter %.cpp, $(SOUND_SUPERPOWERED_PORTABLE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 STATE_FILES = $(call walk, $(PROJECT_ROOT_PATH)/core/framework/state)

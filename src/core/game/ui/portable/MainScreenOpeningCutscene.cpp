@@ -24,7 +24,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
@@ -44,7 +44,7 @@ void OpeningCutscene::enter(MainScreen* ms)
     
     if (m_needsReset)
     {
-        VectorUtil::cleanUpVectorOfPointers(m_cutscenePanels);
+        NGSTDUtil::cleanUpVectorOfPointers(m_cutscenePanels);
         
         m_cutscenePanels.push_back(new CutscenePanelOpeningOne());
         
@@ -230,7 +230,7 @@ OpeningCutscene::OpeningCutscene() : m_currentPanelIndex(0), m_isRequestingNextS
 
 OpeningCutscene::~OpeningCutscene()
 {
-    VectorUtil::cleanUpVectorOfPointers(m_cutscenePanels);
+    NGSTDUtil::cleanUpVectorOfPointers(m_cutscenePanels);
 }
 
 RTTI_IMPL(OpeningCutscene, MainScreenState);

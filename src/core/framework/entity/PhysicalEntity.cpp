@@ -10,7 +10,7 @@
 
 #include "macros.h"
 #include "NGRect.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 
 PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity(),
 m_position(x, y),
@@ -25,7 +25,7 @@ m_fAngle(0)
 
 PhysicalEntity::~PhysicalEntity()
 {
-    VectorUtil::cleanUpVectorOfPointers(m_bounds);
+    NGSTDUtil::cleanUpVectorOfPointers(m_bounds);
 }
 
 void PhysicalEntity::update(float deltaTime)

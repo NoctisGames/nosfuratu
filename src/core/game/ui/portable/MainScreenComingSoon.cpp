@@ -25,7 +25,7 @@
 #include "GamePadEvent.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 
 /// ComingSoon Screen ///
 
@@ -125,8 +125,8 @@ void ComingSoon::exit(MainScreen* ms)
 {
     m_isRequestingNextState = false;
     
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+    NG_AUDIO_ENGINE->playMusic(true);
 }
 
 void ComingSoon::initRenderer(MainScreen* ms)

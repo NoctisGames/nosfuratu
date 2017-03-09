@@ -20,17 +20,11 @@ struct GpuTextureWrapper
 #if defined __APPLE__ || defined __ANDROID__
     GLuint texture;
     
-    GpuTextureWrapper(GLuint textureIn) : texture(textureIn)
-    {
-        // Empty
-    }
+    GpuTextureWrapper(GLuint textureIn) : texture(textureIn) {}
 #elif defined _WIN32
-    ID3D11ShaderResourceView *texture;
+    ID3D11ShaderResourceView* texture;
     
-    GpuTextureWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
-    {
-        // Empty
-    }
+    GpuTextureWrapper(ID3D11ShaderResourceView* textureIn) : texture(textureIn) {}
 #endif
 };
 

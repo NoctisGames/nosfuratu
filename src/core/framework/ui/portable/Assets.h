@@ -9,10 +9,10 @@
 #ifndef __noctisgames__Assets__
 #define __noctisgames__Assets__
 
+#define ASSETS (Assets::getInstance())
+
 #include <map>
 #include <string>
-
-#define ASSETS (Assets::getInstance())
 
 class IAssetsMapper;
 class TextureRegion;

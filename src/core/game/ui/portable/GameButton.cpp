@@ -13,7 +13,7 @@
 #include "GameConstants.h"
 #include "Assets.h"
 #include "OverlapTester.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 
 #include <assert.h>
 
@@ -127,7 +127,7 @@ bool GameButton::handleClick(Vector2D& touchPoint)
     {
         m_isSelected = true;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+        NG_AUDIO_ENGINE->playSound(SOUND_BUTTON_CLICK);
         
         return true;
     }
@@ -158,7 +158,7 @@ void GameButton::click()
     m_isSelected = true;
     m_isShrinking = true;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BUTTON_CLICK);
+    NG_AUDIO_ENGINE->playSound(SOUND_BUTTON_CLICK);
 }
 
 bool GameButton::isSelected()

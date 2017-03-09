@@ -29,7 +29,7 @@
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 
 /// Title Screen ///
 
@@ -44,8 +44,8 @@ void Title::enter(MainScreen* ms)
 {
     ms->m_stateMachine.setPreviousState(nullptr);
     
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_TITLE_LOOP);
-    SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+    NG_AUDIO_ENGINE->loadMusic("title_bgm");
+    NG_AUDIO_ENGINE->playMusic(true);
     
     ms->m_iRequestedAction = REQUESTED_ACTION_GET_SAVE_DATA;
 }

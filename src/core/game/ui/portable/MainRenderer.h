@@ -23,7 +23,7 @@ class SpriteBatcher;
 class LineBatcher;
 class NGRect;
 class Font;
-struct TextureWrapper;
+class TextureWrapper;
 struct GpuTextureWrapper;
 struct GpuTextureDataWrapper;
 class PhysicalEntity;

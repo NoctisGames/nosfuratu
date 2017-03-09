@@ -23,7 +23,7 @@ class PhysicalEntity;
 class TextureRegion;
 struct Color;
 class NGRect;
-struct TextureWrapper;
+class TextureWrapper;
 
 class Renderer
 {

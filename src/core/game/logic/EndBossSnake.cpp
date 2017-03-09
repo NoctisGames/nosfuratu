@@ -15,8 +15,8 @@
 #include "macros.h"
 #include "GameConstants.h"
 #include "MathUtil.h"
-#include "SoundManager.h"
-#include "VectorUtil.h"
+#include "NGAudioEngine.h"
+#include "NGSTDUtil.h"
 #include "NGRect.h"
 
 #include <math.h>
@@ -55,7 +55,7 @@ m_hasPlayedChargeSound(false)
 
 EndBossSnake::~EndBossSnake()
 {
-    VectorUtil::cleanUpVectorOfPointers(m_afterImages);
+    NGSTDUtil::cleanUpVectorOfPointers(m_afterImages);
     
     delete m_snakeSkin;
     delete m_snakeEye;
@@ -151,7 +151,7 @@ void EndBossSnake::update(float deltaTime)
                 
                 if (OverlapTester::doNGRectsOverlap(camBounds, getMainBounds()))
                 {
-                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE);
+                    NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_CHARGE);
                     
                     m_hasPlayedChargeSound = true;
                 }
@@ -246,11 +246,11 @@ void EndBossSnake::update(float deltaTime)
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
 				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 				{
-					SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+					NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 				}
 				else
 				{
-					SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+					NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 				}
 
 				setState(EndBossSnakeState_OpeningMouthRight);
@@ -266,7 +266,7 @@ void EndBossSnake::update(float deltaTime)
 
 			if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 			{
-				SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+				NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 
 				setState(EndBossSnakeState_OpeningMouthRight);
 
@@ -357,11 +357,11 @@ void EndBossSnake::update(float deltaTime)
 				Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
 				if (target.dist(getMainBounds().getRight(), getMainBounds().getBottom()) < 11.0f)
 				{
-					SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
+					NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_MOUTH_OPEN);
 				}
 				else
 				{
-					SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+					NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 				}
 
 				setState(EndBossSnakeState_OpeningMouthRight);
@@ -391,7 +391,7 @@ void EndBossSnake::update(float deltaTime)
 			{
 				m_position.setX(jon.getPosition().getX() + CAM_WIDTH * 1.1f);
 				
-				SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
+				NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_CHARGE_CUE);
 
 				setState(EndBossSnakeState_OpeningMouthLeft);
 
@@ -497,7 +497,7 @@ void EndBossSnake::triggerHit()
         m_snakeSkin->onDamageTaken();
 		m_snakeHeadImpact->onDamageTaken();
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DAMAGED);
+        NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_DAMAGED);
     }
     else
     {
@@ -512,7 +512,7 @@ void EndBossSnake::triggerHit()
 
 		m_snakeBody->onDeath();
 
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_SNAKE_DEATH);
+		NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_SNAKE_DEATH);
     }
 
 	m_snakeTonque->onMouthClose();
@@ -664,7 +664,7 @@ void SnakeSpirit::onDeath()
     
     m_isShowing = true;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_ABSORB_DASH_ABILITY);
+    NG_AUDIO_ENGINE->playSound(SOUND_ABSORB_DASH_ABILITY);
 }
 
 EndBossSnake& SnakeSpirit::getEndBossSnake()

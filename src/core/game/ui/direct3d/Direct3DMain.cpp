@@ -10,7 +10,7 @@
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "GamePadInputManager.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "GameConstants.h"
 #include "macros.h"
 #include "Game.h"
@@ -652,7 +652,7 @@ void Direct3DMain::OnDeviceRestored()
 void Direct3DMain::handleSound()
 {
 	short soundId;
-	while ((soundId = SOUND_MANAGER->getCurrentSoundId()) > SOUND_NONE)
+	while ((soundId = NG_AUDIO_ENGINE->getCurrentSoundId()) > SOUND_NONE)
 	{
 		switch (soundId)
 		{
@@ -691,7 +691,7 @@ void Direct3DMain::handleSound()
 void Direct3DMain::handleMusic()
 {
 	short musicId;
-    while ((musicId = SOUND_MANAGER->getCurrentMusicId()) > MUSIC_NONE)
+    while ((musicId = NG_AUDIO_ENGINE->getCurrentMusicId()) > MUSIC_NONE)
     {
 		if (musicId > MUSIC_SET_VOLUME)
 		{

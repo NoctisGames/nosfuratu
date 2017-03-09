@@ -12,7 +12,7 @@
 
 #include "Vector2D.h"
 #include "EntityUtils.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 
 #include <assert.h>
 
@@ -25,7 +25,7 @@ CutscenePanel::~CutscenePanel()
 {
     delete m_camBounds;
     
-    VectorUtil::cleanUpVectorOfPointers(m_cutsceneEffects);
+    NGSTDUtil::cleanUpVectorOfPointers(m_cutsceneEffects);
 }
 
 void CutscenePanel::update(float deltaTime)

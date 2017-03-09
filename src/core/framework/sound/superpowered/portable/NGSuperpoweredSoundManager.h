@@ -1,33 +1,33 @@
 //
-//  SuperpoweredSoundManager.h
+//  NGSuperpoweredSoundManager.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 10/20/16.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__SuperpoweredSoundManager__
-#define __noctisgames__SuperpoweredSoundManager__
+#ifndef __noctisgames__NGSuperpoweredSoundManager__
+#define __noctisgames__NGSuperpoweredSoundManager__
 
 #include <vector>
 
 #define MAX_NUM_SOUND_PLAYERS 12
 
-class SuperpoweredSound;
-class SuperpoweredSoundCollection;
+class NGSuperpoweredSound;
+class NGSuperpoweredSoundCollection;
 
-class SuperpoweredSoundManager
+class NGSuperpoweredSoundManager
 {
 public:
-    SuperpoweredSoundManager(unsigned int sampleRate, unsigned int bufferSize = 0);
+    NGSuperpoweredSoundManager(unsigned int sampleRate = 44100, unsigned int bufferSize = 0);
     
-	~SuperpoweredSoundManager();
+	~NGSuperpoweredSoundManager();
     
-    void loadSound(int rawResourceId, const char *path, int numCopies = 1, int fileOffset = -1, int fileLength = -1);
+    void loadSound(int soundId, const char *path, int numInstances = 1, int fileOffset = -1, int fileLength = -1);
     
-    void playSound(int rawResourceId, float volume, bool isLooping);
+    void playSound(int soundId, float volume, bool isLooping);
     
-    void stopSound(int rawResourceId);
+    void stopSound(int soundId);
     
     void resumeAllSounds();
     
@@ -37,7 +37,7 @@ public:
     
     void stopAllLoopingSounds();
     
-    void loadMusic(int rawResourceId, const char *path, int fileOffset = -1, int fileLength = -1);
+    void loadMusic(int soundId, const char *path, int fileOffset = -1, int fileLength = -1);
     
     void playMusic(float volume, bool isLooping);
     
@@ -62,14 +62,14 @@ public:
     bool processSound11(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
 
 private:
-    SuperpoweredSound* m_music;
-    std::vector<SuperpoweredSoundCollection *> m_sounds;
+    NGSuperpoweredSound* m_music;
+    std::vector<NGSuperpoweredSoundCollection *> m_sounds;
     std::vector<float*> m_stereoBuffers;
-    SuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS - 1];
+    NGSuperpoweredSound *m_activeSounds[MAX_NUM_SOUND_PLAYERS - 1];
     int m_iSampleRate;
     int m_iSoundIndex;
     
-    bool processSound(void *output, unsigned int numberOfSamples, SuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
+    bool processSound(void *output, unsigned int numberOfSamples, NGSuperpoweredSound *sound, float *stereoBuffer, unsigned int sampleRate = -1);
 };
 
-#endif /* defined(__noctisgames__SuperpoweredSound__) */
+#endif /* defined(__noctisgames__NGSuperpoweredSound__) */

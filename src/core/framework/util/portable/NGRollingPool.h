@@ -9,7 +9,7 @@
 #ifndef __noctisgames__NGRollingPool__
 #define __noctisgames__NGRollingPool__
 
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 
 #include <vector>
 
@@ -27,7 +27,7 @@ public:
     
     virtual ~NGRollingPool()
     {
-        VectorUtil::cleanUpVectorOfPointers(m_objectsPool);
+        NGSTDUtil::cleanUpVectorOfPointers(m_objectsPool);
     }
     
     T* newObject()

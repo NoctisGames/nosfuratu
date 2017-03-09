@@ -13,7 +13,7 @@
 #include "WorldMapPanel.h"
 
 #include "MainScreenLevels.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "State.h"
 #include "EntityUtils.h"
 #include "Vector2D.h"
@@ -27,7 +27,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
@@ -247,14 +247,14 @@ void WorldMap::execute(MainScreen* ms)
                     }
                     else if (m_toggleMusic->handleClick(touchPoint))
                     {
-                        SOUND_MANAGER->setMusicEnabled(!SOUND_MANAGER->isMusicEnabled());
-                        m_toggleMusic->getColor().alpha = SOUND_MANAGER->isMusicEnabled() ? 1 : 0.35f;
+                        NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
+                        m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
                         onButtonSelected();
                     }
                     else if (m_toggleSound->handleClick(touchPoint))
                     {
-                        SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
-                        m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
+                        NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
+                        m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
                         onButtonSelected();
                     }
                     //else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
@@ -338,7 +338,7 @@ void WorldMap::execute(MainScreen* ms)
                                 {
                                     selectLevel((*j));
                                     
-                                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
                                 }
                             }
                         }
@@ -401,13 +401,12 @@ void WorldMap::setFade(float fade)
     float musicVolume = alpha / 2;
     musicVolume = clamp(musicVolume, 1, 0);
     
-    short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
-    SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+    NG_AUDIO_ENGINE->setMusicVolume(musicVolume);
 }
 
 void WorldMap::loadUserSaveData(const char* json)
 {
-    VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
+    NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
     rapidjson::Document d;
     d.Parse<0>(json);
@@ -878,7 +877,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(1, 1);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
   
         return;
     }
@@ -911,7 +910,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
@@ -919,7 +918,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -987,7 +986,7 @@ void WorldMap::navUp()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -1025,7 +1024,7 @@ void WorldMap::navLeft()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
@@ -1033,7 +1032,7 @@ void WorldMap::navLeft()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
     else if (level == 1)
     {
@@ -1104,7 +1103,7 @@ void WorldMap::navDown()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
     }
 }
 
@@ -1121,15 +1120,15 @@ void WorldMap::navSelect(MainScreen* ms)
     if (m_toggleMusic->isSelected())
     {
         m_toggleMusic->click();
-        SOUND_MANAGER->setMusicEnabled(!SOUND_MANAGER->isMusicEnabled());
-        m_toggleMusic->getColor().alpha = SOUND_MANAGER->isMusicEnabled() ? 1 : 0.35f;
+        NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
+        m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
         
     }
     else if (m_toggleSound->isSelected())
     {
         m_toggleSound->click();
-        SOUND_MANAGER->setSoundEnabled(!SOUND_MANAGER->isSoundEnabled());
-        m_toggleSound->getColor().alpha = SOUND_MANAGER->isSoundEnabled() ? 1 : 0.35f;
+        NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
+        m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
     }
     else if (m_clickedLevel
         && m_clickedLevel->isSelected())
@@ -1236,9 +1235,9 @@ WorldMap::~WorldMap()
     delete m_leaderBoardsButton;
     delete m_viewOpeningCutsceneButton;
     
-    VectorUtil::cleanUpVectorOfPointers(m_abilitySlots);
-    VectorUtil::cleanUpVectorOfPointers(m_levelThumbnails);
-    VectorUtil::cleanUpVectorOfPointers(m_worldLevelStats);
+    NGSTDUtil::cleanUpVectorOfPointers(m_abilitySlots);
+    NGSTDUtil::cleanUpVectorOfPointers(m_levelThumbnails);
+    NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
 }
 
 WorldLevelCompletions::WorldLevelCompletions()
@@ -1267,7 +1266,7 @@ void LevelThumbnail::update(float deltaTime)
 {
     if (m_needsToPlayClearSound)
     {
-        SOUND_MANAGER->addSoundIdToPlayQueue(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+        NG_AUDIO_ENGINE->playSound(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
         
         m_needsToPlayClearSound = false;
     }
@@ -1362,7 +1361,7 @@ bool LevelThumbnail::isSelected()
 
 void LevelThumbnail::onConfirm()
 {
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_CONFIRMED);
+    NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_CONFIRMED);
     
     m_fStateTime = 0;
 }
@@ -1493,7 +1492,7 @@ void BossLevelThumbnail::update(float deltaTime)
 {
     if (m_needsToPlayUnlockSound)
     {
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BOSS_LEVEL_UNLOCK);
+        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
         
         m_needsToPlayUnlockSound = false;
     }
@@ -1616,7 +1615,7 @@ void AbilitySlot::update(float deltaTime)
 {
     if (m_needsToPlayUnlockSound)
     {
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_ABILITY_UNLOCK);
+        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
         
         m_needsToPlayUnlockSound = false;
     }

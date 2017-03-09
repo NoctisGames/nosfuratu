@@ -18,8 +18,8 @@
 #include "FlagUtil.h"
 #include "MathUtil.h"
 #include "GameTracker.h"
-#include "SoundManager.h"
-#include "VectorUtil.h"
+#include "NGAudioEngine.h"
+#include "NGSTDUtil.h"
 
 #include <math.h>
 
@@ -67,7 +67,7 @@ m_isReleasingShockwave(false)
 
 Jon::~Jon()
 {
-    VectorUtil::cleanUpVectorOfPointers(getDustClouds());
+    NGSTDUtil::cleanUpVectorOfPointers(getDustClouds());
     
     delete m_formStateMachine;
     delete m_jonShadow;
@@ -195,15 +195,15 @@ void Jon::update(float deltaTime)
 
 			if (m_groundSoundType == GROUND_SOUND_GRASS)
 			{
-				SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LANDING_GRASS);
+				NG_AUDIO_ENGINE->playSound(SOUND_LANDING_GRASS);
 			}
 			else if (m_groundSoundType == GROUND_SOUND_CAVE)
 			{
-				SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LANDING_CAVE);
+				NG_AUDIO_ENGINE->playSound(SOUND_LANDING_CAVE);
 			}
             else if (m_groundSoundType == GROUND_SOUND_WOOD)
             {
-                SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LANDING_WOOD);
+                NG_AUDIO_ENGINE->playSound(SOUND_LANDING_WOOD);
             }
 		}
         
@@ -689,7 +689,7 @@ void Jon::consume(bool vampireDies)
         Jon::VampireToRabbit::getInstance()->handleTransformation(this);
     }
     
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::kill()
@@ -699,7 +699,7 @@ void Jon::kill()
         return;
     }
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_DEATH);
+    NG_AUDIO_ENGINE->playSound(SOUND_DEATH);
     setState(m_isConsumed ? JON_DEAD : JON_DYING);
     m_fDyingStateTime = 0;
     m_velocity.set(0, 0);
@@ -711,7 +711,7 @@ void Jon::kill()
     jfs->onDeath(this);
     
     setState(ABILITY_NONE);
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 bool Jon::shouldUseVampireFormForConsumeAnimation()
@@ -798,7 +798,7 @@ void Jon::Rabbit::execute(Jon* jon)
             
             if (jon->m_isBurrowEffective && !wasBurrowEffective)
             {
-                SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
+                NG_AUDIO_ENGINE->playSound(SOUND_JON_BURROW_ROCKSFALL);
             }
             
             if (jon->isFalling())
@@ -827,7 +827,7 @@ void Jon::Rabbit::execute(Jon* jon)
                 
                 if (jon->m_isBurrowEffective && !wasBurrowEffective)
                 {
-                    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_JON_BURROW_ROCKSFALL);
+                    NG_AUDIO_ENGINE->playSound(SOUND_JON_BURROW_ROCKSFALL);
                     jon->setState(ABILITY_BURROW);
                     jon->m_fAbilityStateTime = 0.18f;
                     jon->m_velocity.setY(0);
@@ -916,7 +916,7 @@ void Jon::Rabbit::triggerJump(Jon* jon)
         jon->m_iNumTriggeredJumps++;
 		jon->m_iNumRabbitJumps++;
 
-		SOUND_MANAGER->addSoundIdToPlayQueue(jon->m_iNumRabbitJumps == 1 ? SOUND_JON_RABBIT_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
+		NG_AUDIO_ENGINE->playSound(jon->m_iNumRabbitJumps == 1 ? SOUND_JON_RABBIT_JUMP : SOUND_JON_RABBIT_DOUBLE_JUMP);
 	}
 }
 
@@ -969,7 +969,7 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         jon->m_velocity.setY(0);
         jon->m_isRollLanding = false;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_RABBIT_STOMP);
+        NG_AUDIO_ENGINE->playSound(SOUND_RABBIT_STOMP);
     }
     else
 	{
@@ -982,7 +982,7 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         
         jon->m_isBurrowEffective = false;
         
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_RABBIT_DRILL);
+        NG_AUDIO_ENGINE->playSound(SOUND_RABBIT_DRILL);
 	}
     
     jon->m_velocity.setX(0);
@@ -1002,7 +1002,7 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_iNumRabbitJumps = 1;
     jon->m_iNumBoosts++;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+    NG_AUDIO_ENGINE->playSound(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
 }
 
 void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
@@ -1096,7 +1096,7 @@ void Jon::Vampire::execute(Jon* jon)
             {
                 jon->setState(ABILITY_NONE);
                 
-                SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+                NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
             }
             else
             {
@@ -1190,7 +1190,7 @@ void Jon::Vampire::execute(Jon* jon)
             
             jon->m_velocity.setY(0);
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_JON_VAMPIRE_GLIDE);
+            NG_AUDIO_ENGINE->playSound(SOUND_JON_VAMPIRE_GLIDE);
 		}
 
 		jon->setState(ACTION_NONE);
@@ -1252,7 +1252,7 @@ void Jon::Vampire::exit(Jon* jon)
     jon->m_fWidth = jon->m_iGridWidth * GRID_CELL_SIZE;
 	jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerTransform(Jon* jon)
@@ -1291,7 +1291,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
 		jon->m_iNumVampireJumps = 1;
 		m_isFallingAfterGlide = true;
         
-        SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+        NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 	}
 	else if (jon->m_iNumVampireJumps < 2)
 	{
@@ -1317,7 +1317,7 @@ void Jon::Vampire::triggerJump(Jon* jon)
                 jon->m_isConsumed = false;
 			}
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(jon->m_iNumVampireJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);
+            NG_AUDIO_ENGINE->playSound(jon->m_iNumVampireJumps == 1 ? SOUND_JON_VAMPIRE_JUMP : SOUND_JON_VAMPIRE_DOUBLE_JUMP);
 		}
 
         jon->m_iNumTriggeredJumps++;
@@ -1354,7 +1354,7 @@ void Jon::Vampire::triggerRightAction(Jon* jon)
     
     jon->setState(ABILITY_DASH);
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_VAMPIRE_DASH);
+    NG_AUDIO_ENGINE->playSound(SOUND_VAMPIRE_DASH);
 }
 
 void Jon::Vampire::triggerUpAction(Jon* jon)
@@ -1393,9 +1393,9 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_iNumVampireJumps = 1;
     jon->m_iNumBoosts++;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
+    NG_AUDIO_ENGINE->playSound(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
 
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
@@ -1413,7 +1413,7 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     
     jon->m_iNumVampireJumps = 1;
 
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -1428,7 +1428,7 @@ void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloc
 
 	jon->m_iNumVampireJumps = 1;
 
-	SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -1441,7 +1441,7 @@ void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     
     jon->m_fStateTime = 0;
     
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_SOUND_JON_VAMPIRE_GLIDE);
+    NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
 
 void Jon::Vampire::onDeath(Jon* jon)
@@ -1480,7 +1480,7 @@ void Jon::RabbitToVampire::enter(Jon* jon)
 
 	m_hasCompletedSlowMotion = false;
 
-	SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_TRIGGER_TRANSFORM);
+	NG_AUDIO_ENGINE->playSound(SOUND_TRIGGER_TRANSFORM);
 }
 
 void Jon::RabbitToVampire::execute(Jon* jon)
@@ -1500,7 +1500,7 @@ void Jon::RabbitToVampire::execute(Jon* jon)
         
         jon->m_isReleasingShockwave = true;
         
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
+		NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
 	}
 }
 
@@ -1520,7 +1520,7 @@ void Jon::RabbitToVampire::triggerCancelTransform(Jon* jon)
 	{
 		jon->m_formStateMachine->revertToPreviousState();
 
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+		NG_AUDIO_ENGINE->playSound(SOUND_CANCEL_TRANSFORM);
 	}
 }
 
@@ -1621,7 +1621,7 @@ void Jon::VampireToRabbit::enter(Jon* jon)
 
 	m_hasCompletedSlowMotion = false;
 
-	SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_TRIGGER_TRANSFORM);
+	NG_AUDIO_ENGINE->playSound(SOUND_TRIGGER_TRANSFORM);
 }
 
 void Jon::VampireToRabbit::execute(Jon* jon)
@@ -1641,7 +1641,7 @@ void Jon::VampireToRabbit::execute(Jon* jon)
         
         jon->m_isReleasingShockwave = true;
         
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_COMPLETE_TRANSFORM);
+		NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
 	}
 }
 
@@ -1661,7 +1661,7 @@ void Jon::VampireToRabbit::triggerCancelTransform(Jon* jon)
 	{
 		jon->m_formStateMachine->revertToPreviousState();
 
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_CANCEL_TRANSFORM);
+		NG_AUDIO_ENGINE->playSound(SOUND_CANCEL_TRANSFORM);
 	}
 }
 

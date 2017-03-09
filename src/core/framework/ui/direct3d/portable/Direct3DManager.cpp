@@ -15,7 +15,7 @@
 #include "Direct3DFramebufferToScreenGpuProgramWrapper.h"
 #include "GpuTextureWrapper.h"
 #include "PlatformHelpers.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 #include "GpuTextureWrapper.h"
 
 #include <assert.h>
@@ -478,7 +478,7 @@ void Direct3DManager::releaseFramebuffers()
     m_offscreenRenderTargetViews.clear();
     m_offscreenShaderResourceViews.clear();
     
-    VectorUtil::cleanUpVectorOfPointers(m_framebuffers);
+    NGSTDUtil::cleanUpVectorOfPointers(m_framebuffers);
 }
 
 Direct3DManager::Direct3DManager() :

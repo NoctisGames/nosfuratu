@@ -20,7 +20,7 @@ class AndroidAssetDataHandler : public AssetDataHandler
 public:
 	static AndroidAssetDataHandler* getInstance();
     
-    void init(JNIEnv* env, jobject java_asset_manager);
+    void init(JNIEnv* env, jobject activity);
     
     virtual FileData getAssetData(const char* relativePath);
     

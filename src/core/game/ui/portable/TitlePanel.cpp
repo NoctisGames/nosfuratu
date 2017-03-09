@@ -12,7 +12,7 @@
 #include "Vector2D.h"
 #include "GameConstants.h"
 #include "Assets.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -66,10 +66,10 @@ void TitlePanel::update(float deltaTime)
             m_fStateTime = 0;
             m_isLightningStriking = true;
             
-            if (SOUND_MANAGER->isMusicEnabled())
+            if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
                 int rn = rand() % 2;
-                SOUND_MANAGER->addSoundIdToPlayQueue(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
+                NG_AUDIO_ENGINE->playSound(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
             }
         }
     }

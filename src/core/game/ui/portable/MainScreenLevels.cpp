@@ -36,7 +36,7 @@
 #include "GamePadInputManager.h"
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
 #include "GameMarker.h"
@@ -147,12 +147,12 @@ void Level::exit(MainScreen* ms)
     
     if (m_playLevelSelectMusicOnExit)
     {
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_LEVEL_SELECT_LOOP);
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+        NG_AUDIO_ENGINE->playMusic(true);
     }
 	else if (m_stopMusicOnExit)
 	{
-		SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_STOP);
+		NG_AUDIO_ENGINE->stopMusic();
 	}
     
     m_fStateTime = 0;
@@ -199,22 +199,22 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
 
 void Level::pauseAllSounds()
 {
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(PAUSE_ALL_SOUNDS);
+    NG_AUDIO_ENGINE->pauseAllSounds();
 }
 
 void Level::resumeAllSounds()
 {
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(RESUME_ALL_SOUNDS);
+    NG_AUDIO_ENGINE->resumeAllSounds();
 }
 
 void Level::stopAllSounds()
 {
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_ALL_SOUNDS);
+    NG_AUDIO_ENGINE->stopAllSounds();
 }
 
 void Level::stopAllLoopingSounds()
 {
-    SOUND_MANAGER->forceAddSoundIdToPlayQueue(STOP_ALL_LOOPING_SOUNDS);
+    NG_AUDIO_ENGINE->stopAllSounds();
 }
 
 int Level::getScore()
@@ -280,10 +280,10 @@ void Level::beginOpeningSequence(MainScreen* ms)
 
 		updateCamera(ms, 0, false, true);
 
-        if (SOUND_MANAGER->isMusicEnabled())
+        if (!NG_AUDIO_ENGINE->isMusicDisabled())
         {
-            SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
-            SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+            NG_AUDIO_ENGINE->playMusic(true);
         }
 
 		return;
@@ -295,10 +295,10 @@ void Level::beginOpeningSequence(MainScreen* ms)
 
 	m_hasShownOpeningSequence = true;
 
-	if (SOUND_MANAGER->isMusicEnabled())
+	if (!NG_AUDIO_ENGINE->isMusicDisabled())
 	{
-		SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+		NG_AUDIO_ENGINE->playSound(SOUND_WORLD_1_LOOP_INTRO);
+        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
 	}
 }
 
@@ -318,7 +318,7 @@ void Level::handleOpeningSequence(MainScreen* ms)
         CountHissWithMina& countHissWithMina = m_game->getCountHissWithMina();
 		countHissWithMina.getPosition().setX(m_game->getFarRight() + CAM_WIDTH * 2);
 
-		SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+		NG_AUDIO_ENGINE->playMusic(true);
 	}
 
 	if (result == 2)
@@ -626,8 +626,8 @@ void Level::update(MainScreen* ms)
             {
                 float musicVolume = 1 - m_fStateTime;
                 musicVolume = clamp(musicVolume, 1, 0);
-                short musicId = MUSIC_SET_VOLUME * 1000 + (short) (musicVolume * 100);
-                SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+                
+                NG_AUDIO_ENGINE->setMusicVolume(musicVolume);
             }
         }
         else if (jon.getMainBounds().getLeft() > m_game->getFarRight())
@@ -703,7 +703,7 @@ void Level::update(MainScreen* ms)
 			ms->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
-            SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_LEVEL_COMPLETE);
+            NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
         }
         
         m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);

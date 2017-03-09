@@ -16,7 +16,7 @@
 #include "Assets.h"
 #include "BatPanel.h"
 #include "MathUtil.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "MainRenderer.h"
 #include "FlagUtil.h"
 
@@ -117,8 +117,7 @@ void Chapter1Level10::update(MainScreen* ms)
             m_fMusicVolume -= ms->m_fDeltaTime / 8;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
-            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+            NG_AUDIO_ENGINE->setMusicVolume(m_fMusicVolume);
         }
         
         if (m_perchTree)
@@ -186,10 +185,10 @@ void Chapter1Level10::update(MainScreen* ms)
             m_iNumCarrotsCollectedAtCheckpoint = m_game->getNumCarrotsCollected();
             m_iNumGoldenCarrotsCollectedAtCheckpoint = m_game->getNumGoldenCarrotsCollected();
             
-            if (SOUND_MANAGER->isMusicEnabled())
+            if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
-                SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_MID_BOSS_LOOP_INTRO);
-                SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_MID_BOSS_LOOP);
+                NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_LOOP_INTRO);
+                NG_AUDIO_ENGINE->loadMusic("mid_boss_bgm");
             }
             
             m_hasTriggeredMidBossMusicLoopIntro = true;
@@ -214,7 +213,7 @@ void Chapter1Level10::update(MainScreen* ms)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            NG_AUDIO_ENGINE->playMusic(true);
             
             m_fMusicVolume = 1;
             
@@ -241,7 +240,7 @@ void Chapter1Level10::update(MainScreen* ms)
         
         if (!m_hasTriggeredMidBossMusicLoop && (m_game->getStateTime() - m_fGameStateTime) > 4.80f)
         {
-            SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+            NG_AUDIO_ENGINE->playMusic(true);
             
             m_fMusicVolume = 1;
             
@@ -297,8 +296,7 @@ void Chapter1Level10::update(MainScreen* ms)
             m_fMusicVolume -= ms->m_fDeltaTime;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
-            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+            NG_AUDIO_ENGINE->setMusicVolume(m_fMusicVolume);
         }
         
         if (jon.getPosition().getY() < 12)

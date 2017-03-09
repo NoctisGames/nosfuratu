@@ -90,6 +90,8 @@ private:
     bool m_wasPaused;
     
     void internalUpdate();
+    
+    void loadSounds();
 };
 
 #endif /* defined(__nosfuratu__MainScreen__) */

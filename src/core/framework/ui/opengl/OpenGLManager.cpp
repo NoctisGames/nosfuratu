@@ -15,7 +15,7 @@
 #include "OpenGLTextureProgram.h"
 #include "OpenGLFramebufferToScreenProgram.h"
 #include "macros.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 #include "GpuTextureWrapper.h"
 
 #include <assert.h>
@@ -258,7 +258,7 @@ void OpenGLManager::releaseFramebuffers()
     
     m_fbos.clear();
     
-    VectorUtil::cleanUpVectorOfPointers(m_framebuffers);
+    NGSTDUtil::cleanUpVectorOfPointers(m_framebuffers);
 }
 
 OpenGLManager::OpenGLManager() : sb_vbo_object(0), gb_vbo_object(0), m_iScreenFBO(0), m_iMaxTextureSize(64), m_iScreenWidth(-1), m_iScreenHeight(-1), m_iNumFramebuffers(-1)

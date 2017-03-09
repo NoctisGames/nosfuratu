@@ -20,7 +20,9 @@
 #include "Color.h"
 #include "NGRect.h"
 #include "TextureWrapper.h"
+
 #include "GpuTextureWrapper.h"
+#include "GpuTextureDataWrapper.h"
 #include "SpriteBatcherFactory.h"
 #include "NGRectBatcherFactory.h"
 #include "LineBatcherFactory.h"
@@ -28,7 +30,7 @@
 #include "TextureLoaderFactory.h"
 #include "RendererHelperFactory.h"
 #include "GpuProgramWrapperFactory.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 
 #include <string>
 #include <assert.h>
@@ -275,5 +277,5 @@ void Renderer::cleanUpThreads()
         (*i)->join();
     }
     
-    VectorUtil::cleanUpVectorOfPointers(m_textureDataLoadingThreads);
+    NGSTDUtil::cleanUpVectorOfPointers(m_textureDataLoadingThreads);
 }

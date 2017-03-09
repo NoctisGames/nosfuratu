@@ -16,9 +16,15 @@ AndroidAssetDataHandler* AndroidAssetDataHandler::getInstance()
     return instance;
 }
 
-void AndroidAssetDataHandler::init(JNIEnv* env, jobject java_asset_manager)
+void AndroidAssetDataHandler::init(JNIEnv* env, jobject activity)
 {
-    mAssetManager = AAssetManager_fromJava(env, java_asset_manager);
+    jclass class_activity = env->GetObjectClass(activity);
+    jmethodID mid_getAssets = env->GetMethodID(class_activity, "getAssets", "()Landroid/content/res/AssetManager;");
+    assert(mid_getAssets != 0);
+    
+    jobject java_AssetManager = env->CallObjectMethod(activity, mid_getAssets);
+    
+    mAssetManager = AAssetManager_fromJava(env, java_AssetManager);
 }
 
 FileData AndroidAssetDataHandler::getAssetData(const char* relativePath)

@@ -25,7 +25,7 @@
 #include "CountHissWithMina.h"
 
 #include "EntityUtils.h"
-#include "VectorUtil.h"
+#include "NGSTDUtil.h"
 #include "OverlapTester.h"
 
 #include <math.h>
@@ -52,21 +52,21 @@ LevelEditorEntitiesPanel::~LevelEditorEntitiesPanel()
 
 void LevelEditorEntitiesPanel::initForLevel(int world, int level)
 {
-    VectorUtil::cleanUpVectorOfPointers(m_midgrounds);
-    VectorUtil::cleanUpVectorOfPointers(m_grounds);
-    VectorUtil::cleanUpVectorOfPointers(m_pits);
-    VectorUtil::cleanUpVectorOfPointers(m_exitGrounds);
-    VectorUtil::cleanUpVectorOfPointers(m_holes);
-    VectorUtil::cleanUpVectorOfPointers(m_foregroundObjects);
-    VectorUtil::cleanUpVectorOfPointers(m_midBossForegroundObjects);
-    VectorUtil::cleanUpVectorOfPointers(m_endBossForegroundObjects);
-	VectorUtil::cleanUpVectorOfPointers(m_countHissWithMinas);
-    VectorUtil::cleanUpVectorOfPointers(m_endBossSnakes);
-    VectorUtil::cleanUpVectorOfPointers(m_enemies);
-    VectorUtil::cleanUpVectorOfPointers(m_collectibleItems);
-    VectorUtil::cleanUpVectorOfPointers(m_jons);
-    VectorUtil::cleanUpVectorOfPointers(m_extraForegroundObjects);
-    VectorUtil::cleanUpVectorOfPointers(m_foregroundCoverObjects);
+    NGSTDUtil::cleanUpVectorOfPointers(m_midgrounds);
+    NGSTDUtil::cleanUpVectorOfPointers(m_grounds);
+    NGSTDUtil::cleanUpVectorOfPointers(m_pits);
+    NGSTDUtil::cleanUpVectorOfPointers(m_exitGrounds);
+    NGSTDUtil::cleanUpVectorOfPointers(m_holes);
+    NGSTDUtil::cleanUpVectorOfPointers(m_foregroundObjects);
+    NGSTDUtil::cleanUpVectorOfPointers(m_midBossForegroundObjects);
+    NGSTDUtil::cleanUpVectorOfPointers(m_endBossForegroundObjects);
+	NGSTDUtil::cleanUpVectorOfPointers(m_countHissWithMinas);
+    NGSTDUtil::cleanUpVectorOfPointers(m_endBossSnakes);
+    NGSTDUtil::cleanUpVectorOfPointers(m_enemies);
+    NGSTDUtil::cleanUpVectorOfPointers(m_collectibleItems);
+    NGSTDUtil::cleanUpVectorOfPointers(m_jons);
+    NGSTDUtil::cleanUpVectorOfPointers(m_extraForegroundObjects);
+    NGSTDUtil::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     if (world == 1)
     {

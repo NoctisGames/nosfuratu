@@ -9,28 +9,21 @@
 #ifndef __noctisgames__TextureWrapper__
 #define __noctisgames__TextureWrapper__
 
-#include "GpuTextureDataWrapper.h"
-#include "GpuTextureWrapper.h"
-
 #include <string>
 
-struct TextureWrapper
+struct GpuTextureDataWrapper;
+struct GpuTextureWrapper;
+
+class TextureWrapper
 {
+public:
     std::string name;
     GpuTextureDataWrapper* gpuTextureDataWrapper;
     GpuTextureWrapper* gpuTextureWrapper;
     bool repeatS;
     bool isLoadingData;
     
-    TextureWrapper(std::string inName) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeatS(false), isLoadingData(false)
-    {
-        // Empty
-    }
-    
-    TextureWrapper(std::string inName, bool in_repeatS) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeatS(in_repeatS), isLoadingData(false)
-    {
-        // Empty
-    }
+    TextureWrapper(std::string inName, bool in_repeatS = false);
 };
 
 #endif /* defined(__noctisgames__TextureWrapper__) */

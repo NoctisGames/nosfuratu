@@ -15,7 +15,7 @@
 #include "Game.h"
 #include "MainScreenLevelEditor.h"
 #include "MathUtil.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "MainRenderer.h"
 #include "Midground.h"
 #include "FlagUtil.h"
@@ -265,8 +265,8 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* ms)
         
         updateCamera(ms, 0, false, true);
         
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+        NG_AUDIO_ENGINE->playMusic(true);
         
         return;
     }
@@ -277,10 +277,10 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* ms)
     
     m_hasShownOpeningSequence = true;
     
-    if (SOUND_MANAGER->isMusicEnabled())
+    if (!NG_AUDIO_ENGINE->isMusicDisabled())
     {
-        SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_WORLD_1_LOOP_INTRO);
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_WORLD_1_LOOP);
+        NG_AUDIO_ENGINE->playSound(SOUND_WORLD_1_LOOP_INTRO);
+        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
     }
 }
 
@@ -297,7 +297,7 @@ void Chapter1Level21::handleOpeningSequence(MainScreen* ms)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+        NG_AUDIO_ENGINE->playMusic(true);
     }
     
     if (result == 2)
@@ -334,10 +334,10 @@ void Chapter1Level21::update(MainScreen* ms)
             jon.getPosition().setX(m_hole->getPosition().getX());
             jon.updateBounds();
             
-            if (SOUND_MANAGER->isMusicEnabled())
+            if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
-                SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_END_BOSS_LOOP_INTRO);
-                SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_LOAD_END_BOSS_LOOP);
+                NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_LOOP_INTRO);
+                NG_AUDIO_ENGINE->loadMusic("final_boss_bgm");
             }
             
             m_hasTriggeredMusicLoopIntro = true;
@@ -351,8 +351,7 @@ void Chapter1Level21::update(MainScreen* ms)
             m_fMusicVolume = percentageToHole;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
             
-            short musicId = MUSIC_SET_VOLUME * 1000 + (short) (m_fMusicVolume * 100);
-            SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+            NG_AUDIO_ENGINE->setMusicVolume(m_fMusicVolume);
         }
 
 		if (m_hasTriggeredMusicLoopIntro
@@ -384,7 +383,7 @@ void Chapter1Level21::update(MainScreen* ms)
 
 			if (m_fGameStateTime > 7.15f)
 			{
-                SOUND_MANAGER->addMusicIdToPlayQueue(MUSIC_PLAY_LOOP);
+                NG_AUDIO_ENGINE->playMusic(true);
 
 				m_fMusicVolume = 1;
 
@@ -489,8 +488,7 @@ void Chapter1Level21::update(MainScreen* ms)
 			m_fMusicVolume -= ms->m_fDeltaTime;
             m_fMusicVolume = clamp(m_fMusicVolume, 1, 0);
 
-			short musicId = MUSIC_SET_VOLUME * 1000 + (short)(m_fMusicVolume * 100);
-			SOUND_MANAGER->addMusicIdToPlayQueue(musicId);
+			NG_AUDIO_ENGINE->setMusicVolume(m_fMusicVolume);
 		}
 	}
 	else if (m_endBossSnake->getState() == EndBossSnakeState_Dead)

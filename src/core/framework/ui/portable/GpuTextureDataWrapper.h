@@ -20,17 +20,11 @@ struct GpuTextureDataWrapper
 #if defined __APPLE__ || defined __ANDROID__
     PngImageData raw_image_data;
     
-    GpuTextureDataWrapper(PngImageData raw_image_data_in) : raw_image_data(raw_image_data_in)
-    {
-        // Empty
-    }
+    GpuTextureDataWrapper(PngImageData raw_image_data_in) : raw_image_data(raw_image_data_in) {}
 #elif defined _WIN32
-    ID3D11ShaderResourceView *texture;
+    ID3D11ShaderResourceView* texture;
 
-    GpuTextureDataWrapper(ID3D11ShaderResourceView *textureIn) : texture(textureIn)
-	{
-		// Empty
-	}
+    GpuTextureDataWrapper(ID3D11ShaderResourceView* textureIn) : texture(textureIn) {}
 #endif
 };
 

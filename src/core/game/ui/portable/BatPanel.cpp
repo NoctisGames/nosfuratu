@@ -16,7 +16,7 @@
 #include "OverlapTester.h"
 #include "NGRect.h"
 #include "Assets.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 #include "macros.h"
 #include "GameConstants.h"
 #include "ScreenEvent.h"
@@ -1644,7 +1644,7 @@ void Bat::naviPoof(float x, float y)
     m_fStateTime = 0;
     m_isInPosition = true;
     
-    SOUND_MANAGER->addSoundIdToPlayQueue(SOUND_BAT_POOF);
+    NG_AUDIO_ENGINE->playSound(SOUND_BAT_POOF);
 }
 
 void Bat::moveTo(float x, float y)

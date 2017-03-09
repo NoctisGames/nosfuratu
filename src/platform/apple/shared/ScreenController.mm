@@ -8,7 +8,6 @@
 
 #import "ScreenController.h"
 
-#import "AppleSoundManager.h"
 #import "SaveData.h"
 
 // C++
@@ -17,13 +16,12 @@
 #include "MainScreenLevelEditor.h"
 #include "Game.h"
 #include "GameConstants.h"
-#include "SoundManager.h"
+#include "NGAudioEngine.h"
 
 @interface ScreenController ()
 {
     MainScreen *_screen;
     HandleInterstitialAd _handleInterstitialAd;
-    AppleSoundManager *_appleSoundManager;
 }
 
 @end
@@ -38,7 +36,6 @@
     {
         _screen = screen;
         _handleInterstitialAd = handleInterstitialAd;
-        _appleSoundManager = [[AppleSoundManager alloc] init];
     }
     
     return self;
@@ -100,9 +97,6 @@
 - (void)present
 {
     _screen->render();
-    
-    [self handleSound];
-    [self handleMusic];
 }
 
 - (void)resume
@@ -113,113 +107,9 @@
 - (void)pause
 {
     _screen->onPause();
-    
-    [_appleSoundManager pauseMusic];
 }
 
 #pragma mark Private
-
-- (void)handleSound
-{
-    short soundId;
-    while ((soundId = SOUND_MANAGER->getCurrentSoundId()) > 0)
-    {
-        switch (soundId)
-        {
-            case SOUND_JON_VAMPIRE_GLIDE:
-            case SOUND_SPARROW_FLY:
-            case SOUND_SAW_GRIND:
-            case SOUND_SPIKED_BALL_ROLLING:
-                [_appleSoundManager playSound:[self soundIndexForSoundId:soundId] volume:1.0f isLooping:true];
-                break;
-            case STOP_SOUND_JON_VAMPIRE_GLIDE:
-            case STOP_SOUND_SPARROW_FLY:
-            case STOP_SOUND_SAW_GRIND:
-            case STOP_SOUND_SPIKED_BALL_ROLLING:
-                [_appleSoundManager stopSound:[self soundIndexForSoundId:(soundId - 1000)]];
-                break;
-            case RESUME_ALL_SOUNDS:
-                [_appleSoundManager resumeAllSounds];
-                break;
-            case PAUSE_ALL_SOUNDS:
-                [_appleSoundManager pauseAllSounds];
-                break;
-            case STOP_ALL_SOUNDS:
-                [_appleSoundManager stopAllSounds];
-                break;
-            case STOP_ALL_LOOPING_SOUNDS:
-                [_appleSoundManager stopAllLoopingSounds];
-                break;
-            default:
-                [_appleSoundManager playSound:[self soundIndexForSoundId:soundId] volume:1.0f isLooping:false];
-                break;
-        }
-    }
-}
-
-- (void)handleMusic
-{
-    short rawMusicId;
-    while ((rawMusicId = SOUND_MANAGER->getCurrentMusicId()) > 0)
-    {
-        short musicId = rawMusicId;
-        if (musicId >= 1000)
-        {
-            musicId /= 1000;
-            rawMusicId -= musicId * 1000;
-        }
-        
-        switch (musicId)
-        {
-            case MUSIC_STOP:
-                [_appleSoundManager pauseMusic];
-                break;
-            case MUSIC_RESUME:
-                [_appleSoundManager resumeMusic];
-                break;
-            case MUSIC_PLAY:
-                [_appleSoundManager playMusic:1.0f isLooping:false];
-                break;
-            case MUSIC_PLAY_LOOP:
-                [_appleSoundManager playMusic:1.0f isLooping:true];
-                break;
-            case MUSIC_SET_VOLUME:
-            {
-                float volume = rawMusicId / 100.0f;
-                
-                [_appleSoundManager setMusicVolume:volume];
-            }
-                break;
-            case MUSIC_LOAD_OPENING_CUTSCENE:
-                [_appleSoundManager loadMusic:@"opening_cutscene_bgm"];
-                break;
-            case MUSIC_LOAD_TITLE_LOOP:
-                [_appleSoundManager loadMusic:@"title_bgm"];
-                break;
-            case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-                [_appleSoundManager loadMusic:@"level_select_bgm"];
-                break;
-            case MUSIC_LOAD_WORLD_1_LOOP:
-                [_appleSoundManager loadMusic:@"world_1_bgm"];
-                break;
-            case MUSIC_LOAD_MID_BOSS_LOOP:
-                [_appleSoundManager loadMusic:@"mid_boss_bgm"];
-                break;
-            case MUSIC_LOAD_END_BOSS_LOOP:
-                [_appleSoundManager loadMusic:@"final_boss_bgm"];
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-- (int)soundIndexForSoundId:(int)soundId
-{
-    int soundIndex = soundId - 1;
-    
-    return soundIndex;
-}
 
 - (void)unlockLevel:(int)requestedAction
 {
