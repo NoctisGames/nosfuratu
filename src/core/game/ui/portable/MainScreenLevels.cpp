@@ -146,8 +146,6 @@ void Level::exit(MainScreen* ms)
     
     m_sourceGame = nullptr;
     
-    NG_AUDIO_ENGINE->stopAllSounds();
-    
     if (m_playLevelSelectMusicOnExit)
     {
         NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
