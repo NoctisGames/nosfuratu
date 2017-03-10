@@ -12,7 +12,7 @@
 
 #include "NGSTDUtil.h"
 
-WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEngine* audioEngine, int numInstances) : SoundWrapper(soundId, numInstances)
+WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEngine* audioEngine, int numInstances) : ISoundWrapper(soundId, numInstances)
 {
     size_t len = strlen(path);
     
@@ -28,7 +28,7 @@ WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEn
     wchar_t* wString = new wchar_t[4096];
     MultiByteToWideChar(CP_ACP, 0, wavFileName, -1, wString, 4096);
     
-    m_sound = std::make_unique<SoundEffect>(audioEngine, waveFileName);
+    m_sound = std::make_unique<DirectX::SoundEffect>(audioEngine, wString);
     
     delete wString;
     delete wavFileName;

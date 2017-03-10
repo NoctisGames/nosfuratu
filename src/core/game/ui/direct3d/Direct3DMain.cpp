@@ -17,6 +17,8 @@
 #include "KeyboardInputManager.h"
 #include "GamePadInputManager.h"
 #include "MainAssets.h"
+#include "GameConstants.h"
+#include "macros.h"
 #include "NGAudioEngine.h"
 
 #include <sstream>

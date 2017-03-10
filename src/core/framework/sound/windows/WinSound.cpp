@@ -25,6 +25,7 @@ void WinSound::play(bool isLooping)
     m_isLooping = isLooping;
     m_isPaused = false;
  
+	m_soundEffectInstance->Stop();
     m_soundEffectInstance->Play(isLooping);
 }
 
@@ -68,7 +69,7 @@ bool WinSound::isLooping()
 
 bool WinSound::isPlaying()
 {
-	return m_soundEffectInstance->GetState() == SoundState::PLAYING;
+	return m_soundEffectInstance->GetState() == DirectX::SoundState::PLAYING;
 }
 
 bool WinSound::isPaused()

@@ -11,7 +11,6 @@
 #include "ISoundWrapper.h"
 
 #include "WinSoundWrapper.h"
-#include "Audio.h"
 
 WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
 {
@@ -69,6 +68,8 @@ ISoundWrapper* WinAudioEngineHelper::loadMusic(const char* path)
 
 WinAudioEngineHelper::WinAudioEngineHelper() : IAudioEngineHelper(), m_retryAudio(false)
 {
+	using namespace DirectX;
+
     AUDIO_ENGINE_FLAGS eflags = AudioEngine_Default;
 #ifdef _DEBUG
     eflags = eflags | AudioEngine_Debug;
