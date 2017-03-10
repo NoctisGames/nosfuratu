@@ -450,7 +450,7 @@ void Sparrow::updateBounds()
     {
         m_isOnScreen = false;
         
-        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY, true);
+        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY);
     }
 }
 
