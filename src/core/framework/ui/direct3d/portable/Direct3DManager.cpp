@@ -301,7 +301,7 @@ void Direct3DManager::createVertexBufferForSpriteBatcher(int maxBatchSize)
 {
 	m_textureVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
 	TEXTURE_VERTEX tv = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
+	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; ++i)
 	{
 		m_textureVertices.push_back(tv);
 	}
@@ -326,7 +326,7 @@ void Direct3DManager::createVertexBufferForGeometryBatchers(int maxBatchSize)
 {
 	m_colorVertices.reserve(maxBatchSize * VERTICES_PER_RECTANGLE);
 	COLOR_VERTEX cv = { 0, 0, 0, 0, 0, 0, 0 };
-	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; i++)
+	for (int i = 0; i < maxBatchSize * VERTICES_PER_RECTANGLE; ++i)
 	{
 		m_colorVertices.push_back(cv);
 	}
@@ -399,7 +399,7 @@ std::vector<short> Direct3DManager::createIndexValues(int maxBatchSize)
 
 void Direct3DManager::createFramebufferObjects()
 {
-    for (int i = 0; i < m_iNumFramebuffers; i++)
+    for (int i = 0; i < m_iNumFramebuffers; ++i)
     {
         createFramebufferObject();
     }

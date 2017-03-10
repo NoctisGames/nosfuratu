@@ -19,7 +19,7 @@ class NGRollingPool
 public:
     NGRollingPool(int poolSize) : m_iPoolSize(poolSize), m_iIndex(0)
     {
-        for (int i = 0; i < m_iPoolSize; i++)
+        for (int i = 0; i < m_iPoolSize; ++i)
         {
             m_objectsPool.push_back(new T());
         }

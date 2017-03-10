@@ -53,7 +53,7 @@ void WorldMap::enter(MainScreen* ms)
     
     initRenderer(ms);
     
-    NG_SAVE_DATA->load();
+    loadSaveData();
     
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
@@ -316,7 +316,7 @@ void WorldMap::execute(MainScreen* ms)
                             }
                         }
                         
-                        for (std::vector<AbilitySlot *>::iterator j = m_abilitySlots.begin(); j != m_abilitySlots.end(); j++)
+                        for (std::vector<AbilitySlot *>::iterator j = m_abilitySlots.begin(); j != m_abilitySlots.end(); ++j)
                         {
                             if ((*j)->isUnlocked()
                                 && OverlapTester::isPointInNGRect(touchPoint, (*j)->getMainBounds()))
@@ -337,7 +337,7 @@ void WorldMap::execute(MainScreen* ms)
                             }
                         }
                         
-                        for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+                        for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); ++j)
                         {
                             if (OverlapTester::isPointInNGRect(touchPoint, (*j)->getMainBounds()))
                             {
@@ -417,20 +417,22 @@ void WorldMap::setFade(float fade)
     NG_AUDIO_ENGINE->setMusicVolume(musicVolume);
 }
 
-void WorldMap::loadUserSaveData()
+void WorldMap::loadSaveData()
 {
+    NG_SAVE_DATA->load();
+    
     NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
-    loadUserSaveDataForWorld1();
+    loadWorld1SaveData();
     
-    loadGlobalUserSaveData();
+    loadGlobalSaveData();
     
     m_isNextWorldButtonEnabled = false;
     
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
     int scoreForLevelToSelect = 0;
-    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    for (std::vector<LevelThumbnail*>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); ++j)
     {
         int worldIndex = (*j)->getWorld() - 1;
         int levelIndex = (*j)->getLevel() - 1;
@@ -598,17 +600,15 @@ LevelThumbnail* WorldMap::getSelectedLevelThumbnail()
 
 #pragma mark private
 
-void WorldMap::loadGlobalUserSaveData()
+void WorldMap::loadGlobalSaveData()
 {
     m_iNumCollectedGoldenCarrots = 0;
     m_iViewedCutsceneFlag = 0;
     
-    if (d.HasMember(num_golden_carrots_key))
     {
-        Value& v = d[num_golden_carrots_key];
-        assert(v.IsInt());
-        
-        int numCollectedGoldenCarrots = v.GetInt();
+        std::string key = getKeyForNumGoldenCarrots();
+        std::string val = NG_SAVE_DATA->findValue(key);
+        int numCollectedGoldenCarrots = StringUtil::stringToInt(val);
         
         m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(numCollectedGoldenCarrots >= NUM_GC_REQ);
         
@@ -621,12 +621,10 @@ void WorldMap::loadGlobalUserSaveData()
         m_iNumCollectedGoldenCarrots = numCollectedGoldenCarrots;
     }
     
-    if (d.HasMember(jon_unlocked_abilities_flag_key))
     {
-        Value& v = d[jon_unlocked_abilities_flag_key];
-        assert(v.IsInt());
-        
-        int jonAbilityFlag = v.GetInt();
+        std::string key = getKeyForJonUnlockedAbilitiesFlag();
+        std::string val = NG_SAVE_DATA->findValue(key);
+        int jonAbilityFlag = StringUtil::stringToInt(val);
         
         {
             bool isUnlocked = FlagUtil::isFlagSet(jonAbilityFlag, FLAG_ABILITY_RABBIT_DOWN);
@@ -645,63 +643,47 @@ void WorldMap::loadGlobalUserSaveData()
         m_iJonAbilityFlag = jonAbilityFlag;
     }
     
-    if (d.HasMember(viewed_cutscenes_flag_key))
     {
-        Value& v = d[viewed_cutscenes_flag_key];
-        assert(v.IsInt());
-        
-        m_iViewedCutsceneFlag = v.GetInt();
+        std::string key = getKeyForViewedCutscenesFlag();
+        std::string val = NG_SAVE_DATA->findValue(key);
+        m_iViewedCutsceneFlag = StringUtil::stringToInt(val);
     }
     
     validateAbilityFlag();
 }
 
-void WorldMap::loadUserSaveDataForWorld1()
+void WorldMap::loadWorld1SaveData()
 {
-    if (d.HasMember(key))
+    WorldLevelCompletions* wlc = new WorldLevelCompletions();
+    
+    for (int i = 1; i <= 21; ++i)
     {
-        Value& levelArrayVal = d[key];
-        assert(levelArrayVal.IsArray());
-        
-        WorldLevelCompletions* wlc = new WorldLevelCompletions();
-        
-        for (SizeType i = 0; i < levelArrayVal.Size(); i++)
         {
-            Value& levelVal = levelArrayVal[i];
+            std::string key = getKeyForLevelStats(1, i);
+            std::string val = NG_SAVE_DATA->findValue(key);
+            int levelStats = StringUtil::stringToInt(val);
             
-            if (levelVal.HasMember(stats_flag_key))
-            {
-                Value& levelStatsVal = levelVal[stats_flag_key];
-                assert(levelStatsVal.IsInt());
-                
-                int levelStats = levelStatsVal.GetInt();
-                
-                wlc->m_levelStats.push_back(levelStats);
-            }
-            
-            if (levelVal.HasMember(score_key))
-            {
-                Value& scoreVal = levelVal[score_key];
-                assert(scoreVal.IsInt());
-                
-                int score = scoreVal.GetInt();
-                
-                wlc->m_scores.push_back(score);
-            }
-            
-            if (levelVal.HasMember(score_online_key))
-            {
-                Value& onlineScoreVal = levelVal[score_online_key];
-                assert(onlineScoreVal.IsInt());
-                
-                int onlineScore = onlineScoreVal.GetInt();
-                
-                wlc->m_onlineScores.push_back(onlineScore);
-            }
+            wlc->m_levelStats.push_back(levelStats);
         }
         
-        m_worldLevelStats.push_back(wlc);
+        {
+            std::string key = getKeyForLevelScore(1, i);
+            std::string val = NG_SAVE_DATA->findValue(key);
+            int score = StringUtil::stringToInt(val);
+            
+            wlc->m_scores.push_back(score);
+        }
+        
+        {
+            std::string key = getKeyForLevelOnlineScore(1, i);
+            std::string val = NG_SAVE_DATA->findValue(key);
+            int onlineScore = StringUtil::stringToInt(val);
+            
+            wlc->m_onlineScores.push_back(onlineScore);
+        }
     }
+    
+    m_worldLevelStats.push_back(wlc);
 }
 
 void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking)
@@ -735,7 +717,7 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail)
     m_toggleMusic->deselect();
     m_toggleSound->deselect();
     
-    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); ++j)
     {
         (*j)->deselect();
     }
@@ -831,7 +813,7 @@ void WorldMap::startLevel()
 
 void WorldMap::validateAbilityFlag()
 {
-    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); ++j)
     {
         int world = (*j)->getWorld();
         int level = (*j)->getLevel();
@@ -1137,7 +1119,7 @@ void WorldMap::navSelect(MainScreen* ms)
 
 void WorldMap::onButtonSelected()
 {
-    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); j++)
+    for (std::vector<LevelThumbnail *>::iterator j = m_levelThumbnails.begin(); j != m_levelThumbnails.end(); ++j)
     {
         (*j)->deselect();
     }

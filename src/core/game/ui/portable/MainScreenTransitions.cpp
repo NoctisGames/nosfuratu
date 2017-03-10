@@ -383,7 +383,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        for (int i = 0; i < ms->m_iNumInternalUpdates; i++)
+        for (int i = 0; i < ms->m_iNumInternalUpdates; ++i)
         {
             m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
             if (m_fTransitionStateTime > 0.5f)
@@ -501,7 +501,7 @@ void WorldMapToLevel::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        for (int i = 0; i < ms->m_iNumInternalUpdates; i++)
+        for (int i = 0; i < ms->m_iNumInternalUpdates; ++i)
         {
             m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
             if (m_fTransitionStateTime > 0.5f)

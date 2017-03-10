@@ -203,7 +203,7 @@ void OpenGLManager::generateIndices(int maxBatchSize)
 
 void OpenGLManager::createFramebufferObjects()
 {
-    for (int i = 0; i < m_iNumFramebuffers; i++)
+    for (int i = 0; i < m_iNumFramebuffers; ++i)
     {
         createFramebufferObject();
     }

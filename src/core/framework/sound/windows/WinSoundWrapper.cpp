@@ -31,7 +31,7 @@ WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEn
     delete wString;
     delete wavFileName;
     
-    for (int i = 0; i < m_iNumInstances; i++)
+    for (int i = 0; i < m_iNumInstances; ++i)
     {
         m_sounds.push_back(*m_sound);
     }

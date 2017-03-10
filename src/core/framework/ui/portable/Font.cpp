@@ -17,7 +17,7 @@ Font::Font(std::string textureName, int offsetX, int offsetY, int glyphsPerRow, 
 	int x = offsetX;
 	int y = offsetY;
 
-	for (int i = 0; i < 176; i++)
+	for (int i = 0; i < 176; ++i)
 	{
 		m_glyphs.push_back(TextureRegion(textureName, x, y, glyphWidth, glyphHeight, textureWidth, textureHeight));
 
@@ -50,7 +50,7 @@ void Font::renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, 
 		x -= (text.length() - 1) * width;
 	}
 
-	for (unsigned int i = 0; i < text.length(); i++)
+	for (unsigned int i = 0; i < text.length(); ++i)
 	{
 		int c = ((int)text.at(i)) - charOffset;
 

@@ -1375,7 +1375,7 @@ void BlockingObject::updateBounds()
     ForegroundObject::updateBounds();
     
     unsigned long len = getBounds().size();
-    for (int i = 1; i < len; i++)
+    for (int i = 1; i < len; ++i)
     {
         NGRect* bounds = getBounds().at(i);
         Vector2D &lowerLeft = bounds->getLowerLeft();
@@ -1391,7 +1391,7 @@ void BlockingObject::updateBounds()
 bool BlockingObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 {
     unsigned long len = getBounds().size();
-    for (int i = 1; i < len; i++)
+    for (int i = 1; i < len; ++i)
     {
         NGRect* bounds = getBounds().at(i);
         if (ForegroundObject::isEntityLanding(entity, *bounds, deltaTime))
@@ -1406,7 +1406,7 @@ bool BlockingObject::isEntityLanding(PhysicalEntity* entity, float deltaTime)
 bool BlockingObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
     unsigned long len = getBounds().size();
-    for (int i = 1; i < len; i++)
+    for (int i = 1; i < len; ++i)
     {
         NGRect* bounds = getBounds().at(i);
         if (ForegroundObject::isEntityBlockedOnRight(entity, *bounds, deltaTime))
@@ -1421,7 +1421,7 @@ bool BlockingObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaT
 bool BlockingObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
 {
     unsigned long len = getBounds().size();
-    for (int i = 1; i < len; i++)
+    for (int i = 1; i < len; ++i)
     {
         NGRect* bounds = getBounds().at(i);
         if (ForegroundObject::isEntityBlockedOnLeft(entity, *bounds, deltaTime))
@@ -1440,7 +1440,7 @@ bool BlockingObject::isJonBlockedAbove(Jon &jon, float deltaTime)
     if (entityVelocityY > 0)
     {
         unsigned long len = getBounds().size();
-        for (int i = 1; i < len; i++)
+        for (int i = 1; i < len; ++i)
         {
             NGRect* bounds = getBounds().at(i);
             if (OverlapTester::doNGRectsOverlap(jon.getMainBounds(), *bounds))

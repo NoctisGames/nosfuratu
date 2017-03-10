@@ -71,12 +71,12 @@ namespace
         const uint8_t* pEndBits = bitData + bitSize;
 
         size_t index = 0;
-        for (size_t j = 0; j < arraySize; j++)
+        for (size_t j = 0; j < arraySize; ++j)
         {
             size_t w = width;
             size_t h = height;
             size_t d = depth;
-            for (size_t i = 0; i < mipCount; i++)
+            for (size_t i = 0; i < mipCount; ++i)
             {
                 GetSurfaceInfo(w,
                     h,

@@ -110,11 +110,11 @@ private:
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;
     
-    void loadUserSaveData();
+    void loadSaveData();
     
-    void loadGlobalUserSaveData();
+    void loadGlobalSaveData();
     
-    void loadUserSaveDataForWorld1();
+    void loadWorld1SaveData();
     
     void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
     

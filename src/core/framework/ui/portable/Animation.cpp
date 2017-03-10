@@ -19,7 +19,7 @@ Animation::Animation(std::string textureName, int x, int y, int regionWidth, int
 {
 	loadTextureRegions(x, y, regionWidth, regionHeight, animationWidth, animationHeight, textureWidth, textureHeight, numFrames, xPadding, yPadding);
 
-	for (int i = 0; i < numFrames; i++)
+	for (int i = 0; i < numFrames; ++i)
 	{
 		m_frameTimes.push_back(frameTime);
 		m_fCycleTime += frameTime;
@@ -38,7 +38,7 @@ void Animation::setFrameTimes(int numFrames, ...)
     
     va_start(arguments, numFrames);
     
-    for (int i = 0; i < numFrames; i++)
+    for (int i = 0; i < numFrames; ++i)
     {
         float f = va_arg(arguments, double);
         m_frameTimes.push_back(f);
@@ -69,7 +69,7 @@ int Animation::getKeyFrameNumber(float stateTime)
         if (m_looping)
         {
             float cycleTime = m_fCycleTime;
-            for ( ; i < m_iFirstLoopingFrame; i++)
+            for ( ; i < m_iFirstLoopingFrame; ++i)
             {
                 cycleTime -= m_frameTimes.at(i);
             }
@@ -85,7 +85,7 @@ int Animation::getKeyFrameNumber(float stateTime)
         }
     }
     
-    for ( ; i < m_frameTimes.size(); i++)
+    for ( ; i < m_frameTimes.size(); ++i)
     {
         float frameTime = m_frameTimes.at(i);
         

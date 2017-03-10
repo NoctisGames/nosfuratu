@@ -714,7 +714,7 @@ void Game::onLoaded()
     if (m_iWorld == 1)
     {
         int numBgs = m_isLevelEditor ? 4 : 1;
-        for (int i = 0; i < numBgs; i++)
+        for (int i = 0; i < numBgs; ++i)
         {
             m_backgroundUppers.push_back(Background::create(i * CAM_WIDTH + CAM_WIDTH / 2, BackgroundType_Upper));
             

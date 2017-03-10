@@ -856,7 +856,7 @@ void MainRenderer::renderWorldMapScreenUi(WorldMap& wm)
         
         // Append zero chars
         unsigned long str_length = paddedScore.length();
-        for (int i = 0; i < 6 - str_length; i++)
+        for (int i = 0; i < 6 - str_length; ++i)
         {
             paddedScore = "0" + paddedScore;
         }
@@ -1538,7 +1538,7 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* con
         
         // Append zero chars
         unsigned long str_length = paddedScore.length();
-        for (int i = 0; i < 6 - str_length; i++)
+        for (int i = 0; i < 6 - str_length; ++i)
         {
             paddedScore = "0" + paddedScore;
         }
@@ -1955,7 +1955,7 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
             for (
                  std::vector<CollectibleItem *>::iterator i = gameScreenLevelEditor->getGame().getCollectibleItems().begin();
                  i != gameScreenLevelEditor->getGame().getCollectibleItems().end();
-                 i++)
+                 ++i)
             {
                 if ((*i)->getType() == CollectibleItemType_Carrot)
                 {

@@ -74,7 +74,7 @@ void NGAudioEngine::stopSound(int soundId)
     
     ISoundWrapper* soundWrapper = findSound(soundId);
     
-    for (int j = 0; j < soundWrapper->getNumInstances(); j++)
+    for (int j = 0; j < soundWrapper->getNumInstances(); ++j)
     {
         ISound* sound = soundWrapper->getSoundInstance();
         if (sound->isPlaying())
@@ -95,7 +95,7 @@ void NGAudioEngine::pauseSound(int soundId)
     
     ISoundWrapper* soundWrapper = findSound(soundId);
     
-    for (int j = 0; j < soundWrapper->getNumInstances(); j++)
+    for (int j = 0; j < soundWrapper->getNumInstances(); ++j)
     {
         ISound* sound = soundWrapper->getSoundInstance();
         if (sound->isPlaying())
@@ -116,7 +116,7 @@ void NGAudioEngine::resumeSound(int soundId)
     
     ISoundWrapper* soundWrapper = findSound(soundId);
     
-    for (int j = 0; j < soundWrapper->getNumInstances(); j++)
+    for (int j = 0; j < soundWrapper->getNumInstances(); ++j)
     {
         ISound* sound = soundWrapper->getSoundInstance();
         if (sound->isPaused())

@@ -630,7 +630,7 @@ public:
             Value& v = d[key];
             assert(v.IsArray());
             
-            for (SizeType i = 0; i < v.Size(); i++)
+            for (SizeType i = 0; i < v.Size(); ++i)
             {
                 items.push_back(deserialize<T>(v[i]));
             }

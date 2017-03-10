@@ -21,7 +21,7 @@ m_activeSounds(),
 m_iSampleRate(sampleRate),
 m_iSoundIndex(1)
 {
-    for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; ++i)
     {
         float* stereoBuffer;
 #if defined __APPLE__
@@ -37,7 +37,7 @@ m_iSoundIndex(1)
 
 SuperpoweredSoundManager::~SuperpoweredSoundManager()
 {
-    for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; i++)
+    for (int i = 0; i < MAX_NUM_SOUND_PLAYERS; ++i)
     {
         free(m_stereoBuffers[i]);
     }
@@ -53,7 +53,7 @@ void SuperpoweredSoundManager::onSoundPlayed(SuperpoweredSound* sound)
         return;
     }
     
-    for (int j = 1; j < MAX_NUM_SOUND_PLAYERS; j++)
+    for (int j = 1; j < MAX_NUM_SOUND_PLAYERS; ++j)
     {
         if (m_activeSounds[j] == sound)
         {

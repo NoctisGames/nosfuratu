@@ -209,7 +209,7 @@ static DataHandle readEntirePngImage(const png_structp png_ptr, const png_infop 
     png_byte *row_ptrs[height];
     
     png_uint_32 i;
-    for (i = 0; i < height; i++)
+    for (i = 0; i < height; ++i)
     {
         row_ptrs[i] = raw_image + i * row_size;
     }
