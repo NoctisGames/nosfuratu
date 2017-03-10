@@ -1190,7 +1190,7 @@ void Jon::Vampire::execute(Jon* jon)
             
             jon->m_velocity.setY(0);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_JON_VAMPIRE_GLIDE);
+            NG_AUDIO_ENGINE->playSound(SOUND_JON_VAMPIRE_GLIDE, true);
 		}
 
 		jon->setState(ACTION_NONE);

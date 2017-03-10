@@ -798,7 +798,7 @@ void VerticalSaw::updateBounds()
         {
             m_isOnScreen = true;
             
-            NG_AUDIO_ENGINE->playSound(SOUND_SAW_GRIND);
+            NG_AUDIO_ENGINE->playSound(SOUND_SAW_GRIND, true);
         }
     }
     else if (m_isOnScreen)
@@ -967,7 +967,7 @@ void SpikedBallRollingLeft::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING, true);
 
 					m_needsToPlaySound = false;
 				}
@@ -1085,7 +1085,7 @@ void SpikedBallRollingRight::update(float deltaTime)
 
 				if (m_needsToPlaySound)
 				{
-					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING);
+					NG_AUDIO_ENGINE->playSound(SOUND_SPIKED_BALL_ROLLING, true);
 
 					m_needsToPlaySound = false;
 				}

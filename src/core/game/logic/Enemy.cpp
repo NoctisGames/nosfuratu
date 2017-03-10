@@ -443,14 +443,14 @@ void Sparrow::updateBounds()
             m_position.setY(m_fOriginalY);
 			m_acceleration.set(0, 1);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_SPARROW_FLY);
+            NG_AUDIO_ENGINE->playSound(SOUND_SPARROW_FLY, true);
         }
     }
     else if (m_isOnScreen)
     {
         m_isOnScreen = false;
         
-        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY);
+        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY, true);
     }
 }
 
