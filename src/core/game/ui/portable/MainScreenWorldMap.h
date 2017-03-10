@@ -83,6 +83,8 @@ public:
     
     LevelThumbnail* getSelectedLevelThumbnail();
     
+    void loadSaveData();
+    
 private:
     WorldMapPanel* m_panel;
     GoldenCarrotsMarker* m_goldenCarrotsMarker;
@@ -109,8 +111,6 @@ private:
     
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;
-    
-    void loadSaveData();
     
     void loadGlobalSaveData();
     

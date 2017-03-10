@@ -53,13 +53,13 @@ void WorldMap::enter(MainScreen* ms)
     
     initRenderer(ms);
     
-    loadSaveData();
-    
     m_clickedLevel = nullptr;
     m_userHasClickedOpeningCutscene = false;
     m_fGoldenCarrotCountFlickerTime = 1337;
     
     m_iNumTimesVisitedSinceLastAdBreak++;
+    
+    loadSaveData();
 }
 
 void WorldMap::execute(MainScreen* ms)
@@ -100,7 +100,7 @@ void WorldMap::execute(MainScreen* ms)
         
         if (m_needsRefresh)
         {
-            NG_SAVE_DATA->load();
+            loadSaveData();
             m_needsRefresh = false;
             
             return;
@@ -341,7 +341,8 @@ void WorldMap::execute(MainScreen* ms)
                         {
                             if (OverlapTester::isPointInNGRect(touchPoint, (*j)->getMainBounds()))
                             {
-                                if ((*j)->isSelected())
+                                if ((*j)->isSelected()
+                                    && m_clickedLevel)
                                 {
                                     MAIN_ASSETS->setUsingGamePadTextureSet(false);
                                     startLevel();

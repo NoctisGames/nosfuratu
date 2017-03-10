@@ -9,28 +9,28 @@
 #ifndef __nosfuratu__SaveDataKeys__
 #define __nosfuratu__SaveDataKeys__
 
-static std::string getKeyForNumGoldenCarrots()
+inline std::string getKeyForNumGoldenCarrots()
 {
     static std::string key = "v1_0_0_num_golden_carrots";
     
     return key;
 }
 
-static std::string getKeyForJonUnlockedAbilitiesFlag()
+inline std::string getKeyForJonUnlockedAbilitiesFlag()
 {
     static std::string key = "v1_0_0_jon_unlocked_abilities_flag";
     
     return key;
 }
 
-static std::string getKeyForViewedCutscenesFlag()
+inline std::string getKeyForViewedCutscenesFlag()
 {
     static std::string key = "v1_0_0_viewed_cutscenes_flag";
     
     return key;
 }
 
-static std::string getKeyForLevelScore(int world, int level)
+inline std::string getKeyForLevelScore(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_SCORES;
     static std::vector<std::string> world_1;
@@ -72,7 +72,7 @@ static std::string getKeyForLevelScore(int world, int level)
     return WORLDS_LEVELS_SCORES[worldIndex][levelIndex];
 }
 
-static std::string getKeyForLevelStats(int world, int level)
+inline std::string getKeyForLevelStats(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_STATS;
     static std::vector<std::string> world_1;
@@ -114,7 +114,7 @@ static std::string getKeyForLevelStats(int world, int level)
     return WORLDS_LEVELS_STATS[worldIndex][levelIndex];
 }
 
-static std::string getKeyForLevelOnlineScore(int world, int level)
+inline std::string getKeyForLevelOnlineScore(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_SCORES_ONLINE;
     static std::vector<std::string> world_1;

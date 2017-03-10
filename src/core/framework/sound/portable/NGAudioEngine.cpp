@@ -34,12 +34,18 @@ void NGAudioEngine::update(int flags)
 
 void NGAudioEngine::pause()
 {
+    pauseMusic();
+    pauseAllSounds();
+    
     m_audioEngineHelper->pause();
 }
 
 void NGAudioEngine::resume()
 {
     m_audioEngineHelper->resume();
+    
+    resumeMusic();
+    resumeAllSounds();
 }
 
 void NGAudioEngine::loadSound(int soundId, const char *path, int numInstances)

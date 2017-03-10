@@ -123,7 +123,7 @@ void MainScreen::onResume()
 
 void MainScreen::onPause()
 {
-    NG_AUDIO_ENGINE->pauseAllSounds();
+    NG_AUDIO_ENGINE->pause();
     
     if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {

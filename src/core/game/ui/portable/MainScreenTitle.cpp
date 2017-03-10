@@ -32,6 +32,7 @@
 #include "SaveDataKeys.h"
 #include "SaveData.h"
 #include "StringUtil.h"
+#include "MainScreenWorldMap.h"
 
 /// Title Screen ///
 
@@ -49,7 +50,7 @@ void Title::enter(MainScreen* ms)
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
     
-    NG_SAVE_DATA->load();
+    WorldMap::getInstance()->loadSaveData();
 }
 
 void Title::execute(MainScreen* ms)

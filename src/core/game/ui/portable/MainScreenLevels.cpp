@@ -342,6 +342,8 @@ void Level::update(MainScreen* ms)
             if (m_continueButton->getColor().alpha > 1)
             {
                 m_continueButton->getColor().alpha = 1;
+                
+                NG_AUDIO_ENGINE->stopAllSounds();
             }
             
             bool goToNextState = false;
@@ -593,8 +595,6 @@ void Level::update(MainScreen* ms)
             m_fStateTime += ms->m_fDeltaTime / 2;
             if (m_fStateTime > 1)
             {
-				NG_AUDIO_ENGINE->stopAllSounds();
-
                 m_fStateTime = 1;
                 m_isDisplayingResults = true;
             }

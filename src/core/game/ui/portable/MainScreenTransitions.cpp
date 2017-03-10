@@ -440,7 +440,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
             ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
             NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
-            NG_AUDIO_ENGINE->playMusic();
+            NG_AUDIO_ENGINE->playMusic(false);
         }
     }
 }
