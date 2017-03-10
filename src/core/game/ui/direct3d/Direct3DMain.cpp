@@ -1,6 +1,6 @@
 //
 //  Direct3DMain.cpp
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 3/9/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
@@ -10,18 +10,14 @@
 
 #include "Direct3DMain.h"
 
+#include "MainScreen.h"
+
 #include "Direct3DManager.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "GamePadInputManager.h"
-#include "NGAudioEngine.h"
-#include "GameConstants.h"
-#include "macros.h"
-#include "Game.h"
-#include "MainScreenWorldMap.h"
-#include "MainScreenLevelEditor.h"
-#include "SaveData.h"
 #include "MainAssets.h"
+#include "NGAudioEngine.h"
 
 #include <sstream>
 
@@ -31,7 +27,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_retryAudio(false), m_isDeviceLost(false)
+Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(0), m_isPointerPressed(false), m_isDeviceLost(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
@@ -88,13 +84,11 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 	m_mouse->SetWindow(reinterpret_cast<ABI::Windows::UI::Core::ICoreWindow*>(window));
 	m_keyboard->SetWindow(reinterpret_cast<ABI::Windows::UI::Core::ICoreWindow*>(window));
 #endif
-
-	initSoundEngine();
 }
 
 void Direct3DMain::OnNewAudioDevice()
 {
-	m_retryAudio = true;
+    NG_AUDIO_ENGINE->update(-1);
 }
 
 #pragma region Frame Update
@@ -360,9 +354,6 @@ void Direct3DMain::Render()
 
 	endPixEvent(m_deviceResources.get());
 
-	handleSound();
-	handleMusic();
-
     // Show the new frame.
 	beginPixEvent(L"Present");
 	m_deviceResources->Present();
@@ -586,138 +577,6 @@ void Direct3DMain::OnDeviceRestored()
 	CreateDeviceDependentResources();
 
 	CreateWindowSizeDependentResources();
-}
-#pragma endregion
-
-#pragma region Audio
-void Direct3DMain::handleSound()
-{
-	short soundId;
-	while ((soundId = NG_AUDIO_ENGINE->getCurrentSoundId()) > SOUND_NONE)
-	{
-		switch (soundId)
-		{
-		case SOUND_JON_VAMPIRE_GLIDE:
-		case SOUND_SPARROW_FLY:
-		case SOUND_SAW_GRIND:
-		case SOUND_SPIKED_BALL_ROLLING:
-			// TODO, make looping
-			m_sounds.at(soundIndexForSoundId(soundId))->Play();
-			break;
-		case STOP_SOUND_JON_VAMPIRE_GLIDE:
-		case STOP_SOUND_SPARROW_FLY:
-		case STOP_SOUND_SAW_GRIND:
-		case STOP_SOUND_SPIKED_BALL_ROLLING:
-			// TODO, soundId - 1000
-			break;
-		case RESUME_ALL_SOUNDS:
-			// TODO
-			break;
-		case PAUSE_ALL_SOUNDS:
-			// TODO
-			break;
-		case STOP_ALL_SOUNDS:
-			// TODO
-			break;
-		case STOP_ALL_LOOPING_SOUNDS:
-			// TODO
-			break;
-		default:
-			m_sounds.at(soundIndexForSoundId(soundId))->Play();
-			break;
-		}
-	}
-}
-
-void Direct3DMain::handleMusic()
-{
-	short musicId;
-    while ((musicId = NG_AUDIO_ENGINE->getCurrentMusicId()) > MUSIC_NONE)
-    {
-		if (musicId > MUSIC_SET_VOLUME)
-		{
-			if (m_musicLoop)
-			{
-				m_musicLoop->SetVolume((musicId % 1000) / 100.0f);
-			}
-		}
-		else
-		{
-			switch (musicId)
-			{
-			case MUSIC_STOP:
-				if (m_musicLoop)
-				{
-					m_musicLoop->Pause();
-				}
-				break;
-			case MUSIC_RESUME:
-				if (m_musicLoop)
-				{
-					m_musicLoop->Resume();
-				}
-				break;
-			case MUSIC_PLAY:
-				if (m_musicLoop)
-				{
-					m_musicLoop->SetVolume(1);
-					m_musicLoop->Play();
-				}
-				break;
-			case MUSIC_PLAY_LOOP:
-				if (m_musicLoop)
-				{
-					m_musicLoop->SetVolume(1);
-					m_musicLoop->Play(true);
-				}
-				break;
-			case MUSIC_LOAD_TITLE_LOOP:
-				loadMusic(L"title_bgm.wav");
-				break;
-			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-				loadMusic(L"level_select_bgm.wav");
-				break;
-			case MUSIC_LOAD_WORLD_1_LOOP:
-				loadMusic(L"world_1_bgm.wav");
-				break;
-			case MUSIC_LOAD_MID_BOSS_LOOP:
-				loadMusic(L"mid_boss_bgm.wav");
-				break;
-			case MUSIC_LOAD_END_BOSS_LOOP:
-				loadMusic(L"final_boss_bgm.wav");
-				break;
-			case MUSIC_LOAD_OPENING_CUTSCENE:
-				loadMusic(L"opening_cutscene_bgm.wav");
-				break;
-			default:
-				break;
-			}
-		}
-	}
-}
-
-int Direct3DMain::soundIndexForSoundId(int soundId)
-{
-	int soundIndex = soundId - 1;
-
-	return soundIndex;
-}
-
-void Direct3DMain::loadMusic(const wchar_t* waveFileName)
-{
-	if (m_musicLoop.get())
-	{
-		m_musicLoop->Stop();
-		m_musicLoop.reset();
-	}
-
-	if (m_music.get())
-	{
-		m_music.reset();
-	}
-
-	m_music = std::make_unique<SoundEffect>(m_audEngine.get(), waveFileName);
-	m_musicLoop = m_music->CreateInstance();
 }
 #pragma endregion
 

@@ -273,7 +273,7 @@ int GrassPit::getEntityLandingPriority()
 
 bool GrassPit::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 {
-    for (std::vector<Ground*>::iterator i = m_game->getPits().begin(); i != m_game->getPits().end(); i++)
+    for (std::vector<Ground*>::iterator i = m_game->getPits().begin(); i != m_game->getPits().end(); ++i)
     {
         if ((*i)->getRTTI().derivesFrom(PitTunnel::rtti))
         {
@@ -325,7 +325,7 @@ bool GrassPit::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
 
 bool GrassPit::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
 {
-    for (std::vector<Ground*>::iterator i = m_game->getPits().begin(); i != m_game->getPits().end(); i++)
+    for (std::vector<Ground*>::iterator i = m_game->getPits().begin(); i != m_game->getPits().end(); ++i)
     {
         if ((*i)->getRTTI().derivesFrom(PitTunnel::rtti))
         {

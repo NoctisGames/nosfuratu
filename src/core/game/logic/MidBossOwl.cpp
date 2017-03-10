@@ -123,7 +123,7 @@ void MidBossOwl::update(float deltaTime)
                     }
                 }
                 
-                for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+                for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); ++i)
                 {
                     if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
                     {
@@ -221,7 +221,7 @@ void MidBossOwl::update(float deltaTime)
                     return;
                 }
                 
-                for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+                for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); ++i)
                 {
                     if ((*i)->getType() == ForegroundObjectType_GiantShakingTree)
                     {
@@ -354,7 +354,7 @@ void MidBossOwl::setGame(Game* game)
 {
     m_game = game;
     
-    for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+    for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); ++i)
     {
         if ((*i)->getType() == ForegroundObjectType_GiantShakingTree
             || (*i)->getType() == ForegroundObjectType_GiantPerchTree)
@@ -364,7 +364,7 @@ void MidBossOwl::setGame(Game* game)
         }
     }
     
-    for (std::vector<Ground*>::iterator i = m_game->getGrounds().begin(); i != m_game->getGrounds().end(); i++)
+    for (std::vector<Ground*>::iterator i = m_game->getGrounds().begin(); i != m_game->getGrounds().end(); ++i)
     {
         if ((*i)->getType() == GroundType_GrassWithCaveLarge)
         {

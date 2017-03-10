@@ -242,7 +242,7 @@ const char* MainScreenLevelEditor::getMessage()
 
 void MainScreenLevelEditor::handleInput(MainScreen* ms)
 {
-    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
     {
         Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
         

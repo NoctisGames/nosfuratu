@@ -34,6 +34,7 @@
 #include "FlagUtil.h"
 #include "SaveData.h"
 #include "SaveDataKeys.h"
+#include "StringUtil.h"
 
 static const int NUM_GC_REQ = 25;
 
@@ -105,7 +106,7 @@ void WorldMap::execute(MainScreen* ms)
             return;
         }
         
-        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -168,7 +169,7 @@ void WorldMap::execute(MainScreen* ms)
             }
         }
         
-        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -232,7 +233,7 @@ void WorldMap::execute(MainScreen* ms)
             }
         }
         
-        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
         {
             Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
             
@@ -296,13 +297,13 @@ void WorldMap::execute(MainScreen* ms)
                                     
                                     {
                                         std::string key = getKeyForLevelStats(worldToUnlock, levelToUnlock);
-                                        std::string val = std::to_string(m_iUnlockedLevelStatsFlag);
+                                        std::string val = StringUtil::toString(m_iUnlockedLevelStatsFlag);
                                         NG_SAVE_DATA->getKeyValues()[key] = val;
                                     }
                                     
                                     {
                                         std::string key = getKeyForNumGoldenCarrots();
-                                        std::string val = std::to_string(m_iNumCollectedGoldenCarrots);
+                                        std::string val = StringUtil::toString(m_iNumCollectedGoldenCarrots);
                                         NG_SAVE_DATA->getKeyValues()[key] = val;
                                     }
                                     
@@ -360,12 +361,12 @@ void WorldMap::execute(MainScreen* ms)
             }
         }
         
-        for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
+        for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); ++i)
         {
             (*i)->update(ms->m_fDeltaTime);
         }
         
-        for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
+        for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); ++i)
         {
             (*i)->update(ms->m_fDeltaTime);
         }
@@ -705,7 +706,7 @@ void WorldMap::loadUserSaveDataForWorld1()
 
 void WorldMap::configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking)
 {
-    for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); i++)
+    for (std::vector<AbilitySlot *>::iterator i = m_abilitySlots.begin(); i != m_abilitySlots.end(); ++i)
     {
         if ((*i)->getType() == abilitySlotType)
         {
@@ -1154,7 +1155,7 @@ void WorldMap::onButtonSelected()
 
 LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
 {
-    for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); i++)
+    for (std::vector<LevelThumbnail *>::iterator i = m_levelThumbnails.begin(); i != m_levelThumbnails.end(); ++i)
     {
         int w = (*i)->getWorld();
         int l = (*i)->getLevel();

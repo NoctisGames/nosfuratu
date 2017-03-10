@@ -96,7 +96,7 @@ public:
         if (entityVelocityY <= 0)
         {
 			int highestPriority = 0;
-			for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+			for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
 			{
 				if ((*i) == entity)
 				{
@@ -112,7 +112,7 @@ public:
 
 			for (int p = highestPriority; p >= 0; p--)
 			{
-				for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+				for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
 				{
 					if ((*i) == entity)
 					{
@@ -138,7 +138,7 @@ public:
     {
         if (entity->getVelocity().getY() <= 0)
         {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
             {
                 if (OverlapTester::doNGRectsOverlap(entity->getMainBounds(), (*i)->getMainBounds()))
                 {
@@ -156,7 +156,7 @@ public:
         float entityLeft = entity->getMainBounds().getLeft();
         float entityRight = entity->getMainBounds().getRight();
         
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             float itemLeft = (*i)->getMainBounds().getLeft();
             float itemBottom = (*i)->getPosition().getY() - (*i)->getHeight() / 2;
@@ -191,7 +191,7 @@ public:
         bool ret = false;
         if (jon.getVelocity().getY() <= 0)
         {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
             {
                 if (OverlapTester::doNGRectsOverlap(jon.getMainBounds(), (*i)->getMainBounds()))
                 {
@@ -209,7 +209,7 @@ public:
     template<typename T>
     static bool isBlockedOnRight(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i) == entity)
             {
@@ -228,7 +228,7 @@ public:
     template<typename T>
     static bool isBlockedOnLeft(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
 			if ((*i) == entity)
 			{
@@ -251,7 +251,7 @@ public:
         
         if (entityVelocityY > 0)
         {
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
             {
                 if ((*i)->isJonBlockedAbove(jon, deltaTime))
                 {
@@ -266,7 +266,7 @@ public:
     template<typename T>
     static bool isHittingFromBelow(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->isJonHittingFromBelow(jon, deltaTime))
             {
@@ -280,7 +280,7 @@ public:
     template<typename T>
     static bool isHorizontallyHitting(Jon& jon, std::vector<T>& items, float deltaTime)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->isJonHittingHorizontally(jon, deltaTime))
             {
@@ -294,7 +294,7 @@ public:
     template<typename T>
     static bool isKilledByEnemy(PhysicalEntity& entity, std::vector<T>& items)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->hasKilledJon())
             {
@@ -325,7 +325,7 @@ public:
             entity.getPosition().setY(originalY);
             entity.updateBounds();
             
-            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+            for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
             {
                 if (OverlapTester::doNGRectsOverlap(entity.getMainBounds(), (*i)->getMainBounds()))
                 {
@@ -343,7 +343,7 @@ public:
     template<typename T>
     static void updateBackgrounds(std::vector<T>& items, Vector2D& cameraPosition, float deltaTime)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             (*i)->update(cameraPosition, deltaTime);
         }
@@ -352,7 +352,7 @@ public:
     template<typename T>
     static void update(std::vector<T>& items, float deltaTime)
     {
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i)
         {
             (*i)->update(deltaTime);
         }
@@ -380,7 +380,7 @@ public:
     template<typename T>
     static void addAll(std::vector<T>& itemsFrom, std::vector<GridLockedPhysicalEntity*>& itemsTo)
     {
-        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        for (typename std::vector<T>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); ++i)
         {
             itemsTo.push_back((*i));
         }
@@ -452,7 +452,7 @@ public:
     template<typename T>
     static void setGameToEntities(std::vector<T*>& items, Game* game)
     {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             (*i)->setGame(game);
         }
@@ -464,7 +464,7 @@ public:
         int gridSpacing = endGridX - beginGridX;
         float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->getGridX() >= endGridX)
             {
@@ -475,7 +475,7 @@ public:
         }
         
 		std::vector<T*> newItems;
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if((*i)->getGridX() >= beginGridX && (*i)->getGridX() < endGridX)
             {
@@ -492,7 +492,7 @@ public:
         int gridSpacing = endGridX - beginGridX;
         float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->getGridX() >= endGridX)
             {
@@ -509,7 +509,7 @@ public:
         int gridSpacing = endGridX - beginGridX;
         float offset = gridSpacing * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             (*i)->getPosition().add(offset, 0);
             (*i)->updateBounds();
@@ -522,7 +522,7 @@ public:
     {
         float offset = gridOffset * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i)->getGridX() >= beginGridX && (*i)->getGridX() < endGridX)
             {
@@ -538,7 +538,7 @@ public:
 	{
 		float offset = gridOffset * GRID_CELL_SIZE + GRID_CELL_SIZE / 3.0f;
 
-		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+		for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
 		{
 			if ((*i)->getGridX() >= beginGridX && (*i)->getGridX() <= endGridX)
 			{
@@ -554,7 +554,7 @@ public:
     {
         float size = fminf(eWidth, eHeight);
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             T* item = *i;
             
@@ -582,7 +582,7 @@ public:
     template<typename T>
     static void copyPhysicalEntities(std::vector<T*>& itemsFrom, std::vector<T*>& itemsTo)
     {
-        for (typename std::vector<T*>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); i++)
+        for (typename std::vector<T*>::iterator i = itemsFrom.begin(); i != itemsFrom.end(); ++i)
         {
             itemsTo.push_back(T::create((*i)->getGridX(), (*i)->getGridY(), (*i)->getType()));
         }
@@ -643,7 +643,7 @@ public:
         w.String(key);
         w.StartArray();
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             serialize((*i), w);
         }

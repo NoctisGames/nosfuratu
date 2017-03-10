@@ -8,10 +8,12 @@
 
 #include "AndroidAudioEngineHelper.h"
 
-#include "SoundWrapper.h"
+#include "ISoundWrapper.h"
 #include "SuperpoweredSoundManager.h"
 #include "SuperpoweredAndroidAudioIO.h"
+
 #include "NGSTDUtil.h"
+#include "SuperpoweredSoundWrapper.h"
 
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_AndroidConfiguration.h>
@@ -87,7 +89,7 @@ AndroidAudioEngineHelper* AndroidAudioEngineHelper::getInstance()
     return instance;
 }
 
-void AndroidAudioEngineHelper::update()
+void AndroidAudioEngineHelper::update(int flags)
 {
     // Empty
 }
@@ -102,7 +104,7 @@ void AndroidAudioEngineHelper::resume()
     // Empty
 }
 
-SoundWrapper* AndroidAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
+ISoundWrapper* AndroidAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
     JNIEnv* env;
     
@@ -164,12 +166,12 @@ SoundWrapper* AndroidAudioEngineHelper::loadSound(int soundId, const char *path,
         m_jvm->DetachCurrentThread();
     }
     
-    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(soundId, m_packageResourcePath, m_iSampleRate, numInstances, fileOffset, fileLength);
+    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(m_superpoweredSoundManager, soundId, m_packageResourcePath, m_iSampleRate, numInstances, fileOffset, fileLength);
     
     return sound;
 }
 
-SoundWrapper* AndroidAudioEngineHelper::loadMusic(const char* path)
+ISoundWrapper* AndroidAudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
 }

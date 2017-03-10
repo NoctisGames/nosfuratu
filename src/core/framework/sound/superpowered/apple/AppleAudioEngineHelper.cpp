@@ -8,7 +8,7 @@
 
 #include "AppleAudioEngineHelper.h"
 
-#include "SoundWrapper.h"
+#include "ISoundWrapper.h"
 
 #include "SuperpoweredSoundWrapper.h"
 
@@ -20,7 +20,7 @@ AppleAudioEngineHelper* AppleAudioEngineHelper::getInstance()
     return instance;
 }
 
-void AppleAudioEngineHelper::update()
+void AppleAudioEngineHelper::update(int flags)
 {
     // Empty
 }
@@ -35,23 +35,23 @@ void AppleAudioEngineHelper::resume()
     // Empty
 }
 
-SoundWrapper* AppleAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
+ISoundWrapper* AppleAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
     const char* bundlePath = getBundlePathForSoundWithName(path);
     
-    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(soundId, bundlePath, m_iSampleRate, numInstances);
+    SuperpoweredSoundWrapper* sound = new SuperpoweredSoundWrapper(m_superpoweredSoundManager, soundId, bundlePath, m_iSampleRate, numInstances);
     
     return sound;
 }
 
-SoundWrapper* AppleAudioEngineHelper::loadMusic(const char* path)
+ISoundWrapper* AppleAudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
 }
 
 AppleAudioEngineHelper::AppleAudioEngineHelper() : IAudioEngineHelper(),
 m_superpoweredSoundManager(new SuperpoweredSoundManager(44100)),
-m_iSampleRate(44100)
+m_iSampleRate(48000)
 {
     initializeWithSuperpoweredSoundManager(m_superpoweredSoundManager, m_iSampleRate);
 }

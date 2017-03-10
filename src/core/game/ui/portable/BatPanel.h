@@ -32,7 +32,7 @@ class BatPanel
 public:
     BatPanel();
     
-    ~BatPanel();
+    virtual ~BatPanel();
     
     virtual void update(MainScreen* ms);
     

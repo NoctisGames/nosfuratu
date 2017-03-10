@@ -29,7 +29,7 @@ void Chapter1Level10::enter(MainScreen* ms)
     m_hasTriggeredBurrow = false;
     m_hasShownHintPopup = false;
     
-    for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); i++)
+    for (std::vector<ForegroundObject*>::iterator i = m_game->getMidBossForegroundObjects().begin(); i != m_game->getMidBossForegroundObjects().end(); ++i)
     {
         if ((*i)->getType() == ForegroundObjectType_GiantPerchTree)
         {

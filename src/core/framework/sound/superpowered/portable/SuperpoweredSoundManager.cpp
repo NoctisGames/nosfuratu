@@ -30,6 +30,8 @@ m_iSoundIndex(1)
         stereoBuffer = (float *)memalign(16, (bufferSize + 16) * sizeof(float) * 2);
 #endif
         m_stereoBuffers.push_back(stereoBuffer);
+        
+        m_activeSounds[i] = nullptr;
     }
 }
 
@@ -41,13 +43,16 @@ SuperpoweredSoundManager::~SuperpoweredSoundManager()
     }
 }
 
-void SuperpoweredSoundManager::onMusicPlayed(SuperpoweredSound* sound)
+void SuperpoweredSoundManager::onSoundPlayed(SuperpoweredSound* sound)
 {
-    m_activeSounds[0] = sound;
-}
-
-void SuperpoweredSoundManager::onSoundPlayed(SuperpoweredSound *sound)
-{
+    if (sound->getSoundId() == 1337)
+    {
+        // This is music
+        m_activeSounds[0] = sound;
+        
+        return;
+    }
+    
     for (int j = 1; j < MAX_NUM_SOUND_PLAYERS; j++)
     {
         if (m_activeSounds[j] == sound)
@@ -85,7 +90,7 @@ void SuperpoweredSoundManager::onSoundPlayed(SuperpoweredSound *sound)
 
 bool SuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    return m_activeSounds[0] && m_activeSounds[0]->process(m_stereoBuffers[0], output, numberOfSamples, sampleRate);
+    return processSound(output, numberOfSamples, m_activeSounds[0], m_stereoBuffers[0], sampleRate);
 }
 
 bool SuperpoweredSoundManager::processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate)

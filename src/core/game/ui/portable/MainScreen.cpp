@@ -143,6 +143,8 @@ void MainScreen::onPause()
 
 void MainScreen::update(float deltaTime)
 {
+    NG_AUDIO_ENGINE->update();
+    
 #if DEBUG || _DEBUG
     m_fFPSStateTime += deltaTime;
     m_iFrames++;
@@ -246,7 +248,7 @@ void MainScreen::internalUpdate()
     {
         bool unpause = false;
         
-        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -265,7 +267,7 @@ void MainScreen::internalUpdate()
             }
         }
         
-        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -284,7 +286,7 @@ void MainScreen::internalUpdate()
             }
         }
         
-        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {

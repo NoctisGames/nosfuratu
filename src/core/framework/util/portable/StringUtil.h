@@ -10,6 +10,7 @@
 #define __noctisgames__StringUtil__
 
 #include <string>
+#include <sstream>
 
 class StringUtil
 {
@@ -25,6 +26,27 @@ public:
         }
         
         return output;
+    }
+    
+    template<typename T>
+    static std::string toString(const T& n)
+    {
+        std::ostringstream ss;
+        ss << n;
+        return ss.str();
+    }
+    
+    static int stringToInt(const std::string &str)
+    {
+        std::stringstream ss(str);
+        int num;
+        if ((ss >> num).fail())
+        {
+            // ERROR
+            return 0;
+        }
+        
+        return num;
     }
 };
 

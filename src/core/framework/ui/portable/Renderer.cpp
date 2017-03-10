@@ -272,7 +272,7 @@ void Renderer::handleAsyncTextureLoads()
 
 void Renderer::cleanUpThreads()
 {
-    for (std::vector<std::thread *>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); i++)
+    for (std::vector<std::thread *>::iterator i = m_textureDataLoadingThreads.begin(); i != m_textureDataLoadingThreads.end(); ++i)
     {
         (*i)->join();
     }

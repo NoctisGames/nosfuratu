@@ -31,6 +31,7 @@
 #include "NGAudioEngine.h"
 #include "SaveDataKeys.h"
 #include "SaveData.h"
+#include "StringUtil.h"
 
 /// Title Screen ///
 
@@ -80,7 +81,7 @@ void Title::execute(MainScreen* ms)
         {
             std::string key = getKeyForViewedCutscenesFlag();
             std::string val = NG_SAVE_DATA->findValue(key);
-            int viewedCutsceneFlag = std::stoi(val);
+            int viewedCutsceneFlag = StringUtil::stringToInt(val);
             
             bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(viewedCutsceneFlag, FLAG_CUTSCENE_VIEWED_OPENING);
 #if NG_LEVEL_EDITOR
@@ -104,7 +105,7 @@ void Title::execute(MainScreen* ms)
 #if NG_LEVEL_EDITOR
 		isDisplayingLevelEditorButtons = true;
 #endif
-        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -117,7 +118,7 @@ void Title::execute(MainScreen* ms)
             }
         }
         
-        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
@@ -130,7 +131,7 @@ void Title::execute(MainScreen* ms)
             }
         }
         
-		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+		for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
         {
             Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
             

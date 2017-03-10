@@ -244,14 +244,14 @@ void OpenGLManager::createFramebufferObject()
 
 void OpenGLManager::releaseFramebuffers()
 {
-    for (std::vector<GLuint>::iterator i = m_fbo_textures.begin(); i != m_fbo_textures.end(); i++)
+    for (std::vector<GLuint>::iterator i = m_fbo_textures.begin(); i != m_fbo_textures.end(); ++i)
     {
         glDeleteTextures(1, &(*i));
     }
     
     m_fbo_textures.clear();
     
-    for (std::vector<GLuint>::iterator i = m_fbos.begin(); i != m_fbos.end(); i++)
+    for (std::vector<GLuint>::iterator i = m_fbos.begin(); i != m_fbos.end(); ++i)
     {
         glDeleteFramebuffers(1, &(*i));
     }

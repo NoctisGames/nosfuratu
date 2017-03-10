@@ -217,7 +217,7 @@ private:
     template<typename T>
     void renderPhysicalEntities(std::vector<T*>& items)
     {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             T* pItem = *i;
             T& item = *pItem;
@@ -228,7 +228,7 @@ private:
     template<typename T>
     void renderPhysicalEntitiesWithColor(std::vector<T*>& items)
     {
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             T* pItem = *i;
             T& item = *pItem;
@@ -241,7 +241,7 @@ private:
     {
         static Color red = Color(1, 0, 0, 1);
         
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             for (typename std::vector<NGRect *>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); j++)
             {

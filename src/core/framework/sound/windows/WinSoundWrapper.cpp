@@ -33,7 +33,7 @@ WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEn
     
     for (int i = 0; i < m_iNumInstances; i++)
     {
-        m_sounds.push_back(m_sound->CreateInstance());
+        m_sounds.push_back(*m_sound);
     }
 }
 
@@ -43,22 +43,4 @@ WinSoundWrapper::~WinSoundWrapper()
     {
         m_sound.reset();
     }
-    
-    NGSTDUtil::cleanUpVectorOfUniquePointers(m_sounds);
-}
-
-DirectX::SoundEffectInstance* WinSoundWrapper::getSound()
-{
-    std::unique_ptr<DirectX::SoundEffectInstance> ret = m_sounds[m_iSoundIndex++];
-    if (m_iSoundIndex >= m_iNumInstances)
-    {
-        m_iSoundIndex = 0;
-    }
-    
-    return ret.get();
-}
-
-std::vector<std::unique_ptr<DirectX::SoundEffectInstance>>& WinSoundWrapper::getSounds()
-{
-    return m_sounds;
 }

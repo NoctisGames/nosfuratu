@@ -8,6 +8,7 @@
 
 #include "SuperpoweredSound.h"
 
+#include "SuperpoweredSoundManager.h"
 #include "SuperpoweredAdvancedAudioPlayer.h"
 
 #include <SuperpoweredSimple.h>
@@ -34,10 +35,9 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     }
 }
 
-SuperpoweredSound::SuperpoweredSound(int soundId, const char *path, unsigned int sampleRate, int fileOffset, int fileLength, float volume) :
-m_path(path),
+SuperpoweredSound::SuperpoweredSound(SuperpoweredSoundManager* manager, int soundId, const char *path, unsigned int sampleRate, int fileOffset, int fileLength, float volume) : ISound(soundId),
+m_manager(manager),
 m_fVolume(volume * headroom),
-m_iSoundId(soundId),
 m_iLastSamplerate(sampleRate),
 m_isLooping(false),
 m_isPaused(false)
@@ -46,11 +46,11 @@ m_isPaused(false)
     
     if (fileOffset > -1 && fileLength > -1)
     {
-        m_player->open(m_path, fileOffset, fileLength);
+        m_player->open(path, fileOffset, fileLength);
     }
     else
     {
-        m_player->open(m_path);
+        m_player->open(path);
     }
 }
 
@@ -63,10 +63,12 @@ void SuperpoweredSound::play(bool isLooping)
 {
     m_isLooping = isLooping;
     m_isPaused = false;
- 
+    
     m_player->seek(0);
     
     m_player->play(false);
+    
+    m_manager->onSoundPlayed(this);
 }
 
 void SuperpoweredSound::resume()
@@ -104,6 +106,21 @@ void SuperpoweredSound::setVolume(float volume)
     m_fVolume = volume * headroom;
 }
 
+bool SuperpoweredSound::isLooping()
+{
+    return m_isLooping;
+}
+
+bool SuperpoweredSound::isPlaying()
+{
+    return m_player->playing;
+}
+
+bool SuperpoweredSound::isPaused()
+{
+    return m_isPaused;
+}
+
 bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     if (m_fVolume <= 0)
@@ -139,24 +156,4 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
 SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer()
 {
     return m_player;
-}
-
-int SuperpoweredSound::getSoundId()
-{
-    return m_iSoundId;
-}
-
-bool SuperpoweredSound::isLooping()
-{
-    return m_isLooping;
-}
-
-bool SuperpoweredSound::isPlaying()
-{
-    return m_player->playing;
-}
-
-bool SuperpoweredSound::isPaused()
-{
-    return m_isPaused;
 }

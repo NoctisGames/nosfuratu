@@ -650,7 +650,7 @@ bool Game::isLoaded()
 
 bool Game::hasEndSign()
 {
-	for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+	for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); ++i)
 	{
 		if ((*i)->getType() == ForegroundObjectType_EndSign)
 		{
@@ -674,7 +674,7 @@ void Game::calcFarRight()
         m_fCamFarRightBottom = countHissWithMina->getMainBounds().getBottom() - 0.5625f;
     }
     
-    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); i++)
+    for (std::vector<ForegroundObject *>::iterator i = m_foregroundObjects.begin(); i != m_foregroundObjects.end(); ++i)
     {
         if ((*i)->getType() == ForegroundObjectType_EndSign)
         {
@@ -751,7 +751,7 @@ void Game::onLoaded()
 void Game::configureGoldenCarrots()
 {
     int index = 0;
-    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); i++)
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); ++i)
     {
         if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
         {

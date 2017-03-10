@@ -30,6 +30,7 @@
 #include "FlagUtil.h"
 #include "SaveData.h"
 #include "SaveDataKeys.h"
+#include "StringUtil.h"
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {
@@ -122,7 +123,7 @@ void OpeningCutscene::execute(MainScreen* ms)
                 else
                 {
                     std::string key = getKeyForViewedCutscenesFlag();
-                    std::string val = std::to_string(FLAG_CUTSCENE_VIEWED_OPENING);
+                    std::string val = StringUtil::toString(FLAG_CUTSCENE_VIEWED_OPENING);
                     NG_SAVE_DATA->getKeyValues()[key] = val;
                     
                     NG_SAVE_DATA->save();
@@ -134,7 +135,7 @@ void OpeningCutscene::execute(MainScreen* ms)
         
         if (FlagUtil::isFlagSet(WorldMap::getInstance()->getViewedCutsceneFlag(), FLAG_CUTSCENE_VIEWED_OPENING))
         {
-            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 switch ((*i)->getType())
                 {
@@ -153,7 +154,7 @@ void OpeningCutscene::execute(MainScreen* ms)
                 }
             }
             
-            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 switch ((*i)->getType())
                 {
@@ -172,7 +173,7 @@ void OpeningCutscene::execute(MainScreen* ms)
                 }
             }
             
-            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 switch ((*i)->getType())
                 {

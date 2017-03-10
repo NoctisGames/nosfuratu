@@ -1,6 +1,6 @@
 //
 //  Direct3DMain.h
-//  noctisgames-framework
+//  nosfuratu
 //
 //  Created by Stephen Gowen on 3/9/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
@@ -13,10 +13,10 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "GamePad.h"
-#include "Audio.h"
-#include "MainScreen.h"
 
 #include <string>
+
+class MainScreen;
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -64,21 +64,16 @@ public:
 
 private:
 	// Device resources.
-	std::unique_ptr<DX::DeviceResources>    m_deviceResources;
+	std::unique_ptr<DX::DeviceResources> m_deviceResources;
 
 	// Rendering loop timer.
-	DX::StepTimer                           m_timer;
+	DX::StepTimer m_timer;
 
 	std::unique_ptr<DirectX::Keyboard> m_keyboard;
 	DirectX::Keyboard::KeyboardStateTracker m_keys;
 	std::unique_ptr<DirectX::Mouse> m_mouse;
 	std::unique_ptr<DirectX::GamePad> m_gamePad;
 	DirectX::GamePad::ButtonStateTracker m_buttons;
-
-	std::vector<std::unique_ptr<DirectX::SoundEffect>> m_sounds;
-
-	std::unique_ptr<DirectX::SoundEffect> m_music;
-	std::unique_ptr<DirectX::SoundEffectInstance> m_musicLoop;
 
 	MainScreen* m_screen;
 
@@ -98,14 +93,6 @@ private:
 
 	void beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceResources = nullptr);
 	void endPixEvent(DX::DeviceResources* deviceResources = nullptr);
-
-	void handleSound();
-	void handleMusic();
-	int soundIndexForSoundId(int soundId);
-
-	void initSoundEngine();
-	void loadSound(const wchar_t* waveFileName);
-	void loadMusic(const wchar_t* waveFileName);
 
 	void displayInterstitialAdIfAvailable();
 };

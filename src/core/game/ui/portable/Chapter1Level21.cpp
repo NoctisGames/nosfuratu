@@ -26,7 +26,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 {
     Level::enter(ms);
     
-    for (std::vector<Hole*>::iterator i = m_game->getHoles().begin(); i != m_game->getHoles().end(); i++)
+    for (std::vector<Hole*>::iterator i = m_game->getHoles().begin(); i != m_game->getHoles().end(); ++i)
     {
         if ((*i)->getType() == HoleType_Grass)
         {
@@ -44,7 +44,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 
 	int spikedBallIndex = 0;
 	int spikedBallChainIndex = 0;
-	for (std::vector<ForegroundObject*>::iterator i = m_game->getEndBossForegroundObjects().begin(); i != m_game->getEndBossForegroundObjects().end(); i++)
+	for (std::vector<ForegroundObject*>::iterator i = m_game->getEndBossForegroundObjects().begin(); i != m_game->getEndBossForegroundObjects().end(); ++i)
 	{
 		if ((*i)->getType() == ForegroundObjectType_SpikedBall)
 		{
@@ -99,7 +99,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 	Midground* gt2 = nullptr;
 	Midground* gt3 = nullptr;
 	int stumpIndex = 0;
-	for (std::vector<Midground*>::iterator i = m_game->getMidgrounds().begin(); i != m_game->getMidgrounds().end(); i++)
+	for (std::vector<Midground*>::iterator i = m_game->getMidgrounds().begin(); i != m_game->getMidgrounds().end(); ++i)
 	{
 		if ((*i)->getType() == MidgroundType_Tall_Stump)
 		{

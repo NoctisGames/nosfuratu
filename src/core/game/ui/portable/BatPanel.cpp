@@ -261,7 +261,7 @@ void BatPanel::updateJump(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -276,7 +276,7 @@ void BatPanel::updateJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -291,7 +291,7 @@ void BatPanel::updateJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -370,7 +370,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -385,7 +385,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -400,7 +400,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -468,7 +468,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -483,7 +483,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -498,7 +498,7 @@ void BatPanel::updateDoubleJump(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -643,7 +643,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                 bool executeDown = false;
                 bool executeUp = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -656,7 +656,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -669,7 +669,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -742,7 +742,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -757,7 +757,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -772,7 +772,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -836,7 +836,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -851,7 +851,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -866,7 +866,7 @@ void BatPanel::updateVampire(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -942,7 +942,7 @@ void BatPanel::updateDrill(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -954,7 +954,7 @@ void BatPanel::updateDrill(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -980,7 +980,7 @@ void BatPanel::updateDrill(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                     
@@ -1082,7 +1082,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1094,7 +1094,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1120,7 +1120,7 @@ void BatPanel::updateDrillToDamageOwl(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                     
@@ -1236,7 +1236,7 @@ void BatPanel::updateStomp(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1248,7 +1248,7 @@ void BatPanel::updateStomp(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1274,7 +1274,7 @@ void BatPanel::updateStomp(MainScreen* ms)
                     }
                 }
 
-				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
 				{
 					Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
 
@@ -1387,7 +1387,7 @@ void BatPanel::updateDash(MainScreen* ms)
                 
                 bool execute = false;
                 
-                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1399,7 +1399,7 @@ void BatPanel::updateDash(MainScreen* ms)
                     }
                 }
                 
-                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+                for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
@@ -1425,7 +1425,7 @@ void BatPanel::updateDash(MainScreen* ms)
                     }
                 }
 
-				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+				for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
 				{
 					Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
 

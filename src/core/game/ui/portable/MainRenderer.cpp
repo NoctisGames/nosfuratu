@@ -769,7 +769,7 @@ void MainRenderer::renderCutscene(std::vector<CutscenePanel*> cutscenePanels)
         return;
     }
     
-    for (std::vector<CutscenePanel *>::iterator i = cutscenePanels.begin(); i != cutscenePanels.end(); i++)
+    for (std::vector<CutscenePanel *>::iterator i = cutscenePanels.begin(); i != cutscenePanels.end(); ++i)
     {
         m_spriteBatcher->beginBatch();
         
@@ -948,7 +948,7 @@ void MainRenderer::renderWorld(Game& game)
     m_rendererHelper->updateMatrix(m_camBounds->getLeft(), m_camBounds->getLeft() + m_camBounds->getWidth(), m_camBounds->getBottom(), m_camBounds->getBottom() + m_camBounds->getHeight());
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<ExitGround *>::iterator i = game.getExitGrounds().begin(); i != game.getExitGrounds().end(); i++)
+    for (std::vector<ExitGround *>::iterator i = game.getExitGrounds().begin(); i != game.getExitGrounds().end(); ++i)
     {
         renderPhysicalEntity(*(*i), MAIN_ASSETS->get((*i)));
         if ((*i)->hasCover())
@@ -987,7 +987,7 @@ void MainRenderer::renderWorld(Game& game)
     }
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); i++)
+    for (std::vector<Hole *>::iterator i = game.getHoles().begin(); i != game.getHoles().end(); ++i)
     {
         renderPhysicalEntity(*(*i), MAIN_ASSETS->get((*i)));
         if ((*i)->hasCover())
@@ -999,7 +999,7 @@ void MainRenderer::renderWorld(Game& game)
     m_spriteBatcher->endBatch(*m_world_1_objects_part_2->gpuTextureWrapper, *m_textureGpuProgramWrapper);
     
     m_spriteBatcher->beginBatch();
-    for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); i++)
+    for (std::vector<ExtraForegroundObject *>::iterator i = game.getExtraForegroundObjects().begin(); i != game.getExtraForegroundObjects().end(); ++i)
     {
         ForegroundObject& shadow = (*i)->getShadow();
         renderPhysicalEntity(shadow, MAIN_ASSETS->get(&shadow));
@@ -1008,7 +1008,7 @@ void MainRenderer::renderWorld(Game& game)
     
     m_spriteBatcher->beginBatch();
     
-    for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); i++)
+    for (std::vector<CollectibleItem *>::iterator i = game.getCollectibleItems().begin(); i != game.getCollectibleItems().end(); ++i)
     {
         CollectibleItem* pItem = *i;
         CollectibleItem& item = *pItem;
@@ -1023,7 +1023,7 @@ void MainRenderer::renderWorld(Game& game)
         }
     }
     
-    for (std::vector<ForegroundObject *>::iterator i = game.getForegroundObjects().begin(); i != game.getForegroundObjects().end(); i++)
+    for (std::vector<ForegroundObject *>::iterator i = game.getForegroundObjects().begin(); i != game.getForegroundObjects().end(); ++i)
     {
         if ((*i)->getType() == ForegroundObjectType_Floating_Platform)
         {
@@ -1075,7 +1075,7 @@ void MainRenderer::renderWorld(Game& game)
         m_spriteBatcher->endBatch(*m_world_1_enemies->gpuTextureWrapper, *m_snakeDeathTextureProgram);
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<Enemy *>::iterator i = game.getEnemies().begin(); i != game.getEnemies().end(); i++)
+        for (std::vector<Enemy *>::iterator i = game.getEnemies().begin(); i != game.getEnemies().end(); ++i)
         {
             if ((*i)->hasSpirit())
             {
@@ -1088,7 +1088,7 @@ void MainRenderer::renderWorld(Game& game)
 
     if (game.getLevel() == 21)
     {
-        for (std::vector<EndBossSnake *>::iterator i = game.getEndBossSnakes().begin(); i != game.getEndBossSnakes().end(); i++)
+        for (std::vector<EndBossSnake *>::iterator i = game.getEndBossSnakes().begin(); i != game.getEndBossSnakes().end(); ++i)
         {
             renderEndBossSnake(*(*i));
         }
@@ -1110,7 +1110,7 @@ void MainRenderer::renderJonAndExtraForegroundObjects(Game& game)
         /// Render Jon Effects (e.g. Dust Clouds)
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<Jon *>::iterator i = game.getJons().begin(); i != game.getJons().end(); i++)
+        for (std::vector<Jon *>::iterator i = game.getJons().begin(); i != game.getJons().end(); ++i)
         {
             renderPhysicalEntitiesWithColor((*i)->getDustClouds());
         }
@@ -1127,7 +1127,7 @@ void MainRenderer::renderJonAndExtraForegroundObjects(Game& game)
         /// Render Jon After Images
         
         m_spriteBatcher->beginBatch();
-        for (std::vector<Jon *>::iterator i = jon.getAfterImages().begin(); i != jon.getAfterImages().end(); i++)
+        for (std::vector<Jon *>::iterator i = jon.getAfterImages().begin(); i != jon.getAfterImages().end(); ++i)
         {
             Jon* pItem = *i;
             Jon& item = *pItem;
@@ -1225,7 +1225,7 @@ void MainRenderer::renderEndBossSnake(EndBossSnake& endBossSnake)
     
     /// Render Jon After Images
     
-    for (std::vector<EndBossSnake *>::iterator i = endBossSnake.getAfterImages().begin(); i != endBossSnake.getAfterImages().end(); i++)
+    for (std::vector<EndBossSnake *>::iterator i = endBossSnake.getAfterImages().begin(); i != endBossSnake.getAfterImages().end(); ++i)
     {
         EndBossSnake* pItem = *i;
         EndBossSnake& item = *pItem;
@@ -1548,7 +1548,7 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* con
     
     /// Render Game Tracker
     
-    for (std::vector<DelayText *>::iterator i = GameTracker::getInstance()->getTexts().begin(); i != GameTracker::getInstance()->getTexts().end(); i++)
+    for (std::vector<DelayText *>::iterator i = GameTracker::getInstance()->getTexts().begin(); i != GameTracker::getInstance()->getTexts().end(); ++i)
     {
         std::string value = (*i)->getText();
         m_font->renderText(*m_spriteBatcher, value, (*i)->getPosition().getX(), (*i)->getPosition().getY(), fgWidth, fgHeight, (*i)->getColor(), false, true);
@@ -1703,7 +1703,7 @@ void MainRenderer::renderMarkers(Game& game)
     
     m_fillNGRectBatcher->beginBatch();
     
-    for (std::vector<GameMarker *>::iterator i = game.getMarkers().begin(); i != game.getMarkers().end(); i++)
+    for (std::vector<GameMarker *>::iterator i = game.getMarkers().begin(); i != game.getMarkers().end(); ++i)
     {
         NGRect& marker = (*i)->getMainBounds();
         m_fillNGRectBatcher->renderNGRect(marker, (*i)->getType() == 0 ? originMarkerColor : endMarkerColor);

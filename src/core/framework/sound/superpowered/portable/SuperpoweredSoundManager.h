@@ -23,8 +23,6 @@ public:
     
 	~SuperpoweredSoundManager();
     
-    void onMusicPlayed(SuperpoweredSound* sound);
-    
     void onSoundPlayed(SuperpoweredSound* sound);
     
     bool processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);

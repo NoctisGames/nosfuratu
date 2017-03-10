@@ -15,7 +15,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import static com.noctisgames.nosfuratu.BuildConfig.DEBUG;
 
-public final class GameRenderer implements Renderer
+public final class MainRenderer implements Renderer
 {
     // Requested Action Definitions from src/core/game/logic/GameConstants.h
     private static final short REQUESTED_ACTION_UPDATE = 0;
@@ -26,7 +26,7 @@ public final class GameRenderer implements Renderer
 
     private long _startTime;
 
-    public GameRenderer(Activity activity)
+    public MainRenderer(Activity activity)
     {
         _activity = activity;
         mInterstitialAd = new InterstitialAd(_activity);

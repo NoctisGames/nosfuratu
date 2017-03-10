@@ -22,15 +22,15 @@ class WinAudioEngineHelper : public IAudioEngineHelper
 public:
 	static WinAudioEngineHelper* getInstance();
     
-    virtual void update();
+    virtual void update(int flags = 0);
     
     virtual void pause();
     
     virtual void resume();
     
-    virtual SoundWrapper* loadSound(int soundId, const char *path, int numInstances = 1);
+    virtual ISoundWrapper* loadSound(int soundId, const char *path, int numInstances = 1);
     
-    virtual SoundWrapper* loadMusic(const char* path);
+    virtual ISoundWrapper* loadMusic(const char* path);
 
 private:
     std::unique_ptr<DirectX::AudioEngine> m_audEngine;

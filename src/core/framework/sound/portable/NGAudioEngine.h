@@ -1,6 +1,6 @@
 //
 //  NGAudioEngine.h
-//  nosfuratu
+//  noctisgames-framework
 //
 //  Created by Stephen Gowen on 3/8/17.
 //  Copyright © 2017 Noctis Games. All rights reserved.
@@ -13,7 +13,7 @@
 
 #include <map>
 
-class SoundWrapper;
+class ISoundWrapper;
 class IAudioEngineHelper;
 
 class NGAudioEngine
@@ -21,7 +21,7 @@ class NGAudioEngine
 public:
     static NGAudioEngine* getInstance();
     
-    void update();
+    void update(int flags = 0);
     
     void pause();
     
@@ -64,14 +64,14 @@ public:
     void setSoundDisabled(bool isSoundDisabled);
     
 private:
-    std::map<int, SoundWrapper*> m_sounds;
-    SoundWrapper* m_music;
+    std::map<int, ISoundWrapper*> m_sounds;
+    ISoundWrapper* m_music;
     IAudioEngineHelper* m_audioEngineHelper;
     int m_iNumSoundsPlayedThisFrame;
     bool m_isMusicDisabled;
     bool m_isSoundDisabled;
     
-    SoundWrapper* findSound(int soundId);
+    ISoundWrapper* findSound(int soundId);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     NGAudioEngine();

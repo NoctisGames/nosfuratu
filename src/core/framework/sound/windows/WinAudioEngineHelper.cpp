@@ -8,7 +8,7 @@
 
 #include "WinAudioEngineHelper.h"
 
-#include "SoundWrapper.h"
+#include "ISoundWrapper.h"
 
 #include "WinSoundWrapper.h"
 
@@ -18,8 +18,15 @@ WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
     return instance;
 }
 
-void WinAudioEngineHelper::update()
+void WinAudioEngineHelper::update(int flags)
 {
+    if (flags == -1)
+    {
+        m_retryAudio = true;
+        
+        return;
+    }
+    
     if (m_retryAudio)
     {
         m_retryAudio = false;
@@ -47,14 +54,14 @@ void WinAudioEngineHelper::resume()
     m_audEngine->Resume();
 }
 
-SoundWrapper* WinAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
+ISoundWrapper* WinAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
     WinSoundWrapper* sound = new WinSoundWrapper(soundId, path, m_audEngine.get(), numInstances);
     
     return sound;
 }
 
-SoundWrapper* WinAudioEngineHelper::loadMusic(const char* path)
+ISoundWrapper* WinAudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
 }

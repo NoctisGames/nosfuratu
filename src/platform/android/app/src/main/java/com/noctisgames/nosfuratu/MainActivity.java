@@ -12,9 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-public final class GameActivity extends Activity
+public final class MainActivity extends Activity
 {
-    private GameRenderer _gameRenderer;
+    private MainRenderer _mainRenderer;
     private GLSurfaceView _glSurfaceView;
 
     @Override
@@ -28,10 +28,10 @@ public final class GameActivity extends Activity
 
         setContentView(R.layout.activity_game);
 
-        _gameRenderer = new GameRenderer(this);
+        _mainRenderer = new MainRenderer(this);
         _glSurfaceView = new GLSurfaceView(this);
         _glSurfaceView.setEGLContextClientVersion(2);
-        _glSurfaceView.setRenderer(_gameRenderer);
+        _glSurfaceView.setRenderer(_mainRenderer);
 
         LinearLayout gameContainer = (LinearLayout) findViewById(R.id.game);
         gameContainer.addView(_glSurfaceView);
@@ -53,18 +53,18 @@ public final class GameActivity extends Activity
                     {
                         case MotionEvent.ACTION_DOWN:
                         case MotionEvent.ACTION_POINTER_DOWN:
-                            _gameRenderer.handleTouchDown(event.getX(pointerIndex), event.getY(pointerIndex));
+                            _mainRenderer.handleTouchDown(event.getX(pointerIndex), event.getY(pointerIndex));
                             break;
                         case MotionEvent.ACTION_UP:
                         case MotionEvent.ACTION_POINTER_UP:
                         case MotionEvent.ACTION_CANCEL:
-                            _gameRenderer.handleTouchUp(event.getX(pointerIndex), event.getY(pointerIndex));
+                            _mainRenderer.handleTouchUp(event.getX(pointerIndex), event.getY(pointerIndex));
                             break;
                         case MotionEvent.ACTION_MOVE:
                             for (int i = 0; i < event.getPointerCount(); i++)
                             {
                                 pointerIndex = i;
-                                _gameRenderer.handleTouchDragged(event.getX(pointerIndex), event.getY(pointerIndex));
+                                _mainRenderer.handleTouchDragged(event.getX(pointerIndex), event.getY(pointerIndex));
                             }
                             break;
                     }
@@ -81,13 +81,13 @@ public final class GameActivity extends Activity
         super.onResume();
 
         _glSurfaceView.onResume();
-        _gameRenderer.onResume();
+        _mainRenderer.onResume();
     }
 
     @Override
     protected void onPause()
     {
-        _gameRenderer.onPause();
+        _mainRenderer.onPause();
         _glSurfaceView.onPause();
 
         super.onPause();
@@ -96,7 +96,7 @@ public final class GameActivity extends Activity
     @Override
     protected void onStop()
     {
-        _gameRenderer.onStop();
+        _mainRenderer.onStop();
 
         super.onStop();
     }
@@ -104,7 +104,7 @@ public final class GameActivity extends Activity
     @Override
     public void onBackPressed()
     {
-        if (_gameRenderer.handleOnBackPressed())
+        if (_mainRenderer.handleOnBackPressed())
         {
             return;
         }

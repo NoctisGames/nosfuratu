@@ -43,6 +43,7 @@
 #include "ScreenEvent.h"
 #include "SaveDataKeys.h"
 #include "SaveData.h"
+#include "StringUtil.h"
 
 /// Level ///
 
@@ -345,7 +346,7 @@ void Level::update(MainScreen* ms)
             
             bool goToNextState = false;
             
-            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 switch ((*i)->getType())
                 {
@@ -364,7 +365,7 @@ void Level::update(MainScreen* ms)
                 }
             }
             
-            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 switch ((*i)->getType())
                 {
@@ -383,7 +384,7 @@ void Level::update(MainScreen* ms)
                 }
             }
             
-            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
             {
                 Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
                 
@@ -674,25 +675,25 @@ void Level::update(MainScreen* ms)
             
             {
                 std::string key = getKeyForLevelScore(m_game->getWorld(), m_game->getLevel());
-                std::string val = std::to_string(m_iScore);
+                std::string val = StringUtil::toString(m_iScore);
                 NG_SAVE_DATA->getKeyValues()[key] = val;
             }
             
             {
                 std::string key = getKeyForLevelStats(m_game->getWorld(), m_game->getLevel());
-                std::string val = std::to_string(m_iLevelStatsFlag);
+                std::string val = StringUtil::toString(m_iLevelStatsFlag);
                 NG_SAVE_DATA->getKeyValues()[key] = val;
             }
             
             {
                 std::string key = getKeyForNumGoldenCarrots();
-                std::string val = std::to_string(m_iNumGoldenCarrots);
+                std::string val = StringUtil::toString(m_iNumGoldenCarrots);
                 NG_SAVE_DATA->getKeyValues()[key] = val;
             }
             
             {
                 std::string key = getKeyForJonUnlockedAbilitiesFlag();
-                std::string val = std::to_string(m_game->getJon().getAbilityFlag());
+                std::string val = StringUtil::toString(m_game->getJon().getAbilityFlag());
                 NG_SAVE_DATA->getKeyValues()[key] = val;
             }
             
@@ -818,7 +819,7 @@ bool Level::handleInput(MainScreen* ms)
         return false;
     }
     
-    for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); i++)
+    for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
     {
         switch ((*i)->getType())
         {
@@ -906,7 +907,7 @@ bool Level::handleInput(MainScreen* ms)
         }
     }
     
-    for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); i++)
+    for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
     {
         switch ((*i)->getType())
         {
@@ -1025,7 +1026,7 @@ bool Level::handleInput(MainScreen* ms)
         }
     }
     
-    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); i++)
+    for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
     {
         Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
         
@@ -1126,7 +1127,7 @@ void Level::updateScore()
 
 void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
 {
-    for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); i++)
+    for (std::vector<CollectibleItem *>::iterator i = items.begin(); i != items.end(); ++i)
     {
         if ((*i)->isCollected())
         {
