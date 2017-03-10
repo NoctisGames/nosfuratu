@@ -7,6 +7,7 @@
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "MainScreenTitle.h"
+#include "MainScreen.h"
 
 #include <ppltasks.h>
 
