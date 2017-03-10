@@ -383,24 +383,6 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        for (int i = 0; i < ms->m_iNumInternalUpdates; ++i)
-        {
-            m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
-            if (m_fTransitionStateTime > 0.5f)
-            {
-                if (!m_hasPlayedTransitionSound)
-                {
-                    m_fTransitionStateTime = 0.5f;
-                }
-            }
-            
-            m_fFade = m_fTransitionStateTime * 2;
-            
-            WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
-        }
-        
-        WorldMap::getInstance()->setFade(m_fFade);
-        
         ms->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         ms->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
         ms->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
@@ -422,7 +404,23 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
     }
     else
     {
-        if (m_fFade < 1)
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
+        if (m_fTransitionStateTime > 0.5f)
+        {
+            if (!m_hasPlayedTransitionSound)
+            {
+                m_fTransitionStateTime = 0.5f;
+            }
+        }
+        
+        m_fFade = m_fTransitionStateTime * 2;
+        
+        WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
+        
+        WorldMap::getInstance()->setFade(m_fFade);
+        
+        if (m_fFade < 1
+            || ms->m_renderer->isLoadingData())
         {
             return;
         }
@@ -501,22 +499,6 @@ void WorldMapToLevel::execute(MainScreen* ms)
     {
         ms->m_renderer->beginFrame();
         
-        for (int i = 0; i < ms->m_iNumInternalUpdates; ++i)
-        {
-            m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
-            if (m_fTransitionStateTime > 0.5f)
-            {
-                if (!m_hasPlayedTransitionSound)
-                {
-                    m_fTransitionStateTime = 0.5f;
-                }
-            }
-            
-            m_fFade = m_fTransitionStateTime * 2;
-        }
-        
-        WorldMap::getInstance()->setFade(m_fFade);
-        
         ms->m_renderer->renderWorldMapScreenBackground(WorldMap::getInstance()->getWorldMapPanel());
         ms->m_renderer->renderWorldMapScreenUi(*WorldMap::getInstance());
         ms->m_renderer->renderWorldMapScreenButtons(*WorldMap::getInstance());
@@ -540,7 +522,21 @@ void WorldMapToLevel::execute(MainScreen* ms)
     }
     else
     {
-        if (m_fFade < 1)
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
+        if (m_fTransitionStateTime > 0.5f)
+        {
+            if (!m_hasPlayedTransitionSound)
+            {
+                m_fTransitionStateTime = 0.5f;
+            }
+        }
+        
+        m_fFade = m_fTransitionStateTime * 2;
+        
+        WorldMap::getInstance()->setFade(m_fFade);
+        
+        if (m_fFade < 1
+            || ms->m_renderer->isLoadingData())
         {
             return;
         }
