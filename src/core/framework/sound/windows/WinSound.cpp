@@ -8,12 +8,6 @@
 
 #include "WinSound.h"
 
-#include "SuperpoweredAdvancedAudioPlayer.h"
-
-#include <SuperpoweredSimple.h>
-
-#include <math.h>
-
 WinSound::WinSound(int soundId, DirectX::SoundEffect& sound, float volume) : ISound(soundId),
 m_isLooping(false),
 m_isPaused(false)
@@ -74,7 +68,7 @@ bool WinSound::isLooping()
 
 bool WinSound::isPlaying()
 {
-    return false; // TODO
+	return m_soundEffectInstance->GetState() == SoundState::PLAYING;
 }
 
 bool WinSound::isPaused()

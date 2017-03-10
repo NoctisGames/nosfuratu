@@ -11,6 +11,7 @@
 #include "ISoundWrapper.h"
 
 #include "WinSoundWrapper.h"
+#include "Audio.h"
 
 WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
 {
