@@ -8,6 +8,8 @@
 
 #include "WinSoundWrapper.h"
 
+#include "WinSound.h"
+
 #include "NGSTDUtil.h"
 
 WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEngine* audioEngine, int numInstances) : SoundWrapper(soundId, numInstances)
@@ -33,7 +35,7 @@ WinSoundWrapper::WinSoundWrapper(int soundId, const char *path, DirectX::AudioEn
     
     for (int i = 0; i < m_iNumInstances; ++i)
     {
-        m_sounds.push_back(*m_sound);
+        m_sounds.push_back(new WinSound(soundId, *m_sound));
     }
 }
 
