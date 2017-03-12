@@ -3,6 +3,7 @@
 *.user
 *.*sdf
 *.suo
+*.sav
 ARM/
 Debug/
 Release/

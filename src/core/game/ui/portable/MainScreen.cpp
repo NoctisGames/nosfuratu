@@ -59,7 +59,7 @@ m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
-    NG_SAVE_DATA->config("nosfuratu");
+    NG_SAVE_DATA->config("nosfuratu.sav");
     
     loadSounds();
     
