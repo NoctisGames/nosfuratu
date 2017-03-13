@@ -1650,14 +1650,22 @@ std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int wo
                     break;
                 case 9:
                 {
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.36f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.81f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 8.93f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 12.23f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.68f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.24f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.93f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 24.0f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.3f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.7f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 8.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 12.05f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.5f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 25.0f));
+                }
+                    break;
+                case 10:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 2.4f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 19.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 33.5f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 36.0f));
                 }
                     break;
                 default:
