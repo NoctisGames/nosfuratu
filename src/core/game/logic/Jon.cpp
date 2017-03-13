@@ -95,7 +95,7 @@ void Jon::update(float deltaTime)
         }
         else
         {
-            i++;
+            ++i;
         }
     }
     
@@ -295,6 +295,10 @@ void Jon::updateBounds()
 
 void Jon::triggerTransform()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerTransform at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
@@ -306,12 +310,20 @@ void Jon::triggerTransform()
 
 void Jon::triggerCancelTransform()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerCancelTransform at: %f\n", m_game->getStateTime());
+#endif
+    
 	JonFormState* jfs = m_formStateMachine->getCurrentState();
 	jfs->triggerCancelTransform(this);
 }
 
 void Jon::triggerJump()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerJump at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isUserActionPrevented)
 	{
 		return;
@@ -323,6 +335,10 @@ void Jon::triggerJump()
 
 void Jon::triggerLeftAction()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerLeftAction at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
@@ -334,6 +350,10 @@ void Jon::triggerLeftAction()
 
 void Jon::triggerRightAction()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerRightAction at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
@@ -345,6 +365,10 @@ void Jon::triggerRightAction()
 
 void Jon::triggerUpAction()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerUpAction at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;
@@ -356,6 +380,10 @@ void Jon::triggerUpAction()
 
 void Jon::triggerDownAction()
 {
+#if defined __APPLE__ && defined DEBUG
+    printf("triggerDownAction at: %f\n", m_game->getStateTime());
+#endif
+    
 	if (m_state != JON_ALIVE || m_isIdle || m_isConsumed || m_isUserActionPrevented)
 	{
 		return;

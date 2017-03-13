@@ -372,7 +372,7 @@ public:
             }
             else
             {
-                i++;
+                ++i;
             }
         }
     }
@@ -412,7 +412,7 @@ public:
     static int indexOfOverlappingObjectThatCanBePlacedOn(PhysicalEntity* pe, std::vector<T>& items)
     {
         int index = 0;
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i, ++index)
         {
             if ((*i) == pe)
             {
@@ -433,7 +433,7 @@ public:
     static int indexOfOverlappingObjectThatCanBePlacedUnder(PhysicalEntity* pe, std::vector<T>& items)
     {
         int index = 0;
-        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); i++, index++)
+        for (typename std::vector<T>::iterator i = items.begin(); i != items.end(); ++i, ++index)
         {
             if ((*i) == pe)
             {
@@ -656,7 +656,7 @@ public:
     {
         int retVal = -1;
         int index = 0;
-        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); i++, index++)
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i, ++index)
         {
             T* item = *i;
             float width = item->getWidth();

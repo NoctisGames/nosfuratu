@@ -45,7 +45,7 @@ Background::Background(float x, float y, float width, float height, int xScrollS
     while (x > 0)
     {
         x -= width;
-        i++;
+        ++i;
     }
     
     m_fXOffset = i * PIXEL_WIDTH_FOR_GAME;

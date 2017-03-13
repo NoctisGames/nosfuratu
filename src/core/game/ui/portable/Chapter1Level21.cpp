@@ -206,7 +206,7 @@ void Chapter1Level21::enter(MainScreen* ms)
 			}
 			else
 			{
-				i++;
+				++i;
 			}
 		}
 	}

@@ -94,7 +94,7 @@
     mJoysticks = joysticks;
     
     unsigned long numPlayers = [mJoysticks count];
-    for (int i = 0; i < numPlayers; i++)
+    for (int i = 0; i < numPlayers; ++i)
     {
         [self listenOnJoystick:i];
     }

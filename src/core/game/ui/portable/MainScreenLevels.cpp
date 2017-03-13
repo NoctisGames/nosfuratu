@@ -45,6 +45,11 @@
 #include "SaveData.h"
 #include "StringUtil.h"
 
+UserDemoAction::UserDemoAction(DemoAction action, float stateTimeToExecuteAction) : m_action(action), m_fStateTimeToExecuteAction(stateTimeToExecuteAction)
+{
+    // Empty
+}
+
 /// Level ///
 
 Level * Level::getInstance()
@@ -65,7 +70,6 @@ void Level::enter(MainScreen* ms)
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
-    m_hasStoppedAllLoopingSoundsAfterJonDeath = false;
     ms->m_isReleasingShockwave = false;
     ms->m_isScreenHeldDown = false;
     ms->m_fScreenHeldTime = 0;
@@ -170,6 +174,7 @@ void Level::exit(MainScreen* ms)
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
     m_exitLoop = false;
+    m_isDemoMode = false;
     
     m_iBestScore = 0;
     m_iBestOnlineScore = 0;
@@ -198,6 +203,14 @@ void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsF
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
     m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
+}
+
+void Level::launchInDemoMode(std::vector<UserDemoAction> userDemoActions)
+{
+    m_userDemoActions = userDemoActions;
+    m_isDemoMode = true;
+    m_iBestLevelStatsFlag = FLAG_LEVEL_COMPLETE;
+    m_iLastKnownJonAbilityFlag = FLAG_ABILITY_ALL;
 }
 
 int Level::getScore()
@@ -333,92 +346,6 @@ void Level::update(MainScreen* ms)
         
         if (m_batPanel->isRequestingInput())
         {
-            return;
-        }
-        
-        if (m_isDisplayingResults)
-        {
-            m_continueButton->getColor().alpha += ms->m_fDeltaTime;
-            if (m_continueButton->getColor().alpha > 1)
-            {
-                m_continueButton->getColor().alpha = 1;
-                
-                NG_AUDIO_ENGINE->stopAllSounds();
-            }
-            
-            bool goToNextState = false;
-            
-            for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
-            {
-                switch ((*i)->getType())
-                {
-                    case KeyboardEventType_W:
-                    case KeyboardEventType_BACK:
-                    case KeyboardEventType_SPACE:
-                    case KeyboardEventType_ENTER:
-                        if ((*i)->isUp())
-                        {
-                            goToNextState = true;
-                            break;
-                        }
-                        continue;
-                    default:
-                        continue;
-                }
-            }
-            
-            for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
-            {
-                switch ((*i)->getType())
-                {
-                    case GamePadEventType_A_BUTTON:
-                    case GamePadEventType_B_BUTTON:
-                    case GamePadEventType_BACK_BUTTON:
-                    case GamePadEventType_START_BUTTON:
-                        if ((*i)->isButtonPressed())
-                        {
-                            goToNextState = true;
-                            break;
-                        }
-                        continue;
-                    default:
-                        continue;
-                }
-            }
-            
-            for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
-            {
-                Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
-                
-                switch ((*i)->getType())
-                {
-                    case ScreenEventType_DOWN:
-                    case ScreenEventType_DRAGGED:
-                        continue;
-                    case ScreenEventType_UP:
-                        if (m_continueButton->handleClick(touchPoint))
-                        {
-                            goToNextState = true;
-                        }
-                        break;
-                }
-            }
-            
-            if (goToNextState)
-            {
-                if (m_game->getWorld() == 1
-                    && m_game->getLevel() == 21)
-                {
-                    m_playLevelSelectMusicOnExit = false;
-                    LevelToComingSoon::getInstance()->setLevelComingFrom(this);
-                    ms->m_stateMachine.changeState(LevelToComingSoon::getInstance());
-                }
-                else
-                {
-                    ms->m_stateMachine.revertToPreviousState();
-                }
-            }
-            
             return;
         }
         
@@ -812,6 +739,195 @@ void Level::configBatPanel()
 
 bool Level::handleInput(MainScreen* ms)
 {
+    if (m_isDemoMode)
+    {
+        bool endDemo = false;
+        
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            switch ((*i)->getType())
+            {
+                case KeyboardEventType_W:
+                case KeyboardEventType_BACK:
+                case KeyboardEventType_SPACE:
+                case KeyboardEventType_ENTER:
+                    if ((*i)->isUp())
+                    {
+                        endDemo = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            switch ((*i)->getType())
+            {
+                case GamePadEventType_A_BUTTON:
+                case GamePadEventType_B_BUTTON:
+                case GamePadEventType_BACK_BUTTON:
+                case GamePadEventType_START_BUTTON:
+                    if ((*i)->isButtonPressed())
+                    {
+                        endDemo = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            switch ((*i)->getType())
+            {
+                case ScreenEventType_DOWN:
+                case ScreenEventType_DRAGGED:
+                    continue;
+                case ScreenEventType_UP:
+                    endDemo = true;
+                    break;
+            }
+        }
+        
+        if (m_userDemoActions.size() > 0)
+        {
+            UserDemoAction userDemoAction = m_userDemoActions.at(0);
+            if (m_game->getStateTime() >= userDemoAction.m_fStateTimeToExecuteAction)
+            {
+                Jon& jon = m_game->getJon();
+                
+                switch (userDemoAction.m_action)
+                {
+                    case DemoAction_Exit:
+                        endDemo = true;
+                        break;
+                    case DemoAction_TriggerJump:
+                        jon.triggerJump();
+                        break;
+                    case DemoAction_TriggerTransform:
+                        jon.triggerTransform();
+                        break;
+                    case DemoAction_TriggerRight:
+                        jon.triggerRightAction();
+                        break;
+                    case DemoAction_TriggerUp:
+                        jon.triggerUpAction();
+                        break;
+                    case DemoAction_TriggerLeft:
+                        jon.triggerLeftAction();
+                        break;
+                    case DemoAction_TriggerDown:
+                        jon.triggerDownAction();
+                        break;
+                    default:
+                        break;
+                }
+                
+                m_userDemoActions.erase(m_userDemoActions.begin());
+            }
+        }
+        
+        if (endDemo)
+        {
+            ms->m_stateMachine.revertToPreviousState();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    if (m_isDisplayingResults)
+    {
+        m_continueButton->getColor().alpha += ms->m_fDeltaTime;
+        if (m_continueButton->getColor().alpha > 1)
+        {
+            m_continueButton->getColor().alpha = 1;
+            
+            NG_AUDIO_ENGINE->stopAllSounds();
+        }
+        
+        bool goToNextState = false;
+        
+        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            switch ((*i)->getType())
+            {
+                case KeyboardEventType_W:
+                case KeyboardEventType_BACK:
+                case KeyboardEventType_SPACE:
+                case KeyboardEventType_ENTER:
+                    if ((*i)->isUp())
+                    {
+                        goToNextState = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            switch ((*i)->getType())
+            {
+                case GamePadEventType_A_BUTTON:
+                case GamePadEventType_B_BUTTON:
+                case GamePadEventType_BACK_BUTTON:
+                case GamePadEventType_START_BUTTON:
+                    if ((*i)->isButtonPressed())
+                    {
+                        goToNextState = true;
+                        break;
+                    }
+                    continue;
+                default:
+                    continue;
+            }
+        }
+        
+        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
+        {
+            Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
+            
+            switch ((*i)->getType())
+            {
+                case ScreenEventType_DOWN:
+                case ScreenEventType_DRAGGED:
+                    continue;
+                case ScreenEventType_UP:
+                    if (m_continueButton->handleClick(touchPoint))
+                    {
+                        goToNextState = true;
+                    }
+                    break;
+            }
+        }
+        
+        if (goToNextState)
+        {
+            if (m_game->getWorld() == 1
+                && m_game->getLevel() == 21)
+            {
+                m_playLevelSelectMusicOnExit = false;
+                LevelToComingSoon::getInstance()->setLevelComingFrom(this);
+                ms->m_stateMachine.changeState(LevelToComingSoon::getInstance());
+            }
+            else
+            {
+                ms->m_stateMachine.revertToPreviousState();
+            }
+        }
+        
+        return true;
+    }
+    
     Jon& jon = m_game->getJon();
     bool isJonAlive = jon.isAlive();
     if (!isJonAlive)
@@ -1214,7 +1330,7 @@ m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
 m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
-m_hasStoppedAllLoopingSoundsAfterJonDeath(false)
+m_isDemoMode(false)
 {
     // Empty
 }
@@ -1231,28 +1347,6 @@ Level::~Level()
         m_sourceGame = nullptr;
     }
 }
-
-RTTI_IMPL(Level, MainScreenState);
-RTTI_IMPL(Chapter1Level1, Level);
-RTTI_IMPL(Chapter1Level2, Level);
-RTTI_IMPL(Chapter1Level3, Level);
-RTTI_IMPL(Chapter1Level4, Level);
-RTTI_IMPL(Chapter1Level5, Level);
-RTTI_IMPL(Chapter1Level6, Level);
-RTTI_IMPL(Chapter1Level7, Level);
-RTTI_IMPL(Chapter1Level8, Level);
-RTTI_IMPL(Chapter1Level9, Level);
-RTTI_IMPL(Chapter1Level11, Level);
-RTTI_IMPL(Chapter1Level12, Level);
-RTTI_IMPL(Chapter1Level13, Level);
-RTTI_IMPL(Chapter1Level14, Level);
-RTTI_IMPL(Chapter1Level15, Level);
-RTTI_IMPL(Chapter1Level16, Level);
-RTTI_IMPL(Chapter1Level17, Level);
-RTTI_IMPL(Chapter1Level18, Level);
-RTTI_IMPL(Chapter1Level19, Level);
-RTTI_IMPL(Chapter1Level20, Level);
-RTTI_IMPL_NOPARENT(LevelUtil);
 
 Level* LevelUtil::getInstanceForWorldAndLevel(int world, int level)
 {
@@ -1499,6 +1593,103 @@ Level* LevelUtil::getInstanceForWorldAndLevel(int world, int level)
     
     assert(false);
 }
+
+std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int world, int level)
+{
+    std::vector<UserDemoAction> userDemoActions;
+    
+    switch (world)
+    {
+        case 1:
+        {
+            switch (level)
+            {
+                case 1:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.4));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 6.4f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 9.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 11.4f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 13));
+                }
+                    break;
+                case 2:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 3.18f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 4.32f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 6.78f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 9.95f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 11.38f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.24f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 14.80f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 16.9f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 22.8f));
+                }
+                    break;
+                case 6:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 1.40f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 3.40f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 3.90f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 4.70f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 6.35f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 8.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 9.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 10.9f));
+                    
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.9f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 16.4f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.6f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 18.0f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 18.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 18.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 21.7f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 22.4f));
+                }
+                    break;
+                case 9:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.36f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.81f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 8.93f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 12.23f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.68f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.24f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.93f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 24.0f));
+                }
+                    break;
+                default:
+                    assert(false);
+            }
+        }
+    }
+    
+    return userDemoActions;
+}
+
+RTTI_IMPL(Level, MainScreenState);
+RTTI_IMPL(Chapter1Level1, Level);
+RTTI_IMPL(Chapter1Level2, Level);
+RTTI_IMPL(Chapter1Level3, Level);
+RTTI_IMPL(Chapter1Level4, Level);
+RTTI_IMPL(Chapter1Level5, Level);
+RTTI_IMPL(Chapter1Level6, Level);
+RTTI_IMPL(Chapter1Level7, Level);
+RTTI_IMPL(Chapter1Level8, Level);
+RTTI_IMPL(Chapter1Level9, Level);
+RTTI_IMPL(Chapter1Level11, Level);
+RTTI_IMPL(Chapter1Level12, Level);
+RTTI_IMPL(Chapter1Level13, Level);
+RTTI_IMPL(Chapter1Level14, Level);
+RTTI_IMPL(Chapter1Level15, Level);
+RTTI_IMPL(Chapter1Level16, Level);
+RTTI_IMPL(Chapter1Level17, Level);
+RTTI_IMPL(Chapter1Level18, Level);
+RTTI_IMPL(Chapter1Level19, Level);
+RTTI_IMPL(Chapter1Level20, Level);
+RTTI_IMPL_NOPARENT(LevelUtil);
 
 #include <sstream>
 

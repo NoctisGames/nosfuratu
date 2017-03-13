@@ -981,9 +981,12 @@ void MainRenderer::renderWorld(Game& game)
     if (game.getLevel() != 10
         && game.getLevel() != 21)
     {
-        m_spriteBatcher->beginBatch();
-        renderPhysicalEntities(game.getPits());
-        m_spriteBatcher->endBatch(*m_world_1_special->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+        if (ensureTexture(m_world_1_special))
+        {
+            m_spriteBatcher->beginBatch();
+            renderPhysicalEntities(game.getPits());
+            m_spriteBatcher->endBatch(*m_world_1_special->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+        }
     }
     
     m_spriteBatcher->beginBatch();

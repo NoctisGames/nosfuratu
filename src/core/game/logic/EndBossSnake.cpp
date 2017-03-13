@@ -82,7 +82,7 @@ void EndBossSnake::update(float deltaTime)
         }
         else
         {
-            i++;
+            ++i;
         }
     }
     

@@ -26,6 +26,26 @@ class ForegroundObject;
 class BatPanel;
 class PhysicalEntity;
 
+typedef enum
+{
+    DemoAction_Exit,
+    DemoAction_TriggerJump,
+    DemoAction_TriggerTransform,
+    DemoAction_TriggerRight,
+    DemoAction_TriggerUp,
+    DemoAction_TriggerLeft,
+    DemoAction_TriggerDown
+} DemoAction;
+
+class UserDemoAction
+{
+public:
+    DemoAction m_action;
+    float m_fStateTimeToExecuteAction;
+    
+    UserDemoAction(DemoAction action, float stateTimeToExecuteAction);
+};
+
 class Level : public MainScreenState
 {
     RTTI_DECL;
@@ -44,6 +64,8 @@ public:
     void setSourceGame(Game* game);
     
     void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
+    
+    void launchInDemoMode(std::vector<UserDemoAction> userDemoActions);
     
     int getScore();
     
@@ -85,6 +107,8 @@ protected:
     bool m_hasCompletedLevel;
     bool m_isDisplayingResults;
     bool m_createdOwnSourceGame; // Can also be injected by the Level Editor
+    std::vector<UserDemoAction> m_userDemoActions;
+    bool m_isDemoMode;
     
     // Set from app storage
     int m_iBestScore;
@@ -122,7 +146,6 @@ protected:
 private:
     bool m_playLevelSelectMusicOnExit;
 	bool m_stopMusicOnExit;
-    bool m_hasStoppedAllLoopingSoundsAfterJonDeath;
     
     void updateScore();
     
@@ -626,6 +649,8 @@ class LevelUtil
     
 public:
     static Level* getInstanceForWorldAndLevel(int world, int level);
+    
+    static std::vector<UserDemoAction> getUserDemoActionsForWorldAndLevel(int world, int level);
 };
 
 #endif /* defined(__nosfuratu__MainScreenLevels__) */

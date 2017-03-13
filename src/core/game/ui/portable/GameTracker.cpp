@@ -58,7 +58,7 @@ void GameTracker::update(float deltaTime)
         }
         else
         {
-            i++;
+            ++i;
         }
     }
 }

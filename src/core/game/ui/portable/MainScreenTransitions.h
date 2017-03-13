@@ -17,6 +17,37 @@ class MainScreen;
 class Level;
 class Game;
 
+class TitleToDemo : public MainScreenState
+{
+    RTTI_DECL;
+    
+public:
+    static TitleToDemo* getInstance();
+    
+    virtual void enter(MainScreen* gs);
+    
+    virtual void execute(MainScreen* gs);
+    
+    virtual void exit(MainScreen* gs);
+    
+    virtual void initRenderer(MainScreen* gs);
+    
+    void setWorldToLoad(int worldToLoad);
+    
+    void setLevelToLoad(int levelToLoad);
+    
+private:
+    Level* m_levelState;
+    float m_fTransitionStateTime;
+    int m_iWorldToLoad;
+    int m_iLevelToLoad;
+    
+    // ctor, copy ctor, and assignment should be private in a Singleton
+    TitleToDemo();
+    TitleToDemo(const TitleToDemo&);
+    TitleToDemo& operator=(const TitleToDemo&);
+};
+
 class TitleToWorldMap : public MainScreenState
 {
     RTTI_DECL;

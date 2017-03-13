@@ -39,6 +39,7 @@ public:
 private:
     TitlePanel* m_panel;
     GameButton* m_levelEditorButton;
+    float m_fStateTime;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
     

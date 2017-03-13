@@ -260,7 +260,7 @@ void Renderer::handleAsyncTextureLoads()
         }
         else
         {
-            i++;
+            ++i;
         }
     }
     

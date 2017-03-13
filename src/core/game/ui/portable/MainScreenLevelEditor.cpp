@@ -158,7 +158,7 @@ void MainScreenLevelEditor::execute(MainScreen* ms)
                 }
                 else
                 {
-                    i++;
+                    ++i;
                 }
             }
         }

@@ -51,6 +51,10 @@ void Title::enter(MainScreen* ms)
     NG_AUDIO_ENGINE->playMusic(true);
     
     WorldMap::getInstance()->loadSaveData();
+    
+    m_fStateTime = 0;
+    m_isRequestingNextState = false;
+    m_isRequestingLevelEditor = false;
 }
 
 void Title::execute(MainScreen* ms)
@@ -76,6 +80,23 @@ void Title::execute(MainScreen* ms)
     }
     else
     {
+        m_fStateTime += ms->m_fDeltaTime;
+        
+        if (m_fStateTime > 2)
+        {
+            srand (static_cast <unsigned> (time(0)));
+            int level = 3;//rand() % 4 + 1;
+            if (level == 4) { level = 9; }
+            if (level == 3) { level = 6; }
+            
+            TitleToDemo::getInstance()->setWorldToLoad(1);
+            TitleToDemo::getInstance()->setLevelToLoad(level);
+            
+            ms->m_stateMachine.changeState(TitleToDemo::getInstance());
+            
+            return;
+        }
+        
         m_panel->update(ms->m_fDeltaTime);
         
         if (m_isRequestingNextState)
@@ -96,10 +117,14 @@ void Title::execute(MainScreen* ms)
             {
                 ms->m_stateMachine.changeState(TitleToOpeningCutscene::getInstance());
             }
+            
+            return;
         }
         else if (m_isRequestingLevelEditor)
         {
             ms->m_stateMachine.changeState(TitleToLevelEditor::getInstance());
+            
+            return;
         }
         
 		bool isDisplayingLevelEditorButtons = false;
@@ -161,6 +186,7 @@ void Title::execute(MainScreen* ms)
 
 void Title::exit(MainScreen* ms)
 {
+    m_fStateTime = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
 }
@@ -193,6 +219,7 @@ GameButton* Title::getLevelEditorButton()
 Title::Title() : MainScreenState(),
 m_panel(new TitlePanel()),
 m_levelEditorButton(GameButton::create(GameButtonType_LevelEditor)),
+m_fStateTime(0),
 m_isRequestingNextState(false),
 m_isRequestingLevelEditor(false)
 {

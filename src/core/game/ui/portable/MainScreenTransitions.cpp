@@ -25,6 +25,107 @@
 #include "NGAudioEngine.h"
 #include "MainRenderer.h"
 
+/// Title to Demo Transition ///
+
+TitleToDemo * TitleToDemo::getInstance()
+{
+    static TitleToDemo *instance = new TitleToDemo();
+    
+    return instance;
+}
+
+void TitleToDemo::enter(MainScreen* ms)
+{
+    m_fTransitionStateTime = 0;
+    
+    m_levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad);
+    
+    m_levelState->launchInDemoMode(LevelUtil::getUserDemoActionsForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad));
+    
+    m_levelState->enter(ms);
+}
+
+void TitleToDemo::execute(MainScreen* ms)
+{
+    if (ms->m_isRequestingRender)
+    {
+        ms->m_renderer->beginFrame();
+        
+        ms->m_renderer->renderTitleScreenBackground(Title::getInstance()->getTitlePanel());
+        
+        ms->m_renderer->setFramebuffer(1);
+        
+        ms->m_renderer->renderWorld(m_levelState->getGame());
+        
+        ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        
+        ms->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
+        
+        if (ms->m_renderer->isLoadingData())
+        {
+            ms->m_renderer->renderLoading(ms->m_fDeltaTime * ms->m_iNumInternalUpdates);
+        }
+        
+        ms->m_renderer->renderToScreen();
+        
+        ms->m_renderer->endFrame();
+    }
+    else
+    {
+        m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
+        
+        if (m_fTransitionStateTime < 1
+            || ms->m_renderer->isLoadingData())
+        {
+            return;
+        }
+        
+        if (m_fTransitionStateTime > 1)
+        {
+            ms->m_stateMachine.setPreviousState(Title::getInstance());
+            ms->m_stateMachine.setCurrentState(m_levelState);
+            ms->m_renderer->unload(RENDERER_TYPE_TITLE);
+        }
+    }
+}
+
+void TitleToDemo::exit(MainScreen* ms)
+{
+    m_levelState = nullptr;
+    m_fTransitionStateTime = 0;
+    m_iWorldToLoad = 0;
+    m_iLevelToLoad = 0;
+}
+
+void TitleToDemo::initRenderer(MainScreen* ms)
+{
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
+    ms->m_renderer->unload(RENDERER_TYPE_LEVEL_EDITOR);
+    ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
+    
+    ms->m_renderer->load(RENDERER_TYPE_TITLE);
+    ms->m_renderer->load(calcRendererTypeFromLevel(m_iWorldToLoad, m_iLevelToLoad));
+}
+
+void TitleToDemo::setWorldToLoad(int worldToLoad)
+{
+    m_iWorldToLoad = worldToLoad;
+}
+
+void TitleToDemo::setLevelToLoad(int levelToLoad)
+{
+    m_iLevelToLoad = levelToLoad;
+}
+
+TitleToDemo::TitleToDemo() :
+m_levelState(nullptr),
+m_fTransitionStateTime(0),
+m_iWorldToLoad(0),
+m_iLevelToLoad(0)
+{
+    // Empty
+}
+
 /// Title To World Map Transition ///
 
 TitleToWorldMap * TitleToWorldMap::getInstance()
@@ -718,6 +819,7 @@ LevelToComingSoon::LevelToComingSoon() : m_levelState(nullptr), m_fTransitionSta
     // Empty
 }
 
+RTTI_IMPL(TitleToDemo, MainScreenState);
 RTTI_IMPL(TitleToWorldMap, MainScreenState);
 RTTI_IMPL(TitleToOpeningCutscene, MainScreenState);
 RTTI_IMPL(OpeningCutsceneToWorldMap, MainScreenState);
