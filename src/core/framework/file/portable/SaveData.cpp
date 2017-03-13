@@ -11,6 +11,14 @@
 #include "StringUtil.h"
 #include "macros.h"
 
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
+
+#if TARGET_OS_IPHONE
+#include "apple_asset_data_handler.h"
+#endif
+
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -32,16 +40,25 @@ void SaveData::config(const char* filePath)
 
 void SaveData::save()
 {
+    assert(m_filePath);
+    
     using namespace rapidjson;
     using namespace std;
+    
+    const char* finalPath;
+#if TARGET_OS_IPHONE
+    finalPath = getPathInsideNSDocuments(m_filePath);
+#else
+    finalPath = m_filePath;
+#endif
     
     FILE *file;
 #ifdef WIN32
     errno_t err;
-    if((err = fopen_s(&file, m_filePath, "w+")) != 0)
+    if((err = fopen_s(&file, finalPath, "w+")) != 0)
     {
 #else
-    if ((file = fopen(m_filePath, "w+")) == NULL)
+    if ((file = fopen(finalPath, "w+")) == NULL)
     {
 #endif
         return;
@@ -83,12 +100,19 @@ void SaveData::load()
     using namespace rapidjson;
     using namespace std;
     
+    const char* finalPath;
+#if TARGET_OS_IPHONE
+    finalPath = getPathInsideNSDocuments(m_filePath);
+#else
+    finalPath = m_filePath;
+#endif
+    
     FILE *file;
 #ifdef WIN32
     errno_t err;
-    if((err = fopen_s(&file, m_filePath, "r")) != 0)
+    if((err = fopen_s(&file, finalPath, "r")) != 0)
 #else
-    if ((file = fopen(m_filePath, "r")) == NULL)
+    if ((file = fopen(finalPath, "r")) == NULL)
 #endif
     {
         return;
@@ -120,9 +144,12 @@ void SaveData::load()
         rapidjson::Document d;
         d.Parse<0>(rawData.c_str());
         
-        for (Value::ConstMemberIterator i = d.MemberBegin(); i != d.MemberEnd(); ++i)
+        if (d.IsObject())
         {
-            m_keyValues[i->name.GetString()] = i->value.GetString();
+            for (Value::ConstMemberIterator i = d.MemberBegin(); i != d.MemberEnd(); ++i)
+            {
+                m_keyValues[i->name.GetString()] = i->value.GetString();
+            }
         }
     }
 }

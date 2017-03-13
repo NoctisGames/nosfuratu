@@ -18,8 +18,6 @@
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_AndroidConfiguration.h>
 
-#include <android/log.h>
-
 #include <assert.h>
 #include <sstream>
 
@@ -260,9 +258,6 @@ void AndroidAudioEngineHelper::init(JNIEnv* env, jobject activity)
     }
     
     env->DeleteLocalRef(java_audioManager);
-    
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "sampleRate %d", sampleRate);
-    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "bufferSize %d", bufferSize);
     
     m_iSampleRate = sampleRate;
     

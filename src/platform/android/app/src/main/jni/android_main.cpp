@@ -69,6 +69,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
 	UNUSED(env);
 	UNUSED(cls);
 
+    if (!gScreen)
+    {
+        return;
+    }
+    
     gScreen->releaseDeviceDependentResources();
     
     gScreen->createDeviceDependentResources();
@@ -79,6 +84,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
 	UNUSED(env);
 	UNUSED(cls);
 
+    if (!gScreen)
+    {
+        return;
+    }
+    
     gScreen->createWindowSizeDependentResources(pixel_width, pixel_height, pixel_width, pixel_height);
 }
 
@@ -87,6 +97,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1resume(JNI
 	UNUSED(env);
 	UNUSED(cls);
 
+    if (!gScreen)
+    {
+        return;
+    }
+    
     gScreen->onResume();
 }
 
@@ -94,6 +109,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIE
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!gScreen)
+    {
+        return;
+    }
 
     gScreen->onPause();
 }
@@ -113,6 +133,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_update(JNIEnv*
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!gScreen)
+    {
+        return;
+    }
 
     gScreen->update(delta_time);
 }
@@ -121,6 +146,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_render(JNIEnv*
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!gScreen)
+    {
+        return;
+    }
 
     gScreen->render();
 }
@@ -154,6 +184,11 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1requested_
 	UNUSED(env);
     UNUSED(cls);
     
+    if (!gScreen)
+    {
+        return;
+    }
+    
 	return gScreen->getRequestedAction();
 }
 
@@ -161,6 +196,11 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_clear_1request
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!gScreen)
+    {
+        return;
+    }
 
 	gScreen->clearRequestedAction();
 }
@@ -169,6 +209,11 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_handle_1on_1ba
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    if (!gScreen)
+    {
+        return;
+    }
     
     if (gScreen->m_stateMachine.getCurrentState() == Title::getInstance())
     {

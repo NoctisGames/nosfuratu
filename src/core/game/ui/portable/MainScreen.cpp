@@ -59,7 +59,11 @@ m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
+#if defined __ANDROID__
+    NG_SAVE_DATA->config("/data/data/com.noctisgames.nosfuratu/files/nosfuratu.sav");
+#else
     NG_SAVE_DATA->config("nosfuratu.sav");
+#endif
     
     loadSounds();
     

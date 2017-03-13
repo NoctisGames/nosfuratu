@@ -57,3 +57,14 @@ void appleReleaseAssetData(const FileData *file_data)
     
     free((void *)file_data->data);
 }
+
+const char * getPathInsideNSDocuments(const char* relative_path)
+{
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *path = [[NSString alloc] initWithCString:relative_path encoding:NSASCIIStringEncoding];
+    NSString *filePath = [docsPath stringByAppendingPathComponent:path];
+
+    const char *nsDocumentsPath = [filePath fileSystemRepresentation];
+    
+    return nsDocumentsPath;
+}
