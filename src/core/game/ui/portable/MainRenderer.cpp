@@ -2106,6 +2106,11 @@ void MainRenderer::renderToThirdFramebufferWithObfuscation()
 
 void MainRenderer::renderToThirdFramebufferWithTransDeathIn(float timeElapsed)
 {
+    if (!ensureTexture(m_trans_death_shader_helper))
+    {
+        return;
+    }
+    
     /// Render the death transition to the screen
     
     m_transDeathInGpuProgramWrapper->configure(m_trans_death_shader_helper->gpuTextureWrapper, timeElapsed);
