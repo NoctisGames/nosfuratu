@@ -194,7 +194,7 @@ void NGAudioEngine::loadMusic(const char *path)
     
     if (m_music)
     {
-        m_music->getSoundInstance()->pause();
+        m_music->getSoundInstance()->stop();
         
         delete m_music;
     }

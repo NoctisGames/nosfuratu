@@ -99,6 +99,8 @@ void SuperpoweredSound::stop()
     m_player->pause();
     m_player->setFirstBeatMs(0);
     m_player->setPosition(m_player->firstBeatMs, false, false);
+    
+    m_manager->onSoundStopped(this);
 }
 
 void SuperpoweredSound::setVolume(float volume)
@@ -123,14 +125,11 @@ bool SuperpoweredSound::isPaused()
 
 bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
-    if (m_fVolume <= 0)
-    {
-        return false;
-    }
-    
     if (sampleRate != -1
         && sampleRate != m_iLastSamplerate)
     {
+        printf("%d", m_iLastSamplerate);
+        
         // Has samplerate changed?
         m_iLastSamplerate = sampleRate;
         m_player->setSamplerate(sampleRate);

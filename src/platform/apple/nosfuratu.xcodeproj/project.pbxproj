@@ -297,11 +297,6 @@
 		BB44C3291DB030B3003E633F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3211DB030B3003E633F /* Assets.xcassets */; };
 		BB44C32A1DB030B3003E633F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3221DB030B3003E633F /* Main.storyboard */; };
 		BB44C3351DB0317E003E633F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3301DB0317E003E633F /* AppDelegate.m */; };
-		BB44C3361DB0317E003E633F /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB44C3321DB0317E003E633F /* ViewController.mm */; };
-		BB44C3441DB0323F003E633F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3391DB0323F003E633F /* InfoPlist.strings */; };
-		BB44C3451DB0323F003E633F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33B1DB0323F003E633F /* Localizable.strings */; };
-		BB44C3461DB0323F003E633F /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33D1DB0323F003E633F /* MainStoryboard_iPad.storyboard */; };
-		BB44C3471DB0323F003E633F /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB44C33F1DB0323F003E633F /* MainStoryboard_iPhone.storyboard */; };
 		BB44C3481DB0323F003E633F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3411DB0323F003E633F /* Images.xcassets */; };
 		BB44C35D1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
 		BB44C35E1DB03267003E633F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB44C34D1DB03267003E633F /* main.m */; };
@@ -443,6 +438,8 @@
 		BB606EEA1E70CE5B0050476B /* SuperpoweredSoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606ED61E70CE5B0050476B /* SuperpoweredSoundManager.cpp */; };
 		BB606EEB1E70CE5B0050476B /* SuperpoweredSoundManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606ED61E70CE5B0050476B /* SuperpoweredSoundManager.cpp */; };
 		BB66EC201C0E575E006DE4F5 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */; };
+		BB6DB1B81E76FCCF005C0FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6DB1B51E76FCCF005C0FAD /* Main.storyboard */; };
+		BB6DB1BB1E76FD7F005C0FAD /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB6DB1BA1E76FD7F005C0FAD /* MainViewController.mm */; };
 		BB71C78F1E248D4200222AE2 /* ability_unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7491E248D4200222AE2 /* ability_unlock.wav */; };
 		BB71C7911E248D4200222AE2 /* ability_unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C7491E248D4200222AE2 /* ability_unlock.wav */; };
 		BB71C7931E248D4200222AE2 /* absorb_dash_ability.wav in Resources */ = {isa = PBXBuildFile; fileRef = BB71C74A1E248D4200222AE2 /* absorb_dash_ability.wav */; };
@@ -1412,12 +1409,6 @@
 		BB44C3241DB030B3003E633F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB44C32F1DB0317E003E633F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BB44C3301DB0317E003E633F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BB44C3311DB0317E003E633F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		BB44C3321DB0317E003E633F /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
-		BB44C33A1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
-		BB44C33C1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		BB44C33E1DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		BB44C3401DB0323F003E633F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		BB44C3411DB0323F003E633F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BB44C3421DB0323F003E633F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "nosfuratu-Prefix.pch"; sourceTree = "<group>"; };
@@ -1533,6 +1524,9 @@
 		BB606EF01E70CE6D0050476B /* AndroidAudioEngineHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AndroidAudioEngineHelper.cpp; sourceTree = "<group>"; };
 		BB606EF11E70CE6D0050476B /* AndroidAudioEngineHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AndroidAudioEngineHelper.h; sourceTree = "<group>"; };
 		BB66EC1F1C0E575D006DE4F5 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		BB6DB1B61E76FCCF005C0FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		BB6DB1B91E76FD7F005C0FAD /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		BB6DB1BA1E76FD7F005C0FAD /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		BB71C7491E248D4200222AE2 /* ability_unlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ability_unlock.wav; sourceTree = "<group>"; };
 		BB71C74A1E248D4200222AE2 /* absorb_dash_ability.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = absorb_dash_ability.wav; sourceTree = "<group>"; };
 		BB71C74B1E248D4200222AE2 /* bat_poof.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bat_poof.wav; sourceTree = "<group>"; };
@@ -2628,27 +2622,16 @@
 			children = (
 				BB44C32F1DB0317E003E633F /* AppDelegate.h */,
 				BB44C3301DB0317E003E633F /* AppDelegate.m */,
-				BB44C3381DB0323F003E633F /* en.lproj */,
+				BB6DB1B21E76FCCF005C0FAD /* Base.lproj */,
 				0ADF1876178E2185005DA99E /* Frameworks */,
 				BB76393E1E21B17800534DAB /* GoogleService-Info.plist */,
 				BB44C3411DB0323F003E633F /* Images.xcassets */,
 				BB44C3421DB0323F003E633F /* Info.plist */,
+				BB6DB1B91E76FD7F005C0FAD /* MainViewController.h */,
+				BB6DB1BA1E76FD7F005C0FAD /* MainViewController.mm */,
 				BB44C3431DB0323F003E633F /* nosfuratu-Prefix.pch */,
-				BB44C3311DB0317E003E633F /* ViewController.h */,
-				BB44C3321DB0317E003E633F /* ViewController.mm */,
 			);
 			path = ios;
-			sourceTree = "<group>";
-		};
-		BB44C3381DB0323F003E633F /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				BB44C3391DB0323F003E633F /* InfoPlist.strings */,
-				BB44C33B1DB0323F003E633F /* Localizable.strings */,
-				BB44C33D1DB0323F003E633F /* MainStoryboard_iPad.storyboard */,
-				BB44C33F1DB0323F003E633F /* MainStoryboard_iPhone.storyboard */,
-			);
-			path = en.lproj;
 			sourceTree = "<group>";
 		};
 		BB44C34A1DB03267003E633F /* shared */ = {
@@ -2986,6 +2969,14 @@
 			path = android;
 			sourceTree = "<group>";
 		};
+		BB6DB1B21E76FCCF005C0FAD /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				BB6DB1B51E76FCCF005C0FAD /* Main.storyboard */,
+			);
+			path = Base.lproj;
+			sourceTree = "<group>";
+		};
 		BBA052411E68F96E00450261 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
@@ -3232,7 +3223,6 @@
 				BB71C8071E248D4200222AE2 /* jon_rabbit_jump.wav in Resources */,
 				BB44C3481DB0323F003E633F /* Images.xcassets in Resources */,
 				BBA052681E68FACC00450261 /* frame_buffer_to_screen_shader.vsh in Resources */,
-				BB44C3441DB0323F003E633F /* InfoPlist.strings in Resources */,
 				BB71C80F1E248D4200222AE2 /* jon_vampire_jump.wav in Resources */,
 				BB44C4921DB03277003E633F /* c_world_1_mid_boss_part_2.png in Resources */,
 				BB71C7B31E248D4200222AE2 /* collect_golden_carrot.wav in Resources */,
@@ -3257,7 +3247,6 @@
 				BB21A4811DD2F51100D72C8B /* world_1_background_lower_part_1.png in Resources */,
 				BB44C4DA1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
 				BB34FC871E5645F500AC8197 /* snake_death_texture_shader.fsh in Resources */,
-				BB44C3471DB0323F003E633F /* MainStoryboard_iPhone.storyboard in Resources */,
 				BB71C7FB1E248D4200222AE2 /* fox_strike.wav in Resources */,
 				BB44C47A1DB03277003E633F /* c_vampire.png in Resources */,
 				BB71C79F1E248D4200222AE2 /* boss_level_unlock.wav in Resources */,
@@ -3265,6 +3254,7 @@
 				BB71C8831E248D4300222AE2 /* title_lightning_1.wav in Resources */,
 				BB71C7A71E248D4200222AE2 /* cancel_transform.wav in Resources */,
 				BB34FC6B1E5645F500AC8197 /* end_boss_snake_texture_shader.fsh in Resources */,
+				BB6DB1B81E76FCCF005C0FAD /* Main.storyboard in Resources */,
 				BB71C86F1E248D4300222AE2 /* snake_jump.wav in Resources */,
 				BB44C93B1DB03A7E003E633F /* rapidjson_readme.txt in Resources */,
 				BB5C2A671E09E088009577BD /* tutorial.png in Resources */,
@@ -3280,7 +3270,6 @@
 				BB71C82F1E248D4200222AE2 /* level_confirmed.wav in Resources */,
 				BB71C8771E248D4300222AE2 /* sparrow_fly_loop.wav in Resources */,
 				BB44C4E21DB03277003E633F /* world_1_end_boss_part_3.png in Resources */,
-				BB44C3461DB0323F003E633F /* MainStoryboard_iPad.storyboard in Resources */,
 				BB71C7971E248D4200222AE2 /* bat_poof.wav in Resources */,
 				BB44C4E01DB03277003E633F /* world_1_end_boss_part_2.png in Resources */,
 				BB44C4D21DB03277003E633F /* vampire.png in Resources */,
@@ -3310,7 +3299,6 @@
 				BB71C89B1E248D4300222AE2 /* vampire_glide_loop.wav in Resources */,
 				BB44C4EC1DB03277003E633F /* world_1_mid_boss_part_3.png in Resources */,
 				BB71C7E31E248D4200222AE2 /* footstep_left_wood.wav in Resources */,
-				BB44C3451DB0323F003E633F /* Localizable.strings in Resources */,
 				BB34FC731E5645F500AC8197 /* frame_buffer_to_screen_purple_highlight_shader.fsh in Resources */,
 				BB71C7C71E248D4200222AE2 /* end_boss_snake_damaged.wav in Resources */,
 				BB21A4891DD2F51100D72C8B /* world_1_background_mid.png in Resources */,
@@ -3610,6 +3598,7 @@
 				BB34FC5B1E5645F500AC8197 /* OpenGLSnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
 				BB34FA251E563C2400AC8197 /* ScreenEvent.cpp in Sources */,
 				BB34FCD31E5645F500AC8197 /* FramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
+				BB6DB1BB1E76FD7F005C0FAD /* MainViewController.mm in Sources */,
 				BB34FBAB1E5645F400AC8197 /* GameMarker.cpp in Sources */,
 				BB34FC3F1E5645F500AC8197 /* OpenGLFramebufferRadialBlurGpuProgramWrapper.cpp in Sources */,
 				BB34F8D51E563C2200AC8197 /* Triangle.cpp in Sources */,
@@ -3732,7 +3721,6 @@
 				BB44C8791DB03A7E003E633F /* pngrutil.c in Sources */,
 				BB34F9F91E563C2300AC8197 /* GpuProgramWrapper.cpp in Sources */,
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
-				BB44C3361DB0317E003E633F /* ViewController.mm in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB606EC11E70C6E90050476B /* IAudioEngineHelper.cpp in Sources */,
 				BB606EA81E7071EA0050476B /* IDeviceHelper.cpp in Sources */,
@@ -4127,36 +4115,12 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		BB44C3391DB0323F003E633F /* InfoPlist.strings */ = {
+		BB6DB1B51E76FCCF005C0FAD /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BB44C33A1DB0323F003E633F /* en */,
+				BB6DB1B61E76FCCF005C0FAD /* Base */,
 			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		BB44C33B1DB0323F003E633F /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB44C33C1DB0323F003E633F /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		BB44C33D1DB0323F003E633F /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB44C33E1DB0323F003E633F /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		BB44C33F1DB0323F003E633F /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB44C3401DB0323F003E633F /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -4269,7 +4233,7 @@
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -4313,7 +4277,7 @@
 					"\"$(SRCROOT)/../../3rdparty\"/**",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../3rdparty\"/**";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (

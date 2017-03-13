@@ -392,4 +392,4 @@ void MainScreen::loadSounds()
     NG_AUDIO_ENGINE->loadSound(SOUND_COLLECT_VIAL, "collect_vial", 1);
 }
 
-RTTI_IMPL_NOPARENT(MainScreen);
+RTTI_IMPL(MainScreen, IScreen);

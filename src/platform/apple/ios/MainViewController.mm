@@ -1,12 +1,12 @@
 //
-//  ViewController.m
+//  MainViewController.m
 //  nosfuratu
 //
-//  Created by Stephen Gowen on 9/5/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Created by Stephen Gowen on 3/13/17.
+//  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 
 #import "GoogleMobileAds/GoogleMobileAds.h"
 
@@ -16,62 +16,41 @@
 #include "MainAssets.h"
 #include "GameConstants.h"
 
-@interface ViewController () <GADInterstitialDelegate>
+@interface MainViewController () <GADInterstitialDelegate>
 {
-    MainScreen *_screen;
+    MainScreen *_mainScreen;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) GADInterstitial *interstitial;
 
+- (void)setupGL;
+- (void)tearDownGL;
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+
     if (!self.context)
     {
         NSLog(@"Failed to create ES context");
-        return;
     }
     
     GLKView *view = (GLKView *)self.view;
-    
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     view.userInteractionEnabled = YES;
-    [view setMultipleTouchEnabled:YES];
-    
-    self.preferredFramesPerSecond = 60;
-    
-    [EAGLContext setCurrentContext:self.context];
-    
-    CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
-    
-    CGSize size = CGSizeMake(screenBounds.size.width, screenBounds.size.height);
-    size.width = roundf(size.width);
-    size.height = roundf(size.height);
-    
-    NSLog(@"dimension %f x %f", size.width, size.height);
+    view.multipleTouchEnabled = YES;
     
     [view bindDrawable];
     
-    unsigned long long ramSize = [NSProcessInfo processInfo].physicalMemory;
-    bool isLowMemoryDevice = ramSize < 1610612736; // 1536 MB
-    
-    NSLog(@"ramSize: %llu", ramSize);
-    NSLog(@"isLowMemoryDevice: %@", isLowMemoryDevice ? @"YES" : @"NO");
-    
-    MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
-    
-    _screen = new MainScreen();
-    _screen->createDeviceDependentResources();
-    _screen->createWindowSizeDependentResources(MAX(size.width, size.height), MIN(size.width, size.height), [UIScreen mainScreen].applicationFrame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+    self.preferredFramesPerSecond = 60;
     
     [self createAndLoadInterstitial];
     
@@ -84,20 +63,39 @@
                                              selector:@selector(onResume)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    
+    [self setupGL];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+- (void)dealloc
+{    
+    [self tearDownGL];
     
-    _screen->onResume();
+    if ([EAGLContext currentContext] == self.context)
+    {
+        [EAGLContext setCurrentContext:nil];
+    }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)didReceiveMemoryWarning
 {
-    [super viewWillDisappear:animated];
-    
-    [self onPause];
+    [super didReceiveMemoryWarning];
+
+    if ([self isViewLoaded] && ([[self view] window] == nil))
+    {
+        self.view = nil;
+        
+        [self tearDownGL];
+        
+        if ([EAGLContext currentContext] == self.context)
+        {
+            [EAGLContext setCurrentContext:nil];
+        }
+        
+        self.context = nil;
+    }
+
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -121,11 +119,16 @@
     SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, pos.x, pos.y);
 }
 
-#pragma mark <GLKViewControllerDelegate>
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+#pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update
 {
-    int requestedAction = _screen->getRequestedAction();
+    int requestedAction = _mainScreen->getRequestedAction();
     
     switch (requestedAction)
     {
@@ -134,33 +137,67 @@
             {
                 [self.interstitial presentFromRootViewController:self];
             }
-            _screen->clearRequestedAction();
+            _mainScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:
         default:
             break;
     }
     
-    _screen->update(self.timeSinceLastUpdate);
+    _mainScreen->update(self.timeSinceLastUpdate);
 }
-
-#pragma mark <GLKViewDelegate>
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    _screen->render();
+    _mainScreen->render();
+}
+
+#pragma mark GADInterstitialDelegate
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
+{
+    [self createAndLoadInterstitial];
 }
 
 #pragma mark Private
 
+- (void)setupGL
+{
+    [EAGLContext setCurrentContext:self.context];
+    
+    CGRect screenBounds = [[UIScreen mainScreen] nativeBounds];
+    
+    CGSize size = CGSizeMake(screenBounds.size.width, screenBounds.size.height);
+    size.width = roundf(size.width);
+    size.height = roundf(size.height);
+    
+    unsigned long long ramSize = [NSProcessInfo processInfo].physicalMemory;
+    bool isLowMemoryDevice = ramSize < 1610612736; // 1536 MB
+    
+    MAIN_ASSETS->setUsingCompressedTextureSet(isLowMemoryDevice);
+    
+    _mainScreen = new MainScreen();
+    _mainScreen->createDeviceDependentResources();
+    float w = MAX(size.width, size.height), h = MIN(size.width, size.height), tw = [UIScreen mainScreen].bounds.size.width, th = [UIScreen mainScreen].bounds.size.height;
+    
+    _mainScreen->createWindowSizeDependentResources(w, h, tw, th);
+}
+
+- (void)tearDownGL
+{
+    [EAGLContext setCurrentContext:self.context];
+    
+    delete _mainScreen;
+}
+
 - (void)onResume
 {
-    _screen->onResume();
+    _mainScreen->onResume();
 }
 
 - (void)onPause
 {
-    _screen->onPause();
+    _mainScreen->onPause();
 }
 
 - (void)createAndLoadInterstitial
@@ -173,11 +210,6 @@
     
     self.interstitial.delegate = self;
     [self.interstitial loadRequest:[GADRequest request]];
-}
-
-- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
-{
-    [self createAndLoadInterstitial];
 }
 
 @end

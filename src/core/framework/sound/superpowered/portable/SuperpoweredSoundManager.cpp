@@ -88,6 +88,27 @@ void SuperpoweredSoundManager::onSoundPlayed(SuperpoweredSound* sound)
     }
 }
 
+void SuperpoweredSoundManager::onSoundStopped(SuperpoweredSound* sound)
+{
+    if (sound->getSoundId() == 1337)
+    {
+        // This is music
+        m_activeSounds[0] = nullptr;
+        
+        return;
+    }
+    
+    for (int j = 1; j < MAX_NUM_SOUND_PLAYERS; ++j)
+    {
+        if (m_activeSounds[j] == sound)
+        {
+            m_activeSounds[j] = nullptr;
+            
+            return;
+        }
+    }
+}
+
 bool SuperpoweredSoundManager::processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate)
 {
     return processSound(output, numberOfSamples, m_activeSounds[0], m_stereoBuffers[0], sampleRate);

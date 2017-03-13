@@ -25,6 +25,8 @@ public:
     
     void onSoundPlayed(SuperpoweredSound* sound);
     
+    void onSoundStopped(SuperpoweredSound* sound);
+    
     bool processMusic(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound1(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     bool processSound2(void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);

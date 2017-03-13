@@ -120,5 +120,11 @@ GLuint OpenGLProgram::linkProgram(const GLuint vertex_shader, const GLuint fragm
     
     assert(link_status != GL_FALSE);
     
+    // Release vertex and fragment shaders.
+    glDetachShader(program_object_id, vertex_shader);
+    glDeleteShader(vertex_shader);
+    glDetachShader(program_object_id, fragment_shader);
+    glDeleteShader(fragment_shader);
+    
     return program_object_id;
 }
