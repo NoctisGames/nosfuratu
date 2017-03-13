@@ -94,11 +94,11 @@ public final class MainActivity extends Activity
     }
 
     @Override
-    protected void onStop()
+    protected void onDestroy()
     {
-        _mainRenderer.onStop();
+        _mainRenderer.onDestroy();
 
-        super.onStop();
+        super.onDestroy();
     }
 
     @Override

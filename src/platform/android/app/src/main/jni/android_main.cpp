@@ -16,6 +16,7 @@
 #include "MainAssets.h"
 
 #include <jni.h>
+#include <android/log.h>
 
 MainScreen* gScreen;
 
@@ -32,7 +33,7 @@ extern "C"
     
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIEnv* env, jclass cls);
     
-    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1stop(JNIEnv* env, jclass cls);
+    JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1destroy(JNIEnv* env, jclass cls);
     
     JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_update(JNIEnv* env, jclass cls, jfloat delta_time);
     
@@ -55,6 +56,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_init(JNIEnv* e
 {
     UNUSED(cls);
     
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_init");
+    
     ANDROID_AUDIO_ENGINE_HELPER->init(env, activity);
     
     ANDROID_ASSETS->init(env, activity);
@@ -68,6 +71,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1created");
 
     if (!gScreen)
     {
@@ -83,6 +88,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1changed");
 
     if (!gScreen)
     {
@@ -96,6 +103,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1resume(JNI
 {
 	UNUSED(env);
 	UNUSED(cls);
+    
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_on_1resume");
 
     if (!gScreen)
     {
@@ -110,6 +119,8 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIE
 	UNUSED(env);
 	UNUSED(cls);
     
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause");
+    
     if (!gScreen)
     {
         return;
@@ -118,10 +129,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1pause(JNIE
     gScreen->onPause();
 }
 
-JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1stop(JNIEnv* env, jclass cls)
+JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1destroy(JNIEnv* env, jclass cls)
 {
     UNUSED(env);
     UNUSED(cls);
+    
+    __android_log_print(ANDROID_LOG_VERBOSE, "NosFURatu", "Java_com_noctisgames_nosfuratu_AndroidMain_on_1destroy");
     
     ANDROID_AUDIO_ENGINE_HELPER->deinit();
     
@@ -184,11 +197,6 @@ JNIEXPORT int JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_get_1requested_
 	UNUSED(env);
     UNUSED(cls);
     
-    if (!gScreen)
-    {
-        return;
-    }
-    
 	return gScreen->getRequestedAction();
 }
 
@@ -196,11 +204,6 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_clear_1request
 {
 	UNUSED(env);
 	UNUSED(cls);
-    
-    if (!gScreen)
-    {
-        return;
-    }
 
 	gScreen->clearRequestedAction();
 }
@@ -212,7 +215,7 @@ JNIEXPORT bool JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_handle_1on_1ba
     
     if (!gScreen)
     {
-        return;
+        return false;
     }
     
     if (gScreen->m_stateMachine.getCurrentState() == Title::getInstance())

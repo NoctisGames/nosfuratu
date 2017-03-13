@@ -98,9 +98,9 @@ public final class MainRenderer implements Renderer
         AndroidMain.on_pause();
     }
 
-    public void onStop()
+    public void onDestroy()
     {
-        AndroidMain.on_stop();
+        AndroidMain.on_destroy();
     }
 
     public void handleTouchDown(float rawX, float rawY)

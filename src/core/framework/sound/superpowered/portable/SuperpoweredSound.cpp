@@ -128,8 +128,6 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
     if (sampleRate != -1
         && sampleRate != m_iLastSamplerate)
     {
-        printf("%d", m_iLastSamplerate);
-        
         // Has samplerate changed?
         m_iLastSamplerate = sampleRate;
         m_player->setSamplerate(sampleRate);

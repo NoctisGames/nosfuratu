@@ -19,7 +19,7 @@ public final class AndroidMain
 
     public static native void on_pause();
 
-    public static native void on_stop();
+    public static native void on_destroy();
 
     public static native void update(float deltaTime);
 
