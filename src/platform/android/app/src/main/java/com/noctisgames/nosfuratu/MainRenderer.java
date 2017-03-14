@@ -45,7 +45,7 @@ public final class MainRenderer implements Renderer
         int[] screenDimensions = getScreenDimensions(activity);
 
         double ramSize = getTotalRAM(activity);
-        boolean isLowMemoryDevice = screenDimensions[0] < 2048 || screenDimensions[1] < 2048 || ramSize < 2147483648.0; // 2048 MB
+        boolean isLowMemoryDevice = screenDimensions[0] < 1800 || screenDimensions[1] < 1800 || ramSize < 2147483648.0; // 2048 MB
 
         AndroidMain.init(activity, isLowMemoryDevice);
     }

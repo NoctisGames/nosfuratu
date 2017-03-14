@@ -268,7 +268,7 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
             NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
-            NG_AUDIO_ENGINE->playMusic();
+            NG_AUDIO_ENGINE->playMusic(false);
         }
     }
 }
@@ -353,7 +353,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
             ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
             NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
-            NG_AUDIO_ENGINE->playMusic(true);
+            NG_AUDIO_ENGINE->playMusic();
         }
     }
 }
