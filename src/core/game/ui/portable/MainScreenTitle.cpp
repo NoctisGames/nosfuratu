@@ -162,9 +162,12 @@ void Title::execute(MainScreen* ms)
                     if (m_iResetCodeState == 3)
                     {
                         m_iResetCodeState++;
+                        
                         NG_SAVE_DATA->clear();
                         
                         WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
                     }
                     continue;
                 case KeyboardEventType_SPACE:
