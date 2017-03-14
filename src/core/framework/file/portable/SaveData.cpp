@@ -181,6 +181,13 @@ void SaveData::load()
     }
 }
     
+void SaveData::clear()
+{
+    m_keyValues.clear();
+    
+    save();
+}
+    
 std::string SaveData::findValue(std::string key)
 {
     auto q = m_keyValues.find(key);

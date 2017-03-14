@@ -25,6 +25,8 @@ public:
     
     void load();
     
+    void clear();
+    
     std::string findValue(std::string key);
     
     std::map<std::string, std::string>& getKeyValues();
