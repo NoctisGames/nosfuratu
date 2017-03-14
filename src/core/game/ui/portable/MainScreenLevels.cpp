@@ -1668,6 +1668,66 @@ std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int wo
                     userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 36.0f));
                 }
                     break;
+                case 14:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 2.60f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 4.13f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.76f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 6.10f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 7.40f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 7.90f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 10.15f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 11.08f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 11.49f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 12.48f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 15.03f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 17.38f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 23.31f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 25.01f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 26.64f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 27.16f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 27.84f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 29));
+                }
+                    break;
+                case 15:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 1.0f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 2.5f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 4.98f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.40f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 8.60f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 8.86f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 9.90f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 12.78f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.01f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 15.21f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.43f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 17.89f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 19.19f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 22.49f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 24));
+                }
+                    break;
+                case 16:
+                {
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 1.5f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 3.1f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 5.35f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 5.7f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerRight, 6.86f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 9.90f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 10.56f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 11.74f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 14.1f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 15.55f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.3f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.7f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 18.2f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 18.9f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 20.5f));
+                }
+                    break;
                 default:
                     assert(false);
             }
