@@ -41,6 +41,8 @@ public:
     bool process(float *stereoBuffer, void *output, unsigned int numberOfSamples, unsigned int sampleRate = -1);
     
     SuperpoweredAdvancedAudioPlayer* getPlayer();
+    
+    SuperpoweredSoundManager* getManager();
 
 private:
     SuperpoweredSoundManager* m_manager;

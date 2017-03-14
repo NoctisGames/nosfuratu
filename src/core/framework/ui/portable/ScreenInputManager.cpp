@@ -11,7 +11,7 @@
 #include "ScreenEvent.h"
 
 #define MAX_DRAGGED_EVENTS_PER_FRAME 3
-#define POOL_SIZE 64
+#define POOL_SIZE 256
 
 ScreenInputManager* ScreenInputManager::getInstance()
 {

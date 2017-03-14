@@ -32,6 +32,11 @@ static void playerEventCallback(void *clientData, SuperpoweredAdvancedAudioPlaye
     {
         bool *pBoolValue = (bool *)value;
         *pBoolValue = !sps->isLooping();
+        
+        if (!sps->isLooping())
+        {
+            sps->getManager()->onSoundStopped(sps);
+        }
     }
 }
 
@@ -153,4 +158,9 @@ bool SuperpoweredSound::process(float *stereoBuffer, void *output, unsigned int 
 SuperpoweredAdvancedAudioPlayer* SuperpoweredSound::getPlayer()
 {
     return m_player;
+}
+
+SuperpoweredSoundManager* SuperpoweredSound::getManager()
+{
+    return m_manager;
 }
