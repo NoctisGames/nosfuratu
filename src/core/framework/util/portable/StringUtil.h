@@ -20,7 +20,7 @@ public:
         char key[3] = {'N', 'G', 'S'}; // Any chars will work, in an array of any size
         std::string output = input;
         
-        for (int i = 0; i < input.size(); ++i)
+        for (unsigned int i = 0; i < input.size(); ++i)
         {
             output[i] = input[i] ^ key[i % (sizeof(key) / sizeof(char))];
         }
