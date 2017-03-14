@@ -41,6 +41,10 @@ private:
     float m_fTransitionStateTime;
     int m_iWorldToLoad;
     int m_iLevelToLoad;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     TitleToDemo();
@@ -65,6 +69,10 @@ public:
     
 private:
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     TitleToWorldMap();
@@ -89,6 +97,10 @@ public:
     
 private:
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     TitleToOpeningCutscene();
@@ -113,6 +125,10 @@ public:
     
 private:
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     OpeningCutsceneToWorldMap();
@@ -137,6 +153,10 @@ public:
     
 private:
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     TitleToLevelEditor();
@@ -166,7 +186,10 @@ private:
     float m_fCenterX;
     float m_fCenterY;
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
     bool m_hasPlayedTransitionSound;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMapToOpeningCutscene();
@@ -202,10 +225,13 @@ private:
     float m_fCenterX;
     float m_fCenterY;
     float m_fTransitionStateTime;
+    float m_fWaitTime;
     float m_fFade;
     int m_iWorldToLoad;
     int m_iLevelToLoad;
+    bool m_hasStoppedMusic;
     bool m_hasPlayedTransitionSound;
+    bool m_hasEnteredLevel;
     
     // Set from app storage
     int m_iBestScore;
@@ -241,6 +267,10 @@ public:
 private:
     Level* m_levelState;
     float m_fTransitionStateTime;
+    float m_fWaitTime;
+    bool m_hasStoppedMusic;
+    bool m_hasLoadedNextScreen;
+    bool m_hasEnteredNextScreen;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     LevelToComingSoon();

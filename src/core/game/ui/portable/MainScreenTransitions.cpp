@@ -24,6 +24,7 @@
 #include "BatPanel.h"
 #include "NGAudioEngine.h"
 #include "MainRenderer.h"
+#include "MathUtil.h"
 
 /// Title to Demo Transition ///
 
@@ -37,12 +38,14 @@ TitleToDemo * TitleToDemo::getInstance()
 void TitleToDemo::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = 0;
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
     
     m_levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad);
     
     m_levelState->launchInDemoMode(LevelUtil::getUserDemoActionsForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad));
-    
-    m_levelState->enter(ms);
 }
 
 void TitleToDemo::execute(MainScreen* ms)
@@ -55,9 +58,12 @@ void TitleToDemo::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        ms->m_renderer->renderWorld(m_levelState->getGame());
-        
-        ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        if (m_hasEnteredNextScreen)
+        {
+            ms->m_renderer->renderWorld(m_levelState->getGame());
+            
+            ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        }
         
         ms->m_renderer->renderToThirdFramebufferFadeTransition(m_fTransitionStateTime);
         
@@ -73,15 +79,42 @@ void TitleToDemo::execute(MainScreen* ms)
     else
     {
         m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
-        
-        if (m_fTransitionStateTime < 1
-            || ms->m_renderer->isLoadingData())
+        if (m_fTransitionStateTime > 0.5f)
         {
-            return;
+            if (!m_hasStoppedMusic)
+            {
+                m_fTransitionStateTime = 0.5f;
+                
+                if (!m_hasEnteredNextScreen)
+                {
+                    m_levelState->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 1)
+                {
+                    m_fTransitionStateTime = 0.5f;
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+            }
         }
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setPreviousState(Title::getInstance());
             ms->m_stateMachine.setCurrentState(m_levelState);
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
@@ -95,6 +128,11 @@ void TitleToDemo::exit(MainScreen* ms)
     m_fTransitionStateTime = 0;
     m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
+    
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void TitleToDemo::initRenderer(MainScreen* ms)
@@ -117,11 +155,15 @@ void TitleToDemo::setLevelToLoad(int levelToLoad)
     m_iLevelToLoad = levelToLoad;
 }
 
-TitleToDemo::TitleToDemo() :
+TitleToDemo::TitleToDemo() : MainScreenState(),
 m_levelState(nullptr),
 m_fTransitionStateTime(0),
 m_iWorldToLoad(0),
-m_iLevelToLoad(0)
+m_iLevelToLoad(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -138,8 +180,10 @@ TitleToWorldMap * TitleToWorldMap::getInstance()
 void TitleToWorldMap::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    
-    WorldMap::getInstance()->enter(ms);
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void TitleToWorldMap::execute(MainScreen* ms)
@@ -152,10 +196,13 @@ void TitleToWorldMap::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        WorldMap* wm = WorldMap::getInstance();
-        ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
-        ms->m_renderer->renderWorldMapScreenUi(*wm);
-        ms->m_renderer->renderWorldMapScreenButtons(*wm);
+        if (m_hasEnteredNextScreen)
+        {
+            WorldMap* wm = WorldMap::getInstance();
+            ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+            ms->m_renderer->renderWorldMapScreenUi(*wm);
+            ms->m_renderer->renderWorldMapScreenButtons(*wm);
+        }
         
         ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
@@ -172,19 +219,52 @@ void TitleToWorldMap::execute(MainScreen* ms)
     {
         if (m_fTransitionStateTime < 0)
         {
-            m_fTransitionStateTime = 0;
-            NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
-            NG_AUDIO_ENGINE->stopMusic();
+            if (!m_hasStoppedMusic)
+            {
+                if (!m_hasEnteredNextScreen)
+                {
+                    WorldMap::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasLoadedNextScreen)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
+                    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+                    
+                    m_fTransitionStateTime = 0;
+                    m_hasLoadedNextScreen = true;
+                }
+            }
+            
+            return;
         }
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setCurrentState(WorldMap::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
             NG_AUDIO_ENGINE->playMusic(true);
         }
     }
@@ -207,7 +287,12 @@ void TitleToWorldMap::initRenderer(MainScreen* ms)
     ms->m_renderer->load(RENDERER_TYPE_WORLD_MAP);
 }
 
-TitleToWorldMap::TitleToWorldMap() : m_fTransitionStateTime(0)
+TitleToWorldMap::TitleToWorldMap() : MainScreenState(),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -224,8 +309,10 @@ TitleToOpeningCutscene * TitleToOpeningCutscene::getInstance()
 void TitleToOpeningCutscene::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    
-    OpeningCutscene::getInstance()->enter(ms);
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void TitleToOpeningCutscene::execute(MainScreen* ms)
@@ -238,7 +325,10 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        if (m_hasEnteredNextScreen)
+        {
+            ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        }
         
         ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
@@ -255,19 +345,52 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
     {
         if (m_fTransitionStateTime < 0)
         {
-            m_fTransitionStateTime = 0;
-            NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
-            NG_AUDIO_ENGINE->stopMusic();
+            if (!m_hasStoppedMusic)
+            {
+                if (!m_hasEnteredNextScreen)
+                {
+                    OpeningCutscene::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasLoadedNextScreen)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
+                    NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
+                    
+                    m_fTransitionStateTime = 0;
+                    m_hasLoadedNextScreen = true;
+                }
+            }
+            
+            return;
         }
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
             NG_AUDIO_ENGINE->playMusic(false);
         }
     }
@@ -290,7 +413,12 @@ void TitleToOpeningCutscene::initRenderer(MainScreen* ms)
     ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
-TitleToOpeningCutscene::TitleToOpeningCutscene() : m_fTransitionStateTime(0)
+TitleToOpeningCutscene::TitleToOpeningCutscene() : MainScreenState(),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -307,8 +435,10 @@ OpeningCutsceneToWorldMap * OpeningCutsceneToWorldMap::getInstance()
 void OpeningCutsceneToWorldMap::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    
-    WorldMap::getInstance()->enter(ms);
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
@@ -321,10 +451,13 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        WorldMap* wm = WorldMap::getInstance();
-        ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
-        ms->m_renderer->renderWorldMapScreenUi(*wm);
-        ms->m_renderer->renderWorldMapScreenButtons(*wm);
+        if (m_hasEnteredNextScreen)
+        {
+            WorldMap* wm = WorldMap::getInstance();
+            ms->m_renderer->renderWorldMapScreenBackground(wm->getWorldMapPanel());
+            ms->m_renderer->renderWorldMapScreenUi(*wm);
+            ms->m_renderer->renderWorldMapScreenButtons(*wm);
+        }
         
         ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
@@ -341,18 +474,52 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
     {
         if (m_fTransitionStateTime < 0)
         {
-            m_fTransitionStateTime = 0;
+            if (!m_hasStoppedMusic)
+            {
+                if (!m_hasEnteredNextScreen)
+                {
+                    WorldMap::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasLoadedNextScreen)
+                {
+                    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+                    
+                    m_fTransitionStateTime = 0;
+                    m_hasLoadedNextScreen = true;
+                }
+            }
+            
+            return;
         }
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setPreviousState(Title::getInstance());
             ms->m_stateMachine.setCurrentState(WorldMap::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_WORLD_1_CUTSCENE);
             
-            NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
             NG_AUDIO_ENGINE->playMusic();
         }
     }
@@ -375,7 +542,12 @@ void OpeningCutsceneToWorldMap::initRenderer(MainScreen* ms)
     ms->m_renderer->load(RENDERER_TYPE_WORLD_1_CUTSCENE);
 }
 
-OpeningCutsceneToWorldMap::OpeningCutsceneToWorldMap() : m_fTransitionStateTime(0)
+OpeningCutsceneToWorldMap::OpeningCutsceneToWorldMap() : MainScreenState(),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -392,8 +564,10 @@ TitleToLevelEditor * TitleToLevelEditor::getInstance()
 void TitleToLevelEditor::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    
-    MainScreenLevelEditor::getInstance()->enter(ms);
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void TitleToLevelEditor::execute(MainScreen* ms)
@@ -406,7 +580,10 @@ void TitleToLevelEditor::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        ms->m_renderer->renderLevelEditor(MainScreenLevelEditor::getInstance());
+        if (m_hasEnteredNextScreen)
+        {
+            ms->m_renderer->renderLevelEditor(MainScreenLevelEditor::getInstance());
+        }
         
         ms->m_renderer->renderToThirdFramebufferTransition(m_fTransitionStateTime);
         
@@ -423,15 +600,49 @@ void TitleToLevelEditor::execute(MainScreen* ms)
     {
         if (m_fTransitionStateTime < 0)
         {
-            m_fTransitionStateTime = 0;
-            NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
-            NG_AUDIO_ENGINE->stopMusic();
+            if (!m_hasStoppedMusic)
+            {
+                if (!m_hasEnteredNextScreen)
+                {
+                    MainScreenLevelEditor::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasLoadedNextScreen)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
+                    
+                    m_fTransitionStateTime = 0;
+                    m_hasLoadedNextScreen = true;
+                }
+            }
+            
+            return;
         }
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
+            ms->m_stateMachine.setPreviousState(Title::getInstance());
             ms->m_stateMachine.setCurrentState(MainScreenLevelEditor::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
         }
@@ -455,7 +666,12 @@ void TitleToLevelEditor::initRenderer(MainScreen* ms)
     ms->m_renderer->load(RENDERER_TYPE_LEVEL_EDITOR);
 }
 
-TitleToLevelEditor::TitleToLevelEditor() : m_fTransitionStateTime(0)
+TitleToLevelEditor::TitleToLevelEditor() : MainScreenState(),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -472,10 +688,11 @@ WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
 void WorldMapToOpeningCutscene::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = 0;
+    m_fWaitTime = 0;
     m_fFade = 0;
+    m_hasStoppedMusic = false;
     m_hasPlayedTransitionSound = false;
-    
-    OpeningCutscene::getInstance()->enter(ms);
+    m_hasEnteredNextScreen = false;
 }
 
 void WorldMapToOpeningCutscene::execute(MainScreen* ms)
@@ -490,7 +707,10 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        if (m_hasEnteredNextScreen)
+        {
+            ms->m_renderer->renderCutscene(OpeningCutscene::getInstance()->getCutscenePanels());
+        }
         
         ms->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
@@ -508,37 +728,54 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
         m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
         {
-            if (!m_hasPlayedTransitionSound)
+            if (!m_hasStoppedMusic)
             {
                 m_fTransitionStateTime = 0.5f;
+                
+                if (!m_hasEnteredNextScreen)
+                {
+                    OpeningCutscene::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fTransitionStateTime = 0.5f;
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasPlayedTransitionSound)
+                {
+                    NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
+                    
+                    m_hasPlayedTransitionSound = true;
+                }
             }
         }
         
         m_fFade = m_fTransitionStateTime * 2;
         
+        WorldMap::getInstance()->setFade(clamp(m_fFade, 1, 0));
         WorldMap::getInstance()->updateButtons(ms->m_fDeltaTime);
-        
-        WorldMap::getInstance()->setFade(m_fFade);
-        
-        if (m_fFade < 1
-            || ms->m_renderer->isLoadingData())
-        {
-            return;
-        }
-        
-        if (!m_hasPlayedTransitionSound)
-        {
-            NG_AUDIO_ENGINE->stopMusic();
-            
-            m_hasPlayedTransitionSound = true;
-        }
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setCurrentState(OpeningCutscene::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
             
-            NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
             NG_AUDIO_ENGINE->playMusic(false);
         }
     }
@@ -567,7 +804,15 @@ void WorldMapToOpeningCutscene::setCutsceneButtonLocation(float centerX, float c
     m_fCenterY = centerY;
 }
 
-WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : m_fTransitionStateTime(0), m_fFade(0), m_fCenterX(0), m_fCenterY(0), m_hasPlayedTransitionSound(false)
+WorldMapToOpeningCutscene::WorldMapToOpeningCutscene() : MainScreenState(),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_fFade(0),
+m_fCenterX(0),
+m_fCenterY(0),
+m_hasStoppedMusic(false),
+m_hasPlayedTransitionSound(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
@@ -584,14 +829,15 @@ WorldMapToLevel * WorldMapToLevel::getInstance()
 void WorldMapToLevel::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = 0;
+    m_fWaitTime = 0;
     m_fFade = 0;
+    m_hasStoppedMusic = false;
     m_hasPlayedTransitionSound = false;
+    m_hasEnteredLevel = false;
 
     m_levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad);
     
 	m_levelState->setBestStats(m_iBestScore, m_iBestOnlineScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
-    
-    m_levelState->enter(ms);
 }
 
 void WorldMapToLevel::execute(MainScreen* ms)
@@ -606,9 +852,12 @@ void WorldMapToLevel::execute(MainScreen* ms)
         
         ms->m_renderer->setFramebuffer(1);
         
-        ms->m_renderer->renderWorld(m_levelState->getGame());
-        
-        ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        if (m_hasEnteredLevel)
+        {
+            ms->m_renderer->renderWorld(m_levelState->getGame());
+            
+            ms->m_renderer->renderJonAndExtraForegroundObjects(m_levelState->getGame());
+        }
         
         ms->m_renderer->renderToThirdFramebufferPointTransition(m_fCenterX, m_fCenterY, m_fTransitionStateTime);
         
@@ -626,32 +875,50 @@ void WorldMapToLevel::execute(MainScreen* ms)
         m_fTransitionStateTime += ms->m_fDeltaTime * 0.5f;
         if (m_fTransitionStateTime > 0.5f)
         {
-            if (!m_hasPlayedTransitionSound)
+            if (!m_hasStoppedMusic)
             {
                 m_fTransitionStateTime = 0.5f;
+                
+                if (!m_hasEnteredLevel)
+                {
+                    m_levelState->enter(ms);
+                    
+                    m_hasEnteredLevel = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 1)
+                {
+                    m_fTransitionStateTime = 0.5f;
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasPlayedTransitionSound)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
+                    
+                    m_hasPlayedTransitionSound = true;
+                }
             }
         }
         
         m_fFade = m_fTransitionStateTime * 2;
         
-        WorldMap::getInstance()->setFade(m_fFade);
-        
-        if (m_fFade < 1
-            || ms->m_renderer->isLoadingData())
-        {
-            return;
-        }
-        
-        if (!m_hasPlayedTransitionSound)
-        {
-            NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
-            NG_AUDIO_ENGINE->stopMusic();
-            
-            m_hasPlayedTransitionSound = true;
-        }
+        WorldMap::getInstance()->setFade(clamp(m_fFade, 1, 0));
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
             ms->m_stateMachine.setPreviousState(WorldMap::getInstance());
             ms->m_stateMachine.setCurrentState(m_levelState);
             ms->m_renderer->unload(RENDERER_TYPE_WORLD_MAP);
@@ -663,6 +930,7 @@ void WorldMapToLevel::exit(MainScreen* ms)
 {
     m_levelState = nullptr;
     m_fTransitionStateTime = 0;
+    m_fWaitTime = 0;
     m_iWorldToLoad = 0;
     m_iLevelToLoad = 0;
     
@@ -711,11 +979,12 @@ void WorldMapToLevel::setBestStats(int bestScore, int bestOnlineScore, int bestL
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
 }
 
-WorldMapToLevel::WorldMapToLevel() :
+WorldMapToLevel::WorldMapToLevel() : MainScreenState(),
 m_levelState(nullptr),
 m_fCenterX(0),
 m_fCenterY(0),
 m_fTransitionStateTime(0),
+m_fWaitTime(0),
 m_fFade(0),
 m_iWorldToLoad(0),
 m_iLevelToLoad(0),
@@ -724,7 +993,9 @@ m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
-m_hasPlayedTransitionSound(false)
+m_hasStoppedMusic(false),
+m_hasPlayedTransitionSound(false),
+m_hasEnteredLevel(false)
 {
     // Empty
 }
@@ -741,8 +1012,10 @@ LevelToComingSoon * LevelToComingSoon::getInstance()
 void LevelToComingSoon::enter(MainScreen* ms)
 {
     m_fTransitionStateTime = -1;
-    
-    ComingSoon::getInstance()->enter(ms);
+    m_fWaitTime = 0;
+    m_hasEnteredNextScreen = false;
+    m_hasStoppedMusic = false;
+    m_hasLoadedNextScreen = false;
 }
 
 void LevelToComingSoon::execute(MainScreen* ms)
@@ -775,18 +1048,51 @@ void LevelToComingSoon::execute(MainScreen* ms)
     {
         if (m_fTransitionStateTime < 0)
         {
-            m_fTransitionStateTime = 0;
+            if (!m_hasStoppedMusic)
+            {
+                if (!m_hasEnteredNextScreen)
+                {
+                    ComingSoon::getInstance()->enter(ms);
+                    
+                    m_hasEnteredNextScreen = true;
+                }
+                
+                if (!ms->m_renderer->isLoadingData())
+                {
+                    NG_AUDIO_ENGINE->stopMusic();
+                    
+                    m_hasStoppedMusic = true;
+                    
+                    return;
+                }
+            }
+            else
+            {
+                if (m_fWaitTime < 0.25f)
+                {
+                    m_fWaitTime += ms->m_fDeltaTime;
+                }
+                else if (!m_hasLoadedNextScreen)
+                {
+                    NG_AUDIO_ENGINE->loadMusic("title_bgm");
+                    
+                    m_fTransitionStateTime = 0;
+                    m_hasLoadedNextScreen = true;
+                }
+            }
             
-            NG_AUDIO_ENGINE->stopMusic();
+            return;
         }
         
-        m_fTransitionStateTime += ms->m_fDeltaTime * 0.8f;
+        m_fTransitionStateTime += ms->m_fDeltaTime;
         
         if (m_fTransitionStateTime > 1)
         {
+            m_fTransitionStateTime = 1;
+            
+            ms->m_stateMachine.setPreviousState(WorldMap::getInstance());
             ms->m_stateMachine.setCurrentState(ComingSoon::getInstance());
             
-            NG_AUDIO_ENGINE->loadMusic("title_bgm");
             NG_AUDIO_ENGINE->playMusic(true);
         }
     }
@@ -814,7 +1120,13 @@ void LevelToComingSoon::setLevelComingFrom(Level* levelState)
     m_levelState = levelState;
 }
 
-LevelToComingSoon::LevelToComingSoon() : m_levelState(nullptr), m_fTransitionStateTime(0)
+LevelToComingSoon::LevelToComingSoon() : MainScreenState(),
+m_levelState(nullptr),
+m_fTransitionStateTime(0),
+m_fWaitTime(0),
+m_hasStoppedMusic(false),
+m_hasLoadedNextScreen(false),
+m_hasEnteredNextScreen(false)
 {
     // Empty
 }
