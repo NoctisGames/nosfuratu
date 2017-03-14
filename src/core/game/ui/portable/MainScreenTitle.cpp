@@ -50,13 +50,10 @@ void Title::enter(MainScreen* ms)
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
     
-#ifdef NG_DEMO
-    NG_SAVE_DATA->clear();
-#endif
-    
     WorldMap::getInstance()->loadSaveData();
     
     m_fStateTime = 0;
+    m_iResetCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
 }
@@ -143,6 +140,33 @@ void Title::execute(MainScreen* ms)
         {
             switch ((*i)->getType())
             {
+                case KeyboardEventType_V:
+                    if (m_iResetCodeState == 0)
+                    {
+                        m_iResetCodeState++;
+                    }
+                    continue;
+                case KeyboardEventType_A:
+                    if (m_iResetCodeState == 1)
+                    {
+                        m_iResetCodeState++;
+                    }
+                    continue;
+                case KeyboardEventType_M:
+                    if (m_iResetCodeState == 2)
+                    {
+                        m_iResetCodeState++;
+                    }
+                    continue;
+                case KeyboardEventType_P:
+                    if (m_iResetCodeState == 3)
+                    {
+                        m_iResetCodeState++;
+                        NG_SAVE_DATA->clear();
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                    }
+                    continue;
                 case KeyboardEventType_SPACE:
                 case KeyboardEventType_ENTER:
                     m_isRequestingNextState = true;
@@ -195,6 +219,7 @@ void Title::execute(MainScreen* ms)
 void Title::exit(MainScreen* ms)
 {
     m_fStateTime = 0;
+    m_iResetCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
 }
@@ -228,6 +253,7 @@ Title::Title() : MainScreenState(),
 m_panel(new TitlePanel()),
 m_levelEditorButton(GameButton::create(GameButtonType_LevelEditor)),
 m_fStateTime(0),
+m_iResetCodeState(0),
 m_isRequestingNextState(false),
 m_isRequestingLevelEditor(false)
 {

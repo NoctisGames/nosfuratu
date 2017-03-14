@@ -19,6 +19,9 @@ typedef enum
     KeyboardEventType_A,
     KeyboardEventType_S,
     KeyboardEventType_D,
+    KeyboardEventType_V,
+    KeyboardEventType_M,
+    KeyboardEventType_P,
     KeyboardEventType_SPACE,
     KeyboardEventType_ENTER,
     KeyboardEventType_BACK

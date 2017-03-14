@@ -42,6 +42,7 @@ private:
     float m_fStateTime;
     bool m_isRequestingNextState;
     bool m_isRequestingLevelEditor;
+    int m_iResetCodeState;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Title();
