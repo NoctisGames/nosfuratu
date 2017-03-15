@@ -83,6 +83,8 @@ public:
     
     GameButton* getContinueButton();
     
+    bool isDebug();
+    
 protected:
     const char* m_json;
     Game* m_game;
@@ -109,6 +111,7 @@ protected:
     bool m_createdOwnSourceGame; // Can also be injected by the Level Editor
     std::vector<UserDemoAction> m_userDemoActions;
     bool m_isDemoMode;
+    bool m_isDebug;
     
     // Set from app storage
     int m_iBestScore;

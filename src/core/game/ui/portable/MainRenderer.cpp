@@ -70,6 +70,8 @@
 #include "Ground.h"
 #include "Midground.h"
 #include "ForegroundCoverObject.h"
+#include "SaveData.h"
+#include "StringUtil.h"
 
 #include <math.h>
 #include <sstream>
@@ -721,8 +723,12 @@ void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
 {
     m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-#if NG_LEVEL_EDITOR
-    if (ensureTexture(m_title_screen))
+    std::string key = std::string("NG_LEVEL_EDITOR");
+    std::string val = NG_SAVE_DATA->findValue(key);
+    int isLevelEditor = StringUtil::stringToInt(val);
+    
+    if (isLevelEditor
+        && ensureTexture(m_title_screen))
     {
         m_spriteBatcher->beginBatch();
         
@@ -730,7 +736,6 @@ void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
         
         m_spriteBatcher->endBatch(*m_title_screen->gpuTextureWrapper, *m_textureGpuProgramWrapper);
     }
-#endif
     
     static Color fontColor = Color(0.7f, 0.7f, 0.7f, 1);
     static float fgWidth = CAM_WIDTH / 60;

@@ -122,6 +122,11 @@ void Level::enter(MainScreen* ms)
     
     m_playLevelSelectMusicOnExit = ms->m_stateMachine.getPreviousState() == WorldMap::getInstance();
 	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
+    
+    std::string key = std::string("NG_DEBUG");
+    std::string val = NG_SAVE_DATA->findValue(key);
+    int isDebug = StringUtil::stringToInt(val);
+    m_isDebug = isDebug == 1;
 }
 
 void Level::execute(MainScreen* ms)
@@ -251,6 +256,11 @@ Game& Level::getGame()
 GameButton* Level::getContinueButton()
 {
     return m_continueButton;
+}
+
+bool Level::isDebug()
+{
+    return m_isDebug;
 }
 
 void Level::onEnter(MainScreen* ms)
@@ -675,9 +685,10 @@ void Level::render(MainScreen* ms)
         ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_isDisplayingResults ? m_continueButton : nullptr, m_iScore);
     }
 
-#if DEBUG || _DEBUG
-	ms->m_renderer->renderDebugInfo(*m_game, ms->m_iFPS);
-#endif
+    if (m_isDebug)
+    {
+        ms->m_renderer->renderDebugInfo(*m_game, ms->m_iFPS);
+    }
     
     if (ms->m_isPaused)
     {
@@ -1330,7 +1341,8 @@ m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),
 m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
-m_isDemoMode(false)
+m_isDemoMode(false),
+m_isDebug(false)
 {
     // Empty
 }

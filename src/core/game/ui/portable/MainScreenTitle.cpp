@@ -53,9 +53,14 @@ void Title::enter(MainScreen* ms)
     WorldMap::getInstance()->loadSaveData();
     
     m_fStateTime = 0;
+    m_fCodeStateTime = 0;
     m_iResetCodeState = 0;
+    m_iMapCodeState = 0;
+    m_iSwampCodeState =0;
+    m_iDmCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
+    m_isLevelEditor = false;
 }
 
 void Title::execute(MainScreen* ms)
@@ -111,9 +116,12 @@ void Title::execute(MainScreen* ms)
             int viewedCutsceneFlag = StringUtil::stringToInt(val);
             
             bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(viewedCutsceneFlag, FLAG_CUTSCENE_VIEWED_OPENING);
-#if NG_LEVEL_EDITOR
-            isOpeningCutsceneViewed = true;
-#endif
+            
+            if (m_isLevelEditor)
+            {
+                isOpeningCutsceneViewed = true;
+            }
+            
             if (isOpeningCutsceneViewed)
             {
                 ms->m_stateMachine.changeState(TitleToWorldMap::getInstance());
@@ -132,14 +140,46 @@ void Title::execute(MainScreen* ms)
             return;
         }
         
+        if (m_iResetCodeState > 0
+            || m_iMapCodeState > 0
+            || m_iSwampCodeState > 0
+            || m_iDmCodeState > 0)
+        {
+            m_fCodeStateTime += ms->m_fDeltaTime;
+            if (m_fCodeStateTime > 1)
+            {
+                m_fCodeStateTime = 0;
+                
+                m_iResetCodeState = 0;
+                m_iMapCodeState = 0;
+                m_iSwampCodeState =0;
+                m_iDmCodeState = 0;
+            }
+        }
+        
 		bool isDisplayingLevelEditorButtons = false;
-#if NG_LEVEL_EDITOR
-		isDisplayingLevelEditorButtons = true;
-#endif
+        
+        if (m_isLevelEditor)
+        {
+            isDisplayingLevelEditorButtons = true;
+        }
+        
         for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
             {
+                case KeyboardEventType_W:
+                    if (m_iSwampCodeState == 1)
+                    {
+                        m_iSwampCodeState++;
+                    }
+                    continue;
+                case KeyboardEventType_S:
+                    if (m_iSwampCodeState == 0)
+                    {
+                        m_iSwampCodeState++;
+                    }
+                    continue;
                 case KeyboardEventType_V:
                     if (m_iResetCodeState == 0)
                     {
@@ -151,11 +191,48 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iResetCodeState++;
                     }
+                    else if (m_iSwampCodeState == 2)
+                    {
+                        m_iSwampCodeState++;
+                    }
+                    else if (m_iMapCodeState == 1)
+                    {
+                        m_iMapCodeState++;
+                    }
+                    continue;
+                case KeyboardEventType_D:
+                    if (m_iDmCodeState == 0)
+                    {
+                        m_iDmCodeState++;
+                    }
                     continue;
                 case KeyboardEventType_M:
                     if (m_iResetCodeState == 2)
                     {
                         m_iResetCodeState++;
+                    }
+                    else if (m_iSwampCodeState == 3)
+                    {
+                        m_iSwampCodeState++;
+                    }
+                    else if (m_iDmCodeState == 1)
+                    {
+                        m_iDmCodeState++;
+                        
+                        std::string key = std::string("NG_DEBUG");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isDebug = StringUtil::stringToInt(storedVal);
+                        
+                        std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+                    }
+                    else if (m_iMapCodeState == 0)
+                    {
+                        m_iMapCodeState++;
                     }
                     continue;
                 case KeyboardEventType_P:
@@ -168,6 +245,40 @@ void Title::execute(MainScreen* ms)
                         WorldMap::getInstance()->loadSaveData();
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+                    }
+                    else if (m_iSwampCodeState == 4)
+                    {
+                        m_iSwampCodeState++;
+                        
+                        std::string key = std::string("NG_LEVEL_EDITOR");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isLevelEditor = StringUtil::stringToInt(storedVal);
+                        
+                        isLevelEditor = isLevelEditor == 1 ? 0 : 1;
+                        
+                        m_isLevelEditor = isLevelEditor == 1;
+                        
+                        std::string val = StringUtil::toString(isLevelEditor);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
+                    }
+                    else if (m_iMapCodeState == 2)
+                    {
+                        m_iMapCodeState++;
+                        
+                        std::string key = std::string("NG_UNLOCK_ALL");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isUnlockAll = StringUtil::stringToInt(storedVal);
+                        
+                        std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
                     }
                     continue;
                 case KeyboardEventType_SPACE:
@@ -222,7 +333,11 @@ void Title::execute(MainScreen* ms)
 void Title::exit(MainScreen* ms)
 {
     m_fStateTime = 0;
+    m_fCodeStateTime = 0;
     m_iResetCodeState = 0;
+    m_iMapCodeState = 0;
+    m_iSwampCodeState =0;
+    m_iDmCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
 }
@@ -256,9 +371,14 @@ Title::Title() : MainScreenState(),
 m_panel(new TitlePanel()),
 m_levelEditorButton(GameButton::create(GameButtonType_LevelEditor)),
 m_fStateTime(0),
+m_fCodeStateTime(0),
 m_iResetCodeState(0),
+m_iMapCodeState(0),
+m_iSwampCodeState(0),
+m_iDmCodeState(0),
 m_isRequestingNextState(false),
-m_isRequestingLevelEditor(false)
+m_isRequestingLevelEditor(false),
+m_isLevelEditor(false)
 {
     // Empty
 }

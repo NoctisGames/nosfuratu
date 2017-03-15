@@ -430,6 +430,10 @@ void WorldMap::loadSaveData()
     
     m_isNextWorldButtonEnabled = false;
     
+    std::string key = std::string("NG_UNLOCK_ALL");
+    std::string val = NG_SAVE_DATA->findValue(key);
+    int isUnlockedAll = StringUtil::stringToInt(val);
+    
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
     int scoreForLevelToSelect = 0;
@@ -455,9 +459,12 @@ void WorldMap::loadSaveData()
         }
         
         bool isPlayable = FlagUtil::isFlagSet(previousLevelStats, FLAG_LEVEL_COMPLETE);
-#if NG_LEVEL_EDITOR
-        isPlayable = true;
-#endif
+        
+        if (isUnlockedAll)
+        {
+            isPlayable = true;
+        }
+        
 		bool isCleared = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_COMPLETE)
         && FlagUtil::isFlagSet(levelStats, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
         && FlagUtil::isFlagSet(levelStats, FLAG_SECOND_GOLDEN_CARROT_COLLECTED)
@@ -470,9 +477,12 @@ void WorldMap::loadSaveData()
             BossLevelThumbnail *bossLevelThumbnail = reinterpret_cast<BossLevelThumbnail *>((*j));
             
             bool isUnlocked = FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED);
-#if NG_LEVEL_EDITOR
-            isUnlocked = true;
-#endif
+            
+            if (isUnlockedAll)
+            {
+                isUnlocked = true;
+            }
+            
             bool isUnlocking = isUnlocked && !bossLevelThumbnail->isUnlocked();
     
             bossLevelThumbnail->configLockStatus(isUnlocked, isUnlocking);
@@ -799,9 +809,14 @@ void WorldMap::startLevel()
     validateAbilityFlag();
     
     int abilityFlag = m_iJonAbilityFlag;
-#if NG_LEVEL_EDITOR
-    abilityFlag = FLAG_ABILITY_ALL;
-#endif
+    
+    std::string key = std::string("NG_UNLOCK_ALL");
+    std::string val = NG_SAVE_DATA->findValue(key);
+    int isUnlockedAll = StringUtil::stringToInt(val);
+    if (isUnlockedAll)
+    {
+        abilityFlag = FLAG_ABILITY_ALL;
+    }
     
     WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStatsFlag, m_iNumCollectedGoldenCarrots, abilityFlag);
     

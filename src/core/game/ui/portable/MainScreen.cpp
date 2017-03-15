@@ -147,18 +147,22 @@ void MainScreen::onPause()
 
 void MainScreen::update(float deltaTime)
 {
-    NG_AUDIO_ENGINE->update();
-    
-#if DEBUG || _DEBUG
-    m_fFPSStateTime += deltaTime;
-    m_iFrames++;
-    if (m_fFPSStateTime >= 1.0f)
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
     {
-        m_fFPSStateTime -= 1.0f;
-        m_iFPS = m_iFrames;
-        m_iFrames = 0;
+        Level* level = (Level*) m_stateMachine.getCurrentState();
+        
+        if (level->isDebug())
+        {
+            m_fFPSStateTime += deltaTime;
+            m_iFrames++;
+            if (m_fFPSStateTime >= 1.0f)
+            {
+                m_fFPSStateTime -= 1.0f;
+                m_iFPS = m_iFrames;
+                m_iFrames = 0;
+            }
+        }
     }
-#endif
     
 	m_isRequestingRender = false;
     m_iNumInternalUpdates = 0;
@@ -320,6 +324,8 @@ void MainScreen::internalUpdate()
         
         m_stateMachine.execute();
     }
+    
+    NG_AUDIO_ENGINE->update();
 }
 
 void MainScreen::loadSounds()
