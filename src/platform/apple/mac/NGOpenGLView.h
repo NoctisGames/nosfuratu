@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
 
-@interface NGOpenGLView : NSOpenGLView <NSWindowDelegate>
+@interface NGOpenGLView : NSOpenGLView
 {
 	CVDisplayLinkRef displayLink;
 }

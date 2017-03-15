@@ -18,7 +18,7 @@ public:
     
     virtual void createDeviceDependentResources(int maxBatchSize) = 0;
     
-    virtual void createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers) = 0;
+    virtual void createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers) = 0;
     
     virtual void releaseDeviceDependentResources() = 0;
 };

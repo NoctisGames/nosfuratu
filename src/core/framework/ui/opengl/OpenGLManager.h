@@ -60,7 +60,7 @@ public:
     
     void createDeviceDependentResources(int maxBatchSize);
     
-    void createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers);
+    void createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers);
     
     void releaseDeviceDependentResources();
     
@@ -73,6 +73,8 @@ public:
     void useNormalBlending();
     void useScreenBlending();
     
+    void setScreenSize(int screenWidth, int screenHeight);
+    
     std::vector<GLshort>& getIndices();
     std::vector<GLuint>& getFbos();
     std::vector<GLuint>& getFboTextures();
@@ -84,6 +86,10 @@ public:
     GLint& getScreenFBO();
     GLint& getMaxTextureSize();
     mat4x4& getViewProjectionMatrix();
+    int getScreenWidth();
+    int getScreenHeight();
+    int getRenderWidth();
+    int getRenderHeight();
     
 private:
     static OpenGLManager* s_pInstance;
@@ -108,6 +114,8 @@ private:
     
     int m_iScreenWidth;
     int m_iScreenHeight;
+    int m_iRenderWidth;
+    int m_iRenderHeight;
     int m_iNumFramebuffers;
     
     void generateIndices(int maxBatchSize);

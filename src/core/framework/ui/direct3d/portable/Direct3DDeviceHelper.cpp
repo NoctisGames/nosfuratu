@@ -26,9 +26,9 @@ void Direct3DDeviceHelper::createDeviceDependentResources(int maxBatchSize)
     D3DManager->createDeviceDependentResources(maxBatchSize);
 }
 
-void Direct3DDeviceHelper::createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers)
+void Direct3DDeviceHelper::createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers)
 {
-    D3DManager->createWindowSizeDependentResources(screenWidth, screenHeight, numFramebuffers);
+    D3DManager->createWindowSizeDependentResources(renderWidth, renderHeight, numFramebuffers);
 }
 
 void Direct3DDeviceHelper::releaseDeviceDependentResources()

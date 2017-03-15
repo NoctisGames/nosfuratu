@@ -37,7 +37,7 @@ public:
     
     void createDeviceDependentResources(int maxBatchSize);
     
-    void createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers);
+    void createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers);
     
     void releaseDeviceDependentResources();
 
@@ -95,8 +95,8 @@ private:
 	// All above rendering takes place inside this matrix
 	DirectX::XMFLOAT4X4 m_matFinal;
     
-    int m_iScreenWidth;
-    int m_iScreenHeight;
+    int m_iRenderWidth;
+    int m_iRenderHeight;
 	int m_iNumFramebuffers;
     
     bool m_isWindowsMobile;

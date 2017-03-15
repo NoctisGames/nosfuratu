@@ -15,6 +15,7 @@
 #include "ScreenInputManager.h"
 #include "MainAssets.h"
 #include "GameConstants.h"
+#include "OpenGLManager.h"
 
 @interface MainViewController () <GADInterstitialDelegate>
 {
@@ -178,9 +179,14 @@
     
     _mainScreen = new MainScreen();
     _mainScreen->createDeviceDependentResources();
-    float w = MAX(size.width, size.height), h = MIN(size.width, size.height), tw = [UIScreen mainScreen].bounds.size.width, th = [UIScreen mainScreen].bounds.size.height;
+    float width = MAX(size.width, size.height);
+    float height = MIN(size.width, size.height);
+    float touchWidth = [UIScreen mainScreen].bounds.size.width;
+    float touchHeight = [UIScreen mainScreen].bounds.size.height;
     
-    _mainScreen->createWindowSizeDependentResources(w, h, tw, th);
+    OGLManager->setScreenSize(width, height);
+    
+    _mainScreen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, touchWidth, touchHeight);
 }
 
 - (void)tearDownGL

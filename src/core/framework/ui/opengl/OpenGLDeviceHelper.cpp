@@ -25,9 +25,9 @@ void OpenGLDeviceHelper::createDeviceDependentResources(int maxBatchSize)
     OGLManager->createDeviceDependentResources(maxBatchSize);
 }
 
-void OpenGLDeviceHelper::createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers)
+void OpenGLDeviceHelper::createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers)
 {
-    OGLManager->createWindowSizeDependentResources(screenWidth, screenHeight, numFramebuffers);
+    OGLManager->createWindowSizeDependentResources(renderWidth, renderHeight, numFramebuffers);
 }
 
 void OpenGLDeviceHelper::releaseDeviceDependentResources()

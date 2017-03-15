@@ -44,31 +44,29 @@ OpenGLManager * OpenGLManager::getInstance()
 
 void OpenGLManager::createDeviceDependentResources(int maxBatchSize)
 {
-    assert(m_fbos.size() == 0);
-    assert(m_fbo_textures.size() == 0);
-    
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &m_iScreenFBO);
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &m_iMaxTextureSize);
     
     generateIndices(maxBatchSize);
     
-    if (m_iScreenWidth > -1
-        && m_iScreenHeight > -1
+    if (m_iRenderWidth > -1
+        && m_iRenderHeight > -1
         && m_iNumFramebuffers > -1)
     {
+        releaseFramebuffers();
         createFramebufferObjects();
     }
 }
 
-void OpenGLManager::createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers)
+void OpenGLManager::createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers)
 {
-    m_iScreenWidth = screenWidth;
-    m_iScreenHeight = screenHeight;
+    m_iRenderWidth = renderWidth;
+    m_iRenderHeight = renderHeight;
     m_iNumFramebuffers = numFramebuffers;
     
-    glViewport(0, 0, m_iScreenWidth, m_iScreenHeight);
+    glViewport(0, 0, m_iRenderWidth, m_iRenderHeight);
     
-    glScissor(0, 0, m_iScreenWidth, m_iScreenHeight);
+    glScissor(0, 0, m_iRenderWidth, m_iRenderHeight);
     glEnable(GL_SCISSOR_TEST);
     
     releaseFramebuffers();
@@ -128,6 +126,12 @@ void OpenGLManager::useScreenBlending()
     glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 }
 
+void OpenGLManager::setScreenSize(int screenWidth, int screenHeight)
+{
+    m_iScreenWidth = screenWidth;
+    m_iScreenHeight = screenHeight;
+}
+
 std::vector<GLshort>& OpenGLManager::getIndices()
 {
     return m_indices;
@@ -183,6 +187,26 @@ mat4x4& OpenGLManager::getViewProjectionMatrix()
     return m_viewProjectionMatrix;
 }
 
+int OpenGLManager::getScreenWidth()
+{
+    return m_iScreenWidth;
+}
+
+int OpenGLManager::getScreenHeight()
+{
+    return m_iScreenHeight;
+}
+
+int OpenGLManager::getRenderWidth()
+{
+    return m_iRenderWidth;
+}
+
+int OpenGLManager::getRenderHeight()
+{
+    return m_iRenderHeight;
+}
+
 #pragma mark private
 
 void OpenGLManager::generateIndices(int maxBatchSize)
@@ -222,7 +246,7 @@ void OpenGLManager::createFramebufferObject()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_iScreenWidth, m_iScreenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_iRenderWidth, m_iRenderHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
     glBindTexture(GL_TEXTURE_2D, 0);
     
     // Framebuffer
@@ -261,7 +285,7 @@ void OpenGLManager::releaseFramebuffers()
     NGSTDUtil::cleanUpVectorOfPointers(m_framebuffers);
 }
 
-OpenGLManager::OpenGLManager() : sb_vbo_object(0), gb_vbo_object(0), m_iScreenFBO(0), m_iMaxTextureSize(64), m_iScreenWidth(-1), m_iScreenHeight(-1), m_iNumFramebuffers(-1)
+OpenGLManager::OpenGLManager() : sb_vbo_object(0), gb_vbo_object(0), m_iScreenFBO(0), m_iMaxTextureSize(64), m_iRenderWidth(-1), m_iRenderHeight(-1), m_iNumFramebuffers(-1)
 {
     // Hide Constructor for Singleton
 }

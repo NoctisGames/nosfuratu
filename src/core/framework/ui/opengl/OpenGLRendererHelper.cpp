@@ -49,6 +49,12 @@ void OpenGLRendererHelper::updateMatrix(float left, float right, float bottom, f
 void OpenGLRendererHelper::bindToOffscreenFramebuffer(int index)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLManager->getFbos().at(index));
+    
+    int width = OGLManager->getRenderWidth();
+    int height = OGLManager->getRenderHeight();
+    
+    glViewport(0, 0, width, height);
+    glScissor(0, 0, width, height);
 }
 
 void OpenGLRendererHelper::clearFramebufferWithColor(float r, float g, float b, float a)
@@ -60,6 +66,12 @@ void OpenGLRendererHelper::clearFramebufferWithColor(float r, float g, float b, 
 void OpenGLRendererHelper::bindToScreenFramebuffer()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, OGLManager->getScreenFBO());
+    
+    int width = OGLManager->getScreenWidth();
+    int height = OGLManager->getScreenHeight();
+    
+    glViewport(0, 0, width, height);
+    glScissor(0, 0, width, height);
 }
 
 void OpenGLRendererHelper::destroyTexture(GpuTextureWrapper& textureWrapper)

@@ -73,10 +73,10 @@ void Direct3DManager::createDeviceDependentResources(int maxBatchSize)
 	createConstantBuffer();
 }
 
-void Direct3DManager::createWindowSizeDependentResources(int screenWidth, int screenHeight, int numFramebuffers)
+void Direct3DManager::createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers)
 {
-    m_iScreenWidth = screenWidth;
-    m_iScreenHeight = screenHeight;
+    m_iRenderWidth = renderWidth;
+    m_iRenderHeight = renderHeight;
     m_iNumFramebuffers = numFramebuffers;
 
 	releaseFramebuffers();
@@ -419,8 +419,8 @@ void Direct3DManager::createFramebufferObject()
     ZeroMemory(&textureDesc, sizeof(textureDesc));
     
     // Setup the render target texture description.
-    textureDesc.Width = m_iScreenWidth;
-    textureDesc.Height = m_iScreenHeight;
+    textureDesc.Width = m_iRenderWidth;
+    textureDesc.Height = m_iRenderHeight;
     textureDesc.MipLevels = 1;
     textureDesc.ArraySize = 1;
     textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -482,8 +482,8 @@ void Direct3DManager::releaseFramebuffers()
 }
 
 Direct3DManager::Direct3DManager() :
-m_iScreenWidth(-1),
-m_iScreenHeight(-1),
+m_iRenderWidth(-1),
+m_iRenderHeight(-1),
 m_iNumFramebuffers(-1),
 m_isWindowsMobile(false)
 {

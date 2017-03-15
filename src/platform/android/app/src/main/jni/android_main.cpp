@@ -14,6 +14,7 @@
 #include "AndroidAudioEngineHelper.h"
 #include "AndroidAssetDataHandler.h"
 #include "MainAssets.h"
+#include "OpenGLManager.h"
 
 #include <jni.h>
 #include <android/log.h>
@@ -96,7 +97,12 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
         return;
     }
     
-    gScreen->createWindowSizeDependentResources(pixel_width, pixel_height, pixel_width, pixel_height);
+    int width = pixel_width;
+    int height = pixel_height;
+    
+    OGLManager->setScreenSize(width, height);
+    
+    gScreen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1resume(JNIEnv* env, jclass cls)

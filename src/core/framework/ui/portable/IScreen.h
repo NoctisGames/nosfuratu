@@ -22,7 +22,7 @@ public:
     
     virtual void createDeviceDependentResources() = 0;
     
-    virtual void createWindowSizeDependentResources(int screenWidth, int screenHeight, int touchScreenWidth, int touchScreenHeight) = 0;
+    virtual void createWindowSizeDependentResources(int renderWidth, int renderHeight, int touchScreenWidth, int touchScreenHeight) = 0;
     
     virtual void releaseDeviceDependentResources() = 0;
     

@@ -16,6 +16,7 @@
 #include "KeyboardInputManager.h"
 #include "MainAssets.h"
 #include "GameConstants.h"
+#include "OpenGLManager.h"
 
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
@@ -65,8 +66,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     m_fLastTime = CFAbsoluteTimeGetCurrent();
     
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
-    
-    [mainWindow setDelegate:self];
+
     [mainWindow toggleFullScreen:self];
     
     _joystickController = [[JoystickController alloc] init];
@@ -209,7 +209,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     // Set the new dimensions in our renderer
     CGFloat width = viewRectPixels.size.width;
     CGFloat height = viewRectPixels.size.height;
-    _screen->createWindowSizeDependentResources(width, height, width, height);
+    
+    OGLManager->setScreenSize(width, height);
+    
+    _screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
     
     CGLUnlockContext([[self openGLContext] CGLContextObj]);
 }
@@ -431,37 +434,6 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
             }
         }
     }
-}
-
-static NSTimer *timer = nil;
-
-- (void)windowDidResignMain:(NSNotification *)notification
-{
-    _screen->onPause();
-    
-    [timer invalidate];
-    
-    [self setNeedsDisplay:YES];
-}
-
-- (void)windowDidBecomeMain:(NSNotification *)notification
-{
-    _screen->onResume();
-    
-    [self setNeedsDisplay:YES];
-    
-    timer = [NSTimer timerWithTimeInterval:0.016666666666667f
-                                    target:self
-                                  selector:@selector(timerEvent:)
-                                  userInfo:nil
-                                   repeats:YES];
-    
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-}
-
-- (void)timerEvent:(NSTimer *)t
-{
-    [self setNeedsDisplay:YES];
 }
 
 @end

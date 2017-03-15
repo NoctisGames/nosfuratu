@@ -89,12 +89,12 @@ void MainScreen::createDeviceDependentResources()
     ((MainScreenState *)m_stateMachine.getCurrentState())->initRenderer(this);
 }
 
-void MainScreen::createWindowSizeDependentResources(int screenWidth, int screenHeight, int touchScreenWidth, int touchScreenHeight)
+void MainScreen::createWindowSizeDependentResources(int renderWidth, int renderHeight, int touchScreenWidth, int touchScreenHeight)
 {
     TOUCH_CONVERTER->setTouchScreenSize(touchScreenWidth, touchScreenHeight);
     TOUCH_CONVERTER->setCamSize(CAM_WIDTH, CAM_HEIGHT);
     
-    m_deviceHelper->createWindowSizeDependentResources(screenWidth, screenHeight, NUM_FRAMEBUFFERS);
+    m_deviceHelper->createWindowSizeDependentResources(renderWidth, renderHeight, NUM_FRAMEBUFFERS);
 }
 
 void MainScreen::releaseDeviceDependentResources()
