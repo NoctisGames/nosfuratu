@@ -95,7 +95,9 @@ DX::DeviceResources::DeviceResources(DXGI_FORMAT backBufferFormat, DXGI_FORMAT d
     m_rotation(DXGI_MODE_ROTATION_IDENTITY),
     m_outputSize{0, 0, 1, 1},
     m_orientationTransform3D(ScreenRotation::Rotation0),
-    m_deviceNotify(nullptr)
+    m_deviceNotify(nullptr),
+	m_iClampWidth(-1),
+	m_iClampHeight(-1)
 {
 }
 
@@ -233,6 +235,9 @@ void DX::DeviceResources::CreateWindowSizeDependentResources(int clampWidth, int
         throw std::exception("Call SetWindow with a valid CoreWindow pointer");
     }
 
+	m_iClampWidth = clampWidth;
+	m_iClampHeight = clampHeight;
+
     // Clear the previous window size specific context.
     ID3D11RenderTargetView* nullViews[] = {nullptr};
     m_d3dContext->OMSetRenderTargets(_countof(nullViews), nullViews, nullptr);
@@ -246,18 +251,6 @@ void DX::DeviceResources::CreateWindowSizeDependentResources(int clampWidth, int
 	UINT backBufferWidth = std::max<UINT>(m_outputSize.right - m_outputSize.left, 1);
 	UINT backBufferHeight = std::max<UINT>(m_outputSize.bottom - m_outputSize.top, 1);
 	DXGI_FORMAT backBufferFormat = NoSRGB(m_backBufferFormat);
-
-	if (clampWidth > 0
-		&& backBufferWidth > clampWidth)
-	{
-		backBufferWidth = clampWidth;
-	}
-
-	if (clampHeight > 0
-		&& backBufferHeight > clampHeight)
-	{
-		backBufferHeight = clampHeight;
-	}
 
     if (m_swapChain)
     {
@@ -390,6 +383,22 @@ void DX::DeviceResources::CreateWindowSizeDependentResources(int clampWidth, int
             m_d3dDepthStencilView.ReleaseAndGetAddressOf()
             ));
     }
+
+	if (clampWidth > 0
+		&& backBufferWidth > clampWidth)
+	{
+		backBufferWidth = clampWidth;
+	}
+
+	if (clampHeight > 0
+		&& backBufferHeight > clampHeight)
+	{
+		backBufferHeight = clampHeight;
+	}
+
+	ThrowIfFailed(
+		m_swapChain->SetSourceSize(backBufferWidth, backBufferHeight)
+	);
     
     // Set the 3D rendering viewport to target the entire window.
     m_screenViewport = CD3D11_VIEWPORT(
@@ -426,7 +435,7 @@ bool DX::DeviceResources::WindowSizeChanged(int width, int height, DXGI_MODE_ROT
 
     m_outputSize = newRc;
     m_rotation = rotation;
-    CreateWindowSizeDependentResources();
+    CreateWindowSizeDependentResources(m_iClampWidth, m_iClampHeight);
     return true;
 }
 
@@ -507,7 +516,7 @@ void DX::DeviceResources::HandleDeviceLost()
 #endif
 
     CreateDeviceResources();
-    CreateWindowSizeDependentResources();
+	CreateWindowSizeDependentResources(m_iClampWidth, m_iClampHeight);
 
     if (m_deviceNotify)
     {

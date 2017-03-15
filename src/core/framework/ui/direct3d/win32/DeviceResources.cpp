@@ -45,7 +45,9 @@ DX::DeviceResources::DeviceResources(DXGI_FORMAT backBufferFormat, DXGI_FORMAT d
     m_window(0),
     m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1),
     m_outputSize{0, 0, 1, 1},
-    m_deviceNotify(nullptr)
+    m_deviceNotify(nullptr),
+	m_iClampWidth(-1),
+	m_iClampHeight(-1)
 {
 }
 
@@ -219,6 +221,9 @@ void DX::DeviceResources::CreateWindowSizeDependentResources(int clampWidth, int
     {
         throw std::exception("Call SetWindow with a valid Win32 window handle");
     }
+
+	m_iClampWidth = clampWidth;
+	m_iClampHeight = clampHeight;
 
     // Clear the previous window size specific context.
     ID3D11RenderTargetView* nullViews[] = {nullptr};
@@ -412,7 +417,7 @@ bool DX::DeviceResources::WindowSizeChanged(int width, int height)
     }
 
     m_outputSize = newRc;
-    CreateWindowSizeDependentResources();
+    CreateWindowSizeDependentResources(m_iClampWidth, m_iClampHeight);
     return true;
 }
 
@@ -448,7 +453,7 @@ void DX::DeviceResources::HandleDeviceLost()
     m_d3dDevice.Reset();
 
     CreateDeviceResources();
-    CreateWindowSizeDependentResources();
+	CreateWindowSizeDependentResources(m_iClampWidth, m_iClampHeight);
 
     if (m_deviceNotify)
     {
