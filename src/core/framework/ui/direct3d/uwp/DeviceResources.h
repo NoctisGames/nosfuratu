@@ -25,7 +25,7 @@ namespace DX
                         D3D_FEATURE_LEVEL minFeatureLevel = D3D_FEATURE_LEVEL_9_3);
 
         void CreateDeviceResources();
-        void CreateWindowSizeDependentResources();
+        void CreateWindowSizeDependentResources(int clampWidth = -1, int clampHeight = -1);
         void SetWindow(IUnknown* window, int width, int height, DXGI_MODE_ROTATION rotation);
         bool WindowSizeChanged(int width, int height, DXGI_MODE_ROTATION rotation);
         void ValidateDevice();

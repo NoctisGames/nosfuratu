@@ -213,7 +213,7 @@ void DX::DeviceResources::CreateDeviceResources()
 }
 
 // These resources need to be recreated every time the window size is changed.
-void DX::DeviceResources::CreateWindowSizeDependentResources() 
+void DX::DeviceResources::CreateWindowSizeDependentResources(int clampWidth, int clampHeight)
 {
     if (!m_window)
     {
@@ -229,9 +229,21 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
     m_depthStencil.Reset();
     m_d3dContext->Flush();
 
-    // Determine the render target size in pixels.
-    UINT backBufferWidth = std::max<UINT>(m_outputSize.right - m_outputSize.left, 1);
-    UINT backBufferHeight = std::max<UINT>(m_outputSize.bottom - m_outputSize.top, 1);
+	// Determine the render target size in pixels.
+	UINT backBufferWidth = std::max<UINT>(m_outputSize.right - m_outputSize.left, 1);
+	UINT backBufferHeight = std::max<UINT>(m_outputSize.bottom - m_outputSize.top, 1);
+
+	if (clampWidth > 0
+		&& backBufferWidth > clampWidth)
+	{
+		backBufferWidth = clampWidth;
+	}
+
+	if (clampHeight > 0
+		&& backBufferHeight > clampHeight)
+	{
+		backBufferHeight = clampHeight;
+	}
 
     if (m_swapChain)
     {

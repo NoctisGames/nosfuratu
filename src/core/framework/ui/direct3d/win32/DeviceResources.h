@@ -25,7 +25,7 @@ namespace DX
                         D3D_FEATURE_LEVEL minFeatureLevel = D3D_FEATURE_LEVEL_9_1);
 
         void CreateDeviceResources();
-        void CreateWindowSizeDependentResources();
+        void CreateWindowSizeDependentResources(int clampWidth = -1, int clampHeight = -1);
         void SetWindow(HWND window, int width, int height);
         bool WindowSizeChanged(int width, int height);
         void HandleDeviceLost();
