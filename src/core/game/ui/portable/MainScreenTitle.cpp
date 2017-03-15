@@ -225,6 +225,8 @@ void Title::execute(MainScreen* ms)
                         
                         std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
                         NG_SAVE_DATA->getKeyValues()[key] = val;
+
+						NG_SAVE_DATA->save();
                         
                         WorldMap::getInstance()->loadSaveData();
                         
@@ -261,6 +263,8 @@ void Title::execute(MainScreen* ms)
                         std::string val = StringUtil::toString(isLevelEditor);
                         NG_SAVE_DATA->getKeyValues()[key] = val;
                         
+						NG_SAVE_DATA->save();
+
                         WorldMap::getInstance()->loadSaveData();
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
@@ -276,6 +280,8 @@ void Title::execute(MainScreen* ms)
                         std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
                         NG_SAVE_DATA->getKeyValues()[key] = val;
                         
+						NG_SAVE_DATA->save();
+
                         WorldMap::getInstance()->loadSaveData();
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
