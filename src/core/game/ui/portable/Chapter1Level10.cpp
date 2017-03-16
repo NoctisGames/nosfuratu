@@ -345,6 +345,7 @@ void Chapter1Level10::updateCamera(MainScreen* ms, float paddingX, bool ignoreY,
     ignoreY = m_midBossOwl->getState() == MidBossOwlState_SlammingIntoTree || m_midBossOwl->getState() == MidBossOwlState_Dying;
     
     if (m_isChaseCamActivated
+        && m_game->getJons().size() > 0
         && m_game->getJon().getPosition().getY() > 9)
     {
         ms->m_renderer->updateCameraToFollowJon(*m_game, m_batPanel, ms->m_fDeltaTime, paddingX, true, ignoreY, instant);
