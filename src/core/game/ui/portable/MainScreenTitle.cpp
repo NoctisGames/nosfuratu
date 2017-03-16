@@ -61,6 +61,12 @@ void Title::enter(MainScreen* ms)
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
     m_isLevelEditor = false;
+    
+    std::string key = std::string("NG_LEVEL_EDITOR");
+    std::string val = NG_SAVE_DATA->findValue(key);
+    int isLevelEditor = StringUtil::stringToInt(val);
+    
+    m_isLevelEditor = isLevelEditor == 1;
 }
 
 void Title::execute(MainScreen* ms)

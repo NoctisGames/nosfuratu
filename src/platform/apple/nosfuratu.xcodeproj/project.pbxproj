@@ -629,6 +629,7 @@
 		BBAE6A7B1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
 		BBAE6A7D1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
 		BBAE6A7E1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
+		BBB4F0E41E7AE29500504F70 /* level_editor.png in Resources */ = {isa = PBXBuildFile; fileRef = BBB4F0E31E7AE29500504F70 /* level_editor.png */; };
 		BBC91A2A1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */; };
 		BBC91A2B1E691B0B005E9933 /* AssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */; };
 		BBCCA8391DB343AB00452FA1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBCCA8381DB343AB00452FA1 /* Accelerate.framework */; };
@@ -1386,6 +1387,7 @@
 		BBA7625F1E73180F00999993 /* Direct3DMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DMain.h; sourceTree = "<group>"; };
 		BBAE6A781E6346260040E361 /* collect_big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_big_carrot.wav; sourceTree = "<group>"; };
 		BBAE6A791E6346260040E361 /* collect_vial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_vial.wav; sourceTree = "<group>"; };
+		BBB4F0E31E7AE29500504F70 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetDataHandler.cpp; sourceTree = "<group>"; };
 		BBC91A291E691B0B005E9933 /* AssetDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDataHandler.h; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
@@ -1407,7 +1409,6 @@
 		BBD5A9DB1E584F12007CE6A8 /* Direct3DFrameBufferObfuscationGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFrameBufferObfuscationGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBD5A9DC1E585282007CE6A8 /* OpenGLTransitionProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLTransitionProgram.cpp; sourceTree = "<group>"; };
 		BBD5A9DD1E585282007CE6A8 /* OpenGLTransitionProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLTransitionProgram.h; sourceTree = "<group>"; };
-		BBE9D4051DBE8F4E002D2120 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		FFF3C8B3638A1D58F89D067F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -2393,7 +2394,7 @@
 				BB44C3B11DB03276003E633F /* compressed */,
 				BBEFC3701DB554B90011BD9B /* desktop */,
 				BB44C3C31DB03276003E633F /* jon.png */,
-				BBE9D4041DBE8F4E002D2120 /* level_editor */,
+				BBB4F0E21E7AE29500504F70 /* level_editor */,
 				BB44C3C51DB03276003E633F /* misc.png */,
 				BB44C3DE1DB03276003E633F /* title_screen.png */,
 				BB44C3DF1DB03276003E633F /* trans_death_shader_helper.png */,
@@ -2708,6 +2709,14 @@
 			path = portable;
 			sourceTree = "<group>";
 		};
+		BBB4F0E21E7AE29500504F70 /* level_editor */ = {
+			isa = PBXGroup;
+			children = (
+				BBB4F0E31E7AE29500504F70 /* level_editor.png */,
+			);
+			path = level_editor;
+			sourceTree = "<group>";
+		};
 		BBCB71C71DB6A217006430B6 /* Texconv */ = {
 			isa = PBXGroup;
 			children = (
@@ -2715,14 +2724,6 @@
 				BBCB71C91DB6A218006430B6 /* Texconv_readme.txt */,
 			);
 			path = Texconv;
-			sourceTree = "<group>";
-		};
-		BBE9D4041DBE8F4E002D2120 /* level_editor */ = {
-			isa = PBXGroup;
-			children = (
-				BBE9D4051DBE8F4E002D2120 /* level_editor.png */,
-			);
-			path = level_editor;
 			sourceTree = "<group>";
 		};
 		BBEFC3701DB554B90011BD9B /* desktop */ = {
@@ -2982,6 +2983,7 @@
 				BB71C86D1E248D4300222AE2 /* snake_death.wav in Resources */,
 				BB036B751DD390D800BB47EE /* c_world_1_objects_part_2.png in Resources */,
 				BB34FC9D1E5645F500AC8197 /* trans_screen_shader.fsh in Resources */,
+				BBB4F0E41E7AE29500504F70 /* level_editor.png in Resources */,
 				BB71C88D1E248D4300222AE2 /* toad_die.wav in Resources */,
 				BB44C4EB1DB03277003E633F /* world_1_mid_boss_part_2.png in Resources */,
 				BB44C4DB1DB03277003E633F /* world_1_cutscene_1.png in Resources */,
