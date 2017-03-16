@@ -56,7 +56,7 @@ void Title::enter(MainScreen* ms)
     m_fCodeStateTime = 0;
     m_iResetCodeState = 0;
     m_iMapCodeState = 0;
-    m_iSwampCodeState =0;
+    m_iSwampCodeState = 0;
     m_iDmCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
@@ -322,10 +322,116 @@ void Title::execute(MainScreen* ms)
             switch ((*i)->getType())
             {
                 case ScreenEventType_DOWN:
+                    if (m_iResetCodeState == 0
+                        && touchPoint.getX() < 5
+                        && touchPoint.getY() < 3)
+                    {
+                        m_iResetCodeState++;
+                    }
+                    else if (m_iResetCodeState == 1
+                                && touchPoint.getX() > 10
+                                && touchPoint.getY() > 6)
+                    {
+                        m_iResetCodeState++;
+                    }
+                    else if (m_iResetCodeState == 2
+                             && touchPoint.getX() > 5
+                             && touchPoint.getX() < 10
+                             && touchPoint.getY() > 3
+                             && touchPoint.getY() < 6)
+                    {
+                        m_iResetCodeState++;
+                        
+                        m_fCodeStateTime = -2;
+                        
+                        NG_SAVE_DATA->clear();
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+                    }
+                    else if (m_iMapCodeState == 0
+                             && touchPoint.getX() > 10
+                             && touchPoint.getY() > 6)
+                    {
+                        m_iResetCodeState = -1;
+                        m_iMapCodeState++;
+                    }
+                    else if (m_iMapCodeState == 1
+                             && touchPoint.getX() > 5
+                             && touchPoint.getX() < 10
+                             && touchPoint.getY() > 3
+                             && touchPoint.getY() < 6)
+                    {
+                        m_iMapCodeState++;
+                    }
+                    else if (m_iMapCodeState == 2
+                             && touchPoint.getX() < 5
+                             && touchPoint.getY() < 3)
+                    {
+                        m_iMapCodeState++;
+                        
+                        m_fCodeStateTime = -2;
+                        
+                        std::string key = std::string("NG_UNLOCK_ALL");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isUnlockAll = StringUtil::stringToInt(storedVal);
+                        
+                        std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        NG_SAVE_DATA->save();
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+                    }
+                    else if (m_iDmCodeState == 0
+                             && touchPoint.getX() > 5
+                             && touchPoint.getX() < 10
+                             && touchPoint.getY() > 3
+                             && touchPoint.getY() < 6)
+                    {
+                        m_iResetCodeState = -1;
+                        m_iMapCodeState = -1;
+                        m_iDmCodeState++;
+                    }
+                    else if (m_iDmCodeState == 1
+                             && touchPoint.getX() > 10
+                             && touchPoint.getY() > 6)
+                    {
+                        m_iDmCodeState++;
+                    }
+                    else if (m_iDmCodeState == 2
+                             && touchPoint.getX() < 5
+                             && touchPoint.getY() < 3)
+                    {
+                        m_iDmCodeState++;
+                        
+                        m_fCodeStateTime = -2;
+                        
+                        std::string key = std::string("NG_DEBUG");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isDebug = StringUtil::stringToInt(storedVal);
+                        
+                        std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        NG_SAVE_DATA->save();
+                        
+                        WorldMap::getInstance()->loadSaveData();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+                    }
                     continue;
                 case ScreenEventType_DRAGGED:
                     continue;
                 case ScreenEventType_UP:
+                    if (m_fCodeStateTime < 0)
+                    {
+                        return;
+                    }
+                    
 					if (isDisplayingLevelEditorButtons
                         && m_levelEditorButton->handleClick(touchPoint))
                     {
