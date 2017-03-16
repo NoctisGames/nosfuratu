@@ -828,7 +828,7 @@ void MainScreenLevelEditor::saveLevel(int world, int level)
 #ifdef WIN32
         ss << "..\\nosfuratu-levels\\";
 #else
-        ss << "../nosfuratu-levels/";
+        ss << "nosfuratu-levels/";
 #endif
         
         if (world > 0 && level > 0)
@@ -879,7 +879,7 @@ void MainScreenLevelEditor::loadLevel(int world, int level, MainScreen* ms)
 #ifdef WIN32
     ss << "..\\nosfuratu-levels\\";
 #else
-    ss << "../nosfuratu-levels/";
+    ss << "nosfuratu-levels/";
 #endif
     
     if (world > 0 && level > 0)
