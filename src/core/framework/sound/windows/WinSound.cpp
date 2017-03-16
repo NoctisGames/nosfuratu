@@ -17,6 +17,8 @@ m_isPaused(false)
 
 WinSound::~WinSound()
 {
+    m_soundEffectInstance->Pause();
+    
     m_soundEffectInstance.reset();
 }
 

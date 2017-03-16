@@ -61,6 +61,10 @@ m_isPaused(false)
 
 SuperpoweredSound::~SuperpoweredSound()
 {
+    m_player->pause();
+    
+    m_manager->onSoundStopped(this);
+    
     delete m_player;
 }
 
