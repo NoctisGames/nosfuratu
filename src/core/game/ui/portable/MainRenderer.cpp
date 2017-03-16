@@ -723,7 +723,7 @@ void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
 {
     m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
-    std::string key = std::string("NG_LEVEL_EDITOR");
+    std::string key = std::string("ng_level_editor");
     std::string val = NG_SAVE_DATA->findValue(key);
     int isLevelEditor = StringUtil::stringToInt(val);
     

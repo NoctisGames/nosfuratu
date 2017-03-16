@@ -430,7 +430,7 @@ void WorldMap::loadSaveData()
     
     m_isNextWorldButtonEnabled = false;
     
-    std::string key = std::string("NG_UNLOCK_ALL");
+    std::string key = std::string("ng_unlock_all");
     std::string val = NG_SAVE_DATA->findValue(key);
     int isUnlockedAll = StringUtil::stringToInt(val);
     
@@ -810,7 +810,7 @@ void WorldMap::startLevel()
     
     int abilityFlag = m_iJonAbilityFlag;
     
-    std::string key = std::string("NG_UNLOCK_ALL");
+    std::string key = std::string("ng_unlock_all");
     std::string val = NG_SAVE_DATA->findValue(key);
     int isUnlockedAll = StringUtil::stringToInt(val);
     if (isUnlockedAll)

@@ -123,7 +123,7 @@ void Level::enter(MainScreen* ms)
     m_playLevelSelectMusicOnExit = ms->m_stateMachine.getPreviousState() == WorldMap::getInstance();
 	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
     
-    std::string key = std::string("NG_DEBUG");
+    std::string key = std::string("ng_debug");
     std::string val = NG_SAVE_DATA->findValue(key);
     int isDebug = StringUtil::stringToInt(val);
     m_isDebug = isDebug == 1;

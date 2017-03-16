@@ -62,7 +62,7 @@ void Title::enter(MainScreen* ms)
     m_isRequestingLevelEditor = false;
     m_isLevelEditor = false;
     
-    std::string key = std::string("NG_LEVEL_EDITOR");
+    std::string key = std::string("ng_level_editor");
     std::string val = NG_SAVE_DATA->findValue(key);
     int isLevelEditor = StringUtil::stringToInt(val);
     
@@ -163,13 +163,6 @@ void Title::execute(MainScreen* ms)
             }
         }
         
-		bool isDisplayingLevelEditorButtons = false;
-        
-        if (m_isLevelEditor)
-        {
-            isDisplayingLevelEditorButtons = true;
-        }
-        
         for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
         {
             switch ((*i)->getType())
@@ -225,7 +218,7 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iDmCodeState++;
                         
-                        std::string key = std::string("NG_DEBUG");
+                        std::string key = std::string("ng_debug");
                         std::string storedVal = NG_SAVE_DATA->findValue(key);
                         int isDebug = StringUtil::stringToInt(storedVal);
                         
@@ -258,7 +251,7 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iSwampCodeState++;
                         
-                        std::string key = std::string("NG_LEVEL_EDITOR");
+                        std::string key = std::string("ng_level_editor");
                         std::string storedVal = NG_SAVE_DATA->findValue(key);
                         int isLevelEditor = StringUtil::stringToInt(storedVal);
                         
@@ -279,7 +272,7 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iMapCodeState++;
                         
-                        std::string key = std::string("NG_UNLOCK_ALL");
+                        std::string key = std::string("ng_unlock_all");
                         std::string storedVal = NG_SAVE_DATA->findValue(key);
                         int isUnlockAll = StringUtil::stringToInt(storedVal);
                         
@@ -373,7 +366,7 @@ void Title::execute(MainScreen* ms)
                         
                         m_fCodeStateTime = -2;
                         
-                        std::string key = std::string("NG_UNLOCK_ALL");
+                        std::string key = std::string("ng_unlock_all");
                         std::string storedVal = NG_SAVE_DATA->findValue(key);
                         int isUnlockAll = StringUtil::stringToInt(storedVal);
                         
@@ -410,7 +403,7 @@ void Title::execute(MainScreen* ms)
                         
                         m_fCodeStateTime = -2;
                         
-                        std::string key = std::string("NG_DEBUG");
+                        std::string key = std::string("ng_debug");
                         std::string storedVal = NG_SAVE_DATA->findValue(key);
                         int isDebug = StringUtil::stringToInt(storedVal);
                         
@@ -432,7 +425,7 @@ void Title::execute(MainScreen* ms)
                         return;
                     }
                     
-					if (isDisplayingLevelEditorButtons
+					if (m_isLevelEditor
                         && m_levelEditorButton->handleClick(touchPoint))
                     {
                         m_isRequestingLevelEditor = true;
