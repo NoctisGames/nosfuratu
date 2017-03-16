@@ -50,7 +50,6 @@ void Title::enter(MainScreen* ms)
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
     
-    ms->initSounds();
     initRenderer(ms);
     
     WorldMap::getInstance()->loadSaveData();

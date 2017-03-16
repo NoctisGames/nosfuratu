@@ -65,6 +65,8 @@ m_fTimeUntilResume(0)
     NG_SAVE_DATA->config("nosfuratu.sav");
 #endif
     
+    initSounds();
+    
     Title::getInstance()->enter(this);
     
     m_stateMachine.setCurrentState(Title::getInstance());
