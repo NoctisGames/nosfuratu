@@ -96,7 +96,8 @@ void Chapter1Level10::update(MainScreen* ms)
 {
     Level::update(ms);
     
-    if (m_game->getJons().size() == 0)
+    if (!m_game
+        || m_game->getJons().size() == 0)
     {
         return;
     }

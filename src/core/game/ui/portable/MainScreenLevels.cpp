@@ -148,6 +148,7 @@ void Level::exit(MainScreen* ms)
     m_iNumAttemptsSinceLastAdBreak = 0;
     
     delete m_game;
+    m_game = nullptr;
     
     if (m_createdOwnSourceGame)
     {
