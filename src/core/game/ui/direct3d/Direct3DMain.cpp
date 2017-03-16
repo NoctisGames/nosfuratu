@@ -70,8 +70,8 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 	m_deviceResources->CreateDeviceResources();
 	CreateDeviceDependentResources();
 
-    int clampWidth = m_isWindowsMobile ? 1280 : 1440;
-    int clampHeight = m_isWindowsMobile ? 720 : 900;
+    int clampWidth = 1440;
+    int clampHeight = 900;
 	m_deviceResources->CreateWindowSizeDependentResources(clampWidth, clampHeight);
 	CreateWindowSizeDependentResources();
 
@@ -554,10 +554,13 @@ void Direct3DMain::CreateWindowSizeDependentResources()
 		touchHeight = width;
 	}
 
-    int clampWidth = m_isWindowsMobile ? 1280 : 1440;
-    int clampHeight = m_isWindowsMobile ? 720 : 900;
+    int clampWidth = 1440;
+    int clampHeight = 900;
     
-	m_screen->createWindowSizeDependentResources(width > clampWidth ? clampWidth : width, height > clampHeight ? 900 : clampHeight, touchWidth, touchHeight);
+	width = width > clampWidth ? clampWidth : width;
+	height = height > clampHeight ? clampHeight : clampHeight;
+
+	m_screen->createWindowSizeDependentResources(width, height, touchWidth, touchHeight);
 }
 
 void Direct3DMain::beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceResources)
