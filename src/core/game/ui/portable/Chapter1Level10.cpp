@@ -43,11 +43,6 @@ void Chapter1Level10::enter(MainScreen* ms)
     
     m_midBossOwl->setGame(m_game);
     
-    if (m_game->getJons().size() == 0)
-    {
-        return;
-    }
-    
     Jon& jon = m_game->getJon();
     
     jon.enableAbility(FLAG_ABILITY_RABBIT_DOWN);

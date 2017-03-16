@@ -338,6 +338,11 @@ void Level::handleOpeningSequence(MainScreen* ms)
 
 void Level::update(MainScreen* ms)
 {
+    if (m_game->getJons().size() == 0)
+    {
+        return;
+    }
+    
     Jon& jon = m_game->getJon();
     jon.setAllowedToMove(m_hasOpeningSequenceCompleted);
     

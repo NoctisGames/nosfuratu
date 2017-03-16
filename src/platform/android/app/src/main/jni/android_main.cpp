@@ -104,7 +104,7 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
     
     if (MAIN_ASSETS->isUsingCompressedTextureSet())
     {
-        gScreen->createWindowSizeDependentResources(width > 1280 ? 1280 : width, height > 720 ? 720 : height, width, height);
+        gScreen->createWindowSizeDependentResources(width > 1180 ? 1180 : width, height > 640 ? 640 : height, width, height);
     }
     else
     {
