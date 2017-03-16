@@ -100,6 +100,7 @@ void Level::enter(MainScreen* ms)
     
     configBatPanel();
 
+    ms->initSounds();
     initRenderer(ms);
     
     ms->m_renderer->beginOpeningPanningSequence(*m_game);

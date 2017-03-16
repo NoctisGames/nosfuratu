@@ -70,7 +70,9 @@ void Direct3DMain::Initialize(IUnknown* window, int width, int height, float dpi
 	m_deviceResources->CreateDeviceResources();
 	CreateDeviceDependentResources();
 
-	m_deviceResources->CreateWindowSizeDependentResources(1440, 900);
+    int clampWidth = m_isWindowsMobile ? 1280 : 1440;
+    int clampHeight = m_isWindowsMobile ? 720 : 900;
+	m_deviceResources->CreateWindowSizeDependentResources(clampWidth, clampHeight);
 	CreateWindowSizeDependentResources();
 
 	m_keyboard = std::make_unique<Keyboard>();
@@ -552,7 +554,10 @@ void Direct3DMain::CreateWindowSizeDependentResources()
 		touchHeight = width;
 	}
 
-	m_screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, touchWidth, touchHeight);
+    int clampWidth = m_isWindowsMobile ? 1280 : 1440;
+    int clampHeight = m_isWindowsMobile ? 720 : 900;
+    
+	m_screen->createWindowSizeDependentResources(width > clampWidth ? clampWidth : width, height > clampHeight ? 900 : clampHeight, touchWidth, touchHeight);
 }
 
 void Direct3DMain::beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceResources)

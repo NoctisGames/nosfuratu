@@ -43,6 +43,8 @@ public:
     
     void resumeAllSounds();
     
+    void resetSounds();
+    
     void loadMusic(const char *path);
     
     void playMusic(bool isLooping = true, float volume = 1.0f);

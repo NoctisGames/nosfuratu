@@ -102,7 +102,14 @@ JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1surface_1c
     
     OGLManager->setScreenSize(width, height);
     
-    gScreen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
+    if (MAIN_ASSETS->isUsingCompressedTextureSet())
+    {
+        gScreen->createWindowSizeDependentResources(width > 1280 ? 1280 : width, height > 720 ? 720 : height, width, height);
+    }
+    else
+    {
+        gScreen->createWindowSizeDependentResources(width > 1024 ? 1024 : width, height > 576 ? 576 : height, width, height);
+    }
 }
 
 JNIEXPORT void JNICALL Java_com_noctisgames_nosfuratu_AndroidMain_on_1resume(JNIEnv* env, jclass cls)

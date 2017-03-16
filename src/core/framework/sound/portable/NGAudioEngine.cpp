@@ -185,6 +185,11 @@ void NGAudioEngine::resumeAllSounds()
     }
 }
 
+void NGAudioEngine::resetSounds()
+{
+    NGSTDUtil::cleanUpMapOfPointerValues(m_sounds);
+}
+
 void NGAudioEngine::loadMusic(const char *path)
 {
     if (m_isMusicDisabled)
@@ -320,7 +325,7 @@ m_isSoundDisabled(false)
 
 NGAudioEngine::~NGAudioEngine()
 {
-    NGSTDUtil::cleanUpMapOfPointerValues(m_sounds);
+    resetSounds();
     
     delete m_music;
     
