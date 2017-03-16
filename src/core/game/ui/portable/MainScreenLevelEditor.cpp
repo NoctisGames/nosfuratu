@@ -847,10 +847,10 @@ void MainScreenLevelEditor::saveLevel(int world, int level)
         FILE *file;
 #ifdef WIN32
         errno_t err;
-        if((err = fopen_s(&file, jsonFilePath, "r")) != 0)
+        if((err = fopen_s(&file, jsonFilePath, "w+")) != 0)
         {
 #else
-        if ((file = fopen(jsonFilePath, "r")) == NULL)
+        if ((file = fopen(jsonFilePath, "w+")) == NULL)
         {
 #endif
             setMessage("Could not find json file...");
@@ -862,9 +862,9 @@ void MainScreenLevelEditor::saveLevel(int world, int level)
             UNUSED(sum);
             
             fclose(file);
+
+			setMessage("Level Saved Successfully!");
         }
-        
-        setMessage("Level Saved Successfully!");
     }
     else
     {
