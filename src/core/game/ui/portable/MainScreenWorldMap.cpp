@@ -260,11 +260,13 @@ void WorldMap::execute(MainScreen* ms)
                         m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
                         onButtonSelected();
                     }
+#ifdef NG_GAME_SERVICES
                     else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
                     {
                         // Temporary, replace with display Leaderboards
                         return;
                     }
+#endif
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());

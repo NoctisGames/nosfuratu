@@ -898,7 +898,9 @@ void MainRenderer::renderWorldMapScreenButtons(WorldMap& wm)
     renderPhysicalEntityWithColor(*wm.getBackButton(), MAIN_ASSETS->get(wm.getBackButton()), wm.getBackButton()->getColor());
     renderPhysicalEntityWithColor(*wm.getToggleMusicButton(), MAIN_ASSETS->get(wm.getToggleMusicButton()), wm.getToggleMusicButton()->getColor());
     renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), MAIN_ASSETS->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor());
+#ifdef NG_GAME_SERVICES
     renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), MAIN_ASSETS->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor());
+#endif
     renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), MAIN_ASSETS->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor());
     renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), MAIN_ASSETS->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor());
     m_spriteBatcher->endBatch(*m_world_map_screen_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
