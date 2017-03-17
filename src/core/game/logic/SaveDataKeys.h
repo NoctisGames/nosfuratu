@@ -34,10 +34,6 @@ inline std::string getKeyForLevelScore(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_SCORES;
     static std::vector<std::string> world_1;
-    static std::vector<std::string> world_2;
-    static std::vector<std::string> world_3;
-    static std::vector<std::string> world_4;
-    static std::vector<std::string> world_5;
     
     if (WORLDS_LEVELS_SCORES.size() == 0)
     {
@@ -76,10 +72,6 @@ inline std::string getKeyForLevelStats(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_STATS;
     static std::vector<std::string> world_1;
-    static std::vector<std::string> world_2;
-    static std::vector<std::string> world_3;
-    static std::vector<std::string> world_4;
-    static std::vector<std::string> world_5;
     
     if (WORLDS_LEVELS_STATS.size() == 0)
     {
@@ -118,10 +110,6 @@ inline std::string getKeyForLevelOnlineScore(int world, int level)
 {
     static std::vector<std::vector<std::string>> WORLDS_LEVELS_SCORES_ONLINE;
     static std::vector<std::string> world_1;
-    static std::vector<std::string> world_2;
-    static std::vector<std::string> world_3;
-    static std::vector<std::string> world_4;
-    static std::vector<std::string> world_5;
     
     if (WORLDS_LEVELS_SCORES_ONLINE.size() == 0)
     {
