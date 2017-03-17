@@ -63,13 +63,11 @@ public:
     
     void setSourceGame(Game* game);
     
-    void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
+    void setBestStats(int bestScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
     void launchInDemoMode(std::vector<UserDemoAction> userDemoActions);
     
     int getScore();
-    
-    int getOnlineScore();
     
     int getLevelStatsFlag();
     
@@ -96,7 +94,6 @@ protected:
     int m_iScoreFromTime;
     int m_iScoreFromObjects;
     int m_iScore;
-    int m_iOnlineScore;
     int m_iLevelStatsFlag;
     int m_iNumGoldenCarrots;
     int m_iNumTimesBatPanelDisplayed;
@@ -115,7 +112,6 @@ protected:
     
     // Set from app storage
     int m_iBestScore;
-    int m_iBestOnlineScore;
     int m_iBestLevelStatsFlag;
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;

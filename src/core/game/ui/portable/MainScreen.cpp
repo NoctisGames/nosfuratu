@@ -271,13 +271,6 @@ int MainScreen::getScore()
     return level->getScore();
 }
 
-int MainScreen::getOnlineScore()
-{
-    Level* level = (Level*) m_stateMachine.getCurrentState();
-    
-    return level->getOnlineScore();
-}
-
 int MainScreen::getLevelStatsFlag()
 {
     Level* level = (Level*) m_stateMachine.getCurrentState();

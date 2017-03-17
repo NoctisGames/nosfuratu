@@ -218,7 +218,7 @@ public:
     
     void setLevelToLoad(int levelToLoad);
     
-    void setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
+    void setBestStats(int bestScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag);
     
 private:
     Level* m_levelState;
@@ -235,7 +235,6 @@ private:
     
     // Set from app storage
     int m_iBestScore;
-    int m_iBestOnlineScore;
     int m_iBestLevelStatsFlag;
     int m_iLastKnownNumGoldenCarrots;
     int m_iLastKnownJonAbilityFlag;

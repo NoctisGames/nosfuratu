@@ -65,7 +65,6 @@ void Level::enter(MainScreen* ms)
     m_iScoreFromTime = 0;
     m_iScoreFromObjects = 0;
     m_iScore = 0;
-    m_iOnlineScore = 0;
     m_iLevelStatsFlag = m_iBestLevelStatsFlag;
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
@@ -184,7 +183,6 @@ void Level::exit(MainScreen* ms)
     m_isDemoMode = false;
     
     m_iBestScore = 0;
-    m_iBestOnlineScore = 0;
     m_iBestLevelStatsFlag = 0;
     m_iLastKnownNumGoldenCarrots = 0;
     m_iLastKnownJonAbilityFlag = 0;
@@ -203,10 +201,9 @@ void Level::setSourceGame(Game* game)
     m_sourceGame = game;
 }
 
-void Level::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
+void Level::setBestStats(int bestScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
 {
     m_iBestScore = bestScore;
-    m_iBestOnlineScore = bestOnlineScore;
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
     m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
@@ -223,11 +220,6 @@ void Level::launchInDemoMode(std::vector<UserDemoAction> userDemoActions)
 int Level::getScore()
 {
     return m_iScore;
-}
-
-int Level::getOnlineScore()
-{
-    return m_iOnlineScore;
 }
 
 int Level::getLevelStatsFlag()
@@ -586,11 +578,12 @@ void Level::update(MainScreen* ms)
                 m_iScore = m_iBestScore;
             }
             
-            m_iOnlineScore = m_iScore;
-            
-            if (m_iOnlineScore > m_iBestOnlineScore)
+            if (m_iScore > m_iBestScore)
             {
-                // TODO, show Submit Highscore button
+#ifdef NG_GAME_SERVICES
+                // TODO, submit score online (e.g. via Google Play Game Services)
+                // Once submitted, save the score here
+#endif
             }
             
             if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
@@ -1328,7 +1321,6 @@ m_fStateTime(0.0f),
 m_iScoreFromTime(0),
 m_iScoreFromObjects(0),
 m_iScore(0),
-m_iOnlineScore(0),
 m_iLevelStatsFlag(0),
 m_iNumGoldenCarrots(0),
 m_iNumTimesBatPanelDisplayed(0),
@@ -1342,7 +1334,6 @@ m_hasCompletedLevel(false),
 m_isDisplayingResults(false),
 m_createdOwnSourceGame(false),
 m_iBestScore(0),
-m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),

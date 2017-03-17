@@ -837,7 +837,7 @@ void WorldMapToLevel::enter(MainScreen* ms)
 
     m_levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorldToLoad, m_iLevelToLoad);
     
-	m_levelState->setBestStats(m_iBestScore, m_iBestOnlineScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
+	m_levelState->setBestStats(m_iBestScore, m_iBestLevelStatsFlag, m_iLastKnownNumGoldenCarrots, m_iLastKnownJonAbilityFlag);
 }
 
 void WorldMapToLevel::execute(MainScreen* ms)
@@ -935,7 +935,6 @@ void WorldMapToLevel::exit(MainScreen* ms)
     m_iLevelToLoad = 0;
     
     m_iBestScore = 0;
-    m_iBestOnlineScore = 0;
     m_iBestLevelStatsFlag = 0;
     m_iLastKnownNumGoldenCarrots = 0;
     m_iLastKnownJonAbilityFlag = 0;
@@ -970,10 +969,9 @@ void WorldMapToLevel::setLevelToLoad(int levelToLoad)
     m_iLevelToLoad = levelToLoad;
 }
 
-void WorldMapToLevel::setBestStats(int bestScore, int bestOnlineScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
+void WorldMapToLevel::setBestStats(int bestScore, int bestLevelStatsFlag, int numGoldenCarrots, int jonAbilityFlag)
 {
     m_iBestScore = bestScore;
-    m_iBestOnlineScore = bestOnlineScore;
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
     m_iLastKnownNumGoldenCarrots = numGoldenCarrots;
     m_iLastKnownJonAbilityFlag = jonAbilityFlag;
@@ -989,7 +987,6 @@ m_fFade(0),
 m_iWorldToLoad(0),
 m_iLevelToLoad(0),
 m_iBestScore(0),
-m_iBestOnlineScore(0),
 m_iBestLevelStatsFlag(0),
 m_iLastKnownNumGoldenCarrots(0),
 m_iLastKnownJonAbilityFlag(0),

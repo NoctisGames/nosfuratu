@@ -74,8 +74,6 @@ public:
     
     int getScore();
     
-    int getOnlineScore();
-    
     int getLevelStatsFlag();
     
     int getLevelStatsFlagForUnlockedLevel();

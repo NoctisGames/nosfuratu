@@ -420,7 +420,7 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
                         jon->enableAbility(FLAG_ABILITY_ALL);
                         Level* levelState = LevelUtil::getInstanceForWorldAndLevel(m_iWorld, m_iLevel);
                         levelState->setSourceGame(m_game);
-						levelState->setBestStats(0, 0, 0, 0, FLAG_ABILITY_ALL);
+						levelState->setBestStats(0, 0, 0, FLAG_ABILITY_ALL);
                         ms->m_stateMachine.changeState(levelState);
 						return;
                     }

@@ -154,7 +154,6 @@ public:
     
     std::vector<int> m_levelStats;
     std::vector<int> m_scores;
-    std::vector<int> m_onlineScores;
 };
 
 class LevelThumbnail : public PhysicalEntity

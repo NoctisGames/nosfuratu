@@ -686,14 +686,6 @@ void WorldMap::loadWorld1SaveData()
             
             wlc->m_scores.push_back(score);
         }
-        
-        {
-            std::string key = getKeyForLevelOnlineScore(1, i);
-            std::string val = NG_SAVE_DATA->findValue(key);
-            int onlineScore = StringUtil::stringToInt(val);
-            
-            wlc->m_onlineScores.push_back(onlineScore);
-        }
     }
     
     m_worldLevelStats.push_back(wlc);
@@ -802,7 +794,6 @@ void WorldMap::startLevel()
     
     int levelStatsFlag = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
     int score = m_worldLevelStats.at(worldIndex)->m_scores.at(levelIndex);
-    int onlineScore = m_worldLevelStats.at(worldIndex)->m_onlineScores.at(levelIndex);
     
     WorldMapToLevel::getInstance()->setLevelLocation(m_clickedLevel->getPosition().getX(), m_clickedLevel->getPosition().getY());
     WorldMapToLevel::getInstance()->setWorldToLoad(worldToLoad);
@@ -820,7 +811,7 @@ void WorldMap::startLevel()
         abilityFlag = FLAG_ABILITY_ALL;
     }
     
-    WorldMapToLevel::getInstance()->setBestStats(score, onlineScore, levelStatsFlag, m_iNumCollectedGoldenCarrots, abilityFlag);
+    WorldMapToLevel::getInstance()->setBestStats(score, levelStatsFlag, m_iNumCollectedGoldenCarrots, abilityFlag);
     
     m_isReadyForTransition = true;
     
