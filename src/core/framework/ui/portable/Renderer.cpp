@@ -214,6 +214,18 @@ void Renderer::unloadTexture(TextureWrapper* textureWrapper)
         return;
     }
     
+    for (std::vector<TextureWrapper *>::iterator i = m_loadingTextures.begin(); i != m_loadingTextures.end(); )
+    {
+        if ((*i) == textureWrapper)
+        {
+            i = m_loadingTextures.erase(i);
+        }
+        else
+        {
+            ++i;
+        }
+    }
+    
     if (textureWrapper->gpuTextureWrapper)
     {
         m_rendererHelper->destroyTexture(*textureWrapper->gpuTextureWrapper);
@@ -227,6 +239,8 @@ void Renderer::unloadTexture(TextureWrapper* textureWrapper)
         delete textureWrapper->gpuTextureDataWrapper;
         textureWrapper->gpuTextureDataWrapper = nullptr;
     }
+    
+    textureWrapper->isLoadingData = false;
 }
 
 bool Renderer::ensureTexture(TextureWrapper* textureWrapper)

@@ -266,6 +266,15 @@ int32_t Engine::HandleInput(android_app* app, AInputEvent* event)
         
         return 1;
     }
+    else if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK)
+    {
+        if (eng->m_screen->m_stateMachine.getCurrentState() != Title::getInstance())
+        {
+            KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+            
+            return 1; // <-- prevent default handler
+        }
+    }
     
     return 0;
 }
