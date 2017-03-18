@@ -66,7 +66,7 @@ void Level::enter(MainScreen* ms)
     ms->m_isScreenHeldDown = false;
     ms->m_fScreenHeldTime = 0;
     
-    if (!m_game)
+    if (!m_game->isLoaded())
     {
         if (!m_sourceGame)
         {
@@ -76,7 +76,6 @@ void Level::enter(MainScreen* ms)
             m_createdOwnSourceGame = true;
         }
         
-        m_game = new Game();
         m_game->copy(m_sourceGame);
         
         m_game->setBestLevelStatsFlag(m_iBestLevelStatsFlag);
@@ -138,16 +137,6 @@ void Level::exit(MainScreen* ms)
 {
     m_iNumTimesBatPanelDisplayed = 0;
     m_iNumAttemptsSinceLastAdBreak = 0;
-    
-    delete m_game;
-    m_game = nullptr;
-    
-    if (m_createdOwnSourceGame)
-    {
-        delete m_sourceGame;
-    }
-    
-    m_sourceGame = nullptr;
     
     NG_AUDIO_ENGINE->stopAllSounds();
     
@@ -324,7 +313,7 @@ void Level::handleOpeningSequence(MainScreen* ms)
 
 void Level::update(MainScreen* ms)
 {
-    if (m_game->getJons().size() == 0)
+    if (!m_game->isLoaded())
     {
         return;
     }
@@ -377,10 +366,9 @@ void Level::update(MainScreen* ms)
             
             if (m_fStateTime > 1.6f)
             {
-                delete m_game;
-                m_game = nullptr;
-                
                 NG_AUDIO_ENGINE->stopAllSounds();
+                
+                m_game->reset();
                 
                 enter(ms);
                 
@@ -919,6 +907,8 @@ bool Level::handleInput(MainScreen* ms)
             if (m_game->getWorld() == 1
                 && m_game->getLevel() == 21)
             {
+                m_game->reset();
+                
                 m_playLevelSelectMusicOnExit = false;
                 LevelToComingSoon::getInstance()->setLevelComingFrom(this);
                 ms->m_stateMachine.changeState(LevelToComingSoon::getInstance());
@@ -1305,7 +1295,7 @@ void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleIte
 
 Level::Level(const char* json) :
 m_json(json),
-m_game(nullptr),
+m_game(new Game()),
 m_sourceGame(nullptr),
 m_batPanel(new BatPanel()),
 m_backButton(GameButton::create(GameButtonType_BackToLevelSelect)),
@@ -1343,6 +1333,9 @@ Level::~Level()
     delete m_batPanel;
     delete m_backButton;
     delete m_continueButton;
+    
+    delete m_game;
+    m_game = nullptr;
     
     if (m_createdOwnSourceGame)
     {

@@ -23,7 +23,6 @@
 #include <vector>
 
 #include <android/sensor.h>
-#include <android/log.h>
 #include <android_native_app_glue.h>
 #include <android/native_window_jni.h>
 #include <cpu-features.h>
@@ -217,8 +216,6 @@ void Engine::TermDisplay()
 
 void Engine::TrimMemory()
 {
-    LOGI("Trimming memory");
-    
     gl_context_->Invalidate();
 }
 /**
@@ -235,7 +232,7 @@ int32_t Engine::HandleInput(android_app* app, AInputEvent* event)
         
         int32_t pointerCount = AMotionEvent_getPointerCount(event);
         
-        switch (action)
+        switch (flags)
         {
             case AMOTION_EVENT_ACTION_DOWN:
             case AMOTION_EVENT_ACTION_POINTER_DOWN:
@@ -353,6 +350,11 @@ void Engine::ResumeSensors()
         ASensorEventQueue_setEventRate( sensor_event_queue_, accelerometer_sensor_,
                                        (1000L / 60) * 1000 );
     }
+    
+    if (m_screen)
+    {
+        m_screen->onResume();
+    }
 }
 
 void Engine::SuspendSensors()
@@ -362,6 +364,11 @@ void Engine::SuspendSensors()
     if( accelerometer_sensor_ != NULL )
     {
         ASensorEventQueue_disableSensor( sensor_event_queue_, accelerometer_sensor_ );
+    }
+    
+    if (m_screen)
+    {
+        m_screen->onPause();
     }
 }
 
