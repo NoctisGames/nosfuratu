@@ -13,9 +13,9 @@
 
 EntityManager* EntityManager::getInstance()
 {
-    static EntityManager *instance = new EntityManager();
-    
-    return instance;
+    static EntityManager instance = EntityManager();
+
+    return &instance;
 }
 
 Entity* EntityManager::getEntityFromID(int id)const

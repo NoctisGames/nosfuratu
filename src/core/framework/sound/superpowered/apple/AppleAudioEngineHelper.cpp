@@ -16,8 +16,8 @@
 
 AppleAudioEngineHelper* AppleAudioEngineHelper::getInstance()
 {
-    static AppleAudioEngineHelper *instance = new AppleAudioEngineHelper();
-    return instance;
+    static AppleAudioEngineHelper instance = AppleAudioEngineHelper();
+    return &instance;
 }
 
 void AppleAudioEngineHelper::update(int flags)

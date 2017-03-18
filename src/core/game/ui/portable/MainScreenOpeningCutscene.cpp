@@ -34,9 +34,9 @@
 
 OpeningCutscene * OpeningCutscene::getInstance()
 {
-    static OpeningCutscene *instance = new OpeningCutscene();
+    static OpeningCutscene instance = OpeningCutscene();
     
-    return instance;
+    return &instance;
 }
 
 void OpeningCutscene::enter(MainScreen* ms)

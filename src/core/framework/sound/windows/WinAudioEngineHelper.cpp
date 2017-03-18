@@ -14,8 +14,8 @@
 
 WinAudioEngineHelper* WinAudioEngineHelper::getInstance()
 {
-    static WinAudioEngineHelper *instance = new WinAudioEngineHelper();
-    return instance;
+    static WinAudioEngineHelper instance = WinAudioEngineHelper();
+    return &instance;
 }
 
 void WinAudioEngineHelper::update(int flags)

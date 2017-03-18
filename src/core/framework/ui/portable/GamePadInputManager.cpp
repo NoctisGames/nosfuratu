@@ -14,8 +14,8 @@
 
 GamePadInputManager* GamePadInputManager::getInstance()
 {
-    static GamePadInputManager *instance = new GamePadInputManager();
-    return instance;
+    static GamePadInputManager instance = GamePadInputManager();
+    return &instance;
 }
 
 void GamePadInputManager::onInput(GamePadEventType type, int index, float x, float y)

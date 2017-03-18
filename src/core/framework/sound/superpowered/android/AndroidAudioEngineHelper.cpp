@@ -83,8 +83,8 @@ static bool audioProcessingSound11(void *clientData, short int *audioIO, int num
 
 AndroidAudioEngineHelper* AndroidAudioEngineHelper::getInstance()
 {
-    static AndroidAudioEngineHelper *instance = new AndroidAudioEngineHelper();
-    return instance;
+    static AndroidAudioEngineHelper instance = AndroidAudioEngineHelper();
+    return &instance;
 }
 
 void AndroidAudioEngineHelper::update(int flags)
@@ -104,60 +104,60 @@ void AndroidAudioEngineHelper::resume()
 
 ISoundWrapper* AndroidAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
-    JNIEnv* env;
+    JNIEnv* jni;
     
-    jint status = m_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    jint status = m_jvm->GetEnv((void**)&jni, JNI_VERSION_1_6);
     if (status != JNI_OK)
     {
-        m_jvm->AttachCurrentThread(&env, NULL);
+        m_jvm->AttachCurrentThread(&jni, NULL);
     }
     
-    jclass class_resources = env->GetObjectClass(m_resources);
+    jclass class_resources = jni->GetObjectClass(m_resources);
     
-    jmethodID mid_getIdentifier = env->GetMethodID(class_resources, "getIdentifier", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
+    jmethodID mid_getIdentifier = jni->GetMethodID(class_resources, "getIdentifier", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I");
     assert(mid_getIdentifier != 0);
     
-    jstring java_soundName = env->NewStringUTF(path);
-    jstring java_defType = env->NewStringUTF("raw");
+    jstring java_soundName = jni->NewStringUTF(path);
+    jstring java_defType = jni->NewStringUTF("raw");
     
-    jint resId = env->CallIntMethod(m_resources, mid_getIdentifier, java_soundName, java_defType, m_packageName);
+    jint resId = jni->CallIntMethod(m_resources, mid_getIdentifier, java_soundName, java_defType, m_packageName);
     
-    env->DeleteLocalRef(java_soundName);
-    env->DeleteLocalRef(java_defType);
+    jni->DeleteLocalRef(java_soundName);
+    jni->DeleteLocalRef(java_defType);
     
-    jmethodID mid_openRawResourceFd = env->GetMethodID(class_resources, "openRawResourceFd", "(I)Landroid/content/res/AssetFileDescriptor;");
+    jmethodID mid_openRawResourceFd = jni->GetMethodID(class_resources, "openRawResourceFd", "(I)Landroid/content/res/AssetFileDescriptor;");
     assert(mid_openRawResourceFd != 0);
     
-    jobject java_assetFileDescriptor = env->CallObjectMethod(m_resources, mid_openRawResourceFd, resId);
+    jobject java_assetFileDescriptor = jni->CallObjectMethod(m_resources, mid_openRawResourceFd, resId);
     
-    jclass class_assetFileDescriptor = env->GetObjectClass(java_assetFileDescriptor);
+    jclass class_assetFileDescriptor = jni->GetObjectClass(java_assetFileDescriptor);
     
-    jmethodID mid_getStartOffset = env->GetMethodID(class_assetFileDescriptor, "getStartOffset", "()J");
+    jmethodID mid_getStartOffset = jni->GetMethodID(class_assetFileDescriptor, "getStartOffset", "()J");
     assert(mid_getStartOffset != 0);
     
-    jlong java_fileOffset = env->CallLongMethod(java_assetFileDescriptor, mid_getStartOffset);
+    jlong java_fileOffset = jni->CallLongMethod(java_assetFileDescriptor, mid_getStartOffset);
     
-    jmethodID mid_getLength = env->GetMethodID(class_assetFileDescriptor, "getLength", "()J");
+    jmethodID mid_getLength = jni->GetMethodID(class_assetFileDescriptor, "getLength", "()J");
     assert(mid_getLength != 0);
     
-    jlong java_fileLength = env->CallLongMethod(java_assetFileDescriptor, mid_getLength);
+    jlong java_fileLength = jni->CallLongMethod(java_assetFileDescriptor, mid_getLength);
     
     int fileOffset = (int) java_fileOffset;
     int fileLength = (int) java_fileLength;
     
-    jmethodID mid_getParcelFileDescriptor = env->GetMethodID(class_assetFileDescriptor, "getParcelFileDescriptor", "()Landroid/os/ParcelFileDescriptor;");
+    jmethodID mid_getParcelFileDescriptor = jni->GetMethodID(class_assetFileDescriptor, "getParcelFileDescriptor", "()Landroid/os/ParcelFileDescriptor;");
     assert(mid_getParcelFileDescriptor != 0);
     
-    jobject java_parcelFileDescriptor = env->CallObjectMethod(java_assetFileDescriptor, mid_getParcelFileDescriptor);
+    jobject java_parcelFileDescriptor = jni->CallObjectMethod(java_assetFileDescriptor, mid_getParcelFileDescriptor);
     
-    jclass class_parcelFileDescriptor = env->GetObjectClass(java_parcelFileDescriptor);
-    jmethodID mid_close = env->GetMethodID(class_parcelFileDescriptor, "close", "()V");
+    jclass class_parcelFileDescriptor = jni->GetObjectClass(java_parcelFileDescriptor);
+    jmethodID mid_close = jni->GetMethodID(class_parcelFileDescriptor, "close", "()V");
     assert(mid_close != 0);
     
-    env->CallVoidMethod(java_parcelFileDescriptor, mid_close);
+    jni->CallVoidMethod(java_parcelFileDescriptor, mid_close);
     
-    env->DeleteLocalRef(java_assetFileDescriptor);
-    env->DeleteLocalRef(java_parcelFileDescriptor);
+    jni->DeleteLocalRef(java_assetFileDescriptor);
+    jni->DeleteLocalRef(java_parcelFileDescriptor);
     
     if (status != JNI_OK)
     {
@@ -174,54 +174,54 @@ ISoundWrapper* AndroidAudioEngineHelper::loadMusic(const char* path)
     return loadSound(1337, path);
 }
 
-void AndroidAudioEngineHelper::init(JNIEnv* env, jobject activity)
+void AndroidAudioEngineHelper::init(JNIEnv* jni, jobject activity)
 {
-    env->GetJavaVM(&m_jvm);
+    jni->GetJavaVM(&m_jvm);
     
-    jclass class_activity = env->GetObjectClass(activity);
+    jclass class_activity = jni->GetObjectClass(activity);
     
-    jmethodID mid_getPackageResourcePath = env->GetMethodID(class_activity, "getPackageResourcePath", "()Ljava/lang/String;");
+    jmethodID mid_getPackageResourcePath = jni->GetMethodID(class_activity, "getPackageResourcePath", "()Ljava/lang/String;");
     assert(mid_getPackageResourcePath != 0);
-    m_javaPackageResourcePath = (jstring) env->CallObjectMethod(activity, mid_getPackageResourcePath);
-    m_packageResourcePath = env->GetStringUTFChars(m_javaPackageResourcePath, JNI_FALSE);
+    m_javaPackageResourcePath = (jstring) jni->CallObjectMethod(activity, mid_getPackageResourcePath);
+    m_packageResourcePath = jni->GetStringUTFChars(m_javaPackageResourcePath, JNI_FALSE);
     
-    jmethodID mid_getPackageName = env->GetMethodID(class_activity, "getPackageName", "()Ljava/lang/String;");
+    jmethodID mid_getPackageName = jni->GetMethodID(class_activity, "getPackageName", "()Ljava/lang/String;");
     assert(mid_getPackageName != 0);
-    jobject java_PackageName = env->CallObjectMethod(activity, mid_getPackageName);
-    m_packageName = (jstring) env->NewGlobalRef(java_PackageName);
+    jobject java_PackageName = jni->CallObjectMethod(activity, mid_getPackageName);
+    m_packageName = (jstring) jni->NewGlobalRef(java_PackageName);
     
-    jmethodID mid_getResources = env->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
+    jmethodID mid_getResources = jni->GetMethodID(class_activity, "getResources", "()Landroid/content/res/Resources;");
     assert(mid_getResources != 0);
-    jobject java_resources = env->CallObjectMethod(activity, mid_getResources);
-    m_resources = env->NewGlobalRef(java_resources);
+    jobject java_resources = jni->CallObjectMethod(activity, mid_getResources);
+    m_resources = jni->NewGlobalRef(java_resources);
     
     // Get the device's sample rate and buffer size to enable low-latency Android audio output, if available.
-    jmethodID mid_getSystemService = env->GetMethodID(class_activity, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;");
+    jmethodID mid_getSystemService = jni->GetMethodID(class_activity, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;");
     assert(mid_getSystemService != 0);
     
-    jstring java_audio = env->NewStringUTF("audio");
-    jobject java_audioManager = env->CallObjectMethod(activity, mid_getSystemService, java_audio);
+    jstring java_audio = jni->NewStringUTF("audio");
+    jobject java_audioManager = jni->CallObjectMethod(activity, mid_getSystemService, java_audio);
     
-    env->DeleteLocalRef(java_audio);
+    jni->DeleteLocalRef(java_audio);
     
     int sampleRate;
     int bufferSize;
     
-    jclass class_audioManager = env->GetObjectClass(java_audioManager);
+    jclass class_audioManager = jni->GetObjectClass(java_audioManager);
     
     {
-        jmethodID mid_getProperty = env->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+        jmethodID mid_getProperty = jni->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
         assert(mid_getProperty != 0);
         
-        jstring java_property = env->NewStringUTF("android.media.property.OUTPUT_SAMPLE_RATE");
-        jstring java_sampleRateString = (jstring) env->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
+        jstring java_property = jni->NewStringUTF("android.media.property.OUTPUT_SAMPLE_RATE");
+        jstring java_sampleRateString = (jstring) jni->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
         if (java_sampleRateString == NULL)
         {
             sampleRate = 44100;
         }
         else
         {
-            const char *sampleRateString = env->GetStringUTFChars(java_sampleRateString, JNI_FALSE);
+            const char *sampleRateString = jni->GetStringUTFChars(java_sampleRateString, JNI_FALSE);
             
             std::stringstream ss;
             ss << sampleRateString;
@@ -229,23 +229,23 @@ void AndroidAudioEngineHelper::init(JNIEnv* env, jobject activity)
             ss >> sampleRate;
         }
         
-        env->DeleteLocalRef(java_property);
-        env->DeleteLocalRef(java_sampleRateString);
+        jni->DeleteLocalRef(java_property);
+        jni->DeleteLocalRef(java_sampleRateString);
     }
     
     {
-        jmethodID mid_getProperty = env->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+        jmethodID mid_getProperty = jni->GetMethodID(class_audioManager, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
         assert(mid_getProperty != 0);
         
-        jstring java_property = env->NewStringUTF("android.media.property.OUTPUT_FRAMES_PER_BUFFER");
-        jstring java_bufferSizeString = (jstring) env->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
+        jstring java_property = jni->NewStringUTF("android.media.property.OUTPUT_FRAMES_PER_BUFFER");
+        jstring java_bufferSizeString = (jstring) jni->CallObjectMethod(java_audioManager, mid_getProperty, java_property);
         if (java_bufferSizeString == NULL)
         {
             bufferSize = 512;
         }
         else
         {
-            const char *bufferSizeString = env->GetStringUTFChars(java_bufferSizeString, JNI_FALSE);
+            const char *bufferSizeString = jni->GetStringUTFChars(java_bufferSizeString, JNI_FALSE);
             
             std::stringstream ss;
             ss << bufferSizeString;
@@ -253,11 +253,11 @@ void AndroidAudioEngineHelper::init(JNIEnv* env, jobject activity)
             ss >> bufferSize;
         }
         
-        env->DeleteLocalRef(java_property);
-        env->DeleteLocalRef(java_bufferSizeString);
+        jni->DeleteLocalRef(java_property);
+        jni->DeleteLocalRef(java_bufferSizeString);
     }
     
-    env->DeleteLocalRef(java_audioManager);
+    jni->DeleteLocalRef(java_audioManager);
     
     m_iSampleRate = sampleRate;
     
@@ -285,17 +285,17 @@ void AndroidAudioEngineHelper::deinit()
     delete m_superpoweredSoundManager;
     m_superpoweredSoundManager = nullptr;
     
-    JNIEnv* env;
+    JNIEnv* jni;
     
-    jint status = m_jvm->GetEnv((void**)&env, JNI_VERSION_1_6);
+    jint status = m_jvm->GetEnv((void**)&jni, JNI_VERSION_1_6);
     if (status != JNI_OK)
     {
-        m_jvm->AttachCurrentThread(&env, NULL);
+        m_jvm->AttachCurrentThread(&jni, NULL);
     }
     
-    env->DeleteLocalRef(m_resources);
-    env->DeleteLocalRef(m_packageName);
-    env->ReleaseStringUTFChars(m_javaPackageResourcePath, m_packageResourcePath);
+    jni->DeleteLocalRef(m_resources);
+    jni->DeleteLocalRef(m_packageName);
+    jni->ReleaseStringUTFChars(m_javaPackageResourcePath, m_packageResourcePath);
     
     if (status != JNI_OK)
     {

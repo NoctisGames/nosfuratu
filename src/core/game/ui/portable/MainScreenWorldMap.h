@@ -138,6 +138,10 @@ private:
     
     LevelThumbnail * getLevelThumbnail(int world, int level);
     
+    void toggleMusicOnOff();
+    
+    void toggleSoundOnOff();
+    
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();
     ~WorldMap();

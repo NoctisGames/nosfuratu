@@ -10,8 +10,8 @@
 
 DummyGpuProgramWrapper * DummyGpuProgramWrapper::getInstance()
 {
-    static DummyGpuProgramWrapper *instance = new DummyGpuProgramWrapper();
-    return instance;
+    static DummyGpuProgramWrapper instance = DummyGpuProgramWrapper();
+    return &instance;
 }
 
 DummyGpuProgramWrapper::~DummyGpuProgramWrapper()

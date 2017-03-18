@@ -52,13 +52,6 @@ UserDemoAction::UserDemoAction(DemoAction action, float stateTimeToExecuteAction
 
 /// Level ///
 
-Level * Level::getInstance()
-{
-    static Level *instance = new Level();
-    
-    return instance;
-}
-
 void Level::enter(MainScreen* ms)
 {
     m_fStateTime = 0;

@@ -52,8 +52,8 @@
 
 MainAssets* MainAssets::getInstance()
 {
-    static MainAssets *instance = new MainAssets();
-    return instance;
+    static MainAssets instance = MainAssets();
+    return &instance;
 }
 
 TextureRegion& MainAssets::get(TitlePanel* panel)

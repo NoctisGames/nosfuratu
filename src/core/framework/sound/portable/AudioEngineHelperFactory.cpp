@@ -20,8 +20,8 @@
 
 AudioEngineHelperFactory* AudioEngineHelperFactory::getInstance()
 {
-    static AudioEngineHelperFactory *instance = new AudioEngineHelperFactory();
-    return instance;
+    static AudioEngineHelperFactory instance = AudioEngineHelperFactory();
+    return &instance;
 }
 
 IAudioEngineHelper* AudioEngineHelperFactory::createAudioEngineHelper()

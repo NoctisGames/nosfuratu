@@ -10,8 +10,9 @@
 
 DeviceHelperFactory* DeviceHelperFactory::getInstance()
 {
-    static DeviceHelperFactory *instance = new DeviceHelperFactory();
-    return instance;
+    static DeviceHelperFactory instance = DeviceHelperFactory();
+    
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

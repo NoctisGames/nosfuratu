@@ -12,8 +12,8 @@
 
 AppleAssetDataHandler* AppleAssetDataHandler::getInstance()
 {
-    static AppleAssetDataHandler *instance = new AppleAssetDataHandler();
-    return instance;
+    static AppleAssetDataHandler instance = AppleAssetDataHandler();
+    return &instance;
 }
 
 FileData AppleAssetDataHandler::getAssetData(const char* relativePath)

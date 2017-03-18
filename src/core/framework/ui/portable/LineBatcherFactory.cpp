@@ -10,8 +10,8 @@
 
 LineBatcherFactory* LineBatcherFactory::getInstance()
 {
-    static LineBatcherFactory *instance = new LineBatcherFactory();
-    return instance;
+    static LineBatcherFactory instance = LineBatcherFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

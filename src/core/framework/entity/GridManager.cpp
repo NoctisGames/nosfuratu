@@ -10,9 +10,9 @@
 
 GridManager* GridManager::getInstance()
 {
-    static GridManager *instance = new GridManager();
-    
-    return instance;
+    static GridManager instance = GridManager();
+
+    return &instance;
 }
 
 void GridManager::setGridCellSize(float gridCellSize)

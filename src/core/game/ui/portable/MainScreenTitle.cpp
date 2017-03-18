@@ -38,9 +38,9 @@
 
 Title * Title::getInstance()
 {
-    static Title *instance = new Title();
+    static Title instance = Title();
     
-    return instance;
+    return &instance;
 }
 
 void Title::enter(MainScreen* ms)

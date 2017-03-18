@@ -16,8 +16,8 @@
 
 Assets* Assets::getInstance()
 {
-    static Assets *instance = new Assets();
-    return instance;
+    static Assets instance = Assets();
+    return &instance;
 }
 
 void Assets::init(IAssetsMapper* assetsMapper)

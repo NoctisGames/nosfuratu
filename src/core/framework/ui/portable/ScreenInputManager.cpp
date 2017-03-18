@@ -15,8 +15,8 @@
 
 ScreenInputManager* ScreenInputManager::getInstance()
 {
-    static ScreenInputManager *instance = new ScreenInputManager();
-    return instance;
+    static ScreenInputManager instance = ScreenInputManager();
+    return &instance;
 }
 
 void ScreenInputManager::onTouch(ScreenEventType type, float x, float y)

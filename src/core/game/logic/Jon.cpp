@@ -793,9 +793,9 @@ void Jon::setState(JonAbilityState state)
 
 Jon::Rabbit * Jon::Rabbit::getInstance()
 {
-	static Rabbit *instance = new Rabbit();
+	static Rabbit instance = Rabbit();
 
-	return instance;
+	return &instance;
 }
 
 void Jon::Rabbit::enter(Jon* jon)
@@ -1086,9 +1086,9 @@ Jon::Rabbit::Rabbit() : JonFormState()
 
 Jon::Vampire * Jon::Vampire::getInstance()
 {
-	static Vampire *instance = new Vampire();
+	static Vampire instance = Vampire();
 
-	return instance;
+	return &instance;
 }
 
 void Jon::Vampire::enter(Jon* jon)
@@ -1496,9 +1496,9 @@ Jon::Vampire::~Vampire()
 
 Jon::RabbitToVampire * Jon::RabbitToVampire::getInstance()
 {
-	static RabbitToVampire *instance = new RabbitToVampire();
+	static RabbitToVampire instance = RabbitToVampire();
 
-	return instance;
+	return &instance;
 }
 
 void Jon::RabbitToVampire::enter(Jon* jon)
@@ -1637,9 +1637,9 @@ Jon::RabbitToVampire::RabbitToVampire() : JonFormState(), m_hasCompletedSlowMoti
 
 Jon::VampireToRabbit * Jon::VampireToRabbit::getInstance()
 {
-	static VampireToRabbit *instance = new VampireToRabbit();
+	static VampireToRabbit instance = VampireToRabbit();
 
-	return instance;
+	return &instance;
 }
 
 void Jon::VampireToRabbit::enter(Jon* jon)

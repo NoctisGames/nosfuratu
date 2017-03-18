@@ -16,8 +16,8 @@
 
 TouchConverter* TouchConverter::getInstance()
 {
-    static TouchConverter *instance = new TouchConverter();
-    return instance;
+    static TouchConverter instance = TouchConverter();
+    return &instance;
 }
 
 TouchConverter::TouchConverter() :

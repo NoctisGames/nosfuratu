@@ -35,7 +35,7 @@ public:
     
     virtual ISoundWrapper* loadMusic(const char* path);
     
-    void init(JNIEnv* env, jobject activity);
+    void init(JNIEnv* jni, jobject activity);
     
     void deinit();
 

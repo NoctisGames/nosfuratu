@@ -10,8 +10,8 @@
 
 GpuProgramWrapperFactory* GpuProgramWrapperFactory::getInstance()
 {
-    static GpuProgramWrapperFactory *instance = new GpuProgramWrapperFactory();
-    return instance;
+    static GpuProgramWrapperFactory instance = GpuProgramWrapperFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

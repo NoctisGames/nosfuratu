@@ -10,8 +10,8 @@
 
 MainGpuProgramWrapperFactory* MainGpuProgramWrapperFactory::getInstance()
 {
-    static MainGpuProgramWrapperFactory *instance = new MainGpuProgramWrapperFactory();
-    return instance;
+    static MainGpuProgramWrapperFactory instance = MainGpuProgramWrapperFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

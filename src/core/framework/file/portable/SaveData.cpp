@@ -30,8 +30,8 @@
 
 SaveData* SaveData::getInstance()
 {
-    static SaveData *instance = new SaveData();
-    return instance;
+    static SaveData instance = SaveData();
+    return &instance;
 }
 
 void SaveData::config(const char* filePath)

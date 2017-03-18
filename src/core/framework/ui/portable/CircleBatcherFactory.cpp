@@ -10,8 +10,8 @@
 
 CircleBatcherFactory* CircleBatcherFactory::getInstance()
 {
-    static CircleBatcherFactory *instance = new CircleBatcherFactory();
-    return instance;
+    static CircleBatcherFactory instance = CircleBatcherFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

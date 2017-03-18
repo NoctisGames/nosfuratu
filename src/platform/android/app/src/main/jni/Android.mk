@@ -113,6 +113,8 @@ FILE_LIST := $(filter %.cpp, $(GAME_UI_PORTABLE_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 # Android
+LOCAL_C_INCLUDES += $(LOCAL_PATH)
+
 JNI_FILES = $(call walk, $(LOCAL_PATH))
 FILE_LIST := $(filter %.cpp, $(JNI_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
@@ -126,10 +128,13 @@ FILE_LIST := $(filter %.cpp, $(SUPERPOWERED_ANDROID_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/3rdparty/
-LOCAL_STATIC_LIBRARIES := libpng Superpowered
-LOCAL_LDLIBS := -llog -lGLESv2 -landroid -lOpenSLES
+LOCAL_STATIC_LIBRARIES := libpng Superpowered cpufeatures android_native_app_glue ndk_helper
+LOCAL_LDLIBS := -llog -lGLESv2 -landroid -lEGL -lOpenSLES
 
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-add-path, $(PROJECT_ROOT_PATH)/3rdparty)
 $(call import-module, libpng)
+$(call import-module, android/ndk_helper)
+$(call import-module, android/native_app_glue)
+$(call import-module, android/cpufeatures)

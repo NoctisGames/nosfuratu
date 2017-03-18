@@ -21,8 +21,8 @@
 
 NGAudioEngine* NGAudioEngine::getInstance()
 {
-    static NGAudioEngine *instance = new NGAudioEngine();
-    return instance;
+    static NGAudioEngine instance = NGAudioEngine();
+    return &instance;
 }
 
 void NGAudioEngine::update(int flags)

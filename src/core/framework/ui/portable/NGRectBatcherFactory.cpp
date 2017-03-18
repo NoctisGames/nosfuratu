@@ -10,8 +10,8 @@
 
 NGRectBatcherFactory* NGRectBatcherFactory::getInstance()
 {
-    static NGRectBatcherFactory *instance = new NGRectBatcherFactory();
-    return instance;
+    static NGRectBatcherFactory instance = NGRectBatcherFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

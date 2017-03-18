@@ -54,9 +54,9 @@ bool sortGameEntities(Entity* i, Entity* j)
 
 MainScreenLevelEditor * MainScreenLevelEditor::getInstance()
 {
-    static MainScreenLevelEditor *instance = new MainScreenLevelEditor();
+    static MainScreenLevelEditor instance = MainScreenLevelEditor();
     
-    return instance;
+    return &instance;
 }
 
 void MainScreenLevelEditor::enter(MainScreen* ms)

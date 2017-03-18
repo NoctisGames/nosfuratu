@@ -10,8 +10,8 @@
 
 SpriteBatcherFactory* SpriteBatcherFactory::getInstance()
 {
-    static SpriteBatcherFactory *instance = new SpriteBatcherFactory();
-    return instance;
+    static SpriteBatcherFactory instance = SpriteBatcherFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

@@ -31,9 +31,9 @@
 
 ComingSoon * ComingSoon::getInstance()
 {
-    static ComingSoon *instance = new ComingSoon();
+    static ComingSoon instance = ComingSoon();
     
-    return instance;
+    return &instance;
 }
 
 void ComingSoon::enter(MainScreen* ms)

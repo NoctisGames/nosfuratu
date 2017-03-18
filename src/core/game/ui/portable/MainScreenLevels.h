@@ -51,8 +51,6 @@ class Level : public MainScreenState
     RTTI_DECL;
     
 public:
-    static Level* getInstance();
-    
     virtual void enter(MainScreen* ms);
     
     virtual void execute(MainScreen* ms);

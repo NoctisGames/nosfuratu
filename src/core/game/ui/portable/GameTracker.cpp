@@ -30,8 +30,8 @@ void DelayText::update(float deltaTime)
 
 GameTracker * GameTracker::getInstance()
 {
-    static GameTracker *instance = new GameTracker();
-    return instance;
+    static GameTracker instance = GameTracker();
+    return &instance;
 }
 
 void GameTracker::update(float deltaTime)

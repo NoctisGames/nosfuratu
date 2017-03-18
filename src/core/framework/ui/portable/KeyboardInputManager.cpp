@@ -14,8 +14,8 @@
 
 KeyboardInputManager* KeyboardInputManager::getInstance()
 {
-    static KeyboardInputManager *instance = new KeyboardInputManager();
-    return instance;
+    static KeyboardInputManager instance = KeyboardInputManager();
+    return &instance;
 }
 
 void KeyboardInputManager::onInput(KeyboardEventType type, bool isUp)

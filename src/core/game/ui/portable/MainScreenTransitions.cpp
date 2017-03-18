@@ -30,9 +30,9 @@
 
 TitleToDemo * TitleToDemo::getInstance()
 {
-    static TitleToDemo *instance = new TitleToDemo();
+    static TitleToDemo instance = TitleToDemo();
     
-    return instance;
+    return &instance;
 }
 
 void TitleToDemo::enter(MainScreen* ms)
@@ -172,9 +172,9 @@ m_hasEnteredNextScreen(false)
 
 TitleToWorldMap * TitleToWorldMap::getInstance()
 {
-    static TitleToWorldMap *instance = new TitleToWorldMap();
+    static TitleToWorldMap instance = TitleToWorldMap();
     
-    return instance;
+    return &instance;
 }
 
 void TitleToWorldMap::enter(MainScreen* ms)
@@ -301,9 +301,9 @@ m_hasEnteredNextScreen(false)
 
 TitleToOpeningCutscene * TitleToOpeningCutscene::getInstance()
 {
-    static TitleToOpeningCutscene *instance = new TitleToOpeningCutscene();
+    static TitleToOpeningCutscene instance = TitleToOpeningCutscene();
     
-    return instance;
+    return &instance;
 }
 
 void TitleToOpeningCutscene::enter(MainScreen* ms)
@@ -427,9 +427,9 @@ m_hasEnteredNextScreen(false)
 
 OpeningCutsceneToWorldMap * OpeningCutsceneToWorldMap::getInstance()
 {
-    static OpeningCutsceneToWorldMap *instance = new OpeningCutsceneToWorldMap();
+    static OpeningCutsceneToWorldMap instance = OpeningCutsceneToWorldMap();
     
-    return instance;
+    return &instance;
 }
 
 void OpeningCutsceneToWorldMap::enter(MainScreen* ms)
@@ -556,9 +556,9 @@ m_hasEnteredNextScreen(false)
 
 TitleToLevelEditor * TitleToLevelEditor::getInstance()
 {
-    static TitleToLevelEditor *instance = new TitleToLevelEditor();
+    static TitleToLevelEditor instance = TitleToLevelEditor();
     
-    return instance;
+    return &instance;
 }
 
 void TitleToLevelEditor::enter(MainScreen* ms)
@@ -680,9 +680,9 @@ m_hasEnteredNextScreen(false)
 
 WorldMapToOpeningCutscene * WorldMapToOpeningCutscene::getInstance()
 {
-    static WorldMapToOpeningCutscene *instance = new WorldMapToOpeningCutscene();
+    static WorldMapToOpeningCutscene instance = WorldMapToOpeningCutscene();
     
-    return instance;
+    return &instance;
 }
 
 void WorldMapToOpeningCutscene::enter(MainScreen* ms)
@@ -821,9 +821,9 @@ m_hasEnteredNextScreen(false)
 
 WorldMapToLevel * WorldMapToLevel::getInstance()
 {
-    static WorldMapToLevel *instance = new WorldMapToLevel();
+    static WorldMapToLevel instance = WorldMapToLevel();
     
-    return instance;
+    return &instance;
 }
 
 void WorldMapToLevel::enter(MainScreen* ms)
@@ -1001,9 +1001,9 @@ m_hasEnteredLevel(false)
 
 LevelToComingSoon * LevelToComingSoon::getInstance()
 {
-    static LevelToComingSoon *instance = new LevelToComingSoon();
+    static LevelToComingSoon instance = LevelToComingSoon();
     
-    return instance;
+    return &instance;
 }
 
 void LevelToComingSoon::enter(MainScreen* ms)

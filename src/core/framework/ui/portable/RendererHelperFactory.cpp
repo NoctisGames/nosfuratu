@@ -10,8 +10,8 @@
 
 RendererHelperFactory* RendererHelperFactory::getInstance()
 {
-    static RendererHelperFactory *instance = new RendererHelperFactory();
-    return instance;
+    static RendererHelperFactory instance = RendererHelperFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

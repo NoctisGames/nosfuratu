@@ -10,8 +10,8 @@
 
 TextureLoaderFactory* TextureLoaderFactory::getInstance()
 {
-    static TextureLoaderFactory *instance = new TextureLoaderFactory();
-    return instance;
+    static TextureLoaderFactory instance = TextureLoaderFactory();
+    return &instance;
 }
 
 #if defined __APPLE__ || defined __ANDROID__

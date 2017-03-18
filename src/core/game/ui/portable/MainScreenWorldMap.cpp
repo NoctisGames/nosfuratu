@@ -42,9 +42,9 @@ static const int NUM_GC_REQ = 25;
 
 WorldMap * WorldMap::getInstance()
 {
-    static WorldMap *instance = new WorldMap();
+    static WorldMap instance = WorldMap();
     
-    return instance;
+    return &instance;
 }
 
 void WorldMap::enter(MainScreen* ms)
@@ -250,14 +250,12 @@ void WorldMap::execute(MainScreen* ms)
                     }
                     else if (m_toggleMusic->handleClick(touchPoint))
                     {
-                        NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
-                        m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
+                        toggleMusicOnOff();
                         onButtonSelected();
                     }
                     else if (m_toggleSound->handleClick(touchPoint))
                     {
-                        NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
-                        m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
+                        toggleSoundOnOff();
                         onButtonSelected();
                     }
 #ifdef NG_GAME_SERVICES
@@ -423,6 +421,28 @@ void WorldMap::setFade(float fade)
 void WorldMap::loadSaveData()
 {
     NG_SAVE_DATA->load();
+    
+    {
+        std::string key = std::string("ng_is_music_enabled");
+        std::string val = NG_SAVE_DATA->findValue(key);
+        if (val.length() > 0)
+        {
+            int ng_is_music_enabled = StringUtil::stringToInt(val);
+            NG_AUDIO_ENGINE->setMusicDisabled(ng_is_music_enabled == 0);
+            m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
+        }
+    }
+    
+    {
+        std::string key = std::string("ng_is_sound_enabled");
+        std::string val = NG_SAVE_DATA->findValue(key);
+        if (val.length() > 0)
+        {
+            int ng_is_sound_enabled = StringUtil::stringToInt(val);
+            NG_AUDIO_ENGINE->setSoundDisabled(ng_is_sound_enabled == 0);
+            m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
+        }
+    }
     
     NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
@@ -1109,15 +1129,12 @@ void WorldMap::navSelect(MainScreen* ms)
     if (m_toggleMusic->isSelected())
     {
         m_toggleMusic->click();
-        NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
-        m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
-        
+        toggleMusicOnOff();
     }
     else if (m_toggleSound->isSelected())
     {
         m_toggleSound->click();
-        NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
-        m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
+        toggleSoundOnOff();
     }
     else if (m_clickedLevel
         && m_clickedLevel->isSelected())
@@ -1158,6 +1175,30 @@ LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
     }
     
     return nullptr;
+}
+
+void WorldMap::toggleMusicOnOff()
+{
+    NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
+    m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
+    
+    std::string key = std::string("ng_is_music_enabled");
+    std::string val = StringUtil::toString(NG_AUDIO_ENGINE->isMusicDisabled() ? 0 : 1);
+    NG_SAVE_DATA->getKeyValues()[key] = val;
+    
+    NG_SAVE_DATA->save();
+}
+
+void WorldMap::toggleSoundOnOff()
+{
+    NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
+    m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
+    
+    std::string key = std::string("ng_is_sound_enabled");
+    std::string val = StringUtil::toString(NG_AUDIO_ENGINE->isSoundDisabled() ? 0 : 1);
+    NG_SAVE_DATA->getKeyValues()[key] = val;
+    
+    NG_SAVE_DATA->save();
 }
 
 WorldMap::WorldMap() : MainScreenState(),
