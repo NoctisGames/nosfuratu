@@ -1,33 +1,10 @@
-/*
- * Copyright 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-//--------------------------------------------------------------------------------
-// Include files
-//--------------------------------------------------------------------------------
-#include <jni.h>
-#include <errno.h>
-
-#include <vector>
-
-#include <android/sensor.h>
-#include <android_native_app_glue.h>
-#include <android/native_window_jni.h>
-#include <cpu-features.h>
-
-#include "NDKHelper.h"
+//
+//  MainNativeActivity.cpp
+//  nosfuratu
+//
+//  Created by Stephen Gowen on 3/18/17.
+//  Copyright © 2017 Noctis Games. All rights reserved.
+//
 
 #include "macros.h"
 #include "MainScreen.h"
@@ -41,187 +18,127 @@
 #include "GameConstants.h"
 #include "Vector2D.h"
 
+#include "NDKHelper.h"
+
+#include <jni.h>
+#include <errno.h>
+#include <chrono>
+#include <vector>
+#include <android/log.h>
+#include <android_native_app_glue.h>
+#include <android/native_window_jni.h>
+#include <cpu-features.h>
+
 struct android_app;
 
 class Engine
 {
-    ndk_helper::GLContext* gl_context_;
-    
-    bool initialized_resources_;
-    bool has_focus_;
-    float m_fLastTime;
-    
-    android_app* app_;
-    
-    ASensorManager* sensor_manager_;
-    const ASensor* accelerometer_sensor_;
-    ASensorEventQueue* sensor_event_queue_;
-    
-    void DisplayInterstitialAdIfLoaded();
-    
 public:
-    static void HandleCmd( struct android_app* app,
-                          int32_t cmd );
-    static int32_t HandleInput( android_app* app,
-                               AInputEvent* event );
+    static void handleCmd(struct android_app* app, int32_t cmd);
+    static int32_t handleInput(android_app* app, AInputEvent* event);
     
     Engine();
     ~Engine();
-    void SetState( android_app* state );
-    int InitDisplay();
-    void LoadResources();
-    void UnloadResources();
-    void DrawFrame();
-    void InitializeInterstitialAds();
-    void TermDisplay();
-    void TrimMemory();
-    bool IsReady();
     
-    void InitSensors();
-    void ProcessSensors( int32_t id );
-    void SuspendSensors();
-    void ResumeSensors();
+    void setState(android_app* state);
+    int initDisplay();
+    void loadResources();
+    void unloadResources();
+    void drawFrame();
+    void termDisplay();
+    void trimMemory();
+    bool isReady();
+    
+    void resume();
+    void pause();
+    
+    void initializeInterstitialAds();
+    void displayInterstitialAdIfLoaded();
     
 private:
+    ndk_helper::GLContext* m_glContext;
+    android_app* m_app;
     MainScreen* m_screen;
+    
+    bool m_hasInitializedResources;
+    bool m_hasFocus;
+    
+    static long systemNanoTime();
 };
 
-//-------------------------------------------------------------------------
-//Ctor
-//-------------------------------------------------------------------------
-Engine::Engine() :
-initialized_resources_( false ),
-has_focus_( false ),
-app_( NULL ),
-sensor_manager_( NULL ),
-accelerometer_sensor_( NULL ),
-sensor_event_queue_( NULL ),
-m_fLastTime(0)
+void Engine::handleCmd(struct android_app* app, int32_t cmd)
 {
-    gl_context_ = ndk_helper::GLContext::GetInstance();
-}
-
-//-------------------------------------------------------------------------
-//Dtor
-//-------------------------------------------------------------------------
-Engine::~Engine()
-{
-}
-
-/**
- * Load resources
- */
-void Engine::LoadResources()
-{
-    JNIEnv *jni;
-    app_->activity->vm->AttachCurrentThread(&jni, NULL);
-    
-    ANDROID_AUDIO_ENGINE_HELPER->init(jni, app_->activity->clazz);
-    
-    ANDROID_ASSETS->init(jni, app_->activity->clazz);
-    
-    MAIN_ASSETS->setUsingCompressedTextureSet(gl_context_->GetScreenWidth() < 2560);
-    
-    m_screen = new MainScreen();
-    
-    int width = gl_context_->GetScreenWidth();
-    int height = gl_context_->GetScreenHeight();
-    
-    m_screen->createDeviceDependentResources();
-    
-    OGLManager->setScreenSize(width, height);
-    
-    m_screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
-    
-    app_->activity->vm->DetachCurrentThread();
-    return;
-}
-
-/**
- * Unload resources
- */
-void Engine::UnloadResources()
-{
-    ANDROID_AUDIO_ENGINE_HELPER->deinit();
-
-    delete m_screen;
-    m_screen = nullptr;
-    
-    m_screen->releaseDeviceDependentResources();
-}
-
-/**
- * Initialize an EGL context for the current display.
- */
-int Engine::InitDisplay()
-{
-    if (!initialized_resources_)
+    Engine* eng = (Engine*) app->userData;
+    switch (cmd)
     {
-        gl_context_->Init(app_->window);
-        
-        LoadResources();
-        initialized_resources_ = true;
-    }
-    else
-    {
-        // initialize OpenGL ES and EGL
-        if (EGL_SUCCESS != gl_context_->Resume(app_->window))
-        {
-            UnloadResources();
-            LoadResources();
-        }
-    }
-    
-    return 0;
-}
-
-/**
- * Just the current frame in the display.
- */
-void Engine::DrawFrame()
-{
-    int requestedAction = m_screen->getRequestedAction();
-    
-    switch (requestedAction)
-    {
-        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            DisplayInterstitialAdIfLoaded();
-            m_screen->clearRequestedAction();
+        case APP_CMD_SAVE_STATE:
+            LOGI("NOSFURATU APP_CMD_SAVE_STATE");
             break;
-        case REQUESTED_ACTION_UPDATE:
-        default:
+        case APP_CMD_INIT_WINDOW:
+            LOGI("NOSFURATU APP_CMD_INIT_WINDOW");
+            if (app->window != NULL)
+            {
+                eng->initDisplay();
+                eng->drawFrame();
+                eng->initializeInterstitialAds();
+            }
+            break;
+        case APP_CMD_TERM_WINDOW:
+            LOGI("NOSFURATU APP_CMD_TERM_WINDOW");
+            eng->termDisplay();
+            eng->m_hasFocus = false;
+            break;
+        case APP_CMD_DESTROY:
+            LOGI("NOSFURATU APP_CMD_DESTROY");
+            break;
+        case APP_CMD_STOP:
+            LOGI("NOSFURATU APP_CMD_STOP");
+            break;
+        case APP_CMD_GAINED_FOCUS:
+            LOGI("NOSFURATU APP_CMD_GAINED_FOCUS");
+            eng->resume();
+            eng->m_hasFocus = true;
+            break;
+        case APP_CMD_LOST_FOCUS:
+            LOGI("NOSFURATU APP_CMD_LOST_FOCUS");
+            eng->pause();
+            eng->m_hasFocus = false;
+            eng->drawFrame();
+            break;
+        case APP_CMD_LOW_MEMORY:
+            LOGI("NOSFURATU APP_CMD_LOW_MEMORY");
+            eng->trimMemory();
+            break;
+        case APP_CMD_RESUME:
+            LOGI("NOSFURATU APP_CMD_RESUME");
+            eng->resume();
+            break;
+        case APP_CMD_PAUSE:
+            LOGI("NOSFURATU APP_CMD_PAUSE");
+            eng->pause();
+            break;
+        case APP_CMD_INPUT_CHANGED:
+            LOGI("NOSFURATU APP_CMD_INPUT_CHANGED");
+            break;
+        case APP_CMD_WINDOW_RESIZED:
+            LOGI("NOSFURATU APP_CMD_WINDOW_RESIZED");
+            break;
+        case APP_CMD_WINDOW_REDRAW_NEEDED:
+            LOGI("NOSFURATU APP_CMD_WINDOW_REDRAW_NEEDED");
+            break;
+        case APP_CMD_CONTENT_RECT_CHANGED:
+            LOGI("NOSFURATU APP_CMD_CONTENT_RECT_CHANGED");
+            break;
+        case APP_CMD_CONFIG_CHANGED:
+            LOGI("NOSFURATU APP_CMD_CONFIG_CHANGED");
+            break;
+        case APP_CMD_START:
+            LOGI("NOSFURATU APP_CMD_START");
             break;
     }
-    
-    // TODO, do not hardcode delta time
-    m_screen->update(0.016666666666667f);
-    
-    m_screen->render();
-    
-    // Swap
-    if (EGL_SUCCESS != gl_context_->Swap())
-    {
-        UnloadResources();
-        LoadResources();
-    }
 }
 
-/**
- * Tear down the EGL context currently associated with the display.
- */
-void Engine::TermDisplay()
-{
-    gl_context_->Suspend();
-}
-
-void Engine::TrimMemory()
-{
-    gl_context_->Invalidate();
-}
-/**
- * Process the next input event.
- */
-int32_t Engine::HandleInput(android_app* app, AInputEvent* event)
+int32_t Engine::handleInput(android_app* app, AInputEvent* event)
 {
     Engine* eng = (Engine*) app->userData;
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
@@ -279,119 +196,159 @@ int32_t Engine::HandleInput(android_app* app, AInputEvent* event)
     return 0;
 }
 
-/**
- * Process the next main command.
- */
-void Engine::HandleCmd(struct android_app* app, int32_t cmd)
+Engine::Engine() :
+m_glContext(ndk_helper::GLContext::GetInstance()),
+m_app(nullptr),
+m_screen(nullptr),
+m_hasInitializedResources(false),
+m_hasFocus(false)
 {
-    Engine* eng = (Engine*) app->userData;
-    switch (cmd)
+    // Empty
+}
+
+Engine::~Engine()
+{
+}
+
+void Engine::setState(android_app* state)
+{
+    m_app = state;
+}
+
+int Engine::initDisplay()
+{
+    if (!m_hasInitializedResources)
     {
-        case APP_CMD_SAVE_STATE:
-            break;
-        case APP_CMD_INIT_WINDOW:
-            // The window is being shown, get it ready.
-            if( app->window != NULL )
-            {
-                eng->InitDisplay();
-                eng->DrawFrame();
-                eng->InitializeInterstitialAds();
-            }
-            break;
-        case APP_CMD_TERM_WINDOW:
-            // The window is being hidden or closed, clean it up.
-            eng->TermDisplay();
-            eng->has_focus_ = false;
-            break;
-        case APP_CMD_STOP:
-            break;
-        case APP_CMD_GAINED_FOCUS:
-            eng->ResumeSensors();
-            //Start animation
-            eng->has_focus_ = true;
-            break;
-        case APP_CMD_LOST_FOCUS:
-            eng->SuspendSensors();
-            // Also stop animating.
-            eng->has_focus_ = false;
-            eng->DrawFrame();
-            break;
-        case APP_CMD_LOW_MEMORY:
-            //Free up GL resources
-            eng->TrimMemory();
-            break;
+        m_glContext->Init(m_app->window);
+        
+        loadResources();
+        m_hasInitializedResources = true;
     }
-}
-
-//-------------------------------------------------------------------------
-//Sensor handlers
-//-------------------------------------------------------------------------
-void Engine::InitSensors()
-{
-    sensor_manager_ = ASensorManager_getInstance();
-    accelerometer_sensor_ = ASensorManager_getDefaultSensor(sensor_manager_, ASENSOR_TYPE_ACCELEROMETER);
-    sensor_event_queue_ = ASensorManager_createEventQueue(sensor_manager_, app_->looper, LOOPER_ID_USER, NULL, NULL);
-}
-
-void Engine::ProcessSensors(int32_t id)
-{
-    // If a sensor has data, process it now.
-    if( id == LOOPER_ID_USER )
+    else
     {
-        if( accelerometer_sensor_ != NULL )
+        // initialize OpenGL ES and EGL
+        if (EGL_SUCCESS != m_glContext->Resume(m_app->window))
         {
-            ASensorEvent event;
-            while( ASensorEventQueue_getEvents( sensor_event_queue_, &event, 1 ) > 0 )
-            {
-                // TODO?
-            }
+            unloadResources();
+            loadResources();
         }
-    }
-}
-
-void Engine::ResumeSensors()
-{
-    // When our app gains focus, we start monitoring the accelerometer.
-    if( accelerometer_sensor_ != NULL )
-    {
-        ASensorEventQueue_enableSensor( sensor_event_queue_, accelerometer_sensor_ );
-        // We'd like to get 60 events per second (in us).
-        ASensorEventQueue_setEventRate( sensor_event_queue_, accelerometer_sensor_,
-                                       (1000L / 60) * 1000 );
+        
+        resume();
     }
     
-    if (m_screen)
-    {
-        m_screen->onResume();
-    }
+    return 0;
 }
 
-void Engine::SuspendSensors()
+void Engine::loadResources()
 {
-    // When our app loses focus, we stop monitoring the accelerometer.
-    // This is to avoid consuming battery while not being used.
-    if( accelerometer_sensor_ != NULL )
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread(&jni, NULL);
+    
+    ANDROID_AUDIO_ENGINE_HELPER->init(jni, m_app->activity->clazz);
+    
+    ANDROID_ASSETS->init(jni, m_app->activity->clazz);
+    
+    MAIN_ASSETS->setUsingCompressedTextureSet(m_glContext->GetScreenWidth() < 2560);
+    
+    if (!m_screen)
     {
-        ASensorEventQueue_disableSensor( sensor_event_queue_, accelerometer_sensor_ );
+        m_screen = new MainScreen();
     }
     
-    if (m_screen)
+    int width = m_glContext->GetScreenWidth();
+    int height = m_glContext->GetScreenHeight();
+    
+    m_screen->createDeviceDependentResources();
+    
+    OGLManager->setScreenSize(width, height);
+    
+    if (MAIN_ASSETS->isUsingCompressedTextureSet())
     {
-        m_screen->onPause();
+        m_screen->createWindowSizeDependentResources(width > 1024 ? 1024 : width, height > 576 ? 576 : height, width, height);
+    }
+    else
+    {
+        m_screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
+    }
+    
+    m_app->activity->vm->DetachCurrentThread();
+    return;
+}
+
+void Engine::unloadResources()
+{
+    ANDROID_AUDIO_ENGINE_HELPER->deinit();
+    
+    m_screen->releaseDeviceDependentResources();
+}
+
+std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+
+void Engine::drawFrame()
+{
+    float deltaTime;
+    if (MAIN_ASSETS->isUsingCompressedTextureSet())
+    {
+        using namespace std;
+        using namespace std::chrono;
+        
+        t2 = high_resolution_clock::now();
+        duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
+        
+        double elapsedTime = time_span.count();
+        LOGI("NOSFURATU elapsedTime: %f", elapsedTime);
+        
+        float deltaTime = elapsedTime;
+        
+        LOGI("NOSFURATU deltaTime: %f", deltaTime);
+        
+        t1 = high_resolution_clock::now();
+    }
+    else
+    {
+        deltaTime = 0.016666666666667f;
+    }
+    
+    int requestedAction = m_screen->getRequestedAction();
+    
+    switch (requestedAction)
+    {
+        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+            displayInterstitialAdIfLoaded();
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_UPDATE:
+        default:
+            break;
+    }
+    
+    m_screen->update(deltaTime);
+    
+    m_screen->render();
+    
+    if (EGL_SUCCESS != m_glContext->Swap())
+    {
+        unloadResources();
+        loadResources();
     }
 }
 
-//-------------------------------------------------------------------------
-//Misc
-//-------------------------------------------------------------------------
-void Engine::SetState( android_app* state )
+void Engine::termDisplay()
 {
-    app_ = state;
+    pause();
+    
+    m_glContext->Suspend();
 }
 
-bool Engine::IsReady()
+void Engine::trimMemory()
 {
-    if (has_focus_)
+    m_glContext->Invalidate();
+}
+
+bool Engine::isReady()
+{
+    if (m_hasFocus)
     {
         return true;
     }
@@ -399,59 +356,75 @@ bool Engine::IsReady()
     return false;
 }
 
-void Engine::InitializeInterstitialAds()
+void Engine::resume()
+{
+    if (m_screen)
+    {
+        m_screen->onResume();
+        
+        m_hasFocus = true;
+    }
+}
+
+void Engine::pause()
+{
+    if (m_screen)
+    {
+        m_screen->onPause();
+        
+        m_hasFocus = false;
+    }
+}
+
+void Engine::initializeInterstitialAds()
 {
     JNIEnv *jni;
-    app_->activity->vm->AttachCurrentThread( &jni, NULL );
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
     
     //Default class retrieval
-    jclass clazz = jni->GetObjectClass(app_->activity->clazz);
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
     jmethodID methodID = jni->GetMethodID(clazz, "initializeInterstitialAds", "()V");
-    jni->CallVoidMethod(app_->activity->clazz, methodID);
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
     
-    app_->activity->vm->DetachCurrentThread();
+    m_app->activity->vm->DetachCurrentThread();
     return;
 }
 
-void Engine::DisplayInterstitialAdIfLoaded()
+void Engine::displayInterstitialAdIfLoaded()
 {
     JNIEnv *jni;
-    app_->activity->vm->AttachCurrentThread( &jni, NULL );
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
     
     //Default class retrieval
-    jclass clazz = jni->GetObjectClass(app_->activity->clazz);
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
     jmethodID methodID = jni->GetMethodID(clazz, "displayInterstitialAdIfLoaded", "()V");
-    jni->CallVoidMethod(app_->activity->clazz, methodID);
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
     
-    app_->activity->vm->DetachCurrentThread();
+    m_app->activity->vm->DetachCurrentThread();
     return;
 }
-
-Engine g_engine;
 
 /**
  * This is the main entry point of a native application that is using
- * android_native_app_glue.  It runs in its own thread, with its own
+ * android_native_m_appglue.  It runs in its own thread, with its own
  * event loop for receiving input events and doing other things.
  */
 void android_main(android_app* state)
 {
     app_dummy();
     
-    g_engine.SetState(state);
+    static Engine engine;
     
-    state->userData = &g_engine;
-    state->onAppCmd = Engine::HandleCmd;
-    state->onInputEvent = Engine::HandleInput;
+    engine.setState(state);
+    
+    state->userData = &engine;
+    state->onAppCmd = Engine::handleCmd;
+    state->onInputEvent = Engine::handleInput;
     
 #ifdef USE_NDK_PROFILER
     monstartup("libandroid_main.so");
 #endif
     
-    // Prepare to monitor accelerometer
-    g_engine.InitSensors();
-    
-    // loop waiting for stuff to do.
     while (1)
     {
         // Read all pending events.
@@ -462,29 +435,23 @@ void android_main(android_app* state)
         // If not animating, we will block forever waiting for events.
         // If animating, we loop until all events are read, then continue
         // to draw the next frame of animation.
-        while ((id = ALooper_pollAll(g_engine.IsReady() ? 0 : -1, NULL, &events, (void**) &source)) >= 0)
+        while ((id = ALooper_pollAll(engine.isReady() ? 0 : -1, NULL, &events, (void**) &source)) >= 0)
         {
-            // Process this event.
             if (source != NULL)
             {
                 source->process(state, source);
             }
             
-            g_engine.ProcessSensors(id);
-            
-            // Check if we are exiting.
             if (state->destroyRequested != 0)
             {
-                g_engine.TermDisplay();
+                engine.termDisplay();
                 return;
             }
         }
         
-        if (g_engine.IsReady())
+        if (engine.isReady())
         {
-            // Drawing is throttled to the screen update rate, so there
-            // is no need to do timing here.
-            g_engine.DrawFrame();
+            engine.drawFrame();
         }
     }
 }
