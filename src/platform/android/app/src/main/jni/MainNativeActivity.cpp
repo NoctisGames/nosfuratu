@@ -42,244 +42,8 @@
 #include "GameConstants.h"
 #include "Vector2D.h"
 
-//--------------------------------------------------------------------------------
-// Constants
-//--------------------------------------------------------------------------------
-const int32_t DOUBLE_TAP_TIMEOUT = 300 * 1000000;
-const int32_t TAP_TIMEOUT = 180 * 1000000;
-const int32_t DOUBLE_TAP_SLOP = 100;
-const int32_t TOUCH_SLOP = 8;
-
-enum
-{
-    GESTURE_STATE_NONE = 0,
-    GESTURE_STATE_START = 1,
-    GESTURE_STATE_MOVE = 2,
-    GESTURE_STATE_END = 4,
-    GESTURE_STATE_ACTION = (GESTURE_STATE_START | GESTURE_STATE_END),
-};
-typedef int32_t GESTURE_STATE;
-
-/******************************************************************
- * Base class of Gesture Detectors
- * GestureDetectors handles input events and detect gestures
- * Note that different detectors may detect gestures with an event at
- * same time. The caller needs to manage gesture priority accordingly
- *
- */
-class GestureDetector
-{
-protected:
-    float dp_factor_;
-public:
-    GestureDetector()
-    {
-        dp_factor_ = 1.f;
-    }
-    
-    virtual ~GestureDetector()
-    {
-    }
-    
-    virtual void SetConfiguration(AConfiguration* config)
-    {
-        dp_factor_ = 160.f / AConfiguration_getDensity( config );
-    }
-    
-    virtual GESTURE_STATE Detect( const AInputEvent* motion_event ) = 0;
-};
-
-/******************************************************************
- * Tap gesture detector
- * Returns GESTURE_STATE_ACTION when a tap gesture is detected
- *
- */
-class TapDetector: public GestureDetector
-{
-private:
-    int32_t down_pointer_id_;
-
-public:
-    float down_x_;
-    float down_y_;
-    
-    TapDetector()
-    {
-    }
-    virtual ~TapDetector()
-    {
-    }
-    virtual GESTURE_STATE Detect( const AInputEvent* motion_event )
-    {
-        if( AMotionEvent_getPointerCount( motion_event ) > 1 )
-        {
-            //Only support single touch
-            return false;
-        }
-        
-        int32_t action = AMotionEvent_getAction( motion_event );
-        unsigned int flags = action & AMOTION_EVENT_ACTION_MASK;
-        switch( flags )
-        {
-            case AMOTION_EVENT_ACTION_DOWN:
-                down_pointer_id_ = AMotionEvent_getPointerId( motion_event, 0 );
-                down_x_ = AMotionEvent_getX( motion_event, 0 );
-                down_y_ = AMotionEvent_getY( motion_event, 0 );
-                break;
-            case AMOTION_EVENT_ACTION_UP:
-            {
-                int64_t eventTime = AMotionEvent_getEventTime( motion_event );
-                int64_t downTime = AMotionEvent_getDownTime( motion_event );
-                if( eventTime - downTime <= TAP_TIMEOUT )
-                {
-                    if( down_pointer_id_ == AMotionEvent_getPointerId( motion_event, 0 ) )
-                    {
-                        float x = AMotionEvent_getX( motion_event, 0 ) - down_x_;
-                        float y = AMotionEvent_getY( motion_event, 0 ) - down_y_;
-                        if( x * x + y * y < TOUCH_SLOP * TOUCH_SLOP * dp_factor_ )
-                        {
-                            LOGI( "TapDetector: Tap detected" );
-                            return GESTURE_STATE_ACTION;
-                        }
-                    }
-                }
-                break;
-            }
-        }
-        return GESTURE_STATE_NONE;
-    }
-};
-
-/******************************************************************
- * Drag gesture detector
- * Returns drag gesture state when a drag-tap gesture is detected
- *
- */
-class DragDetector: public GestureDetector
-{
-private:
-    int32_t FindIndex (const AInputEvent* event, int32_t id)
-    {
-        int32_t count = AMotionEvent_getPointerCount(event);
-        for (uint32_t i = 0; i < count; ++i)
-        {
-            if (id == AMotionEvent_getPointerId( event, i ))
-            {
-                return i;
-            }
-        }
-        
-        return -1;
-    }
-    
-    const AInputEvent* event_;
-    std::vector<int32_t> vec_pointers_;
-public:
-    DragDetector()
-    {
-    }
-    
-    virtual ~DragDetector()
-    {
-    }
-    
-    virtual GESTURE_STATE Detect(const AInputEvent* event)
-    {
-        GESTURE_STATE ret = GESTURE_STATE_NONE;
-        int32_t action = AMotionEvent_getAction( event );
-        int32_t index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-        >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
-        uint32_t flags = action & AMOTION_EVENT_ACTION_MASK;
-        event_ = event;
-        
-        int32_t count = AMotionEvent_getPointerCount( event );
-        switch( flags )
-        {
-            case AMOTION_EVENT_ACTION_DOWN:
-                vec_pointers_.push_back( AMotionEvent_getPointerId( event, 0 ) );
-                ret = GESTURE_STATE_START;
-                break;
-            case AMOTION_EVENT_ACTION_POINTER_DOWN:
-                vec_pointers_.push_back( AMotionEvent_getPointerId( event, index ) );
-                break;
-            case AMOTION_EVENT_ACTION_UP:
-                vec_pointers_.pop_back();
-                ret = GESTURE_STATE_END;
-                break;
-            case AMOTION_EVENT_ACTION_POINTER_UP:
-            {
-                int32_t released_pointer_id = AMotionEvent_getPointerId( event, index );
-                
-                std::vector<int32_t>::iterator it = vec_pointers_.begin();
-                std::vector<int32_t>::iterator it_end = vec_pointers_.end();
-                int32_t i = 0;
-                for( ; it != it_end; ++it, ++i )
-                {
-                    if( *it == released_pointer_id )
-                    {
-                        vec_pointers_.erase( it );
-                        break;
-                    }
-                }
-                
-                if (i <= 1)
-                {
-                    //Reset pinch or drag
-                    if( count == 2 )
-                    {
-                        ret = GESTURE_STATE_START;
-                    }
-                }
-                break;
-            }
-            case AMOTION_EVENT_ACTION_MOVE:
-                switch( count )
-            {
-                case 1:
-                    //Drag
-                    ret = GESTURE_STATE_MOVE;
-                    break;
-                default:
-                    break;
-            }
-                break;
-            case AMOTION_EVENT_ACTION_CANCEL:
-                break;
-        }
-        
-        return ret;
-    }
-    
-    bool GetPointer(Vector2D& v)
-    {
-        if (vec_pointers_.size() < 1)
-        {
-            return false;
-        }
-        
-        int32_t iIndex = FindIndex(event_, vec_pointers_[0]);
-        if (iIndex == -1)
-        {
-            return false;
-        }
-        
-        float x = AMotionEvent_getX(event_, iIndex);
-        float y = AMotionEvent_getY(event_, iIndex);
-        
-        v.set(x, y);
-        
-        return true;
-    }
-};
-
-//-------------------------------------------------------------------------
-//Preprocessor
-//-------------------------------------------------------------------------
-#define HELPER_CLASS_NAME "com/noctisgames/nosfuratu/NDKHelper" //Class name of helper function
-//-------------------------------------------------------------------------
-//Shared state for our app.
-//-------------------------------------------------------------------------
 struct android_app;
+
 class Engine
 {
     ndk_helper::GLContext* gl_context_;
@@ -287,10 +51,6 @@ class Engine
     bool initialized_resources_;
     bool has_focus_;
     float m_fLastTime;
-    
-    TapDetector tap_detector_;
-    DragDetector drag_detector_;
-    ndk_helper::PerfMonitor monitor_;
     
     android_app* app_;
     
@@ -313,6 +73,7 @@ public:
     void LoadResources();
     void UnloadResources();
     void DrawFrame();
+    void InitializeInterstitialAds();
     void TermDisplay();
     void TrimMemory();
     bool IsReady();
@@ -339,8 +100,6 @@ sensor_event_queue_( NULL ),
 m_fLastTime(0)
 {
     gl_context_ = ndk_helper::GLContext::GetInstance();
-    
-    m_fLastTime = monitor_.GetCurrentTime();
 }
 
 //-------------------------------------------------------------------------
@@ -373,14 +132,7 @@ void Engine::LoadResources()
     
     OGLManager->setScreenSize(width, height);
     
-    if (MAIN_ASSETS->isUsingCompressedTextureSet())
-    {
-        m_screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
-    }
-    else
-    {
-        m_screen->createWindowSizeDependentResources(width > 1024 ? 1024 : width, height > 576 ? 576 : height, width, height);
-    }
+    m_screen->createWindowSizeDependentResources(width > 1440 ? 1440 : width, height > 900 ? 900 : height, width, height);
     
     app_->activity->vm->DetachCurrentThread();
     return;
@@ -429,21 +181,6 @@ int Engine::InitDisplay()
  */
 void Engine::DrawFrame()
 {
-    float fFPS;
-    if( monitor_.Update( fFPS ) )
-    {
-        // Empty?
-    }
-    
-    LOGI("NOSFURATU XXXX YYY DrawFrame %f", m_fLastTime);
-    
-    float time = monitor_.GetCurrentTime();
-    float deltaTime = time - m_fLastTime;
-    m_fLastTime = time;
-    
-    LOGI("NOSFURATU XXXX YYY DrawFrame %f", deltaTime);
-    LOGI("NOSFURATU XXXX YYY DrawFrame %f", time);
-    
     int requestedAction = m_screen->getRequestedAction();
     
     switch (requestedAction)
@@ -457,7 +194,8 @@ void Engine::DrawFrame()
             break;
     }
     
-    m_screen->update(deltaTime);
+    // TODO, do not hardcode delta time
+    m_screen->update(0.016666666666667f);
     
     m_screen->render();
     
@@ -491,30 +229,42 @@ int32_t Engine::HandleInput(android_app* app, AInputEvent* event)
     Engine* eng = (Engine*) app->userData;
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION)
     {
-        GESTURE_STATE tapState = eng->tap_detector_.Detect(event);
+        int32_t action = AMotionEvent_getAction(event);
+        int32_t pointerIndex = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+        uint32_t flags = action & AMOTION_EVENT_ACTION_MASK;
         
-        if (tapState & GESTURE_STATE_ACTION)
+        int32_t pointerCount = AMotionEvent_getPointerCount(event);
+        
+        switch (action)
         {
-            SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, eng->tap_detector_.down_x_, eng->tap_detector_.down_y_);
-        }
-        else
-        {
-            static Vector2D touchInput;
-            
-            GESTURE_STATE dragState = eng->drag_detector_.Detect(event);
-            
-            //Handle drag state
-            if (dragState & GESTURE_STATE_START)
+            case AMOTION_EVENT_ACTION_DOWN:
+            case AMOTION_EVENT_ACTION_POINTER_DOWN:
             {
-                //Otherwise, start dragging
-                eng->drag_detector_.GetPointer(touchInput);
-                SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, touchInput.getX(), touchInput.getY());
+                float x = AMotionEvent_getX(event, pointerIndex);
+                float y = AMotionEvent_getY(event, pointerIndex);
+                SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, x, y);
             }
-            else if (dragState & GESTURE_STATE_MOVE)
+                break;
+            case AMOTION_EVENT_ACTION_UP:
+            case AMOTION_EVENT_ACTION_POINTER_UP:
+            case AMOTION_EVENT_ACTION_CANCEL:
             {
-                eng->drag_detector_.GetPointer(touchInput);
-                SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, touchInput.getX(), touchInput.getY());
+                float x = AMotionEvent_getX(event, pointerIndex);
+                float y = AMotionEvent_getY(event, pointerIndex);
+                SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, x, y);
             }
+                break;
+            case AMOTION_EVENT_ACTION_MOVE:
+            {
+                for (int i = 0; i < pointerCount; ++i)
+                {
+                    pointerIndex = i;
+                    float x = AMotionEvent_getX(event, pointerIndex);
+                    float y = AMotionEvent_getY(event, pointerIndex);
+                    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, x, y);
+                }
+            }
+                break;
         }
         
         return 1;
@@ -539,6 +289,7 @@ void Engine::HandleCmd(struct android_app* app, int32_t cmd)
             {
                 eng->InitDisplay();
                 eng->DrawFrame();
+                eng->InitializeInterstitialAds();
             }
             break;
         case APP_CMD_TERM_WINDOW:
@@ -620,8 +371,6 @@ void Engine::SuspendSensors()
 void Engine::SetState( android_app* state )
 {
     app_ = state;
-    tap_detector_.SetConfiguration(app_->config);
-    drag_detector_.SetConfiguration(app_->config);
 }
 
 bool Engine::IsReady()
@@ -632,6 +381,20 @@ bool Engine::IsReady()
     }
     
     return false;
+}
+
+void Engine::InitializeInterstitialAds()
+{
+    JNIEnv *jni;
+    app_->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(app_->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "initializeInterstitialAds", "()V");
+    jni->CallVoidMethod(app_->activity->clazz, methodID);
+    
+    app_->activity->vm->DetachCurrentThread();
+    return;
 }
 
 void Engine::DisplayInterstitialAdIfLoaded()

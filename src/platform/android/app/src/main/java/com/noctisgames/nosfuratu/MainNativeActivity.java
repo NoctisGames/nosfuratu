@@ -62,25 +62,36 @@ public final class MainNativeActivity extends NativeActivity
     }
 
     // Called from C++
-    public void initializeAds()
+    public void initializeInterstitialAds()
     {
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
-        mInterstitialAd.setAdListener(new AdListener()
+        runOnUiThread(new Runnable()
         {
             @Override
-            public void onAdClosed()
+            public void run()
             {
+                mInterstitialAd = new InterstitialAd(MainNativeActivity.this);
+                mInterstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
+                mInterstitialAd.setAdListener(new AdListener()
+                {
+                    @Override
+                    public void onAdClosed()
+                    {
+                        requestNewInterstitial();
+                    }
+                });
+
                 requestNewInterstitial();
             }
         });
-
-        requestNewInterstitial();
     }
 
     // Called from C++
     public void displayInterstitialAdIfLoaded()
     {
+        if (mInterstitialAd == null) {
+            initializeInterstitialAds();
+        }
+
         runOnUiThread(new Runnable()
         {
             @Override
