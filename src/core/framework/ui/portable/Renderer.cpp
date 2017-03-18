@@ -189,6 +189,7 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     assert(textureWrapper->name.length() > 0);
     
     if (textureWrapper->gpuTextureWrapper
+        || textureWrapper->isLoadingData
         || !m_areDeviceDependentResourcesCreated)
     {
         return;

@@ -62,6 +62,7 @@ void Level::enter(MainScreen* ms)
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
     m_isDisplayingResults = false;
+    m_hasExited = false;
     ms->m_isReleasingShockwave = false;
     ms->m_isScreenHeldDown = false;
     ms->m_fScreenHeldTime = 0;
@@ -163,6 +164,7 @@ void Level::exit(MainScreen* ms)
     m_isDisplayingResults = false;
     m_exitLoop = false;
     m_isDemoMode = false;
+    m_hasExited = true;
     
     m_iBestScore = 0;
     m_iBestLevelStatsFlag = 0;
@@ -907,8 +909,6 @@ bool Level::handleInput(MainScreen* ms)
             if (m_game->getWorld() == 1
                 && m_game->getLevel() == 21)
             {
-                m_game->reset();
-                
                 m_playLevelSelectMusicOnExit = false;
                 LevelToComingSoon::getInstance()->setLevelComingFrom(this);
                 ms->m_stateMachine.changeState(LevelToComingSoon::getInstance());
@@ -1323,7 +1323,8 @@ m_iLastKnownJonAbilityFlag(0),
 m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
 m_isDemoMode(false),
-m_isDebug(false)
+m_isDebug(false),
+m_hasExited(false)
 {
     // Empty
 }

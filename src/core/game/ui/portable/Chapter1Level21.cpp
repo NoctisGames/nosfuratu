@@ -312,7 +312,7 @@ void Chapter1Level21::update(MainScreen* ms)
 {
     Level::update(ms);
     
-    if (!m_game->isLoaded())
+    if (m_hasExited)
     {
         return;
     }
