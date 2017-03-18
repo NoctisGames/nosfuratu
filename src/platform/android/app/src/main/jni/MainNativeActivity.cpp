@@ -432,7 +432,7 @@ void Engine::DrawFrame()
     float fFPS;
     if( monitor_.Update( fFPS ) )
     {
-        UpdateFPS( fFPS );
+        // Empty?
     }
     
     LOGI("NOSFURATU XXXX YYY DrawFrame %f", m_fLastTime);
