@@ -174,6 +174,8 @@ public:
     
     bool isReleasingShockwave();
     
+    bool isClimbingLedge();
+    
 private:
     StateMachine<Jon, JonFormState>* m_formStateMachine;
     Game* m_game;
@@ -213,6 +215,8 @@ private:
     bool m_shouldUseVampireFormForConsumeAnimation;
 	bool m_isFlashing;
     bool m_isReleasingShockwave;
+    bool m_isClimbingLedge;
+    bool m_isJumpingOverLedge;
     
     void setState(JonState state);
     

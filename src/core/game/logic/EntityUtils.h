@@ -207,6 +207,27 @@ public:
     }
     
     template<typename T>
+    static bool shouldJonGrabLedge(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
+    {
+        for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
+        {
+            if ((*i) == entity)
+            {
+                continue;
+            }
+            
+            if ((*i)->isEntityBlockedOnRight(entity, deltaTime)
+                && entity->getMainBounds().getTop() > (*i)->getMainBounds().getTop() * 0.8f
+                && entity->getMainBounds().getTop() < (*i)->getMainBounds().getTop())
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    template<typename T>
     static bool isBlockedOnRight(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)

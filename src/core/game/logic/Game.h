@@ -54,6 +54,8 @@ public:
     
     bool isEntityGrounded(PhysicalEntity* entity, float deltaTime);
     
+    bool shouldJonGrabLedge(float deltaTime);
+    
     bool isJonBlockedOnRight(float deltaTime);
 
 	bool isJonBlockedOnLeft(float deltaTime);

@@ -353,6 +353,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Rabbit_Burrow"] = new Animation("jon", 1792, 256, 256, 256, 2304, 256, TEXTURE_SIZE_4096, false, 0.06f, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Stomp"] = new Animation("jon", 2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, true, 0.05f, 11, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_LandingRoll"] = new Animation("jon", 2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, false, 0.10f, 5);
+    ASSETS->getAnimationsMap()["Jon_Rabbit_LedgeGrab"] = new Animation("jon", 2048, 2048, 256, 512, 2048, 1024, TEXTURE_SIZE_4096, false, 0.10f, 9);
     ASSETS->getAnimationsMap()["DustCloudType_Landing"] = new Animation("jon", 1100, 1644, 116, 60, 580, 60, TEXTURE_SIZE_4096, false, 0.08f, 5);
     ASSETS->getAnimationsMap()["DustCloudType_Kick_Up"] = new Animation("jon", 2048, 1648, 96, 32, 576, 32, TEXTURE_SIZE_4096, false, 0.06666666666667f, 6);
     ASSETS->getAnimationsMap()["JonShadowState_Grounded"] = new Animation("jon", 2048, 1684, 154, 18, 308, 18, TEXTURE_SIZE_4096, true, 0.10f, 2);

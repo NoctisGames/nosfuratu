@@ -325,6 +325,26 @@ bool Game::isEntityGrounded(PhysicalEntity* entity, float deltaTime)
     || EntityUtils::isLanding(entity, getGrounds(), deltaTime);
 }
 
+bool Game::shouldJonGrabLedge(float deltaTime)
+{
+    if (EntityUtils::isFallingThroughHole(getJonP(), getHoles(), deltaTime))
+    {
+        return EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundObjects(), deltaTime)
+        || EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundCoverObjects(), deltaTime);
+    }
+    
+    if (EntityUtils::isFallingThroughPit(getJonP(), getPits(), deltaTime))
+    {
+        return EntityUtils::shouldJonGrabLedge(getJonP(), getPits(), deltaTime)
+        || EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundObjects(), deltaTime)
+        || EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundCoverObjects(), deltaTime);
+    }
+    
+    return EntityUtils::shouldJonGrabLedge(getJonP(), getGrounds(), deltaTime)
+    || EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundObjects(), deltaTime)
+    || EntityUtils::shouldJonGrabLedge(getJonP(), getForegroundCoverObjects(), deltaTime);
+}
+
 bool Game::isJonBlockedOnRight(float deltaTime)
 {
     if (EntityUtils::isFallingThroughHole(getJonP(), getHoles(), deltaTime))

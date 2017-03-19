@@ -54,7 +54,9 @@ m_isBurrowEffective(false),
 m_shouldUseVampireFormForConsumeAnimation(false),
 m_fFlashStateTime(0),
 m_isFlashing(false),
-m_isReleasingShockwave(false)
+m_isReleasingShockwave(false),
+m_isClimbingLedge(false),
+m_isJumpingOverLedge(false)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
@@ -183,6 +185,7 @@ void Jon::update(float deltaTime)
         
 		if (!wasGrounded && m_state == JON_ALIVE)
 		{
+            m_isClimbingLedge = false;
 			m_isLanding = true;
 			m_fStateTime = 0;
 			m_velocity.sub(1.5f, 0);
@@ -247,6 +250,55 @@ void Jon::update(float deltaTime)
         m_acceleration.setY(GAME_GRAVITY);
         
         m_jonShadow->onAir();
+        
+        if (m_isJumpingOverLedge)
+        {
+            if (m_fStateTime > 0.8f)
+            {
+                m_velocity.setX(1);
+                m_isJumpingOverLedge = false;
+            }
+        }
+        else if (m_isClimbingLedge)
+        {
+            m_acceleration.setY(0);
+            m_velocity.setY(0);
+            m_fHeight = m_iGridHeight * GRID_CELL_SIZE * 2;
+            
+            if (m_fStateTime > 0.9f)
+            {
+                int abilityFlag = getAbilityFlag();
+                enableAbility(FLAG_ABILITY_DOUBLE_JUMP);
+                triggerJump();
+                setAbilityFlag(abilityFlag);
+                
+                m_iNumRabbitJumps = 1;
+                m_iNumVampireJumps = 1;
+                m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
+                m_fStateTime = 0.1f;
+                m_velocity.setY(13);
+                m_acceleration.setY(GAME_GRAVITY);
+                
+                m_isClimbingLedge = false;
+                m_isJumpingOverLedge = true;
+            }
+        }
+        else
+        {
+            m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
+            
+            if (m_game->shouldJonGrabLedge(deltaTime))
+            {
+                m_fHeight = m_iGridHeight * GRID_CELL_SIZE * 2;
+                
+                m_acceleration.setX(0);
+                m_acceleration.setY(0);
+                m_velocity.setX(0);
+                m_velocity.setY(0);
+                m_fStateTime = isFalling() ? 0 : 0.3f;
+                m_isClimbingLedge = true;
+            }
+        }
     }
 
 	if (m_game->isJonBlockedVertically(deltaTime))
@@ -290,6 +342,7 @@ void Jon::updateBounds()
 	Vector2D &lowerLeft = getMainBounds().getLowerLeft();
 	float width = m_abilityState == ABILITY_DASH ? getMainBounds().getWidth() / 3 : getMainBounds().getWidth();
     float height = m_abilityState == ABILITY_UPWARD_THRUST ? getMainBounds().getHeight() / 2 : getMainBounds().getHeight();
+    height = m_formStateMachine->getCurrentState()->getRTTI().derivesFrom(Rabbit::rtti) && m_isClimbingLedge ? getMainBounds().getHeight() / 2 : getMainBounds().getHeight();
 	lowerLeft.set(m_position.getX() - width / 2, m_position.getY() - height / 2);
 }
 
@@ -762,6 +815,11 @@ void Jon::flash()
 bool Jon::isReleasingShockwave()
 {
     return m_isReleasingShockwave;
+}
+
+bool Jon::isClimbingLedge()
+{
+    return m_isClimbingLedge;
 }
 
 #pragma mark private

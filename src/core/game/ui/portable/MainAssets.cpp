@@ -1875,6 +1875,7 @@ TextureRegion& MainAssets::get(Jon* jon)
         static Animation burrowAnimation = ASSETS->findAnimation("Jon_Rabbit_Burrow");
         static Animation stompAnimation = ASSETS->findAnimation("Jon_Rabbit_Stomp");
         static Animation landingRollAnimation = ASSETS->findAnimation("Jon_Rabbit_LandingRoll");
+        static Animation ledgeGrabAnimation = ASSETS->findAnimation("Jon_Rabbit_LedgeGrab");
         
         if (jon->getState() != JON_ALIVE)
         {
@@ -1917,6 +1918,11 @@ TextureRegion& MainAssets::get(Jon* jon)
         }
         else if (jon->getPhysicalState() == PHYSICAL_IN_AIR)
         {
+            if (jon->isClimbingLedge())
+            {
+                return ledgeGrabAnimation.getTextureRegion(jon->getStateTime());
+            }
+            
             if (jon->isFalling())
             {
                 return fallingAnim.getTextureRegion(jon->getStateTime());
