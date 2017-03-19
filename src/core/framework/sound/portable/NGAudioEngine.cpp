@@ -328,6 +328,4 @@ NGAudioEngine::~NGAudioEngine()
     resetSounds();
     
     delete m_music;
-    
-    delete m_audioEngineHelper;
 }
