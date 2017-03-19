@@ -12,6 +12,7 @@
 
 // C++
 #include "MainScreen.h"
+#include "MainScreenTitle.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "MainAssets.h"
@@ -28,6 +29,7 @@
     MainScreen *_screen;
     JoystickController* _joystickController;
     
+    double m_fTimeSinceLastJoystickScan;
     double m_fLastTime;
 }
 @end
@@ -63,6 +65,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
 {
     _screen = new MainScreen();
     
+    m_fTimeSinceLastJoystickScan = CFAbsoluteTimeGetCurrent();
     m_fLastTime = CFAbsoluteTimeGetCurrent();
     
     NSWindow *mainWindow = [[[NSApplication sharedApplication] windows] objectAtIndex:0];
@@ -268,6 +271,18 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     _screen->update(deltaTime);
     _screen->render();
+    
+    if (_screen->m_stateMachine.getCurrentState() == Title::getInstance())
+    {
+        m_fTimeSinceLastJoystickScan += deltaTime;
+        
+        if (m_fTimeSinceLastJoystickScan > 3)
+        {
+            [_joystickController performSelectorOnMainThread:@selector(scan) withObject:nil waitUntilDone:NO];
+            
+            m_fTimeSinceLastJoystickScan = 0;
+        }
+    }
     
     CGLFlushDrawable([[self openGLContext] CGLContextObj]);
     CGLUnlockContext([[self openGLContext] CGLContextObj]);
