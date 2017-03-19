@@ -15,8 +15,16 @@ void main()
     
     vec2 p = v_TextureCoordinates;
     
-    gl_FragColor = mix(
-                       mix(vec4(color, 1.0), texture2D(u_from, p), smoothstep(1.0 - colorPhase, 0.0, u_progress)),
-                       mix(vec4(color, 1.0), texture2D(u_to,   p), smoothstep(      colorPhase, 1.0, u_progress)),
-                       u_progress);
+    if (u_progress > 0.4999 && u_progress < 0.5001)
+    {
+        vec4 black = vec4(0, 0, 0, 1);
+        gl_FragColor = black;
+    }
+    else
+    {
+        gl_FragColor = mix(
+                           mix(vec4(color, 1.0), texture2D(u_from, p), smoothstep(1.0 - colorPhase, 0.0, u_progress)),
+                           mix(vec4(color, 1.0), texture2D(u_to,   p), smoothstep(      colorPhase, 1.0, u_progress)),
+                           u_progress);
+    }
 }

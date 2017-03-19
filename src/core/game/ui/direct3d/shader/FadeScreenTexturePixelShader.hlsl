@@ -20,10 +20,19 @@ float4 main(float4 position : SV_POSITION, float2 texcoordIn : TEXCOORD) : SV_TA
 
     float2 p = texcoordIn;
 
-    float4 ret = lerp(
-                       lerp(float4(color, 1.0), TextureFrom.Sample(ss, p), smoothstep(1.0 - colorPhase, 0.0, progress)),
-                       lerp(float4(color, 1.0), TextureTo.Sample(ss, p),   smoothstep(      colorPhase, 1.0, progress)),
-                       progress);
+    float4 ret;
+
+    if (progress > 0.4999 && progress < 0.5001)
+    {
+        ret = float4(0, 0, 0, 1);
+    }
+    else
+    {
+        ret = lerp(
+                    lerp(float4(color, 1.0), TextureFrom.Sample(ss, p), smoothstep(1.0 - colorPhase, 0.0, progress)),
+                    lerp(float4(color, 1.0), TextureTo.Sample(ss, p),   smoothstep(      colorPhase, 1.0, progress)),
+                    progress);
+    }
 
     return ret;
 }
