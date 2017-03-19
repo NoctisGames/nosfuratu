@@ -239,7 +239,7 @@ void TitleToWorldMap::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fWaitTime += ms->m_fDeltaTime;
                 }
@@ -365,7 +365,7 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fWaitTime += ms->m_fDeltaTime;
                 }
@@ -494,7 +494,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fWaitTime += ms->m_fDeltaTime;
                 }
@@ -620,7 +620,7 @@ void TitleToLevelEditor::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fWaitTime += ms->m_fDeltaTime;
                 }
@@ -750,7 +750,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fTransitionStateTime = 0.5f;
                     m_fWaitTime += ms->m_fDeltaTime;
@@ -1065,7 +1065,7 @@ void LevelToComingSoon::execute(MainScreen* ms)
             }
             else
             {
-                if (m_fWaitTime < 0.25f)
+                if (m_fWaitTime < 1)
                 {
                     m_fWaitTime += ms->m_fDeltaTime;
                 }

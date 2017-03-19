@@ -17,6 +17,7 @@
 #include "OpenGLManager.h"
 #include "GameConstants.h"
 #include "Vector2D.h"
+#include "MathUtil.h"
 
 #include "NDKHelper.h"
 
@@ -60,6 +61,7 @@ private:
     android_app* m_app;
     MainScreen* m_screen;
     
+    float m_fAveragedDeltaTime;
     bool m_hasInitializedResources;
     bool m_hasFocus;
     
@@ -183,9 +185,10 @@ int32_t Engine::handleInput(android_app* app, AInputEvent* event)
         
         return 1;
     }
-    else if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK)
+    else if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_KEY)
     {
-        if (eng->m_screen->m_stateMachine.getCurrentState() != Title::getInstance())
+        if (AKeyEvent_getKeyCode(event) == AKEYCODE_BACK
+            && eng->m_screen->m_stateMachine.getCurrentState() != Title::getInstance())
         {
             KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
             
@@ -200,6 +203,7 @@ Engine::Engine() :
 m_glContext(ndk_helper::GLContext::GetInstance()),
 m_app(nullptr),
 m_screen(nullptr),
+m_fAveragedDeltaTime(0.016666666666667f),
 m_hasInitializedResources(false),
 m_hasFocus(false)
 {
@@ -264,7 +268,7 @@ void Engine::loadResources()
     
     if (MAIN_ASSETS->isUsingCompressedTextureSet())
     {
-        m_screen->createWindowSizeDependentResources(width > 1024 ? 1024 : width, height > 576 ? 576 : height, width, height);
+        m_screen->createWindowSizeDependentResources(width > 1280 ? 1280 : width, height > 720 ? 720 : height, width, height);
     }
     else
     {
@@ -282,30 +286,37 @@ void Engine::unloadResources()
     m_screen->releaseDeviceDependentResources();
 }
 
-std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-std::chrono::high_resolution_clock::time_point t2 = std::chrono::high_resolution_clock::now();
+std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
+std::chrono::steady_clock::time_point t2 = std::chrono::steady_clock::now();
+
+inline float approxRollingAverage(float avg, float newSample)
+{
+    static float numSamples = 60;
+    
+    avg -= avg / numSamples;
+    avg += newSample / numSamples;
+    
+    return avg;
+}
 
 void Engine::drawFrame()
 {
     float deltaTime;
-    if (MAIN_ASSETS->isUsingCompressedTextureSet())
-    {
-        using namespace std;
-        using namespace std::chrono;
-        
-        t2 = high_resolution_clock::now();
-        duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-        
-        double elapsedTime = time_span.count();
-        LOGI("NOSFURATU elapsedTime: %f", elapsedTime);
-        
-        float deltaTime = elapsedTime;
-        
-        LOGI("NOSFURATU deltaTime: %f", deltaTime);
-        
-        t1 = high_resolution_clock::now();
-    }
-    else
+    
+    using namespace std;
+    using namespace std::chrono;
+    
+    t2 = steady_clock::now();
+    duration<float> timeSpan = duration_cast<duration<float>>(t2 - t1);
+    t1 = steady_clock::now();
+    
+    deltaTime = timeSpan.count();
+    
+    m_fAveragedDeltaTime = approxRollingAverage(m_fAveragedDeltaTime, deltaTime);
+    
+    deltaTime = clamp(m_fAveragedDeltaTime, 0.016f, 0.033f);
+    
+    if (m_fAveragedDeltaTime > 0.016f && m_fAveragedDeltaTime < 0.018f)
     {
         deltaTime = 0.016666666666667f;
     }
@@ -315,7 +326,7 @@ void Engine::drawFrame()
     switch (requestedAction)
     {
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            displayInterstitialAdIfLoaded();
+            //displayInterstitialAdIfLoaded();
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:

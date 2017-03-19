@@ -375,7 +375,7 @@ void MainScreen::internalUpdate()
         {
             m_isPaused = false;
             m_needsToResumeAudio = true;
-            m_fTimeUntilResume = 0.5f;
+            m_fTimeUntilResume = 1;
         }
     }
     else if (m_fTimeUntilResume < 0)
