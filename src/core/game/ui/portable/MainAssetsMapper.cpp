@@ -340,7 +340,8 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Vampire_DoubleJumping"] = new Animation("vampire", 0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, false, 0.09f, 6);
     ASSETS->getAnimationsMap()["Jon_Vampire_Gliding"] = new Animation("vampire", 0, 1024, 256, 256, 512, 256, TEXTURE_SIZE_4096, true, 0.06f, 2);
     ASSETS->getAnimationsMap()["Jon_Vampire_Falling"] = new Animation("vampire", 0, 1280, 256, 256, 2048, 256, TEXTURE_SIZE_4096, true, 0.06f, 3);
-    ASSETS->getAnimationsMap()["Jon_Vampire_Landing"] = new Animation("vampire", 0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_4096, true, 0.066f, 3);
+    ASSETS->getAnimationsMap()["Jon_Vampire_Landing"] = new Animation("vampire", 0, 1536, 256, 256, 2048, 256, TEXTURE_SIZE_4096, false, 0.066f, 3);
+    ASSETS->getAnimationsMap()["Jon_Vampire_LedgeGrab"] = new Animation("vampire", 2048, 0, 256, 256, 1280, 256, TEXTURE_SIZE_4096, false, 0.06f, 5);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Death"] = new Animation("jon", 0, 3072, 256, 256, 2048, 512, TEXTURE_SIZE_4096, false, 0.10f, 10);
     ASSETS->getAnimationsMap()["Jon_Rabbit_WarmUp"] = new Animation("jon", 0, 2048, 256, 256, 2048, 1024, TEXTURE_SIZE_4096, true, 0.10f, 28);
     ASSETS->getAnimationsMap()["Jon_Rabbit_PushedBack"] = new Animation("jon", 512, 1024, 256, 256, 1536, 256, TEXTURE_SIZE_4096, false, 0.07f, 6);

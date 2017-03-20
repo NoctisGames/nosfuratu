@@ -1764,6 +1764,7 @@ TextureRegion& MainAssets::get(Jon* jon)
         static Animation glidingAnim = ASSETS->findAnimation("Jon_Vampire_Gliding");
         static Animation fallingAnim = ASSETS->findAnimation("Jon_Vampire_Falling");
         static Animation landingAnim = ASSETS->findAnimation("Jon_Vampire_Landing");
+        static Animation ledgeGrabAnim = ASSETS->findAnimation("Jon_Vampire_LedgeGrab");
         
         if (jon->getState() != JON_ALIVE)
         {
@@ -1807,6 +1808,11 @@ TextureRegion& MainAssets::get(Jon* jon)
         }
         else if (jon->getPhysicalState() == PHYSICAL_IN_AIR)
         {
+            if (jon->isClimbingLedge())
+            {
+                return ledgeGrabAnim.getTextureRegion(jon->getStateTime());
+            }
+            
             if (jon->isFalling())
             {
                 return fallingAnim.getTextureRegion(jon->getStateTime());
