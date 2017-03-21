@@ -3558,10 +3558,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/nosfuratu-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					NG_GAME_SERVICES,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
@@ -3605,7 +3602,7 @@
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios/nosfuratu-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = NG_GAME_SERVICES;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../core\"/**",
 					"\"$(SRCROOT)/../../3rdparty\"/**",
