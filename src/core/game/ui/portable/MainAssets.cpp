@@ -1789,16 +1789,6 @@ TextureRegion& MainAssets::get(Jon* jon)
                 break;
         }
         
-        switch (jon->getActionState())
-        {
-            case ACTION_JUMPING:
-            case ACTION_DOUBLE_JUMPING:
-                return doubleJumpingAnim.getTextureRegion(jon->getActionStateTime());
-            case ACTION_NONE:
-            default:
-                break;
-        }
-        
         if (jon->getPhysicalState() == PHYSICAL_GROUNDED)
         {
             if (jon->isLanding())
@@ -1817,6 +1807,16 @@ TextureRegion& MainAssets::get(Jon* jon)
             {
                 return fallingAnim.getTextureRegion(jon->getStateTime());
             }
+        }
+        
+        switch (jon->getActionState())
+        {
+            case ACTION_JUMPING:
+            case ACTION_DOUBLE_JUMPING:
+                return doubleJumpingAnim.getTextureRegion(jon->getActionStateTime());
+            case ACTION_NONE:
+            default:
+                break;
         }
         
         if (jon->isMoving())
@@ -1899,17 +1899,6 @@ TextureRegion& MainAssets::get(Jon* jon)
                 break;
         }
         
-        switch (jon->getActionState())
-        {
-            case ACTION_JUMPING:
-                return jumpingAnim.getTextureRegion(jon->getActionStateTime());
-            case ACTION_DOUBLE_JUMPING:
-                return doubleJumpingAnim.getTextureRegion(jon->getActionStateTime());
-            case ACTION_NONE:
-            default:
-                break;
-        }
-        
         if (jon->getPhysicalState() == PHYSICAL_GROUNDED)
         {
             if (jon->isRollLanding() && !jon->isPushedBack())
@@ -1933,6 +1922,17 @@ TextureRegion& MainAssets::get(Jon* jon)
             {
                 return fallingAnim.getTextureRegion(jon->getStateTime());
             }
+        }
+        
+        switch (jon->getActionState())
+        {
+            case ACTION_JUMPING:
+                return jumpingAnim.getTextureRegion(jon->getActionStateTime());
+            case ACTION_DOUBLE_JUMPING:
+                return doubleJumpingAnim.getTextureRegion(jon->getActionStateTime());
+            case ACTION_NONE:
+            default:
+                break;
         }
         
         if (jon->isMoving())

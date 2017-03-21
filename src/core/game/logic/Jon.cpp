@@ -255,8 +255,11 @@ void Jon::update(float deltaTime)
         {
             if (m_fStateTime > 0.8f)
             {
-                m_velocity.setX(1);
-                m_isJumpingOverLedge = false;
+                if (!m_game->isJonBlockedOnRight(deltaTime))
+                {
+                    m_velocity.setX(3);
+                    m_isJumpingOverLedge = false;
+                }
             }
         }
         else if (m_isClimbingLedge)
@@ -267,16 +270,16 @@ void Jon::update(float deltaTime)
             
             if (m_fStateTime > 0.9f)
             {
+                m_iNumRabbitJumps = 1;
+                m_iNumVampireJumps = 1;
+                
                 int abilityFlag = getAbilityFlag();
                 enableAbility(FLAG_ABILITY_DOUBLE_JUMP);
                 triggerJump();
                 setAbilityFlag(abilityFlag);
                 
-                m_iNumRabbitJumps = 1;
-                m_iNumVampireJumps = 1;
                 m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
                 m_fStateTime = 0.1f;
-                m_velocity.setY(13);
                 m_acceleration.setY(GAME_GRAVITY);
                 
                 m_isClimbingLedge = false;

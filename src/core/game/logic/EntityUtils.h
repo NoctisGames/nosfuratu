@@ -209,6 +209,13 @@ public:
     template<typename T>
     static bool shouldJonGrabLedge(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
+        float entityTop = entity->getMainBounds().getTop();
+        float entityOrigX = entity->getPosition().getX();
+        
+        NGRect bounds = entity->getMainBounds();
+        float origBoundsWidth = bounds.getWidth();
+        entity->getMainBounds().setWidth(origBoundsWidth * 1.05f);
+        
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
             if ((*i) == entity)
@@ -216,13 +223,30 @@ public:
                 continue;
             }
             
-            if ((*i)->isEntityBlockedOnRight(entity, deltaTime)
-                && entity->getMainBounds().getTop() > (*i)->getMainBounds().getTop() * 0.8f
-                && entity->getMainBounds().getTop() < (*i)->getMainBounds().getTop())
+            if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
-                return true;
+                for (std::vector<NGRect *>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); ++j)
+                {
+                    float itemTop = (*j)->getTop();
+                    
+                    if (entity->getVelocity().getY() < 4
+                        && entityTop < itemTop
+                        && entityTop > (itemTop - GRID_CELL_SIZE))
+                    {
+                        float yDelta = itemTop + 0.5f - entityTop;
+                        entity->getPosition().add(0, yDelta);
+                        entity->getMainBounds().setWidth(origBoundsWidth);
+                        entity->updateBounds();
+                        
+                        return true;
+                    }
+                }
             }
         }
+        
+        entity->getPosition().setX(entityOrigX);
+        entity->getMainBounds().setWidth(origBoundsWidth);
+        entity->updateBounds();
         
         return false;
     }
