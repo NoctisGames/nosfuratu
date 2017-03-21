@@ -331,7 +331,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Vampire_PushedBack"] = new Animation("vampire", 512, 256, 256, 256, 1536, 256, TEXTURE_SIZE_4096, false, 0.06f, 6);
     ASSETS->getAnimationsMap()["Jon_Vampire_Idle"] = new Animation("vampire", 0, 1792, 256, 256, 2048, 256, TEXTURE_SIZE_4096, true, 0.125f, 8);
     ASSETS->getAnimationsMap()["Jon_Vampire_Running"] = new Animation("vampire", 0, 0, 256, 256, 2048, 512, TEXTURE_SIZE_4096, true, 0.05f, 10);
-    ASSETS->getAnimationsMap()["Jon_Vampire_UpwardThrust"] = new Animation("vampire", 0, 3072, 256, 512, 1536, 1024, TEXTURE_SIZE_4096, false, 0.04545454545455f, 11);
+    ASSETS->getAnimationsMap()["Jon_Vampire_UpwardThrust"] = new Animation("vampire", 0, 3072, 256, 512, 1536, 1024, TEXTURE_SIZE_4096, false, 0.033f, 11);
     {
         Animation* anim = new Animation("vampire", 768, 512, 768, 256, 3072, 1024, TEXTURE_SIZE_4096, false, 14);
         anim->setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.40f, 0.1f);
@@ -354,7 +354,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Rabbit_Burrow"] = new Animation("jon", 1792, 256, 256, 256, 2304, 256, TEXTURE_SIZE_4096, false, 0.06f, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_Stomp"] = new Animation("jon", 2048, 1024, 256, 256, 2048, 512, TEXTURE_SIZE_4096, true, 0.05f, 11, 9);
     ASSETS->getAnimationsMap()["Jon_Rabbit_LandingRoll"] = new Animation("jon", 2816, 1280, 256, 256, 1280, 256, TEXTURE_SIZE_4096, false, 0.10f, 5);
-    ASSETS->getAnimationsMap()["Jon_Rabbit_LedgeGrab"] = new Animation("jon", 2048, 2048, 256, 512, 2048, 1024, TEXTURE_SIZE_4096, false, 0.10f, 9);
+    ASSETS->getAnimationsMap()["Jon_Rabbit_LedgeGrab"] = new Animation("jon", 2048, 2048, 256, 512, 2048, 1024, TEXTURE_SIZE_4096, false, 0.07f, 9);
     ASSETS->getAnimationsMap()["DustCloudType_Landing"] = new Animation("jon", 1100, 1644, 116, 60, 580, 60, TEXTURE_SIZE_4096, false, 0.08f, 5);
     ASSETS->getAnimationsMap()["DustCloudType_Kick_Up"] = new Animation("jon", 2048, 1648, 96, 32, 576, 32, TEXTURE_SIZE_4096, false, 0.06666666666667f, 6);
     ASSETS->getAnimationsMap()["JonShadowState_Grounded"] = new Animation("jon", 2048, 1684, 154, 18, 308, 18, TEXTURE_SIZE_4096, true, 0.10f, 2);

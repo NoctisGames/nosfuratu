@@ -176,6 +176,8 @@ public:
     
     bool isClimbingLedge();
     
+    void setLedgeTopY(float ledgeTopY);
+    
 private:
     StateMachine<Jon, JonFormState>* m_formStateMachine;
     Game* m_game;
@@ -216,7 +218,8 @@ private:
 	bool m_isFlashing;
     bool m_isReleasingShockwave;
     bool m_isClimbingLedge;
-    bool m_isJumpingOverLedge;
+    float m_fClearingLedgeTime;
+    float m_fLedgeTopY;
     
     void setState(JonState state);
     
@@ -295,6 +298,7 @@ private:
         Vector2D* m_lastKnownVelocity;
         float m_fTimeSinceLastVelocityCheck;
         bool m_isFallingAfterGlide;
+        float m_fBoostTime;
         
         // ctor, copy ctor, and assignment should be private in a Singleton
         Vampire();

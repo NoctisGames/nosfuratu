@@ -209,49 +209,69 @@ public:
     template<typename T>
     static bool shouldJonGrabLedge(PhysicalEntity* entity, std::vector<T*>& items, float deltaTime)
     {
-        float entityTop = entity->getMainBounds().getTop();
-        float entityOrigX = entity->getPosition().getX();
+        Jon *jon = nullptr;
+        if (entity->getRTTI().derivesFrom(Jon::rtti))
+        {
+            jon = reinterpret_cast<Jon *>(entity);
+        }
+        else
+        {
+            assert(false);
+        }
         
-        NGRect bounds = entity->getMainBounds();
+        float entityTop = jon->getMainBounds().getTop();
+        float entityOrigX = jon->getPosition().getX();
+        
+        entityTop -= jon->isVampire() ? 0.5f : 0;
+        
+        NGRect bounds = jon->getMainBounds();
         float origBoundsWidth = bounds.getWidth();
-        entity->getMainBounds().setWidth(origBoundsWidth * 1.05f);
+        jon->getMainBounds().setWidth(origBoundsWidth * 1.05f);
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
-            if ((*i) == entity
-                || ((*i)->getRTTI().derivesFrom(Ground::rtti)
-                    && (((Ground *)(*i))->getType() == GroundType_CaveDeepLarge
-                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepMedium
-                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepSmall
-                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepEndRight)))
+            if ((*i)->getRTTI().derivesFrom(Ground::rtti)
+                && (((Ground *)(*i))->getType() == GroundType_CaveDeepLarge
+                    || ((Ground *)(*i))->getType() == GroundType_CaveDeepMedium
+                    || ((Ground *)(*i))->getType() == GroundType_CaveDeepSmall
+                    || ((Ground *)(*i))->getType() == GroundType_CaveDeepEndRight))
+            {
+                continue;
+            }
+            
+            if ((*i)->getRTTI().derivesFrom(BlockingObject::rtti)
+                    && (((BlockingObject *)(*i))->getType() == ForegroundObjectType_Stone_Bottom
+                        || ((BlockingObject *)(*i))->getType() == ForegroundObjectType_Stone_Middle))
             {
                 continue;
             }
             
             if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
-                for (std::vector<NGRect *>::iterator j = (*i)->getBounds().begin(); j != (*i)->getBounds().end(); ++j)
+                float itemTop = (*i)->getMainBounds().getTop();
+                
+                if (jon->getVelocity().getY() < 0
+                    && entityTop < itemTop
+                    && entityTop > (itemTop - GRID_CELL_SIZE))
                 {
-                    float itemTop = (*j)->getTop();
+                    jon->setLedgeTopY(itemTop);
                     
-                    if (entity->getVelocity().getY() < 4
-                        && entityTop < itemTop
-                        && entityTop > (itemTop - GRID_CELL_SIZE))
-                    {
-                        float yDelta = itemTop + 0.5f - entityTop;
-                        entity->getPosition().add(0, yDelta);
-                        entity->getMainBounds().setWidth(origBoundsWidth);
-                        entity->updateBounds();
-                        
-                        return true;
-                    }
+                    float additive = 0.5f;
+                    float yDelta = itemTop + additive - entityTop;
+                    jon->getPosition().add(0, yDelta);
+                    jon->getMainBounds().setWidth(origBoundsWidth);
+                    jon->updateBounds();
+                    
+                    jon->setGroundSoundType((*i)->getGroundSoundType());
+                    
+                    return true;
                 }
             }
         }
         
-        entity->getPosition().setX(entityOrigX);
-        entity->getMainBounds().setWidth(origBoundsWidth);
-        entity->updateBounds();
+        jon->getPosition().setX(entityOrigX);
+        jon->getMainBounds().setWidth(origBoundsWidth);
+        jon->updateBounds();
         
         return false;
     }

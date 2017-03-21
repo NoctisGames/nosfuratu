@@ -56,7 +56,8 @@ m_fFlashStateTime(0),
 m_isFlashing(false),
 m_isReleasingShockwave(false),
 m_isClimbingLedge(false),
-m_isJumpingOverLedge(false)
+m_fClearingLedgeTime(-1),
+m_fLedgeTopY(0)
 {
 	resetBounds(m_fWidth * 0.4f, m_fHeight * 0.8203125f);
 
@@ -185,6 +186,7 @@ void Jon::update(float deltaTime)
         
 		if (!wasGrounded && m_state == JON_ALIVE)
 		{
+            m_fClearingLedgeTime = -1;
             m_isClimbingLedge = false;
 			m_isLanding = true;
 			m_fStateTime = 0;
@@ -250,65 +252,14 @@ void Jon::update(float deltaTime)
         m_acceleration.setY(GAME_GRAVITY);
         
         m_jonShadow->onAir();
-        
-        if (m_isJumpingOverLedge)
-        {
-            if (m_fStateTime > 0.8f)
-            {
-                if (!m_game->isJonBlockedOnRight(deltaTime))
-                {
-                    m_velocity.setX(3);
-                    m_isJumpingOverLedge = false;
-                }
-            }
-        }
-        else if (m_isClimbingLedge)
-        {
-            m_acceleration.setY(0);
-            m_velocity.setY(0);
-            m_fHeight = m_iGridHeight * GRID_CELL_SIZE * 2;
-            
-            if (m_fStateTime > 0.9f)
-            {
-                m_iNumRabbitJumps = 1;
-                m_iNumVampireJumps = 1;
-                
-                int abilityFlag = getAbilityFlag();
-                enableAbility(FLAG_ABILITY_DOUBLE_JUMP);
-                triggerJump();
-                setAbilityFlag(abilityFlag);
-                
-                m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
-                m_fStateTime = 0.1f;
-                m_acceleration.setY(GAME_GRAVITY);
-                
-                m_isClimbingLedge = false;
-                m_isJumpingOverLedge = true;
-            }
-        }
-        else
-        {
-            m_fHeight = m_iGridHeight * GRID_CELL_SIZE;
-            
-            if (m_game->shouldJonGrabLedge(deltaTime))
-            {
-                m_fHeight = m_iGridHeight * GRID_CELL_SIZE * 2;
-                
-                m_acceleration.setX(0);
-                m_acceleration.setY(0);
-                m_velocity.setX(0);
-                m_velocity.setY(0);
-                m_fStateTime = isFalling() ? 0 : 0.3f;
-                m_isClimbingLedge = true;
-            }
-        }
     }
 
 	if (m_game->isJonBlockedVertically(deltaTime))
 	{
 		m_velocity.sub(0, 2);
 	}
-	else if (m_game->isJonBlockedOnRight(deltaTime))
+	else if (!(m_fClearingLedgeTime > 0)
+             && m_game->isJonBlockedOnRight(deltaTime))
 	{
 		m_velocity.setX(-5.0f);
         
@@ -330,6 +281,11 @@ void Jon::update(float deltaTime)
 
 		m_fStateTime = 0;
 	}
+    
+    if (m_fClearingLedgeTime > 0)
+    {
+        m_fClearingLedgeTime -= deltaTime;
+    }
 
 	if (m_velocity.getX() > m_fMaxSpeed
         && !m_isRollLanding)
@@ -825,6 +781,11 @@ bool Jon::isClimbingLedge()
     return m_isClimbingLedge;
 }
 
+void Jon::setLedgeTopY(float ledgeTopY)
+{
+    m_fLedgeTopY = ledgeTopY;
+}
+
 #pragma mark private
 
 void Jon::setState(JonState state)
@@ -875,6 +836,8 @@ void Jon::Rabbit::enter(Jon* jon)
 
 void Jon::Rabbit::execute(Jon* jon)
 {
+    jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
+    
 	switch (jon->m_abilityState)
 	{
         case ABILITY_BURROW:
@@ -944,6 +907,75 @@ void Jon::Rabbit::execute(Jon* jon)
 	{
 		jon->setState(ACTION_NONE);
 	}
+    
+    if (jon->m_physicalState == PHYSICAL_IN_AIR)
+    {
+        if (jon->m_isClimbingLedge)
+        {
+            jon->m_acceleration.setY(0);
+            jon->m_velocity.setY(0);
+            jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE * 2;
+            
+            if (jon->m_fStateTime > 0.63f)
+            {
+                jon->m_iNumRabbitJumps = 1;
+                
+                int abilityFlag = jon->getAbilityFlag();
+                jon->enableAbility(FLAG_ABILITY_DOUBLE_JUMP);
+                jon->triggerJump();
+                jon->setAbilityFlag(abilityFlag);
+                
+                jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
+                jon->m_fStateTime = 0.1f;
+                jon->m_acceleration.setY(GAME_GRAVITY);
+                
+                jon->m_isClimbingLedge = false;
+                
+                if (jon->m_fLedgeTopY > jon->getMainBounds().getBottom())
+                {
+                    float yDelta = jon->m_fLedgeTopY - jon->getMainBounds().getBottom();
+                    jon->getPosition().add(0, yDelta);
+                    jon->updateBounds();
+                    
+                    jon->m_velocity.setX(2);
+                    jon->m_velocity.setY(9);
+                    
+                    jon->m_fClearingLedgeTime = 0.03f;
+                }
+            }
+        }
+        else
+        {
+            if (jon->m_game->shouldJonGrabLedge(jon->m_fDeltaTime))
+            {
+                jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE * 2;
+                
+                jon->m_acceleration.setX(0);
+                jon->m_acceleration.setY(0);
+                jon->m_velocity.setX(0);
+                jon->m_velocity.setY(0);
+                jon->m_fStateTime = 0;
+                jon->m_isClimbingLedge = true;
+                
+                jon->setState(ABILITY_NONE);
+                jon->m_acceleration.setY(GAME_GRAVITY);
+                jon->m_iNumRabbitJumps = 1;
+                
+                if (jon->m_groundSoundType == GROUND_SOUND_GRASS)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_GRASS);
+                }
+                else if (jon->m_groundSoundType == GROUND_SOUND_CAVE)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+                else if (jon->m_groundSoundType == GROUND_SOUND_WOOD)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_WOOD);
+                }
+            }
+        }
+    }
 }
 
 void Jon::Rabbit::exit(Jon* jon)
@@ -1190,7 +1222,17 @@ void Jon::Vampire::execute(Jon* jon)
             else
             {
                 jon->m_acceleration.setY(GAME_GRAVITY / 36);
-                jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
+                
+                if (m_fBoostTime > 0)
+                {
+                    jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED * 1.5f;
+                    
+                    m_fBoostTime -= jon->m_fDeltaTime;
+                }
+                else
+                {
+                    jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED - 2;
+                }
             }
         }
             break;
@@ -1333,6 +1375,74 @@ void Jon::Vampire::execute(Jon* jon)
         afterImage->m_color.alpha = clamp(afterImage->m_color.alpha, 1, 0);
         
         jon->m_afterImages.push_back(afterImage);
+    }
+    
+    if (jon->m_physicalState == PHYSICAL_IN_AIR)
+    {
+        if (jon->m_isClimbingLedge)
+        {
+            jon->m_acceleration.setY(0);
+            jon->m_velocity.setY(0);
+            
+            if (jon->m_fStateTime > 0.3f)
+            {
+                jon->triggerJump();
+                
+                jon->m_iNumVampireJumps = 1;
+                
+                m_isFallingAfterGlide = false;
+                
+                jon->triggerJump();
+                jon->m_fStateTime = 0.1f;
+                jon->m_acceleration.setY(GAME_GRAVITY);
+                
+                jon->m_isClimbingLedge = false;
+                
+                if (jon->m_fLedgeTopY > jon->getMainBounds().getBottom())
+                {
+                    float yDelta = jon->m_fLedgeTopY - jon->getMainBounds().getBottom();
+                    jon->getPosition().add(0, yDelta);
+                    jon->updateBounds();
+                    
+                    jon->m_fMaxSpeed = VAMP_DEFAULT_MAX_SPEED * 1.5f;
+                    jon->m_velocity.setX(jon->m_fMaxSpeed * 1.5f);
+                    
+                    m_fBoostTime = 0.5f;
+                    
+                    jon->m_fClearingLedgeTime = 0.015f;
+                }
+            }
+        }
+        else
+        {
+            if (jon->m_game->shouldJonGrabLedge(jon->m_fDeltaTime))
+            {
+                jon->m_acceleration.setX(0);
+                jon->m_acceleration.setY(0);
+                jon->m_velocity.setX(0);
+                jon->m_velocity.setY(0);
+                jon->m_fStateTime = 0;
+                jon->m_isClimbingLedge = true;
+                
+                jon->setState(ABILITY_NONE);
+                NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
+                jon->m_acceleration.setY(GAME_GRAVITY);
+                jon->m_iNumVampireJumps = 1;
+                
+                if (jon->m_groundSoundType == GROUND_SOUND_GRASS)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_GRASS);
+                }
+                else if (jon->m_groundSoundType == GROUND_SOUND_CAVE)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_CAVE);
+                }
+                else if (jon->m_groundSoundType == GROUND_SOUND_WOOD)
+                {
+                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_WOOD);
+                }
+            }
+        }
     }
 }
 
@@ -1543,7 +1653,7 @@ int Jon::Vampire::getNumJumps(Jon* jon)
     return jon->m_iNumVampireJumps;
 }
 
-Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false)
+Jon::Vampire::Vampire() : JonFormState(), m_fTimeSinceLastVelocityCheck(0), m_isFallingAfterGlide(false), m_fBoostTime(0)
 {
     m_lastKnownVelocity = new Vector2D();
 }
@@ -1566,6 +1676,10 @@ void Jon::RabbitToVampire::enter(Jon* jon)
 {
 	jon->m_fTransformStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+    jon->m_isClimbingLedge = false;
+    jon->m_fClearingLedgeTime = 0;
+    jon->m_fWidth = jon->m_iGridWidth * GRID_CELL_SIZE;
+    jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
 	m_hasCompletedSlowMotion = false;
 
@@ -1707,6 +1821,10 @@ void Jon::VampireToRabbit::enter(Jon* jon)
 {
 	jon->m_fTransformStateTime = 0;
 	jon->m_fDyingStateTime = 0;
+    jon->m_isClimbingLedge = false;
+    jon->m_fClearingLedgeTime = 0;
+    jon->m_fWidth = jon->m_iGridWidth * GRID_CELL_SIZE;
+    jon->m_fHeight = jon->m_iGridHeight * GRID_CELL_SIZE;
 
 	m_hasCompletedSlowMotion = false;
 

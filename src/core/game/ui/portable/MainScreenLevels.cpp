@@ -1001,7 +1001,8 @@ bool Level::handleInput(MainScreen* ms)
             }
                 return false;
             case KeyboardEventType_BACK:
-                if ((*i)->isUp())
+                if (!m_hasCompletedLevel
+                    && (*i)->isUp())
                 {
                     m_exitLoop = true;
                     
@@ -1120,7 +1121,8 @@ bool Level::handleInput(MainScreen* ms)
                 return false;
             case GamePadEventType_B_BUTTON:
             case GamePadEventType_BACK_BUTTON:
-                if ((*i)->isButtonPressed())
+                if (!m_hasCompletedLevel
+                    && (*i)->isButtonPressed())
                 {
                     m_exitLoop = true;
                     
