@@ -218,7 +218,12 @@ public:
         
         for (typename std::vector<T*>::iterator i = items.begin(); i != items.end(); ++i)
         {
-            if ((*i) == entity)
+            if ((*i) == entity
+                || ((*i)->getRTTI().derivesFrom(Ground::rtti)
+                    && (((Ground *)(*i))->getType() == GroundType_CaveDeepLarge
+                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepMedium
+                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepSmall
+                        || ((Ground *)(*i))->getType() == GroundType_CaveDeepEndRight)))
             {
                 continue;
             }
