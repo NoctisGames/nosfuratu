@@ -531,6 +531,8 @@ void Level::update(MainScreen* ms)
         {
             // Has Cleared the Level
             
+            jon.setUserActionPrevented(true);
+            
             m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_LEVEL_COMPLETE);
             
             if (m_game->getNumCarrotsCollected() >= 100)
