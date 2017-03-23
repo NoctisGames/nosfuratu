@@ -937,8 +937,8 @@ void Jon::Rabbit::execute(Jon* jon)
                     jon->getPosition().add(0, yDelta);
                     jon->updateBounds();
                     
-                    jon->m_velocity.setX(2);
-                    jon->m_velocity.setY(9);
+                    jon->m_velocity.setX(1);
+                    jon->m_velocity.setY(10);
                     
                     jon->m_fClearingLedgeTime = 0.03f;
                 }

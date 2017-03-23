@@ -81,6 +81,8 @@ public:
 	virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
 
     virtual bool canObjectBePlacedOn();
+    
+    bool shouldJonGrabLedge(PhysicalEntity* entity, float deltaTime);
 };
 
 class FloatingPlatformObject : public PlatformObject

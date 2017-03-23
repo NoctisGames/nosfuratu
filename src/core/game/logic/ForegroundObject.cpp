@@ -370,6 +370,16 @@ bool PlatformObject::canObjectBePlacedOn()
     return true;
 }
 
+bool PlatformObject::shouldJonGrabLedge(PhysicalEntity* entity, float deltaTime)
+{
+    if (ForegroundObject::isEntityBlockedOnRight(entity, deltaTime))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
 FloatingPlatformObject::FloatingPlatformObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PlatformObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight), m_fOriginalY(0), m_isIdle(true), m_isWeighted(false)
 {
     float x = m_position.getX();

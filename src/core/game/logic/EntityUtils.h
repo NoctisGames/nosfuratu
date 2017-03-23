@@ -246,13 +246,56 @@ public:
                 continue;
             }
             
+            if ((*i)->getRTTI().derivesFrom(PlatformObject::rtti))
+            {
+                // Special Behavior here
+                PlatformObject* platformObj = (PlatformObject *)(*i);
+                if (platformObj->getType() == ForegroundObjectType_GrassPlatformCenter
+                    || platformObj->getType() == ForegroundObjectType_CavePlatformCenter
+                    || platformObj->getType() == ForegroundObjectType_MetalGrassPlatformCenter)
+                {
+                    continue;
+                }
+                
+                if (platformObj->shouldJonGrabLedge(entity, deltaTime))
+                {
+                    float itemTop = (*i)->getMainBounds().getTop();
+                    
+                    if (jon->getVelocity().getY() < 0
+                        && entityTop < itemTop
+                        && entityTop > (itemTop - GRID_CELL_SIZE))
+                    {
+                        jon->setLedgeTopY(itemTop);
+                        
+                        float additive = 0.5f;
+                        float yDelta = itemTop + additive - entityTop;
+                        jon->getPosition().add(0, yDelta);
+                        jon->getMainBounds().setWidth(origBoundsWidth);
+                        jon->updateBounds();
+                        
+                        jon->setGroundSoundType((*i)->getGroundSoundType());
+                        
+                        return true;
+                    }
+                }
+            }
+            
+            if ((*i)->getRTTI().derivesFrom(ForegroundObject::rtti)
+                && (((ForegroundObject *)(*i))->getType() == ForegroundObjectType_GiantPerchTree
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundObjectType_GiantTree
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundObjectType_GiantShakingTree
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundObjectType_WoodBox))
+            {
+                continue;
+            }
+            
             if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
                 float itemTop = (*i)->getMainBounds().getTop();
                 
                 if (jon->getVelocity().getY() < 0
-                    && entityTop < itemTop
-                    && entityTop > (itemTop - GRID_CELL_SIZE))
+                    && entityTop > itemTop
+                    && entityTop < (itemTop + GRID_CELL_SIZE))
                 {
                     jon->setLedgeTopY(itemTop);
                     

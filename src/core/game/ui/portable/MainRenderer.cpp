@@ -619,11 +619,15 @@ void MainRenderer::updateCameraToFollowJon(Game& game, BatPanel* batPanel, float
         camVelocityY = 0;
     }
     
-    m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
+    if (!jon.isClimbingLedge())
+    {
+        m_camBounds->getLowerLeft().add(0, camVelocityY * deltaTime);
+    }
     
     if (camVelocityY > 0)
     {
-        if (!isGrounded)
+        if (!isGrounded
+            && !jon.isClimbingLedge())
         {
             float newCamPos = yFactor + heightPlusPadding - CAM_HEIGHT;
             if (newCamPos > m_camBounds->getLowerLeft().getY())
