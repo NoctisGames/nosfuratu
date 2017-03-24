@@ -186,6 +186,14 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["ClockIcon"] = new TextureRegion("misc", 512, 0, 72, 72, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["ResumeButton"] = new TextureRegion("vampire", 2048, 1792, 192, 192, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["ComingSoonScreen"] = new TextureRegion("world_1_special", 0, 0, 1280, 720, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel"] = new TextureRegion("world_1_special", 2704, 0, 768, 512, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Replay"] = new TextureRegion("world_1_special", 3524, 14, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Clock"] = new TextureRegion("world_1_special", 3524, 100, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Carrot"] = new TextureRegion("world_1_special", 3524, 180, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_GoldenCarrot"] = new TextureRegion("world_1_special", 3524, 260, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Vial"] = new TextureRegion("world_1_special", 3524, 340, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Next"] = new TextureRegion("world_1_special", 3658, 14, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["LevelCompletePanel_Leaderboard"] = new TextureRegion("world_1_special", 3658, 424, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["SpeedBarFrame"] = new TextureRegion("misc", 8, 654, 516, 20, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["SpeedBar"] = new TextureRegion("misc", 8, 678, 516, 20, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["TitlePanel_Background"] = new TextureRegion("title_screen", 0, 0, 1280, 720, TEXTURE_SIZE_2048);
@@ -401,4 +409,6 @@ void MainAssetsMapper::mapAssets()
     
     ASSETS->getAnimationsMap()["FloatingPlatformIdlePoof"] = new Animation("world_1_objects_part_1", 2864, 0, 56, 36, 168, 36, TEXTURE_SIZE_4096, true, 0.10f, 3);
     ASSETS->getAnimationsMap()["FloatingPlatformWeightedPoof"] = new Animation("world_1_objects_part_1", 2816, 44, 160, 172, 640, 172, TEXTURE_SIZE_4096, true, 0.10f, 4);
+    
+    ASSETS->getAnimationsMap()["FinalScoreSparkle"] = new Animation("world_1_special", 2704, 516, 194, 188, 970, 188, TEXTURE_SIZE_4096, false, 0.10f, 5);
 }
