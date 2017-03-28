@@ -159,7 +159,6 @@ void OpeningCutscene::execute(MainScreen* ms)
                 switch ((*i)->getType())
                 {
                     case GamePadEventType_A_BUTTON:
-                    case GamePadEventType_B_BUTTON:
                     case GamePadEventType_BACK_BUTTON:
                     case GamePadEventType_START_BUTTON:
                         if ((*i)->isButtonPressed())

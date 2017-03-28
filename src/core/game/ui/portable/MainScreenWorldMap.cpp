@@ -220,7 +220,6 @@ void WorldMap::execute(MainScreen* ms)
                     }
                 }
                     continue;
-                case GamePadEventType_B_BUTTON:
                 case GamePadEventType_BACK_BUTTON:
                     if ((*i)->isButtonPressed())
                     {
