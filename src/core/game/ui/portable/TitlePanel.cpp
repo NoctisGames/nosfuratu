@@ -10,7 +10,6 @@
 
 #include "NGRect.h"
 #include "Vector2D.h"
-#include "GameConstants.h"
 #include "Assets.h"
 #include "NGAudioEngine.h"
 

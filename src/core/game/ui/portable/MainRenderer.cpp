@@ -293,6 +293,9 @@ void MainRenderer::load(RendererType rendererType)
             loadTextureAsync(m_vampire);
             loadTextureAsync(m_tutorial);
             break;
+        case RENDERER_TYPE_WORLD_1_OBJECTS_PART_1:
+            loadTextureAsync(m_world_1_objects_part_1);
+            break;
         case RENDERER_TYPE_WORLD_1_MID_BOSS:
             loadTextureAsync(m_world_1_background_lower_part_1);
             loadTextureAsync(m_world_1_background_lower_part_2);
@@ -366,6 +369,9 @@ void MainRenderer::unload(RendererType rendererType)
             unloadTexture(m_trans_death_shader_helper);
             unloadTexture(m_vampire);
             unloadTexture(m_tutorial);
+            break;
+        case RENDERER_TYPE_WORLD_1_OBJECTS_PART_1:
+            unloadTexture(m_world_1_objects_part_1);
             break;
         case RENDERER_TYPE_WORLD_1_MID_BOSS:
             unloadTexture(m_world_1_background_lower_part_1);
@@ -1694,7 +1700,7 @@ void MainRenderer::renderDebugInfo(Game& game, int fps)
 
 void MainRenderer::renderComingSoonScreenBackground()
 {
-    if (!ensureTexture(m_world_1_special))
+    if (!ensureTexture(m_world_1_objects_part_1))
     {
         return;
     }
@@ -1705,7 +1711,7 @@ void MainRenderer::renderComingSoonScreenBackground()
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_WIDTH, CAM_HEIGHT, 0, tr);
-    m_spriteBatcher->endBatch(*m_world_1_special->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 }
 
 void MainRenderer::renderMarkers(Game& game)

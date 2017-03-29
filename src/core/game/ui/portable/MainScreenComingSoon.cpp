@@ -130,7 +130,7 @@ void ComingSoon::exit(MainScreen* ms)
 
 void ComingSoon::initRenderer(MainScreen* ms)
 {
-    ms->m_renderer->load(RENDERER_TYPE_WORLD_1);
+    ms->m_renderer->load(RENDERER_TYPE_WORLD_1_OBJECTS_PART_1);
 }
 
 ComingSoon::ComingSoon() : m_isRequestingNextState(false)

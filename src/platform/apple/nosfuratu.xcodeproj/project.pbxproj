@@ -21,6 +21,8 @@
 		BB01C4411E72117800DEE4B3 /* ISoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB01C43F1E72117800DEE4B3 /* ISoundWrapper.cpp */; };
 		BB036B6E1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
 		BB036B701DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
+		BB03B3B61E8B49EE007BC3DE /* LevelCompletePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03B3B41E8B49EE007BC3DE /* LevelCompletePanel.cpp */; };
+		BB03B3B71E8B49EE007BC3DE /* LevelCompletePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB03B3B41E8B49EE007BC3DE /* LevelCompletePanel.cpp */; };
 		BB09703619C3A3180086B30F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09703519C3A3180086B30F /* CoreFoundation.framework */; };
 		BB09CE111DBD3779006A3E49 /* libSuperpoweredAudioIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09CDDB1DBD3779006A3E49 /* libSuperpoweredAudioIOS.a */; };
 		BB09CE171DBD3779006A3E49 /* libSuperpoweredAudioOSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB09CDDC1DBD3779006A3E49 /* libSuperpoweredAudioOSX.a */; };
@@ -685,6 +687,8 @@
 		BB01C43C1E71F31200DEE4B3 /* SaveDataKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveDataKeys.h; sourceTree = "<group>"; };
 		BB01C43F1E72117800DEE4B3 /* ISoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISoundWrapper.cpp; sourceTree = "<group>"; };
 		BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects_part_2.png; sourceTree = "<group>"; };
+		BB03B3B41E8B49EE007BC3DE /* LevelCompletePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelCompletePanel.cpp; sourceTree = "<group>"; };
+		BB03B3B51E8B49EE007BC3DE /* LevelCompletePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCompletePanel.h; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB09CDD41DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperpoweredAndroidAudioIO.cpp; sourceTree = "<group>"; };
 		BB09CDD51DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredAndroidAudioIO.h; sourceTree = "<group>"; };
@@ -2140,6 +2144,8 @@
 				BB5BA4BD1E67ADA80074A315 /* GameHudItem.h */,
 				BB34FB581E5645F400AC8197 /* GameTracker.cpp */,
 				BB34FB591E5645F400AC8197 /* GameTracker.h */,
+				BB03B3B41E8B49EE007BC3DE /* LevelCompletePanel.cpp */,
+				BB03B3B51E8B49EE007BC3DE /* LevelCompletePanel.h */,
 				BB34FB5A1E5645F400AC8197 /* LevelEditorActionsPanel.cpp */,
 				BB34FB5B1E5645F400AC8197 /* LevelEditorActionsPanel.h */,
 				BB34FB5C1E5645F400AC8197 /* LevelEditorEntitiesPanel.cpp */,
@@ -3246,6 +3252,7 @@
 				BB34FA511E563C2400AC8197 /* RTTI.cpp in Sources */,
 				BBA0522C1E68F96300450261 /* OpenGLTextureProgram.cpp in Sources */,
 				BB34F8B11E563C2100AC8197 /* EntityManager.cpp in Sources */,
+				BB03B3B61E8B49EE007BC3DE /* LevelCompletePanel.cpp in Sources */,
 				BBD5A9CA1E584894007CE6A8 /* MainGpuProgramWrapperFactory.cpp in Sources */,
 				BB34FB871E5645F400AC8197 /* DustCloud.cpp in Sources */,
 				BB34FD271E5645F500AC8197 /* SnakeDeathTextureGpuProgramWrapper.cpp in Sources */,
@@ -3411,6 +3418,7 @@
 				BB34F9EF1E563C2300AC8197 /* Font.cpp in Sources */,
 				BB13BD4F1E58E0800073C08F /* JoystickController.mm in Sources */,
 				BB606EAC1E7071EA0050476B /* IRendererHelper.cpp in Sources */,
+				BB03B3B71E8B49EE007BC3DE /* LevelCompletePanel.cpp in Sources */,
 				BB34FCB11E5645F500AC8197 /* MainAssets.cpp in Sources */,
 				BB01C43A1E71E2C800DEE4B3 /* SaveData.cpp in Sources */,
 				BB34FA0F1E563C2400AC8197 /* LineBatcher.cpp in Sources */,
