@@ -294,7 +294,7 @@ public:
                 float itemTop = (*i)->getMainBounds().getTop();
                 
                 if (jon->getVelocity().getY() < 0
-                    && entityTop > itemTop
+                    && entityTop > (itemTop - GRID_CELL_SIZE)
                     && entityTop < (itemTop + GRID_CELL_SIZE))
                 {
                     jon->setLedgeTopY(itemTop);

@@ -116,10 +116,19 @@ void Level::enter(MainScreen* ms)
     m_playLevelSelectMusicOnExit = ms->m_stateMachine.getPreviousState() == WorldMap::getInstance();
 	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
     
-    std::string key = std::string("ng_debug");
-    std::string val = NG_SAVE_DATA->findValue(key);
-    int isDebug = StringUtil::stringToInt(val);
-    m_isDebug = isDebug == 1;
+    {
+        std::string key = std::string("ng_debug");
+        std::string val = NG_SAVE_DATA->findValue(key);
+        int isDebug = StringUtil::stringToInt(val);
+        m_isDebug = isDebug == 1;
+    }
+    
+    {
+        std::string key = std::string("ng_show_bounds");
+        std::string val = NG_SAVE_DATA->findValue(key);
+        int isShowingBounds = StringUtil::stringToInt(val);
+        m_isShowingBounds = isShowingBounds == 1;
+    }
 }
 
 void Level::execute(MainScreen* ms)
@@ -673,6 +682,11 @@ void Level::render(MainScreen* ms)
     if (m_isDebug)
     {
         ms->m_renderer->renderDebugInfo(*m_game, ms->m_iFPS);
+    }
+    
+    if (m_isShowingBounds)
+    {
+        ms->m_renderer->renderBounds(*m_game);
     }
     
     if (ms->m_isPaused)
@@ -1324,6 +1338,7 @@ m_playLevelSelectMusicOnExit(false),
 m_stopMusicOnExit(false),
 m_isDemoMode(false),
 m_isDebug(false),
+m_isShowingBounds(false),
 m_hasExited(false)
 {
     // Empty

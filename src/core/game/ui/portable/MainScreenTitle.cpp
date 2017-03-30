@@ -60,6 +60,7 @@ void Title::enter(MainScreen* ms)
     m_iMapCodeState = 0;
     m_iSwampCodeState = 0;
     m_iDmCodeState = 0;
+    m_iShowBoundsCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
     m_isLevelEditor = false;
@@ -151,7 +152,8 @@ void Title::execute(MainScreen* ms)
         if (m_iResetCodeState > 0
             || m_iMapCodeState > 0
             || m_iSwampCodeState > 0
-            || m_iDmCodeState > 0)
+            || m_iDmCodeState > 0
+            || m_iShowBoundsCodeState > 0)
         {
             m_fCodeStateTime += ms->m_fDeltaTime;
             if (m_fCodeStateTime > 1)
@@ -160,8 +162,9 @@ void Title::execute(MainScreen* ms)
                 
                 m_iResetCodeState = 0;
                 m_iMapCodeState = 0;
-                m_iSwampCodeState =0;
+                m_iSwampCodeState = 0;
                 m_iDmCodeState = 0;
+                m_iShowBoundsCodeState = 0;
             }
         }
         
@@ -173,6 +176,21 @@ void Title::execute(MainScreen* ms)
                     if (m_iSwampCodeState == 1)
                     {
                         m_iSwampCodeState++;
+                    }
+                    else if (m_iShowBoundsCodeState == 2)
+                    {
+                        m_iShowBoundsCodeState++;
+                        
+                        std::string key = std::string("ng_show_bounds");
+                        std::string storedVal = NG_SAVE_DATA->findValue(key);
+                        int isShowingBounds = StringUtil::stringToInt(storedVal);
+                        
+                        std::string val = StringUtil::toString(isShowingBounds == 1 ? 0 : 1);
+                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        
+                        NG_SAVE_DATA->save();
+                        
+                        NG_AUDIO_ENGINE->playSound(SOUND_FOX_DEATH);
                     }
                     continue;
                 case KeyboardEventType_S:
@@ -199,6 +217,10 @@ void Title::execute(MainScreen* ms)
                     else if (m_iMapCodeState == 1)
                     {
                         m_iMapCodeState++;
+                    }
+                    else if (m_iShowBoundsCodeState == 1)
+                    {
+                        m_iShowBoundsCodeState++;
                     }
                     continue;
                 case KeyboardEventType_D:
@@ -286,6 +308,10 @@ void Title::execute(MainScreen* ms)
                         WorldMap::getInstance()->loadSaveData();
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+                    }
+                    else if (m_iShowBoundsCodeState == 0)
+                    {
+                        m_iShowBoundsCodeState++;
                     }
                     continue;
                 case KeyboardEventType_SPACE:
@@ -449,8 +475,9 @@ void Title::exit(MainScreen* ms)
     m_fCodeStateTime = 0;
     m_iResetCodeState = 0;
     m_iMapCodeState = 0;
-    m_iSwampCodeState =0;
+    m_iSwampCodeState = 0;
     m_iDmCodeState = 0;
+    m_iShowBoundsCodeState = 0;
     m_isRequestingNextState = false;
     m_isRequestingLevelEditor = false;
 }
@@ -489,6 +516,7 @@ m_iResetCodeState(0),
 m_iMapCodeState(0),
 m_iSwampCodeState(0),
 m_iDmCodeState(0),
+m_iShowBoundsCodeState(0),
 m_isRequestingNextState(false),
 m_isRequestingLevelEditor(false),
 m_isLevelEditor(false)

@@ -47,6 +47,7 @@ private:
     int m_iMapCodeState;
     int m_iSwampCodeState;
     int m_iDmCodeState;
+    int m_iShowBoundsCodeState;
     bool m_isLevelEditor;
     
     // ctor, copy ctor, and assignment should be private in a Singleton

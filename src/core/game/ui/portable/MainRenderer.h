@@ -114,7 +114,7 @@ public:
     
     void renderBatPanel(BatPanel& batPanel);
     
-    void renderBounds(Game& game, int boundsLevelRequested);
+    void renderBounds(Game& game, int boundsLevelRequested = -1);
     
     void renderEntityHighlighted(PhysicalEntity& entity, Color& c);
     

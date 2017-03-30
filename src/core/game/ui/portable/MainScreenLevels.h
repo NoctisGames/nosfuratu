@@ -107,6 +107,7 @@ protected:
     std::vector<UserDemoAction> m_userDemoActions;
     bool m_isDemoMode;
     bool m_isDebug;
+    bool m_isShowingBounds;
     bool m_hasExited;
     
     // Set from app storage

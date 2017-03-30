@@ -1429,26 +1429,29 @@ void MainRenderer::renderBounds(Game& game, int boundsLevelRequested)
     renderBoundsForPhysicalEntities(*m_boundsNGRectBatcher, game.getExtraForegroundObjects());
     renderBoundsForPhysicalEntities(*m_boundsNGRectBatcher, game.getForegroundCoverObjects());
     
-    static Color gridColor = Color(1, 1, 1, 0.4f);
-    
-    int right = m_camBounds->getRight() / GRID_CELL_SIZE;
-    int len = right;
-    
-    m_lineBatcher->beginBatch();
-    
-    for (int i = 0; i < len; i+= boundsLevelRequested)
+    if (boundsLevelRequested > 0)
     {
-        float x = i * GRID_CELL_SIZE;
-        m_lineBatcher->renderLine(x, 0, x, GAME_HEIGHT, gridColor);
+        static Color gridColor = Color(1, 1, 1, 0.4f);
+        
+        int right = m_camBounds->getRight() / GRID_CELL_SIZE;
+        int len = right;
+        
+        m_lineBatcher->beginBatch();
+        
+        for (int i = 0; i < len; i+= boundsLevelRequested)
+        {
+            float x = i * GRID_CELL_SIZE;
+            m_lineBatcher->renderLine(x, 0, x, GAME_HEIGHT, gridColor);
+        }
+        
+        for (int j = 0; j < 256; j+= boundsLevelRequested)
+        {
+            float y = j * GRID_CELL_SIZE;
+            m_lineBatcher->renderLine(m_camBounds->getLeft(), y, m_camBounds->getRight(), y, gridColor);
+        }
+        
+        m_lineBatcher->endBatch(*m_colorGpuProgramWrapper);
     }
-    
-    for (int j = 0; j < 256; j+= boundsLevelRequested)
-    {
-        float y = j * GRID_CELL_SIZE;
-        m_lineBatcher->renderLine(m_camBounds->getLeft(), y, m_camBounds->getRight(), y, gridColor);
-    }
-    
-    m_lineBatcher->endBatch(*m_colorGpuProgramWrapper);
 }
 
 void MainRenderer::renderEntityHighlighted(PhysicalEntity& entity, Color& c)
