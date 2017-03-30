@@ -973,10 +973,10 @@ bool Level::handleInput(MainScreen* ms)
             {
                 if ((*i)->isUp())
                 {
-                    if (ms->m_fScreenHeldTime < 0.4f)
-                    {
-                        jon.triggerJump();
-                    }
+                    ms->m_fScreenHeldTime = 0.0f;
+                    
+                    jon.triggerJump();
+                    
                     return false;
                 }
             }
@@ -1091,10 +1091,9 @@ bool Level::handleInput(MainScreen* ms)
             {
                 if ((*i)->isButtonPressed())
                 {
-                    if (ms->m_fScreenHeldTime < 0.4f)
-                    {
-                        jon.triggerJump();
-                    }
+                    ms->m_fScreenHeldTime = 0.0f;
+                    
+                    jon.triggerJump();
                     
                     return false;
                 }

@@ -57,6 +57,8 @@ public:
     
     void resumeMusic();
     
+    bool isMusicLoaded();
+    
     bool isMusicDisabled();
     
     void setMusicDisabled(bool isMusicDisabled);

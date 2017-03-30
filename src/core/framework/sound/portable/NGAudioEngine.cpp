@@ -273,6 +273,11 @@ void NGAudioEngine::resumeMusic()
     }
 }
 
+bool NGAudioEngine::isMusicLoaded()
+{
+    return m_music ? true : false;
+}
+
 bool NGAudioEngine::isMusicDisabled()
 {
     return m_isMusicDisabled;

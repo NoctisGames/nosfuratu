@@ -1186,6 +1186,13 @@ void WorldMap::toggleMusicOnOff()
     NG_SAVE_DATA->getKeyValues()[key] = val;
     
     NG_SAVE_DATA->save();
+    
+    if (!NG_AUDIO_ENGINE->isMusicLoaded()
+        && !NG_AUDIO_ENGINE->isMusicDisabled())
+    {
+        NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+        NG_AUDIO_ENGINE->playMusic();
+    }
 }
 
 void WorldMap::toggleSoundOnOff()

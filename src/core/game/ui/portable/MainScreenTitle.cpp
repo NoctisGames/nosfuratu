@@ -47,12 +47,12 @@ void Title::enter(MainScreen* ms)
 {
     ms->m_stateMachine.setPreviousState(nullptr);
     
+    WorldMap::getInstance()->loadSaveData();
+    
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
     
     initRenderer(ms);
-    
-    WorldMap::getInstance()->loadSaveData();
     
     m_fStateTime = 0;
     m_fCodeStateTime = 0;

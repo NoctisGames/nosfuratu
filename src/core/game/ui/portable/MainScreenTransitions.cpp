@@ -265,7 +265,7 @@ void TitleToWorldMap::execute(MainScreen* ms)
             ms->m_stateMachine.setCurrentState(WorldMap::getInstance());
             ms->m_renderer->unload(RENDERER_TYPE_TITLE);
             
-            NG_AUDIO_ENGINE->playMusic(true);
+            NG_AUDIO_ENGINE->playMusic();
         }
     }
 }
@@ -1090,7 +1090,7 @@ void LevelToComingSoon::execute(MainScreen* ms)
             ms->m_stateMachine.setPreviousState(WorldMap::getInstance());
             ms->m_stateMachine.setCurrentState(ComingSoon::getInstance());
             
-            NG_AUDIO_ENGINE->playMusic(true);
+            NG_AUDIO_ENGINE->playMusic();
         }
     }
 }
