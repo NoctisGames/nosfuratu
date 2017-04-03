@@ -1715,10 +1715,9 @@ std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int wo
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 13.01f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 15.21f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 17.43f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 17.89f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 19.19f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerTransform, 22.49f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 24));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 17.80f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 19.05f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 21.8f));
                 }
                     break;
                 case 16:
