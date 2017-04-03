@@ -1675,7 +1675,7 @@ std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int wo
                 {
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 2.4f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.2f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 19.8f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 19.4f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 33.5f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 36.0f));
                 }
