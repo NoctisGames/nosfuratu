@@ -558,7 +558,7 @@ void Direct3DMain::CreateWindowSizeDependentResources()
     int clampHeight = 900;
     
 	width = width > clampWidth ? clampWidth : width;
-	height = height > clampHeight ? clampHeight : clampHeight;
+	height = height > clampHeight ? clampHeight : height;
 
 	m_screen->createWindowSizeDependentResources(width, height, touchWidth, touchHeight);
 }
