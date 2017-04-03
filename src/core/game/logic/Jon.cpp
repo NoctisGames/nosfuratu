@@ -1089,6 +1089,7 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         jon->m_acceleration.setY(0);
         jon->m_velocity.setY(0);
         jon->m_isRollLanding = false;
+        jon->m_isClimbingLedge = false;
         
         NG_AUDIO_ENGINE->playSound(SOUND_RABBIT_STOMP);
     }
@@ -1102,6 +1103,7 @@ void Jon::Rabbit::triggerDownAction(Jon* jon)
         jon->setState(ABILITY_BURROW);
         
         jon->m_isBurrowEffective = false;
+        jon->m_isClimbingLedge = false;
         
         NG_AUDIO_ENGINE->playSound(SOUND_RABBIT_DRILL);
 	}
