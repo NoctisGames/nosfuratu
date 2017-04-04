@@ -1470,7 +1470,7 @@ void MainRenderer::renderBlackOverlay(float opacity)
     static NGRect rect = NGRect(0, 0, CAM_WIDTH, CAM_HEIGHT);
     
     static Color blackColor = Color(0, 0, 0, 0);
-    blackColor.alpha = clamp(opacity, 0.5f, 0);
+    blackColor.alpha = clamp(opacity / 2, 0.5f, 0);
     
     m_fillNGRectBatcher->beginBatch();
     m_fillNGRectBatcher->renderNGRect(rect, blackColor);
