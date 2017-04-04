@@ -50,7 +50,6 @@
 #include "ExitGroundCover.h"
 #include "CountHissWithMina.h"
 #include "LevelCompletePanel.h"
-#include "ScoreIcon.h"
 
 MainAssets* MainAssets::getInstance()
 {
