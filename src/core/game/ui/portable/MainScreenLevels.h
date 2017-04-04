@@ -86,7 +86,6 @@ protected:
     Game* m_game;
     Game* m_sourceGame;
     GameButton* m_backButton;
-    GameButton* m_continueButton;
     BatPanel* m_batPanel;
     float m_fStateTime;
     int m_iScoreFromTime;

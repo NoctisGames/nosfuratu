@@ -66,6 +66,8 @@ class NosfuratuLogo;
 class CastleLightEffect;
 class Castle;
 class ForegroundCoverObject;
+class LevelCompletePanel;
+class ScoreIcon;
 
 class MainAssets
 {
@@ -175,6 +177,10 @@ public:
     TextureRegion& get(ConfirmResetPanel* panel);
     
     TextureRegion& get(ConfirmExitPanel* panel);
+    
+    TextureRegion& get(LevelCompletePanel* levelCompletePanel);
+    
+    TextureRegion& get(ScoreIcon* scoreIcon);
     
     bool isUsingCompressedTextureSet();
     

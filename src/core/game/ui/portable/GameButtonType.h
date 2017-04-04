@@ -17,8 +17,10 @@ typedef enum
     GameButtonType_Leaderboards,
     GameButtonType_ViewOpeningCutscene,
     GameButtonType_BackToLevelSelect,
+    GameButtonType_LevelEditor,
+    GameButtonType_Replay,
     GameButtonType_ContinueToLevelSelect,
-    GameButtonType_LevelEditor
+    GameButtonType_PostScore
 } GameButtonType;
 
 #endif /* defined(__nosfuratu__GameButtonType__) */

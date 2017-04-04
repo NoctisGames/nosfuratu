@@ -40,12 +40,6 @@ GameButton* GameButton::create(GameButtonType type)
                                   1.51895680147063f,
                                   1.52941176470592f,
                                   type);
-        case GameButtonType_ContinueToLevelSelect:
-            return new GameButton(CAM_WIDTH - 1.51895680147063f / 2,
-                                  1.52941176470592f / 2,
-                                  1.51895680147063f,
-                                  1.52941176470592f,
-                                  type);
         case GameButtonType_Leaderboards:
             return new GameButton(CAM_WIDTH - 1.51895680147063f / 2,
                                   CAM_HEIGHT - 1.52941176470592f / 2,
@@ -64,12 +58,18 @@ GameButton* GameButton::create(GameButtonType type)
                                   2,
                                   0.6456424857638f,
                                   type);
+        case GameButtonType_ContinueToLevelSelect:
+        case GameButtonType_Replay:
+        case GameButtonType_PostScore:
+        default:
+            // These must be instantiated using the constructor, since the sizes are determined based on the panel they are in
+            break;
     }
     
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isAnimatingIn(false)
 {
     // Empty
 }
@@ -78,7 +78,11 @@ void GameButton::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_isSelected)
+    if (m_isAnimatingIn)
+    {
+        // TODO
+    }
+    else if (m_isSelected)
     {
         if (m_isShrinking)
         {
@@ -109,6 +113,11 @@ void GameButton::update(float deltaTime)
             }
         }
     }
+}
+
+void GameButton::animateIn()
+{
+    m_isAnimatingIn = true;
 }
 
 GameButtonType GameButton::getType()

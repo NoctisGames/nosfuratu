@@ -86,8 +86,6 @@ void Level::enter(MainScreen* ms)
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
     }
     
-    m_continueButton->getColor().alpha = 0;
-    
     m_batPanel->reset();
     
     configBatPanel();
@@ -238,11 +236,6 @@ bool Level::hasCompletedLevel()
 Game& Level::getGame()
 {
     return *m_game;
-}
-
-GameButton* Level::getContinueButton()
-{
-    return m_continueButton;
 }
 
 bool Level::isDebug()
@@ -676,7 +669,7 @@ void Level::render(MainScreen* ms)
     
     if (m_hasOpeningSequenceCompleted)
     {
-        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_isDisplayingResults ? m_continueButton : nullptr, m_iScore);
+        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_iScore);
     }
 
     if (m_isDebug)
@@ -853,14 +846,6 @@ bool Level::handleInput(MainScreen* ms)
     
     if (m_isDisplayingResults)
     {
-        m_continueButton->getColor().alpha += ms->m_fDeltaTime;
-        if (m_continueButton->getColor().alpha > 1)
-        {
-            m_continueButton->getColor().alpha = 1;
-            
-            NG_AUDIO_ENGINE->stopAllSounds();
-        }
-        
         bool goToNextState = false;
         
         for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
@@ -910,10 +895,7 @@ bool Level::handleInput(MainScreen* ms)
                 case ScreenEventType_DRAGGED:
                     continue;
                 case ScreenEventType_UP:
-                    if (m_continueButton->handleClick(touchPoint))
-                    {
-                        goToNextState = true;
-                    }
+                    goToNextState = true;
                     break;
             }
         }
@@ -1313,7 +1295,6 @@ m_game(new Game()),
 m_sourceGame(nullptr),
 m_batPanel(new BatPanel()),
 m_backButton(GameButton::create(GameButtonType_BackToLevelSelect)),
-m_continueButton(GameButton::create(GameButtonType_ContinueToLevelSelect)),
 m_fStateTime(0.0f),
 m_iScoreFromTime(0),
 m_iScoreFromObjects(0),
@@ -1348,7 +1329,6 @@ Level::~Level()
 {
     delete m_batPanel;
     delete m_backButton;
-    delete m_continueButton;
     
     delete m_game;
     m_game = nullptr;

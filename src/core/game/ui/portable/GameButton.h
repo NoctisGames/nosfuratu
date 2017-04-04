@@ -27,6 +27,8 @@ public:
     
     virtual void update(float deltaTime);
     
+    void animateIn();
+    
     GameButtonType getType();
     
     Color& getColor();
@@ -48,6 +50,7 @@ private:
     float m_fOriginalHeight;
     bool m_isSelected;
     bool m_isShrinking;
+    bool m_isAnimatingIn;
 };
 
 #endif /* defined(__nosfuratu__GameButton__) */

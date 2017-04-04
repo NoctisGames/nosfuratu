@@ -15,6 +15,8 @@
 
 #include "RTTI.h"
 
+class GameButton;
+
 class ScoreIcon;
 
 class LevelCompletePanel : public PhysicalEntity
@@ -22,7 +24,7 @@ class LevelCompletePanel : public PhysicalEntity
     RTTI_DECL;
     
 public:
-    LevelCompletePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.7f, float height = CAM_HEIGHT * 0.7f);
+    LevelCompletePanel(float x = CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.64f, float height = CAM_HEIGHT * 0.64f);
     
     virtual ~LevelCompletePanel();
     
@@ -34,6 +36,10 @@ public:
     ScoreIcon* getVialIcon();
     
 private:
+    GameButton* m_replayButton;
+    GameButton* m_continueButton;
+    GameButton* m_leaderboardsButton;
+    
     ScoreIcon* m_clockIcon;
     ScoreIcon* m_carrotIcon;
     ScoreIcon* m_goldenCarrotIcon;
@@ -49,10 +55,13 @@ public:
     
     virtual void update(float deltaTime);
     
-    void activate();
+    void animateIn();
+    
+    int getType();
     
 private:
-    int m_type;
+    int m_iType;
+    bool m_isAnimatingIn;
 };
 
 #endif /* defined(__nosfuratu__LevelCompletePanel__) */

@@ -49,6 +49,8 @@
 #include "GameHudItem.h"
 #include "ExitGroundCover.h"
 #include "CountHissWithMina.h"
+#include "LevelCompletePanel.h"
+#include "ScoreIcon.h"
 
 MainAssets* MainAssets::getInstance()
 {
@@ -2248,14 +2250,24 @@ TextureRegion& MainAssets::get(GameButton* gameButton)
             static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_BackToLevelSelect");
             return tr;
         }
+        case GameButtonType_LevelEditor:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_LevelEditor");
+            return tr;
+        }
         case GameButtonType_ContinueToLevelSelect:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_ContinueToLevelSelect");
             return tr;
         }
-        case GameButtonType_LevelEditor:
+        case GameButtonType_Replay:
         {
-            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_LevelEditor");
+            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_Replay");
+            return tr;
+        }
+        case GameButtonType_PostScore:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_PostScore");
             return tr;
         }
         default:
@@ -2340,6 +2352,41 @@ TextureRegion& MainAssets::get(ConfirmExitPanel* panel)
 {
     static TextureRegion tr = ASSETS->findTextureRegion("ConfirmExitPanel");
     return tr;
+}
+
+TextureRegion& MainAssets::get(LevelCompletePanel* levelCompletePanel)
+{
+    static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel");
+    return tr;
+}
+
+TextureRegion& MainAssets::get(ScoreIcon* scoreIcon)
+{
+    switch (scoreIcon->getType())
+    {
+        case 1:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_Clock");
+            return tr;
+        }
+        case 2:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_Carrot");
+            return tr;
+        }
+        case 3:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_GoldenCarrot");
+            return tr;
+        }
+        case 4:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_Vial");
+            return tr;
+        }
+    }
+    
+    assert(false);
 }
 
 bool MainAssets::isUsingCompressedTextureSet()

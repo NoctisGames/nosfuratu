@@ -169,7 +169,6 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["GameButtonType_Leaderboards"] = new TextureRegion("world_map_screen_part_1", 1904, 0, 104, 104, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_ViewOpeningCutscene"] = new TextureRegion("world_map_screen_part_1", 1152, 0, 96, 64, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_BackToLevelSelect"] = new TextureRegion("misc", 0, 0, 104, 104, TEXTURE_SIZE_1024);
-    ASSETS->getTextureRegionMap()["GameButtonType_ContinueToLevelSelect"] = new TextureRegion("misc", 804, 0, 104, 104, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["GameButtonType_LevelEditor"] = new TextureRegion("title_screen", 800, 780, 190, 62, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameHudItem_Golden"] = new TextureRegion("world_1_objects_part_1", 1904, 1254, 96, 112, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["GameHudItem_Normal"] = new TextureRegion("world_1_objects_part_1", 884, 1054, 96, 112, TEXTURE_SIZE_4096);
@@ -187,13 +186,13 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["ResumeButton"] = new TextureRegion("vampire", 2048, 1792, 192, 192, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["ComingSoonScreen"] = new TextureRegion("world_1_objects_part_1", 0, 2204, 1280, 720, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["LevelCompletePanel"] = new TextureRegion("world_1_objects_part_1", 1680, 2204, 768, 512, TEXTURE_SIZE_4096);
-    ASSETS->getTextureRegionMap()["LevelCompletePanel_Replay"] = new TextureRegion("world_1_objects_part_1", 2500, 2218, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GameButtonType_Replay"] = new TextureRegion("world_1_objects_part_1", 2500, 2218, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["LevelCompletePanel_Clock"] = new TextureRegion("world_1_objects_part_1", 2500, 2304, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["LevelCompletePanel_Carrot"] = new TextureRegion("world_1_objects_part_1", 2500, 2384, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["LevelCompletePanel_GoldenCarrot"] = new TextureRegion("world_1_objects_part_1", 2500, 2464, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["LevelCompletePanel_Vial"] = new TextureRegion("world_1_objects_part_1", 2500, 2544, 72, 72, TEXTURE_SIZE_4096);
-    ASSETS->getTextureRegionMap()["LevelCompletePanel_Next"] = new TextureRegion("world_1_objects_part_1", 2634, 2218, 72, 72, TEXTURE_SIZE_4096);
-    ASSETS->getTextureRegionMap()["LevelCompletePanel_Leaderboard"] = new TextureRegion("world_1_objects_part_1", 2634, 2628, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GameButtonType_ContinueToLevelSelect"] = new TextureRegion("world_1_objects_part_1", 2634, 2218, 72, 72, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["GameButtonType_PostScore"] = new TextureRegion("world_1_objects_part_1", 2634, 2628, 72, 72, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["SpeedBarFrame"] = new TextureRegion("misc", 8, 654, 516, 20, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["SpeedBar"] = new TextureRegion("misc", 8, 678, 516, 20, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["TitlePanel_Background"] = new TextureRegion("title_screen", 0, 0, 1280, 720, TEXTURE_SIZE_2048);

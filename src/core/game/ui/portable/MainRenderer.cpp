@@ -1470,14 +1470,14 @@ void MainRenderer::renderBlackOverlay(float opacity)
     static NGRect rect = NGRect(0, 0, CAM_WIDTH, CAM_HEIGHT);
     
     static Color blackColor = Color(0, 0, 0, 0);
-    blackColor.alpha = opacity;
+    blackColor.alpha = clamp(opacity, 1, 0.5f);
     
     m_fillNGRectBatcher->beginBatch();
     m_fillNGRectBatcher->renderNGRect(rect, blackColor);
     m_fillNGRectBatcher->endBatch(*m_colorGpuProgramWrapper);
 }
 
-void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* continueButton, int score)
+void MainRenderer::renderHud(Game& game, GameButton* backButton, int score)
 {
 	m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -1633,11 +1633,6 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, GameButton* con
         m_spriteBatcher->drawSprite(2.2f, 0.27751937984496, 4, 0.15503875968992f, 0, speedBarFrameTr);
         
         speedBarTr.init(speedBarTr.m_fX, speedBarRegionWidth, speedBarTr.m_fTextureWidth);
-    }
-    
-    if (continueButton)
-    {
-        renderPhysicalEntityWithColor(*continueButton, MAIN_ASSETS->get(continueButton), continueButton->getColor());
     }
 
     m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);
