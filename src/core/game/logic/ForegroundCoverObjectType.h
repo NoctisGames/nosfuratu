@@ -22,7 +22,11 @@ typedef enum
     ForegroundCoverObjectType_Roof_Side_Left,
     ForegroundCoverObjectType_Roof_Side_Right,
     ForegroundCoverObjectType_Roof_Plain,
-    ForegroundCoverObjectType_Roof_Chimney
+    ForegroundCoverObjectType_Roof_Chimney,
+    ForegroundCoverObjectType_Wall_PassThrough,
+    ForegroundCoverObjectType_Wall_Bottom_PassThrough,
+    ForegroundCoverObjectType_Wall_Window_PassThrough,
+    ForegroundCoverObjectType_Wall_Window_Bottom_PassThrough,
 } ForegroundCoverObjectType;
 
 #endif /* defined(__nosfuratu__ForegroundCoverObjectType__) */

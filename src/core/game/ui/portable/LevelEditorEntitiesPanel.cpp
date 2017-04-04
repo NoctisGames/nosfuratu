@@ -296,6 +296,10 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Side_Right));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Plain));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Roof_Chimney));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_PassThrough));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Bottom_PassThrough));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window_PassThrough));
+        m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Wall_Window_Bottom_PassThrough));
         
         m_extraForegroundObjects.push_back(ExtraForegroundObject::create(0, 0, ForegroundObjectType_SpikeTower));
     }

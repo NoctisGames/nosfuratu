@@ -29,13 +29,13 @@ ForegroundCoverObject* ForegroundCoverObject::create(int gridX, int gridY, int t
         case ForegroundCoverObjectType_Ferns:
             return new ForegroundCoverObject(gridX, 92, 33, 11, fcot);
         case ForegroundCoverObjectType_Wall:
-            return new ForegroundCoverObject(gridX, gridY, 16, 16, fcot);
+            return new ImpassableForegroundCoverObject(gridX, gridY, 16, 16, fcot);
         case ForegroundCoverObjectType_Wall_Bottom:
-            return new ForegroundCoverObject(gridX, 96, 16, 16, fcot);
+            return new ImpassableForegroundCoverObject(gridX, 96, 16, 16, fcot);
         case ForegroundCoverObjectType_Wall_Window:
-            return new ForegroundCoverObject(gridX, gridY, 16, 16, fcot);
+            return new ImpassableForegroundCoverObject(gridX, gridY, 16, 16, fcot);
         case ForegroundCoverObjectType_Wall_Window_Bottom:
-            return new ForegroundCoverObject(gridX, 96, 16, 16, fcot);
+            return new ImpassableForegroundCoverObject(gridX, 96, 16, 16, fcot);
         case ForegroundCoverObjectType_Roof_Side_Left:
             return new LandableForegroundCoverObject(gridX, gridY, 16, 4, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.5f);
         case ForegroundCoverObjectType_Roof_Side_Right:
@@ -44,6 +44,14 @@ ForegroundCoverObject* ForegroundCoverObject::create(int gridX, int gridY, int t
             return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.64f);
         case ForegroundCoverObjectType_Roof_Chimney:
             return new LandableForegroundCoverObject(gridX, gridY, 16, 6, fcot, GROUND_SOUND_WOOD, 0, 0, 1, 0.64f);
+        case ForegroundCoverObjectType_Wall_PassThrough:
+            return new ForegroundCoverObject(gridX, gridY, 16, 16, fcot);
+        case ForegroundCoverObjectType_Wall_Bottom_PassThrough:
+            return new ForegroundCoverObject(gridX, 96, 16, 16, fcot);
+        case ForegroundCoverObjectType_Wall_Window_PassThrough:
+            return new ForegroundCoverObject(gridX, gridY, 16, 16, fcot);
+        case ForegroundCoverObjectType_Wall_Window_Bottom_PassThrough:
+            return new ForegroundCoverObject(gridX, 96, 16, 16, fcot);
     }
     
     assert(false);
@@ -239,5 +247,90 @@ bool LandableForegroundCoverObject::isJonBlockedAbove(Jon &jon, float deltaTime)
     return false;
 }
 
+ImpassableForegroundCoverObject::ImpassableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : ForegroundCoverObject(gridX, gridY, gridWidth, gridHeight, type, groundSoundType, boundsX, boundsY, boundsWidth, boundsHeight)
+{
+    // Empty
+}
+
+bool ImpassableForegroundCoverObject::isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime)
+{
+    if (OverlapTester::doNGRectsOverlap(entity->getMainBounds(), getMainBounds()))
+    {
+        float entityVelocityX = entity->getVelocity().getX();
+        float entityBottom = entity->getMainBounds().getBottom();
+        float entityRight = entity->getMainBounds().getRight();
+        float entityXDelta = entityVelocityX * deltaTime;
+        
+        float itemTop = getMainBounds().getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemLeft = getMainBounds().getLeft();
+        float padding = itemLeft * .01f;
+        padding += entityXDelta;
+        float itemLeftReq = itemLeft + padding;
+        
+        if (entityRight <= itemLeftReq && entityBottom < itemTopReq)
+        {
+            entity->getPosition().setX(itemLeft - entity->getMainBounds().getWidth() / 2 * 1.01f);
+            entity->updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool ImpassableForegroundCoverObject::isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime)
+{
+    if (OverlapTester::doNGRectsOverlap(entity->getMainBounds(), getMainBounds()))
+    {
+        float entityVelocityX = entity->getVelocity().getX();
+        float entityBottom = entity->getMainBounds().getBottom();
+        float entityLeft = entity->getMainBounds().getLeft();
+        float entityXDelta = entityVelocityX * deltaTime;
+        
+        float itemTop = getMainBounds().getTop();
+        float itemTopReq = itemTop * 0.99f;
+        
+        float itemRight = getMainBounds().getRight();
+        float padding = itemRight * .01f;
+        padding -= entityXDelta;
+        float itemRightReq = itemRight - padding;
+        
+        if (entityLeft >= itemRightReq && entityBottom < itemTopReq)
+        {
+            entity->getPosition().setX(itemRight + entity->getMainBounds().getWidth() / 2 * 1.01f);
+            entity->updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool ImpassableForegroundCoverObject::isJonBlockedAbove(Jon &jon, float deltaTime)
+{
+    float entityVelocityY = jon.getVelocity().getY();
+    
+    if (entityVelocityY > 0 && OverlapTester::doNGRectsOverlap(jon.getMainBounds(), getMainBounds()))
+    {
+        float entityLeft = jon.getMainBounds().getLeft();
+        float itemLeft = getMainBounds().getLeft();
+        
+        if (itemLeft < entityLeft)
+        {
+            jon.getPosition().sub(0, jon.getVelocity().getY() * deltaTime);
+            jon.updateBounds();
+            
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 RTTI_IMPL(ForegroundCoverObject, GridLockedPhysicalEntity);
 RTTI_IMPL(LandableForegroundCoverObject, ForegroundCoverObject);
+RTTI_IMPL(ImpassableForegroundCoverObject, ForegroundCoverObject);

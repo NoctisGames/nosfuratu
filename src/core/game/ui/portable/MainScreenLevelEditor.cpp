@@ -521,7 +521,9 @@ void MainScreenLevelEditor::handleInput(MainScreen* ms)
 							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Left
 							&& fco->getType() != ForegroundCoverObjectType_Roof_Side_Right
 							&& fco->getType() != ForegroundCoverObjectType_Roof_Plain
-							&& fco->getType() != ForegroundCoverObjectType_Roof_Chimney)
+							&& fco->getType() != ForegroundCoverObjectType_Roof_Chimney
+                            && fco->getType() != ForegroundCoverObjectType_Wall_PassThrough
+                            && fco->getType() != ForegroundCoverObjectType_Wall_Window_PassThrough)
 						{
 							m_isVerticalChangeAllowed = false;
 							m_allowPlaceOn = false;

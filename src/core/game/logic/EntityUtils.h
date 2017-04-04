@@ -289,6 +289,15 @@ public:
                 continue;
             }
             
+            if ((*i)->getRTTI().derivesFrom(ForegroundCoverObject::rtti)
+                && (((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Bottom
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window
+                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window_Bottom))
+            {
+                continue;
+            }
+            
             if ((*i)->isEntityBlockedOnRight(entity, deltaTime))
             {
                 float itemTop = (*i)->getMainBounds().getTop();

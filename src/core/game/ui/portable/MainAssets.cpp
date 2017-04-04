@@ -1286,6 +1286,26 @@ TextureRegion& MainAssets::get(ForegroundCoverObject* foregroundCoverObject)
             static TextureRegion tr = ASSETS->findTextureRegion("ForegroundCoverObjectType_Roof_Chimney");
             return tr;
         }
+        case ForegroundCoverObjectType_Wall_PassThrough:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("ForegroundCoverObjectType_Wall_PassThrough");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Bottom_PassThrough:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("ForegroundCoverObjectType_Wall_Bottom_PassThrough");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Window_PassThrough:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("ForegroundCoverObjectType_Wall_Window_PassThrough");
+            return tr;
+        }
+        case ForegroundCoverObjectType_Wall_Window_Bottom_PassThrough:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("ForegroundCoverObjectType_Wall_Window_Bottom_PassThrough");
+            return tr;
+        }
     }
     
     assert(false);
