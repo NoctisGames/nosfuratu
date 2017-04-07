@@ -49,9 +49,7 @@ void GameTracker::update(float deltaTime)
         
         (*i)->setColor(r, g, b, a);
         
-        float maxY = (*i)->getAcceleration().getY() < -0.5f && (*i)->getAcceleration().getY() > -1.5f ? m_bonusGoldenCarrotY : m_scoreY;
-        
-        if ((*i)->getPosition().getY() >= maxY)
+        if ((*i)->getPosition().getY() >= m_scoreY)
         {
             delete *i;
             i = m_texts.erase(i);
@@ -88,52 +86,10 @@ void GameTracker::onScored(int score)
     m_texts.push_back(text);
 }
 
-void GameTracker::onBonusGoldenCarrotEarned()
-{
-    std::stringstream ss;
-    
-    // the number is converted to string with the help of stringstream
-    ss << "+1";
-    std::string plusOneGc;
-    ss >> plusOneGc;
-    
-    float x = m_bonusGoldenCarrotX + m_fontWidth * 4;
-    float y = m_bonusGoldenCarrotY - m_fontHeight;
-    float w = m_fontWidth;
-    float h = m_fontHeight;
-    
-    DelayText *text = new DelayText(1.25f, plusOneGc, x, y, w, h);
-    text->getAcceleration().set(-1, 0.28f);
-    
-    m_texts.push_back(text);
-}
-
-void GameTracker::onTimeBonusScoreEarned(int score)
-{
-    std::stringstream ss;
-    
-    // the number is converted to string with the help of stringstream
-    ss << score;
-    std::string scoreString;
-    ss >> scoreString;
-    
-    float x = m_scoreX + m_fontWidth * 12;
-    float y = m_scoreY - m_fontHeight;
-    float w = m_fontWidth;
-    float h = m_fontHeight;
-    
-    DelayText *text = new DelayText(1.25f, scoreString, x, y, w, h);
-    text->getAcceleration().set(-1.75, 0.28f);
-    
-    m_texts.push_back(text);
-}
-
-void GameTracker::config(float scoreX, float scoreY, float bonusGoldenCarrotX, float bonusGoldenCarrotY, float fontWidth, float fontHeight)
+void GameTracker::config(float scoreX, float scoreY, float fontWidth, float fontHeight)
 {
     m_scoreX = scoreX;
     m_scoreY = scoreY;
-    m_bonusGoldenCarrotX = bonusGoldenCarrotX;
-    m_bonusGoldenCarrotY = bonusGoldenCarrotY;
     m_fontWidth = fontWidth;
     m_fontHeight = fontHeight;
     
@@ -148,8 +104,6 @@ std::vector<DelayText *>& GameTracker::getTexts()
 GameTracker::GameTracker() :
 m_scoreX(0),
 m_scoreY(0),
-m_bonusGoldenCarrotX(0),
-m_bonusGoldenCarrotY(0),
 m_fontWidth(0),
 m_fontHeight(0)
 {

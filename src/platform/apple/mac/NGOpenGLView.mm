@@ -264,6 +264,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
             _screen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
+            _screen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_UPDATE:
         default:
             break;

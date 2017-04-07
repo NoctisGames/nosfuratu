@@ -68,6 +68,7 @@ class Castle;
 class ForegroundCoverObject;
 class LevelCompletePanel;
 class ScoreIcon;
+class FinalScoreSparkle;
 
 class MainAssets
 {
@@ -181,6 +182,8 @@ public:
     TextureRegion& get(LevelCompletePanel* levelCompletePanel);
     
     TextureRegion& get(ScoreIcon* scoreIcon);
+    
+    TextureRegion& get(FinalScoreSparkle* finalScoreSparkle);
     
     bool isUsingCompressedTextureSet();
     

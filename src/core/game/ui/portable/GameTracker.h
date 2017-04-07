@@ -41,11 +41,7 @@ public:
     
     void onScored(int score);
     
-    void onBonusGoldenCarrotEarned();
-    
-    void onTimeBonusScoreEarned(int score);
-    
-    void config(float scoreX, float scoreY, float bonusGoldenCarrotX, float bonusGoldenCarrotY, float fontWidth, float fontHeight);
+    void config(float scoreX, float scoreY, float fontWidth, float fontHeight);
     
     std::vector<DelayText *>& getTexts();
 
@@ -53,8 +49,6 @@ private:
     std::vector<DelayText *> m_texts;
     float m_scoreX;
     float m_scoreY;
-    float m_bonusGoldenCarrotX;
-    float m_bonusGoldenCarrotY;
     float m_fontWidth;
     float m_fontHeight;
     

@@ -140,6 +140,9 @@
             }
             _mainScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
+            _mainScreen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_UPDATE:
         default:
             break;

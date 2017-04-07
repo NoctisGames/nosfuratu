@@ -69,7 +69,7 @@ GameButton* GameButton::create(GameButtonType type)
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isAnimatingIn(false)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isAnimatingIn(false), m_isHidden(false)
 {
     // Empty
 }
@@ -118,6 +118,7 @@ void GameButton::update(float deltaTime)
 void GameButton::animateIn()
 {
     m_isAnimatingIn = true;
+    m_isHidden = false;
 }
 
 GameButtonType GameButton::getType()
@@ -173,6 +174,16 @@ void GameButton::click()
 bool GameButton::isSelected()
 {
     return m_isSelected;
+}
+
+bool GameButton::isHidden()
+{
+    return m_isHidden;
+}
+
+void GameButton::setHidden(bool isHidden)
+{
+    m_isHidden = isHidden;
 }
 
 RTTI_IMPL(GameButton, PhysicalEntity);

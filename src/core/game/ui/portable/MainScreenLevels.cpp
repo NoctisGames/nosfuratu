@@ -11,6 +11,7 @@
 #include "MainScreen.h"
 #include "Game.h"
 #include "GameButton.h"
+#include "LevelCompletePanel.h"
 #include "CollectibleItem.h"
 #include "MidBossOwl.h"
 #include "EndBossSnake.h"
@@ -84,6 +85,8 @@ void Level::enter(MainScreen* ms)
         
         Jon& jon = m_game->getJon();
         jon.setAbilityFlag(m_iLastKnownJonAbilityFlag);
+        
+        m_levelCompletePanel->reset();
     }
     
     m_batPanel->reset();
@@ -106,8 +109,6 @@ void Level::enter(MainScreen* ms)
     
     GameTracker::getInstance()->config(CAM_WIDTH * 0.5f,
                                        textY,
-                                       4.04f,
-                                       textY - 0.14f,
                                        fgWidth,
                                        fgHeight);
     
@@ -238,6 +239,11 @@ Game& Level::getGame()
     return *m_game;
 }
 
+LevelCompletePanel* Level::getLevelCompletePanel()
+{
+    return m_levelCompletePanel;
+}
+
 bool Level::isDebug()
 {
     return m_isDebug;
@@ -344,6 +350,11 @@ void Level::update(MainScreen* ms)
             return;
         }
         
+        if (m_hasCompletedLevel)
+        {
+            m_levelCompletePanel->update(ms->m_fDeltaTime);
+        }
+        
         if (handleInput(ms))
         {
             return;
@@ -359,6 +370,8 @@ void Level::update(MainScreen* ms)
             {
                 m_fStateTime = 0;
                 m_showDeathTransOut = false;
+                
+                NG_AUDIO_ENGINE->stopAllSounds();
             }
         }
         
@@ -370,8 +383,6 @@ void Level::update(MainScreen* ms)
             
             if (m_fStateTime > 1.6f)
             {
-                NG_AUDIO_ENGINE->stopAllSounds();
-                
                 m_game->reset();
                 
                 enter(ms);
@@ -517,6 +528,7 @@ void Level::update(MainScreen* ms)
             if (m_fStateTime > 1)
             {
                 m_fStateTime = 1;
+                
                 m_isDisplayingResults = true;
             }
             
@@ -541,22 +553,14 @@ void Level::update(MainScreen* ms)
             {
                 m_game->setNumGoldenCarrotsCollected(m_game->getNumGoldenCarrotsCollected() + 1);
                 
-                GameTracker::getInstance()->onScored(SCORE_GOLDEN_CARROT);
-                GameTracker::getInstance()->onBonusGoldenCarrotEarned();
-                
                 m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
-            static float startingTime = 150.0f;
+            static float startingTime = m_game->getLevel() == 10 || m_game->getLevel() == 21 ? 180.0f : 120.0f;
             
             float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
             
             m_iScoreFromTime = secondsLeft * 1000;
-            
-            if (m_iScoreFromTime > 0)
-            {
-                GameTracker::getInstance()->onTimeBonusScoreEarned(m_iScoreFromTime);
-            }
             
             updateScore();
             
@@ -627,6 +631,9 @@ void Level::update(MainScreen* ms)
 			ms->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
+            m_levelCompletePanel->onLevelCompleted(m_game);
+            
+            NG_AUDIO_ENGINE->stopAllSounds();
             NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
         }
         
@@ -667,7 +674,8 @@ void Level::render(MainScreen* ms)
         ms->m_renderer->renderToThirdFramebufferWithObfuscation();
     }
     
-    if (m_hasOpeningSequenceCompleted)
+    if (m_hasOpeningSequenceCompleted
+        && !m_hasCompletedLevel)
     {
         ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_iScore);
     }
@@ -680,6 +688,11 @@ void Level::render(MainScreen* ms)
     if (m_isShowingBounds)
     {
         ms->m_renderer->renderBounds(*m_game);
+    }
+    
+    if (m_hasCompletedLevel)
+    {
+        ms->m_renderer->renderLevelCompletePanel(m_levelCompletePanel);
     }
     
     if (ms->m_isPaused)
@@ -848,56 +861,38 @@ bool Level::handleInput(MainScreen* ms)
     {
         bool goToNextState = false;
         
-        for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
-        {
-            switch ((*i)->getType())
-            {
-                case KeyboardEventType_W:
-                case KeyboardEventType_BACK:
-                case KeyboardEventType_SPACE:
-                case KeyboardEventType_ENTER:
-                    if ((*i)->isUp())
-                    {
-                        goToNextState = true;
-                        break;
-                    }
-                    continue;
-                default:
-                    continue;
-            }
-        }
+        int result = m_levelCompletePanel->handleInput();
         
-        for (std::vector<GamePadEvent *>::iterator i = GAME_PAD_INPUT_MANAGER->getEvents().begin(); i != GAME_PAD_INPUT_MANAGER->getEvents().end(); ++i)
+        if (result == LEVEL_COMPLETE_PANEL_RC_CONTINUE)
         {
-            switch ((*i)->getType())
-            {
-                case GamePadEventType_A_BUTTON:
-                case GamePadEventType_BACK_BUTTON:
-                case GamePadEventType_START_BUTTON:
-                    if ((*i)->isButtonPressed())
-                    {
-                        goToNextState = true;
-                        break;
-                    }
-                    continue;
-                default:
-                    continue;
-            }
+            goToNextState = true;
         }
-        
-        for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
+        else if (result == LEVEL_COMPLETE_PANEL_RC_REPLAY)
         {
-            Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
+            NG_AUDIO_ENGINE->stopAllSounds();
             
-            switch ((*i)->getType())
+            m_game->reset();
+            
+            m_hasCompletedLevel = false;
+            m_hasShownOpeningSequence = false;
+            m_hasOpeningSequenceCompleted = false;
+            m_isDisplayingResults = false;
+            m_exitLoop = false;
+            
+            enter(ms);
+            
+            updateCamera(ms, 0, false, true);
+            
+            m_iNumAttemptsSinceLastAdBreak++;
+            if (m_iNumAttemptsSinceLastAdBreak >= 6)
             {
-                case ScreenEventType_DOWN:
-                case ScreenEventType_DRAGGED:
-                    continue;
-                case ScreenEventType_UP:
-                    goToNextState = true;
-                    break;
+                ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD;
+                m_iNumAttemptsSinceLastAdBreak = 0;
             }
+        }
+        else if (result == LEVEL_COMPLETE_PANEL_RC_REPLAY)
+        {
+            ms->m_iRequestedAction = REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD;
         }
         
         if (goToNextState)
@@ -1184,6 +1179,13 @@ bool Level::handleInput(MainScreen* ms)
                 if (!m_hasCompletedLevel
                     && m_backButton->handleClick(touchPoint))
                 {
+//                    m_hasCompletedLevel = true;
+//                    m_isDisplayingResults = true;
+//                    
+//                    m_levelCompletePanel->onLevelCompleted(m_game);
+//                    
+//                    return false;
+                    
                     m_exitLoop = true;
                     
                     ms->m_renderer->stopCamera();
@@ -1295,6 +1297,7 @@ m_game(new Game()),
 m_sourceGame(nullptr),
 m_batPanel(new BatPanel()),
 m_backButton(GameButton::create(GameButtonType_BackToLevelSelect)),
+m_levelCompletePanel(new LevelCompletePanel()),
 m_fStateTime(0.0f),
 m_iScoreFromTime(0),
 m_iScoreFromObjects(0),

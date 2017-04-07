@@ -18,6 +18,7 @@
 class MainScreen;
 class Game;
 class GameButton;
+class LevelCompletePanel;
 class CollectibleItem;
 class MidBossOwl;
 class EndBossSnake;
@@ -77,7 +78,7 @@ public:
     
     Game& getGame();
     
-    GameButton* getContinueButton();
+    LevelCompletePanel* getLevelCompletePanel();
     
     bool isDebug();
     
@@ -86,6 +87,7 @@ protected:
     Game* m_game;
     Game* m_sourceGame;
     GameButton* m_backButton;
+    LevelCompletePanel* m_levelCompletePanel;
     BatPanel* m_batPanel;
     float m_fStateTime;
     int m_iScoreFromTime;

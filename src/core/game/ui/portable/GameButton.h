@@ -43,6 +43,10 @@ public:
     
     bool isSelected();
     
+    bool isHidden();
+    
+    void setHidden(bool isHidden);
+    
 private:
     GameButtonType m_type;
     Color m_color;
@@ -51,6 +55,7 @@ private:
     bool m_isSelected;
     bool m_isShrinking;
     bool m_isAnimatingIn;
+    bool m_isHidden;
 };
 
 #endif /* defined(__nosfuratu__GameButton__) */

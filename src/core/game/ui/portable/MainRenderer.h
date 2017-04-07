@@ -56,6 +56,7 @@ class Ground;
 class Midground;
 class ForegroundCoverObject;
 class NGRectBatcher;
+class LevelCompletePanel;
 
 class MainRenderer : public Renderer
 {
@@ -125,6 +126,8 @@ public:
     void renderResumeButtonOverlay();
 
 	void renderDebugInfo(Game& game, int fps);
+    
+    void renderLevelCompletePanel(LevelCompletePanel* levelCompletePanel);
     
     void renderComingSoonScreenBackground();
     

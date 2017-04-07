@@ -326,7 +326,10 @@ void Engine::drawFrame()
     switch (requestedAction)
     {
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            //displayInterstitialAdIfLoaded();
+            displayInterstitialAdIfLoaded();
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:

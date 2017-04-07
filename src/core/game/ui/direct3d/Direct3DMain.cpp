@@ -351,6 +351,9 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 		displayInterstitialAdIfAvailable();
 		m_screen->clearRequestedAction();
 		break;
+    case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
+        m_screen->clearRequestedAction();
+        break;
 	case REQUESTED_ACTION_UPDATE:
 	default:
 		break;

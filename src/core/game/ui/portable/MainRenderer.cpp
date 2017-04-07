@@ -72,6 +72,7 @@
 #include "ForegroundCoverObject.h"
 #include "SaveData.h"
 #include "StringUtil.h"
+#include "LevelCompletePanel.h"
 
 #include <math.h>
 #include <sstream>
@@ -1694,6 +1695,52 @@ void MainRenderer::renderDebugInfo(Game& game, int fps)
 		m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH / 5, CAM_HEIGHT - fgHeight * 5, fgWidth, fgHeight, fontColor, true);
 		m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 	}
+}
+
+void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePanel)
+{
+    m_spriteBatcher->beginBatch();
+    
+    renderPhysicalEntity(*levelCompletePanel, MAIN_ASSETS->get(levelCompletePanel));
+    
+    if (!levelCompletePanel->getReplayButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getReplayButton(), MAIN_ASSETS->get(levelCompletePanel->getReplayButton()));
+    }
+    
+    if (!levelCompletePanel->getContinueButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getContinueButton(), MAIN_ASSETS->get(levelCompletePanel->getContinueButton()));
+    }
+    
+#ifdef NG_GAME_SERVICES
+    if (!levelCompletePanel->getLeaderboardsButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getLeaderboardsButton(), MAIN_ASSETS->get(levelCompletePanel->getLeaderboardsButton()));
+    }
+#endif
+    
+    if (!levelCompletePanel->getClockIcon()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getClockIcon(), MAIN_ASSETS->get(levelCompletePanel->getClockIcon()));
+    }
+    
+    if (!levelCompletePanel->getCarrotIcon()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getCarrotIcon(), MAIN_ASSETS->get(levelCompletePanel->getCarrotIcon()));
+    }
+    
+    if (!levelCompletePanel->getGoldenCarrotIcon()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getGoldenCarrotIcon(), MAIN_ASSETS->get(levelCompletePanel->getGoldenCarrotIcon()));
+    }
+    
+    if (!levelCompletePanel->getVialIcon()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getVialIcon(), MAIN_ASSETS->get(levelCompletePanel->getVialIcon()));
+    }
+    
+    m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 }
 
 void MainRenderer::renderComingSoonScreenBackground()

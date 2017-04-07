@@ -2388,6 +2388,12 @@ TextureRegion& MainAssets::get(ScoreIcon* scoreIcon)
     assert(false);
 }
 
+TextureRegion& MainAssets::get(FinalScoreSparkle* finalScoreSparkle)
+{
+    static Animation anim = ASSETS->findAnimation("FinalScoreSparkle");
+    return anim.getTextureRegion(finalScoreSparkle->getStateTime());
+}
+
 bool MainAssets::isUsingCompressedTextureSet()
 {
     return m_isUsingCompressedTextureSet;
