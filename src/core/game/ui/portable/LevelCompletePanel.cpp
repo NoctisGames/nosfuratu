@@ -21,6 +21,7 @@
 #include "KeyboardEvent.h"
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
+#include "EntityUtils.h"
 
 #include <math.h>
 
@@ -110,6 +111,8 @@ void LevelCompletePanel::update(float deltaTime)
         m_position.setX(-CAM_WIDTH / 2 + CAM_WIDTH * getInterpolation(m_fStateTime));
         
         updateBounds();
+        
+        EntityUtils::updateAndClean(getSparkles(), deltaTime);
     }
     
     float w = m_fWidth;
@@ -194,6 +197,11 @@ void LevelCompletePanel::update(float deltaTime)
         
         m_leaderboardsButton->setWidth(iw * getInterpolationForButton(time));
         m_leaderboardsButton->setHeight(ih * getInterpolationForButton(time));
+        
+        if (m_sparkles.size() == 0)
+        {
+            m_sparkles.push_back(new FinalScoreSparkle(l + 3, b + 3, w * 0.252604166666667f, h * 0.3671875f));
+        }
     }
     
     m_replayButton->getPosition().set(l + w * 0.010416666666667f + iw / 2, b + h - h * 0.015625f - ih / 2);
@@ -373,7 +381,7 @@ m_iType(type),
 m_isAnimatingIn(false),
 m_isHidden(false)
 {
-    // Emptys
+    // Empty
 }
 
 void ScoreIcon::update(float deltaTime)
@@ -403,6 +411,21 @@ bool ScoreIcon::isHidden()
 void ScoreIcon::setHidden(bool isHidden)
 {
     m_isHidden = isHidden;
+}
+
+FinalScoreSparkle::FinalScoreSparkle(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)
+{
+    // Empty
+}
+
+void FinalScoreSparkle::update(float deltaTime)
+{
+    PhysicalEntity::update(deltaTime);
+    
+    if (m_fStateTime > 0.5f)
+    {
+        m_isRequestingDeletion = true;
+    }
 }
 
 RTTI_IMPL(LevelCompletePanel, PhysicalEntity);

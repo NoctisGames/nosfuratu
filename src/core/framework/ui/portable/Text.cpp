@@ -10,9 +10,10 @@
 
 Text::Text(std::string text, float x, float y, float width, float height, float red, float green, float blue, float alpha) : PhysicalEntity(x, y, width, height),
 m_strText(text),
-m_color(red, green, blue, alpha)
+m_color(red, green, blue, alpha),
+m_isHidden(false)
 {
-	m_strText = text;
+    // Empty
 }
 
 std::string Text::getText()
@@ -36,4 +37,14 @@ void Text::setColor(float red, float green, float blue, float alpha)
 	m_color.green = green;
 	m_color.blue = blue;
 	m_color.alpha = alpha;
+}
+
+bool Text::isHidden()
+{
+    return m_isHidden;
+}
+
+void Text::setHidden(bool isHidden)
+{
+    m_isHidden = isHidden;
 }

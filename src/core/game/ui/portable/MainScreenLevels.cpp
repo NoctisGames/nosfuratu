@@ -1332,6 +1332,7 @@ Level::~Level()
 {
     delete m_batPanel;
     delete m_backButton;
+    delete m_levelCompletePanel;
     
     delete m_game;
     m_game = nullptr;

@@ -1703,23 +1703,6 @@ void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePan
     
     renderPhysicalEntity(*levelCompletePanel, MAIN_ASSETS->get(levelCompletePanel));
     
-    if (!levelCompletePanel->getReplayButton()->isHidden())
-    {
-        renderPhysicalEntity(*levelCompletePanel->getReplayButton(), MAIN_ASSETS->get(levelCompletePanel->getReplayButton()));
-    }
-    
-    if (!levelCompletePanel->getContinueButton()->isHidden())
-    {
-        renderPhysicalEntity(*levelCompletePanel->getContinueButton(), MAIN_ASSETS->get(levelCompletePanel->getContinueButton()));
-    }
-    
-#ifdef NG_GAME_SERVICES
-    if (!levelCompletePanel->getLeaderboardsButton()->isHidden())
-    {
-        renderPhysicalEntity(*levelCompletePanel->getLeaderboardsButton(), MAIN_ASSETS->get(levelCompletePanel->getLeaderboardsButton()));
-    }
-#endif
-    
     if (!levelCompletePanel->getClockIcon()->isHidden())
     {
         renderPhysicalEntity(*levelCompletePanel->getClockIcon(), MAIN_ASSETS->get(levelCompletePanel->getClockIcon()));
@@ -1739,6 +1722,25 @@ void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePan
     {
         renderPhysicalEntity(*levelCompletePanel->getVialIcon(), MAIN_ASSETS->get(levelCompletePanel->getVialIcon()));
     }
+    
+    renderPhysicalEntities(levelCompletePanel->getSparkles());
+    
+    if (!levelCompletePanel->getReplayButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getReplayButton(), MAIN_ASSETS->get(levelCompletePanel->getReplayButton()));
+    }
+    
+    if (!levelCompletePanel->getContinueButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getContinueButton(), MAIN_ASSETS->get(levelCompletePanel->getContinueButton()));
+    }
+    
+#ifdef NG_GAME_SERVICES
+    if (!levelCompletePanel->getLeaderboardsButton()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getLeaderboardsButton(), MAIN_ASSETS->get(levelCompletePanel->getLeaderboardsButton()));
+    }
+#endif
     
     m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 }

@@ -34,7 +34,7 @@ class LevelCompletePanel : public PhysicalEntity
     RTTI_DECL;
     
 public:
-    LevelCompletePanel(float x = -CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.64f, float height = CAM_HEIGHT * 0.64f);
+    LevelCompletePanel(float x = -CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.56f, float height = CAM_HEIGHT * 0.56f);
     
     virtual ~LevelCompletePanel();
     
@@ -102,6 +102,8 @@ class FinalScoreSparkle : public PhysicalEntity
     
 public:
     FinalScoreSparkle(float x, float y, float width, float height);
+    
+    virtual void update(float deltaTime);
 };
 
 #endif /* defined(__nosfuratu__LevelCompletePanel__) */

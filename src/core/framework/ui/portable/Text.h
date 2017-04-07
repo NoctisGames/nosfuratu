@@ -27,6 +27,10 @@ public:
     Color& getColor();
 
 	void setColor(float red, float green, float blue, float alpha);
+    
+    bool isHidden();
+    
+    void setHidden(bool isHidden);
 
 private:
 	std::string m_strText;
@@ -35,6 +39,7 @@ private:
 	float m_fY;
 	float m_fWidth;
 	float m_fHeight;
+    bool m_isHidden;
 };
 
 #endif /* defined(__noctisgames__Text__) */
