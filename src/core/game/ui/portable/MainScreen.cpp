@@ -264,48 +264,6 @@ void MainScreen::clearRequestedAction()
     m_iRequestedAction = REQUESTED_ACTION_UPDATE;
 }
 
-int MainScreen::getScore()
-{
-    Level* level = (Level*) m_stateMachine.getCurrentState();
-    
-    return level->getScore();
-}
-
-int MainScreen::getLevelStatsFlag()
-{
-    Level* level = (Level*) m_stateMachine.getCurrentState();
-    
-    return level->getLevelStatsFlag();
-}
-
-int MainScreen::getLevelStatsFlagForUnlockedLevel()
-{
-    WorldMap *worldMap = WorldMap::getInstance();
-    
-    return worldMap->getUnlockedLevelStatsFlag();
-}
-
-int MainScreen::getNumGoldenCarrots()
-{
-    Level* level = (Level*) m_stateMachine.getCurrentState();
-    
-    return level->getNumGoldenCarrots();
-}
-
-int MainScreen::getNumGoldenCarrotsAfterUnlockingLevel()
-{
-    WorldMap *worldMap = WorldMap::getInstance();
-    
-    return worldMap->getNumCollectedGoldenCarrots();
-}
-
-int MainScreen::getJonAbilityFlag()
-{
-    Level* level = (Level*) m_stateMachine.getCurrentState();
-    
-    return level->getJonAbilityFlag();
-}
-
 void MainScreen::internalUpdate()
 {
     m_iNumInternalUpdates++;

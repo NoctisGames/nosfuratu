@@ -8,12 +8,13 @@
 
 #include "Text.h"
 
+#include "MathUtil.h"
+
 Text::Text(std::string text, float x, float y, float width, float height, float red, float green, float blue, float alpha) : PhysicalEntity(x, y, width, height),
 m_strText(text),
-m_color(red, green, blue, alpha),
-m_isHidden(false)
+m_color(red, green, blue, alpha)
 {
-    // Empty
+    updateCharColors();
 }
 
 std::string Text::getText()
@@ -24,6 +25,8 @@ std::string Text::getText()
 void Text::setText(std::string text)
 {
 	m_strText = text;
+    
+    updateCharColors();
 }
 
 Color& Text::getColor()
@@ -33,18 +36,35 @@ Color& Text::getColor()
 
 void Text::setColor(float red, float green, float blue, float alpha)
 {
-	m_color.red = red;
-	m_color.green = green;
-	m_color.blue = blue;
-	m_color.alpha = alpha;
+	m_color.red = clamp(red, 1, 0);
+	m_color.green = clamp(green, 1, 0);
+	m_color.blue = clamp(blue, 1, 0);
+	m_color.alpha = clamp(alpha, 1, 0);
+    
+    updateCharColors();
 }
 
-bool Text::isHidden()
+std::vector<Color>& Text::getCharColors()
 {
-    return m_isHidden;
+    return m_charColors;
 }
 
-void Text::setHidden(bool isHidden)
+void Text::setCharColor(int charIndex, float red, float green, float blue, float alpha)
 {
-    m_isHidden = isHidden;
+    m_charColors.at(charIndex).red = clamp(red, 1, 0);
+    m_charColors.at(charIndex).green = clamp(green, 1, 0);
+    m_charColors.at(charIndex).blue = clamp(blue, 1, 0);
+    m_charColors.at(charIndex).alpha = clamp(alpha, 1, 0);
+}
+
+void Text::updateCharColors()
+{
+    m_charColors.clear();
+    
+    unsigned long len = m_strText.length();
+    
+    for (unsigned int i = 0; i < len; ++i)
+    {
+        m_charColors.push_back(Color(m_color.red, m_color.green, m_color.blue, m_color.alpha));
+    }
 }

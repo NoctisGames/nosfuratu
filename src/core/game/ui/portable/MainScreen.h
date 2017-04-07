@@ -72,18 +72,6 @@ public:
     
     void clearRequestedAction();
     
-    int getScore();
-    
-    int getLevelStatsFlag();
-    
-    int getLevelStatsFlagForUnlockedLevel();
-    
-    int getNumGoldenCarrots();
-    
-    int getNumGoldenCarrotsAfterUnlockingLevel();
-    
-    int getJonAbilityFlag();
-    
 private:
     float m_fFrameStateTime;
     bool m_wasPaused;

@@ -68,6 +68,10 @@ public:
     
     bool isDashEffective(float deltaTime);
     
+    void updateScoreFromTime();
+    
+    void updateScore();
+    
     std::vector<Background *>& getBackgroundUppers();
     
     std::vector<Background *>& getBackgroundMids();
@@ -150,6 +154,28 @@ public:
     
     int getNumVialsCollected();
     
+    int getNumEnemiesKilled();
+    
+    int getNumCarrots();
+    
+    int getNumGoldenCarrots();
+    
+    int getNumVials();
+    
+    int getNumEnemies();
+    
+    int getScoreFromTime();
+    
+    int getScoreFromCarrots();
+    
+    int getScoreFromGoldenCarrots();
+    
+    int getScoreFromVials();
+    
+    int getScoreFromEnemies();
+    
+    int getScore();
+    
     int getWorld();
     
     int getLevel();
@@ -199,6 +225,16 @@ private:
     int m_iNumCarrotsCollected;
     int m_iNumGoldenCarrotsCollected;
     int m_iNumVialsCollected;
+    int m_iNumCarrots;
+    int m_iNumGoldenCarrots;
+    int m_iNumVials;
+    int m_iNumEnemies;
+    int m_iScoreFromTime;
+    int m_iScoreFromCarrots;
+    int m_iScoreFromGoldenCarrots;
+    int m_iScoreFromVials;
+    int m_iScoreFromEnemies;
+    int m_iScore;
     int m_iWorld;
     int m_iLevel;
     bool m_isLevelEditor;

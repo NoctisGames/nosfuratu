@@ -19,6 +19,7 @@
 
 class Game;
 class GameButton;
+class Text;
 
 class ScoreIcon;
 class FinalScoreSparkle;
@@ -57,6 +58,23 @@ public:
     ScoreIcon* getGoldenCarrotIcon();
     ScoreIcon* getVialIcon();
     
+    Text* getClockValue();
+    Text* getClockScore();
+    
+    Text* getCarrotValue();
+    Text* getCarrotScore();
+    
+    Text* getGoldenCarrotValue();
+    Text* getGoldenCarrotScore();
+    
+    Text* getVialValue();
+    Text* getVialScore();
+    
+    Text* getEnemyValue();
+    Text* getEnemyScore();
+    
+    Text* getFinalScore();
+    
 private:
     std::vector<FinalScoreSparkle*> m_sparkles;
     
@@ -69,7 +87,25 @@ private:
     ScoreIcon* m_goldenCarrotIcon;
     ScoreIcon* m_vialIcon;
     
+    Text* m_clockValue;
+    Text* m_clockScore;
+    
+    Text* m_carrotValue;
+    Text* m_carrotScore;
+    
+    Text* m_goldenCarrotValue;
+    Text* m_goldenCarrotScore;
+    
+    Text* m_vialValue;
+    Text* m_vialScore;
+    
+    Text* m_enemyValue;
+    Text* m_enemyScore;
+    
+    Text* m_finalScore;
+    
     Game* m_game;
+    float m_fSparkleStateTime;
     bool m_isLevelCompleted;
 };
 
@@ -80,10 +116,6 @@ class ScoreIcon : public PhysicalEntity
 public:
     ScoreIcon(float x, float y, float width, float height, int type);
     
-    virtual void update(float deltaTime);
-    
-    void animateIn();
-    
     int getType();
     
     bool isHidden();
@@ -92,7 +124,6 @@ public:
     
 private:
     int m_iType;
-    bool m_isAnimatingIn;
     bool m_isHidden;
 };
 

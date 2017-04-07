@@ -1478,7 +1478,7 @@ void MainRenderer::renderBlackOverlay(float opacity)
     m_fillNGRectBatcher->endBatch(*m_colorGpuProgramWrapper);
 }
 
-void MainRenderer::renderHud(Game& game, GameButton* backButton, int score)
+void MainRenderer::renderHud(Game& game, GameButton* backButton)
 {
 	m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
     
@@ -1556,7 +1556,7 @@ void MainRenderer::renderHud(Game& game, GameButton* backButton, int score)
         std::stringstream ss;
         
         // the number is converted to string with the help of stringstream
-        ss << score;
+        ss << game.getScore();
         std::string paddedScore;
         ss >> paddedScore;
         
@@ -1700,7 +1700,6 @@ void MainRenderer::renderDebugInfo(Game& game, int fps)
 void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePanel)
 {
     m_spriteBatcher->beginBatch();
-    
     renderPhysicalEntity(*levelCompletePanel, MAIN_ASSETS->get(levelCompletePanel));
     
     if (!levelCompletePanel->getClockIcon()->isHidden())
@@ -1741,8 +1740,65 @@ void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePan
         renderPhysicalEntity(*levelCompletePanel->getLeaderboardsButton(), MAIN_ASSETS->get(levelCompletePanel->getLeaderboardsButton()));
     }
 #endif
-    
     m_spriteBatcher->endBatch(*m_world_1_objects_part_1->gpuTextureWrapper, *m_textureGpuProgramWrapper);
+    
+    m_spriteBatcher->beginBatch();
+    {
+        Text* t = levelCompletePanel->getClockValue();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getClockScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getCarrotValue();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getCarrotScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getGoldenCarrotValue();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getGoldenCarrotScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getVialValue();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getVialScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getEnemyValue();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getEnemyScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    {
+        Text* t = levelCompletePanel->getFinalScore();
+        std::string value = t->getText();
+        m_font->renderText(*m_spriteBatcher, value, t->getPosition().getX(), t->getPosition().getY(), t->getWidth(), t->getHeight(), t->getCharColors());
+    }
+    m_spriteBatcher->endBatch(*m_misc->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 }
 
 void MainRenderer::renderComingSoonScreenBackground()
@@ -2016,31 +2072,9 @@ void MainRenderer::renderLevelEditor(MainScreenLevelEditor* gameScreenLevelEdito
 
         if (ensureTexture(m_misc))
         {
-            int numCarrots = 0;
-            int numGoldenCarrots = 0;
-            int numVials = 0;
-            for (
-                 std::vector<CollectibleItem *>::iterator i = gameScreenLevelEditor->getGame().getCollectibleItems().begin();
-                 i != gameScreenLevelEditor->getGame().getCollectibleItems().end();
-                 ++i)
-            {
-                if ((*i)->getType() == CollectibleItemType_Carrot)
-                {
-                    numCarrots++;
-                }
-                else if ((*i)->getType() == CollectibleItemType_BigCarrot)
-                {
-                    numCarrots += 10;
-                }
-                else if ((*i)->getType() == CollectibleItemType_Vial)
-                {
-                    numVials++;
-                }
-                else if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
-                {
-                    numGoldenCarrots++;
-                }
-            }
+            int numCarrots = gameScreenLevelEditor->getGame().getNumCarrots();
+            int numGoldenCarrots = gameScreenLevelEditor->getGame().getNumGoldenCarrots();
+            int numVials = gameScreenLevelEditor->getGame().getNumVials();
             
             m_spriteBatcher->beginBatch();
             

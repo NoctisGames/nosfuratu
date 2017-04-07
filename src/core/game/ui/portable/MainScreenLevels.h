@@ -66,14 +66,6 @@ public:
     
     void launchInDemoMode(std::vector<UserDemoAction> userDemoActions);
     
-    int getScore();
-    
-    int getLevelStatsFlag();
-    
-    int getNumGoldenCarrots();
-    
-    int getJonAbilityFlag();
-    
     bool hasCompletedLevel();
     
     Game& getGame();
@@ -90,9 +82,6 @@ protected:
     LevelCompletePanel* m_levelCompletePanel;
     BatPanel* m_batPanel;
     float m_fStateTime;
-    int m_iScoreFromTime;
-    int m_iScoreFromObjects;
-    int m_iScore;
     int m_iLevelStatsFlag;
     int m_iNumGoldenCarrots;
     int m_iNumTimesBatPanelDisplayed;
@@ -146,8 +135,6 @@ protected:
 private:
     bool m_playLevelSelectMusicOnExit;
 	bool m_stopMusicOnExit;
-    
-    void updateScore();
     
     void handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime);
 };

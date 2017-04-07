@@ -1023,7 +1023,7 @@ void LevelToComingSoon::execute(MainScreen* ms)
         
         if (m_levelState)
         {
-            ms->m_renderer->renderHud(m_levelState->getGame(), nullptr, m_levelState->getScore());
+            ms->m_renderer->renderHud(m_levelState->getGame(), nullptr);
         }
         
         ms->m_renderer->setFramebuffer(1);

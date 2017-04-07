@@ -56,9 +56,6 @@ UserDemoAction::UserDemoAction(DemoAction action, float stateTimeToExecuteAction
 void Level::enter(MainScreen* ms)
 {
     m_fStateTime = 0;
-    m_iScoreFromTime = 0;
-    m_iScoreFromObjects = 0;
-    m_iScore = 0;
     m_iLevelStatsFlag = m_iBestLevelStatsFlag;
     m_iNumGoldenCarrots = m_iLastKnownNumGoldenCarrots;
     m_hasCompletedLevel = false;
@@ -207,26 +204,6 @@ void Level::launchInDemoMode(std::vector<UserDemoAction> userDemoActions)
     m_isDemoMode = true;
     m_iBestLevelStatsFlag = FLAG_LEVEL_COMPLETE;
     m_iLastKnownJonAbilityFlag = FLAG_ABILITY_ALL;
-}
-
-int Level::getScore()
-{
-    return m_iScore;
-}
-
-int Level::getLevelStatsFlag()
-{
-    return m_iLevelStatsFlag;
-}
-
-int Level::getNumGoldenCarrots()
-{
-    return m_iNumGoldenCarrots;
-}
-
-int Level::getJonAbilityFlag()
-{
-    return m_game->getJon().getAbilityFlag();
 }
 
 bool Level::hasCompletedLevel()
@@ -403,7 +380,7 @@ void Level::update(MainScreen* ms)
         }
         else
         {
-            updateScore();
+            m_game->updateScore();
             
             // Is Still Actively playing the Level
             
@@ -453,7 +430,7 @@ void Level::update(MainScreen* ms)
             
             handleCollections(jon, m_game->getCollectibleItems(), ms->m_fDeltaTime);
             
-            updateScore();
+            m_game->updateScore();
             
             if (ms->m_isScreenHeldDown)
             {
@@ -556,25 +533,14 @@ void Level::update(MainScreen* ms)
                 m_iLevelStatsFlag = FlagUtil::setFlag(m_iLevelStatsFlag, FLAG_BONUS_GOLDEN_CARROT_COLLECTED);
             }
             
-            static float startingTime = m_game->getLevel() == 10 || m_game->getLevel() == 21 ? 180.0f : 120.0f;
+            m_game->updateScoreFromTime();
             
-            float secondsLeft = clamp(startingTime - m_game->getStateTime(), startingTime, 0);
+            m_game->updateScore();
             
-            m_iScoreFromTime = secondsLeft * 1000;
-            
-            updateScore();
-            
-            if (m_iScore < m_iBestScore)
+            int finalScore = m_game->getScore();
+            if (finalScore < m_iBestScore)
             {
-                m_iScore = m_iBestScore;
-            }
-            
-            if (m_iScore > m_iBestScore)
-            {
-#ifdef NG_GAME_SERVICES
-                // TODO, submit score online (e.g. via Google Play Game Services)
-                // Once submitted, save the score here
-#endif
+                finalScore = m_iBestScore;
             }
             
             if (FlagUtil::isFlagSet(m_iLevelStatsFlag, FLAG_FIRST_GOLDEN_CARROT_COLLECTED)
@@ -603,7 +569,7 @@ void Level::update(MainScreen* ms)
             
             {
                 std::string key = getKeyForLevelScore(m_game->getWorld(), m_game->getLevel());
-                std::string val = StringUtil::toString(m_iScore);
+                std::string val = StringUtil::toString(finalScore);
                 NG_SAVE_DATA->getKeyValues()[key] = val;
             }
             
@@ -677,7 +643,7 @@ void Level::render(MainScreen* ms)
     if (m_hasOpeningSequenceCompleted
         && !m_hasCompletedLevel)
     {
-        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton, m_iScore);
+        ms->m_renderer->renderHud(*m_game, m_hasCompletedLevel ? nullptr : m_backButton);
     }
 
     if (m_isDebug)
@@ -1179,6 +1145,14 @@ bool Level::handleInput(MainScreen* ms)
                 if (!m_hasCompletedLevel
                     && m_backButton->handleClick(touchPoint))
                 {
+//                    m_game->setNumCarrotsCollected(112);
+//                    m_game->setNumGoldenCarrotsCollected(4);
+//                    m_game->setNumVialsCollected(1);
+//                    
+//                    m_game->updateScoreFromTime();
+//                    
+//                    m_game->updateScore();
+//                    
 //                    m_hasCompletedLevel = true;
 //                    m_isDisplayingResults = true;
 //                    
@@ -1217,20 +1191,6 @@ bool Level::handleInput(MainScreen* ms)
     }
     
     return false;
-}
-
-void Level::updateScore()
-{
-    m_iScoreFromObjects = m_game->getNumCarrotsCollected() * SCORE_CARROT;
-    m_iScoreFromObjects += m_game->getNumGoldenCarrotsCollected() * SCORE_GOLDEN_CARROT;
-    m_iScoreFromObjects += m_game->getNumVialsCollected() * SCORE_VIAL;
-    
-    if (m_game->getJons().size() > 0)
-    {
-        m_iScoreFromObjects += m_game->getJon().getNumEnemiesDestroyed() * SCORE_ENEMY;
-    }
-    
-    m_iScore = m_iScoreFromTime + m_iScoreFromObjects;
 }
 
 void Level::handleCollections(PhysicalEntity& entity, std::vector<CollectibleItem *>& items, float deltaTime)
@@ -1299,9 +1259,6 @@ m_batPanel(new BatPanel()),
 m_backButton(GameButton::create(GameButtonType_BackToLevelSelect)),
 m_levelCompletePanel(new LevelCompletePanel()),
 m_fStateTime(0.0f),
-m_iScoreFromTime(0),
-m_iScoreFromObjects(0),
-m_iScore(0),
 m_iLevelStatsFlag(0),
 m_iNumGoldenCarrots(0),
 m_iNumTimesBatPanelDisplayed(0),

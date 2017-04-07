@@ -28,18 +28,20 @@ public:
 
 	void setColor(float red, float green, float blue, float alpha);
     
-    bool isHidden();
+    std::vector<Color>& getCharColors();
     
-    void setHidden(bool isHidden);
+    void setCharColor(int charIndex, float red, float green, float blue, float alpha);
 
 private:
 	std::string m_strText;
     Color m_color;
+    std::vector<Color> m_charColors;
 	float m_fX;
 	float m_fY;
 	float m_fWidth;
 	float m_fHeight;
-    bool m_isHidden;
+    
+    void updateCharColors();
 };
 
 #endif /* defined(__noctisgames__Text__) */

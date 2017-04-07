@@ -7,7 +7,9 @@
 //
 
 #include "Animation.h"
+
 #include "TextureRegion.h"
+
 #include <stdarg.h>
 
 Animation::Animation(std::string textureName, int x, int y, int regionWidth, int regionHeight, int animationWidth, int animationHeight, int textureWidth, int textureHeight, bool looping, int numFrames) : m_textureName(textureName), m_fCycleTime(0), m_iFirstLoopingFrame(0), m_looping(looping)

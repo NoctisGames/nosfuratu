@@ -31,6 +31,7 @@
 #include "Assets.h"
 #include "GridManager.h"
 #include "NGSTDUtil.h"
+#include "MathUtil.h"
 
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -66,6 +67,16 @@ m_iBestLevelStatsFlag(0),
 m_iNumCarrotsCollected(0),
 m_iNumGoldenCarrotsCollected(0),
 m_iNumVialsCollected(0),
+m_iNumCarrots(0),
+m_iNumGoldenCarrots(0),
+m_iNumVials(0),
+m_iNumEnemies(0),
+m_iScoreFromTime(0),
+m_iScoreFromCarrots(0),
+m_iScoreFromGoldenCarrots(0),
+m_iScoreFromVials(0),
+m_iScoreFromEnemies(0),
+m_iScore(0),
 m_iWorld(1),
 m_iLevel(1),
 m_isLevelEditor(false)
@@ -216,6 +227,16 @@ void Game::reset()
     m_iNumCarrotsCollected = 0;
     m_iNumGoldenCarrotsCollected = 0;
     m_iNumVialsCollected = 0;
+    m_iNumCarrots = 0;
+    m_iNumGoldenCarrots = 0;
+    m_iNumVials = 0;
+    m_iNumEnemies = 0;
+    m_iScoreFromTime = 0;
+    m_iScoreFromCarrots = 0;
+    m_iScoreFromGoldenCarrots = 0;
+    m_iScoreFromVials = 0;
+    m_iScoreFromEnemies = 0;
+    m_iScore = 0;
 }
 
 void Game::update(float deltaTime)
@@ -446,6 +467,25 @@ bool Game::isDashEffective(float deltaTime)
     return EntityUtils::isHorizontallyHitting(getJon(), getEnemies(), deltaTime);
 }
 
+void Game::updateScoreFromTime()
+{
+    static float startingTime = getLevel() == 10 || getLevel() == 21 ? 180.0f : 120.0f;
+    
+    float secondsLeft = clamp(startingTime - getStateTime(), startingTime, 0);
+    
+    m_iScoreFromTime = secondsLeft * 1000;
+}
+
+void Game::updateScore()
+{
+    m_iScoreFromCarrots = getNumCarrotsCollected() * SCORE_CARROT;
+    m_iScoreFromGoldenCarrots = getNumGoldenCarrotsCollected() * SCORE_GOLDEN_CARROT;
+    m_iScoreFromVials = getNumVialsCollected() * SCORE_VIAL;
+    m_iScoreFromEnemies = getNumEnemiesKilled() * SCORE_ENEMY;
+    
+    m_iScore = m_iScoreFromCarrots + m_iScoreFromGoldenCarrots + m_iScoreFromVials + m_iScoreFromEnemies + m_iScoreFromTime;
+}
+
 std::vector<Background *>& Game::getBackgroundUppers()
 {
     return m_backgroundUppers;
@@ -653,6 +693,66 @@ int Game::getNumVialsCollected()
     return m_iNumVialsCollected;
 }
 
+int Game::getNumEnemiesKilled()
+{
+    if (getJons().size() > 0)
+    {
+        return getJon().getNumEnemiesDestroyed();
+    }
+    
+    return 0;
+}
+
+int Game::getNumCarrots()
+{
+    return m_iNumCarrots;
+}
+
+int Game::getNumGoldenCarrots()
+{
+    return m_iNumGoldenCarrots;
+}
+
+int Game::getNumVials()
+{
+    return m_iNumVials;
+}
+
+int Game::getNumEnemies()
+{
+    return m_iNumEnemies;
+}
+
+int Game::getScoreFromTime()
+{
+    return m_iScoreFromTime;
+}
+
+int Game::getScoreFromCarrots()
+{
+    return m_iScoreFromCarrots;
+}
+
+int Game::getScoreFromGoldenCarrots()
+{
+    return m_iScoreFromGoldenCarrots;
+}
+
+int Game::getScoreFromVials()
+{
+    return m_iScoreFromVials;
+}
+
+int Game::getScoreFromEnemies()
+{
+    return m_iScoreFromEnemies;
+}
+
+int Game::getScore()
+{
+    return m_iScore;
+}
+
 int Game::getWorld()
 {
     return m_iWorld;
@@ -764,6 +864,35 @@ void Game::onLoaded()
     EntityUtils::setGameToEntities(m_endBossSnakes, this);
     
     configureGoldenCarrots();
+    
+    for (std::vector<CollectibleItem *>::iterator i = getCollectibleItems().begin(); i != getCollectibleItems().end(); ++i)
+    {
+        if ((*i)->getType() == CollectibleItemType_Carrot)
+        {
+            m_iNumCarrots++;
+        }
+        else if ((*i)->getType() == CollectibleItemType_BigCarrot)
+        {
+            m_iNumCarrots += 10;
+        }
+        else if ((*i)->getType() == CollectibleItemType_Vial)
+        {
+            m_iNumVials++;
+        }
+        else if ((*i)->getType() == CollectibleItemType_GoldenCarrot)
+        {
+            m_iNumGoldenCarrots++;
+        }
+    }
+    
+    m_iNumEnemies = (int) getEnemies().size();
+    for (std::vector<Enemy *>::iterator i = getEnemies().begin(); i != getEnemies().end(); ++i)
+    {
+        if ((*i)->getRTTI().derivesFrom(Mushroom::rtti))
+        {
+            m_iNumEnemies--;
+        }
+    }
     
     calcFarRight();
 }

@@ -8,8 +8,8 @@
 
 #include "Font.h"
 
-#include "TextureRegion.h"
 #include "SpriteBatcher.h"
+#include "TextureRegion.h"
 #include "Color.h"
 
 Font::Font(std::string textureName, int offsetX, int offsetY, int glyphsPerRow, int glyphWidth, int glyphHeight, int textureWidth, int textureHeight)
@@ -38,10 +38,11 @@ Font::~Font()
 
 void Font::renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, float y, float width, float height, Color color, bool isCentered, bool isRightJustified, int charOffset)
 {
+    unsigned long len = text.length();
+    
 	if (isCentered)
 	{
-		int len = (int)text.length();
-		float result = width / 2;
+        float result = width / 2;
 		x -= len * result;
 		x += width / 2;
 	}
@@ -50,7 +51,7 @@ void Font::renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, 
 		x -= (text.length() - 1) * width;
 	}
 
-	for (unsigned int i = 0; i < text.length(); ++i)
+	for (unsigned int i = 0; i < len; ++i)
 	{
 		int c = ((int)text.at(i)) - charOffset;
 
@@ -58,6 +59,24 @@ void Font::renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, 
 
 		x += width;
 	}
+}
+
+void Font::renderText(SpriteBatcher &spriteBatcher, std::string &text, float x, float y, float width, float height, std::vector<Color>& charColors)
+{
+    unsigned long len = text.length();
+    
+    float result = width / 2;
+    x -= len * result;
+    x += width / 2;
+    
+    for (unsigned int i = 0; i < len; ++i)
+    {
+        int c = (int) text.at(i);
+        
+        renderAsciiChar(spriteBatcher, c, x, y, width, height, charColors.at(i));
+        
+        x += width;
+    }
 }
 
 void Font::renderAsciiChar(SpriteBatcher &spriteBatcher, int asciiChar, float x, float y, float width, float height, Color color)

@@ -10,6 +10,7 @@
 
 #include "Game.h"
 #include "GameButton.h"
+#include "Text.h"
 
 #include "NGSTDUtil.h"
 #include "OverlapTester.h"
@@ -24,6 +25,10 @@
 #include "EntityUtils.h"
 
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
 LevelCompletePanel::LevelCompletePanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
 m_isLevelCompleted(false)
@@ -31,17 +36,41 @@ m_isLevelCompleted(false)
     float w = m_fWidth;
     float h = m_fHeight;
     
-    float iw = w * 0.09375f;
-    float ih = h * 0.140625f;
+    {
+        float iw = w * 0.09375f;
+        float ih = h * 0.140625f;
+        
+        m_replayButton = new GameButton(0, 0, iw, ih, GameButtonType_Replay);
+        m_continueButton = new GameButton(0, 0, iw, ih, GameButtonType_ContinueToLevelSelect);
+        m_leaderboardsButton = new GameButton(0, 0, iw, ih, GameButtonType_Leaderboards);
+        
+        m_clockIcon = new ScoreIcon(0, 0, iw, ih, 1);
+        m_carrotIcon = new ScoreIcon(0, 0, iw, ih, 2);
+        m_goldenCarrotIcon = new ScoreIcon(0, 0, iw, ih, 3);
+        m_vialIcon = new ScoreIcon(0, 0, iw, ih, 4);
+    }
     
-    m_replayButton = new GameButton(0, 0, iw, ih, GameButtonType_Replay);
-    m_continueButton = new GameButton(0, 0, iw, ih, GameButtonType_ContinueToLevelSelect);
-    m_leaderboardsButton = new GameButton(0, 0, iw, ih, GameButtonType_Leaderboards);
-    
-    m_clockIcon = new ScoreIcon(0, 0, iw, ih, 1);
-    m_carrotIcon = new ScoreIcon(0, 0, iw, ih, 2);
-    m_goldenCarrotIcon = new ScoreIcon(0, 0, iw, ih, 3);
-    m_vialIcon = new ScoreIcon(0, 0, iw, ih, 4);
+    {
+        float cw = w * 0.0390625f;
+        float ch = h * 0.09375f;
+        
+        m_clockValue = new Text("0:00.000", 0, 0, cw, ch, 0, 0, 0, 0);
+        m_clockScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
+        
+        m_carrotValue = new Text("0/100", 0, 0, cw, ch, 0, 0, 0, 0);
+        m_carrotScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
+        
+        m_goldenCarrotValue = new Text("0/4", 0, 0, cw, ch, 0, 0, 0, 0);
+        m_goldenCarrotScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
+        
+        m_vialValue = new Text("0/2", 0, 0, cw, ch, 0, 0, 0, 0);
+        m_vialScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
+        
+        m_enemyValue = new Text("0/0", 0, 0, cw, ch, 0, 0, 0, 0);
+        m_enemyScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
+        
+        m_finalScore = new Text("0", 0, 0, w * 0.046875f, h * 0.1171875f, 0, 0, 0, 0);
+    }
     
     reset();
 }
@@ -58,6 +87,23 @@ LevelCompletePanel::~LevelCompletePanel()
     delete m_carrotIcon;
     delete m_goldenCarrotIcon;
     delete m_vialIcon;
+    
+    delete m_clockValue;
+    delete m_clockScore;
+    
+    delete m_carrotValue;
+    delete m_carrotScore;
+    
+    delete m_goldenCarrotValue;
+    delete m_goldenCarrotScore;
+    
+    delete m_vialValue;
+    delete m_vialScore;
+    
+    delete m_enemyValue;
+    delete m_enemyScore;
+    
+    delete m_finalScore;
 }
 
 float getInterpolation(float time)
@@ -128,48 +174,92 @@ void LevelCompletePanel::update(float deltaTime)
     {
         if (m_clockIcon->isHidden())
         {
-            m_clockIcon->animateIn();
+            m_clockIcon->setHidden(false);
         }
         
         time -= 1;
         m_clockIcon->setWidth(iw * getInterpolationForIcon(time));
         m_clockIcon->setHeight(ih * getInterpolationForIcon(time));
+        
+        m_clockValue->setColor(0, 0, 0, getInterpolationForIcon(time));
+        if (time > 0.25f)
+        {
+            m_clockScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+        }
     }
     
     if (m_fStateTime > 1.75f)
     {
         if (m_carrotIcon->isHidden())
         {
-            m_carrotIcon->animateIn();
+            m_carrotIcon->setHidden(false);
         }
         
         time -= 0.75f;
         m_carrotIcon->setWidth(iw * getInterpolationForIcon(time));
         m_carrotIcon->setHeight(ih * getInterpolationForIcon(time));
+        
+        m_carrotValue->setColor(0, 0, 0, getInterpolationForIcon(time));
+        if (time > 0.25f)
+        {
+            m_carrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+        }
+        
+        if (m_game->getNumCarrotsCollected() >= 100)
+        {
+            // Bonus Golden Carrot Earned
+            m_carrotValue->setCharColor(0, 1, 0.941176470588235f, 0.192156862745098f, m_carrotValue->getColor().alpha);
+            m_carrotValue->setCharColor(1, 1, 0.941176470588235f, 0.192156862745098f, m_carrotValue->getColor().alpha);
+            m_carrotValue->setCharColor(2, 1, 0.941176470588235f, 0.192156862745098f, m_carrotValue->getColor().alpha);
+        }
     }
     
     if (m_fStateTime > 2.5f)
     {
         if (m_goldenCarrotIcon->isHidden())
         {
-            m_goldenCarrotIcon->animateIn();
+            m_goldenCarrotIcon->setHidden(false);
         }
         
         time -= 0.75f;
         m_goldenCarrotIcon->setWidth(iw * getInterpolationForIcon(time));
         m_goldenCarrotIcon->setHeight(ih * getInterpolationForIcon(time));
+        
+        m_goldenCarrotValue->setColor(0, 0, 0, getInterpolationForIcon(time));
+        if (time > 0.25f)
+        {
+            m_goldenCarrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+        }
+        
+        if (m_game->getNumCarrotsCollected() >= 100)
+        {
+            // Bonus Golden Carrot Earned
+            m_goldenCarrotValue->setCharColor(0, 1, 0.941176470588235f, 0.192156862745098f, m_goldenCarrotValue->getColor().alpha);
+        }
     }
     
     if (m_fStateTime > 3.25f)
     {
         if (m_vialIcon->isHidden())
         {
-            m_vialIcon->animateIn();
+            m_vialIcon->setHidden(false);
         }
         
         time -= 0.75f;
         m_vialIcon->setWidth(iw * getInterpolationForIcon(time));
         m_vialIcon->setHeight(ih * getInterpolationForIcon(time));
+        
+        m_vialValue->setColor(0, 0, 0, getInterpolationForIcon(time));
+        if (time > 0.25f)
+        {
+            m_vialScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+        }
+        
+        m_enemyValue->setColor(0, 0, 0, getInterpolationForIcon(time));
+        if (time > 0.25f)
+        {
+            m_enemyScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+        }
     }
     
     if (m_fStateTime > 4)
@@ -198,10 +288,20 @@ void LevelCompletePanel::update(float deltaTime)
         m_leaderboardsButton->setWidth(iw * getInterpolationForButton(time));
         m_leaderboardsButton->setHeight(ih * getInterpolationForButton(time));
         
-        if (m_sparkles.size() == 0)
+        m_fSparkleStateTime += deltaTime;
+        
+        if (m_fSparkleStateTime > 0)
         {
-            m_sparkles.push_back(new FinalScoreSparkle(l + 3, b + 3, w * 0.252604166666667f, h * 0.3671875f));
+            float randX = rand() / (float) RAND_MAX;
+            float randY = rand() / (float) RAND_MAX;
+            randX *= 0.403645833333333f * w;
+            randY *= 0.1484375 * h;
+            m_sparkles.push_back(new FinalScoreSparkle(l + w * 0.462239583333333f + randX, b + h * 0.037109375f + randY, w * 0.252604166666667f, h * 0.3671875f));
+            
+            m_fSparkleStateTime = -0.10f;
         }
+        
+        m_finalScore->setColor(0.12156862745098f, 0.713725490196078f, 0.96078431372549f, getInterpolationForIcon(time));
     }
     
     m_replayButton->getPosition().set(l + w * 0.010416666666667f + iw / 2, b + h - h * 0.015625f - ih / 2);
@@ -212,13 +312,26 @@ void LevelCompletePanel::update(float deltaTime)
     m_leaderboardsButton->updateBounds();
     
     m_clockIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.734375f);
-    m_clockIcon->updateBounds();
     m_carrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.578125f);
-    m_carrotIcon->updateBounds();
     m_goldenCarrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.421875f);
-    m_goldenCarrotIcon->updateBounds();
     m_vialIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.265625f);
-    m_vialIcon->updateBounds();
+    
+    m_clockValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.734375f);
+    m_clockScore->getPosition().set(l + w * 0.71875f, b + h * 0.734375f);
+    
+    m_carrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.578125f);
+    m_carrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.578125f);
+    
+    m_goldenCarrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.421875f);
+    m_goldenCarrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.421875f);
+    
+    m_vialValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.265625f);
+    m_vialScore->getPosition().set(l + w * 0.71875f, b + h * 0.265625f);
+    
+    m_enemyValue->getPosition().set(l + w * 0, b + h * 0);
+    m_enemyScore->getPosition().set(l + w * 0.5f, b + h * 0);
+    
+    m_finalScore->getPosition().set(l + w * 0.662760416666667f, b + h * 0.109375f);
 }
 
 int LevelCompletePanel::handleInput()
@@ -314,6 +427,163 @@ void LevelCompletePanel::onLevelCompleted(Game* game)
     m_fStateTime = 0;
     
     m_isLevelCompleted = true;
+    
+    {
+        float seconds = m_game->getStateTime();
+        
+        if (seconds > 599.999f)
+        {
+            seconds = 599.999f;
+        }
+        
+        int minutesLeft = 0;
+        while (seconds >= 60)
+        {
+            seconds -= 60;
+            minutesLeft++;
+        }
+        
+        std::stringstream ss;
+        ss << minutesLeft << ":";
+        if (seconds < 10)
+        {
+            ss << "0";
+        }
+        ss << std::fixed << std::setprecision(3) << seconds;
+        std::string text = ss.str();
+        
+        m_clockValue->setText(text);
+    }
+    
+    {
+        std::stringstream ss;
+        ss << m_game->getNumCarrotsCollected() << "/" << m_game->getNumCarrots();
+        std::string text = ss.str();
+        m_carrotValue->setText(text);
+    }
+    
+    {
+        std::stringstream ss;
+        ss << m_game->getNumGoldenCarrotsCollected() << "/" << m_game->getNumGoldenCarrots();
+        std::string text = ss.str();
+        m_goldenCarrotValue->setText(text);
+    }
+    
+    {
+        std::stringstream ss;
+        ss << m_game->getNumVialsCollected() << "/" << m_game->getNumVials();
+        std::string text = ss.str();
+        m_vialValue->setText(text);
+    }
+    
+    {
+        std::stringstream ss;
+        ss << m_game->getNumEnemiesKilled() << "/" << m_game->getNumEnemies();
+        std::string text = ss.str();
+        m_enemyValue->setText(text);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScoreFromTime();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_clockScore->setText(paddedScore);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScoreFromCarrots();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_carrotScore->setText(paddedScore);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScoreFromGoldenCarrots();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_goldenCarrotScore->setText(paddedScore);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScoreFromVials();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_vialScore->setText(paddedScore);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScoreFromEnemies();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_enemyScore->setText(paddedScore);
+    }
+    
+    {
+        std::stringstream ss;
+        
+        // the number is converted to string with the help of stringstream
+        ss << m_game->getScore();
+        std::string paddedScore;
+        ss >> paddedScore;
+        
+        // Append zero chars
+        unsigned long str_length = paddedScore.length();
+        for (int i = 0; i < 6 - str_length; ++i)
+        {
+            paddedScore = "0" + paddedScore;
+        }
+        m_finalScore->setText(paddedScore);
+    }
 }
 
 void LevelCompletePanel::reset()
@@ -321,7 +591,7 @@ void LevelCompletePanel::reset()
     m_position.setX(-CAM_WIDTH / 2);
     
     m_fStateTime = 0;
-    
+    m_fSparkleStateTime = 0;
     m_isLevelCompleted = false;
     
     m_clockIcon->setHidden(true);
@@ -332,6 +602,25 @@ void LevelCompletePanel::reset()
     m_replayButton->setHidden(true);
     m_continueButton->setHidden(true);
     m_leaderboardsButton->setHidden(true);
+    
+    m_clockValue->setColor(0, 0, 0, 0);
+    m_clockScore->setColor(0, 0, 0, 0);
+    
+    m_carrotValue->setColor(0, 0, 0, 0);
+    m_carrotScore->setColor(0, 0, 0, 0);
+    
+    m_goldenCarrotValue->setColor(0, 0, 0, 0);
+    m_goldenCarrotScore->setColor(0, 0, 0, 0);
+    
+    m_vialValue->setColor(0, 0, 0, 0);
+    m_vialScore->setColor(0, 0, 0, 0);
+    
+    m_enemyValue->setColor(0, 0, 0, 0);
+    m_enemyScore->setColor(0, 0, 0, 0);
+    
+    m_finalScore->setColor(0, 0, 0, 0);
+    
+    srand (static_cast <unsigned> (time(0)));
     
     update(0);
 }
@@ -376,26 +665,66 @@ ScoreIcon* LevelCompletePanel::getVialIcon()
     return m_vialIcon;
 }
 
+Text* LevelCompletePanel::getClockValue()
+{
+    return m_clockValue;
+}
+
+Text* LevelCompletePanel::getClockScore()
+{
+    return m_clockScore;
+}
+
+Text* LevelCompletePanel::getCarrotValue()
+{
+    return m_carrotValue;
+}
+
+Text* LevelCompletePanel::getCarrotScore()
+{
+    return m_carrotScore;
+}
+
+Text* LevelCompletePanel::getGoldenCarrotValue()
+{
+    return m_goldenCarrotValue;
+}
+
+Text* LevelCompletePanel::getGoldenCarrotScore()
+{
+    return m_goldenCarrotScore;
+}
+
+Text* LevelCompletePanel::getVialValue()
+{
+    return m_vialValue;
+}
+
+Text* LevelCompletePanel::getVialScore()
+{
+    return m_vialScore;
+}
+
+Text* LevelCompletePanel::getEnemyValue()
+{
+    return m_enemyValue;
+}
+
+Text* LevelCompletePanel::getEnemyScore()
+{
+    return m_enemyScore;
+}
+
+Text* LevelCompletePanel::getFinalScore()
+{
+    return m_finalScore;
+}
+
 ScoreIcon::ScoreIcon(float x, float y, float width, float height, int type) : PhysicalEntity(x, y, width, height),
 m_iType(type),
-m_isAnimatingIn(false),
 m_isHidden(false)
 {
     // Empty
-}
-
-void ScoreIcon::update(float deltaTime)
-{
-    if (m_isAnimatingIn)
-    {
-        // TODO
-    }
-}
-
-void ScoreIcon::animateIn()
-{
-    m_isAnimatingIn = true;
-    m_isHidden = false;
 }
 
 int ScoreIcon::getType()
