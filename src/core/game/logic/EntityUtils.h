@@ -251,8 +251,11 @@ public:
                 // Special Behavior here
                 PlatformObject* platformObj = (PlatformObject *)(*i);
                 if (platformObj->getType() == ForegroundObjectType_GrassPlatformCenter
+                    || platformObj->getType() == ForegroundObjectType_GrassPlatformRight
                     || platformObj->getType() == ForegroundObjectType_CavePlatformCenter
-                    || platformObj->getType() == ForegroundObjectType_MetalGrassPlatformCenter)
+                    || platformObj->getType() == ForegroundObjectType_CavePlatformRight
+                    || platformObj->getType() == ForegroundObjectType_MetalGrassPlatformCenter
+                    || platformObj->getType() == ForegroundObjectType_MetalGrassPlatformRight)
                 {
                     continue;
                 }
