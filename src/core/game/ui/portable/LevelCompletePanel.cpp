@@ -182,27 +182,27 @@ void LevelCompletePanel::update(float deltaTime)
         m_clockIcon->setHeight(ih * getInterpolationForIcon(time));
         
         m_clockValue->setColor(0, 0, 0, getInterpolationForIcon(time));
-        if (time > 0.25f)
+        if (time > 0.10f)
         {
-            m_clockScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+            m_clockScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
     }
     
-    if (m_fStateTime > 1.75f)
+    if (m_fStateTime > 1.25f)
     {
         if (m_carrotIcon->isHidden())
         {
             m_carrotIcon->setHidden(false);
         }
         
-        time -= 0.75f;
+        time -= 0.25f;
         m_carrotIcon->setWidth(iw * getInterpolationForIcon(time));
         m_carrotIcon->setHeight(ih * getInterpolationForIcon(time));
         
         m_carrotValue->setColor(0, 0, 0, getInterpolationForIcon(time));
-        if (time > 0.25f)
+        if (time > 0.10f)
         {
-            m_carrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+            m_carrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
         
         if (m_game->getNumCarrotsCollected() >= 100)
@@ -214,21 +214,21 @@ void LevelCompletePanel::update(float deltaTime)
         }
     }
     
-    if (m_fStateTime > 2.5f)
+    if (m_fStateTime > 1.5f)
     {
         if (m_goldenCarrotIcon->isHidden())
         {
             m_goldenCarrotIcon->setHidden(false);
         }
         
-        time -= 0.75f;
+        time -= 0.25f;
         m_goldenCarrotIcon->setWidth(iw * getInterpolationForIcon(time));
         m_goldenCarrotIcon->setHeight(ih * getInterpolationForIcon(time));
         
         m_goldenCarrotValue->setColor(0, 0, 0, getInterpolationForIcon(time));
-        if (time > 0.25f)
+        if (time > 0.10f)
         {
-            m_goldenCarrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+            m_goldenCarrotScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
         
         if (m_game->getNumCarrotsCollected() >= 100)
@@ -238,32 +238,34 @@ void LevelCompletePanel::update(float deltaTime)
         }
     }
     
-    if (m_fStateTime > 3.25f)
+    if (m_fStateTime > 1.75f)
     {
         if (m_vialIcon->isHidden())
         {
             m_vialIcon->setHidden(false);
         }
         
-        time -= 0.75f;
+        time -= 0.25f;
         m_vialIcon->setWidth(iw * getInterpolationForIcon(time));
         m_vialIcon->setHeight(ih * getInterpolationForIcon(time));
         
         m_vialValue->setColor(0, 0, 0, getInterpolationForIcon(time));
-        if (time > 0.25f)
+        if (time > 0.10f)
         {
-            m_vialScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+            m_vialScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
         
         m_enemyValue->setColor(0, 0, 0, getInterpolationForIcon(time));
-        if (time > 0.25f)
+        if (time > 0.10f)
         {
-            m_enemyScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.25f));
+            m_enemyScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
     }
     
-    if (m_fStateTime > 4)
+    if (m_fStateTime > 2)
     {
+        time -= 0.25f;
+        
         if (m_replayButton->isHidden())
         {
             m_replayButton->animateIn();
@@ -588,6 +590,8 @@ void LevelCompletePanel::onLevelCompleted(Game* game)
 
 void LevelCompletePanel::reset()
 {
+    NGSTDUtil::cleanUpVectorOfPointers(m_sparkles);
+    
     m_position.setX(-CAM_WIDTH / 2);
     
     m_fStateTime = 0;
