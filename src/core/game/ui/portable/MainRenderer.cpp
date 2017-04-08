@@ -1699,6 +1699,8 @@ void MainRenderer::renderDebugInfo(Game& game, int fps)
 
 void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePanel)
 {
+    m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
+    
     m_spriteBatcher->beginBatch();
     renderPhysicalEntity(*levelCompletePanel, MAIN_ASSETS->get(levelCompletePanel));
     
