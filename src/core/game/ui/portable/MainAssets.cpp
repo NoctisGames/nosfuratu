@@ -2383,6 +2383,11 @@ TextureRegion& MainAssets::get(ScoreIcon* scoreIcon)
             static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_Vial");
             return tr;
         }
+        case 5:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("LevelCompletePanel_Enemy");
+            return tr;
+        }
     }
     
     assert(false);

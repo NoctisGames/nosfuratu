@@ -48,6 +48,7 @@ m_isLevelCompleted(false)
         m_carrotIcon = new ScoreIcon(0, 0, iw, ih, 2);
         m_goldenCarrotIcon = new ScoreIcon(0, 0, iw, ih, 3);
         m_vialIcon = new ScoreIcon(0, 0, iw, ih, 4);
+        m_enemyIcon = new ScoreIcon(0, 0, iw, ih, 5);
     }
     
     {
@@ -87,6 +88,7 @@ LevelCompletePanel::~LevelCompletePanel()
     delete m_carrotIcon;
     delete m_goldenCarrotIcon;
     delete m_vialIcon;
+    delete m_enemyIcon;
     
     delete m_clockValue;
     delete m_clockScore;
@@ -167,7 +169,7 @@ void LevelCompletePanel::update(float deltaTime)
     float b = m_position.getY() - (h / 2);
     
     float iw = w * 0.09375f;
-    float ih = h * 0.140625f;
+    float ih = h * 0.121621621621622f;
     
     float time = m_fStateTime;
     if (m_fStateTime > 1)
@@ -254,6 +256,18 @@ void LevelCompletePanel::update(float deltaTime)
         {
             m_vialScore->setColor(0, 0, 0, getInterpolationForIcon(time - 0.10f));
         }
+    }
+    
+    if (m_fStateTime > 2.0f)
+    {
+        if (m_enemyIcon->isHidden())
+        {
+            m_enemyIcon->setHidden(false);
+        }
+        
+        time -= 0.25f;
+        m_enemyIcon->setWidth(iw * getInterpolationForIcon(time));
+        m_enemyIcon->setHeight(ih * getInterpolationForIcon(time));
         
         m_enemyValue->setColor(0, 0, 0, getInterpolationForIcon(time));
         if (time > 0.10f)
@@ -262,7 +276,7 @@ void LevelCompletePanel::update(float deltaTime)
         }
     }
     
-    if (m_fStateTime > 2)
+    if (m_fStateTime > 2.25f)
     {
         time -= 0.25f;
         
@@ -298,7 +312,7 @@ void LevelCompletePanel::update(float deltaTime)
             float randY = rand() / (float) RAND_MAX;
             randX *= 0.403645833333333f * w;
             randY *= 0.1484375 * h;
-            m_sparkles.push_back(new FinalScoreSparkle(l + w * 0.462239583333333f + randX, b + h * 0.037109375f + randY, w * 0.252604166666667f, h * 0.3671875f));
+            m_sparkles.push_back(new FinalScoreSparkle(l + w * 0.462239583333333f + randX, b + h * 0.032094594594595f + randY, w * 0.252604166666667f, h * 0.317567567567568f));
             
             m_fSparkleStateTime = -0.10f;
         }
@@ -306,34 +320,35 @@ void LevelCompletePanel::update(float deltaTime)
         m_finalScore->setColor(0.12156862745098f, 0.713725490196078f, 0.96078431372549f, getInterpolationForIcon(time));
     }
     
-    m_replayButton->getPosition().set(l + w * 0.010416666666667f + iw / 2, b + h - h * 0.015625f - ih / 2);
+    m_replayButton->getPosition().set(l + w * 0.010416666666667f + iw / 2, b + h - h * 0.013513513513514f - ih / 2);
     m_replayButton->updateBounds();
-    m_continueButton->getPosition().set(l + w - w * 0.010416666666667f - iw / 2, b + h - h * 0.015625f - ih / 2);
+    m_continueButton->getPosition().set(l + w - w * 0.010416666666667f - iw / 2, b + h - h * 0.013513513513514f - ih / 2);
     m_continueButton->updateBounds();
-    m_leaderboardsButton->getPosition().set(l + w * 0.92578125f, b + h * 0.10546875f);
+    m_leaderboardsButton->getPosition().set(l + w * 0.92578125f, b + h * 0.091216216216216f);
     m_leaderboardsButton->updateBounds();
     
-    m_clockIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.734375f);
-    m_carrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.578125f);
-    m_goldenCarrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.421875f);
-    m_vialIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.265625f);
+    m_clockIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.77027027027027f);
+    m_carrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.635135135135135f);
+    m_goldenCarrotIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.5f);
+    m_vialIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.364864864864865f);
+    m_enemyIcon->getPosition().set(l + w * 0.072916666666667f, b + h * 0.22972972972973f);
     
-    m_clockValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.734375f);
-    m_clockScore->getPosition().set(l + w * 0.71875f, b + h * 0.734375f);
+    m_clockValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.77027027027027f);
+    m_clockScore->getPosition().set(l + w * 0.71875f, b + h * 0.77027027027027f);
     
-    m_carrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.578125f);
-    m_carrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.578125f);
+    m_carrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.635135135135135f);
+    m_carrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.635135135135135f);
     
-    m_goldenCarrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.421875f);
-    m_goldenCarrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.421875f);
+    m_goldenCarrotValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.5f);
+    m_goldenCarrotScore->getPosition().set(l + w * 0.71875f, b + h * 0.5f);
     
-    m_vialValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.265625f);
-    m_vialScore->getPosition().set(l + w * 0.71875f, b + h * 0.265625f);
+    m_vialValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.364864864864865f);
+    m_vialScore->getPosition().set(l + w * 0.71875f, b + h * 0.364864864864865f);
     
-    m_enemyValue->getPosition().set(l + w * 0, b + h * 0);
-    m_enemyScore->getPosition().set(l + w * 0.5f, b + h * 0);
+    m_enemyValue->getPosition().set(l + w * 0.291666666666667f, b + h * 0.22972972972973f);
+    m_enemyScore->getPosition().set(l + w * 0.71875f, b + h * 0.22972972972973f);
     
-    m_finalScore->getPosition().set(l + w * 0.662760416666667f, b + h * 0.109375f);
+    m_finalScore->getPosition().set(l + w * 0.662760416666667f, b + h * 0.094594594594595f);
 }
 
 int LevelCompletePanel::handleInput()
@@ -602,6 +617,7 @@ void LevelCompletePanel::reset()
     m_carrotIcon->setHidden(true);
     m_goldenCarrotIcon->setHidden(true);
     m_vialIcon->setHidden(true);
+    m_enemyIcon->setHidden(true);
     
     m_replayButton->setHidden(true);
     m_continueButton->setHidden(true);
@@ -667,6 +683,11 @@ ScoreIcon* LevelCompletePanel::getGoldenCarrotIcon()
 ScoreIcon* LevelCompletePanel::getVialIcon()
 {
     return m_vialIcon;
+}
+
+ScoreIcon* LevelCompletePanel::getEnemyIcon()
+{
+    return m_enemyIcon;
 }
 
 Text* LevelCompletePanel::getClockValue()

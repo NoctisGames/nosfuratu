@@ -1724,6 +1724,11 @@ void MainRenderer::renderLevelCompletePanel(LevelCompletePanel* levelCompletePan
         renderPhysicalEntity(*levelCompletePanel->getVialIcon(), MAIN_ASSETS->get(levelCompletePanel->getVialIcon()));
     }
     
+    if (!levelCompletePanel->getEnemyIcon()->isHidden())
+    {
+        renderPhysicalEntity(*levelCompletePanel->getEnemyIcon(), MAIN_ASSETS->get(levelCompletePanel->getEnemyIcon()));
+    }
+    
     renderPhysicalEntities(levelCompletePanel->getSparkles());
     
     if (!levelCompletePanel->getReplayButton()->isHidden())

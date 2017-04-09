@@ -57,6 +57,7 @@ public:
     ScoreIcon* getCarrotIcon();
     ScoreIcon* getGoldenCarrotIcon();
     ScoreIcon* getVialIcon();
+    ScoreIcon* getEnemyIcon();
     
     Text* getClockValue();
     Text* getClockScore();
@@ -86,6 +87,7 @@ private:
     ScoreIcon* m_carrotIcon;
     ScoreIcon* m_goldenCarrotIcon;
     ScoreIcon* m_vialIcon;
+    ScoreIcon* m_enemyIcon;
     
     Text* m_clockValue;
     Text* m_clockScore;
