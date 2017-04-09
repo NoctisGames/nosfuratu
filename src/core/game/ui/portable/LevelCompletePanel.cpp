@@ -38,7 +38,7 @@ m_isLevelCompleted(false)
     
     {
         float iw = w * 0.09375f;
-        float ih = h * 0.140625f;
+        float ih = h * 0.121621621621622f;
         
         m_replayButton = new GameButton(0, 0, iw, ih, GameButtonType_Replay);
         m_continueButton = new GameButton(0, 0, iw, ih, GameButtonType_ContinueToLevelSelect);
@@ -53,7 +53,7 @@ m_isLevelCompleted(false)
     
     {
         float cw = w * 0.0390625f;
-        float ch = h * 0.09375f;
+        float ch = cw * 1.171875f;
         
         m_clockValue = new Text("0:00.000", 0, 0, cw, ch, 0, 0, 0, 0);
         m_clockScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
@@ -70,7 +70,7 @@ m_isLevelCompleted(false)
         m_enemyValue = new Text("0/0", 0, 0, cw, ch, 0, 0, 0, 0);
         m_enemyScore = new Text("0", 0, 0, cw, ch, 0, 0, 0, 0);
         
-        m_finalScore = new Text("0", 0, 0, w * 0.046875f, h * 0.1171875f, 0, 0, 0, 0);
+        m_finalScore = new Text("0", 0, 0, w * 0.046875f, w * 0.046875f * 1.171875f, 0, 0, 0, 0);
     }
     
     reset();

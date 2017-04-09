@@ -35,7 +35,7 @@ class LevelCompletePanel : public PhysicalEntity
     RTTI_DECL;
     
 public:
-    LevelCompletePanel(float x = -CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.56f, float height = CAM_HEIGHT * 0.56f);
+    LevelCompletePanel(float x = -CAM_WIDTH / 2, float y = CAM_HEIGHT / 2, float width = CAM_WIDTH * 0.5f, float height = CAM_WIDTH * 0.5f * 0.770833333333333f);
     
     virtual ~LevelCompletePanel();
     
