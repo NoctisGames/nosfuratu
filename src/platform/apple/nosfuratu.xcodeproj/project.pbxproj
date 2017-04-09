@@ -562,6 +562,8 @@
 		BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
 		BB9A17401E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */; };
 		BB9A17411E69B74800429479 /* AppleAssetDataHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9A173E1E69B74800429479 /* AppleAssetDataHandler.cpp */; };
+		BB9E426D1E9ABD60004E355E /* GameButtonContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9E426B1E9ABD60004E355E /* GameButtonContainer.cpp */; };
+		BB9E426E1E9ABD60004E355E /* GameButtonContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB9E426B1E9ABD60004E355E /* GameButtonContainer.cpp */; };
 		BBA051D71E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
 		BBA051D81E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
 		BBA052021E68F96300450261 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */; };
@@ -1324,6 +1326,10 @@
 		BB9A175A1E6A10A800429479 /* AbilitySlotType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbilitySlotType.h; sourceTree = "<group>"; };
 		BB9A175B1E6A10CC00429479 /* MidBossOwlState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidBossOwlState.h; sourceTree = "<group>"; };
 		BB9A175C1E6A10EF00429479 /* MidgroundType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidgroundType.h; sourceTree = "<group>"; };
+		BB9E426B1E9ABD60004E355E /* GameButtonContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameButtonContainer.cpp; sourceTree = "<group>"; };
+		BB9E426C1E9ABD60004E355E /* GameButtonContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameButtonContainer.h; sourceTree = "<group>"; };
+		BB9E426F1E9AD2D8004E355E /* StateManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StateManager.cpp; sourceTree = "<group>"; };
+		BB9E42701E9AD2D8004E355E /* StateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateManager.h; sourceTree = "<group>"; };
 		BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferRadialBlurGpuProgram.cpp; sourceTree = "<group>"; };
 		BBA051D61E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferRadialBlurGpuProgram.h; sourceTree = "<group>"; };
 		BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
@@ -2139,6 +2145,8 @@
 				BB34FB411E5645F400AC8197 /* FramebufferRadialBlurGpuProgramWrapper.h */,
 				BB34FB421E5645F400AC8197 /* GameButton.cpp */,
 				BB34FB431E5645F400AC8197 /* GameButton.h */,
+				BB9E426B1E9ABD60004E355E /* GameButtonContainer.cpp */,
+				BB9E426C1E9ABD60004E355E /* GameButtonContainer.h */,
 				BB9A17531E6A0F4400429479 /* GameButtonType.h */,
 				BB5BA4BC1E67ADA80074A315 /* GameHudItem.cpp */,
 				BB5BA4BD1E67ADA80074A315 /* GameHudItem.h */,
@@ -2260,6 +2268,8 @@
 				BB34FD711E565A7400AC8197 /* Android.mk */,
 				BB34FD721E565A7400AC8197 /* Application.mk */,
 				BB4BF1E11E7C899500534219 /* MainNativeActivity.cpp */,
+				BB9E426F1E9AD2D8004E355E /* StateManager.cpp */,
+				BB9E42701E9AD2D8004E355E /* StateManager.h */,
 			);
 			name = jni;
 			path = ../android/app/src/main/jni;
@@ -3241,6 +3251,7 @@
 				BB44C8851DB03A7E003E633F /* pngwrite.c in Sources */,
 				BB34FCAB1E5645F500AC8197 /* OpenGLTransDeathProgram.cpp in Sources */,
 				BB34FCFF1E5645F500AC8197 /* MainScreenWorldMap.cpp in Sources */,
+				BB9E426D1E9ABD60004E355E /* GameButtonContainer.cpp in Sources */,
 				BB44C8731DB03A7E003E633F /* pngread.c in Sources */,
 				BB34FD1F1E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB44C8631DB03A7E003E633F /* png.c in Sources */,
@@ -3386,6 +3397,7 @@
 				BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */,
 				BB34FD051E5645F500AC8197 /* GameTracker.cpp in Sources */,
 				BB606EB91E70B0830050476B /* TextureWrapper.cpp in Sources */,
+				BB9E426E1E9ABD60004E355E /* GameButtonContainer.cpp in Sources */,
 				BB606EB01E70724F0050476B /* ITextureLoader.cpp in Sources */,
 				BB34F8B71E563C2100AC8197 /* GridLockedPhysicalEntity.cpp in Sources */,
 				BB606EE11E70CE5B0050476B /* AppleAudioEngineHelper.cpp in Sources */,

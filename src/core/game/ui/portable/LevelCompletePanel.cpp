@@ -42,7 +42,7 @@ m_isLevelCompleted(false)
         
         m_replayButton = new GameButton(0, 0, iw, ih, GameButtonType_Replay);
         m_continueButton = new GameButton(0, 0, iw, ih, GameButtonType_ContinueToLevelSelect);
-        m_leaderboardsButton = new GameButton(0, 0, iw, ih, GameButtonType_Leaderboards);
+        m_leaderboardsButton = new GameButton(0, 0, iw, ih, GameButtonType_PostScore);
         
         m_clockIcon = new ScoreIcon(0, 0, iw, ih, 1);
         m_carrotIcon = new ScoreIcon(0, 0, iw, ih, 2);
@@ -174,10 +174,7 @@ void LevelCompletePanel::update(float deltaTime)
     float time = m_fStateTime;
     if (m_fStateTime > 1)
     {
-        if (m_clockIcon->isHidden())
-        {
-            m_clockIcon->setHidden(false);
-        }
+        m_clockIcon->setHidden(false);
         
         time -= 1;
         m_clockIcon->setWidth(iw * getInterpolationForIcon(time));
@@ -192,10 +189,7 @@ void LevelCompletePanel::update(float deltaTime)
     
     if (m_fStateTime > 1.25f)
     {
-        if (m_carrotIcon->isHidden())
-        {
-            m_carrotIcon->setHidden(false);
-        }
+        m_carrotIcon->setHidden(false);
         
         time -= 0.25f;
         m_carrotIcon->setWidth(iw * getInterpolationForIcon(time));
@@ -218,10 +212,7 @@ void LevelCompletePanel::update(float deltaTime)
     
     if (m_fStateTime > 1.5f)
     {
-        if (m_goldenCarrotIcon->isHidden())
-        {
-            m_goldenCarrotIcon->setHidden(false);
-        }
+        m_goldenCarrotIcon->setHidden(false);
         
         time -= 0.25f;
         m_goldenCarrotIcon->setWidth(iw * getInterpolationForIcon(time));
@@ -242,10 +233,7 @@ void LevelCompletePanel::update(float deltaTime)
     
     if (m_fStateTime > 1.75f)
     {
-        if (m_vialIcon->isHidden())
-        {
-            m_vialIcon->setHidden(false);
-        }
+        m_vialIcon->setHidden(false);
         
         time -= 0.25f;
         m_vialIcon->setWidth(iw * getInterpolationForIcon(time));
@@ -260,10 +248,7 @@ void LevelCompletePanel::update(float deltaTime)
     
     if (m_fStateTime > 2.0f)
     {
-        if (m_enemyIcon->isHidden())
-        {
-            m_enemyIcon->setHidden(false);
-        }
+        m_enemyIcon->setHidden(false);
         
         time -= 0.25f;
         m_enemyIcon->setWidth(iw * getInterpolationForIcon(time));
@@ -280,20 +265,9 @@ void LevelCompletePanel::update(float deltaTime)
     {
         time -= 0.25f;
         
-        if (m_replayButton->isHidden())
-        {
-            m_replayButton->animateIn();
-        }
-        
-        if (m_continueButton->isHidden())
-        {
-            m_continueButton->animateIn();
-        }
-        
-        if (m_leaderboardsButton->isHidden())
-        {
-            m_leaderboardsButton->animateIn();
-        }
+        m_replayButton->setHidden(false);
+        m_continueButton->setHidden(false);
+        m_leaderboardsButton->setHidden(false);
         
         m_replayButton->setWidth(iw * getInterpolationForButton(time));
         m_replayButton->setHeight(ih * getInterpolationForButton(time));
@@ -357,17 +331,17 @@ int LevelCompletePanel::handleInput()
     {
         switch ((*i)->getType())
         {
-            case KeyboardEventType_ARROW_KEY_UP:
-                // TODO
-                break;
-            case KeyboardEventType_ARROW_KEY_DOWN:
-                // TODO
-                break;
             case KeyboardEventType_SPACE:
             case KeyboardEventType_ENTER:
                 if ((*i)->isUp())
                 {
                     return LEVEL_COMPLETE_PANEL_RC_CONTINUE;
+                }
+                continue;
+            case KeyboardEventType_BACK:
+                if ((*i)->isUp())
+                {
+                    return LEVEL_COMPLETE_PANEL_RC_REPLAY;
                 }
                 continue;
             default:
@@ -379,17 +353,17 @@ int LevelCompletePanel::handleInput()
     {
         switch ((*i)->getType())
         {
-            case GamePadEventType_D_PAD_UP:
-                // TODO
-                break;
-            case GamePadEventType_D_PAD_DOWN:
-                // TODO
-                break;
             case GamePadEventType_A_BUTTON:
             case GamePadEventType_START_BUTTON:
                 if ((*i)->isButtonPressed())
                 {
                     return LEVEL_COMPLETE_PANEL_RC_CONTINUE;
+                }
+                continue;
+            case GamePadEventType_BACK_BUTTON:
+                if ((*i)->isButtonPressed())
+                {
+                    return LEVEL_COMPLETE_PANEL_RC_REPLAY;
                 }
                 continue;
             default:

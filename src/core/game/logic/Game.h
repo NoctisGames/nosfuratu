@@ -124,6 +124,10 @@ public:
     
     std::vector<GameMarker *>& getMarkers();
     
+    std::vector<std::string>& getUnlockedAchievementsKeys();
+    
+    void unlockAchievement(int achievementIndex);
+    
     void setBestLevelStatsFlag(int bestLevelStatsFlag);
     
     int getBestLevelStatsFlag();
@@ -192,6 +196,10 @@ public:
     
     bool isLevelEditor();
     
+    void setAuthenticated(bool isAuthenticated);
+    
+    bool isAuthenticated();
+    
 private:
     std::vector<Background *> m_backgroundUppers;
     std::vector<Background *> m_backgroundMids;
@@ -216,6 +224,8 @@ private:
     std::vector<GameMarker *> m_markers;
     NGRect* m_cameraBounds;
     
+    std::vector<std::string> m_unlockedAchievementsKeys;
+    
     float m_fStateTime;
     float m_fFarRight;
     float m_fFarRightBottom;
@@ -238,6 +248,7 @@ private:
     int m_iWorld;
     int m_iLevel;
     bool m_isLevelEditor;
+    bool m_isAuthenticated;
     
     void onLoaded();
     

@@ -23,6 +23,7 @@
 
 class MainScreen;
 class GameButton;
+class GameButtonContainer;
 class WorldMapPanel;
 
 class AbilitySlot;
@@ -69,7 +70,7 @@ public:
     
     GameButton* getToggleSoundButton();
     
-    GameButton* getLeaderBoardsButton();
+    GameButtonContainer* getGameButtonContainer();
     
     GameButton* getViewOpeningCutsceneButton();
     
@@ -93,7 +94,7 @@ private:
     GameButton* m_backButton;
     GameButton* m_toggleMusic;
     GameButton* m_toggleSound;
-    GameButton* m_leaderBoardsButton;
+    GameButtonContainer* m_gameButtonContainer;
     GameButton* m_viewOpeningCutsceneButton;
     std::vector<AbilitySlot*> m_abilitySlots;
     std::vector<LevelThumbnail*> m_levelThumbnails;

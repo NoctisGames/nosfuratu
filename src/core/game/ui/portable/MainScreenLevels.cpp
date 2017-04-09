@@ -98,6 +98,7 @@ void Level::enter(MainScreen* ms)
     onEnter(ms);
     
     m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);
+    m_game->setAuthenticated(ms->m_isAuthenticated);
     
     static float fgWidth = CAM_WIDTH / 32;
     static float fgHeight = fgWidth * 1.171875f;
@@ -597,6 +598,24 @@ void Level::update(MainScreen* ms)
 			ms->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
+            if (m_iNumGoldenCarrots > 80)
+            {
+                m_game->unlockAchievement(3);
+            }
+            else if (m_iNumGoldenCarrots > 30)
+            {
+                m_game->unlockAchievement(2);
+            }
+            else if (m_iNumGoldenCarrots > 10)
+            {
+                m_game->unlockAchievement(1);
+            }
+            
+            if (m_game->getUnlockedAchievementsKeys().size() > 0)
+            {
+                ms->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_ACHIEVEMENT;
+            }
+            
             m_levelCompletePanel->onLevelCompleted(m_game);
             
             NG_AUDIO_ENGINE->stopAllSounds();
@@ -856,7 +875,7 @@ bool Level::handleInput(MainScreen* ms)
                 m_iNumAttemptsSinceLastAdBreak = 0;
             }
         }
-        else if (result == LEVEL_COMPLETE_PANEL_RC_REPLAY)
+        else if (result == LEVEL_COMPLETE_PANEL_RC_SUBMIT_SCORE)
         {
             ms->m_iRequestedAction = REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD;
         }
@@ -1145,28 +1164,28 @@ bool Level::handleInput(MainScreen* ms)
                 if (!m_hasCompletedLevel
                     && m_backButton->handleClick(touchPoint))
                 {
-//                    m_game->setNumCarrotsCollected(112);
-//                    m_game->setNumGoldenCarrotsCollected(4);
-//                    m_game->setNumVialsCollected(1);
-//                    
-//                    m_game->updateScoreFromTime();
-//                    
-//                    m_game->updateScore();
-//                    
-//                    m_hasCompletedLevel = true;
-//                    m_isDisplayingResults = true;
-//                    
-//                    m_levelCompletePanel->onLevelCompleted(m_game);
-//                    
-//                    return false;
+                    m_game->setNumCarrotsCollected(112);
+                    m_game->setNumGoldenCarrotsCollected(4);
+                    m_game->setNumVialsCollected(1);
                     
-                    m_exitLoop = true;
+                    m_game->updateScoreFromTime();
                     
-                    ms->m_renderer->stopCamera();
+                    m_game->updateScore();
                     
-                    ms->m_stateMachine.revertToPreviousState();
+                    m_hasCompletedLevel = true;
+                    m_isDisplayingResults = true;
                     
-                    return true;
+                    m_levelCompletePanel->onLevelCompleted(m_game);
+                    
+                    return false;
+                    
+//                    m_exitLoop = true;
+//                    
+//                    ms->m_renderer->stopCamera();
+//                    
+//                    ms->m_stateMachine.revertToPreviousState();
+//                    
+//                    return true;
                 }
                 
                 if (!ms->m_hasSwiped && ms->m_fScreenHeldTime < 0.4f)

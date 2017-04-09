@@ -79,7 +79,8 @@ m_iScoreFromEnemies(0),
 m_iScore(0),
 m_iWorld(1),
 m_iLevel(1),
-m_isLevelEditor(false)
+m_isLevelEditor(false),
+m_isAuthenticated(false)
 {
     GRID_MANAGER->setGridCellSize(GRID_CELL_SIZE);
 }
@@ -222,6 +223,8 @@ void Game::reset()
     NGSTDUtil::cleanUpVectorOfPointers(m_foregroundCoverObjects);
     
     NGSTDUtil::cleanUpVectorOfPointers(m_markers);
+    
+    m_unlockedAchievementsKeys.clear();
     
     m_fStateTime = 0;
     m_iNumCarrotsCollected = 0;
@@ -616,6 +619,35 @@ std::vector<GameMarker *>& Game::getMarkers()
     return m_markers;
 }
 
+std::vector<std::string>& Game::getUnlockedAchievementsKeys()
+{
+    return m_unlockedAchievementsKeys;
+}
+
+void Game::unlockAchievement(int achievementIndex)
+{
+    switch (achievementIndex)
+    {
+        case 1:
+            m_unlockedAchievementsKeys.push_back("achievement_novice_carrot_collector");
+            break;
+        case 2:
+            m_unlockedAchievementsKeys.push_back("achievement_skilled_carrot_collector");
+            break;
+        case 3:
+            m_unlockedAchievementsKeys.push_back("achievement_seasoned_carrot_collector");
+            break;
+        case 4:
+            m_unlockedAchievementsKeys.push_back("achievement_owl_or_nothing");
+            break;
+        case 5:
+            m_unlockedAchievementsKeys.push_back("achievement_snake_snake_snake");
+            break;
+        default:
+            break;
+    }
+}
+
 void Game::setBestLevelStatsFlag(int bestLevelStatsFlag)
 {
     m_iBestLevelStatsFlag = bestLevelStatsFlag;
@@ -825,6 +857,16 @@ void Game::setIsLevelEditor(bool isLevelEditor)
 bool Game::isLevelEditor()
 {
     return m_isLevelEditor;
+}
+
+void Game::setAuthenticated(bool isAuthenticated)
+{
+    m_isAuthenticated = isAuthenticated;
+}
+
+bool Game::isAuthenticated()
+{
+    return m_isAuthenticated;
 }
 
 #pragma mark private

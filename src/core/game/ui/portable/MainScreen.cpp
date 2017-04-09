@@ -54,6 +54,7 @@ m_wasPaused(false),
 m_hasSwiped(false),
 m_isReleasingShockwave(false),
 m_needsToResumeAudio(false),
+m_isAuthenticated(false),
 m_fShockwaveElapsedTime(0.0f),
 m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
@@ -262,6 +263,109 @@ int MainScreen::getRequestedAction()
 void MainScreen::clearRequestedAction()
 {
     m_iRequestedAction = REQUESTED_ACTION_UPDATE;
+}
+
+void MainScreen::setAuthenticated(bool isAuthenticated)
+{
+    m_isAuthenticated = isAuthenticated;
+    
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+    {
+        Level* level = (Level*) m_stateMachine.getCurrentState();
+        
+        Game& game = level->getGame();
+        
+        game.setAuthenticated(m_isAuthenticated);
+    }
+}
+
+int MainScreen::getScore()
+{
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+    {
+        Level* level = (Level*) m_stateMachine.getCurrentState();
+        
+        Game& game = level->getGame();
+        
+        return game.getScore();
+    }
+    
+    assert(false);
+}
+
+std::string MainScreen::getLeaderboardKey()
+{
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+    {
+        Level* level = (Level*) m_stateMachine.getCurrentState();
+        
+        Game& game = level->getGame();
+        
+        int levelIndex = game.getLevel();
+        switch (levelIndex)
+        {
+            case 1:
+                return "leaderboard_11";
+            case 2:
+                return "leaderboard_12";
+            case 3:
+                return "leaderboard_13";
+            case 4:
+                return "leaderboard_14";
+            case 5:
+                return "leaderboard_15";
+            case 6:
+                return "leaderboard_16";
+            case 7:
+                return "leaderboard_17";
+            case 8:
+                return "leaderboard_18";
+            case 9:
+                return "leaderboard_19";
+            case 10:
+                return "leaderboard_110";
+            case 11:
+                return "leaderboard_111";
+            case 12:
+                return "leaderboard_112";
+            case 13:
+                return "leaderboard_113";
+            case 14:
+                return "leaderboard_114";
+            case 15:
+                return "leaderboard_115";
+            case 16:
+                return "leaderboard_116";
+            case 17:
+                return "leaderboard_117";
+            case 18:
+                return "leaderboard_118";
+            case 19:
+                return "leaderboard_119";
+            case 20:
+                return "leaderboard_120";
+            case 21:
+                return "leaderboard_121";
+            default:
+                break;
+        }
+    }
+    
+    assert(false);
+}
+
+std::vector<std::string>& MainScreen::getUnlockedAchievementsKeys()
+{
+    if (m_stateMachine.getCurrentState()->getRTTI().derivesFrom(Level::rtti))
+    {
+        Level* level = (Level*) m_stateMachine.getCurrentState();
+        
+        Game& game = level->getGame();
+        
+        return game.getUnlockedAchievementsKeys();
+    }
+    
+    assert(false);
 }
 
 void MainScreen::internalUpdate()

@@ -22,6 +22,7 @@
 #include "Game.h"
 #include "Jon.h"
 #include "GameButton.h"
+#include "GameButtonContainer.h"
 #include "MainScreenLevelEditor.h"
 #include "LevelEditorActionsPanel.h"
 #include "LevelEditorEntitiesPanel.h"
@@ -910,7 +911,28 @@ void MainRenderer::renderWorldMapScreenButtons(WorldMap& wm)
     renderPhysicalEntityWithColor(*wm.getToggleMusicButton(), MAIN_ASSETS->get(wm.getToggleMusicButton()), wm.getToggleMusicButton()->getColor());
     renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), MAIN_ASSETS->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor());
 #ifdef NG_GAME_SERVICES
-    renderPhysicalEntityWithColor(*wm.getLeaderBoardsButton(), MAIN_ASSETS->get(wm.getLeaderBoardsButton()), wm.getLeaderBoardsButton()->getColor());
+    GameButtonContainer* gbc = wm.getGameButtonContainer();
+    renderPhysicalEntity(*gbc, MAIN_ASSETS->get(gbc));
+    
+    if (!gbc->getGooglePlayController()->isHidden())
+    {
+        renderPhysicalEntity(*gbc->getGooglePlayController(), MAIN_ASSETS->get(gbc->getGooglePlayController()));
+    }
+    
+    if (!gbc->getGooglePlayAchievements()->isHidden())
+    {
+        renderPhysicalEntity(*gbc->getGooglePlayAchievements(), MAIN_ASSETS->get(gbc->getGooglePlayAchievements()));
+    }
+    
+    if (!gbc->getGooglePlayLeaderboards()->isHidden())
+    {
+        renderPhysicalEntity(*gbc->getGooglePlayLeaderboards(), MAIN_ASSETS->get(gbc->getGooglePlayLeaderboards()));
+    }
+    
+    if (!gbc->getGooglePlaySignInOut()->isHidden())
+    {
+        renderPhysicalEntity(*gbc->getGooglePlaySignInOut(), MAIN_ASSETS->get(gbc->getGooglePlaySignInOut()));
+    }
 #endif
     renderPhysicalEntityWithColor(*wm.getViewOpeningCutsceneButton(), MAIN_ASSETS->get(wm.getViewOpeningCutsceneButton()), wm.getViewOpeningCutsceneButton()->getColor());
     renderPhysicalEntityWithColor(*wm.getSpendGoldenCarrotsBubble(), MAIN_ASSETS->get(wm.getSpendGoldenCarrotsBubble()), wm.getSpendGoldenCarrotsBubble()->getColor());

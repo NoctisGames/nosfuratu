@@ -16,6 +16,8 @@
 
 #include "RTTI.h"
 
+#include <vector>
+
 class IDeviceHelper;
 class MainRenderer;
 class Vector2D;
@@ -44,6 +46,7 @@ public:
     bool m_hasSwiped;
     bool m_isReleasingShockwave;
     bool m_needsToResumeAudio;
+    bool m_isAuthenticated;
     float m_fShockwaveCenterX;
     float m_fShockwaveCenterY;
     float m_fShockwaveElapsedTime;
@@ -71,6 +74,14 @@ public:
     int getRequestedAction();
     
     void clearRequestedAction();
+    
+    void setAuthenticated(bool isAuthenticated);
+    
+    int getScore();
+    
+    std::string getLeaderboardKey();
+    
+    std::vector<std::string>& getUnlockedAchievementsKeys();
     
 private:
     float m_fFrameStateTime;

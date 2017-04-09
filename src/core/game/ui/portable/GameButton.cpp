@@ -35,15 +35,9 @@ GameButton* GameButton::create(GameButtonType type)
                                   type);
         case GameButtonType_BackToTitle:
         case GameButtonType_BackToLevelSelect:
-            return new GameButton(1.51895680147063f / 2,
+            return new GameButton(1.518956801470588f / 2,
                                   CAM_HEIGHT - 1.52941176470592f / 2,
-                                  1.51895680147063f,
-                                  1.52941176470592f,
-                                  type);
-        case GameButtonType_Leaderboards:
-            return new GameButton(CAM_WIDTH - 1.51895680147063f / 2,
-                                  CAM_HEIGHT - 1.52941176470592f / 2,
-                                  1.51895680147063f,
+                                  1.518956801470588f,
                                   1.52941176470592f,
                                   type);
         case GameButtonType_ViewOpeningCutscene:
@@ -58,6 +52,10 @@ GameButton* GameButton::create(GameButtonType type)
                                   2,
                                   0.6456424857638f,
                                   type);
+        case GameButtonType_GameController:
+        case GameButtonType_Leaderboards:
+        case GameButtonType_Achievements:
+        case GameButtonType_SignInOut:
         case GameButtonType_ContinueToLevelSelect:
         case GameButtonType_Replay:
         case GameButtonType_PostScore:
@@ -69,7 +67,7 @@ GameButton* GameButton::create(GameButtonType type)
     assert(false);
 }
 
-GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isAnimatingIn(false), m_isHidden(false)
+GameButton::GameButton(float x, float y, float width, float height, GameButtonType type) : PhysicalEntity(x, y, width, height), m_type(type), m_color(1, 1, 1, 1), m_fOriginalWidth(width), m_fOriginalHeight(height), m_isSelected(false), m_isShrinking(false), m_isHidden(false), m_isAlt(false)
 {
     // Empty
 }
@@ -78,11 +76,7 @@ void GameButton::update(float deltaTime)
 {
     PhysicalEntity::update(deltaTime);
     
-    if (m_isAnimatingIn)
-    {
-        // TODO
-    }
-    else if (m_isSelected)
+    if (m_isSelected)
     {
         if (m_isShrinking)
         {
@@ -113,12 +107,6 @@ void GameButton::update(float deltaTime)
             }
         }
     }
-}
-
-void GameButton::animateIn()
-{
-    m_isAnimatingIn = true;
-    m_isHidden = false;
 }
 
 GameButtonType GameButton::getType()
@@ -184,6 +172,16 @@ bool GameButton::isHidden()
 void GameButton::setHidden(bool isHidden)
 {
     m_isHidden = isHidden;
+}
+
+bool GameButton::isAlt()
+{
+    return m_isAlt;
+}
+
+void GameButton::setAlt(bool isAlt)
+{
+    m_isAlt = isAlt;
 }
 
 RTTI_IMPL(GameButton, PhysicalEntity);

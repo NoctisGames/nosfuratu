@@ -78,18 +78,4 @@ public:
     virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
 };
 
-class ImpassableForegroundCoverObject : public ForegroundCoverObject
-{
-    RTTI_DECL;
-    
-public:
-    ImpassableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
-    
-    virtual bool isEntityBlockedOnRight(PhysicalEntity* entity, float deltaTime);
-    
-    virtual bool isEntityBlockedOnLeft(PhysicalEntity* entity, float deltaTime);
-    
-    virtual bool isJonBlockedAbove(Jon& jon, float deltaTime);
-};
-
 #endif /* defined(__nosfuratu__ForegroundCoverObject__) */

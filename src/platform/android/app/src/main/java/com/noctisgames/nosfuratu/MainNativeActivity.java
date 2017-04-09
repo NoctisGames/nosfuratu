@@ -1,6 +1,8 @@
 package com.noctisgames.nosfuratu;
 
+import android.app.Activity;
 import android.app.NativeActivity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -60,6 +62,18 @@ public final class MainNativeActivity extends NativeActivity
             setImmersiveSticky();
         }
     }
+
+    /*
+    *   This is needed to foward the onActivityResult call to the games SDK.
+    *   The SDK uses this to manage the display of the standard UI calls.
+    */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        nativeOnActivityResult(this, requestCode,resultCode, data);
+    }
+
+    // Implemented in C++.
+    public static native void nativeOnActivityResult(Activity activity, int requestCode, int resultCode, Intent data);
 
     // Called from C++
     public void initializeInterstitialAds()

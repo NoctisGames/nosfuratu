@@ -50,6 +50,7 @@
 #include "ExitGroundCover.h"
 #include "CountHissWithMina.h"
 #include "LevelCompletePanel.h"
+#include "GameButtonContainer.h"
 
 MainAssets* MainAssets::getInstance()
 {
@@ -2234,15 +2235,46 @@ TextureRegion& MainAssets::get(GameButton* gameButton)
             static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_BackToTitle");
             return tr;
         }
+        case GameButtonType_ViewOpeningCutscene:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_ViewOpeningCutscene");
+            return tr;
+        }
+        case GameButtonType_GameController:
+        {
+            if (gameButton->isAlt())
+            {
+                static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_GameControllerAlt");
+                return tr;
+            }
+            else
+            {
+                static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_GameController");
+                return tr;
+            }
+        }
         case GameButtonType_Leaderboards:
         {
             static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_Leaderboards");
             return tr;
         }
-        case GameButtonType_ViewOpeningCutscene:
+        case GameButtonType_Achievements:
         {
-            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_ViewOpeningCutscene");
+            static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_Achievements");
             return tr;
+        }
+        case GameButtonType_SignInOut:
+        {
+            if (gameButton->isAlt())
+            {
+                static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_SignOut");
+                return tr;
+            }
+            else
+            {
+                static TextureRegion tr = ASSETS->findTextureRegion("GameButtonType_SignIn");
+                return tr;
+            }
         }
         case GameButtonType_BackToLevelSelect:
         {
@@ -2397,6 +2429,12 @@ TextureRegion& MainAssets::get(FinalScoreSparkle* finalScoreSparkle)
 {
     static Animation anim = ASSETS->findAnimation("FinalScoreSparkle");
     return anim.getTextureRegion(finalScoreSparkle->getStateTime());
+}
+
+TextureRegion& MainAssets::get(GameButtonContainer* gameButtonContainer)
+{
+    static Animation anim = ASSETS->findAnimation("GameButtonContainer");
+    return anim.getTextureRegion(gameButtonContainer->getStateTime());
 }
 
 bool MainAssets::isUsingCompressedTextureSet()

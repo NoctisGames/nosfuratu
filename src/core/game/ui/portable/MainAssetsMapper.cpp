@@ -163,10 +163,15 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["CollectibleItemType_GoldenCarrot_Previously_Collected"] = new TextureRegion("world_1_objects_part_1", 2286, 3204, 254, 224, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["CollectibleItemType_GoldenCarrot_Not_Collected"] = new TextureRegion("world_1_objects_part_1", 2032, 3204, 254, 224, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["CollectibleItemType_BigCarrot_Not_Collected"] = new TextureRegion("world_1_objects_part_1", 3028, 248, 432, 432, TEXTURE_SIZE_4096);
-    ASSETS->getTextureRegionMap()["GameButtonType_ToggleMusic"] = new TextureRegion("world_map_screen_part_1", 1244, 72, 128, 128, TEXTURE_SIZE_2048);
-    ASSETS->getTextureRegionMap()["GameButtonType_ToggleSound"] = new TextureRegion("world_map_screen_part_1", 1244, 204, 128, 128, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_ToggleMusic"] = new TextureRegion("world_map_screen_part_1", 1626, 1774, 128, 128, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_ToggleSound"] = new TextureRegion("world_map_screen_part_1", 1626, 1906, 128, 128, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_BackToTitle"] = new TextureRegion("world_map_screen_part_1", 1800, 0, 104, 104, TEXTURE_SIZE_2048);
-    ASSETS->getTextureRegionMap()["GameButtonType_Leaderboards"] = new TextureRegion("world_map_screen_part_1", 1904, 0, 104, 104, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_GameController"] = new TextureRegion("world_map_screen_part_1", 1736, 128, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_GameControllerAlt"] = new TextureRegion("world_map_screen_part_1", 1840, 128, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_Achievements"] = new TextureRegion("world_map_screen_part_1", 1736, 224, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_Leaderboards"] = new TextureRegion("world_map_screen_part_1", 1736, 320, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_SignIn"] = new TextureRegion("world_map_screen_part_1", 1736, 416, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_SignOut"] = new TextureRegion("world_map_screen_part_1", 1840, 416, 88, 88, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_ViewOpeningCutscene"] = new TextureRegion("world_map_screen_part_1", 1152, 0, 96, 64, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_BackToLevelSelect"] = new TextureRegion("misc", 0, 0, 104, 104, TEXTURE_SIZE_1024);
     ASSETS->getTextureRegionMap()["GameButtonType_LevelEditor"] = new TextureRegion("title_screen", 800, 780, 190, 62, TEXTURE_SIZE_2048);
@@ -415,4 +420,6 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["FloatingPlatformWeightedPoof"] = new Animation("world_1_objects_part_1", 2816, 44, 160, 172, 640, 172, TEXTURE_SIZE_4096, true, 0.10f, 4);
     
     ASSETS->getAnimationsMap()["FinalScoreSparkle"] = new Animation("world_1_objects_part_1", 1680, 2800, 194, 188, 970, 188, TEXTURE_SIZE_4096, false, 0.10f, 5);
+    
+    ASSETS->getAnimationsMap()["GameButtonContainer"] = new Animation("world_map_screen_part_1", 1104, 120, 104, 384, 520, 384, TEXTURE_SIZE_4096, false, 0.10f, 5);
 }

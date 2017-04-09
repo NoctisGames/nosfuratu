@@ -10,6 +10,7 @@
 
 #include "MainScreen.h"
 #include "GameButton.h"
+#include "GameButtonContainer.h"
 #include "WorldMapPanel.h"
 
 #include "MainScreenLevels.h"
@@ -232,6 +233,28 @@ void WorldMap::execute(MainScreen* ms)
             }
         }
         
+        int result = m_gameButtonContainer->handleInput();
+        if (result > GAME_BUTTON_CONTAINER_RC_HANDLED)
+        {
+            switch (result)
+            {
+                case GAME_BUTTON_CONTAINER_RC_SIGN_IN:
+                    ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_IN;
+                    break;
+                case GAME_BUTTON_CONTAINER_RC_SIGN_OUT:
+                    ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
+                    break;
+                case GAME_BUTTON_CONTAINER_RC_SHOW_LEADERBOARDS:
+                    ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_LEADERBOARDS;
+                    break;
+                case GAME_BUTTON_CONTAINER_RC_SHOW_ACHIEVEMENTS:
+                    ms->m_iRequestedAction = REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
         for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
         {
             Vector2D& touchPoint = TOUCH_CONVERTER->touchToWorld(*(*i));
@@ -377,6 +400,7 @@ void WorldMap::execute(MainScreen* ms)
         
         m_fGoldenCarrotCountFlickerTime += ms->m_fDeltaTime / 2;
         
+        m_gameButtonContainer->config(ms);
         updateButtons(ms->m_fDeltaTime);
     }
 }
@@ -400,7 +424,7 @@ void WorldMap::updateButtons(float deltaTime)
 {
     m_toggleMusic->update(deltaTime);
     m_toggleSound->update(deltaTime);
-    m_leaderBoardsButton->update(deltaTime);
+    m_gameButtonContainer->update(deltaTime);
     m_viewOpeningCutsceneButton->update(deltaTime);
 }
 
@@ -595,9 +619,9 @@ GameButton* WorldMap::getToggleSoundButton()
     return m_toggleSound;
 }
 
-GameButton* WorldMap::getLeaderBoardsButton()
+GameButtonContainer* WorldMap::getGameButtonContainer()
 {
-    return m_leaderBoardsButton;
+    return m_gameButtonContainer;
 }
 
 GameButton* WorldMap::getViewOpeningCutsceneButton()
@@ -1215,7 +1239,7 @@ m_spendGoldenCarrotsBubble(new SpendGoldenCarrotsBubble()),
 m_backButton(GameButton::create(GameButtonType_BackToTitle)),
 m_toggleMusic(GameButton::create(GameButtonType_ToggleMusic)),
 m_toggleSound(GameButton::create(GameButtonType_ToggleSound)),
-m_leaderBoardsButton(GameButton::create(GameButtonType_Leaderboards)),
+m_gameButtonContainer(new GameButtonContainer()),
 m_viewOpeningCutsceneButton(GameButton::create(GameButtonType_ViewOpeningCutscene)),
 m_fGoldenCarrotCountFlickerTime(1337),
 m_iNumCollectedGoldenCarrots(0),
@@ -1268,7 +1292,7 @@ WorldMap::~WorldMap()
     delete m_backButton;
     delete m_toggleMusic;
     delete m_toggleSound;
-    delete m_leaderBoardsButton;
+    delete m_gameButtonContainer;
     delete m_viewOpeningCutsceneButton;
     
     NGSTDUtil::cleanUpVectorOfPointers(m_abilitySlots);

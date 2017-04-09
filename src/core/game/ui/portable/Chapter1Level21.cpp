@@ -525,6 +525,9 @@ void Chapter1Level21::update(MainScreen* ms)
                 
                 m_iNumTimesBatPanelDisplayed++;
 			}
+            
+            m_game->unlockAchievement(5);
+            ms->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_ACHIEVEMENT;
 
 			m_hasTriggeredSnakeDeathCheckPoint = true;
 		}

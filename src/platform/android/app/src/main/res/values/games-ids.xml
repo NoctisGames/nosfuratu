@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+  <string name="app_id">274580556928</string>
+  <string name="package_name">com.noctisgames.nosfuratu</string>
+  <string name="achievement_novice_carrot_collector">CgkIgJmb8v4HEAIQFg</string>
+  <string name="achievement_skilled_carrot_collector">CgkIgJmb8v4HEAIQFw</string>
+  <string name="achievement_seasoned_carrot_collector">CgkIgJmb8v4HEAIQGA</string>
+  <string name="achievement_owl_or_nothing">CgkIgJmb8v4HEAIQGQ</string>
+  <string name="achievement_snake_snake_snake">CgkIgJmb8v4HEAIQGg</string>
+  <string name="leaderboard_11">CgkIgJmb8v4HEAIQAQ</string>
+  <string name="leaderboard_12">CgkIgJmb8v4HEAIQAg</string>
+  <string name="leaderboard_13">CgkIgJmb8v4HEAIQAw</string>
+  <string name="leaderboard_14">CgkIgJmb8v4HEAIQBA</string>
+  <string name="leaderboard_15">CgkIgJmb8v4HEAIQBQ</string>
+  <string name="leaderboard_16">CgkIgJmb8v4HEAIQBg</string>
+  <string name="leaderboard_17">CgkIgJmb8v4HEAIQBw</string>
+  <string name="leaderboard_18">CgkIgJmb8v4HEAIQCA</string>
+  <string name="leaderboard_19">CgkIgJmb8v4HEAIQCQ</string>
+  <string name="leaderboard_110">CgkIgJmb8v4HEAIQCg</string>
+  <string name="leaderboard_111">CgkIgJmb8v4HEAIQCw</string>
+  <string name="leaderboard_112">CgkIgJmb8v4HEAIQDA</string>
+  <string name="leaderboard_113">CgkIgJmb8v4HEAIQDQ</string>
+  <string name="leaderboard_114">CgkIgJmb8v4HEAIQDg</string>
+  <string name="leaderboard_115">CgkIgJmb8v4HEAIQDw</string>
+  <string name="leaderboard_116">CgkIgJmb8v4HEAIQEA</string>
+  <string name="leaderboard_117">CgkIgJmb8v4HEAIQEQ</string>
+  <string name="leaderboard_118">CgkIgJmb8v4HEAIQEg</string>
+  <string name="leaderboard_119">CgkIgJmb8v4HEAIQEw</string>
+  <string name="leaderboard_120">CgkIgJmb8v4HEAIQFA</string>
+  <string name="leaderboard_121">CgkIgJmb8v4HEAIQFQ</string>
+</resources>

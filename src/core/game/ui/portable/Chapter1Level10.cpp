@@ -328,6 +328,9 @@ void Chapter1Level10::update(MainScreen* ms)
         {
             jon.setIdle(false);
             jon.setUserActionPrevented(false);
+            
+            m_game->unlockAchievement(4);
+            ms->m_iRequestedAction = REQUESTED_ACTION_UNLOCK_ACHIEVEMENT;
         }
   
         m_isChaseCamActivated = false;

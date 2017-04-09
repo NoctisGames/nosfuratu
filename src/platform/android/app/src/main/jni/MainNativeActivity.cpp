@@ -20,6 +20,12 @@
 #include "MathUtil.h"
 
 #include "NDKHelper.h"
+#include "StateManager.h"
+
+// For GPGS
+#include "gpg/android_platform_configuration.h"
+#include "gpg/android_initialization.h"
+#include "gpg/android_support.h"
 
 #include <jni.h>
 #include <errno.h>
@@ -29,6 +35,14 @@
 #include <android_native_app_glue.h>
 #include <android/native_window_jni.h>
 #include <cpu-features.h>
+
+extern "C"
+{
+    JNIEXPORT void Java_com_noctisgames_nosfuratu_MainNativeActivity_nativeOnActivityResult(JNIEnv *env, jobject thiz, jobject activity, jint requestCode, jint resultCode, jobject data)
+    {
+        gpg::AndroidSupport::OnActivityResult(env, activity, requestCode, resultCode, data);
+    }
+} // extern "C"
 
 struct android_app;
 
@@ -40,6 +54,10 @@ public:
     
     Engine();
     ~Engine();
+    
+    // Callbacks from GPG.
+    void OnAuthActionStarted(gpg::AuthOperation op);
+    void OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status);
     
     void setState(android_app* state);
     int initDisplay();
@@ -55,6 +73,7 @@ public:
     
     void initializeInterstitialAds();
     void displayInterstitialAdIfLoaded();
+    std::string getStringResource(const std::string& resourceName);
     
 private:
     ndk_helper::GLContext* m_glContext;
@@ -64,6 +83,7 @@ private:
     float m_fAveragedDeltaTime;
     bool m_hasInitializedResources;
     bool m_hasFocus;
+    bool m_needsToSubmitScoreAfterAuthentication;
     
     static long systemNanoTime();
 };
@@ -205,13 +225,43 @@ m_app(nullptr),
 m_screen(nullptr),
 m_fAveragedDeltaTime(0.016666666666667f),
 m_hasInitializedResources(false),
-m_hasFocus(false)
+m_hasFocus(false),
+m_needsToSubmitScoreAfterAuthentication(false)
 {
     // Empty
 }
 
 Engine::~Engine()
 {
+}
+
+void Engine::OnAuthActionStarted(gpg::AuthOperation op)
+{
+    if (!m_hasInitializedResources)
+    {
+        return;
+    }
+}
+
+void Engine::OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status)
+{
+    if (!m_hasInitializedResources)
+    {
+        return;
+    }
+    
+    m_screen->setAuthenticated(status == gpg::AuthStatus::VALID);
+    
+    if (m_needsToSubmitScoreAfterAuthentication
+        && m_screen->isAuthenticated())
+    {
+        std::string key = m_screen->getLeaderboardKey();
+        std::string id = getStringResource(key);
+        int score = m_screen->getScore();
+        StateManager::SubmitHighScore(id.c_str(), score);
+    }
+    
+    m_needsToSubmitScoreAfterAuthentication = false;
 }
 
 void Engine::setState(android_app* state)
@@ -239,6 +289,8 @@ int Engine::initDisplay()
         
         resume();
     }
+    
+    m_screen->setAuthenticated(StateManager::GetGameServices()->IsAuthorized());
     
     return 0;
 }
@@ -330,6 +382,71 @@ void Engine::drawFrame()
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
+        {
+            if (StateManager::GetGameServices()->IsAuthorized())
+            {
+                std::string key = m_screen->getLeaderboardKey();
+                std::string id = getStringResource(key);
+                int score = m_screen->getScore();
+                StateManager::SubmitHighScore(id.c_str(), score);
+            }
+            else
+            {
+                m_needsToSubmitScoreAfterAuthentication = true;
+                StateManager::BeginUserInitiatedSignIn();
+            }
+        }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
+        {
+            if (StateManager::GetGameServices()->IsAuthorized())
+            {
+                std::vector<std::string>& keys = m_screen->getUnlockedAchievementsKeys();
+                for (std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+                {
+                    std::string key = *i;
+                    std::string id = getStringResource(key);
+                    StateManager::UnlockAchievement(id.c_str());
+                }
+            }
+        }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
+            if (StateManager::GetGameServices()->IsAuthorized())
+            {
+                StateManager::ShowLeaderboards();
+            }
+            else
+            {
+                StateManager::BeginUserInitiatedSignIn();
+            }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
+            if (StateManager::GetGameServices()->IsAuthorized())
+            {
+                StateManager::ShowAchievements();
+            }
+            else
+            {
+                StateManager::BeginUserInitiatedSignIn();
+            }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SIGN_IN:
+            if (!StateManager::GetGameServices()->IsAuthorized())
+            {
+                StateManager::BeginUserInitiatedSignIn();
+            }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SIGN_OUT:
+            if (StateManager::GetGameServices()->IsAuthorized())
+            {
+                StateManager::SignOut();
+            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:
@@ -401,7 +518,6 @@ void Engine::initializeInterstitialAds()
     jni->CallVoidMethod(m_app->activity->clazz, methodID);
     
     m_app->activity->vm->DetachCurrentThread();
-    return;
 }
 
 void Engine::displayInterstitialAdIfLoaded()
@@ -415,7 +531,29 @@ void Engine::displayInterstitialAdIfLoaded()
     jni->CallVoidMethod(m_app->activity->clazz, methodID);
     
     m_app->activity->vm->DetachCurrentThread();
-    return;
+}
+
+std::string Engine::getStringResource(const std::string& resourceName)
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    jstring name = jni->NewStringUTF(resourceName.c_str());
+    
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "getStringResource", "(Ljava/lang/String;)Ljava/lang/String;");
+    jstring ret = (jstring) = jni->CallObjectMethod(m_app->activity->clazz, name);
+    
+    const char *resource = env->GetStringUTFChars(ret, NULL);
+    std::string s = std::string(resource);
+    
+    env->ReleaseStringUTFChars(ret, resource);
+    env->DeleteLocalRef(ret);
+    env->DeleteLocalRef(name);
+    
+    m_app->activity->vm->DetachCurrentThread();
+    
+    return s;
 }
 
 /**
@@ -438,6 +576,21 @@ void android_main(android_app* state)
 #ifdef USE_NDK_PROFILER
     monstartup("libandroid_main.so");
 #endif
+    
+    // We could initialize in the JNI_OnLoad, but it's also valid here.
+    gpg::AndroidInitialization::android_main(state);
+    if (state->savedState == nullptr) {
+        // We aren't resuming, create a new GameServices.
+        gpg::AndroidPlatformConfiguration platform_configuration;
+        platform_configuration.SetActivity(state->activity->clazz);
+        StateManager::InitServices(platform_configuration, [](gpg::AuthOperation op)
+        {
+            engine.OnAuthActionStarted(op);
+        }, [](gpg::AuthOperation op, gpg::AuthStatus status)
+        {
+            engine.OnAuthActionFinished(op, status);
+        });
+    }
     
     while (1)
     {
