@@ -97,12 +97,13 @@ void Title::execute(MainScreen* ms)
     {
         m_fStateTime += ms->m_fDeltaTime;
         
-        if (m_fStateTime > 19)
+        if (m_fStateTime > 2)
         {
             srand (static_cast <unsigned> (time(0)));
-            int level = rand() % 7 + 1;
-            if (level == 7) { level = 21; }
-            if (level == 6) { level = 16; }
+            int level = 2;//rand() % 8 + 1;
+            if (level == 8) { level = 21; }
+            if (level == 7) { level = 16; }
+            if (level == 6) { level = 14; }
             if (level == 5) { level = 13; }
             if (level == 4) { level = 10; }
             if (level == 3) { level = 9; }

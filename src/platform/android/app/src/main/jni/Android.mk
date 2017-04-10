@@ -128,21 +128,10 @@ FILE_LIST := $(filter %.cpp, $(SUPERPOWERED_ANDROID_FILES))
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
 LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/3rdparty/
-LOCAL_C_INCLUDES += $(PROJECT_ROOT_PATH)/3rdparty/gpg-sdk/gpg-cpp-sdk/android/include/
-LOCAL_STATIC_LIBRARIES := libpng Superpowered cpufeatures android_native_app_glue ndk_helper gpg-1
+LOCAL_STATIC_LIBRARIES := libpng Superpowered cpufeatures android_native_app_glue ndk_helper
 LOCAL_LDLIBS := -llog -lGLESv2 -landroid -lEGL -lOpenSLES
 
-ifneq ($(filter %armeabi-v7a,$(TARGET_ARCH_ABI)),)
-LOCAL_CFLAGS += -mhard-float -D_NDK_MATH_NO_SOFTFP=1
-LOCAL_LDLIBS += -lm_hard
-ifeq (,$(filter -fuse-ld=mcld,$(APP_LDFLAGS) $(LOCAL_LDFLAGS)))
-LOCAL_LDFLAGS += -Wl,--no-warn-mismatch
-endif
-endif
-
 include $(BUILD_SHARED_LIBRARY)
-
-include $(PROJECT_ROOT_PATH)3rdparty/gpg-sdk/gpg-cpp-sdk/android/Android.mk
 
 $(call import-add-path, $(PROJECT_ROOT_PATH)/3rdparty)
 $(call import-module, libpng)

@@ -20,12 +20,6 @@
 #include "MathUtil.h"
 
 #include "NDKHelper.h"
-#include "StateManager.h"
-
-// For GPGS
-#include "gpg/android_platform_configuration.h"
-#include "gpg/android_initialization.h"
-#include "gpg/android_support.h"
 
 #include <jni.h>
 #include <errno.h>
@@ -40,7 +34,7 @@ extern "C"
 {
     JNIEXPORT void Java_com_noctisgames_nosfuratu_MainNativeActivity_nativeOnActivityResult(JNIEnv *env, jobject thiz, jobject activity, jint requestCode, jint resultCode, jobject data)
     {
-        gpg::AndroidSupport::OnActivityResult(env, activity, requestCode, resultCode, data);
+        // TODO, JNI methods
     }
 } // extern "C"
 
@@ -54,10 +48,6 @@ public:
     
     Engine();
     ~Engine();
-    
-    // Callbacks from GPG.
-    void OnAuthActionStarted(gpg::AuthOperation op);
-    void OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status);
     
     void setState(android_app* state);
     int initDisplay();
@@ -235,34 +225,34 @@ Engine::~Engine()
 {
 }
 
-void Engine::OnAuthActionStarted(gpg::AuthOperation op)
-{
-    if (!m_hasInitializedResources)
-    {
-        return;
-    }
-}
-
-void Engine::OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status)
-{
-    if (!m_hasInitializedResources)
-    {
-        return;
-    }
-    
-    m_screen->setAuthenticated(status == gpg::AuthStatus::VALID);
-    
-    if (m_needsToSubmitScoreAfterAuthentication
-        && m_screen->m_isAuthenticated)
-    {
-        std::string key = m_screen->getLeaderboardKey();
-        std::string id = getStringResource(key);
-        int score = m_screen->getScore();
-        StateManager::SubmitHighScore(id.c_str(), score);
-    }
-    
-    m_needsToSubmitScoreAfterAuthentication = false;
-}
+//void Engine::OnAuthActionStarted(gpg::AuthOperation op)
+//{
+//    if (!m_hasInitializedResources)
+//    {
+//        return;
+//    }
+//}
+//
+//void Engine::OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status)
+//{
+//    if (!m_hasInitializedResources)
+//    {
+//        return;
+//    }
+//    
+//    m_screen->setAuthenticated(status == gpg::AuthStatus::VALID);
+//    
+//    if (m_needsToSubmitScoreAfterAuthentication
+//        && m_screen->m_isAuthenticated)
+//    {
+//        std::string key = m_screen->getLeaderboardKey();
+//        std::string id = getStringResource(key);
+//        int score = m_screen->getScore();
+//        StateManager::SubmitHighScore(id.c_str(), score);
+//    }
+//    
+//    m_needsToSubmitScoreAfterAuthentication = false;
+//}
 
 void Engine::setState(android_app* state)
 {
@@ -290,7 +280,7 @@ int Engine::initDisplay()
         resume();
     }
     
-    m_screen->setAuthenticated(StateManager::GetGameServices()->IsAuthorized());
+//    m_screen->setAuthenticated(StateManager::GetGameServices()->IsAuthorized());
     
     return 0;
 }
@@ -383,70 +373,70 @@ void Engine::drawFrame()
             break;
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
         {
-            if (StateManager::GetGameServices()->IsAuthorized())
-            {
-                std::string key = m_screen->getLeaderboardKey();
-                std::string id = getStringResource(key);
-                int score = m_screen->getScore();
-                StateManager::SubmitHighScore(id.c_str(), score);
-            }
-            else
-            {
-                m_needsToSubmitScoreAfterAuthentication = true;
-                StateManager::BeginUserInitiatedSignIn();
-            }
+//            if (StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                std::string key = m_screen->getLeaderboardKey();
+//                std::string id = getStringResource(key);
+//                int score = m_screen->getScore();
+//                StateManager::SubmitHighScore(id.c_str(), score);
+//            }
+//            else
+//            {
+//                m_needsToSubmitScoreAfterAuthentication = true;
+//                StateManager::BeginUserInitiatedSignIn();
+//            }
         }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
         {
-            if (StateManager::GetGameServices()->IsAuthorized())
-            {
-                std::vector<std::string>& keys = m_screen->getUnlockedAchievementsKeys();
-                for (std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
-                {
-                    std::string key = *i;
-                    std::string id = getStringResource(key);
-                    StateManager::UnlockAchievement(id.c_str());
-                }
-            }
+//            if (StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                std::vector<std::string>& keys = m_screen->getUnlockedAchievementsKeys();
+//                for (std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+//                {
+//                    std::string key = *i;
+//                    std::string id = getStringResource(key);
+//                    StateManager::UnlockAchievement(id.c_str());
+//                }
+//            }
         }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-            if (StateManager::GetGameServices()->IsAuthorized())
-            {
-                StateManager::ShowLeaderboards();
-            }
-            else
-            {
-                StateManager::BeginUserInitiatedSignIn();
-            }
+//            if (StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                StateManager::ShowLeaderboards();
+//            }
+//            else
+//            {
+//                StateManager::BeginUserInitiatedSignIn();
+//            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-            if (StateManager::GetGameServices()->IsAuthorized())
-            {
-                StateManager::ShowAchievements();
-            }
-            else
-            {
-                StateManager::BeginUserInitiatedSignIn();
-            }
+//            if (StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                StateManager::ShowAchievements();
+//            }
+//            else
+//            {
+//                StateManager::BeginUserInitiatedSignIn();
+//            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SIGN_IN:
-            if (!StateManager::GetGameServices()->IsAuthorized())
-            {
-                StateManager::BeginUserInitiatedSignIn();
-            }
+//            if (!StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                StateManager::BeginUserInitiatedSignIn();
+//            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SIGN_OUT:
-            if (StateManager::GetGameServices()->IsAuthorized())
-            {
-                StateManager::SignOut();
-            }
+//            if (StateManager::GetGameServices()->IsAuthorized())
+//            {
+//                StateManager::SignOut();
+//            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:
@@ -576,21 +566,6 @@ void android_main(android_app* state)
 #ifdef USE_NDK_PROFILER
     monstartup("libandroid_main.so");
 #endif
-    
-    // We could initialize in the JNI_OnLoad, but it's also valid here.
-    gpg::AndroidInitialization::android_main(state);
-    if (state->savedState == nullptr) {
-        // We aren't resuming, create a new GameServices.
-        gpg::AndroidPlatformConfiguration platform_configuration;
-        platform_configuration.SetActivity(state->activity->clazz);
-        StateManager::InitServices(platform_configuration, [](gpg::AuthOperation op)
-        {
-            engine.OnAuthActionStarted(op);
-        }, [](gpg::AuthOperation op, gpg::AuthStatus status)
-        {
-            engine.OnAuthActionFinished(op, status);
-        });
-    }
     
     while (1)
     {
