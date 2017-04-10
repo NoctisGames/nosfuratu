@@ -371,6 +371,10 @@ void Title::execute(MainScreen* ms)
                         
                         WorldMap::getInstance()->loadSaveData();
                         
+#ifdef NG_GAME_SERVICES
+                        ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
+#endif
+                        
                         NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
                     }
                     else if (m_iMapCodeState == 0

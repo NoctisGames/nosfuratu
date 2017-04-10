@@ -136,6 +136,7 @@
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
             if (self.interstitial.isReady)
             {
+                _mainScreen->onPause();
                 [self.interstitial presentFromRootViewController:self];
             }
             _mainScreen->clearRequestedAction();
@@ -175,6 +176,7 @@
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
 {
+    _mainScreen->onResume();
     [self createAndLoadInterstitial];
 }
 

@@ -59,7 +59,7 @@ void GameButtonContainer::update(float deltaTime)
     {
         m_fStateTime += deltaTime;
         
-        if (m_fStateTime > 0.3f)
+        if (m_fStateTime > 0.2f)
         {
             m_googlePlayController->setHidden(false);
             m_googlePlayAchievements->setHidden(false);
@@ -165,7 +165,7 @@ void GameButtonContainer::close()
     m_googlePlayLeaderboards->setHidden(true);
     m_googlePlaySignInOut->setHidden(true);
     
-    m_fStateTime = 0.299999f;
+    m_fStateTime = 0.199999f;
     m_isOpening = false;
     m_isAnimating = true;
 }
@@ -177,7 +177,7 @@ bool GameButtonContainer::isAnimating()
 
 bool GameButtonContainer::isOpen()
 {
-    return !m_isAnimating && m_fStateTime > 0.3f;
+    return !m_isAnimating && m_fStateTime > 0.2f;
 }
 
 bool GameButtonContainer::isClosed()

@@ -1,6 +1,7 @@
 package com.noctisgames.nosfuratu;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.NativeActivity;
 import android.content.Intent;
 import android.os.Build;
@@ -11,12 +12,18 @@ import android.view.View;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 
 import static com.noctisgames.nosfuratu.BuildConfig.DEBUG;
+import static com.noctisgames.nosfuratu.GameHelper.RC_UNUSED;
 
-public final class MainNativeActivity extends NativeActivity
+public final class MainNativeActivity extends NativeActivity implements GameHelper.GameHelperListener
 {
-    private InterstitialAd mInterstitialAd;
+    private static final int REQUESTED_CLIENTS = GameHelper.CLIENT_GAMES | GameHelper.CLIENT_PLUS;
+
+    private InterstitialAd _interstitialAd;
+    private GameHelper _helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,6 +47,37 @@ public final class MainNativeActivity extends NativeActivity
                 }
             });
         }
+
+        if (_helper == null)
+        {
+            getGameHelper();
+        }
+
+        _helper.setup(this);
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        _helper.onStart(this);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        _helper.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        _helper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -63,17 +101,17 @@ public final class MainNativeActivity extends NativeActivity
         }
     }
 
-    /*
-    *   This is needed to foward the onActivityResult call to the games SDK.
-    *   The SDK uses this to manage the display of the standard UI calls.
-    */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        nativeOnActivityResult(this, requestCode,resultCode, data);
+    public void onSignInFailed()
+    {
+        // Empty
     }
 
-    // Implemented in C++.
-    public static native void nativeOnActivityResult(Activity activity, int requestCode, int resultCode, Intent data);
+    @Override
+    public void onSignInSucceeded()
+    {
+        // Empty
+    }
 
     // Called from C++
     public void initializeInterstitialAds()
@@ -83,9 +121,9 @@ public final class MainNativeActivity extends NativeActivity
             @Override
             public void run()
             {
-                mInterstitialAd = new InterstitialAd(MainNativeActivity.this);
-                mInterstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
-                mInterstitialAd.setAdListener(new AdListener()
+                _interstitialAd = new InterstitialAd(MainNativeActivity.this);
+                _interstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
+                _interstitialAd.setAdListener(new AdListener()
                 {
                     @Override
                     public void onAdClosed()
@@ -102,7 +140,8 @@ public final class MainNativeActivity extends NativeActivity
     // Called from C++
     public void displayInterstitialAdIfLoaded()
     {
-        if (mInterstitialAd == null) {
+        if (_interstitialAd == null)
+        {
             initializeInterstitialAds();
         }
 
@@ -111,12 +150,95 @@ public final class MainNativeActivity extends NativeActivity
             @Override
             public void run()
             {
-                if (mInterstitialAd.isLoaded())
+                if (_interstitialAd.isLoaded())
                 {
-                    mInterstitialAd.show();
+                    _interstitialAd.show();
                 }
             }
         });
+    }
+
+    public boolean isSignedIn()
+    {
+        return _helper.isSignedIn();
+    }
+
+    public void beginUserInitiatedSignIn()
+    {
+        _helper.beginUserInitiatedSignIn();
+    }
+
+    public void signOut()
+    {
+        _helper.signOut();
+    }
+
+    public void showAchievements()
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (isSignedIn())
+                {
+                    startActivityForResult(Games.Achievements.getAchievementsIntent(getApiClient()), RC_UNUSED);
+                }
+                else
+                {
+                    makeSimpleDialog(getString(R.string.achievements_not_available)).show();
+                }
+            }
+        });
+    }
+
+    public void showLeaderboards()
+    {
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (isSignedIn())
+                {
+                    startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(getApiClient()), RC_UNUSED);
+                }
+                else
+                {
+                    makeSimpleDialog(getString(R.string.leaderboards_not_available)).show();
+                }
+            }
+        });
+    }
+
+    public void unlockAchievement(String key)
+    {
+        Games.Achievements.reveal(getApiClient(), key);
+        Games.Achievements.unlock(getApiClient(), key);
+    }
+
+    public void submitScore(final String key, int score)
+    {
+        Games.Leaderboards.submitScore(getApiClient(), key, score);
+
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (isSignedIn())
+                {
+                    startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getApiClient(), key), RC_UNUSED);
+                }
+            }
+        });
+    }
+
+    public String getStringResource(String key)
+    {
+        String packageName = getPackageName();
+        int resId = getResources().getIdentifier(key, "string", packageName);
+        return getString(resId);
     }
 
     private void requestNewInterstitial()
@@ -125,7 +247,7 @@ public final class MainNativeActivity extends NativeActivity
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
                 .build();
 
-        mInterstitialAd.loadAd(adRequest);
+        _interstitialAd.loadAd(adRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -138,5 +260,31 @@ public final class MainNativeActivity extends NativeActivity
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+    }
+
+    private GameHelper getGameHelper()
+    {
+        if (_helper == null)
+        {
+            _helper = new GameHelper(this, REQUESTED_CLIENTS);
+            _helper.enableDebugLog(DEBUG);
+        }
+        return _helper;
+    }
+
+    private GoogleApiClient getApiClient()
+    {
+        return _helper.getApiClient();
+    }
+
+    /**
+     * Create a simple {@link Dialog} with an 'OK' button and a message.
+     *
+     * @param text the message to display on the Dialog.
+     * @return an instance of {@link AlertDialog}
+     */
+    private Dialog makeSimpleDialog(String text)
+    {
+        return new AlertDialog.Builder(this).setMessage(text).setNeutralButton(android.R.string.ok, null).create();
     }
 }

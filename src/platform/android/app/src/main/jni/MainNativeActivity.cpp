@@ -30,14 +30,6 @@
 #include <android/native_window_jni.h>
 #include <cpu-features.h>
 
-extern "C"
-{
-    JNIEXPORT void Java_com_noctisgames_nosfuratu_MainNativeActivity_nativeOnActivityResult(JNIEnv *env, jobject thiz, jobject activity, jint requestCode, jint resultCode, jobject data)
-    {
-        // TODO, JNI methods
-    }
-} // extern "C"
-
 struct android_app;
 
 class Engine
@@ -48,6 +40,9 @@ public:
     
     Engine();
     ~Engine();
+    
+    void onSignInSucceeded();
+    void onSignInFailed();
     
     void setState(android_app* state);
     int initDisplay();
@@ -61,10 +56,6 @@ public:
     void resume();
     void pause();
     
-    void initializeInterstitialAds();
-    void displayInterstitialAdIfLoaded();
-    std::string getStringResource(const std::string& resourceName);
-    
 private:
     ndk_helper::GLContext* m_glContext;
     android_app* m_app;
@@ -75,7 +66,16 @@ private:
     bool m_hasFocus;
     bool m_needsToSubmitScoreAfterAuthentication;
     
-    static long systemNanoTime();
+    void initializeInterstitialAds();
+    void displayInterstitialAdIfLoaded();
+    bool isSignedIn();
+    void beginUserInitiatedSignIn();
+    void signOut();
+    void showAchievements();
+    void showLeaderboards();
+    void unlockAchievement(const char* key);
+    void submitScore(const char* key, int score);
+    std::string getStringResource(const std::string& resourceName);
 };
 
 void Engine::handleCmd(struct android_app* app, int32_t cmd)
@@ -225,35 +225,6 @@ Engine::~Engine()
 {
 }
 
-//void Engine::OnAuthActionStarted(gpg::AuthOperation op)
-//{
-//    if (!m_hasInitializedResources)
-//    {
-//        return;
-//    }
-//}
-//
-//void Engine::OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status)
-//{
-//    if (!m_hasInitializedResources)
-//    {
-//        return;
-//    }
-//    
-//    m_screen->setAuthenticated(status == gpg::AuthStatus::VALID);
-//    
-//    if (m_needsToSubmitScoreAfterAuthentication
-//        && m_screen->m_isAuthenticated)
-//    {
-//        std::string key = m_screen->getLeaderboardKey();
-//        std::string id = getStringResource(key);
-//        int score = m_screen->getScore();
-//        StateManager::SubmitHighScore(id.c_str(), score);
-//    }
-//    
-//    m_needsToSubmitScoreAfterAuthentication = false;
-//}
-
 void Engine::setState(android_app* state)
 {
     m_app = state;
@@ -279,8 +250,6 @@ int Engine::initDisplay()
         
         resume();
     }
-    
-//    m_screen->setAuthenticated(StateManager::GetGameServices()->IsAuthorized());
     
     return 0;
 }
@@ -363,6 +332,21 @@ void Engine::drawFrame()
         deltaTime = 0.016666666666667f;
     }
     
+    bool signedIn = isSignedIn();
+    if (m_needsToSubmitScoreAfterAuthentication
+        && !m_screen->m_isAuthenticated
+        && signedIn)
+    {
+        std::string key = m_screen->getLeaderboardKey();
+        std::string id = getStringResource(key);
+        int score = m_screen->getScore();
+        submitScore(id.c_str(), score);
+        
+        m_needsToSubmitScoreAfterAuthentication = false;
+    }
+    
+    m_screen->setAuthenticated(signedIn);
+    
     int requestedAction = m_screen->getRequestedAction();
     
     switch (requestedAction)
@@ -373,70 +357,70 @@ void Engine::drawFrame()
             break;
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
         {
-//            if (StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                std::string key = m_screen->getLeaderboardKey();
-//                std::string id = getStringResource(key);
-//                int score = m_screen->getScore();
-//                StateManager::SubmitHighScore(id.c_str(), score);
-//            }
-//            else
-//            {
-//                m_needsToSubmitScoreAfterAuthentication = true;
-//                StateManager::BeginUserInitiatedSignIn();
-//            }
+            if (isSignedIn())
+            {
+                std::string key = m_screen->getLeaderboardKey();
+                std::string id = getStringResource(key);
+                int score = m_screen->getScore();
+                submitScore(id.c_str(), score);
+            }
+            else
+            {
+                m_needsToSubmitScoreAfterAuthentication = true;
+                beginUserInitiatedSignIn();
+            }
         }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
         {
-//            if (StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                std::vector<std::string>& keys = m_screen->getUnlockedAchievementsKeys();
-//                for (std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
-//                {
-//                    std::string key = *i;
-//                    std::string id = getStringResource(key);
-//                    StateManager::UnlockAchievement(id.c_str());
-//                }
-//            }
+            if (isSignedIn())
+            {
+                std::vector<std::string>& keys = m_screen->getUnlockedAchievementsKeys();
+                for (std::vector<std::string>::iterator i = keys.begin(); i != keys.end(); ++i)
+                {
+                    std::string key = *i;
+                    std::string id = getStringResource(key);
+                    unlockAchievement(id.c_str());
+                }
+            }
         }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-//            if (StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                StateManager::ShowLeaderboards();
-//            }
-//            else
-//            {
-//                StateManager::BeginUserInitiatedSignIn();
-//            }
+            if (isSignedIn())
+            {
+                showLeaderboards();
+            }
+            else
+            {
+                beginUserInitiatedSignIn();
+            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-//            if (StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                StateManager::ShowAchievements();
-//            }
-//            else
-//            {
-//                StateManager::BeginUserInitiatedSignIn();
-//            }
+            if (isSignedIn())
+            {
+                showAchievements();
+            }
+            else
+            {
+                beginUserInitiatedSignIn();
+            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SIGN_IN:
-//            if (!StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                StateManager::BeginUserInitiatedSignIn();
-//            }
+            if (!isSignedIn())
+            {
+                beginUserInitiatedSignIn();
+            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SIGN_OUT:
-//            if (StateManager::GetGameServices()->IsAuthorized())
-//            {
-//                StateManager::SignOut();
-//            }
+            if (isSignedIn())
+            {
+                signOut();
+            }
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:
@@ -523,6 +507,106 @@ void Engine::displayInterstitialAdIfLoaded()
     m_app->activity->vm->DetachCurrentThread();
 }
 
+bool Engine::isSignedIn()
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "isSignedIn", "()Z");
+    jboolean ret = jni->CallBooleanMethod(m_app->activity->clazz, methodID);
+    
+    m_app->activity->vm->DetachCurrentThread();
+    
+    return ret;
+}
+
+void Engine::beginUserInitiatedSignIn()
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "beginUserInitiatedSignIn", "()V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::signOut()
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "signOut", "()V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::showAchievements()
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "showAchievements", "()V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::showLeaderboards()
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "showLeaderboards", "()V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::unlockAchievement(const char* key)
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    jstring java_key = jni->NewStringUTF(key);
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "unlockAchievement", "(Ljava/lang/String;)V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID, java_key);
+    
+    jni->DeleteLocalRef(java_key);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::submitScore(const char* key, int score)
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    jstring java_key = jni->NewStringUTF(key);
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "submitScore", "(Ljava/lang/String;I)V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID, java_key, score);
+    
+    jni->DeleteLocalRef(java_key);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
 std::string Engine::getStringResource(const std::string& resourceName)
 {
     JNIEnv *jni;
@@ -546,6 +630,8 @@ std::string Engine::getStringResource(const std::string& resourceName)
     return s;
 }
 
+Engine g_engine;
+
 /**
  * This is the main entry point of a native application that is using
  * android_native_m_appglue.  It runs in its own thread, with its own
@@ -555,11 +641,9 @@ void android_main(android_app* state)
 {
     app_dummy();
     
-    static Engine engine;
+    g_engine.setState(state);
     
-    engine.setState(state);
-    
-    state->userData = &engine;
+    state->userData = &g_engine;
     state->onAppCmd = Engine::handleCmd;
     state->onInputEvent = Engine::handleInput;
     
@@ -577,7 +661,7 @@ void android_main(android_app* state)
         // If not animating, we will block forever waiting for events.
         // If animating, we loop until all events are read, then continue
         // to draw the next frame of animation.
-        while ((id = ALooper_pollAll(engine.isReady() ? 0 : -1, NULL, &events, (void**) &source)) >= 0)
+        while ((id = ALooper_pollAll(g_engine.isReady() ? 0 : -1, NULL, &events, (void**) &source)) >= 0)
         {
             if (source != NULL)
             {
@@ -586,14 +670,14 @@ void android_main(android_app* state)
             
             if (state->destroyRequested != 0)
             {
-                engine.termDisplay();
+                g_engine.termDisplay();
                 return;
             }
         }
         
-        if (engine.isReady())
+        if (g_engine.isReady())
         {
-            engine.drawFrame();
+            g_engine.drawFrame();
         }
     }
 }
