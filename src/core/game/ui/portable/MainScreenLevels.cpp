@@ -1164,28 +1164,13 @@ bool Level::handleInput(MainScreen* ms)
                 if (!m_hasCompletedLevel
                     && m_backButton->handleClick(touchPoint))
                 {
-                    m_game->setNumCarrotsCollected(112);
-                    m_game->setNumGoldenCarrotsCollected(4);
-                    m_game->setNumVialsCollected(1);
+                    m_exitLoop = true;
                     
-                    m_game->updateScoreFromTime();
+                    ms->m_renderer->stopCamera();
                     
-                    m_game->updateScore();
+                    ms->m_stateMachine.revertToPreviousState();
                     
-                    m_hasCompletedLevel = true;
-                    m_isDisplayingResults = true;
-                    
-                    m_levelCompletePanel->onLevelCompleted(m_game);
-                    
-                    return false;
-                    
-//                    m_exitLoop = true;
-//                    
-//                    ms->m_renderer->stopCamera();
-//                    
-//                    ms->m_stateMachine.revertToPreviousState();
-//                    
-//                    return true;
+                    return true;
                 }
                 
                 if (!ms->m_hasSwiped && ms->m_fScreenHeldTime < 0.4f)

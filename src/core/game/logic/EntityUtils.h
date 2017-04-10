@@ -293,10 +293,10 @@ public:
             }
             
             if ((*i)->getRTTI().derivesFrom(ForegroundCoverObject::rtti)
-                && (((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall
-                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Bottom
-                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window
-                    || ((ForegroundObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window_Bottom))
+                && (((ForegroundCoverObject *)(*i))->getType() == ForegroundCoverObjectType_Wall
+                    || ((ForegroundCoverObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Bottom
+                    || ((ForegroundCoverObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window
+                    || ((ForegroundCoverObject *)(*i))->getType() == ForegroundCoverObjectType_Wall_Window_Bottom))
             {
                 continue;
             }

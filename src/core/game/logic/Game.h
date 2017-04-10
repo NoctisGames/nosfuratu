@@ -28,6 +28,7 @@ class GameMarker;
 class NGRect;
 
 #include <vector>
+#include <string>
 
 class Game
 {
