@@ -354,6 +354,9 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
     case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
         m_screen->clearRequestedAction();
         break;
+    case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
+        m_screen->clearRequestedAction();
+        break;
     case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
         m_screen->clearRequestedAction();
         break;

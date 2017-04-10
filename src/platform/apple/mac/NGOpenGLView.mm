@@ -267,6 +267,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
             _screen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
+            _screen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
             _screen->clearRequestedAction();
             break;

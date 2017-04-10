@@ -75,6 +75,7 @@ private:
     void showLeaderboards();
     void unlockAchievement(const char* key);
     void submitScore(const char* key, int score);
+    void submitAndDisplayScore(const char* key, int score);
     std::string getStringResource(const std::string& resourceName);
 };
 
@@ -340,7 +341,7 @@ void Engine::drawFrame()
         std::string key = m_screen->getLeaderboardKey();
         std::string id = getStringResource(key);
         int score = m_screen->getScore();
-        submitScore(id.c_str(), score);
+        submitAndDisplayScore(id.c_str(), score);
         
         m_needsToSubmitScoreAfterAuthentication = false;
     }
@@ -363,6 +364,18 @@ void Engine::drawFrame()
                 std::string id = getStringResource(key);
                 int score = m_screen->getScore();
                 submitScore(id.c_str(), score);
+            }
+        }
+            m_screen->clearRequestedAction();
+            break;
+        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
+        {
+            if (isSignedIn())
+            {
+                std::string key = m_screen->getLeaderboardKey();
+                std::string id = getStringResource(key);
+                int score = m_screen->getScore();
+                submitAndDisplayScore(id.c_str(), score);
             }
             else
             {
@@ -600,6 +613,23 @@ void Engine::submitScore(const char* key, int score)
     //Default class retrieval
     jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
     jmethodID methodID = jni->GetMethodID(clazz, "submitScore", "(Ljava/lang/String;I)V");
+    jni->CallVoidMethod(m_app->activity->clazz, methodID, java_key, score);
+    
+    jni->DeleteLocalRef(java_key);
+    
+    m_app->activity->vm->DetachCurrentThread();
+}
+
+void Engine::submitAndDisplayScore(const char* key, int score)
+{
+    JNIEnv *jni;
+    m_app->activity->vm->AttachCurrentThread( &jni, NULL );
+    
+    jstring java_key = jni->NewStringUTF(key);
+    
+    //Default class retrieval
+    jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
+    jmethodID methodID = jni->GetMethodID(clazz, "submitAndDisplayScore", "(Ljava/lang/String;I)V");
     jni->CallVoidMethod(m_app->activity->clazz, methodID, java_key, score);
     
     jni->DeleteLocalRef(java_key);

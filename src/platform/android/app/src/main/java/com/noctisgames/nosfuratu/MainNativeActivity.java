@@ -220,6 +220,11 @@ public final class MainNativeActivity extends NativeActivity implements GameHelp
     public void submitScore(final String key, int score)
     {
         Games.Leaderboards.submitScore(getApiClient(), key, score);
+    }
+
+    public void submitAndDisplayScore(final String key, int score)
+    {
+        Games.Leaderboards.submitScore(getApiClient(), key, score);
 
         runOnUiThread(new Runnable()
         {

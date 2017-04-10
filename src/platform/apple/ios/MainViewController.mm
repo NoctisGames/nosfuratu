@@ -144,6 +144,9 @@
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
             _mainScreen->clearRequestedAction();
             break;
+        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
+            _mainScreen->clearRequestedAction();
+            break;
         case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
             _mainScreen->clearRequestedAction();
             break;

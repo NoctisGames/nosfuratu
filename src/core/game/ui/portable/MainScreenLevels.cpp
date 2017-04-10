@@ -507,6 +507,13 @@ void Level::update(MainScreen* ms)
             {
                 m_fStateTime = 1;
                 
+#ifdef NG_GAME_SERVICES
+                if (ms->m_isAuthenticated)
+                {
+                    ms->m_iRequestedAction = REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD;
+                }
+#endif
+                
                 m_isDisplayingResults = true;
             }
             
@@ -877,7 +884,7 @@ bool Level::handleInput(MainScreen* ms)
         }
         else if (result == LEVEL_COMPLETE_PANEL_RC_SUBMIT_SCORE)
         {
-            ms->m_iRequestedAction = REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD;
+            ms->m_iRequestedAction = REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD;
         }
         
         if (goToNextState)
