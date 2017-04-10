@@ -631,15 +631,17 @@ void Level::update(MainScreen* ms)
                 }
             }
             
-            if (totalNumGoldenCarrots > 80)
+            if (totalNumGoldenCarrots >= 80)
             {
                 m_game->unlockAchievement(3);
             }
-            else if (totalNumGoldenCarrots > 30)
+            
+            if (totalNumGoldenCarrots >= 30)
             {
                 m_game->unlockAchievement(2);
             }
-            else if (totalNumGoldenCarrots > 10)
+            
+            if (totalNumGoldenCarrots >= 10)
             {
                 m_game->unlockAchievement(1);
             }
