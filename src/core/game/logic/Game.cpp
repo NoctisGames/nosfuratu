@@ -472,7 +472,7 @@ bool Game::isDashEffective(float deltaTime)
 
 void Game::updateScoreFromTime()
 {
-    static float startingTime = getLevel() == 10 || getLevel() == 21 ? 180.0f : 120.0f;
+    float startingTime = getLevel() == 10 || getLevel() == 21 ? 180.0f : 120.0f;
     
     float secondsLeft = clamp(startingTime - getStateTime(), startingTime, 0);
     
