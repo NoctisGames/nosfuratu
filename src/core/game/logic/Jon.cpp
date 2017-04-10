@@ -1284,7 +1284,7 @@ void Jon::Vampire::execute(Jon* jon)
                 vDist = 1.5f -jon->m_fAbilityStateTime;
             }
             
-            if (jon->m_fAbilityStateTime > 1.2f)
+            if (jon->m_fAbilityStateTime > 1.0f)
             {
                 jon->setState(ABILITY_NONE);
             }

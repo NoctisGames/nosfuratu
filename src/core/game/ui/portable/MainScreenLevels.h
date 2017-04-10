@@ -74,6 +74,8 @@ public:
     
     bool isDebug();
     
+    float getStateTime();
+    
 protected:
     const char* m_json;
     Game* m_game;

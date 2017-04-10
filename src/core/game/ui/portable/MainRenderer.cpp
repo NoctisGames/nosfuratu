@@ -2299,6 +2299,8 @@ void MainRenderer::renderToThirdFramebufferFadeTransition(float progress)
 {
     /// Render the screen transition to the screen
     
+    progress = clamp(progress, 1, 0);
+    
     m_fadeScreenGpuProgramWrapper->configure(m_rendererHelper->getFramebuffer(1), progress);
     
     setFramebuffer(2);

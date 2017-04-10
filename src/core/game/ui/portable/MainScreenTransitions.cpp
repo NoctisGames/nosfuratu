@@ -1023,7 +1023,11 @@ void LevelToComingSoon::execute(MainScreen* ms)
         
         if (m_levelState)
         {
-            ms->m_renderer->renderHud(m_levelState->getGame(), nullptr);
+            ms->m_renderer->renderWorld(m_levelState->getGame());
+            
+            ms->m_renderer->renderBlackOverlay(m_levelState->getStateTime());
+            
+            ms->m_renderer->renderLevelCompletePanel(m_levelState->getLevelCompletePanel());
         }
         
         ms->m_renderer->setFramebuffer(1);

@@ -157,7 +157,6 @@ void Level::exit(MainScreen* ms)
 		NG_AUDIO_ENGINE->stopMusic();
 	}
     
-    m_fStateTime = 0;
     ms->m_isReleasingShockwave = false;
     ms->m_fShockwaveElapsedTime = 0;
     ms->m_fShockwaveCenterX = 0;
@@ -225,6 +224,11 @@ LevelCompletePanel* Level::getLevelCompletePanel()
 bool Level::isDebug()
 {
     return m_isDebug;
+}
+
+float Level::getStateTime()
+{
+    return m_fStateTime;
 }
 
 void Level::onEnter(MainScreen* ms)

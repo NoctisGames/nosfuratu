@@ -351,7 +351,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["Jon_Vampire_UpwardThrust"] = new Animation("vampire", 0, 3072, 256, 512, 1536, 1024, TEXTURE_SIZE_4096, false, 0.031f, 11);
     {
         Animation* anim = new Animation("vampire", 768, 512, 768, 256, 3072, 1024, TEXTURE_SIZE_4096, false, 14);
-        anim->setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.40f, 0.1f);
+        anim->setFrameTimes(14, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.05f, 0.1f, 0.1f, 0.20f, 0.1f);
         ASSETS->getAnimationsMap()["Jon_Vampire_Dash"] = anim;
     }
     ASSETS->getAnimationsMap()["Jon_Vampire_DoubleJumping"] = new Animation("vampire", 0, 512, 256, 256, 768, 512, TEXTURE_SIZE_4096, false, 0.09f, 6);
