@@ -28,7 +28,7 @@ m_isAnimating(false), m_isOpening(false)
     float b = m_position.getY() - (h / 2);
     
     {
-        float iw = w;
+        float iw = w * 0.846153846153846f;
         float ih = h * 0.229166666666667f;
         
         m_googlePlayController = new GameButton(l + 0.5f * w, b + h * 0.864583333333333f, iw, ih, GameButtonType_GameController);
@@ -79,6 +79,9 @@ void GameButtonContainer::update(float deltaTime)
         if (m_fStateTime < 0)
         {
             m_isAnimating = false;
+            
+            m_googlePlayController->setHidden(false);
+            m_googlePlayController->setAlt(false);
         }
     }
 }

@@ -36,9 +36,9 @@ GameButton* GameButton::create(GameButtonType type)
         case GameButtonType_BackToTitle:
         case GameButtonType_BackToLevelSelect:
             return new GameButton(1.518956801470588f / 2,
-                                  CAM_HEIGHT - 1.52941176470592f / 2,
+                                  CAM_HEIGHT - 1.518956801470588f / 2,
                                   1.518956801470588f,
-                                  1.52941176470592f,
+                                  1.518956801470588f,
                                   type);
         case GameButtonType_ViewOpeningCutscene:
             return new GameButton(CAM_WIDTH * 0.07552941176471f,
