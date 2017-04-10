@@ -283,6 +283,13 @@ public:
                 }
             }
             
+            if ((*i)->getRTTI().derivesFrom(DeathFromAboveObject::rtti)
+                || (*i)->getRTTI().derivesFrom(LandingDeathObject::rtti)
+                || (*i)->getRTTI().derivesFrom(DeadlyObject::rtti))
+            {
+                continue;
+            }
+            
             if ((*i)->getRTTI().derivesFrom(ForegroundObject::rtti)
                 && (((ForegroundObject *)(*i))->getType() == ForegroundObjectType_GiantPerchTree
                     || ((ForegroundObject *)(*i))->getType() == ForegroundObjectType_GiantTree

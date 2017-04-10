@@ -253,7 +253,7 @@ void Engine::OnAuthActionFinished(gpg::AuthOperation op, gpg::AuthStatus status)
     m_screen->setAuthenticated(status == gpg::AuthStatus::VALID);
     
     if (m_needsToSubmitScoreAfterAuthentication
-        && m_screen->isAuthenticated())
+        && m_screen->m_isAuthenticated)
     {
         std::string key = m_screen->getLeaderboardKey();
         std::string id = getStringResource(key);
@@ -542,14 +542,14 @@ std::string Engine::getStringResource(const std::string& resourceName)
     
     jclass clazz = jni->GetObjectClass(m_app->activity->clazz);
     jmethodID methodID = jni->GetMethodID(clazz, "getStringResource", "(Ljava/lang/String;)Ljava/lang/String;");
-    jstring ret = (jstring) = jni->CallObjectMethod(m_app->activity->clazz, name);
+    jstring ret = (jstring) jni->CallObjectMethod(m_app->activity->clazz, methodID, name);
     
-    const char *resource = env->GetStringUTFChars(ret, NULL);
+    const char *resource = jni->GetStringUTFChars(ret, NULL);
     std::string s = std::string(resource);
     
-    env->ReleaseStringUTFChars(ret, resource);
-    env->DeleteLocalRef(ret);
-    env->DeleteLocalRef(name);
+    jni->ReleaseStringUTFChars(ret, resource);
+    jni->DeleteLocalRef(ret);
+    jni->DeleteLocalRef(name);
     
     m_app->activity->vm->DetachCurrentThread();
     

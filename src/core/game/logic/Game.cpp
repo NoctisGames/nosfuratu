@@ -839,8 +839,14 @@ void Game::calcFarRight()
                 m_fCamFarRightBottom = m_fFarRightBottom;
             }
             
-            return;
+            break;
         }
+    }
+    
+    float top = m_fCamFarRightBottom + CAM_HEIGHT;
+    if (top > GAME_HEIGHT)
+    {
+        m_fCamFarRightBottom -= (top - GAME_HEIGHT);
     }
 }
 

@@ -233,6 +233,7 @@ void WorldMap::execute(MainScreen* ms)
             }
         }
         
+#ifdef NG_GAME_SERVICES
         int result = m_gameButtonContainer->handleInput();
         if (result > GAME_BUTTON_CONTAINER_RC_HANDLED)
         {
@@ -254,6 +255,7 @@ void WorldMap::execute(MainScreen* ms)
                     break;
             }
         }
+#endif
         
         for (std::vector<ScreenEvent *>::iterator i = SCREEN_INPUT_MANAGER->getEvents().begin(); i != SCREEN_INPUT_MANAGER->getEvents().end(); ++i)
         {
@@ -280,13 +282,6 @@ void WorldMap::execute(MainScreen* ms)
                         toggleSoundOnOff();
                         onButtonSelected();
                     }
-#ifdef NG_GAME_SERVICES
-                    else if (OverlapTester::isPointInNGRect(touchPoint, m_leaderBoardsButton->getMainBounds()))
-                    {
-                        // Temporary, replace with display Leaderboards
-                        return;
-                    }
-#endif
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
                     {
                         WorldMapToOpeningCutscene::getInstance()->setCutsceneButtonLocation(m_viewOpeningCutsceneButton->getPosition().getX(), m_viewOpeningCutsceneButton->getPosition().getY());

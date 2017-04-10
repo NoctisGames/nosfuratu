@@ -101,12 +101,14 @@ void Title::execute(MainScreen* ms)
         {
             srand (static_cast <unsigned> (time(0)));
             int level = rand() % 8 + 1;
-            if (level == 8) { level = 16; }
-            if (level == 7) { level = 15; }
-            if (level == 6) { level = 14; }
-            if (level == 5) { level = 10; }
-            if (level == 4) { level = 9; }
-            if (level == 3) { level = 6; }
+            if (level == 8) { level = 19; }
+            if (level == 7) { level = 16; }
+            if (level == 6) { level = 15; }
+            if (level == 5) { level = 13; }
+            if (level == 4) { level = 10; }
+            if (level == 3) { level = 9; }
+            if (level == 2) { level = 6; }
+            if (level == 1) { level = 2; }
             
             TitleToDemo::getInstance()->setWorldToLoad(1);
             TitleToDemo::getInstance()->setLevelToLoad(level);
