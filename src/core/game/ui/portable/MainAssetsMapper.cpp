@@ -421,5 +421,5 @@ void MainAssetsMapper::mapAssets()
     
     ASSETS->getAnimationsMap()["FinalScoreSparkle"] = new Animation("world_1_objects_part_1", 1680, 2800, 194, 188, 970, 188, TEXTURE_SIZE_4096, false, 0.10f, 5);
     
-    ASSETS->getAnimationsMap()["GameButtonContainer"] = new Animation("world_map_screen_part_1", 1104, 120, 104, 384, 520, 384, TEXTURE_SIZE_4096, false, 0.10f, 5);
+    ASSETS->getAnimationsMap()["GameButtonContainer"] = new Animation("world_map_screen_part_1", 1104, 120, 104, 384, 520, 384, TEXTURE_SIZE_2048, false, 0.10f, 5);
 }
