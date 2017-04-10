@@ -605,15 +605,41 @@ void Level::update(MainScreen* ms)
 			ms->m_renderer->stopCamera();
             m_hasCompletedLevel = true;
             
-            if (m_iNumGoldenCarrots > 80)
+            int totalNumGoldenCarrots = m_iNumGoldenCarrots;
+            
+            {
+                std::string key = getKeyForLevelStats(1, 10);
+                std::string val = NG_SAVE_DATA->findValue(key);
+                int levelStats = StringUtil::stringToInt(val);
+                
+                if (FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED))
+                {
+                    // The player has spent 25 golden carrots to unlock this level
+                    totalNumGoldenCarrots += 25;
+                }
+            }
+            
+            {
+                std::string key = getKeyForLevelStats(1, 21);
+                std::string val = NG_SAVE_DATA->findValue(key);
+                int levelStats = StringUtil::stringToInt(val);
+                
+                if (FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED))
+                {
+                    // The player has spent 25 golden carrots to unlock this level
+                    totalNumGoldenCarrots += 25;
+                }
+            }
+            
+            if (totalNumGoldenCarrots > 80)
             {
                 m_game->unlockAchievement(3);
             }
-            else if (m_iNumGoldenCarrots > 30)
+            else if (totalNumGoldenCarrots > 30)
             {
                 m_game->unlockAchievement(2);
             }
-            else if (m_iNumGoldenCarrots > 10)
+            else if (totalNumGoldenCarrots > 10)
             {
                 m_game->unlockAchievement(1);
             }
