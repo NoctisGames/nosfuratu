@@ -249,6 +249,16 @@
         // Right Trigger on PS4 controller
         GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_TRIGGER, index, 0, 1);
     }
+    else if (buttonNumber == 8)
+    {
+        // Select on PS4 cont
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BACK_BUTTON, index, 1, 0);
+    }
+    else if (buttonNumber == 9)
+    {
+        // Start on PS4 controller
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, index, 1, 0);
+    }
 }
 
 - (void) ddhidJoystick:(DDHidJoystick *) joystick buttonUp:(unsigned)buttonNumber;
@@ -260,7 +270,7 @@
     
     if (buttonNumber == 0)
     {
-        // GAME_PAD_INPUT_MANAGER on PS4 controller
+        // Square on PS4 controller
         GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, index, 0, 0);
     }
     else if (buttonNumber == 1)
@@ -283,15 +293,15 @@
         // Right Trigger on PS4 controller
         GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_TRIGGER, index, 0, 0);
     }
-    else if (buttonNumber == 9)
-    {
-        // Start on PS4 controller
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, index, 0, 0);
-    }
     else if (buttonNumber == 8)
     {
         // Select on PS4 cont
         GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BACK_BUTTON, index, 0, 0);
+    }
+    else if (buttonNumber == 9)
+    {
+        // Start on PS4 controller
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, index, 0, 0);
     }
 }
 
