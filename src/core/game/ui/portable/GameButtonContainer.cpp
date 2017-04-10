@@ -18,27 +18,31 @@
 #include "TouchConverter.h"
 
 GameButtonContainer::GameButtonContainer(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height),
-m_isOpening(false)
+m_isAnimating(false), m_isOpening(false)
 {
     m_fStateTime = -1;
     
     float w = m_fWidth;
     float h = m_fHeight;
+    float l = m_position.getX() - w / 2;
+    float b = m_position.getY() - (h / 2);
     
     {
         float iw = w;
         float ih = h * 0.229166666666667f;
         
-        m_googlePlayController = new GameButton(0.5f * w, h * 0.864583333333333f, iw, ih, GameButtonType_GameController);
-        m_googlePlayAchievements = new GameButton(0.5f * w, h * 0.614583333333333f, iw, ih, GameButtonType_Achievements);
-        m_googlePlayLeaderboards = new GameButton(0.5f * w, h * 0.364583333333333f, iw, ih, GameButtonType_Leaderboards);
-        m_googlePlaySignInOut = new GameButton(0.5f * w, h * 0.114583333333333f, iw, ih, GameButtonType_SignInOut);
+        m_googlePlayController = new GameButton(l + 0.5f * w, b + h * 0.864583333333333f, iw, ih, GameButtonType_GameController);
+        m_googlePlayAchievements = new GameButton(l + 0.5f * w, b + h * 0.614583333333333f, iw, ih, GameButtonType_Achievements);
+        m_googlePlayLeaderboards = new GameButton(l + 0.5f * w, b + h * 0.364583333333333f, iw, ih, GameButtonType_Leaderboards);
+        m_googlePlaySignInOut = new GameButton(l + 0.5f * w, b + h * 0.114583333333333f, iw, ih, GameButtonType_SignInOut);
     }
     
-    m_googlePlayController->setHidden(true);
+    m_googlePlayController->setAlt(false);
+    m_googlePlayController->setHidden(false);
     m_googlePlayAchievements->setHidden(true);
     m_googlePlayLeaderboards->setHidden(true);
     m_googlePlaySignInOut->setHidden(true);
+    m_googlePlaySignInOut->setAlt(false);
 }
 
 GameButtonContainer::~GameButtonContainer()
@@ -64,11 +68,18 @@ void GameButtonContainer::update(float deltaTime)
             
             m_googlePlayController->setAlt(true);
             m_googlePlaySignInOut->setAlt(m_screen->m_isAuthenticated);
+            
+            m_isAnimating = false;
         }
     }
     else
     {
         m_fStateTime -= deltaTime;
+        
+        if (m_fStateTime < 0)
+        {
+            m_isAnimating = false;
+        }
     }
 }
 
@@ -87,31 +98,35 @@ int GameButtonContainer::handleInput()
             {
                 if (OverlapTester::isPointInNGRect(touchPoint, getMainBounds()))
                 {
-                    if (OverlapTester::isPointInNGRect(touchPoint, m_googlePlayController->getMainBounds()))
+                    if (!m_googlePlayController->isHidden()
+                        && OverlapTester::isPointInNGRect(touchPoint, m_googlePlayController->getMainBounds()))
                     {
-                        if (isOpen())
+                        if (isClosed())
                         {
-                            close();
+                            open();
                         }
                         else
                         {
-                            open();
+                            close();
                         }
                         
                         return GAME_BUTTON_CONTAINER_RC_HANDLED;
                     }
                     
-                    if (OverlapTester::isPointInNGRect(touchPoint, m_googlePlayAchievements->getMainBounds()))
+                    if (!m_googlePlayAchievements->isHidden()
+                        && OverlapTester::isPointInNGRect(touchPoint, m_googlePlayAchievements->getMainBounds()))
                     {
                         return GAME_BUTTON_CONTAINER_RC_SHOW_ACHIEVEMENTS;
                     }
                     
-                    if (OverlapTester::isPointInNGRect(touchPoint, m_googlePlayLeaderboards->getMainBounds()))
+                    if (!m_googlePlayLeaderboards->isHidden()
+                        && OverlapTester::isPointInNGRect(touchPoint, m_googlePlayLeaderboards->getMainBounds()))
                     {
                         return GAME_BUTTON_CONTAINER_RC_SHOW_LEADERBOARDS;
                     }
                     
-                    if (OverlapTester::isPointInNGRect(touchPoint, m_googlePlaySignInOut->getMainBounds()))
+                    if (!m_googlePlaySignInOut->isHidden()
+                        && OverlapTester::isPointInNGRect(touchPoint, m_googlePlaySignInOut->getMainBounds()))
                     {
                         return m_screen->m_isAuthenticated ? GAME_BUTTON_CONTAINER_RC_SIGN_OUT : GAME_BUTTON_CONTAINER_RC_SIGN_IN;
                     }
@@ -133,8 +148,11 @@ void GameButtonContainer::config(MainScreen* screen)
 
 void GameButtonContainer::open()
 {
+    m_googlePlayController->setHidden(true);
+    
     m_fStateTime = 0;
     m_isOpening = true;
+    m_isAnimating = true;
 }
 
 void GameButtonContainer::close()
@@ -146,21 +164,22 @@ void GameButtonContainer::close()
     
     m_fStateTime = 0.5f;
     m_isOpening = false;
+    m_isAnimating = true;
 }
 
-bool GameButtonContainer::isOpening()
+bool GameButtonContainer::isAnimating()
 {
-    return m_isOpening;
+    return m_isAnimating;
 }
 
 bool GameButtonContainer::isOpen()
 {
-    return m_isOpening && m_fStateTime > 0.5f;
+    return !m_isAnimating && m_fStateTime > 0.5f;
 }
 
 bool GameButtonContainer::isClosed()
 {
-    return !m_isOpening && m_fStateTime < 0;
+    return !m_isAnimating && m_fStateTime < 0;
 }
 
 GameButton* GameButtonContainer::getGooglePlayController()

@@ -912,7 +912,10 @@ void MainRenderer::renderWorldMapScreenButtons(WorldMap& wm)
     renderPhysicalEntityWithColor(*wm.getToggleSoundButton(), MAIN_ASSETS->get(wm.getToggleSoundButton()), wm.getToggleSoundButton()->getColor());
 #ifdef NG_GAME_SERVICES
     GameButtonContainer* gbc = wm.getGameButtonContainer();
-    renderPhysicalEntity(*gbc, MAIN_ASSETS->get(gbc));
+    if (gbc->isAnimating())
+    {
+        renderPhysicalEntity(*gbc, MAIN_ASSETS->get(gbc));
+    }
     
     if (!gbc->getGooglePlayController()->isHidden())
     {

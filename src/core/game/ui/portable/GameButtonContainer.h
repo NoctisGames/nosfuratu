@@ -44,7 +44,7 @@ public:
     
     void close();
     
-    bool isOpening();
+    bool isAnimating();
     
     bool isOpen();
     
@@ -62,6 +62,7 @@ private:
     GameButton* m_googlePlaySignInOut;
     
     MainScreen* m_screen;
+    bool m_isAnimating;
     bool m_isOpening;
 };
 

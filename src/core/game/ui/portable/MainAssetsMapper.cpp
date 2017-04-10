@@ -166,7 +166,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["GameButtonType_ToggleMusic"] = new TextureRegion("world_map_screen_part_1", 1626, 1774, 128, 128, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_ToggleSound"] = new TextureRegion("world_map_screen_part_1", 1626, 1906, 128, 128, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_BackToTitle"] = new TextureRegion("world_map_screen_part_1", 1800, 0, 104, 104, TEXTURE_SIZE_2048);
-    ASSETS->getTextureRegionMap()["GameButtonType_GameController"] = new TextureRegion("world_map_screen_part_1", 1736, 128, 88, 88, TEXTURE_SIZE_2048);
+    ASSETS->getTextureRegionMap()["GameButtonType_GameController"] = new TextureRegion("world_map_screen_part_1", 1908, 8, 88, 88, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_GameControllerAlt"] = new TextureRegion("world_map_screen_part_1", 1840, 128, 88, 88, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_Achievements"] = new TextureRegion("world_map_screen_part_1", 1736, 224, 88, 88, TEXTURE_SIZE_2048);
     ASSETS->getTextureRegionMap()["GameButtonType_Leaderboards"] = new TextureRegion("world_map_screen_part_1", 1736, 320, 88, 88, TEXTURE_SIZE_2048);
