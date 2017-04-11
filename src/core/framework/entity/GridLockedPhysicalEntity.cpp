@@ -3,18 +3,26 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/6/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "GridLockedPhysicalEntity.h"
+
+#include "GridManager.h"
+#include "NGRect.h"
 
 GridLockedPhysicalEntity::GridLockedPhysicalEntity(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight) : PhysicalEntity(gridX * GM_GRID_CELL_SIZE, gridY * GM_GRID_CELL_SIZE, gridWidth * GM_GRID_CELL_SIZE, gridHeight * GM_GRID_CELL_SIZE), m_iGridX(gridX), m_iGridY(gridY), m_iGridWidth(gridWidth), m_iGridHeight(gridHeight), m_fBoundsX(boundsX), m_fBoundsY(boundsY), m_fBoundsWidth(boundsWidth), m_fBoundsHeight(boundsHeight)
 {
     updateBounds();
     getMainBounds().getLowerLeft().set(gridX * GM_GRID_CELL_SIZE, gridY * GM_GRID_CELL_SIZE);
-    m_position->set(m_iGridX * GM_GRID_CELL_SIZE, m_iGridY * GM_GRID_CELL_SIZE);
-    m_position->sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
-    m_position->add(getWidth() / 2, getHeight() / 2);
+    m_position.set(m_iGridX * GM_GRID_CELL_SIZE, m_iGridY * GM_GRID_CELL_SIZE);
+    m_position.sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+    m_position.add(getWidth() / 2, getHeight() / 2);
+}
+
+GridLockedPhysicalEntity::~GridLockedPhysicalEntity()
+{
+    // Empty
 }
 
 void GridLockedPhysicalEntity::updateBounds()
@@ -40,9 +48,9 @@ void GridLockedPhysicalEntity::snapToGrid(int gridCellSizeScalar)
     m_iGridY = bottom / gridCellSize;
     
 	getMainBounds().getLowerLeft().set(m_iGridX * gridCellSize, m_iGridY * gridCellSize);
-    m_position->set(m_iGridX * gridCellSize, m_iGridY * gridCellSize);
-    m_position->sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
-    m_position->add(getWidth() / 2, getHeight() / 2);
+    m_position.set(m_iGridX * gridCellSize, m_iGridY * gridCellSize);
+    m_position.sub(getWidth() * m_fBoundsX, getHeight() * m_fBoundsY);
+    m_position.add(getWidth() / 2, getHeight() / 2);
     
     m_iGridX *= gridCellSizeScalar;
     m_iGridY *= gridCellSizeScalar;
@@ -52,16 +60,16 @@ void GridLockedPhysicalEntity::snapToGrid(int gridCellSizeScalar)
 
 void GridLockedPhysicalEntity::placeOn(float itemTopY)
 {
-	m_position->setY(itemTopY);
+	m_position.setY(itemTopY);
 
 	if (m_fBoundsY > 0)
 	{
-		m_position->sub(0, getHeight() * m_fBoundsY);
-		m_position->add(0, getHeight() / 2 * .99f);
+		m_position.sub(0, getHeight() * m_fBoundsY);
+		m_position.add(0, getHeight() / 2 * .99f);
 	}
 	else
 	{
-		m_position->add(0, getMainBounds().getHeight() / 2 * .99f);
+		m_position.add(0, getMainBounds().getHeight() / 2 * .99f);
 	}
 	
 	updateBounds();

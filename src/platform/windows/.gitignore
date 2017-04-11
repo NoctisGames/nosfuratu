@@ -3,6 +3,7 @@
 *.user
 *.*sdf
 *.suo
+*.sav
 ARM/
 Debug/
 Release/
@@ -12,5 +13,6 @@ BundleArtifacts/
 AppPackages/
 *VC.opendb
 *.dds
+*.wav
 *VC.db
 .vs/

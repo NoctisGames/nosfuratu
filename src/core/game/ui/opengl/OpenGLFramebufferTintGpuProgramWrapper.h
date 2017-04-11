@@ -6,25 +6,26 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLFramebufferTintGpuProgramWrapper__
-#define __noctisgames__OpenGLFramebufferTintGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLFramebufferTintGpuProgramWrapper__
+#define __nosfuratu__OpenGLFramebufferTintGpuProgramWrapper__
 
 #include "GpuProgramWrapper.h"
-#include "FramebufferToScreenProgram.h"
+
+class OpenGLFramebufferToScreenProgram;
 
 class OpenGLFramebufferTintGpuProgramWrapper : public GpuProgramWrapper
 {
 public:
     OpenGLFramebufferTintGpuProgramWrapper();
     
+    virtual ~OpenGLFramebufferTintGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    FramebufferToScreenProgramStruct m_program;
+    OpenGLFramebufferToScreenProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLFramebufferTintGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLFramebufferTintGpuProgramWrapper__) */

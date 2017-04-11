@@ -3,30 +3,37 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "PhysicalEntity.h"
+
 #include "macros.h"
+#include "NGRect.h"
+#include "NGSTDUtil.h"
 
-PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity()
+PhysicalEntity::PhysicalEntity(float x, float y, float width, float height) : Entity(),
+m_position(x, y),
+m_velocity(),
+m_acceleration(),
+m_fWidth(width),
+m_fHeight(height),
+m_fAngle(0)
 {
-    m_position = std::unique_ptr<Vector2D>(new Vector2D(x, y));
-    m_velocity = std::unique_ptr<Vector2D>(new Vector2D());
-    m_acceleration = std::unique_ptr<Vector2D>(new Vector2D());
-    m_bounds.push_back(std::unique_ptr<Rectangle>(new Rectangle(x - width / 2, y - height / 2, width, height)));
+    m_bounds.push_back(new NGRect(x - width / 2, y - height / 2, width, height));
+}
 
-    m_fWidth = width;
-    m_fHeight = height;
-    m_fAngle = 0;
+PhysicalEntity::~PhysicalEntity()
+{
+    NGSTDUtil::cleanUpVectorOfPointers(m_bounds);
 }
 
 void PhysicalEntity::update(float deltaTime)
 {
     Entity::update(deltaTime);
     
-    m_velocity->add(m_acceleration->getX() * deltaTime, m_acceleration->getY() * deltaTime);
-    m_position->add(m_velocity->getX() * deltaTime, m_velocity->getY() * deltaTime);
+    m_velocity.add(m_acceleration.getX() * deltaTime, m_acceleration.getY() * deltaTime);
+    m_position.add(m_velocity.getX() * deltaTime, m_velocity.getY() * deltaTime);
     
     updateBounds();
 }
@@ -34,7 +41,7 @@ void PhysicalEntity::update(float deltaTime)
 void PhysicalEntity::resetBounds(float width, float height)
 {
     Vector2D &lowerLeft = m_bounds.at(0)->getLowerLeft();
-    lowerLeft.set(m_position->getX() - width / 2, m_position->getY() - height / 2);
+    lowerLeft.set(m_position.getX() - width / 2, m_position.getY() - height / 2);
     m_bounds.at(0)->setWidth(width);
     m_bounds.at(0)->setHeight(height);
 }
@@ -42,7 +49,7 @@ void PhysicalEntity::resetBounds(float width, float height)
 void PhysicalEntity::updateBounds()
 {
     Vector2D &lowerLeft = m_bounds.at(0)->getLowerLeft();
-    lowerLeft.set(m_position->getX() - m_bounds.at(0)->getWidth() / 2, m_position->getY() - m_bounds.at(0)->getHeight() / 2);
+    lowerLeft.set(m_position.getX() - m_bounds.at(0)->getWidth() / 2, m_position.getY() - m_bounds.at(0)->getHeight() / 2);
 }
 
 void PhysicalEntity::placeOn(float itemTopY)
@@ -54,25 +61,25 @@ void PhysicalEntity::placeOn(float itemTopY)
 
 Vector2D& PhysicalEntity::getPosition()
 {
-    return *m_position;
+    return m_position;
 }
 
 Vector2D& PhysicalEntity::getVelocity()
 {
-    return *m_velocity;
+    return m_velocity;
 }
 
 Vector2D& PhysicalEntity::getAcceleration()
 {
-    return *m_acceleration;
+    return m_acceleration;
 }
 
-std::vector<std::unique_ptr<Rectangle>>& PhysicalEntity::getBounds()
+std::vector<NGRect *>& PhysicalEntity::getBounds()
 {
     return m_bounds;
 }
 
-Rectangle& PhysicalEntity::getMainBounds()
+NGRect& PhysicalEntity::getMainBounds()
 {
     return *m_bounds.at(0);
 }
@@ -100,40 +107,6 @@ void PhysicalEntity::setHeight(float height)
 float PhysicalEntity::getAngle()
 {
     return m_fAngle;
-}
-
-#include <iostream>
-
-void PhysicalEntity::log()
-{
-    Rectangle& bounds = getMainBounds();
-    
-    using namespace std;
-    cout
-    << "position: ("
-    << getPosition().getX() << ", "
-    << getPosition().getY() << ", "
-    << getWidth() << ", "
-    << getHeight()
-    << ")"
-    << ", "
-    << "bounds: ("
-    << bounds.getLeft() << ", "
-    << bounds.getBottom() << ", "
-    << bounds.getWidth() << ", "
-    << bounds.getHeight()
-    << ")"
-    << ", "
-    << "velocity: ("
-    << m_velocity->getX() << ", "
-    << m_velocity->getY()
-    << ")"
-    << ", "
-    << "acceleration: ("
-    << m_acceleration->getX() << ", "
-    << m_acceleration->getY()
-    << ")"
-    << endl;
 }
 
 RTTI_IMPL(PhysicalEntity, Entity);

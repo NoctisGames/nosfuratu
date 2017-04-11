@@ -6,25 +6,26 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLTransScreenGpuProgramWrapper__
-#define __noctisgames__OpenGLTransScreenGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLTransScreenGpuProgramWrapper__
+#define __nosfuratu__OpenGLTransScreenGpuProgramWrapper__
 
 #include "TransitionGpuProgramWrapper.h"
-#include "TransitionProgram.h"
+
+class OpenGLTransitionProgram;
 
 class OpenGLTransScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 {
 public:
     OpenGLTransScreenGpuProgramWrapper();
     
+    virtual ~OpenGLTransScreenGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    TransitionProgramStruct m_program;
+    OpenGLTransitionProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLTransScreenGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLTransScreenGpuProgramWrapper__) */

@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/3/15.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__Entity__
@@ -18,9 +18,9 @@ class Entity
 public:
     Entity();
     
-    virtual void update(float deltaTime);
+    virtual ~Entity();
     
-    virtual void onDeletion();
+    virtual void update(float deltaTime);
     
     int getID();
     

@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/28/15.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "EntityManager.h"
@@ -13,14 +13,14 @@
 
 EntityManager* EntityManager::getInstance()
 {
-    static EntityManager *instance = new EntityManager();
-    
-    return instance;
+    static EntityManager instance = EntityManager();
+
+    return &instance;
 }
 
 Entity* EntityManager::getEntityFromID(int id)const
 {
-    EntityMap::const_iterator ent = m_entityMap.find(id);
+    std::map<int, Entity*>::const_iterator ent = m_entityMap.find(id);
     
     assert((ent != m_entityMap.end()) && "<EntityManager::getEntityFromID>: invalid ID");
     

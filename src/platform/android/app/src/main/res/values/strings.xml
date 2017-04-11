@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NosFURatu</string>
+
+    <!-- Google Play Game Services -->
+    <string name="achievements_not_available">Please sign in to view achievements.</string>
+    <string name="leaderboards_not_available">Please sign in to view leaderboards.</string>
+
 </resources>

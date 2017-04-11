@@ -6,36 +6,33 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DFadeScreenGpuProgramWrapper__
-#define __noctisgames__Direct3DFadeScreenGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DFadeScreenGpuProgramWrapper__
+#define __nosfuratu__Direct3DFadeScreenGpuProgramWrapper__
 
 #include "TransitionGpuProgramWrapper.h"
-#include "DeviceResources.h"
+
+#include "pch.h"
+
+class Direct3DProgram;
 
 class Direct3DFadeScreenGpuProgramWrapper : public TransitionGpuProgramWrapper
 {
 public:
-	Direct3DFadeScreenGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
-
-	virtual void bind();
-
-	virtual void unbind();
-
-	virtual void cleanUp();
-
+    Direct3DFadeScreenGpuProgramWrapper();
+    
+    virtual ~Direct3DFadeScreenGpuProgramWrapper();
+    
+    virtual void bind();
+    
+    virtual void unbind();
+    
 private:
-	int m_iNumShadersLoaded;
-    bool m_isWindowsMobile;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+    Direct3DProgram* m_program;
+    
     Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-
-	void createConstantBuffers();
+    Microsoft::WRL::ComPtr<ID3D11Buffer> m_progressConstantBuffer;
+    
+    bool m_isWindowsMobile;
 };
 
-#endif /* defined(__noctisgames__Direct3DFadeScreenGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DFadeScreenGpuProgramWrapper__) */

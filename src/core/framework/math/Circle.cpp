@@ -3,19 +3,22 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/6/13.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "Circle.h"
-#include "Vector2D.h"
 
-Circle::Circle(float x, float y, float radius)
+Circle::Circle(float x, float y, float radius) : m_center(x, y), m_fRadius(radius)
 {
-    m_center = std::unique_ptr<Vector2D>(new Vector2D(x, y));
-    m_fRadius = radius;
+    // Empty
 }
 
-Vector2D& Circle::getCenter() const
+Vector2D& Circle::getCenter()
 {
-    return *m_center;
+    return m_center;
+}
+
+float Circle::getRadius()
+{
+    return m_fRadius;
 }

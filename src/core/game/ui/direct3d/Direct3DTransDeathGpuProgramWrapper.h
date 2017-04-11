@@ -6,34 +6,30 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DTransDeathGpuProgramWrapper__
-#define __noctisgames__Direct3DTransDeathGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DTransDeathGpuProgramWrapper__
+#define __nosfuratu__Direct3DTransDeathGpuProgramWrapper__
 
 #include "TransDeathGpuProgramWrapper.h"
-#include "DeviceResources.h"
+
+#include "pch.h"
+
+class Direct3DProgram;
 
 class Direct3DTransDeathGpuProgramWrapper : public TransDeathGpuProgramWrapper
 {
 public:
-	Direct3DTransDeathGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources, bool isTransIn);
+	Direct3DTransDeathGpuProgramWrapper(bool isTransIn);
+
+	virtual ~Direct3DTransDeathGpuProgramWrapper();
 
 	virtual void bind();
 
 	virtual void unbind();
 
-	virtual void cleanUp();
-
 private:
-	int m_iNumShadersLoaded;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
+    Direct3DProgram* m_program;
+    
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_timeElapsedConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-
-	void createConstantBuffers();
 };
 
-#endif /* defined(__noctisgames__Direct3DTransDeathGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DTransDeathGpuProgramWrapper__) */

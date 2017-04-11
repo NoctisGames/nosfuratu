@@ -3,13 +3,19 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "macros.h"
 #include "Vector2D.h"
 
+#include "macros.h"
+
 #include <math.h>
+
+Vector2D::Vector2D(float x, float y) : m_fX(x), m_fY(y)
+{
+    // Empty
+}
 
 Vector2D::Vector2D(const Vector2D &cSource)
 {
