@@ -6,25 +6,26 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLFramebufferRadialBlurGpuProgramWrapper__
-#define __noctisgames__OpenGLFramebufferRadialBlurGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLFramebufferRadialBlurGpuProgramWrapper__
+#define __nosfuratu__OpenGLFramebufferRadialBlurGpuProgramWrapper__
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
-#include "FramebufferToScreenProgram.h"
+
+class OpenGLFramebufferRadialBlurGpuProgram;
 
 class OpenGLFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlurGpuProgramWrapper
 {
 public:
     OpenGLFramebufferRadialBlurGpuProgramWrapper();
     
+    virtual ~OpenGLFramebufferRadialBlurGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    FramebufferToScreenProgramStruct m_program;
+    OpenGLFramebufferRadialBlurGpuProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLFramebufferRadialBlurGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLFramebufferRadialBlurGpuProgramWrapper__) */

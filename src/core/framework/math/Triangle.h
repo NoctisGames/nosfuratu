@@ -3,15 +3,15 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__Triangle__
 #define __noctisgames__Triangle__
 
-#include <memory>
 #include "Line.h"
-#include "Vector2D.h"
+
+class Vector2D;
 
 class Triangle
 {
@@ -33,9 +33,9 @@ public:
     Line& getSideC();
     
 private:
-    std::unique_ptr<Line> m_sideA;
-    std::unique_ptr<Line> m_sideB;
-    std::unique_ptr<Line> m_sideC;
+    Line m_sideA;
+    Line m_sideB;
+    Line m_sideC;
 };
 
 #endif /* defined(__noctisgames__Triangle__) */

@@ -3,19 +3,21 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__PhysicalEntity__
 #define __noctisgames__PhysicalEntity__
 
 #include "Entity.h"
+
 #include "Vector2D.h"
-#include "Rectangle.h"
+
 #include "RTTI.h"
 
-#include <memory>
 #include <vector>
+
+class NGRect;
 
 class PhysicalEntity : public Entity
 {
@@ -23,6 +25,8 @@ class PhysicalEntity : public Entity
     
 public:
     PhysicalEntity(float x, float y, float width, float height);
+    
+    virtual ~PhysicalEntity();
     
     virtual void update(float deltaTime);
 
@@ -38,9 +42,9 @@ public:
     
     Vector2D& getAcceleration();
 
-    std::vector<std::unique_ptr<Rectangle>>& getBounds();
+    std::vector<NGRect *>& getBounds();
     
-    Rectangle& getMainBounds();
+    NGRect& getMainBounds();
     
     const float& getWidth();
     
@@ -55,10 +59,10 @@ public:
     void log();
     
 protected:
-    std::unique_ptr<Vector2D> m_position;
-    std::unique_ptr<Vector2D> m_velocity;
-    std::unique_ptr<Vector2D> m_acceleration;
-	std::vector<std::unique_ptr<Rectangle>> m_bounds;
+    Vector2D m_position;
+    Vector2D m_velocity;
+    Vector2D m_acceleration;
+	std::vector<NGRect *> m_bounds;
     float m_fWidth;
     float m_fHeight;
     float m_fAngle;

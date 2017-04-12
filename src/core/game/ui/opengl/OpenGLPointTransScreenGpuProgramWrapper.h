@@ -6,25 +6,26 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLPointTransScreenGpuProgramWrapper__
-#define __noctisgames__OpenGLPointTransScreenGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLPointTransScreenGpuProgramWrapper__
+#define __nosfuratu__OpenGLPointTransScreenGpuProgramWrapper__
 
 #include "PointTransitionGpuProgramWrapper.h"
-#include "PointTransitionProgram.h"
+
+class OpenGLPointTransitionProgram;
 
 class OpenGLPointTransScreenGpuProgramWrapper : public PointTransitionGpuProgramWrapper
 {
 public:
     OpenGLPointTransScreenGpuProgramWrapper();
     
+    virtual ~OpenGLPointTransScreenGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    PointTransitionProgramStruct m_program;
+    OpenGLPointTransitionProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLPointTransScreenGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLPointTransScreenGpuProgramWrapper__) */

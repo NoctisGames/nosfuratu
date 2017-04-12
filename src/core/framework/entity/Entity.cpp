@@ -3,7 +3,7 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/3/15.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "Entity.h"
@@ -13,14 +13,14 @@ Entity::Entity() : m_fStateTime(0.0f), m_isRequestingDeletion(false), m_ID(getUn
     // Empty
 }
 
+Entity::~Entity()
+{
+    // Empty
+}
+
 void Entity::update(float deltaTime)
 {
     m_fStateTime += deltaTime;
-}
-
-void Entity::onDeletion()
-{
-    // Empty
 }
 
 int Entity::getID()

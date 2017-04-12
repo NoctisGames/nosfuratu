@@ -3,16 +3,16 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef Vector2D_H
-#define Vector2D_H
+#ifndef __noctisgames__Vector2D__
+#define __noctisgames__Vector2D__
 
 class Vector2D
 {
 public:
-    Vector2D(float x = 0, float y = 0) : m_fX(x), m_fY(y) {}
+    Vector2D(float x = 0, float y = 0);
     
     Vector2D(const Vector2D &cSource);
     
@@ -54,4 +54,4 @@ private:
     float m_fY;
 };
 
-#endif /* Vector2D_H */
+#endif /* defined(__noctisgames__Vector2D__) */

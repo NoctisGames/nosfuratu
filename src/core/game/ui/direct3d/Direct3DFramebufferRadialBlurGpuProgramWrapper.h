@@ -6,36 +6,33 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__
-#define __noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__
+#ifndef __nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__
+#define __nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__
 
 #include "FramebufferRadialBlurGpuProgramWrapper.h"
-#include "DeviceResources.h"
+
+#include "pch.h"
+
+class Direct3DProgram;
 
 class Direct3DFramebufferRadialBlurGpuProgramWrapper : public FramebufferRadialBlurGpuProgramWrapper
 {
 public:
-	Direct3DFramebufferRadialBlurGpuProgramWrapper(const std::shared_ptr<DX::DeviceResources>& deviceResources);
-
-	virtual void bind();
-
-	virtual void unbind();
-
-	virtual void cleanUp();
-
+    Direct3DFramebufferRadialBlurGpuProgramWrapper();
+    
+    virtual ~Direct3DFramebufferRadialBlurGpuProgramWrapper();
+    
+    virtual void bind();
+    
+    virtual void unbind();
+    
 private:
-	int m_iNumShadersLoaded;
-	bool m_isWindowsMobile;
-
-	// Cached pointer to device resources.
-	std::shared_ptr<DX::DeviceResources> m_deviceResources;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_directionConstantBuffer;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixelShader;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-
-	void createConstantBuffers();
+    Direct3DProgram* m_program;
+    
+    Microsoft::WRL::ComPtr<ID3D11Buffer> m_isWindowsMobileConstantBuffer;
+    Microsoft::WRL::ComPtr<ID3D11Buffer> m_directionConstantBuffer;
+    
+    bool m_isWindowsMobile;
 };
 
-#endif /* defined(__noctisgames__Direct3DFramebufferRadialBlurGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__Direct3DFramebufferRadialBlurGpuProgramWrapper__) */

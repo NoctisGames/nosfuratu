@@ -3,17 +3,21 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "macros.h"
 #include "OpenGLSpriteBatcher.h"
-#include "GameConstants.h"
+
+#include "macros.h"
 #include "TextureRegion.h"
-#include "Rectangle.h"
+#include "NGRect.h"
 #include "Vector2D.h"
 #include "OpenGLManager.h"
 #include "GpuProgramWrapper.h"
+#include "GpuTextureWrapper.h"
+#include "Color.h"
+
+#include <math.h>
 
 OpenGLSpriteBatcher::OpenGLSpriteBatcher()
 {
@@ -22,16 +26,11 @@ OpenGLSpriteBatcher::OpenGLSpriteBatcher()
 
 void OpenGLSpriteBatcher::beginBatch()
 {
-    OGLESManager->m_textureVertices.clear();
+    OGLManager->getTextureVertices().clear();
     m_iNumSprites = 0;
 }
 
-void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper)
-{
-    endBatch(textureWrapper, *OGLESManager->m_textureProgram);
-}
-
-void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
+void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper& textureWrapper, GpuProgramWrapper &gpuProgramWrapper)
 {
     if (m_iNumSprites > 0)
     {
@@ -40,7 +39,7 @@ void OpenGLSpriteBatcher::endBatch(GpuTextureWrapper &textureWrapper, GpuProgram
         
         gpuProgramWrapper.bind();
         
-        glDrawElements(GL_TRIANGLES, m_iNumSprites * INDICES_PER_RECTANGLE, GL_UNSIGNED_SHORT, &OGLESManager->m_indices[0]);
+        glDrawElements(GL_TRIANGLES, m_iNumSprites * INDICES_PER_RECTANGLE, GL_UNSIGNED_SHORT, &OGLManager->getIndices()[0]);
         
         gpuProgramWrapper.unbind();
         
@@ -84,10 +83,10 @@ void OpenGLSpriteBatcher::drawSprite(float x, float y, float width, float height
         x4 += x;
         y4 += y;
         
-        OGLESManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
-        OGLESManager->addVertexCoordinate(x4, y4, 0, 1, 1, 1, 1, tr.u1, tr.v1);
-        OGLESManager->addVertexCoordinate(x3, y3, 0, 1, 1, 1, 1, tr.u2, tr.v1);
-        OGLESManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v2);
+        OGLManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
+        OGLManager->addVertexCoordinate(x4, y4, 0, 1, 1, 1, 1, tr.u1, tr.v1);
+        OGLManager->addVertexCoordinate(x3, y3, 0, 1, 1, 1, 1, tr.u2, tr.v1);
+        OGLManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v2);
     }
     else
     {
@@ -132,10 +131,10 @@ void OpenGLSpriteBatcher::drawSprite(float x, float y, float width, float height
         x4 += x;
         y4 += y;
         
-        OGLESManager->addVertexCoordinate(x1, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v2);
-        OGLESManager->addVertexCoordinate(x4, y4, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v1);
-        OGLESManager->addVertexCoordinate(x3, y3, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v1);
-        OGLESManager->addVertexCoordinate(x2, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v2);
+        OGLManager->addVertexCoordinate(x1, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v2);
+        OGLManager->addVertexCoordinate(x4, y4, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v1);
+        OGLManager->addVertexCoordinate(x3, y3, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v1);
+        OGLManager->addVertexCoordinate(x2, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v2);
     }
     else
     {
@@ -156,10 +155,10 @@ void OpenGLSpriteBatcher::drawSprite(float x, float y, float width, float height
     GLfloat x2 = x + halfWidth;
     GLfloat y2 = y + halfHeight;
     
-    OGLESManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
-    OGLESManager->addVertexCoordinate(x1, y2, 0, 1, 1, 1, 1, tr.u1, tr.v1);
-    OGLESManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v1);
-    OGLESManager->addVertexCoordinate(x2, y1, 0, 1, 1, 1, 1, tr.u2, tr.v2);
+    OGLManager->addVertexCoordinate(x1, y1, 0, 1, 1, 1, 1, tr.u1, tr.v2);
+    OGLManager->addVertexCoordinate(x1, y2, 0, 1, 1, 1, 1, tr.u1, tr.v1);
+    OGLManager->addVertexCoordinate(x2, y2, 0, 1, 1, 1, 1, tr.u2, tr.v1);
+    OGLManager->addVertexCoordinate(x2, y1, 0, 1, 1, 1, 1, tr.u2, tr.v2);
 }
 
 void OpenGLSpriteBatcher::drawSprite(float x, float y, float width, float height, Color &c, TextureRegion tr)
@@ -171,8 +170,8 @@ void OpenGLSpriteBatcher::drawSprite(float x, float y, float width, float height
     GLfloat x2 = x + halfWidth;
     GLfloat y2 = y + halfHeight;
     
-    OGLESManager->addVertexCoordinate(x1, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v2);
-    OGLESManager->addVertexCoordinate(x1, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v1);
-    OGLESManager->addVertexCoordinate(x2, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v1);
-    OGLESManager->addVertexCoordinate(x2, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v2);
+    OGLManager->addVertexCoordinate(x1, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v2);
+    OGLManager->addVertexCoordinate(x1, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u1, tr.v1);
+    OGLManager->addVertexCoordinate(x2, y2, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v1);
+    OGLManager->addVertexCoordinate(x2, y1, 0, c.red, c.green, c.blue, c.alpha, tr.u2, tr.v2);
 }

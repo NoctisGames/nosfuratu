@@ -3,11 +3,11 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__platform_gl_h
-#define __noctisgames__platform_gl_h
+#ifndef __noctisgames__platform_gl__
+#define __noctisgames__platform_gl__
 
 #ifdef __APPLE__
 #include "TargetConditionals.h"
@@ -24,4 +24,4 @@
 #include <GLES2/gl2ext.h>
 #endif
 
-#endif /* defined(__noctisgames__platform_gl_h) */
+#endif /* defined(__noctisgames__platform_gl__) */

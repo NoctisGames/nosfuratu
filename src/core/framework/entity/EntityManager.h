@@ -3,19 +3,15 @@
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 8/28/15.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __noctisgames__EntityManager__
 #define __noctisgames__EntityManager__
 
-#define EntityMgr (EntityManager::getInstance())
-
 #include <map>
 
 class Entity;
-
-typedef std::map<int, Entity*> EntityMap;
 
 class EntityManager
 {
@@ -31,11 +27,10 @@ public:
     void reset();
     
 private:
-    EntityMap m_entityMap;
+    std::map<int, Entity*> m_entityMap;
     
+    // ctor, copy ctor, and assignment should be private in a Singleton
     EntityManager();
-    
-    //copy ctor and assignment should be private
     EntityManager(const EntityManager&);
     EntityManager& operator=(const EntityManager&);
 };

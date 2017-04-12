@@ -6,25 +6,26 @@
 //  Copyright (c) 2016 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__OpenGLShockwaveTextureGpuProgramWrapper__
-#define __noctisgames__OpenGLShockwaveTextureGpuProgramWrapper__
+#ifndef __nosfuratu__OpenGLShockwaveTextureGpuProgramWrapper__
+#define __nosfuratu__OpenGLShockwaveTextureGpuProgramWrapper__
 
 #include "ShockwaveTextureGpuProgramWrapper.h"
-#include "ShockwaveTextureProgram.h"
+
+class OpenGLShockwaveTextureProgram;
 
 class OpenGLShockwaveTextureGpuProgramWrapper : public ShockwaveTextureGpuProgramWrapper
 {
 public:
     OpenGLShockwaveTextureGpuProgramWrapper();
     
+    virtual ~OpenGLShockwaveTextureGpuProgramWrapper();
+    
     virtual void bind();
     
     virtual void unbind();
     
-    virtual void cleanUp();
-    
 private:
-    ShockwaveTextureProgramStruct m_program;
+    OpenGLShockwaveTextureProgram* m_program;
 };
 
-#endif /* defined(__noctisgames__OpenGLShockwaveTextureGpuProgramWrapper__) */
+#endif /* defined(__nosfuratu__OpenGLShockwaveTextureGpuProgramWrapper__) */
