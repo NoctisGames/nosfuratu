@@ -134,11 +134,11 @@
     switch (requestedAction)
     {
         case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            if (self.interstitial.isReady)
-            {
-                _mainScreen->onPause();
-                [self.interstitial presentFromRootViewController:self];
-            }
+//            if (self.interstitial.isReady)
+//            {
+//                _mainScreen->onPause();
+//                [self.interstitial presentFromRootViewController:self];
+//            }
             _mainScreen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
@@ -179,8 +179,8 @@
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
 {
-    _mainScreen->onResume();
-    [self createAndLoadInterstitial];
+//    _mainScreen->onResume();
+//    [self createAndLoadInterstitial];
 }
 
 #pragma mark Private
@@ -231,14 +231,14 @@
 
 - (void)createAndLoadInterstitial
 {
-#if DEBUG
-    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
-#else
-    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-6017554042572989/7161041758"];
-#endif
-    
-    self.interstitial.delegate = self;
-    [self.interstitial loadRequest:[GADRequest request]];
+//#if DEBUG
+//    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+//#else
+//    self.interstitial = [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-6017554042572989/7161041758"];
+//#endif
+//    
+//    self.interstitial.delegate = self;
+//    [self.interstitial loadRequest:[GADRequest request]];
 }
 
 @end

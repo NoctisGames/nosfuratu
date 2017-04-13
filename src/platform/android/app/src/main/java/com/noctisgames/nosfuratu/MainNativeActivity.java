@@ -119,46 +119,46 @@ public final class MainNativeActivity extends NativeActivity implements GameHelp
     // Called from C++
     public void initializeInterstitialAds()
     {
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                _interstitialAd = new InterstitialAd(MainNativeActivity.this);
-                _interstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
-                _interstitialAd.setAdListener(new AdListener()
-                {
-                    @Override
-                    public void onAdClosed()
-                    {
-                        requestNewInterstitial();
-                    }
-                });
-
-                requestNewInterstitial();
-            }
-        });
+//        runOnUiThread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                _interstitialAd = new InterstitialAd(MainNativeActivity.this);
+//                _interstitialAd.setAdUnitId(DEBUG ? "ca-app-pub-3940256099942544/1033173712" : "ca-app-pub-6017554042572989/7036617356");
+//                _interstitialAd.setAdListener(new AdListener()
+//                {
+//                    @Override
+//                    public void onAdClosed()
+//                    {
+//                        requestNewInterstitial();
+//                    }
+//                });
+//
+//                requestNewInterstitial();
+//            }
+//        });
     }
 
     // Called from C++
     public void displayInterstitialAdIfLoaded()
     {
-        if (_interstitialAd == null)
-        {
-            initializeInterstitialAds();
-        }
-
-        runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                if (_interstitialAd.isLoaded())
-                {
-                    _interstitialAd.show();
-                }
-            }
-        });
+//        if (_interstitialAd == null)
+//        {
+//            initializeInterstitialAds();
+//        }
+//
+//        runOnUiThread(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                if (_interstitialAd.isLoaded())
+//                {
+//                    _interstitialAd.show();
+//                }
+//            }
+//        });
     }
 
     public boolean isSignedIn()
@@ -251,11 +251,11 @@ public final class MainNativeActivity extends NativeActivity implements GameHelp
 
     private void requestNewInterstitial()
     {
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
-                .build();
-
-        _interstitialAd.loadAd(adRequest);
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+//                .build();
+//
+//        _interstitialAd.loadAd(adRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
