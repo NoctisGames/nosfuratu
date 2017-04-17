@@ -21,8 +21,6 @@
 #include "macros.h"
 #include "NGAudioEngine.h"
 
-#include <sstream>
-
 extern void ExitGame();
 
 using namespace DirectX;
@@ -348,7 +346,6 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 	switch (requestedAction)
 	{
 	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-		displayInterstitialAdIfAvailable();
 		m_screen->clearRequestedAction();
 		break;
     case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
@@ -632,17 +629,6 @@ void Direct3DMain::OnDeviceRestored()
 	CreateDeviceDependentResources();
 
 	CreateWindowSizeDependentResources();
-}
-#pragma endregion
-
-#pragma region Ads
-void Direct3DMain::displayInterstitialAdIfAvailable()
-{
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	// Empty
-#else
-	m_iRequestedAction = 1;
-#endif
 }
 #pragma endregion
 

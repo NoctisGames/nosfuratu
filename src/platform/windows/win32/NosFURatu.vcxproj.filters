@@ -26,6 +26,7 @@
     <ClInclude Include="..\..\..\core\game\logic\*.h" />
     <ClInclude Include="..\..\..\core\game\ui\direct3d\*.h" />
     <ClInclude Include="..\..\..\core\game\ui\portable\*.h" />
+    <ClInclude Include="..\shared\*.h" />
     <ClInclude Include="*.h" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +45,7 @@
     <ClCompile Include="..\..\..\core\game\logic\*.cpp" />
     <ClCompile Include="..\..\..\core\game\ui\direct3d\*.cpp" />
     <ClCompile Include="..\..\..\core\game\ui\portable\*.cpp" />
+    <ClCompile Include="..\shared\*.cpp" />
     <ClCompile Include="*.cpp" />
   </ItemGroup>
   <ItemGroup>

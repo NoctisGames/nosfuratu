@@ -93,6 +93,4 @@ private:
 
 	void beginPixEvent(PCWSTR pFormat, DX::DeviceResources* deviceResources = nullptr);
 	void endPixEvent(DX::DeviceResources* deviceResources = nullptr);
-
-	void displayInterstitialAdIfAvailable();
 };
