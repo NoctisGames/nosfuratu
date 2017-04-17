@@ -121,6 +121,8 @@ private:
     
     void selectLevel(LevelThumbnail* levelThumbnail);
     
+    void unlockLevel();
+    
     void startLevel();
     
     void validateAbilityFlag();

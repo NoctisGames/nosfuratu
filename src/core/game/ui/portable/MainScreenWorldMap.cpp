@@ -299,34 +299,7 @@ void WorldMap::execute(MainScreen* ms)
                             {
                                 if (ret == 1)
                                 {
-                                    // User has just spent X amount of golden carrots to unlock a boss level
-                                    m_iNumCollectedGoldenCarrots -= NUM_GC_REQ;
-                                    
-                                    int worldToUnlock = m_spendGoldenCarrotsBubble->getWorld();
-                                    int levelToUnlock = m_spendGoldenCarrotsBubble->getLevel();
-                                    
-                                    int worldIndex = worldToUnlock - 1;
-                                    int levelIndex = levelToUnlock - 1;
-                                    
-                                    int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
-                                    
-                                    m_iUnlockedLevelStatsFlag = FlagUtil::setFlag(levelStats, FLAG_LEVEL_UNLOCKED);
-                                    
-                                    {
-                                        std::string key = getKeyForLevelStats(worldToUnlock, levelToUnlock);
-                                        std::string val = StringUtil::toString(m_iUnlockedLevelStatsFlag);
-                                        NG_SAVE_DATA->getKeyValues()[key] = val;
-                                    }
-                                    
-                                    {
-                                        std::string key = getKeyForNumGoldenCarrots();
-                                        std::string val = StringUtil::toString(m_iNumCollectedGoldenCarrots);
-                                        NG_SAVE_DATA->getKeyValues()[key] = val;
-                                    }
-                                    
-                                    NG_SAVE_DATA->save();
-                                    
-                                    m_needsRefresh = true;
+                                    unlockLevel();
                                 }
                                 
                                 return;
@@ -822,6 +795,38 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail)
     }
 }
 
+void WorldMap::unlockLevel()
+{
+    // User has just spent X amount of golden carrots to unlock a boss level
+    m_iNumCollectedGoldenCarrots -= NUM_GC_REQ;
+    
+    int worldToUnlock = m_spendGoldenCarrotsBubble->getWorld();
+    int levelToUnlock = m_spendGoldenCarrotsBubble->getLevel();
+    
+    int worldIndex = worldToUnlock - 1;
+    int levelIndex = levelToUnlock - 1;
+    
+    int levelStats = m_worldLevelStats.at(worldIndex)->m_levelStats.at(levelIndex);
+    
+    m_iUnlockedLevelStatsFlag = FlagUtil::setFlag(levelStats, FLAG_LEVEL_UNLOCKED);
+    
+    {
+        std::string key = getKeyForLevelStats(worldToUnlock, levelToUnlock);
+        std::string val = StringUtil::toString(m_iUnlockedLevelStatsFlag);
+        NG_SAVE_DATA->getKeyValues()[key] = val;
+    }
+    
+    {
+        std::string key = getKeyForNumGoldenCarrots();
+        std::string val = StringUtil::toString(m_iNumCollectedGoldenCarrots);
+        NG_SAVE_DATA->getKeyValues()[key] = val;
+    }
+    
+    NG_SAVE_DATA->save();
+    
+    m_needsRefresh = true;
+}
+
 void WorldMap::startLevel()
 {
     int worldToLoad = m_clickedLevel->getWorld();
@@ -1158,6 +1163,14 @@ void WorldMap::navSelect(MainScreen* ms)
         && m_clickedLevel->isSelected())
     {
         startLevel();
+    }
+    else
+    {
+        if (m_spendGoldenCarrotsBubble->isOpen()
+            && m_spendGoldenCarrotsBubble->userHasEnoughGoldenCats())
+        {
+            unlockLevel();
+        }
     }
 }
 

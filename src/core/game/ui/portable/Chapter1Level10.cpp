@@ -249,7 +249,7 @@ void Chapter1Level10::update(MainScreen* ms)
     }
     else if (m_midBossOwl->getState() == MidBossOwlState_SwoopingDown)
     {
-		if (jon.getPosition().getX() > 204
+		if (jon.getPosition().getX() > 202
 			&& jon.getPosition().getX() < 207
 			&& !FlagUtil::isFlagSet(m_iBestLevelStatsFlag, FLAG_LEVEL_COMPLETE)
 			&& m_showHintBecauseJonHasBeenCaptured

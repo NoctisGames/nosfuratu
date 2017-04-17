@@ -944,7 +944,7 @@ void Jon::Rabbit::execute(Jon* jon)
                 }
             }
         }
-        else
+        else if (jon->m_abilityState != ABILITY_STOMP)
         {
             if (jon->m_game->shouldJonGrabLedge(jon->m_fDeltaTime))
             {
@@ -1125,6 +1125,8 @@ void Jon::Rabbit::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_iNumRabbitJumps = 1;
     jon->m_iNumBoosts++;
     
+    jon->m_isClimbingLedge = false;
+    
     NG_AUDIO_ENGINE->playSound(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
 }
 
@@ -1139,6 +1141,8 @@ void Jon::Rabbit::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumRabbitJumps = 1;
+    
+    jon->m_isClimbingLedge = false;
 }
 
 void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -1150,6 +1154,8 @@ void Jon::Rabbit::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloci
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumRabbitJumps = 1;
+    
+    jon->m_isClimbingLedge = false;
 }
 
 void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
@@ -1160,6 +1166,8 @@ void Jon::Rabbit::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
+    
+    jon->m_isClimbingLedge = false;
 }
 
 void Jon::Rabbit::onDeath(Jon* jon)
@@ -1594,6 +1602,8 @@ void Jon::Vampire::triggerBoost(Jon* jon, float boostVelocity)
     jon->m_iNumVampireJumps = 1;
     jon->m_iNumBoosts++;
     
+    jon->m_isClimbingLedge = false;
+    
     NG_AUDIO_ENGINE->playSound(boostVelocity > 25 ? SOUND_JUMP_SPRING_HEAVY : SOUND_JUMP_SPRING);
 
 	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
@@ -1613,6 +1623,8 @@ void Jon::Vampire::triggerBoostOffEnemy(Jon* jon, float boostVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_iNumVampireJumps = 1;
+    
+    jon->m_isClimbingLedge = false;
 
 	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
@@ -1628,6 +1640,8 @@ void Jon::Vampire::triggerBounceDownardsOffEnemy(Jon* jon, float bounceBackVeloc
 	jon->setState(ABILITY_NONE);
 
 	jon->m_iNumVampireJumps = 1;
+    
+    jon->m_isClimbingLedge = false;
 
 	NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
@@ -1641,6 +1655,8 @@ void Jon::Vampire::triggerBounceBackOffEnemy(Jon* jon, float bounceBackVelocity)
     jon->setState(ABILITY_NONE);
     
     jon->m_fStateTime = 0;
+    
+    jon->m_isClimbingLedge = false;
     
     NG_AUDIO_ENGINE->stopSound(SOUND_JON_VAMPIRE_GLIDE);
 }
