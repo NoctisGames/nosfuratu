@@ -90,9 +90,10 @@ size_t numbytes;
 int sockfd;
 ssize_t numbytes;
 #endif
-struct addrinfo hints, *servinfo, *servinforead, *p;
+struct addrinfo hints, *servinfo, *servinforead;
+static struct addrinfo *p;
 int rv;
-char buffer[MAX_DATA_SIZE];
+static char buffer[MAX_DATA_SIZE];
 struct sockaddr_storage server_addr;
 socklen_t addr_len;
 char s[INET6_ADDRSTRLEN];
@@ -150,8 +151,8 @@ int startClientUDP()
     
     printf("Generated Client GUID: %s\n", CLIENT_GUID);
     
-//    static const char * hostname = "208.97.168.138";
-        static const char * hostname = "localhost"; // my computer
+    static const char * hostname = "208.97.168.138";
+//        static const char * hostname = "localhost"; // my computer
     if ((rv = getaddrinfo(hostname, PORT, &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -185,7 +186,7 @@ int startClientUDP()
     
 #ifdef _WIN32
 	DWORD dwTime = 100;
-	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &dwTime, sizeof(dwTime)) < 0)
+	if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char *)(&dwTime), sizeof(dwTime)) < 0)
 	{
 		perror("talker: setsockopt");
 
