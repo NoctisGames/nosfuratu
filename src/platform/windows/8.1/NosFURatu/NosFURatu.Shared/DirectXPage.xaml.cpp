@@ -12,14 +12,8 @@ using namespace Platform;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		using namespace Windows::Phone::UI::Input;
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			using namespace Windows::Phone::UI::Input;
-		#endif
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+using namespace Windows::Phone::UI::Input;
 #endif
 using namespace Windows::System::Threading;
 using namespace Windows::UI::Core;
@@ -45,17 +39,8 @@ DirectXPage::DirectXPage():
 
 	ApplicationView^ view = ApplicationView::GetForCurrentView();
 
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		view->SetDesiredBoundsMode(ApplicationViewBoundsMode::UseCoreWindow);
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			if (Windows::Foundation::Metadata::ApiInformation::IsMethodPresent("Windows.UI.ViewManagement.ApplicationView", "TryEnterFullScreenMode"))
-			{
-				view->TryEnterFullScreenMode();
-			}
-		#endif
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+	view->SetDesiredBoundsMode(ApplicationViewBoundsMode::UseCoreWindow);
 #endif
 
 	// Register event handlers for page lifecycle.
@@ -77,17 +62,8 @@ DirectXPage::DirectXPage():
 
 	swapChainPanel->SizeChanged += ref new SizeChangedEventHandler(this, &DirectXPage::OnSwapChainPanelSizeChanged);
 
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			if (Windows::Foundation::Metadata::ApiInformation::IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-			{
-				HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
-			}
-		#endif
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+	HardwareButtons::BackPressed += ref new EventHandler<BackPressedEventArgs ^>(this, &NosFURatu::DirectXPage::OnBackPressed);
 #endif
 
 	// At this point we have access to the device. 
@@ -168,18 +144,9 @@ void DirectXPage::RequestInterstitialAd()
 		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
 		myAdUnitId = L"11389925";
 #else
-	bool isMobile;
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+		bool isMobile = false;
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 		isMobile = true;
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-		#else
-			isMobile = false;
-		#endif
-	#endif
 #endif
 		if (isMobile)
 		{
@@ -270,6 +237,8 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 {
 	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
 
+	// Okay, so this whole section is one big TODO
+
 	bool jump = e->VirtualKey == Windows::System::VirtualKey::W;
 	bool transform = e->VirtualKey == Windows::System::VirtualKey::S;
 	bool left = e->VirtualKey == Windows::System::VirtualKey::Left;
@@ -289,60 +258,6 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
 		#endif
 	#endif
 #endif
-
-	if (jump)
-	{
-        m_main->onTouchDown(300, 300);
-        m_isPointerPressed = true;
-        
-		m_main->onTouchUp(300, 300);
-		m_isPointerPressed = false;
-	}
-	else if (transform)
-	{
-		m_main->onTouchDown(300, 300);
-		m_isPointerPressed = true;
-	}
-	else if (left)
-	{
-		m_main->onTouchDown(500, 500);
-		m_isPointerPressed = true;
-        
-		m_main->onTouchDragged(500, 500);
-		m_main->onTouchDragged(0, 500);
-		m_main->onTouchUp(0, 500);
-		m_isPointerPressed = false;
-	}
-	else if (up)
-	{
-		m_main->onTouchDown(500, 500);
-		m_isPointerPressed = true;
-        
-		m_main->onTouchDragged(500, 500);
-		m_main->onTouchDragged(500, 0);
-		m_main->onTouchUp(500, 0);
-		m_isPointerPressed = false;
-	}
-	else if (right)
-	{
-		m_main->onTouchDown(500, 500);
-		m_isPointerPressed = true;
-        
-		m_main->onTouchDragged(500, 500);
-		m_main->onTouchDragged(900, 500);
-		m_main->onTouchUp(900, 500);
-		m_isPointerPressed = false;
-	}
-	else if (down)
-	{
-		m_main->onTouchDown(500, 500);
-		m_isPointerPressed = true;
-        
-		m_main->onTouchDragged(500, 500);
-		m_main->onTouchDragged(500, 900);
-		m_main->onTouchUp(500, 900);
-		m_isPointerPressed = false;
-	}
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)
@@ -359,20 +274,11 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 	m_main->CreateWindowSizeDependentResources();
 }
 
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
-		{
-			args->Handled = m_main->handleOnBackPressed();
-		}
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
-			{
-				args->Handled = m_main->handleOnBackPressed();
-			}
-		#endif
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
+{
+	args->Handled = m_main->handleOnBackPressed();
+}
 #endif
 
 void DirectXPage::OnAdReady(Platform::Object^ sender, Platform::Object^ args)

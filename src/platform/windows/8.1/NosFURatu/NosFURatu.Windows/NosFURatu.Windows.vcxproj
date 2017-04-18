@@ -39,7 +39,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{b67428b3-79b1-4cea-aafd-52648f4a453e}</ProjectGuid>
+    <ProjectGuid>{D9231D26-C212-4496-88DA-4CE92A77BE97}</ProjectGuid>
     <Keyword>DirectXXamlApp</Keyword>
     <RootNamespace>NosFURatu</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>

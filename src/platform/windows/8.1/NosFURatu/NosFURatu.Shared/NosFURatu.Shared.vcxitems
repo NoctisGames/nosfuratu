@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <ItemsProjectGuid>{7853ccd8-a810-4a55-bb48-0179fc750567}</ItemsProjectGuid>
+    <ItemsProjectGuid>{EE8D63C0-F6E3-447A-AC8A-2C34B5132D2B}</ItemsProjectGuid>
     <ItemsRootNamespace>NosFURatu</ItemsRootNamespace>
     <ItemsProjectName>NosFURatu.Shared</ItemsProjectName>
     <SharedGUID>910cd016-be58-4318-9cfe-cb3e196416c2</SharedGUID>

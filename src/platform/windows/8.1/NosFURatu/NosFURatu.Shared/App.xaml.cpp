@@ -14,10 +14,8 @@ using namespace Windows::ApplicationModel::Activation;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Storage;
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		using namespace Windows::UI::ViewManagement;
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+using namespace Windows::UI::ViewManagement;
 #endif
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
@@ -68,11 +66,9 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 	Window::Current->Content = m_directXPage;
 	Window::Current->Activate();
 
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		StatusBar^ status = StatusBar::GetForCurrentView();
-		status->HideAsync();
-	#endif
+#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+	StatusBar^ status = StatusBar::GetForCurrentView();
+	status->HideAsync();
 #endif
 }
 
