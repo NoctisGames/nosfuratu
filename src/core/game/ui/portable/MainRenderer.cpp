@@ -71,7 +71,6 @@
 #include "Ground.h"
 #include "Midground.h"
 #include "ForegroundCoverObject.h"
-#include "SaveData.h"
 #include "StringUtil.h"
 #include "LevelCompletePanel.h"
 
@@ -79,7 +78,7 @@
 #include <sstream>
 #include <iomanip>
 
-MainRenderer::MainRenderer() : Renderer(),
+MainRenderer::MainRenderer(int maxBatchSize) : Renderer(maxBatchSize),
 m_font(new Font("misc", 0, 0, 16, 64, 75, TEXTURE_SIZE_1024)),
 m_jon(new TextureWrapper(MAIN_ASSETS->isUsingCompressedTextureSet() ? "c_jon" : "jon")),
 m_level_editor(new TextureWrapper("level_editor")),
@@ -731,13 +730,9 @@ void MainRenderer::renderTitleScreenBackground(TitlePanel* panel)
     m_spriteBatcher->endBatch(*m_title_screen->gpuTextureWrapper, *m_textureGpuProgramWrapper);
 }
 
-void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
+void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton, bool isLevelEditor)
 {
     m_rendererHelper->updateMatrix(0, CAM_WIDTH, 0, CAM_HEIGHT);
-    
-    std::string key = std::string("ng_level_editor");
-    std::string val = NG_SAVE_DATA->findValue(key);
-    int isLevelEditor = StringUtil::stringToInt(val);
     
     if (isLevelEditor
         && ensureTexture(m_title_screen))
@@ -2349,13 +2344,6 @@ void MainRenderer::renderToThirdFramebufferWithRadialBlur()
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
     m_spriteBatcher->endBatch(*m_rendererHelper->getFramebuffer(fbIndex), *m_framebufferRadialBlurGpuProgramWrapper);
-}
-
-void MainRenderer::renderToScreen()
-{
-	/// Render everything to the screen
-    
-    renderFramebufferToScreen(m_iFramebufferIndex);
 }
 
 NGRect& MainRenderer::getCameraBounds()

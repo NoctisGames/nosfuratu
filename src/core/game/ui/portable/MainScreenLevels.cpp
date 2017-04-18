@@ -43,7 +43,7 @@
 #include "GameMarker.h"
 #include "ScreenEvent.h"
 #include "SaveDataKeys.h"
-#include "SaveData.h"
+#include "JsonFile.h"
 #include "StringUtil.h"
 
 UserDemoAction::UserDemoAction(DemoAction action, float stateTimeToExecuteAction) : m_action(action), m_fStateTimeToExecuteAction(stateTimeToExecuteAction)
@@ -115,15 +115,15 @@ void Level::enter(MainScreen* ms)
     
     {
         std::string key = std::string("ng_debug");
-        std::string val = NG_SAVE_DATA->findValue(key);
-        int isDebug = StringUtil::stringToInt(val);
+        std::string val = ms->m_saveData->findValue(key);
+        int isDebug = StringUtil::stringToNumber<int>(val);
         m_isDebug = isDebug == 1;
     }
     
     {
         std::string key = std::string("ng_show_bounds");
-        std::string val = NG_SAVE_DATA->findValue(key);
-        int isShowingBounds = StringUtil::stringToInt(val);
+        std::string val = ms->m_saveData->findValue(key);
+        int isShowingBounds = StringUtil::stringToNumber<int>(val);
         m_isShowingBounds = isShowingBounds == 1;
     }
 }
@@ -582,28 +582,28 @@ void Level::update(MainScreen* ms)
             {
                 std::string key = getKeyForLevelScore(m_game->getWorld(), m_game->getLevel());
                 std::string val = StringUtil::toString(finalScore);
-                NG_SAVE_DATA->getKeyValues()[key] = val;
+                ms->m_saveData->setValue(key, val);
             }
             
             {
                 std::string key = getKeyForLevelStats(m_game->getWorld(), m_game->getLevel());
                 std::string val = StringUtil::toString(m_iLevelStatsFlag);
-                NG_SAVE_DATA->getKeyValues()[key] = val;
+                ms->m_saveData->setValue(key, val);
             }
             
             {
                 std::string key = getKeyForNumGoldenCarrots();
                 std::string val = StringUtil::toString(m_iNumGoldenCarrots);
-                NG_SAVE_DATA->getKeyValues()[key] = val;
+                ms->m_saveData->setValue(key, val);
             }
             
             {
                 std::string key = getKeyForJonUnlockedAbilitiesFlag();
                 std::string val = StringUtil::toString(m_game->getJon().getAbilityFlag());
-                NG_SAVE_DATA->getKeyValues()[key] = val;
+                ms->m_saveData->setValue(key, val);
             }
             
-            NG_SAVE_DATA->save();
+            ms->m_saveData->save();
   
             m_fStateTime = 0;
 			ms->m_renderer->stopCamera();
@@ -613,8 +613,8 @@ void Level::update(MainScreen* ms)
             
             {
                 std::string key = getKeyForLevelStats(1, 10);
-                std::string val = NG_SAVE_DATA->findValue(key);
-                int levelStats = StringUtil::stringToInt(val);
+                std::string val = ms->m_saveData->findValue(key);
+                int levelStats = StringUtil::stringToNumber<int>(val);
                 
                 if (FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED))
                 {
@@ -625,8 +625,8 @@ void Level::update(MainScreen* ms)
             
             {
                 std::string key = getKeyForLevelStats(1, 21);
-                std::string val = NG_SAVE_DATA->findValue(key);
-                int levelStats = StringUtil::stringToInt(val);
+                std::string val = ms->m_saveData->findValue(key);
+                int levelStats = StringUtil::stringToNumber<int>(val);
                 
                 if (FlagUtil::isFlagSet(levelStats, FLAG_LEVEL_UNLOCKED))
                 {

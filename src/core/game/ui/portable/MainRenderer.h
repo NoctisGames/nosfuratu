@@ -61,7 +61,7 @@ class LevelCompletePanel;
 class MainRenderer : public Renderer
 {
 public:
-    MainRenderer();
+    MainRenderer(int maxBatchSize);
     
     virtual ~MainRenderer();
     
@@ -95,7 +95,7 @@ public:
     
     void renderTitleScreenBackground(TitlePanel* panel);
     
-    void renderTitleScreenUi(GameButton* levelEditorButton);
+    void renderTitleScreenUi(GameButton* levelEditorButton, bool isLevelEditor);
     
     void renderCutscene(std::vector<CutscenePanel*> cutscenePanels);
     
@@ -154,8 +154,6 @@ public:
     void renderToThirdFramebufferPointTransition(float centerX, float centerY, float progress);
     
     void renderToThirdFramebufferWithRadialBlur();
-    
-    void renderToScreen();
     
     NGRect& getCameraBounds();
     

@@ -295,6 +295,8 @@ void Engine::unloadResources()
 {
     ANDROID_AUDIO_ENGINE_HELPER->deinit();
     
+    ANDROID_ASSETS->deinit();
+    
     m_screen->releaseDeviceDependentResources();
 }
 

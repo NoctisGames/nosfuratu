@@ -35,7 +35,7 @@
 #include <string>
 #include <assert.h>
 
-Renderer::Renderer() :
+Renderer::Renderer(int maxBatchSize) :
 m_spriteBatcher(SPRITE_BATCHER_FACTORY->createSpriteBatcher()),
 m_fillNGRectBatcher(RECTANGLE_BATCHER_FACTORY->createNGRectBatcher(true)),
 m_boundsNGRectBatcher(RECTANGLE_BATCHER_FACTORY->createNGRectBatcher(false)),
@@ -47,6 +47,7 @@ m_textureGpuProgramWrapper(nullptr),
 m_colorGpuProgramWrapper(nullptr),
 m_framebufferToScreenGpuProgramWrapper(nullptr),
 m_iFramebufferIndex(0),
+m_iMaxBatchSize(maxBatchSize),
 m_areDeviceDependentResourcesCreated(false)
 {
     // Empty
@@ -66,6 +67,8 @@ Renderer::~Renderer()
 
 void Renderer::createDeviceDependentResources()
 {
+	m_rendererHelper->createDeviceDependentResources(m_iMaxBatchSize);
+
     m_textureGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createTextureGpuProgramWrapper();
     m_colorGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createColorGpuProgramWrapper();
     m_framebufferToScreenGpuProgramWrapper = GPU_PROGRAM_WRAPPER_FACTORY->createFramebufferToScreenGpuProgramWrapper();
@@ -73,8 +76,15 @@ void Renderer::createDeviceDependentResources()
     m_areDeviceDependentResourcesCreated = true;
 }
 
+void Renderer::createWindowSizeDependentResources(int renderWidth, int renderHeight, int numFramebuffers)
+{
+	m_rendererHelper->createWindowSizeDependentResources(renderWidth, renderHeight, numFramebuffers);
+}
+
 void Renderer::releaseDeviceDependentResources()
 {
+	m_rendererHelper->releaseDeviceDependentResources();
+
     m_areDeviceDependentResourcesCreated = false;
 
 	m_loadingTextures.clear();
@@ -96,6 +106,8 @@ void Renderer::beginFrame()
     handleAsyncTextureLoads();
     
     m_rendererHelper->beginFrame();
+    
+    setFramebuffer(0);
 }
 
 void Renderer::setFramebuffer(int framebufferIndex)
@@ -108,9 +120,9 @@ void Renderer::setFramebuffer(int framebufferIndex)
     m_rendererHelper->clearFramebufferWithColor(0, 0, 0, 1);
 }
 
-void Renderer::renderFramebufferToScreen(int framebufferIndex)
+void Renderer::renderToScreen()
 {
-    assert(framebufferIndex >= 0);
+    assert(m_iFramebufferIndex >= 0);
     
     m_rendererHelper->bindToScreenFramebuffer();
     m_rendererHelper->clearFramebufferWithColor(0, 0, 0, 1);
@@ -119,7 +131,7 @@ void Renderer::renderFramebufferToScreen(int framebufferIndex)
     
     m_spriteBatcher->beginBatch();
     m_spriteBatcher->drawSprite(0, 0, 2, 2, 0, tr);
-    m_spriteBatcher->endBatch(*m_rendererHelper->getFramebuffer(framebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
+    m_spriteBatcher->endBatch(*m_rendererHelper->getFramebuffer(m_iFramebufferIndex), *m_framebufferToScreenGpuProgramWrapper);
 }
 
 void Renderer::endFrame()

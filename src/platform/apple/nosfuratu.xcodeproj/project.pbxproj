@@ -15,8 +15,6 @@
 		0ADF1880178E2185005DA99E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ADF187F178E2185005DA99E /* OpenGLES.framework */; };
 		2BC3849E400A7786FEE2E90A /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A3F204C83EB088382D59C5 /* CoreMedia.framework */; };
 		B23AAA45087CD1F1D15E94C6 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */; };
-		BB01C4391E71E2C800DEE4B3 /* SaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB01C4371E71E2C800DEE4B3 /* SaveData.cpp */; };
-		BB01C43A1E71E2C800DEE4B3 /* SaveData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB01C4371E71E2C800DEE4B3 /* SaveData.cpp */; };
 		BB01C4401E72117800DEE4B3 /* ISoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB01C43F1E72117800DEE4B3 /* ISoundWrapper.cpp */; };
 		BB01C4411E72117800DEE4B3 /* ISoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB01C43F1E72117800DEE4B3 /* ISoundWrapper.cpp */; };
 		BB036B6E1DD390D000BB47EE /* world_1_objects_part_2.png in Resources */ = {isa = PBXBuildFile; fileRef = BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */; };
@@ -84,8 +82,6 @@
 		BB34F9DF1E563C2300AC8197 /* CircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85C1E563C2100AC8197 /* CircleBatcher.cpp */; };
 		BB34F9E11E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85E1E563C2100AC8197 /* CircleBatcherFactory.cpp */; };
 		BB34F9E31E563C2300AC8197 /* CircleBatcherFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F85E1E563C2100AC8197 /* CircleBatcherFactory.cpp */; };
-		BB34F9E51E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8611E563C2100AC8197 /* DeviceHelperFactory.cpp */; };
-		BB34F9E71E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8611E563C2100AC8197 /* DeviceHelperFactory.cpp */; };
 		BB34F9E91E563C2300AC8197 /* DummyGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8631E563C2100AC8197 /* DummyGpuProgramWrapper.cpp */; };
 		BB34F9EB1E563C2300AC8197 /* DummyGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8631E563C2100AC8197 /* DummyGpuProgramWrapper.cpp */; };
 		BB34F9ED1E563C2300AC8197 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB34F8651E563C2100AC8197 /* Font.cpp */; };
@@ -382,8 +378,6 @@
 		BB5C2A6B1E09EADD009577BD /* world_1_special.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44C3EF1DB03276003E633F /* world_1_special.png */; };
 		BB606EA51E7071EA0050476B /* IAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA21E7071EA0050476B /* IAssetsMapper.cpp */; };
 		BB606EA61E7071EA0050476B /* IAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA21E7071EA0050476B /* IAssetsMapper.cpp */; };
-		BB606EA81E7071EA0050476B /* IDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA31E7071EA0050476B /* IDeviceHelper.cpp */; };
-		BB606EA91E7071EA0050476B /* IDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA31E7071EA0050476B /* IDeviceHelper.cpp */; };
 		BB606EAB1E7071EA0050476B /* IRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA41E7071EA0050476B /* IRendererHelper.cpp */; };
 		BB606EAC1E7071EA0050476B /* IRendererHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EA41E7071EA0050476B /* IRendererHelper.cpp */; };
 		BB606EAF1E70724F0050476B /* ITextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB606EAE1E70724F0050476B /* ITextureLoader.cpp */; };
@@ -557,6 +551,8 @@
 		BB7639531E21B65000534DAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB76393E1E21B17800534DAB /* GoogleService-Info.plist */; };
 		BB7639571E21B6DC00534DAB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639561E21B6DC00534DAB /* libz.tbd */; };
 		BB7639591E21B6E000534DAB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB7639581E21B6E000534DAB /* AddressBook.framework */; };
+		BB899F801EA65B7800C56DF5 /* JsonFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB899F7E1EA65B7800C56DF5 /* JsonFile.cpp */; };
+		BB899F811EA65B7800C56DF5 /* JsonFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB899F7E1EA65B7800C56DF5 /* JsonFile.cpp */; };
 		BB8E94581E57656D00D237D2 /* game_pad_tutorial.png in Resources */ = {isa = PBXBuildFile; fileRef = BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */; };
 		BB8E94641E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
 		BB8E94661E57E11A00D237D2 /* MainAssetsMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB8E94621E57E11A00D237D2 /* MainAssetsMapper.cpp */; };
@@ -568,8 +564,6 @@
 		BBA051D81E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051D51E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.cpp */; };
 		BBA052021E68F96300450261 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */; };
 		BBA052031E68F96300450261 /* OpenGLCircleBatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */; };
-		BBA052051E68F96300450261 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DD1E68F96300450261 /* OpenGLDeviceHelper.cpp */; };
-		BBA052061E68F96300450261 /* OpenGLDeviceHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DD1E68F96300450261 /* OpenGLDeviceHelper.cpp */; };
 		BBA052081E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DF1E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
 		BBA052091E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051DF1E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */; };
 		BBA0520B1E68F96300450261 /* OpenGLFramebufferToScreenProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBA051E11E68F96300450261 /* OpenGLFramebufferToScreenProgram.cpp */; };
@@ -684,8 +678,6 @@
 		84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddyBuildSDK.framework; path = ../../3rdparty/BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		BB01C4351E71DDA900DEE4B3 /* StringUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringUtil.h; sourceTree = "<group>"; };
-		BB01C4371E71E2C800DEE4B3 /* SaveData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SaveData.cpp; sourceTree = "<group>"; };
-		BB01C4381E71E2C800DEE4B3 /* SaveData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveData.h; sourceTree = "<group>"; };
 		BB01C43C1E71F31200DEE4B3 /* SaveDataKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveDataKeys.h; sourceTree = "<group>"; };
 		BB01C43F1E72117800DEE4B3 /* ISoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISoundWrapper.cpp; sourceTree = "<group>"; };
 		BB036B6D1DD390D000BB47EE /* world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_1_objects_part_2.png; sourceTree = "<group>"; };
@@ -782,8 +774,6 @@
 		BB34F85E1E563C2100AC8197 /* CircleBatcherFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleBatcherFactory.cpp; sourceTree = "<group>"; };
 		BB34F85F1E563C2100AC8197 /* CircleBatcherFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleBatcherFactory.h; sourceTree = "<group>"; };
 		BB34F8601E563C2100AC8197 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		BB34F8611E563C2100AC8197 /* DeviceHelperFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceHelperFactory.cpp; sourceTree = "<group>"; };
-		BB34F8621E563C2100AC8197 /* DeviceHelperFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceHelperFactory.h; sourceTree = "<group>"; };
 		BB34F8631E563C2100AC8197 /* DummyGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DummyGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB34F8641E563C2100AC8197 /* DummyGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DummyGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB34F8651E563C2100AC8197 /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
@@ -800,7 +790,6 @@
 		BB34F8701E563C2100AC8197 /* GpuTextureDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GpuTextureDataWrapper.h; sourceTree = "<group>"; };
 		BB34F8711E563C2100AC8197 /* GpuTextureWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GpuTextureWrapper.h; sourceTree = "<group>"; };
 		BB34F8721E563C2100AC8197 /* IAssetsMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAssetsMapper.h; sourceTree = "<group>"; };
-		BB34F8731E563C2100AC8197 /* IDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDeviceHelper.h; sourceTree = "<group>"; };
 		BB34F8741E563C2100AC8197 /* IRendererHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRendererHelper.h; sourceTree = "<group>"; };
 		BB34F8751E563C2100AC8197 /* IScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IScreen.cpp; sourceTree = "<group>"; };
 		BB34F8761E563C2100AC8197 /* IScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IScreen.h; sourceTree = "<group>"; };
@@ -872,8 +861,6 @@
 		BB34FA771E563CB800AC8197 /* StepTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StepTimer.h; sourceTree = "<group>"; };
 		BB34FA7A1E563CC700AC8197 /* Direct3DCircleBatcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DCircleBatcher.cpp; sourceTree = "<group>"; };
 		BB34FA7B1E563CC700AC8197 /* Direct3DCircleBatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DCircleBatcher.h; sourceTree = "<group>"; };
-		BB34FA7C1E563CC700AC8197 /* Direct3DDeviceHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DDeviceHelper.cpp; sourceTree = "<group>"; };
-		BB34FA7D1E563CC700AC8197 /* Direct3DDeviceHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DDeviceHelper.h; sourceTree = "<group>"; };
 		BB34FA7E1E563CC700AC8197 /* Direct3DFrameBufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DFrameBufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BB34FA7F1E563CC700AC8197 /* Direct3DFrameBufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DFrameBufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BB34FA801E563CC700AC8197 /* Direct3DGeometryGpuProgramWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DGeometryGpuProgramWrapper.cpp; sourceTree = "<group>"; };
@@ -1175,7 +1162,6 @@
 		BB5C2A601E09E071009577BD /* d_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = d_tutorial.png; sourceTree = "<group>"; };
 		BB5C2A661E09E088009577BD /* tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial.png; sourceTree = "<group>"; };
 		BB606EA21E7071EA0050476B /* IAssetsMapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IAssetsMapper.cpp; sourceTree = "<group>"; };
-		BB606EA31E7071EA0050476B /* IDeviceHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IDeviceHelper.cpp; sourceTree = "<group>"; };
 		BB606EA41E7071EA0050476B /* IRendererHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IRendererHelper.cpp; sourceTree = "<group>"; };
 		BB606EAE1E70724F0050476B /* ITextureLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ITextureLoader.cpp; sourceTree = "<group>"; };
 		BB606EB21E7074470050476B /* NGAudioEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NGAudioEngine.cpp; sourceTree = "<group>"; };
@@ -1294,6 +1280,8 @@
 		BB7639561E21B6DC00534DAB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BB7639581E21B6E000534DAB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../../3rdparty/Firebase/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		BB899F7E1EA65B7800C56DF5 /* JsonFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JsonFile.cpp; sourceTree = "<group>"; };
+		BB899F7F1EA65B7800C56DF5 /* JsonFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonFile.h; sourceTree = "<group>"; };
 		BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_pad_tutorial.png; sourceTree = "<group>"; };
 		BB8E945A1E57BBF200D237D2 /* Direct3DProgramInput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DProgramInput.cpp; sourceTree = "<group>"; };
 		BB8E945B1E57BBF200D237D2 /* Direct3DProgramInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DProgramInput.h; sourceTree = "<group>"; };
@@ -1340,8 +1328,6 @@
 		BBA051D61E68E7B300450261 /* OpenGLFramebufferRadialBlurGpuProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferRadialBlurGpuProgram.h; sourceTree = "<group>"; };
 		BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLCircleBatcher.cpp; sourceTree = "<group>"; };
 		BBA051DC1E68F96300450261 /* OpenGLCircleBatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLCircleBatcher.h; sourceTree = "<group>"; };
-		BBA051DD1E68F96300450261 /* OpenGLDeviceHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLDeviceHelper.cpp; sourceTree = "<group>"; };
-		BBA051DE1E68F96300450261 /* OpenGLDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLDeviceHelper.h; sourceTree = "<group>"; };
 		BBA051DF1E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenGpuProgramWrapper.cpp; sourceTree = "<group>"; };
 		BBA051E01E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLFramebufferToScreenGpuProgramWrapper.h; sourceTree = "<group>"; };
 		BBA051E11E68F96300450261 /* OpenGLFramebufferToScreenProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OpenGLFramebufferToScreenProgram.cpp; sourceTree = "<group>"; };
@@ -1571,8 +1557,8 @@
 		BB01C4361E71E2C800DEE4B3 /* portable */ = {
 			isa = PBXGroup;
 			children = (
-				BB01C4371E71E2C800DEE4B3 /* SaveData.cpp */,
-				BB01C4381E71E2C800DEE4B3 /* SaveData.h */,
+				BB899F7E1EA65B7800C56DF5 /* JsonFile.cpp */,
+				BB899F7F1EA65B7800C56DF5 /* JsonFile.h */,
 			);
 			path = portable;
 			sourceTree = "<group>";
@@ -1756,8 +1742,6 @@
 				BB34F85E1E563C2100AC8197 /* CircleBatcherFactory.cpp */,
 				BB34F85F1E563C2100AC8197 /* CircleBatcherFactory.h */,
 				BB34F8601E563C2100AC8197 /* Color.h */,
-				BB34F8611E563C2100AC8197 /* DeviceHelperFactory.cpp */,
-				BB34F8621E563C2100AC8197 /* DeviceHelperFactory.h */,
 				BB34F8631E563C2100AC8197 /* DummyGpuProgramWrapper.cpp */,
 				BB34F8641E563C2100AC8197 /* DummyGpuProgramWrapper.h */,
 				BB34F8651E563C2100AC8197 /* Font.cpp */,
@@ -1775,8 +1759,6 @@
 				BB34F8711E563C2100AC8197 /* GpuTextureWrapper.h */,
 				BB606EA21E7071EA0050476B /* IAssetsMapper.cpp */,
 				BB34F8721E563C2100AC8197 /* IAssetsMapper.h */,
-				BB606EA31E7071EA0050476B /* IDeviceHelper.cpp */,
-				BB34F8731E563C2100AC8197 /* IDeviceHelper.h */,
 				BB606EA41E7071EA0050476B /* IRendererHelper.cpp */,
 				BB34F8741E563C2100AC8197 /* IRendererHelper.h */,
 				BB34F8751E563C2100AC8197 /* IScreen.cpp */,
@@ -1913,8 +1895,6 @@
 			children = (
 				BB34FA7A1E563CC700AC8197 /* Direct3DCircleBatcher.cpp */,
 				BB34FA7B1E563CC700AC8197 /* Direct3DCircleBatcher.h */,
-				BB34FA7C1E563CC700AC8197 /* Direct3DDeviceHelper.cpp */,
-				BB34FA7D1E563CC700AC8197 /* Direct3DDeviceHelper.h */,
 				BB34FA7E1E563CC700AC8197 /* Direct3DFrameBufferToScreenGpuProgramWrapper.cpp */,
 				BB34FA7F1E563CC700AC8197 /* Direct3DFrameBufferToScreenGpuProgramWrapper.h */,
 				BB34FA801E563CC700AC8197 /* Direct3DGeometryGpuProgramWrapper.cpp */,
@@ -2550,8 +2530,6 @@
 			children = (
 				BBA051DB1E68F96300450261 /* OpenGLCircleBatcher.cpp */,
 				BBA051DC1E68F96300450261 /* OpenGLCircleBatcher.h */,
-				BBA051DD1E68F96300450261 /* OpenGLDeviceHelper.cpp */,
-				BBA051DE1E68F96300450261 /* OpenGLDeviceHelper.h */,
 				BBA051DF1E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp */,
 				BBA051E01E68F96300450261 /* OpenGLFramebufferToScreenGpuProgramWrapper.h */,
 				BBA051E11E68F96300450261 /* OpenGLFramebufferToScreenProgram.cpp */,
@@ -3184,7 +3162,6 @@
 				BB34FC3B1E5645F500AC8197 /* OpenGLFadeScreenGpuProgramWrapper.cpp in Sources */,
 				BB34FD0F1E5645F500AC8197 /* LevelSelectorPanel.cpp in Sources */,
 				BB01C4401E72117800DEE4B3 /* ISoundWrapper.cpp in Sources */,
-				BB34F9E51E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FA351E563C2400AC8197 /* SpriteBatcherFactory.cpp in Sources */,
 				BB34FD3F1E5645F500AC8197 /* TrashCan.cpp in Sources */,
 				BB34FCFB1E5645F500AC8197 /* MainScreenTransitions.cpp in Sources */,
@@ -3206,6 +3183,7 @@
 				BB606EE91E70CE5B0050476B /* SuperpoweredSoundManager.cpp in Sources */,
 				BB34FA311E563C2400AC8197 /* SpriteBatcher.cpp in Sources */,
 				BB34FCB71E5645F500AC8197 /* BatPanel.cpp in Sources */,
+				BB899F801EA65B7800C56DF5 /* JsonFile.cpp in Sources */,
 				BB44C8891DB03A7E003E633F /* pngwutil.c in Sources */,
 				BB34FB971E5645F400AC8197 /* ExitGround.cpp in Sources */,
 				BB34F8D91E563C2200AC8197 /* Vector2D.cpp in Sources */,
@@ -3223,7 +3201,6 @@
 				BB34FB7F1E5645F400AC8197 /* CollectibleItem.cpp in Sources */,
 				BB34FCE71E5645F500AC8197 /* MainScreenLevels.cpp in Sources */,
 				BB34FCBF1E5645F500AC8197 /* Chapter1Level21.cpp in Sources */,
-				BB01C4391E71E2C800DEE4B3 /* SaveData.cpp in Sources */,
 				BB34F8CD1E563C2200AC8197 /* NGRect.cpp in Sources */,
 				BB34FBC71E5645F400AC8197 /* Midground.cpp in Sources */,
 				BB34FA151E563C2400AC8197 /* NGRectBatcher.cpp in Sources */,
@@ -3238,7 +3215,6 @@
 				BB34FBA71E5645F400AC8197 /* Game.cpp in Sources */,
 				BB606EE61E70CE5B0050476B /* SuperpoweredSoundWrapper.cpp in Sources */,
 				BB34FD3B1E5645F500AC8197 /* TransDeathGpuProgramWrapper.cpp in Sources */,
-				BBA052051E68F96300450261 /* OpenGLDeviceHelper.cpp in Sources */,
 				BB34FBB71E5645F400AC8197 /* HoleCover.cpp in Sources */,
 				BB34FA291E563C2400AC8197 /* ScreenInputManager.cpp in Sources */,
 				BB44C8771DB03A7E003E633F /* pngrtran.c in Sources */,
@@ -3263,7 +3239,6 @@
 				BB34FB8F1E5645F400AC8197 /* Enemy.cpp in Sources */,
 				BB34F8C51E563C2200AC8197 /* Circle.cpp in Sources */,
 				BB606EC11E70C6E90050476B /* IAudioEngineHelper.cpp in Sources */,
-				BB606EA81E7071EA0050476B /* IDeviceHelper.cpp in Sources */,
 				BBA052171E68F96300450261 /* OpenGLManager.cpp in Sources */,
 				BB606EA51E7071EA0050476B /* IAssetsMapper.cpp in Sources */,
 				BB34FA091E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
@@ -3339,7 +3314,6 @@
 				BB44CB831DB053C0003E633F /* pngget.c in Sources */,
 				BB34FCBD1E5645F500AC8197 /* Chapter1Level10.cpp in Sources */,
 				BB34FA431E563C2400AC8197 /* TextureRegion.cpp in Sources */,
-				BB606EA91E7071EA0050476B /* IDeviceHelper.cpp in Sources */,
 				BB34FA171E563C2400AC8197 /* NGRectBatcher.cpp in Sources */,
 				BB44CB841DB053C0003E633F /* pngmem.c in Sources */,
 				BB34FC391E5645F500AC8197 /* OpenGLEndBossSnakeTextureGpuProgramWrapper.cpp in Sources */,
@@ -3355,7 +3329,6 @@
 				BB34F8C71E563C2200AC8197 /* Circle.cpp in Sources */,
 				BBA052151E68F96300450261 /* OpenGLLineBatcher.cpp in Sources */,
 				BB44CB891DB053C0003E633F /* pngrutil.c in Sources */,
-				BBA052061E68F96300450261 /* OpenGLDeviceHelper.cpp in Sources */,
 				BB44CB8A1DB053C0003E633F /* pngset.c in Sources */,
 				BB34FCD91E5645F500AC8197 /* GameButton.cpp in Sources */,
 				BB34FA231E563C2400AC8197 /* RendererHelperFactory.cpp in Sources */,
@@ -3375,7 +3348,6 @@
 				BB01C4411E72117800DEE4B3 /* ISoundWrapper.cpp in Sources */,
 				BB34FD211E5645F500AC8197 /* ShockwaveTextureGpuProgramWrapper.cpp in Sources */,
 				BB606EB51E7074470050476B /* NGAudioEngine.cpp in Sources */,
-				BB34F9E71E563C2300AC8197 /* DeviceHelperFactory.cpp in Sources */,
 				BB34FC691E5645F500AC8197 /* OpenGLPointTransitionProgram.cpp in Sources */,
 				BBA0520F1E68F96300450261 /* OpenGLGeometryGpuProgramWrapper.cpp in Sources */,
 				BB44CB8D1DB053C0003E633F /* pngwrite.c in Sources */,
@@ -3383,6 +3355,7 @@
 				BB34F9EB1E563C2300AC8197 /* DummyGpuProgramWrapper.cpp in Sources */,
 				BBA0522A1E68F96300450261 /* OpenGLTextureLoader.cpp in Sources */,
 				BB34FC611E5645F500AC8197 /* OpenGLTransDeathGpuProgramWrapper.cpp in Sources */,
+				BB899F811EA65B7800C56DF5 /* JsonFile.cpp in Sources */,
 				BB34FCA11E5645F500AC8197 /* OpenGLShockwaveTextureProgram.cpp in Sources */,
 				BB606EE71E70CE5B0050476B /* SuperpoweredSoundWrapper.cpp in Sources */,
 				BB34FA0B1E563C2400AC8197 /* KeyboardInputManager.cpp in Sources */,
@@ -3452,7 +3425,6 @@
 				BB606EAC1E7071EA0050476B /* IRendererHelper.cpp in Sources */,
 				BB03B3B71E8B49EE007BC3DE /* LevelCompletePanel.cpp in Sources */,
 				BB34FCB11E5645F500AC8197 /* MainAssets.cpp in Sources */,
-				BB01C43A1E71E2C800DEE4B3 /* SaveData.cpp in Sources */,
 				BB34FA0F1E563C2400AC8197 /* LineBatcher.cpp in Sources */,
 				BB34FA1B1E563C2400AC8197 /* NGRectBatcherFactory.cpp in Sources */,
 				BBA052241E68F96300450261 /* OpenGLSpriteBatcher.cpp in Sources */,

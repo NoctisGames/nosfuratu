@@ -8,7 +8,7 @@
 
 #include "MainScreen.h"
 
-#include "IDeviceHelper.h"
+#include "JsonFile.h"
 #include "MainRenderer.h"
 #include "Vector2D.h"
 
@@ -25,17 +25,15 @@
 #include "GamePadEvent.h"
 #include "TouchConverter.h"
 #include "MainRenderer.h"
-#include "DeviceHelperFactory.h"
 #include "BatPanel.h"
 #include "ScreenEvent.h"
 #include "NGAudioEngine.h"
-#include "SaveData.h"
 
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
 MainScreen::MainScreen() : IScreen(),
-m_deviceHelper(DEVICE_HELPER_FACTORY->createDeviceHelper()),
-m_renderer(new MainRenderer()),
+m_saveData(new JsonFile("nosfuratu.sav")),
+m_renderer(new MainRenderer(MAX_BATCH_SIZE)),
 m_touchPointDown(new Vector2D()),
 m_touchPointDown2(new Vector2D()),
 m_stateMachine(this),
@@ -60,12 +58,6 @@ m_fShockwaveCenterX(0.0f),
 m_fShockwaveCenterY(0.0f),
 m_fTimeUntilResume(0)
 {
-#if defined __ANDROID__
-    NG_SAVE_DATA->config("/data/data/com.noctisgames.nosfuratu/files/nosfuratu.sav");
-#else
-    NG_SAVE_DATA->config("nosfuratu.sav");
-#endif
-    
     initSounds();
     
     Title::getInstance()->enter(this);
@@ -75,7 +67,7 @@ m_fTimeUntilResume(0)
 
 MainScreen::~MainScreen()
 {
-    delete m_deviceHelper;
+    delete m_saveData;
     delete m_renderer;
     delete m_touchPointDown;
     delete m_touchPointDown2;
@@ -83,8 +75,6 @@ MainScreen::~MainScreen()
 
 void MainScreen::createDeviceDependentResources()
 {
-    m_deviceHelper->createDeviceDependentResources(MAX_BATCH_SIZE);
-    
     m_renderer->createDeviceDependentResources();
     
     ((MainScreenState *)m_stateMachine.getCurrentState())->initRenderer(this);
@@ -95,13 +85,11 @@ void MainScreen::createWindowSizeDependentResources(int renderWidth, int renderH
     TOUCH_CONVERTER->setTouchScreenSize(touchScreenWidth, touchScreenHeight);
     TOUCH_CONVERTER->setCamSize(CAM_WIDTH, CAM_HEIGHT);
     
-    m_deviceHelper->createWindowSizeDependentResources(renderWidth, renderHeight, NUM_FRAMEBUFFERS);
+    m_renderer->createWindowSizeDependentResources(renderWidth, renderHeight, NUM_FRAMEBUFFERS);
 }
 
 void MainScreen::releaseDeviceDependentResources()
 {
-    m_deviceHelper->releaseDeviceDependentResources();
-    
     m_renderer->releaseDeviceDependentResources();
 }
 

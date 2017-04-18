@@ -30,7 +30,7 @@
 #include "FlagUtil.h"
 #include "NGAudioEngine.h"
 #include "SaveDataKeys.h"
-#include "SaveData.h"
+#include "JsonFile.h"
 #include "StringUtil.h"
 #include "MainScreenWorldMap.h"
 
@@ -47,7 +47,7 @@ void Title::enter(MainScreen* ms)
 {
     ms->m_stateMachine.setPreviousState(nullptr);
     
-    WorldMap::getInstance()->loadSaveData();
+    WorldMap::getInstance()->loadSaveData(ms);
     
     NG_AUDIO_ENGINE->loadMusic("title_bgm");
     NG_AUDIO_ENGINE->playMusic(true);
@@ -66,8 +66,8 @@ void Title::enter(MainScreen* ms)
     m_isLevelEditor = false;
     
     std::string key = std::string("ng_level_editor");
-    std::string val = NG_SAVE_DATA->findValue(key);
-    int isLevelEditor = StringUtil::stringToInt(val);
+    std::string val = ms->m_saveData->findValue(key);
+    int isLevelEditor = StringUtil::stringToNumber<int>(val);
     
     m_isLevelEditor = isLevelEditor == 1;
 }
@@ -86,7 +86,7 @@ void Title::execute(MainScreen* ms)
         }
         else
         {
-            ms->m_renderer->renderTitleScreenUi(m_levelEditorButton);
+            ms->m_renderer->renderTitleScreenUi(m_levelEditorButton, m_isLevelEditor);
         }
         
         ms->m_renderer->renderToScreen();
@@ -123,8 +123,8 @@ void Title::execute(MainScreen* ms)
         if (m_isRequestingNextState)
         {
             std::string key = getKeyForViewedCutscenesFlag();
-            std::string val = NG_SAVE_DATA->findValue(key);
-            int viewedCutsceneFlag = StringUtil::stringToInt(val);
+            std::string val = ms->m_saveData->findValue(key);
+            int viewedCutsceneFlag = StringUtil::stringToNumber<int>(val);
             
             bool isOpeningCutsceneViewed = FlagUtil::isFlagSet(viewedCutsceneFlag, FLAG_CUTSCENE_VIEWED_OPENING);
             
@@ -184,13 +184,13 @@ void Title::execute(MainScreen* ms)
                         m_iShowBoundsCodeState++;
                         
                         std::string key = std::string("ng_show_bounds");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isShowingBounds = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isShowingBounds = StringUtil::stringToNumber<int>(storedVal);
                         
                         std::string val = StringUtil::toString(isShowingBounds == 1 ? 0 : 1);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
                         
-                        NG_SAVE_DATA->save();
+                        ms->m_saveData->save();
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_FOX_DEATH);
                     }
@@ -245,15 +245,15 @@ void Title::execute(MainScreen* ms)
                         m_iDmCodeState++;
                         
                         std::string key = std::string("ng_debug");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isDebug = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isDebug = StringUtil::stringToNumber<int>(storedVal);
                         
                         std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
 
-						NG_SAVE_DATA->save();
+						ms->m_saveData->save();
                         
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
                     }
@@ -267,9 +267,9 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iResetCodeState++;
                         
-                        NG_SAVE_DATA->clear();
+                        ms->m_saveData->clear();
                         
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
                     }
@@ -278,19 +278,19 @@ void Title::execute(MainScreen* ms)
                         m_iSwampCodeState++;
                         
                         std::string key = std::string("ng_level_editor");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isLevelEditor = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isLevelEditor = StringUtil::stringToNumber<int>(storedVal);
                         
                         isLevelEditor = isLevelEditor == 1 ? 0 : 1;
                         
                         m_isLevelEditor = isLevelEditor == 1;
                         
                         std::string val = StringUtil::toString(isLevelEditor);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
                         
-						NG_SAVE_DATA->save();
+						ms->m_saveData->save();
 
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
                     }
@@ -299,15 +299,15 @@ void Title::execute(MainScreen* ms)
                         m_iMapCodeState++;
                         
                         std::string key = std::string("ng_unlock_all");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isUnlockAll = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
                         
                         std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
                         
-						NG_SAVE_DATA->save();
+						ms->m_saveData->save();
 
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
                     }
@@ -367,9 +367,9 @@ void Title::execute(MainScreen* ms)
                         
                         m_fCodeStateTime = -2;
                         
-                        NG_SAVE_DATA->clear();
+                        ms->m_saveData->clear();
                         
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
 #ifdef NG_GAME_SERVICES
                         ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
@@ -401,15 +401,15 @@ void Title::execute(MainScreen* ms)
                         m_fCodeStateTime = -2;
                         
                         std::string key = std::string("ng_unlock_all");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isUnlockAll = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
                         
                         std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
                         
-                        NG_SAVE_DATA->save();
+                        ms->m_saveData->save();
                         
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
                     }
@@ -438,15 +438,15 @@ void Title::execute(MainScreen* ms)
                         m_fCodeStateTime = -2;
                         
                         std::string key = std::string("ng_debug");
-                        std::string storedVal = NG_SAVE_DATA->findValue(key);
-                        int isDebug = StringUtil::stringToInt(storedVal);
+                        std::string storedVal = ms->m_saveData->findValue(key);
+                        int isDebug = StringUtil::stringToNumber<int>(storedVal);
                         
                         std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
-                        NG_SAVE_DATA->getKeyValues()[key] = val;
+                        ms->m_saveData->setValue(key, val);
                         
-                        NG_SAVE_DATA->save();
+                        ms->m_saveData->save();
                         
-                        WorldMap::getInstance()->loadSaveData();
+                        WorldMap::getInstance()->loadSaveData(ms);
                         
                         NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
                     }

@@ -28,7 +28,7 @@
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
-#include "SaveData.h"
+#include "JsonFile.h"
 #include "SaveDataKeys.h"
 #include "StringUtil.h"
 
@@ -124,9 +124,9 @@ void OpeningCutscene::execute(MainScreen* ms)
                 {
                     std::string key = getKeyForViewedCutscenesFlag();
                     std::string val = StringUtil::toString(FLAG_CUTSCENE_VIEWED_OPENING);
-                    NG_SAVE_DATA->getKeyValues()[key] = val;
+                    ms->m_saveData->setValue(key, val);
                     
-                    NG_SAVE_DATA->save();
+                    ms->m_saveData->save();
                     
                     m_isRequestingNextState = true;
                 }

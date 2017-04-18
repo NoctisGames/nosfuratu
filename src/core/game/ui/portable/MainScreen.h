@@ -18,7 +18,7 @@
 
 #include <vector>
 
-class IDeviceHelper;
+class JsonFile;
 class MainRenderer;
 class Vector2D;
 
@@ -27,7 +27,7 @@ class MainScreen : public IScreen
     RTTI_DECL;
     
 public:
-    IDeviceHelper* m_deviceHelper;
+    JsonFile* m_saveData;
     MainRenderer* m_renderer;
     Vector2D* m_touchPointDown;
     Vector2D* m_touchPointDown2;

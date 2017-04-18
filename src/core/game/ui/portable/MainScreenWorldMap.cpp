@@ -33,7 +33,7 @@
 #include "MainRenderer.h"
 #include "ScreenEvent.h"
 #include "FlagUtil.h"
-#include "SaveData.h"
+#include "JsonFile.h"
 #include "SaveDataKeys.h"
 #include "StringUtil.h"
 
@@ -60,7 +60,7 @@ void WorldMap::enter(MainScreen* ms)
     
     m_iNumTimesVisitedSinceLastAdBreak++;
     
-    loadSaveData();
+    loadSaveData(ms);
 }
 
 void WorldMap::execute(MainScreen* ms)
@@ -101,7 +101,7 @@ void WorldMap::execute(MainScreen* ms)
         
         if (m_needsRefresh)
         {
-            loadSaveData();
+            loadSaveData(ms);
             m_needsRefresh = false;
             
             return;
@@ -274,12 +274,12 @@ void WorldMap::execute(MainScreen* ms)
                     }
                     else if (m_toggleMusic->handleClick(touchPoint))
                     {
-                        toggleMusicOnOff();
+                        toggleMusicOnOff(ms);
                         onButtonSelected();
                     }
                     else if (m_toggleSound->handleClick(touchPoint))
                     {
-                        toggleSoundOnOff();
+                        toggleSoundOnOff(ms);
                         onButtonSelected();
                     }
                     else if (m_viewOpeningCutsceneButton->handleClick(touchPoint))
@@ -299,7 +299,7 @@ void WorldMap::execute(MainScreen* ms)
                             {
                                 if (ret == 1)
                                 {
-                                    unlockLevel();
+                                    unlockLevel(ms);
                                 }
                                 
                                 return;
@@ -335,7 +335,7 @@ void WorldMap::execute(MainScreen* ms)
                                     && m_clickedLevel)
                                 {
                                     MAIN_ASSETS->setUsingGamePadTextureSet(false);
-                                    startLevel();
+                                    startLevel(ms);
                                 }
                                 else if ((*j)->isPlayable()
                                          && !(*j)->isSelecting())
@@ -409,16 +409,16 @@ void WorldMap::setFade(float fade)
     NG_AUDIO_ENGINE->setMusicVolume(musicVolume);
 }
 
-void WorldMap::loadSaveData()
+void WorldMap::loadSaveData(MainScreen* ms)
 {
-    NG_SAVE_DATA->load();
+    ms->m_saveData->load();
     
     {
         std::string key = std::string("ng_is_music_enabled");
-        std::string val = NG_SAVE_DATA->findValue(key);
+        std::string val = ms->m_saveData->findValue(key);
         if (val.length() > 0)
         {
-            int ng_is_music_enabled = StringUtil::stringToInt(val);
+            int ng_is_music_enabled = StringUtil::stringToNumber<int>(val);
             NG_AUDIO_ENGINE->setMusicDisabled(ng_is_music_enabled == 0);
             m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
         }
@@ -426,10 +426,10 @@ void WorldMap::loadSaveData()
     
     {
         std::string key = std::string("ng_is_sound_enabled");
-        std::string val = NG_SAVE_DATA->findValue(key);
+        std::string val = ms->m_saveData->findValue(key);
         if (val.length() > 0)
         {
-            int ng_is_sound_enabled = StringUtil::stringToInt(val);
+            int ng_is_sound_enabled = StringUtil::stringToNumber<int>(val);
             NG_AUDIO_ENGINE->setSoundDisabled(ng_is_sound_enabled == 0);
             m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
         }
@@ -437,15 +437,15 @@ void WorldMap::loadSaveData()
     
     NGSTDUtil::cleanUpVectorOfPointers(m_worldLevelStats);
     
-    loadWorld1SaveData();
+    loadWorld1SaveData(ms);
     
-    loadGlobalSaveData();
+    loadGlobalSaveData(ms);
     
     m_isNextWorldButtonEnabled = false;
     
     std::string key = std::string("ng_unlock_all");
-    std::string val = NG_SAVE_DATA->findValue(key);
-    int isUnlockedAll = StringUtil::stringToInt(val);
+    std::string val = ms->m_saveData->findValue(key);
+    int isUnlockedAll = StringUtil::stringToNumber<int>(val);
     
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
@@ -624,15 +624,15 @@ LevelThumbnail* WorldMap::getSelectedLevelThumbnail()
 
 #pragma mark private
 
-void WorldMap::loadGlobalSaveData()
+void WorldMap::loadGlobalSaveData(MainScreen* ms)
 {
     m_iNumCollectedGoldenCarrots = 0;
     m_iViewedCutsceneFlag = 0;
     
     {
         std::string key = getKeyForNumGoldenCarrots();
-        std::string val = NG_SAVE_DATA->findValue(key);
-        int numCollectedGoldenCarrots = StringUtil::stringToInt(val);
+        std::string val = ms->m_saveData->findValue(key);
+        int numCollectedGoldenCarrots = StringUtil::stringToNumber<int>(val);
         
         m_spendGoldenCarrotsBubble->setUserHasEnoughGoldenCats(numCollectedGoldenCarrots >= NUM_GC_REQ);
         
@@ -647,8 +647,8 @@ void WorldMap::loadGlobalSaveData()
     
     {
         std::string key = getKeyForJonUnlockedAbilitiesFlag();
-        std::string val = NG_SAVE_DATA->findValue(key);
-        int jonAbilityFlag = StringUtil::stringToInt(val);
+        std::string val = ms->m_saveData->findValue(key);
+        int jonAbilityFlag = StringUtil::stringToNumber<int>(val);
         
         {
             bool isUnlocked = FlagUtil::isFlagSet(jonAbilityFlag, FLAG_ABILITY_RABBIT_DOWN);
@@ -669,14 +669,14 @@ void WorldMap::loadGlobalSaveData()
     
     {
         std::string key = getKeyForViewedCutscenesFlag();
-        std::string val = NG_SAVE_DATA->findValue(key);
-        m_iViewedCutsceneFlag = StringUtil::stringToInt(val);
+        std::string val = ms->m_saveData->findValue(key);
+        m_iViewedCutsceneFlag = StringUtil::stringToNumber<int>(val);
     }
     
     validateAbilityFlag();
 }
 
-void WorldMap::loadWorld1SaveData()
+void WorldMap::loadWorld1SaveData(MainScreen* ms)
 {
     WorldLevelCompletions* wlc = new WorldLevelCompletions();
     
@@ -684,16 +684,16 @@ void WorldMap::loadWorld1SaveData()
     {
         {
             std::string key = getKeyForLevelStats(1, i);
-            std::string val = NG_SAVE_DATA->findValue(key);
-            int levelStats = StringUtil::stringToInt(val);
+            std::string val = ms->m_saveData->findValue(key);
+            int levelStats = StringUtil::stringToNumber<int>(val);
             
             wlc->m_levelStats.push_back(levelStats);
         }
         
         {
             std::string key = getKeyForLevelScore(1, i);
-            std::string val = NG_SAVE_DATA->findValue(key);
-            int score = StringUtil::stringToInt(val);
+            std::string val = ms->m_saveData->findValue(key);
+            int score = StringUtil::stringToNumber<int>(val);
             
             wlc->m_scores.push_back(score);
         }
@@ -795,7 +795,7 @@ void WorldMap::selectLevel(LevelThumbnail* levelThumbnail)
     }
 }
 
-void WorldMap::unlockLevel()
+void WorldMap::unlockLevel(MainScreen* ms)
 {
     // User has just spent X amount of golden carrots to unlock a boss level
     m_iNumCollectedGoldenCarrots -= NUM_GC_REQ;
@@ -813,21 +813,21 @@ void WorldMap::unlockLevel()
     {
         std::string key = getKeyForLevelStats(worldToUnlock, levelToUnlock);
         std::string val = StringUtil::toString(m_iUnlockedLevelStatsFlag);
-        NG_SAVE_DATA->getKeyValues()[key] = val;
+        ms->m_saveData->setValue(key, val);
     }
     
     {
         std::string key = getKeyForNumGoldenCarrots();
         std::string val = StringUtil::toString(m_iNumCollectedGoldenCarrots);
-        NG_SAVE_DATA->getKeyValues()[key] = val;
+        ms->m_saveData->setValue(key, val);
     }
     
-    NG_SAVE_DATA->save();
+    ms->m_saveData->save();
     
     m_needsRefresh = true;
 }
 
-void WorldMap::startLevel()
+void WorldMap::startLevel(MainScreen* ms)
 {
     int worldToLoad = m_clickedLevel->getWorld();
     int levelToLoad = m_clickedLevel->getLevel();
@@ -847,8 +847,8 @@ void WorldMap::startLevel()
     int abilityFlag = m_iJonAbilityFlag;
     
     std::string key = std::string("ng_unlock_all");
-    std::string val = NG_SAVE_DATA->findValue(key);
-    int isUnlockedAll = StringUtil::stringToInt(val);
+    std::string val = ms->m_saveData->findValue(key);
+    int isUnlockedAll = StringUtil::stringToNumber<int>(val);
     if (isUnlockedAll)
     {
         abilityFlag = FLAG_ABILITY_ALL;
@@ -1152,24 +1152,24 @@ void WorldMap::navSelect(MainScreen* ms)
     if (m_toggleMusic->isSelected())
     {
         m_toggleMusic->click();
-        toggleMusicOnOff();
+        toggleMusicOnOff(ms);
     }
     else if (m_toggleSound->isSelected())
     {
         m_toggleSound->click();
-        toggleSoundOnOff();
+        toggleSoundOnOff(ms);
     }
     else if (m_clickedLevel
         && m_clickedLevel->isSelected())
     {
-        startLevel();
+        startLevel(ms);
     }
     else
     {
         if (m_spendGoldenCarrotsBubble->isOpen()
             && m_spendGoldenCarrotsBubble->userHasEnoughGoldenCats())
         {
-            unlockLevel();
+            unlockLevel(ms);
         }
     }
 }
@@ -1208,16 +1208,16 @@ LevelThumbnail * WorldMap::getLevelThumbnail(int world, int level)
     return nullptr;
 }
 
-void WorldMap::toggleMusicOnOff()
+void WorldMap::toggleMusicOnOff(MainScreen* ms)
 {
     NG_AUDIO_ENGINE->setMusicDisabled(!NG_AUDIO_ENGINE->isMusicDisabled());
     m_toggleMusic->getColor().alpha = NG_AUDIO_ENGINE->isMusicDisabled() ? 0.35f : 1;
     
     std::string key = std::string("ng_is_music_enabled");
     std::string val = StringUtil::toString(NG_AUDIO_ENGINE->isMusicDisabled() ? 0 : 1);
-    NG_SAVE_DATA->getKeyValues()[key] = val;
+    ms->m_saveData->setValue(key, val);
     
-    NG_SAVE_DATA->save();
+    ms->m_saveData->save();
     
     if (!NG_AUDIO_ENGINE->isMusicLoaded()
         && !NG_AUDIO_ENGINE->isMusicDisabled())
@@ -1227,16 +1227,16 @@ void WorldMap::toggleMusicOnOff()
     }
 }
 
-void WorldMap::toggleSoundOnOff()
+void WorldMap::toggleSoundOnOff(MainScreen* ms)
 {
     NG_AUDIO_ENGINE->setSoundDisabled(!NG_AUDIO_ENGINE->isSoundDisabled());
     m_toggleSound->getColor().alpha = NG_AUDIO_ENGINE->isSoundDisabled() ? 0.35f : 1;
     
     std::string key = std::string("ng_is_sound_enabled");
     std::string val = StringUtil::toString(NG_AUDIO_ENGINE->isSoundDisabled() ? 0 : 1);
-    NG_SAVE_DATA->getKeyValues()[key] = val;
+    ms->m_saveData->setValue(key, val);
     
-    NG_SAVE_DATA->save();
+    ms->m_saveData->save();
 }
 
 WorldMap::WorldMap() : MainScreenState(),

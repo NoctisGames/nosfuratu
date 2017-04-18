@@ -84,7 +84,7 @@ public:
     
     LevelThumbnail* getSelectedLevelThumbnail();
     
-    void loadSaveData();
+    void loadSaveData(MainScreen* ms);
     
 private:
     WorldMapPanel* m_panel;
@@ -113,17 +113,17 @@ private:
     LevelThumbnail* m_clickedLevel;
     bool m_userHasClickedOpeningCutscene;
     
-    void loadGlobalSaveData();
+    void loadGlobalSaveData(MainScreen* ms);
     
-    void loadWorld1SaveData();
+    void loadWorld1SaveData(MainScreen* ms);
     
     void configAbilitySlot(AbilitySlotType abilitySlotType, bool isUnlocked, bool isUnlocking);
     
     void selectLevel(LevelThumbnail* levelThumbnail);
     
-    void unlockLevel();
+    void unlockLevel(MainScreen* ms);
     
-    void startLevel();
+    void startLevel(MainScreen* ms);
     
     void validateAbilityFlag();
     
@@ -141,9 +141,9 @@ private:
     
     LevelThumbnail * getLevelThumbnail(int world, int level);
     
-    void toggleMusicOnOff();
+    void toggleMusicOnOff(MainScreen* ms);
     
-    void toggleSoundOnOff();
+    void toggleSoundOnOff(MainScreen* ms);
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     WorldMap();
