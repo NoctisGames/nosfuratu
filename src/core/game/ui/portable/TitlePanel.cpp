@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 3/8/16.
-//  Copyright © 2016 Noctis Games. All rights reserved.
+//  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
 #include "TitlePanel.h"

@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/22/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "MainRenderer.h"
@@ -766,7 +766,7 @@ void MainRenderer::renderTitleScreenUi(GameButton* levelEditorButton)
     {
         /// Company Info
         std::stringstream ss;
-        ss << "2016 Noctis Games";
+        ss << "2017 Noctis Games";
         std::string text = ss.str();
         
         m_font->renderText(*m_spriteBatcher, text, CAM_WIDTH - fgWidth * 3 / 4, fgHeight * 3 / 4, fgWidth, fgHeight, fontColor, false, true);
