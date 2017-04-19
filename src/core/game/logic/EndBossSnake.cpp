@@ -170,6 +170,8 @@ void EndBossSnake::update(float deltaTime)
 		{
 			if (m_fStateTime > 1.3f)
 			{
+                m_velocity.setX(0);
+                
 				setState(EndBossSnakeState_OpeningMouthLeft);
 
 				return;
@@ -462,6 +464,8 @@ void EndBossSnake::begin()
 void EndBossSnake::awaken()
 {
 	setState(EndBossSnakeState_Awakening);
+    
+    m_velocity.setX(-4);
 
 	m_snakeEye->onAwaken();
 }

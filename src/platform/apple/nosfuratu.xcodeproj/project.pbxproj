@@ -1368,8 +1368,6 @@
 		BBA762581E72FB7500999993 /* ISound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISound.h; sourceTree = "<group>"; };
 		BBA7625C1E73024E00999993 /* WinSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WinSound.cpp; sourceTree = "<group>"; };
 		BBA7625D1E73024E00999993 /* WinSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WinSound.h; sourceTree = "<group>"; };
-		BBA7625E1E73180F00999993 /* Direct3DMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DMain.cpp; sourceTree = "<group>"; };
-		BBA7625F1E73180F00999993 /* Direct3DMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DMain.h; sourceTree = "<group>"; };
 		BBAE6A781E6346260040E361 /* collect_big_carrot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_big_carrot.wav; sourceTree = "<group>"; };
 		BBAE6A791E6346260040E361 /* collect_vial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collect_vial.wav; sourceTree = "<group>"; };
 		BBB4F0E31E7AE29500504F70 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
@@ -1389,6 +1387,8 @@
 		BBB4F0F31E7AF43600504F70 /* c_world_1_objects_part_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects_part_1.png; sourceTree = "<group>"; };
 		BBB4F0F41E7AF43600504F70 /* c_world_1_objects_part_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_objects_part_2.png; sourceTree = "<group>"; };
 		BBB4F0F51E7AF43600504F70 /* c_world_1_special.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_world_1_special.png; sourceTree = "<group>"; };
+		BBC8E0D31EA80C0400A655FE /* Direct3DMain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Direct3DMain.cpp; sourceTree = "<group>"; };
+		BBC8E0D41EA80C0400A655FE /* Direct3DMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Direct3DMain.h; sourceTree = "<group>"; };
 		BBC91A281E691B0B005E9933 /* AssetDataHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetDataHandler.cpp; sourceTree = "<group>"; };
 		BBC91A291E691B0B005E9933 /* AssetDataHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDataHandler.h; sourceTree = "<group>"; };
 		BBCB71C81DB6A218006430B6 /* texconv.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = texconv.exe; sourceTree = "<group>"; };
@@ -1495,6 +1495,7 @@
 				BB34FD701E565A7400AC8197 /* jni */,
 				BB44C31E1DB030B3003E633F /* mac */,
 				0ADF1875178E2185005DA99E /* Products */,
+				BBC8E0D21EA80C0400A655FE /* shared */,
 				BB44C34A1DB03267003E633F /* shared */,
 			);
 			sourceTree = "<group>";
@@ -2211,8 +2212,6 @@
 				BB34FD4F1E56464200AC8197 /* Direct3DFramebufferRadialBlurGpuProgramWrapper.h */,
 				BB34FD501E56464200AC8197 /* Direct3DFrameBufferTintGpuProgramWrapper.cpp */,
 				BB34FD511E56464200AC8197 /* Direct3DFrameBufferTintGpuProgramWrapper.h */,
-				BBA7625E1E73180F00999993 /* Direct3DMain.cpp */,
-				BBA7625F1E73180F00999993 /* Direct3DMain.h */,
 				BB34FD521E56464200AC8197 /* Direct3DPointTransScreenGpuProgramWrapper.cpp */,
 				BB34FD531E56464200AC8197 /* Direct3DPointTransScreenGpuProgramWrapper.h */,
 				BB34FD561E56464200AC8197 /* Direct3DShockwaveTextureGpuProgramWrapper.cpp */,
@@ -2728,6 +2727,16 @@
 				BBB4F0F51E7AF43600504F70 /* c_world_1_special.png */,
 			);
 			path = compressed;
+			sourceTree = "<group>";
+		};
+		BBC8E0D21EA80C0400A655FE /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				BBC8E0D31EA80C0400A655FE /* Direct3DMain.cpp */,
+				BBC8E0D41EA80C0400A655FE /* Direct3DMain.h */,
+			);
+			name = shared;
+			path = ../windows/shared;
 			sourceTree = "<group>";
 		};
 		BBCB71C71DB6A217006430B6 /* Texconv */ = {

@@ -13,6 +13,7 @@
 // C++
 #include "MainScreen.h"
 #include "MainScreenTitle.h"
+#include "MainScreenWorldMap.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "MainAssets.h"
@@ -293,7 +294,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     _screen->update(deltaTime);
     _screen->render();
     
-    if (_screen->m_stateMachine.getCurrentState() == Title::getInstance())
+    if (_screen->m_stateMachine.getCurrentState() == Title::getInstance()
+        || _screen->m_stateMachine.getCurrentState() == WorldMap::getInstance())
     {
         m_fTimeSinceLastJoystickScan += deltaTime;
         
