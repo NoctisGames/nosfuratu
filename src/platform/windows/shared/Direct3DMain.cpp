@@ -317,6 +317,23 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_Y_BUTTON, 0);
 		}
 
+		if (m_buttons.rightShoulder == GamePad::ButtonStateTracker::PRESSED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BUMPER_RIGHT, 0, 1);
+		}
+		else if (m_buttons.rightShoulder == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BUMPER_RIGHT, 0);
+		}
+		if (m_buttons.leftShoulder == GamePad::ButtonStateTracker::PRESSED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BUMPER_LEFT, 0, 1);
+		}
+		else if (m_buttons.leftShoulder == GamePad::ButtonStateTracker::RELEASED)
+		{
+			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_BUMPER_LEFT, 0);
+		}
+
 		if (m_buttons.start == GamePad::ButtonStateTracker::PRESSED)
 		{
 			GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_START_BUTTON, 0, 1);
