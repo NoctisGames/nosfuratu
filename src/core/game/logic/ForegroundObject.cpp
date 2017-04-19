@@ -767,6 +767,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bound
             {
                 jon = reinterpret_cast<Jon *>(entity);
                 jon->setGroundSoundType(getGroundSoundType());
+                jon->setLastSpringBouncedOn(this);
             }
             
             return true;

@@ -34,6 +34,7 @@ m_physicalState(PHYSICAL_GROUNDED),
 m_actionState(ACTION_NONE),
 m_abilityState(ABILITY_NONE),
 m_groundSoundType(GROUND_SOUND_NONE),
+m_lastSpringBouncedOn(nullptr),
 m_color(1, 1, 1, 1),
 m_fDeltaTime(0),
 m_fAbilityStateTime(0),
@@ -620,6 +621,16 @@ GroundSoundType Jon::getGroundSoundType()
 void Jon::setGroundSoundType(GroundSoundType groundSoundType)
 {
 	m_groundSoundType = groundSoundType;
+}
+
+ForegroundObject* Jon::getLastSpringBouncedOn()
+{
+    return m_lastSpringBouncedOn;
+}
+
+void Jon::setLastSpringBouncedOn(ForegroundObject* spring)
+{
+    m_lastSpringBouncedOn = spring;
 }
 
 bool Jon::isVampire()
