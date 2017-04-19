@@ -640,16 +640,33 @@ void BatPanel::updateVampire(MainScreen* ms)
                     jon.getVelocity().setX(m_fJonVelocityX);
                 }
                 
-                bool executeDown = false;
-                bool executeUp = false;
-                
                 for (std::vector<KeyboardEvent *>::iterator i = KEYBOARD_INPUT_MANAGER->getEvents().begin(); i != KEYBOARD_INPUT_MANAGER->getEvents().end(); ++i)
                 {
                     switch ((*i)->getType())
                     {
                         case KeyboardEventType_S:
-                            executeDown = !(*i)->isUp();
-                            executeUp = (*i)->isUp();
+                        {
+                            if ((*i)->isUp())
+                            {
+                                if (jon.isTransformingIntoVampire()
+                                    || jon.isRevertingToRabbit())
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    jon.triggerCancelTransform();
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_fJonX = -1;
+                                }
+                                else
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    jon.triggerTransform();
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_fJonX = jon.getPosition().getX();
+                                }
+                            }
+                        }
                             break;
                         default:
                             continue;
@@ -660,9 +677,30 @@ void BatPanel::updateVampire(MainScreen* ms)
                 {
                     switch ((*i)->getType())
                     {
+                        case GamePadEventType_BUMPER_RIGHT:
                         case GamePadEventType_X_BUTTON:
-                            executeDown = (*i)->isButtonPressed();
-                            executeUp = !(*i)->isButtonPressed();
+                        {
+                            if ((*i)->isButtonPressed())
+                            {
+                                if (jon.isTransformingIntoVampire()
+                                    || jon.isRevertingToRabbit())
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    jon.triggerCancelTransform();
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_fJonX = -1;
+                                }
+                                else
+                                {
+                                    jon.setUserActionPrevented(false);
+                                    jon.triggerTransform();
+                                    jon.setUserActionPrevented(true);
+                                    
+                                    m_fJonX = jon.getPosition().getX();
+                                }
+                            }
+                        }
                             break;
                         default:
                             continue;
@@ -674,33 +712,22 @@ void BatPanel::updateVampire(MainScreen* ms)
                     switch ((*i)->getType())
                     {
                         case ScreenEventType_DOWN:
-                            executeDown = true;
-                            executeUp = false;
+                            ms->m_isScreenHeldDown = true;
+                            ms->m_fScreenHeldTime = 0.0f;
                             continue;
                         case ScreenEventType_UP:
-                            executeDown = false;
-                            executeUp = true;
+                            jon.setUserActionPrevented(false);
+                            jon.triggerCancelTransform();
+                            jon.setUserActionPrevented(true);
+                            
+                            ms->m_isScreenHeldDown = false;
+                            ms->m_fScreenHeldTime = 0;
+                            
+                            m_fJonX = -1;
                             break;
                         default:
                             continue;
                     }
-                }
-                
-                if (executeDown)
-                {
-                    ms->m_isScreenHeldDown = true;
-                    ms->m_fScreenHeldTime = 0.0f;
-                }
-                else if (executeUp)
-                {
-                    jon.setUserActionPrevented(false);
-                    jon.triggerCancelTransform();
-                    jon.setUserActionPrevented(true);
-                    
-                    ms->m_isScreenHeldDown = false;
-                    ms->m_fScreenHeldTime = 0;
-                    
-                    m_fJonX = -1;
                 }
             }
             else if (!m_batInstruction->isOpening())

@@ -953,6 +953,7 @@ bool Level::handleInput(MainScreen* ms)
                 if ((*i)->isUp())
                 {
                     jon.triggerRightAction();
+                    
                     return false;
                 }
             }
@@ -962,6 +963,7 @@ bool Level::handleInput(MainScreen* ms)
                 if ((*i)->isUp())
                 {
                     jon.triggerUpAction();
+                    
                     return false;
                 }
             }
@@ -971,6 +973,7 @@ bool Level::handleInput(MainScreen* ms)
                 if ((*i)->isUp())
                 {
                     jon.triggerLeftAction();
+                    
                     return false;
                 }
             }
@@ -980,6 +983,7 @@ bool Level::handleInput(MainScreen* ms)
                 if ((*i)->isUp())
                 {
                     jon.triggerDownAction();
+                    
                     return false;
                 }
             }
@@ -988,8 +992,6 @@ bool Level::handleInput(MainScreen* ms)
             {
                 if ((*i)->isUp())
                 {
-                    ms->m_fScreenHeldTime = 0.0f;
-                    
                     jon.triggerJump();
                     
                     return false;
@@ -1000,24 +1002,23 @@ bool Level::handleInput(MainScreen* ms)
             {
                 if ((*i)->isUp())
                 {
-                    if (ms->m_fScreenHeldTime > 0.4f)
+                    if (jon.isTransformingIntoVampire()
+                        || jon.isRevertingToRabbit())
                     {
                         jon.triggerCancelTransform();
                     }
+                    else
+                    {
+                        jon.triggerTransform();
+                    }
                     
-                    ms->m_isScreenHeldDown = false;
-                    ms->m_fScreenHeldTime = 0;
-                }
-                else
-                {
-                    ms->m_isScreenHeldDown = true;
-                    ms->m_fScreenHeldTime = 0.0f;
+                    return false;
                 }
             }
-                return false;
+                continue;
             case KeyboardEventType_BACK:
-                if (!m_hasCompletedLevel
-                    && (*i)->isUp())
+                if ((*i)->isUp()
+                    && !m_hasCompletedLevel)
                 {
                     m_exitLoop = true;
                     
@@ -1114,28 +1115,28 @@ bool Level::handleInput(MainScreen* ms)
                 }
             }
                 continue;
+            case GamePadEventType_BUMPER_RIGHT:
             case GamePadEventType_X_BUTTON:
             {
                 if ((*i)->isButtonPressed())
                 {
-                    ms->m_isScreenHeldDown = true;
-                    ms->m_fScreenHeldTime = 0.0f;
-                }
-                else
-                {
-                    if (ms->m_fScreenHeldTime > 0.4f)
+                    if (jon.isTransformingIntoVampire()
+                        || jon.isRevertingToRabbit())
                     {
                         jon.triggerCancelTransform();
                     }
+                    else
+                    {
+                        jon.triggerTransform();
+                    }
                     
-                    ms->m_isScreenHeldDown = false;
-                    ms->m_fScreenHeldTime = 0;
+                    return false;
                 }
             }
-                return false;
+                continue;
             case GamePadEventType_BACK_BUTTON:
-                if (!m_hasCompletedLevel
-                    && (*i)->isButtonPressed())
+                if ((*i)->isButtonPressed()
+                    && !m_hasCompletedLevel)
                 {
                     m_exitLoop = true;
                     
