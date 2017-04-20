@@ -153,10 +153,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -169,10 +169,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -185,10 +185,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NG_LEVEL_EDITOR;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -201,10 +201,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -217,10 +217,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -233,10 +233,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NG_LEVEL_EDITOR;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -249,10 +249,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -265,10 +265,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -281,10 +281,10 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;NG_LEVEL_EDITOR;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemDefinitionGroup>

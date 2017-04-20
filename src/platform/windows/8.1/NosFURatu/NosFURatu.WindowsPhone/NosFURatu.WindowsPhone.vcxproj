@@ -106,8 +106,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <ForcedUsingFiles>
       </ForcedUsingFiles>
@@ -121,8 +121,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='LevelEditor|Win32'">
@@ -133,8 +133,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -145,8 +145,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <ForcedUsingFiles>
       </ForcedUsingFiles>
@@ -160,8 +160,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='LevelEditor|ARM'">
@@ -172,8 +172,8 @@
     </Link>
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\..\..\..\..\core\framework;..\..\..\..\..\core\framework\entity;..\..\..\..\..\core\framework\file\windows;..\..\..\..\..\core\framework\math;..\..\..\..\..\core\framework\sound\windows;..\..\..\..\..\core\framework\state;..\..\..\..\..\core\framework\ui;..\..\..\..\..\core\framework\ui\direct3d;..\..\..\..\..\core\framework\util;..\..\..\..\..\core\framework\util\windows;..\..\..\..\..\core\game;..\..\..\..\..\core\game\ui;..\..\..\..\..\core\game\ui\direct3d;..\..\..\..\..\3rdparty;..\..\..\..\..\3rdparty\rapidjson;%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NG_DIRECT_3D;PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/10/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/10/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Label="UserMacros">
