@@ -981,6 +981,11 @@ TextureRegion& MainAssets::get(ForegroundObject* foregroundObject)
             return tr;
         }
             
+        case ForegroundObjectType_JumpSpringLightFlushNew:
+        {
+            static Animation anim = ASSETS->findAnimation("ForegroundObjectType_JumpSpringLightFlushNew");
+            return anim.getTextureRegion(foregroundObject->getStateTime());
+        }
         case ForegroundObjectType_JumpSpringLightFlush:
         {
             static Animation anim = ASSETS->findAnimation("ForegroundObjectType_JumpSpringLightFlush");

@@ -70,6 +70,8 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_LogVerticalShort:
             return new ForegroundObject(gridX, gridY, 8, 6, fot, GROUND_SOUND_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f);
             
+        case ForegroundObjectType_JumpSpringLightFlushNew:
+            return new JumpSpringLightFlush(gridX, gridY, 11, 11, fot, GROUND_SOUND_NONE, 0, 0.363636363636364f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLightFlush:
             return new JumpSpringLightFlush(gridX, gridY, 10, 7, fot, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLight:

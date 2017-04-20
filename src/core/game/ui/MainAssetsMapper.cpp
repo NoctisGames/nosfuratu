@@ -277,6 +277,7 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getAnimationsMap()["HoleCoverType_Cave"] = new Animation("world_1_objects_part_2", 272, 2788, 272, 384, 2720, 384, TEXTURE_SIZE_4096, false, 0.05f, 10);
     ASSETS->getAnimationsMap()["ForegroundObjectType_RockSmallCracked"] = new Animation("world_1_objects_part_1", 384, 3236, 384, 368, 2304, 368, TEXTURE_SIZE_4096, false, 0.05f, 6);
     ASSETS->getAnimationsMap()["ForegroundObjectType_JumpSpringLightFlush"] = new Animation("world_1_objects_part_1", 2904, 1804, 160, 112, 1120, 112, TEXTURE_SIZE_4096, false, 0.05142857142857f, 7);
+    ASSETS->getAnimationsMap()["ForegroundObjectType_JumpSpringLightFlushNew"] = new Animation("world_1_objects_part_1", 2878, 2218, 176, 176, 528, 528, TEXTURE_SIZE_4096, false, 0.05142857142857f, 7);
     ASSETS->getAnimationsMap()["ForegroundObjectType_JumpSpringLight"] = new Animation("world_1_objects_part_1", 2126, 3960, 96, 80, 480, 80, TEXTURE_SIZE_4096, false, 0.09f, 4);
     ASSETS->getAnimationsMap()["ForegroundObjectType_JumpSpringMedium"] = new Animation("world_1_objects_part_1", 0, 3668, 272, 144, 1904, 144, TEXTURE_SIZE_4096, false, 0.05142857142857, 7);
     ASSETS->getAnimationsMap()["ForegroundObjectType_JumpSpringHeavy"] = new Animation("world_1_objects_part_1", 272, 3816, 272, 224, 1904, 224, TEXTURE_SIZE_4096, false, 0.06f, 6);
