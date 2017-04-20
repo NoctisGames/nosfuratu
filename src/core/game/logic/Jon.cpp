@@ -1477,7 +1477,11 @@ void Jon::Vampire::exit(Jon* jon)
 
 void Jon::Vampire::triggerTransform(Jon* jon)
 {
-    jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
+    if (jon->m_abilityState != ABILITY_DASH)
+    {
+        // Prevent Cheating
+        jon->m_formStateMachine->changeState(Jon::VampireToRabbit::getInstance());
+    }
 }
 
 void Jon::Vampire::triggerCancelTransform(Jon* jon)
