@@ -73,6 +73,8 @@ void MainAssetsMapper::mapAssets()
     ASSETS->getTextureRegionMap()["MidgroundType_Stone_Diamond"] = new TextureRegion("world_1_objects_part_2", 1698, 3688, 384, 384, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["MidgroundType_Wall"] = new TextureRegion("world_1_objects_part_2", 1028, 3838, 256, 256, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["MidgroundType_Roof"] = new TextureRegion("world_1_objects_part_2", 1028, 3774, 256, 64, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["MidgroundType_DiagonalChain"] = new TextureRegion("world_1_objects_part_2", 2738, 3252, 128, 832, TEXTURE_SIZE_4096);
+    ASSETS->getTextureRegionMap()["MidgroundType_StraightChain"] = new TextureRegion("world_1_objects_part_2", 2920, 3252, 48, 832, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["GroundType_CaveExtraDeepEndLeft"] = new TextureRegion("world_1_ground", 0, 1132, 128, 128, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["GroundType_CaveExtraDeepSmall"] = new TextureRegion("world_1_ground", 128, 1132, 512, 128, TEXTURE_SIZE_4096);
     ASSETS->getTextureRegionMap()["GroundType_CaveExtraDeepMedium"] = new TextureRegion("world_1_ground", 640, 1132, 1024, 128, TEXTURE_SIZE_4096);

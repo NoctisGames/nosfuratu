@@ -552,6 +552,16 @@ TextureRegion& MainAssets::get(Midground* midground)
             static TextureRegion tr = ASSETS->findTextureRegion("MidgroundType_Roof");
             return tr;
         }
+        case MidgroundType_DiagonalChain:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("MidgroundType_DiagonalChain");
+            return tr;
+        }
+        case MidgroundType_StraightChain:
+        {
+            static TextureRegion tr = ASSETS->findTextureRegion("MidgroundType_StraightChain");
+            return tr;
+        }
     }
     
     assert(false);

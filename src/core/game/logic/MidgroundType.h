@@ -31,7 +31,9 @@ typedef enum
     MidgroundType_Stone_Square,
     MidgroundType_Stone_Diamond,
     MidgroundType_Wall,
-    MidgroundType_Roof
+    MidgroundType_Roof,
+    MidgroundType_DiagonalChain,
+    MidgroundType_StraightChain
 } MidgroundType;
 
 #endif /* defined(__nosfuratu__MidgroundType__) */

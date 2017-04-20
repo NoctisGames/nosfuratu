@@ -285,6 +285,12 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Wall));
         m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_Roof));
         
+        if (level == 21)
+        {
+            m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_DiagonalChain));
+            m_midgrounds.push_back(Midground::create(0, 0, MidgroundType_StraightChain));
+        }
+        
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Tree));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Plant));
         m_foregroundCoverObjects.push_back(ForegroundCoverObject::create(0, 0, ForegroundCoverObjectType_Bush));
