@@ -37,7 +37,7 @@ void Win81AudioEngineHelper::update(int flags)
 
 void Win81AudioEngineHelper::pause()
 {
-    GameSound::getSoundPlayerInstance()->Suspend();
+    getSoundPlayerInstance()->Suspend();
     
     if (m_mediaPlayer)
     {
@@ -47,7 +47,7 @@ void Win81AudioEngineHelper::pause()
 
 void Win81AudioEngineHelper::resume()
 {
-    GameSound::getSoundPlayerInstance()->Resume();
+    getSoundPlayerInstance()->Resume();
 }
 
 ISoundWrapper* Win81AudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
@@ -60,6 +60,12 @@ ISoundWrapper* Win81AudioEngineHelper::loadSound(int soundId, const char *path, 
 ISoundWrapper* Win81AudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
+}
+
+XAudio2SoundPlayer * Win81AudioEngineHelper::getSoundPlayerInstance()
+{
+    static XAudio2SoundPlayer *player = new XAudio2SoundPlayer(44100);
+    return player;
 }
 
 Win81AudioEngineHelper::Win81AudioEngineHelper() : IAudioEngineHelper(), m_retryAudio(false)

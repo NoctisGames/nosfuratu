@@ -13,6 +13,8 @@
 
 #include "IAudioEngineHelper.h"
 
+#include "XAudio2SoundPlayer.h"
+
 #include <memory>
 
 class Win81AudioEngineHelper : public IAudioEngineHelper
@@ -31,6 +33,8 @@ public:
     virtual ISoundWrapper* loadMusic(const char* path);
 
 private:
+    static XAudio2SoundPlayer * getSoundPlayerInstance();
+    
     std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
     bool m_retryAudio;
     
