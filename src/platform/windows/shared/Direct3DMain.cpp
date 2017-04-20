@@ -368,32 +368,10 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 
 	switch (requestedAction)
 	{
-	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-		m_screen->clearRequestedAction();
-		break;
-    case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
-        m_screen->clearRequestedAction();
+    case REQUESTED_ACTION_UPDATE:
         break;
-    case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_SIGN_IN:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_SIGN_OUT:
-        m_screen->clearRequestedAction();
-        break;
-	case REQUESTED_ACTION_UPDATE:
 	default:
+        m_screen->clearRequestedAction();
 		break;
 	}
 

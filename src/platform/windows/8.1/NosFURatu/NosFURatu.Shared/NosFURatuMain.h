@@ -1,11 +1,20 @@
+//
+//  NosFURatuMain.h
+//  nosfuratu
+//
+//  Created by Stephen Gowen on 4/20/17.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
+//
+
 #pragma once
 
 #include "StepTimer.h"
 #include "DeviceResources.h"
-#include "Direct3DGameScreen.h"
 
 #include <vector>
 #include <thread>
+
+class MainScreen;
 
 namespace NosFURatu
 {
@@ -33,10 +42,7 @@ namespace NosFURatu
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
-		std::unique_ptr<Direct3DGameScreen> m_gameScreen;
-
-		std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
-		std::vector<GameSound> m_sounds;
+		MainScreen* m_screen;
 
 		Windows::Foundation::IAsyncAction^ m_renderLoopWorker;
 		Concurrency::critical_section m_criticalSection;
@@ -45,35 +51,10 @@ namespace NosFURatu
 		DX::StepTimer m_timer;
 
 		int m_iRequestedAction;
+        
+        bool m_isWindowsMobile;
 
 		void Update();
 		bool Render();
-
-		void handleSound();
-		void handleMusic();
-
-		void playSound(int soundId, bool isLoop = false);
-		void stopSound(int soundId);
-        void stopAllSounds(bool stopOnlyLoopingSounds = false);
-        void stopAllLoopingSounds();
-
-		void saveLevel(int requestedAction);
-		void loadLevel(int requestedAction);
-		void unlockLevel(int requestedAction);
-        void markLevelAsCompleted(int requestedAction);
-        void submitScoreOnline(int requestedAction);
-        void setCutsceneViewedFlag(int requestedAction);
-		void sendSaveData();
-        void showMessage(int requestedAction);
-
-		Platform::String^ getLevelName(int requestedAction);
-
-		int calcWorld(int requestedAction);
-
-		int calcLevel(int requestedAction);
-
-		void displayToast(Platform::String^ message);
-
-		void initSoundEngine();
 	};
 }

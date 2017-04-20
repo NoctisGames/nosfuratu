@@ -1,12 +1,28 @@
+//
+//  NosFURatuMain.cpp
+//  nosfuratu
+//
+//  Created by Stephen Gowen on 4/20/17.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
+//
+
 #include "pch.h"
 
 #include "NosFURatuMain.h"
 
-#include "DirectXHelper.h"
-#include "GameScreenLevelEditor.h"
-#include "GameScreenWorldMap.h"
+#include "MainScreen.h"
+
+#include "Direct3DManager.h"
+#include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
+#include "MainAssets.h"
+#include "GameConstants.h"
+#include "macros.h"
+#include "NGAudioEngine.h"
+#include "MainScreenLevelEditor.h"
+#include "MainScreenWorldMap.h"
 #include "Game.h"
-#include "SaveData.h"
 
 #include <sstream>
 
@@ -19,19 +35,29 @@ using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
+NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0), m_isWindowsMobile(false)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	bool isMobile = false;
-#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-	isMobile = true;
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    static const XMFLOAT4X4 Rotation0(
+                                      1.0f, 0.0f, 0.0f, 0.0f,
+                                      0.0f, 1.0f, 0.0f, 0.0f,
+                                      0.0f, 0.0f, 1.0f, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f
+                                      );
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), Rotation0);
+    m_isWindowsMobile = false;
+#else
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
 #endif
-
-	m_gameScreen = std::unique_ptr<Direct3DGameScreen>(new Direct3DGameScreen(m_deviceResources, isMobile, isMobile));
-
-	initSoundEngine();
+    
+    MAIN_ASSETS->setUsingDesktopTextureSet(!m_isWindowsMobile);
+    
+    m_screen = new MainScreen();
+    
+    NG_AUDIO_ENGINE->update(1);
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -43,7 +69,7 @@ NosFURatuMain::~NosFURatuMain()
 // Updates application state when the window size changes (e.g. device orientation change)
 void NosFURatuMain::CreateWindowSizeDependentResources()
 {
-	m_gameScreen->CreateWindowSizeDependentResources();
+	m_screen->CreateWindowSizeDependentResources();
 }
 
 void NosFURatuMain::StartRenderLoop()
@@ -72,118 +98,84 @@ void NosFURatuMain::StartRenderLoop()
 	// Run task on a dedicated high priority background thread.
 	m_renderLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-	m_gameScreen->onResume();
-
-	GameSound::getSoundPlayerInstance()->Resume();
+	m_screen->onResume();
 }
 
 void NosFURatuMain::StopRenderLoop()
 {
 	m_renderLoopWorker->Cancel();
-	m_gameScreen->onPause();
+	m_screen->onPause();
 
-	GameSound::getSoundPlayerInstance()->Suspend();
-
-	if (m_mediaPlayer)
-	{
-		m_mediaPlayer->Pause();
-	}
+	NG_AUDIO_ENGINE->update(-1);
 }
 
 void NosFURatuMain::onTouchDown(float screenX, float screenY)
 {
-	m_gameScreen->onTouch(Touch_Type::DOWN, screenX, screenY);
+	SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, screenX, screenY);
 }
 
 void NosFURatuMain::onTouchDragged(float screenX, float screenY)
 {
-	m_gameScreen->onTouch(Touch_Type::DRAGGED, screenX, screenY);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, screenX, screenY);
 }
 
 void NosFURatuMain::onTouchUp(float screenX, float screenY)
 {
-	m_gameScreen->onTouch(Touch_Type::UP, screenX, screenY);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, screenX, screenY);
 }
 
 bool NosFURatuMain::handleOnBackPressed()
 {
-	return m_gameScreen->handleOnBackPressed();
+    if (m_main->getMainScreen()->m_stateMachine.getCurrentState() == Title::getInstance())
+    {
+        return false;
+    }
+    else
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+        
+        return true;
+    }
 }
 
 // Notifies renderers that device resources need to be released.
 void NosFURatuMain::OnDeviceLost()
 {
-	m_gameScreen->ReleaseDeviceDependentResources();
+	m_screen->releaseDeviceDependentResources();
 
-	m_mediaPlayer->Shutdown();
-	m_mediaPlayer = nullptr;
+    NG_AUDIO_ENGINE->update(-1);
 }
 
 // Notifies renderers that device resources may now be recreated.
 void NosFURatuMain::OnDeviceRestored()
 {
-	m_gameScreen->CreateDeviceDependentResources();
+	m_screen->createDeviceDependentResources();
+    
 	CreateWindowSizeDependentResources();
-
-	// Load Media Player
-	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM); 
+    
+    NG_AUDIO_ENGINE->update(1);
 }
 
 void NosFURatuMain::Update()
 {
 	m_timer.Tick([&]()
 	{
-		int requestedAction = m_gameScreen->getRequestedAction();
-		if (requestedAction >= 1000)
-		{
-			requestedAction /= 1000;
-		}
+        int requestedAction = m_screen->getRequestedAction();
+        
+        switch (requestedAction)
+        {
+            case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
+                m_directXPage->DisplayInterstitialAdIfAvailable();
+                m_screen->clearRequestedAction();
+                break;
+            case REQUESTED_ACTION_UPDATE:
+                break;
+            default:
+                m_screen->clearRequestedAction();
+                break;
+        }
 
-		switch (requestedAction)
-		{
-		case REQUESTED_ACTION_LEVEL_EDITOR_SAVE:
-			saveLevel(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-			break;
-		case REQUESTED_ACTION_LEVEL_EDITOR_LOAD:
-			loadLevel(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-			break;
-		case REQUESTED_ACTION_LEVEL_COMPLETED:
-			markLevelAsCompleted(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-			break;
-        case REQUESTED_ACTION_SUBMIT_SCORE_ONLINE:
-            submitScoreOnline(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_UNLOCK_LEVEL:
-            unlockLevel(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SET_CUTSCENE_VIEWED:
-            setCutsceneViewedFlag(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-            break;
-		case REQUESTED_ACTION_GET_SAVE_DATA:
-			sendSaveData();
-			m_gameScreen->clearRequestedAction();
-			break;
-		case REQUESTED_ACTION_SHOW_MESSAGE:
-			showMessage(m_gameScreen->getRequestedAction());
-			m_gameScreen->clearRequestedAction();
-			break;
-		case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-			m_gameScreen->clearRequestedAction();
-			m_directXPage->DisplayInterstitialAdIfAvailable();
-			break;
-		case REQUESTED_ACTION_UPDATE:
-		default:
-			break;
-		}
-
-		m_gameScreen->update(m_timer.GetElapsedSeconds());
+		m_screen->update(m_timer.GetElapsedSeconds());
 	});
 }
 
@@ -206,10 +198,7 @@ bool NosFURatuMain::Render()
 	// Clear the back buffer
 	context->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), DirectX::Colors::Black);
 
-	m_gameScreen->render();
-
-	handleSound();
-	handleMusic();
+	m_screen->render();
 
 	return true;
 }
@@ -217,7 +206,7 @@ bool NosFURatuMain::Render()
 void NosFURatuMain::handleSound()
 {
 	short soundId;
-	while ((soundId = m_gameScreen->getCurrentSoundId()) > 0)
+	while ((soundId = m_screen->getCurrentSoundId()) > 0)
 	{
 		switch (soundId)
 		{
@@ -249,7 +238,7 @@ void NosFURatuMain::handleSound()
 void NosFURatuMain::handleMusic()
 {
 	short rawMusicId;
-	while ((rawMusicId = m_gameScreen->getCurrentMusicId()) > 0)
+	while ((rawMusicId = m_screen->getCurrentMusicId()) > 0)
 	{
 		short musicId = rawMusicId;
 		if (musicId >= 1000)

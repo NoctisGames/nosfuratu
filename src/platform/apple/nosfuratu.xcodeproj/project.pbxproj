@@ -1390,6 +1390,12 @@
 		BBAEF9B51EA95C8000F0866E /* LoaderHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoaderHelpers.h; sourceTree = "<group>"; };
 		BBAEF9B61EA95C8000F0866E /* PlatformHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformHelpers.h; sourceTree = "<group>"; };
 		BBAEF9B71EA95C8000F0866E /* ReadData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadData.h; sourceTree = "<group>"; };
+		BBAEF9B81EA9734F00F0866E /* Win81SoundWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win81SoundWrapper.h; sourceTree = "<group>"; };
+		BBAEF9B91EA9734F00F0866E /* Win81SoundWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Win81SoundWrapper.cpp; sourceTree = "<group>"; };
+		BBAEF9BA1EA9734F00F0866E /* Win81Sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win81Sound.h; sourceTree = "<group>"; };
+		BBAEF9BB1EA9734F00F0866E /* Win81Sound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Win81Sound.cpp; sourceTree = "<group>"; };
+		BBAEF9BC1EA9734F00F0866E /* Win81AudioEngineHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Win81AudioEngineHelper.h; sourceTree = "<group>"; };
+		BBAEF9BD1EA9734F00F0866E /* Win81AudioEngineHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Win81AudioEngineHelper.cpp; sourceTree = "<group>"; };
 		BBB4F0E31E7AE29500504F70 /* level_editor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level_editor.png; sourceTree = "<group>"; };
 		BBB4F0E61E7AF43600504F70 /* c_jon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_jon.png; sourceTree = "<group>"; };
 		BBB4F0E71E7AF43600504F70 /* c_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c_tutorial.png; sourceTree = "<group>"; };
@@ -2736,6 +2742,12 @@
 				BBAEF9A11EA95BDC00F0866E /* GameSound.h */,
 				BBAEF9A21EA95BDC00F0866E /* MediaEnginePlayer.cpp */,
 				BBAEF9A31EA95BDC00F0866E /* MediaEnginePlayer.h */,
+				BBAEF9BD1EA9734F00F0866E /* Win81AudioEngineHelper.cpp */,
+				BBAEF9BC1EA9734F00F0866E /* Win81AudioEngineHelper.h */,
+				BBAEF9BB1EA9734F00F0866E /* Win81Sound.cpp */,
+				BBAEF9BA1EA9734F00F0866E /* Win81Sound.h */,
+				BBAEF9B91EA9734F00F0866E /* Win81SoundWrapper.cpp */,
+				BBAEF9B81EA9734F00F0866E /* Win81SoundWrapper.h */,
 				BBAEF9A41EA95BDC00F0866E /* XAudio2SoundPlayer.cpp */,
 				BBAEF9A51EA95BDC00F0866E /* XAudio2SoundPlayer.h */,
 			);

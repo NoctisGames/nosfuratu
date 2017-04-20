@@ -439,7 +439,9 @@ void Engine::drawFrame()
             m_screen->clearRequestedAction();
             break;
         case REQUESTED_ACTION_UPDATE:
+            break;
         default:
+            m_screen->clearRequestedAction();
             break;
     }
     
