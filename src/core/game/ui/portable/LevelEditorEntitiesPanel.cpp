@@ -156,6 +156,7 @@ void LevelEditorEntitiesPanel::initForLevel(int world, int level)
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsCenterBig));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_ThornsRight));
         
+        m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLightFlushNew));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLightFlush));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringLight));
         m_foregroundObjects.push_back(ForegroundObject::create(0, 0, ForegroundObjectType_JumpSpringMedium));
