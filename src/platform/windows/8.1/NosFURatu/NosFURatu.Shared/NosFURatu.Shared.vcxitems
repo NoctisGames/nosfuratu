@@ -14,68 +14,68 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\core\framework\entity\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\file\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\file\windows\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\graphics\direct3d\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\graphics\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\input\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\math\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\sound\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\sound\windows\8.1\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\state\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\ui\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\util\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\framework\util\windows\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\game\graphics\direct3d\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\game\graphics\portable\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\game\logic\*.h" />
-    <ClInclude Include="..\..\..\..\..\core\game\ui\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\input\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\8.1\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.h" />
     <ClInclude Include="*.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\core\framework\entity\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\file\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\file\windows\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\graphics\direct3d\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\graphics\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\input\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\math\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\sound\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\sound\windows\8.1\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\state\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\ui\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\util\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\framework\util\windows\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\game\graphics\direct3d\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\game\graphics\portable\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\game\logic\*.cpp" />
-    <ClCompile Include="..\..\..\..\..\core\game\ui\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\file\windows\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\input\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\8.1\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.cpp" />
     <ClCompile Include="*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\..\..\..\core\framework\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*PixelShader.hlsl">
       <ShaderType>Pixel</ShaderType>
       <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\..\..\..\core\framework\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*VertexShader.hlsl">
       <ShaderType>Vertex</ShaderType>
       <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\..\..\..\core\game\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*PixelShader.hlsl">
       <ShaderType>Pixel</ShaderType>
       <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
-    <FxCompile Include="..\..\..\..\..\core\game\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*VertexShader.hlsl">
       <ShaderType>Vertex</ShaderType>
       <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\..\..\..\assets\textures\*.png">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\*.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
@@ -83,7 +83,7 @@
       <Outputs>%(Filename).dds</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\..\assets\textures\desktop\*.png">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\*.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
@@ -91,7 +91,7 @@
       <Outputs>%(Filename).dds</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\..\assets\textures\level_editor\*.png">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\*.png">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>..\..\..\..\..\3rdparty\Texconv\texconv.exe -m 1 -nologo -srgb -f BC3_UNORM %(Identity)</Command>
@@ -101,7 +101,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\..\..\..\..\assets\music\*.wav">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\music\*.wav">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(SolutionDir)</Command>
@@ -110,7 +110,7 @@
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
     </CustomBuild>
-    <CustomBuild Include="..\..\..\..\..\..\assets\sounds\*.wav">
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\*.wav">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(SolutionDir)</Command>

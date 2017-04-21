@@ -4,6 +4,7 @@
 //
 
 #include "pch.h"
+#include "App.xaml.h"
 #include "DirectXPage.xaml.h"
 
 using namespace NosFURatu;

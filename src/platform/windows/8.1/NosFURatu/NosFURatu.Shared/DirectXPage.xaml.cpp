@@ -8,7 +8,7 @@
 
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
-#include "GamePadInputManager.h"
+#include "Direct3DManager.h"
 
 using namespace NosFURatu;
 
@@ -295,30 +295,6 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
     {
         KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
     }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadA)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0, 1);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadX)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0, 1);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0, 1);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0, 1);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0, 1);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0, 1);
-    }
 }
 
 void DirectXPage::onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
@@ -346,30 +322,6 @@ void DirectXPage::onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Co
     else if (e->VirtualKey == Windows::System::VirtualKey::Down)
     {
         KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadA)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadX)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0);
-    }
-    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
-    {
-        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0);
     }
 }
 
