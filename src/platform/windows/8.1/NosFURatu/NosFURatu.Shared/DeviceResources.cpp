@@ -210,17 +210,13 @@ void DX::DeviceResources::CreateDeviceResources()
 void DX::DeviceResources::CreateWindowSizeDependentResources()
 {
 	bool isMobile;
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		isMobile = true;
-	#elif WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-			isMobile = api->DeviceFamily->Equals("Windows.Mobile");
-		#else
-			isMobile = false;
-		#endif
-	#endif
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP || WINAPI_FAMILY == WINAPI_FAMILY_PC_APP
+	isMobile = false;
+#elif defined (WINAPI_FAMILY_SYSTEM)
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#else
+	isMobile = true;
 #endif
 	
 	// Clear the previous window size specific context.

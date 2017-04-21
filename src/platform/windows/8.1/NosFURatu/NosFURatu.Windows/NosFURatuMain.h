@@ -26,6 +26,7 @@ namespace NosFURatu
 		void CreateWindowSizeDependentResources();
 		void StartRenderLoop();
 		void StopRenderLoop();
+		MainScreen* getMainScreen();
 		Concurrency::critical_section& GetCriticalSection() { return m_criticalSection; }
 
 		// IDeviceNotify

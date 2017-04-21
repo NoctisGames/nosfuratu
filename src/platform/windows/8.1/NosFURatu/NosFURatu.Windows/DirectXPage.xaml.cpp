@@ -10,6 +10,8 @@
 #include "KeyboardInputManager.h"
 #include "Direct3DManager.h"
 #include "MainAssets.h"
+#include "MainScreen.h"
+#include "MainScreenTitle.h"
 
 using namespace NosFURatu;
 
@@ -76,7 +78,7 @@ DirectXPage::DirectXPage():
 	m_deviceResources = std::make_shared<DX::DeviceResources>();
 	m_deviceResources->SetSwapChainPanel(swapChainPanel);
 
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
     static const XMFLOAT4X4 Rotation0(
                                       1.0f, 0.0f, 0.0f, 0.0f,
                                       0.0f, 1.0f, 0.0f, 0.0f,
@@ -88,16 +90,17 @@ DirectXPage::DirectXPage():
     Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
 #endif
     
-	bool isWindowsMobile = false;
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-	isWindowsMobile = false;
-#elif WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-	isWindowsMobile = true;
-#elif WINAPI_PARTITION_PHONE_APP
-	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
-	isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+	bool isMobile = false;
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP || WINAPI_FAMILY == WINAPI_FAMILY_PC_APP
+	isMobile = false;
+#elif defined (WINAPI_FAMILY_SYSTEM)
+	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
+	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#else
+	isMobile = true;
 #endif
-    MAIN_ASSETS->setUsingDesktopTextureSet(!isWindowsMobile);
+
+    MAIN_ASSETS->setUsingDesktopTextureSet(!isMobile);
 
 	// Register our SwapChainPanel to get independent input pointer events
 	auto workItemHandler = ref new WorkItemHandler([this] (IAsyncAction ^)
@@ -149,7 +152,7 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 {
 	// Put code to load app state here.
 
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
 	static const XMFLOAT4X4 Rotation0(
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
@@ -172,7 +175,7 @@ void DirectXPage::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEvent
 	m_windowVisible = args->Visible;
 	if (m_windowVisible)
 	{
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
 		static const XMFLOAT4X4 Rotation0(
 			1.0f, 0.0f, 0.0f, 0.0f,
 			0.0f, 1.0f, 0.0f, 0.0f,
@@ -206,7 +209,7 @@ void DirectXPage::OnOrientationChanged(DisplayInformation^ sender, Object^ args)
 	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetCurrentOrientation(sender->CurrentOrientation);
     
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
     static const XMFLOAT4X4 Rotation0(
                                       1.0f, 0.0f, 0.0f, 0.0f,
                                       0.0f, 1.0f, 0.0f, 0.0f,

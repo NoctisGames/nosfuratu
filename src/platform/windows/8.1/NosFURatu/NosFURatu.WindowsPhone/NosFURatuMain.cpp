@@ -48,7 +48,7 @@ NosFURatuMain::~NosFURatuMain()
 // Updates application state when the window size changes (e.g. device orientation change)
 void NosFURatuMain::CreateWindowSizeDependentResources()
 {
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
     static const XMFLOAT4X4 Rotation0(
                                       1.0f, 0.0f, 0.0f, 0.0f,
                                       0.0f, 1.0f, 0.0f, 0.0f,
@@ -63,7 +63,11 @@ void NosFURatuMain::CreateWindowSizeDependentResources()
 	Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
 	Size logicalSize = m_deviceResources->GetLogicalSize();
 
-	m_screen->createWindowSizeDependentResources(renderTargetSize.Width, renderTargetSize.Height, logicalSize.Width, logicalSize.Height);
+	bool isLargeEnoughForReduction = renderTargetSize.Width > 2048 || renderTargetSize.Height > 2048;
+	UINT renderWidth = D3DManager->isWindowsMobile() && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Width * 0.5f + 0.5f) : renderTargetSize.Width;
+	UINT renderHeight = D3DManager->isWindowsMobile() && isLargeEnoughForReduction ? static_cast<UINT>(renderTargetSize.Height * 0.5f + 0.5f) : renderTargetSize.Height;
+
+	m_screen->createWindowSizeDependentResources(renderWidth, renderHeight, logicalSize.Width, logicalSize.Height);
 }
 
 void NosFURatuMain::StartRenderLoop()
@@ -103,6 +107,11 @@ void NosFURatuMain::StopRenderLoop()
 	NG_AUDIO_ENGINE->update(-1);
 }
 
+MainScreen* NosFURatuMain::getMainScreen()
+{
+	return m_screen;
+}
+
 // Notifies renderers that device resources need to be released.
 void NosFURatuMain::OnDeviceLost()
 {
@@ -114,7 +123,7 @@ void NosFURatuMain::OnDeviceLost()
 // Notifies renderers that device resources may now be recreated.
 void NosFURatuMain::OnDeviceRestored()
 {
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
     static const XMFLOAT4X4 Rotation0(
                                       1.0f, 0.0f, 0.0f, 0.0f,
                                       0.0f, 1.0f, 0.0f, 0.0f,
