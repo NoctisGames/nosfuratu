@@ -9,6 +9,7 @@
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "Direct3DManager.h"
+#include "MainAssets.h"
 
 using namespace NosFURatu;
 
@@ -31,7 +32,6 @@ using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace concurrency;
-using namespace Microsoft::Advertising::WinRT::UI;
 using namespace Windows::System::Profile;
 
 DirectXPage::DirectXPage():
@@ -75,8 +75,7 @@ DirectXPage::DirectXPage():
 	// We can create the device-dependent resources.
 	m_deviceResources = std::make_shared<DX::DeviceResources>();
 	m_deviceResources->SetSwapChainPanel(swapChainPanel);
-    
-    bool isWindowsMobile;
+
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
     static const XMFLOAT4X4 Rotation0(
                                       1.0f, 0.0f, 0.0f, 0.0f,
@@ -85,11 +84,19 @@ DirectXPage::DirectXPage():
                                       0.0f, 0.0f, 0.0f, 1.0f
                                       );
     Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
-    isWindowsMobile = false;
 #else
     Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
 #endif
     
+	bool isWindowsMobile = false;
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	isWindowsMobile = false;
+#elif WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
+	isWindowsMobile = true;
+#elif WINAPI_PARTITION_PHONE_APP
+	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
+	isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
+#endif
     MAIN_ASSETS->setUsingDesktopTextureSet(!isWindowsMobile);
 
 	// Register our SwapChainPanel to get independent input pointer events
@@ -114,16 +121,8 @@ DirectXPage::DirectXPage():
 	// Run task on a dedicated high priority background thread.
 	m_inputLoopWorker = ThreadPool::RunAsync(workItemHandler, WorkItemPriority::High, WorkItemOptions::TimeSliced);
 
-	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(this, m_deviceResources));
+	m_main = std::unique_ptr<NosFURatuMain>(new NosFURatuMain(m_deviceResources));
 	m_main->StartRenderLoop();
-
-	m_interstitialAd = ref new InterstitialAd();
-	m_interstitialAd->AdReady += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdReady);
-	m_interstitialAd->Completed += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCompleted);
-	m_interstitialAd->Cancelled += ref new Windows::Foundation::EventHandler<Platform::Object ^>(this, &NosFURatu::DirectXPage::OnAdCancelled);
-	m_interstitialAd->ErrorOccurred += ref new Windows::Foundation::EventHandler<Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^>(this, &NosFURatu::DirectXPage::OnAdError);
-
-	RequestInterstitialAd();
 }
 
 DirectXPage::~DirectXPage()
@@ -150,51 +149,20 @@ void DirectXPage::LoadInternalState(IPropertySet^ state)
 {
 	// Put code to load app state here.
 
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	static const XMFLOAT4X4 Rotation0(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+#else
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+
 	// Start rendering when the app is resumed.
 	m_main->StartRenderLoop();
-}
-
-void DirectXPage::RequestInterstitialAd()
-{
-	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
-	{
-		Platform::String^ myAppId;
-		Platform::String^ myAdUnitId;
-
-#if defined(_DEBUG)
-		myAppId = L"d25517cb-12d4-4699-8bdc-52040c712cab";
-		myAdUnitId = L"11389925";
-#else
-		bool isMobile = false;
-#if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-		isMobile = true;
-#endif
-		if (isMobile)
-		{
-			myAppId = L"98231ab8-4983-4702-91a9-5e5fc1b139b7";
-			myAdUnitId = L"11666621";
-		}
-		else
-		{
-			myAppId = L"661a0da5-63ee-4506-b900-dd3631302c5b";
-			myAdUnitId = L"11666622";
-		}
-#endif
-
-		m_interstitialAd->RequestAd(AdType::Video, myAppId, myAdUnitId);
-	}));
-}
-
-void DirectXPage::DisplayInterstitialAdIfAvailable()
-{
-	Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::Low, ref new Windows::UI::Core::DispatchedHandler([this]()
-	{
-		if (InterstitialAdState::Ready == m_interstitialAd->State)
-		{
-			m_main->StopRenderLoop();
-			m_interstitialAd->Show();
-		}
-	}));
 }
 
 // Window event handlers.
@@ -204,6 +172,18 @@ void DirectXPage::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEvent
 	m_windowVisible = args->Visible;
 	if (m_windowVisible)
 	{
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+		static const XMFLOAT4X4 Rotation0(
+			1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		);
+		Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+#else
+		Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+
 		m_main->StartRenderLoop();
 	}
 	else
@@ -295,6 +275,39 @@ void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::
     {
         KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
     }
+	else if (e->VirtualKey == Windows::System::VirtualKey::Space)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Enter)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::A)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::D)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::P)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_P);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::M)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_M);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::V)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_V);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Back
+		|| e->VirtualKey == Windows::System::VirtualKey::Delete)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK);
+	}
 }
 
 void DirectXPage::onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
@@ -323,6 +336,39 @@ void DirectXPage::onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Co
     {
         KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
     }
+	else if (e->VirtualKey == Windows::System::VirtualKey::Space)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_SPACE, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Enter)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ENTER, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::A)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_A, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::D)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_D, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::P)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_P, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::M)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_M, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::V)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_V, true);
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Back
+		|| e->VirtualKey == Windows::System::VirtualKey::Delete)
+	{
+		KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+	}
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)
@@ -354,26 +400,3 @@ void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ 
     }
 }
 #endif
-
-void DirectXPage::OnAdReady(Platform::Object^ sender, Platform::Object^ args)
-{
-	// Empty
-}
-
-void DirectXPage::OnAdCompleted(Platform::Object^ sender, Platform::Object^ args)
-{
-	m_main->StartRenderLoop();
-	RequestInterstitialAd();
-}
-
-void DirectXPage::OnAdCancelled(Platform::Object^ sender, Platform::Object^ args)
-{
-	m_main->StartRenderLoop();
-	RequestInterstitialAd();
-}
-
-void DirectXPage::OnAdError(Platform::Object^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^ args)
-{
-	m_main->StartRenderLoop();
-	RequestInterstitialAd();
-}

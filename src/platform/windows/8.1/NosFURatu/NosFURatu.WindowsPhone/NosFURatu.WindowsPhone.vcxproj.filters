@@ -33,17 +33,19 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\NosFURatu.Shared\DirectXPage.xaml" />
+    <Page Include="DirectXPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="..\NosFURatu.Shared\App.xaml" />
+    <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\NosFURatu.Shared\App.xaml.cpp" />
-    <ClCompile Include="..\NosFURatu.Shared\DirectXPage.xaml.cpp" />
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="DirectXPage.xaml.cpp" />
+    <ClCompile Include="NosFURatuMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\NosFURatu.Shared\App.xaml.h" />
-    <ClInclude Include="..\NosFURatu.Shared\DirectXPage.xaml.h" />
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="DirectXPage.xaml.h" />
+    <ClInclude Include="NosFURatuMain.h" />
   </ItemGroup>
 </Project>

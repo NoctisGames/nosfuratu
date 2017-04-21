@@ -27,12 +27,14 @@ using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
+NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_deviceResources(deviceResources), m_iRequestedAction(0)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
     
     m_screen = new MainScreen();
+
+	m_screen->createDeviceDependentResources();
     
     NG_AUDIO_ENGINE->update(1);
 }
@@ -58,7 +60,10 @@ void NosFURatuMain::CreateWindowSizeDependentResources()
     Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
 #endif
     
-	m_screen->CreateWindowSizeDependentResources();
+	Size renderTargetSize = m_deviceResources->GetRenderTargetSize();
+	Size logicalSize = m_deviceResources->GetLogicalSize();
+
+	m_screen->createWindowSizeDependentResources(renderTargetSize.Width, renderTargetSize.Height, logicalSize.Width, logicalSize.Height);
 }
 
 void NosFURatuMain::StartRenderLoop()
@@ -137,7 +142,7 @@ void NosFURatuMain::Update()
         switch (requestedAction)
         {
             case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-                m_directXPage->DisplayInterstitialAdIfAvailable();
+				m_iRequestedAction = 1;
                 m_screen->clearRequestedAction();
                 break;
             case REQUESTED_ACTION_UPDATE:
@@ -173,70 +178,4 @@ bool NosFURatuMain::Render()
 	m_screen->render();
 
 	return true;
-}
-
-void NosFURatuMain::handleMusic()
-{
-	short rawMusicId;
-	while ((rawMusicId = m_screen->getCurrentMusicId()) > 0)
-	{
-		short musicId = rawMusicId;
-		if (musicId >= 1000)
-		{
-			musicId /= 1000;
-			rawMusicId -= musicId * 1000;
-		}
-
-		if (m_mediaPlayer)
-		{
-			switch (musicId)
-			{
-			case MUSIC_STOP:
-				m_mediaPlayer->Pause();
-				break;
-			case MUSIC_RESUME:
-				m_mediaPlayer->Play();
-				break;
-			case MUSIC_PLAY:
-				m_mediaPlayer->Play(false);
-				break;
-			case MUSIC_PLAY_LOOP:
-				m_mediaPlayer->Play();
-				break;
-			case MUSIC_SET_VOLUME:
-			{
-				float volume = rawMusicId / 100.0f / 2.0f; // On Win 10, volume starts off at 0.5
-
-				m_mediaPlayer->SetVolume(volume);
-			}
-			break;
-			case MUSIC_LOAD_TITLE_LOOP:
-				m_mediaPlayer->SetSource("title_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			case MUSIC_LOAD_LEVEL_SELECT_LOOP:
-				m_mediaPlayer->SetSource("level_select_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			case MUSIC_LOAD_WORLD_1_LOOP:
-				m_mediaPlayer->SetSource("world_1_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			case MUSIC_LOAD_MID_BOSS_LOOP:
-				m_mediaPlayer->SetSource("mid_boss_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			case MUSIC_LOAD_END_BOSS_LOOP:
-				m_mediaPlayer->SetSource("final_boss_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			case MUSIC_LOAD_OPENING_CUTSCENE:
-				m_mediaPlayer->SetSource("opening_cutscene_bgm.wav");
-				m_mediaPlayer->SetCurrentTime(0);
-				break;
-			default:
-				break;
-			}
-		}
-	}
 }

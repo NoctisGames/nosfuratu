@@ -31,7 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.h" />
-    <ClInclude Include="*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)*.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\*.cpp" />
@@ -51,7 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.cpp" />
-    <ClCompile Include="*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)*.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
@@ -104,7 +104,7 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\music\*.wav">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
-      <Command>xcopy /y %(Identity) $(SolutionDir)</Command>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
       <Message>Copying %(Identity) to sln folder</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
@@ -113,7 +113,7 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\sounds\*.wav">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
-      <Command>xcopy /y %(Identity) $(SolutionDir)</Command>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
       <Message>Copying %(Identity) to sln folder</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>

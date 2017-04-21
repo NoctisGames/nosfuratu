@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "DeviceResources.h"
-#include "DirectXHelper.h"
+#include "PlatformHelpers.h"
+#include "minmax.h"
 #include <windows.ui.xaml.media.dxinterop.h>
 
 using namespace D2D1;
@@ -12,6 +13,37 @@ using namespace Windows::System::Profile;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Platform;
+
+namespace DX
+{
+	// Converts a length in device-independent pixels (DIPs) to a length in physical pixels.
+	inline float ConvertDipsToPixels(float dips, float dpi)
+	{
+		static const float dipsPerInch = 96.0f;
+		return floorf(dips * dpi / dipsPerInch + 0.5f); // Round to nearest integer.
+	}
+
+#if defined(_DEBUG)
+	// Check for SDK Layer support.
+	inline bool SdkLayersAvailable()
+	{
+		HRESULT hr = D3D11CreateDevice(
+			nullptr,
+			D3D_DRIVER_TYPE_NULL,       // There is no need to create a real hardware device.
+			0,
+			D3D11_CREATE_DEVICE_DEBUG,  // Check for the SDK layers.
+			nullptr,                    // Any feature level will do.
+			0,
+			D3D11_SDK_VERSION,          // Always set this to D3D11_SDK_VERSION for Windows Store apps.
+			nullptr,                    // No need to keep the D3D device reference.
+			nullptr,                    // No need to know the feature level.
+			nullptr                     // No need to keep the D3D device context reference.
+		);
+
+		return SUCCEEDED(hr);
+	}
+#endif
+}
 
 // Constants used to calculate screen rotations.
 namespace ScreenRotation
@@ -71,7 +103,7 @@ DX::DeviceResources::DeviceResources() :
 void DX::DeviceResources::CreateDeviceIndependentResources()
 {
 	// Initialize the DirectWrite Factory.
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		DWriteCreateFactory(
 			DWRITE_FACTORY_TYPE_SHARED,
 			__uuidof(IDWriteFactory2),
@@ -80,7 +112,7 @@ void DX::DeviceResources::CreateDeviceIndependentResources()
 		);
 
 	// Initialize the Windows Imaging Component (WIC) Factory.
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		CoCreateInstance(
 			CLSID_WICImagingFactory2,
 			nullptr,
@@ -142,7 +174,7 @@ void DX::DeviceResources::CreateDeviceResources()
 		// If the initialization fails, fall back to the WARP device.
 		// For more information on WARP, see: 
 		// http://go.microsoft.com/fwlink/?LinkId=286690
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			D3D11CreateDevice(
 				nullptr,
 				D3D_DRIVER_TYPE_WARP, // Create a WARP device instead of a hardware device.
@@ -159,17 +191,17 @@ void DX::DeviceResources::CreateDeviceResources()
 	}
 
 	// Store pointers to the Direct3D 11.1 API device and immediate context.
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		device.As(&m_d3dDevice)
 		);
 
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		context.As(&m_d3dContext)
 		);
 
 	// Create the Direct2D device object and a corresponding context.
 	ComPtr<IDXGIDevice3> dxgiDevice;
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		m_d3dDevice.As(&dxgiDevice)
 		);
 }
@@ -236,7 +268,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		}
 		else
 		{
-			DX::ThrowIfFailed(hr);
+			DirectX::ThrowIfFailed(hr);
 		}
 	}
 	else
@@ -259,22 +291,22 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 
 		// This sequence obtains the DXGI factory that was used to create the Direct3D device above.
 		ComPtr<IDXGIDevice3> dxgiDevice;
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			m_d3dDevice.As(&dxgiDevice)
 			);
 
 		ComPtr<IDXGIAdapter> dxgiAdapter;
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			dxgiDevice->GetAdapter(&dxgiAdapter)
 			);
 
 		ComPtr<IDXGIFactory2> dxgiFactory;
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			dxgiAdapter->GetParent(IID_PPV_ARGS(&dxgiFactory))
 			);
 
 		// When using XAML interop, the swap chain must be created for composition.
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			dxgiFactory->CreateSwapChainForComposition(
 				m_d3dDevice.Get(),
 				&swapChainDesc,
@@ -289,18 +321,18 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		{
 			// Get backing native interface for SwapChainPanel
 			ComPtr<ISwapChainPanelNative> panelNative;
-			DX::ThrowIfFailed(
+			DirectX::ThrowIfFailed(
 				reinterpret_cast<IUnknown*>(m_swapChainPanel)->QueryInterface(IID_PPV_ARGS(&panelNative))
 				);
 
-			DX::ThrowIfFailed(
+			DirectX::ThrowIfFailed(
 				panelNative->SetSwapChain(m_swapChain.Get())
 				);
 		}, CallbackContext::Any));
 
 		// Ensure that DXGI does not queue more than one frame at a time. This both reduces latency and
 		// ensures that the application will only render after each VSync, minimizing power consumption.
-		DX::ThrowIfFailed(
+		DirectX::ThrowIfFailed(
 			dxgiDevice->SetMaximumFrameLatency(isMobile ? 2 : 1) // mobile devices are less likely to be able to render in under 16.7 ms
 			);
 	}
@@ -333,7 +365,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 		throw ref new FailureException();
 	}
 
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		m_swapChain->SetRotation(displayRotation)
 		);
 
@@ -342,22 +374,22 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	inverseScale._11 = 1.0f / m_compositionScaleX;
 	inverseScale._22 = 1.0f / m_compositionScaleY;
 	ComPtr<IDXGISwapChain2> spSwapChain2;
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		m_swapChain.As<IDXGISwapChain2>(&spSwapChain2)
 		);
 
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		spSwapChain2->SetMatrixTransform(&inverseScale)
 		);
 
 
 	// Create a render target view of the swap chain back buffer.
 	ComPtr<ID3D11Texture2D> backBuffer;
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		m_swapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer))
 		);
 
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		m_d3dDevice->CreateRenderTargetView(
 			backBuffer.Get(),
 			nullptr,
@@ -370,7 +402,7 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	UINT renderHeight = isMobile && isLargeEnoughForReduction ? static_cast<UINT>(m_d3dRenderTargetSize.Height * 0.5f + 0.5f) : m_d3dRenderTargetSize.Height;
 
 	// Change the region of the swap chain that will be presented to the screen.
-	DX::ThrowIfFailed(
+	DirectX::ThrowIfFailed(
 		spSwapChain2->SetSourceSize(
 			renderWidth,
 			renderHeight
@@ -456,30 +488,30 @@ void DX::DeviceResources::ValidateDevice()
 	// First, get the information for the default adapter from when the device was created.
 
 	ComPtr<IDXGIDevice3> dxgiDevice;
-	DX::ThrowIfFailed(m_d3dDevice.As(&dxgiDevice));
+	DirectX::ThrowIfFailed(m_d3dDevice.As(&dxgiDevice));
 
 	ComPtr<IDXGIAdapter> deviceAdapter;
-	DX::ThrowIfFailed(dxgiDevice->GetAdapter(&deviceAdapter));
+	DirectX::ThrowIfFailed(dxgiDevice->GetAdapter(&deviceAdapter));
 
 	ComPtr<IDXGIFactory2> deviceFactory;
-	DX::ThrowIfFailed(deviceAdapter->GetParent(IID_PPV_ARGS(&deviceFactory)));
+	DirectX::ThrowIfFailed(deviceAdapter->GetParent(IID_PPV_ARGS(&deviceFactory)));
 
 	ComPtr<IDXGIAdapter1> previousDefaultAdapter;
-	DX::ThrowIfFailed(deviceFactory->EnumAdapters1(0, &previousDefaultAdapter));
+	DirectX::ThrowIfFailed(deviceFactory->EnumAdapters1(0, &previousDefaultAdapter));
 
 	DXGI_ADAPTER_DESC previousDesc;
-	DX::ThrowIfFailed(previousDefaultAdapter->GetDesc(&previousDesc));
+	DirectX::ThrowIfFailed(previousDefaultAdapter->GetDesc(&previousDesc));
 
 	// Next, get the information for the current default adapter.
 
 	ComPtr<IDXGIFactory2> currentFactory;
-	DX::ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(&currentFactory)));
+	DirectX::ThrowIfFailed(CreateDXGIFactory1(IID_PPV_ARGS(&currentFactory)));
 
 	ComPtr<IDXGIAdapter1> currentDefaultAdapter;
-	DX::ThrowIfFailed(currentFactory->EnumAdapters1(0, &currentDefaultAdapter));
+	DirectX::ThrowIfFailed(currentFactory->EnumAdapters1(0, &currentDefaultAdapter));
 
 	DXGI_ADAPTER_DESC currentDesc;
-	DX::ThrowIfFailed(currentDefaultAdapter->GetDesc(&currentDesc));
+	DirectX::ThrowIfFailed(currentDefaultAdapter->GetDesc(&currentDesc));
 
 	// If the adapter LUIDs don't match, or if the device reports that it has been removed,
 	// a new D3D device must be created.
@@ -555,7 +587,7 @@ void DX::DeviceResources::Present()
 	}
 	else
 	{
-		DX::ThrowIfFailed(hr);
+		DirectX::ThrowIfFailed(hr);
 	}
 }
 

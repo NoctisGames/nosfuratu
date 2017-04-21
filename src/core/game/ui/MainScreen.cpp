@@ -166,6 +166,11 @@ void MainScreen::update(float deltaTime)
 
 void MainScreen::render()
 {
+	if (!m_renderer->isReadyForRendering())
+	{
+		return;
+	}
+	
 	m_isRequestingRender = true;
 
 	m_stateMachine.execute();

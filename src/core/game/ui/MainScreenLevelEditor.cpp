@@ -827,7 +827,7 @@ void MainScreenLevelEditor::saveLevel(int world, int level)
     {
         std::stringstream ss;
         
-#ifdef WIN32
+#ifdef _WIN32
         ss << "..\\nosfuratu-levels\\";
 #else
         ss << "nosfuratu-levels/";
@@ -847,7 +847,7 @@ void MainScreenLevelEditor::saveLevel(int world, int level)
         const char *jsonFilePath = ret.c_str();
         
         FILE *file;
-#ifdef WIN32
+#ifdef _WIN32
         errno_t err;
         if((err = fopen_s(&file, jsonFilePath, "w+")) != 0)
         {
@@ -878,7 +878,7 @@ void MainScreenLevelEditor::loadLevel(int world, int level, MainScreen* ms)
 {
     std::stringstream ss;
     
-#ifdef WIN32
+#ifdef _WIN32
     ss << "..\\nosfuratu-levels\\";
 #else
     ss << "nosfuratu-levels/";
@@ -898,7 +898,7 @@ void MainScreenLevelEditor::loadLevel(int world, int level, MainScreen* ms)
     const char *jsonFilePath = ret.c_str();
     
     FILE *file;
-#ifdef WIN32
+#ifdef _WIN32
     errno_t err;
     if((err = fopen_s(&file, jsonFilePath, "r")) != 0)
     {
