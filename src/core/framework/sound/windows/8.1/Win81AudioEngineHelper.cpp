@@ -9,6 +9,7 @@
 #include "Win81AudioEngineHelper.h"
 
 #include "ISoundWrapper.h"
+#include "MediaEnginePlayer.h"
 
 #include "Win81SoundWrapper.h"
 
@@ -22,13 +23,15 @@ void Win81AudioEngineHelper::update(int flags)
 {
     // Check flags to determine whether or not to restart MediaEnginePlayer
     
-    if (flags == 1)
+    if (flags == 1
+        && !m_mediaPlayer)
     {
         // Load Media Player
         m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
         m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
     }
-    else if (flags == -1)
+    else if (flags == -1
+             && m_mediaPlayer)
     {
         m_mediaPlayer->Shutdown();
         m_mediaPlayer = nullptr;
@@ -38,11 +41,6 @@ void Win81AudioEngineHelper::update(int flags)
 void Win81AudioEngineHelper::pause()
 {
     getSoundPlayerInstance()->Suspend();
-    
-    if (m_mediaPlayer)
-    {
-        m_mediaPlayer->Pause();
-    }
 }
 
 void Win81AudioEngineHelper::resume()
@@ -52,7 +50,7 @@ void Win81AudioEngineHelper::resume()
 
 ISoundWrapper* Win81AudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
-    Win81SoundWrapper* sound = new Win81SoundWrapper(soundId, path, m_audEngine.get(), numInstances);
+    Win81SoundWrapper* sound = new Win81SoundWrapper(soundId, path, soundId == 1337 ? m_mediaPlayer.get() : nullptr, numInstances);
     
     return sound;
 }
@@ -68,17 +66,16 @@ XAudio2SoundPlayer * Win81AudioEngineHelper::getSoundPlayerInstance()
     return player;
 }
 
-Win81AudioEngineHelper::Win81AudioEngineHelper() : IAudioEngineHelper(), m_retryAudio(false)
+Win81AudioEngineHelper::Win81AudioEngineHelper() : IAudioEngineHelper(), m_mediaPlayer(nullptr)
 {
-    // Load Media Player
-    m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-    m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
+    // Empty
 }
 
 Win81AudioEngineHelper::~Win81AudioEngineHelper()
 {
-    if (m_audEngine)
+    if (m_mediaPlayer)
     {
-        m_audEngine->Suspend();
+        m_mediaPlayer->Shutdown();
+        m_mediaPlayer = nullptr;
     }
 }

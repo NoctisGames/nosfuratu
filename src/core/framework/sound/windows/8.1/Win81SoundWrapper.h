@@ -11,19 +11,14 @@
 
 #include "ISoundWrapper.h"
 
-#include "Audio.h"
-
-#include <memory>
+class MediaEnginePlayer;
 
 class Win81SoundWrapper : public ISoundWrapper
 {
 public:
-    Win81SoundWrapper(int soundId, const char *path, DirectX::AudioEngine* audioEngine, int numInstances = 1);
+    Win81SoundWrapper(int soundId, const char *path, MediaEnginePlayer* mediaPlayer, int numInstances = 1);
     
     virtual ~Win81SoundWrapper();
-    
-private:
-    std::unique_ptr<DirectX::SoundEffect> m_sound;
 };
 
 #endif /* defined(__noctisgames__Win81SoundWrapper__) */

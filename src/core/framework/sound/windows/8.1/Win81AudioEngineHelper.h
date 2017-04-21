@@ -17,6 +17,8 @@
 
 #include <memory>
 
+class MediaEnginePlayer;
+
 class Win81AudioEngineHelper : public IAudioEngineHelper
 {
 public:
@@ -36,7 +38,6 @@ private:
     static XAudio2SoundPlayer * getSoundPlayerInstance();
     
     std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
-    bool m_retryAudio;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Win81AudioEngineHelper();

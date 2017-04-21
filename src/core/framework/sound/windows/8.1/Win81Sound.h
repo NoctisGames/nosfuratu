@@ -11,14 +11,12 @@
 
 #include "ISound.h"
 
-#include "Audio.h"
-
-#include <memory>
+class MediaEnginePlayer;
 
 class Win81Sound : public ISound
 {
 public:
-    Win81Sound(int soundId, DirectX::SoundEffect& sound, float volume = 1.0f);
+    Win81Sound(int soundId, MediaEnginePlayer* mediaPlayer, float volume = 1.0f);
     
     virtual ~Win81Sound();
 
@@ -39,7 +37,7 @@ public:
     virtual bool isPaused();
 
 private:
-    std::unique_ptr<DirectX::SoundEffectInstance> m_soundEffectInstance;
+    MediaEnginePlayer* m_mediaPlayer;
     bool m_isLooping;
     bool m_isPaused;
 };

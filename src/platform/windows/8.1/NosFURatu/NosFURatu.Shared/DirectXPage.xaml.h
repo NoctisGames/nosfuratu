@@ -62,6 +62,7 @@ namespace NosFURatu
 		void OnPointerReleased(Platform::Object^ sender, Windows::UI::Core::PointerEventArgs^ e);
 
 		void onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e);
+        void onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e);
 
 		// Monetization
 		Microsoft::Advertising::WinRT::UI::InterstitialAd^ m_interstitialAd;

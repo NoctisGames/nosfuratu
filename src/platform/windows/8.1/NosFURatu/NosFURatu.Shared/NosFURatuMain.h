@@ -26,10 +26,6 @@ namespace NosFURatu
 		void CreateWindowSizeDependentResources();
 		void StartRenderLoop();
 		void StopRenderLoop();
-		void onTouchDown(float screenX, float screenY);
-		void onTouchDragged(float screenX, float screenY);
-		void onTouchUp(float screenX, float screenY);
-		bool handleOnBackPressed();
 		Concurrency::critical_section& GetCriticalSection() { return m_criticalSection; }
 
 		// IDeviceNotify
@@ -50,9 +46,7 @@ namespace NosFURatu
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
 
-		int m_iRequestedAction;
-        
-        bool m_isWindowsMobile;
+        int m_iRequestedAction;
 
 		void Update();
 		bool Render();

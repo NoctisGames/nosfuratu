@@ -13,18 +13,10 @@
 #include "MainScreen.h"
 
 #include "Direct3DManager.h"
-#include "ScreenInputManager.h"
-#include "KeyboardInputManager.h"
-#include "GamePadInputManager.h"
 #include "MainAssets.h"
 #include "GameConstants.h"
 #include "macros.h"
 #include "NGAudioEngine.h"
-#include "MainScreenLevelEditor.h"
-#include "MainScreenWorldMap.h"
-#include "Game.h"
-
-#include <sstream>
 
 using namespace NosFURatu;
 using namespace Windows::Foundation;
@@ -35,25 +27,10 @@ using namespace Windows::UI::Notifications;
 using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
-NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0), m_isWindowsMobile(false)
+NosFURatuMain::NosFURatuMain(DirectXPage^ directXPage, const std::shared_ptr<DX::DeviceResources>& deviceResources) : m_directXPage(directXPage), m_deviceResources(deviceResources), m_mediaPlayer(nullptr), m_iRequestedAction(0)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
-
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
-    static const XMFLOAT4X4 Rotation0(
-                                      1.0f, 0.0f, 0.0f, 0.0f,
-                                      0.0f, 1.0f, 0.0f, 0.0f,
-                                      0.0f, 0.0f, 1.0f, 0.0f,
-                                      0.0f, 0.0f, 0.0f, 1.0f
-                                      );
-    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), Rotation0);
-    m_isWindowsMobile = false;
-#else
-    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
-#endif
-    
-    MAIN_ASSETS->setUsingDesktopTextureSet(!m_isWindowsMobile);
     
     m_screen = new MainScreen();
     
@@ -69,6 +46,18 @@ NosFURatuMain::~NosFURatuMain()
 // Updates application state when the window size changes (e.g. device orientation change)
 void NosFURatuMain::CreateWindowSizeDependentResources()
 {
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    static const XMFLOAT4X4 Rotation0(
+                                      1.0f, 0.0f, 0.0f, 0.0f,
+                                      0.0f, 1.0f, 0.0f, 0.0f,
+                                      0.0f, 0.0f, 1.0f, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f
+                                      );
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+#else
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+    
 	m_screen->CreateWindowSizeDependentResources();
 }
 
@@ -109,35 +98,6 @@ void NosFURatuMain::StopRenderLoop()
 	NG_AUDIO_ENGINE->update(-1);
 }
 
-void NosFURatuMain::onTouchDown(float screenX, float screenY)
-{
-	SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, screenX, screenY);
-}
-
-void NosFURatuMain::onTouchDragged(float screenX, float screenY)
-{
-    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, screenX, screenY);
-}
-
-void NosFURatuMain::onTouchUp(float screenX, float screenY)
-{
-    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, screenX, screenY);
-}
-
-bool NosFURatuMain::handleOnBackPressed()
-{
-    if (m_main->getMainScreen()->m_stateMachine.getCurrentState() == Title::getInstance())
-    {
-        return false;
-    }
-    else
-    {
-        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
-        
-        return true;
-    }
-}
-
 // Notifies renderers that device resources need to be released.
 void NosFURatuMain::OnDeviceLost()
 {
@@ -149,6 +109,18 @@ void NosFURatuMain::OnDeviceLost()
 // Notifies renderers that device resources may now be recreated.
 void NosFURatuMain::OnDeviceRestored()
 {
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    static const XMFLOAT4X4 Rotation0(
+                                      1.0f, 0.0f, 0.0f, 0.0f,
+                                      0.0f, 1.0f, 0.0f, 0.0f,
+                                      0.0f, 0.0f, 1.0f, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f
+                                      );
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+#else
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+    
 	m_screen->createDeviceDependentResources();
     
 	CreateWindowSizeDependentResources();
@@ -201,38 +173,6 @@ bool NosFURatuMain::Render()
 	m_screen->render();
 
 	return true;
-}
-
-void NosFURatuMain::handleSound()
-{
-	short soundId;
-	while ((soundId = m_screen->getCurrentSoundId()) > 0)
-	{
-		switch (soundId)
-		{
-		case SOUND_JON_VAMPIRE_GLIDE:
-		case SOUND_SPARROW_FLY:
-		case SOUND_SAW_GRIND:
-        case SOUND_SPIKED_BALL_ROLLING:
-			playSound(soundId, true);
-			break;
-		case STOP_SOUND_JON_VAMPIRE_GLIDE:
-		case STOP_SOUND_SPARROW_FLY:
-		case STOP_SOUND_SAW_GRIND:
-        case STOP_SOUND_SPIKED_BALL_ROLLING:
-			stopSound(soundId - 1000);
-			break;
-        case STOP_ALL_SOUNDS:
-            stopAllSounds();
-            break;
-        case STOP_ALL_LOOPING_SOUNDS:
-            stopAllLoopingSounds();
-            break;
-		default:
-			playSound(soundId);
-			break;
-		}
-	}
 }
 
 void NosFURatuMain::handleMusic()
@@ -299,105 +239,4 @@ void NosFURatuMain::handleMusic()
 			}
 		}
 	}
-}
-
-void NosFURatuMain::playSound(int soundId, bool isLoop)
-{
-	m_sounds.at(soundId - 1).play(isLoop);
-}
-
-void NosFURatuMain::stopSound(int soundId)
-{
-	m_sounds.at(soundId - 1).stop();
-}
-
-void NosFURatuMain::stopAllSounds(bool stopOnlyLoopingSounds)
-{
-    for (std::vector<GameSound>::iterator i = m_sounds.begin(); i != m_sounds.end(); i++)
-    {
-        if (!stopOnlyLoopingSounds
-            || (stopOnlyLoopingSounds
-                && (*i).isLooping()))
-        {
-            (*i).stop();
-        }
-    }
-}
-
-void NosFURatuMain::stopAllLoopingSounds()
-{
-    stopAllSounds(true);
-}
-
-void NosFURatuMain::initSoundEngine()
-{
-	// Load Media Player
-	m_mediaPlayer = std::unique_ptr<MediaEnginePlayer>(new MediaEnginePlayer);
-	m_mediaPlayer->Initialize(m_deviceResources->GetD3DDevice(), DXGI_FORMAT_B8G8R8A8_UNORM);
-
-	// Load Sound Effects
-	m_sounds.push_back("collect_carrot.wav");
-	m_sounds.push_back("collect_golden_carrot.wav");
-	m_sounds.push_back("death.wav");
-	m_sounds.push_back("footstep_left_grass.wav");
-	m_sounds.push_back("footstep_right_grass.wav");
-	m_sounds.push_back("footstep_left_cave.wav");
-	m_sounds.push_back("footstep_right_cave.wav");
-	m_sounds.push_back("jump_spring.wav");
-	m_sounds.push_back("landing_grass.wav");
-	m_sounds.push_back("landing_cave.wav");
-	m_sounds.push_back("snake_death.wav");
-	m_sounds.push_back("trigger_transform.wav");
-	m_sounds.push_back("cancel_transform.wav");
-	m_sounds.push_back("complete_transform.wav");
-	m_sounds.push_back("jump_spring_heavy.wav");
-	m_sounds.push_back("jon_rabbit_jump.wav");
-	m_sounds.push_back("jon_vampire_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("jon_rabbit_double_jump.wav");
-	m_sounds.push_back("vampire_glide_loop.wav");
-	m_sounds.push_back("mushroom_bounce.wav");
-	m_sounds.push_back("jon_burrow_rocksfall.wav");
-	m_sounds.push_back("sparrow_fly_loop.wav");
-	m_sounds.push_back("sparrow_die.wav");
-	m_sounds.push_back("toad_die.wav");
-	m_sounds.push_back("toad_eat.wav");
-	m_sounds.push_back("saw_grind_loop.wav");
-	m_sounds.push_back("fox_bounced_on.wav");
-	m_sounds.push_back("fox_strike.wav");
-	m_sounds.push_back("fox_death.wav");
-	m_sounds.push_back("world_1_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_bgm_intro.wav");
-	m_sounds.push_back("mid_boss_owl_swoop.wav");
-	m_sounds.push_back("mid_boss_owl_tree_smash.wav");
-	m_sounds.push_back("mid_boss_owl_death.wav");
-	m_sounds.push_back("screen_transition.wav");
-	m_sounds.push_back("screen_transition_2.wav");
-	m_sounds.push_back("level_complete.wav");
-	m_sounds.push_back("title_lightning_1.wav");
-	m_sounds.push_back("title_lightning_2.wav");
-	m_sounds.push_back("ability_unlock.wav");
-	m_sounds.push_back("boss_level_clear.wav");
-	m_sounds.push_back("level_clear.wav");
-	m_sounds.push_back("level_selected.wav");
-	m_sounds.push_back("rabbit_drill.wav");
-	m_sounds.push_back("snake_jump.wav");
-	m_sounds.push_back("vampire_dash.wav");
-	m_sounds.push_back("boss_level_unlock.wav");
-	m_sounds.push_back("rabbit_stomp.wav");
-	m_sounds.push_back("final_boss_bgm_intro.wav");
-	m_sounds.push_back("button_click.wav");
-	m_sounds.push_back("level_confirmed.wav");
-	m_sounds.push_back("bat_poof.wav");
-	m_sounds.push_back("chain_snap.wav");
-	m_sounds.push_back("end_boss_snake_mouth_open.wav");
-	m_sounds.push_back("end_boss_snake_charge_cue.wav");
-	m_sounds.push_back("end_boss_snake_charge.wav");
-	m_sounds.push_back("end_boss_snake_damaged.wav");
-	m_sounds.push_back("end_boss_snake_death.wav");
-	m_sounds.push_back("spiked_ball_rolling_loop.wav");
-	m_sounds.push_back("absorb_dash_ability.wav");
-	m_sounds.push_back("footstep_left_wood.wav");
-	m_sounds.push_back("footstep_right_wood.wav");
-	m_sounds.push_back("landing_wood.wav");
 }

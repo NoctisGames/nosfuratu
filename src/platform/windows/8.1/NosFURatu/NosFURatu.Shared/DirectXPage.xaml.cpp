@@ -1,10 +1,14 @@
-﻿//
+//
 // DirectXPage.xaml.cpp
 // Implementation of the DirectXPage class.
 //
 
 #include "pch.h"
 #include "DirectXPage.xaml.h"
+
+#include "ScreenInputManager.h"
+#include "KeyboardInputManager.h"
+#include "GamePadInputManager.h"
 
 using namespace NosFURatu;
 
@@ -47,6 +51,7 @@ DirectXPage::DirectXPage():
 	CoreWindow^ window = Window::Current->CoreWindow;
 
 	window->KeyDown += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &DirectXPage::onKeyDown);
+    window->KeyUp += ref new TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &DirectXPage::onKeyUp);
 
 	window->VisibilityChanged += ref new TypedEventHandler<CoreWindow^, VisibilityChangedEventArgs^>(this, &DirectXPage::OnVisibilityChanged);
 
@@ -70,6 +75,22 @@ DirectXPage::DirectXPage():
 	// We can create the device-dependent resources.
 	m_deviceResources = std::make_shared<DX::DeviceResources>();
 	m_deviceResources->SetSwapChainPanel(swapChainPanel);
+    
+    bool isWindowsMobile;
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    static const XMFLOAT4X4 Rotation0(
+                                      1.0f, 0.0f, 0.0f, 0.0f,
+                                      0.0f, 1.0f, 0.0f, 0.0f,
+                                      0.0f, 0.0f, 1.0f, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f
+                                      );
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+    isWindowsMobile = false;
+#else
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+    
+    MAIN_ASSETS->setUsingDesktopTextureSet(!isWindowsMobile);
 
 	// Register our SwapChainPanel to get independent input pointer events
 	auto workItemHandler = ref new WorkItemHandler([this] (IAsyncAction ^)
@@ -204,6 +225,19 @@ void DirectXPage::OnOrientationChanged(DisplayInformation^ sender, Object^ args)
 {
 	critical_section::scoped_lock lock(m_main->GetCriticalSection());
 	m_deviceResources->SetCurrentOrientation(sender->CurrentOrientation);
+    
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+    static const XMFLOAT4X4 Rotation0(
+                                      1.0f, 0.0f, 0.0f, 0.0f,
+                                      0.0f, 1.0f, 0.0f, 0.0f,
+                                      0.0f, 0.0f, 1.0f, 0.0f,
+                                      0.0f, 0.0f, 0.0f, 1.0f
+                                      );
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), Rotation0);
+#else
+    Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetBackBufferRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+    
 	m_main->CreateWindowSizeDependentResources();
 }
 
@@ -215,7 +249,8 @@ void DirectXPage::OnDisplayContentsInvalidated(DisplayInformation^ sender, Objec
 
 void DirectXPage::OnPointerPressed(Object^ sender, PointerEventArgs^ e)
 {
-	m_main->onTouchDown(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DOWN, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+    
 	m_isPointerPressed = true;
 }
 
@@ -223,41 +258,119 @@ void DirectXPage::OnPointerMoved(Object^ sender, PointerEventArgs^ e)
 {
 	if (m_isPointerPressed)
 	{
-		m_main->onTouchDragged(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+        SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_DRAGGED, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
 	}
 }
 
 void DirectXPage::OnPointerReleased(Object^ sender, PointerEventArgs^ e)
 {
-	m_main->onTouchUp(e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+    SCREEN_INPUT_MANAGER->onTouch(ScreenEventType_UP, e->CurrentPoint->Position.X, e->CurrentPoint->Position.Y);
+    
 	m_isPointerPressed = false;
 }
 
 void DirectXPage::onKeyDown(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
 {
-	// Pass on Gamepad/Keyboard events as pseudo touch events, haha
+    if (e->VirtualKey == Windows::System::VirtualKey::W)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::S)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Left)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Up)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Right)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Down)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadA)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0, 1);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadX)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0, 1);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0, 1);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0, 1);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0, 1);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0, 1);
+    }
+}
 
-	// Okay, so this whole section is one big TODO
-
-	bool jump = e->VirtualKey == Windows::System::VirtualKey::W;
-	bool transform = e->VirtualKey == Windows::System::VirtualKey::S;
-	bool left = e->VirtualKey == Windows::System::VirtualKey::Left;
-	bool up = e->VirtualKey == Windows::System::VirtualKey::Up;
-	bool right = e->VirtualKey == Windows::System::VirtualKey::Right;
-	bool down = e->VirtualKey == Windows::System::VirtualKey::Down;
-
-#if defined(WINAPI_FAMILY)
-	#if WINAPI_FAMILY == WINAPI_FAMILY_APP
-		#if WINAPI_PARTITION_PHONE_APP
-			if (!jump) jump = e->VirtualKey == Windows::System::VirtualKey::GamepadA;
-			if (!transform) transform = e->VirtualKey == Windows::System::VirtualKey::GamepadX;
-			if (!left) left = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft;
-			if (!up) up = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp;
-			if (!right) right = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight;
-			if (!down) down = e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown;
-		#endif
-	#endif
-#endif
+void DirectXPage::onKeyUp(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::KeyEventArgs^ e)
+{
+    if (e->VirtualKey == Windows::System::VirtualKey::W)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_W, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::S)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_S, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Left)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_LEFT, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Up)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_UP, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Right)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_RIGHT, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::Down)
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_ARROW_KEY_DOWN, true);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadA)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_A_BUTTON, 0);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadX)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_X_BUTTON, 0);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickLeft)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_LEFT, 0);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickUp)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_UP, 0);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickRight)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_RIGHT, 0);
+    }
+    else if (e->VirtualKey == Windows::System::VirtualKey::GamepadLeftThumbstickDown)
+    {
+        GAME_PAD_INPUT_MANAGER->onInput(GamePadEventType_D_PAD_DOWN, 0);
+    }
 }
 
 void DirectXPage::OnCompositionScaleChanged(SwapChainPanel^ sender, Object^ args)
@@ -277,7 +390,16 @@ void DirectXPage::OnSwapChainPanelSizeChanged(Object^ sender, SizeChangedEventAr
 #if defined(WINAPI_FAMILY) && WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
 void DirectXPage::OnBackPressed(Platform::Object^ sender, BackPressedEventArgs^ args)
 {
-	args->Handled = m_main->handleOnBackPressed();
+    if (m_main->getMainScreen()->m_stateMachine.getCurrentState() == Title::getInstance())
+    {
+        args->Handled = false;
+    }
+    else
+    {
+        KEYBOARD_INPUT_MANAGER->onInput(KeyboardEventType_BACK, true);
+        
+        args->Handled = true;
+    }
 }
 #endif
 
