@@ -9,9 +9,12 @@
 #include "Win81Sound.h"
 
 #include "MediaEnginePlayer.h"
+#include "Win81AudioEngineHelper.h"
+#include "XAudio2SoundPlayer.h"
 
-Win81Sound::Win81Sound(int soundId, MediaEnginePlayer* mediaPlayer, float volume) : ISound(soundId),
+Win81Sound::Win81Sound(int soundId, int soundIndex, MediaEnginePlayer* mediaPlayer, float volume) : ISound(soundId),
 m_mediaPlayer(mediaPlayer),
+m_iSoundIndex(soundIndex),
 m_isLooping(false),
 m_isPaused(false)
 {
@@ -28,14 +31,28 @@ void Win81Sound::play(bool isLooping)
     m_isLooping = isLooping;
     m_isPaused = false;
     
-    // TODO
+    if (m_mediaPlayer)
+    {
+        m_mediaPlayer->Play(m_isLooping);
+    }
+    else if (m_iSoundIndex > -1)
+    {
+        getSoundPlayerInstance()->PlaySound(soundIndex, m_isLooping);
+    }
 }
 
 void Win81Sound::resume()
 {
     if (m_isPaused)
     {
-        // TODO
+        if (m_mediaPlayer)
+        {
+            m_mediaPlayer->Play(m_isLooping);
+        }
+        else if (m_iSoundIndex > -1)
+        {
+            getSoundPlayerInstance()->PlaySound(soundIndex, m_isLooping);
+        }
         
         m_isPaused = false;
     }
@@ -45,7 +62,14 @@ void Win81Sound::pause()
 {
     if (isPlaying())
     {
-        // TODO
+        if (m_mediaPlayer)
+        {
+            m_mediaPlayer->Pause();
+        }
+        else if (m_iSoundIndex > -1)
+        {
+            getSoundPlayerInstance()->StopSound(soundIndex);
+        }
         
         m_isPaused = true;
     }
@@ -56,12 +80,22 @@ void Win81Sound::stop()
     m_isLooping = false;
     m_isPaused = false;
     
-    // TODO
+    if (m_mediaPlayer)
+    {
+        m_mediaPlayer->Pause();
+    }
+    else if (m_iSoundIndex > -1)
+    {
+        getSoundPlayerInstance()->StopSound(soundIndex);
+    }
 }
 
 void Win81Sound::setVolume(float volume)
 {
-    // TODO
+    if (m_mediaPlayer)
+    {
+        m_mediaPlayer->SetVolume(volume);
+    }
 }
 
 bool Win81Sound::isLooping()
@@ -71,8 +105,14 @@ bool Win81Sound::isLooping()
 
 bool Win81Sound::isPlaying()
 {
-    // TODO
-    return false;
+    if (m_mediaPlayer)
+    {
+        m_mediaPlayer->IsPlaying();
+    }
+    else if (m_iSoundIndex > -1)
+    {
+        getSoundPlayerInstance()->IsSoundPlaying(soundIndex);
+    }
 }
 
 bool Win81Sound::isPaused()

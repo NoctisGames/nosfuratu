@@ -16,7 +16,7 @@ class MediaEnginePlayer;
 class Win81Sound : public ISound
 {
 public:
-    Win81Sound(int soundId, MediaEnginePlayer* mediaPlayer, float volume = 1.0f);
+    Win81Sound(int soundId, int soundIndex = -1, MediaEnginePlayer* mediaPlayer = nullptr, float volume = 1.0f);
     
     virtual ~Win81Sound();
 
@@ -38,6 +38,7 @@ public:
 
 private:
     MediaEnginePlayer* m_mediaPlayer;
+    int m_iSoundIndex;
     bool m_isLooping;
     bool m_isPaused;
 };

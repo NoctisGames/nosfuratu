@@ -11,8 +11,10 @@
 #include "MediaEnginePlayer.h"
 
 #include "Win81Sound.h"
+#include "Win81AudioEngineHelper.h"
+#include "XAudio2SoundPlayer.h"
 
-Win81SoundWrapper::Win81SoundWrapper(int soundId, const char *path, MediaEnginePlayer* mediaPlayer, int numInstances) : ISoundWrapper(soundId, numInstances)
+Win81SoundWrapper::Win81SoundWrapper(int soundId, const char *path, int numInstances, MediaEnginePlayer* mediaPlayer) : ISoundWrapper(soundId, numInstances)
 {
     size_t len = strlen(path);
     
@@ -28,15 +30,25 @@ Win81SoundWrapper::Win81SoundWrapper(int soundId, const char *path, MediaEngineP
     wchar_t* wString = new wchar_t[4096];
     MultiByteToWideChar(CP_ACP, 0, wavFileName, -1, wString, 4096);
     
-    // TODO
+    if (mediaPlayer)
+    {
+        // Music
+        m_mediaPlayer->SetSource(wString);
+        m_sounds.push_back(new Win81Sound(soundId, -1, mediaPlayer));
+    }
+    else
+    {
+        // Sound
+        for (int i = 0; i < m_iNumInstances; ++i)
+        {
+            SoundFileReader sound(wString);
+            int soundIndex = getSoundPlayerInstance()->AddSound(sound.GetSoundFormat(), sound.GetSoundData());
+            m_sounds.push_back(new Win81Sound(soundId, soundIndex));
+        }
+    }
     
     delete wString;
     delete wavFileName;
-    
-    for (int i = 0; i < m_iNumInstances; ++i)
-    {
-        m_sounds.push_back(new Win81Sound(soundId, mediaPlayer));
-    }
 }
 
 Win81SoundWrapper::~Win81SoundWrapper()

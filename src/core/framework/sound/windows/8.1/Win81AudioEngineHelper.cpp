@@ -14,6 +14,12 @@
 #include "Win81SoundWrapper.h"
 #include "Direct3DManager.h"
 
+XAudio2SoundPlayer * Win81AudioEngineHelper::getSoundPlayerInstance()
+{
+    static XAudio2SoundPlayer player = XAudio2SoundPlayer(44100);
+    return &player;
+}
+
 Win81AudioEngineHelper* Win81AudioEngineHelper::getInstance()
 {
     static Win81AudioEngineHelper instance = Win81AudioEngineHelper();
@@ -52,7 +58,7 @@ void Win81AudioEngineHelper::resume()
 
 ISoundWrapper* Win81AudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
-    Win81SoundWrapper* sound = new Win81SoundWrapper(soundId, path, soundId == 1337 ? m_mediaPlayer.get() : nullptr, numInstances);
+    Win81SoundWrapper* sound = new Win81SoundWrapper(soundId, path, numInstances, soundId == 1337 ? m_mediaPlayer.get() : nullptr);
     
     return sound;
 }
@@ -60,12 +66,6 @@ ISoundWrapper* Win81AudioEngineHelper::loadSound(int soundId, const char *path, 
 ISoundWrapper* Win81AudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
-}
-
-XAudio2SoundPlayer * Win81AudioEngineHelper::getSoundPlayerInstance()
-{
-    static XAudio2SoundPlayer *player = new XAudio2SoundPlayer(44100);
-    return player;
 }
 
 Win81AudioEngineHelper::Win81AudioEngineHelper() : IAudioEngineHelper(), m_mediaPlayer(nullptr)
