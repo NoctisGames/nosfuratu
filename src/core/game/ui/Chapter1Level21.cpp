@@ -613,8 +613,3 @@ Chapter1Level21 * Chapter1Level21::getInstance()
 {
     return s_pInstance;
 }
-
-Chapter1Level21::Chapter1Level21(const char* json) : Level(json)
-{
-    // Empty
-}
