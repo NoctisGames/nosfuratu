@@ -269,7 +269,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, NGRect& bounds, f
 			float jonLowerLeftY = entity->getMainBounds().getBottom();
 
 			float itemTop = tempBounds.getTop();
-			float padding = itemTop * .01f;
+			float padding = GRID_CELL_SIZE / 2;
 			padding += entityYDelta;
 			float itemTopReq = itemTop - padding;
 

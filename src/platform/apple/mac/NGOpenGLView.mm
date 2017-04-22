@@ -262,32 +262,10 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     switch (requestedAction)
     {
-        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_IN:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_OUT:
-            _screen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_UPDATE:
+            break;
         default:
+            _screen->clearRequestedAction();
             break;
     }
     

@@ -32,11 +32,17 @@ Direct3DMain::Direct3DMain() : m_screen(nullptr), m_fDPI(0), m_iRequestedAction(
     m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	Direct3DManager::setDeviceResources(m_deviceResources.get());
-
 #if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	static const XMFLOAT4X4 Rotation0(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), Rotation0);
 	m_isWindowsMobile = false;
 #else
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
 	Windows::System::Profile::AnalyticsVersionInfo^ api = Windows::System::Profile::AnalyticsInfo::VersionInfo;
 	m_isWindowsMobile = api->DeviceFamily->Equals("Windows.Mobile");
 #endif
@@ -362,32 +368,10 @@ void Direct3DMain::Update(DX::StepTimer const& timer)
 
 	switch (requestedAction)
 	{
-	case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-		m_screen->clearRequestedAction();
-		break;
-    case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
-        m_screen->clearRequestedAction();
+    case REQUESTED_ACTION_UPDATE:
         break;
-    case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_SIGN_IN:
-        m_screen->clearRequestedAction();
-        break;
-    case REQUESTED_ACTION_SIGN_OUT:
-        m_screen->clearRequestedAction();
-        break;
-	case REQUESTED_ACTION_UPDATE:
 	default:
+        m_screen->clearRequestedAction();
 		break;
 	}
 
@@ -571,12 +555,36 @@ void Direct3DMain::clearRequestedAction()
 // These are the resources that depend on the device.
 void Direct3DMain::CreateDeviceDependentResources()
 {
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	static const XMFLOAT4X4 Rotation0(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), Rotation0);
+#else
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+
 	m_screen->createDeviceDependentResources();
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Direct3DMain::CreateWindowSizeDependentResources()
 {
+#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+	static const XMFLOAT4X4 Rotation0(
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), Rotation0);
+#else
+	Direct3DManager::init(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext(), m_deviceResources->GetRenderTargetView(), m_deviceResources->GetOrientationTransform3D());
+#endif
+
 	RECT outputSize = m_deviceResources->GetOutputSize();
 	LONG width = outputSize.right - outputSize.left;
 	LONG height = outputSize.bottom - outputSize.top;
