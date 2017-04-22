@@ -914,8 +914,6 @@
 		BB7639581E21B6E000534DAB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../../3rdparty/Firebase/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_pad_tutorial.png; sourceTree = "<group>"; };
-		BB95CA9C1EAAA9C7007E0BD0 /* GameSound.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameSound.cpp; sourceTree = "<group>"; };
-		BB95CA9D1EAAA9C7007E0BD0 /* GameSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameSound.h; sourceTree = "<group>"; };
 		BB95CA9E1EAAA9C7007E0BD0 /* MediaEnginePlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MediaEnginePlayer.cpp; sourceTree = "<group>"; };
 		BB95CA9F1EAAA9C7007E0BD0 /* MediaEnginePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaEnginePlayer.h; sourceTree = "<group>"; };
 		BB95CAA01EAAA9C7007E0BD0 /* RandomAccessReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RandomAccessReader.cpp; sourceTree = "<group>"; };
@@ -2740,8 +2738,6 @@
 		BBAEF99F1EA95BDC00F0866E /* 8.1 */ = {
 			isa = PBXGroup;
 			children = (
-				BB95CA9C1EAAA9C7007E0BD0 /* GameSound.cpp */,
-				BB95CA9D1EAAA9C7007E0BD0 /* GameSound.h */,
 				BB95CA9E1EAAA9C7007E0BD0 /* MediaEnginePlayer.cpp */,
 				BB95CA9F1EAAA9C7007E0BD0 /* MediaEnginePlayer.h */,
 				BB95CAA01EAAA9C7007E0BD0 /* RandomAccessReader.cpp */,
