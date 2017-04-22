@@ -443,9 +443,12 @@ void WorldMap::loadSaveData(MainScreen* ms)
     
     m_isNextWorldButtonEnabled = false;
     
+    int isUnlockedAll = 0;
+#ifdef NG_CHEATS
     std::string key = std::string("ng_unlock_all");
     std::string val = ms->m_saveData->findValue(key);
-    int isUnlockedAll = StringUtil::stringToNumber<int>(val);
+    isUnlockedAll = StringUtil::stringToNumber<int>(val);
+#endif
     
     LevelThumbnail* levelToSelect = nullptr;
     int levelStatsForLevelToSelect = 0;
@@ -846,9 +849,13 @@ void WorldMap::startLevel(MainScreen* ms)
     
     int abilityFlag = m_iJonAbilityFlag;
     
+    int isUnlockedAll = 0;
+#ifdef NG_CHEATS
     std::string key = std::string("ng_unlock_all");
     std::string val = ms->m_saveData->findValue(key);
-    int isUnlockedAll = StringUtil::stringToNumber<int>(val);
+    isUnlockedAll = StringUtil::stringToNumber<int>(val);
+#endif
+    
     if (isUnlockedAll)
     {
         abilityFlag = FLAG_ABILITY_ALL;

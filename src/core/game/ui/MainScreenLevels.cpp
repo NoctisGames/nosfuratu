@@ -114,16 +114,24 @@ void Level::enter(MainScreen* ms)
 	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
     
     {
+        int isDebug = 0;
+#ifdef NG_CHEATS
         std::string key = std::string("ng_debug");
         std::string val = ms->m_saveData->findValue(key);
-        int isDebug = StringUtil::stringToNumber<int>(val);
+        isDebug = StringUtil::stringToNumber<int>(val);
+#endif
+        
         m_isDebug = isDebug == 1;
     }
     
     {
+        int isShowingBounds = 0;
+#ifdef NG_CHEATS
         std::string key = std::string("ng_show_bounds");
         std::string val = ms->m_saveData->findValue(key);
-        int isShowingBounds = StringUtil::stringToNumber<int>(val);
+        isShowingBounds = StringUtil::stringToNumber<int>(val);
+#endif
+        
         m_isShowingBounds = isShowingBounds == 1;
     }
 }
@@ -1650,8 +1658,8 @@ std::vector<UserDemoAction> LevelUtil::getUserDemoActionsForWorldAndLevel(int wo
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 2.4f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 5.2f));
                     userDemoActions.push_back(UserDemoAction(DemoAction_TriggerJump, 19.4f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 33.5f));
-                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 36.0f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_TriggerDown, 32.9f));
+                    userDemoActions.push_back(UserDemoAction(DemoAction_Exit, 35.8f));
                 }
                     break;
                 case 13:

@@ -65,9 +65,12 @@ void Title::enter(MainScreen* ms)
     m_isRequestingLevelEditor = false;
     m_isLevelEditor = false;
     
+    int isLevelEditor = 0;
+#ifdef NG_CHEATS
     std::string key = std::string("ng_level_editor");
     std::string val = ms->m_saveData->findValue(key);
-    int isLevelEditor = StringUtil::stringToNumber<int>(val);
+    isLevelEditor = StringUtil::stringToNumber<int>(val);
+#endif
     
     m_isLevelEditor = isLevelEditor == 1;
 }
