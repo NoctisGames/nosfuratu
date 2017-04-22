@@ -36,6 +36,8 @@ public:
     
     virtual bool isPaused();
 
+	void setMediaEnginePlayer(MediaEnginePlayer* mediaPlayer);
+
 private:
     MediaEnginePlayer* m_mediaPlayer;
     int m_iSoundIndex;

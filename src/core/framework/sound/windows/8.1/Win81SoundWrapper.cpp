@@ -13,6 +13,7 @@
 #include "Win81Sound.h"
 #include "Win81AudioEngineHelper.h"
 #include "XAudio2SoundPlayer.h"
+#include "SoundFileReader.h"
 
 Win81SoundWrapper::Win81SoundWrapper(int soundId, const char *path, int numInstances, MediaEnginePlayer* mediaPlayer) : ISoundWrapper(soundId, numInstances)
 {
@@ -33,17 +34,23 @@ Win81SoundWrapper::Win81SoundWrapper(int soundId, const char *path, int numInsta
     if (mediaPlayer)
     {
         // Music
-        m_mediaPlayer->SetSource(wString);
+		Platform::String^ p_string = ref new Platform::String(wString);
+		mediaPlayer->SetSource(p_string);
         m_sounds.push_back(new Win81Sound(soundId, -1, mediaPlayer));
+
+		delete p_string;
     }
     else
     {
         // Sound
         for (int i = 0; i < m_iNumInstances; ++i)
         {
-            SoundFileReader sound(wString);
-            int soundIndex = getSoundPlayerInstance()->AddSound(sound.GetSoundFormat(), sound.GetSoundData());
+			Platform::String^ p_string = ref new Platform::String(wString);
+            SoundFileReader sound(p_string);
+            int soundIndex = WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->AddSound(sound.GetSoundFormat(), sound.GetSoundData());
             m_sounds.push_back(new Win81Sound(soundId, soundIndex));
+
+			delete p_string;
         }
     }
     

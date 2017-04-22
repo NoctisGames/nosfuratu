@@ -18,6 +18,7 @@
 #include <memory>
 
 class MediaEnginePlayer;
+class Win81SoundWrapper;
 
 class Win81AudioEngineHelper : public IAudioEngineHelper
 {
@@ -38,6 +39,7 @@ public:
 
 private:
     std::unique_ptr<MediaEnginePlayer> m_mediaPlayer;
+	Win81SoundWrapper* m_music;
     
     // ctor, copy ctor, and assignment should be private in a Singleton
     Win81AudioEngineHelper();

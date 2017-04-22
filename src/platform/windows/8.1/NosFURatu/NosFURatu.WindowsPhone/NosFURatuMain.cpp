@@ -32,11 +32,11 @@ NosFURatuMain::NosFURatuMain(const std::shared_ptr<DX::DeviceResources>& deviceR
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
     
+	NG_AUDIO_ENGINE->update(1);
+
     m_screen = new MainScreen();
 
 	m_screen->createDeviceDependentResources();
-    
-    NG_AUDIO_ENGINE->update(1);
 }
 
 NosFURatuMain::~NosFURatuMain()
@@ -103,8 +103,6 @@ void NosFURatuMain::StopRenderLoop()
 {
 	m_renderLoopWorker->Cancel();
 	m_screen->onPause();
-
-	NG_AUDIO_ENGINE->update(-1);
 }
 
 MainScreen* NosFURatuMain::getMainScreen()

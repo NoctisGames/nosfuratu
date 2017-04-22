@@ -23,7 +23,7 @@ m_isPaused(false)
 
 Win81Sound::~Win81Sound()
 {
-    // TODO
+    // Empty
 }
 
 void Win81Sound::play(bool isLooping)
@@ -37,7 +37,7 @@ void Win81Sound::play(bool isLooping)
     }
     else if (m_iSoundIndex > -1)
     {
-        getSoundPlayerInstance()->PlaySound(soundIndex, m_isLooping);
+		WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->PlaySound(m_iSoundIndex, m_isLooping);
     }
 }
 
@@ -51,7 +51,7 @@ void Win81Sound::resume()
         }
         else if (m_iSoundIndex > -1)
         {
-            getSoundPlayerInstance()->PlaySound(soundIndex, m_isLooping);
+			WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->PlaySound(m_iSoundIndex, m_isLooping);
         }
         
         m_isPaused = false;
@@ -68,10 +68,10 @@ void Win81Sound::pause()
         }
         else if (m_iSoundIndex > -1)
         {
-            getSoundPlayerInstance()->StopSound(soundIndex);
+			WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->StopSound(m_iSoundIndex);
         }
-        
-        m_isPaused = true;
+
+		m_isPaused = true;
     }
 }
 
@@ -80,14 +80,14 @@ void Win81Sound::stop()
     m_isLooping = false;
     m_isPaused = false;
     
-    if (m_mediaPlayer)
-    {
-        m_mediaPlayer->Pause();
-    }
-    else if (m_iSoundIndex > -1)
-    {
-        getSoundPlayerInstance()->StopSound(soundIndex);
-    }
+	if (m_mediaPlayer)
+	{
+		m_mediaPlayer->Pause();
+	}
+	else if (m_iSoundIndex > -1)
+	{
+		WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->StopSound(m_iSoundIndex);
+	}
 }
 
 void Win81Sound::setVolume(float volume)
@@ -107,15 +107,27 @@ bool Win81Sound::isPlaying()
 {
     if (m_mediaPlayer)
     {
-        m_mediaPlayer->IsPlaying();
+        return m_mediaPlayer->IsPlaying();
     }
     else if (m_iSoundIndex > -1)
     {
-        getSoundPlayerInstance()->IsSoundPlaying(soundIndex);
+		return WIN_8_1_AUDIO_ENGINE_HELPER->getSoundPlayerInstance()->IsSoundPlaying(m_iSoundIndex);
     }
+
+	return false;
 }
 
 bool Win81Sound::isPaused()
 {
     return m_isPaused;
+}
+
+void Win81Sound::setMediaEnginePlayer(MediaEnginePlayer* mediaPlayer)
+{
+	m_mediaPlayer = mediaPlayer;
+
+	if (m_mediaPlayer && !m_isPaused)
+	{
+		play(m_isLooping);
+	}
 }
