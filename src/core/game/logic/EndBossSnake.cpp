@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 9/24/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "EndBossSnake.h"
@@ -170,6 +170,8 @@ void EndBossSnake::update(float deltaTime)
 		{
 			if (m_fStateTime > 1.3f)
 			{
+                m_velocity.setX(0);
+                
 				setState(EndBossSnakeState_OpeningMouthLeft);
 
 				return;
@@ -462,6 +464,8 @@ void EndBossSnake::begin()
 void EndBossSnake::awaken()
 {
 	setState(EndBossSnakeState_Awakening);
+    
+    m_velocity.setX(-4);
 
 	m_snakeEye->onAwaken();
 }

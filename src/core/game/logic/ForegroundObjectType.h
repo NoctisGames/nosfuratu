@@ -99,7 +99,9 @@ typedef enum
     
     ForegroundObjectType_Floating_Platform,
     
-    ForegroundObjectType_Stone_Square
+    ForegroundObjectType_Stone_Square,
+    
+    ForegroundObjectType_JumpSpringLightFlushNew
 } ForegroundObjectType;
 
 #endif /* defined(__nosfuratu__ForegroundObjectType__) */

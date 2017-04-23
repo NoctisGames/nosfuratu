@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/25/17.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #import "NGOpenGLView.h"
@@ -13,6 +13,7 @@
 // C++
 #include "MainScreen.h"
 #include "MainScreenTitle.h"
+#include "MainScreenWorldMap.h"
 #include "ScreenInputManager.h"
 #include "KeyboardInputManager.h"
 #include "MainAssets.h"
@@ -261,39 +262,18 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     
     switch (requestedAction)
     {
-        case REQUESTED_ACTION_DISPLAY_INTERSTITIAL_AD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_IN:
-            _screen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_OUT:
-            _screen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_UPDATE:
+            break;
         default:
+            _screen->clearRequestedAction();
             break;
     }
     
     _screen->update(deltaTime);
     _screen->render();
     
-    if (_screen->m_stateMachine.getCurrentState() == Title::getInstance())
+    if (_screen->m_stateMachine.getCurrentState() == Title::getInstance()
+        || _screen->m_stateMachine.getCurrentState() == WorldMap::getInstance())
     {
         m_fTimeSinceLastJoystickScan += deltaTime;
         

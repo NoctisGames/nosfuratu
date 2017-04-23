@@ -27,11 +27,12 @@
 #include <stdexcept>
 #include <stdio.h>
 #include <stdint.h>
+#include <winapifamily.h>
 
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 
-#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
+#if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP
     #include <WinSDKVer.h>
     #include <SDKDDKVer.h>
 
@@ -54,16 +55,26 @@
 
     #include <d3d11_1.h>
 #else
-    #include <d3d11_3.h>
-    #include <dxgi1_4.h>
+	#if defined (WINAPI_FAMILY_SYSTEM)
+		#include <d3d11_3.h>
+		#include <dxgi1_4.h>
 
-    #include <pix.h>
+		#include <pix.h>
 
-    #ifdef _DEBUG
-        #include <dxgidebug.h>
-    #endif
+		#ifdef _DEBUG
+			#include <dxgidebug.h>
+		#endif
 
-    #include <Windows.UI.Core.h>
+		#include <Windows.UI.Core.h>
+	#else
+		#include <d3d11.h>
+		#include <d3d11_2.h>
+		#include <d2d1_2.h>
+		#include <d2d1effects_1.h>
+		#include <dwrite_2.h>
+		#include <agile.h>
+		#include <collection.h>
+	#endif
 #endif
 
 namespace DX

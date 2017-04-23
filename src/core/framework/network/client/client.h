@@ -9,9 +9,11 @@
 #ifndef __noctisgames__client__
 #define __noctisgames__client__
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #define MAX_DATA_SIZE 512 // max number of bytes we can get at once
 
-void updateTouchPos(float x, float y);
+void updateCoords(float x, float y);
 
 char * getLatestMessage();
 
@@ -19,12 +21,10 @@ int getClientStatus();
 
 int startClientUDP();
 
-int sendTouchInput();
+int sendCoords();
 
 int readFromServer();
 
 void shutDownClient();
-
-void testMessage();
 
 #endif /* defined(__noctisgames__client__) */

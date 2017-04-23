@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 5/13/14.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __nosfuratu__GameConstants__
@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 2
-#define VERSION_BUILD 0
+#define VERSION_BUILD 1
 
 //// Requested Action Definitions ////
 
