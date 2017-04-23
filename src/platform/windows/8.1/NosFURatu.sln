@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NosFURatu", "NosFURatu", "{B7E3010B-8735-4C59-86A1-87044D6A5276}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NosFURatu.Shared", "NosFURatu\NosFURatu.Shared\NosFURatu.Shared.vcxitems", "{EE8D63C0-F6E3-447A-AC8A-2C34B5132D2B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NosFURatu.Windows", "NosFURatu\NosFURatu.Windows\NosFURatu.Windows.vcxproj", "{D9231D26-C212-4496-88DA-4CE92A77BE97}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NosFURatu.WindowsPhone", "NosFURatu\NosFURatu.WindowsPhone\NosFURatu.WindowsPhone.vcxproj", "{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		NosFURatu\NosFURatu.Shared\NosFURatu.Shared.vcxitems*{ac99a90a-9d4c-4b6b-b2a6-4f20bddca31f}*SharedItemsImports = 4
+		NosFURatu\NosFURatu.Shared\NosFURatu.Shared.vcxitems*{d9231d26-c212-4496-88da-4ce92a77be97}*SharedItemsImports = 4
+		NosFURatu\NosFURatu.Shared\NosFURatu.Shared.vcxitems*{ee8d63c0-f6e3-447a-ac8a-2c34b5132d2b}*SharedItemsImports = 9
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|ARM.Build.0 = Debug|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x64.ActiveCfg = Debug|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x64.Build.0 = Debug|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x64.Deploy.0 = Debug|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x86.ActiveCfg = Debug|Win32
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x86.Build.0 = Debug|Win32
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Debug|x86.Deploy.0 = Debug|Win32
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|ARM.ActiveCfg = Release|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|ARM.Build.0 = Release|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|ARM.Deploy.0 = Release|ARM
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x64.ActiveCfg = Release|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x64.Build.0 = Release|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x64.Deploy.0 = Release|x64
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x86.ActiveCfg = Release|Win32
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x86.Build.0 = Release|Win32
+		{D9231D26-C212-4496-88DA-4CE92A77BE97}.Release|x86.Deploy.0 = Release|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|ARM.Build.0 = Debug|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|x64.ActiveCfg = Debug|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|x86.ActiveCfg = Debug|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|x86.Build.0 = Debug|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Debug|x86.Deploy.0 = Debug|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|ARM.ActiveCfg = Release|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|ARM.Build.0 = Release|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|ARM.Deploy.0 = Release|ARM
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|x64.ActiveCfg = Release|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|x86.ActiveCfg = Release|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|x86.Build.0 = Release|Win32
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F}.Release|x86.Deploy.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE8D63C0-F6E3-447A-AC8A-2C34B5132D2B} = {B7E3010B-8735-4C59-86A1-87044D6A5276}
+		{D9231D26-C212-4496-88DA-4CE92A77BE97} = {B7E3010B-8735-4C59-86A1-87044D6A5276}
+		{AC99A90A-9D4C-4B6B-B2A6-4F20BDDCA31F} = {B7E3010B-8735-4C59-86A1-87044D6A5276}
+	EndGlobalSection
+EndGlobal

@@ -141,29 +141,10 @@
             }
             _mainScreen->clearRequestedAction();
             break;
-        case REQUESTED_ACTION_SUBMIT_SCORE_TO_LEADERBOARD:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SUBMIT_AND_DISPLAY_SCORE_TO_LEADERBOARD:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_UNLOCK_ACHIEVEMENT:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_LEADERBOARDS:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_DISPLAY_ACHIEVEMENTS:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_IN:
-            _mainScreen->clearRequestedAction();
-            break;
-        case REQUESTED_ACTION_SIGN_OUT:
-            _mainScreen->clearRequestedAction();
-            break;
         case REQUESTED_ACTION_UPDATE:
+            break;
         default:
+            _mainScreen->clearRequestedAction();
             break;
     }
     

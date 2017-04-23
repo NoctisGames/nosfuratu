@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/9/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "ForegroundObject.h"
@@ -70,6 +70,8 @@ ForegroundObject* ForegroundObject::create(int gridX, int gridY, int type)
         case ForegroundObjectType_LogVerticalShort:
             return new ForegroundObject(gridX, gridY, 8, 6, fot, GROUND_SOUND_GRASS, 0.1462f, 0.05208333333333f, 0.4453125f, 0.875f);
             
+        case ForegroundObjectType_JumpSpringLightFlushNew:
+            return new JumpSpringLightFlush(gridX, gridY, 11, 11, fot, GROUND_SOUND_NONE, 0, 0.363636363636364f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLightFlush:
             return new JumpSpringLightFlush(gridX, gridY, 10, 7, fot, GROUND_SOUND_NONE, 0, 0.033f, 1, 0.1f, 18.0f);
         case ForegroundObjectType_JumpSpringLight:
@@ -267,7 +269,7 @@ bool ForegroundObject::isEntityLanding(PhysicalEntity* entity, NGRect& bounds, f
 			float jonLowerLeftY = entity->getMainBounds().getBottom();
 
 			float itemTop = tempBounds.getTop();
-			float padding = itemTop * .01f;
+			float padding = GRID_CELL_SIZE / 2;
 			padding += entityYDelta;
 			float itemTopReq = itemTop - padding;
 
@@ -767,6 +769,7 @@ bool JumpSpringLightFlush::isEntityLanding(PhysicalEntity* entity, NGRect& bound
             {
                 jon = reinterpret_cast<Jon *>(entity);
                 jon->setGroundSoundType(getGroundSoundType());
+                jon->setLastSpringBouncedOn(this);
             }
             
             return true;

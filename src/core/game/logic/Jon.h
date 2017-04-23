@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 9/3/15.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #ifndef __nosfuratu__Jon__
@@ -24,6 +24,7 @@
 
 class Game;
 class DustCloud;
+class ForegroundObject;
 
 class JonShadow;
 
@@ -130,6 +131,10 @@ public:
     
     void setGroundSoundType(GroundSoundType groundSoundType);
     
+    ForegroundObject* getLastSpringBouncedOn();
+    
+    void setLastSpringBouncedOn(ForegroundObject* spring);
+    
     bool isVampire();
     
     bool isTransformingIntoVampire();
@@ -189,6 +194,7 @@ private:
     JonActionState m_actionState;
     JonAbilityState m_abilityState;
     GroundSoundType m_groundSoundType;
+    ForegroundObject* m_lastSpringBouncedOn;
     Color m_color;
     float m_fDeltaTime;
     float m_fActionStateTime;

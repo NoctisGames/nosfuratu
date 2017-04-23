@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 2/8/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "Midground.h"
@@ -56,6 +56,10 @@ Midground* Midground::create(int gridX, int gridY, int type)
             return new Midground(gridX, gridY, 16, 16, mt);
         case MidgroundType_Roof:
             return new Midground(gridX, gridY, 16, 4, mt);
+        case MidgroundType_DiagonalChain:
+            return new Midground(gridX, 0, 8, 52, mt);
+        case MidgroundType_StraightChain:
+            return new Midground(gridX, 0, 3, 52, mt);
     }
     
     assert(false);

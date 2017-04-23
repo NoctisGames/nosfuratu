@@ -3,7 +3,7 @@
 //  nosfuratu
 //
 //  Created by Stephen Gowen on 4/1/16.
-//  Copyright (c) 2016 Noctis Games. All rights reserved.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
 #include "MidBossOwl.h"
@@ -30,7 +30,7 @@ m_iDamage(0),
 m_state(MidBossOwlState_Sleeping),
 m_didJonTransform(false)
 {
-    resetBounds(width * 0.5f, height * 0.5f);
+    resetBounds(width * 0.5f, height * 0.8f);
 }
 
 void MidBossOwl::update(float deltaTime)
@@ -101,7 +101,7 @@ void MidBossOwl::update(float deltaTime)
                     
                     m_fTimeUnderTreeTop += deltaTime;
                     
-                    if (m_fTimeUnderTreeTop > 1.6f)
+                    if (m_fTimeUnderTreeTop > 0.85f)
                     {
                         Vector2D target = Vector2D(jon.getPosition().getX(), jon.getPosition().getY());
                         
