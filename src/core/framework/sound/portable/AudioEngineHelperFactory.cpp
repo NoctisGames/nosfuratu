@@ -9,16 +9,21 @@
 #include "AudioEngineHelperFactory.h"
 
 #if defined __APPLE__
-#include "AppleAudioEngineHelper.h"
+    #include "TargetConditionals.h"
+    #if TARGET_OS_IPHONE
+        #include "IOSAudioEngineHelper.h"
+    #elif TARGET_OS_OSX
+        #include "MacAudioEngineHelper.h"
+    #endif
 #elif defined __ANDROID__
-#include "AndroidAudioEngineHelper.h"
+    #include "AndroidAudioEngineHelper.h"
 #elif defined _WIN32
-#include <winapifamily.h>
-	#if defined (WINAPI_FAMILY_SYSTEM)
-	#include "WinAudioEngineHelper.h"
-	#else
-	#include "Win81AudioEngineHelper.h"
-	#endif
+    #include <winapifamily.h>
+    #if defined (WINAPI_FAMILY_SYSTEM)
+        #include "WinAudioEngineHelper.h"
+    #else
+        #include "Win81AudioEngineHelper.h"
+    #endif
 #endif
 
 #include <assert.h>
@@ -32,7 +37,11 @@ AudioEngineHelperFactory* AudioEngineHelperFactory::getInstance()
 IAudioEngineHelper* AudioEngineHelperFactory::createAudioEngineHelper()
 {
 #if defined __APPLE__
-    return AppleAudioEngineHelper::getInstance();
+    #if TARGET_OS_IPHONE
+        return IOSAudioEngineHelper::getInstance();
+    #elif TARGET_OS_OSX
+        return MacAudioEngineHelper::getInstance();
+    #endif
 #elif defined __ANDROID__
     return AndroidAudioEngineHelper::getInstance();
 #elif defined _WIN32

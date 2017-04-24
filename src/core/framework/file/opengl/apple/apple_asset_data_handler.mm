@@ -68,3 +68,11 @@ const char * getPathInsideNSDocuments(const char* relative_path)
     
     return nsDocumentsPath;
 }
+
+const char * getBundlePathForSoundWithName(const char* soundName)
+{
+    NSString *path = [[NSString alloc] initWithCString:soundName encoding:NSASCIIStringEncoding];
+    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"wav"] fileSystemRepresentation];
+    
+    return bundlePath;
+}

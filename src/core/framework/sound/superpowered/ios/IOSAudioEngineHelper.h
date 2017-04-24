@@ -1,24 +1,22 @@
 //
-//  AppleAudioEngineHelper.h
+//  IOSAudioEngineHelper.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/25/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__AppleAudioEngineHelper__
-#define __noctisgames__AppleAudioEngineHelper__
-
-#define APPLE_AUDIO_ENGINE_HELPER (AppleAudioEngineHelper::getInstance())
+#ifndef __noctisgames__IOSAudioEngineHelper__
+#define __noctisgames__IOSAudioEngineHelper__
 
 #include "IAudioEngineHelper.h"
 
 class SuperpoweredSoundManager;
 
-class AppleAudioEngineHelper : public IAudioEngineHelper
+class IOSAudioEngineHelper : public IAudioEngineHelper
 {
 public:
-	static AppleAudioEngineHelper* getInstance();
+	static IOSAudioEngineHelper* getInstance();
     
     virtual void update(int flags = 0);
     
@@ -35,10 +33,10 @@ private:
     int m_iSampleRate;
 
     // ctor, copy ctor, and assignment should be private in a Singleton
-    AppleAudioEngineHelper();
-    virtual ~AppleAudioEngineHelper();
-    AppleAudioEngineHelper(const AppleAudioEngineHelper&);
-    AppleAudioEngineHelper& operator=(const AppleAudioEngineHelper&);
+    IOSAudioEngineHelper();
+    virtual ~IOSAudioEngineHelper();
+    IOSAudioEngineHelper(const IOSAudioEngineHelper&);
+    IOSAudioEngineHelper& operator=(const IOSAudioEngineHelper&);
 };
 
-#endif /* defined(__noctisgames__AppleAudioEngineHelper__) */
+#endif /* defined(__noctisgames__IOSAudioEngineHelper__) */

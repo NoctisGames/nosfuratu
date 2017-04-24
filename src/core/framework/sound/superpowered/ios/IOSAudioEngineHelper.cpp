@@ -1,41 +1,42 @@
 //
-//  AppleAudioEngineHelper.cpp
+//  IOSAudioEngineHelper.cpp
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/25/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "AppleAudioEngineHelper.h"
+#include "IOSAudioEngineHelper.h"
 
 #include "ISoundWrapper.h"
 
 #include "SuperpoweredSoundWrapper.h"
 
 #include "apple_audio_engine_helper.h"
+#include "apple_asset_data_handler.h"
 
-AppleAudioEngineHelper* AppleAudioEngineHelper::getInstance()
+IOSAudioEngineHelper* IOSAudioEngineHelper::getInstance()
 {
-    static AppleAudioEngineHelper instance = AppleAudioEngineHelper();
+    static IOSAudioEngineHelper instance = IOSAudioEngineHelper();
     return &instance;
 }
 
-void AppleAudioEngineHelper::update(int flags)
+void IOSAudioEngineHelper::update(int flags)
 {
     // Empty
 }
 
-void AppleAudioEngineHelper::pause()
+void IOSAudioEngineHelper::pause()
 {
     // Empty
 }
 
-void AppleAudioEngineHelper::resume()
+void IOSAudioEngineHelper::resume()
 {
     // Empty
 }
 
-ISoundWrapper* AppleAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
+ISoundWrapper* IOSAudioEngineHelper::loadSound(int soundId, const char *path, int numInstances)
 {
     const char* bundlePath = getBundlePathForSoundWithName(path);
     
@@ -44,19 +45,19 @@ ISoundWrapper* AppleAudioEngineHelper::loadSound(int soundId, const char *path, 
     return sound;
 }
 
-ISoundWrapper* AppleAudioEngineHelper::loadMusic(const char* path)
+ISoundWrapper* IOSAudioEngineHelper::loadMusic(const char* path)
 {
     return loadSound(1337, path);
 }
 
-AppleAudioEngineHelper::AppleAudioEngineHelper() : IAudioEngineHelper(),
+IOSAudioEngineHelper::IOSAudioEngineHelper() : IAudioEngineHelper(),
 m_superpoweredSoundManager(new SuperpoweredSoundManager(44100)),
 m_iSampleRate(44100)
 {
     initializeWithSuperpoweredSoundManager(m_superpoweredSoundManager, m_iSampleRate);
 }
 
-AppleAudioEngineHelper::~AppleAudioEngineHelper()
+IOSAudioEngineHelper::~IOSAudioEngineHelper()
 {
     delete m_superpoweredSoundManager;
 }

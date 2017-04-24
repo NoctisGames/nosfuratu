@@ -1,12 +1,12 @@
 //
-//  apple_audio_engine_helper.mm
+//  ios_audio_engine_helper.mm
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 3/8/17.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#include "apple_audio_engine_helper.h"
+#include "ios_audio_engine_helper.h"
 
 #ifdef __APPLE__
 #include "TargetConditionals.h"
@@ -219,12 +219,4 @@ void initializeWithSuperpoweredSoundManager(SuperpoweredSoundManager* superpower
     {
         [audioSystem performSelector:@selector(start) withObject:nil];
     }
-}
-
-const char * getBundlePathForSoundWithName(const char* soundName)
-{
-    NSString *path = [[NSString alloc] initWithCString:soundName encoding:NSASCIIStringEncoding];
-    const char *bundlePath = [[[NSBundle mainBundle] pathForResource:path ofType:@"wav"] fileSystemRepresentation];
-    
-    return bundlePath;
 }
