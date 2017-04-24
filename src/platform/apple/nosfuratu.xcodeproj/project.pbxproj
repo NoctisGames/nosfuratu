@@ -289,6 +289,8 @@
 		BB90DE491EAE98790020F66D /* ios_audio_engine_helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB90DE461EAE98790020F66D /* ios_audio_engine_helper.mm */; };
 		BB90DE4A1EAE98790020F66D /* IOSAudioEngineHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB90DE471EAE98790020F66D /* IOSAudioEngineHelper.cpp */; };
 		BB90DE501EAE99680020F66D /* MacAudioEngineHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB90DE4E1EAE99680020F66D /* MacAudioEngineHelper.cpp */; };
+		BB90DE551EAE9CDA0020F66D /* MacSound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB90DE511EAE9CDA0020F66D /* MacSound.cpp */; };
+		BB90DE561EAE9CDA0020F66D /* MacSoundWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB90DE531EAE9CDA0020F66D /* MacSoundWrapper.cpp */; };
 		BBAE6A7A1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
 		BBAE6A7B1E6346260040E361 /* collect_big_carrot.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A781E6346260040E361 /* collect_big_carrot.wav */; };
 		BBAE6A7D1E6346260040E361 /* collect_vial.wav in Resources */ = {isa = PBXBuildFile; fileRef = BBAE6A791E6346260040E361 /* collect_vial.wav */; };
@@ -910,7 +912,6 @@
 		BB76395A1E21B71A00534DAB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleToolboxForMac.framework; path = ../../3rdparty/Firebase/GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		BB8E94571E57656D00D237D2 /* game_pad_tutorial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_pad_tutorial.png; sourceTree = "<group>"; };
 		BB90DE3C1EAE97570020F66D /* AudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayer.h; sourceTree = "<group>"; };
-		BB90DE3D1EAE97570020F66D /* AudioPlayerCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerCallback.h; sourceTree = "<group>"; };
 		BB90DE3E1EAE97570020F66D /* AudioPlayerOsx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioPlayerOsx.cpp; sourceTree = "<group>"; };
 		BB90DE3F1EAE97570020F66D /* AudioPlayerOsx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlayerOsx.h; sourceTree = "<group>"; };
 		BB90DE451EAE98790020F66D /* ios_audio_engine_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ios_audio_engine_helper.h; sourceTree = "<group>"; };
@@ -919,6 +920,10 @@
 		BB90DE481EAE98790020F66D /* IOSAudioEngineHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOSAudioEngineHelper.h; sourceTree = "<group>"; };
 		BB90DE4E1EAE99680020F66D /* MacAudioEngineHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MacAudioEngineHelper.cpp; sourceTree = "<group>"; };
 		BB90DE4F1EAE99680020F66D /* MacAudioEngineHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacAudioEngineHelper.h; sourceTree = "<group>"; };
+		BB90DE511EAE9CDA0020F66D /* MacSound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MacSound.cpp; sourceTree = "<group>"; };
+		BB90DE521EAE9CDA0020F66D /* MacSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacSound.h; sourceTree = "<group>"; };
+		BB90DE531EAE9CDA0020F66D /* MacSoundWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MacSoundWrapper.cpp; sourceTree = "<group>"; };
+		BB90DE541EAE9CDA0020F66D /* MacSoundWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacSoundWrapper.h; sourceTree = "<group>"; };
 		BB95CA9E1EAAA9C7007E0BD0 /* MediaEnginePlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MediaEnginePlayer.cpp; sourceTree = "<group>"; };
 		BB95CA9F1EAAA9C7007E0BD0 /* MediaEnginePlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaEnginePlayer.h; sourceTree = "<group>"; };
 		BB95CAA01EAAA9C7007E0BD0 /* RandomAccessReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RandomAccessReader.cpp; sourceTree = "<group>"; };
@@ -1938,11 +1943,14 @@
 			isa = PBXGroup;
 			children = (
 				BB90DE3C1EAE97570020F66D /* AudioPlayer.h */,
-				BB90DE3D1EAE97570020F66D /* AudioPlayerCallback.h */,
 				BB90DE3E1EAE97570020F66D /* AudioPlayerOsx.cpp */,
 				BB90DE3F1EAE97570020F66D /* AudioPlayerOsx.h */,
 				BB90DE4E1EAE99680020F66D /* MacAudioEngineHelper.cpp */,
 				BB90DE4F1EAE99680020F66D /* MacAudioEngineHelper.h */,
+				BB90DE511EAE9CDA0020F66D /* MacSound.cpp */,
+				BB90DE521EAE9CDA0020F66D /* MacSound.h */,
+				BB90DE531EAE9CDA0020F66D /* MacSoundWrapper.cpp */,
+				BB90DE541EAE9CDA0020F66D /* MacSoundWrapper.h */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -3413,6 +3421,7 @@
 				BBAEF8D01EA95B5900F0866E /* CollectibleItem.cpp in Sources */,
 				BBAEF7B01EA95B5800F0866E /* OpenGLNGRectBatcher.cpp in Sources */,
 				BBAEF9061EA95B5900F0866E /* GameHudItem.cpp in Sources */,
+				BB90DE551EAE9CDA0020F66D /* MacSound.cpp in Sources */,
 				BBAEF7A41EA95B5800F0866E /* OpenGLFramebufferToScreenGpuProgramWrapper.cpp in Sources */,
 				BB44C35E1DB03267003E633F /* main.m in Sources */,
 				BB44CB811DB053C0003E633F /* png.c in Sources */,
@@ -3484,6 +3493,7 @@
 				BBAEF90E1EA95B5900F0866E /* LevelEditorEntitiesPanel.cpp in Sources */,
 				BBAEF8E81EA95B5900F0866E /* Ground.cpp in Sources */,
 				BBAEF7B41EA95B5800F0866E /* OpenGLRendererHelper.cpp in Sources */,
+				BB90DE561EAE9CDA0020F66D /* MacSoundWrapper.cpp in Sources */,
 				BBAEF8541EA95B5900F0866E /* RTTI.cpp in Sources */,
 				BBAEF7D21EA95B5900F0866E /* Font.cpp in Sources */,
 				BBAEF7EE1EA95B5900F0866E /* TextureWrapper.cpp in Sources */,

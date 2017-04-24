@@ -8,7 +8,7 @@
 
 #include "MacAudioEngineHelper.h"
 
-#include "ISoundWrapper.h"
+#include "MacSoundWrapper.h"
 
 #include "apple_asset_data_handler.h"
 
@@ -37,9 +37,7 @@ ISoundWrapper* MacAudioEngineHelper::loadSound(int soundId, const char *path, in
 {
     const char* bundlePath = getBundlePathForSoundWithName(path);
     
-    // TODO
-    
-    return nullptr;
+    return new MacSoundWrapper(soundId, bundlePath, numInstances);
 }
 
 ISoundWrapper* MacAudioEngineHelper::loadMusic(const char* path)

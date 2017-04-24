@@ -1,14 +1,22 @@
+//
+//  AudioPlayerOsx.h
+//  noctisgames-framework
+//
+//  Created by Stephen Gowen on 4/24/17.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
+//
+
 #ifndef AUDIOPLAYEROSX_H
 #define AUDIOPLAYEROSX_H
 
-//USAGE: DO NOT INCLUDE THIS FILE! Include 'AudioPlayerFactory' and use its "file()" function
+#include "AudioPlayer.h"
 
 #include <AudioToolbox/AudioToolbox.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <iostream>
-#include "AudioPlayer.h"
 
-class AudioPlayerOsx : public AudioPlayer {
+class AudioPlayerOsx : public AudioPlayer
+{
 public:
     ~AudioPlayerOsx();
     static const int kNumberBuffers = 3;                              // 1
@@ -22,7 +30,6 @@ public:
         UInt32                        mNumPacketsToRead;              // 8
         AudioStreamPacketDescription  *mPacketDescs;                  // 9
         bool                          mIsRunning;                     // 10
-        AudioPlayerCallback* callback;
     };
     static void HandleOutputBuffer (
         void                *aqData,
@@ -53,15 +60,13 @@ public:
     void setBalance(int LR);
     int getBalance() const;
 
-    void setFinishListener(AudioPlayerCallback* cbo)
-    {
-        aqData.callback = cbo;
-    }
     const static int FILETYPE_COUNT;
     const static char* FILETYPES[];
+    
+    bool m_isLooping;
 
 private:
-    AudioPlayerOsx() : volume_level(100), _isMuted(false) {}
+    AudioPlayerOsx() : volume_level(100), _isMuted(false), m_isLooping(false) {}
     void resume() const;
     void primeBuffer();
     void seekToPacket(uint64_t packet);

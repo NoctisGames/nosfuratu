@@ -13,7 +13,6 @@
  *  -Set volume
  */
 
-#include "AudioPlayerCallback.h"
 #include <string>
 
 class AudioPlayer {
@@ -39,8 +38,6 @@ public:
 
     virtual void setBalance(int LR) = 0;
     virtual int getBalance() const = 0;
-
-    virtual void setFinishListener(AudioPlayerCallback* cbo) = 0;
 
     const static char* FILETYPES[];
 };

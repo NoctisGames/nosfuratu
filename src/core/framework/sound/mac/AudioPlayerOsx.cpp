@@ -1,3 +1,11 @@
+//
+//  AudioPlayerOsx.cpp
+//  noctisgames-framework
+//
+//  Created by Stephen Gowen on 4/24/17.
+//  Copyright (c) 2017 Noctis Games. All rights reserved.
+//
+
 #include "AudioPlayerOsx.h"
 
 const int AudioPlayerOsx::FILETYPE_COUNT = 13;
@@ -187,12 +195,8 @@ int AudioPlayerOsx::getBalance() const
 }
 
 //static
-void AudioPlayerOsx::HandleOutputBuffer (
-    void                *aqData,
-    AudioQueueRef       inAQ,
-    AudioQueueBufferRef inBuffer
-) {
-
+void AudioPlayerOsx::HandleOutputBuffer(void *aqData, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer)
+{
 //    std::cout << "cb" << std::endl;
 
     OSStatus status;
@@ -228,14 +232,10 @@ void AudioPlayerOsx::HandleOutputBuffer (
         );
 //        checkStatus(status);
         pAqData->mIsRunning = false;
-        if(pAqData->callback)
-        {
-            std::cout<< "CALLBACK" << std::endl;
-            pAqData->callback->playingFinished();
-        }
+        
+        // TODO, if looping, repeat here
     }
 }
-
 
 bool AudioPlayerOsx::load(CFURLRef url)
 {
