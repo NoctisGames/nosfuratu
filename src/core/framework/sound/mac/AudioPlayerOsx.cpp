@@ -37,6 +37,7 @@ bool AudioPlayerOsx::play()
     OSStatus status;
     if(isStopped())// || !isPaused())
     {
+        aqData.m_player = this;
         aqData.mIsRunning = true;                          // 1
         aqData.mCurrentPacket = 0;                                // 1
 
@@ -233,7 +234,11 @@ void AudioPlayerOsx::HandleOutputBuffer(void *aqData, AudioQueueRef inAQ, AudioQ
 //        checkStatus(status);
         pAqData->mIsRunning = false;
         
-        // TODO, if looping, repeat here
+        if (pAqData->m_player
+            && pAqData->m_player->m_isLooping)
+        {
+            pAqData->m_player->play();
+        }
     }
 }
 
@@ -247,7 +252,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
     checkStatus(status);
     if( status != noErr ) return false;
 
-
     UInt32 dataFormatSize = sizeof (aqData.mDataFormat);    // 1
 
     status = AudioFileGetProperty (                                  // 2
@@ -257,7 +261,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
         &aqData.mDataFormat                                 // 6
     );
     checkStatus(status);
-
 
     status = AudioQueueNewOutput (                                // 1
         &aqData.mDataFormat,                             // 2
@@ -280,8 +283,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
     );
     checkStatus(status);
 
-
-
     deriveBufferSize (                                   // 6
         aqData.mDataFormat,                              // 7
         maxPacketSize,                                   // 8
@@ -289,8 +290,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
         &aqData.bufferByteSize,                          // 10
         &aqData.mNumPacketsToRead                        // 11
     );
-
-
 
     bool isFormatVBR = (                                       // 1
         aqData.mDataFormat.mBytesPerPacket == 0 ||
@@ -305,7 +304,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
     } else {                                                   // 3
         aqData.mPacketDescs = NULL;
     }
-
 
     UInt32 cookieSize = sizeof (UInt32);                   // 1
     OSStatus couldNotGetProperty =                             // 2
@@ -342,10 +340,6 @@ bool AudioPlayerOsx::load(CFURLRef url)
     return true;
 }
 
-
-
-
-
 void AudioPlayerOsx::primeBuffer()
 {
     OSStatus status;
@@ -375,8 +369,6 @@ void AudioPlayerOsx::primeBuffer()
     #endif
 }
 
-
-
 void AudioPlayerOsx::seekToPacket(uint64_t packet)
 {
     AudioQueueStop(aqData.mQueue, true);
@@ -384,7 +376,6 @@ void AudioPlayerOsx::seekToPacket(uint64_t packet)
     aqData.mCurrentPacket = packet;//rand()%1000;
     primeBuffer();
 }
-
 
 //static
 void AudioPlayerOsx::checkStatus_(OSStatus status, const char* file, int line) {

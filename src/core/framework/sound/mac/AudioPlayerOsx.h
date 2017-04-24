@@ -30,6 +30,7 @@ public:
         UInt32                        mNumPacketsToRead;              // 8
         AudioStreamPacketDescription  *mPacketDescs;                  // 9
         bool                          mIsRunning;                     // 10
+        AudioPlayerOsx* m_player;
     };
     static void HandleOutputBuffer (
         void                *aqData,
@@ -64,10 +65,11 @@ public:
     const static char* FILETYPES[];
     
     bool m_isLooping;
+    
+    void setLooping(bool isLooping) { m_isLooping = isLooping; }
 
 private:
     AudioPlayerOsx() : volume_level(100), _isMuted(false), m_isLooping(false) {}
-    void resume() const;
     void primeBuffer();
     void seekToPacket(uint64_t packet);
     static void checkStatus_(OSStatus status, const char* file, int line);

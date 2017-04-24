@@ -8,7 +8,10 @@
 
 #include "MacSound.h"
 
+#include "AudioPlayerOsx.h"
+
 MacSound::MacSound(int soundId, const char *path, float volume) : ISound(soundId),
+m_player(AudioPlayerOsx::file(path)),
 m_fVolume(volume),
 m_isLooping(false),
 m_isPaused(false)
@@ -18,7 +21,9 @@ m_isPaused(false)
 
 MacSound::~MacSound()
 {
-    // TODO
+    m_player->stop();
+    
+    delete m_player;
 }
 
 void MacSound::play(bool isLooping)
@@ -26,14 +31,15 @@ void MacSound::play(bool isLooping)
     m_isLooping = isLooping;
     m_isPaused = false;
     
-    // TODO
+    m_player->setLooping(isLooping);
+    m_player->play();
 }
 
 void MacSound::resume()
 {
     if (m_isPaused)
     {
-        // TODO
+        m_player->play();
         
         m_isPaused = false;
     }
@@ -43,7 +49,7 @@ void MacSound::pause()
 {
     if (isPlaying())
     {
-        // TODO
+        m_player->pause();
         
         m_isPaused = true;
     }
@@ -54,14 +60,14 @@ void MacSound::stop()
     m_isLooping = false;
     m_isPaused = false;
     
-    // TODO
+    m_player->stop();
 }
 
 void MacSound::setVolume(float volume)
 {
     m_fVolume = volume;
     
-    // TODO
+    m_player->setVolume(volume);
 }
 
 bool MacSound::isLooping()
@@ -71,8 +77,7 @@ bool MacSound::isLooping()
 
 bool MacSound::isPlaying()
 {
-    // TODO
-    return false;
+    return m_player->isPlaying();
 }
 
 bool MacSound::isPaused()

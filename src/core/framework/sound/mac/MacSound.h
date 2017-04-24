@@ -11,6 +11,8 @@
 
 #include "ISound.h"
 
+class AudioPlayerOsx;
+
 class MacSound : public ISound
 {
 public:
@@ -35,6 +37,7 @@ public:
     virtual bool isPaused();
 
 private:
+    AudioPlayerOsx* m_player;
     float m_fVolume;
     bool m_isLooping;
     bool m_isPaused;
