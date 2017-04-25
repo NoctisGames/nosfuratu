@@ -93,9 +93,6 @@ DirectXPage::DirectXPage():
 	bool isMobile = false;
 #if !defined(WINAPI_FAMILY) || WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP || WINAPI_FAMILY == WINAPI_FAMILY_PC_APP
 	isMobile = false;
-#elif defined (WINAPI_FAMILY_SYSTEM)
-	AnalyticsVersionInfo^ api = AnalyticsInfo::VersionInfo;
-	isMobile = api->DeviceFamily->Equals("Windows.Mobile");
 #else
 	isMobile = true;
 #endif
