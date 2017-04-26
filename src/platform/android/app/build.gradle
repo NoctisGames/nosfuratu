@@ -17,7 +17,7 @@ android {
         applicationId "com.noctisgames.nosfuratu"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 1
+        versionCode 500
         versionName "1.2.3"
         signingConfig signingConfigs.noctisgames
     }
