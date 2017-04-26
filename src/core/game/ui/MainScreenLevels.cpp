@@ -114,25 +114,21 @@ void Level::enter(MainScreen* ms)
 	m_stopMusicOnExit = ms->m_stateMachine.getPreviousState() == MainScreenLevelEditor::getInstance();
     
     {
-        int isDebug = 0;
 #ifdef NG_CHEATS
         std::string key = std::string("ng_debug");
         std::string val = ms->m_saveData->findValue(key);
-        isDebug = StringUtil::stringToNumber<int>(val);
+		int isDebug = StringUtil::stringToNumber<int>(val);
+		m_isDebug = isDebug == 1;
 #endif
-        
-        m_isDebug = isDebug == 1;
     }
     
     {
-        int isShowingBounds = 0;
 #ifdef NG_CHEATS
         std::string key = std::string("ng_show_bounds");
         std::string val = ms->m_saveData->findValue(key);
-        isShowingBounds = StringUtil::stringToNumber<int>(val);
+		int isShowingBounds = StringUtil::stringToNumber<int>(val);
+		m_isShowingBounds = isShowingBounds == 1;
 #endif
-        
-        m_isShowingBounds = isShowingBounds == 1;
     }
 }
 
