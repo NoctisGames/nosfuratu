@@ -184,16 +184,18 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iShowBoundsCodeState++;
                         
-                        std::string key = std::string("ng_show_bounds");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isShowingBounds = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        std::string val = StringUtil::toString(isShowingBounds == 1 ? 0 : 1);
-                        ms->m_saveData->setValue(key, val);
-                        
-                        ms->m_saveData->save();
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_FOX_DEATH);
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_show_bounds");
+						std::string storedVal = ms->m_saveData->findValue(key);
+						int isShowingBounds = StringUtil::stringToNumber<int>(storedVal);
+
+						std::string val = StringUtil::toString(isShowingBounds == 1 ? 0 : 1);
+						ms->m_saveData->setValue(key, val);
+
+						ms->m_saveData->save();
+
+						NG_AUDIO_ENGINE->playSound(SOUND_FOX_DEATH);
+#endif
                     }
                     continue;
                 case KeyboardEventType_S:
@@ -245,18 +247,20 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iDmCodeState++;
                         
-                        std::string key = std::string("ng_debug");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isDebug = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
-                        ms->m_saveData->setValue(key, val);
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_debug");
+						std::string storedVal = ms->m_saveData->findValue(key);
+						int isDebug = StringUtil::stringToNumber<int>(storedVal);
+
+						std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
+						ms->m_saveData->setValue(key, val);
 
 						ms->m_saveData->save();
-                        
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+
+						WorldMap::getInstance()->loadSaveData(ms);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+#endif
                     }
                     else if (m_iMapCodeState == 0)
                     {
@@ -268,11 +272,13 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iResetCodeState++;
                         
-                        ms->m_saveData->clear();
-                        
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+#ifdef NG_CHEATS
+						ms->m_saveData->clear();
+
+						WorldMap::getInstance()->loadSaveData(ms);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+#endif
                     }
                     else if (m_iSwampCodeState == 4)
                     {
@@ -292,26 +298,28 @@ void Title::execute(MainScreen* ms)
 						ms->m_saveData->save();
 
 						WorldMap::getInstance()->loadSaveData(ms);
-#endif                  
-                        
+
 						NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
+#endif
                     }
                     else if (m_iMapCodeState == 2)
                     {
                         m_iMapCodeState++;
                         
-                        std::string key = std::string("ng_unlock_all");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
-                        ms->m_saveData->setValue(key, val);
-                        
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_unlock_all");
+						std::string storedVal = ms->m_saveData->findValue(key);
+						int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
+
+						std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
+						ms->m_saveData->setValue(key, val);
+
 						ms->m_saveData->save();
 
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+						WorldMap::getInstance()->loadSaveData(ms);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+#endif
                     }
                     else if (m_iShowBoundsCodeState == 0)
                     {
@@ -367,17 +375,19 @@ void Title::execute(MainScreen* ms)
                     {
                         m_iResetCodeState++;
                         
-                        m_fCodeStateTime = -2;
-                        
-                        ms->m_saveData->clear();
-                        
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
+#ifdef NG_CHEATS
+						m_fCodeStateTime = -2;
+
+						ms->m_saveData->clear();
+
+						WorldMap::getInstance()->loadSaveData(ms);
+
 #ifdef NG_GAME_SERVICES
-                        ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
+						ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
 #endif
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+#endif
                     }
                     else if (m_iMapCodeState == 0
                              && touchPoint.getX() > 10
@@ -402,18 +412,20 @@ void Title::execute(MainScreen* ms)
                         
                         m_fCodeStateTime = -2;
                         
-                        std::string key = std::string("ng_unlock_all");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
-                        ms->m_saveData->setValue(key, val);
-                        
-                        ms->m_saveData->save();
-                        
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_unlock_all");
+						std::string storedVal = ms->m_saveData->findValue(key);
+						int isUnlockAll = StringUtil::stringToNumber<int>(storedVal);
+
+						std::string val = StringUtil::toString(isUnlockAll == 1 ? 0 : 1);
+						ms->m_saveData->setValue(key, val);
+
+						ms->m_saveData->save();
+
+						WorldMap::getInstance()->loadSaveData(ms);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+#endif
                     }
                     else if (m_iDmCodeState == 0
                              && touchPoint.getX() > 5
@@ -439,18 +451,20 @@ void Title::execute(MainScreen* ms)
                         
                         m_fCodeStateTime = -2;
                         
-                        std::string key = std::string("ng_debug");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isDebug = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
-                        ms->m_saveData->setValue(key, val);
-                        
-                        ms->m_saveData->save();
-                        
-                        WorldMap::getInstance()->loadSaveData(ms);
-                        
-                        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_debug");
+						std::string storedVal = ms->m_saveData->findValue(key);
+						int isDebug = StringUtil::stringToNumber<int>(storedVal);
+
+						std::string val = StringUtil::toString(isDebug == 1 ? 0 : 1);
+						ms->m_saveData->setValue(key, val);
+
+						ms->m_saveData->save();
+
+						WorldMap::getInstance()->loadSaveData(ms);
+
+						NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+#endif
                     }
                     continue;
                 case ScreenEventType_DRAGGED:
