@@ -32,7 +32,7 @@
 #define FRAME_RATE 0.01666666666667f // 60 frames per second
 
 MainScreen::MainScreen() : IScreen(),
-m_saveData(new JsonFile("nosfuratu.sav")),
+m_saveData(new JsonFile("nosfuratu.sav", true)),
 m_renderer(new MainRenderer(MAX_BATCH_SIZE)),
 m_touchPointDown(new Vector2D()),
 m_touchPointDown2(new Vector2D()),
