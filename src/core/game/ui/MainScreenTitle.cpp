@@ -65,14 +65,12 @@ void Title::enter(MainScreen* ms)
     m_isRequestingLevelEditor = false;
     m_isLevelEditor = false;
     
-    int isLevelEditor = 0;
 #ifdef NG_CHEATS
     std::string key = std::string("ng_level_editor");
     std::string val = ms->m_saveData->findValue(key);
-    isLevelEditor = StringUtil::stringToNumber<int>(val);
+	int isLevelEditor = StringUtil::stringToNumber<int>(val);
+	m_isLevelEditor = isLevelEditor == 1;
 #endif
-    
-    m_isLevelEditor = isLevelEditor == 1;
 }
 
 void Title::execute(MainScreen* ms)
@@ -279,23 +277,24 @@ void Title::execute(MainScreen* ms)
                     else if (m_iSwampCodeState == 4)
                     {
                         m_iSwampCodeState++;
-                        
-                        std::string key = std::string("ng_level_editor");
-                        std::string storedVal = ms->m_saveData->findValue(key);
-                        int isLevelEditor = StringUtil::stringToNumber<int>(storedVal);
-                        
-                        isLevelEditor = isLevelEditor == 1 ? 0 : 1;
-                        
-                        m_isLevelEditor = isLevelEditor == 1;
-                        
-                        std::string val = StringUtil::toString(isLevelEditor);
-                        ms->m_saveData->setValue(key, val);
-                        
+
+#ifdef NG_CHEATS
+						std::string key = std::string("ng_level_editor");
+						std::string val = ms->m_saveData->findValue(key);
+						int isLevelEditor = StringUtil::stringToNumber<int>(val);
+						isLevelEditor = isLevelEditor == 1 ? 0 : 1;
+
+						m_isLevelEditor = isLevelEditor == 1;
+
+						std::string val = StringUtil::toString(isLevelEditor);
+						ms->m_saveData->setValue(key, val);
+
 						ms->m_saveData->save();
 
-                        WorldMap::getInstance()->loadSaveData(ms);
+						WorldMap::getInstance()->loadSaveData(ms);
+#endif                  
                         
-                        NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
+						NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
                     }
                     else if (m_iMapCodeState == 2)
                     {
