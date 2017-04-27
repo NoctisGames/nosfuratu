@@ -105,7 +105,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
@@ -120,7 +120,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -132,7 +132,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -144,7 +144,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
@@ -159,7 +159,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -171,7 +171,7 @@
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PSAPI_VERSION=2;WINAPI_FAMILY=WINAPI_FAMILY_PHONE_APP;_UITHREADCTXT_SUPPORT=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

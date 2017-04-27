@@ -28,6 +28,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\shared\StepTimer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DeviceResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NosFURatuMain.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
