@@ -27,19 +27,17 @@
     <None Include="NosFURatu.Windows_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DirectXPage.xaml" />
+    <Page Include="..\NosFURatu.Shared\DirectXPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
+    <ApplicationDefinition Include="..\NosFURatu.Shared\App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.xaml.cpp" />
-    <ClCompile Include="DirectXPage.xaml.cpp" />
-    <ClCompile Include="NosFURatuMain.cpp" />
+    <ClCompile Include="..\NosFURatu.Shared\App.xaml.cpp" />
+    <ClCompile Include="..\NosFURatu.Shared\DirectXPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="DirectXPage.xaml.h" />
-    <ClInclude Include="NosFURatuMain.h" />
+    <ClInclude Include="..\NosFURatu.Shared\App.xaml.h" />
+    <ClInclude Include="..\NosFURatu.Shared\DirectXPage.xaml.h" />
   </ItemGroup>
 </Project>
