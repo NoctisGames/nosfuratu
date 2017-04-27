@@ -92,7 +92,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/10/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/10/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/portable/;../../../core/framework/util/windows/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/10/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/10/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/portable/;../../../core/framework/util/windows/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/10/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/10/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/portable/;../../../core/framework/util/windows/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
@@ -150,7 +150,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/10/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/10/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/portable/;../../../core/framework/util/windows/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../3rdparty/;../../../core/framework/entity/;../../../core/framework/file/portable/;../../../core/framework/file/windows/;../../../core/framework/graphics/direct3d/;../../../core/framework/graphics/portable/;../../../core/framework/input/portable/;../../../core/framework/input/windows/;../../../core/framework/math/;../../../core/framework/sound/portable/;../../../core/framework/sound/windows/;../../../core/framework/state/;../../../core/framework/ui/;../../../core/framework/util/;../../../core/game/graphics/direct3d/;../../../core/game/graphics/portable/;../../../core/game/logic/;../../../core/game/ui/;../shared/;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;$(ProjectDir);</AdditionalIncludeDirectories>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
@@ -168,14 +168,13 @@
     <ClInclude Include="..\..\..\core\framework\graphics\direct3d\*.h" />
     <ClInclude Include="..\..\..\core\framework\graphics\portable\*.h" />
     <ClInclude Include="..\..\..\core\framework\input\portable\*.h" />
-    <ClInclude Include="..\..\..\core\framework\input\windows\10\*.h" />
+    <ClInclude Include="..\..\..\core\framework\input\windows\*.h" />
     <ClInclude Include="..\..\..\core\framework\math\*.h" />
     <ClInclude Include="..\..\..\core\framework\sound\portable\*.h" />
-    <ClInclude Include="..\..\..\core\framework\sound\windows\10\*.h" />
+    <ClInclude Include="..\..\..\core\framework\sound\windows\*.h" />
     <ClInclude Include="..\..\..\core\framework\state\*.h" />
     <ClInclude Include="..\..\..\core\framework\ui\*.h" />
-    <ClInclude Include="..\..\..\core\framework\util\portable\*.h" />
-    <ClInclude Include="..\..\..\core\framework\util\windows\*.h" />
+    <ClInclude Include="..\..\..\core\framework\util\*.h" />
     <ClInclude Include="..\..\..\core\game\graphics\direct3d\*.h" />
     <ClInclude Include="..\..\..\core\game\graphics\portable\*.h" />
     <ClInclude Include="..\..\..\core\game\logic\*.h" />
@@ -190,14 +189,13 @@
     <ClCompile Include="..\..\..\core\framework\graphics\direct3d\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\graphics\portable\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\input\portable\*.cpp" />
-    <ClCompile Include="..\..\..\core\framework\input\windows\10\*.cpp" />
+    <ClCompile Include="..\..\..\core\framework\input\windows\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\math\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\sound\portable\*.cpp" />
-    <ClCompile Include="..\..\..\core\framework\sound\windows\10\*.cpp" />
+    <ClCompile Include="..\..\..\core\framework\sound\windows\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\state\*.cpp" />
     <ClCompile Include="..\..\..\core\framework\ui\*.cpp" />
-    <ClCompile Include="..\..\..\core\framework\util\portable\*.cpp" />
-    <ClCompile Include="..\..\..\core\framework\util\windows\*.cpp" />
+    <ClCompile Include="..\..\..\core\framework\util\*.cpp" />
     <ClCompile Include="..\..\..\core\game\graphics\direct3d\*.cpp" />
     <ClCompile Include="..\..\..\core\game\graphics\portable\*.cpp" />
     <ClCompile Include="..\..\..\core\game\logic\*.cpp" />
