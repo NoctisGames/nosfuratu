@@ -1,13 +1,13 @@
 //
-//  platform_gl.h
+//  pch.h
 //  noctisgames-framework
 //
 //  Created by Stephen Gowen on 2/22/14.
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
-#ifndef __noctisgames__platform_gl__
-#define __noctisgames__platform_gl__
+#ifndef __noctisgames__pch__
+#define __noctisgames__pch__
 
 #ifdef __APPLE__
 #include "TargetConditionals.h"
@@ -19,9 +19,6 @@
 #elif TARGET_OS_OSX
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
-#elif __ANDROID__
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
 #endif
 
-#endif /* defined(__noctisgames__platform_gl__) */
+#endif /* defined(__noctisgames__pch__) */
