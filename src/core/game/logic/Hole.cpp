@@ -6,7 +6,10 @@
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "Hole.h"
+
 #include "EntityUtils.h"
 
 Hole* Hole::create(int gridX, int gridY, int type)

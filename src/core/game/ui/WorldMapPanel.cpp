@@ -6,6 +6,8 @@
 //  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "WorldMapPanel.h"
 
 WorldMapPanel::WorldMapPanel(float x, float y, float width, float height) : PhysicalEntity(x, y, width, height)

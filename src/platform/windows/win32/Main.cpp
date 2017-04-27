@@ -3,7 +3,9 @@
 //
 
 #include "pch.h"
+
 #include "Direct3DMain.h"
+
 #include "Audio.h"
 #include <Dbt.h>
 

@@ -6,7 +6,10 @@
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "Midground.h"
+
 #include "EntityUtils.h"
 
 Midground* Midground::create(int gridX, int gridY, int type)

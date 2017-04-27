@@ -6,6 +6,8 @@
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "RTTI.h"
 
 RTTI::RTTI(const std::string & className) : m_className(className), m_pBaseRTTI(nullptr)
