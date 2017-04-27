@@ -4,7 +4,9 @@
 //
 
 #include "pch.h"
+
 #include "DeviceResources.h"
+
 #include "PlatformHelpers.h"
 
 using namespace DirectX;
