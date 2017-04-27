@@ -6,6 +6,8 @@
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "DustCloud.h"
 
 DustCloud* DustCloud::create(float x, float y, DustCloudType type, float scale)

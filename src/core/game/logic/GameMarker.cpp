@@ -6,6 +6,8 @@
 //  Copyright © 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "GameMarker.h"
 
 GameMarker* GameMarker::create(int gridX, int gridY, int type)

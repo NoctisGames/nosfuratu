@@ -6,6 +6,8 @@
 //  Copyright (c) 2017 Noctis Games. All rights reserved.
 //
 
+#include "pch.h"
+
 #include "HoleCover.h"
 
 HoleCover::HoleCover(float x, float y, float width, float height, HoleCoverType type) : PhysicalEntity(x, y, width, height), m_type(type), m_isBreaking(false)

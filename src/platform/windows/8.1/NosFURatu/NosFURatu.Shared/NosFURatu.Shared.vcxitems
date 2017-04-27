@@ -22,16 +22,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\input\portable\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\portable\*.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\8.1\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\*.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\portable\*.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\shared\StepTimer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DeviceResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NosFURatuMain.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\*.cpp" />
@@ -42,16 +44,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\input\portable\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\math\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\portable\*.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\8.1\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\sound\windows\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\state\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\ui\*.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\portable\*.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\windows\*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\util\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DeviceResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NosFURatuMain.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />
