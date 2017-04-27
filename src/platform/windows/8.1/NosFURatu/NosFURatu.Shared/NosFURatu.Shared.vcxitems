@@ -31,7 +31,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)*.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DeviceResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NosFURatuMain.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\entity\*.cpp" />
@@ -51,7 +53,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\portable\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\logic\*.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\ui\*.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)*.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DeviceResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NosFURatuMain.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectCapability Include="SourceItemsFromImports" />

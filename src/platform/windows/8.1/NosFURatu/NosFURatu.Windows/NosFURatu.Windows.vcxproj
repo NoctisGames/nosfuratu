@@ -153,7 +153,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -169,7 +169,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -185,7 +185,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -201,7 +201,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -217,7 +217,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -233,7 +233,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -249,7 +249,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -265,7 +265,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -281,7 +281,7 @@
     <ClCompile>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
-      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/8.1/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/portable/;../../../../../core/framework/util/windows/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../../../3rdparty/;../../../../../core/framework/entity/;../../../../../core/framework/file/portable/;../../../../../core/framework/file/windows/;../../../../../core/framework/graphics/direct3d/;../../../../../core/framework/graphics/portable/;../../../../../core/framework/input/portable/;../../../../../core/framework/input/windows/;../../../../../core/framework/math/;../../../../../core/framework/sound/portable/;../../../../../core/framework/sound/windows/;../../../../../core/framework/state/;../../../../../core/framework/ui/;../../../../../core/framework/util/;../../../../../core/game/graphics/direct3d/;../../../../../core/game/graphics/portable/;../../../../../core/game/logic/;../../../../../core/game/ui/;../NosFURatu.Shared/;$(ProjectDir);$(IntermediateOutputPath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -305,26 +305,24 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.xaml.h">
+    <ClInclude Include="..\NosFURatu.Shared\App.xaml.h">
       <DependentUpon>..\NosFURatu.Shared\App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="DirectXPage.xaml.h">
+    <ClInclude Include="..\NosFURatu.Shared\DirectXPage.xaml.h">
       <DependentUpon>..\NosFURatu.Shared\DirectXPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="NosFURatuMain.h" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml" />
-    <Page Include="DirectXPage.xaml" />
+    <ApplicationDefinition Include="..\NosFURatu.Shared\App.xaml" />
+    <Page Include="..\NosFURatu.Shared\DirectXPage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.xaml.cpp">
+    <ClCompile Include="..\NosFURatu.Shared\App.xaml.cpp">
       <DependentUpon>..\NosFURatu.Shared\App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="DirectXPage.xaml.cpp">
+    <ClCompile Include="..\NosFURatu.Shared\DirectXPage.xaml.cpp">
       <DependentUpon>..\NosFURatu.Shared\DirectXPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="NosFURatuMain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
