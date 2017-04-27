@@ -5,6 +5,10 @@
 
 #pragma once
 
+#ifndef _WIN32_WINNT_WIN10
+#define _WIN32_WINNT_WIN10 0x0A00
+#endif
+
 #include <wrl.h>
 #include <wrl/client.h>
 #include <d3d11_2.h>
