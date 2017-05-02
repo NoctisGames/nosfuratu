@@ -56,14 +56,7 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico">
-      <Filter>Assets</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="settings.manifest">
-      <Filter>Assets</Filter>
-    </Manifest>
+    <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
