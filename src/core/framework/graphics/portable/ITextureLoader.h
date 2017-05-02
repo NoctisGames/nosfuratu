@@ -19,7 +19,7 @@ public:
     
     virtual ~ITextureLoader();
     
-    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName) = 0;
+    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName, bool useCHeader = false) = 0;
     
     virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, bool repeatS = false) = 0;
 };

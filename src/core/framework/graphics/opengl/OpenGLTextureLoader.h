@@ -22,7 +22,7 @@ public:
     
     virtual ~OpenGLTextureLoader();
     
-    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName);
+    virtual GpuTextureDataWrapper* loadTextureData(const char* textureName, bool useCHeader = false);
     
     virtual GpuTextureWrapper* loadTexture(GpuTextureDataWrapper* textureData, bool repeatS = false);
     

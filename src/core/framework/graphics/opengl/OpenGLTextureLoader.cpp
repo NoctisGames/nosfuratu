@@ -17,6 +17,7 @@
 extern "C"
 {
 #include "png.h"
+#include "title_screen.h"
 }
 
 #include <string>
@@ -33,27 +34,46 @@ OpenGLTextureLoader::~OpenGLTextureLoader()
     // Empty
 }
 
-GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureName)
+GpuTextureDataWrapper* OpenGLTextureLoader::loadTextureData(const char* textureName, bool useCHeader)
 {
-    size_t len = strlen(textureName);
+    GpuTextureDataWrapper* tdw;
     
-    char* textureFileName = new char[len + 5];
-    
-    strcpy(textureFileName, textureName);
-    textureFileName[len] = '.';
-    textureFileName[len+1] = 'p';
-    textureFileName[len+2] = 'n';
-    textureFileName[len+3] = 'g';
-    textureFileName[len+4] = '\0';
-    
-    const FileData png_file = AssetDataHandler::getAssetDataHandler()->getAssetData(textureFileName);
-    const PngImageData raw_image_data = getPngImageDataFromFileData(png_file.data, (int)png_file.data_length);
-    
-    AssetDataHandler::getAssetDataHandler()->releaseAssetData(&png_file);
-    
-    GpuTextureDataWrapper* tdw = new GpuTextureDataWrapper(raw_image_data);
-    
-    delete[] textureFileName;
+    if (useCHeader)
+    {
+        // TODO, look up appropriate unsigned char array based on textureName key
+        long size = sizeof(title_screen);
+        const FileData png_file = (FileData)
+        {
+            size, &title_screen, NULL
+        };
+        
+        const PngImageData raw_image_data = getPngImageDataFromFileData(png_file.data, (int)png_file.data_length);
+        
+        tdw = new GpuTextureDataWrapper(raw_image_data);
+    }
+    else
+    {
+        size_t len = strlen(textureName);
+        
+        char* textureFileName = new char[len + 5];
+        
+        strcpy(textureFileName, textureName);
+        textureFileName[len] = '.';
+        textureFileName[len+1] = 'p';
+        textureFileName[len+2] = 'n';
+        textureFileName[len+3] = 'g';
+        textureFileName[len+4] = '\0';
+        
+        const FileData png_file = AssetDataHandler::getAssetDataHandler()->getAssetData(textureFileName);
+        
+        const PngImageData raw_image_data = getPngImageDataFromFileData(png_file.data, (int)png_file.data_length);
+        
+        AssetDataHandler::getAssetDataHandler()->releaseAssetData(&png_file);
+        
+        tdw = new GpuTextureDataWrapper(raw_image_data);
+        
+        delete[] textureFileName;
+    }
     
     return tdw;
 }

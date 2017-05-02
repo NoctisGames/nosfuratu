@@ -13,7 +13,7 @@
 #include "GpuTextureDataWrapper.h"
 #include "GpuTextureWrapper.h"
 
-TextureWrapper::TextureWrapper(std::string inName, bool in_repeatS) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), repeatS(in_repeatS), isLoadingData(false)
+TextureWrapper::TextureWrapper(std::string inName, bool in_isHeaderBased, bool in_repeatS) : name(inName), gpuTextureDataWrapper(nullptr), gpuTextureWrapper(nullptr), isHeaderBased(in_isHeaderBased), repeatS(in_repeatS), isLoadingData(false)
 {
     // Empty
 }

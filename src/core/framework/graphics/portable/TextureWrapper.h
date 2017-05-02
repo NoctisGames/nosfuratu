@@ -22,8 +22,9 @@ public:
     GpuTextureWrapper* gpuTextureWrapper;
     bool repeatS;
     bool isLoadingData;
+    bool isHeaderBased;
     
-    TextureWrapper(std::string inName, bool in_repeatS = false);
+    TextureWrapper(std::string inName, bool in_isHeaderBased = false, bool in_repeatS = false);
 };
 
 #endif /* defined(__noctisgames__TextureWrapper__) */

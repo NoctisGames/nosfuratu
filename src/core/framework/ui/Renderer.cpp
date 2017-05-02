@@ -196,7 +196,7 @@ void Renderer::loadTextureSync(TextureWrapper* textureWrapper)
     }
     
     textureWrapper->isLoadingData = true;
-    textureWrapper->gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper->name.c_str());
+    textureWrapper->gpuTextureDataWrapper = m_textureLoader->loadTextureData(textureWrapper->name.c_str(), textureWrapper->isHeaderBased);
     
     textureWrapper->gpuTextureWrapper = m_textureLoader->loadTexture(textureWrapper->gpuTextureDataWrapper);
     
@@ -225,7 +225,7 @@ void Renderer::loadTextureAsync(TextureWrapper* textureWrapper)
     {
         if (r->m_areDeviceDependentResourcesCreated)
         {
-            tw->gpuTextureDataWrapper = r->m_textureLoader->loadTextureData(tw->name.c_str());
+            tw->gpuTextureDataWrapper = r->m_textureLoader->loadTextureData(tw->name.c_str(), tw->isHeaderBased);
         }
     }, textureWrapper, this));
 }
