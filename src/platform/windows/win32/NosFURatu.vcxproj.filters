@@ -59,6 +59,9 @@
     <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="NosFURatu.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
