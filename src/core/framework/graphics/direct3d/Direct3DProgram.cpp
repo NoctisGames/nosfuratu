@@ -59,8 +59,10 @@ Direct3DProgram::Direct3DProgram(const char* vertexShaderName, const char* pixel
 	s2 += std::wstring(wString2);
 	finalPixelShaderFileName = s2.c_str();
 #else
-	finalVertexShaderFileName = vertexShaderFileName;
-	finalPixelShaderFileName = pixelShaderFileName;
+	MultiByteToWideChar(CP_ACP, 0, vertexShaderFileName, -1, wString1, 4096);
+	finalVertexShaderFileName = wString1;
+	MultiByteToWideChar(CP_ACP, 0, pixelShaderFileName, -1, wString2, 4096);
+	finalPixelShaderFileName = wString2;
 #endif
 
 	ID3D11Device* d3dDevice = Direct3DManager::getD3dDevice();
