@@ -1673,7 +1673,7 @@ void Bat::naviPoof(float x, float y)
     m_fStateTime = 0;
     m_isInPosition = true;
     
-    NG_AUDIO_ENGINE->playSound(SOUND_BAT_POOF);
+    NG_AUDIO_ENGINE->playSound(SOUND_ID_BAT_POOF);
 }
 
 void Bat::moveTo(float x, float y)

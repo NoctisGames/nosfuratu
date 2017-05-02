@@ -11,10 +11,10 @@
 
 typedef enum
 {
-    GROUND_SOUND_GRASS,
-    GROUND_SOUND_CAVE,
-    GROUND_SOUND_WOOD,
-    GROUND_SOUND_NONE
+    GROUND_SOUND_ID_GRASS,
+    GROUND_SOUND_ID_CAVE,
+    GROUND_SOUND_ID_WOOD,
+    GROUND_SOUND_ID_NONE
 } GroundSoundType;
 
 #endif /* defined(__nosfuratu__GroundSoundType__) */

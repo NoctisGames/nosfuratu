@@ -22,14 +22,14 @@ ExitGround* ExitGround::create(int gridX, int gridY, int type)
     switch (egt)
     {
         case ExitGroundType_GrassWithCaveSmallExitMid:
-            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_GRASS);
+            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_ID_GRASS);
         case ExitGroundType_GrassWithCaveSmallExitEnd:
-            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_GRASS);
+            return new ExitGround(gridX, 88, 32, 14, 0.57142857142857f, true, egt, GROUND_SOUND_ID_GRASS);
         case ExitGroundType_CaveSmallExit:
-            return new ExitGround(gridX, 48, 32, 24, 0.29166666666667f, true, egt, GROUND_SOUND_CAVE);
+            return new ExitGround(gridX, 48, 32, 24, 0.29166666666667f, true, egt, GROUND_SOUND_ID_CAVE);
             
         case ExitGroundType_CaveDeepSmallWaterfall:
-            return new CaveDeepSmallWaterfall(gridX, 0, 32, 28, 0.96428571428571f, false, egt, GROUND_SOUND_CAVE);
+            return new CaveDeepSmallWaterfall(gridX, 0, 32, 28, 0.96428571428571f, false, egt, GROUND_SOUND_ID_CAVE);
     }
     
     assert(false);

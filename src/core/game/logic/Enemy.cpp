@@ -316,7 +316,7 @@ void Enemy::handleJon()
 
 #pragma mark subclasses
 
-Mushroom::Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, SOUND_NONE), m_isBeingBouncedOn(false), m_isBouncingBack(false)
+Mushroom::Mushroom(int gridX, int gridY, int gridWidth, int gridHeight, float boundsX, float boundsY, float boundsWidth, float boundsHeight, EnemyType type) : Enemy(gridX, gridY, gridWidth, gridHeight, boundsX, boundsY, boundsWidth, boundsHeight, type, EnemySpiritType_None, SOUND_ID_NONE), m_isBeingBouncedOn(false), m_isBouncingBack(false)
 {
     // Empty
 }
@@ -341,7 +341,7 @@ void Mushroom::handleAlive(float deltaTime)
         
         m_isBouncingBack = true;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_MUSHROOM_BOUNCE);
     }
 }
 
@@ -382,7 +382,7 @@ bool MushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_fStateTime = 0;
             
-            NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_MUSHROOM_BOUNCE);
         }
     }
 
@@ -407,7 +407,7 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
 
 		m_fStateTime = 0;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -415,12 +415,12 @@ bool MushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
-SnakeGrunt::SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, 0, 0, 1, 0.79166666666667f, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_SNAKE_DEATH)
+SnakeGrunt::SnakeGrunt(int gridX, int gridY) : Enemy(gridX, gridY, 8, 6, 0, 0, 1, 0.79166666666667f, EnemyType_SnakeGrunt, EnemySpiritType_Snake, SOUND_ID_SNAKE_DEATH)
 {
     // Empty
 }
 
-Sparrow::Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_SPARROW_DEATH), m_fOriginalY(0), m_isOnScreen(false)
+Sparrow::Sparrow(int gridX, int gridY) : Enemy(gridX, gridY, 10, 10, 0, 0, 1, 0.71875f, EnemyType_Sparrow, EnemySpiritType_Sparrow, SOUND_ID_SPARROW_DEATH), m_fOriginalY(0), m_isOnScreen(false)
 {
     m_fOriginalY = m_position.getY();
 }
@@ -445,7 +445,7 @@ void Sparrow::updateBounds()
             m_position.setY(m_fOriginalY);
 			m_acceleration.setY(1);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_SPARROW_FLY, true);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_SPARROW_FLY, true);
         }
     }
     else if (m_isOnScreen)
@@ -454,7 +454,7 @@ void Sparrow::updateBounds()
         m_acceleration.setY(0);
         m_isOnScreen = false;
         
-        NG_AUDIO_ENGINE->stopSound(SOUND_SPARROW_FLY);
+        NG_AUDIO_ENGINE->stopSound(SOUND_ID_SPARROW_FLY);
     }
 }
 
@@ -484,7 +484,7 @@ void Sparrow::handleAlive(float deltaTime)
 	handleJon();
 }
 
-Toad::Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.109375f, 0.33984375f, 0.3359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_TOAD_DEATH),
+Toad::Toad(int gridX, int gridY) : Enemy(gridX, gridY, 32, 16, 0.58984375f, 0.109375f, 0.33984375f, 0.3359375f, EnemyType_Toad, EnemySpiritType_None, SOUND_ID_TOAD_DEATH),
 m_isDeadPart1(false),
 m_isEating(false),
 m_hasSwallowedJon(false),
@@ -572,7 +572,7 @@ void Toad::handleAlive(float deltaTime)
             
             m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
             
-            NG_AUDIO_ENGINE->playSound(SOUND_TOAD_EAT);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_TOAD_EAT);
         }
 		else
 		{
@@ -627,7 +627,7 @@ void Toad::handleJonInKillRange(Jon& jon)
     
     m_isJonVampire = jon.shouldUseVampireFormForConsumeAnimation();
     
-    NG_AUDIO_ENGINE->playSound(SOUND_TOAD_EAT);
+    NG_AUDIO_ENGINE->playSound(SOUND_ID_TOAD_EAT);
     
     if (!jon.isConsumed())
     {
@@ -643,7 +643,7 @@ void Toad::handleJonInKillRange(Jon& jon)
     }
 }
 
-Fox::Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.25f, 0.09375f, 0.50f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_FOX_DEATH),
+Fox::Fox(int gridX, int gridY) : Enemy(gridX, gridY, 16, 16, 0.25f, 0.09375f, 0.50f, 0.734375f, EnemyType_Fox, EnemySpiritType_None, SOUND_ID_FOX_DEATH),
 m_isHitting(false),
 m_isLeft(true),
 m_isBeingHit(false),
@@ -699,7 +699,7 @@ bool Fox::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             jon->triggerBoostOffEnemy(boost);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_FOX_BOUNCED_ON);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_FOX_BOUNCED_ON);
         }
     }
     
@@ -785,7 +785,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity.setX(-RABBIT_DEFAULT_MAX_SPEED);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_FOX_STRIKE);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_FOX_STRIKE);
         }
         else if (jon.getMainBounds().getTop() > getMainBounds().getBottom()
 			&& jon.getMainBounds().getBottom() < getMainBounds().getTop()
@@ -798,7 +798,7 @@ void Fox::handleAlive(float deltaTime)
             
             m_velocity.setX(RABBIT_DEFAULT_MAX_SPEED);
             
-            NG_AUDIO_ENGINE->playSound(SOUND_FOX_STRIKE);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_FOX_STRIKE);
         }
         else
         {
@@ -865,7 +865,7 @@ bool BigMushroomGround::isEntityLanding(PhysicalEntity* entity, float deltaTime)
             
             m_isBeingBouncedOn = true;
             
-            NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_MUSHROOM_BOUNCE);
         }
     }
     
@@ -899,7 +899,7 @@ bool BigMushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
         
         m_isBeingBouncedOn = true;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_MUSHROOM_BOUNCE);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_MUSHROOM_BOUNCE);
         
         return true;
     }
@@ -907,7 +907,7 @@ bool BigMushroomCeiling::isJonBlockedAbove(Jon& jon, float deltaTime)
     return false;
 }
 
-MovingSnakeGrunt::MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type, float red, float green, float blue) : Enemy(gridX, gridY, 16, 8, 0.1f, 0, 0.8f, 1, type, EnemySpiritType_Snake, SOUND_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false)
+MovingSnakeGrunt::MovingSnakeGrunt(int gridX, int gridY, float acceleration, float topSpeed, bool isAbleToJump, EnemyType type, float red, float green, float blue) : Enemy(gridX, gridY, 16, 8, 0.1f, 0, 0.8f, 1, type, EnemySpiritType_Snake, SOUND_ID_SNAKE_DEATH), m_fAcceleration(-1 * acceleration), m_fTopSpeed(-1 * topSpeed), m_isAbleToJump(isAbleToJump), m_isPausing(false), m_isPreparingToJump(false), m_isLanding(false), m_isGrounded(false), m_isOnScreen(false)
 {
     m_color.red = red;
     m_color.green = green;
@@ -1025,7 +1025,7 @@ void MovingSnakeGrunt::handleAlive(float deltaTime)
 					m_fStateTime = 0;
 					m_isPreparingToJump = true;
 
-					NG_AUDIO_ENGINE->playSound(SOUND_SNAKE_JUMP);
+					NG_AUDIO_ENGINE->playSound(SOUND_ID_SNAKE_JUMP);
 				}
             }
             else

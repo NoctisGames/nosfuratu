@@ -127,7 +127,7 @@ bool GameButton::handleClick(Vector2D& touchPoint)
     {
         m_isSelected = true;
         
-        NG_AUDIO_ENGINE->playSound(SOUND_BUTTON_CLICK);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_BUTTON_CLICK);
         
         return true;
     }
@@ -158,7 +158,7 @@ void GameButton::click()
     m_isSelected = true;
     m_isShrinking = true;
     
-    NG_AUDIO_ENGINE->playSound(SOUND_BUTTON_CLICK);
+    NG_AUDIO_ENGINE->playSound(SOUND_ID_BUTTON_CLICK);
 }
 
 bool GameButton::isSelected()

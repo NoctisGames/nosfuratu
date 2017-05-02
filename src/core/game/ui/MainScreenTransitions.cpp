@@ -247,8 +247,8 @@ void TitleToWorldMap::execute(MainScreen* ms)
                 }
                 else if (!m_hasLoadedNextScreen)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
-                    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_SCREEN_TRANSITION);
+                    NG_AUDIO_ENGINE->loadMusic(MUSIC_LEVEL_SELECT_LOOP);
                     
                     m_fTransitionStateTime = 0;
                     m_hasLoadedNextScreen = true;
@@ -373,8 +373,8 @@ void TitleToOpeningCutscene::execute(MainScreen* ms)
                 }
                 else if (!m_hasLoadedNextScreen)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION);
-                    NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_SCREEN_TRANSITION);
+                    NG_AUDIO_ENGINE->loadMusic(MUSIC_OPENING_CUTSCENE);
                     
                     m_fTransitionStateTime = 0;
                     m_hasLoadedNextScreen = true;
@@ -502,7 +502,7 @@ void OpeningCutsceneToWorldMap::execute(MainScreen* ms)
                 }
                 else if (!m_hasLoadedNextScreen)
                 {
-                    NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+                    NG_AUDIO_ENGINE->loadMusic(MUSIC_LEVEL_SELECT_LOOP);
                     
                     m_fTransitionStateTime = 0;
                     m_hasLoadedNextScreen = true;
@@ -628,7 +628,7 @@ void TitleToLevelEditor::execute(MainScreen* ms)
                 }
                 else if (!m_hasLoadedNextScreen)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_SCREEN_TRANSITION_2);
                     
                     m_fTransitionStateTime = 0;
                     m_hasLoadedNextScreen = true;
@@ -759,7 +759,7 @@ void WorldMapToOpeningCutscene::execute(MainScreen* ms)
                 }
                 else if (!m_hasPlayedTransitionSound)
                 {
-                    NG_AUDIO_ENGINE->loadMusic("opening_cutscene_bgm");
+                    NG_AUDIO_ENGINE->loadMusic(MUSIC_OPENING_CUTSCENE);
                     
                     m_hasPlayedTransitionSound = true;
                 }
@@ -906,7 +906,7 @@ void WorldMapToLevel::execute(MainScreen* ms)
                 }
                 else if (!m_hasPlayedTransitionSound)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_SCREEN_TRANSITION_2);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_SCREEN_TRANSITION_2);
                     
                     m_hasPlayedTransitionSound = true;
                 }
@@ -1077,7 +1077,7 @@ void LevelToComingSoon::execute(MainScreen* ms)
                 }
                 else if (!m_hasLoadedNextScreen)
                 {
-                    NG_AUDIO_ENGINE->loadMusic("title_bgm");
+                    NG_AUDIO_ENGINE->loadMusic(MUSIC_TITLE_LOOP);
                     
                     m_fTransitionStateTime = 0;
                     m_hasLoadedNextScreen = true;

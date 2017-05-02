@@ -119,7 +119,7 @@ void MidBossOwl::update(float deltaTime)
                             
                             setState(MidBossOwlState_SwoopingDown);
                             
-                            NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_SWOOP_DOWN);
+                            NG_AUDIO_ENGINE->playSound(SOUND_ID_MID_BOSS_SWOOP_DOWN);
                             
                             break;
                         }
@@ -248,11 +248,11 @@ void MidBossOwl::update(float deltaTime)
                                     
                                     jon.onEnemyDestroyed();
                                     
-                                    NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_DEATH);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_ID_MID_BOSS_DEATH);
                                 }
                                 else
                                 {
-                                    NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_TREE_SMASH);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_ID_MID_BOSS_TREE_SMASH);
                                 }
                                 
                                 GiantShakingTree* gst = (GiantShakingTree *) (*i);

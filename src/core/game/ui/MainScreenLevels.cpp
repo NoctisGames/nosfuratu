@@ -155,7 +155,7 @@ void Level::exit(MainScreen* ms)
     
     if (m_playLevelSelectMusicOnExit)
     {
-        NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+        NG_AUDIO_ENGINE->loadMusic(MUSIC_LEVEL_SELECT_LOOP);
         NG_AUDIO_ENGINE->playMusic(true);
     }
 	else if (m_stopMusicOnExit)
@@ -262,7 +262,7 @@ void Level::beginOpeningSequence(MainScreen* ms)
 
         if (!NG_AUDIO_ENGINE->isMusicDisabled())
         {
-            NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+            NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_LOOP);
             NG_AUDIO_ENGINE->playMusic(true);
         }
 
@@ -277,8 +277,8 @@ void Level::beginOpeningSequence(MainScreen* ms)
 
 	if (!NG_AUDIO_ENGINE->isMusicDisabled())
 	{
-		NG_AUDIO_ENGINE->playSound(SOUND_WORLD_1_LOOP_INTRO);
-        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+		NG_AUDIO_ENGINE->playSound(SOUND_ID_WORLD_1_LOOP_INTRO);
+        NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_LOOP);
 	}
 }
 
@@ -664,7 +664,7 @@ void Level::update(MainScreen* ms)
             m_levelCompletePanel->onLevelCompleted(m_game);
             
             NG_AUDIO_ENGINE->stopAllSounds();
-            NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+            NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_COMPLETE);
         }
         
         m_game->updateBackgrounds(ms->m_renderer->getCameraPosition(), ms->m_fDeltaTime);

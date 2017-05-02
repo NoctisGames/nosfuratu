@@ -27,7 +27,7 @@ class ForegroundCoverObject : public GridLockedPhysicalEntity
 public:
     static ForegroundCoverObject* create(int gridX, int gridY, int type);
     
-    ForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
+    ForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_ID_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     
@@ -67,7 +67,7 @@ class LandableForegroundCoverObject : public ForegroundCoverObject
     RTTI_DECL;
     
 public:
-    LandableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
+    LandableForegroundCoverObject(int gridX, int gridY, int gridWidth, int gridHeight, ForegroundCoverObjectType type, GroundSoundType groundSoundType = GROUND_SOUND_ID_NONE, float boundsX = 0, float boundsY = 0, float boundsWidth = 1, float boundsHeight = 1);
     
     virtual bool isEntityLanding(PhysicalEntity* entity, float deltaTime);
     

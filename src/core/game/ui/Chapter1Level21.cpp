@@ -267,7 +267,7 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* ms)
         
         updateCamera(ms, 0, false, true);
         
-        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+        NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_LOOP);
         NG_AUDIO_ENGINE->playMusic(true);
         
         return;
@@ -281,8 +281,8 @@ void Chapter1Level21::beginOpeningSequence(MainScreen* ms)
     
     if (!NG_AUDIO_ENGINE->isMusicDisabled())
     {
-        NG_AUDIO_ENGINE->playSound(SOUND_WORLD_1_LOOP_INTRO);
-        NG_AUDIO_ENGINE->loadMusic("world_1_bgm");
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_WORLD_1_LOOP_INTRO);
+        NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_LOOP);
     }
 }
 
@@ -338,8 +338,8 @@ void Chapter1Level21::update(MainScreen* ms)
             
             if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
-                NG_AUDIO_ENGINE->playSound(SOUND_END_BOSS_LOOP_INTRO);
-                NG_AUDIO_ENGINE->loadMusic("final_boss_bgm");
+                NG_AUDIO_ENGINE->playSound(SOUND_ID_END_BOSS_LOOP_INTRO);
+                NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_END_BOSS_LOOP);
             }
             
             m_hasTriggeredMusicLoopIntro = true;

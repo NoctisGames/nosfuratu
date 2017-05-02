@@ -13,9 +13,11 @@
 #include "Direct3DTextureProgram.h"
 #include "Direct3DManager.h"
 #include "GpuTextureWrapper.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
 Direct3DEndBossSnakeTextureGpuProgramWrapper::Direct3DEndBossSnakeTextureGpuProgramWrapper() : EndBossSnakeTextureGpuProgramWrapper(),
-m_program(new Direct3DTextureProgram(L"TextureVertexShader.cso", L"EndBossSnakeTexturePixelShader.cso"))
+m_program(new Direct3DTextureProgram(TEXTURE_VERTEX_SHADER, END_BOSS_FRAGMENT_SHADER))
 {
     // Empty
 }
