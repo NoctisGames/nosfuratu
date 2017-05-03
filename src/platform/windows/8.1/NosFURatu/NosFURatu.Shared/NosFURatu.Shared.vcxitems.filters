@@ -54,29 +54,16 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\framework\graphics\direct3d\shader\*vert.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*frag.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)..\..\..\..\..\core\game\graphics\direct3d\shader\*vert.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\textures\*.ngt">
+      <Filter>Assets</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\*.png">
-      <Filter>Assets</Filter>
+    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\shaders\*.ngs">
+      <Filter>Shaders</Filter>
     </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\desktop\*.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
-    <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\textures\level_editor\*.png">
-      <Filter>Assets</Filter>
-    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\..\..\..\assets\music\*.wav">
       <Filter>Assets</Filter>
     </CustomBuild>
