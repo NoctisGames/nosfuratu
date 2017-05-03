@@ -65,8 +65,8 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\textures\*.ngt">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
-      <Command>xcopy /y %(Identity) $(SolutionDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).ngt</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
@@ -76,8 +76,8 @@
     <CustomBuild Include="$(MSBuildThisFileDirectory)..\..\..\win32\data\shaders\*.ngs">
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
-      <Command>xcopy /y %(Identity) $(SolutionDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).ngs</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
@@ -88,7 +88,7 @@
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
@@ -97,7 +97,7 @@
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <DeploymentContent>false</DeploymentContent>
       <Command>xcopy /y %(Identity) $(ProjectDir)</Command>
-      <Message>Copying %(Identity) to sln folder</Message>
+      <Message>Copying %(Identity) to project directory</Message>
       <Outputs>%(Filename).wav</Outputs>
       <TreatOutputAsContent>true</TreatOutputAsContent>
       <LinkObjects>false</LinkObjects>
