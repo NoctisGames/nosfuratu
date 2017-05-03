@@ -11,8 +11,10 @@
 #include "OpenGLFramebufferToScreenProgram.h"
 #include "OpenGLManager.h"
 #include "GpuTextureWrapper.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLFramebufferObfuscationGpuProgramWrapper::OpenGLFramebufferObfuscationGpuProgramWrapper() : GpuProgramWrapper(), m_program(new OpenGLFramebufferToScreenProgram("frame_buffer_to_screen_shader.vsh", "pp_frame_buffer_obfuscation.fsh"))
+OpenGLFramebufferObfuscationGpuProgramWrapper::OpenGLFramebufferObfuscationGpuProgramWrapper() : GpuProgramWrapper(), m_program(new OpenGLFramebufferToScreenProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, OBFUSCATION_FRAGMENT_SHADER))
 {
     // Empty
 }

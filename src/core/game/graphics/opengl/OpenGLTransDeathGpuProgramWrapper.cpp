@@ -11,8 +11,10 @@
 #include "OpenGLTransDeathProgram.h"
 #include "OpenGLManager.h"
 #include "GpuTextureWrapper.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLTransDeathGpuProgramWrapper::OpenGLTransDeathGpuProgramWrapper(bool isTransIn) : TransDeathGpuProgramWrapper(isTransIn), m_program(new OpenGLTransDeathProgram("frame_buffer_to_screen_shader.vsh", isTransIn ? "trans_in_death_shader.fsh" : "trans_out_death_shader.fsh"))
+OpenGLTransDeathGpuProgramWrapper::OpenGLTransDeathGpuProgramWrapper(bool isTransIn) : TransDeathGpuProgramWrapper(isTransIn), m_program(new OpenGLTransDeathProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, isTransIn ? TRANS_DEATH_IN_FRAGMENT_SHADER : TRANS_DEATH_OUT_FRAGMENT_SHADER))
 {
     // Empty
 }

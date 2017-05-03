@@ -10,7 +10,7 @@
 
 #include "OpenGLManager.h"
 
-OpenGLShockwaveTextureProgram::OpenGLShockwaveTextureProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLShockwaveTextureProgram::OpenGLShockwaveTextureProgram(const char* vertexShaderName, const char* fragmentShaderName) : OpenGLProgram(vertexShaderName, fragmentShaderName)
 {
     u_mvp_matrix_location = glGetUniformLocation(m_programObjectId, "u_MvpMatrix");
     u_texture_unit_location = glGetUniformLocation(m_programObjectId, "u_TextureUnit");

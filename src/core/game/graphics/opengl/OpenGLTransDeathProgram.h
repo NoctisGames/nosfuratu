@@ -19,7 +19,7 @@ public:
     GLint u_time_elapsed_unit_location;
     GLint a_position_location;
     
-    OpenGLTransDeathProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    OpenGLTransDeathProgram(const char* vertexShaderName, const char* fragmentShaderName);
     
     virtual void bind();
     

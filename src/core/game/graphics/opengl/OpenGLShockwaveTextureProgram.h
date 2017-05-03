@@ -24,7 +24,7 @@ public:
     GLint a_color_location;
     GLint a_texture_coordinates_location;
     
-    OpenGLShockwaveTextureProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    OpenGLShockwaveTextureProgram(const char* vertexShaderName, const char* fragmentShaderName);
     
     virtual void bind();
     

@@ -12,8 +12,10 @@
 #include "OpenGLManager.h"
 #include "GpuTextureWrapper.h"
 #include "Vector2D.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLPointTransScreenGpuProgramWrapper::OpenGLPointTransScreenGpuProgramWrapper() : PointTransitionGpuProgramWrapper(), m_program(new OpenGLPointTransitionProgram("trans_screen_circle_open_shader.vsh", "trans_screen_circle_open_shader.fsh"))
+OpenGLPointTransScreenGpuProgramWrapper::OpenGLPointTransScreenGpuProgramWrapper() : PointTransitionGpuProgramWrapper(), m_program(new OpenGLPointTransitionProgram(POINT_TRANS_SCREEN_VERTEX_SHADER, POINT_TRANS_SCREEN_FRAGMENT_SHADER))
 {
     // Empty
 }

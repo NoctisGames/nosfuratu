@@ -10,8 +10,10 @@
 
 #include "OpenGLFramebufferToScreenProgram.h"
 #include "OpenGLManager.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLFramebufferTintGpuProgramWrapper::OpenGLFramebufferTintGpuProgramWrapper() : GpuProgramWrapper(), m_program(new OpenGLFramebufferToScreenProgram("frame_buffer_to_screen_shader.vsh", "frame_buffer_to_screen_purple_highlight_shader.fsh"))
+OpenGLFramebufferTintGpuProgramWrapper::OpenGLFramebufferTintGpuProgramWrapper() : GpuProgramWrapper(), m_program(new OpenGLFramebufferToScreenProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, TINT_TO_SCREEN_FRAGMENT_SHADER))
 {
     // Empty
 }

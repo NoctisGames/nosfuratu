@@ -22,7 +22,7 @@ public:
     GLint u_progress_location;
     GLint a_position_location;
     
-    OpenGLPointTransitionProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    OpenGLPointTransitionProgram(const char* vertexShaderName, const char* fragmentShaderName);
     
     virtual void bind();
     
