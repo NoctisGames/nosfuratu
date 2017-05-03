@@ -85,7 +85,7 @@ android {
 
     copyShaders.dependsOn(runEncryptionBeforeBuild)
     copyTextures.dependsOn(runEncryptionBeforeBuild)
-    copySounds.dependsOn(runEncryptionBeforeBuild)ac
+    copySounds.dependsOn(runEncryptionBeforeBuild)
 }
 
 dependencies {
