@@ -49,13 +49,15 @@ GpuTextureDataWrapper* Direct3DTextureLoader::loadTextureData(const char* textur
 	s += std::string(textureFileName);
 	finalPath = s.c_str();
 #else
-	textureFileName[len + 1] = 'd';
-	textureFileName[len + 2] = 'd';
-	textureFileName[len + 3] = 's';
+	textureFileName[len + 1] = 'n';
+	textureFileName[len + 2] = 'g';
+	textureFileName[len + 3] = 't';
 	textureFileName[len + 4] = '\0';
 
 	finalPath = textureFileName;
 #endif
+    
+    // TODO, use XOR and then DirectX::CreateDDSTextureFromMemory
     
     wchar_t* wString = new wchar_t[4096];
     MultiByteToWideChar(CP_ACP, 0, finalPath, -1, wString, 4096);

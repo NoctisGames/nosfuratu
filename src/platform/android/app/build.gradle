@@ -65,7 +65,7 @@ android {
         from '../../../../assets/textures'
         from '../../../../assets/textures/compressed'
         into 'src/main/assets'
-        include('*.png')
+        include('*.ngt')
     }
 
     task copySounds(type: Copy)
