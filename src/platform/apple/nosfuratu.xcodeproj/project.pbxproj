@@ -676,6 +676,7 @@
 		7422774349EFDC9E550FC8B5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		84C9C279DA1CE27EE81A6958 /* BuddyBuildSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BuddyBuildSDK.framework; path = ../../3rdparty/BuddyBuildSDK.framework; sourceTree = "<group>"; };
 		917E2DB289EF6F6A82FD9CEE /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		BB052CE71EBA9059007FA789 /* encrypt_textures_and_shaders.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = encrypt_textures_and_shaders.sh; sourceTree = "<group>"; };
 		BB09703519C3A3180086B30F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BB09CDD41DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SuperpoweredAndroidAudioIO.cpp; sourceTree = "<group>"; };
 		BB09CDD51DBD3779006A3E49 /* SuperpoweredAndroidAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperpoweredAndroidAudioIO.h; sourceTree = "<group>"; };
@@ -1623,6 +1624,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		BB052CE61EBA9059007FA789 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				BB052CE71EBA9059007FA789 /* encrypt_textures_and_shaders.sh */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
 		BB09CDD21DBD3779006A3E49 /* Superpowered */ = {
 			isa = PBXGroup;
 			children = (
@@ -2293,6 +2302,7 @@
 			children = (
 				BBAEF67E1EA95B5800F0866E /* graphics */,
 				BBAEF6E01EA95B5800F0866E /* logic */,
+				BB052CE61EBA9059007FA789 /* tools */,
 				BBAEF71E1EA95B5800F0866E /* ui */,
 			);
 			path = game;
@@ -3302,7 +3312,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/../../../src/core/framework/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+			shellScript = "cd $SRCROOT/../../../src/core/game/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
 		};
 		BBD5B3CA1EBA787B0062A4EC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3315,7 +3325,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/../../../src/core/framework/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
+			shellScript = "cd $SRCROOT/../../../src/core/game/tools\nchmod a+x encrypt_textures_and_shaders.sh\n./encrypt_textures_and_shaders.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 

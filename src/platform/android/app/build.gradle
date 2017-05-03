@@ -35,9 +35,9 @@ android {
         jniLibs.srcDir 'src/main/libs'
         jni.srcDirs = [] // disable the automatic ndk-build call, which would ignore our Android.mk
     }
+
     task runEncryptionBeforeBuild(type: Exec) {
-        workingDir = '../../../../src/core/framework/tools'
-        commandLine 'chmod', 'a+x', 'encrypt_textures_and_shaders.sh'
+        workingDir = '../../../../src/core/game/tools'
         commandLine 'sh', './encrypt_textures_and_shaders.sh'
     }
     preBuild.dependsOn(runEncryptionBeforeBuild)
