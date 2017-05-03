@@ -38,23 +38,17 @@ GpuTextureDataWrapper* Direct3DTextureLoader::loadTextureData(const char* textur
     
 	strcpy_s(textureFileName, len + 5, textureName);
     textureFileName[len] = '.';
+    textureFileName[len + 1] = 'n';
+    textureFileName[len + 2] = 'g';
+    textureFileName[len + 3] = 't';
+    textureFileName[len + 4] = '\0';
 
 	const char* finalPath;
 #if (_WIN32_WINNT == _WIN32_WINNT_WIN7)
-	textureFileName[len + 1] = 'n';
-	textureFileName[len + 2] = 'g';
-	textureFileName[len + 3] = 't';
-	textureFileName[len + 4] = '\0';
-
 	std::string s("data\\textures\\");
 	s += std::string(textureFileName);
 	finalPath = s.c_str();
 #else
-	textureFileName[len + 1] = 'n';
-	textureFileName[len + 2] = 'g';
-	textureFileName[len + 3] = 't';
-	textureFileName[len + 4] = '\0';
-
 	finalPath = textureFileName;
 #endif
     
