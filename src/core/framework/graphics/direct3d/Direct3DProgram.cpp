@@ -98,7 +98,7 @@ Direct3DProgram::Direct3DProgram(const char* vertexShaderName, const char* pixel
 		d3dDevice->CreateInputLayout(
             useTextureCoords ? textureVertexDesc : geometryVertexDesc,
 			useTextureCoords ? ARRAYSIZE(textureVertexDesc) : ARRAYSIZE(geometryVertexDesc),
-			blob.data(),
+			vertex_shader_source_output,
 			blob.size(),
 			&m_inputLayout
 		)

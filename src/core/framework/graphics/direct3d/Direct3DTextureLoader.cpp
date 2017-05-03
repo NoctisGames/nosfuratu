@@ -16,6 +16,7 @@
 #include "GpuTextureDataWrapper.h"
 #include "GpuTextureWrapper.h"
 #include "PlatformHelpers.h"
+#include "ReadData.h"
 #include "StringUtil.h"
 
 #include <string>
