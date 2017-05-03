@@ -55,8 +55,7 @@ android {
         from '../../../../src/core/framework/graphics/opengl/shader'
         from '../../../../src/core/game/graphics/opengl/shader'
         into 'src/main/assets'
-        include('*.vsh')
-        include('*.fsh')
+        include('*.ngs')
     }
 
     task copyTextures(type: Copy)
