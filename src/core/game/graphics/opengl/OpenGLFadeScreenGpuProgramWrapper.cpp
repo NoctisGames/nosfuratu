@@ -11,8 +11,10 @@
 #include "OpenGLTransitionProgram.h"
 #include "OpenGLManager.h"
 #include "GpuTextureWrapper.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLFadeScreenGpuProgramWrapper::OpenGLFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper(), m_program(new OpenGLTransitionProgram("frame_buffer_to_screen_shader.vsh", "fade_screen_shader.fsh"))
+OpenGLFadeScreenGpuProgramWrapper::OpenGLFadeScreenGpuProgramWrapper() : TransitionGpuProgramWrapper(), m_program(new OpenGLTransitionProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, FADE_SCREEN_FRAGMENT_SHADER))
 {
     // Empty
 }

@@ -10,7 +10,7 @@
 
 #include "OpenGLManager.h"
 
-OpenGLFramebufferRadialBlurGpuProgram::OpenGLFramebufferRadialBlurGpuProgram(const char* vertexShaderPath, const char* fragmentShaderPath) : OpenGLProgram(vertexShaderPath, fragmentShaderPath)
+OpenGLFramebufferRadialBlurGpuProgram::OpenGLFramebufferRadialBlurGpuProgram(const char* vertexShaderName, const char* fragmentShaderName) : OpenGLProgram(vertexShaderName, fragmentShaderName)
 {
     u_texture_unit_location = glGetUniformLocation(m_programObjectId, "u_TextureUnit");
     u_direction_location = glGetUniformLocation(m_programObjectId, "u_Direction");

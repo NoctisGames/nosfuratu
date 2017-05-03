@@ -14,9 +14,10 @@
 #include "Direct3DManager.h"
 #include "GpuTextureWrapper.h"
 #include "Vector2D.h"
+#include "GameConstants.h"
 
 Direct3DPointTransScreenGpuProgramWrapper::Direct3DPointTransScreenGpuProgramWrapper() : PointTransitionGpuProgramWrapper(),
-m_program(new Direct3DTextureProgram(L"PointTransScreenTextureVertexShader.cso", L"PointTransScreenTexturePixelShader.cso"))
+m_program(new Direct3DTextureProgram(POINT_TRANS_SCREEN_VERTEX_SHADER, POINT_TRANS_SCREEN_FRAGMENT_SHADER))
 {
 	m_program->createConstantBuffer(&m_centerXConstantBuffer);
 	m_program->createConstantBuffer(&m_centerYConstantBuffer);

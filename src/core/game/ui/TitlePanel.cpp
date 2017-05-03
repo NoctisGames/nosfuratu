@@ -70,7 +70,7 @@ void TitlePanel::update(float deltaTime)
             if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
                 int rn = rand() % 2;
-                NG_AUDIO_ENGINE->playSound(rn == 1 ? SOUND_TITLE_LIGHTNING_1 : SOUND_TITLE_LIGHTNING_2);
+                NG_AUDIO_ENGINE->playSound(rn == 1 ? SOUND_ID_TITLE_LIGHTNING_1 : SOUND_ID_TITLE_LIGHTNING_2);
             }
         }
     }

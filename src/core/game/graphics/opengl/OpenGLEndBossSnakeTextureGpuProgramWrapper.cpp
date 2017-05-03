@@ -10,8 +10,10 @@
 
 #include "OpenGLTextureProgram.h"
 #include "OpenGLManager.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLEndBossSnakeTextureGpuProgramWrapper::OpenGLEndBossSnakeTextureGpuProgramWrapper() : EndBossSnakeTextureGpuProgramWrapper(), m_program(new OpenGLTextureProgram("texture_shader.vsh", "end_boss_snake_texture_shader.fsh"))
+OpenGLEndBossSnakeTextureGpuProgramWrapper::OpenGLEndBossSnakeTextureGpuProgramWrapper() : EndBossSnakeTextureGpuProgramWrapper(), m_program(new OpenGLTextureProgram(TEXTURE_VERTEX_SHADER, END_BOSS_FRAGMENT_SHADER))
 {
     // Empty
 }

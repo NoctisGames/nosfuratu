@@ -56,26 +56,22 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico">
-      <Filter>Assets</Filter>
-    </Image>
+    <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="settings.manifest">
-      <Filter>Assets</Filter>
-    </Manifest>
+    <Image Include="NosFURatu.ico" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="..\..\..\core\framework\graphics\direct3d\shader\*vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\..\core\game\graphics\direct3d\shader\*PixelShader.hlsl">
+    <FxCompile Include="..\..\..\core\game\graphics\direct3d\shader\*frag.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\..\core\game\graphics\direct3d\shader\*VertexShader.hlsl">
+    <FxCompile Include="..\..\..\core\game\graphics\direct3d\shader\*vert.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

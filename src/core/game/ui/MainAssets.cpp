@@ -1866,34 +1866,34 @@ TextureRegion& MainAssets::get(Jon* jon)
             {
                 jon->setRightFoot(true);
                 
-                if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
+                if (jon->getGroundSoundType() == GROUND_SOUND_ID_GRASS)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_GRASS);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_GRASS);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_CAVE)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_CAVE);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_CAVE);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_WOOD)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_WOOD);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_WOOD);
                 }
             }
             else if (keyFrameNumber == 7 && jon->isRightFoot())
             {
                 jon->setRightFoot(false);
                 
-                if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
+                if (jon->getGroundSoundType() == GROUND_SOUND_ID_GRASS)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_GRASS);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_GRASS);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_CAVE)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_CAVE);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_CAVE);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_WOOD)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_WOOD);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_WOOD);
                 }
             }
             
@@ -1982,34 +1982,34 @@ TextureRegion& MainAssets::get(Jon* jon)
             {
                 jon->setRightFoot(true);
                 
-                if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
+                if (jon->getGroundSoundType() == GROUND_SOUND_ID_GRASS)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_GRASS);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_GRASS);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_CAVE)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_CAVE);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_CAVE);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_WOOD)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_RIGHT_WOOD);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_RIGHT_WOOD);
                 }
             }
             else if (keyFrameNumber == 6 && jon->isRightFoot())
             {
                 jon->setRightFoot(false);
                 
-                if (jon->getGroundSoundType() == GROUND_SOUND_GRASS)
+                if (jon->getGroundSoundType() == GROUND_SOUND_ID_GRASS)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_GRASS);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_GRASS);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_CAVE)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_CAVE)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_CAVE);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_CAVE);
                 }
-                else if (jon->getGroundSoundType() == GROUND_SOUND_WOOD)
+                else if (jon->getGroundSoundType() == GROUND_SOUND_ID_WOOD)
                 {
-                    NG_AUDIO_ENGINE->playSound(SOUND_FOOTSTEP_LEFT_WOOD);
+                    NG_AUDIO_ENGINE->playSound(SOUND_ID_FOOTSTEP_LEFT_WOOD);
                 }
             }
             

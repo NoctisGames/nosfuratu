@@ -51,7 +51,7 @@ void Title::enter(MainScreen* ms)
     
     WorldMap::getInstance()->loadSaveData(ms);
     
-    NG_AUDIO_ENGINE->loadMusic("title_bgm");
+    NG_AUDIO_ENGINE->loadMusic(MUSIC_TITLE_LOOP);
     NG_AUDIO_ENGINE->playMusic(true);
     
     initRenderer(ms);
@@ -196,7 +196,7 @@ void Title::execute(MainScreen* ms)
 
 						ms->m_saveData->save();
 
-						NG_AUDIO_ENGINE->playSound(SOUND_FOX_DEATH);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_FOX_DEATH);
 #endif
                     }
                     continue;
@@ -261,7 +261,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_ABILITY_UNLOCK);
 #endif
                     }
                     else if (m_iMapCodeState == 0)
@@ -279,7 +279,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_COMPLETE);
 #endif
                     }
                     else if (m_iSwampCodeState == 4)
@@ -301,7 +301,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_COMPLETE_TRANSFORM);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_COMPLETE_TRANSFORM);
 #endif
                     }
                     else if (m_iMapCodeState == 2)
@@ -320,7 +320,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_BOSS_LEVEL_UNLOCK);
 #endif
                     }
                     else if (m_iShowBoundsCodeState == 0)
@@ -388,7 +388,7 @@ void Title::execute(MainScreen* ms)
 						ms->m_iRequestedAction = REQUESTED_ACTION_SIGN_OUT;
 #endif
 
-						NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_COMPLETE);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_COMPLETE);
 #endif
                     }
                     else if (m_iMapCodeState == 0
@@ -426,7 +426,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_BOSS_LEVEL_UNLOCK);
 #endif
                     }
                     else if (m_iDmCodeState == 0
@@ -465,7 +465,7 @@ void Title::execute(MainScreen* ms)
 
 						WorldMap::getInstance()->loadSaveData(ms);
 
-						NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+						NG_AUDIO_ENGINE->playSound(SOUND_ID_ABILITY_UNLOCK);
 #endif
                     }
                     continue;

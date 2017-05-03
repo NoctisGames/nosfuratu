@@ -190,8 +190,8 @@ void Chapter1Level10::update(MainScreen* ms)
             
             if (!NG_AUDIO_ENGINE->isMusicDisabled())
             {
-                NG_AUDIO_ENGINE->playSound(SOUND_MID_BOSS_LOOP_INTRO);
-                NG_AUDIO_ENGINE->loadMusic("mid_boss_bgm");
+                NG_AUDIO_ENGINE->playSound(SOUND_ID_MID_BOSS_LOOP_INTRO);
+                NG_AUDIO_ENGINE->loadMusic(MUSIC_WORLD_1_MID_BOSS_LOOP);
             }
             
             m_hasTriggeredMidBossMusicLoopIntro = true;

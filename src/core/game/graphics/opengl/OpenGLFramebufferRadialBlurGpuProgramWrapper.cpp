@@ -10,8 +10,10 @@
 
 #include "OpenGLFramebufferRadialBlurGpuProgram.h"
 #include "OpenGLManager.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
-OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper() : FramebufferRadialBlurGpuProgramWrapper(), m_program(new OpenGLFramebufferRadialBlurGpuProgram("frame_buffer_to_screen_shader.vsh", "pp_radial_blue_texture_shader.fsh"))
+OpenGLFramebufferRadialBlurGpuProgramWrapper::OpenGLFramebufferRadialBlurGpuProgramWrapper() : FramebufferRadialBlurGpuProgramWrapper(), m_program(new OpenGLFramebufferRadialBlurGpuProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, RADIAL_BLUR_FRAGMENT_SHADER))
 {
     // Empty
 }

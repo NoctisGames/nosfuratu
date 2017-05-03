@@ -13,9 +13,11 @@
 #include "Direct3DTextureProgram.h"
 #include "Direct3DManager.h"
 #include "GpuTextureWrapper.h"
+#include "FrameworkConstants.h"
+#include "GameConstants.h"
 
 Direct3DTransScreenGpuProgramWrapper::Direct3DTransScreenGpuProgramWrapper() : TransitionGpuProgramWrapper(),
-m_program(new Direct3DTextureProgram(L"FramebufferToScreenVertexShader.cso", L"TransScreenTexturePixelShader.cso"))
+m_program(new Direct3DTextureProgram(FRAMEBUFFER_TO_SCREEN_VERTEX_SHADER, TRANS_SCREEN_FRAGMENT_SHADER))
 {
 	m_program->createConstantBuffer(&m_progressConstantBuffer);
 	m_program->createConstantBuffer(&m_isWindowsMobileConstantBuffer);

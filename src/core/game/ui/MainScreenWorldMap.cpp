@@ -344,7 +344,7 @@ void WorldMap::execute(MainScreen* ms)
                                 {
                                     selectLevel((*j));
                                     
-                                    NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+                                    NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
                                 }
                             }
                         }
@@ -918,7 +918,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(1, 1);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
   
         return;
     }
@@ -951,7 +951,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
@@ -959,7 +959,7 @@ void WorldMap::navRight()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
 }
 
@@ -1027,7 +1027,7 @@ void WorldMap::navUp()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
 }
 
@@ -1065,7 +1065,7 @@ void WorldMap::navLeft()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
     else if (level > 7 && level < 14)
     {
@@ -1073,7 +1073,7 @@ void WorldMap::navLeft()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
     else if (level == 1)
     {
@@ -1144,7 +1144,7 @@ void WorldMap::navDown()
         LevelThumbnail* newLevel = getLevelThumbnail(world, level);
         selectLevel(newLevel);
         
-        NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_SELECTED);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_SELECTED);
     }
 }
 
@@ -1231,7 +1231,7 @@ void WorldMap::toggleMusicOnOff(MainScreen* ms)
     if (!NG_AUDIO_ENGINE->isMusicLoaded()
         && !NG_AUDIO_ENGINE->isMusicDisabled())
     {
-        NG_AUDIO_ENGINE->loadMusic("level_select_bgm");
+        NG_AUDIO_ENGINE->loadMusic(MUSIC_LEVEL_SELECT_LOOP);
         NG_AUDIO_ENGINE->playMusic();
     }
 }
@@ -1343,7 +1343,7 @@ void LevelThumbnail::update(float deltaTime)
 {
     if (m_needsToPlayClearSound)
     {
-        NG_AUDIO_ENGINE->playSound(m_type == LevelThumbnailType_Boss ? SOUND_BOSS_LEVEL_CLEAR : SOUND_LEVEL_CLEAR);
+        NG_AUDIO_ENGINE->playSound(m_type == LevelThumbnailType_Boss ? SOUND_ID_BOSS_LEVEL_CLEAR : SOUND_ID_LEVEL_CLEAR);
         
         m_needsToPlayClearSound = false;
     }
@@ -1438,7 +1438,7 @@ bool LevelThumbnail::isSelected()
 
 void LevelThumbnail::onConfirm()
 {
-    NG_AUDIO_ENGINE->playSound(SOUND_LEVEL_CONFIRMED);
+    NG_AUDIO_ENGINE->playSound(SOUND_ID_LEVEL_CONFIRMED);
     
     m_fStateTime = 0;
 }
@@ -1569,7 +1569,7 @@ void BossLevelThumbnail::update(float deltaTime)
 {
     if (m_needsToPlayUnlockSound)
     {
-        NG_AUDIO_ENGINE->playSound(SOUND_BOSS_LEVEL_UNLOCK);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_BOSS_LEVEL_UNLOCK);
         
         m_needsToPlayUnlockSound = false;
     }
@@ -1692,7 +1692,7 @@ void AbilitySlot::update(float deltaTime)
 {
     if (m_needsToPlayUnlockSound)
     {
-        NG_AUDIO_ENGINE->playSound(SOUND_ABILITY_UNLOCK);
+        NG_AUDIO_ENGINE->playSound(SOUND_ID_ABILITY_UNLOCK);
         
         m_needsToPlayUnlockSound = false;
     }
